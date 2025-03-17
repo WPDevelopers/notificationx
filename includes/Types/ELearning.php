@@ -40,7 +40,14 @@ class ELearning extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
         $this->id = 'elearning';
+        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
+    }
+
+    public function init()
+    {
+        parent::init();
         $this->title = __('eLearning', 'notificationx');
         $this->themes = [
             'theme-one'   => [
@@ -203,8 +210,6 @@ class ELearning extends Types {
                 ]
             ],
         ];
-        parent::__construct();
-        add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 10, 2);
     }
 
 

@@ -36,6 +36,11 @@ class FreemiusStats extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Freemius', 'notificationx');
         $this->module_title = __('Freemius', 'notificationx');
         $this->popup = [
@@ -49,7 +54,6 @@ class FreemiusStats extends Extension {
                 </iframe>
             ', 'notificationx')
         ];
-        parent::__construct();
     }
 
 }

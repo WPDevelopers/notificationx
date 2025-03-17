@@ -2,43 +2,48 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.0.2\n"
+"Project-Id-Version: NotificationX 3.0.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-27T12:09:32+00:00\n"
+"POT-Creation-Date: 2025-03-16T08:02:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
 
 #. Plugin Name of the plugin
+#: notificationx.php
 #: includes/Admin/Settings.php:110
 #: includes/Core/QuickBuild.php:115
 #: includes/Extensions/GlobalFields.php:51
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:14
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 #: nxdev/notificationx/frontend/themes/helpers/NotificationText.js:13
 msgid "NotificationX"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: notificationx.php
 msgid "https://notificationx.com"
 msgstr ""
 
 #. Description of the plugin
+#: notificationx.php
 msgid "Social Proof & Recent Sales Popup, Comment Notification, Subscription Notification, Notification Bar and many more."
 msgstr ""
 
 #. Author of the plugin
+#: notificationx.php
 msgid "WPDeveloper"
 msgstr ""
 
 #. Author URI of the plugin
+#: notificationx.php
 msgid "https://wpdeveloper.com"
 msgstr ""
 
@@ -46,48 +51,48 @@ msgstr ""
 msgid "There is no data in this notification."
 msgstr ""
 
-#: includes/Admin/Admin.php:111
+#: includes/Admin/Admin.php:113
 #: assets/admin/js/admin.js:11
 msgid "All NotificationX"
 msgstr ""
 
-#: includes/Admin/Admin.php:213
+#: includes/Admin/Admin.php:215
 msgid "We hope you're enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
 msgstr ""
 
-#: includes/Admin/Admin.php:218
+#: includes/Admin/Admin.php:220
 msgid "Ok, you deserve it!"
 msgstr ""
 
-#: includes/Admin/Admin.php:222
+#: includes/Admin/Admin.php:224
 msgid "I already did"
 msgstr ""
 
-#: includes/Admin/Admin.php:229
+#: includes/Admin/Admin.php:231
 msgid "Maybe Later"
 msgstr ""
 
-#: includes/Admin/Admin.php:237
+#: includes/Admin/Admin.php:239
 msgid "I need help"
 msgstr ""
 
-#: includes/Admin/Admin.php:241
+#: includes/Admin/Admin.php:243
 msgid "Never show again"
 msgstr ""
 
-#: includes/Admin/Admin.php:274
+#: includes/Admin/Admin.php:276
 msgid "<p><strong>Black Friday Exclusive:</strong> SAVE up to 40% & access to <strong>NotificationX Pro</strong> features.</p>"
 msgstr ""
 
-#: includes/Admin/Admin.php:274
+#: includes/Admin/Admin.php:276
 msgid "Grab The Offer"
 msgstr ""
 
-#: includes/Admin/Admin.php:376
+#: includes/Admin/Admin.php:378
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:377
+#: includes/Admin/Admin.php:379
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -156,16 +161,16 @@ msgstr ""
 
 #: includes/Admin/ImportExport.php:133
 #: includes/Admin/ImportExport.php:134
-#: includes/Extensions/PressBar/PressBar.php:558
-#: includes/Extensions/PressBar/PressBar.php:559
-#: includes/Extensions/PressBar/PressBar.php:762
-#: includes/Extensions/PressBar/PressBar.php:763
+#: includes/Extensions/PressBar/PressBar.php:560
+#: includes/Extensions/PressBar/PressBar.php:561
+#: includes/Extensions/PressBar/PressBar.php:764
+#: includes/Extensions/PressBar/PressBar.php:765
 msgid "Import"
 msgstr ""
 
 #: includes/Admin/ImportExport.php:135
-#: includes/Extensions/PressBar/PressBar.php:560
-#: includes/Extensions/PressBar/PressBar.php:764
+#: includes/Extensions/PressBar/PressBar.php:562
+#: includes/Extensions/PressBar/PressBar.php:766
 msgid "Importing..."
 msgstr ""
 
@@ -183,6 +188,10 @@ msgstr ""
 
 #: includes/Admin/Notice.php:917
 msgid "Installed"
+msgstr ""
+
+#: includes/Admin/Rating/RatingEmail.php:54
+msgid "[IMPORTANT] New feedback received from a NotificationX user"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:58
@@ -351,7 +360,7 @@ msgstr ""
 
 #: includes/Admin/Settings.php:316
 #: includes/Extensions/GlobalFields.php:1534
-#: includes/Types/GDPR.php:258
+#: includes/Types/GDPR.php:263
 msgid "Everyone"
 msgstr ""
 
@@ -493,8 +502,8 @@ msgstr ""
 
 #: includes/Admin/views/analytics.views.php:7
 #: includes/Admin/views/analytics.views.php:11
-#: includes/Extensions/Google/YouTube.php:214
-#: includes/Extensions/Google/YouTube.php:228
+#: includes/Extensions/Google/YouTube.php:220
+#: includes/Extensions/Google/YouTube.php:234
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:11
 msgid "Total Views"
@@ -529,6 +538,8 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:582
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:18
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Click to Copy"
 msgstr ""
 
@@ -546,9 +557,9 @@ msgid "Dashboard"
 msgstr ""
 
 #: includes/Core/Helper.php:639
-#: includes/Types/GDPR.php:379
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: includes/Types/GDPR.php:384
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Enabled"
 msgstr ""
 
@@ -577,8 +588,8 @@ msgid "Name"
 msgstr ""
 
 #: includes/Core/Helper.php:758
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Description"
 msgstr ""
 
@@ -663,93 +674,91 @@ msgid "All %s taxonomy archives"
 msgstr ""
 
 #: includes/Core/Migration.php:392
-#: includes/Extensions/EDD/EDInline.php:39
-#: includes/Extensions/Give/Give.php:78
-#: includes/Extensions/Give/Give.php:79
-#: includes/Extensions/Give/Give.php:80
+#: includes/Extensions/EDD/EDInline.php:45
+#: includes/Extensions/Give/Give.php:82
+#: includes/Extensions/Give/Give.php:83
+#: includes/Extensions/Give/Give.php:84
 #: includes/Extensions/GlobalFields.php:633
-#: includes/Extensions/Google/GoogleReviews.php:50
-#: includes/Extensions/Google/GoogleReviews.php:64
-#: includes/Extensions/Google/GoogleReviews.php:78
-#: includes/Extensions/Google/GoogleReviews.php:92
-#: includes/Extensions/Google/GoogleReviews.php:106
-#: includes/Extensions/Google/GoogleReviews.php:121
-#: includes/Extensions/LearnPress/LearnPress.php:530
-#: includes/Extensions/LearnPress/LearnPress.php:531
-#: includes/Extensions/LearnPress/LearnPress.php:532
-#: includes/Extensions/ReviewX/ReviewX.php:75
-#: includes/Extensions/ReviewX/ReviewX.php:87
-#: includes/Extensions/ReviewX/ReviewX.php:99
-#: includes/Extensions/ReviewX/ReviewX.php:114
-#: includes/Extensions/ReviewX/ReviewX.php:125
-#: includes/Extensions/ReviewX/ReviewX.php:137
-#: includes/Extensions/SureCart/SureCart.php:434
-#: includes/Extensions/SureCart/SureCart.php:435
-#: includes/Extensions/SureCart/SureCart.php:436
-#: includes/Extensions/Tutor/Tutor.php:525
-#: includes/Extensions/Tutor/Tutor.php:526
-#: includes/Extensions/Tutor/Tutor.php:527
-#: includes/Extensions/WooCommerce/WooCommerce.php:522
-#: includes/Extensions/WooCommerce/WooCommerce.php:523
-#: includes/Extensions/WooCommerce/WooCommerce.php:524
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:69
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:81
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:93
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:108
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:119
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:131
-#: includes/Extensions/WooCommerce/WOOReviews.php:58
-#: includes/Extensions/WooCommerce/WOOReviews.php:70
-#: includes/Extensions/WooCommerce/WOOReviews.php:82
-#: includes/Extensions/WooCommerce/WOOReviews.php:97
-#: includes/Extensions/WooCommerce/WOOReviews.php:108
-#: includes/Extensions/WooCommerce/WOOReviews.php:120
-#: includes/Extensions/WordPress/WPComments.php:256
-#: includes/Extensions/WordPress/WPComments.php:257
-#: includes/Extensions/WordPress/WPComments.php:258
-#: includes/Extensions/WordPress/WPComments.php:259
+#: includes/Extensions/Google/GoogleReviews.php:55
+#: includes/Extensions/Google/GoogleReviews.php:69
+#: includes/Extensions/Google/GoogleReviews.php:83
+#: includes/Extensions/Google/GoogleReviews.php:97
+#: includes/Extensions/Google/GoogleReviews.php:111
+#: includes/Extensions/Google/GoogleReviews.php:126
+#: includes/Extensions/LearnPress/LearnPress.php:536
+#: includes/Extensions/LearnPress/LearnPress.php:537
+#: includes/Extensions/LearnPress/LearnPress.php:538
+#: includes/Extensions/ReviewX/ReviewX.php:80
+#: includes/Extensions/ReviewX/ReviewX.php:92
+#: includes/Extensions/ReviewX/ReviewX.php:104
+#: includes/Extensions/ReviewX/ReviewX.php:119
+#: includes/Extensions/ReviewX/ReviewX.php:130
+#: includes/Extensions/ReviewX/ReviewX.php:142
+#: includes/Extensions/SureCart/SureCart.php:438
+#: includes/Extensions/SureCart/SureCart.php:439
+#: includes/Extensions/SureCart/SureCart.php:440
+#: includes/Extensions/Tutor/Tutor.php:531
+#: includes/Extensions/Tutor/Tutor.php:532
+#: includes/Extensions/Tutor/Tutor.php:533
+#: includes/Extensions/WooCommerce/WooCommerce.php:526
+#: includes/Extensions/WooCommerce/WooCommerce.php:527
+#: includes/Extensions/WooCommerce/WooCommerce.php:528
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:73
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:85
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:97
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:112
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:123
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:135
+#: includes/Extensions/WooCommerce/WOOReviews.php:63
+#: includes/Extensions/WooCommerce/WOOReviews.php:75
+#: includes/Extensions/WooCommerce/WOOReviews.php:87
+#: includes/Extensions/WooCommerce/WOOReviews.php:102
+#: includes/Extensions/WooCommerce/WOOReviews.php:113
+#: includes/Extensions/WooCommerce/WOOReviews.php:125
+#: includes/Extensions/WordPress/WPComments.php:261
+#: includes/Extensions/WordPress/WPComments.php:262
+#: includes/Extensions/WordPress/WPComments.php:263
+#: includes/Extensions/WordPress/WPComments.php:264
 #: includes/FrontEnd/FrontEnd.php:262
 #: includes/FrontEnd/FrontEnd.php:263
 #: includes/FrontEnd/FrontEnd.php:264
-#: includes/FrontEnd/FrontEnd.php:722
-#: includes/Types/Comments.php:47
-#: includes/Types/Comments.php:60
-#: includes/Types/Comments.php:73
-#: includes/Types/Comments.php:86
-#: includes/Types/Comments.php:99
-#: includes/Types/Comments.php:112
-#: includes/Types/Comments.php:126
-#: includes/Types/Comments.php:140
-#: includes/Types/ContactForm.php:54
-#: includes/Types/ContactForm.php:67
-#: includes/Types/ContactForm.php:80
-#: includes/Types/Conversions.php:61
-#: includes/Types/Conversions.php:70
-#: includes/Types/Conversions.php:77
-#: includes/Types/Donations.php:44
-#: includes/Types/ELearning.php:51
-#: includes/Types/ELearning.php:64
-#: includes/Types/ELearning.php:77
-#: includes/Types/EmailSubscription.php:56
-#: includes/Types/GDPR.php:52
-#: includes/Types/GDPR.php:66
-#: includes/Types/GDPR.php:80
-#: includes/Types/GDPR.php:94
-#: includes/Types/GDPR.php:108
-#: includes/Types/GDPR.php:122
-#: includes/Types/GDPR.php:136
-#: includes/Types/GDPR.php:150
-#: includes/Types/GDPR.php:164
-#: includes/Types/GDPR.php:178
-#: includes/Types/GDPR.php:192
-#: includes/Types/GDPR.php:206
-#: includes/Types/Reviews.php:57
-#: includes/Types/Reviews.php:69
-#: includes/Types/Reviews.php:81
-#: includes/Types/Reviews.php:96
-#: includes/Types/Reviews.php:107
-#: includes/Types/Reviews.php:119
-#: includes/Types/WooCommerceSales.php:58
+#: includes/FrontEnd/FrontEnd.php:737
+#: includes/Types/Comments.php:54
+#: includes/Types/Comments.php:67
+#: includes/Types/Comments.php:80
+#: includes/Types/Comments.php:93
+#: includes/Types/Comments.php:106
+#: includes/Types/Comments.php:119
+#: includes/Types/Comments.php:133
+#: includes/Types/Comments.php:147
+#: includes/Types/ContactForm.php:60
+#: includes/Types/ContactForm.php:73
+#: includes/Types/ContactForm.php:86
+#: includes/Types/Conversions.php:65
+#: includes/Types/Donations.php:49
+#: includes/Types/ELearning.php:58
+#: includes/Types/ELearning.php:71
+#: includes/Types/ELearning.php:84
+#: includes/Types/EmailSubscription.php:65
+#: includes/Types/GDPR.php:57
+#: includes/Types/GDPR.php:71
+#: includes/Types/GDPR.php:85
+#: includes/Types/GDPR.php:99
+#: includes/Types/GDPR.php:113
+#: includes/Types/GDPR.php:127
+#: includes/Types/GDPR.php:141
+#: includes/Types/GDPR.php:155
+#: includes/Types/GDPR.php:169
+#: includes/Types/GDPR.php:183
+#: includes/Types/GDPR.php:197
+#: includes/Types/GDPR.php:211
+#: includes/Types/Reviews.php:63
+#: includes/Types/Reviews.php:75
+#: includes/Types/Reviews.php:87
+#: includes/Types/Reviews.php:102
+#: includes/Types/Reviews.php:113
+#: includes/Types/Reviews.php:125
+#: includes/Types/WooCommerceSales.php:63
 msgid "Someone"
 msgstr ""
 
@@ -769,55 +778,55 @@ msgstr ""
 #: includes/Core/QuickBuild.php:92
 #: includes/Extensions/GlobalFields.php:596
 #: includes/Extensions/GlobalFields.php:606
-#: includes/Extensions/PressBar/PressBar.php:1142
+#: includes/Extensions/PressBar/PressBar.php:1144
 msgid "Content"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:216
-#: includes/Extensions/PressBar/PressBar.php:51
-#: includes/Types/NotificationBar.php:38
+#: includes/Extensions/PressBar/PressBar.php:64
+#: includes/Types/NotificationBar.php:48
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Notification Bar"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:217
-#: includes/Extensions/Google/YouTube.php:127
-#: includes/Extensions/Google/YouTube.php:169
-#: includes/Types/Comments.php:38
+#: includes/Extensions/Google/YouTube.php:133
+#: includes/Extensions/Google/YouTube.php:175
+#: includes/Types/Comments.php:46
 msgid "Comments"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:218
-#: includes/Extensions/WooCommerce/WooCommerceSales.php:71
-#: includes/Extensions/WooCommerce/WooCommerceSales.php:72
-#: includes/Types/Conversions.php:55
+#: includes/Extensions/WooCommerce/WooCommerceSales.php:198
+#: includes/Extensions/WooCommerce/WooCommerceSales.php:199
+#: includes/Types/Conversions.php:61
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Sales Notification"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:219
-#: includes/Types/Video.php:44
+#: includes/Types/Video.php:50
 msgid "Video"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:220
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:61
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:62
-#: includes/Types/Reviews.php:50
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:65
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:66
+#: includes/Types/Reviews.php:56
 msgid "Reviews"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:221
-#: includes/Types/DownloadStats.php:43
+#: includes/Types/DownloadStats.php:49
 msgid "Download Stats"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:222
-#: includes/Types/ELearning.php:44
+#: includes/Types/ELearning.php:51
 msgid "eLearning"
 msgstr ""
 
@@ -826,35 +835,35 @@ msgid "Donation"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:224
-#: includes/Types/ContactForm.php:46
+#: includes/Types/ContactForm.php:52
 msgid "Contact Form"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:225
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:62
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:63
-#: includes/Types/Inline.php:37
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:66
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:67
+#: includes/Types/Inline.php:45
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Growth Alert"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:226
-#: includes/Extensions/GDPR/GDPR_Notification.php:39
-#: includes/Types/GDPR.php:43
+#: includes/Extensions/GDPR/GDPR_Notification.php:47
+#: includes/Types/GDPR.php:49
 msgid "Cookie Notice"
 msgstr ""
 
-#: includes/Core/REST.php:459
+#: includes/Core/REST.php:460
 msgid "Unauthorized Access: You have to logged in first."
 msgstr ""
 
-#: includes/Core/REST.php:462
+#: includes/Core/REST.php:463
 msgid "Invalid Type: You have to give a type."
 msgstr ""
 
-#: includes/Core/REST.php:465
+#: includes/Core/REST.php:466
 msgid "400 Bad Request."
 msgstr ""
 
@@ -929,12 +938,12 @@ msgstr ""
 msgid "You don't have set any slug and file name to install the plugins"
 msgstr ""
 
-#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:38
-#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:39
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:43
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:44
 msgid "ActiveCampaign"
 msgstr ""
 
-#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:54
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:58
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API URL & API key from ActiveCampaign account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with ActiveCampaign</a></p>\n"
@@ -942,51 +951,51 @@ msgid ""
 "\t\t<p>🔥 Boosting Engagement with <a target=\"_blank\" href=\"%4$s\">ActiveCampaign Email Subscription Alerts</a> via NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/CCPA/CCPA_Notification.php:37
+#: includes/Extensions/CCPA/CCPA_Notification.php:42
 msgid "CCPA"
 msgstr ""
 
-#: includes/Extensions/CF7/CF7.php:45
-#: includes/Extensions/CF7/CF7.php:46
-#: includes/Extensions/CF7/CF7.php:97
+#: includes/Extensions/CF7/CF7.php:50
+#: includes/Extensions/CF7/CF7.php:51
+#: includes/Extensions/CF7/CF7.php:101
 msgid "Contact Form 7"
 msgstr ""
 
-#: includes/Extensions/CF7/CF7.php:95
-#: includes/Extensions/EDD/EDD.php:91
-#: includes/Extensions/Elementor/From.php:57
-#: includes/Extensions/FluentForm/FluentForm.php:86
-#: includes/Extensions/Give/Give.php:99
-#: includes/Extensions/GRVF/GravityForms.php:61
-#: includes/Extensions/LearnPress/LearnPress.php:125
-#: includes/Extensions/NJF/NinjaForms.php:86
-#: includes/Extensions/ReviewX/ReviewX.php:206
-#: includes/Extensions/SureCart/SureCart.php:449
-#: includes/Extensions/Tutor/Tutor.php:124
-#: includes/Extensions/WooCommerce/WooCommerce.php:98
-#: includes/Extensions/WooCommerce/WOOReviews.php:227
-#: includes/Extensions/WPF/WPForms.php:86
+#: includes/Extensions/CF7/CF7.php:99
+#: includes/Extensions/EDD/EDD.php:96
+#: includes/Extensions/Elementor/From.php:61
+#: includes/Extensions/FluentForm/FluentForm.php:90
+#: includes/Extensions/Give/Give.php:103
+#: includes/Extensions/GRVF/GravityForms.php:65
+#: includes/Extensions/LearnPress/LearnPress.php:130
+#: includes/Extensions/NJF/NinjaForms.php:90
+#: includes/Extensions/ReviewX/ReviewX.php:210
+#: includes/Extensions/SureCart/SureCart.php:453
+#: includes/Extensions/Tutor/Tutor.php:129
+#: includes/Extensions/WooCommerce/WooCommerce.php:102
+#: includes/Extensions/WooCommerce/WOOReviews.php:231
+#: includes/Extensions/WPF/WPForms.php:90
 msgid "You have to install"
 msgstr ""
 
-#: includes/Extensions/CF7/CF7.php:98
-#: includes/Extensions/EDD/EDD.php:94
-#: includes/Extensions/Elementor/From.php:60
-#: includes/Extensions/FluentForm/FluentForm.php:89
-#: includes/Extensions/Give/Give.php:102
-#: includes/Extensions/GRVF/GravityForms.php:64
-#: includes/Extensions/LearnPress/LearnPress.php:128
-#: includes/Extensions/NJF/NinjaForms.php:89
-#: includes/Extensions/SureCart/SureCart.php:452
-#: includes/Extensions/Tutor/Tutor.php:127
-#: includes/Extensions/WooCommerce/WooCommerce.php:101
-#: includes/Extensions/WooCommerce/WOOReviews.php:230
-#: includes/Extensions/WPF/WPForms.php:89
+#: includes/Extensions/CF7/CF7.php:102
+#: includes/Extensions/EDD/EDD.php:99
+#: includes/Extensions/Elementor/From.php:64
+#: includes/Extensions/FluentForm/FluentForm.php:93
+#: includes/Extensions/Give/Give.php:106
+#: includes/Extensions/GRVF/GravityForms.php:68
+#: includes/Extensions/LearnPress/LearnPress.php:133
+#: includes/Extensions/NJF/NinjaForms.php:93
+#: includes/Extensions/SureCart/SureCart.php:456
+#: includes/Extensions/Tutor/Tutor.php:132
+#: includes/Extensions/WooCommerce/WooCommerce.php:105
+#: includes/Extensions/WooCommerce/WOOReviews.php:234
+#: includes/Extensions/WPF/WPForms.php:93
 msgid "plugin first."
 msgstr ""
 
 #. translators: links
-#: includes/Extensions/CF7/CF7.php:274
+#: includes/Extensions/CF7/CF7.php:278
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -995,12 +1004,12 @@ msgid ""
 "\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/ConvertKit/ConvertKit.php:38
-#: includes/Extensions/ConvertKit/ConvertKit.php:39
+#: includes/Extensions/ConvertKit/ConvertKit.php:43
+#: includes/Extensions/ConvertKit/ConvertKit.php:44
 msgid "ConvertKit"
 msgstr ""
 
-#: includes/Extensions/ConvertKit/ConvertKit.php:54
+#: includes/Extensions/ConvertKit/ConvertKit.php:58
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved your API key from ConvertKit account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -1009,16 +1018,16 @@ msgid ""
 "\t\t<p>🔥 Connect <a target=\"_blank\" href=\"%5$s\">NotificationX With ConvertKit</a>: Grow Your Audience By Leveraging Social Proof</p>"
 msgstr ""
 
-#: includes/Extensions/CustomNotification/CustomNotification.php:41
-#: includes/Extensions/CustomNotification/CustomNotification.php:42
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:38
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:39
-#: includes/Types/CustomNotification.php:36
+#: includes/Extensions/CustomNotification/CustomNotification.php:46
+#: includes/Extensions/CustomNotification/CustomNotification.php:47
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:43
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:44
+#: includes/Types/CustomNotification.php:46
 msgid "Custom Notification"
 msgstr ""
 
-#: includes/Extensions/CustomNotification/CustomNotification.php:87
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:64
+#: includes/Extensions/CustomNotification/CustomNotification.php:91
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:68
 msgid ""
 "<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%2$s\">video tutorial</a> to learn quickly</p>\n"
@@ -1026,33 +1035,33 @@ msgid ""
 "\t\t<p>🔥 How to <a target=\"_blank\" href=\"%3$s\">Display Custom Notification Alerts</a> On Your Website Using NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:41
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:46
 msgid "<a href='https://notificationx.com/docs/custom-notification/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:42
-#: includes/Extensions/Elementor/From.php:44
-#: includes/Extensions/Envato/Envato.php:43
-#: includes/Extensions/Freemius/FreemiusConversions.php:43
-#: includes/Extensions/Freemius/FreemiusReviews.php:43
-#: includes/Extensions/Freemius/FreemiusStats.php:44
-#: includes/Extensions/Google/GoogleReviews.php:158
-#: includes/Extensions/Google/YouTube.php:250
-#: includes/Extensions/GRVF/GravityForms.php:45
-#: includes/Extensions/LearnDash/LearnDash.php:45
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:152
-#: includes/Extensions/Zapier/ZapierConversions.php:43
-#: includes/Extensions/Zapier/ZapierReviews.php:43
-#: includes/Types/EmailSubscription.php:44
-#: includes/Types/FlashingTab.php:40
-#: includes/Types/Inline.php:40
-#: includes/Types/OfferAnnouncement.php:43
-#: includes/Types/PageAnalytics.php:38
-#: includes/Types/Video.php:47
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:47
+#: includes/Extensions/Elementor/From.php:49
+#: includes/Extensions/Envato/Envato.php:48
+#: includes/Extensions/Freemius/FreemiusConversions.php:48
+#: includes/Extensions/Freemius/FreemiusReviews.php:48
+#: includes/Extensions/Freemius/FreemiusStats.php:49
+#: includes/Extensions/Google/GoogleReviews.php:163
+#: includes/Extensions/Google/YouTube.php:256
+#: includes/Extensions/GRVF/GravityForms.php:50
+#: includes/Extensions/LearnDash/LearnDash.php:50
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:156
+#: includes/Extensions/Zapier/ZapierConversions.php:48
+#: includes/Extensions/Zapier/ZapierReviews.php:48
+#: includes/Types/EmailSubscription.php:54
+#: includes/Types/FlashingTab.php:47
+#: includes/Types/Inline.php:48
+#: includes/Types/OfferAnnouncement.php:50
+#: includes/Types/PageAnalytics.php:48
+#: includes/Types/Video.php:53
 msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
 msgstr ""
 
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:43
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:48
 msgid ""
 "\n"
 "                <span style=\"text-align:center;\">Display custom conversion notifications as pop up.</span>\n"
@@ -1062,39 +1071,37 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:43
-#: includes/Extensions/EDD/EDD.php:44
-#: includes/Extensions/EDD/EDD.php:93
+#: includes/Extensions/EDD/EDD.php:49
+#: includes/Extensions/EDD/EDD.php:50
+#: includes/Extensions/EDD/EDD.php:98
 msgid "Easy Digital Downloads"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:124
-#: includes/Extensions/WooCommerce/WooCommerce.php:473
+#: includes/Extensions/EDD/EDD.php:129
+#: includes/Extensions/WooCommerce/WooCommerce.php:477
 msgid "more products"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:142
-#: includes/Extensions/SureCart/SureCart.php:427
-#: includes/Extensions/WooCommerce/WooCommerce.php:128
-#: includes/Types/DownloadStats.php:194
+#: includes/Extensions/EDD/EDD.php:147
+#: includes/Extensions/SureCart/SureCart.php:431
+#: includes/Extensions/WooCommerce/WooCommerce.php:132
+#: includes/Types/DownloadStats.php:199
 #: includes/Types/Traits/Reviews.php:22
 msgid "Product Page"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:347
-#: includes/Extensions/Give/Give.php:81
-#: includes/Extensions/LearnPress/LearnPress.php:533
-#: includes/Extensions/SureCart/SureCart.php:437
-#: includes/Extensions/Tutor/Tutor.php:528
-#: includes/Extensions/WooCommerce/WooCommerce.php:525
-#: includes/Types/Conversions.php:64
-#: includes/Types/Conversions.php:73
-#: includes/Types/Conversions.php:81
-#: includes/Types/WooCommerceSales.php:61
+#: includes/Extensions/EDD/EDD.php:353
+#: includes/Extensions/Give/Give.php:85
+#: includes/Extensions/LearnPress/LearnPress.php:539
+#: includes/Extensions/SureCart/SureCart.php:441
+#: includes/Extensions/Tutor/Tutor.php:534
+#: includes/Extensions/WooCommerce/WooCommerce.php:529
+#: includes/Types/Conversions.php:68
+#: includes/Types/WooCommerceSales.php:66
 msgid "Anonymous Product"
 msgstr ""
 
-#: includes/Extensions/EDD/EDD.php:356
+#: includes/Extensions/EDD/EDD.php:362
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Easy Digital Downloads</a></p>\n"
@@ -1102,117 +1109,117 @@ msgid ""
 "\t\t<p>🔥 How Does <a target=\"_blank\" href=\"%4$s\">NotificationX Increase Sales on WordPress</a> Websites?</p>"
 msgstr ""
 
-#: includes/Extensions/EDD/EDInline.php:40
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:73
-#: includes/Extensions/WooCommerce/WooInline.php:76
+#: includes/Extensions/EDD/EDInline.php:46
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:77
+#: includes/Extensions/WooCommerce/WooInline.php:81
 msgid "people purchased"
 msgstr ""
 
-#: includes/Extensions/EDD/EDInline.php:44
-#: includes/Extensions/LearnDash/LearnDashInline.php:44
-#: includes/Extensions/LearnPress/LearnPressInline.php:42
-#: includes/Extensions/LearnPress/LearnPressInline.php:56
-#: includes/Extensions/Tutor/TutorInline.php:42
-#: includes/Extensions/Tutor/TutorInline.php:56
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:77
-#: includes/Extensions/WooCommerce/WooInline.php:80
+#: includes/Extensions/EDD/EDInline.php:50
+#: includes/Extensions/LearnDash/LearnDashInline.php:50
+#: includes/Extensions/LearnPress/LearnPressInline.php:48
+#: includes/Extensions/LearnPress/LearnPressInline.php:62
+#: includes/Extensions/Tutor/TutorInline.php:48
+#: includes/Extensions/Tutor/TutorInline.php:62
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:81
+#: includes/Extensions/WooCommerce/WooInline.php:85
 msgid "in last {{day:7}}"
-msgstr ""
-
-#: includes/Extensions/EDD/EDInline.php:51
-#: includes/Extensions/LearnDash/LearnDashInline.php:51
-#: includes/Extensions/LearnPress/LearnPressInline.php:63
-#: includes/Extensions/Tutor/TutorInline.php:63
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:118
-#: includes/Extensions/WooCommerce/WooInline.php:121
-msgid "Sales Count"
-msgstr ""
-
-#: includes/Extensions/EDD/EDInline.php:54
-#: includes/Extensions/ReviewX/ReviewX.php:152
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:121
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:147
-#: includes/Extensions/WooCommerce/WooInline.php:124
-#: includes/Extensions/WooCommerce/WOOReviews.php:135
-#: includes/Extensions/WooCommerce/WOOReviews.php:160
-#: includes/Types/Conversions.php:233
-#: includes/Types/Conversions.php:258
-msgid "Product Title"
 msgstr ""
 
 #: includes/Extensions/EDD/EDInline.php:57
 #: includes/Extensions/LearnDash/LearnDashInline.php:57
 #: includes/Extensions/LearnPress/LearnPressInline.php:69
 #: includes/Extensions/Tutor/TutorInline.php:69
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:124
-#: includes/Extensions/WooCommerce/WooInline.php:127
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:122
+#: includes/Extensions/WooCommerce/WooInline.php:126
+msgid "Sales Count"
+msgstr ""
+
+#: includes/Extensions/EDD/EDInline.php:60
+#: includes/Extensions/ReviewX/ReviewX.php:157
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:125
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:151
+#: includes/Extensions/WooCommerce/WooInline.php:129
+#: includes/Extensions/WooCommerce/WOOReviews.php:140
+#: includes/Extensions/WooCommerce/WOOReviews.php:165
+#: includes/Types/Conversions.php:210
+#: includes/Types/Conversions.php:235
+msgid "Product Title"
+msgstr ""
+
+#: includes/Extensions/EDD/EDInline.php:63
+#: includes/Extensions/LearnDash/LearnDashInline.php:63
+#: includes/Extensions/LearnPress/LearnPressInline.php:75
+#: includes/Extensions/Tutor/TutorInline.php:75
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:128
+#: includes/Extensions/WooCommerce/WooInline.php:132
 #: includes/FrontEnd/Preview.php:278
 msgid "In last 1 day"
 msgstr ""
 
-#: includes/Extensions/EDD/EDInline.php:58
-#: includes/Extensions/LearnDash/LearnDashInline.php:58
-#: includes/Extensions/LearnPress/LearnPressInline.php:70
-#: includes/Extensions/Tutor/TutorInline.php:70
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:125
-#: includes/Extensions/WooCommerce/WooInline.php:128
+#: includes/Extensions/EDD/EDInline.php:64
+#: includes/Extensions/LearnDash/LearnDashInline.php:64
+#: includes/Extensions/LearnPress/LearnPressInline.php:76
+#: includes/Extensions/Tutor/TutorInline.php:76
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:129
+#: includes/Extensions/WooCommerce/WooInline.php:133
 #: includes/FrontEnd/Preview.php:279
-#: includes/Types/DownloadStats.php:130
-#: includes/Types/DownloadStats.php:150
+#: includes/Types/DownloadStats.php:136
+#: includes/Types/DownloadStats.php:156
 msgid "In last 7 days"
 msgstr ""
 
-#: includes/Extensions/EDD/EDInline.php:59
-#: includes/Extensions/LearnDash/LearnDashInline.php:59
-#: includes/Extensions/LearnPress/LearnPressInline.php:71
-#: includes/Extensions/Tutor/TutorInline.php:71
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:126
-#: includes/Extensions/WooCommerce/WooInline.php:129
+#: includes/Extensions/EDD/EDInline.php:65
+#: includes/Extensions/LearnDash/LearnDashInline.php:65
+#: includes/Extensions/LearnPress/LearnPressInline.php:77
+#: includes/Extensions/Tutor/TutorInline.php:77
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:130
+#: includes/Extensions/WooCommerce/WooInline.php:134
 #: includes/FrontEnd/Preview.php:280
 msgid "In last 30 days"
 msgstr ""
 
-#: includes/Extensions/Elementor/From.php:40
+#: includes/Extensions/Elementor/From.php:45
 msgid "Elementor Form"
 msgstr ""
 
-#: includes/Extensions/Elementor/From.php:41
+#: includes/Extensions/Elementor/From.php:46
 msgid "Elementor"
 msgstr ""
 
-#: includes/Extensions/Elementor/From.php:43
+#: includes/Extensions/Elementor/From.php:48
 msgid "<a href='https://notificationx.com/docs/elementor-form-with-notificationx/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/Elementor/From.php:45
+#: includes/Extensions/Elementor/From.php:50
 msgid ""
 "\n"
 "                <span>Elementor forms that can help you keep important leads and stay in touch with your customers.</span>\n"
 "            "
 msgstr ""
 
-#: includes/Extensions/Elementor/From.php:59
+#: includes/Extensions/Elementor/From.php:63
 msgid "Elementor Pro"
 msgstr ""
 
 #. translators: links
-#: includes/Extensions/Elementor/From.php:72
+#: includes/Extensions/Elementor/From.php:76
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Elementor Pro installed & configured</a> to use its form submission data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
 "\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%3$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/Envato/Envato.php:39
-#: includes/Extensions/Envato/Envato.php:40
+#: includes/Extensions/Envato/Envato.php:44
+#: includes/Extensions/Envato/Envato.php:45
 msgid "Envato"
 msgstr ""
 
-#: includes/Extensions/Envato/Envato.php:42
+#: includes/Extensions/Envato/Envato.php:47
 msgid "<a href='https://notificationx.com/docs/envato-sales-notification/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/Envato/Envato.php:44
+#: includes/Extensions/Envato/Envato.php:49
 msgid ""
 "\n"
 "                <span>A resourceful online marketplace for digital assets and services.</span>\n"
@@ -1222,40 +1229,40 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Extensions/Envato/Envato.php:65
+#: includes/Extensions/Envato/Envato.php:69
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Envato</a></p>"
 msgstr ""
 
-#: includes/Extensions/FlashingTab/FlashingTab.php:47
-#: includes/Extensions/FlashingTab/FlashingTab.php:48
-#: includes/Types/FlashingTab.php:36
-#: includes/Types/FlashingTab.php:37
+#: includes/Extensions/FlashingTab/FlashingTab.php:52
+#: includes/Extensions/FlashingTab/FlashingTab.php:53
+#: includes/Types/FlashingTab.php:43
+#: includes/Types/FlashingTab.php:44
 msgid "Flashing Tab"
 msgstr ""
 
-#: includes/Extensions/FlashingTab/FlashingTab.php:58
-#: includes/Extensions/FlashingTab/FlashingTab.php:78
-#: includes/Extensions/FlashingTab/FlashingTab.php:93
+#: includes/Extensions/FlashingTab/FlashingTab.php:63
+#: includes/Extensions/FlashingTab/FlashingTab.php:83
+#: includes/Extensions/FlashingTab/FlashingTab.php:98
 msgid "Comeback!"
 msgstr ""
 
-#: includes/Extensions/FlashingTab/FlashingTab.php:69
+#: includes/Extensions/FlashingTab/FlashingTab.php:74
 msgid "Comeback! We miss you."
 msgstr ""
 
-#: includes/Extensions/FlashingTab/FlashingTab.php:82
+#: includes/Extensions/FlashingTab/FlashingTab.php:87
 msgid "You forgot to purchase!"
 msgstr ""
 
-#: includes/Extensions/FlashingTab/FlashingTab.php:99
+#: includes/Extensions/FlashingTab/FlashingTab.php:104
 msgid "{quantity} items in your cart!"
 msgstr ""
 
 #. translators: links
-#: includes/Extensions/FlashingTab/FlashingTab.php:133
+#: includes/Extensions/FlashingTab/FlashingTab.php:136
 msgid ""
 "\n"
 "        <p>Make sure that you have NotificationX PRO installed and activated on your website to use Flashing Tab. For further assistance, follow the step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
@@ -1265,13 +1272,13 @@ msgid ""
 "\t\t"
 msgstr ""
 
-#: includes/Extensions/FluentForm/FluentForm.php:43
-#: includes/Extensions/FluentForm/FluentForm.php:44
-#: includes/Extensions/FluentForm/FluentForm.php:88
+#: includes/Extensions/FluentForm/FluentForm.php:48
+#: includes/Extensions/FluentForm/FluentForm.php:49
+#: includes/Extensions/FluentForm/FluentForm.php:92
 msgid "Fluent Forms"
 msgstr ""
 
-#: includes/Extensions/FluentForm/FluentForm.php:399
+#: includes/Extensions/FluentForm/FluentForm.php:404
 msgid ""
 "\n"
 "        <p>To use the campaign & form subscription data, make sure that you have <a target=\"_blank\" href=\"%1$s\">Fluent Forms installed and configured</a> on your website. For detailed guidelines, follow this <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
@@ -1292,20 +1299,20 @@ msgid ""
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Freemius</a></p>"
 msgstr ""
 
-#: includes/Extensions/Freemius/FreemiusConversions.php:39
-#: includes/Extensions/Freemius/FreemiusConversions.php:40
-#: includes/Extensions/Freemius/FreemiusReviews.php:39
-#: includes/Extensions/Freemius/FreemiusReviews.php:40
-#: includes/Extensions/Freemius/FreemiusStats.php:39
-#: includes/Extensions/Freemius/FreemiusStats.php:40
+#: includes/Extensions/Freemius/FreemiusConversions.php:44
+#: includes/Extensions/Freemius/FreemiusConversions.php:45
+#: includes/Extensions/Freemius/FreemiusReviews.php:44
+#: includes/Extensions/Freemius/FreemiusReviews.php:45
+#: includes/Extensions/Freemius/FreemiusStats.php:44
+#: includes/Extensions/Freemius/FreemiusStats.php:45
 msgid "Freemius"
 msgstr ""
 
-#: includes/Extensions/Freemius/FreemiusConversions.php:42
+#: includes/Extensions/Freemius/FreemiusConversions.php:47
 msgid "<a href='https://notificationx.com/docs/freemius-sales-notification/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/Freemius/FreemiusConversions.php:44
+#: includes/Extensions/Freemius/FreemiusConversions.php:49
 msgid ""
 "\n"
 "                <span>Fantastic platform for WordPress users to sell their items all around the world.</span>\n"
@@ -1315,18 +1322,18 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Extensions/Freemius/FreemiusReviews.php:42
+#: includes/Extensions/Freemius/FreemiusReviews.php:47
 msgid "<a href='https://notificationx.com/docs/freemius-review-notificationx/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/Freemius/FreemiusReviews.php:44
+#: includes/Extensions/Freemius/FreemiusReviews.php:49
 msgid ""
 "\n"
 "                <span>Widely used medium to show review teasers to persuade visitors to trust your offerings.</span>\n"
 "            "
 msgstr ""
 
-#: includes/Extensions/Freemius/FreemiusStats.php:45
+#: includes/Extensions/Freemius/FreemiusStats.php:50
 msgid ""
 "\n"
 "                <span>Amazing platform to display download statistics to urge visitors to trust your items.</span>\n"
@@ -1336,108 +1343,106 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:38
+#: includes/Extensions/GDPR/GDPR_Notification.php:46
 msgid "GDPR"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:61
+#: includes/Extensions/GDPR/GDPR_Notification.php:65
 #: includes/Extensions/GlobalFields.php:234
 #: includes/Extensions/GlobalFields.php:434
 msgid "Design"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:71
-#: includes/Extensions/GDPR/GDPR_Notification.php:153
-#: includes/Extensions/GDPR/GDPR_Notification.php:197
-#: includes/Extensions/GDPR/GDPR_Notification.php:235
+#: includes/Extensions/GDPR/GDPR_Notification.php:75
+#: includes/Extensions/GDPR/GDPR_Notification.php:157
+#: includes/Extensions/GDPR/GDPR_Notification.php:201
+#: includes/Extensions/GDPR/GDPR_Notification.php:239
 #: includes/Extensions/GlobalFields.php:442
-#: includes/Extensions/PressBar/PressBar.php:313
+#: includes/Extensions/PressBar/PressBar.php:315
 #: blocks/notificationx/components/inspector.js:313
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2607
 msgid "Background Color"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:77
+#: includes/Extensions/GDPR/GDPR_Notification.php:81
 msgid "Footer Background Color"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:83
+#: includes/Extensions/GDPR/GDPR_Notification.php:87
 msgid "Title Color"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:89
+#: includes/Extensions/GDPR/GDPR_Notification.php:93
 msgid "Title Font Size"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:94
+#: includes/Extensions/GDPR/GDPR_Notification.php:98
 msgid "This font size will be applied for <mark>Title</mark> only"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:97
+#: includes/Extensions/GDPR/GDPR_Notification.php:101
 msgid "Description Color"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:103
+#: includes/Extensions/GDPR/GDPR_Notification.php:107
 msgid "Description Font Size"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:108
+#: includes/Extensions/GDPR/GDPR_Notification.php:112
 msgid "This font size will be applied for <mark>Description</mark> only"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:111
-#: includes/Extensions/PressBar/PressBar.php:350
+#: includes/Extensions/GDPR/GDPR_Notification.php:115
+#: includes/Extensions/PressBar/PressBar.php:352
 msgid "Close Button Color"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:125
-#: includes/Extensions/PressBar/PressBar.php:355
+#: includes/Extensions/GDPR/GDPR_Notification.php:129
+#: includes/Extensions/PressBar/PressBar.php:357
 msgid "Close Button Size"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:143
+#: includes/Extensions/GDPR/GDPR_Notification.php:147
 msgid "Accept Button"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:159
-#: includes/Extensions/GDPR/GDPR_Notification.php:203
-#: includes/Extensions/GDPR/GDPR_Notification.php:241
+#: includes/Extensions/GDPR/GDPR_Notification.php:163
+#: includes/Extensions/GDPR/GDPR_Notification.php:207
+#: includes/Extensions/GDPR/GDPR_Notification.php:245
 #: includes/Extensions/GlobalFields.php:479
 msgid "Border Color"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:165
-#: includes/Extensions/GDPR/GDPR_Notification.php:209
-#: includes/Extensions/GDPR/GDPR_Notification.php:247
+#: includes/Extensions/GDPR/GDPR_Notification.php:169
+#: includes/Extensions/GDPR/GDPR_Notification.php:213
+#: includes/Extensions/GDPR/GDPR_Notification.php:251
 #: includes/Extensions/GlobalFields.php:448
-#: includes/Extensions/PressBar/PressBar.php:325
+#: includes/Extensions/PressBar/PressBar.php:327
 #: blocks/notificationx/components/inspector.js:307
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2601
 msgid "Text Color"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:171
-#: includes/Extensions/GDPR/GDPR_Notification.php:215
-#: includes/Extensions/GDPR/GDPR_Notification.php:253
+#: includes/Extensions/GDPR/GDPR_Notification.php:175
+#: includes/Extensions/GDPR/GDPR_Notification.php:219
+#: includes/Extensions/GDPR/GDPR_Notification.php:257
 #: includes/Extensions/GlobalFields.php:514
 #: includes/Extensions/GlobalFields.php:522
 #: includes/Extensions/GlobalFields.php:530
-#: includes/Extensions/PressBar/PressBar.php:451
+#: includes/Extensions/PressBar/PressBar.php:453
 msgid "Font Size"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:181
+#: includes/Extensions/GDPR/GDPR_Notification.php:185
 msgid "Reject Button"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:225
-#: includes/Types/GDPR.php:430
+#: includes/Extensions/GDPR/GDPR_Notification.php:229
+#: includes/Types/GDPR.php:435
 msgid "Customize Button"
 msgstr ""
 
-#: includes/Extensions/GDPR/GDPR_Notification.php:298
+#: includes/Extensions/GDPR/GDPR_Notification.php:302
 msgid ""
 "<p>You can showcase Cookie Notice effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> for creating a Cookie Notice on the WordPress website.</p>\n"
 "        <p>🎦 Watch the video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for a quick guide.</p>\n"
@@ -1445,97 +1450,97 @@ msgid ""
 "\t\t<p>🔥 <a target=\"_blank\" href=\"%3$s\">How to Display WordPress Cookie Notice Using NotificationX?</a></p>"
 msgstr ""
 
-#: includes/Extensions/Give/Give.php:41
+#: includes/Extensions/Give/Give.php:46
 msgid "Give"
 msgstr ""
 
-#: includes/Extensions/Give/Give.php:42
+#: includes/Extensions/Give/Give.php:47
 msgid "GiveWP"
 msgstr ""
 
-#: includes/Extensions/Give/Give.php:82
+#: includes/Extensions/Give/Give.php:86
 #: includes/Extensions/GlobalFields.php:658
 #: includes/Extensions/GlobalFields.php:676
-#: includes/Extensions/GlobalFields.php:2030
-#: includes/Extensions/Google/GoogleReviews.php:55
-#: includes/Extensions/Google/GoogleReviews.php:69
-#: includes/Extensions/Google/GoogleReviews.php:83
-#: includes/Extensions/Google/GoogleReviews.php:111
-#: includes/Extensions/Google/GoogleReviews.php:126
-#: includes/Extensions/OfferAnnouncement/Announcements.php:57
-#: includes/Extensions/OfferAnnouncement/Announcements.php:77
-#: includes/Extensions/OfferAnnouncement/Announcements.php:98
-#: includes/Extensions/OfferAnnouncement/Announcements.php:133
-#: includes/Extensions/OfferAnnouncement/Announcements.php:181
-#: includes/Extensions/OfferAnnouncement/Announcements.php:195
-#: includes/Extensions/OfferAnnouncement/Announcements.php:210
-#: includes/Extensions/OfferAnnouncement/Announcements.php:237
-#: includes/Extensions/ReviewX/ReviewX.php:79
-#: includes/Extensions/ReviewX/ReviewX.php:91
-#: includes/Extensions/ReviewX/ReviewX.php:118
-#: includes/Extensions/ReviewX/ReviewX.php:129
-#: includes/Extensions/ReviewX/ReviewX.php:141
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:73
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:85
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:112
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:123
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:135
-#: includes/Extensions/WooCommerce/WOOReviews.php:62
-#: includes/Extensions/WooCommerce/WOOReviews.php:74
-#: includes/Extensions/WooCommerce/WOOReviews.php:101
-#: includes/Extensions/WooCommerce/WOOReviews.php:112
-#: includes/Extensions/WooCommerce/WOOReviews.php:124
-#: includes/Extensions/WordPress/WPComments.php:261
+#: includes/Extensions/GlobalFields.php:2098
+#: includes/Extensions/Google/GoogleReviews.php:60
+#: includes/Extensions/Google/GoogleReviews.php:74
+#: includes/Extensions/Google/GoogleReviews.php:88
+#: includes/Extensions/Google/GoogleReviews.php:116
+#: includes/Extensions/Google/GoogleReviews.php:131
+#: includes/Extensions/OfferAnnouncement/Announcements.php:59
+#: includes/Extensions/OfferAnnouncement/Announcements.php:79
+#: includes/Extensions/OfferAnnouncement/Announcements.php:100
+#: includes/Extensions/OfferAnnouncement/Announcements.php:135
+#: includes/Extensions/OfferAnnouncement/Announcements.php:183
+#: includes/Extensions/OfferAnnouncement/Announcements.php:197
+#: includes/Extensions/OfferAnnouncement/Announcements.php:212
+#: includes/Extensions/OfferAnnouncement/Announcements.php:239
+#: includes/Extensions/ReviewX/ReviewX.php:84
+#: includes/Extensions/ReviewX/ReviewX.php:96
+#: includes/Extensions/ReviewX/ReviewX.php:123
+#: includes/Extensions/ReviewX/ReviewX.php:134
+#: includes/Extensions/ReviewX/ReviewX.php:146
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:77
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:89
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:116
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:127
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:139
+#: includes/Extensions/WooCommerce/WOOReviews.php:67
+#: includes/Extensions/WooCommerce/WOOReviews.php:79
+#: includes/Extensions/WooCommerce/WOOReviews.php:106
+#: includes/Extensions/WooCommerce/WOOReviews.php:117
+#: includes/Extensions/WooCommerce/WOOReviews.php:129
+#: includes/Extensions/WordPress/WPComments.php:266
 #: includes/FrontEnd/FrontEnd.php:266
-#: includes/Types/Comments.php:52
-#: includes/Types/Comments.php:65
-#: includes/Types/Comments.php:78
-#: includes/Types/Comments.php:91
-#: includes/Types/Comments.php:104
-#: includes/Types/Comments.php:117
-#: includes/Types/Comments.php:131
-#: includes/Types/Comments.php:145
-#: includes/Types/ContactForm.php:59
-#: includes/Types/ContactForm.php:72
-#: includes/Types/ContactForm.php:85
-#: includes/Types/Conversions.php:66
-#: includes/Types/Donations.php:51
-#: includes/Types/ELearning.php:56
-#: includes/Types/ELearning.php:69
-#: includes/Types/ELearning.php:82
-#: includes/Types/EmailSubscription.php:61
-#: includes/Types/EmailSubscription.php:119
-#: includes/Types/GDPR.php:57
-#: includes/Types/GDPR.php:71
-#: includes/Types/GDPR.php:85
-#: includes/Types/GDPR.php:99
-#: includes/Types/GDPR.php:113
-#: includes/Types/GDPR.php:127
-#: includes/Types/GDPR.php:141
-#: includes/Types/GDPR.php:155
-#: includes/Types/GDPR.php:169
-#: includes/Types/GDPR.php:183
-#: includes/Types/GDPR.php:197
-#: includes/Types/GDPR.php:211
-#: includes/Types/Reviews.php:61
-#: includes/Types/Reviews.php:73
-#: includes/Types/Reviews.php:100
-#: includes/Types/Reviews.php:111
-#: includes/Types/Reviews.php:123
-#: includes/Types/WooCommerceSales.php:63
+#: includes/Types/Comments.php:59
+#: includes/Types/Comments.php:72
+#: includes/Types/Comments.php:85
+#: includes/Types/Comments.php:98
+#: includes/Types/Comments.php:111
+#: includes/Types/Comments.php:124
+#: includes/Types/Comments.php:138
+#: includes/Types/Comments.php:152
+#: includes/Types/ContactForm.php:65
+#: includes/Types/ContactForm.php:78
+#: includes/Types/ContactForm.php:91
+#: includes/Types/Conversions.php:70
+#: includes/Types/Donations.php:56
+#: includes/Types/ELearning.php:63
+#: includes/Types/ELearning.php:76
+#: includes/Types/ELearning.php:89
+#: includes/Types/EmailSubscription.php:70
+#: includes/Types/EmailSubscription.php:128
+#: includes/Types/GDPR.php:62
+#: includes/Types/GDPR.php:76
+#: includes/Types/GDPR.php:90
+#: includes/Types/GDPR.php:104
+#: includes/Types/GDPR.php:118
+#: includes/Types/GDPR.php:132
+#: includes/Types/GDPR.php:146
+#: includes/Types/GDPR.php:160
+#: includes/Types/GDPR.php:174
+#: includes/Types/GDPR.php:188
+#: includes/Types/GDPR.php:202
+#: includes/Types/GDPR.php:216
+#: includes/Types/Reviews.php:67
+#: includes/Types/Reviews.php:79
+#: includes/Types/Reviews.php:106
+#: includes/Types/Reviews.php:117
+#: includes/Types/Reviews.php:129
+#: includes/Types/WooCommerceSales.php:68
 msgid "Some time ago"
 msgstr ""
 
-#: includes/Extensions/Give/Give.php:101
+#: includes/Extensions/Give/Give.php:105
 msgid "GiveWP Donation"
 msgstr ""
 
-#: includes/Extensions/Give/Give.php:153
-#: includes/Extensions/Give/Give.php:231
+#: includes/Extensions/Give/Give.php:157
+#: includes/Extensions/Give/Give.php:235
 msgid "for"
 msgstr ""
 
-#: includes/Extensions/Give/Give.php:293
+#: includes/Extensions/Give/Give.php:297
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -1549,8 +1554,8 @@ msgid "Previous"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:72
-#: includes/Extensions/PressBar/PressBar.php:577
-#: includes/Extensions/PressBar/PressBar.php:781
+#: includes/Extensions/PressBar/PressBar.php:579
+#: includes/Extensions/PressBar/PressBar.php:783
 msgid "Next"
 msgstr ""
 
@@ -1626,14 +1631,14 @@ msgid "Center"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:405
-#: includes/Extensions/PressBar/PressBar.php:879
+#: includes/Extensions/PressBar/PressBar.php:881
 msgid "Bottom"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:406
-#: includes/Extensions/PressBar/PressBar.php:394
-#: includes/Extensions/PressBar/PressBar.php:416
-#: includes/Extensions/PressBar/PressBar.php:874
+#: includes/Extensions/PressBar/PressBar.php:396
+#: includes/Extensions/PressBar/PressBar.php:418
+#: includes/Extensions/PressBar/PressBar.php:876
 msgid "Top"
 msgstr ""
 
@@ -1675,15 +1680,14 @@ msgid "Discount Background"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:507
-#: includes/Extensions/PressBar/PressBar.php:445
+#: includes/Extensions/PressBar/PressBar.php:447
 #: blocks/notificationx/components/inspector.js:254
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2548
 msgid "Typography"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:519
-#: includes/Extensions/PressBar/PressBar.php:457
+#: includes/Extensions/PressBar/PressBar.php:459
 msgid "This font size will be applied for <mark>first</mark> row"
 msgstr ""
 
@@ -1716,14 +1720,14 @@ msgid "Square"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:565
-#: includes/Extensions/PressBar/PressBar.php:388
-#: includes/Extensions/PressBar/PressBar.php:405
+#: includes/Extensions/PressBar/PressBar.php:390
+#: includes/Extensions/PressBar/PressBar.php:407
 msgid "Left"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:566
-#: includes/Extensions/PressBar/PressBar.php:389
-#: includes/Extensions/PressBar/PressBar.php:427
+#: includes/Extensions/PressBar/PressBar.php:391
+#: includes/Extensions/PressBar/PressBar.php:429
 msgid "Right"
 msgstr ""
 
@@ -1773,7 +1777,7 @@ msgid "Show Purchase Of"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:750
-#: includes/Types/ELearning.php:235
+#: includes/Types/ELearning.php:240
 msgid "All"
 msgstr ""
 
@@ -1804,12 +1808,12 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:808
 #: includes/Extensions/GlobalFields.php:920
 #: includes/Extensions/GlobalFields.php:1423
-#: includes/Extensions/Google/YouTube.php:215
-#: includes/Extensions/Google/YouTube.php:219
-#: includes/Extensions/Google/YouTube.php:229
-#: includes/Extensions/Google/YouTube.php:233
-#: includes/Extensions/Google/YouTube.php:237
-#: includes/Types/Donations.php:171
+#: includes/Extensions/Google/YouTube.php:221
+#: includes/Extensions/Google/YouTube.php:225
+#: includes/Extensions/Google/YouTube.php:235
+#: includes/Extensions/Google/YouTube.php:239
+#: includes/Extensions/Google/YouTube.php:243
+#: includes/Types/Donations.php:170
 msgid "None"
 msgstr ""
 
@@ -1883,8 +1887,8 @@ msgid "Consent Expiry"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:995
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Days"
 msgstr ""
 
@@ -1973,13 +1977,13 @@ msgid "Upload an Image"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1380
-#: includes/Extensions/PressBar/PressBar.php:320
+#: includes/Extensions/PressBar/PressBar.php:322
 #: assets/admin/js/admin.js:18
 msgid "Upload"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1386
-#: includes/Extensions/OfferAnnouncement/Announcements.php:241
+#: includes/Extensions/OfferAnnouncement/Announcements.php:243
 msgid "Image"
 msgstr ""
 
@@ -1992,17 +1996,17 @@ msgid "Gravatar"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1498
-#: includes/Types/GDPR.php:232
+#: includes/Types/GDPR.php:237
 msgid "Visibility"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1503
-#: includes/Types/GDPR.php:239
+#: includes/Types/GDPR.php:244
 msgid "Show On"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1509
-#: includes/Types/GDPR.php:245
+#: includes/Types/GDPR.php:250
 msgid "Show Everywhere"
 msgstr ""
 
@@ -2019,8 +2023,8 @@ msgid "Locations"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1528
-#: includes/Extensions/GlobalFields.php:1921
-#: includes/Types/GDPR.php:252
+#: includes/Extensions/GlobalFields.php:1961
+#: includes/Types/GDPR.php:257
 msgid "Display For"
 msgstr ""
 
@@ -2037,9 +2041,9 @@ msgid "More Control in Pro"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1545
-#: includes/Types/GDPR.php:435
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: includes/Types/GDPR.php:440
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 #: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:133
 msgid "Customize"
 msgstr ""
@@ -2072,473 +2076,500 @@ msgid "Set a max width for notification."
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1622
-#: includes/Extensions/GlobalFields.php:1689
 msgid "Display Close Option"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1627
-#: includes/Extensions/GlobalFields.php:1694
 msgid "Display a close button."
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1630
-#: includes/Extensions/GlobalFields.php:1697
 msgid "Mobile Visibility"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1635
-#: includes/Extensions/GlobalFields.php:1702
 msgid "Hide NotificationX on mobile."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1707
+#: includes/Extensions/GlobalFields.php:1689
+msgid "Display Close Button"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:1698
+#: includes/Extensions/GlobalFields.php:1726
+msgid "Desktop"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:1705
+#: includes/Extensions/GlobalFields.php:1733
+msgid "Tablet"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:1712
+#: includes/Extensions/GlobalFields.php:1740
+msgid "Mobile"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:1717
+msgid "Notification Visibility"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:1747
 msgid "Animation"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1713
+#: includes/Extensions/GlobalFields.php:1753
 msgid "Notification Show"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1721
-#: includes/Extensions/GlobalFields.php:1801
+#: includes/Extensions/GlobalFields.php:1761
+#: includes/Extensions/GlobalFields.php:1841
 msgid "Default"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1726
+#: includes/Extensions/GlobalFields.php:1766
 msgid "Fade In"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1731
+#: includes/Extensions/GlobalFields.php:1771
 msgid "Fade In Up"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1736
+#: includes/Extensions/GlobalFields.php:1776
 msgid "Fade In Down"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1741
+#: includes/Extensions/GlobalFields.php:1781
 msgid "Fade In Down Big"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1746
+#: includes/Extensions/GlobalFields.php:1786
 msgid "Fade In Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1751
+#: includes/Extensions/GlobalFields.php:1791
 msgid "Fade In Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1756
+#: includes/Extensions/GlobalFields.php:1796
 msgid "Light Speed In Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1761
+#: includes/Extensions/GlobalFields.php:1801
 msgid "Light Speed In Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1766
+#: includes/Extensions/GlobalFields.php:1806
 msgid "Zoom In"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1771
+#: includes/Extensions/GlobalFields.php:1811
 msgid "Slide In Up"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1776
+#: includes/Extensions/GlobalFields.php:1816
 msgid "Slide In Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1781
+#: includes/Extensions/GlobalFields.php:1821
 msgid "Slide In Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1786
+#: includes/Extensions/GlobalFields.php:1826
 msgid "Slide In Down"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1793
+#: includes/Extensions/GlobalFields.php:1833
 msgid "Notification Hide"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1805
+#: includes/Extensions/GlobalFields.php:1845
 msgid "Fade Out"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1810
+#: includes/Extensions/GlobalFields.php:1850
 msgid "Fade Out Down"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1815
+#: includes/Extensions/GlobalFields.php:1855
 msgid "Fade Out Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1820
+#: includes/Extensions/GlobalFields.php:1860
 msgid "Fade Out Up"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1825
+#: includes/Extensions/GlobalFields.php:1865
 msgid "Light Speed Out Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1830
+#: includes/Extensions/GlobalFields.php:1870
 msgid "Zoom Out"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1835
+#: includes/Extensions/GlobalFields.php:1875
 msgid "Slide Out Down"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1840
+#: includes/Extensions/GlobalFields.php:1880
 msgid "Slide Out Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1845
+#: includes/Extensions/GlobalFields.php:1885
 msgid "Slide Out Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1850
+#: includes/Extensions/GlobalFields.php:1890
 msgid "Slide Out Up"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1882
+#: includes/Extensions/GlobalFields.php:1922
 msgid "Queue Management"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1890
+#: includes/Extensions/GlobalFields.php:1930
 msgid "Enable Global Queue"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1896
+#: includes/Extensions/GlobalFields.php:1936
 msgid "Activate global queue system for this notification."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1896
+#: includes/Extensions/GlobalFields.php:1936
 msgid "Check out this doc."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1901
+#: includes/Extensions/GlobalFields.php:1941
 msgid "Timing"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1909
+#: includes/Extensions/GlobalFields.php:1949
 msgid "Delay Before First Notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1914
-#: includes/Extensions/PressBar/PressBar.php:910
-#: includes/Extensions/PressBar/PressBar.php:915
-#: includes/Types/GDPR.php:270
+#: includes/Extensions/GlobalFields.php:1954
+#: includes/Extensions/PressBar/PressBar.php:912
+#: includes/Extensions/PressBar/PressBar.php:917
+#: includes/Types/GDPR.php:275
 msgid "Initial Delay"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1915
-#: includes/Extensions/GlobalFields.php:1922
-#: includes/Extensions/GlobalFields.php:1931
-#: includes/Extensions/PressBar/PressBar.php:916
-#: includes/Extensions/PressBar/PressBar.php:936
+#: includes/Extensions/GlobalFields.php:1955
+#: includes/Extensions/GlobalFields.php:1962
+#: includes/Extensions/GlobalFields.php:1971
+#: includes/Extensions/PressBar/PressBar.php:918
+#: includes/Extensions/PressBar/PressBar.php:938
 msgid "seconds"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1923
+#: includes/Extensions/GlobalFields.php:1963
 msgid "Display each notification for * seconds"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1930
+#: includes/Extensions/GlobalFields.php:1970
 msgid "Delay Between"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1932
+#: includes/Extensions/GlobalFields.php:1972
 msgid "Delay between each notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1939
+#: includes/Extensions/GlobalFields.php:1979
 msgid "Behavior"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1948
+#: includes/Extensions/GlobalFields.php:1988
 msgid "Display The Last"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1957
+#: includes/Extensions/GlobalFields.php:1997
 msgid "Display From The Last"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1965
-msgid "Loop Notification"
-msgstr ""
-
-#: includes/Extensions/GlobalFields.php:1973
-msgid "Open Link In New Tab"
-msgstr ""
-
-#: includes/Extensions/GlobalFields.php:2018
-msgid "Full Name"
-msgstr ""
-
-#: includes/Extensions/GlobalFields.php:2019
-msgid "First Name"
+#: includes/Extensions/GlobalFields.php:2011
+msgid "Hours"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:2020
+msgid "Minutes"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2033
+msgid "Loop Notification"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2041
+msgid "Open Link In New Tab"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2086
+msgid "Full Name"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2087
+msgid "First Name"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2088
 msgid "Last Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2023
+#: includes/Extensions/GlobalFields.php:2091
 msgid "Display Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2029
-#: includes/Extensions/Google/GoogleReviews.php:143
-#: includes/Extensions/OfferAnnouncement/Announcements.php:236
-#: includes/Extensions/ReviewX/ReviewX.php:158
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:153
-#: includes/Extensions/WooCommerce/WOOReviews.php:141
-#: includes/Types/Comments.php:211
-#: includes/Types/Comments.php:228
-#: includes/Types/ContactForm.php:139
-#: includes/Types/Conversions.php:236
-#: includes/Types/Donations.php:178
-#: includes/Types/ELearning.php:181
-#: includes/Types/EmailSubscription.php:118
-#: includes/Types/Reviews.php:203
+#: includes/Extensions/GlobalFields.php:2097
+#: includes/Extensions/Google/GoogleReviews.php:148
+#: includes/Extensions/OfferAnnouncement/Announcements.php:238
+#: includes/Extensions/ReviewX/ReviewX.php:163
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:157
+#: includes/Extensions/WooCommerce/WOOReviews.php:146
+#: includes/Types/Comments.php:218
+#: includes/Types/Comments.php:235
+#: includes/Types/ContactForm.php:145
+#: includes/Types/Conversions.php:213
+#: includes/Types/Donations.php:177
+#: includes/Types/ELearning.php:188
+#: includes/Types/EmailSubscription.php:127
+#: includes/Types/Reviews.php:209
 msgid "Definite Time"
 msgstr ""
 
-#: includes/Extensions/Google/GoogleReviews.php:41
-#: includes/Extensions/Google/GoogleReviews.php:42
+#: includes/Extensions/Google/GoogleReviews.php:46
+#: includes/Extensions/Google/GoogleReviews.php:47
 msgid "Google Reviews"
 msgstr ""
 
-#: includes/Extensions/Google/GoogleReviews.php:51
-#: includes/Extensions/Google/GoogleReviews.php:122
-#: includes/Extensions/ReviewX/ReviewX.php:76
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:70
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:188
-#: includes/Extensions/WooCommerce/WOOReviews.php:59
-#: includes/Types/Reviews.php:58
-#: includes/Types/Reviews.php:133
+#: includes/Extensions/Google/GoogleReviews.php:56
+#: includes/Extensions/Google/GoogleReviews.php:127
+#: includes/Extensions/ReviewX/ReviewX.php:81
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:74
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:192
+#: includes/Extensions/WooCommerce/WOOReviews.php:64
+#: includes/Types/Reviews.php:64
+#: includes/Types/Reviews.php:139
 msgid "people rated"
 msgstr ""
 
-#: includes/Extensions/Google/GoogleReviews.php:53
-#: includes/Extensions/Google/GoogleReviews.php:67
-#: includes/Extensions/Google/GoogleReviews.php:81
-#: includes/Extensions/Google/GoogleReviews.php:95
-#: includes/Extensions/Google/GoogleReviews.php:109
-#: includes/Extensions/Google/GoogleReviews.php:124
+#: includes/Extensions/Google/GoogleReviews.php:58
+#: includes/Extensions/Google/GoogleReviews.php:72
+#: includes/Extensions/Google/GoogleReviews.php:86
+#: includes/Extensions/Google/GoogleReviews.php:100
+#: includes/Extensions/Google/GoogleReviews.php:114
+#: includes/Extensions/Google/GoogleReviews.php:129
 msgid "Anonymous Place"
 msgstr ""
 
-#: includes/Extensions/Google/GoogleReviews.php:65
-#: includes/Extensions/Google/GoogleReviews.php:79
-#: includes/Extensions/Google/GoogleReviews.php:93
-#: includes/Extensions/Google/GoogleReviews.php:107
-#: includes/Extensions/ReviewX/ReviewX.php:88
-#: includes/Extensions/ReviewX/ReviewX.php:115
-#: includes/Extensions/ReviewX/ReviewX.php:126
-#: includes/Extensions/ReviewX/ReviewX.php:138
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:82
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:109
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:120
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:132
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:198
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:208
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:218
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:228
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:238
-#: includes/Extensions/WooCommerce/WOOReviews.php:71
-#: includes/Extensions/WooCommerce/WOOReviews.php:98
-#: includes/Extensions/WooCommerce/WOOReviews.php:109
-#: includes/Extensions/WooCommerce/WOOReviews.php:121
-#: includes/Types/Reviews.php:70
-#: includes/Types/Reviews.php:97
-#: includes/Types/Reviews.php:108
-#: includes/Types/Reviews.php:120
-#: includes/Types/Reviews.php:143
-#: includes/Types/Reviews.php:153
-#: includes/Types/Reviews.php:163
-#: includes/Types/Reviews.php:173
-#: includes/Types/Reviews.php:183
+#: includes/Extensions/Google/GoogleReviews.php:70
+#: includes/Extensions/Google/GoogleReviews.php:84
+#: includes/Extensions/Google/GoogleReviews.php:98
+#: includes/Extensions/Google/GoogleReviews.php:112
+#: includes/Extensions/ReviewX/ReviewX.php:93
+#: includes/Extensions/ReviewX/ReviewX.php:120
+#: includes/Extensions/ReviewX/ReviewX.php:131
+#: includes/Extensions/ReviewX/ReviewX.php:143
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:86
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:113
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:124
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:136
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:202
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:212
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:222
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:232
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:242
+#: includes/Extensions/WooCommerce/WOOReviews.php:76
+#: includes/Extensions/WooCommerce/WOOReviews.php:103
+#: includes/Extensions/WooCommerce/WOOReviews.php:114
+#: includes/Extensions/WooCommerce/WOOReviews.php:126
+#: includes/Types/Reviews.php:76
+#: includes/Types/Reviews.php:103
+#: includes/Types/Reviews.php:114
+#: includes/Types/Reviews.php:126
+#: includes/Types/Reviews.php:149
+#: includes/Types/Reviews.php:159
+#: includes/Types/Reviews.php:169
+#: includes/Types/Reviews.php:179
+#: includes/Types/Reviews.php:189
 msgid "just reviewed"
-msgstr ""
-
-#: includes/Extensions/Google/GoogleReviews.php:134
-#: includes/Extensions/ReviewX/ReviewX.php:148
-#: includes/Extensions/ReviewX/ReviewX.php:170
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:143
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:165
-#: includes/Extensions/WooCommerce/WOOReviews.php:131
-#: includes/Extensions/WooCommerce/WOOReviews.php:153
-#: includes/Types/Reviews.php:193
-#: includes/Types/Reviews.php:215
-msgid "Username"
-msgstr ""
-
-#: includes/Extensions/Google/GoogleReviews.php:135
-#: includes/Extensions/ReviewX/ReviewX.php:149
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:144
-#: includes/Extensions/WooCommerce/WOOReviews.php:132
-#: includes/Types/Reviews.php:194
-msgid "Rated"
-msgstr ""
-
-#: includes/Extensions/Google/GoogleReviews.php:138
-msgid "Place Name"
 msgstr ""
 
 #: includes/Extensions/Google/GoogleReviews.php:139
 #: includes/Extensions/ReviewX/ReviewX.php:153
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:148
+#: includes/Extensions/ReviewX/ReviewX.php:175
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:147
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:169
 #: includes/Extensions/WooCommerce/WOOReviews.php:136
-#: includes/Types/Reviews.php:198
+#: includes/Extensions/WooCommerce/WOOReviews.php:158
+#: includes/Types/Reviews.php:199
+#: includes/Types/Reviews.php:221
+msgid "Username"
+msgstr ""
+
+#: includes/Extensions/Google/GoogleReviews.php:140
+#: includes/Extensions/ReviewX/ReviewX.php:154
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:148
+#: includes/Extensions/WooCommerce/WOOReviews.php:137
+#: includes/Types/Reviews.php:200
+msgid "Rated"
+msgstr ""
+
+#: includes/Extensions/Google/GoogleReviews.php:143
+msgid "Place Name"
+msgstr ""
+
+#: includes/Extensions/Google/GoogleReviews.php:144
+#: includes/Extensions/ReviewX/ReviewX.php:158
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:152
+#: includes/Extensions/WooCommerce/WOOReviews.php:141
+#: includes/Types/Reviews.php:204
 msgid "Review"
 msgstr ""
 
-#: includes/Extensions/Google/GoogleReviews.php:142
-#: includes/Extensions/ReviewX/ReviewX.php:157
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:152
-#: includes/Extensions/WooCommerce/WOOReviews.php:140
-#: includes/Types/Reviews.php:202
+#: includes/Extensions/Google/GoogleReviews.php:147
+#: includes/Extensions/ReviewX/ReviewX.php:162
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:156
+#: includes/Extensions/WooCommerce/WOOReviews.php:145
+#: includes/Types/Reviews.php:208
 msgid "Rating"
 msgstr ""
 
-#: includes/Extensions/Google/GoogleReviews.php:156
-#: includes/Extensions/Google/YouTube.php:248
+#: includes/Extensions/Google/GoogleReviews.php:161
+#: includes/Extensions/Google/YouTube.php:254
 msgid ""
 "<a href='https://notificationx.com/docs/google-reviews-with-notificationx/\n"
 "            ' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/Google/GoogleReviews.php:159
-#: includes/Extensions/Google/YouTube.php:251
+#: includes/Extensions/Google/GoogleReviews.php:164
+#: includes/Extensions/Google/YouTube.php:257
 msgid ""
 "\n"
 "                <span>Google reviews provide helpful information and make your business stand out.</span>\n"
 "            "
 msgstr ""
 
-#: includes/Extensions/Google/GoogleReviews.php:181
+#: includes/Extensions/Google/GoogleReviews.php:185
 msgid ""
 "<p>Make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">Google Reviews API</a> key, to showcase your reviews. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
 "\t\t<p>👉NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Google Reviews</a>.</p>"
 msgstr ""
 
-#: includes/Extensions/Google/Google_Analytics.php:45
-#: includes/Extensions/Google/Google_Analytics.php:46
+#: includes/Extensions/Google/Google_Analytics.php:50
+#: includes/Extensions/Google/Google_Analytics.php:51
 msgid "Google Analytics"
 msgstr ""
 
-#: includes/Extensions/Google/Google_Analytics.php:61
+#: includes/Extensions/Google/Google_Analytics.php:65
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in to Google Analytics site</a>, to use its campaign & page analytics data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
 "\t\t<p>👉NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Google Analytics</a></p>"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:46
-#: includes/Extensions/Google/YouTube.php:47
+#: includes/Extensions/Google/YouTube.php:52
+#: includes/Extensions/Google/YouTube.php:53
 msgid "YouTube"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:54
-#: includes/Extensions/Google/YouTube.php:79
+#: includes/Extensions/Google/YouTube.php:60
+#: includes/Extensions/Google/YouTube.php:85
 msgid "Follow "
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:56
-#: includes/Extensions/Google/YouTube.php:81
-#: includes/Extensions/ReviewX/ReviewX.php:154
-#: includes/Extensions/ReviewX/ReviewX.php:174
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:149
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:169
-#: includes/Extensions/WooCommerce/WOOReviews.php:137
-#: includes/Extensions/WooCommerce/WOOReviews.php:157
+#: includes/Extensions/Google/YouTube.php:62
+#: includes/Extensions/Google/YouTube.php:87
+#: includes/Extensions/ReviewX/ReviewX.php:159
+#: includes/Extensions/ReviewX/ReviewX.php:179
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:153
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:173
+#: includes/Extensions/WooCommerce/WOOReviews.php:142
+#: includes/Extensions/WooCommerce/WOOReviews.php:162
 #: includes/FrontEnd/FrontEnd.php:265
-#: includes/Types/Donations.php:49
-#: includes/Types/EmailSubscription.php:59
-#: includes/Types/Reviews.php:199
-#: includes/Types/Reviews.php:219
+#: includes/Types/Donations.php:54
+#: includes/Types/EmailSubscription.php:68
+#: includes/Types/Reviews.php:205
+#: includes/Types/Reviews.php:225
 msgid "Anonymous Title"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:57
-#: includes/Extensions/Google/YouTube.php:82
+#: includes/Extensions/Google/YouTube.php:63
+#: includes/Extensions/Google/YouTube.php:88
 msgid "YouTube Channel"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:60
-#: includes/Extensions/Google/YouTube.php:122
-#: includes/Extensions/Google/YouTube.php:164
+#: includes/Extensions/Google/YouTube.php:66
+#: includes/Extensions/Google/YouTube.php:128
+#: includes/Extensions/Google/YouTube.php:170
 #: assets/admin/js/admin.js:1
 msgid "Views"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:63
+#: includes/Extensions/Google/YouTube.php:69
 msgid "Videos"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:70
-#: includes/Extensions/Google/YouTube.php:93
+#: includes/Extensions/Google/YouTube.php:76
+#: includes/Extensions/Google/YouTube.php:99
 msgid "Subscribe Now"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:100
-#: includes/Extensions/Google/YouTube.php:119
-#: includes/Extensions/Google/YouTube.php:141
-#: includes/Extensions/Google/YouTube.php:161
+#: includes/Extensions/Google/YouTube.php:106
+#: includes/Extensions/Google/YouTube.php:125
+#: includes/Extensions/Google/YouTube.php:147
+#: includes/Extensions/Google/YouTube.php:167
 msgid "Check our latest video "
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:113
-#: includes/Extensions/Google/YouTube.php:135
-#: includes/Extensions/Google/YouTube.php:154
-#: includes/Extensions/Google/YouTube.php:177
+#: includes/Extensions/Google/YouTube.php:119
+#: includes/Extensions/Google/YouTube.php:141
+#: includes/Extensions/Google/YouTube.php:160
+#: includes/Extensions/Google/YouTube.php:183
 msgid "Watch Now"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:125
+#: includes/Extensions/Google/YouTube.php:131
 msgid "Likes"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:167
+#: includes/Extensions/Google/YouTube.php:173
 msgid "Links"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:211
+#: includes/Extensions/Google/YouTube.php:217
 msgid "Channel Title"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:218
+#: includes/Extensions/Google/YouTube.php:224
 msgid "Total Videos"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:232
+#: includes/Extensions/Google/YouTube.php:238
 msgid "Total Likes"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:236
+#: includes/Extensions/Google/YouTube.php:242
 msgid "Total Comments"
 msgstr ""
 
-#: includes/Extensions/Google/YouTube.php:280
+#: includes/Extensions/Google/YouTube.php:284
 msgid ""
 "<p>To create YouTube notification popups, make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">YouTube API</a> key, Check out our step-by-step documentation for further assistance. <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
 "\t\t<p>👉NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Youtube</a>.</p>"
 msgstr ""
 
-#: includes/Extensions/GRVF/GravityForms.php:41
-#: includes/Extensions/GRVF/GravityForms.php:42
-#: includes/Extensions/GRVF/GravityForms.php:63
+#: includes/Extensions/GRVF/GravityForms.php:46
+#: includes/Extensions/GRVF/GravityForms.php:47
+#: includes/Extensions/GRVF/GravityForms.php:67
 msgid "Gravity Forms"
 msgstr ""
 
-#: includes/Extensions/GRVF/GravityForms.php:44
+#: includes/Extensions/GRVF/GravityForms.php:49
 msgid "<a href='https://notificationx.com/docs/gravity-forms/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/GRVF/GravityForms.php:46
+#: includes/Extensions/GRVF/GravityForms.php:51
 msgid ""
 "\n"
 "                <span>A WordPress contact forms plugin that can help you keep important leads and stay in touch with your customers.</span>\n"
@@ -2548,7 +2579,7 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Extensions/GRVF/GravityForms.php:75
+#: includes/Extensions/GRVF/GravityForms.php:79
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Gravity Forms installed & configured</a>, to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2557,32 +2588,32 @@ msgid ""
 "\t\t<p>🔥Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/IFTTT/IFTTT.php:36
-#: includes/Extensions/IFTTT/IFTTT.php:37
+#: includes/Extensions/IFTTT/IFTTT.php:41
+#: includes/Extensions/IFTTT/IFTTT.php:42
 msgid "IFTTT"
 msgstr ""
 
-#: includes/Extensions/LearnDash/LearnDash.php:41
-#: includes/Extensions/LearnDash/LearnDash.php:42
+#: includes/Extensions/LearnDash/LearnDash.php:46
+#: includes/Extensions/LearnDash/LearnDash.php:47
 msgid "LearnDash"
 msgstr ""
 
-#: includes/Extensions/LearnDash/LearnDash.php:44
+#: includes/Extensions/LearnDash/LearnDash.php:49
 msgid "<a href='https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/LearnDash/LearnDash.php:46
+#: includes/Extensions/LearnDash/LearnDash.php:51
 msgid ""
 "\n"
 "                <span>A widely used WordPress learning management system.</span>\n"
 "            "
 msgstr ""
 
-#: includes/Extensions/LearnDash/LearnDash.php:56
+#: includes/Extensions/LearnDash/LearnDash.php:60
 msgid "You have to install <a target=\"_blank\" rel=\"nofollow\" href=\"https://www.learndash.com\">LearnDash</a> plugin first."
 msgstr ""
 
-#: includes/Extensions/LearnDash/LearnDash.php:66
+#: includes/Extensions/LearnDash/LearnDash.php:70
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">LearnDash installed & configured</a> to use its campaign & course selling data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2591,41 +2622,41 @@ msgid ""
 "\t\t<p>🔥 How to Increase Your <a target=\"_blank\" href=\"%5$s\">LearnDash Course Enrollment Rates</a> With NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/LearnDash/LearnDashInline.php:40
-#: includes/Extensions/LearnPress/LearnPressInline.php:38
-#: includes/Extensions/LearnPress/LearnPressInline.php:52
-#: includes/Extensions/Tutor/TutorInline.php:38
-#: includes/Extensions/Tutor/TutorInline.php:52
+#: includes/Extensions/LearnDash/LearnDashInline.php:46
+#: includes/Extensions/LearnPress/LearnPressInline.php:44
+#: includes/Extensions/LearnPress/LearnPressInline.php:58
+#: includes/Extensions/Tutor/TutorInline.php:44
+#: includes/Extensions/Tutor/TutorInline.php:58
 msgid "people enrolled"
 msgstr ""
 
-#: includes/Extensions/LearnDash/LearnDashInline.php:54
-#: includes/Extensions/LearnPress/LearnPressInline.php:66
-#: includes/Extensions/Tutor/TutorInline.php:66
-#: includes/Types/ELearning.php:178
-#: includes/Types/ELearning.php:194
+#: includes/Extensions/LearnDash/LearnDashInline.php:60
+#: includes/Extensions/LearnPress/LearnPressInline.php:72
+#: includes/Extensions/Tutor/TutorInline.php:72
+#: includes/Types/ELearning.php:185
+#: includes/Types/ELearning.php:201
 msgid "Course Title"
 msgstr ""
 
-#: includes/Extensions/LearnPress/LearnPress.php:42
-#: includes/Extensions/LearnPress/LearnPress.php:43
-#: includes/Extensions/LearnPress/LearnPress.php:127
+#: includes/Extensions/LearnPress/LearnPress.php:48
+#: includes/Extensions/LearnPress/LearnPress.php:49
+#: includes/Extensions/LearnPress/LearnPress.php:132
 msgid "LearnPress"
 msgstr ""
 
-#: includes/Extensions/LearnPress/LearnPress.php:539
+#: includes/Extensions/LearnPress/LearnPress.php:545
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">LearnPress LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with LearnPress LMS</a></p>"
 msgstr ""
 
-#: includes/Extensions/MailChimp/MailChimp.php:38
-#: includes/Extensions/MailChimp/MailChimp.php:39
+#: includes/Extensions/MailChimp/MailChimp.php:43
+#: includes/Extensions/MailChimp/MailChimp.php:44
 msgid "MailChimp"
 msgstr ""
 
-#: includes/Extensions/MailChimp/MailChimp.php:54
+#: includes/Extensions/MailChimp/MailChimp.php:58
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API key from MailChimp account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2635,13 +2666,13 @@ msgid ""
 "\t\t<p>🚀 Hacks To Grow Your <a target=\"_blank\" href=\"%6$s\">Email Subscription List</a> On WordPress Website</p>"
 msgstr ""
 
-#: includes/Extensions/NJF/NinjaForms.php:42
-#: includes/Extensions/NJF/NinjaForms.php:43
-#: includes/Extensions/NJF/NinjaForms.php:88
+#: includes/Extensions/NJF/NinjaForms.php:47
+#: includes/Extensions/NJF/NinjaForms.php:48
+#: includes/Extensions/NJF/NinjaForms.php:92
 msgid "Ninja Forms"
 msgstr ""
 
-#: includes/Extensions/NJF/NinjaForms.php:400
+#: includes/Extensions/NJF/NinjaForms.php:404
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2650,331 +2681,331 @@ msgid ""
 "\t\t<p>🔥 Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:42
-#: includes/Extensions/OfferAnnouncement/Announcements.php:43
+#: includes/Extensions/OfferAnnouncement/Announcements.php:47
+#: includes/Extensions/OfferAnnouncement/Announcements.php:48
 msgid "Discount Announcement"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:53
-#: includes/Extensions/OfferAnnouncement/Announcements.php:64
-#: includes/Extensions/OfferAnnouncement/Announcements.php:73
-#: includes/Extensions/OfferAnnouncement/Announcements.php:84
-#: includes/Extensions/OfferAnnouncement/Announcements.php:94
-#: includes/Extensions/OfferAnnouncement/Announcements.php:106
-#: includes/Extensions/OfferAnnouncement/Announcements.php:177
-#: includes/Extensions/OfferAnnouncement/Announcements.php:191
+#: includes/Extensions/OfferAnnouncement/Announcements.php:55
+#: includes/Extensions/OfferAnnouncement/Announcements.php:66
+#: includes/Extensions/OfferAnnouncement/Announcements.php:75
+#: includes/Extensions/OfferAnnouncement/Announcements.php:86
+#: includes/Extensions/OfferAnnouncement/Announcements.php:96
+#: includes/Extensions/OfferAnnouncement/Announcements.php:108
+#: includes/Extensions/OfferAnnouncement/Announcements.php:179
+#: includes/Extensions/OfferAnnouncement/Announcements.php:193
 msgid "Flash Sale: Limited Time Offer!"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:55
-#: includes/Extensions/OfferAnnouncement/Announcements.php:65
-#: includes/Extensions/OfferAnnouncement/Announcements.php:75
-#: includes/Extensions/OfferAnnouncement/Announcements.php:85
-#: includes/Extensions/OfferAnnouncement/Announcements.php:96
-#: includes/Extensions/OfferAnnouncement/Announcements.php:131
-#: includes/Extensions/OfferAnnouncement/Announcements.php:179
-#: includes/Extensions/OfferAnnouncement/Announcements.php:193
-#: includes/Extensions/OfferAnnouncement/Announcements.php:208
+#: includes/Extensions/OfferAnnouncement/Announcements.php:57
+#: includes/Extensions/OfferAnnouncement/Announcements.php:67
+#: includes/Extensions/OfferAnnouncement/Announcements.php:77
+#: includes/Extensions/OfferAnnouncement/Announcements.php:87
+#: includes/Extensions/OfferAnnouncement/Announcements.php:98
+#: includes/Extensions/OfferAnnouncement/Announcements.php:133
+#: includes/Extensions/OfferAnnouncement/Announcements.php:181
+#: includes/Extensions/OfferAnnouncement/Announcements.php:195
+#: includes/Extensions/OfferAnnouncement/Announcements.php:210
 msgid "Enjoy flat 50% Off on NotificationX PRO Valid till this week"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:66
-#: includes/Extensions/OfferAnnouncement/Announcements.php:86
-#: includes/Types/PageAnalytics.php:116
+#: includes/Extensions/OfferAnnouncement/Announcements.php:68
+#: includes/Extensions/OfferAnnouncement/Announcements.php:88
+#: includes/Types/PageAnalytics.php:125
 msgid "Grab Now"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:104
-#: includes/Types/Conversions.php:141
-#: includes/Types/Conversions.php:151
+#: includes/Extensions/OfferAnnouncement/Announcements.php:106
+#: includes/Types/Conversions.php:118
+#: includes/Types/Conversions.php:128
 msgid "Buy Now"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:129
-#: includes/Extensions/OfferAnnouncement/Announcements.php:140
-#: includes/Extensions/OfferAnnouncement/Announcements.php:148
-#: includes/Extensions/OfferAnnouncement/Announcements.php:155
-#: includes/Extensions/OfferAnnouncement/Announcements.php:206
-#: includes/Extensions/OfferAnnouncement/Announcements.php:218
+#: includes/Extensions/OfferAnnouncement/Announcements.php:131
+#: includes/Extensions/OfferAnnouncement/Announcements.php:142
+#: includes/Extensions/OfferAnnouncement/Announcements.php:150
+#: includes/Extensions/OfferAnnouncement/Announcements.php:157
+#: includes/Extensions/OfferAnnouncement/Announcements.php:208
+#: includes/Extensions/OfferAnnouncement/Announcements.php:220
 msgid "Hi There!"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:139
+#: includes/Extensions/OfferAnnouncement/Announcements.php:141
 msgid "Get It Now"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:150
-#: includes/Extensions/OfferAnnouncement/Announcements.php:156
-#: includes/Extensions/OfferAnnouncement/Announcements.php:220
+#: includes/Extensions/OfferAnnouncement/Announcements.php:152
+#: includes/Extensions/OfferAnnouncement/Announcements.php:158
+#: includes/Extensions/OfferAnnouncement/Announcements.php:222
 msgid "Enjoy flat 50% Off on NotificationX PRO"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:154
+#: includes/Extensions/OfferAnnouncement/Announcements.php:156
 msgid "Book Now"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:167
+#: includes/Extensions/OfferAnnouncement/Announcements.php:169
 msgid "Flash Sale:"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:229
+#: includes/Extensions/OfferAnnouncement/Announcements.php:231
 msgid "Offer Title"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:232
+#: includes/Extensions/OfferAnnouncement/Announcements.php:234
 msgid "Offer Description"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:240
+#: includes/Extensions/OfferAnnouncement/Announcements.php:242
 msgid "Discount"
 msgstr ""
 
-#: includes/Extensions/OfferAnnouncement/Announcements.php:267
+#: includes/Extensions/OfferAnnouncement/Announcements.php:269
 msgid ""
 "<p>You can showcase the discount alert popup on your WordPress website to make visitors take purchasing action immediately. For further assistance, check out our step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
 "\t\t<p>🔥Introducing Discount Alert By NotificationX <a target=\"_blank\" href=\"%2$s\">Guide To Notify Customers About On-Sale Products</a> </p>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:50
+#: includes/Extensions/PressBar/PressBar.php:63
 msgid "Press Bar"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:97
+#: includes/Extensions/PressBar/PressBar.php:190
 msgid "Install Essential Blocks"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:318
+#: includes/Extensions/PressBar/PressBar.php:320
 msgid "Background Image"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:330
+#: includes/Extensions/PressBar/PressBar.php:332
 msgid "Button Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:335
+#: includes/Extensions/PressBar/PressBar.php:337
 msgid "Button Text Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:340
+#: includes/Extensions/PressBar/PressBar.php:342
 msgid "Countdown Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:345
+#: includes/Extensions/PressBar/PressBar.php:347
 msgid "Countdown Text Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:374
-#: includes/Extensions/PressBar/PressBar.php:383
+#: includes/Extensions/PressBar/PressBar.php:376
+#: includes/Extensions/PressBar/PressBar.php:385
 msgid "Close Button Position"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:393
-#: includes/Extensions/PressBar/PressBar.php:415
+#: includes/Extensions/PressBar/PressBar.php:395
+#: includes/Extensions/PressBar/PressBar.php:417
 msgid "Close Button Position Top"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:404
+#: includes/Extensions/PressBar/PressBar.php:406
 msgid "Close Button Position Left"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:426
+#: includes/Extensions/PressBar/PressBar.php:428
 msgid "Close Button Position Right"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:463
+#: includes/Extensions/PressBar/PressBar.php:465
 msgid "Activate"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:463
+#: includes/Extensions/PressBar/PressBar.php:465
 msgid "Install"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:470
+#: includes/Extensions/PressBar/PressBar.php:472
 msgid "To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:492
+#: includes/Extensions/PressBar/PressBar.php:494
 msgid "Edit With Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:506
+#: includes/Extensions/PressBar/PressBar.php:508
 msgid "Remove Elementor Design"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:538
+#: includes/Extensions/PressBar/PressBar.php:540
 msgid "Build With Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:598
-#: includes/Extensions/PressBar/PressBar.php:802
+#: includes/Extensions/PressBar/PressBar.php:600
+#: includes/Extensions/PressBar/PressBar.php:804
 msgid "Choose Your "
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:633
+#: includes/Extensions/PressBar/PressBar.php:635
 msgid "Activate Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:633
+#: includes/Extensions/PressBar/PressBar.php:635
 msgid "Install Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:634
+#: includes/Extensions/PressBar/PressBar.php:636
 msgid "Activated Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:634
+#: includes/Extensions/PressBar/PressBar.php:636
 msgid "Installed Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:635
+#: includes/Extensions/PressBar/PressBar.php:637
 msgid "Activating Elementor..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:635
+#: includes/Extensions/PressBar/PressBar.php:637
 msgid "Installing Elementor..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:662
+#: includes/Extensions/PressBar/PressBar.php:664
 msgid "Successfully Activated"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:696
+#: includes/Extensions/PressBar/PressBar.php:698
 msgid "Edit With Gutenberg"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:710
+#: includes/Extensions/PressBar/PressBar.php:712
 msgid "Remove Gutenberg Design"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:742
+#: includes/Extensions/PressBar/PressBar.php:744
 msgid "Build With Gutenberg"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:885
+#: includes/Extensions/PressBar/PressBar.php:887
 msgid "Sticky Bar?"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:890
+#: includes/Extensions/PressBar/PressBar.php:892
 msgid "If checked, this will fixed Notification Bar at top or bottom."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:895
+#: includes/Extensions/PressBar/PressBar.php:897
 msgid "Display Overlapping"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:900
+#: includes/Extensions/PressBar/PressBar.php:902
 msgid "Show Notification Bar overlapping content instead of pushing."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:921
+#: includes/Extensions/PressBar/PressBar.php:923
 msgid "Auto Hide"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:926
+#: includes/Extensions/PressBar/PressBar.php:928
 msgid "If checked, notification bar will be hidden after the time set below."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:931
+#: includes/Extensions/PressBar/PressBar.php:933
 msgid "Hide After"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:937
+#: includes/Extensions/PressBar/PressBar.php:939
 msgid "Hide after 60 seconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1010
+#: includes/Extensions/PressBar/PressBar.php:1012
 msgid "NotificationX Bar"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1043
+#: includes/Extensions/PressBar/PressBar.php:1045
 msgid "NotificationX Bar (Gutenberg)"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1143
+#: includes/Extensions/PressBar/PressBar.php:1145
 msgid "Write something here..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1153
-#: includes/Types/GDPR.php:418
-#: includes/Types/GDPR.php:426
-#: includes/Types/GDPR.php:434
+#: includes/Extensions/PressBar/PressBar.php:1155
+#: includes/Types/GDPR.php:423
+#: includes/Types/GDPR.php:431
+#: includes/Types/GDPR.php:439
 msgid "Button Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1163
+#: includes/Extensions/PressBar/PressBar.php:1165
 msgid "Button URL"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1173
+#: includes/Extensions/PressBar/PressBar.php:1175
 msgid "Countdown Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1179
+#: includes/Extensions/PressBar/PressBar.php:1181
 msgid "Enable Countdown"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1184
+#: includes/Extensions/PressBar/PressBar.php:1186
 msgid "Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1188
+#: includes/Extensions/PressBar/PressBar.php:1190
 msgid "To configure Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1193
+#: includes/Extensions/PressBar/PressBar.php:1195
 msgid "Countdown Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1203
+#: includes/Extensions/PressBar/PressBar.php:1205
 msgid "Expired Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1205
+#: includes/Extensions/PressBar/PressBar.php:1207
 msgid "Expired"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1215
+#: includes/Extensions/PressBar/PressBar.php:1217
 msgid "Start Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1222
+#: includes/Extensions/PressBar/PressBar.php:1224
 msgid "End Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1230
+#: includes/Extensions/PressBar/PressBar.php:1232
 msgid "Randomize"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1236
+#: includes/Extensions/PressBar/PressBar.php:1238
 msgid "Time Between"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1242
+#: includes/Extensions/PressBar/PressBar.php:1244
 msgid "Start Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1249
+#: includes/Extensions/PressBar/PressBar.php:1251
 msgid "End Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1258
+#: includes/Extensions/PressBar/PressBar.php:1260
 msgid "Time Rotation"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1266
+#: includes/Extensions/PressBar/PressBar.php:1268
 msgid "Daily Time Reset"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1272
+#: includes/Extensions/PressBar/PressBar.php:1274
 msgid "Permanent Close"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1277
+#: includes/Extensions/PressBar/PressBar.php:1279
 msgid "Close After Expire"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1464
+#: includes/Extensions/PressBar/PressBar.php:1466
 msgid ""
 "<p>You can showcase the notification bar to run instant popup campaigns on WordPress sites. For further assistance, check out our step-by-step guides on adding notification bars built with both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
 "\t\t<p>🎦 Watch the <a target = \"_blank\" href = \"%3$s\">video tutorial</a> for a quick guide.</p>\n"
@@ -2983,148 +3014,148 @@ msgid ""
 "\t\t<p>🔥 <a href=\"%5$s\" target=\"_blank\">Evergreen Dynamic Notification Bar</a> to Boost Sales in WordPress.</p>"
 msgstr ""
 
-#: includes/Extensions/ReviewX/ReviewX.php:66
-#: includes/Extensions/ReviewX/ReviewX.php:67
-#: includes/Extensions/ReviewX/ReviewX.php:208
+#: includes/Extensions/ReviewX/ReviewX.php:72
+#: includes/Extensions/ReviewX/ReviewX.php:73
+#: includes/Extensions/ReviewX/ReviewX.php:212
 msgid "ReviewX"
 msgstr ""
 
-#: includes/Extensions/ReviewX/ReviewX.php:100
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:94
-#: includes/Extensions/WooCommerce/WOOReviews.php:83
-#: includes/Types/Reviews.php:82
+#: includes/Extensions/ReviewX/ReviewX.php:105
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:98
+#: includes/Extensions/WooCommerce/WOOReviews.php:88
+#: includes/Types/Reviews.php:88
 msgid "saying"
 msgstr ""
 
-#: includes/Extensions/ReviewX/ReviewX.php:102
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:96
-#: includes/Extensions/WooCommerce/WOOReviews.php:85
-#: includes/Types/Reviews.php:84
+#: includes/Extensions/ReviewX/ReviewX.php:107
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:100
+#: includes/Extensions/WooCommerce/WOOReviews.php:90
+#: includes/Types/Reviews.php:90
 msgid "Excellent"
 msgstr ""
 
-#: includes/Extensions/ReviewX/ReviewX.php:103
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:97
-#: includes/Extensions/WooCommerce/WOOReviews.php:86
-#: includes/Types/Reviews.php:85
+#: includes/Extensions/ReviewX/ReviewX.php:108
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:101
+#: includes/Extensions/WooCommerce/WOOReviews.php:91
+#: includes/Types/Reviews.php:91
 msgid "about"
 msgstr ""
 
-#: includes/Extensions/ReviewX/ReviewX.php:106
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:100
-#: includes/Extensions/WooCommerce/WOOReviews.php:89
-#: includes/Types/Reviews.php:88
+#: includes/Extensions/ReviewX/ReviewX.php:111
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:104
+#: includes/Extensions/WooCommerce/WOOReviews.php:94
+#: includes/Types/Reviews.php:94
 msgid "Try it now"
 msgstr ""
 
-#: includes/Extensions/ReviewX/ReviewX.php:173
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:168
-#: includes/Extensions/WooCommerce/WOOReviews.php:156
-#: includes/Types/Reviews.php:218
+#: includes/Extensions/ReviewX/ReviewX.php:178
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:172
+#: includes/Extensions/WooCommerce/WOOReviews.php:161
+#: includes/Types/Reviews.php:224
 msgid "Review Title"
 msgstr ""
 
-#: includes/Extensions/ReviewX/ReviewX.php:177
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:172
-#: includes/Types/Reviews.php:197
-#: includes/Types/Reviews.php:222
+#: includes/Extensions/ReviewX/ReviewX.php:182
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:176
+#: includes/Types/Reviews.php:203
+#: includes/Types/Reviews.php:228
 msgid "Plugin Name"
 msgstr ""
 
-#: includes/Extensions/ReviewX/ReviewX.php:209
+#: includes/Extensions/ReviewX/ReviewX.php:213
 msgid "plugin."
 msgstr ""
 
-#: includes/Extensions/ReviewX/ReviewX.php:275
+#: includes/Extensions/ReviewX/ReviewX.php:279
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce</a> & <a target=\"_blank\" href=\"%2$s\">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%3$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
 "\t\t<p>🚀 How to <a target=\"_blank\" href=\"%4$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/SureCart/SureCart.php:35
-#: includes/Extensions/SureCart/SureCart.php:36
-#: includes/Extensions/SureCart/SureCart.php:451
+#: includes/Extensions/SureCart/SureCart.php:40
+#: includes/Extensions/SureCart/SureCart.php:41
+#: includes/Extensions/SureCart/SureCart.php:455
 msgid "SureCart"
 msgstr ""
 
-#: includes/Extensions/SureCart/SureCart.php:113
+#: includes/Extensions/SureCart/SureCart.php:117
 msgid "Processing"
 msgstr ""
 
-#: includes/Extensions/SureCart/SureCart.php:114
+#: includes/Extensions/SureCart/SureCart.php:118
 msgid "Unfulfilled"
 msgstr ""
 
-#: includes/Extensions/SureCart/SureCart.php:115
+#: includes/Extensions/SureCart/SureCart.php:119
 msgid "Fulfilled"
 msgstr ""
 
-#: includes/Extensions/SureCart/SureCart.php:116
+#: includes/Extensions/SureCart/SureCart.php:120
 msgid "Shipped"
 msgstr ""
 
-#: includes/Extensions/SureCart/SureCart.php:117
+#: includes/Extensions/SureCart/SureCart.php:121
 msgid "Delivered"
 msgstr ""
 
-#: includes/Extensions/SureCart/SureCart.php:118
+#: includes/Extensions/SureCart/SureCart.php:122
 msgid "Not Shipped"
 msgstr ""
 
-#: includes/Extensions/SureCart/SureCart.php:463
+#: includes/Extensions/SureCart/SureCart.php:467
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">SureCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "        <a target=\"_blank\" href=\"%3$s\">👉 NotificationX Integration with SureCart</a>"
 msgstr ""
 
-#: includes/Extensions/Tutor/Tutor.php:41
+#: includes/Extensions/Tutor/Tutor.php:47
 msgid "Tutor"
 msgstr ""
 
-#: includes/Extensions/Tutor/Tutor.php:42
-#: includes/Extensions/Tutor/Tutor.php:126
+#: includes/Extensions/Tutor/Tutor.php:48
+#: includes/Extensions/Tutor/Tutor.php:131
 msgid "Tutor LMS"
 msgstr ""
 
-#: includes/Extensions/Tutor/Tutor.php:534
+#: includes/Extensions/Tutor/Tutor.php:540
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Tutor LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%4$s\">Integration with Tutor LMS</a></p>"
 msgstr ""
 
-#: includes/Extensions/Vimeo/Vimeo.php:37
+#: includes/Extensions/Vimeo/Vimeo.php:42
 msgid "Vimeo"
 msgstr ""
 
-#: includes/Extensions/Wistia/Wistia.php:36
+#: includes/Extensions/Wistia/Wistia.php:41
 msgid "Wistia"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerce.php:49
-#: includes/Extensions/WooCommerce/WooCommerce.php:50
-#: includes/Extensions/WooCommerce/WooCommerce.php:100
-#: includes/Extensions/WooCommerce/WOOReviews.php:50
-#: includes/Extensions/WooCommerce/WOOReviews.php:51
-#: includes/Extensions/WooCommerce/WOOReviews.php:229
-#: includes/Types/WooCommerceSales.php:52
+#: includes/Extensions/WooCommerce/WooCommerce.php:54
+#: includes/Extensions/WooCommerce/WooCommerce.php:55
+#: includes/Extensions/WooCommerce/WooCommerce.php:104
+#: includes/Extensions/WooCommerce/WOOReviews.php:55
+#: includes/Extensions/WooCommerce/WOOReviews.php:56
+#: includes/Extensions/WooCommerce/WOOReviews.php:233
+#: includes/Types/WooCommerceSales.php:57
 msgid "WooCommerce"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerce.php:52
-#: includes/Extensions/WooCommerce/WooCommerce.php:53
+#: includes/Extensions/WooCommerce/WooCommerce.php:57
+#: includes/Extensions/WooCommerce/WooCommerce.php:58
 msgid "Product Title Raw"
 msgstr ""
 
 #. translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
-#: includes/Extensions/WooCommerce/WooCommerce.php:476
+#: includes/Extensions/WooCommerce/WooCommerce.php:480
 msgid "%1$s & %2$s %3$s"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerce.php:533
-#: includes/Extensions/WooCommerce/WooCommerceSales.php:199
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:163
+#: includes/Extensions/WooCommerce/WooCommerce.php:537
+#: includes/Extensions/WooCommerce/WooCommerceSales.php:203
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:167
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a href=\"%3$s\" target=\"_blank\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -3134,63 +3165,63 @@ msgid ""
 "\t\t<p>🚀 How to <a target=\"_blank\" href=\"%5$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:72
-#: includes/Extensions/WooCommerce/WooInline.php:75
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:76
+#: includes/Extensions/WooCommerce/WooInline.php:80
 msgid "99"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:88
-#: includes/Extensions/WooCommerce/WooInline.php:91
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:92
+#: includes/Extensions/WooCommerce/WooInline.php:96
 msgid "Only"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:92
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:137
-#: includes/Extensions/WooCommerce/WooInline.php:95
-#: includes/Extensions/WooCommerce/WooInline.php:140
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:96
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:141
+#: includes/Extensions/WooCommerce/WooInline.php:100
+#: includes/Extensions/WooCommerce/WooInline.php:145
 msgid "left in stock"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:94
-#: includes/Extensions/WooCommerce/WooInline.php:97
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:98
+#: includes/Extensions/WooCommerce/WooInline.php:102
 msgid "- order soon."
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:105
-#: includes/Extensions/WooCommerce/WooInline.php:108
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:109
+#: includes/Extensions/WooCommerce/WooInline.php:113
 msgid "In high demand - only"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:109
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:138
-#: includes/Extensions/WooCommerce/WooInline.php:112
-#: includes/Extensions/WooCommerce/WooInline.php:141
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:113
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:142
+#: includes/Extensions/WooCommerce/WooInline.php:117
+#: includes/Extensions/WooCommerce/WooInline.php:146
 msgid "left"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:111
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:142
-#: includes/Extensions/WooCommerce/WooInline.php:114
-#: includes/Extensions/WooCommerce/WooInline.php:145
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:115
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:146
+#: includes/Extensions/WooCommerce/WooInline.php:119
+#: includes/Extensions/WooCommerce/WooInline.php:150
 msgid "on our site!"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:134
-#: includes/Extensions/WooCommerce/WooInline.php:137
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:138
+#: includes/Extensions/WooCommerce/WooInline.php:142
 msgid "Stock Count"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:141
-#: includes/Extensions/WooCommerce/WooInline.php:144
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:145
+#: includes/Extensions/WooCommerce/WooInline.php:149
 msgid "order soon."
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:151
-#: includes/Types/Inline.php:39
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:155
+#: includes/Types/Inline.php:47
 msgid "<a href='https://notificationx.com/growth-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:153
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:157
 msgid ""
 "\n"
 "                <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>\n"
@@ -3200,8 +3231,8 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:247
-#: includes/Extensions/WooCommerce/WOOReviews.php:488
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:251
+#: includes/Extensions/WooCommerce/WOOReviews.php:493
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -3209,21 +3240,21 @@ msgid ""
 "\t\t<p>🚀 How to <a target=\"_blank\" href=\"%4$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WOOReviews.php:209
+#: includes/Extensions/WooCommerce/WOOReviews.php:213
 msgid "someone"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WOOReviews.php:210
-#: includes/Extensions/WordPress/WPOrgReview.php:181
+#: includes/Extensions/WooCommerce/WOOReviews.php:214
+#: includes/Extensions/WordPress/WPOrgReview.php:185
 msgid "try it out"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WOOReviews.php:211
-#: includes/Extensions/WordPress/WPOrgReview.php:182
+#: includes/Extensions/WooCommerce/WOOReviews.php:215
+#: includes/Extensions/WordPress/WPOrgReview.php:186
 msgid "Anonymous"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WOOReviews.php:212
+#: includes/Extensions/WooCommerce/WOOReviews.php:216
 msgid "Some review content"
 msgstr ""
 
@@ -3236,123 +3267,123 @@ msgid ""
 "\t\t<p>🚀 How To Increase <a target=\"_blank\" href=\"%8$s\">WordPress Plugin Download Rates & Increase Sales</a> in 2023</p>"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPComments.php:41
+#: includes/Extensions/WordPress/WPComments.php:47
 msgid "WP Comments"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPComments.php:42
-#: includes/Extensions/WordPress/WPOrgReview.php:51
-#: includes/Extensions/WordPress/WPOrgStats.php:52
+#: includes/Extensions/WordPress/WPComments.php:48
+#: includes/Extensions/WordPress/WPOrgReview.php:56
+#: includes/Extensions/WordPress/WPOrgStats.php:57
 msgid "WordPress"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPComments.php:260
-#: includes/Types/Comments.php:50
-#: includes/Types/Comments.php:63
-#: includes/Types/Comments.php:76
-#: includes/Types/Comments.php:89
-#: includes/Types/Comments.php:102
-#: includes/Types/Comments.php:115
-#: includes/Types/Comments.php:129
-#: includes/Types/Comments.php:143
-#: includes/Types/GDPR.php:55
-#: includes/Types/GDPR.php:69
-#: includes/Types/GDPR.php:83
-#: includes/Types/GDPR.php:97
-#: includes/Types/GDPR.php:111
-#: includes/Types/GDPR.php:125
-#: includes/Types/GDPR.php:139
-#: includes/Types/GDPR.php:153
-#: includes/Types/GDPR.php:167
-#: includes/Types/GDPR.php:181
-#: includes/Types/GDPR.php:195
-#: includes/Types/GDPR.php:209
+#: includes/Extensions/WordPress/WPComments.php:265
+#: includes/Types/Comments.php:57
+#: includes/Types/Comments.php:70
+#: includes/Types/Comments.php:83
+#: includes/Types/Comments.php:96
+#: includes/Types/Comments.php:109
+#: includes/Types/Comments.php:122
+#: includes/Types/Comments.php:136
+#: includes/Types/Comments.php:150
+#: includes/Types/GDPR.php:60
+#: includes/Types/GDPR.php:74
+#: includes/Types/GDPR.php:88
+#: includes/Types/GDPR.php:102
+#: includes/Types/GDPR.php:116
+#: includes/Types/GDPR.php:130
+#: includes/Types/GDPR.php:144
+#: includes/Types/GDPR.php:158
+#: includes/Types/GDPR.php:172
+#: includes/Types/GDPR.php:186
+#: includes/Types/GDPR.php:200
+#: includes/Types/GDPR.php:214
 msgid "Anonymous Post"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPComments.php:262
+#: includes/Extensions/WordPress/WPComments.php:267
 msgid "Some comment"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPOrgReview.php:50
+#: includes/Extensions/WordPress/WPOrgReview.php:55
 msgid "WP.Org Reviews"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPOrgReview.php:134
-#: includes/Extensions/WordPress/WPOrgStats.php:127
+#: includes/Extensions/WordPress/WPOrgReview.php:138
+#: includes/Extensions/WordPress/WPOrgStats.php:131
 msgid "Product Type"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPOrgReview.php:140
-#: includes/Extensions/WordPress/WPOrgStats.php:131
+#: includes/Extensions/WordPress/WPOrgReview.php:144
+#: includes/Extensions/WordPress/WPOrgStats.php:135
 msgid "Plugin"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPOrgReview.php:146
-#: includes/Extensions/WordPress/WPOrgStats.php:140
+#: includes/Extensions/WordPress/WPOrgReview.php:150
+#: includes/Extensions/WordPress/WPOrgStats.php:144
 msgid "Slug"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPOrgReview.php:155
-#: includes/Extensions/WordPress/WPOrgStats.php:147
+#: includes/Extensions/WordPress/WPOrgReview.php:159
+#: includes/Extensions/WordPress/WPOrgStats.php:151
 msgid "Product Name Length"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPOrgReview.php:173
-#: includes/Extensions/WordPress/WPOrgStats.php:165
+#: includes/Extensions/WordPress/WPOrgReview.php:177
+#: includes/Extensions/WordPress/WPOrgStats.php:169
 msgid "Set a max content length for product name."
 msgstr ""
 
-#: includes/Extensions/WordPress/WPOrgStats.php:51
+#: includes/Extensions/WordPress/WPOrgStats.php:56
 msgid "WP.Org Stats"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPOrgStats.php:132
+#: includes/Extensions/WordPress/WPOrgStats.php:136
 msgid "Theme"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPOrgStats.php:177
-#: includes/Extensions/WordPress/WPOrgStats.php:180
+#: includes/Extensions/WordPress/WPOrgStats.php:181
+#: includes/Extensions/WordPress/WPOrgStats.php:184
 msgid "Try It Out"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPOrgStats.php:178
-#: includes/Types/DownloadStats.php:137
+#: includes/Extensions/WordPress/WPOrgStats.php:182
+#: includes/Types/DownloadStats.php:143
 msgid "Get Started for Free."
 msgstr ""
 
-#: includes/Extensions/WordPress/WPOrgStats.php:179
-#: includes/Types/DownloadStats.php:138
+#: includes/Extensions/WordPress/WPOrgStats.php:183
+#: includes/Types/DownloadStats.php:144
 msgid "Why Don't You?"
 msgstr ""
 
 #. translators: %s: number of downloads today.
-#: includes/Extensions/WordPress/WPOrgStats.php:193
+#: includes/Extensions/WordPress/WPOrgStats.php:197
 msgid "%s times today"
 msgstr ""
 
 #. translators: %s: number of downloads yesterday.
 #. translators: %s: number of downloads of all time.
-#: includes/Extensions/WordPress/WPOrgStats.php:195
 #: includes/Extensions/WordPress/WPOrgStats.php:199
+#: includes/Extensions/WordPress/WPOrgStats.php:203
 msgid "%s times"
 msgstr ""
 
 #. translators: %s: number of downloads in last 7 days.
-#: includes/Extensions/WordPress/WPOrgStats.php:197
+#: includes/Extensions/WordPress/WPOrgStats.php:201
 msgid "%s times in last 7 days"
 msgstr ""
 
-#: includes/Extensions/WPF/WPForms.php:44
-#: includes/Extensions/WPF/WPForms.php:45
+#: includes/Extensions/WPF/WPForms.php:49
+#: includes/Extensions/WPF/WPForms.php:50
 msgid "WPForms"
 msgstr ""
 
-#: includes/Extensions/WPF/WPForms.php:88
+#: includes/Extensions/WPF/WPForms.php:92
 msgid "WP Forms"
 msgstr ""
 
-#: includes/Extensions/WPF/WPForms.php:338
+#: includes/Extensions/WPF/WPForms.php:342
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -3361,21 +3392,21 @@ msgid ""
 "\t\t<p>🔥Hacks to Increase Your <a target=\"_blank\" href=\"%5$s\">WordPress Contact Forms Submission Rate</a> Using NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:39
-#: includes/Extensions/Zapier/ZapierConversions.php:40
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:39
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:40
-#: includes/Extensions/Zapier/ZapierReviews.php:39
-#: includes/Extensions/Zapier/ZapierReviews.php:40
+#: includes/Extensions/Zapier/ZapierConversions.php:44
+#: includes/Extensions/Zapier/ZapierConversions.php:45
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:44
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:45
+#: includes/Extensions/Zapier/ZapierReviews.php:44
+#: includes/Extensions/Zapier/ZapierReviews.php:45
 msgid "Zapier"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:42
-#: includes/Extensions/Zapier/ZapierReviews.php:42
+#: includes/Extensions/Zapier/ZapierConversions.php:47
+#: includes/Extensions/Zapier/ZapierReviews.php:47
 msgid "<a href='https://notificationx.com/docs/zapier-notification-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:44
+#: includes/Extensions/Zapier/ZapierConversions.php:49
 msgid ""
 "\n"
 "                <span>A well-known web-based tool to connect with any of your web-based applications & boost productivity.</span>\n"
@@ -3385,130 +3416,130 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:67
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:57
-#: includes/Extensions/Zapier/ZapierReviews.php:64
+#: includes/Extensions/Zapier/ZapierConversions.php:71
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
+#: includes/Extensions/Zapier/ZapierReviews.php:68
 msgid "Field Name:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:67
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:57
-#: includes/Extensions/Zapier/ZapierReviews.php:64
+#: includes/Extensions/Zapier/ZapierConversions.php:71
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
+#: includes/Extensions/Zapier/ZapierReviews.php:68
 msgid "Field Key"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:68
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:58
+#: includes/Extensions/Zapier/ZapierConversions.php:72
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:62
 msgid "Full Name:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:69
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:59
+#: includes/Extensions/Zapier/ZapierConversions.php:73
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:63
 msgid "First Name:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:70
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:60
+#: includes/Extensions/Zapier/ZapierConversions.php:74
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:64
 msgid "Last Name:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:71
+#: includes/Extensions/Zapier/ZapierConversions.php:75
 msgid "Sales Count:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:72
+#: includes/Extensions/Zapier/ZapierConversions.php:76
 msgid "Customer Email:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:73
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:62
+#: includes/Extensions/Zapier/ZapierConversions.php:77
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:66
 msgid "Title, Product Title:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:74
+#: includes/Extensions/Zapier/ZapierConversions.php:78
 msgid "Anonymous Title, Product:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:75
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:64
-#: includes/Extensions/Zapier/ZapierReviews.php:73
+#: includes/Extensions/Zapier/ZapierConversions.php:79
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:68
+#: includes/Extensions/Zapier/ZapierReviews.php:77
 msgid "Definite Time:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:76
+#: includes/Extensions/Zapier/ZapierConversions.php:80
 msgid "Sometime:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:77
+#: includes/Extensions/Zapier/ZapierConversions.php:81
 msgid "In last 1 day:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:78
+#: includes/Extensions/Zapier/ZapierConversions.php:82
 msgid "In last 7 days:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:79
+#: includes/Extensions/Zapier/ZapierConversions.php:83
 msgid "In last 30 days:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:80
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:66
+#: includes/Extensions/Zapier/ZapierConversions.php:84
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:70
 msgid "City:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:81
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:67
+#: includes/Extensions/Zapier/ZapierConversions.php:85
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:71
 msgid "Country:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:82
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:68
+#: includes/Extensions/Zapier/ZapierConversions.php:86
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:72
 msgid "City,Country:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
-#: includes/Extensions/Zapier/ZapierReviews.php:66
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:65
+#: includes/Extensions/Zapier/ZapierReviews.php:70
 msgid "Email:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:63
-#: includes/Extensions/Zapier/ZapierReviews.php:71
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:67
+#: includes/Extensions/Zapier/ZapierReviews.php:75
 msgid "Anonymous Title:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:65
-#: includes/Extensions/Zapier/ZapierReviews.php:74
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:69
+#: includes/Extensions/Zapier/ZapierReviews.php:78
 msgid "Some time ago:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierReviews.php:44
+#: includes/Extensions/Zapier/ZapierReviews.php:49
 msgid ""
 "\n"
 "                <span>Display review alerts from popular social media networks & encourage visitors to place trust in your business.</span>\n"
 "            "
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierReviews.php:65
+#: includes/Extensions/Zapier/ZapierReviews.php:69
 msgid "Username:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierReviews.php:67
+#: includes/Extensions/Zapier/ZapierReviews.php:71
 msgid "Rated:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierReviews.php:68
+#: includes/Extensions/Zapier/ZapierReviews.php:72
 msgid "Plugin Name:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierReviews.php:69
+#: includes/Extensions/Zapier/ZapierReviews.php:73
 msgid "Plugin Review:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierReviews.php:70
+#: includes/Extensions/Zapier/ZapierReviews.php:74
 msgid "Review Title:"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierReviews.php:72
+#: includes/Extensions/Zapier/ZapierReviews.php:76
 msgid "Rating:"
 msgstr ""
 
@@ -3548,185 +3579,175 @@ msgstr ""
 msgid "Go Pro"
 msgstr ""
 
-#: includes/Types/Comments.php:48
-#: includes/Types/Comments.php:61
-#: includes/Types/Comments.php:74
-#: includes/Types/Comments.php:87
-#: includes/Types/Comments.php:100
-#: includes/Types/Comments.php:113
-#: includes/Types/Comments.php:127
-#: includes/Types/Comments.php:141
-#: includes/Types/GDPR.php:53
-#: includes/Types/GDPR.php:67
-#: includes/Types/GDPR.php:81
-#: includes/Types/GDPR.php:95
-#: includes/Types/GDPR.php:109
-#: includes/Types/GDPR.php:123
-#: includes/Types/GDPR.php:137
-#: includes/Types/GDPR.php:151
-#: includes/Types/GDPR.php:165
-#: includes/Types/GDPR.php:179
-#: includes/Types/GDPR.php:193
-#: includes/Types/GDPR.php:207
+#: includes/Types/Comments.php:55
+#: includes/Types/Comments.php:68
+#: includes/Types/Comments.php:81
+#: includes/Types/Comments.php:94
+#: includes/Types/Comments.php:107
+#: includes/Types/Comments.php:120
+#: includes/Types/Comments.php:134
+#: includes/Types/Comments.php:148
+#: includes/Types/GDPR.php:58
+#: includes/Types/GDPR.php:72
+#: includes/Types/GDPR.php:86
+#: includes/Types/GDPR.php:100
+#: includes/Types/GDPR.php:114
+#: includes/Types/GDPR.php:128
+#: includes/Types/GDPR.php:142
+#: includes/Types/GDPR.php:156
+#: includes/Types/GDPR.php:170
+#: includes/Types/GDPR.php:184
+#: includes/Types/GDPR.php:198
+#: includes/Types/GDPR.php:212
 msgid "commented on"
 msgstr ""
 
-#: includes/Types/Comments.php:208
-#: includes/Types/Comments.php:224
+#: includes/Types/Comments.php:215
+#: includes/Types/Comments.php:231
 msgid "Post Title"
 msgstr ""
 
-#: includes/Types/Comments.php:225
+#: includes/Types/Comments.php:232
 msgid "Post Comment"
 msgstr ""
 
-#: includes/Types/Comments.php:261
-#: includes/Types/OfferAnnouncement.php:73
+#: includes/Types/Comments.php:265
+#: includes/Types/OfferAnnouncement.php:79
 msgid "Comment URL"
 msgstr ""
 
-#: includes/Types/ContactForm.php:55
-#: includes/Types/ContactForm.php:68
-#: includes/Types/ContactForm.php:81
+#: includes/Types/ContactForm.php:61
+#: includes/Types/ContactForm.php:74
+#: includes/Types/ContactForm.php:87
 msgid "recently contacted via"
 msgstr ""
 
-#: includes/Types/ContactForm.php:96
-#: includes/Types/ContactForm.php:107
-#: includes/Types/ContactForm.php:118
+#: includes/Types/ContactForm.php:102
+#: includes/Types/ContactForm.php:113
+#: includes/Types/ContactForm.php:124
 msgid "just contacted via"
 msgstr ""
 
-#: includes/Types/ContactForm.php:129
+#: includes/Types/ContactForm.php:135
 msgid "Select A Tag"
 msgstr ""
 
-#: includes/Types/ContactForm.php:135
+#: includes/Types/ContactForm.php:141
 msgid "Form Title"
 msgstr ""
 
-#: includes/Types/ContactForm.php:220
+#: includes/Types/ContactForm.php:230
 msgid "Select a Form"
 msgstr ""
 
-#: includes/Types/Conversions.php:62
-#: includes/Types/Conversions.php:71
-#: includes/Types/WooCommerceSales.php:59
+#: includes/Types/Conversions.php:66
+#: includes/Types/WooCommerceSales.php:64
 msgid "just purchased"
 msgstr ""
 
-#: includes/Types/Conversions.php:78
-msgid "people"
-msgstr ""
-
-#: includes/Types/Conversions.php:79
-msgid "purchased"
-msgstr ""
-
-#: includes/Types/Donations.php:41
+#: includes/Types/Donations.php:46
 msgid "Donations"
 msgstr ""
 
-#: includes/Types/Donations.php:45
-#: includes/Types/Donations.php:55
+#: includes/Types/Donations.php:50
 msgid "recently donated for"
 msgstr ""
 
-#: includes/Types/Donations.php:47
+#: includes/Types/Donations.php:52
 msgid "100"
 msgstr ""
 
-#: includes/Types/Donations.php:170
+#: includes/Types/Donations.php:169
 msgid "Donation Amount"
 msgstr ""
 
-#: includes/Types/Donations.php:174
-#: includes/Types/Donations.php:193
+#: includes/Types/Donations.php:173
+#: includes/Types/Donations.php:192
 msgid "Donation For Title"
 msgstr ""
 
-#: includes/Types/Donations.php:230
+#: includes/Types/Donations.php:226
 msgid "Donation Form Page"
 msgstr ""
 
-#: includes/Types/DownloadStats.php:51
-#: includes/Types/DownloadStats.php:64
-#: includes/Types/DownloadStats.php:88
+#: includes/Types/DownloadStats.php:57
+#: includes/Types/DownloadStats.php:70
+#: includes/Types/DownloadStats.php:94
 msgid "has been downloaded"
 msgstr ""
 
-#: includes/Types/DownloadStats.php:77
+#: includes/Types/DownloadStats.php:83
 msgid "people are actively using"
 msgstr ""
 
-#: includes/Types/DownloadStats.php:125
-#: includes/Types/DownloadStats.php:155
+#: includes/Types/DownloadStats.php:131
+#: includes/Types/DownloadStats.php:161
 msgid "Plugin/Theme Name"
 msgstr ""
 
-#: includes/Types/DownloadStats.php:129
-#: includes/Types/DownloadStats.php:149
+#: includes/Types/DownloadStats.php:135
+#: includes/Types/DownloadStats.php:155
 msgid "Today"
 msgstr ""
 
-#: includes/Types/DownloadStats.php:131
-#: includes/Types/DownloadStats.php:151
+#: includes/Types/DownloadStats.php:137
+#: includes/Types/DownloadStats.php:157
 msgid "Total"
 msgstr ""
 
-#: includes/Types/DownloadStats.php:132
-#: includes/Types/DownloadStats.php:152
+#: includes/Types/DownloadStats.php:138
+#: includes/Types/DownloadStats.php:158
 msgid "Total Active Install"
 msgstr ""
 
-#: includes/Types/DownloadStats.php:136
+#: includes/Types/DownloadStats.php:142
 msgid "Try it out"
 msgstr ""
 
-#: includes/Types/DownloadStats.php:139
+#: includes/Types/DownloadStats.php:145
 msgid "in total active"
 msgstr ""
 
-#: includes/Types/ELearning.php:52
+#: includes/Types/ELearning.php:59
 msgid "just enrolled"
 msgstr ""
 
-#: includes/Types/ELearning.php:54
-#: includes/Types/ELearning.php:67
-#: includes/Types/ELearning.php:80
+#: includes/Types/ELearning.php:61
+#: includes/Types/ELearning.php:74
+#: includes/Types/ELearning.php:87
 msgid "Anonymous Course"
 msgstr ""
 
-#: includes/Types/ELearning.php:65
-#: includes/Types/ELearning.php:78
+#: includes/Types/ELearning.php:72
+#: includes/Types/ELearning.php:85
 msgid "recently enrolled"
 msgstr ""
 
-#: includes/Types/ELearning.php:230
+#: includes/Types/ELearning.php:235
 msgid "Show Notification Of"
 msgstr ""
 
-#: includes/Types/ELearning.php:236
+#: includes/Types/ELearning.php:241
 msgid "By Course"
 msgstr ""
 
-#: includes/Types/ELearning.php:243
+#: includes/Types/ELearning.php:248
 msgid "Select Course"
 msgstr ""
 
-#: includes/Types/ELearning.php:280
+#: includes/Types/ELearning.php:285
 msgid "Course Page"
 msgstr ""
 
-#: includes/Types/EmailSubscription.php:41
+#: includes/Types/EmailSubscription.php:51
 msgid "Email Subscription"
 msgstr ""
 
-#: includes/Types/EmailSubscription.php:43
+#: includes/Types/EmailSubscription.php:53
 msgid "<a href='https://notificationx.com/docs/mailchimp-email-subscription-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Types/EmailSubscription.php:45
+#: includes/Types/EmailSubscription.php:55
 msgid ""
 "\n"
 "                <span>Show popups to display which users subscribed to your Newsletter.</span>\n"
@@ -3736,19 +3757,19 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Types/EmailSubscription.php:57
+#: includes/Types/EmailSubscription.php:66
 msgid "just subscribed to"
 msgstr ""
 
-#: includes/Types/EmailSubscription.php:114
+#: includes/Types/EmailSubscription.php:123
 msgid "List Title"
 msgstr ""
 
-#: includes/Types/FlashingTab.php:39
+#: includes/Types/FlashingTab.php:46
 msgid "<a href='https://notificationx.com/flashing-tab/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Types/FlashingTab.php:41
+#: includes/Types/FlashingTab.php:48
 msgid ""
 "\n"
 "                <span>Revive lost visitors and convert them into customers with captivating Flashing Tab alerts.</span>\n"
@@ -3758,186 +3779,186 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Types/GDPR.php:265
+#: includes/Types/GDPR.php:270
 msgid "Delay Before Appearance"
 msgstr ""
 
-#: includes/Types/GDPR.php:269
+#: includes/Types/GDPR.php:274
 msgid "Seconds"
 msgstr ""
 
-#: includes/Types/GDPR.php:288
-#: includes/Types/GDPR.php:291
-#: includes/Types/GDPR.php:398
+#: includes/Types/GDPR.php:293
+#: includes/Types/GDPR.php:296
+#: includes/Types/GDPR.php:403
 msgid "Title"
 msgstr ""
 
-#: includes/Types/GDPR.php:292
+#: includes/Types/GDPR.php:297
 msgid "Customized Cookie Preferences"
 msgstr ""
 
-#: includes/Types/GDPR.php:295
-#: includes/Types/GDPR.php:298
+#: includes/Types/GDPR.php:300
+#: includes/Types/GDPR.php:303
 msgid "Privacy Overview"
 msgstr ""
 
-#: includes/Types/GDPR.php:299
+#: includes/Types/GDPR.php:304
 msgid "We use cookies and similar technologies to enhance your experience and analyze site usage. Manage your preferences to control which data is collected."
 msgstr ""
 
-#: includes/Types/GDPR.php:302
+#: includes/Types/GDPR.php:307
 msgid "Show Google Privacy Policy"
 msgstr ""
 
-#: includes/Types/GDPR.php:306
+#: includes/Types/GDPR.php:311
 msgid "If you use services offered by Google, such as AdSense, Firebase, and Analytics on your website, the Digital Markets Act (DMA) requires you to display Google's Privacy Policy on the second layer of your banner."
 msgstr ""
 
-#: includes/Types/GDPR.php:309
-#: includes/Types/GDPR.php:312
-#: includes/Types/GDPR.php:406
+#: includes/Types/GDPR.php:314
+#: includes/Types/GDPR.php:317
 #: includes/Types/GDPR.php:411
+#: includes/Types/GDPR.php:416
 msgid "Message"
 msgstr ""
 
-#: includes/Types/GDPR.php:313
+#: includes/Types/GDPR.php:318
 msgid "To learn more about how Google's third-party cookies function and manage your data, read from here."
 msgstr ""
 
-#: includes/Types/GDPR.php:319
+#: includes/Types/GDPR.php:324
 msgid "Link text"
 msgstr ""
 
-#: includes/Types/GDPR.php:322
-#: includes/Types/GDPR.php:323
+#: includes/Types/GDPR.php:327
+#: includes/Types/GDPR.php:328
 msgid "Google Privacy Policy"
 msgstr ""
 
-#: includes/Types/GDPR.php:329
+#: includes/Types/GDPR.php:334
 msgid "URL"
 msgstr ""
 
-#: includes/Types/GDPR.php:332
+#: includes/Types/GDPR.php:337
 msgid "Google Privacy Policy URL"
 msgstr ""
 
-#: includes/Types/GDPR.php:339
+#: includes/Types/GDPR.php:344
 msgid "Save My Preferences Button"
 msgstr ""
 
-#: includes/Types/GDPR.php:342
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: includes/Types/GDPR.php:347
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Save My Preferences"
 msgstr ""
 
-#: includes/Types/GDPR.php:343
-#: includes/Types/GDPR.php:350
-#: includes/Types/GDPR.php:357
+#: includes/Types/GDPR.php:348
+#: includes/Types/GDPR.php:355
+#: includes/Types/GDPR.php:362
 msgid "Button text"
 msgstr ""
 
-#: includes/Types/GDPR.php:346
+#: includes/Types/GDPR.php:351
 msgid "See more Button"
 msgstr ""
 
-#: includes/Types/GDPR.php:349
+#: includes/Types/GDPR.php:354
 msgid "See more"
 msgstr ""
 
-#: includes/Types/GDPR.php:353
+#: includes/Types/GDPR.php:358
 msgid "See less Button"
 msgstr ""
 
-#: includes/Types/GDPR.php:356
+#: includes/Types/GDPR.php:361
 msgid "See less"
 msgstr ""
 
-#: includes/Types/GDPR.php:370
+#: includes/Types/GDPR.php:375
 msgid "Show Cookie List"
 msgstr ""
 
-#: includes/Types/GDPR.php:376
+#: includes/Types/GDPR.php:381
 msgid "Enabled Label"
 msgstr ""
 
-#: includes/Types/GDPR.php:380
-#: includes/Types/GDPR.php:386
+#: includes/Types/GDPR.php:385
+#: includes/Types/GDPR.php:391
 msgid "Label text"
 msgstr ""
 
-#: includes/Types/GDPR.php:383
+#: includes/Types/GDPR.php:388
 msgid "No Cookies Available Label"
 msgstr ""
 
-#: includes/Types/GDPR.php:387
+#: includes/Types/GDPR.php:392
 msgid "No Cookies Available"
 msgstr ""
 
-#: includes/Types/GDPR.php:402
+#: includes/Types/GDPR.php:407
 msgid "We value your privacy"
 msgstr ""
 
-#: includes/Types/GDPR.php:403
+#: includes/Types/GDPR.php:408
 msgid "Cookie Notice Title"
 msgstr ""
 
-#: includes/Types/GDPR.php:410
+#: includes/Types/GDPR.php:415
 msgid "We use cookies to improve your experience. By continuing to use our site, you agree to our use of cookies and data collection. You can learn more in our Privacy Policy and change your preferences anytime."
 msgstr ""
 
-#: includes/Types/GDPR.php:414
+#: includes/Types/GDPR.php:419
 msgid "Accept All Button"
 msgstr ""
 
-#: includes/Types/GDPR.php:419
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: includes/Types/GDPR.php:424
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 #: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:125
 msgid "Accept All"
 msgstr ""
 
-#: includes/Types/GDPR.php:422
+#: includes/Types/GDPR.php:427
 msgid "Reject All Button"
 msgstr ""
 
-#: includes/Types/GDPR.php:427
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: includes/Types/GDPR.php:432
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 #: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:144
 msgid "Reject All"
 msgstr ""
 
-#: includes/Types/GDPR.php:438
+#: includes/Types/GDPR.php:443
 msgid "Cookies Policy Link"
 msgstr ""
 
-#: includes/Types/GDPR.php:445
+#: includes/Types/GDPR.php:450
 msgid "Cookies Policy Link Text"
 msgstr ""
 
-#: includes/Types/GDPR.php:449
+#: includes/Types/GDPR.php:454
 msgid "Link Text"
 msgstr ""
 
-#: includes/Types/GDPR.php:450
+#: includes/Types/GDPR.php:455
 msgid "Cookies Policy"
 msgstr ""
 
-#: includes/Types/GDPR.php:456
-#: includes/Types/GDPR.php:460
+#: includes/Types/GDPR.php:461
+#: includes/Types/GDPR.php:465
 msgid "Cookies Policy URL"
 msgstr ""
 
-#: includes/Types/GDPR.php:466
+#: includes/Types/GDPR.php:471
 msgid "Custom Logo"
 msgstr ""
 
-#: includes/Types/Inline.php:36
+#: includes/Types/Inline.php:44
 msgid "Growth Alert 🚀"
 msgstr ""
 
-#: includes/Types/Inline.php:41
+#: includes/Types/Inline.php:49
 msgid ""
 "\n"
 "                <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>\n"
@@ -3947,15 +3968,15 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Types/OfferAnnouncement.php:39
+#: includes/Types/OfferAnnouncement.php:47
 msgid "Discount Alert"
 msgstr ""
 
-#: includes/Types/OfferAnnouncement.php:42
+#: includes/Types/OfferAnnouncement.php:49
 msgid "<a href='https://notificationx.com/docs/configure-discount-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Types/OfferAnnouncement.php:44
+#: includes/Types/OfferAnnouncement.php:51
 msgid ""
 "\n"
 "                <span>Discount Alert by NotificationX will allow you to display offers/discounts of your products/services on your website interactively & easily.</span>\n"
@@ -3965,15 +3986,15 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:35
+#: includes/Types/PageAnalytics.php:45
 msgid "Page Analytics"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:37
+#: includes/Types/PageAnalytics.php:47
 msgid "<a href='https://notificationx.com/docs/google-analytics/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:39
+#: includes/Types/PageAnalytics.php:49
 msgid ""
 "\n"
 "                <span>Connect Google Analytics to display the total number of real-time site visitors</span>\n"
@@ -3983,93 +4004,93 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:52
+#: includes/Types/PageAnalytics.php:61
 msgid "marketers"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:54
+#: includes/Types/PageAnalytics.php:63
 msgid "Surfed this page"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:55
-#: includes/Types/PageAnalytics.php:73
+#: includes/Types/PageAnalytics.php:64
+#: includes/Types/PageAnalytics.php:82
 msgid "in last "
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:56
-#: includes/Types/PageAnalytics.php:93
-#: includes/Types/PageAnalytics.php:112
+#: includes/Types/PageAnalytics.php:65
+#: includes/Types/PageAnalytics.php:102
+#: includes/Types/PageAnalytics.php:121
 msgid "30"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:70
+#: includes/Types/PageAnalytics.php:79
 msgid "people visited"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:72
+#: includes/Types/PageAnalytics.php:81
 msgid "this page"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:74
+#: includes/Types/PageAnalytics.php:83
 msgid "1"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:88
+#: includes/Types/PageAnalytics.php:97
 msgid "people looking"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:90
+#: includes/Types/PageAnalytics.php:99
 msgid "this deal"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:91
+#: includes/Types/PageAnalytics.php:100
 msgid "right now"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:107
+#: includes/Types/PageAnalytics.php:116
 msgid "People Is Now Visiting"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:109
+#: includes/Types/PageAnalytics.php:118
 msgid "Holiday Deal Page"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:110
+#: includes/Types/PageAnalytics.php:119
 msgid "Check out now & grab exceptional deals"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:145
+#: includes/Types/PageAnalytics.php:154
 msgid "Total Site View"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:146
+#: includes/Types/PageAnalytics.php:155
 msgid "Realtime site view"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:149
+#: includes/Types/PageAnalytics.php:158
 msgid "Site Title"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:152
-#: includes/Types/PageAnalytics.php:170
+#: includes/Types/PageAnalytics.php:161
+#: includes/Types/PageAnalytics.php:179
 msgid "Day"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:153
-#: includes/Types/PageAnalytics.php:171
+#: includes/Types/PageAnalytics.php:162
+#: includes/Types/PageAnalytics.php:180
 msgid "Month"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:154
-#: includes/Types/PageAnalytics.php:172
+#: includes/Types/PageAnalytics.php:163
+#: includes/Types/PageAnalytics.php:181
 msgid "Year"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:164
+#: includes/Types/PageAnalytics.php:173
 msgid "Current Page View"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:167
+#: includes/Types/PageAnalytics.php:176
 msgid "Page Title"
 msgstr ""
 
@@ -4082,11 +4103,11 @@ msgctxt "nx_preview"
 msgid "NotificationX"
 msgstr ""
 
-#: includes/Types/Video.php:46
+#: includes/Types/Video.php:52
 msgid "<a href='https://notificationx.com/docs/youtube-video-activities-popups/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Types/Video.php:48
+#: includes/Types/Video.php:54
 msgid ""
 "\n"
 "                <span>NotificationX will help you increasing engagement of your YouTube channel and gaining more credibility.</span>\n"
@@ -4115,82 +4136,121 @@ msgstr ""
 msgid "OFF"
 msgstr ""
 
+#. translators: 1: The calendar date. 2: Number of events on the calendar date.
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "\"allOf\" condition requires an array as #3 argument"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "\"anyOf\" condition requires an array as #3 argument"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "\"not\" can have only one comparison rule, multiple rules given"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Invalid comparison rule %s."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "There are no tabs defined!"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Field must have a #type. see documentation."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:18
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "File can't be empty."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Invalid file type."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "You should give a #fields arguments to a group field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Loading..."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "#options is a required arguments for RadioCard field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Reset"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
 #: assets/admin/js/admin.js:11
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Something went wrong."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Button has a required params #text."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Modal needs button/body with it."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Save Changes"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "There are no #tabs args defined in props."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Not an array."
 msgstr ""
 
@@ -4333,6 +4393,66 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 msgid "NotificationX Instructions"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Rate NotificationX"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Help us make it better!"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Please share what went wrong with The NotificationX so that we can improve further"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Send"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "We’re glad that you liked us! 😍"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "We appreciate it!"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "If you don’t mind, could you take 30 seconds to review us on WordPress? Your feedback will help us improve and grow. Thank you in advance! 🙏"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "A heartfelt gratitude for managing the time to share your thoughts with us"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Rate the Plugin"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Need help? We're here"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Ready to assist you every step of the way"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Let's Chat"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Want to explore more?"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Dive in and discover all the premium features"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
+msgid "Upgrade To PRO"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -4602,201 +4722,201 @@ msgid "Upgrade to Pro"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Display Social Proof Alerts With NotificationX"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Accelerate website engagement & conversions by creating dynamic notifications, sales banners, and more. Follow this guide to explore all advanced NotificationX's features & quickly get started.  "
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "NO NOTIFICATIONS ARE FOUND."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "It seems like you haven't created any notification alerts.Hit on \"Add New\" button to get started"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "How To Configure 'WooCommerce Sales Alerts' In NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "How to Configure Cookies Policy for Website Using NotificationX’s Cookie Notice?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "How to Use Notification Bar in NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Display WooCommerce Growth Alerts With NotificationX"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "How To Create Custom Notification With NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "How To Configure NotificationX Cross Domain Notice?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "How To Configure Google Reviews With NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Create Now"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Display your latest sales to boost credibility and drive more conversions."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Review Notification"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Showcase attractive customer review notification popups to build credibility."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Display latest sales, discounts, or announcements to boost sales."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Display sales count, low stock notification to influence viewer to make instant purchases."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Flashing Tabs"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Encourage visitors or potential customers to take action & turn browsing into buying."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Cross - Domain Notice"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Copy & Explore"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Display single, multiple, or all live alerts on multiple WordPress websites or others."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Show Your Love"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "We love having you in the NotificationX family. We are making it more awesome every day. Please take two minutes to review the plugin and spread the love to encourage us to keep it going."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Leave a Review"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Explore Our Knowledge Base"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Get started by spending some time with the documentation to familiarize yourself with NotificationX and boost your website conversions immediately."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Documentation"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:18
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Join Our Community"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Join the Facebook community to discuss with fellow developers, connect with others, and stay updated."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Need Any Help?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "If you encounter issues or need assistance, we're here to help or report specific problems on our GitHub issues page."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Report a Bug"
 msgstr ""
 
@@ -5056,124 +5176,110 @@ msgstr ""
 msgid "Edit Category"
 msgstr ""
 
-#. translators: 1: The calendar date. 2: Number of events on the calendar date.
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 #: nxdev/notificationx/frontend/themes/helpers/NXBranding.js:9
 msgid "by"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgctxt "Announcements: 5 days remaining"
 msgid " remaining"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Cookie"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Show more"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Show less"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Powered by"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Hrs"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Mins"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "Secs"
 msgstr ""
 
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:12
+#: assets/public/js/crossSite.js:15
+#: assets/public/js/frontend.js:15
 msgid "You should setup NX Bar properly"
 msgstr ""
 
-#. translators: 1: The calendar date. 2: Number of events on the calendar date.
-#: assets/public/js/crossSite.js:12
+#: assets/public/js/crossSite.js:15
 msgid "You are using old version of cross-domain scripts for NotificationX Pro. Please update this from your NotificationX Settings page."
 msgstr ""
 
 #: blocks/notificationx/components/inspector.js:112
 #: blocks/notificationx/components/inspector.js:133
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2406
-#: blocks/notificationx/index.js:2427
 msgid "Select"
 msgstr ""
 
 #: blocks/notificationx/components/inspector.js:183
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2477
 msgid "Choose Notification"
 msgstr ""
 
 #: blocks/notificationx/components/inspector.js:194
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2488
 msgid "Choose Course"
 msgstr ""
 
 #: blocks/notificationx/components/inspector.js:196
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2490
 msgid "Choose Product"
 msgstr ""
 
 #: blocks/notificationx/components/inspector.js:203
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2497
 msgid "Please type 3 or more characters"
 msgstr ""
 
 #: blocks/notificationx/components/inspector.js:215
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2509
 msgid "Note: "
 msgstr ""
 
 #: blocks/notificationx/components/inspector.js:216
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2510
 msgid "You have no notification enabled. Please Enable notifications to get here."
 msgstr ""
 
 #: blocks/notificationx/components/inspector.js:226
 #: blocks/notificationx/components/inspector.js:260
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2520
-#: blocks/notificationx/index.js:2554
 msgid "Alignment"
 msgstr ""
 
 #: blocks/notificationx/components/inspector.js:295
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2589
 msgid "Color"
 msgstr ""
 
 #: blocks/notificationx/components/inspector.js:301
 #: blocks/notificationx/index.js:1
-#: blocks/notificationx/index.js:2595
 msgid "Link Color"
 msgstr ""

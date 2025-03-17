@@ -6,3 +6,5 @@ export { default as Sidebar } from './Sidebar';
 export { default as ThemePreview } from './ThemePreview';
 export { default as PublishWidget } from './PublishWidget';
 export { default as Instructions } from './Instructions';
+export { default as RatingWidget } from './RatingWidget';
+export { default as ProWidget } from './ProWidget';

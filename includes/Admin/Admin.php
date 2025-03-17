@@ -7,6 +7,7 @@
 
 namespace NotificationX\Admin;
 
+use NotificationX\Admin\Rating\RatingEmail;
 use NotificationX\NotificationX;
 use NotificationX\Admin\Reports\ReportEmail;
 use NotificationX\Admin\Scanner\Scanner;
@@ -58,6 +59,7 @@ class Admin {
          */
         Analytics::get_instance();
         ReportEmail::get_instance();
+        RatingEmail::get_instance();
         ImportExport::get_instance();
         XSS::get_instance();
         add_action('init', [$this, 'init'], 5);

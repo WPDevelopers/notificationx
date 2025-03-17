@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, notification ba
 Requires at least: 5.0
 Tested up to: 6.7
 Requires PHP: 5.6
-Stable tag: 3.0.2
+Stable tag: 3.0.3
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -208,6 +208,13 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 3.0.3 - 16/03/2025 =
+Fixed: Issue with text domain when changing website language.
+Improved: Preview option for notifications on Desktop, Tablet, and Mobile devices.
+Improved: Close button visibility option for Desktop, Tablet, and Mobile devices.
+Improved: Notification filter based on Days, Hours, and Minutes.
+Few minor bug fixes and improvements.
 
 = 3.0.2 - 02/03/2025 =
 Fixed: Ninja Forms – Previous notifications were not showing.

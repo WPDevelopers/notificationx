@@ -39,11 +39,13 @@ class Announcements extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Discount Announcement', 'notificationx');
         $this->module_title = __('Discount Announcement', 'notificationx');
-        parent::__construct();
-
-
         $this->themes = [
             'theme-1'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-1.png',

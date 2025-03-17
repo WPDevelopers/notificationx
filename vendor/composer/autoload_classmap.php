@@ -14,6 +14,8 @@ return array(
     'NotificationX\\Admin\\ImportExport' => $baseDir . '/includes/Admin/ImportExport.php',
     'NotificationX\\Admin\\Notice' => $baseDir . '/includes/Admin/Notice.php',
     'NotificationX\\Admin\\PluginInsights' => $baseDir . '/includes/Admin/PluginInsights.php',
+    'NotificationX\\Admin\\Rating\\EmailTemplate' => $baseDir . '/includes/Admin/Rating/EmailTemplate.php',
+    'NotificationX\\Admin\\Rating\\RatingEmail' => $baseDir . '/includes/Admin/Rating/RatingEmail.php',
     'NotificationX\\Admin\\Reports\\EmailTemplate' => $baseDir . '/includes/Admin/Reports/EmailTemplate.php',
     'NotificationX\\Admin\\Reports\\ReportEmail' => $baseDir . '/includes/Admin/Reports/ReportEmail.php',
     'NotificationX\\Admin\\Scanner\\Scanner' => $baseDir . '/includes/Admin/Scanner/Scanner.php',

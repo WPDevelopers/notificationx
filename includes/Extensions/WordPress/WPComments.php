@@ -10,6 +10,7 @@
 
 namespace NotificationX\Extensions\WordPress;
 
+use NotificationX\Core\Helper;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 
@@ -38,11 +39,14 @@ class WPComments extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->title = __('WP Comments', 'notificationx');
-        $this->module_title = __('WordPress', 'notificationx');
         parent::__construct();
     }
 
+    public function init_extension()
+    {
+        $this->title = __('WP Comments', 'notificationx');
+        $this->module_title = __('WordPress', 'notificationx');
+    }
 
 
     public function init() {
@@ -116,14 +120,15 @@ class WPComments extends Extension {
 
         global $wp_version;
 
-        $from = isset($data['display_from']) ? intval($data['display_from']) : 0;
+        // $from = isset($data['display_from']) ? intval($data['display_from']) : 0;
+        $from = date('Y-m-d H:i:s', Helper::generate_time_string($data));
         $needed = isset($data['display_last']) ? intval($data['display_last']) : 0;
 
         $args = [
             'status'     => 'approve',
             'number'     => $needed,
             'date_query' => [
-                'after' => $from . ' days ago',
+                'after' => $from,
                 'inclusive' => true,
             ]
         ];

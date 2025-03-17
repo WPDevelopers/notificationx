@@ -8,6 +8,7 @@
 
 namespace NotificationX\Extensions\LearnPress;
 
+use NotificationX\Core\Helper;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
@@ -39,9 +40,13 @@ class LearnPress extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title        = __('LearnPress', 'notificationx');
         $this->module_title = __('LearnPress', 'notificationx');
-        parent::__construct();
     }
 
     /**
@@ -494,7 +499,8 @@ class LearnPress extends Extension {
             return null;
         }
         $orders   = array();
-        $from     = date(get_option('date_format'), strtotime('-' . intval($data['display_from']) . ' days'));
+        // $from     = date(get_option('date_format'), strtotime('-' . intval($data['display_from']) . ' days'));
+        $from     = date('Y-m-d H:i:s', Helper::generate_time_string($data));
         $enrolled = get_posts(
             array(
                 'post_type'      => 'lp_order',

@@ -38,9 +38,13 @@ class CustomNotification extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Custom Notification', 'notificationx');
         $this->module_title = __('Custom Notification', 'notificationx');
-        parent::__construct();
     }
 
     /**

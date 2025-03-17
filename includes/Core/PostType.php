@@ -127,6 +127,7 @@ class PostType {
         $tabs['settings']['settingsRedirect'] = ! current_user_can( 'edit_notificationx_settings' );
         $tabs['settings']['analytics']        = $tabs['analytics'];
         $tabs['admin_url']                    = get_admin_url();
+        $tabs['nx_feedback_shared']           = get_option('nx_feedback_shared',false);
         $tabs['assets']                       = [
             'admin'  => NOTIFICATIONX_ADMIN_URL,
             'public' => NOTIFICATIONX_PUBLIC_URL,

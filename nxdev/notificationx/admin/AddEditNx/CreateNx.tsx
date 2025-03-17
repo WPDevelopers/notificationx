@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import React, { useEffect } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
-import { Content, PublishWidget, Sidebar, Instructions } from '../../components';
-import { permissionAlert, proAlert } from '../../core/functions';
+import { Content, PublishWidget, Sidebar, Instructions, RatingWidget, ProWidget } from '../../components';
+import { permissionAlert, proAlert, updateGeneratedCSS } from '../../core/functions';
 import { ToastAlert } from '../../core/ToasterMsg';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon, EditIcon, ScanHistory, DiscoveredCookies } from '../../icons'
 
@@ -32,6 +32,13 @@ const CreateNx = ({ setIsLoading, title, setTitle }) => {
         builderContext.registerAlert('has_permission_alert', permissionAlert);
     }, []);
 
+    // Function to initialize the event listener
+    const initializeResizeHandler = (cssTargetSelector) => {
+        const updateCSS = () => updateGeneratedCSS(cssTargetSelector);
+        updateCSS();
+        window.addEventListener('resize', updateCSS);
+    };
+    initializeResizeHandler('#hour_minutes_section');
 
     return (
         <>
@@ -56,6 +63,8 @@ const CreateNx = ({ setIsLoading, title, setTitle }) => {
                     context={builderContext}
                 />
                 <Instructions  {...builderContext} />
+                <RatingWidget/>
+                <ProWidget/>
             </Sidebar>
         </>
     )

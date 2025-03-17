@@ -44,6 +44,20 @@ class Modules {
     }
 
     /**
+     * Adds a Module
+     *
+     * @param array $module
+     * @return array
+     */
+    public function update($module, $key, $value){
+        if( !empty( $this->modules[$module] ) ) {
+            $this->modules[$module][$key] = $value;
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Checks whether a module is enabled.
      *
      * @param string $module name of module

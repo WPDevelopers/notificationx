@@ -39,9 +39,13 @@ class NinjaForms extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Ninja Forms', 'notificationx');
         $this->module_title = __('Ninja Forms', 'notificationx');
-        parent::__construct();
     }
 
     public function init() {

@@ -39,9 +39,14 @@ class GDPR extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->id    = 'gdpr';
-        $this->title = __('Cookie Notice', 'notificationx');
         parent::__construct();
+        $this->id    = 'gdpr';
+    }
+
+    public function init()
+    {
+        parent::init();
+        $this->title = __('Cookie Notice', 'notificationx');
         // nx_comment_colored_themes
         $this->themes = [
             'theme-light-one'        => [

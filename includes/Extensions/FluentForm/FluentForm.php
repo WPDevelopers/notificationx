@@ -40,9 +40,13 @@ class FluentForm extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->title = __('Fluent Forms', 'notificationx');
-        $this->module_title = __('Fluent Forms', 'notificationx');
         parent::__construct();
+    }
+
+    public function init_extension()
+    {
+        $this->title        = __('Fluent Forms', 'notificationx');
+        $this->module_title = __('Fluent Forms', 'notificationx');
     }
 
     public function init() {
@@ -272,7 +276,8 @@ class FluentForm extends Extension {
             $form_list = explode('_',$data['__form_list']['value']);
             if( !empty( $form_list[1] ) ) {
                 $form = wpFluent()->table('fluentform_forms')->where('id', $form_list[1])->first();
-                $valueFrom = date('Y-m-d',strtotime('-'.$data['display_from'].' days',time()));
+                // $valueFrom = date('Y-m-d',strtotime('-'.$data['display_from'].' days',time()));
+                $valueFrom = date('Y-m-d H:i:s', Helper::generate_time_string($data));
                 $valueTo = date('Y-m-d',strtotime('1 days',time()));
                 $query = wpFluent()->table('fluentform_submissions')
                 ->where('form_id', $form->id);

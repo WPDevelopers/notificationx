@@ -42,9 +42,13 @@ class Google_Analytics extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Google Analytics', 'notificationx');
         $this->module_title = __('Google Analytics', 'notificationx');
-        parent::__construct();
     }
 
     /**

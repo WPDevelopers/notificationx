@@ -36,6 +36,11 @@ class ZapierReviews extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Zapier', 'notificationx');
         $this->module_title = __('Zapier', 'notificationx');
         $this->popup = [
@@ -45,7 +50,6 @@ class ZapierReviews extends Extension {
                 <span>Display review alerts from popular social media networks & encourage visitors to place trust in your business.</span>
             ', 'notificationx')
         ];
-        parent::__construct();
     }
 
     /**

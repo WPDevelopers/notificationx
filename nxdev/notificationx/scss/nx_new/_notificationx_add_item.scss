@@ -331,7 +331,87 @@
                         margin-bottom: 20px;
                     }
                 }
-                #close_button_section .wprf-section-fields{
+                .wprf-name-display_from {
+                    .wprf-control-field {
+                        width: 150px;
+                        position: relative;
+                        input {
+                            padding: 2px 70px 2px 15px;
+                            border: 1px solid #e6effb;
+                            min-height: 40px;
+                            width: 100%;
+                            @media only screen and (max-width: 1150px) {
+                                max-width: 100px;
+                            }
+                        }
+                        p.wprf-description {
+                            position: absolute;
+                            right: 16px;
+                            margin: 0;
+                            font-size: 14px;
+                            font-weight: 400;
+                            color: #7c8db5;
+                            left: 105px;
+                            @media only screen and (max-width: 1150px) {
+                                left: 55px;
+                            }
+                        }
+                    }
+                }
+                #hour_minutes_section
+                 .wprf-section-fields{
+                    padding: 0;
+                    display: flex;
+                    align-items: baseline;
+                    gap: 20px;
+                    // margin-left: 30%;
+
+                    @media only screen and (max-width: 1599px) {
+                        // margin-left: 25%;
+                    }
+                    @media only screen and (max-width: 700px) {
+                        margin-left: 0;
+                    }
+                    @media only screen and (max-width: 1150px) {
+                        gap: 8px;
+                    }
+
+                    .wprf-control-label {
+                        display: none;
+                    }
+                    .wprf-name-display_from_hour,
+                    .wprf-name-display_from_minute {
+                        margin-bottom: 0;
+
+                        .wprf-control-field {
+                            width: 150px;
+                            position: relative;
+                            flex-basis: 100%;
+
+                            @media only screen and (max-width: 1150px) {
+                                width: 100px;
+                            }
+
+                            input {
+                                padding: 2px 70px 2px 15px;
+                                max-width: 150px;
+                                border: 1px solid #e6effb;
+                                min-height: 40px;
+                                width: 100%;
+                            }
+                            p.wprf-help {
+                                position: absolute;
+                                right: 40px;
+                                margin: 0;
+                                font-size: 14px;
+                                font-weight: 400;
+                                color: #7c8db5;
+                            }
+                        }
+                    }
+                }
+                #close_button_section
+                 .wprf-section-fields{
                     padding: 0;
                     display: flex;
                     align-items: baseline;

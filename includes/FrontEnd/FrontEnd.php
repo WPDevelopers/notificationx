@@ -76,8 +76,8 @@ class FrontEnd {
      */
     public function enqueue_scripts() {
         $custom_css = $this->generate_custom_css();
-        wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], NOTIFICATIONX_VERSION, true);
-        wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], NOTIFICATIONX_VERSION, 'all');
+        wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], apply_filters('nx_frontend_js_version', NOTIFICATIONX_VERSION ), true);
+        wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], apply_filters('nx_frontend_css_version', NOTIFICATIONX_VERSION ), 'all');
         // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');
         // Localize scripts for frontend
         wp_localize_script(
@@ -273,7 +273,8 @@ class FrontEnd {
         // }
 
         if (!empty($all)) {
-            $notifications = $this->get_notifications($all);
+            $device = isset($params['deviceType']) && !empty($params['deviceType']) ? $params['deviceType'] : '';
+            $notifications = $this->get_notifications($all, $device);
             $entries       = $this->get_entries($all, $notifications, $params);
 
             foreach ($entries as $entry) {
@@ -286,7 +287,7 @@ class FrontEnd {
                 if (!empty($entry['timestamp'])) {
                     $timestamp    = $entry['timestamp'];
                     $display_from = !empty($settings['display_from']) ? $settings['display_from'] : 2;
-                    $display_from = strtotime("-$display_from days");
+                    $display_from = Helper::generate_time_string($settings);
                     if (!is_numeric($timestamp)) {
                         $entry['timestamp'] = $timestamp = strtotime($timestamp);
                     }
@@ -472,9 +473,9 @@ class FrontEnd {
             /**
              * Check for hiding in mobile device
              */
-            if ($settings['hide_on_mobile'] && wp_is_mobile()) {
-                continue;
-            }
+            // if ($settings['hide_on_mobile'] && wp_is_mobile()) {
+            //     continue;
+            // }
 
             $show_on_exclude = apply_filters('nx_show_on_exclude', false, $settings);
             if ($show_on_exclude) {
@@ -573,7 +574,7 @@ class FrontEnd {
         return false;
     }
 
-    public function get_notifications($ids) {
+    public function get_notifications($ids, $device = '') {
         $results       = [];
         $notifications = PostType::get_instance()->get_posts_by_ids($ids);
 
@@ -581,7 +582,21 @@ class FrontEnd {
             /**
              * Check for hiding in mobile device
              */
-            if (!empty($value['hide_on_mobile']) && wp_is_mobile()) {
+            if (empty($value['hide_on_mobile']) && $device === 'mobile') {
+                continue;
+            } 
+
+            /**
+             * Check for hiding in tablet device
+             */
+            if (empty($value['hide_on_tab']) && $device === 'tablet') {
+                continue;
+            }
+
+            /**
+             * Check for hiding in desktop device
+             */
+            if (empty($value['hide_on_desktop']) && $device === 'desktop') {
                 continue;
             }
 

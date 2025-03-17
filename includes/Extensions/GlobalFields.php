@@ -1698,21 +1698,61 @@ class GlobalFields {
                                     ],
                                     'help' => __('Set a max width for notification.', 'notificationx'),
                                 ],
-                                'close_button' => [
-                                    'label'       => __("Display Close Option", 'notificationx'),
-                                    'name'        => "close_button",
-                                    'type'        => "checkbox",
-                                    'default'     => 1,
-                                    'priority'    => 70,
-                                    'description' => __('Display a close button.', 'notificationx'),
+                                'close_button_control' => [
+                                    'label'  => __("Display Close Button", 'notificationx'),
+                                    'name'   => "close_button_control",
+                                    'type'   => "section",
+                                    'fields' => [
+                                        'close_button' => [
+                                            'name'        => "close_button",
+                                            'type'        => "checkbox",
+                                            'default'     => 1,
+                                            'priority'    => 70,
+                                            'description' => __('Desktop', 'notificationx'),
+                                        ],
+                                        'close_button_tab' => [
+                                            'name'        => "close_button_tab",
+                                            'type'        => "checkbox",
+                                            'default'     => 1,
+                                            'priority'    => 71,
+                                            'description' => __('Tablet', 'notificationx'),
+                                        ],
+                                        'close_button_mobile' => [
+                                            'name'        => "close_button_mobile",
+                                            'type'        => "checkbox",
+                                            'default'     => 0,
+                                            'priority'    => 72,
+                                            'description' => __('Mobile', 'notificationx'),
+                                        ],
+                                    ]
                                 ],
-                                'hide_on_mobile' => [
-                                    'label'       => __("Mobile Visibility", 'notificationx'),
-                                    'name'        => "hide_on_mobile",
-                                    'type'        => "checkbox",
-                                    'default'     => false,
-                                    'priority'    => 200,
-                                    'description' => __('Hide NotificationX on mobile.', 'notificationx'),
+                                'nx_visibility_control' => [
+                                    'label'  => __("Notification Visibility", 'notificationx'),
+                                    'name'   => "close_button_control",
+                                    'type'   => "section",
+                                    'fields' => [
+                                        'hide_on_desktop' => [
+                                            'name'        => "hide_on_desktop",
+                                            'type'        => "checkbox",
+                                            'default'     => true,
+                                            'priority'    => 201,
+                                            'description' => __('Desktop', 'notificationx'),
+                                        ],
+                                        'hide_on_tab' => [
+                                            'name'        => "hide_on_tab",
+                                            'type'        => "checkbox",
+                                            'default'     => true,
+                                            'priority'    => 202,
+                                            'description' => __('Tablet', 'notificationx'),
+                                        ],
+                                        'hide_on_mobile' => [
+                                            'name'        => "hide_on_mobile",
+                                            'type'        => "checkbox",
+                                            'default'     => true,
+                                            'priority'    => 205,
+                                            'description' => __('Mobile', 'notificationx'),
+                                        ],
+                                    ]
                                 ],
                             ]
                         ],
@@ -1970,7 +2010,35 @@ class GlobalFields {
                                     'label'       => __('Display From The Last', 'notificationx'),
                                     'priority'    => 45,
                                     'default'       => 30,
-                                    'description' => 'days',
+                                    'description' => 'Days',
+                                    'min'          => 0,
+                                ],
+                                'hour_minutes_section' => [
+                                    'name'    => "hour_minutes_section",
+                                    'type'    => "section",
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woocommerce_sales_reviews', 'custom_notification_conversions', 'surecart', 'edd', 'tutor', 'learndash', 'learnpress', 'cf7', 'wp_comments', 'njf', 'wpf', 'fluentform', 'elementor_form', 'custom_notification', 'grvf', 'mailchimp', 'convertkit', 'ActiveCampaign', 'zapier_email_subscription', 'give', 'woo_reviews', 'freemius_conversions', 'freemius_reviews', 'zapier_conversions', 'zapier_reviews']),
+                                    ]),
+                                    'fields' => [
+                                        [
+                                            'help'        => __('Hours', 'notificationx'),
+                                            'name'        => "display_from_hour",
+                                            'type'        => "number",
+                                            'default'     => '0',
+                                            'description' => '',
+                                            'max'         => 23,
+                                            'min'         => 0,
+                                        ],
+                                        [
+                                            'help'        => __('Minutes', 'notificationx'),
+                                            'name'        => "display_from_minute",
+                                            'type'        => "number",
+                                            'default'     => '0',
+                                            'description' => '',
+                                            'max'         => 59,
+                                            'min'         => 0,
+                                        ],  
+                                    ]
                                 ],
                                 'loop' => [
                                     'name'     => 'loop',

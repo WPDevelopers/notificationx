@@ -380,4 +380,43 @@ export const getAlert = (type, context) => {
     return single_type?.popup;
 } 
 
+/**
+ * Calculates relative position and generates CSS for a target element relative to the base.
+ * @param {string} cssTargetSelector - The CSS selector of the element to apply styles to.
+ */
+export const updateGeneratedCSS = (cssTargetSelector) => {    
+    const baseElement = document.querySelector('#behaviour');
+    const relativeElement = document.querySelector('.wprf-name-display_from');
+
+    const label = document.querySelector('.wprf-name-display_from .wprf-control-label');
+    const cssTarget = document.querySelector(cssTargetSelector);
+
+    if (!baseElement || !relativeElement || !label || !cssTarget) {
+        return;
+    }
+
+    const basePosition = baseElement.getBoundingClientRect();
+    const relativePosition = relativeElement.getBoundingClientRect();
+    const labelPosition = label.getBoundingClientRect();
+
+    // Responsive behavior for device width < 960px
+    if (window.innerWidth < 960) {
+        cssTarget.style.position = '';
+        cssTarget.style.top = '';
+        cssTarget.style.left = '';
+        cssTarget.style.marginLeft = '25%';
+    } else {
+        // Calculate relative positions for larger devices
+        const top = relativePosition.top - basePosition.top;
+        const left = window.innerWidth < 1150
+            ? labelPosition?.width + 135
+            : labelPosition?.width + 200;
+
+        cssTarget.style.position = 'absolute';
+        cssTarget.style.top = `${top}px`;
+        cssTarget.style.left = `${left}px`;
+        cssTarget.style.marginLeft = ''; // Clear margin-left for other sizes
+    }
+};
+
 export default nxHelper;

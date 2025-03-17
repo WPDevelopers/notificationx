@@ -43,6 +43,12 @@ class ContactForm extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init()
+    {
+        parent::init();
         $this->title = __('Contact Form', 'notificationx');
         $this->themes = [
             'theme-one'   => [
@@ -146,7 +152,6 @@ class ContactForm extends Types {
                 ],
             ],
         ];
-        parent::__construct();
     }
 
     /**
@@ -199,6 +204,11 @@ class ContactForm extends Types {
             $args['form_id'] = isset($args['form_id']['value']) ? $args['form_id']['value'] : $args['form_id'];
             $args['form_id'] = str_replace(trim($args['form_type']) . '_', '', $args['form_id']);
         }
+        if ( !isset($args['form_id']) && empty($args['form_id']) ) {
+            return [];
+        }
+        $args['form_id'] = isset($args['form_id']['value']) ? $args['form_id']['value'] : $args['form_id'];
+        $args['form_id'] = str_replace(trim($args['form_type']) . '_', '', $args['form_id']);
         $form = ExtensionFactory::get_instance()->get( trim( $args['form_type'] ) );
         if($form && $form->is_active(false)){
             return $form->restResponse( $args );

@@ -10,6 +10,7 @@ namespace NotificationX\Extensions\EDD;
 
 use NotificationX\Admin\Settings;
 use NotificationX\Core\Database;
+use NotificationX\Core\Helper;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
@@ -40,9 +41,13 @@ class EDD extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title        = __( 'Easy Digital Downloads', 'notificationx' );
         $this->module_title = __( 'Easy Digital Downloads', 'notificationx' );
-        parent::__construct();
     }
 
     /**
@@ -210,8 +215,9 @@ class EDD extends Extension {
      * @return array
      */
     public function get_payments( $days, $amount ) {
-        $date       = '-' . intval( $days ) . ' days';
-        $start_date = strtotime( $date );
+        // $date       = '-' . intval( $days ) . ' days';
+        // $start_date = strtotime( $date );
+        $from   = date('Y-m-d H:i:s', $days);
 
         $amount = $amount > 0 ? $amount : -1;
 
@@ -219,7 +225,7 @@ class EDD extends Extension {
             'number'     => $amount,
             'status'     => array( 'publish', 'complete' ),
             'date_query' => array(
-                'after' => date( 'Y-m-d', $start_date ),
+                'after' => $from,
             ),
         );
 
@@ -237,7 +243,7 @@ class EDD extends Extension {
         if ( empty( $data ) ) {
             return;
         }
-        $days          = $data['display_from'];
+        $days          = Helper::generate_time_string($data); //$data['display_from'];
         $amount        = $data['display_last'];
         $payments      = $this->get_payments( $days, $amount );
         $notifications = array();
