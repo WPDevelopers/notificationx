@@ -328,10 +328,13 @@
     }
 }
 
-.nx-gdpr-modal-wrapper .ReactModal__Overlay.ReactModal__Overlay--after-open {
+
+.nx-gdpr-modal-wrapper .ReactModal__Overlay.ReactModal__Overlay--after-open, 
+.nx-custom-notification-edit.ReactModal__Overlay.ReactModal__Overlay--after-open,
+.nx-cookies-history.ReactModal__Overlay.ReactModal__Overlay--after-open,
+.nx-cookies-list-integrations.ReactModal__Overlay.ReactModal__Overlay--after-open {
     background-color: rgba(11, 5, 44, 0.7) !important;
     padding: unset !important;
-
     .ReactModal__Content.ReactModal__Content--after-open {
         position: absolute !important;
         inset: unset !important;
@@ -1404,6 +1407,9 @@
             }
         }
     }
+}
+
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
     &.nx-cookies-list-integrations,
     &.nx-custom-notification-edit {
         .ReactModal__Content.ReactModal__Content--after-open {
@@ -1501,7 +1507,7 @@
                                     color: #092161;
                                     padding: 10px 12px;
                                     resize: none;
-
+    
                                     &:focus-visible,
                                     &:focus {
                                         box-shadow: none;
