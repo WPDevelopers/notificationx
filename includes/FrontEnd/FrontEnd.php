@@ -100,6 +100,10 @@ class FrontEnd {
                     'title' => __('Performance', 'notificationx'),
                     'desc' => __("Performance cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors.", 'notificationx'),
                 ],
+                'advertising_tab_info'   => [
+                    'title' => __('Advertising', 'notificationx'),
+                    'desc' => __("Advertising cookies help analyze the website's key advertising indicators, which in turn helps improve the user experience for visitors.", 'notificationx'),
+                ],
                 'uncategorized_tab_info'   => [
                     'title' => __('Uncategorized', 'notificationx'),
                     'desc' => __("Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types.", 'notificationx'),

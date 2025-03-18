@@ -74,6 +74,10 @@ class Scanner
             return new WP_REST_Response(['error' => 'Invalid scan ID'], 404);
         }
 
+        if( !empty( $status['status'] ) && $status['status'] == 'completed' ) {
+            
+        }
+
         return new WP_REST_Response(['data' => $status], 200);
     }
 

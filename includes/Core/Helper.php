@@ -681,12 +681,24 @@ class Helper {
                         'unit'  => 'days',
                     ],
                 ],
+            ),
+            'description' => array(
+                'type'     => 'textarea',
+                'name'     => 'description',
+                'label'    => __('Description', 'notificationx-pro'),
+                'priority' => 30,
+            ), 
+            'is_add_script' => array(
+                'type'     => 'toggle',
+                'name'     => 'is_add_script',
+                'label'    => __('Add Script', 'notificationx'),
+                'priority' => 35,
             ), 
             'load_inside' => array(
                 'label'    => __('Add Script on', 'notificationx'),
                 'name'     => 'product_control',
                 'type'     => 'select',
-                'priority' => 15,
+                'priority' => 40,
                 'default'  => 'head',
                 'options'  => GlobalFields::get_instance()->normalize_fields([
                     'head'   => __('Header', 'notificationx'),
@@ -698,13 +710,7 @@ class Helper {
                 'type'     => 'codeviewer',
                 'name'     => 'script_url_pattern',
                 'label'    => __('Script', 'notificationx-pro'),
-                'priority' => 25,
-            ), 
-            'description' => array(
-                'type'     => 'textarea',
-                'name'     => 'description',
-                'label'    => __('Description', 'notificationx-pro'),
-                'priority' => 30,
+                'priority' => 45,
             ), 
         ];
     }

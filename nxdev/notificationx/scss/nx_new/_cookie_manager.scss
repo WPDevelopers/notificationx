@@ -53,8 +53,18 @@
                         background: transparent;
                         display: flex;
                         align-items: center;
-                        justify-content: center;
                         margin-left: -6px;
+                        &.cookies-added::before {
+                            content: "";
+                            width: 6px;
+                            height: 6px;
+                            background: #6A4BFF;
+                            border-radius: 50%;
+                            transform: translate(20px, -7px);
+                        }
+                        &:not(.cookies-added) {
+                             justify-content: center;
+                        }
                     }
                 }
             }

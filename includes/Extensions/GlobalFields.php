@@ -1263,6 +1263,60 @@ class GlobalFields {
                                                 ]
                                             ],
                                         ],
+                                        'advertisement_tab'      => [
+                                            'label'            => __("Advertisement", 'notificationx'),
+                                            'type'             => 'section',
+                                            'name'             => 'advertisement_tab',
+                                            'id'               => 'advertisement_tab',
+                                            'icon'  => [
+                                                'type' => 'tabs',
+                                                'name' => 'performance'
+                                            ],
+                                            'fields'           => [
+                                                'advertising_tab_info_modal' => [
+                                                    'name'          => 'advertising_tab_info_modal',
+                                                    'type'          => 'modal',
+                                                    'show_body'     => true,
+                                                    'close_on_body' => true,
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __(' ', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'         => 'button',
+                                                        'text'         => 'Save',
+                                                        'name'         => 'advertising_close_tab_info_modal',
+                                                        "default"      => false,
+                                                        'close_action' => true,
+                                                    ],
+                                                    'cancel' => "advertising_close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => Helper::tab_info_title('advertising', 'Advertisement'),
+                                                            'tab_description' => Helper::tab_info_desc('advertising', "Advertising cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors."),
+                                                        ],
+                                                    ],
+                                                ],
+                                                'advertising_cookie_lists'    => [
+                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'name'     => 'advertising_cookie_lists',
+                                                    'type'     => 'better-repeater',
+                                                    'priority' => 10,
+                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
+                                                    'button'  => [
+                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'position' => 'top',
+                                                    ],
+                                                    'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
+                                                    '_fields'        => Helper::gdpr_common_fields(),
+                                                ]
+                                            ],
+                                        ],
                                         'uncategorized_tab'      => [
                                             'label'            => __("Uncategorized", 'notificationx'),
                                             'type'             => 'section',

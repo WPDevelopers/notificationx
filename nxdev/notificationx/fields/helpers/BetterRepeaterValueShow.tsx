@@ -14,7 +14,6 @@ const BetterRepeaterValueShow = (props) => {
     const [action, setAction] = useState(false);
     const buttonRef = useRef(null);
     const { fields, onChange, index, parent, visible_fields, setIsOpen, isDefault } = props;  
-    console.log('fields',fields);
     
     // @ts-ignore 
     const fieldsArray = Object.values(fields).filter(field => visible_fields.includes(field?.name));
@@ -66,6 +65,9 @@ const BetterRepeaterValueShow = (props) => {
                     return <div className='wprf-repeater-inner-field-item' key={'wprf-repeater-inner-field' + fieldIndex}>
                         {/* @ts-ignore  */}
                         <span>{ field?.label }</span>
+                        { (discovered && field?.name == 'cookies_id') &&
+                            <span>{ __( "Discovered",'notificationx' ) }</span>
+                        }
                         {/* @ts-ignore  */}
                         <p>{ builderContext.values?.[parent]?.[index]?.[field?.name] }</p>
                     </div>

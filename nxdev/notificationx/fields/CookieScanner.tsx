@@ -11,6 +11,7 @@ import { modalStyle } from '../core/constants';
 import { __ } from '@wordpress/i18n';
 import warning from 'tiny-warning';
 import { useBuilderContext } from 'quickbuilder';
+import { addCookiesAddedClass, cookieCategoryPrefix } from '../frontend/gdpr/utils/helper';
 
 const addCookiesToList = (builderContext: any, fieldName: string, newCookies: any[]) => {
   const existingCookies = builderContext.getFieldValue(fieldName) || [];
@@ -20,14 +21,14 @@ const addCookiesToList = (builderContext: any, fieldName: string, newCookies: an
 
 const processCookies = (cookiesData: any) => {
   return Object.values(cookiesData).map((cookie: any) => ({
-    enabled: true,
+    enabled   : true,
     discovered: true,
     cookies_id: cookie.name,
-    domain: cookie.domain,
-    duration: cookie.expires == -1 
+    domain    : cookie.domain,
+    duration  : cookie.expires == -1
       ? 0 
-      : Math.max(1, Math.floor((cookie.expires - Math.floor(Date.now() / 1000)) / 86400)), 
-    description: cookie.value
+               :  Math.max(1, Math.floor((cookie.expires - Math.floor(Date.now() / 1000)) / 86400)),
+    description: cookie?.description
   }));
 };
 
@@ -52,46 +53,6 @@ const CookieScanner = () => {
 			"scripts": "01",
 			"more_info": "View"
 		},
-		{
-			"scan_date": "03 March 2025 05:06:24",
-			"scan_status": "Failed",
-			"category": "0",
-			"cookies": 0,
-			"scripts": "0",
-			"more_info": "View"
-		},
-		{
-			"scan_date": "03 March 2025 05:06:24",
-			"scan_status": "Completed",
-			"category": "02",
-			"cookies": 23,
-			"scripts": "01",
-			"more_info": "View"
-		},
-		{
-			"scan_date": "03 March 2025 05:06:24",
-			"scan_status": "Completed",
-			"category": "02",
-			"cookies": 23,
-			"scripts": "01",
-			"more_info": "View"
-		},
-		{
-			"scan_date": "03 March 2025 05:06:24",
-			"scan_status": "Failed",
-			"category": "0",
-			"cookies": 0,
-			"scripts": "0",
-			"more_info": "View"
-		},
-		{
-			"scan_date": "03 March 2025 05:06:24",
-			"scan_status": "Completed",
-			"category": "02",
-			"cookies": 23,
-			"scripts": "01",
-			"more_info": "View"
-		}
 	];
 	const dummyDiscoverCookies = [
 		{
@@ -197,12 +158,11 @@ const CookieScanner = () => {
         const response = await fetch(statusUrl);
         const res = await response.json();
         const data = res?.data;
-
         setStatus(data?.status || 'unknown');        
         if (data?.status === 'completed') {
           setScanMessage('Scan completed.');
           setIsScanning(false);
-          setScanId(null);
+          setScanId(null);          
           setResults(data?.result)
         } else if (data?.status === 'pending') {
           setScanMessage('Scanning is pending...');
@@ -214,7 +174,6 @@ const CookieScanner = () => {
           setScanId(null);
         }
       } catch (error) {
-        console.error('Error checking scan status:', error);
         setScanMessage('Error checking scan status.');
         setIsScanning(false);
       }
@@ -223,14 +182,40 @@ const CookieScanner = () => {
     return () => clearInterval(interval);
 }, [scanId]);
 
+
 useEffect(() => {
-  console.log('logged');
+  if (status !== 'completed') return;
+  const cookieList = processCookies(results);
+  // Initialize categorized lists
+  const categorizedCookies = {
+    necessary    : [],
+    functional   : [],
+    analytics    : [],
+    performance  : [],
+    advertisement: [],
+    uncategorized: [],
+  };
   
-  if (status === 'completed') {
-    console.log('cookie-list',results);
-    const cookieList = processCookies(results);
-    addCookiesToList(builderContext, 'necessary_cookie_lists', cookieList);
-  }
+  // Categorize cookies efficiently
+  cookieList.forEach((cookie) => {
+    const category = Object.keys(cookieCategoryPrefix).find((key) =>
+      cookieCategoryPrefix[key].some((name) => cookie?.cookies_id.includes(name))
+    );
+    categorizedCookies[category || 'uncategorized'].push(cookie);
+  });
+
+  // Store cookies in respective lists
+  Object.entries(categorizedCookies).forEach(([key, list]) => {
+    addCookiesToList(builderContext, `${key}_cookie_lists`, list);
+  });
+
+  // Filter based on the length of each array
+  const findsOn = Object.entries(categorizedCookies)
+      .filter(([key, value]) => value.length > 0)
+      .map(([key, value]) => key);
+    if( findsOn.length > 0 ) {
+      addCookiesAddedClass(findsOn);
+    }
 }, [status, results]);
 
   return (
