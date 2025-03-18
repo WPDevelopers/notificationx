@@ -79,13 +79,13 @@ abstract class Extension {
             }
             $this->initialize();
         }
+        add_action('init', [$this, '__init_extension']);
     }
 
     public function initialize(){
         do_action('nx::extension::init', $this);
         add_action('nx_before_metabox_load', [$this, '__init_fields']);
         add_action('nx_before_settings_fields', [$this, 'init_settings_fields']);
-        add_action('init', [$this, '__init_extension']);
 
         if($this->is_active(false)) {
             $this->init();
