@@ -1,6 +1,10 @@
 <?php
 namespace NotificationX\Admin\Scanner;
 
+use NotificationX\Admin\Entries;
+use NotificationX\Core\Database;
+use NotificationX\Core\Limiter;
+use NotificationX\Core\PostType;
 use NotificationX\GetInstance;
 use WP_REST_Server;
 use WP_REST_Request;
@@ -48,6 +52,21 @@ class Scanner
                 ),
             ),
         ));
+
+        // Fetch scan history data based on notification id.
+        register_rest_route($namespace, '/scan/history', array(
+            'methods'   => WP_REST_Server::READABLE,
+            'callback'  => array($this, 'get_scan_history'),
+            'permission_callback' => '__return_true',
+            'args' => array(
+                'nx_id' => array(
+                    'required' => true,
+                    'validate_callback' => function($param, $request, $key) {
+                        return is_string($param);
+                    }
+                ),
+            ),
+        ));
     }
 
     public function initiate_scan(WP_REST_Request $request)
@@ -74,9 +93,56 @@ class Scanner
             return new WP_REST_Response(['error' => 'Invalid scan ID'], 404);
         }
 
-        if( !empty( $status['status'] ) && $status['status'] == 'completed' ) {
-            
-        }
+        if (!empty($status['status']) && $status['status'] === 'completed') {
+            $cookies = $status['result'];  // Extract scanned cookies
+            $stats   = $status['stats'];   // Extract scan statistics
+        
+            if ((!empty($cookies) && is_array($cookies)) || (!empty($stats) && is_array($stats))) {
+                $entriesToInsert = [];
+        
+                // Prepare cookies entry
+                if (!empty($cookies) && is_array($cookies)) {
+                    $entriesToInsert[] = [
+                        'nx_id'      => 17,
+                        'source'     => 'gdpr_notification',
+                        'entry_key'  => $scanId . '_cookies',
+                        'data'       => $cookies,
+                        'created_at' => date('Y-m-d H:i:s'),
+                    ];
+                }
+        
+                // Prepare stats entry
+                if (!empty($stats) && is_array($stats)) {
+                    $entriesToInsert[] = [
+                        'nx_id'      => 17,
+                        'source'     => 'gdpr_notification',
+                        'entry_key'  => $scanId . '_stats',
+                        'data'       => $stats,
+                        'created_at' => date('Y-m-d H:i:s'),
+                    ];
+                }
+        
+                foreach ($entriesToInsert as $entry) {
+                    // Check if an entry already exists
+                    $isExists = Database::get_instance()->get_posts(
+                        Database::$table_entries, 'count(*)', [
+                            'nx_id'     => 17,
+                            'source'    => 'gdpr_notification',
+                            'entry_key' => $entry['entry_key'],
+                        ]
+                    );
+        
+                    if (empty($isExists[0]['count(*)'])) {
+                        $post = PostType::get_instance()->get_post(17);
+                        $canEntry = apply_filters("nx_can_entry_gdpr_notification", true, $entry, $post);
+                        if ($canEntry) {
+                            Limiter::get_instance()->remove(17, 1);
+                            Entries::get_instance()->insert_entry($entry);
+                        }
+                    }
+                }
+            }
+        }        
 
         return new WP_REST_Response(['data' => $status], 200);
     }
@@ -125,5 +191,32 @@ class Scanner
         $responseBody = json_decode(wp_remote_retrieve_body($response), true);
         return $responseBody;
     }
+
+    /**
+     * fetch scan history.
+     *
+     * @param WP_REST_Request $request
+     * @return void
+    */
+    public function get_scan_history(WP_REST_Request $request)
+    {
+        $nxId = $request->get_param('nx_id');
+
+        if (empty($nxId)) {
+            return new WP_REST_Response(['error' => 'Missing nx_id parameter'], 400);
+        }
+
+        // Fetch the scan history entry from the database
+        $history = Entries::get_instance()->get_entries([
+            'nx_id'     => absint( $nxId ),
+            'source'    => 'gdpr_notification',
+        ],'*','','',true);
+
+        if (empty($history)) {
+            return new WP_REST_Response(['error' => 'No scan history found'], 404);
+        }
+        return wp_send_json_success(['message' => __('Scanned fetch successfully','notificationx'), 'data' => json_encode($history)]);
+    }
+
 }
 ?>

@@ -1,10 +1,6 @@
 import React, { useState, useEffect,useCallback } from 'react';
-import scan from './images/scan.png';
-import scan_warning from './images/scan-warning.png';
-import scan_danger from './images/scan-danger.png';
-import schedule from './images/coming-soon.png';
 import CloseIcon from '../icons/Close';
-import ScanHistory from '../icons/ScanHistory';
+import ScannerHistory from './ModalContent/ScannerHistory';
 import DiscoveredCookies from '../icons/DiscoveredCookies';
 import ReactModal from "react-modal";
 import { modalStyle } from '../core/constants';
@@ -12,6 +8,7 @@ import { __ } from '@wordpress/i18n';
 import warning from 'tiny-warning';
 import { useBuilderContext } from 'quickbuilder';
 import { addCookiesAddedClass, cookieCategoryPrefix } from '../frontend/gdpr/utils/helper';
+import nxToast from '../core/ToasterMsg';
 
 const addCookiesToList = (builderContext: any, fieldName: string, newCookies: any[]) => {
   const existingCookies = builderContext.getFieldValue(fieldName) || [];
@@ -39,11 +36,11 @@ const CookieScanner = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [scanId, setScanId] = useState<string | null>(null);
   const builderContext = useBuilderContext();
-  const [scanStatus, setScanStatus] = useState('');
   const [isReadyToScanModalOpen, setIsReadyToScanModalOpen] = useState(false);
   const [isScanProgressModalOpen, setIsScanProgressModalOpen] = useState(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
   const [isDiscoveredCookieModalOpen, setIsDiscoveredCookieModalOpen] = useState(false);
+  
 	const dummyHistoryData = [
 		{
 		 	 "scan_date": "03 March 2025 05:06:24",
@@ -60,47 +57,11 @@ const CookieScanner = () => {
 			"first_found_url": "example.com/whyweneedex",
 			"duration": "Past",
 			"description": "No Description found"
-		},
-		{
-			"id": "wordpress_3e130031865ca4e6...",
-			"first_found_url": "example.com/whyweneedex",
-			"duration": "Past",
-			"description": "No Description found"
-		},
-		{
-			"id": "wordpress_3e130031865ca4e6...",
-			"first_found_url": "example.com/whyweneedex",
-			"duration": "Past",
-			"description": "No Description found"
-		},
-		{
-			"id": "wordpress_3e130031865ca4e6...",
-			"first_found_url": "example.com/whyweneedex",
-			"duration": "Past",
-			"description": "No Description found"
-		},
-		{
-			"id": "wordpress_3e130031865ca4e6...",
-			"first_found_url": "example.com/whyweneedex",
-			"duration": "Past",
-			"description": "No Description found"
-		},
-		{
-			"id": "wordpress_3e130031865ca4e6...",
-			"first_found_url": "example.com/whyweneedex",
-			"duration": "Past",
-			"description": "No Description found"
-		},
-		{
-			"id": "wordpress_3e130031865ca4e6...",
-			"first_found_url": "example.com/whyweneedex",
-			"duration": "Past",
-			"description": "No Description found"
 		}
 	]
   
   const handleScan = useCallback(async () => {
-    const apiUrl = `${window.location.origin}/wp-json/notificationx/v1/scan`;
+    const apiUrl = `${builderContext?.rest?.root + builderContext?.rest?.namespace }/scan`;    
     const currentDomain = window.location.origin;
     try {
       setIsScanning(true);
@@ -120,12 +81,12 @@ const CookieScanner = () => {
         setScanId(data.scan_id);
         setStatus(data.status || 'pending');
       } else {
-        throw new Error('Scan initiation failed.');
+        nxToast.error(__(`Scan initiation failed. ${data.error}`, 'notificationx'));
+        setIsScanning(false);
       }
     } catch (error) {
-      console.error('Error starting scan:', error);
-      setScanMessage('Scan failed. Try again.');
       setIsScanning(false);
+      nxToast.error(__(`Scan failed. Try again.`, 'notificationx'));
     }
   }, []);
 
@@ -151,36 +112,36 @@ const CookieScanner = () => {
 
   
   useEffect(() => {
-    if( !scanId ) return;
+    if (!scanId || status === 'completed') return;
+
     const checkScanStatus = async () => {
-      try {
-        const statusUrl = `${window.location.origin}/wp-json/notificationx/v1/scan/status?scan_id=${scanId}`;
-        const response = await fetch(statusUrl);
-        const res = await response.json();
-        const data = res?.data;
-        setStatus(data?.status || 'unknown');        
-        if (data?.status === 'completed') {
-          setScanMessage('Scan completed.');
-          setIsScanning(false);
-          setScanId(null);          
-          setResults(data?.result)
-        } else if (data?.status === 'pending') {
-          setScanMessage('Scanning is pending...');
-        } else if (data?.status === 'in-progress') {
-          setScanMessage('Scanning in progress...');
-        } else {
-          setScanMessage('Unknown scan status.');
-          setIsScanning(false);
-          setScanId(null);
+        try {
+            const statusUrl = `${builderContext?.rest?.root + builderContext?.rest?.namespace }/scan/status?scan_id=${scanId}`;
+            const response = await fetch(statusUrl);
+            const res = await response.json();
+            const data = res?.data;
+            setStatus(data?.status || 'unknown');
+
+            if (data?.status === 'completed') {
+                nxToast.info(__(`Scan complete! Your results are now available.`, 'notificationx'));
+                setIsScanning(false);
+                setScanId(null);
+                setResults(data?.result);
+                setStatus('completed');
+                clearInterval(interval);
+            }
+        } catch (error) {
+            nxToast.info(__(`Scan failed! ${error}.`, 'notificationx'));
+            setIsScanning(false);
+            clearInterval(interval);
         }
-      } catch (error) {
-        setScanMessage('Error checking scan status.');
-        setIsScanning(false);
-      }
     };
+
     const interval = setInterval(checkScanStatus, 5000);
+
     return () => clearInterval(interval);
-}, [scanId]);
+}, [scanId, status]);
+
 
 
 useEffect(() => {
@@ -223,7 +184,7 @@ useEffect(() => {
       <div className='scan-controls'>
         <div className='scan-controls-items'>
           <div className='scan-img'>
-            <img src={scan} alt={'Scan cookie'} />
+            <img src={`${builderContext.assets.admin}images/cookie-notice/scan.png`} alt={'Scan cookie'} />
           </div>
           <div className='scan-actions'>
             <p>No scan history found</p>
@@ -241,7 +202,7 @@ useEffect(() => {
         <p className='scan-info'><span>0 of 5</span> free scans used</p>
       </div>
       <div className='scan-schedule'>
-        <img src={schedule} alt={'Coming soon'} />
+        <img src={`${builderContext.assets.admin}images/cookie-notice/coming-soon.png`} alt={'Coming soon'} />
       </div>
       <ReactModal
         isOpen={isReadyToScanModalOpen}
@@ -252,7 +213,7 @@ useEffect(() => {
       >
         <>
           <div className="wprf-modal-table-wrapper wpsp-scan-start-body">
-            <img src={scan_warning} alt={'Scan cookie warning'} />
+            <img src={`${builderContext.assets.admin}images/cookie-notice/scan-warning.png`} alt={'Scan cookie warning'} />
             <h2>Ready to start scanning?</h2>
             <p className='scan-info'><span>0 of 5</span> free scans used</p>
             <p>
@@ -274,7 +235,7 @@ useEffect(() => {
       >
         <>
           <div className="wprf-modal-table-wrapper wpsp-scan-progress-body">
-            <img src={scan_danger} alt={'Scan cookie warning'} />
+            <img src={`${builderContext.assets.admin}images/cookie-notice/scan-danger.png`} alt={'Scan cookie warning'} />
             <h2>Scan in Progress</h2>
             <p>A scan is already running. Please wait for it to complete before starting a new one.</p>
           </div>
@@ -292,43 +253,11 @@ useEffect(() => {
         style={modalStyle}
       >
         <>
-          <div className="wprf-modal-preview-header">
-            <div className='header-details'>
-              <div className='icon-wrap'>
-                <ScanHistory />
-              </div>
-              <span>{ __( 'History','notificationx' ) }</span>
-            </div>
-              <button onClick={() => setIsHistoryModalOpen(false)}>
-                  <CloseIcon />
-              </button>
-          </div>
-          <div className="wprf-modal-table-wrapper wpsp-better-repeater-fields">
-            <table>
-                  <thead>
-                <tr>
-                  <th>Scan Date</th>
-                  <th>Scan Status</th>
-                  <th>Category</th>
-                  <th>Cookies</th>
-                  <th>Scripts</th>
-                  <th>More info</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dummyHistoryData.map((data, index) => (
-                  <tr key={index}>
-                    <td>{data.scan_date}</td>
-                    <td><span className={`status-${data.scan_status.toLowerCase()}`}>{data.scan_status}</span></td>
-                    <td>{data.category}</td>
-                    <td>{data.cookies}</td>
-                    <td>{data.scripts}</td>
-                    <td><a onClick={handleScannedCookieView}>{data.more_info}</a></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <ScannerHistory 
+            setIsHistoryModalOpen={setIsHistoryModalOpen} 
+            dummyHistoryData={dummyHistoryData} 
+            handleScannedCookieView={handleScannedCookieView} 
+          />
         </>
       </ReactModal>
       <ReactModal

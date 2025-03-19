@@ -62,9 +62,14 @@ const BetterRepeaterValueShow = (props) => {
         <div className={`wprf-repeater-field ${discovered ? 'discovered' : ''}`}>
             <div className="wprf-repeater-inner-field">
                 {fieldsArray.map((field, fieldIndex) => {
+                    // @ts-ignore 
+                    if (!builderContext.values?.[parent]?.[index]?.[field?.name]) {
+                        return;
+                    }
                     return <div className='wprf-repeater-inner-field-item' key={'wprf-repeater-inner-field' + fieldIndex}>
                         {/* @ts-ignore  */}
                         <span>{ field?.label }</span>
+                        {/* @ts-ignore  */}
                         { (discovered && field?.name == 'cookies_id') &&
                             <span>{ __( "Discovered",'notificationx' ) }</span>
                         }
