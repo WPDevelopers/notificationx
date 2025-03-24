@@ -128,6 +128,11 @@ class PostType {
         $tabs['settings']['analytics']        = $tabs['analytics'];
         $tabs['admin_url']                    = get_admin_url();
         $tabs['nx_feedback_shared']           = get_option('nx_feedback_shared',false);
+        $tabs['scan_data']                    = [ 
+            'nx_scan_count' => get_option('nx_scan_count',0),
+            'scans_used'    => __('%1$s of %2$s free scans used', 'notificationx'),
+            'scan_date'     => get_option('nx_scan_date'),
+        ];
         $tabs['assets']                       = [
             'admin'  => NOTIFICATIONX_ADMIN_URL,
             'public' => NOTIFICATIONX_PUBLIC_URL,

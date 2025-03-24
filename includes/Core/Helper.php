@@ -1063,4 +1063,37 @@ class Helper {
         return $time;
     }
 
+    /**
+     * Get the current datetime based on the WordPress site's timezone.
+     *
+     * @return string Formatted datetime in 'Y-m-d H:i:s' format.
+     */
+    public static function nx_get_current_datetime() {
+        // Get the WordPress timezone setting
+        $timezone = get_option('timezone_string');
+
+        if (!$timezone) {
+            // If timezone_string is empty, fallback to gmt_offset
+            $gmt_offset = get_option('gmt_offset');
+
+            if ($gmt_offset !== false) {
+                $timezone = timezone_name_from_abbr("", (int) $gmt_offset * 3600, false);
+            }
+
+            // If timezone_name_from_abbr fails, manually handle GMT offsets
+            if (!$timezone) {
+                $timezone = sprintf('Etc/GMT%+d', -$gmt_offset); // Example: GMT+6 → Etc/GMT-6
+            }
+        }
+
+        try {
+            $date = new \DateTime('now', new \DateTimeZone($timezone));
+            return $date->format('Y-m-d H:i:s'); // Format as MySQL datetime
+        } catch (\Exception $e) {
+            // If an error occurs, return UTC time as a fallback
+            return gmdate('Y-m-d H:i:s');
+        }
+    }
+
+
 }

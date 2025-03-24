@@ -7,7 +7,7 @@ import { modalStyle } from '../core/constants';
 import { __ } from '@wordpress/i18n';
 import warning from 'tiny-warning';
 import { useBuilderContext } from 'quickbuilder';
-import { addCookiesAddedClass, cookieCategoryPrefix } from '../frontend/gdpr/utils/helper';
+import { addCookiesAddedClass, cookieCategoryPrefix, formatDateTime } from '../frontend/gdpr/utils/helper';
 import nxToast from '../core/ToasterMsg';
 
 const addCookiesToList = (builderContext: any, fieldName: string, newCookies: any[]) => {
@@ -40,17 +40,9 @@ const CookieScanner = () => {
   const [isScanProgressModalOpen, setIsScanProgressModalOpen] = useState(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
   const [isDiscoveredCookieModalOpen, setIsDiscoveredCookieModalOpen] = useState(false);
-  
-	const dummyHistoryData = [
-		{
-		 	 "scan_date": "03 March 2025 05:06:24",
-			"scan_status": "Completed",
-			"category": "02",
-			"cookies": 23,
-			"scripts": "01",
-			"more_info": "View"
-		},
-	];
+  const [historyData, setHistoryData] = useState([]);
+
+
 	const dummyDiscoverCookies = [
 		{
 			"id": "wordpress_3e130031865ca4e6...",
@@ -59,6 +51,13 @@ const CookieScanner = () => {
 			"description": "No Description found"
 		}
 	]
+  const nx_id = builderContext?.values?.id;
+
+  // Set your variables for used and total scans
+  const [usedScans, setUsedScans] = useState(builderContext?.scan_data?.nx_scan_count || 0);
+  const totalScans = 5;
+  const scanInfo = builderContext?.scan_data?.scans_used.replace('%1$s', usedScans).replace('%2$s', totalScans);
+  const scanDate = builderContext?.scan_data?.scan_date;
   
   const handleScan = useCallback(async () => {
     const apiUrl = `${builderContext?.rest?.root + builderContext?.rest?.namespace }/scan`;    
@@ -116,7 +115,7 @@ const CookieScanner = () => {
 
     const checkScanStatus = async () => {
         try {
-            const statusUrl = `${builderContext?.rest?.root + builderContext?.rest?.namespace }/scan/status?scan_id=${scanId}`;
+            const statusUrl = `${builderContext?.rest?.root + builderContext?.rest?.namespace }/scan/status?scan_id=${scanId}&nx_id=${nx_id}`;
             const response = await fetch(statusUrl);
             const res = await response.json();
             const data = res?.data;
@@ -172,12 +171,33 @@ useEffect(() => {
 
   // Filter based on the length of each array
   const findsOn = Object.entries(categorizedCookies)
-      .filter(([key, value]) => value.length > 0)
-      .map(([key, value]) => key);
-    if( findsOn.length > 0 ) {
-      addCookiesAddedClass(findsOn);
-    }
-}, [status, results]);
+        .filter(([key, value]) => value.length > 0)
+        .map(([key, value]) => key);
+      if( findsOn.length > 0 ) {
+        addCookiesAddedClass(findsOn);
+      }
+  }, [status, results]);
+
+
+ useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const statusUrl = `${builderContext?.rest?.root + builderContext?.rest?.namespace }/scan/history?nx_id=${nx_id}`;
+        const response = await fetch(statusUrl);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const res = await response.json();
+        const data = res?.data;
+        const history_data = JSON.parse(data?.data);        
+        setHistoryData(history_data);
+      } catch (error) {
+      }
+    };
+  
+    fetchData();
+  }, []);  
+  
 
   return (
     <div id='cookie-scanner' className='cookie-scanner'>
@@ -187,19 +207,21 @@ useEffect(() => {
             <img src={`${builderContext.assets.admin}images/cookie-notice/scan.png`} alt={'Scan cookie'} />
           </div>
           <div className='scan-actions'>
-            <p>No scan history found</p>
-            <h2>Start your first scan now</h2>
+            { scanDate ? <p>{ __('Last Successfully Scan','notificationx') }</p> : <p>{ __('No scan history found','notificationx') }</p> }
+            { scanDate ? <h2>{ formatDateTime(scanDate) }</h2> : <h2>{ __('Start your first scan now','notificationx') }</h2> }
             <div className='scan-action-btns'>
               <button onClick={handleScanNowModalPop} disabled={isScanning} className='primary'>
                 {isScanning ? 'Scanning...' : 'Scan Now'}
               </button>
-              <button onClick={handleHistoryBtnClick} disabled={isScanning} className='secondary'>
-                History
+              <button onClick={ handleHistoryBtnClick } disabled={parseInt(usedScans) > 0 ? false : true } className={parseInt(usedScans) > 0 ? 'primary' : 'secondary' }>
+                { __('History','notificationx') }
               </button>
             </div>
           </div>
         </div>
-        <p className='scan-info'><span>0 of 5</span> free scans used</p>
+        { !builderContext?.is_pro_active &&
+          <p className='scan-info'>{scanInfo}</p>
+        }
       </div>
       <div className='scan-schedule'>
         <img src={`${builderContext.assets.admin}images/cookie-notice/coming-soon.png`} alt={'Coming soon'} />
@@ -255,8 +277,8 @@ useEffect(() => {
         <>
           <ScannerHistory 
             setIsHistoryModalOpen={setIsHistoryModalOpen} 
-            dummyHistoryData={dummyHistoryData} 
             handleScannedCookieView={handleScannedCookieView} 
+            historyData={historyData}
           />
         </>
       </ReactModal>
