@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
-import { Content, Instructions, PublishWidget, Sidebar } from '../../components';
-import { proAlert } from '../../core/functions';
-import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon } from '../../icons'
+import { Content, Instructions, ProWidget, PublishWidget, RatingWidget, Sidebar } from '../../components';
+import { permissionAlert, proAlert, updateGeneratedCSS } from '../../core/functions';
+import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon, EditIcon } from '../../icons'
 
 const EditNx = (props) => {
     const { setIsLoading, setIsDelete, id, title, setTitle, setIsUpdated } = props;
@@ -15,12 +15,29 @@ const EditNx = (props) => {
         iconLists['design'] = <DesignIcon />
         iconLists['content'] = <ContentIcon />
         iconLists['display'] = <DisplayIcon />
+        iconLists['manager'] = <ManagerIcon />
         iconLists['customize'] = <CustomizeIcon />
+        iconLists['necessary'] = <NecessaryIcon />
+        iconLists['functional'] = <FunctionalIcon />
+        iconLists['analytics'] = <AnalyticsIcon />
+        iconLists['performance'] = <PerformanceIcon />
+        iconLists['uncategorized'] = <UncategorizedIcon />
+        iconLists['edit_modal'] = <EditIcon />
         builderContext.registerIcons('tabs', iconLists);
 
         builderContext.registerAlert('pro_alert', proAlert);
+        builderContext.registerAlert('has_permission_alert', permissionAlert);
 
     }, [])
+
+    // Function to initialize the event listener
+    const initializeResizeHandler = (cssTargetSelector) => {
+        const updateCSS = () => updateGeneratedCSS(cssTargetSelector);
+        updateCSS();
+        window.addEventListener('resize', updateCSS);
+    };
+    initializeResizeHandler('#hour_minutes_section');
+
 
     return (
         <>
@@ -47,6 +64,8 @@ const EditNx = (props) => {
                     context={builderContext}
                 />
                 <Instructions  {...builderContext} />
+                <RatingWidget/>
+                <ProWidget/>
             </Sidebar>
         </>
     )

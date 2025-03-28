@@ -36,6 +36,11 @@ class ZapierConversions extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Zapier', 'notificationx');
         $this->module_title = __('Zapier', 'notificationx');
         $this->popup = [
@@ -48,7 +53,6 @@ class ZapierConversions extends Extension {
                 </iframe>
             ', 'notificationx')
         ];
-        parent::__construct();
     }
 
     /**

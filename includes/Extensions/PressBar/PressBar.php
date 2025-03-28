@@ -47,8 +47,6 @@ class PressBar extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->title        = __('Press Bar', 'notificationx');
-        $this->module_title = __('Notification Bar', 'notificationx');
         parent::__construct();
         add_action('init', [$this, 'register_post_type']);
 		add_filter( 'get_edit_post_link', function($link, $id){
@@ -58,7 +56,13 @@ class PressBar extends Extension {
             }
             return $link;
         }, 10, 3 );
+    }
 
+    public function init_extension()
+    {
+        $this->title        = __('Press Bar', 'notificationx');
+        $this->module_title = __('Notification Bar', 'notificationx');
+        $popup = "";
 
         $this->themes = [
             'theme-one'   => [
@@ -74,33 +78,6 @@ class PressBar extends Extension {
                 'column'  => "12",
             ],
         ];
-
-        $popup = "";
-        // check if essential blocks is installed.
-        if(!Helper::is_plugin_active('essential-blocks/essential-blocks.php')){
-            $popup = array(
-                // forcing the popup without the is_pro.
-                "forced"            => true,
-                "showConfirmButton" => true,
-                "showCloseButton"   => true,
-                "title"             => "You are missing a dependency.",
-                "customClass"       => array(
-                    "container"     => "pressbar-gutenberg-theme-popup",
-                    // "closeButton"   => "pro-video-close-button",
-                    // "icon"          => "pro-video-icon",
-                    // "title"         => "pro-video-title",
-                    // "content"       => "pro-video-content",
-                    // "actions"       => "nx-pro-alert-actions",
-                    // "confirmButton" => "pro-video-confirm-button",
-                    // "denyButton"    => "pro-video-deny-button"
-                ),
-                "denyButtonText"    => sprintf("<a href='%s' target='_blank'>%s</a>", admin_url('plugin-install.php?s=Essential%2520Blocks&tab=search&type=term'), __("Install Essential Blocks", 'notificationx')),
-                "confirmButtonText" => "<a href='https://essential-blocks.com/' target='_blank'>More Info</a>",
-                "html"              => "
-                    <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>
-                "
-            );
-        }
         $this->bar_themes = array(
             'theme-one'   => [
                 'label'  => 'theme-one',
@@ -192,6 +169,31 @@ class PressBar extends Extension {
                 "popup"  => $popup,
             ],
         );
+        // check if essential blocks is installed.
+        if(!Helper::is_plugin_active('essential-blocks/essential-blocks.php')){
+            $popup = array(
+                // forcing the popup without the is_pro.
+                "forced"            => true,
+                "showConfirmButton" => true,
+                "showCloseButton"   => true,
+                "title"             => "You are missing a dependency.",
+                "customClass"       => array(
+                    "container"     => "pressbar-gutenberg-theme-popup",
+                    // "closeButton"   => "pro-video-close-button",
+                    // "icon"          => "pro-video-icon",
+                    // "title"         => "pro-video-title",
+                    // "content"       => "pro-video-content",
+                    // "actions"       => "nx-pro-alert-actions",
+                    // "confirmButton" => "pro-video-confirm-button",
+                    // "denyButton"    => "pro-video-deny-button"
+                ),
+                "denyButtonText"    => sprintf("<a href='%s' target='_blank'>%s</a>", admin_url('plugin-install.php?s=Essential%2520Blocks&tab=search&type=term'), __("Install Essential Blocks", 'notificationx')),
+                "confirmButtonText" => "<a href='https://essential-blocks.com/' target='_blank'>More Info</a>",
+                "html"              => "
+                    <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>
+                "
+            );
+        }
     }
 
     public function init() {
@@ -313,6 +315,13 @@ class PressBar extends Extension {
                     'label' => __('Background Color', 'notificationx'),
                     'name'  => "bar_bg_color",
                     'type'  => "colorpicker",
+                ],
+                [
+                    'label' => __("Background Image", 'notificationx'),
+                    'name'  => "bar_bg_image",
+                    'button'  => __('Upload', 'notificationx'),
+                    'type'  => "media",
+                    'default' => "",
                 ],
                 [
                     'label' => __('Text Color', 'notificationx'),

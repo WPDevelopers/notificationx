@@ -34,9 +34,8 @@ class NotificationBar extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->id = 'notification_bar';
-        $this->title = __('Notification Bar', 'notificationx');
         parent::__construct();
+        $this->id = 'notification_bar';
     }
 
     /**
@@ -46,6 +45,7 @@ class NotificationBar extends Types {
      */
     public function init() {
         parent::init();
+        $this->title = __('Notification Bar', 'notificationx');
     }
 
 

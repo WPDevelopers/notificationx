@@ -43,6 +43,12 @@ class YouTube extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        // add_action('admin_init', array($this, 'init_google_client'));
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('YouTube', 'notificationx');
         $this->module_title = __('YouTube', 'notificationx');
         $this->themes = [
@@ -252,8 +258,6 @@ class YouTube extends Extension {
                 <span>Google reviews provide helpful information and make your business stand out.</span>
             ', 'notificationx')
         ];
-        // add_action('admin_init', array($this, 'init_google_client'));
-        parent::__construct();
     }
 
      /**

@@ -67,7 +67,7 @@ const Content = (props) => {
             </p>
         );
     });
-
+    
     return (
         <div
             className={`notificationx-content ${config.template_adv ? "adv-template" : ""

@@ -36,6 +36,11 @@ class FreemiusReviews extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Freemius', 'notificationx');
         $this->module_title = __('Freemius', 'notificationx');
         $this->popup = [
@@ -45,7 +50,6 @@ class FreemiusReviews extends Extension {
                 <span>Widely used medium to show review teasers to persuade visitors to trust your offerings.</span>
             ', 'notificationx')
         ];
-        parent::__construct();
     }
 
 }

@@ -235,6 +235,9 @@
                 }
             }
         }
+        &.nx-analytics-graph-main-wrapper {
+            padding-bottom: 24px !important;
+        }
     }
 
     .nx-analytics-wrapper {
@@ -1057,6 +1060,7 @@
     justify-content: center;
     cursor: pointer;
     z-index: 999;
+
     img {
         aspect-ratio: 1;
         visibility: visible;
@@ -1071,36 +1075,45 @@
         justify-content: center;
         align-items: center;
         border-radius: 50%;
+
+        .nx-floating-icon-wrapper {
+            position: absolute;
+        }
+        .nx-floating-icon-wrapper-pro {
+            position: absolute;
+            left: -22px;
+            top: -12px;
+        }
     }
     .nx-dashboard-floating-actions {
         .floating-item {
             position: absolute;
-            right: 8px;
+            right: 56px;
             opacity: 0;
             visibility: hidden;
             transform: scale(0);
             transition: all .2s ease-in-out;
 
             &.item-1 {
-                bottom: 268px;
+                bottom: 316px;
 
             }
 
             &.item-2 {
-                bottom: 204px;
+                bottom: 252px;
             }
 
             &.item-3 {
-                bottom: 142px;
+                bottom: 190px;
             }
 
             &.item-4 {
-                bottom: 80px;
+                bottom: 128px;
             }
 
             &:last-child {
-                right: 0;
-                bottom: 0;
+                right: 48px;
+                bottom: 48px;
             }
 
             &.item-1 .nx-items--icon {
@@ -1120,7 +1133,7 @@
                 transform: translateY(-50%);
                 right: calc(100% + 16px);
                 white-space: nowrap;
-                box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.1215686275);
+                // box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.1215686275);
                 transition: all .2s ease-out;
             }
 
@@ -1132,7 +1145,7 @@
                 height: 48px;
                 background: #FFFFFF;
                 border-radius: 50%;
-                box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.215686275);
+                // box-shadow: 0px 18px 24px 8px rgba(23, 10, 83, 0.215686275);
             }
 
             .nx-close {
@@ -1166,7 +1179,16 @@
             transform: scale(.2);
         }
 
+        .nx-floating-icon-wrapper {
+            opacity: 0;
+            visibility: hidden;
+        }
+
         .nx-dashboard-floating-actions {
+            position: fixed;
+            inset: 0;
+            background: #0B052CB2;
+
             .floating-item {
                 opacity: 1;
                 visibility: visible;
@@ -1207,6 +1229,7 @@
     display: flex;
     gap: 32px;
     margin-top: 18px;
+
     a.nx-resource-link {
         font-size: 14px;
         font-weight: 500;

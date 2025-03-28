@@ -56,6 +56,8 @@ body {
     @import "./nx_new/quick_builder";
     // newAdmin
     @import "./nx_new/new_admin";
+    // cookie manager
+    @import "./nx_new/cookie_manager";
 
     a:focus {
         outline: 0;
@@ -99,6 +101,7 @@ body {
 
 @import "./modal";
 @import "./nx_new/datePicker";
+@import "./nx_new/_cookies_list";
 
 .nx-announcement-entries {
     >.wprf-section-fields {

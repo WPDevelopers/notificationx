@@ -119,7 +119,7 @@ NXTEMFOOTER;
         return $output;
     }
 
-    public function body_header( $args = array(), $frequency ){
+    public function body_header( $args = array(), $frequency = '' ){
         $args = current( $args );
         $logo = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/logo.png' );
         $from_date = isset( $args['from_date'] ) ? date( 'M j, Y', strtotime( $args['from_date'] ) ) : '';
@@ -156,7 +156,7 @@ NXBODYHEADER;
         return $output;
     }
 
-    public function body( $args = array(), $frequency ){
+    public function body( $args = array(), $frequency = '' ){
         if( empty( $args ) ) {
             return '';
         }
@@ -187,7 +187,7 @@ NXTEMBODY;
         return $output;
     }
 
-    public function promo( $args = array(), $frequency ){
+    public function promo( $args = array(), $frequency = '' ){
         if( empty( $args ) ) {
             return false;
         }

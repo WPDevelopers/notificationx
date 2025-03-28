@@ -36,8 +36,15 @@ class OfferAnnouncement extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        $this->title = __('Discount Alert', 'notificationx');
         parent::__construct();
+        
+        // add_filter('nx_link_types', [$this, 'link_types']);
+    }
+
+    public function init()
+    {
+        parent::init();
+        $this->title = __('Discount Alert', 'notificationx');
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/docs/configure-discount-alert/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
@@ -48,7 +55,6 @@ class OfferAnnouncement extends Types {
                 </video>
             ', 'notificationx')
         ];
-        // add_filter('nx_link_types', [$this, 'link_types']);
     }
 
     /**

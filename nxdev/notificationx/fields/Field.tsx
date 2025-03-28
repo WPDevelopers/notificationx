@@ -8,6 +8,9 @@ import FlashingThemeFour from './FlashingThemeFour';
 import CSVUpload from './CSVUpload';
 import AdvancedRepeater from './AdvancedRepeater';
 import AdvancedCodeViewer from './AdvancedCodeViewer';
+import BetterRepeater from './BetterRepeater';
+import BetterToggle from './BetterToggle';
+import BetterText from './BetterText';
 
 
 const Field = (ret, type, props) => {
@@ -30,6 +33,12 @@ const Field = (ret, type, props) => {
             return <CSVUpload {...props} />;
         case "advanced-codeviewer":
             return <AdvancedCodeViewer {...props} />;
+        case "better-repeater":
+            return <BetterRepeater {...props} />;
+        case "better-toggle":
+            return <BetterToggle {...props} />;
+        case "better-text":
+            return <BetterText {...props} />;
         default:
             return ret;
     }

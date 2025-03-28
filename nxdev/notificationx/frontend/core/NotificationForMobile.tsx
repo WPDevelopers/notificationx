@@ -4,7 +4,7 @@ import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } 
 import { Theme } from "../themes";
 import Analytics from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
-import 'animate.css';
+// import 'animate.css';
 
 const useMediaQuery = (query) => {
     const mediaQuery = window.matchMedia(query);
@@ -234,6 +234,7 @@ const NotificationForMobile = (props) => {
             // onMouseLeave={handleStartTimer}
             className={componentClasses}
             style={componentStyle}
+            id={`notificationx-res-${settings.nx_id}`}
         >
             {
                 is_pro && settings?.sound && settings?.sound != 'none' && settings.sound.length > 0 && props.assets?.pro &&

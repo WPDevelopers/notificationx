@@ -39,9 +39,13 @@ class NinjaForms extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Ninja Forms', 'notificationx');
         $this->module_title = __('Ninja Forms', 'notificationx');
-        parent::__construct();
     }
 
     public function init() {
@@ -116,6 +120,167 @@ class NinjaForms extends Extension {
         }
 
         return $forms;
+    }
+
+    public function saved_post($post, $data, $nx_id) {
+        $this->delete_notification(null, $nx_id);
+        $this->get_notification_ready($data);
+    }
+
+    /**
+     * This function responsible for making ready the notifications for the first time
+     * we have made a notification.
+     *
+     * @param string $type
+     * @param array $data
+     * @return void
+     */
+    public function get_notification_ready($data = array()) {
+        $form_list = !empty($data['__form_list']['value']) ? $data['__form_list']['value'] : (!empty($data['form_list']['value']) ? $data['form_list']['value'] : null);
+        if( !empty($form_list) ) {
+            $form_list = explode('_',$form_list);
+            $submissions = $this->get_submissions($form_list[1], $data);
+            if( count( $submissions ) > 0 ) {
+                $entries = [];
+                foreach ( $submissions as $submission ) {
+                    if( !empty( $submission ) ) {
+                        if (!empty($submission)) {
+                            $key = $this->key($form_list[1]);
+                            $entries[] = [
+                                'nx_id'      => $data['nx_id'],
+                                'source'    => $this->id,
+                                'entry_key' => $key,
+                                'data'      => $submission,
+                            ];
+                        }
+                    }
+                }
+                $this->update_notifications($entries);
+            }
+        }
+    }
+
+    public function get_submissions( $form_id, $data ) {
+        $subs               = Ninja_Forms()->form( $form_id )->get_subs( array(), FALSE );
+        $fields             = Ninja_Forms()->form( $form_id )->get_fields();
+        $hidden_field_types = apply_filters( 'nf_sub_hidden_field_types', array() );
+        $display_from = !empty( $data['display_from'] ) ? intval( $data['display_from'] ) : 30;        
+        $cutoff_timestamp = strtotime("-{$display_from} days");
+
+        foreach( $subs as $sub ){
+            $timestamp = strtotime( $sub->get_sub_date('Y-m-d H:i') );
+            // Skip submissions older than $display_from days
+            if ($timestamp < $cutoff_timestamp) {
+                continue;
+            }
+            $value[ 'title' ] = $sub->get_form_title();
+            $value[ 'timestamp' ] = $timestamp;
+
+            // boolean - does this submission use a repeater
+            $hasRepeater = false;
+            // How many repeater submissions does this submission have
+            $submissionCount = 0;
+            // Ids of fields in the repeater
+            $fieldsetFieldIds=[];
+
+            foreach ($fields as $field_id => $field) {
+                        // Bypass existing method if fieldset repeater
+                if('repeater'===$field->get_setting('type')){
+                    $hasRepeater = true;
+                    
+                    $fieldsetSubmission=    $sub->get_field_value( $field_id );
+                    $fieldsetSettings = $field->get_settings();
+                    $fieldsetLabels = Ninja_Forms()->fieldsetRepeater
+                            ->getFieldsetLabels($field_id, $fieldsetSettings, true);
+                                    
+                    foreach($fieldsetLabels as $fieldsetFieldId =>$fieldsetFieldLabel){
+                        
+                        $fieldsetFieldIds[]=$fieldsetFieldId;
+
+                        $field_labels[$fieldsetFieldId]= \WPN_Helper::maybe_escape_csv_column( $fieldsetFieldLabel );
+                        
+                        $fieldType = Ninja_Forms()->fieldsetRepeater->getFieldtype($fieldsetFieldId, $fieldsetSettings);
+                        
+                        $fieldsetFieldSubmissionCollection=Ninja_Forms()->fieldsetRepeater
+                                ->extractSubmissionsByFieldsetField($fieldsetFieldId, $fieldsetSubmission);
+                       
+                       $submissionCount = count($fieldsetFieldSubmissionCollection);
+                       
+                            foreach ($fieldsetFieldSubmissionCollection as  &$fieldsetFieldSubmission) {
+                                
+                                if(is_array($fieldsetFieldSubmission['value'])){
+
+                                    $fieldsetFieldSubmission['value']= implode(', ',$fieldsetFieldSubmission['value']);
+                                }
+                            }
+                            
+
+                        $value[$fieldsetFieldId]= array_column($fieldsetFieldSubmissionCollection,'value');
+                    }
+                                      
+                }else{
+                    if (!is_int($field_id)) continue;
+                  if( in_array( $field->get_setting( 'type' ), $hidden_field_types ) ) continue;
+
+                  if ( $field->get_setting( 'admin_label' ) ) {
+                      $field_labels[ $field->get_id() ] = \WPN_Helper::maybe_escape_csv_column( $field->get_setting( 'admin_label' ) );
+                  } else {
+                      $field_labels[ $field->get_id() ] = \WPN_Helper::maybe_escape_csv_column( $field->get_setting( 'label' ) );
+                  }
+
+                  $field_value = maybe_unserialize( $sub->get_field_value( $field_id ) );
+
+                  $field_value = apply_filters('nf_subs_export_pre_value', $field_value, $field_id);
+                  $field_value = apply_filters('ninja_forms_subs_export_pre_value', $field_value, $field_id, $form_id);
+                  $field_value = apply_filters( 'ninja_forms_subs_export_field_value_' . $field->get_setting( 'type' ), $field_value, $field );
+
+                  if ( is_array($field_value ) ) {
+                      $field_value = implode( ',', $field_value );
+                  }
+
+                  $value[ $field_labels[ $field->get_id() ] ] = $field_value;
+                  
+                }   
+            }
+
+            if(!$hasRepeater){
+                $value_array[] = $value;
+            }else{
+                // The the submission has repeater fields, create an indexed array first
+                $repeatingValueArray=[];
+                $index = 0;
+
+                do {
+                    // iterate each column in the row 'value'
+                    foreach($value as $fieldId=>$columnValue){
+                        
+                        // If the column in the row value is not a repeater
+                        // fieldset field, simply copy it into a new row of the
+                        // repeating value array
+                        if(!in_array($fieldId,$fieldsetFieldIds)){
+                            $repeatingValueArray[$index][]=$columnValue;
+                        }else{
+
+                            // If the column in the row value is a repeater
+                            // fieldset field, copy the next submission index value
+                            
+                            
+                            $repeatingValueArray[$index][]=$columnValue[$index];
+                        }
+                    }
+                    // at the end of the row value columns, increment the index
+                    // until all the submission index values are added
+                    $index++;
+                } while ($index < $submissionCount);
+
+                // After iterating the row value once for each submission index,
+                // add the repeatingValueArray to the value array
+
+                $value_array[]=$repeatingValueArray;
+            }
+
+        }
+        return $value_array;
     }
 
     public function restResponse($args) {

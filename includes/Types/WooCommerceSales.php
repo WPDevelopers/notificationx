@@ -48,7 +48,12 @@ class WooCommerceSales extends Types {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
         $this->id = 'woocommerce_sales';
+    }
+
+    public function init() {
+        parent::init();
         $this->title = __('WooCommerce', 'notificationx');
 
         $is_pro = ! NotificationX::is_pro();
@@ -195,11 +200,6 @@ class WooCommerceSales extends Types {
                 'is_pro'    => true,
             ],
         ];
-        parent::__construct();
-    }
-
-    public function init() {
-        parent::init();
         add_filter("nx_filtered_entry_{$this->id}", array($this, 'conversion_data'), 11, 2);
     }
     

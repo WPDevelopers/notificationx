@@ -1,10 +1,10 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-import { getThemeName, isObject, calculateAnimationStartTime } from "../core/functions";
+import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
-import 'animate.css';
+// import 'animate.css';
 
 const useMediaQuery = (query) => {
     const mediaQuery = window.matchMedia(query);
@@ -184,10 +184,40 @@ const Notification = (props) => {
             "flex-reverse": advance_edit && settings?.image_position === "right",
         }
     ];
+    let splitThemes = [
+        "theme-five",
+        "theme-six-free",
+        "conv-theme-nine",
+        "review-comment",
+        "page_analytics_pa-theme-two",
+    ];
+    splitThemes = splitThemes.concat(props?.splitThemes);
+
+    const componentCSS: any = {};
+    const announcementCSS: any = {};
+    const resThemeName = getResThemeName(settings) || null;
+    const isSplit = splitThemes.includes(themeName) || splitThemes.includes(resThemeName);
+    
+    if (props?.config?.advance_edit) {
+        if (props?.config?.bg_color && !isSplit ) componentCSS.backgroundColor = props?.config?.bg_color;
+        if (props?.config?.text_color) componentCSS.color = props?.config?.text_color;
+        if (+props?.config?.border && +props?.config?.border_size) {
+            componentCSS.borderWidth = props?.config?.border_size;
+            if (props?.config?.border_style) componentCSS.borderStyle = props?.config?.border_style;
+            if (props?.config?.border_color) componentCSS.borderColor = props?.config?.border_color;
+        }
+        // Add announcementCSS
+        if (props?.config?.discount_text_color) announcementCSS.discountTextColor = props?.config?.discount_text_color;
+        if (props?.config?.discount_background) announcementCSS.discountBackground = props?.config?.discount_background;
+        if (props?.config?.link_button_bg_color) announcementCSS.linkButtonBgColor = props?.config?.link_button_bg_color;
+        if (props?.config?.link_button_font_size) announcementCSS.linkButtonFontSize = props?.config?.link_button_font_size;
+        if (props?.config?.link_button_text_color) announcementCSS.linkButtonTextColor = props?.config?.link_button_text_color;
+    }
     
     const componentStyle: any = {
+        ...componentCSS,
         maxWidth: `${notificationSize}px`,
-        ...getAnimationStyles()
+        ...getAnimationStyles(),
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
@@ -232,6 +262,7 @@ const Notification = (props) => {
             // onMouseLeave={handleStartTimer}
             className={componentClasses}
             style={componentStyle}
+            id={`notificationx-${settings.nx_id}`}
         >
             {
                 is_pro && settings?.sound && settings?.sound != 'none' && settings.sound.length > 0 && props.assets?.pro &&

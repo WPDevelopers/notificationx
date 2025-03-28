@@ -48,9 +48,13 @@ class WPOrgStats extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('WP.Org Stats', 'notificationx');
         $this->module_title = __('WordPress', 'notificationx');
-        parent::__construct();
     }
 
 

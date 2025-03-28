@@ -30,7 +30,8 @@ class ReviewX extends WooReviews {
     public $types                 = 'reviews';
     public $module                = 'modules_reviewx';
     public $module_priority       = 4;
-    public $class                 = '\ReviewX';
+    // public $class                 = '\ReviewX';
+    public $function              = 'rvx_wpdrill_init';
     public $default_theme         = 'reviewx_total-rated';
     public $exclude_custom_themes = true;
 
@@ -63,9 +64,13 @@ class ReviewX extends WooReviews {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('ReviewX', 'notificationx');
         $this->module_title = __('ReviewX', 'notificationx');
-        parent::__construct();
         $this->themes = [
             'total-rated'     => [
                 'source'                => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
@@ -185,7 +190,6 @@ class ReviewX extends WooReviews {
             ],
         ];
     }
-
     /**
      * This functions is hooked
      *

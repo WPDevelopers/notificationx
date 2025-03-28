@@ -35,9 +35,13 @@ class ConvertKit extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('ConvertKit', 'notificationx');
         $this->module_title = __('ConvertKit', 'notificationx');
-        parent::__construct();
     }
 
     /**

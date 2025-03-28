@@ -38,6 +38,11 @@ class LearnDash extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('LearnDash', 'notificationx');
         $this->module_title = __('LearnDash', 'notificationx');
         $this->popup = [
@@ -47,7 +52,6 @@ class LearnDash extends Extension {
                 <span>A widely used WordPress learning management system.</span>
             ', 'notificationx')
         ];
-        parent::__construct();
     }
 
     public function source_error_message($messages) {

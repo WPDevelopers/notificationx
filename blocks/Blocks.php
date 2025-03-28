@@ -8,6 +8,7 @@
 
 namespace NotificationX\Blocks;
 
+use NotificationX\Core\Helper;
 use NotificationX\GetInstance;
 
 /**
@@ -144,9 +145,10 @@ class Blocks {
         if ( is_admin() || $this->isRestUrl() ) {
             do_action( 'nx_ignore_analytics' );
         }
-        $nx_id = ! empty( $block_attributes['nx_id'] ) ? $block_attributes['nx_id'] : '';
-        $product_id     = ! empty( $block_attributes['product_id'] ) ? $block_attributes['product_id'] : '';
-        $html  = '<div class="' . $block_attributes['blockId'] . ' notificationx-block-wrapper" data-nx_id="' . $nx_id . '">';
+        $nx_id      = ! empty( $block_attributes['nx_id'] ) ? esc_attr($block_attributes['nx_id']) : '';
+        $product_id = ! empty( $block_attributes['product_id'] ) ? $block_attributes['product_id'] : '';
+        $block_id   = ! empty( $block_attributes['blockId'] ) ? esc_attr($block_attributes['blockId']) : '';
+        $html  = '<div class="' . $block_id . ' notificationx-block-wrapper" data-nx_id="' . $nx_id . '">';
         $html .= do_shortcode( "[notificationx_inline product_id='{$product_id}' id='{$nx_id}']" );
         $html .= '</div>';
         return $html;
@@ -154,7 +156,7 @@ class Blocks {
 
     function gutenberg_examples_dynamic_render_callback( $block_attributes, $content ) {
         do_action( 'nx_ignore_analytics' );
-        $nx_id          = ! empty( $block_attributes['nx_id'] ) ? $block_attributes['nx_id'] : '';
+        $nx_id          = ! empty( $block_attributes['nx_id'] ) ? esc_attr($block_attributes['nx_id']) : '';
         $product_id     = ! empty( $block_attributes['product_id'] ) ? $block_attributes['product_id'] : '';
         $post_type     = ! empty( $block_attributes['post_type'] ) ? $block_attributes['post_type'] : '';
         $html      = '<div class="' . $block_attributes['blockId'] . ' notificationx-block-wrapper">';
@@ -172,7 +174,7 @@ class Blocks {
         }
         $html .= '</div>';
 
-        return $html;
+        return wp_kses($html, Helper::nx_allowed_html());
     }
 
     function isRestUrl() {

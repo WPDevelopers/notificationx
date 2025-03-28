@@ -221,6 +221,182 @@
                     }
                 }
             }
+            &.notificationx-rating-widget {
+                background: linear-gradient(222.89deg, #E0E2FF 1.87%, #FFFFFF 72.64%);
+                .nx-widget-title {
+                    min-height: auto;
+                    padding: 16px 16px 20px;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    border-bottom: 1px solid #D8DEEE;
+                    h4 {
+                        font-size: 18px;
+                        font-weight: 600;
+                        line-height: 25px;
+                        color: #092161;
+                        margin-bottom: 8px;
+                    }
+                    .nx-widget-rating-area {
+                        display: flex;
+                    }
+                    .nx-widget-review-box {
+                        width: 100%;
+                        h4 {
+                            margin-bottom: 12px;
+                        }
+                        .review-box {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 6px;
+                            margin-bottom: 20px;
+                            label {
+                                font-size: 12px;
+                                line-height: 16px;
+                                font-weight: 500;
+                                color: #092161;
+                                span {
+                                    color: red;
+                                }
+                            }
+                            textarea {
+                                font-size: 12px;
+                                line-height: 16px;
+                                color: #7C8DB5;
+                                width: 100%;
+                                border-radius: 6px;
+                                padding: 12px;
+                                min-height: 88px;
+                                border: 1px solid #EDEEFC;
+                                background: #F8F8FF;
+                                resize: none;
+                                &:focus {
+                                    box-shadow: none;
+                                }
+                            }
+                        }
+                    }
+                    button {
+                        font-size: 14px;
+                        line-height: 17px;
+                        font-weight: 500;
+                        color: #6A4BFF;
+                        padding: 9px 12px;
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        gap: 4px;
+                        background: transparent;
+                        border: 1px solid #6A4BFF;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        &:disabled {
+                            color: #ababab;
+                            border-color: #ababab;
+                            cursor: no-drop;
+                        }
+                    }
+                }
+                .review-submitted-box {
+                    h5 {
+                        font-size: 18px;
+                        font-weight: 600;
+                        line-height: 25px;
+                        color: #092161;
+                        margin: 0;
+                        margin-bottom: 12px;
+                        &.five-star {
+                            font-size: 16px;
+                        }
+                    }
+                    p {
+                        font-size: 12px;
+                        line-height: 17px;
+                        color: #7C8DB5;
+                        margin: 0;
+                        margin-bottom: 12px;
+                    }
+                    a {
+                        font-size: 14px;
+                        line-height: 17px;
+                        font-weight: 500;
+                        color: #6A4BFF;
+                        padding: 9px 12px;
+                        display: flex;
+                        justify-content: center;
+                        gap: 4px;
+                        background: transparent;
+                        border: 1px solid #6A4BFF;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        text-decoration: none;
+                    }
+                }
+                .nx-widget-initiate-chat {
+                    padding: 20px 16px 16px 16px;
+                    svg {
+                        margin-bottom: 8px;
+                    }
+                    h5 {
+                        font-size: 18px;
+                        font-weight: 600;
+                        line-height: 25px;
+                        color: #092161;
+                        margin: 0;
+                        margin-bottom: 8px;
+                    }
+                    p {
+                        font-size: 12px;
+                        line-height: 17px;
+                        color: #7C8DB5;
+                        margin: 0;
+                        margin-bottom: 12px;
+                    }
+                    a {
+                        font-size: 14px;
+                        line-height: 17px;
+                        font-weight: 500;
+                        color: #FFF;
+                        text-decoration: none;
+                        padding: 11px 0;
+                        display: flex;
+                        justify-content: center;
+                        width: 100%;
+                        background: #6A4BFF;
+                        border-radius: 8px;
+                        box-shadow: 0px 6px 9px 0px #FFFFFF80 inset;
+                    }
+                }
+            }
+            &.notificationx-pro-widget {
+                .nx-widget-content {
+                    padding: 16px;
+                    background: linear-gradient(208.81deg, #FFEFE0 2.33%, #FFFFFF 39.41%);
+                    border-radius: 8px;
+                    h4 {
+                        font-size: 18px;
+                        font-weight: 600;
+                        line-height: 25px;
+                        color: #092161;
+                        margin: 0;
+                        margin-bottom: 8px;
+                    }
+                    p {
+                        font-size: 12px;
+                        line-height: 17px;
+                        color: #7C8DB5;
+                        margin: 0;
+                        margin-bottom: 12px;
+                    }
+                    a {
+                        font-size: 14px;
+                        line-height: 17px;
+                        font-weight: 500;
+                        color: #FF7700;
+                        text-decoration: none;
+                    }
+                }
+            }
+
             .nx-admin-status {
                 display: flex;
                 justify-content: center;

@@ -140,6 +140,10 @@ class Posts extends WP_REST_Controller {
      * @return true|WP_Error True if the request has read access, WP_Error object otherwise.
      */
     public function get_item_permissions_check($request) {
+        $params = $request->get_params();
+        if( !empty( $params['source'] ) ) {
+            return current_user_can('read_notificationx');
+        }
         return current_user_can('read_notificationx');
     }
 
@@ -255,6 +259,10 @@ class Posts extends WP_REST_Controller {
      * @return true|WP_Error True if the request has access to update the item, WP_Error object otherwise.
      */
     public function update_item_permissions_check($request) {
+        $params = $request->get_params();
+        if( !empty( $params['source'] ) ) {
+            return current_user_can('edit_notificationx');
+        }
         return current_user_can('edit_notificationx');
     }
 

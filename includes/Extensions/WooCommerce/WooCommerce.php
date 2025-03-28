@@ -46,12 +46,16 @@ class WooCommerce extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('WooCommerce', 'notificationx');
         $this->module_title = __('WooCommerce', 'notificationx');
         $this->templates = Conversions::get_instance()->templates;
         $this->templates['woo_template_new']['third_param']['product_title_raw'] = __('Product Title Raw', 'notificationx');
         $this->templates['woo_template_sales_count']['third_param']['product_title_raw'] = __('Product Title Raw', 'notificationx');
-        parent::__construct();
     }
 
     public function init(){
@@ -389,9 +393,10 @@ class WooCommerce extends Extension {
      */
     public function get_orders($data = array()) {
         if (empty($data) || !function_exists('wc_get_orders')) return null;
-        $orders    = [];
-        $from      = strtotime(date('Y-m-d', strtotime('-' . intval($data['display_from']) . ' days')));
-        $status    = !empty($data['order_status']) ? $data['order_status'] : ['wc-completed', 'wc-processing'];
+        $orders = [];
+        $time   = Helper::generate_time_string($data);
+        $from   = strtotime(date('Y-m-d h:i', $time));
+        $status = !empty($data['order_status']) ? $data['order_status'] : ['wc-completed', 'wc-processing'];
         $wc_orders = \wc_get_orders([
             'status'       => $status,
             'date_created' => '>' . $from,
@@ -409,7 +414,6 @@ class WooCommerce extends Extension {
         }
         return $orders;
     }
-
     /**
      * Limit entry by selected status;
      *
@@ -496,8 +500,8 @@ class WooCommerce extends Extension {
                 $width      = 100;
                 $height     = 100;
                 if( !empty( $image_size[0] ) && !empty( $image_size[1] ) ) {
-                    $width  = !empty($image_data[0]) ? $image_data[0] : 100;
-                    $height = !empty( $image_data[1] ) ? $image_data[1] : 100;
+                    $width  = !empty($image_size[0]) ? $image_size[0] : 100;
+                    $height = !empty( $image_size[1] ) ? $image_size[1] : 100;
                 }
                 $product_image = wp_get_attachment_image_src(
                     get_post_thumbnail_id($id),

@@ -3,10 +3,10 @@ name: Deploy to WordPress.org
 on:
   push:
     branches: [ trunk ]
-    
+
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
       - name: Assets Update

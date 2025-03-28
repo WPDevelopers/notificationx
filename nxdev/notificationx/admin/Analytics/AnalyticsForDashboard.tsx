@@ -285,4 +285,4 @@ const AnalyticsForDashboard = ( { isDashboard = false } ) => {
         </div>
     );
 };
-export default withDocumentTitle(AnalyticsForDashboard, __("Dashboard", 'notificationx'));
+export default withDocumentTitle(AnalyticsForDashboard, __("NotificationX", 'notificationx'));

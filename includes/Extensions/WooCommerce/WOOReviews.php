@@ -47,6 +47,11 @@ class WooReviews extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title        = $this->title ?        $this->title        : __('WooCommerce', 'notificationx');
         $this->module_title = $this->module_title ? $this->module_title : __('WooCommerce', 'notificationx');
         $this->themes = [
@@ -167,7 +172,6 @@ class WooReviews extends Extension {
                 ],
             ],
         ];
-        parent::__construct();
     }
 
 
@@ -252,8 +256,8 @@ class WooReviews extends Extension {
                 $width      = 100;
                 $height     = 100;
                 if( !empty( $image_size[0] ) && !empty( $image_size[1] ) ) {
-                    $width  = !empty($image_data[0]) ? $image_data[0] : 100;
-                    $height = !empty($image_data[1]) ? $image_data[1] : 100;
+                    $width  = !empty($image_size[0]) ? intval($image_size[0]) : 100;
+                    $height = !empty($image_size[1]) ? intval($image_size[1]) : 100;
                 }
                 $product_image = wp_get_attachment_image_src(
                     get_post_thumbnail_id($data['product_id']),
@@ -407,7 +411,8 @@ class WooReviews extends Extension {
     public function get_comments($data) {
         if (empty($data)) return null;
 
-        $from = isset($data['display_from']) ? intval($data['display_from']) : 0;
+        // $from = isset($data['display_from']) ? intval($data['display_from']) : 0;
+        $from   = date('Y-m-d H:i:s', Helper::generate_time_string($data));
         $needed = isset($data['display_last']) ? intval($data['display_last']) : 0;
 
         $comments = get_comments([
@@ -415,7 +420,7 @@ class WooReviews extends Extension {
             'number'     => $needed,
             'post_type'  => 'product',
             'date_query' => [
-                'after'     => $from . ' days ago',
+                'after'     => $from,
                 'inclusive' => true,
             ]
         ]);

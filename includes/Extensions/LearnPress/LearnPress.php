@@ -8,10 +8,12 @@
 
 namespace NotificationX\Extensions\LearnPress;
 
+use NotificationX\Core\Helper;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\Admin\Settings;
 
 /**
  * LearnPress Extension
@@ -27,7 +29,7 @@ class LearnPress extends Extension {
 
     public $priority        = 11;
     public $id              = 'learnpress';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/learnpress.png';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/_learnpress.png';
     public $doc_link        = 'https://notificationx.com/docs/tutor-lms/';
     public $types           = 'elearning';
     public $module          = 'modules_learnpress';
@@ -38,9 +40,13 @@ class LearnPress extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct() {
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title        = __('LearnPress', 'notificationx');
         $this->module_title = __('LearnPress', 'notificationx');
-        parent::__construct();
     }
 
     /**
@@ -103,7 +109,7 @@ class LearnPress extends Extension {
         if(!$settings['show_default_image']){
             switch ($settings['show_notification_image']) {
                 case 'featured_image':
-                    $image_data['url'] = get_the_post_thumbnail_url($data['product_id'], 'thumbnail');
+                    $image_data['url'] = get_the_post_thumbnail_url($data['product_id'], '_nx_notification_thumb' );
                     $image_data['alt'] = !empty($data['title']) ? $data['title'] : '';
                     break;
                 case 'gravatar':
@@ -493,7 +499,8 @@ class LearnPress extends Extension {
             return null;
         }
         $orders   = array();
-        $from     = date(get_option('date_format'), strtotime('-' . intval($data['display_from']) . ' days'));
+        // $from     = date(get_option('date_format'), strtotime('-' . intval($data['display_from']) . ' days'));
+        $from     = date('Y-m-d H:i:s', Helper::generate_time_string($data));
         $enrolled = get_posts(
             array(
                 'post_type'      => 'lp_order',

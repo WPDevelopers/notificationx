@@ -21,6 +21,7 @@ const useNotificationX = (props: any) => {
     const [activeNotices, setActiveNotices] = useState(null);
     const [globalNotices, setGlobalNotices] = useState(null);
     const [pressbarNotices, setPressbarNotices] = useState(null);
+    const [gdprNotices, setGdprNotices] = useState(null);
     const [shortcodeNotices, setShortcodeNotices] = useState(null);
 
     const getTime = (value?, keepLocalTime: boolean = false) => {
@@ -93,8 +94,35 @@ const useNotificationX = (props: any) => {
                 });
                 setPressbarNotices(normalizePressBar(filteredConfig, config.settings));
             }
+            if(config && Object.keys(config?.gdpr).length){
+                const filteredConfig = {};
+                Object.keys(config.gdpr).forEach((key) => {
+                    const gdpr = config.gdpr[key];
+                    let settings = {...gdpr['post'], previewType};
+                    if(settings._global_queue){
+                        settings = {...settings, ...config.settings};
+                    }
+                    if(!(previewType === 'phone' && settings.hide_on_mobile)){
+                        gdpr['post']    = settings;
+                        filteredConfig[key] = gdpr;
+                    }
+                });
+                setGdprNotices(normalizePressBar(filteredConfig, config.settings));
+            }
         }
     }, [previewType])
+
+    const getDeviceType = () => {
+        const width = window?.innerWidth;
+    
+        if (width >= 1024) {
+            return "desktop";
+        } else if (width >= 768 && width < 1024) {
+            return "tablet";
+        } else {
+            return "mobile";
+        }
+    }
 
     useEffect(() => {
         isMounted.current = true;
@@ -112,12 +140,15 @@ const useNotificationX = (props: any) => {
         }
         let url = nxHelper.getPath(props.config.rest, `notice/`, query);
         const extras = props.config?.extra || [];
+        const deviceType = getDeviceType();
         const data = {
             all_active: props.config?.all_active || false,
             global    : props.config?.global || [],
             active    : props.config?.active || [],
             pressbar  : props.config?.pressbar || [],
             shortcode : props.config?.shortcode || [],
+            gdpr      : props.config?.gdpr || [],
+            deviceType: deviceType,
             extra     : { ...extras,'url': location.pathname, 'page_title': document.title },
         };
 
@@ -146,11 +177,11 @@ const useNotificationX = (props: any) => {
                             timestamp: row => row.data?.timestamp ? row.data.timestamp : getTime(row.data?.updated_at)
                         }
                     });
-                }
-
+                }                                
                 setGlobalNotices(gNotices);
                 setShortcodeNotices(response?.shortcodeNotice);
                 setPressbarNotices(response?.pressbar);
+                setGdprNotices(response?.gdpr);
             }
         });
         return () => {
@@ -333,6 +364,57 @@ const useNotificationX = (props: any) => {
     }, [pressbarNotices]);
 
     /**
+     * GDPR
+     */
+    useEffect(() => {
+        // Process to render;
+        if (gdprNotices != null && gdprNotices.length > 0) {
+            gdprNotices.forEach((gdprItem) => {
+                const config = gdprItem.post;
+                const initialDelay = (+config?.cookie_visibility_delay_before || 5) * 1000;
+                const hideAfter = (+config?.hide_after || 5) * 1000;
+
+                let args = {
+                    intervalID: null,
+                    timeoutID: null,
+                    data: null,
+                    config
+                }
+
+                const timeoutID = setTimeout(() => {
+                    args.timeoutID = timeoutID;
+                    args.data = gdprItem.content;
+                    const ID = dispatchNotification(args);
+
+                    if (config?.auto_hide && +config?.hide_after) {
+                        if (config?.close_forever) {
+                            const expires = new Date();
+                            expires.setDate(
+                                expires.getDate() +
+                                    (config?.time_reset ? 1 : 365)
+                            );
+                            let countRand = config?.countdown_rand ? `-${config.countdown_rand}` : '';
+                            cookie.save(
+                                "notificationx_" + config?.nx_id + countRand,
+                                true,
+                                { path: "/", expires }
+                            );
+                        }
+                        setTimeout(() => {
+                            dispatch({
+                                type: "REMOVE_NOTIFICATION",
+                                payload: ID,
+                            });
+                            document.body.style.paddingTop = `0px`;
+                        }, hideAfter);
+                    }
+                }, initialDelay);
+            });
+            
+        }
+    }, [gdprNotices]);
+
+    /**
      * ShortCode Dispatch
      */
     useEffect(() => {
@@ -381,21 +463,29 @@ const useNotificationX = (props: any) => {
                 }
             });
         }
-    }, [shortcodeNotices]);
+    }, [shortcodeNotices]);    
 
     const getNxToRender = (callback: (position, NoticeList: []) => void) => {
         const noticeToRender = {};
         // Define a fixed order of positions
-        let fixedOrder = ['top','bottom', 'bottom_left', 'bottom_right', 'top_left', 'top_right'];
+        let fixedOrder = ['top','bottom', 'bottom_left', 'bottom_right', 'top_left', 'top_right','center','cookie_notice_bottom_left','cookie_notice_bottom_right', 'cookie_notice_center','cookie_banner_top', 'cookie_banner_bottom'];
         for (let i = 0; i < state.notices.length; i++) {
             const notice = state.notices[i];
-            let { position } = notice.config;
-            if (position.startsWith('notificationx-shortcode-')) {
-                fixedOrder.push(position);
+            let get_position;
+            if( notice.config.type == 'gdpr' ) {
+                let { gdpr_position } = notice.config;
+                get_position = gdpr_position;
+            }else{
+                let { position } = notice.config;
+                get_position = position;
             }
-            noticeToRender[position] || (noticeToRender[position] = []);
-            noticeToRender[position]!.push(notice);
+            if (get_position.startsWith('notificationx-shortcode-')) {
+                fixedOrder.push(get_position);
+            }
+            noticeToRender[get_position] || (noticeToRender[get_position] = []);
+            noticeToRender[get_position]!.push(notice);
         }
+        
         return fixedOrder.map((p) => 
             noticeToRender[p] ? callback(p, noticeToRender[p]!) : null
         ).filter(Boolean);

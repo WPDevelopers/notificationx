@@ -1,0 +1,2033 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NotificationX Pro\n"
+"POT-Creation-Date: 2024-11-17 01:30-0300\n"
+"PO-Revision-Date: 2024-11-17 01:34-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.5\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: notificationx-pro.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#. translators: %d: CRON job interval in minute.
+#: includes/Admin/Cron.php:40 includes/Admin/Cron.php:46
+#: includes/Admin/Cron.php:51 includes/Admin/Cron.php:56
+#: includes/Admin/Cron.php:61 includes/Admin/Cron.php:66
+#: includes/Admin/Cron.php:71 includes/Admin/Cron.php:75
+#: includes/Admin/Cron.php:80
+#, php-format
+msgid "Every %d minute"
+msgid_plural "Every %d minutes"
+msgstr[0] "A cada %d minuto"
+msgstr[1] "A cada %d minutos"
+
+#: includes/Admin/Settings.php:53
+msgid "API Integrations"
+msgstr "Integrações de API"
+
+#: includes/Admin/Settings.php:62
+msgid "License"
+msgstr "Licença"
+
+#: includes/Admin/Settings.php:81
+msgid "Affiliate Link"
+msgstr "Link de afiliado"
+
+#: includes/Admin/Settings.php:88
+msgid "Global Queue Management"
+msgstr "Gerenciamento global de filas"
+
+#: includes/Admin/Settings.php:95
+msgid "Delay Before First Notification"
+msgstr "Atraso antes da primeira notificação"
+
+#: includes/Admin/Settings.php:96 includes/Admin/Settings.php:105
+#: includes/Admin/Settings.php:114
+#: includes/Extensions/FlashingTab/FlashingTab.php:394
+#: includes/Extensions/FlashingTab/FlashingTab.php:401
+msgid "seconds"
+msgstr "segundos"
+
+#: includes/Admin/Settings.php:97
+msgid "Initial Delay"
+msgstr "Atraso inicial"
+
+#: includes/Admin/Settings.php:104
+#: includes/Extensions/FlashingTab/FlashingTab.php:410
+#: includes/Extensions/FlashingTab/FlashingTab.php:471
+msgid "Display For"
+msgstr "Exibir por"
+
+#: includes/Admin/Settings.php:106
+msgid "Display each notification for * seconds"
+msgstr "Exibir cada notificação por * segundos"
+
+#: includes/Admin/Settings.php:113
+#: includes/Extensions/FlashingTab/FlashingTab.php:400
+msgid "Delay Between"
+msgstr "Atraso entre"
+
+#: includes/Admin/Settings.php:115
+msgid "Delay between each notification"
+msgstr "Atraso entre cada notificação"
+
+#: includes/Admin/Settings.php:122
+msgid "Loop Notification"
+msgstr "Notificação em loop"
+
+#: includes/Admin/Settings.php:129
+msgid "Random Notification"
+msgstr "Notificação aleatória"
+
+#: includes/Admin/XSS.php:91
+msgid "Access-Control-Allow-Origin"
+msgstr "Controle de acesso - Permitir origem"
+
+#: includes/Admin/XSS.php:92
+msgid "*"
+msgstr "*"
+
+#: includes/Admin/XSS.php:94
+#, php-format
+msgid ""
+"Show your Notification Alerts in another website using <a target=\"_blank\" "
+"href=\"%s\">Cross Domain Notice</a>."
+msgstr ""
+"Mostre seus alertas de notificação em outro site usando <a target=\"_blank\" "
+"href=\"%s\">Aviso de domínio cruzado</a>."
+
+#: includes/Core/CSV_Handler.php:62
+msgid "Unable to read the CSV file."
+msgstr "Não foi possível ler o arquivo CSV."
+
+#: includes/Core/CSV_Handler.php:63
+msgid "Please check the CSV file and try again."
+msgstr "Verifique o arquivo CSV e tente novamente."
+
+#: includes/Core/CSV_Handler.php:96
+msgid "Invalid CSV File"
+msgstr "Arquivo CSV inválido"
+
+#: includes/Core/CSV_Handler.php:97
+msgid "Please upload a valid CSV file."
+msgstr "Envie um arquivo CSV válido."
+
+#. translators: %1$s: opening tag for WP Developer account link, %2$s: closing tag, %3$s: plugin name (NotificationX Pro)
+#: includes/Core/Licensing/Licensing.php:141
+#, php-format
+msgid ""
+"Your license has been expired. Please %1$s renew your license %2$s key to "
+"enable updates for %3$s."
+msgstr ""
+"Sua licença expirou. %1$sRenove sua chave de licença %2$s para ativar as "
+"atualizações para %3$s."
+
+#. translators: %1$s: link of license page, %2$s: closing tag, %3$s: plugin name (NotificationX Pro)
+#: includes/Core/Licensing/Licensing.php:149
+#, php-format
+msgid "Please %1$sactivate your license%2$s key to enable updates for %3$s."
+msgstr ""
+"%1$sAtive sua chave de licença%2$s para ativar as atualizações para %3$s."
+
+#: includes/Core/Licensing/Licensing.php:256
+#: includes/Core/Licensing/Licensing.php:295
+msgid "License field can not be empty!"
+msgstr "O campo de licença não pode estar vazio!"
+
+#: includes/Core/Licensing/Licensing.php:333
+msgid "You're license deactivation is failed. Try again later."
+msgstr "A desativação da sua licença falhou. Tente novamente mais tarde."
+
+#: includes/Core/Licensing/Licensing.php:400
+msgid "HTTP Error"
+msgstr "Erro de HTTP"
+
+#: includes/Core/Licensing/Licensing.php:406
+msgid "An error occurred, please try again"
+msgstr "Ocorreu um erro, tente novamente"
+
+#. translators: %s: expiry date of the license.
+#. translators: the license key expiration date
+#: includes/Core/Licensing/Licensing.php:424
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:381
+#, php-format
+msgid "Your license key expired on %s."
+msgstr "Sua chave de licença expirou em %s."
+
+#: includes/Core/Licensing/Licensing.php:430
+msgid "Your license key has been disabled."
+msgstr "Sua chave de licença foi desativada."
+
+#: includes/Core/Licensing/Licensing.php:433
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:402
+msgid "Invalid license."
+msgstr "Licença inválida."
+
+#: includes/Core/Licensing/Licensing.php:438
+msgid "Your license is not active for this website."
+msgstr "Sua licença não está ativa para este site."
+
+#: includes/Core/Licensing/Licensing.php:441
+msgid "This appears to be an invalid license key for"
+msgstr "Parece que esta é uma chave de licença inválida para"
+
+#: includes/Core/Licensing/Licensing.php:444
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:415
+msgid "Your license key has reached its activation limit."
+msgstr "Sua chave de licença atingiu o limite de ativação."
+
+#. translators: %1$s: plugin name (NotificationX), %2$s: opening of a tag, %3$s: closing of a tag.
+#: includes/Core/Licensing/Licensing.php:449
+#, php-format
+msgid ""
+"Your license key has been disabled, Please contact the %1$s %2$sSupport "
+"Team%3$s."
+msgstr ""
+"Sua chave de licença foi desativada. Fale com a %2$s Equipe de suporte%3$s "
+"do %1$s."
+
+#: includes/Core/Licensing/Licensing.php:458
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:348
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:351
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:423
+msgid "An error occurred, please try again."
+msgstr "Ocorreu um erro, tente novamente."
+
+#. translators: %1$s: plugin name (NotificationX), %2$s: starts of a tag, %3$s: version number, %4$s: close of a tag.
+#: includes/Core/Licensing/ProPluginUpdater.php:196
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+"Há uma nova versão do %1$s disponível. %2$sVer detalhes da versão %3$s%4$s."
+
+#. translators: %1$s: plugin name (NotificationX), %2$s: open of a tag, %3$s: version number, %4$s: close of a tag, %5$s: starts of a tag, %6$s: close of a tag,
+#: includes/Core/Licensing/ProPluginUpdater.php:205
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+"Há uma nova versão do %1$s disponível. %2$sVer detalhes da versão %3$s%4$s "
+"ou %5$satualize agora%6$s."
+
+#: includes/Core/Licensing/ProPluginUpdater.php:395
+#: includes/Dependencies/WPDeveloper/Licensing/PluginUpdater.php:484
+msgid "You do not have permission to install plugin updates"
+msgstr "Você não tem permissão para instalar atualizações de plugins"
+
+#: includes/Core/Licensing/ProPluginUpdater.php:395
+#: includes/Dependencies/WPDeveloper/Licensing/PluginUpdater.php:484
+msgid "Error"
+msgstr "Erro"
+
+#: includes/Core/QuickBuild.php:23
+msgid "Custom Notification"
+msgstr "Notificação personalizada"
+
+#: includes/Core/QuickBuild.php:24
+msgid "Page Analytics"
+msgstr "Análises de página"
+
+#: includes/Core/QuickBuild.php:25
+msgid "Email Subscription"
+msgstr "Assinatura por e-mail"
+
+#: includes/Core/QuickBuild.php:26
+msgid "Flashing Tab"
+msgstr "Aba pulsante"
+
+#: includes/CoreInstallerPro.php:73 includes/CoreInstallerPro.php:79
+msgid "requires"
+msgstr "requer"
+
+#: includes/CoreInstallerPro.php:73
+msgid "core plugin to be installed. Please get the plugin now!"
+msgstr "o plugin principal a ser instalado. Adquira o plugin agora!"
+
+#: includes/CoreInstallerPro.php:76
+msgid "Activate Now!"
+msgstr "Ativar agora!"
+
+#: includes/CoreInstallerPro.php:79
+msgid "version to be 2.0.0. Please get the updated plugin now!"
+msgstr "para a versão 2.0.0. Adquira o plugin atualizado agora mesmo!"
+
+#: includes/CoreInstallerPro.php:81
+msgid "Update Now!"
+msgstr "Atualizar agora!"
+
+#: includes/CoreInstallerPro.php:85
+msgid "Install Now!"
+msgstr "Instalar agora!"
+
+#: includes/CoreInstallerPro.php:148
+msgid "You don't have permission to install the plugins"
+msgstr "Você não tem permissão para instalar os plugins"
+
+#: includes/Dependencies/WPDeveloper/Licensing/AJAXApi.php:54
+msgid "Nonce Verifications Failed."
+msgstr "Falha nas verificações do nonce."
+
+#: includes/Dependencies/WPDeveloper/Licensing/AJAXApi.php:58
+msgid "You don't have permission to take this action."
+msgstr "Você não tem permissão para realizar esta ação."
+
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:147
+#, php-format
+msgid ""
+"%1$sActivate your %3$s License Key%2$s to receive regular updates and secure "
+"your WordPress website."
+msgstr ""
+"%1$sAtive sua %3$s chave de licença%2$s para receber atualizações regulares "
+"e proteger seu site WordPress."
+
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:314
+msgid "Please provide a valid license."
+msgstr "Forneça uma licença válida."
+
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:385
+msgid "Your license confirmation code is invalid."
+msgstr "Seu código de confirmação de licença é inválido."
+
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:389
+msgid "Your license confirmation code has been expired."
+msgstr "Seu código de confirmação de licença expirou."
+
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:393
+#, php-format
+msgid ""
+"%1$sAttention:%2$s Please %3$sVerify your %5$s License Key%4$s to get "
+"regular updates & secure your WordPress website."
+msgstr ""
+"%1$s$Atenção: %2$s %3$sVerifique sua chave de licença do %5$s%4$s para "
+"receber atualizações regulares e proteger seu site WordPress."
+
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:398
+#, php-format
+msgid "Your %s license key has been disabled."
+msgstr "Sua chave de licença do %s foi desativada."
+
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:407
+msgid "Your license is not active for this URL."
+msgstr "Sua licença não está ativa para este URL."
+
+#. translators: the plugin name
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:411
+#, php-format
+msgid "This appears to be an invalid license key for %s."
+msgstr "Parece que esta é uma chave de licença inválida para %s."
+
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:419
+#: includes/Extensions/Freemius/inc/Helper.php:61
+#: includes/Extensions/Freemius/inc/Helper.php:67
+msgid "Something went wrong."
+msgstr "Algo deu errado."
+
+#. translators: the plugin name.
+#: includes/Dependencies/WPDeveloper/Licensing/PluginUpdater.php:245
+#, php-format
+msgid "There is a new version of %1$s available."
+msgstr "Há uma nova versão do %1$s disponível."
+
+#: includes/Dependencies/WPDeveloper/Licensing/PluginUpdater.php:249
+msgid "Contact your network administrator to install the update."
+msgstr "Fale com seu administrador de rede para instalar a atualização."
+
+#. translators: 1. opening anchor tag, do not translate 2. the new plugin version 3. closing anchor tag, do not translate.
+#: includes/Dependencies/WPDeveloper/Licensing/PluginUpdater.php:252
+#, php-format
+msgid "%1$sView version %2$s details%3$s."
+msgstr "%1$sVer detalhes da versão %2$s%3$s."
+
+#: includes/Dependencies/WPDeveloper/Licensing/PluginUpdater.php:255
+#, php-format
+msgid "%1$sView version %2$s details%3$s or %4$supdate now%5$s."
+msgstr "%1$sVer detalhes da versão %2$s%3$s ou %4$satualizar agora%5$s."
+
+#: includes/Dependencies/WPDeveloper/Licensing/PluginUpdater.php:257
+msgid "Update now."
+msgstr "Atualizar agora."
+
+#: includes/Dependencies/WPDeveloper/Licensing/RESTApi.php:108
+#, php-format
+msgid "%s License"
+msgstr "Licença %s"
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:42
+#: includes/Extensions/ConvertKit/ConvertKit.php:42
+#: includes/Extensions/Google/Youtube.php:826
+#: includes/Extensions/MailChimp/MailChimp.php:40
+msgid "You have to setup your API Key for"
+msgstr "Você precisa configurar sua chave de API para o"
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:44
+msgid "ActiveCampaign"
+msgstr "ActiveCampaign"
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:103
+msgid "ActiveCampaign Form"
+msgstr "Formulário do ActiveCampaign"
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:148
+msgid ""
+"You have successfully connected with ActiveCampaign, Your lists has been "
+"recorded for future use."
+msgstr ""
+"Você se conectou ao ActiveCampaign. Suas listas foram registradas para uso "
+"futuro."
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:149
+#: includes/Extensions/ConvertKit/ConvertKit.php:146
+#: includes/Extensions/Freemius/Freemius.php:272
+msgid "Something went wrong. Try again."
+msgstr "Algo deu errado. Tente novamente."
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:269
+msgid "Error: You must provide an API URL & key."
+msgstr "Erro: Você deve fornecer um URL e uma chave de API."
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:274
+#: includes/Extensions/ConvertKit/ConvertKit.php:260
+msgid "Error: You must provide a Form."
+msgstr "Erro: Você deve fornecer um formulário."
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:292
+#: includes/Extensions/ConvertKit/ConvertKit.php:279
+#: includes/Extensions/MailChimp/inc/Helper.php:43
+msgid "Error: Something wrong "
+msgstr "Erro: Algo deu errado "
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:303
+msgid "ActiveCampaign Settings"
+msgstr "Configurações do ActiveCampaign"
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:311
+#: includes/Extensions/ConvertKit/ConvertKit.php:307
+#: includes/Extensions/Google/GoogleReviews.php:255
+#: includes/Extensions/Google/GoogleReviews.php:256
+#: includes/Extensions/Google/Youtube.php:309
+#: includes/Extensions/Google/Youtube.php:310
+#: includes/Extensions/IFTTT/IFTTT.php:150
+#: includes/Extensions/Zapier/Zapier.php:84
+msgid "API Key"
+msgstr "Chave de API"
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:314
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:322
+#: includes/Extensions/ConvertKit/ConvertKit.php:302
+#: includes/Extensions/ConvertKit/ConvertKit.php:310
+#: includes/Extensions/Envato/Envato.php:91
+#: includes/Extensions/Freemius/Freemius.php:88
+#: includes/Extensions/Freemius/Freemius.php:100
+#: includes/Extensions/Freemius/Freemius.php:112
+#: includes/Extensions/Zapier/Zapier.php:79
+msgid "Click here"
+msgstr "Clique aqui"
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:314
+#: includes/Extensions/ConvertKit/ConvertKit.php:310
+msgid "to get API Key."
+msgstr "para receber a chave de API."
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:319
+msgid "API URL"
+msgstr "URL da API"
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:322
+msgid "to get API URL."
+msgstr "para receber o URL da API."
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:327
+#: includes/Extensions/ConvertKit/ConvertKit.php:315
+#: includes/Extensions/Envato/Envato.php:102
+#: includes/Extensions/Freemius/Freemius.php:120
+#: includes/Extensions/Google/GoogleReviews.php:247
+#: includes/Extensions/Google/Google_Analytics.php:323
+#: includes/Extensions/Google/Youtube.php:301
+#: includes/Extensions/MailChimp/MailChimp.php:148
+msgid "Cache Duration"
+msgstr "Duração do cache"
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:330
+#: includes/Extensions/ConvertKit/ConvertKit.php:318
+#: includes/Extensions/Envato/Envato.php:105
+#: includes/Extensions/Freemius/Freemius.php:123
+#: includes/Extensions/Google/Google_Analytics.php:327
+#: includes/Extensions/MailChimp/MailChimp.php:151
+msgid "Minutes, scheduled duration for collecting new data."
+msgstr "Minutos, duração agendada para a coleta de novos dados."
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:338
+#: includes/Extensions/ConvertKit/ConvertKit.php:326
+#: includes/Extensions/Envato/Envato.php:113
+#: includes/Extensions/Freemius/Freemius.php:131
+#: includes/Extensions/MailChimp/MailChimp.php:159
+#: includes/Features/Maps.php:327
+msgid "Connect"
+msgstr "Conectar"
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:339
+#: includes/Extensions/ConvertKit/ConvertKit.php:327
+#: includes/Extensions/Envato/Envato.php:114
+#: includes/Extensions/Freemius/Freemius.php:132
+#: includes/Extensions/Google/GoogleReviews.php:270
+#: includes/Extensions/Google/Youtube.php:324
+#: includes/Extensions/MailChimp/MailChimp.php:160
+#: includes/Features/Maps.php:328
+msgid "Refresh"
+msgstr "Atualizar"
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:340
+#: includes/Extensions/ConvertKit/ConvertKit.php:328
+#: includes/Extensions/Envato/Envato.php:115
+#: includes/Extensions/Freemius/Freemius.php:133
+#: includes/Extensions/MailChimp/MailChimp.php:161
+#: includes/Features/Maps.php:329
+msgid "Refreshing..."
+msgstr "Atualizando..."
+
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:382
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:388
+#: includes/Extensions/ActiveCampaign/ActiveCampaign.php:395
+msgid "Please insert a valid API URL & key."
+msgstr "Insira um URL e uma chave de API válidos."
+
+#: includes/Extensions/ConvertKit/ConvertKit.php:44
+msgid "ConvertKit"
+msgstr "ConvertKit"
+
+#: includes/Extensions/ConvertKit/ConvertKit.php:103
+msgid "ConvertKit Form"
+msgstr "Formulário do ConvertKit"
+
+#: includes/Extensions/ConvertKit/ConvertKit.php:145
+msgid ""
+"You have successfully connected with ConvertKit, Your lists has been "
+"recorded for future use."
+msgstr ""
+"Você se conectou ao ConvertKit. Suas listas foram registradas para uso "
+"futuro."
+
+#: includes/Extensions/ConvertKit/ConvertKit.php:255
+#: includes/Extensions/MailChimp/inc/Helper.php:23
+msgid "Error: You must provide an API key."
+msgstr "Erro: Você deve fornecer uma chave de API."
+
+#: includes/Extensions/ConvertKit/ConvertKit.php:291
+msgid "ConvertKit Settings"
+msgstr "Configurações do ConvertKit"
+
+#: includes/Extensions/ConvertKit/ConvertKit.php:299
+msgid "API Secret"
+msgstr "Segredo da API"
+
+#: includes/Extensions/ConvertKit/ConvertKit.php:302
+msgid "to get API Secret."
+msgstr "para receber o segredo da API."
+
+#: includes/Extensions/ConvertKit/ConvertKit.php:382
+#: includes/Extensions/Envato/Envato.php:147
+#: includes/Extensions/Google/GoogleReviews.php:637
+#: includes/Extensions/Google/Youtube.php:480
+msgid "Please insert a valid API key."
+msgstr "Insira uma chave de API válida."
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:147
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:116
+#: includes/Features/SalesFeatures.php:150
+msgid "in last 1 day"
+msgstr "no último 1 dia"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:148
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:117
+#: includes/Features/SalesFeatures.php:151
+msgid "in last 7 days"
+msgstr "nos últimos 7 dias"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:149
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:118
+#: includes/Features/SalesFeatures.php:152
+msgid "in last 30 days"
+msgstr "nos últimos 30 dias"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:188
+msgid "Upload CSV"
+msgstr "Enviar CSV"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:194
+msgid "Conversion"
+msgstr "Conversão"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:199
+#: includes/Extensions/OfferAnnouncement/Announcements.php:133
+msgid "Add New"
+msgstr "Adicionar novo(a)"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:205
+#: includes/Features/Maps.php:113
+msgid "Title"
+msgstr "Título"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:218
+msgid "Post Title"
+msgstr "Título do post"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:226
+msgid "Comment"
+msgstr "Comentário"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:233
+msgid "User Name"
+msgstr "Nome de usuário"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:242
+msgid "Plugin/Theme Name"
+msgstr "Nome do plugin/tema"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:249
+msgid "First Name"
+msgstr "Nome"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:261
+msgid "Last Name"
+msgstr "Sobrenome"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:273
+msgid "Email Address"
+msgstr "Endereço de e-mail"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:283
+#: includes/Features/Maps.php:108
+msgid "City"
+msgstr "Cidade"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:290
+#: includes/Features/Maps.php:109
+msgid "Country"
+msgstr "País"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:297
+msgid "Number of Sales"
+msgstr "Número de vendas"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:304
+#: includes/Extensions/OfferAnnouncement/Announcements.php:172
+msgid "Image"
+msgstr "Imagem"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:319
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:78
+#: includes/Extensions/GlobalFields.php:122
+#: includes/Extensions/GlobalFields.php:134
+#: includes/Extensions/OfferAnnouncement/Announcements.php:94
+msgid "URL"
+msgstr "URL"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:336
+msgid "Number of Peoples Rated"
+msgstr "Número de pessoas classificadas"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:344
+msgid "Plugin Name"
+msgstr "Nome do plugin"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:352
+msgid "Review Text"
+msgstr "Texto da avaliação"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:359
+msgid "Rating"
+msgstr "Classificação"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:370
+msgid "Todays Download"
+msgstr "Itens baixados hoje"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:371
+msgid "Number of items downloaded in one day."
+msgstr "Número de itens baixados em um dia."
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:378
+msgid "7 Days Downloads"
+msgstr "Itens baixados em 7 dias"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:379
+msgid "Number of items downloaded in last 7 days."
+msgstr "Número de itens baixados nos últimos 7 dias."
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:386
+msgid "Total Downloads"
+msgstr "Total de itens baixados"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:387
+msgid "Number of items downloaded in total."
+msgstr "Número total de itens baixados."
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:394
+msgid "Number of Active Installs"
+msgstr "Número de instalações ativas"
+
+#: includes/Extensions/CustomNotification/CustomNotification.php:401
+msgid "Time"
+msgstr "Hora"
+
+#: includes/Extensions/EDD/EDD.php:70
+msgid "{{name}} recently purchased"
+msgstr "{{name}} comprou recentemente"
+
+#: includes/Extensions/EDD/EDDInline.php:77
+#: includes/Extensions/LearnPress/LearnPressInline.php:53
+#: includes/Extensions/Tutor/TutorInline.php:57
+msgid "Archive Page"
+msgstr "Página de arquivo"
+
+#: includes/Extensions/EDD/EDDInline.php:78
+#: includes/Extensions/LearnPress/LearnPressInline.php:54
+#: includes/Extensions/Tutor/TutorInline.php:62
+msgid "Single Page"
+msgstr "Página única"
+
+#: includes/Extensions/EDD/EDDInline.php:184
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:312
+#: includes/Extensions/WooCommerce/WooInline.php:301
+msgid "Create a product to get the preview."
+msgstr "Crie um produto para obter a pré-visualização."
+
+#: includes/Extensions/Envato/Envato.php:39
+msgid "You have to setup your API Token for"
+msgstr "Você precisa configurar seu token de API para"
+
+#: includes/Extensions/Envato/Envato.php:41
+msgid "Envato"
+msgstr "Envato"
+
+#: includes/Extensions/Envato/Envato.php:83
+msgid "Envato Settings"
+msgstr "Configurações do Envato"
+
+#: includes/Extensions/Envato/Envato.php:92
+msgid "to get your API Access Token."
+msgstr "para receber seu token de acesso da API."
+
+#: includes/Extensions/Envato/Envato.php:96
+msgid "API Access Token"
+msgstr "Token de acesso da API"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:78
+msgid "You have to install"
+msgstr "Você precisa instalar o plugin"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:80
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:81
+msgid "plugin first."
+msgstr "primeiro."
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:174
+msgid "Icons"
+msgstr "Ícones"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:190
+#: includes/Extensions/FlashingTab/FlashingTab.php:212
+#: includes/Extensions/FlashingTab/FlashingTab.php:262
+#: includes/Extensions/FlashingTab/FlashingTab.php:302
+#: includes/Extensions/FlashingTab/FlashingTab.php:348
+msgid "Verified"
+msgstr "Verificado"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:195
+#: includes/Extensions/FlashingTab/FlashingTab.php:217
+#: includes/Extensions/FlashingTab/FlashingTab.php:268
+#: includes/Extensions/FlashingTab/FlashingTab.php:307
+#: includes/Extensions/FlashingTab/FlashingTab.php:353
+msgid "Flames"
+msgstr "Chamas"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:200
+#: includes/Extensions/FlashingTab/FlashingTab.php:222
+#: includes/Extensions/FlashingTab/FlashingTab.php:274
+#: includes/Extensions/FlashingTab/FlashingTab.php:312
+#: includes/Extensions/FlashingTab/FlashingTab.php:358
+msgid "Flames GIF"
+msgstr "GIF de chamas"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:205
+#: includes/Extensions/FlashingTab/FlashingTab.php:227
+#: includes/Extensions/FlashingTab/FlashingTab.php:280
+#: includes/Extensions/FlashingTab/FlashingTab.php:317
+#: includes/Extensions/FlashingTab/FlashingTab.php:363
+msgid "Pink Face"
+msgstr "Rosto rosa"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:233
+msgid "Message"
+msgstr "Mensagem"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:237
+msgid "Comeback!"
+msgstr "Retornou!"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:245
+msgid "Message 1"
+msgstr "Mensagem 1"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:286
+#: includes/Extensions/FlashingTab/FlashingTab.php:323
+msgid "Message 2"
+msgstr "Mensagem 2"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:331
+msgid "The '{quantity}' tag displays total count of items in shop cart."
+msgstr ""
+"A tag '{quantity}' exibe a contagem total de itens no carrinho de compras."
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:332
+msgid ""
+"Check this box to add a personalized message if cart is empty. <br />If you "
+"leave this unchecked, no message will appear on Flashing Tab.-pro"
+msgstr ""
+"Marque esta caixa para adicionar uma mensagem personalizada se o carrinho "
+"estiver vazio. <br />Se você deixar esta opção desmarcada, nenhuma mensagem "
+"irá aparecer na \"Aba pulsante\".-pro"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:338
+msgid "{quantity} items in your cart!"
+msgstr "{quantity} itens no seu carrinho!"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:369
+msgid "Favicon & Site Title"
+msgstr "Favicon e título do site"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:374
+msgid ""
+"Check/Uncheck this box to show/hide favicon and site title in Flashing Tab."
+msgstr ""
+"Marque ou desmarque esta caixa para mostrar/ocultar o favicon e o título do "
+"site na \"Aba pulsante\"."
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:380
+msgid "Timing"
+msgstr "Temporização"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:387
+msgid "Start Blinking After"
+msgstr "Começa a pulsar após"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:411
+msgid "minutes"
+msgstr "minutos"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:415
+msgid "Entering ‘0’ displays the message infinitely."
+msgstr "Digitando \"0\" será exibida a mensagem infinitamente."
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:421
+#: includes/Types/Inline.php:63
+msgid "Visibility"
+msgstr "Visibilidade"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:427
+msgid "Show On"
+msgstr "Mostrar em"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:433
+msgid "Show Everywhere"
+msgstr "Mostrar em todos os lugares"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:434
+msgid "Show On Selected"
+msgstr "Mostrar nos selecionados"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:435
+msgid "Hide On Selected"
+msgstr "Ocultar nos selecionados"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:439
+#: includes/Types/Inline.php:69
+msgid "Locations"
+msgstr "Localizações"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:451
+#: includes/Extensions/GlobalFields.php:224
+msgid "Custom Post or Page IDs"
+msgstr "IDs personalizados de posts ou páginas"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:457
+#: includes/Extensions/GlobalFields.php:233
+msgid "IDs ( Posts or Pages )"
+msgstr "IDs (posts ou páginas)"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:461
+#: includes/Extensions/GlobalFields.php:237
+msgid "Comma separated ID of post, page or custom post type posts"
+msgstr ""
+"IDs separados por vírgula de posts, páginas ou tipos de posts personalizados"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:477
+msgid "Everyone"
+msgstr "Todos"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:478
+msgid "Logged Out User"
+msgstr "Usuário desconectado"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:479
+msgid "Logged In User"
+msgstr "Usuário conectado"
+
+#: includes/Extensions/FlashingTab/FlashingTab.php:494
+msgid "Content"
+msgstr "Conteúdo"
+
+#: includes/Extensions/Freemius/Freemius.php:75
+msgid "Freemius Settings"
+msgstr "Configurações do Freemius"
+
+#: includes/Extensions/Freemius/Freemius.php:84
+msgid "Developer ID"
+msgstr "ID do desenvolvedor"
+
+#: includes/Extensions/Freemius/Freemius.php:89
+msgid "to get Developer ID."
+msgstr "para receber o ID do desenvolvedor."
+
+#: includes/Extensions/Freemius/Freemius.php:96
+msgid "Developer Public Key"
+msgstr "Chave pública do desenvolvedor"
+
+#: includes/Extensions/Freemius/Freemius.php:101
+msgid "to get Developer Public Key."
+msgstr "para receber a chave pública do desenvolvedor."
+
+#: includes/Extensions/Freemius/Freemius.php:108
+msgid "Developer Secret Key"
+msgstr "Chave secreta do desenvolvedor"
+
+#: includes/Extensions/Freemius/Freemius.php:113
+msgid "to get Developer Secret Key."
+msgstr "para receber a chave secreta do desenvolvedor."
+
+#: includes/Extensions/Freemius/Freemius.php:169
+msgid "Item Type"
+msgstr "Tipo de item"
+
+#: includes/Extensions/Freemius/Freemius.php:172
+msgid "Plugin"
+msgstr "Plugin"
+
+#: includes/Extensions/Freemius/Freemius.php:173
+msgid "Theme"
+msgstr "Tema"
+
+#: includes/Extensions/Freemius/Freemius.php:174
+msgid "Bundle"
+msgstr "Pacote"
+
+#: includes/Extensions/Freemius/Freemius.php:175
+msgid "Add-on"
+msgstr "Complemento"
+
+#: includes/Extensions/Freemius/Freemius.php:184
+msgid "Select a Theme"
+msgstr "Selecione um tema"
+
+#: includes/Extensions/Freemius/Freemius.php:198
+msgid "Select a Plugin"
+msgstr "Selecione um plugin"
+
+#: includes/Extensions/Freemius/Freemius.php:213
+msgid "Select a Bundle"
+msgstr "Selecione um pacote"
+
+#: includes/Extensions/Freemius/Freemius.php:220
+msgid "Freemius Add-on"
+msgstr "Complemento Freemius"
+
+#: includes/Extensions/Freemius/Freemius.php:226
+#: includes/Extensions/Give/Give.php:57
+msgid "All"
+msgstr "Tudo"
+
+#: includes/Extensions/Freemius/Freemius.php:271
+msgid ""
+"You have successfully connected with Freemius, Your lists has been recorded "
+"for future use."
+msgstr ""
+"Você se conectou com o Freemius, suas listas foram registradas para uso "
+"futuro."
+
+#: includes/Extensions/Freemius/FreemiusConversions.php:49
+#: includes/Extensions/Freemius/FreemiusConversions.php:82
+#: includes/Extensions/GlobalFields.php:173
+#: includes/Extensions/GlobalFields.php:274
+#: includes/Extensions/Google/GoogleReviews.php:88
+#: includes/Extensions/Google/Youtube.php:405
+msgid "Custom"
+msgstr "Personalizado"
+
+#: includes/Extensions/Freemius/FreemiusConversions.php:54
+msgid "Plan Title "
+msgstr "Título do plano "
+
+#: includes/Extensions/Freemius/FreemiusConversions.php:64
+msgid "Pro Plus"
+msgstr "Pro Plus"
+
+#: includes/Extensions/Freemius/FreemiusConversions.php:71
+msgid "Subscription For"
+msgstr "Assinatura para"
+
+#: includes/Extensions/Freemius/FreemiusConversions.php:87
+msgid "Price"
+msgstr "Preço"
+
+#: includes/Extensions/Freemius/FreemiusConversions.php:97
+msgid "99 USD/Year"
+msgstr "99 R$/ano"
+
+#: includes/Extensions/Freemius/FreemiusConversions.php:108
+#: includes/Extensions/Freemius/FreemiusReviews.php:37
+#: includes/Extensions/Freemius/FreemiusStats.php:38
+msgid "You have to setup your Dev ID, Public Key, Secret Key from"
+msgstr ""
+"Você precisa configurar seu ID do desenvolvedor, chave pública e chave "
+"secreta do"
+
+#: includes/Extensions/Freemius/FreemiusConversions.php:110
+#: includes/Extensions/Freemius/FreemiusReviews.php:39
+#: includes/Extensions/Freemius/FreemiusStats.php:40
+msgid "settings"
+msgstr "configurações"
+
+#: includes/Extensions/Freemius/FreemiusConversions.php:125
+#: includes/Extensions/Freemius/FreemiusReviews.php:52
+#: includes/Extensions/Freemius/FreemiusReviews.php:55
+msgid "Anonymous"
+msgstr "Anônimo"
+
+#: includes/Extensions/Freemius/FreemiusReviews.php:51
+#: includes/Extensions/IFTTT/IFTTT.php:51
+#: includes/Extensions/LearnDash/_LearnDash.php:223
+#: includes/Extensions/LearnDash/_LearnDash.php:224
+#: includes/Extensions/LearnDash/_LearnDash.php:225
+#: includes/Extensions/Zapier/Zapier.php:208 includes/Features/Maps.php:90
+#: includes/Types/Conversions.php:37 includes/Types/Donations.php:33
+#: includes/Types/WooCommerceSales.php:37
+msgid "Someone"
+msgstr "Alguém"
+
+#: includes/Extensions/Freemius/FreemiusReviews.php:54
+msgid "try it out"
+msgstr "experimente"
+
+#: includes/Extensions/Freemius/FreemiusStats.php:54
+msgid "0 times today"
+msgstr "0 vezes hoje"
+
+#: includes/Extensions/Freemius/FreemiusStats.php:55
+msgid "0 times in last 7 days"
+msgstr "0 vezes nos últimos 7 dias"
+
+#: includes/Extensions/Freemius/FreemiusStats.php:56
+msgid "0 times"
+msgstr "0 vezes"
+
+#: includes/Extensions/Freemius/FreemiusStats.php:58
+msgid "Try it out"
+msgstr "Experimente"
+
+#: includes/Extensions/Freemius/FreemiusStats.php:59
+msgid "Get started free."
+msgstr "Comece a usar gratuitamente."
+
+#: includes/Extensions/Freemius/FreemiusStats.php:60
+msgid "why not you?"
+msgstr "por que não você?"
+
+#: includes/Extensions/Freemius/inc/Helper.php:74
+#: includes/Extensions/Freemius/inc/Helper.php:80
+msgid "Make sure your Dev ID or Public Key or Secret Key is valid."
+msgstr ""
+"Certifique-se de que seu ID do desenvolvedor, chave pública ou chave secreta "
+"sejam válidos."
+
+#: includes/Extensions/Freemius/inc/Helper.php:229
+#: includes/Extensions/Google/Google_Analytics.php:624
+msgid "year"
+msgid_plural "years"
+msgstr[0] "ano"
+msgstr[1] "anos"
+
+#: includes/Extensions/Freemius/inc/Helper.php:231
+#: includes/Extensions/Google/Google_Analytics.php:623
+msgid "month"
+msgid_plural "months"
+msgstr[0] "mês"
+msgstr[1] "meses"
+
+#: includes/Extensions/Give/Give.php:51
+msgid "Show Notification Of"
+msgstr "Mostrar notificação de"
+
+#: includes/Extensions/Give/Give.php:58
+msgid "By Form"
+msgstr "Por formulário"
+
+#: includes/Extensions/Give/Give.php:63
+msgid "Select Donation Form"
+msgstr "Selecionar formulário de doação"
+
+#: includes/Extensions/GlobalFields.php:49
+msgid "Custom URL"
+msgstr "URL personalizado"
+
+#: includes/Extensions/GlobalFields.php:65
+msgid "Combine Multi Order Text"
+msgstr "Combinar texto de vários pedidos"
+
+#: includes/Extensions/GlobalFields.php:69
+msgid "more products"
+msgstr "mais produtos"
+
+#: includes/Extensions/GlobalFields.php:78
+msgid "Content Length"
+msgstr "Comprimento do conteúdo"
+
+#: includes/Extensions/GlobalFields.php:83
+msgid "Enter how many characters you want to show in comment or review"
+msgstr ""
+"Digite quantos caracteres você quer mostrar no comentário ou na avaliação"
+
+#: includes/Extensions/GlobalFields.php:92
+msgid "UTM Control"
+msgstr "Controle de UTM"
+
+#: includes/Extensions/GlobalFields.php:97
+msgid "Campaign"
+msgstr "Campanha"
+
+#: includes/Extensions/GlobalFields.php:104
+msgid "Medium"
+msgstr "Média"
+
+#: includes/Extensions/GlobalFields.php:111
+msgid "Source"
+msgstr "Fonte"
+
+#: includes/Extensions/GlobalFields.php:127
+#: includes/Extensions/GlobalFields.php:139
+msgid ""
+"Enter a link starts with http:// or https:// , it apply for all notification"
+msgstr ""
+"Digite um link que comece com http:// ou https://. Ele se aplica a todas as "
+"notificações"
+
+#: includes/Extensions/GlobalFields.php:143
+#: includes/Extensions/GlobalFields.php:155
+#: includes/Extensions/GlobalFields.php:184
+#: includes/Extensions/OfferAnnouncement/Announcements.php:205
+msgid "Button Text"
+msgstr "Texto do botão"
+
+#: includes/Extensions/GlobalFields.php:147
+msgid "Buy Now"
+msgstr "Comprar agora"
+
+#: includes/Extensions/GlobalFields.php:159
+msgid "Watch Now"
+msgstr "Assistir agora"
+
+#: includes/Extensions/GlobalFields.php:169
+msgid "Subscribe Button Type"
+msgstr "Tipo do botão \"Assinar\""
+
+#: includes/Extensions/GlobalFields.php:174
+msgid "Youtube (Default)"
+msgstr "Youtube (padrão)"
+
+#: includes/Extensions/GlobalFields.php:188
+msgid "Subscribe Now"
+msgstr "Assinar agora"
+
+#: includes/Extensions/GlobalFields.php:201
+msgid "Low Stock Threshold"
+msgstr "Limite de estoque baixo"
+
+#: includes/Extensions/GlobalFields.php:204
+msgid ""
+"The notice will appear when the product stock reaches this amount. By "
+"default the limit is 10."
+msgstr ""
+"A notificação irá aparecer quando o estoque do produto atingir esta "
+"quantidade. Por padrão, o limite é 10."
+
+#: includes/Extensions/GlobalFields.php:228
+msgid "Custom Category or Tag IDs"
+msgstr "IDs de categoria ou tag personalizados"
+
+#: includes/Extensions/GlobalFields.php:247
+msgid "IDs ( Category or Tag )"
+msgstr "IDs (categoria ou tag)"
+
+#: includes/Extensions/GlobalFields.php:251
+msgid "Comma separated ID of Category and Tag"
+msgstr "ID da categoria e da tag separados por vírgula"
+
+#: includes/Extensions/GlobalFields.php:278
+msgid "Custom Radius"
+msgstr "Raio personalizado"
+
+#: includes/Extensions/Google/GoogleReviews.php:83
+msgid "Place Name"
+msgstr "Nome do local"
+
+#: includes/Extensions/Google/GoogleReviews.php:106
+msgid "Custom Place ID"
+msgstr "ID do local personalizado"
+
+#: includes/Extensions/Google/GoogleReviews.php:116
+msgid "Sort By"
+msgstr "Ordenar por"
+
+#: includes/Extensions/Google/GoogleReviews.php:122
+msgid "Most Relevant"
+msgstr "Mais relevante"
+
+#: includes/Extensions/Google/GoogleReviews.php:123
+msgid "Newest"
+msgstr "Mais recente"
+
+#: includes/Extensions/Google/GoogleReviews.php:141
+msgid "Review Language"
+msgstr "Idioma da avaliação"
+
+#: includes/Extensions/Google/GoogleReviews.php:147
+msgid "No Translation"
+msgstr "Sem tradução"
+
+#: includes/Extensions/Google/GoogleReviews.php:148
+msgid "Site Language"
+msgstr "Idioma do site"
+
+#: includes/Extensions/Google/GoogleReviews.php:179
+msgctxt "Google Review"
+msgid "Icon"
+msgstr "Ícone"
+
+#: includes/Extensions/Google/GoogleReviews.php:184
+msgctxt "Google Review"
+msgid "Avatar"
+msgstr "Avatar"
+
+#: includes/Extensions/Google/GoogleReviews.php:192
+msgctxt "Google Review"
+msgid "Map Image"
+msgstr "Imagem do mapa"
+
+#: includes/Extensions/Google/GoogleReviews.php:202
+msgid "Google G Icon"
+msgstr "Ícone \"G\" do Google"
+
+#: includes/Extensions/Google/GoogleReviews.php:224
+msgid "Map Page"
+msgstr "Página do mapa"
+
+#: includes/Extensions/Google/GoogleReviews.php:239
+msgid "Google Reviews Settings"
+msgstr "Configurações das avaliações do Google"
+
+#: includes/Extensions/Google/GoogleReviews.php:250
+msgid ""
+"Minutes, scheduled duration for collecting new data. Estimated cost per "
+"month around $25 for every 30 minutes."
+msgstr ""
+"Minutos, duração agendada para coletar novos dados. Custo estimado por mês "
+"em torno de $25 para cada 30 minutos."
+
+#: includes/Extensions/Google/GoogleReviews.php:258
+#: includes/Extensions/Google/Youtube.php:312
+msgid "To get an API key, check out"
+msgstr "Para receber uma chave de API, consulte"
+
+#: includes/Extensions/Google/GoogleReviews.php:260
+#: includes/Extensions/Google/Youtube.php:314
+msgid " this doc"
+msgstr " este documento"
+
+#: includes/Extensions/Google/GoogleReviews.php:269
+#: includes/Extensions/Google/Youtube.php:323
+msgid "Validate"
+msgstr "Validar"
+
+#: includes/Extensions/Google/GoogleReviews.php:271
+#: includes/Extensions/Google/Youtube.php:325
+msgid "Validating..."
+msgstr "Validando..."
+
+#: includes/Extensions/Google/GoogleReviews.php:294
+msgid "You have to setup your API Key for "
+msgstr "Você precisa configurar sua chave de API para "
+
+#: includes/Extensions/Google/GoogleReviews.php:296
+msgid " Google Review"
+msgstr " Avaliação do Google"
+
+#: includes/Extensions/Google/GoogleReviews.php:624
+msgid ""
+"You must enable Billing on the Google Cloud Project. Please check our doc "
+"for more info."
+msgstr ""
+"Você deve ativar o faturamento no projeto do Google Cloud. Consulte nosso "
+"documento para mais informações."
+
+#: includes/Extensions/Google/Google_Analytics.php:81
+msgid "You have to connect your"
+msgstr "Você precisa conectar sua"
+
+#: includes/Extensions/Google/Google_Analytics.php:83
+msgid "Google Analytics Account"
+msgstr "Conta do Google Analytics"
+
+#: includes/Extensions/Google/Google_Analytics.php:84
+msgid "first"
+msgstr "primeiro"
+
+#: includes/Extensions/Google/Google_Analytics.php:264
+msgid "Google Analytics Settings"
+msgstr "Configurações do Google Analytics"
+
+#: includes/Extensions/Google/Google_Analytics.php:272
+#: includes/Extensions/Google/Google_Analytics.php:366
+msgid "Connect your account"
+msgstr "Conectar sua conta"
+
+#: includes/Extensions/Google/Google_Analytics.php:273
+msgid "Connect with Google Analytics"
+msgstr "Conecte-se com o Google Analytics"
+
+#: includes/Extensions/Google/Google_Analytics.php:284
+msgid "Setup your Google App"
+msgstr "Configure seu aplicativo do Google"
+
+#. translators: %s: Google Analytics docs link.
+#: includes/Extensions/Google/Google_Analytics.php:288
+#, php-format
+msgid ""
+"By setting up your app, you will be disconnected from current account. See "
+"our <a target=\"_blank\" rel=\"nofollow\" href=\"%s\">Creating Google App in "
+"Cloud</a> documentation for help"
+msgstr ""
+"Ao configurar seu aplicativo, você será desconectado da conta atual. "
+"Consulte nossa documentação sobre a <a target=\"_blank\" rel=\"nofollow\" "
+"href=\"%s\">Criação de aplicativos do Google na nuvem</a> para receber ajuda"
+
+#: includes/Extensions/Google/Google_Analytics.php:296
+msgid "Disconnect from google analytics"
+msgstr "Desconectar do Google Analytics"
+
+#: includes/Extensions/Google/Google_Analytics.php:297
+msgid "Logout from account"
+msgstr "Sair da conta"
+
+#: includes/Extensions/Google/Google_Analytics.php:314
+msgid "Select Profile"
+msgstr "Selecionar perfil"
+
+#: includes/Extensions/Google/Google_Analytics.php:334
+msgid "Redirect URI"
+msgstr "URI de redirecionamento"
+
+#: includes/Extensions/Google/Google_Analytics.php:338
+msgid "Copy this and paste it in your google app redirect uri field"
+msgstr ""
+"Copie este texto e o cole no campo \"URI de redirecionamento\" do seu "
+"aplicativo do Google"
+
+#: includes/Extensions/Google/Google_Analytics.php:339
+msgid "Keep it in your google cloud project app redirect uri."
+msgstr ""
+"Mantenha-o no seu URI de redirecionamento do aplicativo do projeto do Google "
+"Cloud."
+
+#: includes/Extensions/Google/Google_Analytics.php:345
+msgid "Client ID"
+msgstr "ID do cliente"
+
+#. translators: %1$s: Google API dashboard link, %2$s: Google Analytics docs link.
+#: includes/Extensions/Google/Google_Analytics.php:348
+#, php-format
+msgid ""
+"<a target=\"_blank\" rel=\"nofollow\" href=\"%1$s\">Click here</a> to get "
+"Client ID by Creating a Project or you can follow our <a rel=\"nofollow\" "
+"target=\"_blank\" href=\"%2$s\">documentation</a>."
+msgstr ""
+"<a target=\"_blank\" rel=\"nofollow\" href=\"%1$s\">Clique aqui</a> para "
+"receber o ID do cliente, criando um projeto, ou você pode seguir nossa <a "
+"rel=\"nofollow\" target=\"_blank\" href=\"%2$s\">documentação</a>."
+
+#: includes/Extensions/Google/Google_Analytics.php:354
+msgid "Client Secret"
+msgstr "Segredo do cliente"
+
+#. translators: %1$s: Google API dashboard link, %2$s: Google Analytics docs link.
+#: includes/Extensions/Google/Google_Analytics.php:357
+#, php-format
+msgid ""
+"<a target=\"_blank\" rel=\"nofollow\" href=\"%1$s\">Click here</a> to get "
+"Client Secret by Creating a Project or you can follow our <a "
+"target=\"_blank\" rel=\"nofollow\" href=\"%2$s\">documentation</a>."
+msgstr ""
+"<a target=\"_blank\" rel=\"nofollow\" href=\"%1$s\">Clique aqui</a> para "
+"receber o segredo do cliente, criando um projeto, ou você pode seguir nossa "
+"<a target=\"_blank\" rel=\"nofollow\" href=\"%2$s\">documentação</a>."
+
+#: includes/Extensions/Google/Google_Analytics.php:367
+msgid "Connected"
+msgstr "Conectado"
+
+#: includes/Extensions/Google/Google_Analytics.php:368
+msgid "Connecting..."
+msgstr "Conectando..."
+
+#: includes/Extensions/Google/Google_Analytics.php:390
+msgid "Save"
+msgstr "Salvar"
+
+#: includes/Extensions/Google/Google_Analytics.php:391
+msgid "Saved"
+msgstr "Salvo"
+
+#: includes/Extensions/Google/Google_Analytics.php:392
+msgid "Saving..."
+msgstr "Salvando..."
+
+#: includes/Extensions/Google/Google_Analytics.php:404
+msgid "Changes Saved!"
+msgstr "Alterações salvas!"
+
+#: includes/Extensions/Google/Google_Analytics.php:620
+#: includes/Extensions/Google/Google_Analytics.php:621
+msgid "this page"
+msgstr "esta página"
+
+#: includes/Extensions/Google/Google_Analytics.php:622
+msgid "day"
+msgid_plural "days"
+msgstr[0] "dia"
+msgstr[1] "dias"
+
+#: includes/Extensions/Google/Google_Analytics.php:638
+#: includes/Features/SalesFeatures.php:149
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d dia"
+msgstr[1] "%d dias"
+
+#: includes/Extensions/Google/Google_Analytics.php:641
+#, php-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] "%d mês"
+msgstr[1] "%d meses"
+
+#: includes/Extensions/Google/Google_Analytics.php:644
+#, php-format
+msgid "%d year"
+msgid_plural "%d years"
+msgstr[0] "%d ano"
+msgstr[1] "%d anos"
+
+#: includes/Extensions/Google/Youtube.php:84
+msgid "Video Link"
+msgstr "Link do vídeo"
+
+#: includes/Extensions/Google/Youtube.php:92
+msgid "Channel Link"
+msgstr "Link do canal"
+
+#: includes/Extensions/Google/Youtube.php:154
+msgid "YouTube Settings"
+msgstr "Configurações do YouTube"
+
+#: includes/Extensions/Google/Youtube.php:304
+msgid ""
+"Minutes, scheduled duration for collect new data. Estimated cost per month "
+"around $25 for every 30 minute."
+msgstr ""
+"Minutos, duração agendada para a coleta de novos dados. Custo estimado por "
+"mês em torno de US$ 25 para cada 30 minutos."
+
+#: includes/Extensions/Google/Youtube.php:420
+msgid "Channel ID or @Handle"
+msgstr "ID do canal ou @Nome de usuário"
+
+#: includes/Extensions/Google/Youtube.php:431
+msgid "Video ID"
+msgstr "ID do vídeo"
+
+#: includes/Extensions/Google/Youtube.php:787
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+#: includes/Extensions/Google/Youtube.php:828
+msgid "Youtube"
+msgstr "YouTube"
+
+#: includes/Extensions/IFTTT/IFTTT.php:32
+msgid "Email"
+msgstr "E-mail"
+
+#: includes/Extensions/IFTTT/IFTTT.php:33
+msgid "First Parameter"
+msgstr "Primeiro parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:34
+msgid "Second Parameter"
+msgstr "Segundo parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:35
+msgid "Third Parameter"
+msgstr "Terceiro parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:36
+msgid "Fourth Parameter"
+msgstr "Quarto parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:37
+msgid "Fifth Parameter"
+msgstr "Quinto parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:38
+msgid "Sixth Parameter"
+msgstr "Sexto parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:39
+msgid "Seventh Parameter"
+msgstr "Sétimo parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:40
+msgid "Eighth Parameter"
+msgstr "Oitavo parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:41
+msgid "Ninth Parameter"
+msgstr "Nono parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:42
+msgid "Tenth Parameter"
+msgstr "Décimo parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:43
+msgid "Eleventh Parameter"
+msgstr "Décimo primeiro parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:44
+msgid "Twelfth Parameter"
+msgstr "Décimo segundo parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:45
+msgid "Thirteenth Parameter"
+msgstr "Décimo terceiro parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:46
+msgid "Fourteenth Parameter"
+msgstr "Décimo quarto parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:47
+msgid "Fifteenth Parameter"
+msgstr "Décimo quinto parâmetro"
+
+#: includes/Extensions/IFTTT/IFTTT.php:52
+msgid "just subscribed to"
+msgstr "acabou de assinar"
+
+#: includes/Extensions/IFTTT/IFTTT.php:54 includes/Features/Maps.php:96
+#: includes/Features/Maps.php:114 includes/Types/Donations.php:36
+msgid "Anonymous Title"
+msgstr "Título anônimo"
+
+#: includes/Extensions/IFTTT/IFTTT.php:56 includes/Features/Maps.php:98
+#: includes/Types/ELearning.php:43
+msgid "Some time ago"
+msgstr "Há algum tempo"
+
+#: includes/Extensions/IFTTT/IFTTT.php:143
+msgid "IFTTT Settings"
+msgstr "Configurações do IFTTT"
+
+#: includes/Extensions/IFTTT/IFTTT.php:191
+msgid "IFTTT setup Instructions"
+msgstr "Instruções de configuração do IFTTT"
+
+#: includes/Extensions/IFTTT/IFTTT.php:192
+msgid "Configure Applet:"
+msgstr "Configurar o Applet:"
+
+#: includes/Extensions/IFTTT/IFTTT.php:201
+#: includes/Extensions/Zapier/Zapier.php:230
+msgid "Template Keys"
+msgstr "Chaves de modelo"
+
+#: includes/Extensions/LearnDash/LearnDashInline.php:59
+msgid "Single Course Page"
+msgstr "Página de curso único"
+
+#: includes/Extensions/LearnDash/LearnDashInline.php:156
+#: includes/Extensions/LearnPress/LearnPressInline.php:163
+#: includes/Extensions/Tutor/TutorInline.php:165
+msgid "Create a course to get the preview."
+msgstr "Crie um curso para obter a pré-visualização."
+
+#: includes/Extensions/LearnDash/_LearnDash.php:226
+#: includes/Types/Conversions.php:116 includes/Types/WooCommerceSales.php:116
+msgid "Anonymous Product"
+msgstr "Produto anônimo"
+
+#: includes/Extensions/MailChimp/MailChimp.php:42
+msgid "MailChimp"
+msgstr "MailChimp"
+
+#: includes/Extensions/MailChimp/MailChimp.php:101
+msgid "MailChimp List"
+msgstr "Lista do MailChimp"
+
+#: includes/Extensions/MailChimp/MailChimp.php:132
+msgid "MailChimp Settings"
+msgstr "Configurações do MailChimp"
+
+#: includes/Extensions/MailChimp/MailChimp.php:139
+msgid "MailChimp API Key"
+msgstr "Chave de API do MailChimp"
+
+#. translators: %1$s: MailChimp API docs link.
+#: includes/Extensions/MailChimp/MailChimp.php:143
+#, php-format
+msgid ""
+"<a target=\"_blank\" rel=\"nofollow\" href=\"%s\">Click here</a> to get your "
+"API Key."
+msgstr ""
+"<a target=\"_blank\" rel=\"nofollow\" href=\"%s\">Clique aqui</a> para "
+"receber sua chave de API."
+
+#: includes/Extensions/MailChimp/inc/Helper.php:28
+msgid "Error: You must provide a list ID."
+msgstr "Erro: Você deve fornecer um ID da lista."
+
+#: includes/Extensions/OfferAnnouncement/Announcements.php:139
+msgid "Offer Title"
+msgstr "Título da oferta"
+
+#: includes/Extensions/OfferAnnouncement/Announcements.php:140
+msgid "Flash Sale: Limited Time Offer!"
+msgstr "Venda relâmpago: Oferta por tempo limitado!"
+
+#: includes/Extensions/OfferAnnouncement/Announcements.php:146
+msgid "Offer Discount (%)"
+msgstr "Desconto da oferta (%)"
+
+#: includes/Extensions/OfferAnnouncement/Announcements.php:148
+#: includes/Extensions/OfferAnnouncement/Announcements.php:149
+msgid "25"
+msgstr "25"
+
+#: includes/Extensions/OfferAnnouncement/Announcements.php:158
+msgid "Offer Description"
+msgstr "Descrição da oferta"
+
+#: includes/Extensions/OfferAnnouncement/Announcements.php:159
+msgid "Enjoy flat 50% Off on NotificationX PRO Valid till this week"
+msgstr ""
+"Aproveite um desconto fixo de 50% no NotificationX PRO, válido até esta "
+"semana"
+
+#: includes/Extensions/OfferAnnouncement/Announcements.php:188
+msgid "Expire Time"
+msgstr "Tempo de expiração"
+
+#: includes/Extensions/OfferAnnouncement/Announcements.php:209
+msgid "Grab Now"
+msgstr "Pegar agora"
+
+#: includes/Extensions/Tutor/TutorInline.php:58
+msgid "Single Page Free"
+msgstr "Página única gratuita"
+
+#: includes/Extensions/Tutor/TutorInline.php:59
+msgid "Single Page Public"
+msgstr "Página única pública"
+
+#: includes/Extensions/Tutor/TutorInline.php:60
+msgid "Single Page Fully Booked"
+msgstr "Página única totalmente reservada"
+
+#: includes/Extensions/Tutor/TutorInline.php:61
+msgid "Single Page Purchasable"
+msgstr "Página única disponível para compra"
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:36
+#: includes/Extensions/WooCommerce/WooInline.php:36
+msgid "Single Product Page"
+msgstr "Página de produto único"
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:40
+#: includes/Extensions/WooCommerce/WooInline.php:40
+msgid "Shop Archive Page - After Product Title"
+msgstr "Página de arquivo da loja - Após o título do produto"
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:44
+#: includes/Extensions/WooCommerce/WooInline.php:44
+msgid "Shop Archive Page - After Product Container"
+msgstr "Página de arquivo da loja - Após o contêiner do produto"
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:48
+#: includes/Extensions/WooCommerce/WooInline.php:48
+msgid "Shop Cart Page"
+msgstr "Página do carrinho de compras"
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:269
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:286
+#: includes/Extensions/WooCommerce/WooInline.php:258
+#: includes/Extensions/WooCommerce/WooInline.php:275
+msgid "left in stock"
+msgstr "em estoque"
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:270
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:287
+#: includes/Extensions/WooCommerce/WooInline.php:259
+#: includes/Extensions/WooCommerce/WooInline.php:276
+msgid "left"
+msgstr "restantes"
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:271
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:288
+#: includes/Extensions/WooCommerce/WooInline.php:260
+#: includes/Extensions/WooCommerce/WooInline.php:277
+msgid "- order soon."
+msgstr "- faça seu pedido logo."
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:272
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:289
+#: includes/Extensions/WooCommerce/WooInline.php:261
+#: includes/Extensions/WooCommerce/WooInline.php:278
+msgid "on our site!"
+msgstr "em nosso site!"
+
+#: includes/Extensions/Zapier/Zapier.php:71
+msgid "Zapier Settings"
+msgstr "Configurações do Zapier"
+
+#: includes/Extensions/Zapier/Zapier.php:80
+msgid "to get invitation."
+msgstr "para receber o convite."
+
+#. translators: %1$s: Zapier docs link, %2$s: Zapier invitation link.
+#: includes/Extensions/Zapier/Zapier.php:222
+#, php-format
+msgid ""
+"Make sure that you have <a target=\"_blank\" rel=\"nofollow\" "
+"href=\"%1$s\">created a Zap</a> with your preferred Application. From Zap "
+"Builder, you need to choose <strong>NotificationX</strong> as your Action "
+"App. You can get the public invitation link from <a href=\"%2$s\" "
+"target=\"_blank\" rel=\"nofollow\">here</a>"
+msgstr ""
+"Certifique-se de que você tenha <a target=\"_blank\" rel=\"nofollow\" "
+"href=\"%1$s\">criado um Zap</a> com seu aplicativo preferido. No "
+"\"Construtor de Zap\", você precisa escolher o <strong>NotificationX</"
+"strong> como seu aplicativo de ação. Você pode receber o link do convite "
+"público a partir <a href=\"%2$s\" target=\"_blank\" rel=\"nofollow\">daqui</"
+"a>"
+
+#. translators: %s: Zapier docs link.
+#: includes/Extensions/Zapier/Zapier.php:226
+#, php-format
+msgid ""
+"For further assistance, check out this <a href='%s' "
+"rel='nofollow'>Documentation</a>"
+msgstr ""
+"Para mais ajuda, confira esta <a href='%s' rel='nofollow'>Documentação</a>"
+
+#: includes/Features/Maps.php:55
+msgid "Map Image"
+msgstr "Imagem do mapa"
+
+#: includes/Features/Maps.php:91
+msgid "from"
+msgstr "de"
+
+#: includes/Features/Maps.php:93
+msgid "Location"
+msgstr "Localização"
+
+#: includes/Features/Maps.php:94
+msgid "subscribed"
+msgstr "assinado"
+
+#: includes/Features/Maps.php:110
+msgid "City, Country"
+msgstr "Cidade, país"
+
+#: includes/Features/Maps.php:117
+msgid "Definite Time"
+msgstr "Tempo definido"
+
+#: includes/Features/Maps.php:169 includes/Features/Maps.php:170
+#: includes/Features/Maps.php:295 includes/Features/Maps.php:296
+#: includes/Features/Maps.php:300
+msgid "Somewhere"
+msgstr "Em algum lugar"
+
+#: includes/Features/Maps.php:309
+msgid "Google Map Settings"
+msgstr "Configurações do Google Maps"
+
+#: includes/Features/Maps.php:316
+msgid "API key"
+msgstr "Chave de API"
+
+#. translators: %s: Google Map docs link.
+#: includes/Features/Maps.php:319
+#, php-format
+msgid ""
+"<a target=\"_blank\" rel=\"nofollow\" href=\"%s\">Click here</a> to get your "
+"API key."
+msgstr ""
+"<a target=\"_blank\" rel=\"nofollow\" href=\"%s\">Clique aqui</a> para "
+"receber sua chave de API."
+
+#: includes/Features/SalesFeatures.php:148
+#, php-format
+msgid "in last %d days"
+msgstr "nos últimos %d dias"
+
+#: includes/Features/SalesFeatures.php:165
+msgid "Sales count Cache Duration"
+msgstr "Duração do cache da contagem de vendas"
+
+#: includes/Features/SalesFeatures.php:166
+msgid "Minutes (Schedule Duration to fetch new data)."
+msgstr "Minutos (duração do agendamento para coletar novos dados)."
+
+#: includes/Features/Shortcode.php:47
+msgid "Use Only as Shortcode"
+msgstr "Usar somente como shortcode"
+
+#: includes/Features/Shortcode.php:82
+msgid "You have to give an ID to generate notification."
+msgstr "Você precisa fornecer um ID para gerar a notificação."
+
+#: includes/Features/Shortcode.php:89
+msgid "Make sure you have enabled the notification which ID you have given."
+msgstr "Certifique-se de ter ativado a notificação do ID que você forneceu."
+
+#: includes/Features/Sound.php:30
+msgid "Sound Settings"
+msgstr "Configurações de som"
+
+#: includes/Features/Sound.php:39
+msgid "Select a sound"
+msgstr "Selecionar um som"
+
+#: includes/Features/Sound.php:40
+msgid "Select a notification sound to play with Notification."
+msgstr "Selecione um som de notificação para reproduzir com a notificação."
+
+#: includes/Features/Sound.php:44
+msgid "None"
+msgstr "Nenhum"
+
+#: includes/Features/Sound.php:45
+msgid "To the Point"
+msgstr "Ao ponto"
+
+#: includes/Features/Sound.php:46
+msgid "Intuition"
+msgstr "Intuição"
+
+#: includes/Features/Sound.php:52
+msgid "Volume"
+msgstr "Volume"
+
+#: includes/Types/Comments.php:31
+msgid "commented on"
+msgstr "comentou em"
+
+#: includes/Types/Conversions.php:32 includes/Types/Conversions.php:33
+#: includes/Types/WooCommerceSales.php:32
+#: includes/Types/WooCommerceSales.php:33
+msgid "purchased"
+msgstr "comprado"
+
+#: includes/Types/Conversions.php:38 includes/Types/WooCommerceSales.php:38
+msgid "people purchased"
+msgstr "pessoas compraram"
+
+#: includes/Types/Conversions.php:41 includes/Types/Donations.php:38
+#: includes/Types/ELearning.php:50 includes/Types/WooCommerceSales.php:41
+msgid "in last {{day:7}}"
+msgstr "nos últimos {{day:7}}"
+
+#: includes/Types/Conversions.php:49 includes/Types/ELearning.php:61
+#: includes/Types/WooCommerceSales.php:49
+msgid "Sales Count"
+msgstr "Contagem de vendas"
+
+#: includes/Types/Conversions.php:50 includes/Types/Donations.php:49
+#: includes/Types/ELearning.php:62 includes/Types/WooCommerceSales.php:50
+msgid "In last 1 day"
+msgstr "No último 1 dia"
+
+#: includes/Types/Conversions.php:51 includes/Types/Donations.php:50
+#: includes/Types/ELearning.php:63 includes/Types/WooCommerceSales.php:51
+msgid "In last 7 days"
+msgstr "Nos últimos 7 dias"
+
+#: includes/Types/Conversions.php:52 includes/Types/Donations.php:51
+#: includes/Types/ELearning.php:64 includes/Types/WooCommerceSales.php:52
+msgid "In last 30 days"
+msgstr "Nos últimos 30 dias"
+
+#: includes/Types/Conversions.php:70 includes/Types/WooCommerceSales.php:71
+msgid "Link Button"
+msgstr "Link do botão"
+
+#: includes/Types/Conversions.php:74 includes/Types/WooCommerceSales.php:75
+msgid "Background Color"
+msgstr "Cor de fundo"
+
+#: includes/Types/Conversions.php:80 includes/Types/WooCommerceSales.php:81
+msgid "Text Color"
+msgstr "Cor do texto"
+
+#: includes/Types/Conversions.php:86 includes/Types/WooCommerceSales.php:87
+msgid "Font Size"
+msgstr "Tamanho da fonte"
+
+#: includes/Types/Conversions.php:124 includes/Types/DownloadStats.php:24
+#: includes/Types/EmailSubscription.php:56 includes/Types/PageAnalytics.php:35
+#: includes/Types/Reviews.php:32 includes/Types/WooCommerceSales.php:124
+msgid "Sound One"
+msgstr "Som um"
+
+#: includes/Types/Conversions.php:125 includes/Types/DownloadStats.php:25
+#: includes/Types/EmailSubscription.php:57 includes/Types/PageAnalytics.php:36
+#: includes/Types/Reviews.php:33 includes/Types/WooCommerceSales.php:125
+msgid "Sound Two"
+msgstr "Som dois"
+
+#: includes/Types/CustomNotification.php:33
+msgid "Subscription Sound One"
+msgstr "Som um de assinatura"
+
+#: includes/Types/CustomNotification.php:34
+msgid "Subscription Sound Two"
+msgstr "Som dois de assinatura"
+
+#: includes/Types/Donations.php:34
+msgid "people donated"
+msgstr "pessoas doaram"
+
+#: includes/Types/Donations.php:41
+msgid "donated"
+msgstr "doou"
+
+#: includes/Types/Donations.php:43
+msgid "donated for"
+msgstr "doado para"
+
+#: includes/Types/Donations.php:48
+msgid "Donation Count"
+msgstr "Contagem de doações"
+
+#: includes/Types/ELearning.php:32 includes/Types/ELearning.php:34
+msgid "recently enrolled"
+msgstr "matriculado recentemente"
+
+#: includes/Types/ELearning.php:38
+msgid "John D."
+msgstr "Fulano de Tal."
+
+#: includes/Types/ELearning.php:39
+msgid "Just Enrolled in"
+msgstr "Acabou de se matricular em"
+
+#: includes/Types/ELearning.php:41
+msgid "Anonymous Course"
+msgstr "Curso anônimo"
+
+#: includes/Types/ELearning.php:47
+msgid "people enrolled"
+msgstr "pessoas matriculadas"
+
+#: includes/Types/Inline.php:78
+msgid "Mobile Visibility"
+msgstr "Visibilidade em dispositivos móveis"
+
+#: includes/Types/Inline.php:83
+msgid "Hide NotificationX on mobile."
+msgstr "Ocultar o NotificationX em dispositivos móveis."
+
+#: includes/Types/PageAnalytics.php:56
+msgid "in last "
+msgstr "nos últimos "
+
+#: includes/Types/PageAnalytics.php:64
+msgid "7 "
+msgstr "7 "
+
+#: notificationx-pro.php:97
+msgid "Recommended:"
+msgstr "Recomendado:"
+
+#. translators: %s: Plugins page link.
+#: notificationx-pro.php:99
+#, php-format
+msgid ""
+"Seems like you haven't updated the NotificationX Free version. Please make "
+"sure to update NotificationX plugin from <a href='%s'><strong>wp-admin -> "
+"Plugins</strong></a>."
+msgstr ""
+"Parece que você não atualizou a versão gratuita do NotificationX. Certifique-"
+"se de atualizar o plugin NotificationX em <a href='%s'><strong>wp-admin -> "
+"Plugins</strong></a>."
+
+#. Plugin Name of the plugin/theme
+msgid "NotificationX Pro"
+msgstr "NotificationX Pro"
+
+#. Plugin URI of the plugin/theme
+msgid "https://notificationx.com/"
+msgstr "https://notificationx.com/"
+
+#. Description of the plugin/theme
+msgid ""
+"Create Email Subscription alerts, connect with Google Analytics, Zapier, "
+"Gravity Forms & others with NotificationX PRO. Get access to Analytics "
+"dashboard and many others."
+msgstr ""
+"Crie alertas de assinatura por e-mail, conecte-se com o Google Analytics, "
+"Zapier, Gravity Forms e outros com o NotificationX PRO. Tenha acesso ao "
+"painel do Analytics e muitos outros."
+
+#. Author of the plugin/theme
+msgid "WPDeveloper"
+msgstr "WPDeveloper"
+
+#. Author URI of the plugin/theme
+msgid "https://wpdeveloper.com"
+msgstr "https://wpdeveloper.com"

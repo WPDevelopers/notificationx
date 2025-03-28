@@ -17,6 +17,7 @@ use NotificationX\GetInstance;
 use NotificationX\Core\Modules;
 use NotificationX\NotificationX;
 use NotificationX\Types\TypeFactory;
+use Sabberworm\CSS\Value\Value;
 
 /**
  * @method static GlobalFields get_instance($args = null)
@@ -33,7 +34,7 @@ class GlobalFields {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-
+        
         // dump(Rules::logicalRule([ Rules::is('test'), Rules::is('test2') ]));
     }
 
@@ -104,11 +105,11 @@ class GlobalFields {
                                     ],
                                     'options' => (array) array_map(function ($type) {
                                         return [
-                                            'value'    => $type->id,
-                                            'label'    => $type->title,
-                                            'is_pro'   => $type->is_pro && ! NotificationX::is_pro(),
-                                            'priority' => $type->priority,
-                                            'popup'    => apply_filters('nx_pro_alert_popup', $type->popup),
+                                            'value'             => $type->id,
+                                            'label'             => $type->title,
+                                            'is_pro'            => $type->is_pro && ! NotificationX::is_pro(),
+                                            'priority'          => $type->priority,
+                                            'popup'             => apply_filters('nx_pro_alert_popup', $type->popup),
                                         ];
                                     }, array_values(TypeFactory::get_instance()->get_all())),
                                     'validation_rules' => [
@@ -246,14 +247,39 @@ class GlobalFields {
                             'rules' => '',
                         ],
                        "themes" => [
-                            // 'label'  => __("Themes", 'notificationx'),
+                            'label'  => __("Themes", 'notificationx'),
                             'name'   => "themes",
                             'type'   => "section",
                             'fields' => [
+                                // [
+                                //     'label'   => __("Select Theme", 'notificationx'),
+                                //     'name'    => "gdpr_s_theme",
+                                //     'type'    => "select",
+                                //     'default' => 'light',
+                                //     'options' => GlobalFields::get_instance()->normalize_fields([
+                                //         'light'  => __('Light', 'notificationx'),
+                                //         'dark' => __('Dark', 'notificationx'),
+                                //     ]),
+                                //     'rules'   => Rules::logicalRule([
+                                //         Rules::is( 'type', 'gdpr' ),
+                                //     ]),
+                                // ],
+                                [
+                                    'label'            => __("Select Theme", 'notificationx'),
+                                    'name'             => "gdpr_theme",
+                                    'type'             => "better-toggle",
+                                    'default'          => false,
+                                    'toggle_label'     => ['toggle_label_1' => __('Light', 'notificationx'), 'toggle_label_2' => __('Dark', 'notificationx')],
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr' ),
+                                    ]),
+                                ],
                                 "themes_section" => [
                                     'type'    => 'section',
                                     'name'    => 'themes_section',
-                                    'classes' => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated',
+                                    'classes' => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated','rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr', true ),
+                                    ]),
                                     'fields'    => [
                                         'themes_tab'    => [
                                             'type'   => 'tab',
@@ -353,6 +379,36 @@ class GlobalFields {
                                             'is_pro'   => true,
                                         ],
                                     ]
+                                ],
+                                [
+                                    'label'   => __("Position", 'notificationx'),
+                                    'name'    => "gdpr_position",
+                                    'type'    => "select",
+                                    'default' => 'cookie_notice_bottom_right',
+                                    'options' => GlobalFields::get_instance()->normalize_fields([
+                                        'cookie_notice_bottom_left'  => __('Bottom Left', 'notificationx'),
+                                        'cookie_notice_bottom_right' => __('Bottom Right', 'notificationx'),
+                                        'cookie_notice_center'       => __('Center', 'notificationx'),
+                                    ]),
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr' ),
+                                        Rules::includes('themes', [ 'gdpr_theme-light-one', 'gdpr_theme-light-two', 'gdpr_theme-light-three',
+                                     'gdpr_theme-light-four', 'gdpr_theme-dark-one', 'gdpr_theme-dark-two', 'gdpr_theme-dark-three', 'gdpr_theme-dark-four' ], false),
+                                    ]),
+                                ],
+                                [
+                                    'label'   => __("Position", 'notificationx'),
+                                    'name'    => "gdpr_banner_position",
+                                    'type'    => "select",
+                                    'default' => 'cookie_banner_bottom',
+                                    'options' => GlobalFields::get_instance()->normalize_fields([
+                                        'cookie_banner_bottom' => __('Bottom', 'notificationx'),
+                                        'cookie_banner_top'    => __('Top', 'notificationx'),
+                                    ]),
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr' ),
+                                        Rules::includes('themes', [ 'gdpr_theme-banner-light-one', 'gdpr_theme-banner-light-two', 'gdpr_theme-banner-dark-one', 'gdpr_theme-banner-dark-two' ], false),
+                                    ]),
                                 ],
                                 'advance_edit' => [
                                     'label'    => __("Advanced Design", 'notificationx'),
@@ -546,7 +602,7 @@ class GlobalFields {
                     ],
                     'classes' => "content_tab",
                     'fields'  => apply_filters('nx_content_fields', [
-                        'content' => [
+                       'content' => apply_filters('nx_content_field', [
                             'label'    => __("Content", 'notificationx'),
                             'name'     => "content",
                             'type'     => "section",
@@ -840,7 +896,15 @@ class GlobalFields {
                                     ]),
                                 ],
                             ],
-                        ],
+                        ]),
+                        'gdpr_content' => apply_filters('nx_content_gdpr', [
+                            'label'    => __("Cookies Content", 'notificationx'),
+                            'name'     => "content",
+                            'type'     => "section",
+                            'priority' => 95,
+                            'fields'   => apply_filters('nx_content_fields_gdpr', []),
+                            'rules'    => Rules::is('type', 'gdpr' ),
+                        ]),
                         'link_options' => [
                             'label'    => __('Link Options', 'notificationx'),
                             'name'     => "link_options",
@@ -877,14 +941,380 @@ class GlobalFields {
                                 ],
                             ],
                             // must be called after nx_link_types filter.
-                            'rules' => [ 'includes', 'source', apply_filters('nx_link_types_dependency', []) ],
+                            'rules'   => Rules::logicalRule([
+                                [ 'includes', 'source', apply_filters('nx_link_types_dependency', []) ],
+                                Rules::is( 'type', 'gdpr', true ),
+                            ]),
                         ],
+                    ]),
+                ],
+                "manager_tab" => [
+                    'label' => __("Manager", 'notificationx'),
+                    'id'    => "manager_tab",
+                    'name'  => "manager_tab",
+                    'rules' => Rules::is('type', 'gdpr'),
+                    'icon'  => [
+                        'type' => 'tabs',
+                        'name' => 'manager'
+                    ],
+                    'classes' => "manager_tab",
+                    'fields'  => apply_filters('nx_manager_fields', [
+                        'general_settngs'  => [
+                            'label' => __("General Settings", 'notificationx'),
+                            'id'    => "general_settngs",
+                            'name'  => "general_settngs",
+                            'type'  => 'section',
+                            'fields'=> [
+                                'gdpr_force_reload' => [
+                                    'label'   => __("Force Reload", 'notificationx'),
+                                    'name'    => "gdpr_force_reload",
+                                    'type'    => "better-toggle",
+                                    'default' => false,
+                                    'toggle_label'     => ['toggle_label_1' => __('Enable Force Reload', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr' ),
+                                    ]),
+                                    'info'    => __('Choose whether the page should reload after the user accepts cookies. If not, your analytics software won’t register the current page visit, as cookies will only be loaded during the next page load', 'notificationx'),
+                                ],
+                                'gdpr_cookie_removal' => [
+                                    'label'   => __("Cookie Removal", 'notificationx'),
+                                    'name'    => "gdpr_cookie_removal",
+                                    'type'    => "better-toggle",
+                                    'default' => false,
+                                    'toggle_label'     => ['toggle_label_1' => __('Enable Cookie Removal', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr' ),
+                                    ]),
+                                    'info'    => __('When cookies are not accepted, non-essential cookies are removed, ensuring compliance with GDPR requirements.', 'notificationx'),
+                                ],
+                                'gdpr_consent_expiry' => [
+                                    'label'   => __("Consent Expiry", 'notificationx'),
+                                    'name'    => "gdpr_consent_expiry",
+                                    'type'    => "number",
+                                    'min'     => 1,
+                                    'description' => __('Days', 'notificationx'),
+                                    'default' => 30,
+                                    'suggestions' => [
+                                        [
+                                            'value' => 30,
+                                            'unit'  => 'days',
+                                        ],
+                                        [
+                                            'value' => 90,
+                                            'unit'  => 'days',
+                                        ],
+                                        [
+                                            'value' => 180,
+                                            'unit'  => 'days',
+                                        ],
+                                        [
+                                            'value' => 365,
+                                            'unit'  => 'days',
+                                        ],
+                                    ],
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is( 'type', 'gdpr' ),
+                                    ]),
+                                    'info'    => __('By default, consent expires after 30 days. If needed, you can adjust this number to your preference', 'notificationx'),
+                                ],
+                            ]
+                        ],
+                        'cookies_list_section' => [
+                            'label' => 'Cookies List',
+                            'type' => 'section',
+                            'name' => 'cookies_list_section',
+                            'fields' => [
+                                'cookies_lists'    => [
+                                    'type'   => 'tab',
+                                    'name'   => 'cookies_lists',
+                                    'submit' => [
+                                        'show' => false,
+                                    ],
+                                    'default' => 'necessary_tab',
+                                    'dataShare' => true,
+                                    'fields' => [
+                                        'necessary_tab'    => [
+                                            'label'            => __("Necessary", 'notificationx'),
+                                            'name'             => 'necessary_tab',
+                                            'id'               => 'necessary_tab',
+                                            'type'             => 'section',
+                                            'icon'  => [
+                                                'type' => 'tabs',
+                                                'name' => 'necessary'
+                                            ],
+                                            'fields'           => [
+                                                'necessary_tab_info_modal' => [
+                                                    'name'      => 'necessary_tab_info_modal',
+                                                    'type'      => 'modal',
+                                                    'show_body' => true,
+                                                    'close_on_body' => true,
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __(' ', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'         => 'button',
+                                                        'text'         => 'Save',
+                                                        'name'         => 'necessary_close_tab_info_modal',
+                                                        "default"      => false,
+                                                        'close_action' => true,
+                                                    ],
+                                                    'cancel' => "necessary_close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title'       => Helper::tab_info_title('necessary', 'Necessary'),
+                                                            'tab_description' => Helper::tab_info_desc('necessary', 'Necessary cookies are needed to ensure the basic functions of this site, like allowing secure log-ins and managing your consent settings. These cookies do not collect any personal information.'),
+                                                        ],
+                                                    ],
+                                                ],
+                                                'necessary_cookie_lists'    => [
+                                                    'label'    => __('', 'notificationx'),
+                                                    'name'     => 'necessary_cookie_lists',
+                                                    'type'     => 'better-repeater',
+                                                    'priority' => 10,
+                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
+                                                    'button'   => [
+                                                        'label'    => __('Add New', 'notificationx'),
+                                                        'position' => 'top',
+                                                    ],
+                                                    'default'        => Helper::default_cookie_list(),
+                                                    'visible_fields' => ['cookies_id','load_inside', 'script_url_pattern', 'description'],
+                                                    '_fields'        => Helper::gdpr_common_fields(),
+                                                ]
+                                            ],
+                                        ],
+                                        'functional_tab'      => [
+                                            'label'            => __("Functional", 'notificationx'),
+                                            'type'             => 'section',
+                                            'name'             => 'functional_tab',
+                                            'id'               => 'functional_tab',
+                                            'icon'  => [
+                                                'type' => 'tabs',
+                                                'name' => 'functional'
+                                            ],
+                                            'fields'           => [
+                                                'functional_tab_info_modal' => [
+                                                    'name'          => 'functional_tab_info_modal',
+                                                    'type'          => 'modal',
+                                                    'show_body'     => true,
+                                                    'close_on_body' => true,
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __(' ', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'         => 'button',
+                                                        'text'         => 'Save',
+                                                        'name'         => 'functional_close_tab_info_modal',
+                                                        "default"      => false,
+                                                        'close_action' => true,
+                                                    ],
+                                                    'cancel' => "functional_close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => Helper::tab_info_title('functional', 'Functional'),
+                                                            'tab_description' => Helper::tab_info_desc('functional', 'Functional cookies assist in performing tasks like sharing website content on social media, collecting feedback, and enabling other third-party features.'),
+                                                        ],
+                                                    ],
+                                                ],
+                                                'functional_cookie_lists'    => [
+                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'name'     => 'functional_cookie_lists',
+                                                    'type'     => 'better-repeater',
+                                                    'priority' => 10,
+                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
+                                                    'button'  => [
+                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'position' => 'top',
+                                                    ],
+                                                    'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
+                                                    '_fields'        => Helper::gdpr_common_fields(),
+                                                ]
+                                            ],
+                                        ],
+                                        'analytics_tab'      => [
+                                            'label'            => __("Analytics", 'notificationx'),
+                                            'type'             => 'section',
+                                            'name'             => 'analytics_tab',
+                                            'id'               => 'analytics_tab',
+                                            'icon'  => [
+                                                'type' => 'tabs',
+                                                'name' => 'analytics'
+                                            ],
+                                            'fields'           => [
+                                                'analytics_tab_info_modal' => [
+                                                    'name'          => 'analytics_tab_info_modal',
+                                                    'type'          => 'modal',
+                                                    'show_body'     => true,
+                                                    'close_on_body' => true,
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __(' ', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'         => 'button',
+                                                        'text'         => 'Save',
+                                                        'name'         => 'analytics_close_tab_info_modal',
+                                                        "default"      => false,
+                                                        'close_action' => true,
+                                                    ],
+                                                    'cancel' => "analytics_close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => Helper::tab_info_title('analytics', 'Analytics'),
+                                                            'tab_description' => Helper::tab_info_desc('analytics', 'Analytical cookies help us understand how visitors use the website. They provide data on metrics like the number of visitors, bounce rate, traffic sources etc.'),
+                                                        ],
+                                                    ],
+                                                ],
+                                                'analytics_cookie_lists'    => [
+                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'name'     => 'analytics_cookie_lists',
+                                                    'type'     => 'better-repeater',
+                                                    'priority' => 10,
+                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
+                                                    'button'  => [
+                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'position' => 'top',
+                                                    ],
+                                                    'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
+                                                    '_fields'        => Helper::gdpr_common_fields(),
+                                                ]
+                                            ],
+                                        ],
+                                        'performance_tab'      => [
+                                            'label'            => __("Performance", 'notificationx'),
+                                            'type'             => 'section',
+                                            'name'             => 'performance_tab',
+                                            'id'               => 'performance_tab',
+                                            'icon'  => [
+                                                'type' => 'tabs',
+                                                'name' => 'performance'
+                                            ],
+                                            'fields'           => [
+                                                'performance_tab_info_modal' => [
+                                                    'name'          => 'performance_tab_info_modal',
+                                                    'type'          => 'modal',
+                                                    'show_body'     => true,
+                                                    'close_on_body' => true,
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __(' ', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'         => 'button',
+                                                        'text'         => 'Save',
+                                                        'name'         => 'performance_close_tab_info_modal',
+                                                        "default"      => false,
+                                                        'close_action' => true,
+                                                    ],
+                                                    'cancel' => "performance_close_tab_info_modal",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => Helper::tab_info_title('performance', 'Performance'),
+                                                            'tab_description' => Helper::tab_info_desc('performance', "Performance cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors."),
+                                                        ],
+                                                    ],
+                                                ],
+                                                'performance_cookie_lists'    => [
+                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'name'     => 'performance_cookie_lists',
+                                                    'type'     => 'better-repeater',
+                                                    'priority' => 10,
+                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
+                                                    'button'  => [
+                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'position' => 'top',
+                                                    ],
+                                                    'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
+                                                    '_fields'        => Helper::gdpr_common_fields(),
+                                                ]
+                                            ],
+                                        ],
+                                        'uncategorized_tab'      => [
+                                            'label'            => __("Uncategorized", 'notificationx'),
+                                            'type'             => 'section',
+                                            'name'             => 'uncategorized_tab',
+                                            'id'               => 'uncategorized_tab',
+                                            'icon'  => [
+                                                'type' => 'tabs',
+                                                'name' => 'uncategorized'
+                                            ],
+                                            'fields'           => [
+                                                'uncategorized_tab_info_modal' => [
+                                                    'name'          => 'uncategorized_tab_info_modal',
+                                                    'type'          => 'modal',
+                                                    'show_body'     => true,
+                                                    'close_on_body' => true,
+                                                    'button' => [
+                                                        'name' => 'tab_info_edit',
+                                                        'text' => __(' ', 'notificationx'),
+                                                        'icon'  => [
+                                                            'type' => 'tabs',
+                                                            'name' => 'edit_modal'
+                                                        ],
+                                                    ],
+                                                    'confirm_button' => [
+                                                        'type'         => 'button',
+                                                        'text'         => 'Save',
+                                                        'name'         => 'uncategorized_close_tab_info',
+                                                        "default"      => false,
+                                                        'close_action' => true,
+                                                    ],
+                                                    'cancel' => "uncategorized_close_tab_info",
+                                                    'body'   => [
+                                                        'header' => __('Edit Category ', 'notificationx'),
+                                                        'fields' => [
+                                                            'tab_title' => Helper::tab_info_title('uncategorized', 'Uncategorized'),
+                                                            'tab_description' => Helper::tab_info_desc('uncategorized', "Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types."),
+                                                        ],
+                                                    ],
+                                                ],
+                                                'uncategorized_cookie_lists'    => [
+                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'name'     => 'uncategorized_cookie_lists',
+                                                    'type'     => 'better-repeater',
+                                                    'priority' => 10,
+                                                    'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
+                                                    'button'  => [
+                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'position' => 'top',
+                                                    ],
+                                                    'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
+                                                    '_fields'        => Helper::gdpr_common_fields(),
+                                                ]
+                                            ],
+                                        ],
+                                    ]
+                                ],
+                            ]
+                        ]
                     ]),
                 ],
                 "display_tab" => [
                     'label' => __("Display", 'notificationx'),
                     'id'    => "display_tab",
                     'name'  => "display_tab",
+                    'rules' => Rules::is('type', 'gdpr', true),
                     'icon'  => [
                         'type' => 'tabs',
                         'name' => 'display'
@@ -1255,21 +1685,61 @@ class GlobalFields {
                                     ],
                                     'help' => __('Set a max width for notification.', 'notificationx'),
                                 ],
-                                'close_button' => [
-                                    'label'       => __("Display Close Option", 'notificationx'),
-                                    'name'        => "close_button",
-                                    'type'        => "checkbox",
-                                    'default'     => 1,
-                                    'priority'    => 70,
-                                    'description' => __('Display a close button.', 'notificationx'),
+                                'close_button_control' => [
+                                    'label'  => __("Display Close Button", 'notificationx'),
+                                    'name'   => "close_button_control",
+                                    'type'   => "section",
+                                    'fields' => [
+                                        'close_button' => [
+                                            'name'        => "close_button",
+                                            'type'        => "checkbox",
+                                            'default'     => 1,
+                                            'priority'    => 70,
+                                            'description' => __('Desktop', 'notificationx'),
+                                        ],
+                                        'close_button_tab' => [
+                                            'name'        => "close_button_tab",
+                                            'type'        => "checkbox",
+                                            'default'     => 1,
+                                            'priority'    => 71,
+                                            'description' => __('Tablet', 'notificationx'),
+                                        ],
+                                        'close_button_mobile' => [
+                                            'name'        => "close_button_mobile",
+                                            'type'        => "checkbox",
+                                            'default'     => 0,
+                                            'priority'    => 72,
+                                            'description' => __('Mobile', 'notificationx'),
+                                        ],
+                                    ]
                                 ],
-                                'hide_on_mobile' => [
-                                    'label'       => __("Mobile Visibility", 'notificationx'),
-                                    'name'        => "hide_on_mobile",
-                                    'type'        => "checkbox",
-                                    'default'     => false,
-                                    'priority'    => 200,
-                                    'description' => __('Hide NotificationX on mobile.', 'notificationx'),
+                                'nx_visibility_control' => [
+                                    'label'  => __("Notification Visibility", 'notificationx'),
+                                    'name'   => "close_button_control",
+                                    'type'   => "section",
+                                    'fields' => [
+                                        'hide_on_desktop' => [
+                                            'name'        => "hide_on_desktop",
+                                            'type'        => "checkbox",
+                                            'default'     => true,
+                                            'priority'    => 201,
+                                            'description' => __('Desktop', 'notificationx'),
+                                        ],
+                                        'hide_on_tab' => [
+                                            'name'        => "hide_on_tab",
+                                            'type'        => "checkbox",
+                                            'default'     => true,
+                                            'priority'    => 202,
+                                            'description' => __('Tablet', 'notificationx'),
+                                        ],
+                                        'hide_on_mobile' => [
+                                            'name'        => "hide_on_mobile",
+                                            'type'        => "checkbox",
+                                            'default'     => true,
+                                            'priority'    => 205,
+                                            'description' => __('Mobile', 'notificationx'),
+                                        ],
+                                    ]
                                 ],
                             ]
                         ],
@@ -1277,6 +1747,7 @@ class GlobalFields {
                             'label'  => __("Animation", 'notificationx'),
                             'name'   => "animation",
                             'type'   => "section",
+                            'priority'=> 15,
                             'fields' => [
                                 'animation_notification_show' => [
                                     'label'    => __("Notification Show", 'notificationx'),
@@ -1526,7 +1997,35 @@ class GlobalFields {
                                     'label'       => __('Display From The Last', 'notificationx'),
                                     'priority'    => 45,
                                     'default'       => 30,
-                                    'description' => 'days',
+                                    'description' => 'Days',
+                                    'min'          => 0,
+                                ],
+                                'hour_minutes_section' => [
+                                    'name'    => "hour_minutes_section",
+                                    'type'    => "section",
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woocommerce_sales_reviews', 'custom_notification_conversions', 'surecart', 'edd', 'tutor', 'learndash', 'learnpress', 'cf7', 'wp_comments', 'njf', 'wpf', 'fluentform', 'elementor_form', 'custom_notification', 'grvf', 'mailchimp', 'convertkit', 'ActiveCampaign', 'zapier_email_subscription', 'give', 'woo_reviews', 'freemius_conversions', 'freemius_reviews', 'zapier_conversions', 'zapier_reviews']),
+                                    ]),
+                                    'fields' => [
+                                        [
+                                            'help'        => __('Hours', 'notificationx'),
+                                            'name'        => "display_from_hour",
+                                            'type'        => "number",
+                                            'default'     => '0',
+                                            'description' => '',
+                                            'max'         => 23,
+                                            'min'         => 0,
+                                        ],
+                                        [
+                                            'help'        => __('Minutes', 'notificationx'),
+                                            'name'        => "display_from_minute",
+                                            'type'        => "number",
+                                            'default'     => '0',
+                                            'description' => '',
+                                            'max'         => 59,
+                                            'min'         => 0,
+                                        ],  
+                                    ]
                                 ],
                                 'loop' => [
                                     'name'     => 'loop',

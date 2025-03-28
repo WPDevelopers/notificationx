@@ -81,12 +81,12 @@ const config = {
                     enforce: true,
                     name: 'emoji-mart',
                 },
-                "react-apexcharts": {
-                    test: /node_modules\/(react-apexcharts|apexcharts)\/.*/,
-                    chunks: 'all',
-                    enforce: true,
-                    name: 'react-apexcharts',
-                },
+                // "react-apexcharts": {
+                //     test: /node_modules\/(react-apexcharts|apexcharts)\/.*/,
+                //     chunks: 'all',
+                //     enforce: true,
+                //     name: 'react-apexcharts',
+                // },
                 // "draft-js": {
                 //     test: /node_modules\/(draft-js|react-draft-wysiwyg)\/.*/,
                 //     chunks: 'all',

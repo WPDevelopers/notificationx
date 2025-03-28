@@ -35,6 +35,11 @@ class CustomNotificationConversions extends Extension {
      * Initially Invoked when initialized.
      */
     public function __construct(){
+        parent::__construct();
+    }
+
+    public function init_extension()
+    {
         $this->title = __('Custom Notification', 'notificationx');
         $this->module_title = __('Custom Notification', 'notificationx');
         $this->popup = [
@@ -47,7 +52,6 @@ class CustomNotificationConversions extends Extension {
                 </iframe>
             ', 'notificationx')
         ];
-        parent::__construct();
     }
 
     /**
