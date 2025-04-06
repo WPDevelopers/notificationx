@@ -218,6 +218,9 @@ class PostType {
         if ( $is_enabled == $data['enabled'] ) {
             return true;
         }
+        if( empty( $data['source'] ) ) {
+            return false;
+        }
         if ( $this->can_enable( $data['source'] ) || ( isset( $data['enabled'] ) && $data['enabled'] == false ) ) {
             $post = [
                 'enabled' => $data['enabled'],

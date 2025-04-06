@@ -125,7 +125,7 @@ const RatingWidget = () => {
                 </svg>
                 <h5>{__('Need help? We\'re here', 'notificationx')}</h5>
                 <p>{__('Ready to assist you every step of the way', 'notificationx')}</p>
-                <a href="https://notificationx.com/support/?chatbox=show" target="_blank">{__('Let\'s Chat', 'notificationx')}</a>
+                <a href="https://notificationx.com/support/?support=chat" target="_blank">{__('Let\'s Chat', 'notificationx')}</a>
             </div>
         </div>
     );
