@@ -54,32 +54,17 @@ class Scanner
 
         // Register the scan status endpoint
         register_rest_route($namespace, '/scan/status', array(
-            'methods'   => WP_REST_Server::READABLE,
+            'methods'   => WP_REST_Server::EDITABLE,
             'callback'  => array($this, 'check_scan_status'),
             'permission_callback' => '__return_true',
-            'args' => array(
-                'scan_id' => array(
-                    'required' => true,
-                    'validate_callback' => function($param, $request, $key) {
-                        return is_string($param);
-                    }
-                ),
-            ),
         ));
 
+            
         // Register the scan history endpoint
         register_rest_route($namespace, '/scan/history', array(
-            'methods'   => WP_REST_Server::READABLE,
+            'methods'   => WP_REST_Server::EDITABLE,
             'callback'  => array($this, 'get_scan_history'),
             'permission_callback' => '__return_true',
-            'args' => array(
-                'nx_id' => array(
-                    'required' => true,
-                    'validate_callback' => function($param, $request, $key) {
-                        return is_string($param);
-                    }
-                ),
-            ),
         ));
     }
 
@@ -319,7 +304,9 @@ class Scanner
         $merged_history = array_values($cookies);
 
         if (empty($merged_history)) {
-            return new WP_REST_Response(['error' => 'No scan history found'], 404);
+            return wp_send_json_success([
+                'message' => __('No scan history found', 'notificationx'),
+            ]);
         }
 
         return wp_send_json_success([

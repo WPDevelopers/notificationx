@@ -40,7 +40,7 @@ const ScannerHistory = ({setIsHistoryModalOpen, handleScannedCookieView, history
                   <td>{Object.keys(data.data).length}</td>
                   <td>
                     <a href="#" onClick={() => handleScannedCookieView(data)}>
-                      More Info
+                      { __("More Info",'notificationx') }
                     </a>
                   </td>
                 </tr>
