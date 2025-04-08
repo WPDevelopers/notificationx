@@ -17,10 +17,11 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
         'gdpr_theme-banner-dark-two',
     ];
     const initialSavePreference = {
-        necessary: true,
-        functional: false,
-        analytics: false,
-        performance: false,
+        necessary    : true,
+        functional   : false,
+        analytics    : false,
+        performance  : false,
+        advertising: false,
         uncategorized: false,
     };
 
@@ -77,11 +78,13 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
             functional   : true,
             analytics    : true,
             performance  : true,
+            advertising: true,
             uncategorized: true,
         });
         loadScripts(settings?.functional_cookie_lists);
         loadScripts(settings?.analytics_cookie_lists);
         loadScripts(settings?.performance_cookie_lists);
+        loadScripts(settings?.advertising_cookie_lists);
         loadScripts(settings?.uncategorized_cookie_lists);
     };
 
@@ -104,6 +107,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
         if (enabledItem.functional) loadScripts(settings?.functional_cookie_lists);
         if (enabledItem.analytics) loadScripts(settings?.analytics_cookie_lists);
         if (enabledItem.performance) loadScripts(settings?.performance_cookie_lists);
+        if (enabledItem.advertising) loadScripts(settings?.advertising_cookie_lists);
         if (enabledItem.uncategorized) loadScripts(settings?.uncategorized_cookie_lists);
     };
 

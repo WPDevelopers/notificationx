@@ -101,8 +101,8 @@ class FrontEnd {
                     'desc' => __("Performance cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors.", 'notificationx'),
                 ],
                 'advertising_tab_info'   => [
-                    'title' => __('Advertising', 'notificationx'),
-                    'desc' => __("Advertising cookies help analyze the website's key advertising indicators, which in turn helps improve the user experience for visitors.", 'notificationx'),
+                    'title' => __('Advertisement', 'notificationx'),
+                    'desc' => __("Advertisement cookies help analyze the website's key advertising indicators, which in turn helps improve the user experience for visitors.", 'notificationx'),
                 ],
                 'uncategorized_tab_info'   => [
                     'title' => __('Uncategorized', 'notificationx'),

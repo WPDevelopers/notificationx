@@ -139,7 +139,7 @@ useEffect(() => {
     functional   : [],
     analytics    : [],
     performance  : [],
-    advertisement: [],
+    advertising: [],
     uncategorized: [],
   };
   

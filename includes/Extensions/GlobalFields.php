@@ -1298,7 +1298,7 @@ class GlobalFields {
                                                         'header' => __('Edit Category ', 'notificationx'),
                                                         'fields' => [
                                                             'tab_title' => Helper::tab_info_title('advertising', 'Advertisement'),
-                                                            'tab_description' => Helper::tab_info_desc('advertising', "Advertising cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors."),
+                                                            'tab_description' => Helper::tab_info_desc('advertising', "Advertisement cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors."),
                                                         ],
                                                     ],
                                                 ],
