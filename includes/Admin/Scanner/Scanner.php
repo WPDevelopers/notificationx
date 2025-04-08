@@ -17,7 +17,8 @@ class Scanner
     use GetInstance;
     private static $_namespace = 'notificationx';
     private static $_version   = 1;
-    private static $_apiBase   = "https://notificationx-api.test/cookie-scanner/v1";
+    private static $_apiBase   = "https://api.notificationx.com/cookie-scanner/v1";
+    // private static $_apiBase   = "https://notificationx-api.test/cookie-scanner/v1";
     private static $is_pro     = false;
     public function __construct() 
     {
@@ -84,7 +85,7 @@ class Scanner
 
         // Check if the URL parameter is provided
         if (empty($url)) {
-            return new WP_REST_Response(['error' => 'URL parameter is required'], 400);
+            return new WP_REST_Response(['error' => 'URL parameter is required'], 200);
         }
 
         // Trigger the scan process (implement this function as needed)
@@ -119,8 +120,8 @@ class Scanner
         // Process the scan result if the status is 'completed'
         if (!empty($status['status']) && $status['status'] === 'completed') {
             // Update scan count to the options
-            $pre_count = get_option('nx_scan_count',0);
-            update_option('nx_scan_count', $pre_count + 1 );
+            $pre_count = get_option('nx_scan_count', 0);
+            update_option('nx_scan_count', $pre_count + 1);
             update_option('nx_scan_date',  Helper::nx_get_current_datetime() );
 
             $cookies = $status['result'];  // Extract scanned cookies
@@ -137,6 +138,9 @@ class Scanner
             }
             if (!empty($stats) && is_array($stats)) {
                 $stats['categorized'] = $categorized;
+            }
+            if( empty( $nx_id ) ) {
+                return new WP_REST_Response(['data' => $status], 200);
             }
             
             // If cookies or stats exist, prepare them for database insertion

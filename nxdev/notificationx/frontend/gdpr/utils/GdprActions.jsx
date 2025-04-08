@@ -4,7 +4,7 @@ import { modalStyle } from '../../../core/constants';
 import { __ } from '@wordpress/i18n';
 import Customization from '../Customization';
 import CloseIcon from '../../../icons/Close';
-import { loadScripts, setDynamicCookie } from './helper';
+import { handleConsentAPI, loadScripts, setDynamicCookie } from './helper';
 import nxHelper from '../../../core/functions';
 
 const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
@@ -73,14 +73,16 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
     };
     
     const handleCookieAccept = () => {
-        handleConsent({
+        const allCategoriesEnabled = {
             necessary    : true,
             functional   : true,
             analytics    : true,
             performance  : true,
-            advertising: true,
+            advertising  : true,
             uncategorized: true,
-        });
+        }
+        handleConsent(allCategoriesEnabled);
+        handleConsentAPI(allCategoriesEnabled);
         loadScripts(settings?.functional_cookie_lists);
         loadScripts(settings?.analytics_cookie_lists);
         loadScripts(settings?.performance_cookie_lists);
@@ -91,6 +93,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
     const handleCookieReject = () => {
         if (settings?.gdpr_cookie_removal) deleteCookies();
         handleConsent(initialSavePreference);
+        handleConsentAPI(enabledItem);
     };
 
     const deleteCookies = async () => {
@@ -103,6 +106,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
 
     const handleCustomizedConsent = () => {
         handleConsent(enabledItem);
+        handleConsentAPI(enabledItem);
         loadScripts(settings?.necessary_cookie_lists);
         if (enabledItem.functional) loadScripts(settings?.functional_cookie_lists);
         if (enabledItem.analytics) loadScripts(settings?.analytics_cookie_lists);

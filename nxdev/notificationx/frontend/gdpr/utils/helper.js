@@ -197,4 +197,34 @@ export const formatDateTime = (dateString) => {
       minute: 'numeric',
       hour12: true
     });
-  }
+}
+
+const categoryMap = {
+    functional   : 'preferences',
+    analytics    : ['statistics','statistics-anonymous'],
+    performance  : 'functional',
+    advertising  : 'marketing',
+};
+
+export const handleConsentAPI = (categories) => {
+    if( !notificationxPublic?.is_enabled_wp_consent_api ) {
+        return;
+    }
+    Object.entries(categories).forEach(([key, value]) => {
+        if (!(key in categoryMap))
+            return;
+        setConsentStatus(key, value ? 'allow' : 'deny');
+    });
+}
+
+export const setConsentStatus = (key, status) => {
+    if (Array.isArray(categoryMap[key])) {
+        categoryMap[key].forEach(el => {
+            wp_set_consent(el, status);
+            console.log(el, status);
+
+        });
+    } else {
+        wp_set_consent(categoryMap[key], status);
+    }
+}

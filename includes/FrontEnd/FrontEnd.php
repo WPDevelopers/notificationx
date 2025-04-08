@@ -108,6 +108,7 @@ class FrontEnd {
                     'title' => __('Uncategorized', 'notificationx'),
                     'desc' => __("Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types.", 'notificationx'),
                 ],
+                'is_enabled_wp_consent_api' => is_plugin_active('wp-consent-api/wp-consent-api.php'),
             )
         );
 

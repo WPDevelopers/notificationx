@@ -102,3 +102,6 @@ function nx_is_plugin_active_for_network( $plugin ) {
 
     return false;
 }
+
+//declare compliance with WP Consent API
+add_filter( "wp_consent_api_registered_".NOTIFICATIONX_BASENAME, '__return_true' );

@@ -139,16 +139,23 @@ useEffect(() => {
     functional   : [],
     analytics    : [],
     performance  : [],
-    advertising: [],
+    advertising  : [],
     uncategorized: [],
   };
   
   // Categorize cookies efficiently
   cookieList.forEach((cookie) => {
-    const category = Object.keys(cookieCategoryPrefix).find((key) =>
+    let category = 'uncategorized';
+    // @ts-ignore 
+    category = Object.keys(cookieCategoryPrefix).find((key) =>
       cookieCategoryPrefix[key].some((name) => cookie?.cookies_id.includes(name))
     );
-    categorizedCookies[category || 'uncategorized'].push(cookie);
+    if(  category == 'advertisement' ) {
+      // @ts-ignore 
+      categorizedCookies['advertising'].push(cookie);
+    }else{
+      categorizedCookies[category].push(cookie);
+    }
   });
 
   // Store cookies in respective lists
