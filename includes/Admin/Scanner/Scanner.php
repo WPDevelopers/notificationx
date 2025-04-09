@@ -17,8 +17,7 @@ class Scanner
     use GetInstance;
     private static $_namespace = 'notificationx';
     private static $_version   = 1;
-    private static $_apiBase   = "https://api.notificationx.com/cookie-scanner/v1";
-    // private static $_apiBase   = "https://notificationx-api.test/cookie-scanner/v1";
+    private static $_apiBase   = "";
     private static $is_pro     = false;
     public function __construct() 
     {
@@ -26,6 +25,7 @@ class Scanner
         if( NotificationX::is_pro() ) {
             self::$is_pro = true;
         }
+        self::$_apiBase = NX_DEBUG ? 'https://notificationx-api.test/cookie-scanner/v1' : 'https://api.notificationx.com/cookie-scanner/v1';
     }
 
     public static function _namespace()
@@ -60,13 +60,6 @@ class Scanner
             'permission_callback' => '__return_true',
         ));
 
-            
-        // Register the scan history endpoint
-        register_rest_route($namespace, '/scan/history', array(
-            'methods'   => WP_REST_Server::EDITABLE,
-            'callback'  => array($this, 'get_scan_history'),
-            'permission_callback' => '__return_true',
-        ));
     }
 
     /**
@@ -113,8 +106,9 @@ class Scanner
         $status = $this->get_scan_status($scanId);
 
         // Handle invalid scan ID
-        if ($status === null) {
-            return new WP_REST_Response(['error' => 'Invalid scan ID'], 404);
+        if ($status === null && empty( $scanId )) {
+            $data = [ 'status' => 'failed', 'message' => __('Invalid scan ID','notificationx') ];
+            return new WP_REST_Response(['data' => $data ], 404);
         }
 
         // Process the scan result if the status is 'completed'
@@ -131,6 +125,8 @@ class Scanner
             $cookieData    = $this->categorizeCookiesAndCount($cookies);
             $categoryCount = $cookieData['category_count'];
             $categorized   = $cookieData['categorized'];
+            $data          = [ 'last_scan_date' => Helper::nx_get_current_datetime(), 'status' => 'completed', 'stats' => $stats, 'cookies' => $cookies, 'category_count' => $categoryCount, 'categorized' => $categorized ];
+            return new WP_REST_Response(['data' => $data], 200);
 
             // Prepare stats entry with the category count
             if (!empty($stats) && is_array($stats)) {
@@ -261,65 +257,6 @@ class Scanner
     }
 
 
-    /**
-     * fetch scan history.
-     *
-     * @param WP_REST_Request $request
-     * @return void
-    */
-    public function get_scan_history(WP_REST_Request $request)
-    {
-        $nxId = $request->get_param('nx_id');
-
-        if (empty($nxId)) {
-            return new WP_REST_Response(['error' => 'Missing nx_id parameter'], 400);
-        }
-
-        // Fetch the scan history entry from the database
-        $history = Entries::get_instance()->get_entries([
-            'nx_id'     => absint( $nxId ),
-            'source'    => 'gdpr_notification',
-        ], '*', '', '', true);
-
-        // Separate _cookie and _stats entries
-        $cookies = [];
-        $stats = [];
-
-        
-
-        foreach ($history as $entry) {
-            if (isset($entry['entry_key'])) {
-                if (strpos($entry['entry_key'], '_cookie') !== false) {
-                    $cookies[$entry['entry_key']] = $entry; // Store cookies by entry_key
-                } elseif (strpos($entry['entry_key'], '_stats') !== false) {
-                    $stats[$entry['entry_key']] = $entry; // Store stats by entry_key
-                }
-            }
-        }
-
-        // Merge _stats into corresponding _cookie entry
-        foreach ($stats as $stats_key => $stats_entry) {
-            $cookie_key = str_replace('_stats', '_cookies', $stats_key); // Find corresponding _cookie key
-            if (isset($cookies[$cookie_key])) {
-                $cookies[$cookie_key]['stats'] = !empty($stats_entry['data']) ? $stats_entry['data'] : []; // Ensure it's an array
-            }
-        }
-        // Convert merged cookies to array values
-        $merged_history = array_values($cookies);
-
-        if (empty($merged_history)) {
-            return wp_send_json_success([
-                'message' => __('No scan history found', 'notificationx'),
-            ]);
-        }
-
-        return wp_send_json_success([
-            'message' => __('Scanned fetch successfully', 'notificationx'),
-            'data'    => json_encode($merged_history)
-        ]);
-    }
-
-
     // Helper function to categorize cookies and calculate category count
     public function categorizeCookiesAndCount($cookies) {
         // Define cookie categories
@@ -364,7 +301,6 @@ class Scanner
             'categorized' => $categorized
         ];
     }
-
 
 }
 ?>

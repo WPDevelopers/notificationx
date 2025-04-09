@@ -3,7 +3,7 @@ import ScanHistory from '../../icons/ScanHistory';
 import CloseIcon from '../../icons/Close';
 import { __ } from '@wordpress/i18n';
 import { formatDateTime } from '../../frontend/gdpr/utils/helper';
-const ScannerHistory = ({setIsHistoryModalOpen, handleScannedCookieView, historyData}) => {  
+const ScannerHistory = ({setIsHistoryModalOpen, handleScannedCookieView, historyData}) => {    
   return (
     <Fragment>
       <div className="wprf-modal-preview-header">
@@ -32,14 +32,18 @@ const ScannerHistory = ({setIsHistoryModalOpen, handleScannedCookieView, history
             {historyData.length > 0 ? (
               historyData.map((data, index) => (
                 <tr key={index}>
-                  <td>{formatDateTime(data.created_at)}</td>
+                  
+                  <td>{ data.last_scan_date ?
+                      formatDateTime(data.last_scan_date)
+                      : formatDateTime("") 
+                    }</td>
                   <td>
-                    <span className="status-complete">Complete</span>
+                    <span className="status-complete">{ data?.status }</span>
                   </td>
-                  <td>{data?.stats?.category_count || 0}</td>
-                  <td>{Object.keys(data.data).length}</td>
+                  <td>{data?.category_count || 0}</td>
+                  <td>{ data?.stats?.total_cookies || 0 }</td>
                   <td>
-                    <a href="#" onClick={() => handleScannedCookieView(data)}>
+                    <a href="#" onClick={() => handleScannedCookieView(data?.stats)}>
                       { __("More Info",'notificationx') }
                     </a>
                   </td>

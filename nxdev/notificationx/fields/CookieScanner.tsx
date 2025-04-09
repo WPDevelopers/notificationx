@@ -4,7 +4,6 @@ import HistoryMoreInfo from './ModalContent/HistoryMoreInfo';
 import ReactModal from "react-modal";
 import { modalStyle } from '../core/constants';
 import { __ } from '@wordpress/i18n';
-import warning from 'tiny-warning';
 import { useBuilderContext } from 'quickbuilder';
 import { addCookiesAddedClass, cookieCategoryPrefix, formatDateTime } from '../frontend/gdpr/utils/helper';
 import nxToast from '../core/ToasterMsg';
@@ -38,8 +37,9 @@ const CookieScanner = () => {
   const [isReadyToScanModalOpen, setIsReadyToScanModalOpen] = useState(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
   const [isDiscoveredCookieModalOpen, setIsDiscoveredCookieModalOpen] = useState(false);
-  const [historyData, setHistoryData] = useState([]);
-  const [activeHistorydata, setActiveHistoryData] = useState(null);  
+  const [historyData, setHistoryData] = useState(builderContext?.values?.scan_history || []);
+  const [activeHistorydata, setActiveHistoryData] = useState(null);
+  
 
   const nx_id = builderContext?.values?.id;
   // Set your variables for used and total scans
@@ -107,18 +107,31 @@ const CookieScanner = () => {
             });
             const res = await response.json();
             const data = res?.data;
-            setStatus(data?.status || 'unknown');
-
             if (data?.status === 'completed') {
                 nxToast.info(__(`Scan complete! Your results are now available.`, 'notificationx'));
                 setIsScanning(false);
-                setScanId(null);
-                setResults(data?.result);
                 setStatus('completed');
                 clearInterval(interval);
+                // Get current scan history from context
+                const currentHistory = builderContext?.values?.scan_history || [];
+                builderContext.setFieldValue(
+                  "scan_history",
+                  [...currentHistory, data]
+                );
+                builderContext.setFieldValue(
+                  "last_scan_date",
+                  data?.last_scan_date
+                );
+                setHistoryData( [...currentHistory, data] );
             }
         } catch (error) {
-            nxToast.info(__(`Scan failed! ${error}.`, 'notificationx'));
+            nxToast.info(__(`Scan failed! ${error?.data?.message}.`, 'notificationx'));
+            // Get current scan history from context
+            const currentHistory = builderContext?.values?.scan_history || [];
+            builderContext.setFieldValue(
+              "scan_history",
+              [...currentHistory, error?.data]
+            );
             setIsScanning(false);
             clearInterval(interval);
         }
@@ -171,30 +184,6 @@ useEffect(() => {
         addCookiesAddedClass(findsOn);
       }
   }, [status, results]);
-
-
- useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const historyUrl = `${builderContext?.rest?.root + builderContext?.rest?.namespace }/scan/history`;
-        const response = await fetch(historyUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nx_id: nx_id }),
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const res = await response.json();
-        const data = res?.data;
-        const history_data = JSON.parse(data?.data);        
-        setHistoryData(history_data);
-      } catch (error) {
-      }
-    };
-  
-    fetchData();
-  }, []);  
   
 
   return (
@@ -235,7 +224,9 @@ useEffect(() => {
           <div className="wprf-modal-table-wrapper wpsp-scan-start-body">
             <img src={`${builderContext.assets.admin}images/cookie-notice/scan-warning.png`} alt={'Scan cookie warning'} />
             <h2>{ __('Ready to start scanning?','notificationx') }</h2>
-            <p className='scan-info'><span>0 of 5</span> free scans used</p>
+            { !builderContext?.is_pro_active &&
+              <p className='scan-info'>{scanInfo}</p>
+            }
             <p>{ __('Your existing cookie list (cookies discovered in the previous scan) will be replaced with the cookies discovered in this scan. Therefore, make sure you don’t exclude the pages that sets cookies.','notificationx') }</p>
           </div>
           <div className="wprf-modal-preview-footer wpsp-scan-start-footer">

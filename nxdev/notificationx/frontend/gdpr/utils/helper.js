@@ -186,7 +186,12 @@ export const addCookiesAddedClass = (dataKeys) => {
 
 export const formatDateTime = (dateString) => {
     // Convert the date string to a Date object by replacing space with 'T' (ISO 8601 format)
-    const date = new Date(dateString.replace(' ', 'T'));
+    let date;
+    if( dateString ) {
+        date = new Date(dateString.replace(' ', 'T'));
+    }else{
+        date = new Date("");
+    }
   
     // Format the date to a human-readable format
     return date.toLocaleString('en-US', {

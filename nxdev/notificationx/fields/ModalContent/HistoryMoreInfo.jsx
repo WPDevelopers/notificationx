@@ -3,17 +3,7 @@ import DiscoveredCookies from '../../icons/DiscoveredCookies';
 import CloseIcon from '../../icons/Close';
 import { __ } from '@wordpress/i18n';
 
-const HistoryMoreInfo = ({setIsDiscoveredCookieModalOpen, data}) => {
-
-	const dummyDiscoverCookies = [
-		{
-			"id": "wordpress_3e130031865ca4e6...",
-			"first_found_url": "example.com/whyweneedex",
-			"duration": "Past",
-			"description": "No Description found"
-		}
-	]
-
+const HistoryMoreInfo = ( { setIsDiscoveredCookieModalOpen, data } ) => {
     return (
         <div>
             <div className="wprf-modal-preview-header">
@@ -35,7 +25,7 @@ const HistoryMoreInfo = ({setIsDiscoveredCookieModalOpen, data}) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data?.stats?.scanned_urls.map((data, index) => (
+                        {data?.scanned_urls.map((data, index) => (
                             <tr key={index}>
                                 <td>{ data }</td>
                             </tr>
