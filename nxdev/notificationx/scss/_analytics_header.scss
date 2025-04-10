@@ -18,6 +18,11 @@
         background-color: #fff;
         color: #fff;
         border-radius: 5px;
+        &.disabled {
+            a {
+                cursor: default;
+            }
+        }
         & > a {
             color: #4c4d57;
             padding: 45px;
