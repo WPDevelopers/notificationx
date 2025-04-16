@@ -69,7 +69,8 @@ class Inline {
     public function get_template( $settings ) {
         if ( ! empty( $settings['template_adv'] ) && ! empty( $settings['advanced_template'] ) ) {
             if( strpos($settings['advanced_template'], '{{random:') !== false ) {
-                return $this->generateRandomNumber($settings['advanced_template']);
+                $productId = get_the_ID();
+                return $this->generateRandomNumber( $settings['advanced_template'], $productId );
             }
             return $settings['advanced_template'];
         }
@@ -249,16 +250,19 @@ class Inline {
         return $template;
     }
 
-    function generateRandomNumber($content) {
-        // Define a cookie name
-        $cookieName = 'randomNumber';
-    
+    function generateRandomNumber($content, $productId) {
+        // Use a unique cookie name per product
+        $cookieNamePrefix = 'randomNumber_';
+        
         // Use a regex to find all {{random:min-max:range:expiry}} placeholders
-        return preg_replace_callback('/{{random:(\d+)-(\d+)(?::(\d+))?(?::(\d+))?}}/', function ($matches) use ($cookieName) {
+        return preg_replace_callback('/{{random:(\d+)-(\d+)(?::(\d+))?(?::(\d+))?}}/', function ($matches) use ($cookieNamePrefix, $productId) {
             $min = (int)$matches[1];
             $max = (int)$matches[2];
             $range = isset($matches[3]) ? (int)$matches[3] : 10; // Default range to 10
             $expiry = isset($matches[4]) ? (int)$matches[4] : 15; // Default expiry to 15 minutes
+    
+            // Create a unique cookie name for this product
+            $cookieName = $cookieNamePrefix . $productId;
     
             // Check if a cookie value exists
             $cookieValue = isset($_COOKIE[$cookieName]) ? (int)$_COOKIE[$cookieName] : null;
@@ -267,23 +271,22 @@ class Inline {
             if ($cookieValue !== null) {
                 $randomNumber = $cookieValue;
             } else {
-                // Generate a random number within min and max
                 $randomNumber = rand($min, $max);
     
-                // Ensure the new number is within the range of the cookie value if it exists
+                // If cookieValue existed, ensure new number is within the allowed range
                 if ($cookieValue !== null) {
                     while (abs($randomNumber - $cookieValue) > $range) {
                         $randomNumber = rand($min, $max);
                     }
                 }
     
-                // Set the cookie with the generated random number and expiry
+                // Set the cookie for this product
                 setcookie($cookieName, (string)$randomNumber, time() + ($expiry * 60), "/");
             }
     
-            // Return the random number to replace the placeholder
             return $randomNumber;
         }, $content);
     }
+    
 
 }
