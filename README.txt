@@ -3,9 +3,9 @@ Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, s
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, notification bar
 Requires at least: 5.0
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 5.6
-Stable tag: 3.0.4
+Stable tag: 3.0.5
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -209,6 +209,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 3.0.5 - 15/04/2025 =
+Fixed: Responsive issue with WooCommerce Growth Alert notifications.
+Improved: Frontend preview of GDPR notifications for better accuracy.
+Fixed: Custom CSS functionality issues.
+Few minor bug fixes and performance improvements.
+
 = 3.0.4 - 24/03/2025 =
 Fixed: Bulk edit design was broken for the Custom Notification.
 Fixed: Custom cookie add option wasn’t working.
@@ -253,15 +259,6 @@ Few minor bug fixes and improvements.
 = 2.9.3 - 14/11/2024 =
 Added: WordPress 6.7 compatibility.
 Fixed: NotificationX plugin dashboard wasn't loading.
-Few minor bug fixes and improvements.
-
-= 2.9.2 - 27/10/2024 =
-Improved: Codebase for better performance.
-Few minor bug fixes and improvements.
-
-= 2.9.1 - 01/10/2024 =
-Fixed: Issues with custom notification shortcode.
-Improved: Notification creation and duplication process.
 Few minor bug fixes and improvements.
 
 [See changelog for all versions](https://notificationx.com/changelog)

@@ -302,10 +302,10 @@ class GlobalFields {
                                                     'name'             => 'for_mobile',
                                                     'id'               => 'for_mobile',
                                                     'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/mobile.svg',
-                                                    'rules'            => Rules::includes('type', [ 'notification_bar', 'flashing_tab', 'inline', 'offer_announcement', 'custom' ], true),
-                                                    'fields'           => [
-                                                        
-                                                    ],
+                                                    'rules'   => Rules::logicalRule([
+                                                        Rules::is( 'source', ['woocommerce_sales_inline'], true ),
+                                                        Rules::includes('type', [ 'notification_bar', 'flashing_tab', 'inline', 'sales_inline', 'offer_announcement', 'custom' ], true),
+                                                    ]),
                                                 ],
                                             ]
                                         ],
