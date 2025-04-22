@@ -112,6 +112,7 @@ const CookieScanner = () => {
                 setIsScanning(false);
                 setStatus('completed');
                 clearInterval(interval);
+                setResults(data?.cookies);
                 // Get current scan history from context
                 const currentHistory = builderContext?.values?.scan_history || [];
                 builderContext.setFieldValue(

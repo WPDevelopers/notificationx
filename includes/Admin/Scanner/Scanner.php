@@ -25,7 +25,9 @@ class Scanner
         if( NotificationX::is_pro() ) {
             self::$is_pro = true;
         }
-        self::$_apiBase = NX_DEBUG ? 'https://notificationx-api.test/cookie-scanner/v1' : 'https://api.notificationx.com/cookie-scanner/v1';
+        self::$_apiBase = (defined('NX_DEBUG') && NX_DEBUG) 
+        ? 'https://notificationx-api.test/cookie-scanner/v1' 
+        : 'https://api.notificationx.com/cookie-scanner/v1';
     }
 
     public static function _namespace()
