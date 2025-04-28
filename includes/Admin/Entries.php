@@ -91,11 +91,15 @@ class Entries {
         return Database::get_instance()->insert_posts(Database::$table_entries, $entries, $this->format);
     }
 
-    public function get_entries($where__or_nx_id = [], $select = "*", $join_table = '', $group_by_col = '') {
+    public function get_entries($where__or_nx_id = [], $select = "*", $join_table = '', $group_by_col = '', $data_in_entry = false) {
         if (is_int($where__or_nx_id)) {
             $where__or_nx_id = ['nx_id' => $where__or_nx_id];
         }
         $entries = Database::get_instance()->get_posts(Database::$table_entries, $select, $where__or_nx_id, $join_table, $group_by_col, '', 'ORDER BY `created_at` DESC');
+        if ($data_in_entry) {
+            $entries = apply_filters('nx_get_entries', $entries);
+            return $entries;
+        }
         foreach ($entries as $key => $value) {
             if (!empty($value['data'])) {
                 $value = array_merge($value['data'], $value);

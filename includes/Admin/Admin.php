@@ -10,6 +10,7 @@ namespace NotificationX\Admin;
 use NotificationX\Admin\Rating\RatingEmail;
 use NotificationX\NotificationX;
 use NotificationX\Admin\Reports\ReportEmail;
+use NotificationX\Admin\Scanner\Scanner;
 use NotificationX\Core\Analytics;
 use NotificationX\Core\Dashboard;
 use NotificationX\Core\Database;
@@ -81,6 +82,7 @@ class Admin {
         PostType::get_instance();
         Settings::get_instance()->init();
         Entries::get_instance();
+        Scanner::get_instance();
     }
 
     /**

@@ -70,6 +70,7 @@ const CookiesAccordion = ({ settings, onEnableCookiesItem }) => {
     functional   : false,
     analytics    : false,
     performance  : false,
+    advertising: false,
     uncategorized: false,
   });
 
@@ -117,6 +118,13 @@ const CookiesAccordion = ({ settings, onEnableCookiesItem }) => {
       description: settings?.performance_tab_desc || notificationxPublicValue?.performance_tab_info?.desc,
       isAlwaysActive: false,
       cookiesList: settings?.performance_cookie_lists,
+    },
+    {
+      key: 'advertising',
+      title: settings?.advertising_tab_title || notificationxPublicValue?.advertising_tab_info?.title,
+      description: settings?.advertising_tab_desc || notificationxPublicValue?.advertising_tab_info?.desc,
+      isAlwaysActive: false,
+      cookiesList: settings?.advertising_cookie_lists,
     },
     {
       key: 'uncategorized',

@@ -14,6 +14,7 @@ const BetterRepeaterValueShow = (props) => {
     const [action, setAction] = useState(false);
     const buttonRef = useRef(null);
     const { fields, onChange, index, parent, visible_fields, setIsOpen, isDefault } = props;  
+    
     // @ts-ignore 
     const fieldsArray = Object.values(fields).filter(field => visible_fields.includes(field?.name));
 
@@ -29,11 +30,6 @@ const BetterRepeaterValueShow = (props) => {
             window.removeEventListener('click', handleClickOutside);
         };
     }, []);
-
-    const onClone = (event:Event) => {
-        event?.stopPropagation();
-        props.clone(props.index);
-    }
     const onDelete = (event:Event) => {
         setAction(false);
         const binIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
@@ -61,14 +57,22 @@ const BetterRepeaterValueShow = (props) => {
             afterComplete: () => { },
         });
     }
-
+    let discovered = builderContext.values?.[parent]?.[index]?.['discovered'];
     return (
-        <div className="wprf-repeater-field">
+        <div className={`wprf-repeater-field ${discovered ? 'discovered' : ''}`}>
             <div className="wprf-repeater-inner-field">
                 {fieldsArray.map((field, fieldIndex) => {
+                    // @ts-ignore 
+                    if (!builderContext.values?.[parent]?.[index]?.[field?.name]) {
+                        return;
+                    }
                     return <div className='wprf-repeater-inner-field-item' key={'wprf-repeater-inner-field' + fieldIndex}>
                         {/* @ts-ignore  */}
                         <span>{ field?.label }</span>
+                        {/* @ts-ignore  */}
+                        { (discovered && field?.name == 'cookies_id') &&
+                            <span>{ __( "Discovered",'notificationx' ) }</span>
+                        }
                         {/* @ts-ignore  */}
                         <p>{ builderContext.values?.[parent]?.[index]?.[field?.name] }</p>
                     </div>

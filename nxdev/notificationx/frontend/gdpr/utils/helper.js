@@ -146,3 +146,90 @@ export const loadScripts = (cookieList) => {
     });
 };
 
+export const cookieCategoryPrefix = {
+    necessary: [
+      'PHPSESSID', 'wordpress_logged_in', 'wp-settings', 'wp-settings-time',
+      'wpEmojiSettingsSupports', 'cookieyes-consent', 'elementor', 'csrftoken',
+      'auth', 'session', 'secure', 'cart', 'checkout', 'wp_woocommerce'
+    ],
+    functional: [
+      'lang', 'preferences', 'remember_me', 'theme', 'consent', 'locale',
+      'user_settings', 'cookie_preference'
+    ],
+    analytics: [
+      '_ga', '_gid', '_gat', 'fbp', 'utm', 'amplitude', 'mixpanel', 'hotjar',
+      'segment', 'ahoy', 'kissmetrics', 'analytics', 'visitor_id',
+      'sbjs_udata', 'sbjs_current', 'sbjs_first', 'sbjs_first_add', 'sbjs_current_add'
+    ],
+    performance: [
+      '_hj', 'cf_use_ob', 'cf_clearance', 'AWSALB', 'load_balancer',
+      'page_speed', 'cdn_cache', 'pingdom', 'new_relic'
+    ],
+    advertisement: [
+      'ads', '_fbp', '_gcl', '_dc_gtm', 'doubleclick', 'IDE', 'adroll',
+      'criteo', 'twitter_ads', 'bing_ads', 'remarketing', 'test_cookie'
+    ]
+};
+
+// Function to add class to span inside specific data-key divs
+export const addCookiesAddedClass = (dataKeys) => {
+    dataKeys.forEach(key => {
+        const div = document.querySelector(`[data-key="${key}_tab"]`);
+        if (div) {
+            const listCountSpan = div.querySelector('.list-count');
+            if (listCountSpan) {
+                listCountSpan.classList.add('cookies-added');
+            }
+        }
+    });
+}
+
+export const formatDateTime = (dateString) => {
+    // Convert the date string to a Date object by replacing space with 'T' (ISO 8601 format)
+    let date;
+    if( dateString ) {
+        date = new Date(dateString.replace(' ', 'T'));
+    }else{
+        date = new Date("");
+    }
+  
+    // Format the date to a human-readable format
+    return date.toLocaleString('en-US', {
+      year  : 'numeric',
+      month : 'long',
+      day   : 'numeric',
+      hour  : 'numeric',
+      minute: 'numeric',
+      hour12: true
+    });
+}
+
+const categoryMap = {
+    functional   : 'preferences',
+    analytics    : ['statistics','statistics-anonymous'],
+    performance  : 'functional',
+    advertising  : 'marketing',
+};
+
+export const handleConsentAPI = (categories) => {
+    if( !notificationxPublic?.is_enabled_wp_consent_api ) {
+        return;
+    }
+    Object.entries(categories).forEach(([key, value]) => {
+        if (!(key in categoryMap))
+            return;
+        setConsentStatus(key, value ? 'allow' : 'deny');
+    });
+}
+
+export const setConsentStatus = (key, status) => {
+    if (Array.isArray(categoryMap[key])) {
+        categoryMap[key].forEach(el => {
+            wp_set_consent(el, status);
+            console.log(el, status);
+
+        });
+    } else {
+        wp_set_consent(categoryMap[key], status);
+    }
+}

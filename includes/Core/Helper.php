@@ -639,17 +639,66 @@ class Helper {
                 'label'    => __('Enabled', 'notificationx'),
                 'priority' => 5,
             ), 
+            'discovered' => array(
+                'type'     => 'toggle',
+                'name'     => 'discovered',
+                'label'    => __('Discovered', 'notificationx'),
+                'priority' => 5,
+            ), 
             'cookies_id' => array(
                 'type'     => 'text',
                 'name'     => 'cookies_id',
                 'label'    => __('Cookie ID', 'notificationx'),
                 'priority' => 10,
             ), 
+            'domain' => array(
+                'type'     => 'text',
+                'name'     => 'domain',
+                'label'    => __('Domain', 'notificationx'),
+                'priority' => 15,
+            ), 
+            'duration' => array(
+                'type'        => 'number',
+                'name'        => 'duration',
+                'label'       => __('Duration', 'notificationx'),
+                'min'         => 1,
+                'priority'    => 20,
+                'suggestions' => [
+                    [
+                        'value' => 30,
+                        'unit'  => 'days',
+                    ],
+                    [
+                        'value' => 90,
+                        'unit'  => 'days',
+                    ],
+                    [
+                        'value' => 180,
+                        'unit'  => 'days',
+                    ],
+                    [
+                        'value' => 365,
+                        'unit'  => 'days',
+                    ],
+                ],
+            ),
+            'description' => array(
+                'type'     => 'textarea',
+                'name'     => 'description',
+                'label'    => __('Description', 'notificationx-pro'),
+                'priority' => 30,
+            ), 
+            'is_add_script' => array(
+                'type'     => 'toggle',
+                'name'     => 'is_add_script',
+                'label'    => __('Add Script', 'notificationx'),
+                'priority' => 35,
+            ), 
             'load_inside' => array(
                 'label'    => __('Add Script on', 'notificationx'),
                 'name'     => 'product_control',
                 'type'     => 'select',
-                'priority' => 15,
+                'priority' => 40,
                 'default'  => 'head',
                 'options'  => GlobalFields::get_instance()->normalize_fields([
                     'head'   => __('Header', 'notificationx'),
@@ -661,13 +710,7 @@ class Helper {
                 'type'     => 'codeviewer',
                 'name'     => 'script_url_pattern',
                 'label'    => __('Script', 'notificationx-pro'),
-                'priority' => 25,
-            ), 
-            'description' => array(
-                'type'     => 'textarea',
-                'name'     => 'description',
-                'label'    => __('Description', 'notificationx-pro'),
-                'priority' => 30,
+                'priority' => 45,
             ), 
         ];
     }
@@ -1019,5 +1062,38 @@ class Helper {
         }
         return $time;
     }
+
+    /**
+     * Get the current datetime based on the WordPress site's timezone.
+     *
+     * @return string Formatted datetime in 'Y-m-d H:i:s' format.
+     */
+    public static function nx_get_current_datetime() {
+        // Get the WordPress timezone setting
+        $timezone = get_option('timezone_string');
+
+        if (!$timezone) {
+            // If timezone_string is empty, fallback to gmt_offset
+            $gmt_offset = get_option('gmt_offset');
+
+            if ($gmt_offset !== false) {
+                $timezone = timezone_name_from_abbr("", (int) $gmt_offset * 3600, false);
+            }
+
+            // If timezone_name_from_abbr fails, manually handle GMT offsets
+            if (!$timezone) {
+                $timezone = sprintf('Etc/GMT%+d', -$gmt_offset); // Example: GMT+6 → Etc/GMT-6
+            }
+        }
+
+        try {
+            $date = new \DateTime('now', new \DateTimeZone($timezone));
+            return $date->format('Y-m-d H:i:s'); // Format as MySQL datetime
+        } catch (\Exception $e) {
+            // If an error occurs, return UTC time as a fallback
+            return gmdate('Y-m-d H:i:s');
+        }
+    }
+
 
 }

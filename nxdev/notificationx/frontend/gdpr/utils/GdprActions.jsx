@@ -4,7 +4,7 @@ import { modalStyle } from '../../../core/constants';
 import { __ } from '@wordpress/i18n';
 import Customization from '../Customization';
 import CloseIcon from '../../../icons/Close';
-import { loadScripts, setDynamicCookie } from './helper';
+import { handleConsentAPI, loadScripts, setDynamicCookie } from './helper';
 import nxHelper from '../../../core/functions';
 
 const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
@@ -17,10 +17,11 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
         'gdpr_theme-banner-dark-two',
     ];
     const initialSavePreference = {
-        necessary: true,
-        functional: false,
-        analytics: false,
-        performance: false,
+        necessary    : true,
+        functional   : false,
+        analytics    : false,
+        performance  : false,
+        advertising: false,
         uncategorized: false,
     };
 
@@ -72,22 +73,27 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
     };
     
     const handleCookieAccept = () => {
-        handleConsent({
+        const allCategoriesEnabled = {
             necessary    : true,
             functional   : true,
             analytics    : true,
             performance  : true,
+            advertising  : true,
             uncategorized: true,
-        });
+        }
+        handleConsent(allCategoriesEnabled);
+        handleConsentAPI(allCategoriesEnabled);
         loadScripts(settings?.functional_cookie_lists);
         loadScripts(settings?.analytics_cookie_lists);
         loadScripts(settings?.performance_cookie_lists);
+        loadScripts(settings?.advertising_cookie_lists);
         loadScripts(settings?.uncategorized_cookie_lists);
     };
 
     const handleCookieReject = () => {
         if (settings?.gdpr_cookie_removal) deleteCookies();
         handleConsent(initialSavePreference);
+        handleConsentAPI(enabledItem);
     };
 
     const deleteCookies = async () => {
@@ -100,10 +106,12 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
 
     const handleCustomizedConsent = () => {
         handleConsent(enabledItem);
+        handleConsentAPI(enabledItem);
         loadScripts(settings?.necessary_cookie_lists);
         if (enabledItem.functional) loadScripts(settings?.functional_cookie_lists);
         if (enabledItem.analytics) loadScripts(settings?.analytics_cookie_lists);
         if (enabledItem.performance) loadScripts(settings?.performance_cookie_lists);
+        if (enabledItem.advertising) loadScripts(settings?.advertising_cookie_lists);
         if (enabledItem.uncategorized) loadScripts(settings?.uncategorized_cookie_lists);
     };
 

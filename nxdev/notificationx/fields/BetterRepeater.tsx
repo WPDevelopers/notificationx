@@ -81,6 +81,29 @@ const BetterRepeater = (props) => {
         setIsIntegrationModalOpen(true);
     }
 
+
+    const addScriptToggle = () => {
+        const toggleInput = document.querySelector('.wpsp-better-repeater-fields .wprf-name-is_add_script input[name="is_add_script"]');
+        if (!toggleInput) {
+            return;
+        }
+        const productControlDivs = document.querySelectorAll(
+            '.wprf-control-wrapper.wprf-name-product_control, .wprf-control-wrapper.wprf-name-script_url_pattern'
+        );
+
+        // Function to show/hide all matching elements
+        function toggleVisibility() {
+            productControlDivs.forEach(function (el) {
+                // @ts-ignore 
+                el.style.display = toggleInput.checked ? 'block' : 'none';
+            });
+        }
+        // Set initial state
+        toggleVisibility();
+        // @ts-ignore 
+        toggleInput.onclick = toggleVisibility;
+    }
+
     useEffect(() => {
       if( !isOpen && isArray(localMemoizedValue) ) {
         const updatedData = localMemoizedValue.filter(item => 
@@ -91,6 +114,9 @@ const BetterRepeater = (props) => {
             builderContext.setFieldValue(fieldName, [...updatedData]);
         }
     }
+    setTimeout(() => {
+        addScriptToggle();
+    }, 0);
     }, [isOpen]);
 
     return (

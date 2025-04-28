@@ -41,6 +41,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Admin\\Rating\\RatingEmail' => __DIR__ . '/../..' . '/includes/Admin/Rating/RatingEmail.php',
         'NotificationX\\Admin\\Reports\\EmailTemplate' => __DIR__ . '/../..' . '/includes/Admin/Reports/EmailTemplate.php',
         'NotificationX\\Admin\\Reports\\ReportEmail' => __DIR__ . '/../..' . '/includes/Admin/Reports/ReportEmail.php',
+        'NotificationX\\Admin\\Scanner\\Scanner' => __DIR__ . '/../..' . '/includes/Admin/Scanner/Scanner.php',
         'NotificationX\\Admin\\Settings' => __DIR__ . '/../..' . '/includes/Admin/Settings.php',
         'NotificationX\\Admin\\XSS' => __DIR__ . '/../..' . '/includes/Admin/XSS.php',
         'NotificationX\\Blocks\\Blocks' => __DIR__ . '/../..' . '/blocks/Blocks.php',
