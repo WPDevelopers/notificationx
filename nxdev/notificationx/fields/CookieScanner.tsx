@@ -157,20 +157,25 @@ useEffect(() => {
     uncategorized: [],
   };
   
-  // Categorize cookies efficiently
   cookieList.forEach((cookie) => {
     let category = 'uncategorized';
     // @ts-ignore 
     category = Object.keys(cookieCategoryPrefix).find((key) =>
       cookieCategoryPrefix[key].some((name) => cookie?.cookies_id.includes(name))
-    );
-    if(  category == 'advertisement' ) {
-      // @ts-ignore 
-      categorizedCookies['advertising'].push(cookie);
-    }else{
-      categorizedCookies[category].push(cookie);
+    ) || 'uncategorized'; // fallback to uncategorized if find() returns undefined
+  
+    if (category === 'advertisement') {
+      category = 'advertising'; // remap advertisement -> advertising
     }
+  
+    // Initialize the array if it doesn't exist
+    if (!categorizedCookies[category]) {
+      categorizedCookies[category] = [];
+    }
+  
+    categorizedCookies[category].push(cookie);
   });
+  
 
   // Store cookies in respective lists
   Object.entries(categorizedCookies).forEach(([key, list]) => {
@@ -207,9 +212,13 @@ useEffect(() => {
             </div>
           </div>
         </div>
-        { !builderContext?.is_pro_active &&
-          <p className='scan-info'>{scanInfo}</p>
-        }
+        {!builderContext?.is_pro_active && (
+          usedScans >= 5 ? (
+            <p>{__("Scan limit exceeded for this website.", 'notificationx')}</p>
+          ) : (
+            <p className="scan-info">{scanInfo}</p>
+          )
+        )}
       </div>
       <div className='scan-schedule'>
         <img src={`${builderContext.assets.admin}images/cookie-notice/coming-soon.png`} alt={'Coming soon'} />
