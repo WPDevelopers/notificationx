@@ -210,6 +210,12 @@ class QuickBuild {
                 'ft_theme_three_line_one',
                 'ft_theme_three_line_two',
                 'ft_theme_four_line_two',
+                'close_button',
+                'close_button_tab',
+                'close_button_mobile',
+                'hide_on_desktop',
+                'hide_on_tab',
+                'hide_on_mobile',
 
             ],
             'types_title' => apply_filters( 'nx_source_types_title', array(
