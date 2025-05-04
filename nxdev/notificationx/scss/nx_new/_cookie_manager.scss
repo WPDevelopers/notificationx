@@ -54,16 +54,35 @@
                         display: flex;
                         align-items: center;
                         margin-left: -6px;
-                        &.cookies-added::before {
-                            content: "";
-                            width: 6px;
-                            height: 6px;
-                            background: #6A4BFF;
-                            border-radius: 50%;
-                            transform: translate(20px, -7px);
-                        }
-                        &:not(.cookies-added) {
-                             justify-content: center;
+                        justify-content: center;
+                        &.cookies-added {
+                            position: relative;
+                            &::before {
+                              content: "";
+                              position: absolute;
+                              top: 0;
+                              left: 20px;
+                              transform: translate(-50%, -50%);
+                              width: 6px;
+                              height: 6px;
+                              background: #6A4BFF;
+                              border-radius: 50%;
+                              z-index: 2;
+                            }
+                          
+                            &::after {
+                              content: "";
+                              position: absolute;
+                              top: 0;
+                              left: 20px;
+                              transform: translate(-50%, -50%);
+                              width: 6px;
+                              height: 6px;
+                              background: #6A4BFF;
+                              border-radius: 50%;
+                              z-index: 1;
+                              animation: spread-pulse 1.5s ease-out infinite;
+                            }
                         }
                     }
                 }
@@ -407,6 +426,18 @@
                                             min-width: 90px;
                                         }
                                     }
+                                    span:nth-child(2) {
+                                        display: block;
+                                        background: #DCEEFA;
+                                        text-align: center;
+                                        padding: 6px;
+                                        color: #2E6BBC;
+                                        border-radius: 18px;
+                                        position: absolute;
+                                        right: 55px;
+                                        top: 12px;
+                                        min-width: 100px;
+                                    }
 
                                     p {
                                         font-size: 14px;
@@ -609,5 +640,30 @@
                 }
             }
         }
+    }
+}
+
+.dots::after {
+    content: '';
+    animation: dots 1.5s steps(4, end) infinite;
+}
+  
+@keyframes dots {
+    0%   { content: ''; }
+    25%  { content: '.'; }
+    50%  { content: '..'; }
+    75%  { content: '...'; }
+    100% { content: ''; }
+}
+  
+
+@keyframes spread-pulse {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.6;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(3);
+      opacity: 0;
     }
 }

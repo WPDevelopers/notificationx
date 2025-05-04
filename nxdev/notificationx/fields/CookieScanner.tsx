@@ -10,8 +10,14 @@ import nxToast from '../core/ToasterMsg';
 
 const addCookiesToList = (builderContext: any, fieldName: string, newCookies: any[]) => {
   const existingCookies = builderContext.getFieldValue(fieldName) || [];
-  const updatedCookies = [...existingCookies, ...newCookies];
-  builderContext.setFieldValue(fieldName, updatedCookies);
+  const cookieMap = new Map();
+  existingCookies.forEach((cookie: any) => {
+    cookieMap.set(cookie.cookies_id, cookie);
+  });
+  newCookies.forEach((newCookie: any) => {
+    cookieMap.set(newCookie.cookies_id, newCookie);
+  });
+  builderContext.setFieldValue(fieldName, Array.from(cookieMap.values()));
 };
 
 const processCookies = (cookiesData: any) => {
@@ -39,14 +45,14 @@ const CookieScanner = () => {
   const [isDiscoveredCookieModalOpen, setIsDiscoveredCookieModalOpen] = useState(false);
   const [historyData, setHistoryData] = useState(builderContext?.values?.scan_history || []);
   const [activeHistorydata, setActiveHistoryData] = useState(null);
-  
+  const [dotCount, setDotCount] = useState(0);
 
   const nx_id = builderContext?.values?.id;
   // Set your variables for used and total scans
   const [usedScans, setUsedScans] = useState(builderContext?.scan_data?.nx_scan_count || 0);
   const totalScans = 5;
   const scanInfo = builderContext?.scan_data?.scans_used.replace('%1$s', usedScans).replace('%2$s', totalScans);
-  const scanDate = builderContext?.scan_data?.scan_date;
+  const scanDate = builderContext?.values?.last_scan_date;
   
   const handleScan = useCallback(async () => {
     const apiUrl = `${builderContext?.rest?.root + builderContext?.rest?.namespace }/scan`;    
@@ -142,6 +148,13 @@ const CookieScanner = () => {
     return () => clearInterval(interval);
 }, [scanId, status]);
 
+useEffect(() => {
+  const interval = setInterval(() => {
+    setDotCount(prev => (prev + 1) % 4); // cycles 0 to 3
+  }, 500); // update every 500ms
+
+  return () => clearInterval(interval);
+}, []);
 
 
 useEffect(() => {
@@ -191,6 +204,7 @@ useEffect(() => {
       }
   }, [status, results]);
   
+  const can_scan = builderContext?.is_pro_active || usedScans < 5;
 
   return (
     <div id='cookie-scanner' className='cookie-scanner'>
@@ -203,8 +217,17 @@ useEffect(() => {
             { scanDate ? <p>{ __('Last Successfully Scan','notificationx') }</p> : <p>{ __('No scan history found','notificationx') }</p> }
             { scanDate ? <h2>{ formatDateTime(scanDate) }</h2> : <h2>{ __('Start your first scan now','notificationx') }</h2> }
             <div className='scan-action-btns'>
-              <button onClick={handleScanNowModalPop} disabled={isScanning} className='primary'>
-                {isScanning ? 'Scanning...' : 'Scan Now'}
+              <button onClick={handleScanNowModalPop} disabled={ isScanning || !can_scan ? true : false} className='primary'>
+                <span style={{ display: 'inline-block', width: '60px', textAlign:  isScanning ? 'left' : 'center', opacity : !can_scan ? '0.5' : '1' }}>
+                  { !isScanning ? (
+                    __('Scan Now','notificationx')
+                  ) : (
+                    <>
+                      { __('Scanning','notificationx') }{'.'.repeat(dotCount)}
+                      <span style={{ visibility: 'hidden' }}>...</span>
+                    </>
+                  )}
+                </span>
               </button>
               <button onClick={ handleHistoryBtnClick } disabled={parseInt(usedScans) > 0 ? false : true } className={parseInt(usedScans) > 0 ? 'primary' : 'secondary' }>
                 { __('History','notificationx') }
@@ -212,13 +235,13 @@ useEffect(() => {
             </div>
           </div>
         </div>
-        {!builderContext?.is_pro_active && (
-          usedScans >= 5 ? (
+        { !builderContext?.is_pro_active && (
+          !can_scan ? (
             <p>{__("Scan limit exceeded for this website.", 'notificationx')}</p>
           ) : (
             <p className="scan-info">{scanInfo}</p>
           )
-        )}
+        ) }
       </div>
       <div className='scan-schedule'>
         <img src={`${builderContext.assets.admin}images/cookie-notice/coming-soon.png`} alt={'Coming soon'} />
