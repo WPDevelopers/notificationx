@@ -204,6 +204,7 @@ useEffect(() => {
       }
   }, [status, results]);
   
+  const can_scan = builderContext?.is_pro_active || usedScans < 5;
 
   return (
     <div id='cookie-scanner' className='cookie-scanner'>
@@ -216,8 +217,8 @@ useEffect(() => {
             { scanDate ? <p>{ __('Last Successfully Scan','notificationx') }</p> : <p>{ __('No scan history found','notificationx') }</p> }
             { scanDate ? <h2>{ formatDateTime(scanDate) }</h2> : <h2>{ __('Start your first scan now','notificationx') }</h2> }
             <div className='scan-action-btns'>
-              <button onClick={handleScanNowModalPop} disabled={isScanning} className='primary'>
-                <span style={{ display: 'inline-block', width: '60px', textAlign:  isScanning ? 'left' : 'center' }}>
+              <button onClick={handleScanNowModalPop} disabled={ isScanning || !can_scan ? true : false} className='primary'>
+                <span style={{ display: 'inline-block', width: '60px', textAlign:  isScanning ? 'left' : 'center', opacity : !can_scan ? '0.5' : '1' }}>
                   { !isScanning ? (
                     __('Scan Now','notificationx')
                   ) : (
@@ -227,7 +228,6 @@ useEffect(() => {
                     </>
                   )}
                 </span>
-
               </button>
               <button onClick={ handleHistoryBtnClick } disabled={parseInt(usedScans) > 0 ? false : true } className={parseInt(usedScans) > 0 ? 'primary' : 'secondary' }>
                 { __('History','notificationx') }
@@ -235,13 +235,13 @@ useEffect(() => {
             </div>
           </div>
         </div>
-        {!builderContext?.is_pro_active && (
-          usedScans >= 5 ? (
+        { !builderContext?.is_pro_active && (
+          !can_scan ? (
             <p>{__("Scan limit exceeded for this website.", 'notificationx')}</p>
           ) : (
             <p className="scan-info">{scanInfo}</p>
           )
-        )}
+        ) }
       </div>
       <div className='scan-schedule'>
         <img src={`${builderContext.assets.admin}images/cookie-notice/coming-soon.png`} alt={'Coming soon'} />

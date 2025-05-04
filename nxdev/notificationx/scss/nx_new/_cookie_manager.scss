@@ -426,6 +426,18 @@
                                             min-width: 90px;
                                         }
                                     }
+                                    span:nth-child(2) {
+                                        display: block;
+                                        background: #DCEEFA;
+                                        text-align: center;
+                                        padding: 6px;
+                                        color: #2E6BBC;
+                                        border-radius: 18px;
+                                        position: absolute;
+                                        right: 55px;
+                                        top: 12px;
+                                        min-width: 100px;
+                                    }
 
                                     p {
                                         font-size: 14px;
@@ -651,7 +663,7 @@
       opacity: 0.6;
     }
     100% {
-      transform: translate(-50%, -50%) scale(2);
+      transform: translate(-50%, -50%) scale(3);
       opacity: 0;
     }
 }
