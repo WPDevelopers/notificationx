@@ -194,17 +194,16 @@ class QuickBuild {
                 'all_time',
                 'active_installs',
                 'timestamp',
-
                 'appearance',
                 'position',
                 'visibility',
                 'show_on',
                 'all_locations',
                 'show_on_display',
-
+                
                 'google_reviews_place_data',
                 'google_reviews_custom_place_id',
-
+                
                 'ft_theme_one_icons',
                 'ft_theme_one_message',
                 'ft_theme_three_line_one',
@@ -216,7 +215,25 @@ class QuickBuild {
                 'hide_on_desktop',
                 'hide_on_tab',
                 'hide_on_mobile',
-
+                'notification-template',
+                'first_param',
+                'custom_first_param',
+                'second_param',
+                'third_param',
+                'custom_third_param',
+                'fourth_param',
+                'custom_fourth_param',
+                'fifth_param',
+                'custom_fifth_param',
+                'sixth_param',
+                'custom_sixth_param',
+                'activecampaign_form',
+                'announcement_entries',
+                'offer_title',
+                'offer_discount',
+                'image',
+                'expire_time',
+                'offer_description',
             ],
             'types_title' => apply_filters( 'nx_source_types_title', array(
                 'notification_bar' => __('Notification Bar', 'notificationx'),

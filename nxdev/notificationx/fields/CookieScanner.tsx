@@ -7,6 +7,7 @@ import { __ } from '@wordpress/i18n';
 import { useBuilderContext } from 'quickbuilder';
 import { addCookiesAddedClass, cookieCategoryPrefix, formatDateTime } from '../frontend/gdpr/utils/helper';
 import nxToast from '../core/ToasterMsg';
+import { useNotificationXContext } from '../hooks';
 
 const addCookiesToList = (builderContext: any, fieldName: string, newCookies: any[]) => {
   const existingCookies = builderContext.getFieldValue(fieldName) || [];
@@ -40,6 +41,7 @@ const CookieScanner = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [scanId, setScanId] = useState<string | null>(null);
   const builderContext = useBuilderContext();
+  const nxContext = useNotificationXContext();
   const [isReadyToScanModalOpen, setIsReadyToScanModalOpen] = useState(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
   const [isDiscoveredCookieModalOpen, setIsDiscoveredCookieModalOpen] = useState(false);
@@ -55,7 +57,7 @@ const CookieScanner = () => {
   const scanDate = builderContext?.values?.last_scan_date;
   
   const handleScan = useCallback(async () => {
-    const apiUrl = `${builderContext?.rest?.root + builderContext?.rest?.namespace }/scan`;    
+    const apiUrl = `${nxContext?.rest?.root + nxContext?.rest?.namespace }/scan`;    
     const currentDomain = window.location.origin;
     try {
       setIsScanning(true);
@@ -105,7 +107,7 @@ const CookieScanner = () => {
 
     const checkScanStatus = async () => {
         try {
-            const statusUrl = `${builderContext?.rest?.root + builderContext?.rest?.namespace }/scan/status`;
+            const statusUrl = `${nxContext?.rest?.root + nxContext?.rest?.namespace }/scan/status`;
             const response = await fetch(statusUrl, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -205,13 +207,14 @@ useEffect(() => {
   }, [status, results]);
   
   const can_scan = builderContext?.is_pro_active || usedScans < 5;
-
+  
   return (
     <div id='cookie-scanner' className='cookie-scanner'>
       <div className='scan-controls'>
         <div className='scan-controls-items'>
           <div className='scan-img'>
-            <img src={`${builderContext.assets.admin}images/cookie-notice/scan.png`} alt={'Scan cookie'} />
+            { isScanning ? <img src={`https://notificationx.com/wp-content/uploads/2025/05/Cookie-Scan.gif`} alt={'Scan cookie'} />
+            : <img src={`${nxContext.assets.admin}images/cookie-notice/scan.png`} alt={'Scan cookie'} /> }
           </div>
           <div className='scan-actions'>
             { scanDate ? <p>{ __('Last Successfully Scan','notificationx') }</p> : <p>{ __('No scan history found','notificationx') }</p> }
@@ -244,7 +247,7 @@ useEffect(() => {
         ) }
       </div>
       <div className='scan-schedule'>
-        <img src={`${builderContext.assets.admin}images/cookie-notice/coming-soon.png`} alt={'Coming soon'} />
+        <img src={`${nxContext.assets.admin}images/cookie-notice/coming-soon.png`} alt={'Coming soon'} />
       </div>
       <ReactModal
         isOpen={isReadyToScanModalOpen}
@@ -255,7 +258,7 @@ useEffect(() => {
       >
         <>
           <div className="wprf-modal-table-wrapper wpsp-scan-start-body">
-            <img src={`${builderContext.assets.admin}images/cookie-notice/scan-warning.png`} alt={'Scan cookie warning'} />
+            <img src={`${nxContext.assets.admin}images/cookie-notice/scan-warning.png`} alt={'Scan cookie warning'} />
             <h2>{ __('Ready to start scanning?','notificationx') }</h2>
             { !builderContext?.is_pro_active &&
               <p className='scan-info'>{scanInfo}</p>
