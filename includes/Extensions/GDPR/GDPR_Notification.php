@@ -301,12 +301,15 @@ class GDPR_Notification extends Extension {
     public function doc(){
         return sprintf(__('<p>You can showcase Cookie Notice effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our <a href="%1$s" target="_blank">step-by-step guides</a> for creating a Cookie Notice on the WordPress website.</p>
         <p>🎦 Watch the video <a target="_blank" href="%2$s">tutorial</a> for a quick guide.</p>
-		<p><strong>Recommended Blogs:</strong></p>
-		<p>🔥 <a target="_blank" href="%3$s">How to Display WordPress Cookie Notice Using NotificationX?</a></p>', 'notificationx'),
+        <p><strong>Recommended Blogs:</strong></p>
+        <p>🔥 <a target="_blank" href="%3$s">How to Display WordPress Cookie Notice Using NotificationX?</a></p>
+        <p><strong>Recommended Plugins:</strong></p>
+        <p>🔌 <a target="_blank" href="%4$s">WP Consent API</a> - Centralize cookie handling with a unified consent solution.</p>', 'notificationx'),
         'https://notificationx.com/docs/how-to-configure-cookies-policy-for-website/',
         'https://youtu.be/xMiRgH436SE',
         'https://notificationx.com/blog/display-wordpress-cookie-notice/',
-        );
+        'https://wordpress.org/plugins/wp-consent-api/'
+    );
     }
 
 }
