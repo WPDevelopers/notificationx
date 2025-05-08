@@ -34,7 +34,7 @@ class GlobalFields {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        
+
         // dump(Rules::logicalRule([ Rules::is('test'), Rules::is('test2') ]));
     }
 
@@ -225,7 +225,10 @@ class GlobalFields {
                                         ] ),
                                     ]
                                 ],
-                            ]
+                            ],
+                            // 'rules'   => Rules::logicalRule([
+                            //     Rules::is('type', 'notification_bar', true),
+                            // ]),
                         ],
                     ]),
                     // 'rules'   => Rules::is('source', false)
@@ -245,6 +248,20 @@ class GlobalFields {
                             'name' => 'design_error',
                             'messages' => apply_filters('design_error_message', []),
                             'rules' => '',
+                        ],
+                        "main_preview" => [
+                            'label'  => __("Preview", 'notificationx'),
+                            'name'   => "main_preview",
+                            'type'   => "section",
+                            'priority' => 1,
+                            'fields' => [
+                                'preview_field' => [
+                                    'name'     => "preview_field",
+                                    'type'     => "preview",
+                                    'label'    => __('Preview', 'notificationx'),
+                                    'priority' => 10,
+                                ],
+                            ],
                         ],
                        "themes" => [
                             'label'  => __("Themes", 'notificationx'),
@@ -602,6 +619,20 @@ class GlobalFields {
                     ],
                     'classes' => "content_tab",
                     'fields'  => apply_filters('nx_content_fields', [
+                        "main_preview" => [
+                            'label'  => __("Preview", 'notificationx'),
+                            'name'   => "main_preview",
+                            'type'   => "section",
+                            'priority' => 1,
+                            'fields' => [
+                                'preview_field' => [
+                                    'name'     => "preview_field",
+                                    'type'     => "preview",
+                                    'label'    => __('Preview', 'notificationx'),
+                                    'priority' => 10,
+                                ],
+                            ],
+                        ],
                        'content' => apply_filters('nx_content_field', [
                             'label'    => __("Content", 'notificationx'),
                             'name'     => "content",
@@ -959,6 +990,20 @@ class GlobalFields {
                     ],
                     'classes' => "manager_tab",
                     'fields'  => apply_filters('nx_manager_fields', [
+                        "main_preview" => [
+                            'label'  => __("Preview", 'notificationx'),
+                            'name'   => "main_preview",
+                            'type'   => "section",
+                            'priority' => 1,
+                            'fields' => [
+                                'preview_field' => [
+                                    'name'     => "preview_field",
+                                    'type'     => "preview",
+                                    'label'    => __('Preview', 'notificationx'),
+                                    'priority' => 10,
+                                ],
+                            ],
+                        ],
                         'general_settngs'  => [
                             'label' => __("General Settings", 'notificationx'),
                             'id'    => "general_settngs",
@@ -1388,6 +1433,20 @@ class GlobalFields {
                     ],
                     'classes' => "display_tab",
                     'fields'  => apply_filters('nx_display_fields', [
+                        "main_preview" => [
+                            'label'  => __("Preview", 'notificationx'),
+                            'name'   => "main_preview",
+                            'type'   => "section",
+                            'priority' => 1,
+                            'fields' => [
+                                'preview_field' => [
+                                    'name'     => "preview_field",
+                                    'type'     => "preview",
+                                    'label'    => __('Preview', 'notificationx'),
+                                    'priority' => 10,
+                                ],
+                            ],
+                        ],
                         "image-section" => [
                             'label' => __("IMAGE", 'notificationx'),
                             'name'  => "image-section",
@@ -1618,6 +1677,20 @@ class GlobalFields {
                     ],
                     'classes' => "customize_tab",
                     'fields'  => apply_filters('nx_customize_fields', [
+                        "main_preview" => [
+                            'label'  => __("Preview", 'notificationx'),
+                            'name'   => "main_preview",
+                            'type'   => "section",
+                            'priority' => 1,
+                            'fields' => [
+                                'preview_field' => [
+                                    'name'     => "preview_field",
+                                    'type'     => "preview",
+                                    'label'    => __('Preview', 'notificationx'),
+                                    'priority' => 10,
+                                ],
+                            ],
+                        ],
                         'appearance' => [
                             'label'  => __("Appearance", 'notificationx'),
                             'name'   => "appearance",
@@ -2091,7 +2164,7 @@ class GlobalFields {
                                             'description' => '',
                                             'max'         => 59,
                                             'min'         => 0,
-                                        ],  
+                                        ],
                                     ]
                                 ],
                                 'loop' => [

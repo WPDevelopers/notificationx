@@ -436,7 +436,7 @@ class PressBar extends Extension {
                                     ]),
                                 ],
                             ]
-                        ]   
+                        ]
                     ]
                 ],
             ],
@@ -1166,6 +1166,81 @@ class PressBar extends Extension {
             'priority' => 70,
             'rules' => Rules::logicalRule([
                 // Rules::isOfType('elementor_id', 'number', true),
+                Rules::is('source', $this->id),
+            ]),
+        );
+
+        $fields['content']['fields']['bar_transition_speed'] = [
+            'label'       => __('Transition Speed', 'notificationx'),
+            'name'        => "bar_transition_speed",
+            'type'        => "number",
+            'default'     => '500',
+            'description' => 'ms',
+            'priority'    => 100,
+            'help'        => __('Transition speed in milliseconds', 'notificationx'),
+        ];
+        $fields['content']['fields']['bar_transition_style'] = [
+            'label'    => __('Transition Style', 'notificationx'),
+            'name'     => "bar_transition_style",
+            'type'     => "select",
+            'priority' => 110,
+            'default'  => 'slide_right',
+            'options'  => GlobalFields::get_instance()->normalize_fields([
+                'slide_right' => __('Slide in Right', 'notificationx'),
+                'slide_left'  => __('Slide in Left', 'notificationx'),
+            ]),
+        ];
+
+        $fields['bar_coupon'] = array(
+            'name'     => 'bar_coupon',
+            'label'    => __('Coupon', 'notificationx'),
+            'type'     => 'section',
+            'priority' => 94,
+            'fields'   => array(
+                'coupon_text' => array(
+                    'name'     => 'coupon_text',
+                    'label'    => __('Coupon Text', 'notificationx'),
+                    'type'     => 'text',
+                    'default'  => __('SAVE20', 'notificationx'),
+                    'priority' => 10,
+                ),
+                'coupon_copied_text' => array(
+                    'name'     => 'coupon_copied_text',
+                    'label'    => __('Coupon Copied Text', 'notificationx'),
+                    'type'     => 'text',
+                    'default'  => __('Copied!', 'notificationx'),
+                    'priority' => 20,
+                ),
+                'coupon_bar_text' => array(
+                    'name'     => 'coupon_bar_text',
+                    'label'    => __('Coupon Bar Text', 'notificationx'),
+                    'type'     => 'textarea',
+                    'default'  => __('Use this coupon code to get 20% off', 'notificationx'),
+                    'priority' => 30,
+                ),
+                'coupon_bg_color' => array(
+                    'name'     => 'coupon_bg_color',
+                    'label'    => __('Coupon Background Color', 'notificationx'),
+                    'type'     => 'colorpicker',
+                    'default'  => '#ffffff',
+                    'priority' => 40,
+                ),
+                'coupon_text_color' => array(
+                    'name'     => 'coupon_text_color',
+                    'label'    => __('Coupon Text Color', 'notificationx'),
+                    'type'     => 'colorpicker',
+                    'default'  => '#000000',
+                    'priority' => 50,
+                ),
+                'coupon_border_color' => array(
+                    'name'     => 'coupon_border_color',
+                    'label'    => __('Coupon Border Color', 'notificationx'),
+                    'type'     => 'colorpicker',
+                    'default'  => '#dddddd',
+                    'priority' => 60,
+                ),
+            ),
+            'rules' => Rules::logicalRule([
                 Rules::is('source', $this->id),
             ]),
         );

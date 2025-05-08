@@ -12,6 +12,7 @@ import BetterRepeater from './BetterRepeater';
 import BetterToggle from './BetterToggle';
 import BetterText from './BetterText';
 import CookieScanner from './CookieScanner';
+import Preview from './Preview';
 
 
 const Field = (ret, type, props) => {
@@ -42,6 +43,8 @@ const Field = (ret, type, props) => {
             return <BetterText {...props} />;
         case "cookie-scanner":
             return <CookieScanner {...props} />;
+        case "preview":
+            return <Preview {...props} />;
         default:
             return ret;
     }

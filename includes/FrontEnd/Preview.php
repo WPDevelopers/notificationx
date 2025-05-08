@@ -363,6 +363,14 @@ class Preview {
             'default'    => trailingslashit(home_url()),
         ]);
 
+        $tabs['config']['content_heading']['talk_to_support'] = apply_filters('talk_to_support', [
+            'text'    => __('Talk to Support', 'notificationx'),
+            'classes' => 'nx-talk-to-support',
+            'type'    => 'button',
+            'name'    => 'talk_to_support',
+            'target'  => '_blank',
+            'href'    => esc_url('https://notificationx.com/support/?support=chat'),
+        ]);
         $tabs['config']['content_heading']['preview'] = apply_filters('nx_content_heading_preview', [
             'label'  => __('Preview', 'notificationx'),
             'type'   => 'preview-modal',
