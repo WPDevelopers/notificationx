@@ -873,6 +873,17 @@ class PressBar extends Extension {
         return $fields;
     }
 
+     /**
+     * Get All Roles
+     * dynamically
+     *
+     * @return array
+     */
+    public function get_roles() {
+        $roles = wp_roles()->role_names;
+        return $roles;
+    }
+
     /**
      * This method is an implementable method for All Extension coming forward.
      *
@@ -880,8 +891,9 @@ class PressBar extends Extension {
      * @return mixed
      */
     public function customize_fields($fields) {
-        $fields['queue_management'] = Rules::is('source', $this->id, true, $fields['queue_management']);
+        $wp_roles  = $this->get_roles();
 
+        $fields['queue_management'] = Rules::is('source', $this->id, true, $fields['queue_management']);
         $_fields             = &$fields["appearance"]['fields'];
         $conversion_position = &$_fields['position']['options'];
 
@@ -968,29 +980,29 @@ class PressBar extends Extension {
             ],
             'rules'       => Rules::is('source', $this->id),
         ];
-        
+
         // This field appears only when "On Scroll" is selected
         $fields["timing"]['fields']['scroll_offset'] = [
-            'label'       => __('Scroll Offset', 'notificationx'),
-            'name'        => 'scroll_offset',
-            'type'        => 'group',
-            'priority'    => 65,
-            'fields'      => [
+            'label'    => __('Scroll Offset', 'notificationx'),
+            'name'     => 'scroll_offset',
+            'type'     => 'group',
+            'priority' => 65,
+            'fields'   => [
                 'value' => [
                     'type'    => 'number',
                     'default' => 100,
                 ],
                 'unit' => [
                     'type'    => 'select',
-                    'options'  => GlobalFields::get_instance()->normalize_fields([
-                        'px'    => __('PX', 'notificationx'),
-                        'vh'   => __('VH', 'notificationx'),
+                    'options' => GlobalFields::get_instance()->normalize_fields([
+                        'px'      => __('PX', 'notificationx'),
+                        'vh'      => __('VH', 'notificationx'),
                         'percent' => __('%', 'notificationx'),
                     ]),
                     'default' => 'px',
                 ],
             ],
-            'rules'       => ['is', 'appear_condition', 'on_scroll'],
+            'rules' => ['is', 'appear_condition', 'on_scroll'],
         ];
 
         $fields["timing"]['fields']['initial_delay'] = [
@@ -1001,12 +1013,50 @@ class PressBar extends Extension {
             'default'     => 5,
             'help'        => __('Initial Delay', 'notificationx'),
             'description' => __('seconds', 'notificationx'),
-            'rules' => Rules::logicalRule([
+            'rules'       => Rules::logicalRule([
                 Rules::is('source', $this->id),
                 Rules::is('appear_condition', 'after_few_seconds'),
             ]),
         ];
+
+        $fields['targeting'] = [
+            'label'    => __('Targeting', 'notificationx'),
+            'type'     => 'section',
+            'priority' => 100,
+            'fields'   => []
+        ];
+
+        // Country Targeting
+        $fields['targeting']['fields']['country_targeting'] = [
+            'label'    => __('Country Targeting', 'notificationx'),
+            'name'     => 'country_targeting',
+            'type'     => 'select',
+            'priority' => 10,
+            'multiple' => true,
+            'default'  => ['all'],
+            'options'  => GlobalFields::get_instance()->normalize_fields(Helper::nx_get_all_country()),
+            'rules'    => Rules::is('source', $this->id),
+        ];
         
+        // User Role Targeting
+        $wp_roles_with_default = [];
+        if( is_array( $wp_roles ) ) {
+            $wp_roles_with_default = array_merge(
+                [ 'all_users' => __('Show for All Users', 'notificationx') ],
+                $wp_roles
+            );
+        }
+        $fields['targeting']['fields']['targeting_user_roles'] = [
+            'label'    => __('User Role Targeting', 'notificationx'),
+            'name'     => 'targeting_user_roles',
+            'type'     => 'select',
+            'priority' => 20,
+            'default'  => ['all_users'],
+            'options'  => GlobalFields::get_instance()->normalize_fields($wp_roles_with_default),
+            'multiple' => true,
+            'rules'    => Rules::is('source', $this->id),
+        ];
+
 
         $fields["behaviour"]['fields']['display_last'] = Rules::is('source', $this->id, true, $fields["behaviour"]['fields']['display_last']);
         $fields["behaviour"]['fields']['display_from'] = Rules::is('source', $this->id, true, $fields["behaviour"]['fields']['display_from']);
@@ -1037,6 +1087,7 @@ class PressBar extends Extension {
                         'daily' => array(
                             'value' => 'daily',
                             'label' => __('Daily', 'notificationx'),
+                            // 'icon'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/schedule/daily.png',
                         ),
                         'weekly' => array(
                             'value' => 'weekly',
@@ -1052,16 +1103,18 @@ class PressBar extends Extension {
                 ),
                 'daily_from_time' => array(
                     'name'     => 'daily_from_time',
-                    'type'     => 'date',
-                    'label'    => __('From Time', 'notificationx'),
+                    'type'     => 'timepicker',
+                    'label'    => __('From', 'notificationx'),
                     'priority' => 20,
+                    'format'   => 'h:i A',
                     'rules'    => Rules::is('schedule_type', 'daily'),
                 ),
                 'daily_to_time' => array(
                     'name'     => 'daily_to_time',
-                    'type'     => 'time',
-                    'label'    => __('To Time', 'notificationx'),
+                    'type'     => 'timepicker',
+                    'label'    => __('To', 'notificationx'),
                     'priority' => 30,
+                    'format'   => 'h:i A',
                     'rules'    => Rules::is('schedule_type', 'daily'),
                 ),
                 'weekly_days' => array(
@@ -1083,24 +1136,42 @@ class PressBar extends Extension {
                 ),
                 'weekly_from_time' => array(
                     'name'     => 'weekly_from_time',
-                    'type'     => 'time',
-                    'label'    => __('From Time', 'notificationx'),
+                    'type'     => 'timepicker',
+                    'label'    => __('From', 'notificationx'),
                     'priority' => 50,
+                    'format'   => 'h:i A',
                     'rules'    => Rules::is('schedule_type', 'weekly'),
                 ),
                 'weekly_to_time' => array(
                     'name'     => 'weekly_to_time',
-                    'type'     => 'time',
-                    'label'    => __('To Time', 'notificationx'),
+                    'type'     => 'timepicker',
+                    'label'    => __('To', 'notificationx'),
                     'priority' => 60,
+                    'format'   => 'h:i A',
                     'rules'    => Rules::is('schedule_type', 'weekly'),
                 ),
                 'custom_schedule' => array(
                     'name'     => 'custom_schedule',
-                    'type'     => 'message',
+                    'type'     => 'daterange',
                     'label'    => __('Custom Schedule', 'notificationx'),
-                    'message'  => __('Custom scheduling options will be implemented later.', 'notificationx'),
+                    'priority' => 65,
+                    'format'   => 'h:i A',
+                    'rules'    => Rules::is('schedule_type', 'custom'),
+                ),
+                'custom_from_time' => array(
+                    'name'     => 'custom_from_time',
+                    'type'     => 'timepicker',
+                    'label'    => __('From', 'notificationx'),
                     'priority' => 70,
+                    'format'   => 'h:i A',
+                    'rules'    => Rules::is('schedule_type', 'custom'),
+                ),
+                'custom_to_time' => array(
+                    'name'     => 'custom_to_time',
+                    'type'     => 'timepicker',
+                    'label'    => __('To', 'notificationx'),
+                    'priority' => 75,
+                    'format'   => 'h:i A',
                     'rules'    => Rules::is('schedule_type', 'custom'),
                 ),
             ),
@@ -1339,7 +1410,7 @@ class PressBar extends Extension {
                     ),
                     'fields'      => array(
                         array(
-                            'name'     => 'slide_text',
+                            'name'     => 'title',
                             'type'     => 'editor',
                             'label'    => __('Slide Text', 'notificationx'),
                             'priority' => 10,

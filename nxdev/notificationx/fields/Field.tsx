@@ -13,6 +13,8 @@ import BetterToggle from './BetterToggle';
 import BetterText from './BetterText';
 import CookieScanner from './CookieScanner';
 import Preview from './Preview';
+import TimePicker from './TimePicker';
+import DateRange from './DateRange';
 
 
 const Field = (ret, type, props) => {
@@ -45,6 +47,10 @@ const Field = (ret, type, props) => {
             return <CookieScanner {...props} />;
         case "preview":
             return <Preview {...props} />;
+        case "timepicker":
+            return <TimePicker {...props} />;
+        case "daterange":
+            return <DateRange {...props} />;
         default:
             return ret;
     }

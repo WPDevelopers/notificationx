@@ -1,0 +1,267 @@
+/* DateRange Component Styles */
+
+/* Main container */
+.wprf-control-daterange {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+/* Disabled state */
+.wprf-control-daterange.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Summary/Trigger button */
+.wprf-daterange-summary {
+  padding: 10px 12px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  cursor: pointer;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.wprf-daterange-summary:hover {
+  border-color: #999;
+}
+
+.wprf-daterange-summary-content {
+  display: flex;
+  align-items: center;
+}
+
+.wprf-daterange-icon {
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.wprf-daterange-text {
+  color: #333;
+}
+
+.wprf-daterange-arrow {
+  display: flex;
+  align-items: center;
+}
+
+/* Dropdown container */
+.wprf-daterange-dropdown {
+  position: absolute;
+  z-index: 999;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-radius: 4px;
+  padding: 16px;
+  min-width: 600px;
+}
+
+/* Action buttons */
+.wprf-daterange-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.wprf-daterange-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.wprf-daterange-clear,
+.wprf-daterange-cancel,
+.wprf-daterange-apply {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.wprf-daterange-clear {
+  background-color: transparent;
+  color: #666;
+  border-color: transparent;
+}
+
+.wprf-daterange-clear:hover {
+  color: #d63638;
+  background-color: rgba(214, 54, 56, 0.05);
+}
+
+.wprf-daterange-cancel {
+  background-color: #f0f0f0;
+  color: #333;
+  border-color: #ddd;
+}
+
+.wprf-daterange-cancel:hover {
+  background-color: #e5e5e5;
+}
+
+.wprf-daterange-apply {
+  background-color: #2271b1;
+  color: #fff;
+  border-color: #2271b1;
+}
+
+.wprf-daterange-apply:hover {
+  background-color: #135e96;
+  border-color: #135e96;
+}
+
+/* Override react-date-range styles to match WordPress admin */
+.wprf-daterange-dropdown .rdrCalendarWrapper {
+  font-size: 14px;
+  color: #333;
+}
+
+.wprf-daterange-dropdown .rdrDateDisplayItem {
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+}
+
+.wprf-daterange-dropdown .rdrDateDisplayItemActive {
+  border-color: #2271b1;
+}
+
+.wprf-daterange-dropdown .rdrDayToday .rdrDayNumber span:after {
+  background: #2271b1;
+}
+
+.wprf-daterange-dropdown .rdrDayDisabled {
+  background-color: #f5f5f5;
+}
+
+.wprf-daterange-dropdown .rdrDayDisabled .rdrDayNumber span {
+  color: #aaa;
+}
+
+.wprf-daterange-dropdown .rdrDayPassive .rdrDayNumber span {
+  color: #aaa;
+}
+
+.wprf-daterange-dropdown .rdrDayNumber span {
+  color: #333;
+}
+
+.wprf-daterange-dropdown .rdrDayStartPreview,
+.wprf-daterange-dropdown .rdrDayEndPreview,
+.wprf-daterange-dropdown .rdrDayInPreview {
+  border-color: rgba(34, 113, 177, 0.2);
+}
+
+.wprf-daterange-dropdown .rdrDayStartOfMonth .rdrDayInPreview,
+.wprf-daterange-dropdown .rdrDayStartOfMonth .rdrDayStartPreview,
+.wprf-daterange-dropdown .rdrDayStartOfWeek .rdrDayInPreview,
+.wprf-daterange-dropdown .rdrDayStartOfWeek .rdrDayStartPreview {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.wprf-daterange-dropdown .rdrDayEndOfMonth .rdrDayInPreview,
+.wprf-daterange-dropdown .rdrDayEndOfMonth .rdrDayEndPreview,
+.wprf-daterange-dropdown .rdrDayEndOfWeek .rdrDayInPreview,
+.wprf-daterange-dropdown .rdrDayEndOfWeek .rdrDayEndPreview {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.wprf-daterange-dropdown .rdrDayStartOfMonth .rdrInRange,
+.wprf-daterange-dropdown .rdrDayStartOfMonth .rdrStartEdge,
+.wprf-daterange-dropdown .rdrDayStartOfWeek .rdrInRange,
+.wprf-daterange-dropdown .rdrDayStartOfWeek .rdrStartEdge {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.wprf-daterange-dropdown .rdrDayEndOfMonth .rdrInRange,
+.wprf-daterange-dropdown .rdrDayEndOfMonth .rdrEndEdge,
+.wprf-daterange-dropdown .rdrDayEndOfWeek .rdrInRange,
+.wprf-daterange-dropdown .rdrDayEndOfWeek .rdrEndEdge {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.wprf-daterange-dropdown .rdrStartEdge {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background-color: #2271b1;
+}
+
+.wprf-daterange-dropdown .rdrEndEdge {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background-color: #2271b1;
+}
+
+.wprf-daterange-dropdown .rdrInRange {
+  background-color: rgba(34, 113, 177, 0.2);
+}
+
+.wprf-daterange-dropdown .rdrDayStartPreview,
+.wprf-daterange-dropdown .rdrDayEndPreview {
+  border-color: #2271b1;
+}
+
+.wprf-daterange-dropdown .rdrDayHovered .rdrDayNumber:after {
+  border-color: #2271b1;
+}
+
+.wprf-daterange-dropdown .rdrMonthName {
+  font-weight: 600;
+  color: #333;
+}
+
+.wprf-daterange-dropdown .rdrNextPrevButton {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.wprf-daterange-dropdown .rdrNextPrevButton:hover {
+  background-color: #e5e5e5;
+}
+
+.wprf-daterange-dropdown .rdrStaticRange {
+  border-radius: 0;
+  background-color: transparent;
+  border-bottom: 1px solid #eee;
+  padding: 10px 20px;
+  font-size: 13px;
+}
+
+.wprf-daterange-dropdown .rdrStaticRange:hover,
+.wprf-daterange-dropdown .rdrStaticRange:focus {
+  background-color: #f5f5f5;
+}
+
+.wprf-daterange-dropdown .rdrStaticRangeSelected {
+  background-color: #f0f0f0;
+  color: #2271b1;
+  font-weight: 600;
+}
+
+.wprf-daterange-dropdown .rdrInputRange {
+  padding: 10px 20px;
+  font-size: 13px;
+}
+
+.wprf-daterange-dropdown .rdrInputRangeInput {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 13px;
+}
