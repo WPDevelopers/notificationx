@@ -1096,11 +1096,18 @@ class Helper {
     }
 
     public static function nx_get_visitor_country_code() {
-        $ip = $_SERVER['REMOTE_ADDR'];
-
+        $ip = '';
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        
         // Prevent localhost IP from erroring
         if ($ip === '127.0.0.1' || $ip === '::1') {
-            return 'US'; // default fallback for local testing
+            return 'all'; // default fallback for local testing
         }
 
         $response = wp_remote_get("http://ip-api.com/json/{$ip}?fields=countryCode");

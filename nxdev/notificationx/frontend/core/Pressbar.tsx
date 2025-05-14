@@ -127,7 +127,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             if (settings?.bar_close_color) closeButtonCSS.fill = settings.bar_close_color;
         }
         const barHeight = document.getElementById(`nx-bar-${settings.nx_id}`).offsetHeight;
-        
+
         document.body.classList.add("has-nx-bar");
         if(settings?.sticky_bar){
             document.body.classList.add("nx-sticky-bar");
@@ -247,7 +247,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 }
             }
             originalAddEventListener.apply(document, [type, listener, options, ...args]);
-            
+
         };
 
         loadAssets(settings.gutenberg_url).then(() => {
@@ -269,6 +269,23 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             originalAddEventListener = null;
         }
     }, []);
+
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const slidingContent = settings?.sliding_content || [];
+    const direction = 'right' // fallback to 'left'
+    // const direction = settings?.sliding_direction || 'left'; // fallback to 'left'
+    const slideInterval = settings?.sliding_interval || 3000; // default 3s
+    const transitionSpeed = settings?.bar_transition_speed || 500; // default 500ms
+
+    useEffect(() => {
+        if (!slidingContent.length) return;
+
+        const interval = setInterval(() => {
+            setCurrentSlide((prevIndex) => (prevIndex + 1) % slidingContent.length);
+        }, slideInterval);
+
+        return () => clearInterval(interval);
+    }, [slidingContent, slideInterval]);
     
     // debugger;
     if (settings?.elementor_id) {
@@ -287,8 +304,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 dangerouslySetInnerHTML={{ __html: content }}
             ></div>
         );
-    }
-    else {
+    } else {
         innerContent = (
             <div className="nx-bar-content-wrap">
                 {settings?.enable_countdown && (
@@ -345,9 +361,34 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 )}
 
                 <div className="nx-inner-content-wrapper">
-                    {hasContent && (
+                    {( settings?.bar_content_type == 'static' && hasContent) && (
                         <div className="nx-bar-content" dangerouslySetInnerHTML={{ __html: content }}></div>
                     )}
+                    {settings?.bar_content_type === 'sliding' && slidingContent.length > 0 && (
+                        <div className={classNames("nx-bar-content nx-bar-slide-wrapper", `slide-direction-${direction}`)}>
+                            {slidingContent.map((item: any, index: number) => {
+                            const isActive = index === currentSlide;
+                            const isPrevious = (index === currentSlide - 1) || (currentSlide === 0 && index === slidingContent.length - 1);
+
+                            return (
+                                <div
+                                    key={index}
+                                    className={classNames("nx-bar-slide", {
+                                        'active': isActive,
+                                        'previous': isPrevious,
+                                        'left-exit': isPrevious && direction === 'left',
+                                        'right-exit': isPrevious && direction === 'right'
+                                    })}
+                                    style={{
+                                        transition: `all ${transitionSpeed}ms ease-in-out`
+                                    }}
+                                    dangerouslySetInnerHTML={{ __html: item.title }}
+                                />
+                            );
+                            })}
+                        </div>
+                    )}
+
                     {!hasContent && (
                         <div className="nx-bar-content">
                             {__(

@@ -441,12 +441,19 @@ class GlobalFields {
                             'label' => __('Advanced Design', 'notificationx'),
                             'type' => 'section',
                             'name' => 'advance_design_section',
-                            'classes' => 'wprf-no-bg',
+                            // 'classes' => 'wprf-no-bg',
                             'rules'   => Rules::logicalRule([
-                                Rules::is('advance_edit', true),
+                                // Rules::is('advance_edit', true),
                                 Rules::is('themes_tab', 'for_desktop'),
                              ]),
                             'fields' => [
+                                "advance_edit" => [
+                                    'label'    => __("Advanced Toggle", 'notificationx'),
+                                    'name'     => "advance_edit",
+                                    'type'     => "toggle",
+                                    'default'  => false,
+                                    'priority' => 1,
+                                ],
                                 "design" => [
                                     'label'    => __("Design", 'notificationx'),
                                     'name'     => "design",

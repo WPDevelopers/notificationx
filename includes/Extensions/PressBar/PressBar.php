@@ -1037,7 +1037,7 @@ class PressBar extends Extension {
             'options'  => GlobalFields::get_instance()->normalize_fields(Helper::nx_get_all_country()),
             'rules'    => Rules::is('source', $this->id),
         ];
-        
+
         // User Role Targeting
         $wp_roles_with_default = [];
         if( is_array( $wp_roles ) ) {
@@ -1421,6 +1421,40 @@ class PressBar extends Extension {
                         Rules::is('source', $this->id),
                     ]),
                 ),
+                'sliding_direction' => array(
+                    'name'     => 'sliding_direction',
+                    'type'     => 'radio-card',
+                    'label'    => __('Sliding Direction', 'notificationx'),
+                    'priority' => 15,
+                    'default'  => 'right',
+                    'options'  => array(
+                        'left' => array(
+                            'label' => __('Slide in Left', 'notificationx'),
+                            'value' => 'left',
+                        ),
+                        'right' => array(
+                            'label' => __('Slide in Right', 'notificationx'),
+                            'value' => 'right',
+                        ),
+                    ),
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('bar_content_type', 'sliding'),
+                        Rules::is('source', $this->id),
+                    ]),
+                ),
+                'sliding_interval' => array(
+                    'name'        => 'sliding_interval',
+                    'type'        => 'number',
+                    'label'       => __('Sliding Interval', 'notificationx'),
+                    'priority'    => 20,
+                    'default'     => 3000,
+                    'description' => 'ms',
+                    'help'        => __('Time interval between slides in milliseconds', 'notificationx'),
+                    'rules'       => Rules::logicalRule([
+                        Rules::is('bar_content_type', 'sliding'),
+                        Rules::is('source', $this->id),
+                    ]),
+                ),
             ),
             'rules' => Rules::logicalRule([
                 Rules::is('source', $this->id),
@@ -1455,6 +1489,9 @@ class PressBar extends Extension {
             'description' => 'ms',
             'priority'    => 100,
             'help'        => __('Transition speed in milliseconds', 'notificationx'),
+            'rules' => Rules::logicalRule([
+                Rules::is('source', $this->id),
+            ]),
         ];
         $fields['content']['fields']['bar_transition_style'] = [
             'label'    => __('Transition Style', 'notificationx'),
@@ -1466,6 +1503,9 @@ class PressBar extends Extension {
                 'slide_right' => __('Slide in Right', 'notificationx'),
                 'slide_left'  => __('Slide in Left', 'notificationx'),
             ]),
+            'rules' => Rules::logicalRule([
+                Rules::is('source', $this->id),
+            ]),
         ];
 
         $fields['bar_coupon'] = array(
@@ -1474,12 +1514,21 @@ class PressBar extends Extension {
             'type'     => 'section',
             'priority' => 94,
             'fields'   => array(
+                'enable_coupon' => array(
+                    'name'    => 'enable_coupon',
+                    'label'   => __('Enable Coupon', 'notificationx'),
+                    'type'    => 'toggle',
+                    'default' => false,
+                ),
                 'coupon_text' => array(
                     'name'     => 'coupon_text',
                     'label'    => __('Coupon Text', 'notificationx'),
                     'type'     => 'text',
                     'default'  => __('SAVE20', 'notificationx'),
                     'priority' => 10,
+                    'rules' => Rules::logicalRule([
+                        Rules::is('enable_coupon', true),
+                    ]),
                 ),
                 'coupon_copied_text' => array(
                     'name'     => 'coupon_copied_text',
@@ -1487,6 +1536,9 @@ class PressBar extends Extension {
                     'type'     => 'text',
                     'default'  => __('Copied!', 'notificationx'),
                     'priority' => 20,
+                    'rules' => Rules::logicalRule([
+                        Rules::is('enable_coupon', true),
+                    ]),
                 ),
                 'coupon_bar_text' => array(
                     'name'     => 'coupon_bar_text',
@@ -1494,6 +1546,9 @@ class PressBar extends Extension {
                     'type'     => 'textarea',
                     'default'  => __('Use this coupon code to get 20% off', 'notificationx'),
                     'priority' => 30,
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('enable_coupon', true),
+                    ]),
                 ),
                 'coupon_bg_color' => array(
                     'name'     => 'coupon_bg_color',
@@ -1501,6 +1556,9 @@ class PressBar extends Extension {
                     'type'     => 'colorpicker',
                     'default'  => '#ffffff',
                     'priority' => 40,
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('enable_coupon', true),
+                    ]),
                 ),
                 'coupon_text_color' => array(
                     'name'     => 'coupon_text_color',
@@ -1508,6 +1566,9 @@ class PressBar extends Extension {
                     'type'     => 'colorpicker',
                     'default'  => '#000000',
                     'priority' => 50,
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('enable_coupon', true),
+                    ]),
                 ),
                 'coupon_border_color' => array(
                     'name'     => 'coupon_border_color',
@@ -1515,6 +1576,9 @@ class PressBar extends Extension {
                     'type'     => 'colorpicker',
                     'default'  => '#dddddd',
                     'priority' => 60,
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('enable_coupon', true),
+                    ]),
                 ),
             ),
             'rules' => Rules::logicalRule([
