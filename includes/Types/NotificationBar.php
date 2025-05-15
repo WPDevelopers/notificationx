@@ -126,11 +126,34 @@ class NotificationBar extends Types {
                     return true;
                 }
             }
+            // Custom schedule check
+            if (
+                $settings['schedule_type'] === 'custom' &&
+                !empty($settings['custom_schedule']['startDate']) &&
+                !empty($settings['custom_schedule']['endDate']) &&
+                !empty($settings['custom_from_time']) &&
+                !empty($settings['custom_to_time'])
+            ) {
+                // Parse date range (strip timezone)
+                $start_date = strtotime(substr($settings['custom_schedule']['startDate'], 0, 10));
+                $end_date = strtotime(substr($settings['custom_schedule']['endDate'], 0, 10));
+                $current_date = strtotime(gmdate('Y-m-d', $current_time)); // Compare in GMT
 
-            // Custom schedule check (placeholder for future implementation)
-            if ($settings['schedule_type'] === 'custom') {
-                // Custom schedule logic will be implemented later
-                // For now, we'll just show the notification
+                if ($current_date < $start_date || $current_date > $end_date) {
+                    return true;
+                }
+
+                // Daily time range (use today’s date for both from and to)
+                $from_time = strtotime(gmdate('Y-m-d ') . date('H:i:s', strtotime($settings['custom_from_time'])));
+                $to_time = strtotime(gmdate('Y-m-d ') . date('H:i:s', strtotime($settings['custom_to_time'])));
+
+                if ($to_time < $from_time) {
+                    $to_time += 86400; // Handle overnight ranges
+                }
+
+                if ($current_time < $from_time || $current_time > $to_time) {
+                    return true;
+                }
             }
         }
 

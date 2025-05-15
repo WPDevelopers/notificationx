@@ -967,6 +967,7 @@ class PressBar extends Extension {
             'name'        => 'appear_condition',
             'type'        => 'radio-card',
             'priority'    => 60,
+            'classes'  => 'radio-card-v2',
             'default'     => 'delay',
             'options'     => [
                 'delay' => [
@@ -988,12 +989,14 @@ class PressBar extends Extension {
             'type'     => 'group',
             'priority' => 65,
             'fields'   => [
-                'value' => [
+                'scroll_trigger_value' => [
+                    'name'    => 'scroll_trigger_value',
                     'type'    => 'number',
                     'default' => 100,
                 ],
-                'unit' => [
+                'scroll_trigger_mode' => [
                     'type'    => 'select',
+                    'name'    => 'scroll_trigger_mode',
                     'options' => GlobalFields::get_instance()->normalize_fields([
                         'px'      => __('PX', 'notificationx'),
                         'vh'      => __('VH', 'notificationx'),
@@ -1082,6 +1085,7 @@ class PressBar extends Extension {
                     'type'     => 'radio-card',
                     'label'    => __('Schedule Type', 'notificationx'),
                     'priority' => 10,
+                    'classes'  => 'radio-card-v2',
                     'default'  => 'daily',
                     'options'  => array(
                         'daily' => array(
@@ -1375,6 +1379,7 @@ class PressBar extends Extension {
                     'type'     => 'radio-card',
                     'label'    => __('Content', 'notificationx'),
                     'priority' => 5,
+                    'classes'  => 'radio-card-v2',
                     'default'  => 'static',
                     'options'  => array(
                         'static' => array(
@@ -1417,27 +1422,6 @@ class PressBar extends Extension {
                         ),
                     ),
                     'rules'       => Rules::logicalRule([
-                        Rules::is('bar_content_type', 'sliding'),
-                        Rules::is('source', $this->id),
-                    ]),
-                ),
-                'sliding_direction' => array(
-                    'name'     => 'sliding_direction',
-                    'type'     => 'radio-card',
-                    'label'    => __('Sliding Direction', 'notificationx'),
-                    'priority' => 15,
-                    'default'  => 'right',
-                    'options'  => array(
-                        'left' => array(
-                            'label' => __('Slide in Left', 'notificationx'),
-                            'value' => 'left',
-                        ),
-                        'right' => array(
-                            'label' => __('Slide in Right', 'notificationx'),
-                            'value' => 'right',
-                        ),
-                    ),
-                    'rules'    => Rules::logicalRule([
                         Rules::is('bar_content_type', 'sliding'),
                         Rules::is('source', $this->id),
                     ]),
@@ -1530,6 +1514,16 @@ class PressBar extends Extension {
                         Rules::is('enable_coupon', true),
                     ]),
                 ),
+                'coupon_code' => array(
+                    'name'     => 'coupon_code',
+                    'label'    => __('Coupon Code', 'notificationx'),
+                    'type'     => 'text',
+                    'default'  => __('SAVE20', 'notificationx'),
+                    'priority' => 12,
+                    'rules' => Rules::logicalRule([
+                        Rules::is('enable_coupon', true),
+                    ]),
+                ),
                 'coupon_copied_text' => array(
                     'name'     => 'coupon_copied_text',
                     'label'    => __('Coupon Copied Text', 'notificationx'),
@@ -1540,9 +1534,9 @@ class PressBar extends Extension {
                         Rules::is('enable_coupon', true),
                     ]),
                 ),
-                'coupon_bar_text' => array(
-                    'name'     => 'coupon_bar_text',
-                    'label'    => __('Coupon Bar Text', 'notificationx'),
+                'coupon_tooltip' => array(
+                    'name'     => 'coupon_tooltip',
+                    'label'    => __('Coupon Tooltip', 'notificationx'),
                     'type'     => 'textarea',
                     'default'  => __('Use this coupon code to get 20% off', 'notificationx'),
                     'priority' => 30,
