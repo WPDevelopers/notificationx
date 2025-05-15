@@ -316,52 +316,108 @@ const useNotificationX = (props: any) => {
     /**
      * Pressbar
      */
-    useEffect(() => {
-        // Process to render;
+    
+   useEffect(() => {
         if (pressbarNotices != null && pressbarNotices.length > 0) {
-            pressbarNotices.forEach((nxBar) => {
-                const config = nxBar.post;
-                const initialDelay = (+config?.initial_delay || 5) * 1000;
-                const hideAfter = (+config?.hide_after || 5) * 1000;
+            const triggeredNotices = new Set();
 
-                let args = {
-                    intervalID: null,
-                    timeoutID: null,
-                    data: null,
-                    config
+            const checkAndShowNotice = (nxBar) => {
+                const config = nxBar.post;
+                const uniqueKey = config?.nx_id;
+
+                if (triggeredNotices.has(uniqueKey)) return;
+
+                const mode = config?.scroll_offset?.scroll_trigger_mode || null;
+                const value = parseFloat(config?.scroll_offset?.scroll_trigger_value || "300");
+                const appearCondition = config?.appear_condition || "after_few_seconds"; // default: show immediately
+
+                const scrollTop = window.scrollY || window.pageYOffset;
+                const windowHeight = window.innerHeight;
+                const fullHeight = document.documentElement.scrollHeight;
+
+                let show = false;
+
+                if (appearCondition === 'on_scroll') {
+                    // Only show if scroll condition is satisfied
+                    if (mode === "px" && scrollTop >= value) {
+                        show = true;
+                    } else if (mode === "percent") {
+                        const percentScrolled = (scrollTop / (fullHeight - windowHeight)) * 100;
+                        if (percentScrolled >= value) show = true;
+                    } else if (mode === "vh") {
+                        const vhValue = (windowHeight * value) / 100;
+                        if (scrollTop >= vhValue) show = true;
+                    }
+                } else {
+                    // Show immediately regardless of scroll
+                    show = true;
                 }
 
-                const timeoutID = setTimeout(() => {
-                    args.timeoutID = timeoutID;
-                    args.data = nxBar.content;
-                    const ID = dispatchNotification(args);
+                if (show) {
+                    triggeredNotices.add(uniqueKey);
 
-                    if (config?.auto_hide && +config?.hide_after) {
-                        if (config?.close_forever) {
-                            const expires = new Date();
-                            expires.setDate(
-                                expires.getDate() +
-                                    (config?.time_reset ? 1 : 365)
-                            );
-                            let countRand = config?.countdown_rand ? `-${config.countdown_rand}` : '';
-                            cookie.save(
-                                "notificationx_" + config?.nx_id + countRand,
-                                true,
-                                { path: "/", expires }
-                            );
+                    const initialDelay = (+config?.initial_delay || 0) * 1000;
+                    const hideAfter = (+config?.hide_after || 5) * 1000;
+
+                    const args = {
+                        intervalID: null,
+                        timeoutID: null,
+                        data: nxBar.content,
+                        config,
+                    };
+
+                    const timeoutID = setTimeout(() => {
+                        args.timeoutID = timeoutID;
+                        const ID = dispatchNotification(args);
+
+                        if (config?.auto_hide && +config?.hide_after) {
+                            if (config?.close_forever) {
+                                const expires = new Date();
+                                expires.setDate(expires.getDate() + (config?.time_reset ? 1 : 365));
+                                const countRand = config?.countdown_rand ? `-${config.countdown_rand}` : '';
+                                cookie.save(
+                                    "notificationx_" + config?.nx_id + countRand,
+                                    true,
+                                    { path: "/", expires }
+                                );
+                            }
+
+                            setTimeout(() => {
+                                dispatch({
+                                    type: "REMOVE_NOTIFICATION",
+                                    payload: ID,
+                                });
+                                document.body.style.paddingTop = `0px`;
+                            }, hideAfter);
                         }
-                        setTimeout(() => {
-                            dispatch({
-                                type: "REMOVE_NOTIFICATION",
-                                payload: ID,
-                            });
-                            document.body.style.paddingTop = `0px`;
-                        }, hideAfter);
-                    }
-                }, initialDelay);
+                    }, initialDelay);
+                }
+            };
+
+            // On load: only show if appear_condition !== 'on_scroll'
+            pressbarNotices.forEach((nxBar) => {
+                if (nxBar.post?.appear_condition !== 'on_scroll') {
+                    checkAndShowNotice(nxBar);
+                }
             });
+
+            // Always setup scroll handler (for scroll-triggered ones)
+            const handleScroll = () => {
+                pressbarNotices.forEach((nxBar) => {
+                    if (nxBar.post?.appear_condition === 'on_scroll') {
+                        checkAndShowNotice(nxBar);
+                    }
+                });
+            };
+
+            window.addEventListener("scroll", handleScroll);
+
+            return () => {
+                window.removeEventListener("scroll", handleScroll);
+            };
         }
     }, [pressbarNotices]);
+
 
     /**
      * GDPR

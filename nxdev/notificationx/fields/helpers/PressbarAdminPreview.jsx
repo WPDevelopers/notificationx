@@ -178,6 +178,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                 "nx-bar",
                 settings.themes,
                 `nx-bar-${settings.nx_id}`,
+                'nx-bar-section-preview',
                 {
                     "nx-position-top": settings?.position === "top",
                     "nx-position-bottom": settings?.position === "bottom",

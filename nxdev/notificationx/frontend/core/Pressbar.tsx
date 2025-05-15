@@ -10,6 +10,7 @@ import Analytics, { analyticsOnClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
 import nxHelper, { addParentSelectorToCSS } from "./functions";
 import { loadAssets } from "./LoadAssets";
+import BarCoupon from './helper/BarCoupon';
 
 /**
  * @example
@@ -376,8 +377,8 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                                     className={classNames("nx-bar-slide", {
                                         'active': isActive,
                                         'previous': isPrevious,
-                                        'left-exit': isPrevious && direction === 'left',
-                                        'right-exit': isPrevious && direction === 'right'
+                                        'left-exit': isPrevious,
+                                        'right-exit': isPrevious
                                     })}
                                     style={{
                                         transition: `all ${transitionSpeed}ms ease-in-out`
@@ -408,6 +409,11 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                             {settings?.button_text}
                         </Analytics>
                     )}
+
+                    {settings?.coupon_text && settings?.enable_coupon && (
+                        <BarCoupon settings={settings} />
+                    )}
+
                 </div>
                 {/* @todo close button &&& filters */}
             </div>
