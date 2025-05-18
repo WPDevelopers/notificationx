@@ -1497,6 +1497,12 @@ class PressBar extends Extension {
             'label'    => __('Coupon', 'notificationx'),
             'type'     => 'section',
             'priority' => 94,
+            'dependency_class'  => [
+                'name'     => 'enable_coupon',
+                'is'       => true,
+                'classes'  => 'coupon_active',
+                'selector' => '#bar_coupon',
+            ],
             'fields'   => array(
                 'enable_coupon' => array(
                     'name'    => 'enable_coupon',
