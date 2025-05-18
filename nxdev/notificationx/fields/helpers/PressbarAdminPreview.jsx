@@ -3,6 +3,8 @@ import classNames from "classnames";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import cookie from "js-cookie"; // Assuming this is used
+import BarCoupon from "../../frontend/core/helper/BarCoupon";
+import PreviewButton from './PreviewButton';
 
 const getUnixTime = (value) => moment.utc(value).unix() * 1000;
 
@@ -157,6 +159,23 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
         };
     }, [settings, position]);
 
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const slidingContent = settings?.sliding_content || [];
+    const direction = 'right' // fallback to 'left'
+    // const direction = settings?.sliding_direction || 'left'; // fallback to 'left'
+    const slideInterval = settings?.sliding_interval || 3000; // default 3s
+    const transitionSpeed = settings?.bar_transition_speed || 500; // default 500ms
+
+    useEffect(() => {
+        if (!slidingContent.length) return;
+
+        const interval = setInterval(() => {
+            setCurrentSlide((prevIndex) => (prevIndex + 1) % slidingContent.length);
+        }, slideInterval);
+
+        return () => clearInterval(interval);
+    }, [slidingContent, slideInterval]);
+
     useEffect(() => {
         if (!settings?.enable_countdown) return;
         const updateCountdown = () => {
@@ -169,7 +188,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
         return () => clearInterval(countdownRef.current);
     }, [settings]);
 
-    const { link, link_text } = resolveLinkInfo(settings, data);
+    const { link, link_text } = resolveLinkInfo(settings, data);    
 
     return (
         <div
@@ -186,6 +205,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                     "nx-sticky-bar": settings?.sticky_bar,
                 }
             )}
+            style={{...styles?.componentCSS}}
         >
             <div className="nx-bar-inner">
                 <div className="nx-bar-content-wrap">
@@ -216,19 +236,58 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                         </div>
                     )}
                     <div className="nx-inner-content-wrapper">
-                        {hasContent ? (
-                            <div className="nx-bar-content" dangerouslySetInnerHTML={{ __html: settings?.press_content }} />
-                        ) : (
-                            <div className="nx-bar-content">{__("You should setup NX Bar properly", "notificationx")}</div>
+                        {( settings?.bar_content_type == 'static' && hasContent) && (
+                            <div className="nx-bar-content" dangerouslySetInnerHTML={{ __html: settings?.press_content }}></div>
+                        )}
+                        {settings?.bar_content_type === 'sliding' && slidingContent.length > 0 && (
+                            <div className={classNames("nx-bar-content nx-bar-slide-wrapper", `slide-direction-${direction}`)}>
+                                {slidingContent.map((item, index) => {
+                                const isActive = index === currentSlide;
+                                const isPrevious = (index === currentSlide - 1) || (currentSlide === 0 && index === slidingContent.length - 1);
+    
+                                return (
+                                    <div
+                                        key={index}
+                                        className={classNames("nx-bar-slide", {
+                                            'active': isActive,
+                                            'previous': isPrevious,
+                                            'left-exit': isPrevious,
+                                            'right-exit': isPrevious
+                                        })}
+                                        style={{
+                                            transition: `all ${transitionSpeed}ms ease-in-out`
+                                        }}
+                                        dangerouslySetInnerHTML={{ __html: item.title }}
+                                    />
+                                );
+                                })}
+                            </div>
+                        )}
+    
+                        {!hasContent && (
+                            <div className="nx-bar-content">
+                                {__(
+                                    "You should setup NX Bar properly",
+                                    "notificationx"
+                                )}
+                            </div>
+                        )}
+
+                        {(settings?.button_url && settings?.button_text) && (
+                            <PreviewButton
+                                style={styles?.buttonCSS}
+                                className="nx-bar-button"
+                                href={settings?.button_url}
+                                config={settings}
+                            >
+                                {settings?.button_text}
+                            </PreviewButton>
+                        )}
+    
+                        {settings?.coupon_text && settings?.enable_coupon && (
+                            <BarCoupon settings={settings} />
                         )}
                     </div>
-                    {link && link_text && (
-                        <div className="notificationx-link-wrapper">
-                            <a href={link} style={styles.buttonCSS} target={settings?.link_open ? "_blank" : "_self"}>
-                                {link_text}
-                            </a>
-                        </div>
-                    )}
                 </div>
             </div>
         </div>
