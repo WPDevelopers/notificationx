@@ -114,6 +114,14 @@
                                         width: 70%;
                                         margin-left: auto;
                                         margin-bottom: 30px;
+
+                                        @media only screen and (max-width: 1599px) {
+                                            width: 75%;
+                                        }
+                                        @media only screen and (max-width: 700px) {
+                                            width: 100%;
+                                        }
+
                                         .wprf-repeater-field {
                                             .wprf-repeater-field-title {
                                                 padding: 12px;
@@ -177,7 +185,13 @@
                             }
                         }
                         &.bar_coupon {
+                            .wprf-section-title {
+                                margin-bottom: 0;
+                                border-bottom-left-radius: 10px;
+                                border-bottom-right-radius: 10px;
+                            }
                             .wprf-section-fields {
+                                padding: 0;
                                 .wprf-name-enable_coupon {
                                     .wprf-control-label {
                                         display: none;
@@ -187,6 +201,112 @@
                                         top: 20px;
                                         right: 16px;
                                         min-height: auto;
+                                    }
+                                }
+                            }
+                            &.coupon_active {
+                                .wprf-section-title {
+                                    margin-bottom: 2px;
+                                    border-bottom-left-radius: 0;
+                                    border-bottom-right-radius: 0;
+                                }
+                                .wprf-section-fields {
+                                    padding: 30px;
+                                    .wprf-name-enable_coupon {
+                                        margin-bottom: 0;
+                                    }
+                                }
+                            }
+                        }
+                        &.appearance {
+                            .wprf-section-fields {
+                                .wprf-control-section {
+                                    &.schedule {
+                                        .wprf-section-title {
+                                            display: none;
+                                        }
+                                        .wprf-section-fields {
+                                            padding: 0;
+                                            .wprf-control-wrapper {
+                                                &.wprf-name-daily_from_time,
+                                                &.wprf-name-weekly_from_time,
+                                                &.wprf-name-custom_from_time {
+                                                    flex-direction: column;
+                                                    display: inline-flex;
+                                                    margin-left: 30%;
+                                                    margin-right: 16px;
+                                        
+                                                    @media only screen and (max-width: 1599px) {
+                                                        margin-left: 25%;
+                                                    }
+                                                    @media only screen and (max-width: 700px) {
+                                                        margin-left: 0;
+                                                    }
+
+                                                    .wprf-control-label {
+                                                        flex: 1;
+                                                        display: inline-flex;
+                                                        margin: 0;
+                                                        label {
+                                                            margin: 0;
+                                                            margin-bottom: 8px;
+                                                        }
+                                                    }
+                                                }
+                                                &.wprf-name-daily_to_time,
+                                                &.wprf-name-weekly_to_time,
+                                                &.wprf-name-custom_to_time {
+                                                    flex-direction: column;
+                                                    display: inline-flex;
+                                                    .wprf-control-label {
+                                                        flex: 1;
+                                                        display: inline-flex;
+                                                        margin: 0;
+                                                        label {
+                                                            margin: 0;
+                                                            margin-bottom: 8px;
+                                                        }
+                                                    }
+                                                }
+                                                &.wprf-name-weekly_days,
+                                                &.wprf-name-custom_schedule {
+                                                    flex-direction: column;
+                                                    width: 70%;
+                                                    margin-left: auto;
+                                        
+                                                    @media only screen and (max-width: 1599px) {
+                                                        width: 75%;
+                                                    }
+                                                    @media only screen and (max-width: 700px) {
+                                                        width: 1000%;
+                                                    }
+
+                                                    .wprf-control-label {
+                                                        flex: 1;
+                                                        display: inline-flex;
+                                                        margin: 0;
+                                                        label {
+                                                            margin: 0;
+                                                            margin-bottom: 8px;
+                                                        }
+                                                    }
+                                                }
+                                                .wprf-control-field {
+                                                    .wprf-control {
+                                                        &.wprf-control-daterange {
+                                                            min-width: 400px;
+                                                        }
+                                                        &.wprf-control-timepicker {
+                                                            min-width: 192px;
+                                                        }
+                                                    }
+                                                    .wprf-select-wrapper {
+                                                        min-width: 400px;
+                                                        margin-right: 0;
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
