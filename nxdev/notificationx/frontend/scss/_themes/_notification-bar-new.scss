@@ -5,6 +5,11 @@
                 .wprf-tab-content {
                     .wprf-control-section {
                         &.main_preview {
+                            position: sticky;
+                            top: 32px;
+                            z-index: 999999;
+                            box-shadow: 0 0px 15px #e2d5d56b;
+                            border-radius: 0;
                             .wprf-section-title {
                                 padding: 12px 24px;
                                 min-height: auto;
@@ -12,9 +17,52 @@
                             }
                             .wprf-section-fields {
                                 padding: 12px 24px;
+                                .nx-bar-responsive {
+                                    .nx-admin-modal-head {
+                                        padding: 0;
+                                        position: absolute;
+                                        top: 12px;
+                                        right: 24px;
+                                        .nx-admin-modal-preview-button {
+                                            width: 32px;
+                                            height: 32px;
+                                            background: #F5F7FD;
+                                            border-radius: 4px;
+                                            svg {
+                                                width: 17px !important;
+                                                path {
+                                                    fill: #7884A0;
+                                                }
+                                            }
+                                            &.active {
+                                                svg path {
+                                                    fill: #5453fd;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                                 .nx-bar {
                                     &.nx-bar-section-preview {
                                         position: static;
+                                        .nx-bar-inner {
+                                            justify-content: center;
+                                            align-items: center;
+                                            .nx-bar-content {
+                                                min-width: auto;
+                                            }
+                                        }
+                                        &.nx-bar-desktop {
+                                            max-width: 100%;
+                                        }
+                                        &.nx-bar-tablet {
+                                            max-width: 542px;
+                                            margin: 0 auto;
+                                        }
+                                        &.nx-bar-phone {
+                                            max-width: 384px;
+                                            margin: 0 auto;
+                                        }
                                     }
                                 }
                             }
@@ -55,6 +103,22 @@
                                                     }
                                                 }
                                             }
+                                            .wprf-control-wrapper {
+                                                &.wprf-name-nx-bar_with_elementor_install {
+                                                    padding: 0 !important;
+                                                    .wprf-button {
+                                                        min-height: 35px;
+                                                        border: 1px solid #6a4bff;
+                                                        border-radius: 6px;
+                                                        padding: 6px 16px;
+                                                        font-size: 14px;
+                                                        font-weight: 500;
+                                                        background: transparent;
+                                                        color: #6a4bff;
+                                                        line-height: 1em;
+                                                    }
+                                                }
+                                            }
                                             span {
                                                 display: none;
                                             }
@@ -64,13 +128,7 @@
                             }
                         }
                         &.advance_design_section {
-                            .wprf-section-title {
-                                // margin-bottom: 0;
-                                // border-bottom-left-radius: 10px;
-                                // border-bottom-right-radius: 10px;
-                            }
                             .wprf-section-fields {
-                                // padding: 0;
                                 .wprf-control-wrapper {
                                     &.wprf-name-advance_edit {
                                         margin: 0;
@@ -386,6 +444,20 @@
                                                         margin-right: 0;
                                                     }
                                                 }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        &.timing {
+                            .wprf-section-fields {
+                                .wprf-name-scroll_offset {
+                                    .wprf-control-field {
+                                        .wprf-group-control-inner {
+                                            gap: 16px;
+                                            .wprf-control-wrapper {
+                                                margin-bottom: 0;
                                             }
                                         }
                                     }
