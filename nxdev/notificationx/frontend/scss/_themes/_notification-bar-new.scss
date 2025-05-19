@@ -19,6 +19,84 @@
                                 }
                             }
                         }
+                        &.themes {
+                            .wprf-section-fields {
+                                .wprf-control-wrapper {
+                                    &.wprf-name-advance_edit {
+                                        display: none;
+                                    }
+                                }
+                                .wprf-control-section {
+                                    &.nx_bar_import_design {
+                                        padding: 0 !important;
+                                        position: absolute;
+                                        top: 14px;
+                                        right: 24px;
+                                        .wprf-section-fields {
+                                            background: transparent;
+                                            padding: 0;
+                                            margin: 0;
+                                            box-sizing: border-box;
+                                            .wprf-control {
+                                                &.wprf-modal {
+                                                    .wprf-control-wrapper {
+                                                        padding: 0 !important;
+                                                        .wprf-button {
+                                                            min-height: 35px;
+                                                            border: 1px solid #6a4bff;
+                                                            border-radius: 6px;
+                                                            padding: 6px 16px;
+                                                            font-size: 14px;
+                                                            font-weight: 500;
+                                                            background: transparent;
+                                                            color: #6a4bff;
+                                                            line-height: 1em;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            span {
+                                                display: none;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        &.advance_design_section {
+                            .wprf-section-title {
+                                // margin-bottom: 0;
+                                // border-bottom-left-radius: 10px;
+                                // border-bottom-right-radius: 10px;
+                            }
+                            .wprf-section-fields {
+                                // padding: 0;
+                                .wprf-control-wrapper {
+                                    &.wprf-name-advance_edit {
+                                        margin: 0;
+                                    }
+                                }
+                                .wprf-control-section {
+                                    .wprf-section-title {
+                                        padding: 0;
+                                    }
+                                    .wprf-section-fields {
+                                        padding: 0;
+                                    }
+                                }
+                                .wprf-name-advance_edit {
+                                    .wprf-control-label {
+                                        display: none;
+                                    }
+                                    .wprf-control-field {
+                                        position: absolute;
+                                        top: 20px;
+                                        right: 16px;
+                                        min-height: auto;
+                                    }
+                                }
+                            }
+                        }
                         &.sliding_text {
                             .wprf-section-title {
                                 display: none;
@@ -298,6 +376,9 @@
                                                         }
                                                         &.wprf-control-timepicker {
                                                             min-width: 192px;
+                                                            .wprf-timepicker-formatted {
+                                                                display: none;
+                                                            }
                                                         }
                                                     }
                                                     .wprf-select-wrapper {
