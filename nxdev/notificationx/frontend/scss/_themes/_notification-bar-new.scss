@@ -1,0 +1,400 @@
+#notificationx {
+    .wp-react-form.wprf-tabs-wrapper.wprf-tab-menu-as-sidebar {
+        .wprf-tab-content-wrapper {
+            &.press_bar {
+                .wprf-tab-content {
+                    .wprf-control-section {
+                        &.main_preview {
+                            .wprf-section-title {
+                                padding: 12px 24px;
+                                min-height: auto;
+                                margin: 0;
+                            }
+                            .wprf-section-fields {
+                                padding: 12px 24px;
+                                .nx-bar {
+                                    &.nx-bar-section-preview {
+                                        position: static;
+                                    }
+                                }
+                            }
+                        }
+                        &.themes {
+                            .wprf-section-fields {
+                                .wprf-control-wrapper {
+                                    &.wprf-name-advance_edit {
+                                        display: none;
+                                    }
+                                }
+                                .wprf-control-section {
+                                    &.nx_bar_import_design {
+                                        padding: 0 !important;
+                                        position: absolute;
+                                        top: 14px;
+                                        right: 24px;
+                                        .wprf-section-fields {
+                                            background: transparent;
+                                            padding: 0;
+                                            margin: 0;
+                                            box-sizing: border-box;
+                                            .wprf-control {
+                                                &.wprf-modal {
+                                                    .wprf-control-wrapper {
+                                                        padding: 0 !important;
+                                                        .wprf-button {
+                                                            min-height: 35px;
+                                                            border: 1px solid #6a4bff;
+                                                            border-radius: 6px;
+                                                            padding: 6px 16px;
+                                                            font-size: 14px;
+                                                            font-weight: 500;
+                                                            background: transparent;
+                                                            color: #6a4bff;
+                                                            line-height: 1em;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            span {
+                                                display: none;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        &.advance_design_section {
+                            .wprf-section-title {
+                                // margin-bottom: 0;
+                                // border-bottom-left-radius: 10px;
+                                // border-bottom-right-radius: 10px;
+                            }
+                            .wprf-section-fields {
+                                // padding: 0;
+                                .wprf-control-wrapper {
+                                    &.wprf-name-advance_edit {
+                                        margin: 0;
+                                    }
+                                }
+                                .wprf-control-section {
+                                    .wprf-section-title {
+                                        padding: 0;
+                                    }
+                                    .wprf-section-fields {
+                                        padding: 0;
+                                    }
+                                }
+                                .wprf-name-advance_edit {
+                                    .wprf-control-label {
+                                        display: none;
+                                    }
+                                    .wprf-control-field {
+                                        position: absolute;
+                                        top: 20px;
+                                        right: 16px;
+                                        min-height: auto;
+                                    }
+                                }
+                            }
+                        }
+                        &.sliding_text {
+                            .wprf-section-title {
+                                display: none;
+                            }
+                            .wprf-section-fields {
+                                padding: 0;
+                            }
+                        }
+                        .wprf-section-fields {
+                            .wprf-control-wrapper {
+                                &.radio-card-v2 {
+                                    .wprf-control-label {
+                                        margin: 0;
+                                    }
+                                    .wprf-control-field {
+                                        min-height: 28px;
+
+                                        .wprf-control {
+                                            .wprf-row {    
+                                                margin: 0;
+                                                display: flex;
+                                                flex-wrap: nowrap;
+                                                gap: 16px;
+                                                &:before {
+                                                    display: none;
+                                                }
+                                                &:after {
+                                                    display: none;
+                                                }
+                                                .wprf-column {
+                                                    width: auto;
+                                                    height: auto;
+                                                    padding: 0;
+                                                    .wprf-input-radio-option {
+                                                        // position: relative;
+                                                        margin-top: 0;
+                                                        border-radius: 0;
+                                                        box-shadow: none;
+                                                        display: flex;
+                                                        align-items: unset;
+                                                        flex-direction: unset;
+                                                        min-height: auto;
+                                                        height: auto;
+                                                        .wprf-input-label {
+                                                            background-color: transparent !important;
+                                                            border: none;
+                                                            font-size: 14px;
+                                                            font-weight: 400;
+                                                            color: #092161 !important;
+                                                            border-radius: 0;
+                                                            flex-grow: unset;
+                                                            padding: 0;
+                                                            padding-left: 20px;
+                                                            line-height: 1em;
+                                                            text-align: center;
+                                                            cursor: pointer;
+                                                            position: relative;
+
+                                                            &:before {
+                                                                content: "";
+                                                                position: absolute;
+                                                                top: 50%;
+                                                                left: 0;
+                                                                transform: translateY(-50%);
+                                                                background: transparent;
+                                                                width: 14px;
+                                                                height: 14px;
+                                                                border: 1.5px solid #DBE3EE;
+                                                                border-radius: 50%;
+                                                                box-sizing: border-box;
+                                                            }
+                                                        }
+
+                                                        &.wprf-option-selected {
+                                                            .wprf-input-label {
+                                                                &:before {
+                                                                    border: 4px solid #6a4bff;
+                                                                }
+                                                            }
+                                                            &:before {
+                                                                display: none;
+                                                            }
+                                                            &:after {
+                                                                display: none;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    + .wprf-repeater-control {
+                                        width: 70%;
+                                        margin-left: auto;
+                                        margin-bottom: 30px;
+
+                                        @media only screen and (max-width: 1599px) {
+                                            width: 75%;
+                                        }
+                                        @media only screen and (max-width: 700px) {
+                                            width: 100%;
+                                        }
+
+                                        .wprf-repeater-field {
+                                            .wprf-repeater-field-title {
+                                                padding: 12px;
+                                                cursor: pointer;
+                                                font-size: 12px;
+                                                background-color: #F8FAFB;
+                                                display: flex;
+                                                align-items: center;
+                                            }
+                                            .wprf-repeater-inner-field {
+                                                padding: 12px;
+                                                background-color: #F8FAFB;
+                                                border: none;
+                                                .wprf-control-wrapper {
+                                                    align-items: flex-start;
+                                                    background: #FFF;
+                                                    border: 1px solid #F1F1F1;
+                                                    border-radius: 4px;
+                                                    .wprf-control-label {
+                                                        display: none;
+                                                    }
+                                                    .wprf-control-field {
+                                                        width: 100%;
+                                                        .rdw-editor-toolbar {
+                                                            padding: 7px 6px 0;
+                                                            border-radius: 2px;
+                                                            border: none;
+                                                            display: flex;
+                                                            justify-content: flex-start;
+                                                            background: white;
+                                                            flex-wrap: wrap;
+                                                            font-size: 15px;
+                                                            margin-bottom: 5px;
+                                                            user-select: none;
+                                                        }
+                                                        .wprf-editor .wprf-editor-main {
+                                                            height: calc(100% - 46px);
+                                                            padding: 5px 16px;
+                                                            box-sizing: border-box;
+                                                            border: none;
+                                                            border-top: 0px;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .wprf-repeater-label {
+                                            .wprf-repeater-button {
+                                                margin-top: 20px;
+                                                border: 1px solid #6A4BFF;
+                                                padding: 10px 12px;
+                                                background: #6A4BFF;
+                                                color: #FFFFFF;
+                                                line-height: 1em;
+                                                box-sizing: border-box;
+                                                cursor: pointer;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        &.bar_coupon {
+                            .wprf-section-title {
+                                margin-bottom: 0;
+                                border-bottom-left-radius: 10px;
+                                border-bottom-right-radius: 10px;
+                            }
+                            .wprf-section-fields {
+                                padding: 0;
+                                .wprf-name-enable_coupon {
+                                    .wprf-control-label {
+                                        display: none;
+                                    }
+                                    .wprf-control-field {
+                                        position: absolute;
+                                        top: 20px;
+                                        right: 16px;
+                                        min-height: auto;
+                                    }
+                                }
+                            }
+                            &.coupon_active {
+                                .wprf-section-title {
+                                    margin-bottom: 2px;
+                                    border-bottom-left-radius: 0;
+                                    border-bottom-right-radius: 0;
+                                }
+                                .wprf-section-fields {
+                                    padding: 30px;
+                                    .wprf-name-enable_coupon {
+                                        margin-bottom: 0;
+                                    }
+                                }
+                            }
+                        }
+                        &.appearance {
+                            .wprf-section-fields {
+                                .wprf-control-section {
+                                    &.schedule {
+                                        .wprf-section-title {
+                                            display: none;
+                                        }
+                                        .wprf-section-fields {
+                                            padding: 0;
+                                            .wprf-control-wrapper {
+                                                &.wprf-name-daily_from_time,
+                                                &.wprf-name-weekly_from_time,
+                                                &.wprf-name-custom_from_time {
+                                                    flex-direction: column;
+                                                    display: inline-flex;
+                                                    margin-left: 30%;
+                                                    margin-right: 16px;
+                                        
+                                                    @media only screen and (max-width: 1599px) {
+                                                        margin-left: 25%;
+                                                    }
+                                                    @media only screen and (max-width: 700px) {
+                                                        margin-left: 0;
+                                                    }
+
+                                                    .wprf-control-label {
+                                                        flex: 1;
+                                                        display: inline-flex;
+                                                        margin: 0;
+                                                        label {
+                                                            margin: 0;
+                                                            margin-bottom: 8px;
+                                                        }
+                                                    }
+                                                }
+                                                &.wprf-name-daily_to_time,
+                                                &.wprf-name-weekly_to_time,
+                                                &.wprf-name-custom_to_time {
+                                                    flex-direction: column;
+                                                    display: inline-flex;
+                                                    .wprf-control-label {
+                                                        flex: 1;
+                                                        display: inline-flex;
+                                                        margin: 0;
+                                                        label {
+                                                            margin: 0;
+                                                            margin-bottom: 8px;
+                                                        }
+                                                    }
+                                                }
+                                                &.wprf-name-weekly_days,
+                                                &.wprf-name-custom_schedule {
+                                                    flex-direction: column;
+                                                    width: 70%;
+                                                    margin-left: auto;
+                                        
+                                                    @media only screen and (max-width: 1599px) {
+                                                        width: 75%;
+                                                    }
+                                                    @media only screen and (max-width: 700px) {
+                                                        width: 1000%;
+                                                    }
+
+                                                    .wprf-control-label {
+                                                        flex: 1;
+                                                        display: inline-flex;
+                                                        margin: 0;
+                                                        label {
+                                                            margin: 0;
+                                                            margin-bottom: 8px;
+                                                        }
+                                                    }
+                                                }
+                                                .wprf-control-field {
+                                                    .wprf-control {
+                                                        &.wprf-control-daterange {
+                                                            min-width: 400px;
+                                                        }
+                                                        &.wprf-control-timepicker {
+                                                            min-width: 192px;
+                                                            .wprf-timepicker-formatted {
+                                                                display: none;
+                                                            }
+                                                        }
+                                                    }
+                                                    .wprf-select-wrapper {
+                                                        min-width: 400px;
+                                                        margin-right: 0;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

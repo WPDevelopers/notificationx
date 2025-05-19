@@ -266,6 +266,23 @@
                         margin-left: auto;
                     }
                 }
+                .wprf-name-talk_to_support {
+                    margin-bottom: 0;
+                    .wprf-button {
+                        line-height: 1em;
+                        min-height: 50px;
+                        border: 1px solid #00C185;
+                        border-radius: 10px;
+                        padding: 2px 24px;
+                        background: #00c185;
+                        &:hover,
+                        &:focus {
+                            outline: none;
+                            background: #029e6c;
+                            box-shadow: 0 15px 25px -5px rgba(0, 193, 133, 0.5);
+                        }
+                    }
+                }
             }
 
             .wprf-control-section:not(.wprf-no-bg) {
