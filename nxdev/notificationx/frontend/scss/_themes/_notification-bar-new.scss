@@ -129,7 +129,13 @@
                             }
                         }
                         &.advance_design_section {
+                            .wprf-section-title {
+                                margin-bottom: 0;
+                                border-bottom-left-radius: 10px;
+                                border-bottom-right-radius: 10px;
+                            }
                             .wprf-section-fields {
+                                padding: 0;
                                 .wprf-control-wrapper {
                                     &.wprf-name-advance_edit {
                                         margin: 0;
@@ -153,6 +159,20 @@
                                         right: 16px;
                                         min-height: auto;
                                     }
+                                }
+                            }
+                            &.advanced_active {
+                                .wprf-section-title {
+                                    margin-bottom: 2px;
+                                    border-bottom-left-radius: 0;
+                                    border-bottom-right-radius: 0;
+                                }
+                                .wprf-section-fields {
+                                    padding: 30px;
+                                    transition: none;
+                                    // .wprf-name-enable_coupon {
+                                    //     margin-bottom: 0;
+                                    // }
                                 }
                             }
                         }
