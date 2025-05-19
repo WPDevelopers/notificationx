@@ -54,6 +54,7 @@
                                         }
                                         &.nx-bar-desktop {
                                             max-width: 100%;
+                                            margin: 0 auto;
                                         }
                                         &.nx-bar-tablet {
                                             max-width: 542px;
@@ -431,6 +432,66 @@
                                                     .wprf-control {
                                                         &.wprf-control-daterange {
                                                             min-width: 400px;
+                                                            .wprf-daterange-dropdown {
+                                                                .rdrCalendarWrapper {
+                                                                    .rdrDateDisplayWrapper {
+                                                                        display: none;
+                                                                    }
+                                                                    .rdrMonthAndYearWrapper {
+                                                                        padding-top: 0;
+                                                                    }
+                                                                    .rdrMonth {
+                                                                        .rdrDay {
+                                                                            .rdrDayNumber {
+                                                                                span {
+                                                                                    color: #535D77 !important;
+                                                                                }
+                                                                            }
+                                                                            &.rdrDayToday {
+                                                                                color: #6A4BFF;
+                                                                                .rdrDayNumber span:after {
+                                                                                    content: '';
+                                                                                    position: absolute;
+                                                                                    bottom: 4px;
+                                                                                    left: 50%;
+                                                                                    transform: translate(-50%, 0);
+                                                                                    width: 4px;
+                                                                                    height: 4px;
+                                                                                    border-radius: 50%;
+                                                                                    background: #6A4BFF;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    .rdrStartEdge {
+                                                                        border-top-left-radius: 8px;
+                                                                        border-bottom-left-radius: 8px;
+                                                                        background-color: #6A4BFF;
+                                                                    }
+                                                                    .rdrInRange {
+                                                                        background: #EFECFF;
+                                                                    }
+                                                                    .rdrEndEdge {
+                                                                        border-top-right-radius: 8px;
+                                                                        border-bottom-right-radius: 8px;
+                                                                        background-color: #6A4BFF;
+                                                                    }
+                                                                }
+                                                                .wprf-daterange-actions {
+                                                                    margin-top: 0;
+                                                                    .wprf-daterange-buttons {
+                                                                        .wprf-daterange-apply {
+                                                                            background-color: #6A4BFF;
+                                                                            color: #fff;
+                                                                            border-color: #6A4BFF;
+                                                                            &:hover {
+                                                                                background-color: #6A4BFF;
+                                                                                border-color: #6A4BFF;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
                                                         }
                                                         &.wprf-control-timepicker {
                                                             min-width: 192px;
@@ -458,6 +519,21 @@
                                             gap: 16px;
                                             .wprf-control-wrapper {
                                                 margin-bottom: 0;
+                                                &.wprf-name-scroll_trigger_value {
+                                                    flex-basis: 50%;
+                                                    .wprf-control-field input[type=number] {
+                                                        max-width: 170px;
+                                                        margin-right: 0;
+                                                    }
+                                                }
+                                                &.wprf-name-scroll_trigger_mode {
+                                                    .wprf-select-wrapper {
+                                                        width: 100%;
+                                                        max-width: 110px;
+                                                        min-width: 110px;
+                                                        margin-right: 0;
+                                                    }
+                                                }
                                             }
                                         }
                                     }
