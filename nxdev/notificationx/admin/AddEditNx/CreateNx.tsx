@@ -40,6 +40,46 @@ const CreateNx = ({ setIsLoading, title, setTitle }) => {
     };
     initializeResizeHandler('#hour_minutes_section');
 
+    function applyDependencyClasses(builderContext) {
+        if (!builderContext?.tabs) return;
+
+        const elementCache = {};
+
+        const getCachedElement = (selector) => {
+            if (!selector) return null;
+            if (!elementCache[selector]) {
+                elementCache[selector] = document.querySelector(selector);
+            }
+            return elementCache[selector];
+        };
+
+        builderContext.tabs.forEach(tab => {
+            if (!Array.isArray(tab.fields)) return;
+
+            tab.fields.forEach(field => {
+                const dependency = field?.dependency_class;
+                if (!dependency) return;
+
+                const { name: dependencyName, is, classes, selector } = dependency;
+
+                const fieldValue = builderContext.getFieldValue?.(dependencyName);
+                const sectionEl = getCachedElement(selector);
+
+                if (!sectionEl) return;
+
+                const shouldHaveClass = String(fieldValue) === String(is);
+                const alreadyHasClass = sectionEl.classList.contains(classes);
+
+                if (shouldHaveClass && !alreadyHasClass) {
+                    sectionEl.classList.add(classes);
+                } else if (!shouldHaveClass && alreadyHasClass) {
+                    sectionEl.classList.remove(classes);
+                }
+            });
+        });
+    }
+    applyDependencyClasses(builderContext);
+
     return (
         <>
             <Content>
