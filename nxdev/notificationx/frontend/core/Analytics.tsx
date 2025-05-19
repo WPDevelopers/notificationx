@@ -1,10 +1,11 @@
 import React, { CSSProperties, ReactNode, useEffect } from "react";
 import useNotificationContext from "./NotificationProvider";
-import nxHelper from "./functions";
+import nxHelper, { handleCloseNotification } from "./functions";
 
-export const analyticsOnClick = (event, restUrl, config, credentials = true) => {
+export const analyticsOnClick = (event, restUrl, config, dispatch, credentials = true) => {
     const nx_id = config?.nx_id;
     const enable_analytics = config?.enable_analytics;
+    handleCloseNotification(config, nx_id, dispatch);
 
     if (!event.target?.href && (!event.delegateTarget || !event.delegateTarget.href)) {
         event.preventDefault();
@@ -41,7 +42,7 @@ type AnalyticsProps = {
     [key: string]: any;
 };
 
-const Analytics = ({config, children = null, href = null, data = {}, ...rest}: AnalyticsProps) => {
+const Analytics = ({config, children = null, href = null, data = {}, dispatch = null, ...rest}: AnalyticsProps) => {
     const frontendContext = useNotificationContext();
     const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
     const styles:CSSProperties = {};
@@ -107,7 +108,7 @@ const Analytics = ({config, children = null, href = null, data = {}, ...rest}: A
                         href={ link }
                         style={styles}
                         target={config?.link_open ? "_blank" : ""}
-                        onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
+                        onClick={e => analyticsOnClick(e, restUrl, config, dispatch, frontendContext.rest.omit_credentials)}
                         {...rest}
                     >
                         { config.link_text ? link_text : '' } {children}

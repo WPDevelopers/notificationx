@@ -405,6 +405,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                             className="nx-bar-button"
                             href={settings?.button_url}
                             config={settings}
+                            dispatch={dispatch}
                         >
                             {settings?.button_text}
                         </Analytics>

@@ -1,42 +1,12 @@
 import classNames from "classnames";
 import React, { useEffect } from "react";
-import cookie from "react-cookies";
+import { handleCloseNotification } from "../../core/functions";
 
 function Close({id, config, dispatch, style, closed}) {
     const innerWidth = window.innerWidth;
     if (innerWidth >= 1024 && !config?.close_button) return null;
     if ( ( innerWidth > 767 && innerWidth < 1024 ) && !config?.close_button_tab) return null;
     if (innerWidth < 678 && !config?.close_button_mobile) return null;
-
-    const handleCloseNotification = (e) => {
-        let date = new Date();
-        let options = {
-            path: "/",
-        };
-        if (config?.close_forever) {
-            const expired_timestamp = date.getTime() + 2 * 30 * 24 * 60 * 60 * 1000;
-            options.expires = new Date(expired_timestamp);
-        }
-        else{
-            // PressBar
-            if(config?.evergreen_timer && config?.time_reset){
-                const expired_timestamp = date.getTime() + 24 * 60 * 60 * 1000;
-                options.expires = new Date(expired_timestamp);
-            }
-            // else{
-            //     expired_timestamp = date.getTime() + 2 * 30 * 24 * 60 * 60 * 1000;
-            // }
-        }
-        let countRand = config?.countdown_rand ? `-${config.countdown_rand}` : '';
-
-        cookie.save("notificationx_" + config?.nx_id + countRand, true, options);
-
-        dispatch({
-            type: "REMOVE_NOTIFICATION",
-            payload: id,
-        });
-        document.body.style.paddingTop = `0px`;
-    };
 
     useEffect(() => {
         closed && handleCloseNotification();
@@ -72,7 +42,7 @@ function Close({id, config, dispatch, style, closed}) {
     };
 
     return (
-        <div className={ classNames(componentClasses) } style={updateStyle} onClick={handleCloseNotification}>
+        <div className={ classNames(componentClasses) } style={updateStyle} onClick={ () => handleCloseNotification(config, id, dispatch) }>
             <svg width={ config?.bar_close_button_size ? config.bar_close_button_size : '10px' } height={config?.bar_close_button_size ? config.bar_close_button_size : '10px'} viewBox="0 0 48 48">
                 <g stroke="none">
                     <g>
