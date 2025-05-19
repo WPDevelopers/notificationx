@@ -1,3 +1,5 @@
+import cookie from "react-cookies";
+
 export const isArray = (args) => {
     return args !== null && typeof args === "object" && Array.isArray(args);
 };
@@ -42,6 +44,47 @@ export const getResThemeName = (settings) => {
         }
     }
     return themeName;
+};
+
+export const handleCloseNotification = (config, id, dispatch) => {
+    let date = new Date();
+    let options = {
+        path: "/",
+        expires: null,
+    };
+    const reappearance = config?.bar_reappearance;
+    let countRand = config?.countdown_rand ? `-${config.countdown_rand}` : '';
+    const cookieKey = "notificationx_" + config?.nx_id + countRand;
+    // Determine expiration based on bar_reappearance value
+    switch (reappearance) {
+        case 'dont_show_welcomebar':
+            options.expires = new Date(date.getTime() + 2 * 30 * 24 * 60 * 60 * 1000); // 2 months
+            break;
+        case 'show_welcomebar_next_visit':
+            sessionStorage.setItem(cookieKey, 'closed');
+            // Don't set expires for session cookie
+            break;
+        case 'show_welcomebar_every_page':
+            // sessionStorage.setItem("notificationx_" + config?.nx_id, "closed");
+            break;
+        default:
+            if (config?.close_forever) {
+                options.expires = new Date(date.getTime() + 2 * 30 * 24 * 60 * 60 * 1000);
+            } else if (config?.evergreen_timer && config?.time_reset) {
+                options.expires = new Date(date.getTime() + 24 * 60 * 60 * 1000); // 1 day
+            }
+    }
+
+    if (reappearance === 'dont_show_welcomebar') {
+        cookie.save(cookieKey, true, options);
+    }
+
+    dispatch({
+        type: "REMOVE_NOTIFICATION",
+        payload: id,
+    });
+
+    document.body.style.paddingTop = `0px`;
 };
 
 export function calculateAnimationStartTime(userInput, animationType) {

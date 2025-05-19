@@ -262,6 +262,9 @@ class GlobalFields {
                                     'priority' => 10,
                                 ],
                             ],
+                            'rules'   => Rules::logicalRule([
+                                Rules::is( 'type', 'notification_bar' ),
+                            ]),
                         ],
                        "themes" => [
                             'label'  => __("Themes", 'notificationx'),
@@ -441,6 +444,12 @@ class GlobalFields {
                             'label' => __('Advanced Design', 'notificationx'),
                             'type' => 'section',
                             'name' => 'advance_design_section',
+                            'dependency_class'  => [
+                                'name'     => 'advance_edit',
+                                'is'       => true,
+                                'classes'  => 'advanced_active',
+                                'selector' => '#advance_design_section',
+                            ],
                             // 'classes' => 'wprf-no-bg',
                             'rules'   => Rules::logicalRule([
                                 // Rules::is('advance_edit', true),
@@ -639,6 +648,9 @@ class GlobalFields {
                                     'priority' => 10,
                                 ],
                             ],
+                             'rules'   => Rules::logicalRule([
+                                Rules::is( 'type', 'notification_bar' ),
+                            ]),
                         ],
                        'content' => apply_filters('nx_content_field', [
                             'label'    => __("Content", 'notificationx'),
@@ -1010,6 +1022,9 @@ class GlobalFields {
                                     'priority' => 10,
                                 ],
                             ],
+                            'rules'   => Rules::logicalRule([
+                                Rules::is( 'type', 'notification_bar' ),
+                            ]),
                         ],
                         'general_settngs'  => [
                             'label' => __("General Settings", 'notificationx'),
@@ -1453,6 +1468,9 @@ class GlobalFields {
                                     'priority' => 10,
                                 ],
                             ],
+                            'rules'   => Rules::logicalRule([
+                                Rules::is( 'type', 'notification_bar' ),
+                            ]),
                         ],
                         "image-section" => [
                             'label' => __("IMAGE", 'notificationx'),
@@ -1697,6 +1715,9 @@ class GlobalFields {
                                     'priority' => 10,
                                 ],
                             ],
+                            'rules'   => Rules::logicalRule([
+                                Rules::is( 'type', 'notification_bar' ),
+                            ]),
                         ],
                         'appearance' => [
                             'label'  => __("Appearance", 'notificationx'),

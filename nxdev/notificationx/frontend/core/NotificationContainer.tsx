@@ -80,12 +80,24 @@ const NotificationContainer = (props: any) => {
             {frontendContext.getNxToRender((position, NoticeList) => {
                 if (NoticeList?.[0]?.config?.type == 'notification_bar' && (position == 'top' || position == 'bottom')) {
                     return NoticeList.map((nxBar) => {
+                        const nxId = nxBar?.config?.nx_id;
+                        const reappearance = nxBar?.config?.bar_reappearance;
+                        const countRand = nxBar?.config?.countdown_rand ? `-${nxBar.config.countdown_rand}` : '';
+                        const storageKey = `notificationx_${nxId}${countRand}`;
+                        if (
+                            (reappearance === 'dont_show_welcomebar' && localStorage.getItem(storageKey)) ||
+                            (reappearance === 'show_welcomebar_next_visit' && sessionStorage.getItem(storageKey))
+                        ) {
+                            return null;
+                        }
+
                         return (
                             <Pressbar
-                                key={`pressbar-${nxBar?.config?.nx_id}`}
+                                key={`pressbar-${nxId}`}
                                 position={position}
                                 nxBar={nxBar}
-                                dispatch={frontendContext.dispatch} />
+                                dispatch={frontendContext.dispatch}
+                            />
                         );
                     });
                 }
