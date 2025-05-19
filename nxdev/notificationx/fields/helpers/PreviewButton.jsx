@@ -20,24 +20,19 @@ const PreviewButton = ({config, children = null, href = null, data = {}, ...rest
         link = data.link;
     }
     let link_text = config?.link_button_text;
-    console.log('styles',styles);
-    console.log('config',config);
     
     if( config.source == 'press_bar' ) {
         return (
             <>
-                <div  className="notificationx-link-wrapper">
+                <div 
+                    className="notificationx-link-wrapper"
+                    style={styles}
+                >
                     <a
                         href={ link }
-                        style={{
-                            backgroundColor: config?.coupon_bg_color || "#f9f9f9",
-                            color          : config?.coupon_text_color || "#000",
-                            fontSize       : '28px',
-                        }}
                         target={config?.link_open ? "_blank" : ""}
                         {...rest}
                     >
-                        <span>Hello</span>
                         { config.link_text ? link_text : '' } {children}
                     </a>
                 </div>

@@ -1407,13 +1407,13 @@ class PressBar extends Extension {
                 ),
                 'sliding_content' => array(
                     'name'        => 'sliding_content',
-                    'type'        => 'repeater',
+                    'type'        => 'simple-repeater',
                     'label'       => __('Sliding Text Items', 'notificationx'),
                     'priority'    => 10,
                     'button'      => array(
                         'label'    => __('Add New Slide', 'notificationx'),
                     ),
-                    'fields'      => array(
+                    '_fields'      => array(
                         array(
                             'name'     => 'title',
                             'type'     => 'editor',

@@ -15,6 +15,7 @@ import CookieScanner from './CookieScanner';
 import Preview from './Preview';
 import TimePicker from './TimePicker';
 import DateRange from './DateRange';
+import SimpleRepeater from './SimpleRepeater';
 
 
 const Field = (ret, type, props) => {
@@ -51,6 +52,8 @@ const Field = (ret, type, props) => {
             return <TimePicker {...props} />;
         case "daterange":
             return <DateRange {...props} />;
+        case "simple-repeater":
+            return <SimpleRepeater {...props} />;
         default:
             return ret;
     }
