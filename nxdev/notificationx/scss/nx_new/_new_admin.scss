@@ -490,6 +490,59 @@
         }
     }
 
+    .nx-admin-help-review-wrapper {
+        display: flex;
+        gap: 32px;
+        .nx-admin-help-content-wrapper {
+            flex: 1;
+            background: #FFFFFF;
+            border-radius: 12px;
+            display: flex;
+            gap: 24px;
+            .nx-admin-help-content {
+                padding: 24px;
+                padding-right: 0;
+                flex: 1;
+                h4 {
+                    font-size: 20px;
+                    font-weight: 600;
+                    line-height: 1.1em;
+                    color: #092161;
+                    margin: 0;
+                    padding-bottom: 12px;
+                }
+                p {
+                    font-size: 16px;
+                    line-height: 1.5em;
+                    color: #535D77;
+                    margin: 0;
+                    padding-bottom: 16px;
+                }
+                button {
+                    font-size: 12px;
+                    font-weight: 500;
+                    line-height: 1.1em;
+                    color: #092161;
+                    padding: 8px 12px;
+                    background: #F7F8FA;
+                    border: 1px solid #E8EAED;
+                    border-radius: 6px;
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                }
+            }
+            .nx-admin-help-content-banner {
+                padding: 24px;
+                padding-bottom: 0;
+                display: flex
+            }
+        }
+        .nx-admin-review-content-wrapper {
+            flex: 1;
+        }
+    }
+
     .nx-analytics-integration-wrapper {
         display: flex;
         gap: 32px;
@@ -998,7 +1051,6 @@
     }
 }
 
-
 @media only screen and (max-width: 1024px) {
     .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper {
         align-items: flex-start;
@@ -1044,6 +1096,78 @@
         font-size: 16px;
     }
 
+}
+
+.nx-more-docs-wrapper {
+    display: flex;
+    gap: 32px;
+    margin-top: 18px;
+
+    a.nx-resource-link {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 18px;
+        color: #6A4BFF;
+        display: flex;
+        gap: 2px;
+        text-decoration: none;
+    }
+    .nx-docs-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 32px;
+        background: #FFFFFF;
+        border: 1px solid #F0F6FF;
+        border-radius: 12px;
+
+        &:first-child {
+            background: linear-gradient(238.66deg, #ECE8FC 0%, #FFFFFF 57.84%);
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 0px;
+                right: 0;
+                background: url(../../../assets/admin/images/new-img/show-love.png);
+                z-index: 999;
+                width: 64px;
+                height: 69px;
+                background-repeat: no-repeat;
+                background-position: top center;
+            }
+        }
+
+        .img-wrap {
+            width: 56px;
+            height: 56px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background: #6A4BFF0D;
+            border-radius: 6px;
+            margin-bottom: 24px;
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.1em;
+            color: #092161;
+            margin: 0;
+            margin-bottom: 16px;
+        }
+
+        p {
+            font-size: 14px;
+            padding-bottom: 32px;
+            flex: 1;
+            line-height: 1.5;
+            color: #778095;
+            margin: 0;
+        }
+    }
 }
 
 .notification--wrapper {
@@ -1222,77 +1346,6 @@
                     }
                 }
             }
-        }
-    }
-}
-.nx-more-docs-wrapper {
-    display: flex;
-    gap: 32px;
-    margin-top: 18px;
-
-    a.nx-resource-link {
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 18px;
-        color: #6A4BFF;
-        display: flex;
-        gap: 2px;
-        text-decoration: none;
-    }
-    .nx-docs-content-wrapper {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        padding: 32px;
-        background: #FFFFFF;
-        border: 1px solid #F0F6FF;
-        border-radius: 12px;
-
-        &:first-child {
-            background: linear-gradient(238.66deg, #ECE8FC 0%, #FFFFFF 57.84%);
-            position: relative;
-
-            &::after {
-                content: "";
-                position: absolute;
-                top: 0px;
-                right: 0;
-                background: url(../../../assets/admin/images/new-img/show-love.png);
-                z-index: 999;
-                width: 64px;
-                height: 69px;
-                background-repeat: no-repeat;
-                background-position: top center;
-            }
-        }
-
-        .img-wrap {
-            width: 56px;
-            height: 56px;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            background: #6A4BFF0D;
-            border-radius: 6px;
-            margin-bottom: 24px;
-        }
-
-        h3 {
-            font-size: 20px;
-            font-weight: 600;
-            line-height: 1.1em;
-            color: #092161;
-            margin: 0;
-            margin-bottom: 16px;
-        }
-
-        p {
-            font-size: 14px;
-            padding-bottom: 32px;
-            flex: 1;
-            line-height: 1.5;
-            color: #778095;
-            margin: 0;
         }
     }
 }
