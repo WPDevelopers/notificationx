@@ -7,7 +7,7 @@ import { useNotificationXContext } from "../../hooks";
 import NotificationTypeResource from "./NotificationTypeResource";
 import Docs from "./Docs";
 import AnalyticsDashboard from "./Analytics";
-import FloatingAction from "./FloatingAction";
+import HelpReviewSection from "./HelpReviewSection";
 import { BuilderProvider, useBuilder } from "quickbuilder";
 import { WrapperWithLoader } from "../../components";
 // @ts-ignore
@@ -31,6 +31,7 @@ const Dashboard = (props) => {
                     <GetStarted props={props} context={builderContext}/>
                     <AnalyticsOverview props={props} context={builderContext} />
                     <Integration props={props} context={builderContext}/>
+                    <HelpReviewSection props={props} context={builderContext} />
                     <AnalyticsDashboard props={props} context={builderContext} />
                     <NotificationTypeResource props={props} context={builderContext} />
                     <Docs props={props} context={builderContext}  />
