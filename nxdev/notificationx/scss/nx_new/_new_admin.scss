@@ -499,10 +499,14 @@
             border-radius: 12px;
             display: flex;
             gap: 24px;
+            overflow: hidden;
             .nx-admin-help-content {
                 padding: 24px;
                 padding-right: 0;
-                flex: 1;
+                flex: 1;    
+                background: url(.../../../../../assets/admin/images/new-img/frame-2.png);
+                background-repeat: no-repeat;
+                background-position: top left;
                 h4 {
                     font-size: 20px;
                     font-weight: 600;
@@ -540,6 +544,13 @@
         }
         .nx-admin-review-content-wrapper {
             flex: 1;
+            .nx-admin-help-content-wrapper {
+                .nx-admin-help-content {   
+                    background: url(.../../../../../assets/admin/images/new-img/frame-1.png);
+                    background-repeat: no-repeat;
+                    background-position: top left;
+                }
+            }
         }
     }
 
