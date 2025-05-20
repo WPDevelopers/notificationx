@@ -47,7 +47,7 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
     const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
     const styles:CSSProperties = {};
 
-    if (config.link_button && config.advance_edit) {
+    if (config.advance_edit) {
         if(config.link_button_bg_color) {
             styles.backgroundColor = config.link_button_bg_color;
         }
@@ -103,10 +103,9 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
     if( config.source == 'press_bar' ) {
         return (
             <>
-                <div  className="notificationx-link-wrapper">
+                <div  className="notificationx-link-wrapper" style={styles}>
                     <a
                         href={ link }
-                        style={styles}
                         target={config?.link_open ? "_blank" : ""}
                         onClick={e => analyticsOnClick(e, restUrl, config, dispatch, frontendContext.rest.omit_credentials)}
                         {...rest}

@@ -861,7 +861,8 @@ class PressBar extends Extension {
             'label'   => __( 'Bar Reappearance', 'notificationx' ),
             'type'    => 'select',
             'name'    => 'bar_reappearance',
-            'rules' => Rules::logicalRule([
+            'default' => 'show_welcomebar_every_page',
+            'rules'   => Rules::logicalRule([
                 Rules::is('source', $this->id),
             ]),
             'options'  => GlobalFields::get_instance()->normalize_fields([
