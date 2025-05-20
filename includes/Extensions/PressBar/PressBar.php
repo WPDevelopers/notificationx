@@ -305,11 +305,20 @@ class PressBar extends Extension {
         $_fields['design']           = Rules::is('source', $this->id, true, $_fields['design']);
         $_fields['typography']       = Rules::is('source', $this->id, true, $_fields['typography']);
         $_fields['image-appearance'] = Rules::is('source', $this->id, true, $_fields['image-appearance']);
+        $_fields['bar_editor']       = [
+            'label'  => "Editor",
+            'name'   => "bar_editor",
+            'type'   => "section",
+            'priority' => 2,
+            'rules'  => ["and", ['is', 'source', $this->id], ['is', 'advance_edit', true]],
+            'fields' => [],
+        ];
         $_fields["bar_design"]       = [
             // @todo Move to extension.
             'label'  => "Design",
             'name'   => "bar_design",
             'type'   => "section",
+            'priority' => 5,
             'rules'  => ["and", ['is', 'source', $this->id], ['is', 'advance_edit', true]],
             'fields' => [
                 [
@@ -448,6 +457,7 @@ class PressBar extends Extension {
             'label'  => __('Typography', 'notificationx'),
             'name'   => "bar_typography",
             'type'   => "section",
+            'priority' => 10,
             'rules'  => ["and", ['is', 'source', $this->id], ['is', 'advance_edit', true]],
             'fields' => [
                 [
@@ -465,19 +475,7 @@ class PressBar extends Extension {
         $is_installed = Helper::is_plugin_installed('elementor/elementor.php');
         $install_activate_text = $is_installed ? __("Activate", 'notificationx') : __("Install", 'notificationx');
 
-        $fields['themes']['fields'][] = array(
-            'name'    => 'nx-bar_with_elementor_install_message',
-            'type'    => 'message',
-            'class'   => 'nx-warning',
-            'html'    => true,
-            'message' => sprintf(__("To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;", 'notificationx'), $install_activate_text),
-            'rules'   => Rules::logicalRule([
-                Rules::is('is_elementor', false),
-                Rules::is('gutenberg_id', false),
-                Rules::is('source', $this->id),
-            ]),
-        );
-
+       
         $fields['themes']['fields']['nx_bar_import_design'] = [
             'name'   => 'nx_bar_import_design',
             'type'   => 'section',
@@ -487,13 +485,15 @@ class PressBar extends Extension {
             ]),
         ];
 
-        $import_design = &$fields['themes']['fields']['nx_bar_import_design']['fields'];
+        $import_design = [];
+        // $import_design = $fields['advance_design_section']['fields'];
 
         $import_design[] = [
             'name'   => 'elementor_edit_link',
             'type'   => 'button',
             'text'   => __('Edit With Elementor', 'notificationx'),
             'href'   => -1,
+            'priority' => 1,
             'target' => '_blank',
             'rules'  => Rules::logicalRule([
                 Rules::is('elementor_edit_link', false, true),
@@ -506,6 +506,7 @@ class PressBar extends Extension {
         $import_design[] = [
             'name'  => 'nx-bar_with_elementor-remove',
             'type'  => 'button',
+            'priority' => 2,
             'text'  => __('Remove Elementor Design', 'notificationx'),
             'rules' => Rules::logicalRule([
                 Rules::is('elementor_id', false, true),
@@ -632,6 +633,7 @@ class PressBar extends Extension {
         $import_design[] = [
             'name'        => 'nx-bar_with_elementor_install',
             'type'        => 'button',
+            'priority'    => 3,
             'text'    => [
                 'normal'  => $is_installed ? __('Activate Elementor', 'notificationx') : __('Install Elementor', 'notificationx'),
                 'saved'   => $is_installed ? __('Activated Elementor', 'notificationx') : __('Installed Elementor', 'notificationx'),
@@ -698,6 +700,7 @@ class PressBar extends Extension {
             'type'   => 'button',
             'text'   => __('Edit With Gutenberg', 'notificationx'),
             'href'   => -1,
+            'priority' => 4,
             'target' => '_blank',
             'rules'  => Rules::logicalRule([
                 Rules::is('gutenberg_edit_link', false, true),
@@ -711,6 +714,7 @@ class PressBar extends Extension {
             'name'  => 'nx-bar_with_gutenberg-remove',
             'type'  => 'button',
             'text'  => __('Remove Gutenberg Design', 'notificationx'),
+            'priority' => 5,
             'rules' => Rules::logicalRule([
                 Rules::is('gutenberg_id', false, true),
                 Rules::is('is_gutenberg', true),
@@ -849,7 +853,19 @@ class PressBar extends Extension {
             'name'    => 'is_gb_confirmed',
             'default' => false
         ];
-
+        $import_design[] = array(
+            'name'    => 'nx-bar_with_elementor_install_message',
+            'type'    => 'message',
+            'class'   => 'nx-warning',
+            'html'    => true,
+            'message' => sprintf(__("To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;", 'notificationx'), $install_activate_text),
+            'rules'   => Rules::logicalRule([
+                Rules::is('is_elementor', false),
+                Rules::is('gutenberg_id', false),
+                Rules::is('source', $this->id),
+            ]),
+        );
+        $_fields['bar_editor']['fields'] = array_merge($_fields['bar_editor']['fields'], $import_design);
         return $fields;
     }
 
@@ -1036,6 +1052,7 @@ class PressBar extends Extension {
             'name'     => 'country_targeting',
             'type'     => 'select',
             'priority' => 10,
+            'is_pro'   => true,
             'multiple' => true,
             'default'  => ['all'],
             'options'  => GlobalFields::get_instance()->normalize_fields(Helper::nx_get_all_country()),
@@ -1055,6 +1072,7 @@ class PressBar extends Extension {
             'name'     => 'targeting_user_roles',
             'type'     => 'select',
             'priority' => 20,
+            'is_pro'   => true,
             'default'  => ['all_users'],
             'options'  => GlobalFields::get_instance()->normalize_fields($wp_roles_with_default),
             'multiple' => true,
@@ -1079,6 +1097,7 @@ class PressBar extends Extension {
             'name'     => 'schedule',
             'label'    => __('Schedule', 'notificationx'),
             'type'     => 'section',
+            'is_pro'   => true,
             'priority' => 96,
             'fields'   => array(
                 'schedule_type' => array(
@@ -1087,6 +1106,7 @@ class PressBar extends Extension {
                     'label'    => __('Schedule Type', 'notificationx'),
                     'priority' => 10,
                     'classes'  => 'radio-card-v2',
+                    'is_pro'   => true,
                     'default'  => 'daily',
                     'options'  => array(
                         'daily' => array(
@@ -1111,6 +1131,7 @@ class PressBar extends Extension {
                     'type'     => 'timepicker',
                     'label'    => __('From', 'notificationx'),
                     'priority' => 20,
+                    'is_pro'   => true,
                     'format'   => 'h:i A',
                     'rules'    => Rules::is('schedule_type', 'daily'),
                 ),
@@ -1119,6 +1140,7 @@ class PressBar extends Extension {
                     'type'     => 'timepicker',
                     'label'    => __('To', 'notificationx'),
                     'priority' => 30,
+                    'is_pro'   => true,
                     'format'   => 'h:i A',
                     'rules'    => Rules::is('schedule_type', 'daily'),
                 ),
@@ -1127,6 +1149,7 @@ class PressBar extends Extension {
                     'type'     => 'select',
                     'label'    => __('Select Days', 'notificationx'),
                     'priority' => 40,
+                    'is_pro'   => true,
                     'multiple' => true,
                     'options'  => GlobalFields::get_instance()->normalize_fields([
                         'monday'    => __('Monday', 'notificationx'),
@@ -1144,6 +1167,7 @@ class PressBar extends Extension {
                     'type'     => 'timepicker',
                     'label'    => __('From', 'notificationx'),
                     'priority' => 50,
+                    'is_pro'   => true,
                     'format'   => 'h:i A',
                     'rules'    => Rules::is('schedule_type', 'weekly'),
                 ),
@@ -1153,6 +1177,7 @@ class PressBar extends Extension {
                     'label'    => __('To', 'notificationx'),
                     'priority' => 60,
                     'format'   => 'h:i A',
+                    'is_pro'   => true,
                     'rules'    => Rules::is('schedule_type', 'weekly'),
                 ),
                 'custom_schedule' => array(
@@ -1160,6 +1185,7 @@ class PressBar extends Extension {
                     'type'     => 'daterange',
                     'label'    => __('Custom Schedule', 'notificationx'),
                     'priority' => 65,
+                    'is_pro'   => true,
                     'format'   => 'h:i A',
                     'rules'    => Rules::is('schedule_type', 'custom'),
                 ),
@@ -1168,6 +1194,7 @@ class PressBar extends Extension {
                     'type'     => 'timepicker',
                     'label'    => __('From', 'notificationx'),
                     'priority' => 70,
+                    'is_pro'   => true,
                     'format'   => 'h:i A',
                     'rules'    => Rules::is('schedule_type', 'custom'),
                 ),
@@ -1176,6 +1203,7 @@ class PressBar extends Extension {
                     'type'     => 'timepicker',
                     'label'    => __('To', 'notificationx'),
                     'priority' => 75,
+                    'is_pro'   => true,
                     'format'   => 'h:i A',
                     'rules'    => Rules::is('schedule_type', 'custom'),
                 ),
@@ -1391,6 +1419,7 @@ class PressBar extends Extension {
                         'sliding' => array(
                             'label' => __('Sliding Text', 'notificationx'),
                             'value' => 'sliding',
+                            'is_pro' => true,
                             // 'icon'  => 'dashicons-align-right',
                         ),
                     ),

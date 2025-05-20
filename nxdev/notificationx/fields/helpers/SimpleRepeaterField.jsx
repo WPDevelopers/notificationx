@@ -7,7 +7,7 @@ import { GenericField, useBuilderContext } from 'quickbuilder';
 const SimpleRepeaterField = (props) => {
     const builderContext = useBuilderContext();
     const { fields, onChange, index, parent } = props;
-    const [isCollapsed, setIsCollapsed] = useState(props.isCollapsed);
+    const [isCollapsed, setIsCollapsed] = useState(() => props.isCollapsed);
     const instanceId = useInstanceId(SimpleRepeaterField);
     // onClick={() => setIsCollapse(!isCollapse)}
     const values = builderContext.values?.[parent]?.[index];
@@ -26,6 +26,10 @@ const SimpleRepeaterField = (props) => {
     useEffect(() => {
         builderContext.setFieldValue([parent, index, 'isCollapsed'], isCollapsed);
     }, [isCollapsed])
+
+    useEffect(() => {
+        setIsCollapsed(props.isCollapsed);
+    }, [props.isCollapsed]);
 
     const getCleanTitle = (html) => {
         if (typeof window !== 'undefined') {

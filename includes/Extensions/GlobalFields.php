@@ -605,7 +605,7 @@ class GlobalFields {
                                     'label'    => __('Custom CSS', 'notificationx'),
                                     'name'     => "custom_css",
                                     'type'     => "section",
-                                    'priority' => 16,
+                                    'priority' => 150,
                                     'rules'    => Rules::is( 'advance_edit', true ),
                                     'fields'   => [
                                         [

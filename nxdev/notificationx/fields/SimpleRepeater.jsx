@@ -61,16 +61,37 @@ const SimpleRepeater = (props) => {
         }
     }, [localMemoizedValue])
 
+    const handleAddNewItem = useCallback(() => {
+        const collapsedItems = (localMemoizedValue || []).map(item => ({
+            ...item,
+            isCollapsed: true,
+        }));
+
+        const newItem = {
+            index: v4(),
+            isCollapsed: false,
+        };
+
+        const updatedList = [...collapsedItems, newItem];
+
+        builderContext.setFieldValue(fieldName, updatedList);
+        setLocalMemoizedValue(updatedList);
+    }, [localMemoizedValue, builderContext, fieldName]);
+
+
     useEffect(() => {
-        if (localMemoizedValue == undefined || localMemoizedValue == '') {
-            setLocalMemoizedValue([{index: v4()}]);
+        if (!Array.isArray(localMemoizedValue) || localMemoizedValue.length === 0) {
+            setLocalMemoizedValue([{ index: v4(), isCollapsed: false }]);
+        } else {
+            const updated = localMemoizedValue.map((item, i, arr) => ({
+                ...item,
+                index: v4(),
+                isCollapsed: i !== arr.length - 1, // last item = false, others = true
+            }));
+            setLocalMemoizedValue(updated);
+            builderContext.setFieldValue(fieldName, updated); // sync with form context
         }
-        else{
-            setLocalMemoizedValue((items) => items.map((item) => {
-                return {...item, index: v4()};
-            }))
-        }
-    }, [])
+    }, []);
 
     return (
         <div className="wprf-repeater-control">
@@ -94,8 +115,10 @@ const SimpleRepeater = (props) => {
             </ReactSortable>
             }
             <div className="wprf-repeater-label">
-                <button className="wprf-repeater-button"
-                    onClick={() => builderContext.setFieldValue(fieldName, [...localMemoizedValue, {index: v4()}])}>
+                <button
+                    className="wprf-repeater-button"
+                    onClick={handleAddNewItem}
+                >
                     {button?.label}
                 </button>
             </div>
