@@ -127,8 +127,15 @@
                                                         }
                                                     }
                                                 }
+                                                &.wprf-message {
+                                                    flex: 1;
+                                                    p {
+                                                        margin: 0;
+                                                    }
+                                                }
                                             }
                                             .wprf-control-wrapper {
+                                                margin-bottom: 0;
                                                 &.wprf-name-nx-bar_with_elementor_install {
                                                     padding: 0 !important;
                                                     .wprf-button {
