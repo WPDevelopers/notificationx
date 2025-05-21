@@ -7,7 +7,7 @@
                         &.main_preview {
                             position: sticky;
                             top: 32px;
-                            z-index: 999999;
+                            z-index: 1000;
                             box-shadow: 0 0px 15px #e2d5d56b;
                             border-radius: 0;
                             .wprf-section-title {
@@ -68,66 +68,15 @@
                                 }
                             }
                         }
-                        // &.themes {
-                        //     .wprf-section-fields {
-                        //         .wprf-control-wrapper {
-                        //             &.wprf-name-advance_edit {
-                        //                 display: none;
-                        //             }
-                        //         }
-                        //         .wprf-control-section {
-                        //             &.nx_bar_import_design {
-                        //                 padding: 0 !important;
-                        //                 position: absolute;
-                        //                 top: 14px;
-                        //                 right: 24px;
-                        //                 .wprf-section-fields {
-                        //                     background: transparent;
-                        //                     padding: 0;
-                        //                     margin: 0;
-                        //                     box-sizing: border-box;
-                        //                     .wprf-control {
-                        //                         &.wprf-modal {
-                        //                             .wprf-control-wrapper {
-                        //                                 padding: 0 !important;
-                        //                                 .wprf-button {
-                        //                                     min-height: 35px;
-                        //                                     border: 1px solid #6a4bff;
-                        //                                     border-radius: 6px;
-                        //                                     padding: 6px 16px;
-                        //                                     font-size: 14px;
-                        //                                     font-weight: 500;
-                        //                                     background: transparent;
-                        //                                     color: #6a4bff;
-                        //                                     line-height: 1em;
-                        //                                 }
-                        //                             }
-                        //                         }
-                        //                     }
-                        //                     .wprf-control-wrapper {
-                        //                         &.wprf-name-nx-bar_with_elementor_install {
-                        //                             padding: 0 !important;
-                        //                             .wprf-button {
-                        //                                 min-height: 35px;
-                        //                                 border: 1px solid #6a4bff;
-                        //                                 border-radius: 6px;
-                        //                                 padding: 6px 16px;
-                        //                                 font-size: 14px;
-                        //                                 font-weight: 500;
-                        //                                 background: transparent;
-                        //                                 color: #6a4bff;
-                        //                                 line-height: 1em;
-                        //                             }
-                        //                         }
-                        //                     }
-                        //                     span {
-                        //                         display: none;
-                        //                     }
-                        //                 }
-                        //             }
-                        //         }
-                        //     }
-                        // }
+                        &.themes {
+                            .wprf-section-fields {
+                                .wprf-control-wrapper {
+                                    &.wprf-name-advance_edit {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
                         &.advance_design_section {
                             .wprf-section-title {
                                 margin-bottom: 0;
@@ -200,6 +149,11 @@
                                             }
                                         }
                                     }
+                                    &.bar_design {
+                                        .wprf-section-title {
+                                            background: transparent;
+                                        }
+                                    }
                                 }
                                 .wprf-name-advance_edit {
                                     .wprf-control-label {
@@ -262,7 +216,6 @@
                                                     height: auto;
                                                     padding: 0;
                                                     .wprf-input-radio-option {
-                                                        // position: relative;
                                                         margin-top: 0;
                                                         border-radius: 0;
                                                         box-shadow: none;
@@ -298,6 +251,12 @@
                                                                 border: 1.5px solid #DBE3EE;
                                                                 border-radius: 50%;
                                                                 box-sizing: border-box;
+                                                            }
+                                                            .wprf-badge {
+                                                                top: 50%;
+                                                                transform: translateY(-50%);
+                                                                left: auto;
+                                                                right: -26px;
                                                             }
                                                         }
 
