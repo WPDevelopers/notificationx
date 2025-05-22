@@ -1121,8 +1121,8 @@ class Helper {
         return isset($data['countryCode']) ? $data['countryCode'] : null;
     }
 
-    public static function nx_get_all_country() {
-        return [
+    public static function nx_get_all_country($search = '') {
+        $countries = [
             'all' => __('All Countries', 'notificationx'),
             'AF'  => __('Afghanistan', 'notificationx'),
             'AL'  => __('Albania', 'notificationx'),
@@ -1313,6 +1313,13 @@ class Helper {
             'ZM'  => __('Zambia', 'notificationx'),
             'ZW'  => __('Zimbabwe', 'notificationx'),
         ];
+        if (!empty($search)) {
+            $search = strtolower($search);
+            $countries = array_filter($countries, function($name) use ($search) {
+                return strpos(strtolower($name), $search) !== false;
+            });
+        }
+        return $countries;
     }
 
 

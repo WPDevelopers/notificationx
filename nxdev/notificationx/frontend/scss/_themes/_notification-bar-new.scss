@@ -183,6 +183,9 @@
                             }
                         }
                         &.sliding_text {
+                            .wprf-repeater-control .wprf-repeater-field-title .wprf-repeater-field-controls .dashicons-admin-page {
+                                display: none;
+                            }
                             .wprf-section-title {
                                 display: none;
                             }

@@ -1875,7 +1875,7 @@ class GlobalFields {
                                         'close_button_mobile' => [
                                             'name'        => "close_button_mobile",
                                             'type'        => "checkbox",
-                                            'default'     => 0,
+                                            'default'     => 1,
                                             'priority'    => 72,
                                             'description' => __('Mobile', 'notificationx'),
                                         ],
