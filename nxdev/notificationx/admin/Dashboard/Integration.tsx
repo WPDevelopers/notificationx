@@ -46,7 +46,7 @@ const Integration = ({props, context}) => {
     <div className='nx-admin-content-wrapper nx-notifications-wrapper notificationx-items'>
         <div className='nx-integrations-details nx-content-details header'>
           <h4>{ __('Notifications', 'notificationx') }</h4>
-          <Link className="nx-primary-btn" to={ { pathname: "/admin.php", search: `?page=nx-admin`} }>
+          <Link className="nx-secondary-btn" to={ { pathname: "/admin.php", search: `?page=nx-admin`} }>
               { __('View All Notifications', 'notificationx') }
           </Link>
         </div>

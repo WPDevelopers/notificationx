@@ -101,18 +101,18 @@
         }
 
         .nx-secondary-btn {
-            background-color: transparent;
-            color: #6A4BFF;
-            border: 1px solid #6A4BFF;
-            padding: 8px 12px;
             font-size: 12px;
-            line-height: 1em;
             font-weight: 500;
-            border-radius: 5px;
+            line-height: 1.1em;
+            color: #092161;
+            padding: 8px 12px;
+            background: #F7F8FA;
+            border: 1px solid #E8EAED;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 4px;
             min-height: 32px;
             box-sizing: border-box;
             transition: 0.3s ease-in-out;
@@ -123,13 +123,12 @@
             }
 
             &:hover {
-                background-color: #5414d0;
-                color: #FFFFFF;
-                border: 1px solid #5414d0;
-                box-shadow: 0 15px 25px -5px rgba(86, 20, 213, 0.3);
+                background-color: #F7F8FA !important;
+                color: #092161 !important;
+                border: 1px solid #E8EAED !important;
 
                 svg path {
-                    stroke: #FFFFFF;
+                    stroke: #092161;
                 }
             }
             &.upgrade-pro {
