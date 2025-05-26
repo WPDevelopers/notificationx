@@ -19,7 +19,7 @@ use NotificationX\FrontEnd\Preview;
 use NotificationX\GetInstance;
 
 use Elementor\Core\Files\CSS\Post as Post_CSS;
-
+use NotificationX\NotificationX;
 
 /**
  * PressBar Extension
@@ -1054,7 +1054,6 @@ class PressBar extends Extension {
             'priority' => 10,
             'is_pro'   => true,
             'multiple' => true,
-            'default'  => ['all'],
             'options'  => GlobalFields::get_instance()->normalize_fields(Helper::nx_get_all_country()),
             'ajax'   => [
                 'api'  => "/notificationx/v1/get-data",
@@ -1409,6 +1408,7 @@ class PressBar extends Extension {
             'name'     => 'sliding_text',
             'label'    => __('Text Content', 'notificationx'),
             'type'     => 'section',
+            'classes'   => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated',
             'priority' => 51,
             'fields'   => array(
                 'bar_content_type' => array(
