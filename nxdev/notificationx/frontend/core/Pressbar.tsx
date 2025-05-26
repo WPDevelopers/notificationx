@@ -390,7 +390,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                         </div>
                     )}
 
-                    {!hasContent && (
+                    { (!hasContent && slidingContent?.length == 0 ) && (
                         <div className="nx-bar-content">
                             {__(
                                 "You should setup NX Bar properly",

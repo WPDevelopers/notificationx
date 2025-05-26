@@ -9,6 +9,7 @@
 namespace NotificationX\Types;
 
 use NotificationX\Core\Helper;
+use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
 use NotificationX\Modules;
 
@@ -202,6 +203,13 @@ class NotificationBar extends Types {
 
         // If we've made it here, don't exclude the notification
         return $exclude;
+    }
+
+    public static function restResponse($params) {
+         if (empty($params['inputValue'])) {
+            return [];
+        }
+        return array_values(GlobalFields::get_instance()->normalize_fields(Helper::nx_get_all_country($params['inputValue'])));
     }
 
 

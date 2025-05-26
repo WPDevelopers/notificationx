@@ -19,7 +19,7 @@ use NotificationX\FrontEnd\Preview;
 use NotificationX\GetInstance;
 
 use Elementor\Core\Files\CSS\Post as Post_CSS;
-
+use NotificationX\NotificationX;
 
 /**
  * PressBar Extension
@@ -1050,12 +1050,19 @@ class PressBar extends Extension {
         $fields['targeting']['fields']['country_targeting'] = [
             'label'    => __('Country Targeting', 'notificationx'),
             'name'     => 'country_targeting',
-            'type'     => 'select',
+            'type'     => 'select-async',
             'priority' => 10,
             'is_pro'   => true,
             'multiple' => true,
-            'default'  => ['all'],
             'options'  => GlobalFields::get_instance()->normalize_fields(Helper::nx_get_all_country()),
+            'ajax'   => [
+                'api'  => "/notificationx/v1/get-data",
+                'data' => [
+                    'type'   => "@type",
+                    'source' => "@source",
+                    // 'field'  => "country_targeting",
+                ],
+            ],
             'rules'    => Rules::is('source', $this->id),
         ];
 
@@ -1401,6 +1408,7 @@ class PressBar extends Extension {
             'name'     => 'sliding_text',
             'label'    => __('Text Content', 'notificationx'),
             'type'     => 'section',
+            'classes'   => NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated',
             'priority' => 51,
             'fields'   => array(
                 'bar_content_type' => array(
@@ -1441,7 +1449,7 @@ class PressBar extends Extension {
                     'label'       => __('Sliding Text Items', 'notificationx'),
                     'priority'    => 10,
                     'button'      => array(
-                        'label'    => __('Add New Slide', 'notificationx'),
+                        'label'    => __('Add New', 'notificationx'),
                     ),
                     '_fields'      => array(
                         array(

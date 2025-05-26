@@ -241,9 +241,6 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                         {settings?.enable_countdown && (
                             <div className="nx-countdown-wrapper">
                                 {!timeConfig.expired && settings?.countdown_text && (
-                                    <div className="nx-countdown-text">{__(settings.countdown_text, "notificationx")}</div>
-                                )}
-                                {!timeConfig.expired && settings?.countdown_text && (
                                     <div className="nx-countdown-text">
                                         {__(settings.countdown_text, "notificationx")}
                                     </div>
@@ -293,7 +290,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                                 </div>
                             )}
         
-                            {!hasContent && (
+                            { (!hasContent && slidingContent?.length == 0 ) && (
                                 <div className="nx-bar-content">
                                     {__(
                                         "You should setup NX Bar properly",
