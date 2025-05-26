@@ -475,7 +475,7 @@ class PressBar extends Extension {
         $is_installed = Helper::is_plugin_installed('elementor/elementor.php');
         $install_activate_text = $is_installed ? __("Activate", 'notificationx') : __("Install", 'notificationx');
 
-       
+
         $fields['themes']['fields']['nx_bar_import_design'] = [
             'name'   => 'nx_bar_import_design',
             'type'   => 'section',
@@ -1050,11 +1050,12 @@ class PressBar extends Extension {
         $fields['targeting']['fields']['country_targeting'] = [
             'label'    => __('Country Targeting', 'notificationx'),
             'name'     => 'country_targeting',
-            'type'     => 'select-async',
+            'type'     => 'better-select',
             'priority' => 10,
             'is_pro'   => true,
             'multiple' => true,
-            'options'  => GlobalFields::get_instance()->normalize_fields(Helper::nx_get_all_country()),
+            'values'  => [  'label' => "All Country", 'value' => 'all' ],
+            'option'  => GlobalFields::get_instance()->normalize_fields(Helper::nx_get_all_country()),
             'ajax'   => [
                 'api'  => "/notificationx/v1/get-data",
                 'data' => [

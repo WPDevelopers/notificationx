@@ -43,17 +43,15 @@ class NotificationXHelpers {
             .then((res) => res)
             .catch((err) => {});
     };
-    // getData: (args) => {
-    //     apiFetch({
-    //         path: "/notificationx/v1/get-data",
-    //         method: "POST",
-    //         data: args?.data,
-    //     })
-    //         .then((res) => {
-    //             console.log("res", res);
-    //         })
-    //         .catch((err) => console.error(err));
-    // },
+    getData = (data) => {
+        return apiFetch({
+            path: "/notificationx/v1/get-data",
+            method: "POST",
+            data: data,
+        })
+        .then((res) => res)
+        .catch((err) => {});
+    };
     useQuery = (search) => {
         search = search;
         return new URLSearchParams(search);

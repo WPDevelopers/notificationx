@@ -1,5 +1,5 @@
 #notificationx {
-    .wp-react-form.wprf-tabs-wrapper.wprf-tab-menu-as-sidebar {
+    .wp-react-form.wprf-tabs-wrapper {
         .wprf-tab-content-wrapper {
             &.press_bar {
                 .wprf-tab-content {
@@ -185,6 +185,9 @@
                         &.sliding_text {
                             .wprf-repeater-control .wprf-repeater-field-title .wprf-repeater-field-controls .dashicons-admin-page {
                                 display: none;
+                            }
+                            .wprf-section-fields .wprf-name-press_content .wprf-control-label{
+                                opacity: 0;
                             }
                             .wprf-section-title {
                                 display: none;

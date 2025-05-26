@@ -55,8 +55,8 @@ const Field = (ret, type, props) => {
             return <DateRange {...props} />;
         case "simple-repeater":
             return <SimpleRepeater {...props} />;
-        // case "better-select":
-        //     return <BetterSelect {...props} />;
+        case "better-select":
+            return <BetterSelect {...props} />;
         default:
             return ret;
     }

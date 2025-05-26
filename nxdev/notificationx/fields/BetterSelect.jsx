@@ -1,190 +1,181 @@
-import classNames from "classnames";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { ActionMeta, default as ReactSelect, components } from "react-select";
-import { fetchCategories, findOptionLabelByValue } from "../helper/helper";
-import { selectStyles } from "../helper/styles";
-import apiFetch from '@wordpress/api-fetch';
-
-// Prepare options with checkbox
-const Option = (props) => {    
-    const isAllSelected = props.selectProps.value.some((selected) => selected.value === 'all');
-    return (
-        <div
-            className={classNames(
-                "checkbox-select-menu-list-item",
-                { "blur-item": isAllSelected && props.data.value !== 'all' }
-            )}
-        >
-            <components.Option {...props}>
-                <span>{props.label}</span>
-            </components.Option>
-        </div>
-    );
-};
-
-// Helper functions
-export const addAllOption = (options, page) => {
-    if( page == 1 ) {
-        return [{ label: 'All', value: 'all' }, ...Object.values(options || [])];
-    }
-    return [...Object.values(options || [])];
-};
-
-export const getOptionsFlatten = (options) => {
-  const optionsArray = [];
-  options.forEach((category) => {
-    if (category.options) {
-      optionsArray.push(...category.options);
-    } else {
-      optionsArray.push(category);
-    }
-  });
-  return optionsArray;
-};
+import React, {  useEffect, useMemo, useState } from "react";
+import AsyncSelect from "react-select/async";
+import parse from "html-react-parser";
+import nxHelper from "../core/functions";
+import { useBuilderContext, withLabel } from 'quickbuilder';
 
 const BetterSelect = (props) => {
-    const { name, multiple, onChange } = props;
-    const [displayedOptions, setDisplayedOptions] = useState([]); // Paginated options
-    const [loading, setLoading] = useState(false);
-    const [page, setPage] = useState(1);
-    const options = props?.value.map((item) => ({
-        value: item,
-        label: item == 'all' ? 'All' : item,
-    }));
+	const builderContext = useBuilderContext();
+	let { id, name, multiple, placeholder, onChange, parentIndex } = props;
 
-    const [optionSelected, setOptionSelected] = useState(options ?? []);
+	const [options, setOptions] = useState(builderContext.eligibleOptions(props.option));
+	const [sOption, setSOption] = useState(props?.values);
+	const [isAjaxRunning, setIsAjaxRunning] = useState(false);
+    const [updatedOptions, setUpdatedOptions] = useState(options);
+	// const [lastRequest, setLastRequest] = useState("");
+	const handleMenuOpen = (inputValue, callback) => {
+	    // AJAX
+        if (props.ajax && (!props.ajax.rules || when(props.ajax.rules, builderContext.values))) {
+            if (!inputValue) {
+                console.log('hello');
+                console.log('options',options);
 
-  // Function to handle selection and deselection
-  const handleChange = (newValue, actionMeta: ActionMeta<any>) => {
-    if (actionMeta.action === "select-option") {
-      if (actionMeta.option.value === "all") {
-        newValue = [{ label: 'All', value: 'all' }];
-      } else {
-        // Ensure 'All' is not part of the selection when other items are selected
-        newValue = newValue.filter((item) => item.value !== "all");
-      }
-    } else if (actionMeta.action === "deselect-option") {
-      if (actionMeta.option.value === "all") {
-        newValue = [];
-      } else {
-        newValue = newValue.filter((item) => item.value !== "all");
-      }
-    }
-    setOptionSelected(newValue);
-  };
+                callback(options);
+                return;
+            }
+            if (inputValue.length < 3) {
+                    callback([
+                        {
+                            label: "Please type 3 or more characters.",
+                            value: null,
+                            disabled: true,
+                        }
+                    ]);
+                return;
+            }
 
-  // Remove an item from selection
-  const removeItem = (item) => {
-    const updatedItems = optionSelected.filter((i) => i !== item);
-    handleChange(updatedItems, {
-      action: "deselect-option",
-      option: item,
-    });
-  };
+            let data = { inputValue };
+            Object.keys(props.ajax.data).map((singleData) => {
+                if (props.ajax.data[singleData].indexOf("@") > -1) {
+                    let eligibleKey = props.ajax.data[singleData].substr(1);
+                    data[singleData] = builderContext.values?.[eligibleKey];
+                } else {
+                    data[singleData] = props.ajax.data[singleData];
+                }
+            });
+            if (!isAjaxRunning && inputValue) {
 
-  // Function to fetch categories from the server
-  const fetchOptions = async (page) => {
-    try {
-      setLoading(true);
-      const data = {
-        page: page,
-        limit : 10,
-      }
-      let response = await fetchCategories(data);
-      response = addAllOption(response, page);
-      response = getOptionsFlatten(response);
-    //   @ts-ignore 
-      setDisplayedOptions((prevOptions) => [...prevOptions, ...response]);
-    } catch (error) {
-      console.error("Failed to load options:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+                setIsAjaxRunning(true);
+                window.lastRequest = null;                
+                return nxHelper.getData(data).then((response) => {
+                        callback(response);
+                        return response;
+                    })
+                    .finally(() => {
+                        setIsAjaxRunning(false);
 
-  // Fetch the first set of categories on mount
-  useEffect(() => {
-    fetchOptions(1); // Initial load with page 1
-  }, []);
+                        if (window.lastRequest) {
+                            const lr = window.lastRequest;
+                            window.lastRequest = null;
+                            handleMenuOpen(...lr);
+                        }
 
-  // Handle scroll event to load more categories when reaching the bottom
-  const loadMoreOptions = () => {
-    const isAllSelected = optionSelected.some((selected) => selected.value === 'all');
-    if (isAllSelected || loading) {
-      return;
-    }
-    setPage((prevPage) => prevPage + 1);
-  };
-
-  // Fetch new categories when the page state changes (pagination)
-  useEffect(() => {
-    if (page > 1) {
-      fetchOptions(page);
-    }
-  }, [page]);
+                        window.lastCompleteRequest = inputValue;
+                    });
+            } else {
+                window.lastRequest = [inputValue, callback];
+            }
+        }
+    };
 
     useEffect(() => {
-        onChange({
-        target: {
-            type: "checkbox-select",
-            name,
-            value: optionSelected
-            ?.filter(item => item && item.value) // Ensure item is valid and has a 'value'
-            .map((item) => item.value),
-            multiple,
-        },
-        });
-    }, [optionSelected]);
-    
-  return (
-    <>
-      <div
-        className={classNames(
-          "wprf-control",
-          "wprf-control-wrapper",
-          "wprf-checkbox-select",
-          `wprf-${props.name}-checkbox-select`,
-          props.classes
-        )}
-      >
-        <div className="wprf-control-label">
-          <label htmlFor={`${props.id}`}>{props.label}</label>
-          <div className="selected-options">
-            <ul>
-              { (optionSelected && optionSelected[0] !== null) &&
-                optionSelected
-                  .map((item, index) => (
-                    <li key={index}>
-                      {item.label}
-                      <button onClick={() => removeItem(item)}>
-                        <i className="wpsp-icon wpsp-close"></i>
-                      </button>
-                    </li>
-                  ))}
-            </ul>
-          </div>
-        </div>
-        <div className="wprf-checkbox-select-wrap wprf-checked wprf-label-position-right">
-          <span className={`d-inline-block ${loading ? 'wpsp-checkbox-async-loading' : ''}`}>
-            <ReactSelect
-              options={displayedOptions}
-              styles={selectStyles}
-              isMulti
-              closeMenuOnSelect={false}
-              hideSelectedOptions={false}
-              components={{ Option }}
-              onChange={handleChange}
-              value={optionSelected}
-              controlShouldRenderValue={false}
-              className="checkbox-select"
-              classNamePrefix="checkbox-select"
-              onMenuScrollToBottom={loadMoreOptions}
-            />
-          </span>
-        </div>
-      </div>
-    </>
-  );
+        let selectedValues = Array.isArray(sOption) ? sOption.map(item => item.value) : [sOption?.value];
+        const hasAllSelected = selectedValues.includes('all');
+
+        // If "all" is selected along with others, remove others
+        if (hasAllSelected && selectedValues.length > 1) {
+            const onlyAll = Array.isArray(sOption)
+                ? sOption.find(item => item.value === 'all')
+                : sOption;
+
+            setSOption(onlyAll ? [onlyAll] : []);
+            return;
+        }
+
+        if (hasAllSelected) {
+            const newOptions = Object.values(options).map(option => ({
+                ...option,
+                disabled: option.value !== 'all',
+            }));
+            setUpdatedOptions(newOptions);
+        } else {
+            const newOptions = Object.values(options).map(option => ({
+                ...option,
+                disabled: false,
+            }));
+            setUpdatedOptions(newOptions);
+        }
+    }, [options, sOption]);
+
+
+	useEffect(() => {
+		setOptions(builderContext.eligibleOptions(props.option));
+	}, [builderContext.values.source]);
+
+	useEffect(() => {
+		onChange({
+			target: {
+				type: "select",
+				name,
+				value: sOption,
+				multiple,
+			},
+		});        
+	}, [sOption]);
+
+
+	return (
+		<div className="wprf-async-select-wrapper">
+			<AsyncSelect
+				cacheOptions
+				loadOptions={handleMenuOpen}
+				defaultOptions={Object.values(updatedOptions)}
+				isDisabled={props?.disable}
+                isMulti={multiple ?? false}
+				classNamePrefix="wprf-async-select"
+				// defaultMenuIsOpen={true}
+				id={id}
+				name={name}
+				placeholder={placeholder}
+				formatOptionLabel={(option, meta) => {
+					if (meta?.inputValue?.length && option.name) {
+						if (
+							option.name
+								.toLowerCase()
+								.includes(meta?.inputValue?.toLowerCase())
+						) {
+							let x = option?.name;
+							let regX = new RegExp(
+								`(${meta?.inputValue})`,
+								"gi"
+							);
+							let name = option.name?.replace(
+								regX,
+								"<strong style={font-weight: 900}>$1</strong>"
+							);
+							let address = option.address?.replace(
+								regX,
+								"<strong style={font-weight: 900}>$1</strong>"
+							);
+							return (
+								<>
+									{parse(name || "")}{" "}
+                                    Test
+									<small>{parse(address || "")}</small>
+								</>
+							);
+						}
+					}
+					return (
+						<>
+							{option.name ? (
+								<>
+									<b>{option.name}</b>{" "}
+								</>
+							) : (
+								<>{option.label}{" "}</>
+							)}
+							{option.address && <small>{option.address}</small>}
+						</>
+					);
+				}}
+				value={sOption}
+				isClearable={true}
+				isOptionDisabled={(option) => option?.disabled}
+				onChange={(option) => setSOption(option)} // option or options
+			/>
+		</div>
+	);
 };
 
-export default BetterSelect;
+export default withLabel(BetterSelect);

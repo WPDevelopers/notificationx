@@ -3,6 +3,7 @@ import { executeChange, useBuilderContext } from 'quickbuilder';
 import SimpleRepeaterField from './helpers/SimpleRepeaterField';
 import { ReactSortable } from "react-sortablejs";
 import { v4 } from "uuid";
+import AddNew from '../icons/AddNew';
 
 
 const SimpleRepeater = (props) => {
@@ -119,7 +120,7 @@ const SimpleRepeater = (props) => {
                     className="wprf-repeater-button"
                     onClick={handleAddNewItem}
                 >
-                    {button?.label}
+                    <AddNew /> {button?.label}
                 </button>
             </div>
         </div>
