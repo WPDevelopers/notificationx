@@ -374,6 +374,19 @@ export const defaultCustomCSSValue = ( type = '') => {
     `);
 }
 
+
+export const fetchAsyncValue = async (data) => {
+    const { limit, page } = data;
+    const queryString = new URLSearchParams({ limit, page }).toString();
+    return await apiFetch({
+        path: `wp-scheduled-posts/v1/get-categories?${queryString}`,
+        method: 'GET',
+    }).then((res) => {
+        return res;
+    });
+};
+
+
 export const getAlert = (type, context) => {
     const all_sources = getIn(context, 'tabs.0.fields.0.fields.0.options');        
     const single_type = all_sources.find( (item) => item?.value == type );

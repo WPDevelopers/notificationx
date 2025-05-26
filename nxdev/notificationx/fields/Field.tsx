@@ -16,6 +16,7 @@ import Preview from './Preview';
 import TimePicker from './TimePicker';
 import DateRange from './DateRange';
 import SimpleRepeater from './SimpleRepeater';
+import BetterSelect from './BetterSelect';
 
 
 const Field = (ret, type, props) => {
@@ -54,6 +55,8 @@ const Field = (ret, type, props) => {
             return <DateRange {...props} />;
         case "simple-repeater":
             return <SimpleRepeater {...props} />;
+        // case "better-select":
+        //     return <BetterSelect {...props} />;
         default:
             return ret;
     }
