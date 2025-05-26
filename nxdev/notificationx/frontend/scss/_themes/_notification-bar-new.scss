@@ -200,6 +200,21 @@
                                 padding: 0;
                             }
                         }
+                        &.pro-activated {
+                            .wprf-section-fields {
+                                .radio-card-v2 {
+                                    .wprf-control-field {
+                                        .wprf-row {
+                                            .wprf-input-radio-option {
+                                                .wprf-badge {
+                                                    display: none;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         .wprf-section-fields {
                             .wprf-control-wrapper {
                                 &.radio-card-v2 {
@@ -355,6 +370,7 @@
                                                 color: #FFFFFF;
                                                 line-height: 1em;
                                                 box-sizing: border-box;
+                                                gap: 4px;
                                                 cursor: pointer;
                                             }
                                         }
