@@ -9,7 +9,7 @@ const BetterSelect = (props) => {
 	let { id, name, multiple, placeholder, onChange, parentIndex } = props;
 
 	const [options, setOptions] = useState(builderContext.eligibleOptions(props.option));
-	const [sOption, setSOption] = useState(props?.values);
+	const [sOption, setSOption] = useState(props?.value || props?.values);
 	const [isAjaxRunning, setIsAjaxRunning] = useState(false);
     const [updatedOptions, setUpdatedOptions] = useState(options);
 	// const [lastRequest, setLastRequest] = useState("");
@@ -17,9 +17,6 @@ const BetterSelect = (props) => {
 	    // AJAX
         if (props.ajax && (!props.ajax.rules || when(props.ajax.rules, builderContext.values))) {
             if (!inputValue) {
-                console.log('hello');
-                console.log('options',options);
-
                 callback(options);
                 return;
             }
@@ -71,7 +68,7 @@ const BetterSelect = (props) => {
     useEffect(() => {
         let selectedValues = Array.isArray(sOption) ? sOption.map(item => item.value) : [sOption?.value];
         const hasAllSelected = selectedValues.includes('all');
-
+		
         // If "all" is selected along with others, remove others
         if (hasAllSelected && selectedValues.length > 1) {
             const onlyAll = Array.isArray(sOption)
@@ -97,6 +94,16 @@ const BetterSelect = (props) => {
         }
     }, [options, sOption]);
 
+	useEffect(() => {
+		onChange({
+			target: {
+				type: "select",
+				name,
+				value: sOption,
+				multiple,
+			},
+		});
+	}, [sOption]);
 
 	useEffect(() => {
 		setOptions(builderContext.eligibleOptions(props.option));
