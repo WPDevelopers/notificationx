@@ -277,8 +277,8 @@ class FrontEnd {
         // }
         // }
 
+        $device = isset($params['deviceType']) && !empty($params['deviceType']) ? $params['deviceType'] : '';
         if (!empty($all)) {
-            $device = isset($params['deviceType']) && !empty($params['deviceType']) ? $params['deviceType'] : '';
             $notifications = $this->get_notifications($all, $device);
             $entries       = $this->get_entries($all, $notifications, $params);
 
@@ -360,7 +360,7 @@ class FrontEnd {
         }
 
         if (!empty($pressbar)) {
-            $notifications = $this->get_notifications($pressbar);
+            $notifications = $this->get_notifications($pressbar, $device);
             foreach ($notifications as $key => $settings) {
                 $_nx_id            = $settings['nx_id'];
                 $elementor_post_id = isset($settings['elementor_id']) ? $settings['elementor_id'] : '';
