@@ -180,10 +180,54 @@
                                         &.nx-bar-tablet {
                                             max-width: 542px;
                                             margin: 0 auto;
+                                            
+                                            .nx-bar-inner {
+                                                justify-content: center;
+                                                align-items: center;
+                                                .nx-bar-content {
+                                                    min-width: auto;
+                                                }
+                                                .nx-bar-content-wrap {
+                                                    flex-direction: column;
+                                                    gap: 8px;
+                                                    .nx-countdown {
+                                                        margin-bottom: 0;
+                                                        .nx-time-section {
+                                                            width: 44px;
+                                                            margin: 0 2px;
+                                                            span {
+                                                                font-size: 12px;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         }
                                         &.nx-bar-phone {
                                             max-width: 384px;
                                             margin: 0 auto;
+                                            
+                                            .nx-bar-inner {
+                                                justify-content: center;
+                                                align-items: center;
+                                                .nx-bar-content {
+                                                    min-width: auto;
+                                                }
+                                                .nx-bar-content-wrap {
+                                                    flex-direction: column;
+                                                    gap: 8px;
+                                                    .nx-countdown {
+                                                        margin-bottom: 0;
+                                                        .nx-time-section {
+                                                            width: 44px;
+                                                            margin: 0 2px;
+                                                            span {
+                                                                font-size: 12px;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
