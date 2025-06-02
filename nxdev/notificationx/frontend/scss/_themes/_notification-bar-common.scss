@@ -214,11 +214,21 @@
         }
     }
 
+     // TWO
+    &.press_bar_theme-one {
+        .notificationx-link-wrapper {
+            color: #fff;
+            background-color: #262626;
+        }
+    }
+
     // TWO
     &.press_bar_theme-two {
-        background-color: #5704a2;
         color: #fff;
-
+        background-color: #5704a2;
+        .notificationx-link-wrapper {
+            background-color:#9b2aff;
+        }
         .nx-bar-inner {
             .notificationx-close {
                 fill: #fff;

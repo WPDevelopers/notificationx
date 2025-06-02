@@ -68,8 +68,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                     const expires = new Date();
                     expires.setDate(expires.getDate() + (settings?.time_reset ? 1 : 365));
                     cookie.save(`pressbar-evergreen-random-expire-${settings.nx_id}${countRand}`, timeBetween, { path: '/', expires })
-                }
-
+                }                
                 expiredTime = parseInt(startedAt) + timeBetween * 60 * 60 * 1000;
             }
             else {

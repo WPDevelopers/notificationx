@@ -8,7 +8,7 @@ const HelpReviewSection = ({ props, context }) => {
         <div className='nx-admin-help-content-wrapper'>
             <div className='nx-admin-help-content'>
                 <h4>{ __('Need Help?', 'notificationx') }</h4>
-                <p>{ __('If you encounter issues or need assistance, we\'re here to help.', 'notificationx') }</p>
+                <p>{ __('Our dedicated support team is here to assist you with all your inquiries, anytime you need.', 'notificationx') }</p>
                 <button>
                     <img src={ assetsURL('/images/new-img/contact-us.svg') } alt="" />
                     { __('Contact Us', 'notificationx') }
@@ -21,8 +21,8 @@ const HelpReviewSection = ({ props, context }) => {
         <div className='nx-admin-review-content-wrapper'>
             <div className='nx-admin-help-content-wrapper'>
                 <div className='nx-admin-help-content'>
-                    <h4>{ __('Show Your Love', 'notificationx') }</h4>
-                    <p>{ __('We love having you in the NotificationX family. We are making it more.', 'notificationx') } </p>
+                    <h4>{ __('Love NotificationX?', 'notificationx') }</h4>
+                    <p>{ __('Your quick feedback helps us grow and build more awesome features for you!', 'notificationx') } </p>
                     <button>
                         <img src={ assetsURL('/images/new-img/message.svg') } alt="" />
                         { __('Leave a Review', 'notificationx') }

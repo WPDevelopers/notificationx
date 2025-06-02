@@ -67,11 +67,11 @@ export const NotificationType = [
     },
     {
         'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/review_notification.gif',
-        'title'      : __('Review Notification', 'notificationx'),
-        'type'       : 'reviews',
+        'title'      : __('Cookie Notice', 'notificationx'),
+        'type'       : 'gdpr',
         'button_text': __('Create Now', 'notificationx'),
-        'desc'       : __('Showcase attractive customer review notification popups to build credibility.', 'notificationx'),
-        'source'     : 'wp_reviews',
+        'desc'       : __('Inform users and stay privacy compliant quickly and effortlessly.', 'notificationx'),
+        'source'     : 'gdpr',
     },
     {
         'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/notification_bar.gif',

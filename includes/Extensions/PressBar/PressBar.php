@@ -66,12 +66,15 @@ class PressBar extends Extension {
 
         $this->themes = [
             'theme-one'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
-                'column'  => "12",
+                'source'        => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
+                'column'        => "12",
             ],
             'theme-two'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-two.jpg',
                 'column'  => "12",
+                'defaults' => [
+                    'enable_countdown' => false,
+                ],
             ],
             'theme-three' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-three.jpg',
@@ -80,11 +83,12 @@ class PressBar extends Extension {
         ];
         $this->bar_themes = array(
             'theme-one'   => [
-                'label'  => 'theme-one',
-                'value'  => 'theme-one',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-elementor/theme-one.jpg',
-                'column' => '12',
-                "title"  => "Nx Theme One",
+                'label'         => 'theme-one',
+                'value'         => 'theme-one',
+                'icon'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-elementor/theme-one.jpg',
+                'column'        => '12',
+                "title"         => "Nx Theme One",
+                'enable_coupon' => true,
             ],
             'theme-two'   => [
                 'label'  => 'theme-two',
@@ -1076,7 +1080,7 @@ class PressBar extends Extension {
             );
         }
         $fields['targeting']['fields']['targeting_user_roles'] = [
-            'label'    => __('User Role Targeting', 'notificationx'),
+            'label'    => __('Set Target Audience', 'notificationx'),
             'name'     => 'targeting_user_roles',
             'type'     => 'select',
             'priority' => 20,
@@ -1438,6 +1442,7 @@ class PressBar extends Extension {
                     'type'        => 'editor',
                     'label'       => __('Static Text', 'notificationx'),
                     'placeholder' => __('Write something here...', 'notificationx'),
+                    'default'     => __('You should setup NX Bar properly', 'notificationx'),
                     'priority'    => 7,
                     'rules'       => Rules::logicalRule([
                         Rules::is('bar_content_type', 'static'),
@@ -1489,6 +1494,7 @@ class PressBar extends Extension {
             'type'     => 'text',
             'label'    => __('Button Text', 'notificationx'),
             'priority' => 60,
+            'default'  => __('Get Offer', 'notificationx'),
             'rules' => Rules::logicalRule([
                 // Rules::isOfType('elementor_id', 'number', true),
                 Rules::is('source', $this->id),
@@ -1498,6 +1504,7 @@ class PressBar extends Extension {
             'name'     => 'button_url',
             'type'     => 'text',
             'label'    => __('Button URL', 'notificationx'),
+            'default'  => '#',
             'priority' => 70,
             'rules' => Rules::logicalRule([
                 // Rules::isOfType('elementor_id', 'number', true),
@@ -1551,7 +1558,7 @@ class PressBar extends Extension {
                 ),
                 'coupon_text' => array(
                     'name'     => 'coupon_text',
-                    'label'    => __('Coupon Text', 'notificationx'),
+                    'label'    => __('Button Text', 'notificationx'),
                     'type'     => 'text',
                     'default'  => __('SAVE20', 'notificationx'),
                     'priority' => 10,
@@ -1635,6 +1642,7 @@ class PressBar extends Extension {
                     'name'  => 'enable_countdown',
                     'label' => __('Enable Countdown', 'notificationx'),
                     'type'  => 'checkbox',
+                    'default' => true,
                 ),
                 'evergreen_timer'        => array(
                     'name'        => 'evergreen_timer',
@@ -1649,9 +1657,10 @@ class PressBar extends Extension {
                     'name'  => 'countdown_text',
                     'label' => __('Countdown Text', 'notificationx'),
                     'type'  => 'text',
+                    'default' => __('Ending in', 'notificationx'),
                     'rules'  => Rules::logicalRule([
-                        Rules::is('elementor_id', false),
-                        Rules::is('gutenberg_id', false),
+                        // Rules::is('elementor_id', false),
+                        // Rules::is('gutenberg_id', false),
                         Rules::is('enable_countdown', true),
                     ]),
                 ),
@@ -1679,7 +1688,7 @@ class PressBar extends Extension {
                     'label' => __('End Date', 'notificationx'),
                     'type'  => 'date',
                     // @todo Something
-                    // 'default' => date('Y-m-d H:i:s', time() + 7 * 24 * 60 * 60),
+                    'default' => date('Y-m-d H:i:s', time() + 7 * 24 * 60 * 60),
                     'rules' => ["and", ['is', 'evergreen_timer', false], ['is', 'enable_countdown', true]],
                 ),
                 'time_randomize'         => array(
@@ -1715,7 +1724,7 @@ class PressBar extends Extension {
                     'label'       => __('Time Rotation', 'notificationx'),
                     'type'        => 'number',
                     'description' => 'hours',
-                    // 'default'     => 8,
+                    'default'     => 315,
                     'rules'       => ["and", ['is', 'evergreen_timer', true], ['is', 'enable_countdown', true], ['is', 'time_randomize', false]]
                 ),
                 'time_reset'             => array(
