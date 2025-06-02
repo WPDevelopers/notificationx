@@ -521,7 +521,7 @@
                     margin: 0;
                     padding-bottom: 16px;
                 }
-                button {
+                a {
                     font-size: 12px;
                     font-weight: 500;
                     line-height: 1.1em;
@@ -530,9 +530,11 @@
                     background: #F7F8FA;
                     border: 1px solid #E8EAED;
                     border-radius: 6px;
-                    display: flex;
-                    align-items: center;
-                    gap: 4px;
+                    .nx-btn-content {
+                        display: flex;
+                        align-items: center;
+                        gap: 4px;
+                    }
                 }
             }
             .nx-admin-help-content-banner {

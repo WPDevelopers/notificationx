@@ -697,8 +697,8 @@ class FrontEnd {
                 $width      = 100;
                 $height     = 100;
                 if( !empty( $image_size[0] ) && !empty( $image_size[1] ) ) {
-                    $width  = $image_data[0];
-                    $height = $image_data[1];
+                    $width  = $image_size[0];
+                    $height = $image_size[1];
                 }
                 $image             = wp_get_attachment_image_src($settings['image_url']['id'], [$width, $height], true);
                 $image_data['url'] = $image[0];

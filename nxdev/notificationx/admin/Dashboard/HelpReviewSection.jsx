@@ -9,10 +9,12 @@ const HelpReviewSection = ({ props, context }) => {
             <div className='nx-admin-help-content'>
                 <h4>{ __('Need Help?', 'notificationx') }</h4>
                 <p>{ __('Our dedicated support team is here to assist you with all your inquiries, anytime you need.', 'notificationx') }</p>
-                <button>
-                    <img src={ assetsURL('/images/new-img/contact-us.svg') } alt="" />
-                    { __('Contact Us', 'notificationx') }
-                </button>
+                <a href="https://notificationx.com/support/?support=chat" target="_blank">
+                    <div className='nx-btn-content'>
+                        <img src={ assetsURL('/images/new-img/contact-us.svg') } alt="" />
+                        { __('Contact Us', 'notificationx') }
+                    </div>
+                </a>
             </div>
             <div className='nx-admin-help-content-banner'>
                 <img src={ assetsURL('/images/new-img/need-help-banner.png') } alt="icon" />
@@ -23,10 +25,12 @@ const HelpReviewSection = ({ props, context }) => {
                 <div className='nx-admin-help-content'>
                     <h4>{ __('Love NotificationX?', 'notificationx') }</h4>
                     <p>{ __('Your quick feedback helps us grow and build more awesome features for you!', 'notificationx') } </p>
-                    <button>
-                        <img src={ assetsURL('/images/new-img/message.svg') } alt="" />
-                        { __('Leave a Review', 'notificationx') }
-                    </button>
+                    <a href="https://wpdeveloper.com/review-notificationx" target="_blank">
+                        <div className='nx-btn-content'>
+                            <img src={ assetsURL('/images/new-img/message.svg') } alt="" />
+                            { __('Leave a Review', 'notificationx') }
+                        </div>
+                    </a>
                 </div>
                 <div className='nx-admin-help-content-banner'>
                     <img src={ assetsURL('/images/new-img/review-banner.png') } alt="icon" />
