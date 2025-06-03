@@ -31,6 +31,11 @@ const calculateCountdown = (currentTime, expiredTime) => {
     };
 };
 
+function toBoolean(str) {
+    if( str === true ) return true;
+    return str === "1";
+}
+
 const resolveLinkInfo = (settings, data) => {
     let link = settings?.button_url;
     let link_text = settings?.button_text;
@@ -139,9 +144,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                 transition: transitionValue,
             });
 
-            Object.assign(closeButtonCSS, {
-                fill: settings.bar_close_color,
-            });
+            Object.assign(closeButtonCSS);
         }
 
         document.body.classList.add("has-nx-bar");
@@ -168,8 +171,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const slidingContent = settings?.sliding_content || [];
-    const direction = 'right' // fallback to 'left'
-    // const direction = settings?.sliding_direction || 'left'; // fallback to 'left'
+    const direction = settings?.bar_transition_style == 'slide_right' ? 'right' : 'left';
     const slideInterval = settings?.sliding_interval || 3000; // default 3s
     const transitionSpeed = settings?.bar_transition_speed || 500; // default 500ms
 
@@ -197,6 +199,25 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
 
     const { link, link_text } = resolveLinkInfo(settings, data);    
 
+     // Close icon position
+    let positionPosition;
+    if( settings?.bar_close_position == 'left' ) {
+         positionPosition  = {
+            left: settings?.bar_position_left_left ? settings?.bar_position_left_left + 'px': '15px',
+            top : settings?.bar_position_left_top ? settings?.bar_position_left_top + 'px'  : '15px',
+        }
+    }else{
+        positionPosition  = {
+            top  : settings?.bar_position_right_top ? settings?.bar_position_right_top + 'px'    : '15px',
+            right: settings?.bar_position_right_right ? settings?.bar_position_right_right + 'px': '15px',
+        }
+    }
+
+    const updateStyle = {
+        ...styles.counterCSS,
+        ...positionPosition,
+    };    
+    
     return (
         <Fragment>
             <div className="nx-bar-responsive">
@@ -240,7 +261,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
             >
                 <div className="nx-bar-inner">
                     <div className="nx-bar-content-wrap">
-                        {settings?.enable_countdown && (
+                        { toBoolean(settings?.enable_countdown) && (
                             <div className="nx-countdown-wrapper">
                                 {!timeConfig.expired && settings?.countdown_text && (
                                     <div className="nx-countdown-text">
@@ -316,6 +337,15 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                                 <BarCoupon settings={settings} />
                             )}
                         </div>
+                    </div>
+                     <div className="notificationx-close" style={updateStyle} >
+                        <svg fill={settings?.bar_close_color} width={ settings?.bar_close_button_size ? settings.bar_close_button_size : '10px' } height={settings?.bar_close_button_size ? settings.bar_close_button_size : '10px'} viewBox="0 0 48 48">
+                            <g stroke="none">
+                                <g>
+                                    <path d="M28.228 23.986L47.092 5.122a2.998 2.998 0 000-4.242 2.998 2.998 0 00-4.242 0L23.986 19.744 5.121.88a2.998 2.998 0 00-4.242 0 2.998 2.998 0 000 4.242l18.865 18.864L.879 42.85a2.998 2.998 0 104.242 4.241l18.865-18.864L42.85 47.091a2.991 2.991 0 002.121.879 2.998 2.998 0 002.121-5.121L28.228 23.986z"></path>
+                                </g>
+                            </g>
+                        </svg>
                     </div>
                 </div>
             </div>

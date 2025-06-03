@@ -24,15 +24,15 @@ function Close({id, config, dispatch, style, closed}) {
 
     // Close icon position
     let positionPosition;
-    if( config?.bar_close_position == 'right' ) {
+    if( config?.bar_close_position == 'left' ) {
         positionPosition  = {
-            top  : config?.bar_position_right_top ? config?.bar_position_right_top + 'px'      : '15px',
-            right: config?.bar_position_right_right ? config?.bar_position_right_right + 'px': '15px',
+            left: config?.bar_position_left_left ? config?.bar_position_left_left + 'px': '15px',
+            top : config?.bar_position_left_top ? config?.bar_position_left_top + 'px'  : '15px',
         }
     }else{
-        positionPosition  = {
-            left : config?.bar_position_left_left ? config?.bar_position_left_left + 'px'    : '15px',
-            top  : config?.bar_position_left_top ? config?.bar_position_left_top + 'px'                : '15px',
+       positionPosition  = {
+            top  : config?.bar_position_right_top ? config?.bar_position_right_top + 'px'    : '15px',
+            right: config?.bar_position_right_right ? config?.bar_position_right_right + 'px': '15px',
         }
     }
 

@@ -272,8 +272,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const slidingContent = settings?.sliding_content || [];
-    const direction = 'right' // fallback to 'left'
-    // const direction = settings?.sliding_direction || 'left'; // fallback to 'left'
+    const direction = settings?.bar_transition_style == 'slide_right' ? 'right' : 'left';    
     const slideInterval = settings?.sliding_interval || 3000; // default 3s
     const transitionSpeed = settings?.bar_transition_speed || 500; // default 500ms
 

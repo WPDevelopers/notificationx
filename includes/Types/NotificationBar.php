@@ -159,7 +159,7 @@ class NotificationBar extends Types {
         }
 
         // 3. Country Targeting
-        if (is_array($settings['country_targeting']) && !in_array('all', $settings['country_targeting'])) {
+        if ( !empty($settings['country_targeting']) && is_array($settings['country_targeting']) && !in_array('all', $settings['country_targeting'])) {
             $visitor_country = Helper::nx_get_visitor_country_code();
             if (empty($visitor_country)) {
                 return true;

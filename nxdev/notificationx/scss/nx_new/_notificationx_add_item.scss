@@ -688,8 +688,8 @@
     }
 }
 
-.nx-quick-builder-wrapper .press_bar #design_tab #themes_section {
-    display: block;
+.nx-quick-builder-wrapper .press_bar #design_tab #themes_section, .nx-admin-content .press_bar #design_tab #themes_section {
+    display: none;
 }
 
 #design_tab {

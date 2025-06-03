@@ -68,17 +68,23 @@ class PressBar extends Extension {
             'theme-one'   => [
                 'source'        => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
                 'column'        => "12",
+                'defaults' => [
+                    'enable_countdown' => 1,
+                ],
             ],
             'theme-two'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-two.jpg',
                 'column'  => "12",
                 'defaults' => [
-                    'enable_countdown' => false,
+                    'enable_countdown' => 0,
                 ],
             ],
             'theme-three' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-three.jpg',
                 'column'  => "12",
+                'defaults' => [
+                    'enable_countdown' => 1,
+                ],
             ],
         ];
         $this->bar_themes = array(
@@ -1013,6 +1019,7 @@ class PressBar extends Extension {
                 'scroll_trigger_value' => [
                     'name'    => 'scroll_trigger_value',
                     'type'    => 'number',
+                    'min'     => 0,
                     'default' => 100,
                 ],
                 'scroll_trigger_mode' => [
@@ -1519,7 +1526,8 @@ class PressBar extends Extension {
             'description' => 'ms',
             'priority'    => 100,
             'help'        => __('Transition speed in milliseconds', 'notificationx'),
-            'rules' => Rules::logicalRule([
+            'rules'       => Rules::logicalRule([
+                Rules::is('bar_content_type', 'sliding'),
                 Rules::is('source', $this->id),
             ]),
         ];
@@ -1533,7 +1541,8 @@ class PressBar extends Extension {
                 'slide_right' => __('Slide in Right', 'notificationx'),
                 'slide_left'  => __('Slide in Left', 'notificationx'),
             ]),
-            'rules' => Rules::logicalRule([
+            'rules'       => Rules::logicalRule([
+                Rules::is('bar_content_type', 'sliding'),
                 Rules::is('source', $this->id),
             ]),
         ];

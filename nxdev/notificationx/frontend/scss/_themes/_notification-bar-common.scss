@@ -163,6 +163,9 @@
             &:not(:last-child) {
                 .nx-inner-content-wrapper {
                     margin-right: 40px;
+                    @media only screen and (max-width: 786px) {
+                        margin-right: 0;
+                    }
                 }
             }
         }
