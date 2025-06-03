@@ -214,10 +214,10 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
     }
 
     const updateStyle = {
-        ...styles.counterCSS,
+        ...styles.closeButtonCSS,
         ...positionPosition,
     };    
-    
+
     return (
         <Fragment>
             <div className="nx-bar-responsive">

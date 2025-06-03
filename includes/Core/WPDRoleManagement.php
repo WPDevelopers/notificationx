@@ -47,27 +47,30 @@ class WPDRoleManagement {
      * @param array $cap_roles
      * @return void
      */
-    public function add_role_caps($cap_roles){
+    public function add_role_caps($cap_roles) {
+        // Try global first
         global $wp_roles;
-        $all_roles = $wp_roles->role_objects;
 
-        if(is_array($all_roles)){
-            foreach($all_roles as $role_name => $role){
-                foreach ($cap_roles as $cap => $_role) {
-                    if($role_name == 'administrator'){
+        // Fallback if not set
+        if ( ! isset( $wp_roles ) || ! is_object( $wp_roles ) ) {
+            $wp_roles = wp_roles(); // Safe fallback
+        }
+
+        if ( isset($wp_roles->role_objects) && is_array($wp_roles->role_objects) ) {
+            foreach ( $wp_roles->role_objects as $role_name => $role ) {
+                foreach ( $cap_roles as $cap => $_role ) {
+                    if ( $role_name === 'administrator' ) {
                         $role->add_cap($cap);
-                    }
-                    elseif(in_array($role_name, $_role['roles'])){
+                    } elseif ( in_array( $role_name, $_role['roles'], true ) ) {
                         $role->add_cap($cap);
-                    }
-                    else{
+                    } else {
                         $role->remove_cap($cap);
                     }
                 }
             }
         }
-
     }
+
 
     /**
      * Enable caps based on passed cap_roles.

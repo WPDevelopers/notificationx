@@ -166,7 +166,7 @@ class NotificationBar extends Types {
             }
             // If we couldn't determine the country or it's not in the target list
             $countryValues = array_column( $settings['country_targeting'], 'value' );
-            if ($visitor_country !== 'all' && !in_array(strtoupper($visitor_country), $countryValues)) {
+            if ( $countryValues != 'all' && $visitor_country !== 'all' && !in_array(strtoupper($visitor_country), $countryValues)) {
                 return true;
             }
         }

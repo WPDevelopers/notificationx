@@ -66,7 +66,7 @@ export const NotificationType = [
         'source'     : 'woocommerce',
     },
     {
-        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/review_notification.gif',
+        'img'        : 'https://notificationx.com/wp-content/uploads/2025/06/GDPR.gif',
         'title'      : __('Cookie Notice', 'notificationx'),
         'type'       : 'gdpr',
         'button_text': __('Create Now', 'notificationx'),
