@@ -161,13 +161,18 @@ class NotificationBar extends Types {
         // 3. Country Targeting
         if ( !empty($settings['country_targeting']) && is_array($settings['country_targeting']) && !in_array('all', $settings['country_targeting'])) {
             $visitor_country = Helper::nx_get_visitor_country_code();
+            // If we couldn't determine the country or it's not in the target list
+           $countryValues       = array_column( $settings['country_targeting'], 'value' );
+           $normalizedCountries = array_map('strtoupper', $countryValues);
+           $visitor_country     = strtoupper($visitor_country);
             if (empty($visitor_country)) {
                 return true;
             }
-            // If we couldn't determine the country or it's not in the target list
-            $countryValues = array_column( $settings['country_targeting'], 'value' );
-            if ( $countryValues != 'all' && $visitor_country !== 'all' && !in_array(strtoupper($visitor_country), $countryValues)) {
-                return true;
+            // Only apply country filtering if 'ALL' is not in the list
+            if (!in_array('ALL', $normalizedCountries)) {
+                if (empty($visitor_country) || !in_array($visitor_country, $normalizedCountries)) {
+                    return true;
+                }
             }
         }
 
