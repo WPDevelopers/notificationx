@@ -7,7 +7,7 @@ import AddNew from '../icons/AddNew';
 
 
 const SimpleRepeater = (props) => {
-    const { name: fieldName, value: fieldValue, button, _fields } = props;
+    const { name: fieldName, value: fieldValue, button, _fields, _default } = props;
     const builderContext = useBuilderContext();
     const [localMemoizedValue, setLocalMemoizedValue] = useState(builderContext.values?.[fieldName])
 
@@ -93,6 +93,18 @@ const SimpleRepeater = (props) => {
             builderContext.setFieldValue(fieldName, updated); // sync with form context
         }
     }, []);
+
+     useEffect( () => {
+        if( _default ) {
+            const updated = _default.map((item, i, arr) => ({
+                ...item,
+                index: v4(),
+                isCollapsed: true, // last item = false, others = true
+            }));
+            setLocalMemoizedValue(updated);
+            builderContext.setFieldValue(fieldName, updated);
+        }
+    }, [_default] )
 
     return (
         <div className="wprf-repeater-control">

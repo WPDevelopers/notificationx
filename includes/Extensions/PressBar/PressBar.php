@@ -1464,6 +1464,14 @@ class PressBar extends Extension {
                     'button'      => array(
                         'label'    => __('Add New', 'notificationx'),
                     ),
+                    '_default'     => array(
+                        array(
+                            'title' => __('You should setup NX Bar properly', 'notificationx'),
+                        ),
+                        array(
+                            'title' => __('to increase customer engagement & drive conversions', 'notificationx'),
+                        ),
+                    ),
                     '_fields'      => array(
                         array(
                             'name'     => 'title',

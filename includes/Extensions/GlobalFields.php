@@ -97,7 +97,7 @@ class GlobalFields {
                                     // 'label'   => "Notification Type",
                                     'name'    => "type",
                                     'type'    => "radio-card",
-                                    'default' => "comments",
+                                    'default' => "notification_bar",
                                     'style'   => [
                                         'label' => [
                                             'position' => 'top'
