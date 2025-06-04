@@ -298,10 +298,10 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                                         <div
                                             key={index}
                                             className={classNames("nx-bar-slide", {
-                                                'active': isActive,
-                                                'previous': isPrevious,
-                                                'left-exit': isPrevious,
-                                                'right-exit': isPrevious
+                                                'active'     : slidingContent?.length == 1 ? true : isActive,
+                                                'previous'   :slidingContent?.length  == 1 ? false : isPrevious,
+                                                'left-exit'  : slidingContent?.length == 1 ? false : isPrevious,
+                                                'right-exit' : slidingContent?.length  == 1 ? false : isPrevious,
                                             })}
                                             style={{
                                                 transition: `all ${transitionSpeed}ms ease-in-out`
