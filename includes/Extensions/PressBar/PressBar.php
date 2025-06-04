@@ -1437,7 +1437,7 @@ class PressBar extends Extension {
                             // 'icon'  => 'dashicons-align-left',
                         ),
                         'sliding' => array(
-                            'label' => __('Sliding Text', 'notificationx'),
+                            'label' => __('Slide Multiple Text', 'notificationx'),
                             'value' => 'sliding',
                             'is_pro' => true,
                             // 'icon'  => 'dashicons-align-right',
