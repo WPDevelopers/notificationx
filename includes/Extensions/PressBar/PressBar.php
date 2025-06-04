@@ -1466,10 +1466,10 @@ class PressBar extends Extension {
                     ),
                     '_default'     => array(
                         array(
-                            'title' => __('You should setup NX Bar properly', 'notificationx'),
+                            'title' => __('🚀 Supercharge Your Marketing Forever!', 'notificationx'),
                         ),
                         array(
-                            'title' => __('to increase customer engagement & drive conversions', 'notificationx'),
+                            'title' => __('Get <strong>Lifetime Access to NotificationX</strong> for just <strong>$299</strong>', 'notificationx'),
                         ),
                     ),
                     '_fields'      => array(
