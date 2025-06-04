@@ -28,6 +28,13 @@ const SimpleRepeaterField = (props) => {
     }, [isCollapsed])
 
     useEffect(() => {
+        setTimeout(() => {
+            if ( index == 0 ) {
+                setIsCollapsed(false);
+            }
+        }, 0);
+    }, []);
+    useEffect(() => {
         setIsCollapsed(props.isCollapsed);
     }, [props.isCollapsed]);
 
