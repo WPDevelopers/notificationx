@@ -209,7 +209,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.1.0 - 03/06/2025 =
+= 3.1.0 - 04/06/2025 =
 Improved: Revamped Notification Bar.
 Fixed: PHP warning related to undefined array key.
 Improved: Device-wise preview for Notification Bar was not working.
