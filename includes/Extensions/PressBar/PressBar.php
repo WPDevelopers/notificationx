@@ -1053,6 +1053,8 @@ class PressBar extends Extension {
         $fields['targeting'] = [
             'label'    => __('Targeting', 'notificationx'),
             'type'     => 'section',
+            'id'       => 'targeting',
+            'classes'  => 'nx-targeting',
             'priority' => 100,
             'fields'   => []
         ];
