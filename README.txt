@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, notification ba
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 5.6
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -126,7 +126,7 @@ https://youtu.be/lWLY72HrqDM?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
 ## 🏆 FEATURED IN TOP PUBLICATIONS ##
 
-https://www.youtube.com/watch?v=75vntaHp9Y4
+https://youtu.be/ZpnXpb6QD04?si=nlVY2IBSWD5TNdE2
 
 [WPMayor](https://wpmayor.com/notificationx-review-add-fomo-inducing-notifications-to-wordpress/):
 > 'NotificationX is a freemium WordPress plugin that helps bring those two marketing strategies to your WordPress site, with eye-catching notification alerts for new sales, comments, reviews, and more. The designs are modern and nice-looking right out of the box, and I like how it supports different notification types, which makes it work for an eCommerce store, blog, WordPress theme/plugin shop, and more.'
@@ -208,6 +208,11 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 3.1.1 - 11/06/2025 =
+Fixed: Background color issues for Notifications.
+Fixed: Notification cross button wasn’t working properly.
+Few minor bug fixes and improvements.
 
 = 3.1.0 - 04/06/2025 =
 Improved: Revamped Notification Bar.

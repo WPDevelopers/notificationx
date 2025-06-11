@@ -253,6 +253,8 @@
         left: 0;
         right: 0;
         bottom: 0;
+    }
+    &:not(.button-link) .notificationx-link{
         background-color: transparent !important;
     }
 
@@ -263,6 +265,11 @@
     @import "./theme-eight";
     @import "./theme-ten";
     @import "./theme-eleven";
+}
+.notification-res-item {
+    &:not(.button-link) .notificationx-link{
+        background-color: transparent !important;
+    }
 }
 
 .notificationx-shortcode-wrapper {

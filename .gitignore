@@ -10,6 +10,7 @@ node_modules/
 .vscode/
 src/wp-react-form
 src/form-builder
+assets/public/local/
 package-lock.json
 yarn.lock
 nxbuild

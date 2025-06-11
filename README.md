@@ -100,7 +100,7 @@ https://www.youtube.com/watch?v=l7s9FXgzbEM
 
 ## 🏆 FEATURED IN TOP PUBLICATIONS ##
 
-https://www.youtube.com/watch?v=75vntaHp9Y4
+https://youtu.be/ZpnXpb6QD04?si=nlVY2IBSWD5TNdE2
 
 [WPMayor](https://wpmayor.com/notificationx-review-add-fomo-inducing-notifications-to-wordpress/):
 > 'NotificationX is a freemium WordPress plugin that helps bring those two marketing strategies to your WordPress site, with eye-catching notification alerts for new sales, comments, reviews, and more. The designs are modern and nice-looking right out of the box, and I like how it supports different notification types, which makes it work for an eCommerce store, blog, WordPress theme/plugin shop, and more.'

@@ -138,7 +138,12 @@
             .nx-bar-content {
                 display: inline-block;
                 margin-left: 15px;
-                min-width: 600px;
+                &.nx-bar-slide-wrapper {
+                    min-width: 500px;
+                    @media only screen and (max-width: 786px) {
+                        min-width: 100%;
+                    }
+                }
                 p {
                     margin-top: 0;
                     margin-bottom: 0;
@@ -301,10 +306,11 @@
                     .nx-bar-content {
                         margin-left: 0px;
                     }
-
-                    .nx-bar-button {
+                    .notificationx-link-wrapper {
                         margin-top: 10px;
-                        margin-left: 0 !important;
+                        .nx-bar-button {
+                            margin-left: 0 !important;
+                        }
                     }
                 }
             }
