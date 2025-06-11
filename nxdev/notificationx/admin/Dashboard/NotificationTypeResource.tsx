@@ -90,12 +90,12 @@ const NotificationTypeResource = ({ props, context }) => {
                             <img className='stories-bg' src={`https://notificationx.com/wp-content/uploads/2024/09/stories-2.png`} alt="stories img" />
                             <div className='nx-content-details'>
                                 <h5 dangerouslySetInnerHTML={{ __html: __('How Emilio Johann <br> Got 1.4M+ Views with NotificationX Sales Alert') }}></h5>
-                                <p>{ __('eCommerce & Entrepreneurship Consultant', 'notificationx') }</p>
+                                <p>{ __('eCom Founder Web & Ops AI Consultant', 'notificationx') }</p>
                                 <div className='nx-author-details'>
                                     <img src={ assetsURL('/images/new-img/author-1.png') } alt={ __("author img",'notificationx') } />
                                     <div>
                                         <h6>{ __('Emilio Johann', 'notificationx') }</h6>
-                                        <p>{ __('Florida, USA.', 'notificationx') }</p>
+                                        <p>{ __('San Diego, CA', 'notificationx') }</p>
                                     </div>
                                 </div>
                             </div>
