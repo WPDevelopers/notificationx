@@ -218,10 +218,7 @@ class PostType {
         if ( $is_enabled == $data['enabled'] ) {
             return true;
         }
-        if( empty( $data['source'] ) ) {
-            return false;
-        }
-        if ( $this->can_enable( $data['source'] ) || ( isset( $data['enabled'] ) && $data['enabled'] == false ) ) {
+        if ( ( isset( $data['source'] ) && $this->can_enable( $data['source'] ) ) || ( isset( $data['enabled'] ) && $data['enabled'] == false ) ) {
             $post = [
                 'enabled' => $data['enabled'],
                 // 'updated_at' => Helper::mysql_time(),
@@ -239,7 +236,7 @@ class PostType {
             $this->update_enabled_source( $data );
             return $this->update_post( $post, $data['nx_id'] );
         }
-        else if ( !$this->can_enable( $data['source'] ) ) {
+        else if ( isset( $data['source'] ) && !$this->can_enable( $data['source'] ) ) {
             return $this->can_enable( $data['source'], true );
         }
         return false;
