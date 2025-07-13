@@ -287,6 +287,21 @@
             }
         }
     }
+    &.press_bar_theme-four {
+        .nx-bar-inner {
+            .nx-bar-content-wrap {
+                .nx-countdown-wrapper {
+                    .nx-countdown {
+                        .nx-time-section {
+                            >span.nx-countdown-time-text {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     @media only screen and (max-width: 786px) {
         .nx-bar-inner {

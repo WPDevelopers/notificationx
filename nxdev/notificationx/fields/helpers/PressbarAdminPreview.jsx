@@ -8,6 +8,7 @@ import PreviewButton from './PreviewButton';
 import { ReactComponent as DesktopIcon } from "../../icons/responsive/desktop.svg";
 import { ReactComponent as TabletIcon } from "../../icons/responsive/tablet.svg";
 import { ReactComponent as MobileIcon } from "../../icons/responsive/mobile.svg";
+import { assetsURL } from "../../core/functions";
 
 
 const getUnixTime = (value) => moment.utc(value).unix() * 1000;
@@ -169,6 +170,8 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
         };
     }, [settings, position]);
 
+    const assets_url = assetsURL() + 'images/extensions/themes/';
+    const themes_has_bg = ['press_bar_theme-four','press_bar_theme-five'];    
     const [currentSlide, setCurrentSlide] = useState(0);
     const slidingContent = settings?.sliding_content || [];
     const direction = settings?.bar_transition_style == 'slide_right' ? 'right' : 'left';
@@ -216,7 +219,8 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
     const updateStyle = {
         ...styles.closeButtonCSS,
         ...positionPosition,
-    };    
+    };
+    
 
     return (
         <Fragment>
@@ -257,7 +261,14 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                         "nx-sticky-bar": settings?.sticky_bar,
                     }
                 )}
-                style={{...styles?.componentCSS}}
+                style={{
+                    ...styles?.componentCSS,
+                    ...(themes_has_bg.includes(settings.themes) && {
+                        backgroundImage : `url(${assets_url + settings.themes + '.webp'})`,
+                        backgroundSize  : 'cover',
+                        backgroundRepeat: 'no-repeat',
+                    }),
+                }}
             >
                 <div className="nx-bar-inner">
                     <div className="nx-bar-content-wrap">

@@ -86,6 +86,23 @@ class PressBar extends Extension {
                     'enable_countdown' => 1,
                 ],
             ],
+            'theme-four' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/press_bar_theme-four-preview.webp',
+                'column'  => "12",
+                'defaults' => [
+                    'enable_countdown'       => 1,
+                    'button_text'            => __('Grab Deal Now', 'notificationx'),
+                    'link_button_bg_color'   => '#ffffff',
+                    'link_button_text_color' => '#ffffff',
+                ],
+            ],
+            'theme-five' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/press_bar_theme-five-preview.webp',
+                'column'  => "12",
+                'defaults' => [
+                    'enable_countdown' => 1,
+                ],
+            ],
         ];
         $this->bar_themes = array(
             'theme-one'   => [
@@ -241,6 +258,7 @@ class PressBar extends Extension {
     public function init_fields() {
         parent::init_fields();
         add_filter('nx_design_tab_fields', [$this, 'design_tab_fields']);
+        add_filter('nx_design_tab_fields', [$this, 'design_tab_fields_for_button'], 1);
         add_filter('nx_customize_fields', [$this, 'customize_fields']);
         add_filter('nx_content_fields', [$this, 'content_fields'], 22);
         add_filter('nx_display_fields', [$this, 'hide_image_field']);
@@ -302,6 +320,25 @@ class PressBar extends Extension {
     public function _source_trigger($triggers) {
         $triggers[$this->id]['position'] = "@position:top";
         return $triggers;
+    }
+
+    /** 
+     * NX Bar design tab fields for button.
+     * 
+     * @param array $fields
+     * @return array
+     */
+    public function design_tab_fields_for_button($fields) {
+        $_fields = &$fields['advance_design_section']['fields'];
+        $_fields['link_button_design']['fields'] = [
+			"dummy_fields" => [
+                'label'   => __("Dummy Color", 'notificationx'),
+                'name'    => "dummy_fields",
+                'type'    => "colorpicker",
+                'default' => "#5612D6",
+            ],
+		];
+        return $fields;
     }
 
     /**
