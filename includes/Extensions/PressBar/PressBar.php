@@ -70,6 +70,10 @@ class PressBar extends Extension {
                 'column'        => "12",
                 'defaults' => [
                     'enable_countdown' => 1,
+                    'nx_bar_border_radius_left'   => 0,
+                    'nx_bar_border_radius_right'  => 0,
+                    'nx_bar_border_radius_top'    => 0,
+                    'nx_bar_border_radius_bottom' => 0,
                 ],
             ],
             'theme-two'   => [
@@ -77,6 +81,10 @@ class PressBar extends Extension {
                 'column'  => "12",
                 'defaults' => [
                     'enable_countdown' => 0,
+                    'nx_bar_border_radius_left'   => 0,
+                    'nx_bar_border_radius_right'  => 0,
+                    'nx_bar_border_radius_top'    => 0,
+                    'nx_bar_border_radius_bottom' => 0,
                 ],
             ],
             'theme-three' => [
@@ -84,23 +92,65 @@ class PressBar extends Extension {
                 'column'  => "12",
                 'defaults' => [
                     'enable_countdown' => 1,
+                    'nx_bar_border_radius_left'   => 0,
+                    'nx_bar_border_radius_right'  => 0,
+                    'nx_bar_border_radius_top'    => 0,
+                    'nx_bar_border_radius_bottom' => 0,
                 ],
             ],
             'theme-four' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/press_bar_theme-four-preview.webp',
                 'column'  => "12",
                 'defaults' => [
-                    'enable_countdown'       => 1,
-                    'button_text'            => __('Grab Deal Now', 'notificationx'),
-                    'link_button_bg_color'   => '#ffffff',
-                    'link_button_text_color' => '#ffffff',
+                    'enable_countdown'            => 1,
+                    'press_content'               => __('<b><span style="color:red;">4 Years</span> Of Seamlessly Creating NotificationX!</b>','notificationx'),
+                    'button_text'                 => __('Grab Deal Now', 'notificationx'),
+                    'link_button_bg_color'        => '#ffffff',
+                    'link_button_text_color'      => '#000',
+                    'nx_bar_border_radius_left'   => 16,
+                    'nx_bar_border_radius_right'  => 16,
+                    'nx_bar_border_radius_top'    => 16,
+                    'nx_bar_border_radius_bottom' => 16,
                 ],
             ],
             'theme-five' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/press_bar_theme-five-preview.webp',
                 'column'  => "12",
                 'defaults' => [
-                    'enable_countdown' => 1,
+                    'press_content'               => __('<b><span style="color:#fff;">🎁 Flash 30%</span> <span style="color:#ddd;">Of Seamlessly Creating NotificationX!</span></b>','notificationx'),
+                    'enable_countdown'            => 1,
+                    'nx_bar_border_radius_left'   => 16,
+                    'nx_bar_border_radius_right'  => 16,
+                    'nx_bar_border_radius_top'    => 16,
+                    'nx_bar_border_radius_bottom' => 16,
+                ],
+            ],
+            'theme-six' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/press_bar_theme-six-preview.webp',
+                'column'  => "12",
+                'defaults' => [
+                    'press_content'               => __('<b style="color:#0D062D;"><strong>🎁 Flash 30%</strong> Of Seamlessly Creating NotificationX!</b>','notificationx'),
+                    'enable_countdown'            => 1,
+                    'nx_bar_border_radius_left'   => 16,
+                    'nx_bar_border_radius_right'  => 16,
+                    'nx_bar_border_radius_top'    => 16,
+                    'nx_bar_border_radius_bottom' => 16,
+                    'button_text'                 => __('Shop Now', 'notificationx'),
+                    'bar_bg_color'                => 'linear-gradient(90deg, #94F9FC 0%, #E2DAFE 100%)',
+                ],
+            ],
+            'theme-seven' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/press_bar_theme-seven-preview.webp',
+                'column'  => "12",
+                'defaults' => [
+                    'press_content'               => __('<b style="color:#0D062D;"><strong>🎁 Flash 30%</strong> Of Seamlessly Creating NotificationX!</b>','notificationx'),
+                    'enable_countdown'            => 0,
+                    'nx_bar_border_radius_left'   => 0,
+                    'nx_bar_border_radius_right'  => 0,
+                    'nx_bar_border_radius_top'    => 0,
+                    'nx_bar_border_radius_bottom' => 0,
+                    'button_text'                 => __('Shop Now', 'notificationx'),
+                    'bar_bg_color'                => '#F4F1E8',
                 ],
             ],
         ];
@@ -258,7 +308,7 @@ class PressBar extends Extension {
     public function init_fields() {
         parent::init_fields();
         add_filter('nx_design_tab_fields', [$this, 'design_tab_fields']);
-        add_filter('nx_design_tab_fields', [$this, 'design_tab_fields_for_button'], 1);
+        add_filter('nx_design_tab_fields', [$this, 'design_tab_fields_for_button'], 20);
         add_filter('nx_customize_fields', [$this, 'customize_fields']);
         add_filter('nx_content_fields', [$this, 'content_fields'], 22);
         add_filter('nx_display_fields', [$this, 'hide_image_field']);
@@ -330,14 +380,44 @@ class PressBar extends Extension {
      */
     public function design_tab_fields_for_button($fields) {
         $_fields = &$fields['advance_design_section']['fields'];
-        $_fields['link_button_design']['fields'] = [
-			"dummy_fields" => [
-                'label'   => __("Dummy Color", 'notificationx'),
-                'name'    => "dummy_fields",
-                'type'    => "colorpicker",
-                'default' => "#5612D6",
+        $border_fields = [
+			 'nx_bar_border_radius' => [
+                'name'    => "nx_bar_border_radius",
+                'type'    => "section",
+                'label'   => __('Border Radius', 'notificationx'),
+                'fields' => [
+                    [
+                        'help'        => __('Left', 'notificationx'),
+                        'name'        => "nx_bar_border_radius_left",
+                        'type'        => "number",
+                        'default'     => '0',
+                        'description' => '',
+                    ],
+                    [
+                        'help'        => __('Right', 'notificationx'),
+                        'name'        => "nx_bar_border_radius_right",
+                        'type'        => "number",
+                        'default'     => '0',
+                        'description' => '',
+                    ],
+                    [
+                        'help'        => __('Top', 'notificationx'),
+                        'name'        => "nx_bar_border_radius_top",
+                        'type'        => "number",
+                        'default'     => '0',
+                        'description' => '',
+                    ],
+                    [
+                        'help'        => __('Bottom', 'notificationx'),
+                        'name'        => "nx_bar_border_radius_bottom",
+                        'type'        => "number",
+                        'default'     => '0',
+                        'description' => '',
+                    ],
+                ]
             ],
 		];
+        $_fields['link_button_design']['fields'] = array_merge($_fields['link_button_design']['fields'], $border_fields);
         return $fields;
     }
 
@@ -371,7 +451,7 @@ class PressBar extends Extension {
                 [
                     'label' => __('Background Color', 'notificationx'),
                     'name'  => "bar_bg_color",
-                    'type'  => "colorpicker",
+                    'type'  => "gradientpicker",
                 ],
                 [
                     'label' => __("Background Image", 'notificationx'),

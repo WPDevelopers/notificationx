@@ -12,6 +12,10 @@ const PreviewButton = ({config, children = null, href = null, data = {}, ...rest
         if(config.link_button_font_size) {
             styles.fontSize = config.link_button_font_size;
         }
+        // Add Border Radius
+        if(config.nx_bar_border_radius_left || config.nx_bar_border_radius_right || config.nx_bar_border_radius_top || config.nx_bar_border_radius_bottom) {
+            styles.borderRadius = `${config.nx_bar_border_radius_top || 0}px ${config.nx_bar_border_radius_right || 0}px ${config.nx_bar_border_radius_bottom || 0}px ${config.nx_bar_border_radius_left || 0}px`;
+        }
     }
 
     // Configure link

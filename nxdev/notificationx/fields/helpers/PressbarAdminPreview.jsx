@@ -126,7 +126,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
             const transitionValue = `all ${transitionSpeed}ms ${transitionStyle}`;
 
             Object.assign(componentCSS, {
-                backgroundColor: settings.bar_bg_color,
+                background: settings.bar_bg_color,
                 color: settings.bar_text_color,
                 fontSize: settings.bar_font_size,
                 backgroundImage: settings.bar_bg_image?.url ? `url('${settings.bar_bg_image.url}')` : undefined,
@@ -137,6 +137,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                 backgroundColor: settings.bar_btn_bg,
                 color: settings.bar_btn_text_color,
                 transition: transitionValue,
+                borderRadius: `${settings?.nx_bar_border_radius_top || 0}px ${settings?.nx_bar_border_radius_right || 0}px ${settings?.nx_bar_border_radius_bottom || 0}px ${settings?.nx_bar_border_radius_left || 0}px`,
             });
 
             Object.assign(counterCSS, {
@@ -220,6 +221,8 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
         ...styles.closeButtonCSS,
         ...positionPosition,
     };
+    
+    console.log('styles?.componentCSS',styles?.componentCSS);
     
 
     return (
