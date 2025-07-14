@@ -220,10 +220,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
     const updateStyle = {
         ...styles.closeButtonCSS,
         ...positionPosition,
-    };
-    
-    console.log('styles?.componentCSS',styles?.componentCSS);
-    
+    };    
 
     return (
         <Fragment>

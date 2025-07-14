@@ -69,33 +69,47 @@ class PressBar extends Extension {
                 'source'        => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
                 'column'        => "12",
                 'defaults' => [
-                    'enable_countdown' => 1,
+                    'enable_countdown'            => 1,
                     'nx_bar_border_radius_left'   => 0,
                     'nx_bar_border_radius_right'  => 0,
                     'nx_bar_border_radius_top'    => 0,
                     'nx_bar_border_radius_bottom' => 0,
+                    'button_icon'                 => 'none.svg',
+                    'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99!</b>','notificationx'),
+                    'button_text'                 => __('Get Offer', 'notificationx'),
                 ],
             ],
             'theme-two'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-two.jpg',
                 'column'  => "12",
                 'defaults' => [
-                    'enable_countdown' => 0,
+                    'enable_countdown'            => 0,
                     'nx_bar_border_radius_left'   => 0,
                     'nx_bar_border_radius_right'  => 0,
                     'nx_bar_border_radius_top'    => 0,
                     'nx_bar_border_radius_bottom' => 0,
+                    'button_icon'                 => 'none.svg',
+                    'bar_bg_color'                => '#5807a2',
+                    'link_button_bg_color'        => '#9f2bff',
+                    'link_button_text_color'      => '#ffffff',
+                    'press_content'               => __('<b>We\'re excited to introduce something new!</b>','notificationx'),
+                    'button_text'                 => __('Show Me!', 'notificationx'),
                 ],
             ],
             'theme-three' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-three.jpg',
                 'column'  => "12",
                 'defaults' => [
-                    'enable_countdown' => 1,
+                    'enable_countdown'            => 1,
                     'nx_bar_border_radius_left'   => 0,
                     'nx_bar_border_radius_right'  => 0,
                     'nx_bar_border_radius_top'    => 0,
                     'nx_bar_border_radius_bottom' => 0,
+                    'button_icon'                 => 'none.svg',
+                    'press_content'               => __('<b>We\'re excited to introduce something new!</b>','notificationx'),
+                    'button_text'                 => __('Get Offer!', 'notificationx'),
+                    'link_button_bg_color'        => '#6A4BFF',
+                    'link_button_text_color'      => '#ffffff',
                 ],
             ],
             'theme-four' => [
@@ -111,6 +125,7 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_right'  => 16,
                     'nx_bar_border_radius_top'    => 16,
                     'nx_bar_border_radius_bottom' => 16,
+                    'button_icon'                 => 'none.svg',
                 ],
             ],
             'theme-five' => [
@@ -123,6 +138,7 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_right'  => 16,
                     'nx_bar_border_radius_top'    => 16,
                     'nx_bar_border_radius_bottom' => 16,
+                    'button_icon'                 => 'none.svg',
                 ],
             ],
             'theme-six' => [
@@ -137,6 +153,7 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_bottom' => 16,
                     'button_text'                 => __('Shop Now', 'notificationx'),
                     'bar_bg_color'                => 'linear-gradient(90deg, #94F9FC 0%, #E2DAFE 100%)',
+                    'button_icon'                => 'shop_now.svg',
                 ],
             ],
             'theme-seven' => [
@@ -151,6 +168,7 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_bottom' => 0,
                     'button_text'                 => __('Shop Now', 'notificationx'),
                     'bar_bg_color'                => '#F4F1E8',
+                    'button_icon'                => 'shop_now.svg',
                 ],
             ],
         ];
@@ -1640,6 +1658,24 @@ class PressBar extends Extension {
             'label'    => __('Button URL', 'notificationx'),
             'default'  => '#',
             'priority' => 70,
+            'rules' => Rules::logicalRule([
+                // Rules::isOfType('elementor_id', 'number', true),
+                Rules::is('source', $this->id),
+            ]),
+        );
+        $fields['content']['fields']['button_icon'] = array(
+            'name'       => 'button_icon',
+            'type'       => 'icon-picker',
+            'label'      => __('Button Icon', 'notificationx'),
+            'priority'   => 75,
+            'iconPrefix' => NOTIFICATIONX_ADMIN_URL . 'images/icons/',
+            'options'    => [
+                [
+                    'icon'  => 'shop_now.svg',
+                    'label' => __('Shop Now', 'notificationx')
+                ],
+            ],
+            'description' => __('Select an icon to display prev to the button text', 'notificationx'),
             'rules' => Rules::logicalRule([
                 // Rules::isOfType('elementor_id', 'number', true),
                 Rules::is('source', $this->id),

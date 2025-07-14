@@ -8,6 +8,7 @@ import FlashingThemeFour from './FlashingThemeFour';
 import CSVUpload from './CSVUpload';
 import AdvancedRepeater from './AdvancedRepeater';
 import AdvancedCodeViewer from './AdvancedCodeViewer';
+import GradientPicker from './GradientPicker';
 import BetterRepeater from './BetterRepeater';
 import BetterToggle from './BetterToggle';
 import BetterText from './BetterText';
@@ -17,7 +18,7 @@ import TimePicker from './TimePicker';
 import DateRange from './DateRange';
 import SimpleRepeater from './SimpleRepeater';
 import BetterSelect from './BetterSelect';
-
+import IconPicker from "./IconPicker";
 
 const Field = (ret, type, props) => {
 
@@ -57,6 +58,10 @@ const Field = (ret, type, props) => {
             return <SimpleRepeater {...props} />;
         case "better-select":
             return <BetterSelect {...props} />;
+        case "gradientpicker":
+            return <GradientPicker {...props} />;
+        case "icon-picker":
+            return <IconPicker {...props} />;
         default:
             return ret;
     }
