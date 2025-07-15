@@ -11,6 +11,7 @@ import useNotificationContext from "./NotificationProvider";
 import nxHelper, { addParentSelectorToCSS } from "./functions";
 import { loadAssets } from "./LoadAssets";
 import BarCoupon from './helper/BarCoupon';
+import { themes_has_bg } from "../../core/functions";
 
 /**
  * @example
@@ -34,6 +35,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const [isTimeBetween,setIsTimeBetween] = useState(false);
     const [isLoading, setIsLoading] = useState(settings.is_gutenberg && settings.gutenberg_id);
 
+    
     const consentCallback = useCallback( (event) => {
         setClosed(true);
     }, []
@@ -112,9 +114,9 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         const componentCSS: any = {};
         const buttonCSS: any = {};
         const counterCSS: any = {};
-        const closeButtonCSS: any = {};
+        const closeButtonCSS: any = {};        
         if (settings?.advance_edit) {
-            if (settings?.bar_bg_color) componentCSS.backgroundColor = settings.bar_bg_color;
+            if (settings?.bar_bg_color) componentCSS.background = settings.bar_bg_color;            
             if (settings?.bar_bg_image?.url) {
                 componentCSS.backgroundImage = `url('${settings.bar_bg_image.url}')`;
             }
@@ -440,7 +442,15 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                     "nx-bar-has-gutenberg": settings?.gutenberg_id,
                 }
             )}
-            style={{...styles?.componentCSS, display: isLoading ? 'none' : 'block'}}
+            // style={{...styles?.componentCSS, display: isLoading ? 'none' : 'block'}}
+            style={{
+                ...styles?.componentCSS,
+                ...(themes_has_bg.includes(settings.themes) ?  {
+                    backgroundImage : settings.bar_bg_image?.url ? `url('${settings.bar_bg_image.url}')` : `url(${'' + settings.themes + '.webp'})`,
+                    backgroundSize  : 'cover',
+                    backgroundRepeat: 'no-repeat',
+                } : { background: settings.bar_bg_color, } ),
+            }}
         >
             <div className="nx-bar-inner">
                 {innerContent}

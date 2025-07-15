@@ -41,7 +41,7 @@ const GradientPicker = (props) => {
                 className="wprf-picker-display"
                 onClick={() => setShowPicker(!showPicker)}
                 style={{
-                    background: gradient || 'linear-gradient(to right, #ff0000, #0000ff)',
+                    background: gradient,
                     border: '1px solid #ccc',
                     width: '40px',
                     height: '40px',
