@@ -117,7 +117,7 @@ class PressBar extends Extension {
                 'column'  => "12",
                 'defaults' => [
                     'enable_countdown'            => 1,
-                    'press_content'               => __('<b><span style="color:red;">4 Years</span> Of Seamlessly Creating NotificationX!</b>','notificationx'),
+                    'press_content'               => __('<p><span>4 Years</span> Of Seamlessly Creating NotificationX!</p>','notificationx'),
                     'button_text'                 => __('Grab Deal Now', 'notificationx'),
                     'link_button_bg_color'        => '#ffffff',
                     'link_button_text_color'      => '#000',
@@ -132,7 +132,7 @@ class PressBar extends Extension {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/press_bar_theme-five-preview.webp',
                 'column'  => "12",
                 'defaults' => [
-                    'press_content'               => __('<b><span style="color:#fff;">🎁 Flash 30%</span> <span style="color:#ddd;">Of Seamlessly Creating NotificationX!</span></b>','notificationx'),
+                    'press_content'               => __('<p><span>🎁 Flash 30%</span> Sale is On Now! Don’t miss out on this opportunity</p>','notificationx'),
                     'enable_countdown'            => 1,
                     'nx_bar_border_radius_left'   => 16,
                     'nx_bar_border_radius_right'  => 16,
@@ -149,7 +149,7 @@ class PressBar extends Extension {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/press_bar_theme-six-preview.webp',
                 'column'  => "12",
                 'defaults' => [
-                    'press_content'               => __('<b style="color:#0D062D;"><strong>🎁 Flash 30%</strong> Of Seamlessly Creating NotificationX!</b>','notificationx'),
+                    'press_content'               => __('<p><span>🎁 Flash 30%</span> Sale is On Now! Don’t miss out on this opportunity</p>','notificationx'),
                     'enable_countdown'            => 1,
                     'nx_bar_border_radius_left'   => 16,
                     'nx_bar_border_radius_right'  => 16,
@@ -157,16 +157,14 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_bottom' => 16,
                     'button_text'                 => __('Shop Now', 'notificationx'),
                     'bar_bg_color'                => 'linear-gradient(90deg, #94F9FC 0%, #E2DAFE 100%)',
-                    'button_icon'                => 'shop_now_white.svg',
-                    'link_button_bg_color'        => '#280930',
-                    'link_button_text_color'      => '#ffffff',
+                    'button_icon'                => 'shop-icon.svg',
                 ],
             ],
             'theme-seven' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/press_bar_theme-seven-preview.webp',
                 'column'  => "12",
                 'defaults' => [
-                    'press_content'               => __('<b style="color:#0D062D;"><strong>4 Years</strong> Of Seamlessly Creating NotificationX!</b>','notificationx'),
+                    'press_content'               => __('<p><span>4 years</span> Of Seamlessly Creating NotificationX!</p>','notificationx'),
                     'enable_countdown'            => 0,
                     'nx_bar_border_radius_left'   => 0,
                     'nx_bar_border_radius_right'  => 0,
