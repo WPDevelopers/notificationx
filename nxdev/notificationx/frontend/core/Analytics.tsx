@@ -1,6 +1,7 @@
 import React, { CSSProperties, ReactNode, useEffect } from "react";
 import useNotificationContext from "./NotificationProvider";
 import nxHelper, { handleCloseNotification } from "./functions";
+import { getIconUrl } from "../../core/functions";
 
 export const analyticsOnClick = (event, restUrl, config, dispatch, credentials = true) => {
     const nx_id = config?.nx_id;
@@ -99,11 +100,19 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
           document.body.removeChild(script);
         };
     }, []);
-    
+    const iconUrl = getIconUrl(config.button_icon);
+
     if( config.source == 'press_bar' ) {
         return (
             <>
                 <div  className="notificationx-link-wrapper" style={styles}>
+                    { (config?.button_icon && config?.button_icon !== 'none') && (
+                        <img
+                            src={iconUrl}
+                            alt="Button Icon"
+                            style={{ width: 24, height: 24, marginRight: 8 }}
+                        />
+                    )}
                     <a
                         href={ link }
                         target={config?.link_open ? "_blank" : ""}

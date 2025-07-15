@@ -8,7 +8,7 @@ import PreviewButton from './PreviewButton';
 import { ReactComponent as DesktopIcon } from "../../icons/responsive/desktop.svg";
 import { ReactComponent as TabletIcon } from "../../icons/responsive/tablet.svg";
 import { ReactComponent as MobileIcon } from "../../icons/responsive/mobile.svg";
-import { assetsURL } from "../../core/functions";
+import { assetsURL, themes_has_bg } from "../../core/functions";
 
 
 const getUnixTime = (value) => moment.utc(value).unix() * 1000;
@@ -126,7 +126,6 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
             const transitionValue = `all ${transitionSpeed}ms ${transitionStyle}`;
 
             Object.assign(componentCSS, {
-                background: settings.bar_bg_color,
                 color: settings.bar_text_color,
                 fontSize: settings.bar_font_size,
                 backgroundImage: settings.bar_bg_image?.url ? `url('${settings.bar_bg_image.url}')` : undefined,
@@ -172,7 +171,6 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
     }, [settings, position]);
 
     const assets_url = assetsURL() + 'images/extensions/themes/';
-    const themes_has_bg = ['press_bar_theme-four','press_bar_theme-five'];    
     const [currentSlide, setCurrentSlide] = useState(0);
     const slidingContent = settings?.sliding_content || [];
     const direction = settings?.bar_transition_style == 'slide_right' ? 'right' : 'left';
@@ -263,11 +261,11 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                 )}
                 style={{
                     ...styles?.componentCSS,
-                    ...(themes_has_bg.includes(settings.themes) && {
-                        backgroundImage : `url(${assets_url + settings.themes + '.webp'})`,
+                    ...(themes_has_bg.includes(settings.themes) ?  {
+                        backgroundImage : settings.bar_bg_image?.url ? `url('${settings.bar_bg_image.url}')` : `url(${assets_url + settings.themes + '.webp'})`,
                         backgroundSize  : 'cover',
                         backgroundRepeat: 'no-repeat',
-                    }),
+                    } : { background: settings.bar_bg_color, } ),
                 }}
             >
                 <div className="nx-bar-inner">

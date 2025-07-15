@@ -430,4 +430,35 @@ export const updateGeneratedCSS = (cssTargetSelector) => {
     }
 };
 
+// Helper function to get the complete icon URL
+export const getIconUrl = (iconValue, iconPrefix = '') => {
+    if (!iconValue) return '';
+
+    // Check if it's already a complete URL (starts with http/https or data:)
+    if (/^(https?:\/\/|data:)/.test(iconValue)) {
+        return iconValue;
+    }
+
+    // Convert admin URL to public URL if needed
+    let prefix = iconPrefix;
+    if (prefix && prefix.includes('/wp-admin/')) {
+        // Convert admin URL to public URL
+        prefix = prefix.replace('/wp-admin/', '/wp-content/plugins/notificationx/assets/admin/');
+        prefix = prefix.replace('/images/icons/', 'images/icons/');
+    }
+
+    // Default to NotificationX public icons directory if no prefix
+    if (!prefix) {
+        const baseUrl = (typeof window !== 'undefined' && window.location)
+            ? window.location.origin
+            : '';
+        prefix = baseUrl + '/wp-content/plugins/notificationx/assets/admin/images/icons/';
+    }
+
+    return prefix + iconValue;
+};
+
+export const themes_has_bg = ['press_bar_theme-four','press_bar_theme-five'];
+
+
 export default nxHelper;
