@@ -554,7 +554,7 @@ const useNotificationX = (props: any) => {
         dispatch,
         getNxToRender,
         getTime,
-        assets: { free: props.config.assets, pro: props.config?.pro_assets },
+        assets: { free: props.config.assets, pro: props.config?.pro_assets, common : props.config?.common_assets },
         rest: props.config.rest,
     };
 };

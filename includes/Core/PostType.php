@@ -136,6 +136,7 @@ class PostType {
         $tabs['assets']                       = [
             'admin'  => NOTIFICATIONX_ADMIN_URL,
             'public' => NOTIFICATIONX_PUBLIC_URL,
+            'common' => NOTIFICATIONX_COMMON_URL,
         ];
 
         $tabs = apply_filters( 'nx_builder_configs', $tabs );

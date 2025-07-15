@@ -78,6 +78,8 @@ class PressBar extends Extension {
                     'bar_bg_color'                => '#dddddd',
                     'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99!</b>','notificationx'),
                     'button_text'                 => __('Get Offer', 'notificationx'),
+                    'link_button_bg_color'        => '#000',
+                    'link_button_text_color'      => '#ffffff',
                 ],
             ],
             'theme-two'   => [
@@ -93,6 +95,8 @@ class PressBar extends Extension {
                     'bar_bg_color'                => '#5807a2',
                     'press_content'               => __('<b>We\'re excited to introduce something new!</b>','notificationx'),
                     'button_text'                 => __('Show Me!', 'notificationx'),
+                    'link_button_bg_color'        => '#9c2bff',
+                    'link_button_text_color'      => '#ffffff',
                 ],
             ],
             'theme-three' => [

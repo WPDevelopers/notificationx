@@ -35,7 +35,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const [isTimeBetween,setIsTimeBetween] = useState(false);
     const [isLoading, setIsLoading] = useState(settings.is_gutenberg && settings.gutenberg_id);
 
-    
+    const common_assets_url = frontendContext.assets.common + 'images/';
     const consentCallback = useCallback( (event) => {
         setClosed(true);
     }, []
@@ -420,6 +420,8 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             </div>
         );
     }
+    console.log('common_assets_url',common_assets_url + settings.themes + '.webp');
+    
 
     const wrapper = (
         // @todo advanced style.
@@ -446,10 +448,10 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             style={{
                 ...styles?.componentCSS,
                 ...(themes_has_bg.includes(settings.themes) ?  {
-                    backgroundImage : settings.bar_bg_image?.url ? `url('${settings.bar_bg_image.url}')` : `url(${'' + settings.themes + '.webp'})`,
+                    background : settings.bar_bg_image?.url ? `url('${settings.bar_bg_image.url}')` : `url(${common_assets_url + settings.themes + '.webp'})`,
                     backgroundSize  : 'cover',
                     backgroundRepeat: 'no-repeat',
-                } : { background: settings.bar_bg_color, } ),
+                } : { background: settings.bar_bg_color } ),
             }}
         >
             <div className="nx-bar-inner">

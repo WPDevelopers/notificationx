@@ -41,6 +41,7 @@ define( 'NOTIFICATIONX_INCLUDES', NOTIFICATIONX_PATH . 'includes/' );
 define( 'NOTIFICATIONX_PLUGIN_URL', 'https://notificationx.com' );
 define( 'NOTIFICATIONX_ADMIN_URL', NOTIFICATIONX_ASSETS . 'admin/' );
 define( 'NOTIFICATIONX_PUBLIC_URL', NOTIFICATIONX_ASSETS . 'public/' );
+define( 'NOTIFICATIONX_COMMON_URL', NOTIFICATIONX_ASSETS . 'common/' );
 
 /**
  * The Core Engine of the Plugin
