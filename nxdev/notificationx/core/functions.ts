@@ -263,6 +263,11 @@ export const assetsURL = (path = "", admin = true) => {
     }
 };
 
+export const commonAssetsURL = (path = "") => {
+    const builderContext = useNotificationXContext();
+    return builderContext.assets.common + path;
+};
+
 export const chunkArray = (array, chunkSize) => {
     const result = [];
     for (let i = 0; i < array.length; i += chunkSize) {

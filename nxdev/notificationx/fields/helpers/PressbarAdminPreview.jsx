@@ -8,7 +8,7 @@ import PreviewButton from './PreviewButton';
 import { ReactComponent as DesktopIcon } from "../../icons/responsive/desktop.svg";
 import { ReactComponent as TabletIcon } from "../../icons/responsive/tablet.svg";
 import { ReactComponent as MobileIcon } from "../../icons/responsive/mobile.svg";
-import { assetsURL, themes_has_bg } from "../../core/functions";
+import { commonAssetsURL, themes_has_bg } from "../../core/functions";
 
 
 const getUnixTime = (value) => moment.utc(value).unix() * 1000;
@@ -170,7 +170,8 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
         };
     }, [settings, position]);
 
-    const assets_url = assetsURL() + 'images/extensions/themes/';
+    const assets_url = commonAssetsURL() + 'images/';
+    
     const [currentSlide, setCurrentSlide] = useState(0);
     const slidingContent = settings?.sliding_content || [];
     const direction = settings?.bar_transition_style == 'slide_right' ? 'right' : 'left';

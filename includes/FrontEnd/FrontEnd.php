@@ -218,12 +218,13 @@ class FrontEnd {
     }
 
     public function get_localize_data($data) {
-        $data['rest']       = REST::get_instance()->rest_data(false);
-        $data['assets']     = self::ASSET_URL;
-        $data['is_pro']     = false;
-        $data['gmt_offset'] = get_option('gmt_offset');
-        $data['lang']       = get_locale();
-        $data['extra']      = [
+        $data['rest']          = REST::get_instance()->rest_data(false);
+        $data['assets']        = self::ASSET_URL;
+        $data['is_pro']        = false;
+        $data['gmt_offset']    = get_option('gmt_offset');
+        $data['lang']          = get_locale();
+        $data['common_assets'] = NOTIFICATIONX_COMMON_URL;
+        $data['extra']         = [
             'is_singular' => is_singular(),
             'query'       => $GLOBALS['wp_query']->query,
             'queried_id'  => get_queried_object_id(),
