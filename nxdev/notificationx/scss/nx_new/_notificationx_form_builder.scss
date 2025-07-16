@@ -546,6 +546,10 @@
                         transition: 0.3s ease-in-out;
                         box-sizing: border-box;
                     }
+                    .popup_tabs {
+                        position: absolute !important;
+                        z-index: 99;
+                    }
                 }
             }
 
@@ -1380,6 +1384,69 @@
         display: none;
     }
 
+}
+.wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content .wprf-control-section.advance_design_section .wprf-control-section.link_button_design .wprf-section-fields {
+    .wprf-control-section.nx_bar_border_radius {
+        display: flex;
+        .wprf-section-title {
+            flex: 30%;
+            min-height: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding-right: 10px;
+            box-sizing: border-box;
+            display: inline-flex;
+            @media only screen and (max-width: 1599px) {
+                flex: 20%;
+            }
+            h4 {
+                font-size: 15px;
+                font-weight: 500;
+                color: #7c8db5;
+                line-height: 1.2;
+                margin-top: 5px;
+                text-transform: capitalize;
+                margin-bottom: 5px;
+                letter-spacing: -0.03px;
+            }
+        }
+        .wprf-section-fields {
+            flex: 70%;
+            padding: 0;
+            display: flex;
+            gap: 8px;;
+            align-items: baseline;
+            .wprf-control-wrapper {
+                margin-bottom: 0;
+                .wprf-control-field {
+                    max-width: auto;
+                    position: relative;
+                    input {
+                        padding-left: 60px;
+                        max-width: 125px;
+                        border: 1px solid #e6effb;
+                        min-height: 40px;
+                        border-radius: 5px;
+                        color: #25396f;
+                        font-size: 14px;
+                        font-weight: 500;
+                        width: 100%;
+                    }
+                    .wprf-help {
+                        margin: 0;
+                        margin-top: 0;
+                        display: block;
+                        flex-basis: 100%;
+                        font-size: 12px;
+                        position: absolute;
+                        left: 12px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                }
+            } 
+        }
+    }
 }
 
 .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-contents .wprf-control-section.close_button_control {
