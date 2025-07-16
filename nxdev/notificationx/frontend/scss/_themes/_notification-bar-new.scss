@@ -243,24 +243,21 @@
                                     }
 
                                     &.press_bar_theme-four { 
-                                        font-family: sans-serif, Poppins;
-                                    
                                         .nx-bar-inner {
                                             padding: 8px;
                                             @media screen and (max-width: 1900px) {
                                                 padding: 8px 30px;
                                             }
                                             .nx-bar-content-wrap {
-                                                flex-wrap: wrap;
                                                 justify-content: center;
                                                 gap: 12px;
                                                 .nx-countdown-wrapper {
                                                     .nx-countdown-text {
-                                                        font-size: 18px;
+                                                        font-size: 16px;
                                                         font-weight: 500;
                                                         line-height: 1em;
                                                         color: #000123;
-                                                        margin-right: 12px;
+                                                        margin-right: 10px;
                                                     }
                                                     .nx-countdown {
                                                         overflow: hidden;
@@ -268,6 +265,7 @@
                                                         color: #230600;
                                                         border: 1px solid #F26D6D;
                                                         border-radius: 4px;
+                                                        display: flex;
                                                         .nx-time-section {
                                                             float: left;
                                                             margin: 0;
@@ -298,7 +296,7 @@
                                                 .nx-inner-content-wrapper {
                                                     margin-right: 0;
                                                     .nx-bar-content {
-                                                        margin-left: 50px;
+                                                        margin-left: 8px;
                                                         p {
                                                             font-size: 16px;
                                                             font-weight: 500;
@@ -313,17 +311,18 @@
                                                         }
                                                     }
                                                     .notificationx-link-wrapper {
-                                                        margin-left: 60px;
+                                                        margin-left: 20px;
                                                         .nx-bar-button {
-                                                            padding: 16px 26px;
+                                                            padding: 10px 14px;
                                                             text-decoration: none;
                                                             display: inline-block;
-                                                            font-size: 18px;
+                                                            font-size: 14px;
                                                             font-weight: 500;
                                                             line-height: 100%;
                                                             color: #000123;
                                                             background: #fff;
-                                                            border-radius: 16px;
+                                                            border-radius: 10px;
+                                                            min-width: 104px;
                                                             cursor: pointer;
                                                             border: none;
                                                             img {
@@ -337,24 +336,21 @@
                                         }
                                     }
                                     &.press_bar_theme-five { 
-                                        font-family: sans-serif, Poppins;
-                                    
                                         .nx-bar-inner {
                                             padding: 10px;
                                             @media screen and (max-width: 1900px) {
                                                 padding: 10px 30px;
                                             }
                                             .nx-bar-content-wrap {
-                                                flex-wrap: wrap;
                                                 justify-content: center;
                                                 gap: 12px;
                                                 .nx-countdown-wrapper {
                                                     .nx-countdown-text {
-                                                        font-size: 18px;
+                                                        font-size: 16px;
                                                         font-weight: 500;
                                                         line-height: 1em;
                                                         color: #FFFFFF;
-                                                        margin-right: 12px;
+                                                        margin-right: 10px;
                                                     }
                                                     .nx-countdown {
                                                         overflow: hidden;
@@ -390,7 +386,7 @@
                                                                 font-size: 20px;
                                                                 line-height: 1em;
                                                                 color: #FFFFFF;
-                                                                margin-bottom: 8px;
+                                                                margin-bottom: 4px;
                                                             }
                                                             .nx-countdown-time-text {
                                                                 font-size: 12px;
@@ -404,7 +400,7 @@
                                                 .nx-inner-content-wrapper {
                                                     margin-right: 0;
                                                     .nx-bar-content {
-                                                        margin-left: 50px;
+                                                        margin-left: 8px;
                                                         p {
                                                             font-size: 16px;
                                                             font-weight: 500;
@@ -419,17 +415,18 @@
                                                         }
                                                     }
                                                     .notificationx-link-wrapper {
-                                                        margin-left: 60px;
+                                                        margin-left: 20px;
                                                         .nx-bar-button {
-                                                            padding: 14px 26px;
+                                                            padding: 10px 14px;
                                                             text-decoration: none;
                                                             display: inline-block;
-                                                            font-size: 18px;
+                                                            font-size: 14px;
                                                             font-weight: 500;
                                                             line-height: 100%;
                                                             color: #FFFFFF;
                                                             background: #2D72FF;
-                                                            border-radius: 44px;
+                                                            border-radius: 40px;
+                                                            min-width: 62px;
                                                             cursor: pointer;
                                                             border: none;
                                                         }
@@ -440,15 +437,13 @@
                                         }
                                     }
                                     &.press_bar_theme-six { 
-                                        font-family: sans-serif, Poppins;
-                                    
                                         .nx-bar-inner {
                                             padding: 8px;
                                             @media screen and (max-width: 1900px) {
                                                 padding: 8px 30px;
                                             }
                                             .nx-bar-content-wrap {
-                                                flex-wrap: wrap;
+                                                flex-wrap: nowrap;
                                                 justify-content: center;
                                                 gap: 12px;
                                                 .nx-countdown-wrapper {
@@ -460,6 +455,7 @@
                                                         background: #FFFFFF80;
                                                         color: #230600;
                                                         border-radius: 4px;
+                                                        display: flex;
                                                         .nx-time-section:not(:last-child) {
                                                             border-right: 1px solid #FFF;
                                                         }
@@ -495,7 +491,7 @@
                                                 .nx-inner-content-wrapper {
                                                     margin-right: 0;
                                                     .nx-bar-content {
-                                                        margin-left: 50px;
+                                                        margin-left: 8px;
                                                         p {
                                                             font-size: 16px;
                                                             font-weight: 500;
@@ -510,25 +506,27 @@
                                                         }
                                                     }
                                                     .notificationx-link-wrapper {
-                                                        margin-left: 60px;
+                                                        margin-left: 20px;
                                                         .nx-bar-button {
-                                                            padding: 14px 26px;
+                                                            padding: 10px 14px;
                                                             text-decoration: none;
                                                             display: inline-block;
-                                                            font-size: 18px;
+                                                            font-size: 14px;
                                                             font-weight: 500;
                                                             line-height: 100%;
                                                             color: #FFFFFF;
                                                             background: #280631;
-                                                            border-radius: 44px;
+                                                            border-radius: 40px;
                                                             cursor: pointer;
                                                             border: none;
                                                             display: flex;
                                                             align-items: center;
                                                             justify-content: center;
+                                                            min-width: 95px;
                                                             img {
                                                                 max-height: 18px;
-                                                                margin-right: 2px !important;
+                                                                max-width: 20px;
+                                                                margin-right: 4px !important;
                                                             }
                                                         }
                                                     }   
@@ -538,9 +536,6 @@
                                         }
                                     }
                                     &.press_bar_theme-seven { 
-                                        font-family: sans-serif, Poppins;
-                                        background: #F4F1E8;
-                                    
                                         .nx-bar-inner {
                                             padding: 8px;
                                             @media screen and (max-width: 1900px) {
@@ -549,7 +544,6 @@
                                             .nx-bar-content-wrap {
                                                 .nx-inner-content-wrapper {
                                                     margin-right: 0;
-                                                    flex-wrap: wrap;
                                                     justify-content: center;
                                                     gap: 12px;
                                                     @media screen and (max-width: 1271px) {
@@ -571,15 +565,15 @@
                                                         }
                                                     }
                                                     .notificationx-link-wrapper {
-                                                        margin-left: 60px;
+                                                        margin-left: 12px;
                                                         @media screen and (max-width: 1271px) {
                                                         margin-left: 0;
                                                         }
                                                         .nx-bar-button {
-                                                            padding: 14px 26px;
+                                                            padding: 10px 14px;
                                                             text-decoration: none;
                                                             display: inline-block;
-                                                            font-size: 18px;
+                                                            font-size: 14px;
                                                             font-weight: 500;
                                                             line-height: 100%;
                                                             color: #342600;
@@ -592,7 +586,8 @@
                                                             justify-content: center;
                                                             img {
                                                                 max-height: 18px;
-                                                                margin-right: 2px !important;
+                                                                max-width: 20px;
+                                                                margin-right: 4px !important;
                                                             }
                                                         }
                                                     }   
