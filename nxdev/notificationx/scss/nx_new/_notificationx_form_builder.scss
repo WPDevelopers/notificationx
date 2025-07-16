@@ -507,6 +507,48 @@
                 background: rgba(#6a4bff, 0.1);
             }
 
+            .wprf-gradientpicker-wrap {
+                position: relative;
+                .wprf-picker-display {
+                    width: 30px !important;
+                    height: 30px !important;
+                    display: inline-block;
+                    border-radius: 50%;
+                    outline: none;
+                    border: 1px solid #ddd;
+                    margin-top: 3px;
+                    margin-bottom: 0;
+                    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+                    cursor: pointer;
+                }
+                .wprf-gradientpicker-popup {
+                    position: unset !important;
+                    .wprf-gradientpicker-reset {
+                        position: absolute;
+                        top: 6px;
+                        left: 44px;
+                        display: inline-flex;
+                        width: initial;
+                        height: 25px;
+                        background: transparent;
+                        border: 1.5px solid #6a4bff;
+                        border-radius: 4px;
+                        padding: 2px 15px;
+                        font-size: 13px;
+                        font-weight: 500;
+                        align-items: center;
+                        justify-content: center;
+                        text-decoration: none;
+                        outline: none;
+                        background: #6a4bff;
+                        color: #fff;
+                        line-height: 1.15;
+                        transition: 0.3s ease-in-out;
+                        box-sizing: border-box;
+                    }
+                }
+            }
+
             .wprf-colorpicker-wrap {
                 .wprf-picker-display {
                     margin-top: 3px;
@@ -1033,6 +1075,31 @@
                         box-shadow: 0 15px 25px -5px rgba(#5614d5, 0.3);
                     }
                 }
+            }
+
+            .rpt-textbox-container  {
+                top: -62px !important;
+            }
+
+            .icon-picker-options {
+                display: flex;
+                gap: 12px;
+                padding: 8px 12px !important;
+                border-radius: 4px;
+                .icon-options-section {
+                    padding: 0 8px;
+                    h4 {
+                        font-size: 12px;
+                        margin: 0;
+                    }
+                    .icon-option {
+                        padding: 4px !important;
+                    }
+                }
+            }
+
+            .wprf-description {
+                margin-left: 0;
             }
         }
 

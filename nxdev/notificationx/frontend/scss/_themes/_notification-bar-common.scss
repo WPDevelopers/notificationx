@@ -384,10 +384,16 @@
                             font-weight: 500;
                             line-height: 100%;
                             color: #000123;
-                            cursor: pointer;
                             border: none;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
                             img {
-                                display: none;
+                                max-height: 20px;
+                                max-width: 100%;
+                                width: 20px !important;
+                                margin-right: 4px !important;
                             }
                         }
                     }   
@@ -487,8 +493,17 @@
                             font-weight: 500;
                             line-height: 100%;
                             color: #FFFFFF;
-                            cursor: pointer;
                             border: none;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            img {
+                                max-height: 20px;
+                                max-width: 100%;
+                                width: 20px !important;
+                                margin-right: 4px !important;
+                            }
                         }
                     }   
                 }
@@ -576,14 +591,15 @@
                             font-weight: 500;
                             line-height: 100%;
                             color: #FFFFFF;
-                            cursor: pointer;
                             border: none;
                             display: flex;
                             align-items: center;
                             justify-content: center;
+                            cursor: pointer;
                             img {
-                                max-height: 18px;
-                                max-width: 20px;
+                                max-height: 20px;
+                                max-width: 100%;
+                                width: 20px !important;
                                 margin-right: 4px !important;
                             }
                         }
@@ -638,14 +654,15 @@
                             font-weight: 500;
                             line-height: 100%;
                             color: #342600;
-                            cursor: pointer;
                             border: none;
                             display: flex;
                             align-items: center;
                             justify-content: center;
+                            cursor: pointer;
                             img {
-                                max-height: 18px;
-                                max-width: 20px;
+                                max-height: 20px;
+                                max-width: 100%;
+                                width: 20px !important;
                                 margin-right: 4px !important;
                             }
                         }
