@@ -374,6 +374,8 @@
                     }
                     .notificationx-link-wrapper {
                         margin-left: 40px;
+                        background: #fff;
+                        border-radius: 10px;
                         .nx-bar-button {
                             padding: 10px 14px;
                             text-decoration: none;
@@ -382,8 +384,6 @@
                             font-weight: 500;
                             line-height: 100%;
                             color: #000123;
-                            background: #fff;
-                            border-radius: 10px;
                             cursor: pointer;
                             border: none;
                             img {
@@ -477,6 +477,8 @@
                     }
                     .notificationx-link-wrapper {
                         margin-left: 40px;
+                        background: #2D72FF;
+                        border-radius: 40px;
                         .nx-bar-button {
                             padding: 10px 14px;
                             text-decoration: none;
@@ -485,8 +487,6 @@
                             font-weight: 500;
                             line-height: 100%;
                             color: #FFFFFF;
-                            background: #2D72FF;
-                            border-radius: 40px;
                             cursor: pointer;
                             border: none;
                         }
@@ -566,6 +566,8 @@
                     }
                     .notificationx-link-wrapper {
                         margin-left: 40px;
+                        background: #280631;
+                        border-radius: 40px;
                         .nx-bar-button {
                             padding: 10px 14px;
                             text-decoration: none;
@@ -574,8 +576,6 @@
                             font-weight: 500;
                             line-height: 100%;
                             color: #FFFFFF;
-                            background: #280631;
-                            border-radius: 40px;
                             cursor: pointer;
                             border: none;
                             display: flex;
@@ -625,6 +625,8 @@
                     }
                     .notificationx-link-wrapper {
                         margin-left: 28px;
+                        background: #E3DAC2;
+                        border-radius: 0;
                         @media screen and (max-width: 1271px) {
                         margin-left: 0;
                         }
@@ -636,8 +638,6 @@
                             font-weight: 500;
                             line-height: 100%;
                             color: #342600;
-                            background: #E3DAC2;
-                            border-radius: 0;
                             cursor: pointer;
                             border: none;
                             display: flex;
