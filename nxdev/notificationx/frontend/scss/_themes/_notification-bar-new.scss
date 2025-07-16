@@ -298,7 +298,7 @@
                                                     .nx-bar-content {
                                                         margin-left: 8px;
                                                         p {
-                                                            font-size: 16px;
+                                                            font-size: 14px;
                                                             font-weight: 500;
                                                             line-height: 1.2em;
                                                             color: #000123;
@@ -323,10 +323,16 @@
                                                             background: #fff;
                                                             border-radius: 10px;
                                                             min-width: 104px;
-                                                            cursor: pointer;
                                                             border: none;
+                                                            display: flex;
+                                                            align-items: center;
+                                                            justify-content: center;
+                                                            cursor: pointer;
                                                             img {
-                                                                display: none;
+                                                                max-height: 20px;
+                                                                max-width: 100%;
+                                                                width: 20px;
+                                                                margin-right: 4px !important;
                                                             }
                                                         }
                                                     }   
@@ -402,7 +408,7 @@
                                                     .nx-bar-content {
                                                         margin-left: 8px;
                                                         p {
-                                                            font-size: 16px;
+                                                            font-size: 14px;
                                                             font-weight: 500;
                                                             line-height: 1.2em;
                                                             color: #CDE1FF;
@@ -419,7 +425,6 @@
                                                         .nx-bar-button {
                                                             padding: 10px 14px;
                                                             text-decoration: none;
-                                                            display: inline-block;
                                                             font-size: 14px;
                                                             font-weight: 500;
                                                             line-height: 100%;
@@ -427,8 +432,17 @@
                                                             background: #2D72FF;
                                                             border-radius: 40px;
                                                             min-width: 62px;
-                                                            cursor: pointer;
                                                             border: none;
+                                                            display: flex;
+                                                            align-items: center;
+                                                            justify-content: center;
+                                                            cursor: pointer;
+                                                            img {
+                                                                max-height: 20px;
+                                                                max-width: 100%;
+                                                                width: 20px;
+                                                                margin-right: 4px !important;
+                                                            }
                                                         }
                                                     }   
                                                 }
@@ -493,7 +507,7 @@
                                                     .nx-bar-content {
                                                         margin-left: 8px;
                                                         p {
-                                                            font-size: 16px;
+                                                            font-size: 14px;
                                                             font-weight: 500;
                                                             line-height: 1.2em;
                                                             color: #0D062D;
@@ -517,15 +531,15 @@
                                                             color: #FFFFFF;
                                                             background: #280631;
                                                             border-radius: 40px;
-                                                            cursor: pointer;
                                                             border: none;
                                                             display: flex;
                                                             align-items: center;
                                                             justify-content: center;
-                                                            min-width: 95px;
+                                                            cursor: pointer;
                                                             img {
-                                                                max-height: 18px;
-                                                                max-width: 20px;
+                                                                max-height: 20px;
+                                                                max-width: 100%;
+                                                                width: 20px;
                                                                 margin-right: 4px !important;
                                                             }
                                                         }
@@ -552,7 +566,7 @@
                                                     .nx-bar-content {
                                                         margin-left: 0;
                                                         p {
-                                                            font-size: 16px;
+                                                            font-size: 14px;
                                                             font-weight: 500;
                                                             line-height: 1.2em;
                                                             color: #0D062D;
@@ -579,14 +593,15 @@
                                                             color: #342600;
                                                             background: #E3DAC2;
                                                             border-radius: 0;
-                                                            cursor: pointer;
                                                             border: none;
                                                             display: flex;
                                                             align-items: center;
                                                             justify-content: center;
+                                                            cursor: pointer;
                                                             img {
-                                                                max-height: 18px;
-                                                                max-width: 20px;
+                                                                max-height: 20px;
+                                                                max-width: 100%;
+                                                                width: 20px;
                                                                 margin-right: 4px !important;
                                                             }
                                                         }
