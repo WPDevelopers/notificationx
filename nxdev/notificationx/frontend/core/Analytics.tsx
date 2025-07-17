@@ -106,19 +106,18 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
         return (
             <>
                 <div  className="notificationx-link-wrapper" style={styles}>
-                    { (config?.button_icon && config?.button_icon !== 'none') && (
-                        <img
-                            src={iconUrl}
-                            alt="Button Icon"
-                            style={{ width: 24, height: 24, marginRight: 8 }}
-                        />
-                    )}
                     <a
                         href={ link }
                         target={config?.link_open ? "_blank" : ""}
                         onClick={e => analyticsOnClick(e, restUrl, config, dispatch, frontendContext.rest.omit_credentials)}
                         {...rest}
                     >
+                        { (config?.button_icon && config?.button_icon !== 'none') && (
+                            <img
+                                src={iconUrl}
+                                style={{ width: 24, height: 24, marginRight: 8 }}
+                            />
+                        )}
                         { config.link_text ? link_text : '' } {children}
                     </a>
                 </div>

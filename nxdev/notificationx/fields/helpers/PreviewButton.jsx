@@ -42,7 +42,6 @@ const PreviewButton = ({config, children = null, href = null, data = {}, ...rest
                         { (config?.button_icon && config?.button_icon !== 'none') && (
                             <img
                                 src={iconUrl}
-                                alt="Button Icon"
                                 style={{ width: 24, height: 24, marginRight: 8 }}
                             />
                         )}
