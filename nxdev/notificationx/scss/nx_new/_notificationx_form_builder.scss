@@ -1081,23 +1081,37 @@
                 }
             }
 
-            .rpt-textbox-container  {
-                top: -62px !important;
-            }
+            .wprf-button_icon-icon-picker {
+                .nx-image-popup-wrapper {
+                    background: #f2f2f2;
+                }
+                .rpt-textbox-container  {
+                    top: -36px !important;
+                }
+                .rpt-arrow {
+                    background: #f2f2f2 !important;
+                }
+            } 
 
             .icon-picker-options {
                 display: flex;
-                gap: 12px;
-                padding: 8px 12px !important;
+                padding: 4px !important;
                 border-radius: 4px;
+                background: #f2f2f2 !important;
                 .icon-options-section {
-                    padding: 0 8px;
                     h4 {
                         font-size: 12px;
                         margin: 0;
+                        display: none;
                     }
-                    .icon-option {
-                        padding: 4px !important;
+                    .icon-grid {
+                        display: flex;
+                        .icon-option {
+                            padding: 8px 10px !important;
+                        }
+                    }
+                    .emoji-container {
+                        padding: 8px 10px !important;
                     }
                 }
             }
@@ -1385,6 +1399,12 @@
     }
 
 }
+.wprf-control-section.closed_button_section_fields {
+    flex: 70%;
+    .wprf-section-fields {
+        flex-wrap: wrap;
+    }
+}
 .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content .wprf-control-section.advance_design_section .wprf-control-section.link_button_design .wprf-section-fields {
     .wprf-control-section.nx_bar_border_radius {
         display: flex;
@@ -1414,34 +1434,43 @@
             flex: 70%;
             padding: 0;
             display: flex;
-            gap: 8px;;
+            gap: 8px;
+            flex-wrap: wrap;
             align-items: baseline;
             .wprf-control-wrapper {
                 margin-bottom: 0;
                 .wprf-control-field {
-                    max-width: auto;
+                    max-width: unset;
                     position: relative;
                     input {
-                        padding-left: 60px;
-                        max-width: 125px;
-                        border: 1px solid #e6effb;
-                        min-height: 40px;
-                        border-radius: 5px;
-                        color: #25396f;
                         font-size: 14px;
                         font-weight: 500;
+                        max-width: 150px;
+                        color: #25396f;
                         width: 100%;
+                        min-height: 40px;
+                        padding: 2px 70px 2px 15px;
+                        border: 1px solid #e6effb;
+                        border-radius: 5px;
                     }
                     .wprf-help {
                         margin: 0;
                         margin-top: 0;
                         display: block;
                         flex-basis: 100%;
-                        font-size: 12px;
+                        font-size: 14px; 
+                        color: #7c8db5;   
                         position: absolute;
-                        left: 12px;
+                        right: 15px;
                         top: 50%;
                         transform: translateY(-50%);
+                    }
+                    p.wprf-description {
+                        position: absolute;
+                        left: 38px;
+                        font-size: 14px; 
+                        color: #7c8db5; 
+                        margin-left: 0;
                     }
                 }
             } 
