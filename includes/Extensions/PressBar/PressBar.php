@@ -1689,7 +1689,7 @@ class PressBar extends Extension {
                     'label' => __('Shop Now White ', 'notificationx')
                 ],
             ],
-            'description' => __('Select an icon to display prev to the button text', 'notificationx'),
+            'description' => __('Select an icon to display before the button text', 'notificationx'),
             'rules' => Rules::logicalRule([
                 // Rules::isOfType('elementor_id', 'number', true),
                 Rules::is('source', $this->id),

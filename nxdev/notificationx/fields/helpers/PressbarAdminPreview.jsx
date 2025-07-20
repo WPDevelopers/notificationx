@@ -258,6 +258,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                         "nx-position-bottom": settings?.position === "bottom",
                         [`nx-close-${settings?.bar_close_position}`]: settings?.bar_close_position,
                         "nx-sticky-bar": settings?.sticky_bar,
+                        "nx-bar-default-design": !settings?.advance_edit,
                     }
                 )}
                 style={{

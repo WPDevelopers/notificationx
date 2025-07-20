@@ -420,7 +420,6 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             </div>
         );
     }
-    console.log('common_assets_url',common_assets_url + settings.themes + '.webp');
     
 
     const wrapper = (
@@ -442,6 +441,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                     "nx-sticky-bar": settings?.sticky_bar,
                     "nx-bar-has-elementor": settings?.elementor_id,
                     "nx-bar-has-gutenberg": settings?.gutenberg_id,
+                    "nx-bar-default-design": !settings?.advance_edit,
                 }
             )}
             // style={{...styles?.componentCSS, display: isLoading ? 'none' : 'block'}}

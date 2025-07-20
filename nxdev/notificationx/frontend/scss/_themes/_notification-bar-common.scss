@@ -477,7 +477,6 @@
                                 font-size: 16px;
                                 font-weight: 500;
                                 line-height: 1.2em;
-                                color: #FFFFFF !important;
                             }
                         }
                     }
@@ -768,6 +767,12 @@
         .nx-bar-slide.right-exit {
             opacity: 0;
             transform: translateX(100%);
+        }
+    }
+
+    &.nx-bar-default-design {
+        &.press_bar_theme-five .nx-bar-inner .nx-bar-content-wrap .nx-inner-content-wrapper .nx-bar-content p span {
+            color: #FFFFFF !important;
         }
     }
 
