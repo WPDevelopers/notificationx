@@ -1087,6 +1087,9 @@
                 }
                 .rpt-textbox-container  {
                     top: -36px !important;
+                    .emoji-container .rpt-textbox-container {
+                        top: 10px !important;
+                    }
                 }
                 .rpt-arrow {
                     background: #f2f2f2 !important;
