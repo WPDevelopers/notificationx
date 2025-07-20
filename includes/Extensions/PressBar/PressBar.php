@@ -1684,6 +1684,10 @@ class PressBar extends Extension {
                     'icon'  => 'shop_now.svg',
                     'label' => __('Shop Now', 'notificationx')
                 ],
+                [
+                    'icon'  => 'shop_now_white.svg',
+                    'label' => __('Shop Now White ', 'notificationx')
+                ],
             ],
             'description' => __('Select an icon to display prev to the button text', 'notificationx'),
             'rules' => Rules::logicalRule([
