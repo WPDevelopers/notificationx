@@ -19,6 +19,7 @@ import DateRange from './DateRange';
 import SimpleRepeater from './SimpleRepeater';
 import BetterSelect from './BetterSelect';
 import IconPicker from "./IconPicker";
+import NxEditor from './NxEditor';
 
 const Field = (ret, type, props) => {
 
@@ -62,6 +63,8 @@ const Field = (ret, type, props) => {
             return <GradientPicker {...props} />;
         case "icon-picker":
             return <IconPicker {...props} />;
+        case "nx-editor":
+            return <NxEditor {...props} />;
         default:
             return ret;
     }

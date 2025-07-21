@@ -153,12 +153,11 @@
                 margin-left: 15px;
             }
             a.nx-bar-button {
-                // font-size: 14px;
                 padding: 6px 15px;
-                // margin-left: 15px;
-                // background-color: #262626;
                 text-decoration: none;
-                display: inline-block;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 color: unset;
                 border-radius: 3px;
                 cursor: pointer;
@@ -368,7 +367,6 @@
                                 font-size: 16px;
                                 font-weight: 600;
                                 line-height: 1.2em;
-                                color: #F54747 !important;
                             }
                         }
                     }
@@ -574,7 +572,6 @@
                                 font-size: 16px;
                                 font-weight: 500;
                                 line-height: 1.2em;
-                                color: #0D062D !important;
                             }
                         }
                     }
@@ -634,7 +631,6 @@
                                 font-size: 16px;
                                 font-weight: 500;
                                 line-height: 1.2em;
-                                color: #9F7800 !important;
                             }
                         }
                     }
@@ -770,11 +766,17 @@
         }
     }
 
-    &.nx-bar-default-design {
-        &.press_bar_theme-five .nx-bar-inner .nx-bar-content-wrap .nx-inner-content-wrapper .nx-bar-content p span {
-            color: #FFFFFF !important;
-        }
-    }
+    // &.nx-bar-default-design {
+    //     &.press_bar_theme-five .nx-bar-inner .nx-bar-content-wrap .nx-inner-content-wrapper .nx-bar-content p span {
+    //         color: #FFFFFF !important;
+    //     }
+    //    &.press_bar_theme-six .nx-bar-inner .nx-bar-content-wrap .nx-inner-content-wrapper .nx-bar-content p span {
+    //         color: #0D062D !important;
+    //    }
+    //    &.press_bar_theme-four .nx-bar-inner .nx-bar-content-wrap .nx-inner-content-wrapper .nx-bar-content p span {
+    //         color: #F54747 !important;
+    //    }
+    // }
 
 }
 
