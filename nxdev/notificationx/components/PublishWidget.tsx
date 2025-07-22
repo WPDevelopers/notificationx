@@ -80,11 +80,13 @@ const PublishWidget = (props) => {
 
   
     const toggleStatus = (event) => {        
-        let target = event.target ? event.target : event.currentTarget;
+        let   target  = event.target ? event.target : event.currentTarget;
+        const source  = context?.values?.source;
         const enabled = target.checked;
+        
         nxHelper
         .post("nx/" + id, {
-            source: props.source,
+            source: source,
             enabled: enabled,
             nx_id: id,
             update_status: true,
@@ -120,7 +122,7 @@ const PublishWidget = (props) => {
     return (
         <div className="sidebar-widget nx-widget">
             <div className="nx-widget-title">
-                <h4>Publish</h4>
+                <h4>{ __('Publish','notificationx') }</h4>
                 { id &&
                     <div className="nx-admin-status">
                         <input type="checkbox" name={"_nx_meta_active_check"} id={meta_id} onChange={ (event) => toggleStatus(event) } checked={isEnabled} />
