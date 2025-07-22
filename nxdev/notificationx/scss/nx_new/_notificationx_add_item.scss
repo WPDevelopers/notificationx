@@ -472,11 +472,16 @@
             }
 
             #themes.themes {
-                .wprf-nx-bar_with_elementor_install_message-message {
+                .wprf-nx-bar_with_elementor_install_message-message, .wprf-name-elementor_edit_link, .wprf-name-gutenberg_edit_link {
                     padding: 0 32px 10px;
                 }
                 #nx_bar_import_design {
                     padding: 0 32px;
+                }
+            }
+            #wprf-modal-nx-bar_with_elementor {
+                .wprf-name-build_with_elementor {
+                    padding: 10px 32px 5px;
                 }
             }
             .nx_bar_import_design {

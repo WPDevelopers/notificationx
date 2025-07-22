@@ -1020,7 +1020,8 @@ class PressBar extends Extension {
                 Rules::is('source', $this->id),
             ]),
         );
-        $_fields['bar_editor']['fields'] = array_merge($_fields['bar_editor']['fields'], $import_design);
+        $_fields['bar_editor']['fields'] = array_merge($_fields['bar_editor']['fields']);
+        $fields['themes']['fields'] = array_merge($fields['themes']['fields'], $import_design);
         return $fields;
     }
 
