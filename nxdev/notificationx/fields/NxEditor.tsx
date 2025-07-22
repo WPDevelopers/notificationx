@@ -38,26 +38,36 @@ const toolbarOptions = {
 
 const NxEditor = (props) => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
+    const [isInitialized, setIsInitialized] = useState(false);
 
     useEffect(() => {
-        if (props.value) {
+        if (props.value && !isInitialized) {
             const { contentBlocks, entityMap } = htmlToDraft(props.value);
             const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
             const editorState = EditorState.createWithContent(contentState);
             setEditorState(editorState);
+            setIsInitialized(true);
         }
-    }, [props.value]); // Fixed: Added props.value to dependency array
+    }, [props.value, isInitialized]);
 
     useEffect(() => {
-        let tempValue = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-        props.onChange({
-            target: {
-                type: 'editor',
-                value: tempValue,
-                name: props.name
+        // Only call onChange if the editor has been initialized and content actually changed
+        if (isInitialized) {
+            const currentContent = editorState.getCurrentContent();
+            const tempValue = draftToHtml(convertToRaw(currentContent));
+
+            // Avoid calling onChange if the content hasn't actually changed
+            if (tempValue !== props.value) {
+                props.onChange({
+                    target: {
+                        type: 'editor',
+                        value: tempValue,
+                        name: props.name
+                    }
+                });
             }
-        })
-    }, [editorState]);
+        }
+    }, [editorState, isInitialized, props.value, props.name, props.onChange]);
 
     return (
         <Wysiwyg

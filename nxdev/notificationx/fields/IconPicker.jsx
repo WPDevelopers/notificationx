@@ -215,7 +215,7 @@ const IconPicker = (props) => {
                     ref={iconRef}
                 >
                     {localValue ? (
-                        <img src={localValue} alt="Selected Icon" className="icon-preview" />
+                        <img src={localValue} className="icon-preview" />
                     ) : (
                         <div className="icon-placeholder">
                             {placeholder || "Select an icon"}
