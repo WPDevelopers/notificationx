@@ -11,8 +11,6 @@ const GradientPicker = (props) => {
     const pickerRef = useRef(null);
 
     useEffect(() => {
-        console.log('value' + name,value);
-        
         setDefaultGradient(value || '');
     }, []);
 
@@ -70,7 +68,7 @@ const GradientPicker = (props) => {
                         }}
                         showInputs={true}
                         gradient={true}
-                        solid={false}
+                        solid={true}
                     />
                 </div>
             )}

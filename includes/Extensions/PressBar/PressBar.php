@@ -76,7 +76,7 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_bottom' => 0,
                     'button_icon'                 => 'none',
                     'bar_bg_color'                => '#dddddd',
-                    'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99!</b>','notificationx'),
+                    'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>','notificationx'),
                     'button_text'                 => __('Get Offer', 'notificationx'),
                     'link_button_bg_color'        => '#000',
                     'link_button_text_color'      => '#ffffff',
@@ -110,7 +110,7 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_bottom' => 0,
                     'button_icon'                 => 'none',
                     'bar_bg_color'                => '#3f4462',
-                    'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99!</b>','notificationx'),
+                    'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>','notificationx'),
                     'button_text'                 => __('Get Offer!', 'notificationx'),
                     'link_button_bg_color'        => '#6A4BFF',
                     'link_button_text_color'      => '#ffffff',
@@ -445,7 +445,9 @@ class PressBar extends Extension {
                 ]
             ],
 		];
-        $_fields['link_button_design']['fields'] = array_merge($_fields['link_button_design']['fields'], $border_fields);
+        if( !empty($_fields['link_button_design']['fields'] ) ) {
+            $_fields['link_button_design']['fields'] = array_merge( $_fields['link_button_design']['fields'], $border_fields);
+        }
         return $fields;
     }
 
@@ -493,16 +495,16 @@ class PressBar extends Extension {
                     'name'  => "bar_text_color",
                     'type'  => "colorpicker",
                 ],
-                [
-                    'label' => __('Button Background Color', 'notificationx'),
-                    'name'  => "bar_btn_bg",
-                    'type'  => "colorpicker",
-                ],
-                [
-                    'label' => __('Button Text Color', 'notificationx'),
-                    'name'  => "bar_btn_text_color",
-                    'type'  => "colorpicker",
-                ],
+                // [
+                //     'label' => __('Button Background Color', 'notificationx'),
+                //     'name'  => "bar_btn_bg",
+                //     'type'  => "colorpicker",
+                // ],
+                // [
+                //     'label' => __('Button Text Color', 'notificationx'),
+                //     'name'  => "bar_btn_text_color",
+                //     'type'  => "colorpicker",
+                // ],
                 [
                     'label' => __('Countdown Background Color', 'notificationx'),
                     'name'  => "bar_counter_bg",
@@ -631,6 +633,20 @@ class PressBar extends Extension {
         $install_activate_text = $is_installed ? __("Activate", 'notificationx') : __("Install", 'notificationx');
 
 
+
+        $fields['themes']['fields'][] = array(
+            'name'    => 'nx-bar_with_elementor_install_message',
+            'type'    => 'message',
+            'class'   => 'nx-warning',
+            'html'    => true,
+            'message' => sprintf(__("To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;", 'notificationx'), $install_activate_text),
+            'rules'   => Rules::logicalRule([
+                Rules::is('is_elementor', false),
+                Rules::is('gutenberg_id', false),
+                Rules::is('source', $this->id),
+            ]),
+        );
+
         $fields['themes']['fields']['nx_bar_import_design'] = [
             'name'   => 'nx_bar_import_design',
             'type'   => 'section',
@@ -642,6 +658,7 @@ class PressBar extends Extension {
 
         $import_design = [];
         // $import_design = $fields['advance_design_section']['fields'];
+        $import_design = &$fields['themes']['fields']['nx_bar_import_design']['fields'];
 
         $import_design[] = [
             'name'   => 'elementor_edit_link',
@@ -1008,20 +1025,7 @@ class PressBar extends Extension {
             'name'    => 'is_gb_confirmed',
             'default' => false
         ];
-        $import_design[] = array(
-            'name'    => 'nx-bar_with_elementor_install_message',
-            'type'    => 'message',
-            'class'   => 'nx-warning',
-            'html'    => true,
-            'message' => sprintf(__("To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;", 'notificationx'), $install_activate_text),
-            'rules'   => Rules::logicalRule([
-                Rules::is('is_elementor', false),
-                Rules::is('gutenberg_id', false),
-                Rules::is('source', $this->id),
-            ]),
-        );
         $_fields['bar_editor']['fields'] = array_merge($_fields['bar_editor']['fields']);
-        $fields['themes']['fields'] = array_merge($fields['themes']['fields'], $import_design);
         return $fields;
     }
 

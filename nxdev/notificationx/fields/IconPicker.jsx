@@ -7,6 +7,7 @@ import editIcon from './images/editIcon.png';
 import emojiAdd from './images/emojiAdd.png';
 import uploadIcon from './images/uploadIcon.png';
 import { lazyWithPreload } from "react-lazy-with-preload";
+import { __ } from "@wordpress/i18n";
 
 const Picker = lazyWithPreload(() => import('@emoji-mart/react'));
 
@@ -215,7 +216,13 @@ const IconPicker = (props) => {
                     ref={iconRef}
                 >
                     {localValue ? (
-                        <img src={localValue} className="icon-preview" />
+                       <>
+                            { value == 'none' ? (
+                                <img src={emojiAdd} className="icon-preview" />
+                            ) : (
+                                <img src={localValue} className="icon-preview" />
+                            ) }
+                       </>
                     ) : (
                         <div className="icon-placeholder">
                             {placeholder || "Select an icon"}
@@ -229,7 +236,7 @@ const IconPicker = (props) => {
                             {/* Predefined Icons */}
                             {options.length > 0 && (
                                 <div className="icon-options-section">
-                                    <h4>Icons</h4>
+                                    <h4>{ __('Icons','notificationx') }</h4>
                                     <div className="icon-grid">
                                         {options.map((option, index) => (
                                             <span

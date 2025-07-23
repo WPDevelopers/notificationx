@@ -472,8 +472,30 @@
             }
 
             #themes.themes {
-                .wprf-nx-bar_with_elementor_install_message-message, .wprf-name-elementor_edit_link, .wprf-name-gutenberg_edit_link {
+                .wprf-nx-bar_with_elementor_install_message-message, .wprf-name-elementor_edit_link, .wprf-name-gutenberg_edit_link, .wprf-name-nx-bar_with_elementor_install {
                     padding: 0 32px 10px;
+                }
+                #wprf-modal-nx-bar_with_gutenberg {
+                    margin-bottom: 0;
+                    .wprf-name-build_with_gutenberg {
+                        padding: 0 32px 5px;
+                        button[name="build_with_gutenberg"] {
+                            margin-bottom: 15px;
+                        }
+                    }
+                }
+                #nx_bar_import_design {
+                    margin-bottom: 0;
+                    .wprf-section-fields {
+                        gap: 0;
+                    }
+                    .wprf-name-nx-bar_with_gutenberg-remove, .wprf-name-nx-bar_with_elementor-remove {
+                        padding: 0 32px 10px;
+                    }
+                    .wprf-name-gutenberg_edit_link, .wprf-name-elementor_edit_link {
+                        justify-content: start;
+                        align-items: start;
+                    }
                 }
                 #nx_bar_import_design {
                     padding: 0 32px;
@@ -481,7 +503,7 @@
             }
             #wprf-modal-nx-bar_with_elementor {
                 .wprf-name-build_with_elementor {
-                    padding: 10px 32px 5px;
+                    padding: 0 32px 5px;
                 }
             }
             .nx_bar_import_design {
