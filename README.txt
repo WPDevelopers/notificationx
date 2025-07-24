@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, notification ba
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 5.6
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -209,6 +209,11 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 3.1.2 - 24/07/2025 =
+Fixed: Issues with turning notifications on/off
+Added: 4 new layouts added for Notification Bar
+Few minor bug fixes and improvements.
+
 = 3.1.1 - 11/06/2025 =
 Fixed: Background color issues for Notifications.
 Fixed: Notification cross button wasn’t working properly.
@@ -246,34 +251,6 @@ Few minor bug fixes and improvements.
 Fixed: Ninja Forms – Previous notifications were not showing.
 Added: Bulk image and URL update feature for Custom Notifications.
 Improved: Website loading performance with NotificationX.
-Few minor bug fixes and improvements.
-
-= 3.0.1 - 30/01/2025 =
-Improved: GDPR-type Cookie Notice.
-Few minor bug fixes and improvements.
-
-= 3.0.0 - 28/01/2025 =
-Added: GDPR-type Cookie Notice.
-Fixed: Image size support for notifications.
-Fixed: Mobile responsiveness issues for notifications.
-Improved: Security enhancements (Reported by Patchstack).
-Few minor bug fixes and improvements.
-
-= 2.9.5 - 22/12/2024 =
-Added: Background image option for default Notification bar.
-Few minor bug fixes and improvements.
-
-= 2.9.4 - 10/12/2024 =
-Fixed: Notification size not changing properly on mobile devices.
-Fixed: Notification for custom categories/tags not working correctly.
-Fixed: Background and border colors for notifications not functioning.
-Fixed: Conflict between Essential Blocks and NotificationX.
-Improved: Security enhancements (reported by Wordfence).
-Few minor bug fixes and improvements.
-
-= 2.9.3 - 14/11/2024 =
-Added: WordPress 6.7 compatibility.
-Fixed: NotificationX plugin dashboard wasn't loading.
 Few minor bug fixes and improvements.
 
 [See changelog for all versions](https://notificationx.com/changelog)

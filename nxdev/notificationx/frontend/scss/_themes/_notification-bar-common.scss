@@ -678,16 +678,21 @@
                 }
 
                 .nx-inner-content-wrapper {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
+                    display: grid;
+                    grid-gap: 10px;
+                    grid-template-areas: "bar-content bar-content"
+                        "link-wrapper coupon-wrapper";
                     margin-right: 0 !important;
-
+                    .nx-bar-coupon-wrapper{
+                        grid-area: coupon-wrapper;
+                        text-align: left;
+                    }
                     .nx-bar-content {
-                        margin-left: 0px;
+                        margin-left: 0px !important;
+                        grid-area: bar-content;
                     }
                     .notificationx-link-wrapper {
-                        margin-top: 10px;
+                        grid-area: link-wrapper;
                         .nx-bar-button {
                             margin-left: 0 !important;
                         }
