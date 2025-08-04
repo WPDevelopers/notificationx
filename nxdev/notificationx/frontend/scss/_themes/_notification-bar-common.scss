@@ -71,13 +71,13 @@
                     overflow: hidden;
                     background-color: #262626;
                     color: #fff;
+                    display: flex;
 
                     .nx-time-section {
-                        float: left;
                         margin: 0 5px;
                         padding: 10px;
                         position: relative;
-                        width: 40px;
+                        width: 36px;
 
                         >span {
                             line-height: 1;
@@ -260,12 +260,11 @@
             .nx-bar-content-wrap {
                 .nx-countdown-wrapper {
                     .nx-countdown {
-                        background: none !important;
-                        margin-bottom: -10px;
+                        background: transparent;
+                        display: flex;
 
                         .nx-time-section {
-                            width: 55px;
-                            margin-bottom: 10px;
+                            width: 52px;
                             background-color: #6549fe;
 
                             &:after {

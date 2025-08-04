@@ -169,6 +169,11 @@
                                     }
                                 }
                                 .nx-bar {
+                                    .nx-bar-inner {
+                                        .nx-bar-content-wrap {
+                                            flex-wrap: nowrap;
+                                        }
+                                    }
                                     &.nx-bar-section-preview {
                                         // position: static;
                                         position: sticky; // modified for bar close icon
@@ -183,6 +188,7 @@
                                             max-width: 100%;
                                             margin: 0 auto;
                                         }
+                                        
                                         &.nx-bar-tablet {
                                             max-width: 542px;
                                             margin: 0 auto;
@@ -194,7 +200,8 @@
                                                     min-width: auto;
                                                 }
                                                 .nx-bar-content-wrap {
-                                                    flex-direction: column;
+                                                    // flex-direction: column;
+                                                    flex-wrap: nowrap;
                                                     gap: 8px;
                                                     .nx-countdown {
                                                         margin-bottom: 0;
