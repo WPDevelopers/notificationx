@@ -296,8 +296,9 @@
                                                             }
                                                         }
                                                         .notificationx-link-wrapper {
-                                                            margin-left: 12px;
+                                                            margin-left: 8px;
                                                             border-radius: 8px;
+                                                            white-space: nowrap;
                                                             .nx-bar-button {
                                                                 padding: 6px 12px;
                                                                 font-size: 10px;
@@ -343,8 +344,9 @@
                                                             }
                                                         }
                                                         .notificationx-link-wrapper {
-                                                            margin-left: 12px;
+                                                            margin-left: 8px;
                                                             border-radius: 4px;
+                                                            white-space: nowrap;
                                                             .nx-bar-button {
                                                                 padding: 4px 6px;
                                                                 font-size: 7px;
@@ -396,8 +398,9 @@
                                                             }
                                                         }
                                                         .notificationx-link-wrapper {
-                                                            margin-left: 12px;
+                                                            margin-left: 8px;
                                                             border-radius: 36px;
+                                                            white-space: nowrap;
                                                             .nx-bar-button {
                                                                 padding: 8px 10px;
                                                                 font-size: 10px;
@@ -449,8 +452,9 @@
                                                         .notificationx-link-wrapper {
                                                             margin-left: 8px;
                                                             border-radius: 20px;
-                                                            min-width: 52px;
+                                                            min-width: auto;
                                                             margin-right: 12px;
+                                                            white-space: nowrap;
                                                             .nx-bar-button {
                                                                 padding: 4px 8px;
                                                                 font-size: 8px;
