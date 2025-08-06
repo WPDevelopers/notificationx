@@ -41,8 +41,10 @@ final class StyleHandler {
      * @param int $hook Hook suffix for the current admin page.
      */
     public function notificationx_pro_blocks_edit_post( $hook ) {
+        $current_screen = get_current_screen();
+        $post_type      = !empty( $current_screen->post_type ) ?  $current_screen->post_type : '';
         $dir = dirname( __FILE__ );
-        if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
+        if ( ($hook == 'post-new.php' || $hook == 'post.php') && $post_type == 'nx_bar_eb'   ) {
             wp_enqueue_script(
                 'notificationx-pro-blocks-edit-post',
                 NOTIFICATIONX_URL . 'blocks/style-handler/style-handler.js',

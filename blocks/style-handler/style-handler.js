@@ -34,8 +34,26 @@
 
   const regexForBlockNameTest = /^notificationx\-pro\//g;
 
+  // Flag to prevent multiple calls during save process
+  let isSendingStyles = false;
+  let lastSaveState = false;
+
   //
   const generateAndSendStyleToBackend = () => {
+    // Prevent multiple calls during the same save operation
+    if (isSendingStyles) {
+      return;
+    }
+
+    const { getCurrentPostType = emptyFuns } = select("core/editor");
+    const currentPostType = getCurrentPostType();
+
+    // Only proceed if post type is 'nx_bar_eb'
+    if (currentPostType !== 'nx_bar_eb') {
+      return;
+    }
+
+    isSendingStyles = true;
     const { getEditedEntityRecord = emptyFuns } = select("core");
     const { getBlocks = emptyFuns } = select("core/block-editor");
     const { getCurrentPostId = emptyFuns } = select("core/editor");
@@ -112,8 +130,14 @@
         action: "notificationx_pro_write_block_css",
         nonce: nx_style_handler.sth_nonce,
       },
+      success: function (response) {
+        // Reset flag on successful completion
+        isSendingStyles = false;
+      },
       error: function (msg) {
         console.log(msg);
+        // Reset flag on error as well
+        isSendingStyles = false;
       },
     });
   };
@@ -197,16 +221,36 @@
 
   //
   const callBackFuncForSubsCribeForEditPost = () => {
-    if (isSavingPost() && !isAutosavingPost()) {
+    const currentSaveState = isSavingPost() && !isAutosavingPost();
+
+    // Only call when starting to save (transition from false to true)
+    if (currentSaveState && !lastSaveState) {
       generateAndSendStyleToBackend();
     }
+
+    // Reset flag when save is complete (transition from true to false)
+    if (!currentSaveState && lastSaveState) {
+      isSendingStyles = false;
+    }
+
+    lastSaveState = currentSaveState;
     callBackFuncOnPreviewChange();
   };
 
   const callBackFuncForSubsCribeForEditSite = () => {
-    if (isSavingNonPostEntityChanges()) {
+    const currentSaveState = isSavingNonPostEntityChanges();
+
+    // Only call when starting to save (transition from false to true)
+    if (currentSaveState && !lastSaveState) {
       generateAndSendStyleToBackend();
     }
+
+    // Reset flag when save is complete (transition from true to false)
+    if (!currentSaveState && lastSaveState) {
+      isSendingStyles = false;
+    }
+
+    lastSaveState = currentSaveState;
     callBackFuncOnPreviewChange();
   };
 
