@@ -390,7 +390,7 @@
                                                 padding: 18px 24px;
                                                 .nx-bar-content-wrap {
                                                     .nx-inner-content-wrapper {
-                                                        gap: 14px;
+                                                        gap: 16px;
                                                         margin-right: 0;
                                                         .nx-bar-content {
                                                             margin-left: 0;
@@ -532,7 +532,7 @@
                                                         .nx-countdown {
                                                             gap: 2px;
                                                             .nx-time-section {
-                                                                padding: 6px;
+                                                                padding: 4px;
                                                                 width: 24px;
                                                                 max-height: 34px;
                                                                 margin: 0;
@@ -587,6 +587,7 @@
                                             .nx-bar-inner {
                                                 padding: 10px 24px;
                                                 .nx-bar-content-wrap {
+                                                    gap: 16px;
                                                     .nx-countdown-wrapper {
                                                         .nx-countdown-text {
                                                             display: none;
@@ -598,7 +599,7 @@
                                                                 .nx-hours,
                                                                 .nx-minutes,
                                                                 .nx-seconds {
-                                                                    font-size: 18px;
+                                                                    font-size: 16px;
                                                                 }
                                                                 .nx-countdown-time-text {
                                                                     font-size: 9px;
@@ -617,7 +618,7 @@
                                                             }
                                                         }
                                                         .notificationx-link-wrapper {
-                                                            margin-left: 8px;
+                                                            margin-left: 16px;
                                                             border-radius: 8px;
                                                             white-space: nowrap;
                                                             .nx-bar-button {
@@ -639,6 +640,7 @@
                                             .nx-bar-inner {
                                                 padding: 8px 18px 8px 8px;
                                                 .nx-bar-content-wrap {
+                                                    gap: 12px;
                                                     flex-direction: row;
                                                     .nx-countdown-wrapper {
                                                         .nx-countdown-text {
@@ -670,7 +672,7 @@
                                                             }
                                                         }
                                                         .notificationx-link-wrapper {
-                                                            margin-left: 8px;
+                                                            margin-left: 12px;
                                                             border-radius: 4px;
                                                             white-space: nowrap;
                                                             .nx-bar-button {
@@ -695,6 +697,7 @@
                                             .nx-bar-inner {
                                                 padding: 10px 24px;
                                                 .nx-bar-content-wrap {
+                                                    gap: 16px;
                                                     .nx-countdown-wrapper {
                                                         .nx-countdown-text {
                                                             display: none;
@@ -729,7 +732,7 @@
                                                             }
                                                         }
                                                         .notificationx-link-wrapper {
-                                                            margin-left: 8px;
+                                                            margin-left: 16px;
                                                             border-radius: 36px;
                                                             white-space: nowrap;
                                                             .nx-bar-button {
@@ -751,6 +754,7 @@
                                             .nx-bar-inner {
                                                 padding: 8px 18px 8px 8px;
                                                 .nx-bar-content-wrap {
+                                                    gap: 12px;
                                                     flex-direction: row;
                                                     .nx-countdown-wrapper {
                                                         .nx-countdown-text {
@@ -786,10 +790,9 @@
                                                             }
                                                         }
                                                         .notificationx-link-wrapper {
-                                                            margin-left: 8px;
+                                                            margin-left: 12px;
                                                             border-radius: 20px;
                                                             min-width: auto;
-                                                            margin-right: 12px;
                                                             white-space: nowrap;
                                                             .nx-bar-button {
                                                                 padding: 4px 8px;
@@ -813,6 +816,7 @@
                                             .nx-bar-inner {
                                                 padding: 10px 24px;
                                                 .nx-bar-content-wrap {
+                                                    gap: 16px;
                                                     .nx-countdown-wrapper {
                                                         .nx-countdown-text {
                                                             display: none;
@@ -845,7 +849,7 @@
                                                             }
                                                         }
                                                         .notificationx-link-wrapper {
-                                                            margin-left: 8px;
+                                                            margin-left: 16px;
                                                             border-radius: 26px;
                                                             white-space: nowrap;
                                                             .nx-bar-button {
@@ -868,7 +872,7 @@
                                                 padding: 8px 18px 8px 8px;
                                                 .nx-bar-content-wrap {
                                                     flex-direction: row;
-                                                    gap: 8px;
+                                                    gap: 12px;
                                                     .nx-countdown-wrapper {
                                                         .nx-countdown-text {
                                                             display: none;
@@ -901,7 +905,7 @@
                                                             }
                                                         }
                                                         .notificationx-link-wrapper {
-                                                            margin-left: 8px;
+                                                            margin-left: 12px;
                                                             border-radius: 20px;
                                                             white-space: nowrap;
                                                             .nx-bar-button {
@@ -931,9 +935,9 @@
                                                         .nx-bar-content {
                                                             margin-left: 0;
                                                             p {
-                                                                font-size: 16px;
+                                                                font-size: 12px;
                                                                 span {
-                                                                    font-size: 16px;
+                                                                    font-size: 12px;
                                                                 }
                                                             }
                                                         }
