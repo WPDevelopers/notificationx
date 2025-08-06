@@ -218,7 +218,7 @@
                                         }
                                         .notificationx-close {
                                             top: 11px !important;
-                                            right: 6px !important;
+                                            right: 8px !important;
                                         }
                                     }
 
@@ -252,10 +252,331 @@
                                                 }
                                             }
                                             .notificationx-close {
-                                                top: 6px !important;
-                                                right: 6px !important;
+                                                top: 4px !important;
+                                                right: 4px !important;
                                                 svg {
                                                     max-height: 6px;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    &.press_bar_theme-one {
+                                        &.nx-bar-tablet {
+                                            .nx-bar-inner {
+                                                padding: 10px 24px 10px 10px;
+                                                .nx-bar-content-wrap {
+                                                    gap: 16px;
+                                                    .nx-countdown-wrapper {
+                                                        .nx-countdown-text {
+                                                            display: none;
+                                                        }
+                                                        .nx-countdown {
+                                                            .nx-time-section {
+                                                                width: 16px;
+                                                                padding: 11px 6px;
+                                                                .nx-days,
+                                                                .nx-hours,
+                                                                .nx-minutes,
+                                                                .nx-seconds {
+                                                                    font-size: 11px;
+                                                                }
+                                                                .nx-countdown-time-text {
+                                                                    display: none;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    .nx-inner-content-wrapper {
+                                                        margin-right: 0;
+                                                        .nx-bar-content {
+                                                            margin-left: 0;
+                                                            p {
+                                                                font-size: 10px;
+                                                                span {
+                                                                    font-size: 10px;
+                                                                }
+                                                            }
+                                                        }
+                                                        .notificationx-link-wrapper {
+                                                            margin-left: 16px;
+                                                            border-radius: 0;
+                                                            white-space: nowrap;
+                                                            .nx-bar-button {
+                                                                padding: 6px 12px;
+                                                                font-size: 10px;
+                                                                line-height: 1.2em;
+                                                                min-width: auto;
+                                                                img {
+                                                                    width: 12px !important;
+                                                                    height: 12px !important;
+                                                                    margin-right: 3px !important;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        &.nx-bar-phone {
+                                            .nx-bar-inner {
+                                                padding: 8px 18px 8px 8px;
+                                                .nx-bar-content-wrap {
+                                                    gap: 12px;
+                                                    flex-direction: row;
+                                                    .nx-countdown-wrapper {
+                                                        .nx-countdown-text {
+                                                            display: none;
+                                                        }
+                                                        .nx-countdown {
+                                                            .nx-time-section {
+                                                                width: 14px;
+                                                                padding: 12px 6px;
+                                                                .nx-days,
+                                                                .nx-hours,
+                                                                .nx-minutes,
+                                                                .nx-seconds {
+                                                                    font-size: 10px;
+                                                                }
+                                                                .nx-countdown-time-text {
+                                                                    display: none;
+                                                                }
+                                                                &:after {
+                                                                    content: ":";
+                                                                    right: -4px;
+                                                                    top: 10px;
+                                                                    font-size: 12px;
+                                                                    line-height: 1;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    .nx-inner-content-wrapper {
+                                                        margin-right: 0;
+                                                        .nx-bar-content {
+                                                            margin-left: 0;
+                                                            p {
+                                                                font-size: 10px;
+                                                                span {
+                                                                    font-size: 10px;
+                                                                }
+                                                            }
+                                                        }
+                                                        .notificationx-link-wrapper {
+                                                            margin-left: 12px;
+                                                            border-radius: 0;
+                                                            white-space: nowrap;
+                                                            .nx-bar-button {
+                                                                padding: 4px 8px;
+                                                                font-size: 8px;
+                                                                line-height: 1.2em;
+                                                                min-width: auto;
+                                                                img {
+                                                                    width: 10px !important;
+                                                                    height: 10px !important;
+                                                                    margin-right: 3px !important;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    &.press_bar_theme-two {
+                                        &.nx-bar-tablet {
+                                            .nx-bar-inner {
+                                                padding: 18px 24px;
+                                                .nx-bar-content-wrap {
+                                                    .nx-inner-content-wrapper {
+                                                        gap: 14px;
+                                                        margin-right: 0;
+                                                        .nx-bar-content {
+                                                            margin-left: 0;
+                                                            p {
+                                                                font-size: 12px;
+                                                                span {
+                                                                    font-size: 12px;
+                                                                }
+                                                            }
+                                                        }
+                                                        .notificationx-link-wrapper {
+                                                            margin-left: 0;
+                                                            border-radius: 0;
+                                                            white-space: nowrap;
+                                                            .nx-bar-button {
+                                                                padding: 8px 14px;
+                                                                font-size: 12px;
+                                                                line-height: 1.2em;
+                                                                min-width: auto;
+                                                                img {
+                                                                    width: 12px !important;
+                                                                    height: 12px !important;
+                                                                    margin-right: 3px !important;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        &.nx-bar-phone {
+                                            .nx-bar-inner {
+                                                padding: 12px 18px;
+                                                .nx-bar-content-wrap {
+                                                    .nx-inner-content-wrapper {
+                                                        gap: 12px;
+                                                        .nx-bar-content {
+                                                            margin-left: 0;
+                                                            p {
+                                                                font-size: 10px;
+                                                                span {
+                                                                    font-size: 10px;
+                                                                }
+                                                            }
+                                                        }
+                                                        .notificationx-link-wrapper {
+                                                            margin-left: 0;
+                                                            border-radius: 0;
+                                                            white-space: nowrap;
+                                                            .nx-bar-button {
+                                                                padding: 4px 8px;
+                                                                font-size: 8px;
+                                                                line-height: 1.2em;
+                                                                min-width: auto;
+                                                                img {
+                                                                    width: 10px !important;
+                                                                    height: 10px !important;
+                                                                    margin-right: 3px !important;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    &.press_bar_theme-three {
+                                        &.nx-bar-tablet {
+                                            .nx-bar-inner {
+                                                padding: 10px 24px 10px 10px;
+                                                .nx-bar-content-wrap {
+                                                    gap: 16px;
+                                                    .nx-countdown-wrapper {
+                                                        .nx-countdown-text {
+                                                            display: none;
+                                                        }
+                                                        .nx-countdown {
+                                                            gap: 4px;
+                                                            .nx-time-section {
+                                                                padding: 6px;
+                                                                width: 32px;
+                                                                max-height: 46px;
+                                                                margin: 0;
+                                                                .nx-days,
+                                                                .nx-hours,
+                                                                .nx-minutes,
+                                                                .nx-seconds {
+                                                                    font-size: 14px;
+                                                                    margin-bottom: 6px;
+                                                                }
+                                                                .nx-countdown-time-text {
+                                                                    font-size: 8px;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    .nx-inner-content-wrapper {
+                                                        margin-right: 0;
+                                                        .nx-bar-content {
+                                                            margin-left: 0;
+                                                            p {
+                                                                font-size: 10px;
+                                                                span {
+                                                                    font-size: 11px;
+                                                                }
+                                                            }
+                                                        }
+                                                        .notificationx-link-wrapper {
+                                                            margin-left: 16px;
+                                                            border-radius: 2px;
+                                                            white-space: nowrap;
+                                                            .nx-bar-button {
+                                                                padding: 8px 10px;
+                                                                font-size: 10px;
+                                                                line-height: 1.2em;
+                                                                min-width: auto;
+                                                                img {
+                                                                    width: 12px !important;
+                                                                    height: 12px !important;
+                                                                    margin-right: 3px !important;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        &.nx-bar-phone {
+                                            .nx-bar-inner {
+                                                padding: 8px 18px 8px 8px;
+                                                .nx-bar-content-wrap {
+                                                    gap: 12px;
+                                                    flex-direction: row;
+                                                    .nx-countdown-wrapper {
+                                                        .nx-countdown-text {
+                                                            display: none;
+                                                        }
+                                                        .nx-countdown {
+                                                            gap: 2px;
+                                                            .nx-time-section {
+                                                                padding: 6px;
+                                                                width: 24px;
+                                                                max-height: 34px;
+                                                                margin: 0;
+                                                                .nx-days,
+                                                                .nx-hours,
+                                                                .nx-minutes,
+                                                                .nx-seconds {
+                                                                    font-size: 9px;
+                                                                    margin-bottom: 4px;
+                                                                }
+                                                                .nx-countdown-time-text {
+                                                                    font-size: 6px;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    .nx-inner-content-wrapper {
+                                                        .nx-bar-content {
+                                                            margin-left: 0;
+                                                            p {
+                                                                font-size: 9px;
+                                                                span {
+                                                                    font-size: 9px;
+                                                                }
+                                                            }
+                                                        }
+                                                        .notificationx-link-wrapper {
+                                                            margin-left: 12px;
+                                                            border-radius: 2px;
+                                                            min-width: auto;
+                                                            white-space: nowrap;
+                                                            .nx-bar-button {
+                                                                padding: 4px 8px;
+                                                                font-size: 8px;
+                                                                line-height: 1.2em;
+                                                                min-width: auto;
+                                                                img {
+                                                                    width: 10px !important;
+                                                                    height: 10px !important;
+                                                                    margin-right: 2px !important;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -316,7 +637,7 @@
                                         }
                                         &.nx-bar-phone {
                                             .nx-bar-inner {
-                                                padding: 10px 12px;
+                                                padding: 8px 18px 8px 8px;
                                                 .nx-bar-content-wrap {
                                                     flex-direction: row;
                                                     .nx-countdown-wrapper {
@@ -428,7 +749,7 @@
                                         }
                                         &.nx-bar-phone {
                                             .nx-bar-inner {
-                                                padding: 8px;
+                                                padding: 8px 18px 8px 8px;
                                                 .nx-bar-content-wrap {
                                                     flex-direction: row;
                                                     .nx-countdown-wrapper {
@@ -490,7 +811,7 @@
                                     &.press_bar_theme-six {
                                         &.nx-bar-tablet {
                                             .nx-bar-inner {
-                                                padding: 6px 24px;
+                                                padding: 10px 24px;
                                                 .nx-bar-content-wrap {
                                                     .nx-countdown-wrapper {
                                                         .nx-countdown-text {
@@ -532,8 +853,8 @@
                                                                 font-size: 11px;
                                                                 min-width: auto;
                                                                 img {
-                                                                    width: 11px !important;
-                                                                    height: 11px !important;
+                                                                    width: 12px !important;
+                                                                    height: 12px !important;
                                                                     margin-right: 3px !important;
                                                                 }
                                                             }
@@ -544,7 +865,7 @@
                                         }
                                         &.nx-bar-phone {
                                             .nx-bar-inner {
-                                                padding: 6px 24px;
+                                                padding: 8px 18px 8px 8px;
                                                 .nx-bar-content-wrap {
                                                     flex-direction: row;
                                                     gap: 8px;
@@ -637,7 +958,7 @@
                                         }
                                         &.nx-bar-phone {
                                             .nx-bar-inner {
-                                                padding: 12px 24px;
+                                                padding: 12px 18px;
                                                 .nx-bar-content-wrap {
                                                     .nx-inner-content-wrapper {
                                                         gap: 12px;
