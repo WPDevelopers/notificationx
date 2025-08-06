@@ -10,7 +10,7 @@ const GetStarted = ({props, context}) => {
     const addNewRedirect = () => {
         context.setRedirect({
             page: `nx-edit`,
-            state: { type: 'comments', source: 'wp_reviews', timestamp: new Date().getTime() }
+            state: { type: 'notification_bar', source: 'press_bar', timestamp: new Date().getTime() }
         });
     }
     return (
