@@ -336,6 +336,7 @@ class PressBar extends Extension {
     public function init_fields() {
         parent::init_fields();
         add_filter('nx_design_tab_fields', [$this, 'design_tab_fields']);
+        add_filter('nx_design_tab_fields', [$this, 'design_tab_presets_fields']);
         add_filter('nx_design_tab_fields', [$this, 'design_tab_fields_for_button'], 20);
         add_filter('nx_customize_fields', [$this, 'customize_fields']);
         add_filter('nx_content_fields', [$this, 'content_fields'], 22);
@@ -398,6 +399,49 @@ class PressBar extends Extension {
     public function _source_trigger($triggers) {
         $triggers[$this->id]['position'] = "@position:top";
         return $triggers;
+    }
+
+    /** 
+     * NX Bar Presets tab fields for button.
+     * 
+     * @param array $fields
+     * @return array
+    */
+    public function design_tab_presets_fields($fields) {
+        $import_design   = [];
+        $import_design   = &$fields['themes']['fields']['themes_section']['fields']['themes_tab']['fields'];
+        $import_design[] = [
+            'label' => __("Presets", 'notificationx'),
+            'name'  => 'for_desktop',
+            'id'    => 'for_desktop',
+            'type'  => 'section',
+            'icon'  => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+        ];
+        $import_design[] = [
+            'label'  => __("Custom", 'notificationx'),
+            'name'   => 'nxbar_custom',
+            'id'     => 'nxbar_custom',
+            'type'   => 'section',
+            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+            'fields' => [
+                'nxbar_custom' => [
+                    'label'            => __("Custom", 'notificationx'),
+                    'name'             => 'nxbar_custom',
+                    'id'               => 'nxbar_custom',
+                    'type'             => 'section',
+                    'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                    'fields'           => [
+                        'nxbar_custom_fields' => [
+                            'name'     => "nxbar_custom_fields",
+                            'type'     => "nxbar-custom",
+                            'label'    => __('NX Bar', 'notificationx'),
+                            'priority' => 10,
+                        ],
+                    ]
+                ],
+            ]
+        ];
+        return $fields;
     }
 
     /** 
@@ -711,7 +755,7 @@ class PressBar extends Extension {
             'type'   => 'modal',
             'button' => [
                 'name' => 'build_with_elementor',
-                'text' => __('Build With Elementor', 'notificationx'),
+                'text' => __('Edit With Elementor', 'notificationx'),
                 'trigger' => [
                     [
                         'type'   => 'setFieldValue',
@@ -918,7 +962,7 @@ class PressBar extends Extension {
             'type'   => 'modal',
             'button' => [
                 'name' => 'build_with_gutenberg',
-                'text' => __('Build With Gutenberg', 'notificationx'),
+                'text' => __('Edit With Gutenberg', 'notificationx'),
                 'trigger' => [
                     [
                         'type'   => 'setFieldValue',
