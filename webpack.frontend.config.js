@@ -56,6 +56,25 @@ const config = {
         ...defaultConfig.resolve,
         extensions: [".tsx", ".ts", ".js", ".jsx"],
     },
+    externals: {
+        // Exclude all lodash variants from frontend bundle
+        'lodash': 'window._',
+        'lodash-es': 'window._',
+        'lodash/debounce': 'window._.debounce',
+        'lodash/mapValues': 'window._.mapValues',
+
+        // Use WordPress globals for WordPress packages (prevents lodash bundling)
+        '@wordpress/dom-ready': 'wp.domReady',
+        '@wordpress/i18n': 'wp.i18n',
+        '@wordpress/api-fetch': 'wp.apiFetch',
+        '@wordpress/url': 'wp.url',
+        '@wordpress/escape-html': 'wp.escapeHtml',
+        '@wordpress/data': 'wp.data',
+        '@wordpress/components': 'wp.components',
+
+        // Completely exclude packages not needed in frontend
+        'quickbuilder': false
+    },
     output: {
         ...defaultConfig.output,
         filename: "public/js/[name].js",

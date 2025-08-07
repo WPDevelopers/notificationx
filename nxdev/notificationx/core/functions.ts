@@ -3,7 +3,25 @@ import { sprintf, __ } from "@wordpress/i18n";
 import Swal from "sweetalert2";
 import { useNotificationXContext } from "../hooks";
 import { ToastAlert } from "./ToasterMsg";
-import { isObject, getIn } from "quickbuilder";
+
+// Simple utility functions to replace quickbuilder dependencies
+const isObject = (value: any): boolean => {
+    return value !== null && typeof value === 'object' && !Array.isArray(value);
+};
+
+const getIn = (object: any, path: string, defaultValue?: any): any => {
+    const keys = path.split('.');
+    let result = object;
+
+    for (const key of keys) {
+        if (result == null || typeof result !== 'object') {
+            return defaultValue;
+        }
+        result = result[key];
+    }
+
+    return result !== undefined ? result : defaultValue;
+};
 
 /**
  * apiFetch setup
