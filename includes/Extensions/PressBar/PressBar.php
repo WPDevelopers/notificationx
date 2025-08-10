@@ -723,7 +723,7 @@ class PressBar extends Extension {
             'name'  => 'nx-bar_with_elementor-remove',
             'type'  => 'button',
             'priority' => 2,
-            'text'  => __('Remove Elementor Design', 'notificationx'),
+            'text'  => __('Remove', 'notificationx'),
             'rules' => Rules::logicalRule([
                 Rules::is('elementor_id', false, true),
                 Rules::is('is_elementor', true),
@@ -929,7 +929,7 @@ class PressBar extends Extension {
         $import_design[] = [
             'name'  => 'nx-bar_with_gutenberg-remove',
             'type'  => 'button',
-            'text'  => __('Remove Gutenberg Design', 'notificationx'),
+            'text'  => __('Remove', 'notificationx'),
             'priority' => 5,
             'rules' => Rules::logicalRule([
                 Rules::is('gutenberg_id', false, true),
