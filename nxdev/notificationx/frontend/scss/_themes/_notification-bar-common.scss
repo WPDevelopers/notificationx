@@ -313,7 +313,7 @@
                 padding: 10px 30px;
             }
             .nx-bar-content-wrap {
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 justify-content: center;
                 gap: 12px;
                 .nx-countdown-wrapper {
@@ -323,6 +323,9 @@
                         line-height: 1em;
                         color: #000123;
                         margin-right: 12px;
+                        @media only screen and (max-width: 1024px) {
+                            display: none;
+                        }
                     }
                     .nx-countdown {
                         overflow: hidden;
@@ -519,7 +522,7 @@
                 padding: 10px 30px;
             }
             .nx-bar-content-wrap {
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 justify-content: center;
                 gap: 12px;
                 .nx-countdown-wrapper {
@@ -618,12 +621,9 @@
             .nx-bar-content-wrap {
                 .nx-inner-content-wrapper {
                     margin-right: 0;
-                    flex-wrap: wrap;
+                    flex-wrap: nowrap;
                     justify-content: center;
                     gap: 12px;
-                    @media screen and (max-width: 1271px) {
-                        flex-direction: column;
-                    }
                     .nx-bar-content {
                         margin-left: 0;
                         p {
@@ -675,14 +675,14 @@
     @media only screen and (max-width: 786px) {
         .nx-bar-inner {
             .nx-bar-content-wrap {
-                flex-direction: column;
+                // flex-direction: column;
 
                 .nx-countdown-wrapper {
                     margin-bottom: 15px;
                 }
 
                 .nx-inner-content-wrapper {
-                    display: grid;
+                    // display: grid;
                     grid-gap: 10px;
                     grid-template-areas: "bar-content bar-content"
                         "link-wrapper coupon-wrapper";
@@ -694,6 +694,9 @@
                     .nx-bar-content {
                         margin-left: 0px !important;
                         grid-area: bar-content;
+                        p {
+                            line-height: 1.2em;
+                        }
                     }
                     .notificationx-link-wrapper {
                         grid-area: link-wrapper;

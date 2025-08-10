@@ -1332,9 +1332,6 @@
                                                     margin-right: 0;
                                                     justify-content: center;
                                                     gap: 12px;
-                                                    @media screen and (max-width: 1271px) {
-                                                        flex-direction: column;
-                                                    }
                                                     .nx-bar-content {
                                                         margin-left: 0;
                                                         p {
