@@ -2015,3 +2015,83 @@
         }
     }
 }
+
+#notificationx .wprf-modal-inner {
+    width: 80% !important;
+    height: 80%;
+    border-radius: 0.3125em;
+    padding: 0 !important;
+    max-width: 620px !important;
+    overflow: hidden !important;
+    justify-content: unset !important;
+
+    .wprf-modal-header {
+        text-align: left;
+        padding: 16px;
+        border-bottom: 1px solid #EBEEF5;
+        h3 {
+            color: #092161;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+        }
+    }
+    .wprf-modal-body {
+        .wprf-modal-content {
+            padding: 16px 0;
+            .wprf-control-wrapper {
+                padding: 0 !important;
+                .wprf-control .wprf-row {
+                    margin: 0;
+                    .wprf-column {
+                        padding: 8px 16px;
+                        .wprf-input-radio-option {
+                            .wprf-input-label {
+                                padding: 10px 30px;
+                            }
+                        }
+                    } 
+                }
+            }
+        }
+        .wprf-modal-footer {
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #EAECFA;
+            margin: 0;
+            padding: 16px;
+            padding-bottom: 16px;
+            .wprf-control-wrapper {
+                padding: 0 !important;
+                align-items: center;
+                .wprf-control-field {
+                    .wprf-control-wrapper {
+                        margin-right: 0;
+                        .wprf-button {
+                            background: #6A4BFF !important;
+                            border: 1px solid #6A4BFF !important;
+                            border-radius: 8px;
+                            padding: 14px 20px !important;
+                            font-size: 16px !important;
+                            font-weight: 500;
+                            align-items: center;
+                            justify-content: center;
+                            text-decoration: none;
+                            outline: none;
+                            color: #FFF !important;
+                            line-height: 1em;
+                            transition: 0.25s ease-in-out;
+                            box-sizing: border-box;
+                            cursor: pointer;
+                            &:hover {
+                                background: #6A4BFF !important;
+                                border: 1px solid #6A4BFF !important;
+                                color: #FFF !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
