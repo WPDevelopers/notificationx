@@ -791,6 +791,21 @@
                             }
                         }
                     }
+                    &.press_bar {
+                        .wprf-tab-nav {
+                            .wprf-tab-nav-item {
+                                &:nth-child(1) {
+                                    display: none;
+                                }
+                                &:nth-child(2) {
+                                    &::after {
+                                        display: none;
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
                 }
 
                 .wprf-tab-content-wrapper {
@@ -805,6 +820,27 @@
                                 border-radius: 0;
                                 .wprf-control-wrapper {
                                     padding: 32px;
+                                }
+                            }
+                            &.nxbar_custom {
+                                .wprf-section-title {
+                                    display: none;
+                                }
+                                .wprf-section-fields {
+                                    .nxbar-presets-empty-state {
+                                        text-align: center;
+                                        padding: 70px 0;
+                                        img {
+                                            max-width: 100%;
+                                        }
+                                        h4 {
+                                            font-size: 16px;
+                                            font-weight: 500;
+                                            margin: 0;
+                                            margin-top: 20px;
+                                            margin-bottom: 20px;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -827,6 +863,70 @@
                 }
                 .wprf-control-field {
                     min-height: auto;
+                }
+            }
+
+            .wprf-control-section.nx_bar_import_design {
+                .wprf-section-fields {
+                    justify-content: center;
+                    margin: 0;
+                    .wprf-control {
+                        .wprf-control-wrapper {
+                            .wprf-button {
+                                display: inline-flex;
+                                min-height: 40px;
+                                background: #F7F8FA;
+                                border: 1px solid #D9DBE9;
+                                border-radius: 8px;
+                                padding: 12px 16px 12px 40px;
+                                font-size: 14px;
+                                font-weight: 500;
+                                align-items: center;
+                                justify-content: center;
+                                text-decoration: none;
+                                outline: none;
+                                color: #092161;
+                                line-height: 1em;
+                                transition: 0.25s ease-in-out;
+                                box-sizing: border-box;
+                                cursor: pointer;
+
+                                &:hover {
+                                    color: #092161;
+                                    background: #F7F8FA;
+                                    border: 1px solid #D9DBE9;
+                                    box-shadow: none;
+                                }
+                                &:focus {
+                                    box-shadow: none;
+                                }
+                            }
+                            &.wprf-name-build_with_elementor {
+                                padding: 0 3px !important;
+                                .wprf-control-field {
+                                    .wprf-button {
+                                        background-image: url(../../../assets/admin/images/new-img/elementor-icon.svg);
+                                        background-size: 20px 20px;
+                                        background-repeat: no-repeat;
+                                        background-position: left center;
+                                        background-position-x: 16px;
+                                    }
+                                }
+                            }
+                            &.wprf-name-build_with_gutenberg {
+                                padding: 0 3px !important;
+                                .wprf-control-field {
+                                    .wprf-button {
+                                        background-image: url(../../../assets/admin/images/new-img/gutenberg-icon.svg);
+                                        background-size: 20px 20px;
+                                        background-repeat: no-repeat;
+                                        background-position: left center;
+                                        background-position-x: 16px;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -930,4 +1030,28 @@
         }
     }
 
+}
+
+.wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper.press_bar .wprf-tab-content .wprf-control-section.themes {
+    .wprf-section-fields {
+        .wprf-control-section {
+            margin-bottom: 0 !important;
+            .wprf-section-fields {
+                .wprf-tab-content-wrapper.press_bar {
+                    .wprf-tab-content {
+                        .wprf-control-section.nxbar_custom {
+                            .wprf-section-fields {
+                                .nxbar-presets-empty-state {
+                                    padding-bottom: 0 !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .wprf-control-section.nx_bar_import_design {
+            padding-bottom: 70px !important;
+        }
+    }
 }
