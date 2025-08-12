@@ -416,6 +416,7 @@ class PressBar extends Extension {
             'id'    => 'for_desktop',
             'type'  => 'section',
             'icon'  => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+            'rules' => Rules::is('source', $this->id),
         ];
         $import_design[] = [
             'label'  => __("Custom", 'notificationx'),
@@ -423,14 +424,15 @@ class PressBar extends Extension {
             'id'     => 'nxbar_custom',
             'type'   => 'section',
             'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+            'rules'  => Rules::is('source', $this->id),
             'fields' => [
                 'nxbar_custom' => [
-                    'label'            => __("Custom", 'notificationx'),
-                    'name'             => 'nxbar_custom',
-                    'id'               => 'nxbar_custom',
-                    'type'             => 'section',
-                    'icon'             => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
-                    'fields'           => [
+                    'label'  => __("Custom", 'notificationx'),
+                    'name'   => 'nxbar_custom',
+                    'id'     => 'nxbar_custom',
+                    'type'   => 'section',
+                    'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                    'fields' => [
                         'nxbar_custom_fields' => [
                             'name'     => "nxbar_custom_fields",
                             'type'     => "nxbar-custom",
