@@ -1062,17 +1062,21 @@
                                     padding-bottom: 0 !important;
                                 }
                                 .nxbar-selected-presets {
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    margin: 32px 24px;
                                     .nxbar-selected-presets-gutenberg {
                                         display: flex;
                                         justify-content: center;
-                                        margin: 32px 24px;
+                                        flex-direction: column;
+                                        flex: 1;
+                                        padding: 20px 40px;
+                                        background: #EAF4FB;
+                                        border: 1px solid #EAF4FB;
+                                        border-radius: 8px;
                                         img {
-                                            width: 100%;
                                             max-width: 100%;
-                                            padding: 20px 40px;
-                                            background: #EAF4FB;
-                                            border: 1px solid #EAF4FB;
-                                            border-radius: 8px;
                                         }
                                     }
                                 }
