@@ -409,6 +409,10 @@
             min-height: 40px;
             flex: 70%;
 
+            span {
+                display: inline-flex;
+            }
+
             .wprf-type-textarea {
                 textarea {
                     padding: 10px 15px;
