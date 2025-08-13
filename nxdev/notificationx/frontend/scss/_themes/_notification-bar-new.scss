@@ -7,6 +7,9 @@
                         &.wprf-name-advance_edit {
                             display: none;
                         }
+                        &.wprf-name-advance_edit + .nx_bar_import_design {
+                            display: none;
+                        }
                     }
                 }
             }

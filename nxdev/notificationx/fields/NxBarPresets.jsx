@@ -27,7 +27,7 @@ const NxBarPresets = () => {
 
             return specialMap[values.gutenberg_bar_theme]
                 ? `${basePath}/${specialMap[values.gutenberg_bar_theme]}`
-                : `${basePath}/bar-gutenberg/${values.gutenberg_bar_theme}.jpg`;
+                : `${basePath}/bar-gutenberg/${values.gutenberg_bar_theme}.png`;
         }
 
         // Fallback

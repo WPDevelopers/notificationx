@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import classNames from "classnames";
 import moment from "moment";
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import cookie from "react-cookies";
 import BarCoupon from "../../frontend/core/helper/BarCoupon";
 import PreviewButton from './PreviewButton';
@@ -9,6 +9,7 @@ import { ReactComponent as DesktopIcon } from "../../icons/responsive/desktop.sv
 import { ReactComponent as TabletIcon } from "../../icons/responsive/tablet.svg";
 import { ReactComponent as MobileIcon } from "../../icons/responsive/mobile.svg";
 import { commonAssetsURL, themes_has_bg } from "../../core/functions";
+import { useNotificationXContext } from "../../hooks";
 
 
 const getUnixTime = (value) => moment.utc(value).unix() * 1000;
@@ -68,6 +69,8 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
     const [styles, setStyles] = useState({});
     const countdownRef = useRef(null);
     const [previewType, setPreviewType] = useState("desktop");
+    const { assets } = useNotificationXContext();
+    
 
     const getTime = () => {
         const currentTime = Date.now();
@@ -220,6 +223,36 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
         ...styles.closeButtonCSS,
         ...positionPosition,
     };    
+     const basePath = `${assets.admin}/images/extensions/themes`;
+
+    const previewUrl = useMemo(() => {
+        if (!settings) return '';
+
+        // Elementor Path
+        if (settings.is_elementor && settings.elementor_id && settings.elementor_bar_theme) {
+            return `${basePath}/bar-elementor/${settings.elementor_bar_theme}.jpg`;
+        }
+
+        // Gutenberg Path
+        if (settings.is_gutenberg && settings.gutenberg_bar_theme) {
+            const specialMap = {
+                'theme-five': 'nx-bar-theme-one.jpg',
+                'theme-six': 'nx-bar-theme-two.jpg',
+                'theme-seven': 'nx-bar-theme-three.jpg',
+            };
+
+            return specialMap[settings.gutenberg_bar_theme]
+                ? `${basePath}/${specialMap[settings.gutenberg_bar_theme]}`
+                : `${basePath}/bar-gutenberg/${settings.gutenberg_bar_theme}.png`;
+        }
+
+        // Fallback
+        return settings.preview_url || '';
+    }, [settings, basePath]);
+    const isBuildWithBuilder = (settings?.is_elementor || settings?.is_gutenberg) && (settings?.elementor_id || settings?.gutenberg_id );
+    console.log('settings',settings);
+    console.log('isBuildWithBuilder',isBuildWithBuilder);
+    
 
     return (
         <Fragment>
@@ -245,7 +278,9 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                     </button>
                 </div>
             </div>
-            <div
+            { isBuildWithBuilder ? 
+                <img src={previewUrl} alt="" /> : 
+                <div
                 id={`nx-bar-${settings.nx_id}`}
                 className={classNames(
                     "nx-bar",
@@ -359,7 +394,8 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                         </svg>
                     </div>
                 </div>
-            </div>
+                </div>
+            }
         </Fragment>
         
     );
