@@ -2095,12 +2095,16 @@ class GlobalFields {
                             'is_pro' => true,
                             'fields' => [
                                 [
-                                    'label'    => __("Enable Global Queue", 'notificationx'),
-                                    'name'     => "global_queue",
-                                    'type'     => "checkbox",
-                                    'priority' => 0,
-                                    'default'  => false,
-                                    'is_pro'   => true,
+                                    'label'       => __("Enable Global Queue", 'notificationx'),
+                                    'tooltip'        => [
+                                        'icon'  => NOTIFICATIONX_ADMIN_URL . 'images/icons/info.svg',
+                                        'content'  => __('Activate global queue system for this notification.', 'notificationx'),
+                                    ],
+                                    'name'        => "global_queue",
+                                    'type'        => "checkbox",
+                                    'priority'    => 0,
+                                    'default'     => false,
+                                    'is_pro'      => true,
                                     'description' => sprintf('%s <a href="%s" target="_blank">%s</a>', __('Activate global queue system for this notification.', 'notificationx'), 'https://notificationx.com/docs/centralized-queue', __('Check out this doc.', 'notificationx')),
                                 ],
                             ]

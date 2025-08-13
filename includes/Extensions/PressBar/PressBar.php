@@ -69,17 +69,17 @@ class PressBar extends Extension {
                 'source'        => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
                 'column'        => "12",
                 'defaults' => [
-                    'enable_countdown'            => 1,
-                    'nx_bar_border_radius_left'   => 0,
-                    'nx_bar_border_radius_right'  => 0,
-                    'nx_bar_border_radius_top'    => 0,
-                    'nx_bar_border_radius_bottom' => 0,
-                    'button_icon'                 => 'none',
-                    'bar_bg_color'                => '#dddddd',
-                    'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>','notificationx'),
-                    'button_text'                 => __('Get Offer', 'notificationx'),
-                    'link_button_bg_color'        => '#000',
-                    'link_button_text_color'      => '#ffffff',
+                    // 'enable_countdown'            => 1,
+                    // 'nx_bar_border_radius_left'   => 0,
+                    // 'nx_bar_border_radius_right'  => 0,
+                    // 'nx_bar_border_radius_top'    => 0,
+                    // 'nx_bar_border_radius_bottom' => 0,
+                    // 'button_icon'                 => 'none',
+                    // 'bar_bg_color'                => '#dddddd',
+                    // 'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>','notificationx'),
+                    // 'button_text'                 => __('Get Offer', 'notificationx'),
+                    // 'link_button_bg_color'        => '#000',
+                    // 'link_button_text_color'      => '#ffffff',
                 ],
             ],
             'theme-two'   => [
@@ -438,6 +438,31 @@ class PressBar extends Extension {
                             'type'     => "nxbar-custom",
                             'label'    => __('NX Bar', 'notificationx'),
                             'priority' => 10,
+                        ],
+                    ]
+                ],
+            ]
+        ];
+        $import_design[] = [
+            'label'  => __("Build with AI", 'notificationx'),
+            'name'   => 'build_with_ai',
+            'id'     => 'build_with_ai',
+            'type'   => 'section',
+            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+            'rules'  => Rules::is('source', $this->id),
+            'fields' => [
+                'build_with_ai' => [
+                    'label'  => __("Build with AI", 'notificationx'),
+                    'name'   => 'build_with_ai',
+                    'id'     => 'build_with_ai',
+                    'type'   => 'section',
+                    'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                    'fields' => [
+                       [
+                            'name'        => "nx_bar_border_radius_left",
+                            'type'        => "build-with-ai",
+                            'default'     => '0',
+                            'description' => 'px',
                         ],
                     ]
                 ],

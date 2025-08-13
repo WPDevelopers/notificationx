@@ -21,6 +21,7 @@ import BetterSelect from './BetterSelect';
 import IconPicker from "./IconPicker";
 import NxEditor from './NxEditor';
 import NxBarPresets from './NxBarPresets';
+import BuildWithAI from './BuildWithAI';
 
 const Field = (ret, type, props) => {
 
@@ -68,6 +69,8 @@ const Field = (ret, type, props) => {
             return <NxEditor {...props} />;
         case "nxbar-custom":
             return <NxBarPresets {...props} />;
+        case "build-with-ai":
+            return <BuildWithAI {...props} />;
         default:
             return ret;
     }
