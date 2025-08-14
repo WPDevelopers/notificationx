@@ -119,6 +119,7 @@
 
 
             svg path {
+                stroke: #092161;
                 transition: 0.3s ease-in-out;
             }
 
@@ -132,20 +133,23 @@
                 }
             }
             &.upgrade-pro {
-                background-color: rgba(106, 75, 255, .05);
-                border: 1px solid rgba(106, 75, 255, .05);
-                border-radius: 5px;
-                box-sizing: border-box;
+                background-color: #6a4bff0d;
+                border: 1px solid #6a4bff0d;
                 color: #6a4bff;
-                display: flex;
-                font-size: 12px;
-                font-weight: 500;
-                gap: 5px;
-                justify-content: center;
-                line-height: 1em;
-                min-height: 32px;
-                padding: 8px 12px;
-                transition: .3s ease-in-out;
+
+                svg path {
+                    stroke: #6a4bff;
+                }
+
+                &:hover {
+                    background-color: #6a4bff0d !important;
+                    border: 1px solid #6a4bff0d !important;
+                    color: #6a4bff !important;
+
+                    svg path {
+                        stroke: #6a4bff;
+                    }
+                }
             }
         }
 
