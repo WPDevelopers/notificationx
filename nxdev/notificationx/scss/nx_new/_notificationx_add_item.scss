@@ -867,6 +867,11 @@
                 }
             }
 
+            #nxbar_with_gutenberg + .wprf-control-section.nx_bar_import_design, #nxbar_with_elementor + .wprf-control-section.nx_bar_import_design {
+                .wprf-section-fields {
+                    justify-content: end;
+                }
+            }
             .wprf-control-section.nx_bar_import_design {
                 .wprf-section-fields {
                     justify-content: center;

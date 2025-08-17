@@ -415,7 +415,7 @@ class PressBar extends Extension {
             'name'  => 'for_desktop',
             'id'    => 'for_desktop',
             'type'  => 'section',
-            'icon'  => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+            'icon'  => NOTIFICATIONX_ADMIN_URL . 'images/icons/nxbar-presets-icon.svg',
             'rules' => Rules::is('source', $this->id),
         ];
         $import_design[] = [
@@ -423,7 +423,7 @@ class PressBar extends Extension {
             'name'   => 'nxbar_custom',
             'id'     => 'nxbar_custom',
             'type'   => 'section',
-            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/icons/nxbar-custom-tab.svg',
             'rules'  => Rules::is('source', $this->id),
             'fields' => [
                 'nxbar_custom' => [
@@ -693,6 +693,28 @@ class PressBar extends Extension {
             ]),
         );
 
+         $fields['themes']['fields']['nxbar_with_elementor'] = [
+            'name'   => 'nxbar_with_elementor',
+            'type'   => 'section',
+            'fields' => [],
+            'rules'  => Rules::logicalRule([
+                Rules::is('elementor_edit_link', false, true),
+                Rules::isOfType('elementor_edit_link', 'string'),
+                Rules:: is('elementor_id', false, true),
+            ]),
+        ];
+        
+         $fields['themes']['fields']['nxbar_with_gutenberg'] = [
+            'name'   => 'nxbar_with_gutenberg',
+            'type'   => 'section',
+            'fields' => [],
+            'rules'  => Rules::logicalRule([
+                Rules::is('gutenberg_edit_link', false, true),
+                Rules::isOfType('gutenberg_edit_link', 'string'),
+                Rules:: is('gutenberg_id', false, true),
+            ]),
+        ];
+
         $fields['themes']['fields']['nx_bar_import_design'] = [
             'name'   => 'nx_bar_import_design',
             'type'   => 'section',
@@ -757,7 +779,7 @@ class PressBar extends Extension {
             'type'   => 'modal',
             'button' => [
                 'name' => 'build_with_elementor',
-                'text' => __('Edit With Elementor', 'notificationx'),
+                'text' => __('Build With Elementor', 'notificationx'),
                 'trigger' => [
                     [
                         'type'   => 'setFieldValue',
@@ -964,7 +986,7 @@ class PressBar extends Extension {
             'type'   => 'modal',
             'button' => [
                 'name' => 'build_with_gutenberg',
-                'text' => __('Edit With Gutenberg', 'notificationx'),
+                'text' => __('Build With Gutenberg', 'notificationx'),
                 'trigger' => [
                     [
                         'type'   => 'setFieldValue',

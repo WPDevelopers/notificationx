@@ -70,7 +70,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
     const countdownRef = useRef(null);
     const [previewType, setPreviewType] = useState("desktop");
     const { assets } = useNotificationXContext();
-    
+
 
     const getTime = () => {
         const currentTime = Date.now();
@@ -250,9 +250,6 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
         return settings.preview_url || '';
     }, [settings, basePath]);
     const isBuildWithBuilder = (settings?.is_elementor || settings?.is_gutenberg) && (settings?.elementor_id || settings?.gutenberg_id );
-    console.log('settings',settings);
-    console.log('isBuildWithBuilder',isBuildWithBuilder);
-    
 
     return (
         <Fragment>

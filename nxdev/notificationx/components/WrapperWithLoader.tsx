@@ -13,9 +13,10 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                 if( selectedType ) {
                     setContentHeight(document.documentElement.scrollHeight);
                 }
+                
                 builderContext.setFieldValue(
                     "themes_tab",
-                    'for_desktop',
+                    builderContext?.values?.themes_tab,
                 )
             }
         }, [builderContext.values.type])
