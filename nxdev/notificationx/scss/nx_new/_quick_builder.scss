@@ -143,4 +143,22 @@
             }
         }
     }
+    .press_bar {
+        #design_tab {
+           #themes #themes_section {
+                display: none;
+            }
+        }
+    }
+    .wprf-tab-content-wrapper .wprf-tab-content-wrapper {
+        .wprf-tab-for_desktop, .wprf-tab-for_mobile {
+            padding: 0;
+        }
+    }
+
+    // .woocommerce_sales_inline, .announcements, .flashing_tab, .woo_inline, .edd_inline, .tutor_inline, .learndash_inline, .learnpress_inline, .custom_notification {
+    //     .wprf-tab-contents #source_tab #source_section {
+    //         display: none;
+    //     }
+    // }
 }

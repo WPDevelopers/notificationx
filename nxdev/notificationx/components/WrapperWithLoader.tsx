@@ -16,7 +16,7 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                 
                 builderContext.setFieldValue(
                     "themes_tab",
-                    builderContext?.values?.themes_tab,
+                    builderContext?.values?.themes_tab || 'for_desktop',
                 )
             }
         }, [builderContext.values.type])

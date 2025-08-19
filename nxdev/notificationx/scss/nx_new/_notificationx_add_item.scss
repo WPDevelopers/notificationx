@@ -726,6 +726,9 @@
         }
     }
 }
+.press_bar #design_tab .wprf-control-section.themes .wprf-section-fields > .wprf-control-wrapper{
+    padding: 32px !important;
+}
 
 #design_tab {
     .wprf-control-section.themes {
@@ -870,6 +873,7 @@
             #nxbar_with_gutenberg + .wprf-control-section.nx_bar_import_design, #nxbar_with_elementor + .wprf-control-section.nx_bar_import_design {
                 .wprf-section-fields {
                     justify-content: end;
+                    flex-direction: row-reverse;
                 }
             }
             .wprf-control-section.nx_bar_import_design {
