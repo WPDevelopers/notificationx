@@ -62,16 +62,6 @@ const config = {
         'lodash-es': 'window._',
         'lodash/debounce': 'window._.debounce',
         'lodash/mapValues': 'window._.mapValues',
-
-        // Use WordPress globals for WordPress packages (prevents lodash bundling)
-        '@wordpress/dom-ready': 'wp.domReady',
-        '@wordpress/i18n': 'wp.i18n',
-        '@wordpress/api-fetch': 'wp.apiFetch',
-        '@wordpress/url': 'wp.url',
-        '@wordpress/escape-html': 'wp.escapeHtml',
-        '@wordpress/data': 'wp.data',
-        '@wordpress/components': 'wp.components',
-
         // Completely exclude packages not needed in frontend
         'quickbuilder': false
     },

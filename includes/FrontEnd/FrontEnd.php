@@ -368,7 +368,7 @@ class FrontEnd {
                 if ($elementor_post_id == '' || get_post_status($elementor_post_id) !== 'publish' | !class_exists('\Elementor\Plugin')) {
                     $settings['elementor_id'] = false;
                 }
-                if (!empty($_params['all_active']) && $elementor_post_id) {
+                if ( ( !empty( $_params['all_active']) && $elementor_post_id ) || !$settings['enabled'] ) {
                     continue;
                 }
 

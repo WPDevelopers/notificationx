@@ -793,6 +793,11 @@
     .nx-bar-content-wrap {
         display: block;
     }
+    .nx-bar-content-wrap {
+        .eb-row-inner {
+            align-items: center;
+        }
+    }
     .eb-parent-wrapper .wp-block-essential-blocks-column h2.wp-block-heading {
         margin: 0;
     }

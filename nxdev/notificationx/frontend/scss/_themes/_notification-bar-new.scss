@@ -7,9 +7,14 @@
                         &.wprf-name-advance_edit {
                             display: none;
                         }
-                        &.wprf-name-advance_edit + .nx_bar_import_design {
+                        &.wprf-name-advance_edit + .nx_bar_import_design{
                             display: none;
                         }
+                    }
+                    .wprf-control-wrapper.wprf-name-advance_edit + .wprf-control.wprf-nx-bar_with_elementor_install_message-message, 
+                    .wprf-control-wrapper.wprf-name-advance_edit + #nxbar_with_elementor + #nx_bar_import_design
+                    {
+                        display: none;
                     }
                 }
             }

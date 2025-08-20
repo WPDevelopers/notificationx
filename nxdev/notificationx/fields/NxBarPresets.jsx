@@ -35,7 +35,6 @@ const NxBarPresets = () => {
     }, [values, basePath]);
 
     const showEmptyState =
-        values?.is_elementor &&
         values?.is_gutenberg &&
         !values?.elementor_id &&
         !values?.gutenberg_id;
