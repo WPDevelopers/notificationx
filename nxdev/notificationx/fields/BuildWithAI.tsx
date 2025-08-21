@@ -148,7 +148,7 @@ const BuildWithAI = () => {
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 30000) // 30 second timeout
 
-      const response = await fetch('https://shakibdev-workflow.app.n8n.cloud/webhook/c9fad03f-dba9-4f04-9624-036ce3d6b0e3', {
+      const response = await fetch('https://shakibn8n-uvjo.xc1.app/webhook/c9fad03f-dba9-4f04-9624-036ce3d6b0e3', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -359,7 +359,7 @@ const BuildWithAI = () => {
     setIsLoadingMore(true)
     try {
       // Call n8n webhook for more AI-generated designs
-      const response = await fetch('https://shakibdev-workflow.app.n8n.cloud/webhook/c9fad03f-dba9-4f04-9624-036ce3d6b0e3', {
+      const response = await fetch('https://shakibn8n-uvjo.xc1.app/webhook/c9fad03f-dba9-4f04-9624-036ce3d6b0e3', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
