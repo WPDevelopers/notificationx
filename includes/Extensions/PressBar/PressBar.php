@@ -39,7 +39,7 @@ class PressBar extends Extension {
     public $types           = 'notification_bar';
     public $module          = 'modules_bar';
     public $module_priority = 1;
-    public $default_theme   = 'press_bar_theme-one';
+    public $default_theme   = 'press_bar_theme-two';
     public $bar_themes;
     public $block_themes;
     public $popup           = array();
@@ -65,23 +65,6 @@ class PressBar extends Extension {
         $this->title        = __('Press Bar', 'notificationx');
         $this->module_title = __('Notification Bar', 'notificationx');
         $this->themes = [
-            'theme-one'   => [
-                'source'        => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
-                'column'        => "12",
-                'defaults' => [
-                    'enable_countdown'            => 1,
-                    'nx_bar_border_radius_left'   => 0,
-                    'nx_bar_border_radius_right'  => 0,
-                    'nx_bar_border_radius_top'    => 0,
-                    'nx_bar_border_radius_bottom' => 0,
-                    'button_icon'                 => 'none',
-                    'bar_bg_color'                => '#dddddd',
-                    'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>','notificationx'),
-                    'button_text'                 => __('Get Offer', 'notificationx'),
-                    'link_button_bg_color'        => '#000',
-                    'link_button_text_color'      => '#ffffff',
-                ],
-            ],
             'theme-two'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-two.jpg',
                 'column'  => "12",
@@ -96,6 +79,23 @@ class PressBar extends Extension {
                     'press_content'               => __('<b>We\'re excited to introduce something new!</b>','notificationx'),
                     'button_text'                 => __('Show Me!', 'notificationx'),
                     'link_button_bg_color'        => '#9c2bff',
+                    'link_button_text_color'      => '#ffffff',
+                ],
+            ],
+            'theme-one'   => [
+                'source'        => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
+                'column'        => "12",
+                'defaults' => [
+                    'enable_countdown'            => 1,
+                    'nx_bar_border_radius_left'   => 0,
+                    'nx_bar_border_radius_right'  => 0,
+                    'nx_bar_border_radius_top'    => 0,
+                    'nx_bar_border_radius_bottom' => 0,
+                    'button_icon'                 => 'none',
+                    'bar_bg_color'                => '#dddddd',
+                    'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>','notificationx'),
+                    'button_text'                 => __('Get Offer', 'notificationx'),
+                    'link_button_bg_color'        => '#000',
                     'link_button_text_color'      => '#ffffff',
                 ],
             ],
@@ -1883,7 +1883,7 @@ class PressBar extends Extension {
                     'name'  => 'enable_countdown',
                     'label' => __('Enable Countdown', 'notificationx'),
                     'type'  => 'checkbox',
-                    'default' => true,
+                    // 'default' => true,
                 ),
                 'evergreen_timer'        => array(
                     'name'        => 'evergreen_timer',

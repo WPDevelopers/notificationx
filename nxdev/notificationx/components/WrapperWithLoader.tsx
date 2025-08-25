@@ -15,12 +15,15 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                 }
                 const forcedDesktopValues = [ 'woocommerce_sales_inline', 'announcements', 'gdpr', 'flashing_tab', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'learnpress_inline', 'custom_notification'];
                 const nx_type = builderContext.values.type;
-                builderContext.setFieldValue(
-                    "themes_tab",
-                    forcedDesktopValues.includes(nx_type)
+                const builderValues = builderContext?.values;
+                const isBuildWithBuilder =  (builderValues?.elementor_id && builderValues?.is_elementor) || (builderValues?.is_gutenberg && builderValues?.gutenberg_id);                
+                const themeTabValue = isBuildWithBuilder
+                    ? 'nxbar_custom'
+                    : (forcedDesktopValues.includes(nx_type)
                         ? 'for_desktop'
-                        : (builderContext?.values?.themes_tab || 'for_desktop')
-                );
+                        : (builderContext?.values?.themes_tab || 'for_desktop'));
+
+                builderContext.setFieldValue("themes_tab", themeTabValue);
             }
         }, [builderContext.values.type])
 
