@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, notification ba
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 5.6
-Stable tag: 3.1.2
+Stable tag: 3.1.3
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -208,6 +208,13 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 3.1.3 - 25/08/2025 =
+Added: Separate sets of designs for responsive mode.
+Fixed: Recursive call issue in notificationx_pro_write_block_css action.
+Fixed: Email reporting was not working.
+Fixed: Conflict with Dokan plugin.
+Few minor bug fixes and improvements.
 
 = 3.1.2 - 24/07/2025 =
 Fixed: Issues with turning notifications on/off
