@@ -612,6 +612,9 @@
                 padding: 10px 30px;
             }
             .nx-bar-content-wrap {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
                 .nx-inner-content-wrapper {
                     margin-right: 0;
                     flex-wrap: wrap;

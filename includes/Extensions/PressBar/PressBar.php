@@ -42,6 +42,7 @@ class PressBar extends Extension {
     public $default_theme   = 'press_bar_theme-one';
     public $bar_themes;
     public $block_themes;
+    public $popup           = array();
 
     /**
      * Initially Invoked when initialized.
@@ -49,6 +50,7 @@ class PressBar extends Extension {
     public function __construct() {
         parent::__construct();
         add_action('init', [$this, 'register_post_type']);
+        add_action('init', [$this, 'load_plugin_dependencies'], -1);
 		add_filter( 'get_edit_post_link', function($link, $id){
             $post = get_post( $id );
             if ( $post && 'nx_bar' === $post->post_type && class_exists('\Elementor\Plugin') ) {
@@ -62,8 +64,6 @@ class PressBar extends Extension {
     {
         $this->title        = __('Press Bar', 'notificationx');
         $this->module_title = __('Notification Bar', 'notificationx');
-        $popup = "";
-
         $this->themes = [
             'theme-one'   => [
                 'source'        => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
@@ -259,7 +259,7 @@ class PressBar extends Extension {
                 'icon'     => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
                 'column'   => '12',
                 "title"    => "Nx Theme Five",
-                "popup"    => $popup,
+                "popup"    => $this->popup,
                 'position' => 'top',
             ],
             'theme-six'   => [
@@ -268,7 +268,7 @@ class PressBar extends Extension {
                 'icon'     => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-two.jpg',
                 'column'   => '12',
                 "title"    => "Nx Theme Six",
-                "popup"    => $popup,
+                "popup"    => $this->popup,
                 'position' => 'top',
             ],
             'theme-seven' => [
@@ -277,35 +277,11 @@ class PressBar extends Extension {
                 'icon'     => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-three.jpg',
                 'column'   => '12',
                 "title"    => "Nx Theme Seven",
-                "popup"    => $popup,
+                "popup"    => $this->popup,
                 'position' => 'top',
             ],
         );
         // check if essential blocks is installed.
-        if(!Helper::is_plugin_active('essential-blocks/essential-blocks.php')){
-            $popup = array(
-                // forcing the popup without the is_pro.
-                "forced"            => true,
-                "showConfirmButton" => true,
-                "showCloseButton"   => true,
-                "title"             => "You are missing a dependency.",
-                "customClass"       => array(
-                    "container"     => "pressbar-gutenberg-theme-popup",
-                    // "closeButton"   => "pro-video-close-button",
-                    // "icon"          => "pro-video-icon",
-                    // "title"         => "pro-video-title",
-                    // "content"       => "pro-video-content",
-                    // "actions"       => "nx-pro-alert-actions",
-                    // "confirmButton" => "pro-video-confirm-button",
-                    // "denyButton"    => "pro-video-deny-button"
-                ),
-                "denyButtonText"    => sprintf("<a href='%s' target='_blank'>%s</a>", admin_url('plugin-install.php?s=Essential%2520Blocks&tab=search&type=term'), __("Install Essential Blocks", 'notificationx')),
-                "confirmButtonText" => "<a href='https://essential-blocks.com/' target='_blank'>More Info</a>",
-                "html"              => "
-                    <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>
-                "
-            );
-        }
     }
 
     public function init() {
@@ -2189,6 +2165,37 @@ class PressBar extends Extension {
             //throw $th;
         }
         return $list;
+    }
+
+    /**
+     * Load plugin dependencies.
+     * @return void
+    */
+    public function load_plugin_dependencies() {
+        if(!Helper::is_plugin_active('essential-blocks/essential-blocks.php')){
+            $this->popup = array(
+                // forcing the popup without the is_pro.
+                "forced"            => true,
+                "showConfirmButton" => true,
+                "showCloseButton"   => true,
+                "title"             => "You are missing a dependency.",
+                "customClass"       => array(
+                    "container"     => "pressbar-gutenberg-theme-popup",
+                    // "closeButton"   => "pro-video-close-button",
+                    // "icon"          => "pro-video-icon",
+                    // "title"         => "pro-video-title",
+                    // "content"       => "pro-video-content",
+                    // "actions"       => "nx-pro-alert-actions",
+                    // "confirmButton" => "pro-video-confirm-button",
+                    // "denyButton"    => "pro-video-deny-button"
+                ),
+                "denyButtonText"    => sprintf("<a href='%s' target='_blank'>%s</a>", admin_url('plugin-install.php?s=Essential%2520Blocks&tab=search&type=term'), __("Install Essential Blocks", 'notificationx')),
+                "confirmButtonText" => "<a href='https://essential-blocks.com/' target='_blank'>More Info</a>",
+                "html"              => "
+                    <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>
+                "
+            );
+        }
     }
 
     public function doc() {

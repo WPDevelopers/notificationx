@@ -13,11 +13,14 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                 if( selectedType ) {
                     setContentHeight(document.documentElement.scrollHeight);
                 }
-                
+                const forcedDesktopValues = [ 'woocommerce_sales_inline', 'announcements', 'gdpr', 'flashing_tab', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'learnpress_inline', 'custom_notification'];
+                const nx_type = builderContext.values.type;
                 builderContext.setFieldValue(
                     "themes_tab",
-                    builderContext?.values?.themes_tab || 'for_desktop',
-                )
+                    forcedDesktopValues.includes(nx_type)
+                        ? 'for_desktop'
+                        : (builderContext?.values?.themes_tab || 'for_desktop')
+                );
             }
         }, [builderContext.values.type])
 
