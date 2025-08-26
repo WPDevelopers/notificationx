@@ -209,7 +209,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.1.3 - 25/08/2025 =
+= 3.1.3 - 26/08/2025 =
 Added: Separate sets of designs for responsive mode.
 Fixed: Recursive call issue in notificationx_pro_write_block_css action.
 Fixed: Email reporting was not working.
