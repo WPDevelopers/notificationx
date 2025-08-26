@@ -207,6 +207,10 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
 
     useEffect(() => {
         setTimeout(() => {
+            const barHeight = document.getElementById(`nx-bar-${settings.nx_id}`).offsetHeight;
+            document.body.style.paddingTop = `${barHeight}px`;
+        }, 0);
+        setTimeout(() => {
             calcHeight();
         }, 1000);
     }, [])
@@ -222,7 +226,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
 
     useEffect(() => {
         calcHeight();
-    }, [isLoading])
+    }, [isLoading, gutenbergRef.current])
 
     useEffect(() => {
         if(!settings.is_gutenberg || !settings.gutenberg_id){
@@ -259,6 +263,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             originalAddEventListener = null;
             setIsLoading(false);
         });
+        
         // @ts-ignore
         if( typeof window.ebRunCountDown === 'function' ) {
             // @ts-ignore

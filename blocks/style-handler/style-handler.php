@@ -28,6 +28,7 @@ final class StyleHandler {
         'name'        => 'mobile',
         'screen_size' => 767,
     ];
+    private $eb_prefix = 'eb-style';
 
     public function __construct() {
         add_action( 'admin_enqueue_scripts', [ $this, 'notificationx_pro_blocks_edit_post' ] );
@@ -172,10 +173,26 @@ final class StyleHandler {
      * @since 1.0.2
      */
     public function enqueue_frontend_css() {
-         global $post;
-
+        global $post;
         if ( ! empty( $post ) && ! empty( $post->ID ) ) {
             $upload_dir = wp_upload_dir();
+            $args                   = [ 'enabled' => true, 'source' => 'press_bar', 'updated_at' => ['<=', current_time('mysql') ] ];
+            $pressbar_notifications = \NotificationX\Core\PostType::get_instance()->get_posts($args);
+            foreach ($pressbar_notifications as $pressbar) {
+                if( !empty( $pressbar['gutenberg_id'] ) ) {
+                    $style_file = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'eb-style' . DIRECTORY_SEPARATOR . $this->eb_prefix . '-' . $pressbar['gutenberg_id'] . '.min.css';
+                    $style_url  = set_url_scheme($upload_dir['baseurl']) . '/' . 'eb-style' . '/' . $this->eb_prefix . '-' . $pressbar['gutenberg_id'] . '.min.css';
+                    if (file_exists($style_file)) {
+                        wp_enqueue_style(
+                            'nx-style-' . $pressbar['gutenberg_id'],   // Handle based only on post ID
+                            $style_url,
+                            [],
+                            filemtime($style_file)  // Cache busting with last modified time
+                        );
+                    }
+                }
+               
+            }
 
             if ( file_exists( $upload_dir['basedir'] . '/nx-style/nx-style-' . $post->ID . '.min.css' ) ) {
                 wp_enqueue_style( 'nx-block-style-' . $post->ID, $upload_dir['baseurl'] . '/nx-style/nx-style-' . $post->ID . '.min.css', [], substr( md5( microtime( true ) ), 0, 10 ) );
