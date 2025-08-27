@@ -56,6 +56,15 @@ const config = {
         ...defaultConfig.resolve,
         extensions: [".tsx", ".ts", ".js", ".jsx"],
     },
+    externals: {
+        // Exclude all lodash variants from frontend bundle
+        'lodash': 'window._',
+        'lodash-es': 'window._',
+        'lodash/debounce': 'window._.debounce',
+        'lodash/mapValues': 'window._.mapValues',
+        // Completely exclude packages not needed in frontend
+        'quickbuilder': false
+    },
     output: {
         ...defaultConfig.output,
         filename: "public/js/[name].js",

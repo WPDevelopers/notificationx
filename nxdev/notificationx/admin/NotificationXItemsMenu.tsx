@@ -7,7 +7,14 @@ import nxToast from "../core/ToasterMsg";
 import { sprintf, _n, __ } from "@wordpress/i18n";
 import copy from "copy-to-clipboard";
 import { downloadFile } from "quickbuilder";
-import debounce from 'lodash/debounce';
+// Simple debounce implementation
+const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func.apply(null, args), delay);
+    };
+};
 import searchIcon from '../icons/searchIcon.svg';
 
 const NotificationXItemsMenu = ({

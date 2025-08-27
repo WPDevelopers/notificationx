@@ -96,6 +96,7 @@ class WPML {
                 $meta['button_url']             = ['Button URL', 'LINE'];
                 $meta['countdown_expired_text'] = ['Countdown Expired Text', 'LINE'];
                 $meta['countdown_text']         = ['Countdown Text', 'LINE'];
+                $meta['coupon_text']         = ['Coupon Text', 'LINE'];
             }
         }
         else{

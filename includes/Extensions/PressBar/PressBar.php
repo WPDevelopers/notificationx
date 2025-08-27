@@ -39,9 +39,10 @@ class PressBar extends Extension {
     public $types           = 'notification_bar';
     public $module          = 'modules_bar';
     public $module_priority = 1;
-    public $default_theme   = 'press_bar_theme-one';
+    public $default_theme   = 'press_bar_theme-two';
     public $bar_themes;
     public $block_themes;
+    public $popup           = array();
 
     /**
      * Initially Invoked when initialized.
@@ -49,6 +50,7 @@ class PressBar extends Extension {
     public function __construct() {
         parent::__construct();
         add_action('init', [$this, 'register_post_type']);
+        add_action('init', [$this, 'load_plugin_dependencies'], -1);
 		add_filter( 'get_edit_post_link', function($link, $id){
             $post = get_post( $id );
             if ( $post && 'nx_bar' === $post->post_type && class_exists('\Elementor\Plugin') ) {
@@ -62,26 +64,7 @@ class PressBar extends Extension {
     {
         $this->title        = __('Press Bar', 'notificationx');
         $this->module_title = __('Notification Bar', 'notificationx');
-        $popup = "";
-
         $this->themes = [
-            'theme-one'   => [
-                'source'        => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
-                'column'        => "12",
-                'defaults' => [
-                    'enable_countdown'            => 1,
-                    'nx_bar_border_radius_left'   => 0,
-                    'nx_bar_border_radius_right'  => 0,
-                    'nx_bar_border_radius_top'    => 0,
-                    'nx_bar_border_radius_bottom' => 0,
-                    'button_icon'                 => 'none',
-                    'bar_bg_color'                => '#dddddd',
-                    'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>','notificationx'),
-                    'button_text'                 => __('Get Offer', 'notificationx'),
-                    'link_button_bg_color'        => '#000',
-                    'link_button_text_color'      => '#ffffff',
-                ],
-            ],
             'theme-two'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-two.jpg',
                 'column'  => "12",
@@ -96,6 +79,23 @@ class PressBar extends Extension {
                     'press_content'               => __('<b>We\'re excited to introduce something new!</b>','notificationx'),
                     'button_text'                 => __('Show Me!', 'notificationx'),
                     'link_button_bg_color'        => '#9c2bff',
+                    'link_button_text_color'      => '#ffffff',
+                ],
+            ],
+            'theme-one'   => [
+                'source'        => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
+                'column'        => "12",
+                'defaults' => [
+                    'enable_countdown'            => 1,
+                    'nx_bar_border_radius_left'   => 0,
+                    'nx_bar_border_radius_right'  => 0,
+                    'nx_bar_border_radius_top'    => 0,
+                    'nx_bar_border_radius_bottom' => 0,
+                    'button_icon'                 => 'none',
+                    'bar_bg_color'                => '#dddddd',
+                    'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>','notificationx'),
+                    'button_text'                 => __('Get Offer', 'notificationx'),
+                    'link_button_bg_color'        => '#000',
                     'link_button_text_color'      => '#ffffff',
                 ],
             ],
@@ -222,83 +222,66 @@ class PressBar extends Extension {
         );
         $this->block_themes = array(
             'theme-one' => [
-                'label'  => 'theme-one',
-                'value'  => 'theme-one',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-one.png',
-                'column' => '12',
-                "title"  => "Nx Theme One",
+                'label'    => 'theme-one',
+                'value'    => 'theme-one',
+                'icon'     => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-one.png',
+                'column'   => '12',
+                "title"    => "Nx Theme One",
+                'position' => 'top',
             ],
             'theme-two' => [
-                'label'  => 'theme-two',
-                'value'  => 'theme-two',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-two.png',
-                'column' => '12',
-                "title"  => "Nx Theme Two",
+                'label'    => 'theme-two',
+                'value'    => 'theme-two',
+                'icon'     => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-two.png',
+                'column'   => '12',
+                "title"    => "Nx Theme Two",
+                'position' => 'top',
             ],
             'theme-three' => [
-                'label'  => 'theme-three',
-                'value'  => 'theme-three',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-three.png',
-                'column' => '12',
-                "title"  => "Nx Theme Three",
+                'label'    => 'theme-three',
+                'value'    => 'theme-three',
+                'icon'     => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-three.png',
+                'column'   => '12',
+                "title"    => "Nx Theme Three",
+                'position' => 'top',
             ],
             'theme-four' => [
-                'label'  => 'theme-four',
-                'value'  => 'theme-four',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-four.png',
-                'column' => '12',
-                "title"  => "Nx Theme Four",
+                'label'    => 'theme-four',
+                'value'    => 'theme-four',
+                'icon'     => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/bar-gutenberg/theme-four.png',
+                'column'   => '12',
+                "title"    => "Nx Theme Four",
+                'position' => 'top',
             ],
             'theme-five'   => [
-                'label'  => 'theme-five',
-                'value'  => 'theme-five',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
-                'column' => '12',
-                "title"  => "Nx Theme Five",
-                "popup"  => $popup,
+                'label'    => 'theme-five',
+                'value'    => 'theme-five',
+                'icon'     => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-one.jpg',
+                'column'   => '12',
+                "title"    => "Nx Theme Five",
+                "popup"    => $this->popup,
+                'position' => 'top',
             ],
             'theme-six'   => [
-                'label'  => 'theme-six',
-                'value'  => 'theme-six',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-two.jpg',
-                'column' => '12',
-                "title"  => "Nx Theme Six",
-                "popup"  => $popup,
+                'label'    => 'theme-six',
+                'value'    => 'theme-six',
+                'icon'     => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-two.jpg',
+                'column'   => '12',
+                "title"    => "Nx Theme Six",
+                "popup"    => $this->popup,
+                'position' => 'top',
             ],
             'theme-seven' => [
-                'label'  => 'theme-seven',
-                'value'  => 'theme-seven',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-three.jpg',
-                'column' => '12',
-                "title"  => "Nx Theme Seven",
-                "popup"  => $popup,
+                'label'    => 'theme-seven',
+                'value'    => 'theme-seven',
+                'icon'     => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-bar-theme-three.jpg',
+                'column'   => '12',
+                "title"    => "Nx Theme Seven",
+                "popup"    => $this->popup,
+                'position' => 'top',
             ],
         );
         // check if essential blocks is installed.
-        if(!Helper::is_plugin_active('essential-blocks/essential-blocks.php')){
-            $popup = array(
-                // forcing the popup without the is_pro.
-                "forced"            => true,
-                "showConfirmButton" => true,
-                "showCloseButton"   => true,
-                "title"             => "You are missing a dependency.",
-                "customClass"       => array(
-                    "container"     => "pressbar-gutenberg-theme-popup",
-                    // "closeButton"   => "pro-video-close-button",
-                    // "icon"          => "pro-video-icon",
-                    // "title"         => "pro-video-title",
-                    // "content"       => "pro-video-content",
-                    // "actions"       => "nx-pro-alert-actions",
-                    // "confirmButton" => "pro-video-confirm-button",
-                    // "denyButton"    => "pro-video-deny-button"
-                ),
-                "denyButtonText"    => sprintf("<a href='%s' target='_blank'>%s</a>", admin_url('plugin-install.php?s=Essential%2520Blocks&tab=search&type=term'), __("Install Essential Blocks", 'notificationx')),
-                "confirmButtonText" => "<a href='https://essential-blocks.com/' target='_blank'>More Info</a>",
-                "html"              => "
-                    <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>
-                "
-            );
-        }
     }
 
     public function init() {
@@ -336,6 +319,7 @@ class PressBar extends Extension {
     public function init_fields() {
         parent::init_fields();
         add_filter('nx_design_tab_fields', [$this, 'design_tab_fields']);
+        add_filter('nx_design_tab_fields', [$this, 'design_tab_presets_fields']);
         add_filter('nx_design_tab_fields', [$this, 'design_tab_fields_for_button'], 20);
         add_filter('nx_customize_fields', [$this, 'customize_fields']);
         add_filter('nx_content_fields', [$this, 'content_fields'], 22);
@@ -398,6 +382,51 @@ class PressBar extends Extension {
     public function _source_trigger($triggers) {
         $triggers[$this->id]['position'] = "@position:top";
         return $triggers;
+    }
+
+    /** 
+     * NX Bar Presets tab fields for button.
+     * 
+     * @param array $fields
+     * @return array
+    */
+    public function design_tab_presets_fields($fields) {
+        $import_design   = [];
+        $import_design   = &$fields['themes']['fields']['themes_section']['fields']['themes_tab']['fields'];
+        $import_design[] = [
+            'label' => __("Presets", 'notificationx'),
+            'name'  => 'for_desktop',
+            'id'    => 'for_desktop',
+            'type'  => 'section',
+            'icon'  => NOTIFICATIONX_ADMIN_URL . 'images/icons/nxbar-presets-icon.svg',
+            'rules' => Rules::is('source', $this->id),
+        ];
+        $import_design[] = [
+            'label'  => __("Custom", 'notificationx'),
+            'name'   => 'nxbar_custom',
+            'id'     => 'nxbar_custom',
+            'type'   => 'section',
+            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/icons/nxbar-custom-tab.svg',
+            'rules'  => Rules::is('source', $this->id),
+            'fields' => [
+                'nxbar_custom' => [
+                    'label'  => __("Custom", 'notificationx'),
+                    'name'   => 'nxbar_custom',
+                    'id'     => 'nxbar_custom',
+                    'type'   => 'section',
+                    'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                    'fields' => [
+                        'nxbar_custom_fields' => [
+                            'name'     => "nxbar_custom_fields",
+                            'type'     => "nxbar-custom",
+                            'label'    => __('NX Bar', 'notificationx'),
+                            'priority' => 10,
+                        ],
+                    ]
+                ],
+            ]
+        ];
+        return $fields;
     }
 
     /** 
@@ -634,18 +663,40 @@ class PressBar extends Extension {
 
 
 
-        $fields['themes']['fields'][] = array(
-            'name'    => 'nx-bar_with_elementor_install_message',
-            'type'    => 'message',
-            'class'   => 'nx-warning',
-            'html'    => true,
-            'message' => sprintf(__("To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;", 'notificationx'), $install_activate_text),
-            'rules'   => Rules::logicalRule([
-                Rules::is('is_elementor', false),
-                Rules::is('gutenberg_id', false),
-                Rules::is('source', $this->id),
+        // $fields['themes']['fields'][] = array(
+        //     'name'    => 'nx-bar_with_elementor_install_message',
+        //     'type'    => 'message',
+        //     'class'   => 'nx-warning',
+        //     'html'    => true,
+        //     'message' => sprintf(__("To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;", 'notificationx'), $install_activate_text),
+        //     'rules'   => Rules::logicalRule([
+        //         Rules::is('is_elementor', false),
+        //         Rules::is('gutenberg_id', false),
+        //         Rules::is('source', $this->id),
+        //     ]),
+        // );
+
+         $fields['themes']['fields']['nxbar_with_elementor'] = [
+            'name'   => 'nxbar_with_elementor',
+            'type'   => 'section',
+            'fields' => [],
+            'rules'  => Rules::logicalRule([
+                Rules::is('elementor_edit_link', false, true),
+                Rules::isOfType('elementor_edit_link', 'string'),
+                Rules:: is('elementor_id', false, true),
             ]),
-        );
+        ];
+        
+         $fields['themes']['fields']['nxbar_with_gutenberg'] = [
+            'name'   => 'nxbar_with_gutenberg',
+            'type'   => 'section',
+            'fields' => [],
+            'rules'  => Rules::logicalRule([
+                Rules::is('gutenberg_edit_link', false, true),
+                Rules::isOfType('gutenberg_edit_link', 'string'),
+                Rules:: is('gutenberg_id', false, true),
+            ]),
+        ];
 
         $fields['themes']['fields']['nx_bar_import_design'] = [
             'name'   => 'nx_bar_import_design',
@@ -679,7 +730,7 @@ class PressBar extends Extension {
             'name'  => 'nx-bar_with_elementor-remove',
             'type'  => 'button',
             'priority' => 2,
-            'text'  => __('Remove Elementor Design', 'notificationx'),
+            'text'  => __('Remove', 'notificationx'),
             'rules' => Rules::logicalRule([
                 Rules::is('elementor_id', false, true),
                 Rules::is('is_elementor', true),
@@ -885,7 +936,7 @@ class PressBar extends Extension {
         $import_design[] = [
             'name'  => 'nx-bar_with_gutenberg-remove',
             'type'  => 'button',
-            'text'  => __('Remove Gutenberg Design', 'notificationx'),
+            'text'  => __('Remove', 'notificationx'),
             'priority' => 5,
             'rules' => Rules::logicalRule([
                 Rules::is('gutenberg_id', false, true),
@@ -1832,7 +1883,7 @@ class PressBar extends Extension {
                     'name'  => 'enable_countdown',
                     'label' => __('Enable Countdown', 'notificationx'),
                     'type'  => 'checkbox',
-                    'default' => true,
+                    // 'default' => true,
                 ),
                 'evergreen_timer'        => array(
                     'name'        => 'evergreen_timer',
@@ -2114,6 +2165,37 @@ class PressBar extends Extension {
             //throw $th;
         }
         return $list;
+    }
+
+    /**
+     * Load plugin dependencies.
+     * @return void
+    */
+    public function load_plugin_dependencies() {
+        if(!Helper::is_plugin_active('essential-blocks/essential-blocks.php')){
+            $this->popup = array(
+                // forcing the popup without the is_pro.
+                "forced"            => true,
+                "showConfirmButton" => true,
+                "showCloseButton"   => true,
+                "title"             => "You are missing a dependency.",
+                "customClass"       => array(
+                    "container"     => "pressbar-gutenberg-theme-popup",
+                    // "closeButton"   => "pro-video-close-button",
+                    // "icon"          => "pro-video-icon",
+                    // "title"         => "pro-video-title",
+                    // "content"       => "pro-video-content",
+                    // "actions"       => "nx-pro-alert-actions",
+                    // "confirmButton" => "pro-video-confirm-button",
+                    // "denyButton"    => "pro-video-deny-button"
+                ),
+                "denyButtonText"    => sprintf("<a href='%s' target='_blank'>%s</a>", admin_url('plugin-install.php?s=Essential%2520Blocks&tab=search&type=term'), __("Install Essential Blocks", 'notificationx')),
+                "confirmButtonText" => "<a href='https://essential-blocks.com/' target='_blank'>More Info</a>",
+                "html"              => "
+                    <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>
+                "
+            );
+        }
     }
 
     public function doc() {

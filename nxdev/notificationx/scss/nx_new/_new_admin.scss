@@ -119,6 +119,7 @@
 
 
             svg path {
+                stroke: #092161;
                 transition: 0.3s ease-in-out;
             }
 
@@ -132,20 +133,23 @@
                 }
             }
             &.upgrade-pro {
-                background-color: rgba(106, 75, 255, .05);
-                border: 1px solid rgba(106, 75, 255, .05);
-                border-radius: 5px;
-                box-sizing: border-box;
+                background-color: #6a4bff0d;
+                border: 1px solid #6a4bff0d;
                 color: #6a4bff;
-                display: flex;
-                font-size: 12px;
-                font-weight: 500;
-                gap: 5px;
-                justify-content: center;
-                line-height: 1em;
-                min-height: 32px;
-                padding: 8px 12px;
-                transition: .3s ease-in-out;
+
+                svg path {
+                    stroke: #6a4bff;
+                }
+
+                &:hover {
+                    background-color: #6a4bff0d !important;
+                    border: 1px solid #6a4bff0d !important;
+                    color: #6a4bff !important;
+
+                    svg path {
+                        stroke: #6a4bff;
+                    }
+                }
             }
         }
 
@@ -802,7 +806,7 @@
                     .nx-resource-content {
                         display: inline-flex;
                         gap: 8px;
-                        align-items: center;
+                        // align-items: center;
                         padding: 10px 0;
                         border-bottom: 1px solid #F0F6FF;
                         cursor: pointer;
@@ -892,228 +896,10 @@
     }
 }
 
-@media only screen and (max-width: 1280px) {
-    .nx-admin-wrapper {
-        gap: 24px;
-    }
-
-    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper {
-        padding: 16px;
-        gap: 30px;
-    }
-
-    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-started-content {
-        max-width: 580px;
-    }
-
-    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-started-content h2 {
-        padding-bottom: 8px;
-    }
-
-    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-started-content p {
-        font-size: 14px;
-        padding-bottom: 22px;
-    }
-
-    .nx-admin-wrapper .nx-content-details .nx-primary-btn {
-        padding: 10px 14px;
-        font-size: 14px;
-        gap: 4px;
-        min-height: 42px;
-    }
-
-    .nx-admin-wrapper .nx-analytics-wrapper {
-        gap: 20px;
-
-        .nx-analytics-content-wrapper {
-            gap: 10px;
-            padding: 20px;
-
-            img {
-                padding: 10px 10px;
-                height: 50px;
-            }
-
-            .analytics-counter {
-
-                span.nx-counter-label {
-                    font-size: 16px;
-                    line-height: 18px;
-                    padding-bottom: 8px;
-                }
-
-                h3.nx-counter-number {
-                    font-size: 22px;
-                    line-height: 26px;
-                }
-            }
-        }
-    }
-
-    .nx-admin-wrapper .nx-notifications-wrapper .nx-admin-items .nx-list-table-wrapper thead td {
-        font-size: 14px;
-        line-height: 20px;
-        padding: 12px 16px;
-    }
-
-    .nx-admin-wrapper .nx-notifications-wrapper .nx-admin-items .nx-list-table-wrapper tbody tr td {
-        font-size: 14px;
-        line-height: 20px;
-        padding: 12px 16px;
-    }
-
-    .nx-admin-wrapper .nx-analytics-wrapper .nx-analytics-content-wrapper .nx-admin-wrapper .nx-analytics-wrapper .nx-analytics-content-wrapper .analytics-counter .nx-admin-wrapper .nx-admin-content-wrapper {
-        padding: 16px;
-    }
-
-    .nx-admin-wrapper .nx-admin-content-wrapper .nx-content-details.header {
-        gap: 12px;
-        margin-bottom: 18px;
-    }
-
-    .nx-admin-wrapper .nx-content-details h4 {
-        font-size: 20px;
-        line-height: 22px;
-
-        p {
-            font-size: 14px;
-        }
-    }
-
-    .nx-admin-wrapper .nx-notifications-wrapper .notifications-not-found {
-        padding: 20px;
-    }
-
-    .nx-admin-wrapper .nx-notifications-wrapper .notifications-not-found h5 {
-        padding-bottom: 8px;
-    }
-
-    .nx-admin-wrapper .nx-notifications-wrapper .notifications-not-found p {
-        padding-bottom: 12px;
-    }
-
-    .nx-admin-wrapper .nx-notifications-wrapper .notifications-not-found button.nx-primary-btn {
-        min-height: 30px;
-    }
-
-    .nx-admin-wrapper .nx-analytics-integration-wrapper {
-        gap: 16px;
-        flex-wrap: wrap;
-    }
-
-    .nx-admin-wrapper .nx-analytics-integration-wrapper {
-        gap: 24px;
-    }
-
-    .nx-admin-wrapper .nx-other-details-wrapper {
-        gap: 24px;
-    }
-
-    .nx-notification-type-header {
-        flex-wrap: wrap;
-    }
-
-    .nx-admin-wrapper .nx-other-details-wrapper .nx-notification-type-wrapper .nx-notification-type-body {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
-
-    .nx-admin-wrapper .nx-other-details-wrapper .nx-resource-stories-wrapper {
-        gap: 24px;
-
-        .nx-resource-wrapper {
-            .nx-resource-body {
-                .nx-resource-content {
-                    a {
-                        font-size: 14px;
-                    }
-                }
-            }
-        }
-    }
-
-    .nx-admin-wrapper .nx-other-details-wrapper .nx-resource-stories-wrapper .nx-stories-wrapper .nx-stories-body {
-        gap: 16px;
-        flex-direction: column;
-    }
-
-    .nx-admin-wrapper .nx-more-docs-wrapper {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
-        margin-top: 0;
-    }
-
-    .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper {
-        padding: 20px;
-    }
-
-    .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper h3 {
-        font-size: 18px;
-        margin-bottom: 16px;
-    }
-
-    .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper p {
-        font-size: 12px;
-        padding-bottom: 24px;
-    }
-
-    .nx-admin-wrapper .nx-content-details a.nx-resource-link {
-        font-size: 12px;
-    }
-}
-
-@media only screen and (max-width: 1024px) {
-    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-}
-
-@media only screen and (max-width: 768px) {
-    .nx-started-wrapper {
-        flex-wrap: wrap;
-    }
-
-    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-video-widget {
-        width: 100%;
-    }
-
-    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-video-widget a {
-        width: 100%;
-    }
-
-    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-video-widget a img {
-        max-width: 100%;
-        width: 100%;
-    }
-
-    .nx-admin-wrapper .nx-analytics-wrapper {
-        gap: 16px;
-        display: grid;
-    }
-
-    .nx-admin-wrapper .nx-other-details-wrapper {
-        gap: 16px;
-        flex-wrap: wrap;
-    }
-
-    .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper .img-wrap {
-        width: 48px;
-        height: 48px;
-        margin-bottom: 18px;
-    }
-
-    .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper h3 {
-        font-size: 16px;
-    }
-
-}
-
 .nx-more-docs-wrapper {
     display: flex;
     gap: 32px;
-    margin-top: 18px;
+    // margin-top: 18px;
 
     a.nx-resource-link {
         font-size: 14px;
@@ -1360,4 +1146,222 @@
             }
         }
     }
+}
+
+@media only screen and (max-width: 1280px) {
+    .nx-admin-wrapper {
+        gap: 24px;
+    }
+
+    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper {
+        padding: 16px;
+        gap: 30px;
+    }
+
+    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-started-content {
+        max-width: 580px;
+    }
+
+    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-started-content h2 {
+        padding-bottom: 8px;
+    }
+
+    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-started-content p {
+        font-size: 14px;
+        padding-bottom: 22px;
+    }
+
+    .nx-admin-wrapper .nx-content-details .nx-primary-btn {
+        padding: 10px 14px;
+        font-size: 14px;
+        gap: 4px;
+        min-height: 42px;
+    }
+
+    .nx-admin-wrapper .nx-analytics-wrapper {
+        gap: 20px;
+
+        .nx-analytics-content-wrapper {
+            gap: 10px;
+            padding: 20px;
+
+            img {
+                padding: 10px 10px;
+                height: 50px;
+            }
+
+            .analytics-counter {
+
+                span.nx-counter-label {
+                    font-size: 16px;
+                    line-height: 18px;
+                    padding-bottom: 8px;
+                }
+
+                h3.nx-counter-number {
+                    font-size: 22px;
+                    line-height: 26px;
+                }
+            }
+        }
+    }
+
+    .nx-admin-wrapper .nx-notifications-wrapper .nx-admin-items .nx-list-table-wrapper thead td {
+        font-size: 14px;
+        line-height: 20px;
+        padding: 12px 16px;
+    }
+
+    .nx-admin-wrapper .nx-notifications-wrapper .nx-admin-items .nx-list-table-wrapper tbody tr td {
+        font-size: 14px;
+        line-height: 20px;
+        padding: 12px 16px;
+    }
+
+    .nx-admin-wrapper .nx-analytics-wrapper .nx-analytics-content-wrapper .nx-admin-wrapper .nx-analytics-wrapper .nx-analytics-content-wrapper .analytics-counter .nx-admin-wrapper .nx-admin-content-wrapper {
+        padding: 16px;
+    }
+
+    .nx-admin-wrapper .nx-admin-content-wrapper .nx-content-details.header {
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .nx-admin-wrapper .nx-content-details h4 {
+        font-size: 20px;
+        line-height: 22px;
+
+        p {
+            font-size: 14px;
+        }
+    }
+
+    .nx-admin-wrapper .nx-notifications-wrapper .notifications-not-found {
+        padding: 20px;
+    }
+
+    .nx-admin-wrapper .nx-notifications-wrapper .notifications-not-found h5 {
+        padding-bottom: 8px;
+    }
+
+    .nx-admin-wrapper .nx-notifications-wrapper .notifications-not-found p {
+        padding-bottom: 12px;
+    }
+
+    .nx-admin-wrapper .nx-notifications-wrapper .notifications-not-found button.nx-primary-btn {
+        min-height: 30px;
+    }
+
+    .nx-admin-wrapper .nx-analytics-integration-wrapper {
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .nx-admin-wrapper .nx-analytics-integration-wrapper {
+        gap: 24px;
+    }
+
+    .nx-admin-wrapper .nx-other-details-wrapper {
+        gap: 24px;
+    }
+
+    .nx-notification-type-header {
+        flex-wrap: wrap;
+    }
+
+    .nx-admin-wrapper .nx-other-details-wrapper .nx-notification-type-wrapper .nx-notification-type-body {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .nx-admin-wrapper .nx-other-details-wrapper .nx-resource-stories-wrapper {
+        gap: 24px;
+
+        .nx-resource-wrapper {
+            .nx-resource-body {
+                .nx-resource-content {
+                    a {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .nx-admin-wrapper .nx-other-details-wrapper .nx-resource-stories-wrapper .nx-stories-wrapper .nx-stories-body {
+        gap: 16px;
+        flex-direction: column;
+    }
+
+    .nx-admin-wrapper .nx-more-docs-wrapper {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        margin-top: 0;
+    }
+
+    .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper {
+        padding: 20px;
+    }
+
+    .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper h3 {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+
+    .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper p {
+        font-size: 12px;
+        padding-bottom: 24px;
+    }
+
+    .nx-admin-wrapper .nx-content-details a.nx-resource-link {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .nx-started-wrapper {
+        flex-wrap: wrap;
+    }
+
+    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-video-widget {
+        width: 100%;
+    }
+
+    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-video-widget a {
+        width: 100%;
+    }
+
+    .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-video-widget a img {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .nx-admin-wrapper .nx-analytics-wrapper {
+        gap: 16px;
+        display: grid;
+    }
+
+    .nx-admin-wrapper .nx-other-details-wrapper {
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper .img-wrap {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 18px;
+    }
+
+    .nx-admin-wrapper .nx-more-docs-wrapper .nx-docs-content-wrapper h3 {
+        font-size: 16px;
+    }
+
 }

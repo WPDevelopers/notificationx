@@ -14,60 +14,44 @@ const toolbarOptions = {
     },
     blockType: {
         inDropdown: true,
-        options: [
-            "Normal",
-            "H1",
-            "H2",
-            "H3",
-            "H4",
-            "H5",
-            "H6",
-            "Blockquote",
-            "Code",
-        ],
-        className: undefined,
-        component: undefined,
-        dropdownClassName: undefined,
-    },
-    emoji: {
-        className: undefined,
-        component: undefined,
-        popupClassName: undefined,
+        options: ["Normal", "H1", "H2", "H3", "H4", "H5", "H6", "Blockquote", "Code"],
     },
 };
 
 const NxEditor = (props) => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const [isInitialized, setIsInitialized] = useState(false);
-
+    
     useEffect(() => {
-        if (props.value && !isInitialized) {
+        if (props.value) {
             const { contentBlocks, entityMap } = htmlToDraft(props.value);
             const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-            const editorState = EditorState.createWithContent(contentState);
-            setEditorState(editorState);
-            setIsInitialized(true);
-        }
-    }, [props.value, isInitialized]);
+            const newContentState = contentState;
 
-    useEffect(() => {
-        // Only call onChange if the editor has been initialized and content actually changed
-        if (isInitialized) {
             const currentContent = editorState.getCurrentContent();
-            const tempValue = draftToHtml(convertToRaw(currentContent));
+            const currentHtml = draftToHtml(convertToRaw(currentContent));
 
-            // Avoid calling onChange if the content hasn't actually changed
-            if (tempValue !== props.value) {
-                props.onChange({
-                    target: {
-                        type: 'editor',
-                        value: tempValue,
-                        name: props.name
-                    }
-                });
+            if (props.value !== currentHtml) {
+                setEditorState(prevState =>
+                    EditorState.push(prevState, newContentState, 'insert-characters')
+                );
             }
         }
-    }, [editorState, isInitialized, props.value, props.name, props.onChange]);
+    }, [props.value]);
+
+    // 🔹 Send updates to parent
+    useEffect(() => {
+        const currentContent = editorState.getCurrentContent();
+        const html = draftToHtml(convertToRaw(currentContent));
+        if (html !== props.value) {
+            props.onChange?.({
+                target: {
+                    type: 'editor',
+                    value: html,
+                    name: props.name
+                }
+            });
+        }
+    }, [editorState]);
 
     return (
         <Wysiwyg

@@ -237,7 +237,6 @@ class QuickBuild {
                 'press_sliding_text',
                 'sliding_text',
                 'bar_content_type',
-                'press_content',
                 'sliding_content',
                 'countdown_timer',
                 'enable_countdown',
