@@ -282,8 +282,14 @@
                         }
 
                         .nx-expired-text {
-                            margin-bottom: 10px;
+                            // margin-bottom: 10px;
                             background-color: #6549fe;
+
+                            @media only screen and (max-width: 786px) {
+                                font-size: 10px;
+                                line-height: 1.2em;
+                                padding: 8px 10px;
+                            }
                         }
                     }
                 }
