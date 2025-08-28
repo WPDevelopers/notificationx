@@ -181,7 +181,8 @@ class ReportEmail {
             return [];
         }
 
-        if( (isset( $data['current_data'] ) && empty( $data['current_data'] )) || (isset( $data['previous_data'] ) && empty( $data['previous_data'] )) ) {
+        // previous -> || (isset( $data['previous_data'] ) && empty( $data['previous_data'] )
+        if( (isset( $data['current_data'] ) && empty( $data['current_data'] ) ) ) {
             return [];
         }
 

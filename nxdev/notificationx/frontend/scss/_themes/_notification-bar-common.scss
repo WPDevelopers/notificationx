@@ -625,6 +625,9 @@
                 padding: 10px 30px;
             }
             .nx-bar-content-wrap {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
                 .nx-inner-content-wrapper {
                     margin-right: 0;
                     flex-wrap: nowrap;
@@ -805,6 +808,14 @@
 
     .nx-bar-content-wrap {
         display: block;
+    }
+    .nx-bar-content-wrap {
+        .eb-row-inner {
+            align-items: center;
+        }
+    }
+    .eb-parent-wrapper .wp-block-essential-blocks-column h2.wp-block-heading {
+        margin: 0;
     }
 }
 

@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.1.2\n"
+"Project-Id-Version: NotificationX 3.1.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-24T06:52:00+00:00\n"
+"POT-Creation-Date: 2025-08-26T09:43:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -21,8 +21,8 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:51
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:14
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 #: nxdev/notificationx/frontend/themes/helpers/NotificationText.js:13
 msgid "NotificationX"
 msgstr ""
@@ -161,16 +161,16 @@ msgstr ""
 
 #: includes/Admin/ImportExport.php:133
 #: includes/Admin/ImportExport.php:134
-#: includes/Extensions/PressBar/PressBar.php:734
-#: includes/Extensions/PressBar/PressBar.php:735
-#: includes/Extensions/PressBar/PressBar.php:941
-#: includes/Extensions/PressBar/PressBar.php:942
+#: includes/Extensions/PressBar/PressBar.php:785
+#: includes/Extensions/PressBar/PressBar.php:786
+#: includes/Extensions/PressBar/PressBar.php:992
+#: includes/Extensions/PressBar/PressBar.php:993
 msgid "Import"
 msgstr ""
 
 #: includes/Admin/ImportExport.php:135
-#: includes/Extensions/PressBar/PressBar.php:736
-#: includes/Extensions/PressBar/PressBar.php:943
+#: includes/Extensions/PressBar/PressBar.php:787
+#: includes/Extensions/PressBar/PressBar.php:994
 msgid "Importing..."
 msgstr ""
 
@@ -210,30 +210,30 @@ msgstr ""
 msgid "You have to enable Reporting first."
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:219
+#: includes/Admin/Reports/ReportEmail.php:220
 #: includes/Admin/Settings.php:360
 msgid "Once Weekly"
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:223
+#: includes/Admin/Reports/ReportEmail.php:224
 #: includes/Admin/Settings.php:359
 msgid "Once Daily"
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:227
+#: includes/Admin/Reports/ReportEmail.php:228
 #: includes/Admin/Settings.php:361
 msgid "Once Monthly"
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:310
+#: includes/Admin/Reports/ReportEmail.php:311
 msgid "No data found."
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:313
+#: includes/Admin/Reports/ReportEmail.php:314
 msgid "Analytics disabled. No data found."
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:317
+#: includes/Admin/Reports/ReportEmail.php:318
 msgid "No email found."
 msgstr ""
 
@@ -405,32 +405,32 @@ msgid "Select Reporting Day"
 msgstr ""
 
 #: includes/Admin/Settings.php:381
-#: includes/Extensions/PressBar/PressBar.php:1332
+#: includes/Extensions/PressBar/PressBar.php:1383
 msgid "Sunday"
 msgstr ""
 
 #: includes/Admin/Settings.php:382
-#: includes/Extensions/PressBar/PressBar.php:1326
+#: includes/Extensions/PressBar/PressBar.php:1377
 msgid "Monday"
 msgstr ""
 
 #: includes/Admin/Settings.php:383
-#: includes/Extensions/PressBar/PressBar.php:1327
+#: includes/Extensions/PressBar/PressBar.php:1378
 msgid "Tuesday"
 msgstr ""
 
 #: includes/Admin/Settings.php:384
-#: includes/Extensions/PressBar/PressBar.php:1328
+#: includes/Extensions/PressBar/PressBar.php:1379
 msgid "Wednesday"
 msgstr ""
 
 #: includes/Admin/Settings.php:385
-#: includes/Extensions/PressBar/PressBar.php:1329
+#: includes/Extensions/PressBar/PressBar.php:1380
 msgid "Thursday"
 msgstr ""
 
 #: includes/Admin/Settings.php:386
-#: includes/Extensions/PressBar/PressBar.php:1330
+#: includes/Extensions/PressBar/PressBar.php:1381
 msgid "Friday"
 msgstr ""
 
@@ -548,8 +548,6 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:615
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:18
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "Click to Copy"
 msgstr ""
 
@@ -568,8 +566,8 @@ msgstr ""
 
 #: includes/Core/Helper.php:639
 #: includes/Types/GDPR.php:384
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Enabled"
 msgstr ""
 
@@ -615,8 +613,8 @@ msgid "Name"
 msgstr ""
 
 #: includes/Core/Helper.php:801
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Description"
 msgstr ""
 
@@ -1505,7 +1503,7 @@ msgstr ""
 #: includes/FrontEnd/FrontEnd.php:268
 #: includes/FrontEnd/FrontEnd.php:269
 #: includes/FrontEnd/FrontEnd.php:270
-#: includes/FrontEnd/FrontEnd.php:743
+#: includes/FrontEnd/FrontEnd.php:747
 #: includes/Types/Comments.php:54
 #: includes/Types/Comments.php:67
 #: includes/Types/Comments.php:80
@@ -1547,7 +1545,7 @@ msgstr ""
 
 #: includes/Core/PostType.php:77
 #: includes/Extensions/GlobalFields.php:1162
-#: includes/Extensions/PressBar/PressBar.php:1616
+#: includes/Extensions/PressBar/PressBar.php:1667
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:18
@@ -1566,83 +1564,83 @@ msgstr ""
 #: includes/Core/QuickBuild.php:92
 #: includes/Extensions/GlobalFields.php:629
 #: includes/Extensions/GlobalFields.php:656
-#: includes/Extensions/PressBar/PressBar.php:1581
+#: includes/Extensions/PressBar/PressBar.php:1632
 msgid "Content"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:255
-#: includes/Extensions/PressBar/PressBar.php:64
+#: includes/Core/QuickBuild.php:254
+#: includes/Extensions/PressBar/PressBar.php:66
 #: includes/Types/NotificationBar.php:227
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Notification Bar"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:256
+#: includes/Core/QuickBuild.php:255
 #: includes/Extensions/Google/YouTube.php:133
 #: includes/Extensions/Google/YouTube.php:175
 #: includes/Types/Comments.php:46
 msgid "Comments"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:257
+#: includes/Core/QuickBuild.php:256
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:198
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:199
 #: includes/Types/Conversions.php:61
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Sales Notification"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:258
+#: includes/Core/QuickBuild.php:257
 #: includes/Types/Video.php:50
 msgid "Video"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:259
+#: includes/Core/QuickBuild.php:258
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:65
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:66
 #: includes/Types/Reviews.php:56
 msgid "Reviews"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:260
+#: includes/Core/QuickBuild.php:259
 #: includes/Types/DownloadStats.php:49
 msgid "Download Stats"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:261
+#: includes/Core/QuickBuild.php:260
 #: includes/Types/ELearning.php:51
 msgid "eLearning"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:262
+#: includes/Core/QuickBuild.php:261
 msgid "Donation"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:263
+#: includes/Core/QuickBuild.php:262
 #: includes/Types/ContactForm.php:52
 msgid "Contact Form"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:264
+#: includes/Core/QuickBuild.php:263
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:66
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:67
 #: includes/Types/Inline.php:45
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Growth Alert"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:265
+#: includes/Core/QuickBuild.php:264
 #: includes/Extensions/GDPR/GDPR_Notification.php:47
 #: includes/Types/GDPR.php:49
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Cookie Notice"
 msgstr ""
 
@@ -2151,7 +2149,7 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:201
 #: includes/Extensions/GDPR/GDPR_Notification.php:239
 #: includes/Extensions/GlobalFields.php:475
-#: includes/Extensions/PressBar/PressBar.php:482
+#: includes/Extensions/PressBar/PressBar.php:511
 #: blocks/notificationx/components/inspector.js:313
 #: blocks/notificationx/index.js:1
 msgid "Background Color"
@@ -2186,12 +2184,12 @@ msgid "This font size will be applied for <mark>Description</mark> only"
 msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:115
-#: includes/Extensions/PressBar/PressBar.php:519
+#: includes/Extensions/PressBar/PressBar.php:548
 msgid "Close Button Color"
 msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:129
-#: includes/Extensions/PressBar/PressBar.php:524
+#: includes/Extensions/PressBar/PressBar.php:553
 msgid "Close Button Size"
 msgstr ""
 
@@ -2210,7 +2208,7 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:213
 #: includes/Extensions/GDPR/GDPR_Notification.php:251
 #: includes/Extensions/GlobalFields.php:481
-#: includes/Extensions/PressBar/PressBar.php:494
+#: includes/Extensions/PressBar/PressBar.php:523
 #: blocks/notificationx/components/inspector.js:307
 #: blocks/notificationx/index.js:1
 msgid "Text Color"
@@ -2222,7 +2220,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:547
 #: includes/Extensions/GlobalFields.php:555
 #: includes/Extensions/GlobalFields.php:563
-#: includes/Extensions/PressBar/PressBar.php:621
+#: includes/Extensions/PressBar/PressBar.php:650
 msgid "Font Size"
 msgstr ""
 
@@ -2349,8 +2347,8 @@ msgid "Previous"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:72
-#: includes/Extensions/PressBar/PressBar.php:753
-#: includes/Extensions/PressBar/PressBar.php:960
+#: includes/Extensions/PressBar/PressBar.php:804
+#: includes/Extensions/PressBar/PressBar.php:1011
 msgid "Next"
 msgstr ""
 
@@ -2443,16 +2441,16 @@ msgid "Center"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:425
-#: includes/Extensions/PressBar/PressBar.php:439
-#: includes/Extensions/PressBar/PressBar.php:1091
+#: includes/Extensions/PressBar/PressBar.php:468
+#: includes/Extensions/PressBar/PressBar.php:1142
 msgid "Bottom"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:426
-#: includes/Extensions/PressBar/PressBar.php:432
-#: includes/Extensions/PressBar/PressBar.php:563
-#: includes/Extensions/PressBar/PressBar.php:585
-#: includes/Extensions/PressBar/PressBar.php:1086
+#: includes/Extensions/PressBar/PressBar.php:461
+#: includes/Extensions/PressBar/PressBar.php:592
+#: includes/Extensions/PressBar/PressBar.php:614
+#: includes/Extensions/PressBar/PressBar.php:1137
 msgid "Top"
 msgstr ""
 
@@ -2498,14 +2496,14 @@ msgid "Discount Background"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:540
-#: includes/Extensions/PressBar/PressBar.php:614
+#: includes/Extensions/PressBar/PressBar.php:643
 #: blocks/notificationx/components/inspector.js:254
 #: blocks/notificationx/index.js:1
 msgid "Typography"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:552
-#: includes/Extensions/PressBar/PressBar.php:627
+#: includes/Extensions/PressBar/PressBar.php:656
 msgid "This font size will be applied for <mark>first</mark> row"
 msgstr ""
 
@@ -2538,16 +2536,16 @@ msgid "Square"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:598
-#: includes/Extensions/PressBar/PressBar.php:418
-#: includes/Extensions/PressBar/PressBar.php:557
-#: includes/Extensions/PressBar/PressBar.php:574
+#: includes/Extensions/PressBar/PressBar.php:447
+#: includes/Extensions/PressBar/PressBar.php:586
+#: includes/Extensions/PressBar/PressBar.php:603
 msgid "Left"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:599
-#: includes/Extensions/PressBar/PressBar.php:425
-#: includes/Extensions/PressBar/PressBar.php:558
-#: includes/Extensions/PressBar/PressBar.php:596
+#: includes/Extensions/PressBar/PressBar.php:454
+#: includes/Extensions/PressBar/PressBar.php:587
+#: includes/Extensions/PressBar/PressBar.php:625
 msgid "Right"
 msgstr ""
 
@@ -2572,7 +2570,9 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:718
 #: includes/Extensions/GlobalFields.php:735
 #: includes/Extensions/GlobalFields.php:752
-#: includes/Extensions/PressBar/PressBar.php:1295
+#: includes/Extensions/PressBar/PressBar.php:405
+#: includes/Extensions/PressBar/PressBar.php:413
+#: includes/Extensions/PressBar/PressBar.php:1346
 msgid "Custom"
 msgstr ""
 
@@ -2708,8 +2708,8 @@ msgid "Consent Expiry"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1062
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Days"
 msgstr ""
 
@@ -2805,7 +2805,7 @@ msgid "Upload an Image"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1531
-#: includes/Extensions/PressBar/PressBar.php:489
+#: includes/Extensions/PressBar/PressBar.php:518
 #: assets/admin/js/admin.js:18
 msgid "Upload"
 msgstr ""
@@ -2870,8 +2870,8 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1696
 #: includes/Types/GDPR.php:440
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 #: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:141
 msgid "Customize"
 msgstr ""
@@ -3076,8 +3076,8 @@ msgid "Delay Before First Notification"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:2122
-#: includes/Extensions/PressBar/PressBar.php:1190
-#: includes/Extensions/PressBar/PressBar.php:1195
+#: includes/Extensions/PressBar/PressBar.php:1241
+#: includes/Extensions/PressBar/PressBar.php:1246
 #: includes/Types/GDPR.php:275
 msgid "Initial Delay"
 msgstr ""
@@ -3085,8 +3085,8 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:2123
 #: includes/Extensions/GlobalFields.php:2130
 #: includes/Extensions/GlobalFields.php:2139
-#: includes/Extensions/PressBar/PressBar.php:1137
-#: includes/Extensions/PressBar/PressBar.php:1196
+#: includes/Extensions/PressBar/PressBar.php:1188
+#: includes/Extensions/PressBar/PressBar.php:1247
 msgid "seconds"
 msgstr ""
 
@@ -3596,26 +3596,26 @@ msgid ""
 "\t\t<p>🔥Introducing Discount Alert By NotificationX <a target=\"_blank\" href=\"%2$s\">Guide To Notify Customers About On-Sale Products</a> </p>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:63
+#: includes/Extensions/PressBar/PressBar.php:65
 msgid "Press Bar"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:79
+msgid "<b>We're excited to introduce something new!</b>"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:80
+msgid "Show Me!"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:96
 #: includes/Extensions/PressBar/PressBar.php:113
 msgid "<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:80
-#: includes/Extensions/PressBar/PressBar.php:1663
-msgid "Get Offer"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:96
-msgid "<b>We're excited to introduce something new!</b>"
-msgstr ""
-
 #: includes/Extensions/PressBar/PressBar.php:97
-msgid "Show Me!"
+#: includes/Extensions/PressBar/PressBar.php:1714
+msgid "Get Offer"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:114
@@ -3644,7 +3644,7 @@ msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:162
 #: includes/Extensions/PressBar/PressBar.php:177
-#: includes/Extensions/PressBar/PressBar.php:1689
+#: includes/Extensions/PressBar/PressBar.php:1740
 msgid "Shop Now"
 msgstr ""
 
@@ -3652,459 +3652,460 @@ msgstr ""
 msgid "<p><span style=\"color: #9F7800;\">4 years</span> Of Seamlessly Creating NotificationX!</p>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:295
-msgid "Install Essential Blocks"
+#: includes/Extensions/PressBar/PressBar.php:397
+msgid "Presets"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:415
+#: includes/Extensions/PressBar/PressBar.php:422
+msgid "NX Bar"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:444
 msgid "Border Radius"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:487
+#: includes/Extensions/PressBar/PressBar.php:516
 msgid "Background Image"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:509
+#: includes/Extensions/PressBar/PressBar.php:538
 msgid "Countdown Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:514
+#: includes/Extensions/PressBar/PressBar.php:543
 msgid "Countdown Text Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:543
-#: includes/Extensions/PressBar/PressBar.php:552
+#: includes/Extensions/PressBar/PressBar.php:572
+#: includes/Extensions/PressBar/PressBar.php:581
 msgid "Close Button Position"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:562
-#: includes/Extensions/PressBar/PressBar.php:584
+#: includes/Extensions/PressBar/PressBar.php:591
+#: includes/Extensions/PressBar/PressBar.php:613
 msgid "Close Button Position Top"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:573
+#: includes/Extensions/PressBar/PressBar.php:602
 msgid "Close Button Position Left"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:595
+#: includes/Extensions/PressBar/PressBar.php:624
 msgid "Close Button Position Right"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:633
+#: includes/Extensions/PressBar/PressBar.php:662
 msgid "Activate"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:633
+#: includes/Extensions/PressBar/PressBar.php:662
 msgid "Install"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:642
-msgid "To Design Notification Bar with <strong>Elementor Page Builder</strong>, You need to %s the Elementor first: &nbsp;&nbsp;&nbsp;"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:666
+#: includes/Extensions/PressBar/PressBar.php:717
 msgid "Edit With Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:682
-msgid "Remove Elementor Design"
+#: includes/Extensions/PressBar/PressBar.php:733
+#: includes/Extensions/PressBar/PressBar.php:939
+msgid "Remove"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:714
+#: includes/Extensions/PressBar/PressBar.php:765
 msgid "Build With Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:774
-#: includes/Extensions/PressBar/PressBar.php:981
+#: includes/Extensions/PressBar/PressBar.php:825
+#: includes/Extensions/PressBar/PressBar.php:1032
 msgid "Choose Your "
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:810
+#: includes/Extensions/PressBar/PressBar.php:861
 msgid "Activate Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:810
+#: includes/Extensions/PressBar/PressBar.php:861
 msgid "Install Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:811
+#: includes/Extensions/PressBar/PressBar.php:862
 msgid "Activated Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:811
+#: includes/Extensions/PressBar/PressBar.php:862
 msgid "Installed Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:812
+#: includes/Extensions/PressBar/PressBar.php:863
 msgid "Activating Elementor..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:812
+#: includes/Extensions/PressBar/PressBar.php:863
 msgid "Installing Elementor..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:839
+#: includes/Extensions/PressBar/PressBar.php:890
 msgid "Successfully Activated"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:873
+#: includes/Extensions/PressBar/PressBar.php:924
 msgid "Edit With Gutenberg"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:888
-msgid "Remove Gutenberg Design"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:921
+#: includes/Extensions/PressBar/PressBar.php:972
 msgid "Build With Gutenberg"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1037
+#: includes/Extensions/PressBar/PressBar.php:1088
 msgid "Bar Reappearance"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1045
+#: includes/Extensions/PressBar/PressBar.php:1096
 msgid "Don't show the Bar again for the user"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1046
+#: includes/Extensions/PressBar/PressBar.php:1097
 msgid "Show the Bar again when the user visits the website next time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1047
+#: includes/Extensions/PressBar/PressBar.php:1098
 msgid "Show the Bar when the user refreshes/goes to another page"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1097
+#: includes/Extensions/PressBar/PressBar.php:1148
 msgid "Sticky Bar?"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1102
+#: includes/Extensions/PressBar/PressBar.php:1153
 msgid "If checked, this will fixed Notification Bar at top or bottom."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1107
+#: includes/Extensions/PressBar/PressBar.php:1158
 msgid "Display Overlapping"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1112
+#: includes/Extensions/PressBar/PressBar.php:1163
 msgid "Show Notification Bar overlapping content instead of pushing."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1122
+#: includes/Extensions/PressBar/PressBar.php:1173
 msgid "Auto Hide"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1127
+#: includes/Extensions/PressBar/PressBar.php:1178
 msgid "If checked, notification bar will be hidden after the time set below."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1132
+#: includes/Extensions/PressBar/PressBar.php:1183
 msgid "Hide After"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1138
+#: includes/Extensions/PressBar/PressBar.php:1189
 msgid "Hide after 60 seconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1143
+#: includes/Extensions/PressBar/PressBar.php:1194
 msgid "Notification Bar will Appear"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1152
+#: includes/Extensions/PressBar/PressBar.php:1203
 msgid "After a few seconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1156
+#: includes/Extensions/PressBar/PressBar.php:1207
 msgid "On Scroll"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1164
+#: includes/Extensions/PressBar/PressBar.php:1215
 msgid "Scroll Offset"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1179
+#: includes/Extensions/PressBar/PressBar.php:1230
 msgid "PX"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1180
+#: includes/Extensions/PressBar/PressBar.php:1231
 msgid "VH"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1181
+#: includes/Extensions/PressBar/PressBar.php:1232
 msgid "%"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1204
+#: includes/Extensions/PressBar/PressBar.php:1255
 msgid "Targeting"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1214
+#: includes/Extensions/PressBar/PressBar.php:1265
 msgid "Country Targeting"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1237
+#: includes/Extensions/PressBar/PressBar.php:1288
 msgid "Show for All Users"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1242
+#: includes/Extensions/PressBar/PressBar.php:1293
 msgid "Set Target Audience"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1269
+#: includes/Extensions/PressBar/PressBar.php:1320
 #: assets/admin/js/admin.js:1
 msgid "Schedule"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1277
+#: includes/Extensions/PressBar/PressBar.php:1328
 msgid "Schedule Type"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1285
+#: includes/Extensions/PressBar/PressBar.php:1336
 msgid "Daily"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1290
+#: includes/Extensions/PressBar/PressBar.php:1341
 msgid "Weekly"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1303
-#: includes/Extensions/PressBar/PressBar.php:1339
-#: includes/Extensions/PressBar/PressBar.php:1366
+#: includes/Extensions/PressBar/PressBar.php:1354
+#: includes/Extensions/PressBar/PressBar.php:1390
+#: includes/Extensions/PressBar/PressBar.php:1417
 #: assets/admin/js/admin.js:18
 msgid "From"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1312
-#: includes/Extensions/PressBar/PressBar.php:1348
-#: includes/Extensions/PressBar/PressBar.php:1375
+#: includes/Extensions/PressBar/PressBar.php:1363
+#: includes/Extensions/PressBar/PressBar.php:1399
+#: includes/Extensions/PressBar/PressBar.php:1426
 #: assets/admin/js/admin.js:18
 msgid "To"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1321
+#: includes/Extensions/PressBar/PressBar.php:1372
 msgid "Select Days"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1331
+#: includes/Extensions/PressBar/PressBar.php:1382
 msgid "Saturday"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1357
+#: includes/Extensions/PressBar/PressBar.php:1408
 msgid "Custom Schedule"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1442
+#: includes/Extensions/PressBar/PressBar.php:1493
 msgid "NotificationX Bar"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1475
+#: includes/Extensions/PressBar/PressBar.php:1526
 msgid "NotificationX Bar (Gutenberg)"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1573
+#: includes/Extensions/PressBar/PressBar.php:1624
 msgid "Text Content"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1587
-#: includes/Extensions/PressBar/PressBar.php:1602
+#: includes/Extensions/PressBar/PressBar.php:1638
+#: includes/Extensions/PressBar/PressBar.php:1653
 msgid "Static Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1592
+#: includes/Extensions/PressBar/PressBar.php:1643
 msgid "Slide Multiple Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1603
+#: includes/Extensions/PressBar/PressBar.php:1654
 msgid "Write something here..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1613
+#: includes/Extensions/PressBar/PressBar.php:1664
 msgid "Sliding Text Items"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1620
+#: includes/Extensions/PressBar/PressBar.php:1671
 msgid "🚀 Supercharge Your Marketing Forever!"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1623
+#: includes/Extensions/PressBar/PressBar.php:1674
 msgid "Get <strong>Lifetime Access to NotificationX</strong> for just <strong>$299</strong>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1630
+#: includes/Extensions/PressBar/PressBar.php:1681
 msgid "Slide Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1642
+#: includes/Extensions/PressBar/PressBar.php:1693
 msgid "Sliding Interval"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1646
+#: includes/Extensions/PressBar/PressBar.php:1697
 msgid "Time interval between slides in milliseconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1661
-#: includes/Extensions/PressBar/PressBar.php:1751
+#: includes/Extensions/PressBar/PressBar.php:1712
+#: includes/Extensions/PressBar/PressBar.php:1802
 #: includes/Types/GDPR.php:423
 #: includes/Types/GDPR.php:431
 #: includes/Types/GDPR.php:439
 msgid "Button Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1672
+#: includes/Extensions/PressBar/PressBar.php:1723
 msgid "Button URL"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1683
+#: includes/Extensions/PressBar/PressBar.php:1734
 msgid "Button Icon"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1693
+#: includes/Extensions/PressBar/PressBar.php:1744
 msgid "Shop Now White "
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1696
+#: includes/Extensions/PressBar/PressBar.php:1747
 msgid "Select an icon to display before the button text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1703
+#: includes/Extensions/PressBar/PressBar.php:1754
 msgid "Transition Speed"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1709
+#: includes/Extensions/PressBar/PressBar.php:1760
 msgid "Transition speed in milliseconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1716
+#: includes/Extensions/PressBar/PressBar.php:1767
 msgid "Transition Style"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1722
+#: includes/Extensions/PressBar/PressBar.php:1773
 msgid "Slide in Right"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1723
+#: includes/Extensions/PressBar/PressBar.php:1774
 msgid "Slide in Left"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1733
+#: includes/Extensions/PressBar/PressBar.php:1784
 msgid "Coupon"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1745
+#: includes/Extensions/PressBar/PressBar.php:1796
 msgid "Enable Coupon"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1753
-#: includes/Extensions/PressBar/PressBar.php:1763
+#: includes/Extensions/PressBar/PressBar.php:1804
+#: includes/Extensions/PressBar/PressBar.php:1814
 msgid "SAVE20"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1761
+#: includes/Extensions/PressBar/PressBar.php:1812
 msgid "Coupon Code"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1771
+#: includes/Extensions/PressBar/PressBar.php:1822
 msgid "Coupon Copied Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1773
+#: includes/Extensions/PressBar/PressBar.php:1824
 msgid "Copied!"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1781
+#: includes/Extensions/PressBar/PressBar.php:1832
 msgid "Coupon Tooltip"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1783
+#: includes/Extensions/PressBar/PressBar.php:1834
 msgid "Use this coupon code to get 20% off"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1791
+#: includes/Extensions/PressBar/PressBar.php:1842
 msgid "Coupon Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1801
+#: includes/Extensions/PressBar/PressBar.php:1852
 msgid "Coupon Text Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1811
+#: includes/Extensions/PressBar/PressBar.php:1862
 msgid "Coupon Border Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1827
+#: includes/Extensions/PressBar/PressBar.php:1878
 msgid "Countdown Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1833
+#: includes/Extensions/PressBar/PressBar.php:1884
 msgid "Enable Countdown"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1839
+#: includes/Extensions/PressBar/PressBar.php:1890
 msgid "Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1843
+#: includes/Extensions/PressBar/PressBar.php:1894
 msgid "To configure Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1848
+#: includes/Extensions/PressBar/PressBar.php:1899
 msgid "Countdown Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1850
+#: includes/Extensions/PressBar/PressBar.php:1901
 msgid "Ending in"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1859
+#: includes/Extensions/PressBar/PressBar.php:1910
 msgid "Expired Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1861
+#: includes/Extensions/PressBar/PressBar.php:1912
 msgid "Expired"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1871
+#: includes/Extensions/PressBar/PressBar.php:1922
 msgid "Start Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1878
+#: includes/Extensions/PressBar/PressBar.php:1929
 msgid "End Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1886
+#: includes/Extensions/PressBar/PressBar.php:1937
 msgid "Randomize"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1892
+#: includes/Extensions/PressBar/PressBar.php:1943
 msgid "Time Between"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1898
+#: includes/Extensions/PressBar/PressBar.php:1949
 msgid "Start Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1905
+#: includes/Extensions/PressBar/PressBar.php:1956
 msgid "End Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1914
+#: includes/Extensions/PressBar/PressBar.php:1965
 msgid "Time Rotation"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1922
+#: includes/Extensions/PressBar/PressBar.php:1973
 msgid "Daily Time Reset"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1928
+#: includes/Extensions/PressBar/PressBar.php:1979
 msgid "Permanent Close"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1933
+#: includes/Extensions/PressBar/PressBar.php:1984
 msgid "Close After Expire"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2120
+#: includes/Extensions/PressBar/PressBar.php:2192
+msgid "Install Essential Blocks"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:2202
 msgid ""
 "<p>You can showcase the notification bar to run instant popup campaigns on WordPress sites. For further assistance, check out our step-by-step guides on adding notification bars built with both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
 "\t\t<p>🎦 Watch the <a target = \"_blank\" href = \"%3$s\">video tutorial</a> for a quick guide.</p>\n"
@@ -4947,8 +4948,8 @@ msgid "Save My Preferences Button"
 msgstr ""
 
 #: includes/Types/GDPR.php:347
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Save My Preferences"
 msgstr ""
 
@@ -5012,8 +5013,8 @@ msgid "Accept All Button"
 msgstr ""
 
 #: includes/Types/GDPR.php:424
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 #: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:133
 msgid "Accept All"
 msgstr ""
@@ -5023,8 +5024,8 @@ msgid "Reject All Button"
 msgstr ""
 
 #: includes/Types/GDPR.php:432
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 #: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:152
 msgid "Reject All"
 msgstr ""
@@ -5236,84 +5237,57 @@ msgstr ""
 msgid "OFF"
 msgstr ""
 
-#. translators: 1: The calendar date. 2: Number of events on the calendar date.
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "\"allOf\" condition requires an array as #3 argument"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "\"anyOf\" condition requires an array as #3 argument"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "\"not\" can have only one comparison rule, multiple rules given"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "Invalid comparison rule %s."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "There are no tabs defined!"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "Field must have a #type. see documentation."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:18
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "Copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "File can't be empty."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "Invalid file type."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "You should give a #fields arguments to a group field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "Loading..."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "#options is a required arguments for RadioCard field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:18
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 #: nxdev/notificationx/fields/GradientPicker.jsx:62
 msgid "Reset"
 msgstr ""
@@ -5321,38 +5295,26 @@ msgstr ""
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "Something went wrong."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "Button has a required params #text."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "Modal needs button/body with it."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "Save Changes"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "There are no #tabs args defined in props."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
 msgid "Not an array."
 msgstr ""
 
@@ -5820,196 +5782,196 @@ msgid "Upgrade to Pro"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Display Social Proof Alerts With NotificationX"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Accelerate website engagement & conversions by creating dynamic notifications, sales banners, and more. Follow this guide to explore all advanced NotificationX's features & quickly get started.  "
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "NO NOTIFICATIONS ARE FOUND."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "It seems like you haven't created any notification alerts.Hit on \"Add New\" button to get started"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "How To Configure 'WooCommerce Sales Alerts' In NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "How to Configure Cookies Policy for Website Using NotificationX’s Cookie Notice?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "How to Use Notification Bar in NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Display WooCommerce Growth Alerts With NotificationX"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "How To Create Custom Notification With NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "How To Configure NotificationX Cross Domain Notice?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "How To Configure Google Reviews With NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Create Now"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Display your latest sales to boost credibility and drive more conversions."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Inform users and stay privacy compliant quickly and effortlessly."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Display latest sales, discounts, or announcements to boost sales."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Display sales count, low stock notification to influence viewer to make instant purchases."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Flashing Tabs"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Encourage visitors or potential customers to take action & turn browsing into buying."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Cross - Domain Notice"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Copy & Explore"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Display single, multiple, or all live alerts on multiple WordPress websites or others."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Show Your Love"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "We love having you in the NotificationX family. We are making it more awesome every day. Please take two minutes to review the plugin and spread the love to encourage us to keep it going."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:31
 msgid "Leave a Review"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Explore Our Knowledge Base"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Get started by spending some time with the documentation to familiarize yourself with NotificationX and boost your website conversions immediately."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Documentation"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:18
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Join Our Community"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Join the Facebook community to discuss with fellow developers, connect with others, and stay updated."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Need Any Help?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "If you encounter issues or need assistance, we're here to help or report specific problems on our GitHub issues page."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Report a Bug"
 msgstr ""
 
@@ -6369,9 +6331,9 @@ msgid "Your existing cookie list (cookies discovered in the previous scan) will 
 msgstr ""
 
 #: assets/admin/js/admin.js:18
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
-#: nxdev/notificationx/fields/helpers/PressbarAdminPreview.jsx:329
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+#: nxdev/notificationx/fields/helpers/PressbarAdminPreview.jsx:361
 msgid "You should setup NX Bar properly"
 msgstr ""
 
@@ -6380,54 +6342,59 @@ msgstr ""
 msgid "Icons"
 msgstr ""
 
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/admin/js/admin.js:18
+#: nxdev/notificationx/fields/NxBarPresets.jsx:47
+msgid "Create with Your Preferred Builder/Editor"
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 #: nxdev/notificationx/frontend/themes/helpers/NXBranding.js:9
 msgid "by"
 msgstr ""
 
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgctxt "Announcements: 5 days remaining"
 msgid " remaining"
 msgstr ""
 
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Cookie"
 msgstr ""
 
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Show more"
 msgstr ""
 
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Show less"
 msgstr ""
 
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Powered by"
 msgstr ""
 
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Hrs"
 msgstr ""
 
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Mins"
 msgstr ""
 
-#: assets/public/js/crossSite.js:15
-#: assets/public/js/frontend.js:15
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Secs"
 msgstr ""
 
-#: assets/public/js/crossSite.js:15
+#: assets/public/js/crossSite.js:1
 msgid "You are using old version of cross-domain scripts for NotificationX Pro. Please update this from your NotificationX Settings page."
 msgstr ""
 

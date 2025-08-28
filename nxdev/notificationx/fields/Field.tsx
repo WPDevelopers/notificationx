@@ -20,6 +20,7 @@ import SimpleRepeater from './SimpleRepeater';
 import BetterSelect from './BetterSelect';
 import IconPicker from "./IconPicker";
 import NxEditor from './NxEditor';
+import NxBarPresets from './NxBarPresets';
 
 const Field = (ret, type, props) => {
 
@@ -65,6 +66,8 @@ const Field = (ret, type, props) => {
             return <IconPicker {...props} />;
         case "nx-editor":
             return <NxEditor {...props} />;
+        case "nxbar-custom":
+            return <NxBarPresets {...props} />;
         default:
             return ret;
     }

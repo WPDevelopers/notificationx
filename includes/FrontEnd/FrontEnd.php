@@ -364,11 +364,15 @@ class FrontEnd {
             $notifications = $this->get_notifications($pressbar, $device);
             foreach ($notifications as $key => $settings) {
                 $_nx_id            = $settings['nx_id'];
+                // check if position is bottom_left then modify it to top 
+                if($settings['position'] == 'bottom_left'){
+                    $settings['position'] = 'top';
+                }
                 $elementor_post_id = isset($settings['elementor_id']) ? $settings['elementor_id'] : '';
                 if ($elementor_post_id == '' || get_post_status($elementor_post_id) !== 'publish' | !class_exists('\Elementor\Plugin')) {
                     $settings['elementor_id'] = false;
                 }
-                if (!empty($_params['all_active']) && $elementor_post_id) {
+                if ( ( !empty( $_params['all_active']) && $elementor_post_id ) || !$settings['enabled'] ) {
                     continue;
                 }
 
