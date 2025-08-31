@@ -59,7 +59,7 @@ class ExtensionFactory {
 			'woocommerce'                     => 'NotificationX\Extensions\WooCommerce\WooCommerce',
 			'woocommerce_sales'               => 'NotificationX\Extensions\WooCommerce\WooCommerceSales',
 			'woocommerce_sales_reviews'       => 'NotificationX\Extensions\WooCommerce\WooCommerceSalesReviews',
-			'woocommerce_sales_inline'       => 'NotificationX\Extensions\WooCommerce\WooCommerceSalesInline',
+			'woocommerce_sales_inline'        => 'NotificationX\Extensions\WooCommerce\WooCommerceSalesInline',
 			'woo_reviews'                     => 'NotificationX\Extensions\WooCommerce\WooReviews',
 			'wp_comments'                     => 'NotificationX\Extensions\WordPress\WPComments',
 			'wp_reviews'                      => 'NotificationX\Extensions\WordPress\WPOrgReview',
@@ -74,9 +74,10 @@ class ExtensionFactory {
 			'vimeo'                           => 'NotificationX\Extensions\Vimeo\Vimeo',
 			'wistia'                          => 'NotificationX\Extensions\Wistia\Wistia',
 			'surecart'                        => 'NotificationX\Extensions\SureCart\SureCart',
-			'ActiveCampaign'				  => 'NotificationX\Extensions\ActiveCampaign\ActiveCampaign',
-			'gdpr_notification'				  => 'NotificationX\Extensions\GDPR\GDPR_Notification',
-			'ccpa_notification'				  => 'NotificationX\Extensions\CCPA\CCPA_Notification',
+			'ActiveCampaign'                  => 'NotificationX\Extensions\ActiveCampaign\ActiveCampaign',
+			'gdpr_notification'               => 'NotificationX\Extensions\GDPR\GDPR_Notification',
+			'ccpa_notification'               => 'NotificationX\Extensions\CCPA\CCPA_Notification',
+			'popup_notification'              => 'NotificationX\Extensions\Popup\PopupNotification',
 		];
 
 	/**

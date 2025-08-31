@@ -148,6 +148,7 @@ const useNotificationX = (props: any) => {
             pressbar  : props.config?.pressbar || [],
             shortcode : props.config?.shortcode || [],
             gdpr      : props.config?.gdpr || [],
+            popup     : props.config?.popup || [],
             deviceType: deviceType,
             extra     : { ...extras,'url': location.pathname, 'page_title': document.title },
         };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNotificationContext, Notification, Shortcode, Pressbar } from ".";
 import GDPR from "./GDPR";
+import Popup from "./Popup";
 import NotificationForMobile from "./NotificationForMobile";
 const NotificationContainer = (props: any) => {
     const frontendContext = useNotificationContext();
@@ -42,11 +43,11 @@ const NotificationContainer = (props: any) => {
                             />
                         );
                     } else {
-                        if (    
-                            notice?.config?.type == 'gdpr' && 
-                            (position == 'cookie_notice_bottom_left' || 
-                            position == 'cookie_notice_bottom_right' || 
-                            position == 'cookie_notice_center' || 
+                        if (
+                            notice?.config?.type == 'gdpr' &&
+                            (position == 'cookie_notice_bottom_left' ||
+                            position == 'cookie_notice_bottom_right' ||
+                            position == 'cookie_notice_center' ||
                             position == 'cookie_banner_bottom' ||
                             position == 'cookie_banner_top' )
                         ) {
@@ -59,6 +60,17 @@ const NotificationContainer = (props: any) => {
                                     dispatch={frontendContext.dispatch} />
                             );
 
+                        }
+
+                        if (notice?.config?.type == 'popup') {
+                            const popupItem = notice;
+                            return (
+                                <Popup
+                                    key={`popup-${popupItem?.config?.nx_id}`}
+                                    position={position}
+                                    nxPopup={popupItem}
+                                    dispatch={frontendContext.dispatch} />
+                            );
                         }
 
                         return (

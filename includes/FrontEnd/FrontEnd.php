@@ -242,6 +242,7 @@ class FrontEnd {
             'pressbar'  => [],
             'gdpr'      => [],
             'shortcode' => [],
+            'popup'     => [],
         ];
         if (!empty($_params['all_active'])) {
             $params = $this->get_notifications_ids();
@@ -253,6 +254,7 @@ class FrontEnd {
                 'active'           => [],
                 'pressbar'         => [],
                 'gdpr'             => [],
+                'popup'            => [],
                 'shortcode'        => [],
                 'inline_shortcode' => false,
             ]
@@ -261,6 +263,7 @@ class FrontEnd {
         $active    = $params['active'];
         $pressbar  = $params['pressbar'];
         $gdpr      = $params['gdpr'];
+        $popup     = $params['popup'];
         $shortcode = $params['shortcode'];
         $all       = array_merge($global, $active, $shortcode);
         $_defaults = array(
@@ -408,6 +411,23 @@ class FrontEnd {
             }
         }
 
+        // Popup Notification
+        if (!empty($popup)) {
+            $notifications = $this->get_notifications($popup);
+            foreach ($notifications as $key => $settings) {
+                $_nx_id            = $settings['nx_id'];
+                if (!empty($_params['all_active'])) {
+                    continue;
+                }
+
+                $settings = apply_filters('nx_filtered_post', $settings, $params);
+
+                $result['popup'][$_nx_id]['post']    = $settings;
+                $result['popup'][$_nx_id]['content'] = "";
+                unset($_nx_id);
+            }
+        }
+
         $result['settings'] = $this->get_settings();
         return $result;
     }
@@ -518,6 +538,8 @@ class FrontEnd {
                 }
             } elseif($settings['source'] == 'gdpr_notification') {
                 $gdpr_notification[] = $return_posts ? $settings : $settings['nx_id'];
+            }  elseif($settings['source'] == 'popup_notification') {
+                $popup_notifications[] =  $settings['nx_id'];
             } elseif ($active_global_queue && NotificationX::is_pro()) {
                 $global_notifications[] = $return_posts ? $settings : $settings['nx_id'];
             } else {
@@ -537,6 +559,7 @@ class FrontEnd {
                 'active'   => $active_notifications,
                 'pressbar' => $bar_notifications,
                 'gdpr'     => $gdpr_notification,
+                'popup'    => $popup_notifications,
                 'total'    => (count($global_notifications) + count($active_notifications) + count($bar_notifications) + count($gdpr_notification)),
             ],
             $notifications

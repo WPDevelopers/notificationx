@@ -29,6 +29,7 @@ class TypeFactory {
             'elearning'          => 'NotificationX\Types\ELearning',
             'donation'           => 'NotificationX\Types\Donations',
             'notification_bar'   => 'NotificationX\Types\NotificationBar',
+            'popup'              => 'NotificationX\Types\Popup',
             'form'               => 'NotificationX\Types\ContactForm',
             'email_subscription' => 'NotificationX\Types\EmailSubscription',
             'page_analytics'     => 'NotificationX\Types\PageAnalytics',
