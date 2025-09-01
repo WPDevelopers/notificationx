@@ -29,7 +29,7 @@ const NotificationContainer = (props: any) => {
         
         const isMobileAndPro = isMobile && frontendContext?.is_pro;
         const noMobileDesign = ['announcements', 'custom_notification', 'inline','gdpr_notification'];
-
+        
         return (
             <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
                 {NoticeList.map((notice) => {
@@ -85,11 +85,10 @@ const NotificationContainer = (props: any) => {
                 })}
             </div>
         );
-    };
-
+    };    
     return (
         <>
-            {frontendContext.getNxToRender((position, NoticeList) => {
+            {frontendContext.getNxToRender((position, NoticeList) => {                
                 if (NoticeList?.[0]?.config?.type == 'notification_bar' && (position == 'top' || position == 'bottom')) {
                     return NoticeList.map((nxBar) => {
                         const nxId = nxBar?.config?.nx_id;
@@ -112,8 +111,7 @@ const NotificationContainer = (props: any) => {
                             />
                         );
                     });
-                }
-
+                }                
                 if (position.indexOf('notificationx-shortcode-') === 0) {
                     return (
                         <Shortcode key={`shortcode-${position}`} position={position}>

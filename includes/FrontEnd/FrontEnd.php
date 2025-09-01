@@ -560,7 +560,7 @@ class FrontEnd {
                 'pressbar' => $bar_notifications,
                 'gdpr'     => $gdpr_notification,
                 'popup'    => $popup_notifications,
-                'total'    => (count($global_notifications) + count($active_notifications) + count($bar_notifications) + count($gdpr_notification)),
+                'total'    => (count($global_notifications) + count($active_notifications) + count($bar_notifications) + count($gdpr_notification) + count($popup_notifications)),
             ],
             $notifications
         );

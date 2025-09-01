@@ -22,6 +22,7 @@ const useNotificationX = (props: any) => {
     const [globalNotices, setGlobalNotices] = useState(null);
     const [pressbarNotices, setPressbarNotices] = useState(null);
     const [gdprNotices, setGdprNotices] = useState(null);
+    const [popupNotices, setPopupNotices] = useState(null);
     const [shortcodeNotices, setShortcodeNotices] = useState(null);
 
     const getTime = (value?, keepLocalTime: boolean = false) => {
@@ -109,7 +110,23 @@ const useNotificationX = (props: any) => {
                 });
                 setGdprNotices(normalizePressBar(filteredConfig, config.settings));
             }
-        }
+
+            if(config && Object.keys(config?.popup).length){
+                const filteredConfig = {};
+                Object.keys(config.popup).forEach((key) => {
+                    const popup = config.popup[key];
+                    let settings = {...popup['post'], previewType};
+                    if(settings._global_queue){
+                        settings = {...settings, ...config.settings};
+                    }
+                    if(!(previewType === 'phone' && settings.hide_on_mobile)){
+                        popup['post']    = settings;
+                        filteredConfig[key] = popup;
+                    }
+                });
+                setPopupNotices(normalizePressBar(filteredConfig, config.settings));
+            }
+        }        
     }, [previewType])
 
     const getDeviceType = () => {
@@ -472,6 +489,57 @@ const useNotificationX = (props: any) => {
     }, [gdprNotices]);
 
     /**
+     * Popup
+     */
+    useEffect(() => {
+        // Process to render;
+        if (popupNotices != null && popupNotices.length > 0) {
+            popupNotices.forEach((popupItem) => {
+                const config = popupItem.post;
+                const popupInitialDelay = 1000;
+                const hideAfter = (+config?.hide_after || 5) * 1000;
+
+                let args = {
+                    intervalID: null,
+                    timeoutID: null,
+                    data: null,
+                    config
+                }
+
+                const timeoutID = setTimeout(() => {
+                    args.timeoutID = timeoutID;
+                    args.data = popupItem.content;
+                    const ID = dispatchNotification(args);
+
+                    if (config?.auto_hide && +config?.hide_after) {
+                        if (config?.close_forever) {
+                            const expires = new Date();
+                            expires.setDate(
+                                expires.getDate() +
+                                    (config?.time_reset ? 1 : 365)
+                            );
+                            let countRand = config?.countdown_rand ? `-${config.countdown_rand}` : '';
+                            cookie.save(
+                                "notificationx_" + config?.nx_id + countRand,
+                                true,
+                                { path: "/", expires }
+                            );
+                        }
+                        setTimeout(() => {
+                            dispatch({
+                                type: "REMOVE_NOTIFICATION",
+                                payload: ID,
+                            });
+                            document.body.style.paddingTop = `0px`;
+                        }, hideAfter);
+                    }
+                }, popupInitialDelay);
+            });
+            
+        }
+    }, [popupNotices]);
+
+    /**
      * ShortCode Dispatch
      */
     useEffect(() => {
@@ -542,6 +610,7 @@ const useNotificationX = (props: any) => {
             noticeToRender[get_position] || (noticeToRender[get_position] = []);
             noticeToRender[get_position]!.push(notice);
         }
+        console.log('noticeToRender',noticeToRender);
         
         return fixedOrder.map((p) => 
             noticeToRender[p] ? callback(p, noticeToRender[p]!) : null
