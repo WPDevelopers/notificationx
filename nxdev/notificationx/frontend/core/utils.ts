@@ -39,6 +39,7 @@ export const normalizeResponse = (response: any) => {
     let mergedShortcodeArray = normalize(response?.shortcode, response?.settings);
     let pressbar             = normalizePressBar(response?.pressbar, response?.settings);
     let gdpr                 = normalizePressBar(response?.gdpr, response?.settings);
+    let popup                = normalizePressBar(response?.popup, response?.settings);
 
     return {
         settings       : response?.settings,
@@ -47,6 +48,7 @@ export const normalizeResponse = (response: any) => {
         shortcodeNotice: mergedShortcodeArray,
         pressbar       : pressbar,
         gdpr           : gdpr,
+        popup          : popup,
     };
 };
 

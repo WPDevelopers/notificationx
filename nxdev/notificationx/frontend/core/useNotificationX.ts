@@ -195,11 +195,12 @@ const useNotificationX = (props: any) => {
                             timestamp: row => row.data?.timestamp ? row.data.timestamp : getTime(row.data?.updated_at)
                         }
                     });
-                }                                
+                }
                 setGlobalNotices(gNotices);
                 setShortcodeNotices(response?.shortcodeNotice);
                 setPressbarNotices(response?.pressbar);
                 setGdprNotices(response?.gdpr);
+                setPopupNotices(response?.popup);
             }
         });
         return () => {
@@ -610,8 +611,6 @@ const useNotificationX = (props: any) => {
             noticeToRender[get_position] || (noticeToRender[get_position] = []);
             noticeToRender[get_position]!.push(notice);
         }
-        console.log('noticeToRender',noticeToRender);
-        
         return fixedOrder.map((p) => 
             noticeToRender[p] ? callback(p, noticeToRender[p]!) : null
         ).filter(Boolean);

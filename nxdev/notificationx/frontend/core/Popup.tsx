@@ -1,7 +1,6 @@
 import React from 'react'
 
-const Popup = ({ key, position, nxPopup, dispatch }) => {
-    console.log('Popup Opend', nxPopup)
+const Popup = (props) => {
   return (
     <div>
       <h2>Popup Opend</h2>
