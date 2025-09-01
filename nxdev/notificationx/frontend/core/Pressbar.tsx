@@ -277,6 +277,26 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const direction = settings?.bar_transition_style == 'slide_right' ? 'right' : 'left';    
     const slideInterval = settings?.sliding_interval || 3000; // default 3s
     const transitionSpeed = settings?.bar_transition_speed || 500; // default 500ms
+    const [deviceClass, setDeviceClass] = useState('desktop');
+
+
+    useEffect(() => {
+        const updateDeviceClass = () => {
+            const width = window.innerWidth;
+            if (width <= 520) {
+                setDeviceClass('mobile');
+            } else if (width <= 768) {
+                setDeviceClass('tablet');
+            } else {
+                setDeviceClass('desktop');
+            }
+        };
+
+        updateDeviceClass(); // set on mount
+        window.addEventListener('resize', updateDeviceClass);
+
+        return () => window.removeEventListener('resize', updateDeviceClass);
+    }, []);
 
     useEffect(() => {
         if (!slidingContent.length) return;
@@ -430,7 +450,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 `nx-bar`,
                 settings.themes,
                 `nx-bar-${settings.nx_id}`,
-
+                `nx-bar-${deviceClass}-device`,
                 {
                     ["nx-bar-shortcode nx-bar-visible"]: isShortcode,
                     "nx-position-top": "top" == settings?.position,

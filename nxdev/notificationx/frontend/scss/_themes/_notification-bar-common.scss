@@ -21,9 +21,14 @@
     text-shadow: none;
     color: #000;
 
+    @media screen and (max-width: 782px) {
+        top: 46px !important;
+    }
+
     &.nx-sticky-bar {
         position: fixed;
         width: 100%;
+
     }
 
     &.nx-position-top {
@@ -61,7 +66,7 @@
 
                 .nx-countdown-text {
                     margin-right: 10px;
-
+                    flex-basis: 25%;
                     &.nx-expired {
                         display: none;
                     }
@@ -71,13 +76,13 @@
                     overflow: hidden;
                     background-color: #262626;
                     color: #fff;
+                    display: flex;
 
                     .nx-time-section {
-                        float: left;
                         margin: 0 5px;
                         padding: 10px;
                         position: relative;
-                        width: 40px;
+                        width: 36px;
 
                         >span {
                             line-height: 1;
@@ -260,12 +265,11 @@
             .nx-bar-content-wrap {
                 .nx-countdown-wrapper {
                     .nx-countdown {
-                        background: none !important;
-                        margin-bottom: -10px;
+                        background: transparent;
+                        display: flex;
 
                         .nx-time-section {
-                            width: 55px;
-                            margin-bottom: 10px;
+                            width: 52px;
                             background-color: #6549fe;
 
                             &:after {
@@ -278,8 +282,14 @@
                         }
 
                         .nx-expired-text {
-                            margin-bottom: 10px;
+                            // margin-bottom: 10px;
                             background-color: #6549fe;
+
+                            @media only screen and (max-width: 786px) {
+                                font-size: 10px;
+                                line-height: 1.2em;
+                                padding: 8px 10px;
+                            }
                         }
                     }
                 }
@@ -309,7 +319,7 @@
                 padding: 10px 30px;
             }
             .nx-bar-content-wrap {
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 justify-content: center;
                 gap: 12px;
                 .nx-countdown-wrapper {
@@ -319,6 +329,9 @@
                         line-height: 1em;
                         color: #000123;
                         margin-right: 12px;
+                        @media only screen and (max-width: 1024px) {
+                            display: none;
+                        }
                     }
                     .nx-countdown {
                         overflow: hidden;
@@ -515,7 +528,7 @@
                 padding: 10px 30px;
             }
             .nx-bar-content-wrap {
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 justify-content: center;
                 gap: 12px;
                 .nx-countdown-wrapper {
@@ -617,12 +630,9 @@
                 gap: 12px;
                 .nx-inner-content-wrapper {
                     margin-right: 0;
-                    flex-wrap: wrap;
+                    flex-wrap: nowrap;
                     justify-content: center;
                     gap: 12px;
-                    @media screen and (max-width: 1271px) {
-                        flex-direction: column;
-                    }
                     .nx-bar-content {
                         margin-left: 0;
                         p {
@@ -642,7 +652,7 @@
                         background: #E3DAC2;
                         border-radius: 0;
                         @media screen and (max-width: 1271px) {
-                        margin-left: 0;
+                            margin-left: 0;
                         }
                         .nx-bar-button {
                             padding: 10px 14px;
@@ -674,14 +684,14 @@
     @media only screen and (max-width: 786px) {
         .nx-bar-inner {
             .nx-bar-content-wrap {
-                flex-direction: column;
+                // flex-direction: column;
 
                 .nx-countdown-wrapper {
                     margin-bottom: 15px;
                 }
 
                 .nx-inner-content-wrapper {
-                    display: grid;
+                    // display: grid;
                     grid-gap: 10px;
                     grid-template-areas: "bar-content bar-content"
                         "link-wrapper coupon-wrapper";
@@ -693,6 +703,9 @@
                     .nx-bar-content {
                         margin-left: 0px !important;
                         grid-area: bar-content;
+                        p {
+                            line-height: 1.2em;
+                        }
                     }
                     .notificationx-link-wrapper {
                         grid-area: link-wrapper;
@@ -806,9 +819,875 @@
     }
 }
 
-
 // .notificationx-shortcode-wrapper>.nx-bar .nx-bar-inner .nx-bar-content-wrap,
 // .nx-bar .nx-bar-inner .nx-bar-content-wrap {
 //     display: flex;
 //     flex-direction: column;
 // }
+
+.nx-bar.nx-bar-tablet-device {
+    max-width: 768px;
+    margin: 0 auto;
+    
+    .nx-bar-inner {
+        justify-content: center;
+        align-items: center;
+        .nx-bar-content {
+            min-width: auto;
+        }
+        .nx-bar-content-wrap {
+            // flex-direction: column;
+            flex-wrap: nowrap;
+            gap: 8px;
+            .nx-countdown {
+                margin-bottom: 0;
+                .nx-time-section {
+                    width: 44px;
+                    margin: 0 2px;
+                    span {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+    .notificationx-close {
+        top: 11px !important;
+        right: 8px !important;
+    }
+}
+
+.nx-bar.nx-bar-mobile-device {
+    max-width: 520px;
+    margin: 0 auto;
+    
+    .nx-bar-inner {
+        justify-content: center;
+        align-items: center;
+        .nx-bar-content {
+            min-width: auto;
+        }
+        .nx-bar-content-wrap {
+            flex-direction: column;
+            gap: 8px;
+            &:not(:last-child) {
+                .nx-inner-content-wrapper {
+                    margin-right: 0;
+                }
+            }
+            .nx-countdown {
+                margin-bottom: 0;
+                .nx-time-section {
+                    width: 44px;
+                    margin: 0 2px;
+                    span {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+        .notificationx-close {
+            top: 4px !important;
+            right: 4px !important;
+            svg {
+                max-height: 6px;
+            }
+        }
+    }
+}
+
+.nx-bar.press_bar_theme-one {
+    &.nx-bar-tablet-device {
+        .nx-bar-inner {
+            padding: 10px 24px 10px 10px;
+            .nx-bar-content-wrap {
+                flex-direction: row;
+                gap: 16px;
+                .nx-countdown-wrapper {
+                    margin-bottom: 0;
+                    .nx-countdown-text {
+                        display: none;
+                    }
+                    .nx-countdown {
+                        .nx-time-section {
+                            width: 24px;
+                            padding: 11px 6px;
+                            .nx-days,
+                            .nx-hours,
+                            .nx-minutes,
+                            .nx-seconds {
+                                font-size: 11px;
+                            }
+                            .nx-countdown-time-text {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+                .nx-inner-content-wrapper {
+                    display: flex;
+                    margin-right: 0;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 10px;
+                            line-height: 1.2em;
+                            span {
+                                font-size: 10px;
+                                line-height: 1.2em;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 16px;
+                        border-radius: 0;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 6px 12px;
+                            font-size: 10px;
+                            line-height: 1.2em;
+                            min-width: auto;
+                            img {
+                                width: 12px !important;
+                                height: 12px !important;
+                                margin-right: 3px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.nx-bar-mobile-device {
+        .nx-bar-inner {
+            padding: 8px 18px 8px 8px;
+            .nx-bar-content-wrap {
+                gap: 12px;
+                flex-direction: row;
+                .nx-countdown-wrapper {
+                    margin-bottom: 0;
+                    .nx-countdown-text {
+                        display: none;
+                    }
+                    .nx-countdown {
+                        .nx-time-section {
+                            width: 24px;
+                            padding: 12px 6px;
+                            .nx-days,
+                            .nx-hours,
+                            .nx-minutes,
+                            .nx-seconds {
+                                font-size: 10px;
+                            }
+                            .nx-countdown-time-text {
+                                display: none;
+                            }
+                            &:after {
+                                content: ":";
+                                right: -4px;
+                                top: 10px;
+                                font-size: 12px;
+                                line-height: 1;
+                            }
+                        }
+                    }
+                }
+                .nx-inner-content-wrapper {
+                    display: flex;
+                    margin-right: 0;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 10px;
+                            line-height: 1.2em;
+                            span {
+                                font-size: 10px;
+                                line-height: 1.2em;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 12px;
+                        border-radius: 0;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 4px 8px;
+                            font-size: 8px;
+                            line-height: 1.2em;
+                            min-width: auto;
+                            img {
+                                width: 10px !important;
+                                height: 10px !important;
+                                margin-right: 3px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.nx-bar.press_bar_theme-two {
+    &.nx-bar-tablet-device {
+        .nx-bar-inner {
+            padding: 18px 24px;
+            .nx-bar-content-wrap {
+                .nx-inner-content-wrapper {
+                    gap: 16px;
+                    margin-right: 0;
+                    flex-direction: row;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 12px;
+                            line-height: 1.2em;
+                            span {
+                                font-size: 12px;
+                                line-height: 1.2em;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 0;
+                        border-radius: 0;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 8px 14px;
+                            font-size: 12px;
+                            line-height: 1.2em;
+                            min-width: auto;
+                            img {
+                                width: 12px !important;
+                                height: 12px !important;
+                                margin-right: 3px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.nx-bar-mobile-device {
+        .nx-bar-inner {
+            padding: 12px 18px;
+            .nx-bar-content-wrap {
+                .nx-inner-content-wrapper {
+                    flex-direction: row;
+                    gap: 12px;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 10px;
+                            line-height: 1.2em;
+                            span {
+                                font-size: 10px;
+                                line-height: 1.2em;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 0;
+                        border-radius: 0;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 4px 8px;
+                            font-size: 8px;
+                            line-height: 1.2em;
+                            min-width: auto;
+                            img {
+                                width: 10px !important;
+                                height: 10px !important;
+                                margin-right: 3px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.nx-bar.press_bar_theme-three {
+    &.nx-bar-tablet-device {
+        .nx-bar-inner {
+            padding: 10px 24px 10px 10px;
+            .nx-bar-content-wrap {
+                flex-direction: row;
+                gap: 16px;
+                .nx-countdown-wrapper {
+                    margin-bottom: 0;
+                    .nx-countdown-text {
+                        display: none;
+                    }
+                    .nx-countdown {
+                        gap: 4px;
+                        .nx-time-section {
+                            padding: 6px;
+                            width: 32px;
+                            max-height: 46px;
+                            margin: 0;
+                            .nx-days,
+                            .nx-hours,
+                            .nx-minutes,
+                            .nx-seconds {
+                                font-size: 14px;
+                                margin-bottom: 6px;
+                            }
+                            .nx-countdown-time-text {
+                                font-size: 8px;
+                            }
+                        }
+                    }
+                }
+                .nx-inner-content-wrapper {
+                    display: flex;
+                    margin-right: 0;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 10px;
+                            line-height: 1.2em;
+                            span {
+                                font-size: 10px;
+                                line-height: 1.2em;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 16px;
+                        border-radius: 2px;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 8px 10px;
+                            font-size: 10px;
+                            line-height: 1.2em;
+                            min-width: auto;
+                            img {
+                                width: 12px !important;
+                                height: 12px !important;
+                                margin-right: 3px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.nx-bar-mobile-device {
+        .nx-bar-inner {
+            padding: 8px 18px 8px 8px;
+            .nx-bar-content-wrap {
+                gap: 12px;
+                flex-direction: row;
+                .nx-countdown-wrapper {
+                    margin-bottom: 0;
+                    .nx-countdown-text {
+                        display: none;
+                    }
+                    .nx-countdown {
+                        gap: 2px;
+                        .nx-time-section {
+                            padding: 4px;
+                            width: 24px;
+                            max-height: 34px;
+                            margin: 0;
+                            .nx-days,
+                            .nx-hours,
+                            .nx-minutes,
+                            .nx-seconds {
+                                font-size: 9px;
+                                margin-bottom: 4px;
+                            }
+                            .nx-countdown-time-text {
+                                font-size: 6px;
+                            }
+                        }
+                    }
+                }
+                .nx-inner-content-wrapper {
+                    display: flex;
+                    margin-right: 0;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 9px;
+                            span {
+                                font-size: 9px;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 12px;
+                        border-radius: 2px;
+                        min-width: auto;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 4px 8px;
+                            font-size: 8px;
+                            line-height: 1.2em;
+                            min-width: auto;
+                            img {
+                                width: 10px !important;
+                                height: 10px !important;
+                                margin-right: 2px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.nx-bar.press_bar_theme-four {
+    &.nx-bar-tablet-device {
+        .nx-bar-inner {
+            padding: 10px 24px;
+            .nx-bar-content-wrap {
+                flex-direction: row;
+                gap: 16px;
+                .nx-countdown-wrapper {
+                    margin-bottom: 0;
+                    .nx-countdown-text {
+                        display: none;
+                    }
+                    .nx-countdown {
+                        .nx-time-section {
+                            padding: 8px;
+                            .nx-days,
+                            .nx-hours,
+                            .nx-minutes,
+                            .nx-seconds {
+                                font-size: 16px;
+                            }
+                            .nx-countdown-time-text {
+                                font-size: 9px;
+                            }
+                        }
+                    }
+                }
+                .nx-inner-content-wrapper {
+                    display: flex;
+                    margin-right: 0;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 10px;
+                            span {
+                                font-size: 11px;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 16px;
+                        border-radius: 8px;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 6px 12px;
+                            font-size: 10px;
+                            min-width: auto;
+                            img {
+                                width: 12px !important;
+                                height: 12px !important;
+                                margin-right: 3px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.nx-bar-mobile-device {
+        .nx-bar-inner {
+            padding: 8px 18px 8px 8px;
+            .nx-bar-content-wrap {
+                gap: 12px;
+                flex-direction: row;
+                .nx-countdown-wrapper {
+                    margin-bottom: 0;
+                    .nx-countdown-text {
+                        display: none;
+                    }
+                    .nx-countdown {
+                        .nx-time-section {
+                            padding: 4px 6px;
+                            .nx-days,
+                            .nx-hours,
+                            .nx-minutes,
+                            .nx-seconds {
+                                font-size: 10px;
+                            }
+                            .nx-countdown-time-text {
+                                font-size: 6px;
+                            }
+                        }
+                    }
+                }
+                .nx-inner-content-wrapper {
+                    display: flex;
+                    margin-right: 0;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 10px;
+                            span {
+                                font-size: 11px;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 12px;
+                        border-radius: 4px;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 4px 6px;
+                            font-size: 7px;
+                            min-width: auto;
+                            img {
+                                width: 10px !important;
+                                height: 10px !important;
+                                margin-right: 2px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.nx-bar.press_bar_theme-five {
+    &.nx-bar-tablet-device {
+        .nx-bar-inner {
+            padding: 10px 24px;
+            .nx-bar-content-wrap {
+                flex-direction: row;
+                gap: 16px;
+                .nx-countdown-wrapper {
+                    margin-bottom: 0;
+                    .nx-countdown-text {
+                        display: none;
+                    }
+                    .nx-countdown {
+                        gap: 4px;
+                        .nx-time-section {
+                            padding: 8px;
+                            width: 42px;
+                            max-height: 46px;
+                            .nx-days,
+                            .nx-hours,
+                            .nx-minutes,
+                            .nx-seconds {
+                                font-size: 14px;
+                                margin-bottom: 6px;
+                            }
+                            .nx-countdown-time-text {
+                                font-size: 8px;
+                            }
+                        }
+                    }
+                }
+                .nx-inner-content-wrapper {
+                    display: flex;
+                    margin-right: 0;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 10px;
+                            span {
+                                font-size: 11px;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 16px;
+                        border-radius: 36px;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 8px 10px;
+                            font-size: 10px;
+                            min-width: auto;
+                            img {
+                                width: 12px !important;
+                                height: 12px !important;
+                                margin-right: 3px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.nx-bar-mobile-device {
+        .nx-bar-inner {
+            padding: 8px 18px 8px 8px;
+            .nx-bar-content-wrap {
+                gap: 12px;
+                flex-direction: row;
+                .nx-countdown-wrapper {
+                    margin-bottom: 0;
+                    .nx-countdown-text {
+                        display: none;
+                    }
+                    .nx-countdown {
+                        gap: 2px;
+                        .nx-time-section {
+                            padding: 6px;
+                            width: 34px;
+                            max-height: 34px;
+                            .nx-days,
+                            .nx-hours,
+                            .nx-minutes,
+                            .nx-seconds {
+                                font-size: 9px;
+                                margin-bottom: 4px;
+                            }
+                            .nx-countdown-time-text {
+                                font-size: 6px;
+                            }
+                        }
+                    }
+                }
+                .nx-inner-content-wrapper {
+                    display: flex;
+                    margin-right: 0;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 9px;
+                            span {
+                                font-size: 9px;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 12px;
+                        border-radius: 20px;
+                        min-width: auto;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 4px 8px;
+                            font-size: 8px;
+                            min-width: auto;
+                            img {
+                                width: 10px !important;
+                                height: 10px !important;
+                                margin-right: 2px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.nx-bar.press_bar_theme-six {
+    &.nx-bar-tablet-device {
+        .nx-bar-inner {
+            padding: 10px 24px;
+            .nx-bar-content-wrap {
+                flex-direction: row;
+                gap: 16px;
+                .nx-countdown-wrapper {
+                    margin-bottom: 0;
+                    .nx-countdown-text {
+                        display: none;
+                    }
+                    .nx-countdown {
+                        .nx-time-section {
+                            margin: 12px 4px;
+                            padding: 0 4px;
+                            .nx-days,
+                            .nx-hours,
+                            .nx-minutes,
+                            .nx-seconds {
+                                font-size: 16px;
+                                margin-bottom: 5px;
+                            }
+                            .nx-countdown-time-text {
+                                font-size: 8px;
+                            }
+                        }
+                    }
+                }
+                .nx-inner-content-wrapper {
+                    display: flex;
+                    margin-right: 0;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 12px;
+                            span {
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 16px;
+                        border-radius: 26px;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 8px;
+                            font-size: 11px;
+                            min-width: auto;
+                            img {
+                                width: 12px !important;
+                                height: 12px !important;
+                                margin-right: 3px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.nx-bar-mobile-device {
+        .nx-bar-inner {
+            padding: 8px 18px 8px 8px;
+            .nx-bar-content-wrap {
+                flex-direction: row;
+                gap: 12px;
+                .nx-countdown-wrapper {
+                    margin-bottom: 0;
+                    .nx-countdown-text {
+                        display: none;
+                    }
+                    .nx-countdown {
+                        .nx-time-section {
+                            margin: 8px 2px;
+                            padding: 0 4px;
+                            .nx-days,
+                            .nx-hours,
+                            .nx-minutes,
+                            .nx-seconds {
+                                font-size: 11px;
+                                margin-bottom: 4px;
+                            }
+                            .nx-countdown-time-text {
+                                font-size: 6px;
+                            }
+                        }
+                    }
+                }
+                .nx-inner-content-wrapper {
+                    display: flex;
+                    margin-right: 0;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 9px;
+                            span {
+                                font-size: 9px;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 12px;
+                        border-radius: 20px;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 5px 8px;
+                            font-size: 8px;
+                            min-width: auto;
+                            img {
+                                width: 10px !important;
+                                height: 10px !important;
+                                margin-right: 3px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.nx-bar.press_bar_theme-seven {
+    &.nx-bar-tablet-device {
+        .nx-bar-inner {
+            padding: 18px 24px;
+            .nx-bar-content-wrap {
+                .nx-inner-content-wrapper {
+                    gap: 24px;
+                    margin-right: 0;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 12px;
+                            span {
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 0;
+                        border-radius: 0;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 8px 16px;
+                            font-size: 12px;
+                            min-width: auto;
+                            img {
+                                width: 12px !important;
+                                height: 12px !important;
+                                margin-right: 3px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.nx-bar-mobile-device {
+        .nx-bar-inner {
+            padding: 12px 18px;
+            .nx-bar-content-wrap {
+                .nx-inner-content-wrapper {
+                    gap: 12px;
+                    margin-right: 0;
+                    .nx-bar-content {
+                        margin-left: 0;
+                        p,
+                        .nx-bar-slide {
+                            font-size: 9px;
+                            span {
+                                font-size: 9px;
+                            }
+                        }
+                    }
+                    .notificationx-link-wrapper {
+                        margin-left: 0;
+                        border-radius: 0;
+                        white-space: nowrap;
+                        .nx-bar-button {
+                            padding: 4px 8px;
+                            font-size: 8px;
+                            min-width: auto;
+                            img {
+                                width: 10px !important;
+                                height: 10px !important;
+                                margin-right: 3px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

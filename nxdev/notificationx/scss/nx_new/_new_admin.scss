@@ -544,10 +544,13 @@
             .nx-admin-help-content-banner {
                 padding: 24px;
                 padding-bottom: 0;
-                display: flex
+                display: flex;
+                align-items: flex-end;
             }
         }
         .nx-admin-review-content-wrapper {
+            display: flex;
+            flex-direction: column;
             flex: 1;
             .nx-admin-help-content-wrapper {
                 .nx-admin-help-content {   
@@ -1153,6 +1156,11 @@
         gap: 24px;
     }
 
+    .nx-admin-new-wrapper .nx-admin-content-wrapper {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
     .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper {
         padding: 16px;
         gap: 30px;
@@ -1176,6 +1184,40 @@
         font-size: 14px;
         gap: 4px;
         min-height: 42px;
+    }
+
+    .nx-admin-new-wrapper .nx-admin-help-review-wrapper {
+        gap: 24px;
+    }
+
+    .nx-admin-new-wrapper .nx-admin-help-review-wrapper .nx-admin-help-content-wrapper {
+        gap: 16px;
+    }
+
+    .nx-admin-new-wrapper .nx-admin-help-review-wrapper .nx-admin-help-content-wrapper .nx-admin-help-content {
+        padding: 20px;
+        padding-right: 0;
+    }
+
+    .nx-admin-new-wrapper .nx-admin-help-review-wrapper .nx-admin-help-content-wrapper .nx-admin-help-content h4 {
+        font-size: 18px;
+        padding-bottom: 10px;
+    }
+
+    .nx-admin-new-wrapper .nx-admin-help-review-wrapper .nx-admin-help-content-wrapper .nx-admin-help-content p {
+        font-size: 14px;
+        padding-bottom: 12px;
+    }
+
+    .nx-admin-new-wrapper .nx-admin-help-review-wrapper .nx-admin-help-content-wrapper .nx-admin-help-content a {
+        font-size: 11px;
+        padding: 6px 12px;
+        border-radius: 4px;
+    }
+
+    .nx-admin-new-wrapper .nx-admin-help-review-wrapper .nx-admin-help-content-wrapper .nx-admin-help-content-banner {
+        padding: 20px;
+        padding-bottom: 0;
     }
 
     .nx-admin-wrapper .nx-analytics-wrapper {
@@ -1342,6 +1384,11 @@
     .nx-admin-wrapper .nx-admin-content-wrapper .nx-started-wrapper .nx-video-widget a img {
         max-width: 100%;
         width: 100%;
+    }
+
+    .nx-admin-new-wrapper .nx-admin-help-review-wrapper {
+        flex-direction: column;
+        gap: 24px;
     }
 
     .nx-admin-wrapper .nx-analytics-wrapper {
