@@ -21,9 +21,9 @@
     text-shadow: none;
     color: #000;
 
-    @media screen and (max-width: 782px) {
-        top: 46px !important;
-    }
+    // @media screen and (max-width: 782px) {
+    //     top: 46px !important;
+    // }
 
     &.nx-sticky-bar {
         position: fixed;
