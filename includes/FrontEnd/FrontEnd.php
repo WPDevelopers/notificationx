@@ -458,7 +458,7 @@ class FrontEnd {
         ]);
         $notifications = PostType::get_instance()->get_posts($args);
 
-        $active_notifications = $global_notifications = $bar_notifications = $gdpr_notification = array();
+        $active_notifications = $global_notifications = $bar_notifications = $gdpr_notification = $popup_notifications = array();
 
         foreach ($notifications as $key => $settings) {
             // $settings        = NotificationX::get_instance()->normalize_post($post);
