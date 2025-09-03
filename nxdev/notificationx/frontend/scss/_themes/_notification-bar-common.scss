@@ -5,6 +5,10 @@
     position: relative;
 }
 
+.has-notificationx.logged-in.admin-bar:not(.has-nx-bar) .nx-bar.nx-bar-has-gutenberg{
+    top: 32px;
+}
+
 .notificationx-shortcode-wrapper>.nx-bar,
 .nx-bar {
     @extend %posa;
