@@ -68,6 +68,15 @@
             .notification-item {}
         }
 
+        &.nxc-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            bottom: 0;
+        }
+
         .nx-notification {
             pointer-events: initial;
         }
