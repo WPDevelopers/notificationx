@@ -43,7 +43,7 @@ const NxBarPresets = () => {
         <div className="nxbar-presets">
             {showEmptyState ? (
                 <div className="nxbar-presets-empty-state">
-                    <img src={`${assets.admin}images/new-img/nxbar-empty-state.png`} alt="" />
+                    <img src={`${assets.admin}images/new-img/nxbar-empty-state.webp`} alt="" />
                     <h4>{__('Create with Your Preferred Builder/Editor', 'notificationx')}</h4>
                 </div>
             ) : (

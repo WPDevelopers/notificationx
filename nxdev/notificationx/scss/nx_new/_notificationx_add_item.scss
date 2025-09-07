@@ -835,6 +835,7 @@
                                         text-align: center;
                                         padding: 70px 0;
                                         img {
+                                            width: 280px;
                                             max-width: 100%;
                                         }
                                         h4 {
@@ -1061,6 +1062,17 @@
 
 .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper.press_bar .wprf-tab-content .wprf-control-section.themes {
     .wprf-section-fields {
+        .wprf-name-themes.wprf-control-wrapper {
+            height: 495px;
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background: #BAC2DE; 
+                border-radius: 10px;
+            }
+        }
         .wprf-control-section {
             margin-bottom: 0 !important;
             .wprf-section-fields {
@@ -1087,6 +1099,7 @@
                                         border-radius: 8px;
                                         img {
                                             max-width: 100%;
+                                            transform: scale(0.8);
                                         }
                                     }
                                 }

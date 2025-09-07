@@ -5,6 +5,10 @@
     position: relative;
 }
 
+.has-notificationx.logged-in.admin-bar:not(.has-nx-bar) .nx-bar.nx-bar-has-gutenberg{
+    top: 32px;
+}
+
 .notificationx-shortcode-wrapper>.nx-bar,
 .nx-bar {
     @extend %posa;
@@ -21,9 +25,9 @@
     text-shadow: none;
     color: #000;
 
-    @media screen and (max-width: 782px) {
-        top: 46px !important;
-    }
+    // @media screen and (max-width: 782px) {
+    //     top: 46px !important;
+    // }
 
     &.nx-sticky-bar {
         position: fixed;
@@ -66,7 +70,7 @@
 
                 .nx-countdown-text {
                     margin-right: 10px;
-
+                    // flex-basis: 25%;
                     &.nx-expired {
                         display: none;
                     }

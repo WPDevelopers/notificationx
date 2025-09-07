@@ -66,6 +66,7 @@ class FrontEnd {
         add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 3);
         add_filter('nx_filtered_post', [$this, 'filtered_post'], 9999, 2);
         add_action('wp_print_footer_scripts', [$this, 'footer_scripts']);
+        add_filter('body_class', [ $this, 'nx_add_body_class' ] );
 
     }
 
@@ -153,6 +154,11 @@ class FrontEnd {
             // @todo maybe elementor edit mode CSS. to move to top.
             // LATER
         }
+    }
+
+    public function nx_add_body_class($classes) {
+        $classes[] = 'has-notificationx';
+        return $classes;
     }
 
     private function separate_css($css) {

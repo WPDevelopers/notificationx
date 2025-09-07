@@ -13,17 +13,18 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                 if( selectedType ) {
                     setContentHeight(document.documentElement.scrollHeight);
                 }
-                const forcedDesktopValues = [ 'woocommerce_sales_inline', 'announcements', 'gdpr', 'flashing_tab', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'learnpress_inline', 'custom_notification'];
+                const forcedDesktopValues = ['woocommerce_sales','woocommerce_sales_inline', 'announcements', 'gdpr', 'flashing_tab', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'learnpress_inline', 'custom_notification'];
                 const nx_type = builderContext.values.type;
-                const builderValues = builderContext?.values;
+                const builderValues = builderContext?.values;                
                 const isBuildWithBuilder =  (builderValues?.elementor_id && builderValues?.is_elementor) || (builderValues?.is_gutenberg && builderValues?.gutenberg_id);                
-                const themeTabValue = isBuildWithBuilder
+                const themeTabValue = (isBuildWithBuilder && nx_type == 'press_bar')
                     ? 'nxbar_custom'
                     : (forcedDesktopValues.includes(nx_type)
                         ? 'for_desktop'
                         : (builderContext?.values?.themes_tab || 'for_desktop'));
-
-                builderContext.setFieldValue("themes_tab", themeTabValue);
+                setTimeout(() => {
+                    builderContext.setFieldValue("themes_tab", themeTabValue);
+                }, 100);
             }
         }, [builderContext.values.type])
 
