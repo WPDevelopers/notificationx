@@ -5,6 +5,7 @@ import CloseIcon from '../../icons/Close';
 import useNotificationContext from "./NotificationProvider";
 import 'animate.css';
 import { isObject } from "../core/functions";
+import { __ } from '@wordpress/i18n';
 
 const useMediaQuery = (query: string) => {
     const mediaQuery = window.matchMedia(query);
@@ -207,6 +208,9 @@ const Popup = (props: any) => {
         componentStyle.animation = animationStyle;
     }
 
+    console.log('popup_title',settings);
+    
+
     return (
         <div className="nx-popup-overlay" style={overlayStyles} onClick={handleOverlayClick}>
             <div
@@ -232,16 +236,8 @@ const Popup = (props: any) => {
                     )}
 
                     {/* Header Section */}
-                    {(settings?.popup_title || settings?.popup_logo) && (
+                    {(settings?.popup_title) && (
                         <div className="nx-popup-header">
-                            {settings?.popup_logo && (
-                                <div className="nx-popup-logo">
-                                    <img
-                                        src={settings.popup_logo.url || settings.popup_logo}
-                                        alt={settings.popup_logo.title || settings.popup_title || 'Logo'}
-                                    />
-                                </div>
-                            )}
                             {settings?.popup_title && (
                                 <h3 className="nx-popup-title" style={titleColorFont}>
                                     {settings.popup_title}
@@ -252,115 +248,61 @@ const Popup = (props: any) => {
 
                     {/* Content Section */}
                     <div className="nx-popup-content">
-                        {/* Main Content */}
-                        {(settings?.popup_content || settings?.popup_description || content) && (
+                        {(settings?.popup_content && !["popup_notification_theme-three", "popup_notification_theme-four"].some(t => settings.theme.includes(t) ) ) && (
                             <div className="nx-popup-description" style={descColorFont}>
                                 {settings?.popup_content && (
                                     <div dangerouslySetInnerHTML={{ __html: settings.popup_content }} />
                                 )}
-                                {settings?.popup_description && (
-                                    <p>{settings.popup_description}</p>
-                                )}
-                                {content && !settings?.popup_content && !settings?.popup_description && (
+                                {content && !settings?.popup_content && (
                                     <div dangerouslySetInnerHTML={{ __html: content }} />
                                 )}
                             </div>
                         )}
-
-                        {/* Image Content */}
-                        {settings?.popup_image && (
-                            <div className="nx-popup-image">
-                                <img
-                                    src={settings.popup_image.url || settings.popup_image}
-                                    alt={settings.popup_image.title || settings.popup_title || 'Popup Image'}
-                                />
+                        { settings.theme.includes("popup_notification_theme-three") && (
+                            <div className="nx-popup-description" style={descColorFont}>
+                                {settings.popup_content_repeater.map((item: any, index: number) => (
+                                    <div key={index}>
+                                        <h3>{item.repeater_title}</h3>
+                                        <p>{item.repeater_subtitle}</p>
+                                    </div>
+                                ))}
                             </div>
-                        )}
-
-                        {/* Video Content */}
-                        {settings?.popup_video && (
-                            <div className="nx-popup-video">
-                                {settings.popup_video.includes('youtube') || settings.popup_video.includes('vimeo') ? (
-                                    <iframe
-                                        src={settings.popup_video}
-                                        style={{ border: 0 }}
-                                        allowFullScreen
-                                        title="Popup Video"
+                        ) }
+                        { ["popup_notification_theme-four", "popup_notification_theme-five"]
+                            .some(theme => settings.theme.includes(theme)) && (
+                                <div className="nx-popup-textarea">
+                                    <textarea
+                                        placeholder={settings?.popup_message}
                                     />
-                                ) : (
-                                    <video controls>
-                                        <source src={settings.popup_video} type="video/mp4" />
-                                        Your browser does not support the video tag.
-                                    </video>
-                                )}
-                            </div>
-                        )}
-
+                                </div>
+                        ) }
+                        { ["popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
+                            .some(theme => settings.theme.includes(theme)) && (
+                                <div className="nx-popup-email">
+                                    <input type="email" placeholder={settings?.popup_email_placeholder} />
+                                </div>
+                        ) }
                         {/* Action Buttons */}
-                        {(settings?.popup_button_text || settings?.popup_cta_text) && (
+                        {(settings?.popup_button_text) && (
                             <div className="nx-popup-actions">
                                 <button
                                     className="nx-popup-button nx-popup-primary-button"
                                     style={buttonStyles}
                                     onClick={handleButtonClick}
                                 >
-                                    {settings?.popup_button_text || settings?.popup_cta_text}
+                                    {settings?.popup_button_text}
                                 </button>
-
-                                {settings?.popup_secondary_button_text && (
-                                    <button
-                                        className="nx-popup-button nx-popup-secondary-button"
-                                        onClick={handleClose}
-                                    >
-                                        {settings.popup_secondary_button_text}
-                                    </button>
-                                )}
                             </div>
                         )}
 
-                        {/* Coupon Code Section */}
-                        {settings?.popup_coupon_code && (
-                            <div className="nx-popup-coupon">
-                                <div className="nx-popup-coupon-code">
-                                    <span className="nx-popup-coupon-label">
-                                        {settings?.popup_coupon_label || 'Use code:'}
-                                    </span>
-                                    <code className="nx-popup-coupon-value">
-                                        {settings.popup_coupon_code}
-                                    </code>
-                                    <button
-                                        className="nx-popup-coupon-copy"
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(settings.popup_coupon_code);
-                                            // You can add a toast notification here
-                                        }}
-                                    >
-                                        {settings?.popup_coupon_copy_text || 'Copy'}
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Custom HTML Content */}
-                        {settings?.popup_custom_html && (
-                            <div
-                                className="nx-popup-custom-content"
-                                dangerouslySetInnerHTML={{ __html: settings.popup_custom_html }}
-                            />
-                        )}
                     </div>
 
                     {/* Footer Section */}
-                    {(settings?.popup_footer_text || !settings?.disable_powered_by) && (
+                    { (!settings?.disable_powered_by) && (
                         <div className="nx-popup-footer">
-                            {settings?.popup_footer_text && (
-                                <p className="nx-popup-footer-text">
-                                    {settings.popup_footer_text}
-                                </p>
-                            )}
                             {!settings?.disable_powered_by && (
                                 <div className="nx-popup-branding">
-                                    <span>Powered by NotificationX</span>
+                                    <span>{ __('Powered by NotificationX', 'notificationx') }</span>
                                 </div>
                             )}
                         </div>

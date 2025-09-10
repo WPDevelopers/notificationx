@@ -43,49 +43,110 @@ class PopupNotification extends Extension {
         $this->title = __('Popup', 'notificationx');
         $this->module_title = __('Popup', 'notificationx');
         $this->themes = [
-            'popup_theme-one' => [
+            'theme-one' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-one.png',
                 'column' => "12",
                 'defaults' => [
-                    'popup_title' => __('Limited-Time Discount Offer', 'notificationx'),
-                    'popup_content' => __('<strong>30% OFF</strong> on all products!<br>Use code: <strong>SALE30</strong>', 'notificationx'),
-                    'popup_button_text' => __('Get Offer', 'notificationx'),
-                    'popup_bg_color' => '#ffffff',
-                    'popup_title_color' => '#ffffff',
-                    'popup_desc_color' => '#333333',
-                    'popup_button_bg_color' => '#ff6b35',
+                    'popup_title'             => __('Want to build credibility & boost sales?', 'notificationx'),
+                    'popup_content'           => __('We help you optimize conversions & drive sales', 'notificationx'),
+                    'popup_button_text'       => __('Get Started with Free Plan', 'notificationx'),
+                    'popup_bg_color'          => '#ffffff',
+                    'popup_title_color'       => '#ffffff',
+                    'popup_desc_color'        => '#333333',
+                    'popup_button_bg_color'   => '#ff6b35',
                     'popup_button_text_color' => '#ffffff',
-                    'overlay_color' => 'rgba(0, 0, 0, 0.5)',
+                    'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
                 ],
             ],
-            'popup_theme-two' => [
+            'theme-two' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-two.png',
                 'column' => "12",
                 'defaults' => [
-                    'popup_title' => __('Boost your sales using SureCart', 'notificationx'),
-                    'popup_content' => __('Display SureCart Sales Alerts using NotificationX', 'notificationx'),
-                    'popup_button_text' => __('See How', 'notificationx'),
-                    'popup_bg_color' => '#ffffff',
-                    'popup_title_color' => '#333333',
-                    'popup_desc_color' => '#666666',
-                    'popup_button_bg_color' => '#8b5cf6',
+                    'popup_title'             => __('Boost your sales using SureCart', 'notificationx'),
+                    'popup_content'           => __('Display SureCart Sales Alerts using NotificationX', 'notificationx'),
+                    'popup_button_text'       => __('See How', 'notificationx'),
+                    'popup_bg_color'          => '#ffffff',
+                    'popup_title_color'       => '#333333',
+                    'popup_desc_color'        => '#666666',
+                    'popup_button_bg_color'   => '#8b5cf6',
                     'popup_button_text_color' => '#ffffff',
-                    'overlay_color' => 'rgba(0, 0, 0, 0.5)',
+                    'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
                 ],
             ],
-            'popup_theme-three' => [
+            'theme-three' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-three.png',
                 'column' => "12",
                 'defaults' => [
-                    'popup_title' => __('Want to build credibility & boost sales?', 'notificationx'),
-                    'popup_content' => __('We help you optimize conversions & drive sales', 'notificationx'),
-                    'popup_button_text' => __('Get Started with Free Plan', 'notificationx'),
-                    'popup_bg_color' => '#fef7ed',
-                    'popup_title_color' => '#333333',
-                    'popup_desc_color' => '#666666',
-                    'popup_button_bg_color' => '#d97706',
+                    'popup_title'             => __('All Offers', 'notificationx'),
+                    'popup_button_text'       => __('Latest Offers', 'notificationx'),
+                    'popup_bg_color'          => '#fef7ed',
+                    'popup_title_color'       => '#333333',
+                    'popup_desc_color'        => '#666666',
+                    'popup_button_bg_color'   => '#d97706',
                     'popup_button_text_color' => '#ffffff',
-                    'overlay_color' => 'rgba(0, 0, 0, 0.5)',
+                    'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
+                ],
+            ],
+            'theme-four' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-four.webp',
+                'column' => "12",
+                'defaults' => [
+                    'popup_title'             => __('Need Help?', 'notificationx'),
+                    'popup_content'           => __('Get the latest news and updates delivered to your inbox.', 'notificationx'),
+                    'popup_button_text'       => __('Submit', 'notificationx'),
+                    'popup_bg_color'          => '#ffffff',
+                    'popup_title_color'       => '#333333',
+                    'popup_desc_color'        => '#666666',
+                    'popup_button_bg_color'   => '#007cba',
+                    'popup_button_text_color' => '#ffffff',
+                    'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
+                ],
+            ],
+            'theme-five' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-five.webp',
+                'column' => "12",
+                'defaults' => [
+                    'popup_title'             => __('Need Help?', 'notificationx'),
+                    'popup_content'           => __('Subscribe to receive exclusive offers and updates directly in your inbox.', 'notificationx'),
+                    'popup_email_placeholder' => __('Enter your email address', 'notificationx'),
+                    'popup_button_text'       => __('Submit', 'notificationx'),
+                    'popup_bg_color'          => '#f8fafc',
+                    'popup_title_color'       => '#1e293b',
+                    'popup_desc_color'        => '#64748b',
+                    'popup_button_bg_color'   => '#3b82f6',
+                    'popup_button_text_color' => '#ffffff',
+                    'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
+                ],
+            ],
+            'theme-six' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-six.webp',
+                'column' => "12",
+                'defaults' => [
+                    'popup_title'             => __('Get latest news & updates', 'notificationx'),
+                    'popup_email_placeholder' => __('Your email address', 'notificationx'),
+                    'popup_button_text'       => __('Subscribe', 'notificationx'),
+                    'popup_bg_color'          => '#1f2937',
+                    'popup_title_color'       => '#ffffff',
+                    'popup_desc_color'        => '#d1d5db',
+                    'popup_button_bg_color'   => '#10b981',
+                    'popup_button_text_color' => '#ffffff',
+                    'overlay_color'           => 'rgba(0, 0, 0, 0.7)',
+                ],
+            ],
+            'theme-seven' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-seven.webp',
+                'column' => "12",
+                'defaults' => [
+                    'popup_title'             => __('Want latest updates?', 'notificationx'),
+                    'popup_subtitle'          => __('Would like to get the lastes news & updates instantly?', 'notificationx'),
+                    'popup_email_placeholder' => __('Enter email address', 'notificationx'),
+                    'popup_button_text'       => __('Subscribe', 'notificationx'),
+                    'popup_bg_color'          => '#fef3c7',
+                    'popup_title_color'       => '#92400e',
+                    'popup_desc_color'        => '#b6ac9fff',
+                    'popup_button_bg_color'   => '#f59e0b',
+                    'popup_button_text_color' => '#ffffff',
+                    'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
                 ],
             ],
         ];
@@ -112,6 +173,7 @@ class PopupNotification extends Extension {
             $fields['advance_design_section']['fields']['link_button_design'] = Rules::is('source', $this->id, true, $fields['advance_design_section']['fields']['link_button_design']);
         }
 
+        // Popup Container Design Section
         $fields['advance_design_section']['fields']['popup_design'] = [
             'label'    => __("Popup Design", 'notificationx'),
             'name'     => "popup_design",
@@ -129,38 +191,34 @@ class PopupNotification extends Extension {
                     'default'  => "#ffffff",
                 ],
                 [
-                    'label' => __("Overlay Color", 'notificationx'),
+                    'label' => __("Overlay Background Color", 'notificationx'),
                     'name'  => "overlay_color",
                     'type'  => "colorpicker",
                     'default'  => "rgba(0, 0, 0, 0.5)",
+                    'help'  => __('Background color of the overlay behind the popup', 'notificationx'),
                 ],
                 [
-                    'label' => __("Title Color", 'notificationx'),
-                    'name'  => "popup_title_color",
-                    'type'  => "colorpicker",
-                    'default'  => "#333333",
-                ],
-                [
-                    'label'       => __('Title Font Size', 'notificationx'),
-                    'name'        => "popup_title_font_size",
+                    'label'       => __('Popup Width', 'notificationx'),
+                    'name'        => "popup_width",
                     'type'        => "number",
-                    'default'     => '24',
+                    'default'     => '500',
                     'description' => 'px',
-                    'help'        => __('This font size will be applied for <mark>Title</mark> only', 'notificationx'),
+                    'help'        => __('Maximum width of the popup container', 'notificationx'),
                 ],
                 [
-                    'label' => __("Description Color", 'notificationx'),
-                    'name'  => "popup_desc_color",
-                    'type'  => "colorpicker",
-                    'default'  => "#666666",
-                ],
-                [
-                    'label'       => __('Description Font Size', 'notificationx'),
-                    'name'        => "popup_desc_font_size",
+                    'label'       => __('Border Radius', 'notificationx'),
+                    'name'        => "popup_border_radius",
                     'type'        => "number",
-                    'default'     => '16',
+                    'default'     => '8',
                     'description' => 'px',
-                    'help'        => __('This font size will be applied for <mark>Description</mark> only', 'notificationx'),
+                    'help'        => __('Rounded corners for the popup container', 'notificationx'),
+                ],
+                [
+                    'label'       => __('Popup Padding', 'notificationx'),
+                    'name'        => "popup_padding",
+                    'type'        => "text",
+                    'default'     => '30px',
+                    'help'        => __('Internal spacing of popup content (e.g., 30px or 20px 30px)', 'notificationx'),
                 ],
                 [
                     'label' => __("Close Button Color", 'notificationx'),
@@ -175,29 +233,101 @@ class PopupNotification extends Extension {
                     'default'     => '20',
                     'description' => 'px',
                 ],
+            ]
+        ];
+
+        // Typography Section
+        $fields['advance_design_section']['fields']['popup_typography'] = [
+            'label'    => __("Typography", 'notificationx'),
+            'name'     => "popup_typography",
+            'type'     => "section",
+            'priority' => 6,
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id, false),
+                Rules::is('advance_edit', true),
+            ]),
+            'fields' => [
                 [
-                    'label'       => __('Popup Width', 'notificationx'),
-                    'name'        => "popup_width",
-                    'type'        => "number",
-                    'default'     => '500',
-                    'description' => 'px',
-                    'help'        => __('Maximum width of the popup', 'notificationx'),
+                    'label' => __("Title Color", 'notificationx'),
+                    'name'  => "popup_title_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#333333",
                 ],
                 [
-                    'label'       => __('Border Radius', 'notificationx'),
-                    'name'        => "popup_border_radius",
+                    'label'       => __('Title Font Size', 'notificationx'),
+                    'name'        => "popup_title_font_size",
                     'type'        => "number",
-                    'default'     => '8',
+                    'default'     => '24',
                     'description' => 'px',
+                    'help'        => __('Font size for the popup title', 'notificationx'),
+                ],
+                [
+                    'label'       => __('Title Font Weight', 'notificationx'),
+                    'name'        => "popup_title_font_weight",
+                    'type'        => "select",
+                    'default'     => '600',
+                    'options'     => GlobalFields::get_instance()->normalize_fields([
+                        '300' => __('Light (300)', 'notificationx'),
+                        '400' => __('Normal (400)', 'notificationx'),
+                        '500' => __('Medium (500)', 'notificationx'),
+                        '600' => __('Semi Bold (600)', 'notificationx'),
+                        '700' => __('Bold (700)', 'notificationx'),
+                        '800' => __('Extra Bold (800)', 'notificationx'),
+                    ]),
+                ],
+                [
+                    'label' => __("Subtitle Color", 'notificationx'),
+                    'name'  => "popup_subtitle_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#666666",
+                    'rules' => Rules::is('themes', 'popup_notification_theme-seven'),
+                ],
+                [
+                    'label'       => __('Subtitle Font Size', 'notificationx'),
+                    'name'        => "popup_subtitle_font_size",
+                    'type'        => "number",
+                    'default'     => '18',
+                    'description' => 'px',
+                    'help'        => __('Font size for the popup subtitle', 'notificationx'),
+                    'rules'       => Rules::is('themes', 'popup_notification_theme-seven'),
+                ],
+                [
+                    'label' => __("Content/Message Color", 'notificationx'),
+                    'name'  => "popup_content_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#666666",
+                    'rules' => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-one'),
+                        Rules::is('themes', 'popup_notification_theme-two'),
+                        Rules::is('themes', 'popup_notification_theme-three'),
+                        Rules::is('themes', 'popup_notification_theme-four'),
+                        Rules::is('themes', 'popup_notification_theme-five'),
+                    ], 'or'),
+                ],
+                [
+                    'label'       => __('Content/Message Font Size', 'notificationx'),
+                    'name'        => "popup_content_font_size",
+                    'type'        => "number",
+                    'default'     => '16',
+                    'description' => 'px',
+                    'help'        => __('Font size for the popup content/message text', 'notificationx'),
+                    'rules'       => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-one'),
+                        Rules::is('themes', 'popup_notification_theme-two'),
+                        Rules::is('themes', 'popup_notification_theme-three'),
+                        Rules::is('themes', 'popup_notification_theme-four'),
+                        Rules::is('themes', 'popup_notification_theme-five'),
+                    ], 'or'),
                 ],
             ]
         ];
 
+        // Button Design Section
         $fields['advance_design_section']['fields']['popup_button_design'] = [
             'label'    => __("Button Design", 'notificationx'),
             'name'     => "popup_button_design",
             'type'     => "section",
-            'priority' => 6,
+            'priority' => 7,
             'rules'    => Rules::logicalRule([
                 Rules::is('source', $this->id, false),
                 Rules::is('advance_edit', true),
@@ -210,16 +340,38 @@ class PopupNotification extends Extension {
                     'default'  => "#007cba",
                 ],
                 [
+                    'label' => __("Hover Background Color", 'notificationx'),
+                    'name'  => "popup_button_hover_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#005a87",
+                    'help'  => __('Background color when button is hovered', 'notificationx'),
+                ],
+                [
                     'label' => __("Text Color", 'notificationx'),
                     'name'  => "popup_button_text_color",
                     'type'  => "colorpicker",
                     'default'  => "#ffffff",
                 ],
                 [
+                    'label' => __("Hover Text Color", 'notificationx'),
+                    'name'  => "popup_button_hover_text_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#ffffff",
+                    'help'  => __('Text color when button is hovered', 'notificationx'),
+                ],
+                [
                     'label' => __("Border Color", 'notificationx'),
                     'name'  => "popup_button_border_color",
                     'type'  => "colorpicker",
                     'default'  => "#007cba",
+                ],
+                [
+                    'label'       => __('Border Width', 'notificationx'),
+                    'name'        => "popup_button_border_width",
+                    'type'        => "number",
+                    'default'     => '1',
+                    'description' => 'px',
+                    'help'        => __('Width of the button border', 'notificationx'),
                 ],
                 [
                     'label'       => __('Font Size', 'notificationx'),
@@ -229,18 +381,220 @@ class PopupNotification extends Extension {
                     'description' => 'px',
                 ],
                 [
+                    'label'       => __('Font Weight', 'notificationx'),
+                    'name'        => "popup_button_font_weight",
+                    'type'        => "select",
+                    'default'     => '500',
+                    'options'     => GlobalFields::get_instance()->normalize_fields([
+                        '300' => __('Light (300)', 'notificationx'),
+                        '400' => __('Normal (400)', 'notificationx'),
+                        '500' => __('Medium (500)', 'notificationx'),
+                        '600' => __('Semi Bold (600)', 'notificationx'),
+                        '700' => __('Bold (700)', 'notificationx'),
+                    ]),
+                ],
+                [
                     'label'       => __('Border Radius', 'notificationx'),
                     'name'        => "popup_button_border_radius",
                     'type'        => "number",
                     'default'     => '4',
                     'description' => 'px',
+                    'help'        => __('Rounded corners for the button', 'notificationx'),
                 ],
                 [
                     'label'       => __('Padding', 'notificationx'),
                     'name'        => "popup_button_padding",
                     'type'        => "text",
                     'default'     => '12px 24px',
-                    'help'        => __('CSS padding format (e.g., 12px 24px)', 'notificationx'),
+                    'help'        => __('Button spacing in CSS format (e.g., 12px 24px)', 'notificationx'),
+                ],
+                [
+                    'label'       => __('Button Width', 'notificationx'),
+                    'name'        => "popup_button_width",
+                    'type'        => "select",
+                    'default'     => 'auto',
+                    'options'     => GlobalFields::get_instance()->normalize_fields([
+                        'auto' => __('Auto Width', 'notificationx'),
+                        '100%' => __('Full Width', 'notificationx'),
+                        'custom' => __('Custom Width', 'notificationx'),
+                    ]),
+                ],
+                [
+                    'label'       => __('Custom Button Width', 'notificationx'),
+                    'name'        => "popup_button_custom_width",
+                    'type'        => "number",
+                    'default'     => '200',
+                    'description' => 'px',
+                    'rules'       => Rules::is('popup_button_width', 'custom'),
+                ],
+            ]
+        ];
+
+        // Email Input Design Section (for email collection themes)
+        $fields['advance_design_section']['fields']['popup_email_design'] = [
+            'label'    => __("Email Input Design", 'notificationx'),
+            'name'     => "popup_email_design",
+            'type'     => "section",
+            'priority' => 8,
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id, false),
+                Rules::is('advance_edit', true),
+                Rules::logicalRule([
+                    Rules::is('themes', 'popup_notification_theme-five'),
+                    Rules::is('themes', 'popup_notification_theme-six'),
+                    Rules::is('themes', 'popup_notification_theme-seven'),
+                ], 'or'),
+            ]),
+            'fields' => [
+                [
+                    'label' => __("Input Background Color", 'notificationx'),
+                    'name'  => "popup_email_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#ffffff",
+                ],
+                [
+                    'label' => __("Input Text Color", 'notificationx'),
+                    'name'  => "popup_email_text_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#333333",
+                ],
+                [
+                    'label' => __("Input Border Color", 'notificationx'),
+                    'name'  => "popup_email_border_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#dddddd",
+                ],
+                [
+                    'label' => __("Input Focus Border Color", 'notificationx'),
+                    'name'  => "popup_email_focus_border_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#007cba",
+                    'help'  => __('Border color when input is focused', 'notificationx'),
+                ],
+                [
+                    'label' => __("Placeholder Text Color", 'notificationx'),
+                    'name'  => "popup_email_placeholder_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#999999",
+                ],
+                [
+                    'label'       => __('Input Font Size', 'notificationx'),
+                    'name'        => "popup_email_font_size",
+                    'type'        => "number",
+                    'default'     => '16',
+                    'description' => 'px',
+                ],
+                [
+                    'label'       => __('Input Border Width', 'notificationx'),
+                    'name'        => "popup_email_border_width",
+                    'type'        => "number",
+                    'default'     => '1',
+                    'description' => 'px',
+                ],
+                [
+                    'label'       => __('Input Border Radius', 'notificationx'),
+                    'name'        => "popup_email_border_radius",
+                    'type'        => "number",
+                    'default'     => '4',
+                    'description' => 'px',
+                ],
+                [
+                    'label'       => __('Input Padding', 'notificationx'),
+                    'name'        => "popup_email_padding",
+                    'type'        => "text",
+                    'default'     => '12px 16px',
+                    'help'        => __('Input field spacing in CSS format (e.g., 12px 16px)', 'notificationx'),
+                ],
+                [
+                    'label'       => __('Input Height', 'notificationx'),
+                    'name'        => "popup_email_height",
+                    'type'        => "number",
+                    'default'     => '48',
+                    'description' => 'px',
+                    'help'        => __('Height of the email input field', 'notificationx'),
+                ],
+            ]
+        ];
+
+        // Repeater Items Design Section (for theme-three only)
+        $fields['advance_design_section']['fields']['popup_repeater_design'] = [
+            'label'    => __("Content Items Design", 'notificationx'),
+            'name'     => "popup_repeater_design",
+            'type'     => "section",
+            'priority' => 9,
+            'rules'    => Rules::logicalRule([
+                Rules::is('source', $this->id, false),
+                Rules::is('advance_edit', true),
+                Rules::is('themes', 'popup_notification_theme-three'),
+            ]),
+            'fields' => [
+                [
+                    'label' => __("Item Background Color", 'notificationx'),
+                    'name'  => "popup_repeater_item_bg_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#f8f9fa",
+                    'help'  => __('Background color for each content item', 'notificationx'),
+                ],
+                [
+                    'label' => __("Item Title Color", 'notificationx'),
+                    'name'  => "popup_repeater_title_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#333333",
+                ],
+                [
+                    'label'       => __('Item Title Font Size', 'notificationx'),
+                    'name'        => "popup_repeater_title_font_size",
+                    'type'        => "number",
+                    'default'     => '18',
+                    'description' => 'px',
+                ],
+                [
+                    'label'       => __('Item Title Font Weight', 'notificationx'),
+                    'name'        => "popup_repeater_title_font_weight",
+                    'type'        => "select",
+                    'default'     => '600',
+                    'options'     => GlobalFields::get_instance()->normalize_fields([
+                        '400' => __('Normal (400)', 'notificationx'),
+                        '500' => __('Medium (500)', 'notificationx'),
+                        '600' => __('Semi Bold (600)', 'notificationx'),
+                        '700' => __('Bold (700)', 'notificationx'),
+                    ]),
+                ],
+                [
+                    'label' => __("Item Subtitle Color", 'notificationx'),
+                    'name'  => "popup_repeater_subtitle_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#666666",
+                ],
+                [
+                    'label'       => __('Item Subtitle Font Size', 'notificationx'),
+                    'name'        => "popup_repeater_subtitle_font_size",
+                    'type'        => "number",
+                    'default'     => '14',
+                    'description' => 'px',
+                ],
+                [
+                    'label'       => __('Item Border Radius', 'notificationx'),
+                    'name'        => "popup_repeater_item_border_radius",
+                    'type'        => "number",
+                    'default'     => '6',
+                    'description' => 'px',
+                    'help'        => __('Rounded corners for each content item', 'notificationx'),
+                ],
+                [
+                    'label'       => __('Item Padding', 'notificationx'),
+                    'name'        => "popup_repeater_item_padding",
+                    'type'        => "text",
+                    'default'     => '16px',
+                    'help'        => __('Internal spacing for each content item (e.g., 16px)', 'notificationx'),
+                ],
+                [
+                    'label'       => __('Item Spacing', 'notificationx'),
+                    'name'        => "popup_repeater_item_spacing",
+                    'type'        => "number",
+                    'default'     => '12',
+                    'description' => 'px',
+                    'help'        => __('Space between content items', 'notificationx'),
                 ],
             ]
         ];
@@ -264,20 +618,51 @@ class PopupNotification extends Extension {
             'rules'    => Rules::is('source', $this->id),
             'fields'   => [
                 [
-                    'label'    => __('Popup Title', 'notificationx'),
+                    'label'    => __('Title', 'notificationx'),
                     'name'     => 'popup_title',
                     'type'     => 'text',
                     'priority' => 10,
                     'default'  => __('Special Offer!', 'notificationx'),
                 ],
                 [
-                    'label'    => __('Popup Content', 'notificationx'),
+                    'label'    => __('Content', 'notificationx'),
                     'name'     => 'popup_content',
                     'type'     => 'textarea',
                     'priority' => 20,
                     'default'  => __('Don\'t miss out on this amazing deal!', 'notificationx'),
-                    'help'     => __('You can use HTML tags for formatting', 'notificationx'),
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-one'),
+                        Rules::is('themes', 'popup_notification_theme-two'),
+                        Rules::is('themes', 'popup_notification_theme-seven'),
+                    ], 'or'),
                 ],
+                [
+                    'label'    => __('Message Placeholder', 'notificationx'),
+                    'name'     => 'popup_message',
+                    'type'     => 'textarea',
+                    'priority' => 20,
+                    'default'  => __('Jot down your quaries & submit to get instant response', 'notificationx'),
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-four'),
+                        Rules::is('themes', 'popup_notification_theme-five'),
+                    ], 'or'),
+                ],
+
+                // Email placeholder field - only for themes 5, 6, 7 (email collection themes)
+                [
+                    'label'    => __('Email Address Placeholder', 'notificationx'),
+                    'name'     => 'popup_email_placeholder',
+                    'type'     => 'text',
+                    'priority' => 25,
+                    'default'  => __('Enter your email', 'notificationx'),
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-five'),
+                        Rules::is('themes', 'popup_notification_theme-six'),
+                        Rules::is('themes', 'popup_notification_theme-seven'),
+                    ], 'or'),
+                ],
+
+                // Common Button Text field for all themes
                 [
                     'label'    => __('Button Text', 'notificationx'),
                     'name'     => 'popup_button_text',
@@ -285,12 +670,56 @@ class PopupNotification extends Extension {
                     'priority' => 30,
                     'default'  => __('Get Offer', 'notificationx'),
                 ],
+
+                // Button URL field - only for themes 1-3 (promotional themes with external links)
                 [
                     'label'    => __('Button URL', 'notificationx'),
                     'name'     => 'popup_button_url',
                     'type'     => 'text',
                     'priority' => 40,
                     'default'  => '#',
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-one'),
+                        Rules::is('themes', 'popup_notification_theme-two'),
+                        Rules::is('themes', 'popup_notification_theme-three'),
+                    ], 'or'),
+                ],
+
+                // Repeater fields - only for theme-three
+                [
+                    'label'    => __('Content Items', 'notificationx'),
+                    'name'     => 'popup_content_repeater',
+                    'type'     => 'repeater',
+                    'priority' => 50,
+                    'rules'    => Rules::is('themes', 'popup_notification_theme-three'),
+                    'fields'   => [
+                        [
+                            'label' => __('Title', 'notificationx'),
+                            'name'  => 'repeater_title',
+                            'type'  => 'text',
+                            'default' => __('Feature Title', 'notificationx'),
+                        ],
+                        [
+                            'label' => __('Subtitle', 'notificationx'),
+                            'name'  => 'repeater_subtitle',
+                            'type'  => 'text',
+                            'default' => __('Feature description', 'notificationx'),
+                        ],
+                    ],
+                    'default' => [
+                        [
+                            'repeater_title' => __('Boost Sales', 'notificationx'),
+                            'repeater_subtitle' => __('Increase conversions with social proof', 'notificationx'),
+                        ],
+                        [
+                            'repeater_title' => __('Build Trust', 'notificationx'),
+                            'repeater_subtitle' => __('Show real customer activity', 'notificationx'),
+                        ],
+                        [
+                            'repeater_title' => __('Drive Action', 'notificationx'),
+                            'repeater_subtitle' => __('Create urgency and FOMO', 'notificationx'),
+                        ],
+                    ],
                 ],
             ]
         ];
@@ -305,15 +734,6 @@ class PopupNotification extends Extension {
      * @return mixed
      */
     public function customize_fields($fields) {
-        if (isset($fields['appearance'])) {
-            $fields['appearance'] = Rules::is('source', $this->id, true, $fields['appearance']);
-        }
-        if (isset($fields['queue_management'])) {
-            $fields['queue_management'] = Rules::is('source', $this->id, true, $fields['queue_management']);
-        }
-        if (isset($fields['timing'])) {
-            $fields['timing'] = Rules::is('source', $this->id, true, $fields['timing']);
-        }
         if (isset($fields['behaviour'])) {
             $fields['behaviour'] = Rules::is('source', $this->id, true, $fields['behaviour']);
         }
@@ -323,8 +743,7 @@ class PopupNotification extends Extension {
 
         $_fields             = &$fields["appearance"]['fields'];
         $conversion_position = &$_fields['position']['options'];
-        $conversion_position['bottom_left']  = Rules::is('source', $this->id, true, $conversion_position['bottom_left']);
-        $conversion_position['bottom_right'] = Rules::is('source', $this->id, true, $conversion_position['bottom_right']);
+        $conversion_position['center']  = Rules::is('source', $this->id, true, $conversion_position['center']);
 
         $conversion_position['center'] = [
             'label' => __('Center', 'notificationx'),
