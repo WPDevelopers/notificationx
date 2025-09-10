@@ -9,6 +9,7 @@ import {
     Analytics,
     QuickBuild,
     Dashboard,
+    FeedbackEntries,
 } from "./admin/index";
 
 function Route(props) {
@@ -44,6 +45,11 @@ function Route(props) {
         {
             path: "nx-analytics",
             component: Analytics,
+            exact: true,
+        },
+        {
+            path: "nx-feedback-entries",
+            component: FeedbackEntries,
             exact: true,
         },
         {

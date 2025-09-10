@@ -41,6 +41,22 @@ class PopupNotification extends Extension {
     public function init() {
         parent::init();
         add_action('rest_api_init', [$this, 'register_rest_routes']);
+        add_action('admin_menu', [$this, 'add_feedback_entries_menu'], 35);
+    }
+
+    /**
+     * Add Feedback Entries menu
+     */
+    public function add_feedback_entries_menu() {
+        add_submenu_page(
+            'nx-admin',
+            __('Feedback Entries', 'notificationx'),
+            __('Feedback Entries', 'notificationx'),
+            'read_notificationx',
+            'nx-feedback-entries',
+            [\NotificationX\Admin\Admin::get_instance(), 'views'],
+            25
+        );
     }
 
     /**
@@ -69,6 +85,30 @@ class PopupNotification extends Extension {
                     'sanitize_callback' => 'sanitize_textarea_field',
                 ],
                 'timestamp' => [
+                    'type' => 'integer',
+                ],
+            ],
+        ]);
+
+        // Feedback entries endpoint
+        register_rest_route('notificationx/v1', '/feedback-entries', [
+            'methods' => 'GET',
+            'callback' => [$this, 'get_feedback_entries'],
+            'permission_callback' => function() {
+                return current_user_can('read_notificationx');
+            },
+        ]);
+
+        // Delete feedback entry endpoint
+        register_rest_route('notificationx/v1', '/feedback-entries/(?P<id>\d+)', [
+            'methods' => 'DELETE',
+            'callback' => [$this, 'delete_feedback_entry'],
+            'permission_callback' => function() {
+                return current_user_can('edit_notificationx');
+            },
+            'args' => [
+                'id' => [
+                    'required' => true,
                     'type' => 'integer',
                 ],
             ],
@@ -896,6 +936,75 @@ class PopupNotification extends Extension {
      */
     public function key($key = '') {
         return $this->id . '_' . $key;
+    }
+
+    /**
+     * Get feedback entries
+     *
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response
+     */
+    public function get_feedback_entries($request) {
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . 'nx_entries';
+
+        // Get all popup notification entries
+        $entries = $wpdb->get_results($wpdb->prepare(
+            "SELECT * FROM {$table_name} WHERE source = %s ORDER BY created_at DESC",
+            $this->id
+        ), ARRAY_A);
+
+        $formatted_entries = [];
+        foreach ($entries as $entry) {
+            $data = maybe_unserialize($entry['data']);
+            $formatted_entries[] = [
+                'id' => $entry['entry_id'],
+                'date' => $entry['created_at'],
+                'name' => $data['name'] ?? '',
+                'email' => $data['email'] ?? '',
+                'message' => $data['message'] ?? '',
+                'title' => $data['title'] ?? '',
+                'theme' => $data['theme'] ?? '',
+                'ip' => $data['ip'] ?? '',
+            ];
+        }
+
+        return new \WP_REST_Response($formatted_entries, 200);
+    }
+
+    /**
+     * Delete feedback entry
+     *
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response
+     */
+    public function delete_feedback_entry($request) {
+        global $wpdb;
+
+        $entry_id = $request->get_param('id');
+        $table_name = $wpdb->prefix . 'nx_entries';
+
+        $result = $wpdb->delete(
+            $table_name,
+            [
+                'entry_id' => $entry_id,
+                'source' => $this->id
+            ],
+            ['%d', '%s']
+        );
+
+        if ($result === false) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('Failed to delete entry', 'notificationx'),
+            ], 500);
+        }
+
+        return new \WP_REST_Response([
+            'success' => true,
+            'message' => __('Entry deleted successfully', 'notificationx'),
+        ], 200);
     }
 
     /**
