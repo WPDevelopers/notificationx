@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { __ } from '@wordpress/i18n';
 import withDocumentTitle from '../../core/withDocumentTitle';
 import nxHelper from '../../core/functions';
 import { Header } from '../../components';
+import Pagination from "rc-pagination";
+import localeInfo from 'rc-pagination/es/locale/en_US';
+import { SelectControl } from "@wordpress/components";
 
 interface FeedbackEntry {
     id: number;
@@ -21,21 +24,73 @@ const FeedbackEntries = (props: any) => {
     const [checkAll, setCheckAll] = useState(false);
     const [checkedItems, setCheckedItems] = useState<number[]>([]);
     const [viewEntry, setViewEntry] = useState<FeedbackEntry | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [perPage, setPerPage] = useState(20);
+    const [totalItems, setTotalItems] = useState(0);
+    const [searchKey, setSearchKey] = useState('');
+    const [searchInput, setSearchInput] = useState('');
+    const isMounted = useRef(true);
+    const searchTimeout = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
-        fetchEntries();
+        isMounted.current = true;
+        return () => {
+            isMounted.current = false;
+        };
     }, []);
+
+    // Debounced search
+    useEffect(() => {
+        if (searchTimeout.current) {
+            clearTimeout(searchTimeout.current);
+        }
+
+        searchTimeout.current = setTimeout(() => {
+            setSearchKey(searchInput);
+            setCurrentPage(1);
+        }, 500);
+
+        return () => {
+            if (searchTimeout.current) {
+                clearTimeout(searchTimeout.current);
+            }
+        };
+    }, [searchInput]);
+
+    useEffect(() => {
+        if (currentPage === 0 || perPage === 0) return;
+        fetchEntries();
+    }, [currentPage, perPage, searchKey]);
 
     const fetchEntries = async () => {
         try {
             setLoading(true);
-            const response = await nxHelper.get('feedback-entries');
-            // @ts-ignore 
-            setEntries(response || []);
+            const controller = typeof AbortController === 'undefined' ? undefined : new AbortController();
+
+            const response = await nxHelper.get(
+                `feedback-entries?page=${currentPage}&per_page=${perPage}&s=${searchKey}`,
+                { signal: controller?.signal }
+            );
+
+            if (controller?.signal?.aborted) {
+                return;
+            }
+
+            if (isMounted.current) {
+                // @ts-ignore
+                setEntries(response?.entries || []);
+                setTotalItems(response?.total || 0);
+            }
         } catch (error) {
+            if (error.name === 'AbortError') {
+                console.log('Fetch aborted');
+                return;
+            }
             console.error('Error fetching feedback entries:', error);
         } finally {
-            setLoading(false);
+            if (isMounted.current) {
+                setLoading(false);
+            }
         }
     };
 
@@ -107,6 +162,18 @@ const FeedbackEntries = (props: any) => {
         <div className='notificationx-items' id="notificationx-feedback-wrapper">
             <Header />
             <div className="nx-admin-items">
+                {/* Search Bar */}
+                <div className="nx-admin-header-actions">
+                    <div className="nx-search-wrapper">
+                        <input
+                            type="text"
+                            placeholder={__('Search entries...', 'notificationx')}
+                            value={searchInput}
+                            onChange={(e) => setSearchInput(e.target.value)}
+                            className="nx-search-input"
+                        />
+                    </div>
+                </div>
                 <div className="nx-list-table-wrapper">
                     <table className="wp-list-table widefat fixed striped notificationx-list">
                         <thead>
@@ -146,7 +213,7 @@ const FeedbackEntries = (props: any) => {
                                                 onChange={(e) => handleCheckItem(entry.id, e.target.checked)}
                                             />
                                         </td>
-                                        <td>{index + 1}</td>
+                                        <td>{(currentPage - 1) * perPage + index + 1}</td>
                                         <td>{formatDate(entry.date)}</td>
                                         <td>{entry.email || '-'}</td>
                                         <td>
@@ -179,6 +246,36 @@ const FeedbackEntries = (props: any) => {
                         </tbody>
                     </table>
                 </div>
+
+                {/* Pagination Controls */}
+                {entries.length > 0 && (
+                    <div className="nx-admin-items-footer">
+                        <SelectControl
+                            label={__("Show Entries :", 'notificationx')}
+                            value={perPage.toString()}
+                            onChange={(p: string) => {
+                                setPerPage(parseInt(p));
+                                setCurrentPage(1);
+                            }}
+                            options={[
+                                { value: "10", label: __("10", 'notificationx') },
+                                { value: "20", label: __("20", 'notificationx') },
+                                { value: "50", label: __("50", 'notificationx') },
+                                { value: "100", label: __("100", 'notificationx') },
+                                { value: "200", label: __("200", 'notificationx') },
+                            ]}
+                        />
+                        <Pagination
+                            current={currentPage}
+                            onChange={setCurrentPage}
+                            total={totalItems}
+                            pageSize={perPage}
+                            showTitle={false}
+                            hideOnSinglePage
+                            locale={localeInfo}
+                        />
+                    </div>
+                )}
 
                 {/* View Modal */}
                 {viewEntry && (
@@ -235,6 +332,84 @@ const FeedbackEntries = (props: any) => {
                     </div>
                 )}
             </div>
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                    .nx-admin-header-actions {
+                        margin-bottom: 20px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                    .nx-search-wrapper {
+                        flex: 1;
+                        max-width: 300px;
+                    }
+                    .nx-search-input {
+                        width: 100%;
+                        padding: 8px 12px;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        font-size: 14px;
+                    }
+                    .nx-search-input:focus {
+                        outline: none;
+                        border-color: #0073aa;
+                        box-shadow: 0 0 0 1px #0073aa;
+                    }
+                    .nx-admin-items-footer {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-top: 20px;
+                        padding: 15px 0;
+                        border-top: 1px solid #e1e1e1;
+                    }
+                    .nx-admin-items-footer .components-base-control {
+                        margin-bottom: 0;
+                        margin-right: 20px;
+                    }
+                    .nx-admin-items-footer .components-base-control__label {
+                        font-weight: 600;
+                        margin-bottom: 5px;
+                    }
+                    .rc-pagination {
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                    }
+                    .rc-pagination-item,
+                    .rc-pagination-prev,
+                    .rc-pagination-next {
+                        padding: 6px 12px;
+                        border: 1px solid #d1d5db;
+                        background: white;
+                        color: #374151;
+                        text-decoration: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                    }
+                    .rc-pagination-item:hover,
+                    .rc-pagination-prev:hover,
+                    .rc-pagination-next:hover {
+                        border-color: #0073aa;
+                        color: #0073aa;
+                    }
+                    .rc-pagination-item-active {
+                        background: #0073aa;
+                        border-color: #0073aa;
+                        color: white;
+                    }
+                    .rc-pagination-disabled {
+                        opacity: 0.5;
+                        cursor: not-allowed;
+                    }
+                    .rc-pagination-disabled:hover {
+                        border-color: #d1d5db;
+                        color: #374151;
+                    }
+                `
+            }} />
         </div>
     );
 };

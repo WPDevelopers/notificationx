@@ -97,6 +97,24 @@ class PopupNotification extends Extension {
             'permission_callback' => function() {
                 return current_user_can('read_notificationx');
             },
+            'args' => [
+                'page' => [
+                    'default' => 1,
+                    'type' => 'integer',
+                    'minimum' => 1,
+                ],
+                'per_page' => [
+                    'default' => 20,
+                    'type' => 'integer',
+                    'minimum' => 1,
+                    'maximum' => 200,
+                ],
+                's' => [
+                    'default' => '',
+                    'type' => 'string',
+                    'sanitize_callback' => 'sanitize_text_field',
+                ],
+            ],
         ]);
 
         // Delete feedback entry endpoint
@@ -949,11 +967,39 @@ class PopupNotification extends Extension {
 
         $table_name = $wpdb->prefix . 'nx_entries';
 
-        // Get all popup notification entries
-        $entries = $wpdb->get_results($wpdb->prepare(
-            "SELECT * FROM {$table_name} WHERE source = %s ORDER BY created_at DESC",
-            $this->id
-        ), ARRAY_A);
+        // Get pagination parameters
+        $page = $request->get_param('page') ?: 1;
+        $per_page = $request->get_param('per_page') ?: 20;
+        $search = $request->get_param('s') ?: '';
+        $offset = ($page - 1) * $per_page;
+
+        // Build WHERE clause
+        $where_conditions = ["source = %s"];
+        $where_values = [$this->id];
+
+        // Add search functionality
+        if (!empty($search)) {
+            $where_conditions[] = "(data LIKE %s OR created_at LIKE %s)";
+            $search_term = '%' . $wpdb->esc_like($search) . '%';
+            $where_values[] = $search_term;
+            $where_values[] = $search_term;
+        }
+
+        $where_clause = implode(' AND ', $where_conditions);
+
+        // Get total count for pagination
+        $total_query = $wpdb->prepare(
+            "SELECT COUNT(*) FROM {$table_name} WHERE {$where_clause}",
+            ...$where_values
+        );
+        $total_items = (int) $wpdb->get_var($total_query);
+
+        // Get paginated entries
+        $entries_query = $wpdb->prepare(
+            "SELECT * FROM {$table_name} WHERE {$where_clause} ORDER BY created_at DESC LIMIT %d OFFSET %d",
+            ...array_merge($where_values, [$per_page, $offset])
+        );
+        $entries = $wpdb->get_results($entries_query, ARRAY_A);
 
         $formatted_entries = [];
         foreach ($entries as $entry) {
@@ -970,7 +1016,13 @@ class PopupNotification extends Extension {
             ];
         }
 
-        return new \WP_REST_Response($formatted_entries, 200);
+        return new \WP_REST_Response([
+            'entries' => $formatted_entries,
+            'total' => $total_items,
+            'page' => $page,
+            'per_page' => $per_page,
+            'total_pages' => ceil($total_items / $per_page),
+        ], 200);
     }
 
     /**
