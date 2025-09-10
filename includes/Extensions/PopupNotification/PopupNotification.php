@@ -38,6 +38,43 @@ class PopupNotification extends Extension {
         parent::__construct();
     }
 
+    public function init() {
+        parent::init();
+        add_action('rest_api_init', [$this, 'register_rest_routes']);
+    }
+
+    /**
+     * Register REST API routes for popup form submission
+     */
+    public function register_rest_routes() {
+        register_rest_route('notificationx/v1', '/popup-submit', [
+            'methods' => 'POST',
+            'callback' => [$this, 'handle_popup_submission'],
+            'permission_callback' => '__return_true',
+            'args' => [
+                'nx_id' => [
+                    'required' => true,
+                    'type'     => 'string',
+                ],
+                'email' => [
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_email',
+                ],
+                'message' => [
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_textarea_field',
+                ],
+                'name' => [
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_textarea_field',
+                ],
+                'timestamp' => [
+                    'type' => 'integer',
+                ],
+            ],
+        ]);
+    }
+
     public function init_extension()
     {
         $this->title = __('Popup', 'notificationx');
@@ -636,16 +673,64 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-seven'),
                     ], 'or'),
                 ],
+                // Form Field Toggles - only for form submission themes (4-7)
                 [
-                    'label'    => __('Message Placeholder', 'notificationx'),
-                    'name'     => 'popup_message',
-                    'type'     => 'textarea',
-                    'priority' => 20,
-                    'default'  => __('Jot down your quaries & submit to get instant response', 'notificationx'),
+                    'label'    => __('Show Name Field', 'notificationx'),
+                    'name'     => 'popup_show_name_field',
+                    'type'     => 'toggle',
+                    'priority' => 25,
+                    'default'  => false,
                     'rules'    => Rules::logicalRule([
                         Rules::is('themes', 'popup_notification_theme-four'),
                         Rules::is('themes', 'popup_notification_theme-five'),
+                        Rules::is('themes', 'popup_notification_theme-six'),
+                        Rules::is('themes', 'popup_notification_theme-seven'),
                     ], 'or'),
+                ],
+                [
+                    'label'    => __('Show Email Field', 'notificationx'),
+                    'name'     => 'popup_show_email_field',
+                    'type'     => 'toggle',
+                    'priority' => 30,
+                    'default'  => true,
+                    'help'     => __('Email field is enabled by default for email collection themes', 'notificationx'),
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-four'),
+                        Rules::is('themes', 'popup_notification_theme-five'),
+                        Rules::is('themes', 'popup_notification_theme-six'),
+                        Rules::is('themes', 'popup_notification_theme-seven'),
+                    ], 'or'),
+                ],
+                [
+                    'label'    => __('Show Message Field', 'notificationx'),
+                    'name'     => 'popup_show_message_field',
+                    'type'     => 'toggle',
+                    'priority' => 35,
+                    'default'  => true,
+                    'help'     => __('Message field for collecting user feedback or inquiries', 'notificationx'),
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-four'),
+                        Rules::is('themes', 'popup_notification_theme-five'),
+                        Rules::is('themes', 'popup_notification_theme-six'),
+                        Rules::is('themes', 'popup_notification_theme-seven'),
+                    ], 'or'),
+                ],
+                // Name placeholder field - only for form themes when name field is enabled
+                [
+                    'label'    => __('Name Field Placeholder', 'notificationx'),
+                    'name'     => 'popup_name_placeholder',
+                    'type'     => 'text',
+                    'priority' => 40,
+                    'default'  => __('Enter your name', 'notificationx'),
+                    'rules'    => Rules::logicalRule([
+                        Rules::logicalRule([
+                            Rules::is('themes', 'popup_notification_theme-four'),
+                            Rules::is('themes', 'popup_notification_theme-five'),
+                            Rules::is('themes', 'popup_notification_theme-six'),
+                            Rules::is('themes', 'popup_notification_theme-seven'),
+                        ], 'or'),
+                        Rules::is('popup_show_name_field', true),
+                    ]),
                 ],
 
                 // Email placeholder field - only for themes 5, 6, 7 (email collection themes)
@@ -653,13 +738,35 @@ class PopupNotification extends Extension {
                     'label'    => __('Email Address Placeholder', 'notificationx'),
                     'name'     => 'popup_email_placeholder',
                     'type'     => 'text',
-                    'priority' => 25,
+                    'priority' => 45,
                     'default'  => __('Enter your email', 'notificationx'),
                     'rules'    => Rules::logicalRule([
-                        Rules::is('themes', 'popup_notification_theme-five'),
-                        Rules::is('themes', 'popup_notification_theme-six'),
-                        Rules::is('themes', 'popup_notification_theme-seven'),
-                    ], 'or'),
+                        Rules::logicalRule([
+                            Rules::is('themes', 'popup_notification_theme-four'),
+                            Rules::is('themes', 'popup_notification_theme-five'),
+                            Rules::is('themes', 'popup_notification_theme-six'),
+                            Rules::is('themes', 'popup_notification_theme-seven'),
+                        ], 'or'),
+                        Rules::is('popup_show_email_field', true),
+                    ]),
+                ],
+
+                // Message placeholder field - only for form themes when message field is enabled
+                [
+                    'label'    => __('Message Field Placeholder', 'notificationx'),
+                    'name'     => 'popup_message_placeholder',
+                    'type'     => 'text',
+                    'priority' => 50,
+                    'default'  => __('Enter your message...', 'notificationx'),
+                    'rules'    => Rules::logicalRule([
+                        Rules::logicalRule([
+                            Rules::is('themes', 'popup_notification_theme-four'),
+                            Rules::is('themes', 'popup_notification_theme-five'),
+                            Rules::is('themes', 'popup_notification_theme-six'),
+                            Rules::is('themes', 'popup_notification_theme-seven'),
+                        ], 'or'),
+                        Rules::is('popup_show_message_field', true),
+                    ]),
                 ],
 
                 // Common Button Text field for all themes
@@ -667,7 +774,7 @@ class PopupNotification extends Extension {
                     'label'    => __('Button Text', 'notificationx'),
                     'name'     => 'popup_button_text',
                     'type'     => 'text',
-                    'priority' => 30,
+                    'priority' => 55,
                     'default'  => __('Get Offer', 'notificationx'),
                 ],
 
@@ -676,7 +783,7 @@ class PopupNotification extends Extension {
                     'label'    => __('Button URL', 'notificationx'),
                     'name'     => 'popup_button_url',
                     'type'     => 'text',
-                    'priority' => 40,
+                    'priority' => 60,
                     'default'  => '#',
                     'rules'    => Rules::logicalRule([
                         Rules::is('themes', 'popup_notification_theme-one'),
@@ -684,13 +791,12 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-three'),
                     ], 'or'),
                 ],
-
                 // Repeater fields - only for theme-three
                 [
                     'label'    => __('Content Items', 'notificationx'),
                     'name'     => 'popup_content_repeater',
                     'type'     => 'repeater',
-                    'priority' => 50,
+                    'priority' => 65,
                     'rules'    => Rules::is('themes', 'popup_notification_theme-three'),
                     'fields'   => [
                         [
@@ -725,6 +831,86 @@ class PopupNotification extends Extension {
         ];
 
         return $fields;
+    }
+
+    /**
+     * Handle popup form submission
+     *
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response
+     */
+    public function handle_popup_submission($request) {
+        $params = $request->get_params();
+
+        // Prepare entry data
+        $data = [
+            'title' => $params['title'] ?: __('Popup Submission', 'notificationx'),
+            'timestamp' => $params['timestamp'] ?: time(),
+        ];
+
+        // Add email if provided
+        if (!empty($params['email'])) {
+            $data['email'] = $params['email'];
+        }
+
+        // Add message if provided
+        if (!empty($params['message'])) {
+            $data['message'] = $params['message'];
+        }
+
+        if (!empty($params['name'])) {
+            $data['name'] = $params['name'];
+        }
+
+        // Add theme information
+        if (!empty($params['theme'])) {
+            $data['theme'] = $params['theme'];
+        }
+
+        // Add IP address
+        $data['ip'] = $this->get_user_ip();
+
+        // Save entry using the standard NotificationX pattern
+        $entry_key = $this->key($params['nx_id']);
+        $entry = [
+            'nx_id' => $params['nx_id'],
+            'source' => $this->id,
+            'entry_key' => $entry_key,
+            'data' => $data,
+        ];
+
+        // Save the entry
+        $this->update_notification($entry);
+
+        return new \WP_REST_Response([
+            'success' => true,
+            'message' => __('Submission saved successfully', 'notificationx'),
+        ], 200);
+    }
+
+    /**
+     * Generate entry key
+     *
+     * @param string $key
+     * @return string
+     */
+    public function key($key = '') {
+        return $this->id . '_' . $key;
+    }
+
+    /**
+     * Get user IP address
+     *
+     * @return string
+     */
+    private function get_user_ip() {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            return $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            return $_SERVER['REMOTE_ADDR'] ?? '';
+        }
     }
 
      /**

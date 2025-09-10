@@ -6,6 +6,7 @@ import useNotificationContext from "./NotificationProvider";
 import 'animate.css';
 import { isObject } from "../core/functions";
 import { __ } from '@wordpress/i18n';
+import nxHelper from './functions';
 
 const useMediaQuery = (query: string) => {
     const mediaQuery = window.matchMedia(query);
@@ -36,6 +37,15 @@ const Popup = (props: any) => {
     const isTablet = useMediaQuery("(max-width: 768px)");
     const [notificationSize, setNotificationSize] = useState();
     const is_pro = frontEndContext?.state?.is_pro ?? false;
+
+    // Form state
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitSuccess, setSubmitSuccess] = useState(false);
 
     // Dynamic styles based on settings
     let mainBGColor = {};
@@ -104,6 +114,56 @@ const Popup = (props: any) => {
         }
     };
 
+    const handleFormSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // Check if this is an email collection theme
+        const isEmailTheme = ["popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
+            .some(theme => settings.theme.includes(theme));
+
+        // Check if this is a message theme
+        const isMessageTheme = ["popup_notification_theme-four", "popup_notification_theme-five"]
+            .some(theme => settings.theme.includes(theme));
+
+        if (!isEmailTheme && !isMessageTheme) {
+            // For non-form themes, just handle button click
+            handleButtonClick();
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            const submissionData = {
+                nx_id: settings.nx_id,
+                name: settings.popup_show_name_field ? formData.name : '',
+                email: settings.popup_show_email_field ? formData.email : '',
+                message: settings.popup_show_message_field ? formData.message : '',
+                theme: settings.theme,
+                title: settings.popup_title || '',
+                timestamp: Math.floor(Date.now() / 1000)
+            };
+
+            // Submit to REST API
+            const response = await nxHelper.post(
+                nxHelper.getPath(frontEndContext?.rest, 'popup-submit'),
+                submissionData
+            );
+
+            if (response && response.success) {
+                setSubmitSuccess(true);
+                // Close popup after successful submission
+                setTimeout(() => {
+                    handleClose();
+                }, 1500);
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     const handleButtonClick = () => {
         if (settings?.popup_button_url) {
             window.open(settings.popup_button_url, settings?.open_in_new_tab ? '_blank' : '_self');
@@ -111,6 +171,13 @@ const Popup = (props: any) => {
         if (settings?.close_on_button_click) {
             handleClose();
         }
+    };
+
+    const handleInputChange = (field: string, value: string) => {
+        setFormData(prev => ({
+            ...prev,
+            [field]: value
+        }));
     };
 
     if (!isVisible) {
@@ -268,30 +335,74 @@ const Popup = (props: any) => {
                                 ))}
                             </div>
                         ) }
-                        { ["popup_notification_theme-four", "popup_notification_theme-five"]
-                            .some(theme => settings.theme.includes(theme)) && (
-                                <div className="nx-popup-textarea">
-                                    <textarea
-                                        placeholder={settings?.popup_message}
+                        {/* Name Field - Show if enabled for form themes */}
+                        { ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
+                            .some(theme => settings.theme.includes(theme)) && settings.popup_show_name_field && (
+                                <div className="nx-popup-name">
+                                    <input
+                                        type="text"
+                                        placeholder={settings?.popup_name_placeholder || __('Enter your name', 'notificationx')}
+                                        value={formData.name}
+                                        onChange={(e) => handleInputChange('name', e.target.value)}
+                                        disabled={isSubmitting}
                                     />
                                 </div>
                         ) }
-                        { ["popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
-                            .some(theme => settings.theme.includes(theme)) && (
+
+                        {/* Email Field - Show if enabled for form themes */}
+                        { ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
+                            .some(theme => settings.theme.includes(theme)) && settings.popup_show_email_field && (
                                 <div className="nx-popup-email">
-                                    <input type="email" placeholder={settings?.popup_email_placeholder} />
+                                    <input
+                                        type="email"
+                                        placeholder={settings?.popup_email_placeholder || __('Enter your email address', 'notificationx')}
+                                        value={formData.email}
+                                        onChange={(e) => handleInputChange('email', e.target.value)}
+                                        disabled={isSubmitting}
+                                        required
+                                    />
+                                </div>
+                        ) }
+
+                        {/* Message Field - Show if enabled for form themes */}
+                        { ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
+                            .some(theme => settings.theme.includes(theme)) && settings.popup_show_message_field && (
+                                <div className="nx-popup-textarea">
+                                    <textarea
+                                        placeholder={settings?.popup_message_placeholder || __('Enter your message...', 'notificationx')}
+                                        value={formData.message}
+                                        onChange={(e) => handleInputChange('message', e.target.value)}
+                                        disabled={isSubmitting}
+                                    />
                                 </div>
                         ) }
                         {/* Action Buttons */}
                         {(settings?.popup_button_text) && (
                             <div className="nx-popup-actions">
-                                <button
-                                    className="nx-popup-button nx-popup-primary-button"
-                                    style={buttonStyles}
-                                    onClick={handleButtonClick}
-                                >
-                                    {settings?.popup_button_text}
-                                </button>
+                                {/* Check if this is a form theme */}
+                                {(["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
+                                    .some(theme => settings.theme.includes(theme))) ? (
+                                    <form onSubmit={handleFormSubmit}>
+                                        <button
+                                            type="submit"
+                                            className="nx-popup-button nx-popup-primary-button"
+                                            style={buttonStyles}
+                                            disabled={isSubmitting}
+                                        >
+                                            {isSubmitting ? __('Submitting...', 'notificationx') :
+                                             submitSuccess ? __('Success!', 'notificationx') :
+                                             settings?.popup_button_text}
+                                        </button>
+                                    </form>
+                                ) : (
+                                    <button
+                                        className="nx-popup-button nx-popup-primary-button"
+                                        style={buttonStyles}
+                                        onClick={handleButtonClick}
+                                    >
+                                        {settings?.popup_button_text}
+                                    </button>
+                                )}
                             </div>
                         )}
 
