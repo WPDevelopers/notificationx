@@ -85,7 +85,7 @@ class PostType {
      * @return void
      */
     function admin_enqueue_scripts( $hook ) {
-        if ( $hook !== 'toplevel_page_nx-admin' && $hook !== 'notificationx_page_nx-edit' && $hook !== 'notificationx_page_nx-settings' && $hook !== 'notificationx_page_nx-analytics' && $hook !== 'notificationx_page_nx-dashboard' && $hook !== 'notificationx_page_nx-builder' ) {
+        if ( $hook !== 'toplevel_page_nx-admin' && $hook !== 'notificationx_page_nx-edit' && $hook !== 'notificationx_page_nx-settings' && $hook !== 'notificationx_page_nx-analytics' && $hook !== 'notificationx_page_nx-dashboard' && $hook !== 'notificationx_page_nx-builder' && $hook !== 'notificationx_page_nx-feedback-entries' ) {
             return;
         }
         // @todo not sure why did it. maybe remove.

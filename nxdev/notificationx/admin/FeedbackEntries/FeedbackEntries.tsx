@@ -79,6 +79,7 @@ const FeedbackEntries = (props: any) => {
             if (isMounted.current) {
                 // @ts-ignore
                 setEntries(response?.entries || []);
+                // @ts-ignore
                 setTotalItems(response?.total || 0);
             }
         } catch (error) {

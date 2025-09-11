@@ -1090,14 +1090,13 @@ class PopupNotification extends Extension {
 
         $_fields             = &$fields["appearance"]['fields'];
         $conversion_position = &$_fields['position']['options'];
-        $conversion_position['center']  = Rules::is('source', $this->id, true, $conversion_position['center']);
 
         $conversion_position['center'] = [
             'label' => __('Center', 'notificationx'),
             'value' => 'center',
             'rules' => Rules::is('source', $this->id),
         ];
-
+        $conversion_position['center']  = Rules::is('source', $this->id, true, $conversion_position['center']);
         // Popup specific settings
         $fields['popup_settings'] = [
             'label'    => __('Popup Settings', 'notificationx'),
