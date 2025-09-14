@@ -19,6 +19,7 @@ use NotificationX\FrontEnd\Preview;
 use NotificationX\GetInstance;
 
 use Elementor\Core\Files\CSS\Post as Post_CSS;
+use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\NotificationX;
 
 /**
@@ -1278,6 +1279,7 @@ class PressBar extends Extension {
                     // 'field'  => "country_targeting",
                 ],
             ],
+            'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
             'rules'    => Rules::is('source', $this->id),
         ];
 
@@ -1298,6 +1300,7 @@ class PressBar extends Extension {
             'default'  => ['all_users'],
             'options'  => GlobalFields::get_instance()->normalize_fields($wp_roles_with_default),
             'multiple' => true,
+            'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
             'rules'    => Rules::is('source', $this->id),
         ];
 
@@ -1330,6 +1333,7 @@ class PressBar extends Extension {
                     'classes'  => 'radio-card-v2',
                     'is_pro'   => true,
                     'default'  => 'daily',
+                    'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
                     'options'  => array(
                         'daily' => array(
                             'value' => 'daily',
@@ -1382,6 +1386,7 @@ class PressBar extends Extension {
                         'saturday'  => __('Saturday', 'notificationx'),
                         'sunday'    => __('Sunday', 'notificationx'),
                     ]),
+                    'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
                     'rules'    => Rules::is('schedule_type', 'weekly'),
                 ),
                 'weekly_from_time' => array(
@@ -1409,6 +1414,7 @@ class PressBar extends Extension {
                     'priority' => 65,
                     'is_pro'   => true,
                     'format'   => 'h:i A',
+                    'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
                     'rules'    => Rules::is('schedule_type', 'custom'),
                 ),
                 'custom_from_time' => array(

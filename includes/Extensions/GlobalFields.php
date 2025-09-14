@@ -8,6 +8,7 @@
 
 namespace NotificationX\Extensions;
 
+use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\Admin\Settings;
 use NotificationX\Core\Rules;
 use NotificationX\Core\Database;
@@ -609,15 +610,16 @@ class GlobalFields {
                                     'rules'    => Rules::is( 'advance_edit', true ),
                                     'fields'   => [
                                         [
-                                            'label'           => __('Add Custom CSS', 'notificationx'),
-                                            'name'            => "add_custom_css",
-                                            'type'            => "advanced-codeviewer",
-                                            'button_text'     => __( 'Click to Copy', 'notificationx' ),
-                                            'success_text'    => __( 'Copied to clipboard.', 'notificationx' ),
-                                            'is_pro'          => true,
-                                            'copyOnClick'     => false,
-                                            'priority'        => 5,
-                                            'help'            => __('Use custom CSS to style this Notification.', 'notificationx'),
+                                            'label'        => __('Add Custom CSS', 'notificationx'),
+                                            'name'         => "add_custom_css",
+                                            'type'         => "advanced-codeviewer",
+                                            'button_text'  => __( 'Click to Copy', 'notificationx' ),
+                                            'success_text' => __( 'Copied to clipboard.', 'notificationx' ),
+                                            'is_pro'       => true,
+                                            'copyOnClick'  => false,
+                                            'priority'     => 5,
+                                            'info'         => InfoTooltipManager::get_instance()->render('advanced_template'),
+                                            'help'         => __('Use custom CSS to style this Notification.', 'notificationx'),
                                         ],
                                     ]
                                 ],
@@ -770,6 +772,7 @@ class GlobalFields {
                                     'default'  => false,
                                     'is_pro'   => true,
                                     'priority' => 91,
+                                    'info'    => InfoTooltipManager::get_instance()->render('advanced_template'),
                                 ],
                                 'advanced_template' => [
                                     'name'     => 'advanced_template',
@@ -787,6 +790,7 @@ class GlobalFields {
                                     'is_pro'      => true,
                                     'description' => __('Enable to show notification in random order.', 'notificationx'),
                                     'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart","custom_notification", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
+                                    'info'    => InfoTooltipManager::get_instance()->render('advanced_template'),
                                 ),
                                 'product_control' => array(
                                     'label'    => __('Show Purchase Of', 'notificationx'),
@@ -801,6 +805,7 @@ class GlobalFields {
                                         'product_category' => __('Product Category', 'notificationx'),
                                         'manual_selection' => __('Selected Product', 'notificationx'),
                                     ]),
+                                    'info'    => InfoTooltipManager::get_instance()->render('advanced_template'),
                                     'rules'       => Rules::includes('source', ['woocommerce','woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'category_list' => array(
@@ -859,6 +864,7 @@ class GlobalFields {
                                         'product_category' => __('Product Category', 'notificationx'),
                                         'manual_selection' => __('Selected Product', 'notificationx'),
                                     ]),
+                                    'info'    => InfoTooltipManager::get_instance()->render('advanced_template'),
                                     'rules' => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'exclude_categories' => array(
@@ -913,6 +919,7 @@ class GlobalFields {
                                     'default'  => ['wc-completed', 'wc-processing'],
                                     'help'     => __("By default it will show Processing & Completed status."),
                                     'options'  => apply_filters('nx_woo_order_status', []),
+                                    'info'    => InfoTooltipManager::get_instance()->render('advanced_template'),
                                     'rules'    => Rules::logicalRule([
                                         Rules::includes('source', ['woocommerce', 'woocommerce_sales', "woo_inline","woocommerce_sales_inline"]),
                                         Rules::includes('themes', [ 'woo_inline_stock-theme-one', 'woo_inline_stock-theme-two', 'woocommerce_sales_inline_stock-theme-one', 'woocommerce_sales_inline_stock-theme-two'], true),
@@ -929,6 +936,7 @@ class GlobalFields {
                                     'default'  => ['processing','fulfilled'],
                                     'help'     => __("By default it will show Processing & Fulfilled status."),
                                     'options'  => apply_filters('nx_surecart_order_status', []),
+                                    'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
                                     'rules'    => Rules::logicalRule([
                                         Rules::includes('source', ["surecart"]),
                                     ]),
@@ -971,18 +979,19 @@ class GlobalFields {
                                     ])),
                                 ],
                                 'link_button' => [
-                                    'label'       => __('Button', 'notificationx'),
-                                    'name'        => 'link_button',
-                                    'type'        => 'checkbox',
-                                    'priority'    => 100,
-                                    'is_pro'      => true,
-                                    'default'     => false,
+                                    'label'    => __('Button', 'notificationx'),
+                                    'name'     => 'link_button',
+                                    'type'     => 'checkbox',
+                                    'priority' => 100,
+                                    'is_pro'   => true,
+                                    'default'  => false,
                                     // 'default'     => [
-                                    //     'youtube_channel-1' => true,
-                                    //     'youtube_channel-2' => true,
-                                    //     'youtube_video-3'   => true,
-                                    //     'youtube_video-4'   => true,
-                                    // ],
+                                        //     'youtube_channel-1' => true,
+                                        //     'youtube_channel-2' => true,
+                                        //     'youtube_video-3'   => true,
+                                        //     'youtube_video-4'   => true,
+                                        // ],
+                                    'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
                                     'description' => __('Enable button with link', 'notificationx'),
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('type', ['conversions','video','woocommerce', 'woocommerce_sales','page_analytics']),
@@ -2101,6 +2110,7 @@ class GlobalFields {
                                     'priority' => 0,
                                     'default'  => false,
                                     'is_pro'   => true,
+                                    'info'    => InfoTooltipManager::get_instance()->render('advanced_template'),
                                     'description' => sprintf('%s <a href="%s" target="_blank">%s</a>', __('Activate global queue system for this notification.', 'notificationx'), 'https://notificationx.com/docs/centralized-queue', __('Check out this doc.', 'notificationx')),
                                 ],
                             ]
