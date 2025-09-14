@@ -120,31 +120,44 @@
             }
 
             .wprf-badge {
-                width: 20px;
-                height: 20px;
+                width: 48px;
+                height: 22px;
+                width: 48px;
+                height: 22px;
+                background: #F98824;
+                border: 1px solid #FFCC9F;
+                border-radius: 20px;
                 .wprf-badge-item {
-                    height: 24px;
+                    height: auto;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     line-height: 1;
-                    background: #6a4bff;
+                    background: transparent;
                     color: #fff;
-                    top: 5px;
-                    left: -32px;
+                    top: 6px;
+                    left: 22px;
+                    transform: unset;
                     box-shadow: none;
+                    width: unset;
+                    font-size: 10px;
+                    font-weight: 500;
                 }
 
                 // wprf-badge-item-overwrite
-                .wprf-badge-item {
-                    display: none;
-                }
+                // .wprf-badge-item {
+                //     display: none;
+                // }
 
                 & {
                     background-image: url('../icons/crown.svg');
                     background-repeat: no-repeat;
                     top: 8px;
                     left: calc(100% - 32px);
+                    left: unset;
+                    right: 8px;
+                    background-position: 3px 3px;
+                    background-size: 16px;
                 }
             }
         }
