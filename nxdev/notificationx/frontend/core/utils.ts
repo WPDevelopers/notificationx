@@ -29,6 +29,14 @@ export const isNotClosed = (entry) => {
         if (cookie.load("notificationx_" + nx_id + countRand)) {
             return false;
         }
+
+        // Check session storage for popup notifications
+        if (entry?.post?.source === 'popup_notification' || entry?.source === 'popup_notification') {
+            const sessionKey = "notificationx_popup_" + nx_id;
+            if (sessionStorage.getItem(sessionKey) === 'closed') {
+                return false;
+            }
+        }
     }
     return true;
 };

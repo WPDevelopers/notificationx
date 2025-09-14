@@ -4,7 +4,7 @@ import { isAdminBar } from './utils';
 import CloseIcon from '../../icons/Close';
 import useNotificationContext from "./NotificationProvider";
 import 'animate.css';
-import { isObject } from "../core/functions";
+import { isObject, handleClosePopup } from "../core/functions";
 import { __ } from '@wordpress/i18n';
 import nxHelper from './functions';
 
@@ -46,6 +46,23 @@ const Popup = (props: any) => {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitSuccess, setSubmitSuccess] = useState(false);
+
+    // Check if popup was closed in this session
+    useEffect(() => {
+        const cookieKey = "notificationx_popup_" + settings?.nx_id;
+        const wasClosed = sessionStorage.getItem(cookieKey);
+
+        if (wasClosed === 'closed') {
+            // Popup was closed in this session, don't show it
+            setIsVisible(false);
+            if (dispatch) {
+                dispatch({
+                    type: "REMOVE_NOTIFICATION",
+                    payload: nxPopup.id,
+                });
+            }
+        }
+    }, [settings?.nx_id, dispatch, nxPopup.id]);
 
     // Dynamic styles based on settings
     let mainBGColor = {};
@@ -96,15 +113,12 @@ const Popup = (props: any) => {
     }, [isMobile, isTablet, settings?.size]);
 
     const handleClose = () => {
+        // Store in session storage to prevent showing again in this session
+        handleClosePopup(settings, nxPopup.id, dispatch);
+
         setAnimation(true);
         setTimeout(() => {
             setIsVisible(false);
-            if (dispatch) {
-                dispatch({
-                    type: "REMOVE_NOTIFICATION",
-                    payload: nxPopup.id,
-                });
-            }
         }, 300);
     };
 
@@ -152,6 +166,10 @@ const Popup = (props: any) => {
 
             if (response && response.success) {
                 setSubmitSuccess(true);
+                // Store in session storage to prevent showing again in this session
+                const cookieKey = "notificationx_popup_" + settings?.nx_id;
+                sessionStorage.setItem(cookieKey, 'closed');
+
                 // Close popup after successful submission
                 setTimeout(() => {
                     handleClose();
@@ -169,6 +187,9 @@ const Popup = (props: any) => {
             window.open(settings.popup_button_url, settings?.open_in_new_tab ? '_blank' : '_self');
         }
         if (settings?.close_on_button_click) {
+            // Store in session storage to prevent showing again in this session
+            const cookieKey = "notificationx_popup_" + settings?.nx_id;
+            sessionStorage.setItem(cookieKey, 'closed');
             handleClose();
         }
     };

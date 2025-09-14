@@ -39,12 +39,29 @@ const useNotificationX = (props: any) => {
         }
     }
 
+    // Helper function to check if popup was closed in session
+    const isPopupClosedInSession = (config) => {
+        if (config?.source === 'popup_notification') {
+            const cookieKey = "notificationx_popup_" + config?.nx_id;
+            return sessionStorage.getItem(cookieKey) === 'closed';
+        }
+        return false;
+    };
+
     const dispatchNotification = useCallback(( { data, config, ...args } ) => {
             if (!isNotClosed(data)) {
                 args?.intervalID && clearInterval(args?.intervalID);
                 args?.timeoutID && clearTimeout(args?.timeoutID);
                 return;
             }
+
+            // Check if popup was closed in this session
+            if (isPopupClosedInSession(config)) {
+                args?.intervalID && clearInterval(args?.intervalID);
+                args?.timeoutID && clearTimeout(args?.timeoutID);
+                return;
+            }
+
             const ID = v4();
             dispatch({
                 type: "ADD_NOTIFICATION",
@@ -497,6 +514,13 @@ const useNotificationX = (props: any) => {
         if (popupNotices != null && popupNotices.length > 0) {
             popupNotices.forEach((popupItem) => {
                 const config = popupItem.post;
+
+                // Check if popup was closed in this session
+                const cookieKey = "notificationx_popup_" + config?.nx_id;
+                if (sessionStorage.getItem(cookieKey) === 'closed') {
+                    return; // Skip this popup
+                }
+
                 const popupInitialDelay = 1000;
                 const hideAfter = (+config?.hide_after || 5) * 1000;
 
