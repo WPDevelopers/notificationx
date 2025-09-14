@@ -36,6 +36,21 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                 });
             }, 300);
         }, [contentHeight]);
+
+        useEffect(() => {
+            const timeout = setTimeout(() => {
+                const links = document.querySelectorAll(".wprf-info-text .nx-pro-feature-tooltip a");
+                links.forEach(link => link.addEventListener("click", stopPropagationHandler));
+            }, 2000);
+
+            const stopPropagationHandler = (e) => e.stopPropagation();
+
+            return () => {
+                clearTimeout(timeout);
+                const links = document.querySelectorAll(".wprf-info-text .nx-pro-feature-tooltip a");
+                links.forEach(link => link.removeEventListener("click", stopPropagationHandler));
+            };
+        }, [builderContext.values.type]);
         
         return (
             <div className={classes}>
