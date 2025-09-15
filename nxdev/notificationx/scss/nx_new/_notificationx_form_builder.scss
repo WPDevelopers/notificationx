@@ -209,6 +209,67 @@
 }
 
 .wprf-control-wrapper {
+    .wprf-control-label {
+        position: relative;
+    }
+    &.wprf-type-toggle
+        .wprf-control-label {
+            .wprf-badge {
+                position: absolute;
+                right: -105px;
+                z-index: 99;
+            }
+        }
+    &.wprf-type-checkbox {
+        .wprf-control-label {
+            .wprf-badge {
+                position: absolute;
+                right: -95px;
+                z-index: 99;
+            }
+        }
+    }
+    &.wprf-type-select,
+    &.wprf-type-better-select {
+        .wprf-control-label {
+            .wprf-badge {
+                position: absolute;
+                right: -388px;
+                z-index: 99;
+            }
+        }
+    }
+    &.wprf-type-advanced-codeviewer {
+        .wprf-control-label {
+            .wprf-badge {
+                    position: absolute;
+                    right: -682px;
+                    z-index: 99;
+            }
+        }
+    }
+    &.wprf-type-radio-card {
+        .wprf-control-label {
+            .wprf-badge {
+                position: absolute;
+                right: -282px;
+                z-index: 99;
+            }
+        }
+    }
+    &.wprf-type-timepicker {
+        .wprf-badge-wrapper {
+            .wprf-control-label {
+                .wprf-badge {
+                    display: none;
+                }
+            }
+        }
+    }
+
+}
+
+.wprf-control-wrapper {
     align-items: flex-start;
     &.wprf-name-preference_google {
         align-items: center;
@@ -282,10 +343,10 @@
             }
 
             & {
-                background-image: url('../icons/crown.svg');
+                background-image: url('../icons/crown-new.svg');
                 background-repeat: no-repeat;
-                width: 20px;
-                height: 20px;
+                width: 50px;
+                height: 24px;
                 background-color: unset;
             }
         }
