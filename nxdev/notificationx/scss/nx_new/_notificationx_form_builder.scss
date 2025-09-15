@@ -242,9 +242,17 @@
     &.wprf-type-advanced-codeviewer {
         .wprf-control-label {
             .wprf-badge {
-                    position: absolute;
-                    right: -682px;
-                    z-index: 99;
+                position: absolute;
+                right: -682px;
+                z-index: 99;
+                @media only screen and (max-width: 700px) {
+                    right: -570px;
+                }
+            }
+        }
+        .wprf-control-field {
+            .wprf-code-viewer {
+                width: 700px;
             }
         }
     }
@@ -292,7 +300,7 @@
             align-items: flex-start;
 
             .wprf-info {
-                transform: translate(32px, 2px) !important;
+                transform: translate(10px, 3px) !important;
             }
         }
 
