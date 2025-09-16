@@ -1353,8 +1353,8 @@
 
         .wprf-badge {
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 50px;
+            height: 24px;
             overflow: hidden;
             z-index: -1;
 
@@ -1384,7 +1384,7 @@
             }
 
             & {
-                background-image: url('../icons/crown.svg');
+                background-image: url('../icons/crown-new.svg');
                 background-repeat: no-repeat;
                 top: 28px;
                 left: calc(100% - 85px);
