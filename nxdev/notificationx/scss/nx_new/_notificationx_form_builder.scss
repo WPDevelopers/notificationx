@@ -289,7 +289,22 @@
             }
         }
     }
-
+    @media only screen and (max-width: 1196px) {
+        &.wprf-type-select, &.wprf-type-better-select {
+            .wprf-control-label {
+                position: unset;
+            }
+            .wprf-badge-wrapper.pro-deactivated {
+                position: relative;
+            }
+        }
+       
+        &.wprf-type-select .wprf-control-label .wprf-badge, 
+        &.wprf-type-better-select .wprf-control-label .wprf-badge {
+            right: 18px;
+            top: 10px;
+        }
+    }
 }
 
 .wprf-control-wrapper {
