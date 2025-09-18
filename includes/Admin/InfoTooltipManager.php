@@ -11,23 +11,73 @@ class InfoTooltipManager {
     private static $tooltips = [
         'advanced_template' => [
             'type'    => 'video',
-            'title'   => 'See how advanced templates works',
+            'title'   => 'Learn how <a href="https://notificationx.com/docs/notificationx-advanced-template/" target="_blank">Advanced Template</a> works',
             'content' => 'https://notificationx.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-NotificationX.mp4',
-            'docs'    => 'https://wpdeveloper.com/docs',
-            'width'   => 450,
-            'height'  => 235,
+            'width'   => '450',
+            'height'  => '235',
         ],
-        'custom_themes' => [
-            'type'    => 'text',
-            'title'   => 'Custom Themes',
-            'content' => 'Get access to 20+ premium themes.',
-            'docs'    => 'https://notificationx.com/themes',
+        'animation' => [
+            'type'    => 'video',
+            'title'   => 'Learn how Animation works',
+            'content' => 'https://notificationx.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-NotificationX.mp4.',
+            'width'   => '450',
+            'height'  => '235',
         ],
-        'analytics' => [
-            'type'    => 'image',
-            'title'   => 'Analytics Integration',
-            'content' => 'https://yourcdn.com/images/analytics.gif',
-            'docs'    => 'https://notificationx.com/docs/analytics',
+        'button' => [
+            'type'    => 'video',
+            'title'   => 'Learn how Button works',
+            'content' => 'https://notificationx.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-NotificationX.mp4.',
+            'width'   => '450',
+            'height'  => '235',
+        ],
+        'custom_css' => [
+            'type'    => 'video',
+            'title'   => 'Learn how Custom CSS works',
+            'content' => 'https://notificationx.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-NotificationX.mp4.',
+            'width'   => '450',
+            'height'  => '235',
+        ],
+        'exclude_by' => [
+            'type'    => 'video',
+            'title'   => 'Learn how Exclude By works',
+            'content' => 'https://notificationx.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-NotificationX.mp4.',
+            'width'   => '450',
+            'height'  => '235',
+        ],
+        'global_queue_management' => [
+            'type'    => 'video',
+            'title'   => 'Learn how <a href="https://notificationx.com/docs/centralized-queue/" target="_blank">Global Queue Management</a> works',
+            'content' => 'https://notificationx.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-NotificationX.mp4.',
+            'width'   => '450',
+            'height'  => '235',
+        ],
+        'order_status' => [
+            'type'    => 'video',
+            'title'   => 'Learn how Order Status works',
+            'content' => 'https://notificationx.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-NotificationX.mp4.',
+            'width'   => '450',
+            'height'  => '235',
+        ],
+        'random_order' => [
+            'type'    => 'video',
+            'title'   => 'Learn how <a href="https://notificationx.com/docs/random-order-notificationx/" target="_blank">Random Order</a> functions',
+            'content' => 'https://notificationx.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-NotificationX.mp4.',
+            'width'   => '450',
+            'height'  => '235',
+        ],
+        'reporting_frequency' => [
+            'type'    => 'video',
+            'title'   => 'Learn how Reporting Frequency works',
+            'content' => 'https://notificationx.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-NotificationX.mp4.',
+            'width'   => '450',
+            'height'  => '235',
+        ],
+        'show_purchase_of' => [
+            'type'    => 'video',
+            'title'   => 'Learn how Show Purchase Of works',
+            'content' => 'https://notificationx.com/wp-content/uploads/2024/01/How-To-Configure-Flashing-Tab-Alert-With-NotificationX.mp4.',
+            'width'   => '450',
+            'height'  => '235',
         ],
     ];
     
@@ -61,14 +111,11 @@ class InfoTooltipManager {
                 esc_attr($tooltip['title'])
             );
         } else {
-            $html .= sprintf('<p>%s</p>', esc_html($tooltip['content']));
+            $html .= sprintf('<p>%s</p>', wp_kses_post($tooltip['content']));
         }
 
         if (!empty($tooltip['title'])) {
-            $html .= '<h3 style="margin:5px 0;">' . esc_html($tooltip['title']);
-            if (!empty($tooltip['docs'])) {
-                $html .= ' <a href="' . esc_url($tooltip['docs']) . '" target="_blank">Docs</a>';
-            }
+            $html .= '<h3 style="margin:5px 0;">' . wp_kses_post($tooltip['title']);
             $html .= '</h3>';
         }
 

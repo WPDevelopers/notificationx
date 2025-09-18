@@ -790,7 +790,7 @@ class GlobalFields {
                                     'is_pro'      => true,
                                     'description' => __('Enable to show notification in random order.', 'notificationx'),
                                     'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart","custom_notification", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
-                                    'info'    => InfoTooltipManager::get_instance()->render('advanced_template'),
+                                    'info'    => InfoTooltipManager::get_instance()->render('random_order'),
                                 ),
                                 'product_control' => array(
                                     'label'    => __('Show Purchase Of', 'notificationx'),
@@ -805,7 +805,7 @@ class GlobalFields {
                                         'product_category' => __('Product Category', 'notificationx'),
                                         'manual_selection' => __('Selected Product', 'notificationx'),
                                     ]),
-                                    'info'    => InfoTooltipManager::get_instance()->render('advanced_template'),
+                                    'info'    => InfoTooltipManager::get_instance()->render('show_purchase_of'),
                                     'rules'       => Rules::includes('source', ['woocommerce','woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'category_list' => array(
@@ -864,7 +864,7 @@ class GlobalFields {
                                         'product_category' => __('Product Category', 'notificationx'),
                                         'manual_selection' => __('Selected Product', 'notificationx'),
                                     ]),
-                                    'info'    => InfoTooltipManager::get_instance()->render('advanced_template'),
+                                    'info'    => InfoTooltipManager::get_instance()->render('exclude_by'),
                                     'rules' => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
                                 ),
                                 'exclude_categories' => array(
@@ -919,7 +919,7 @@ class GlobalFields {
                                     'default'  => ['wc-completed', 'wc-processing'],
                                     'help'     => __("By default it will show Processing & Completed status."),
                                     'options'  => apply_filters('nx_woo_order_status', []),
-                                    'info'    => InfoTooltipManager::get_instance()->render('advanced_template'),
+                                    'info'    => InfoTooltipManager::get_instance()->render('order_status'),
                                     'rules'    => Rules::logicalRule([
                                         Rules::includes('source', ['woocommerce', 'woocommerce_sales', "woo_inline","woocommerce_sales_inline"]),
                                         Rules::includes('themes', [ 'woo_inline_stock-theme-one', 'woo_inline_stock-theme-two', 'woocommerce_sales_inline_stock-theme-one', 'woocommerce_sales_inline_stock-theme-two'], true),
@@ -936,7 +936,7 @@ class GlobalFields {
                                     'default'  => ['processing','fulfilled'],
                                     'help'     => __("By default it will show Processing & Fulfilled status."),
                                     'options'  => apply_filters('nx_surecart_order_status', []),
-                                    'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
+                                    'info'     => InfoTooltipManager::get_instance()->render('order_status'),
                                     'rules'    => Rules::logicalRule([
                                         Rules::includes('source', ["surecart"]),
                                     ]),
@@ -991,7 +991,7 @@ class GlobalFields {
                                         //     'youtube_video-3'   => true,
                                         //     'youtube_video-4'   => true,
                                         // ],
-                                    'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
+                                    'info'     => InfoTooltipManager::get_instance()->render('button'),
                                     'description' => __('Enable button with link', 'notificationx'),
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('type', ['conversions','video','woocommerce', 'woocommerce_sales','page_analytics']),
@@ -1933,6 +1933,7 @@ class GlobalFields {
                                     'default'  => 'default',
                                     'classes'  => NotificationX::is_pro() ? '' : 'animation-pro-disabled',
                                     'priority' => 5,
+                                    'info'     => InfoTooltipManager::get_instance()->render('animation'),
                                     'options'  => [
                                         'default' => [
                                             'label'    => __('Default', 'notificationx'),

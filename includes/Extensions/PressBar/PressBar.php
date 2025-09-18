@@ -1279,7 +1279,6 @@ class PressBar extends Extension {
                     // 'field'  => "country_targeting",
                 ],
             ],
-            'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
             'rules'    => Rules::is('source', $this->id),
         ];
 
@@ -1333,7 +1332,6 @@ class PressBar extends Extension {
                     'classes'  => 'radio-card-v2',
                     'is_pro'   => true,
                     'default'  => 'daily',
-                    'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
                     'options'  => array(
                         'daily' => array(
                             'value' => 'daily',
