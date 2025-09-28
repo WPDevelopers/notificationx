@@ -52,7 +52,10 @@ export const handleCloseNotification = (config, id, dispatch) => {
         path: "/",
         expires: null,
     };
-    const reappearance = config?.type == 'notification_bar' ? config?.bar_reappearance : 'dont_show_welcomebar';
+    const reappearance = config?.type === 'notification_bar'
+                            ? config?.bar_reappearance
+                            : config?.notification_reappearance ?? 'dont_show_welcomebar';
+
     let countRand = config?.countdown_rand ? `-${config.countdown_rand}` : '';
     const cookieKey = "notificationx_" + config?.nx_id + countRand;
     // Determine expiration based on bar_reappearance value

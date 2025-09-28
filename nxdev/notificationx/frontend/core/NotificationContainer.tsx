@@ -32,6 +32,18 @@ const NotificationContainer = (props: any) => {
         return (
             <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
                 {NoticeList.map((notice) => {
+                    const { nx_id, notification_reappearance, countdown_rand } = notice?.config ?? {};
+                    const countRand = countdown_rand ? `-${countdown_rand}` : '';
+                    const storageKey = `notificationx_${nx_id}${countRand}`;
+                    const storageMap = {
+                        dont_show_welcomebar: localStorage,
+                        show_welcomebar_next_visit: sessionStorage,
+                    };
+
+                    if (storageMap[notification_reappearance]?.getItem(storageKey)) {
+                        return null;
+                    }
+
                     if (isMobileAndPro && notice?.config?.is_mobile_responsive && !noMobileDesign?.includes(notice?.config?.source) ) {
                         return (
                             <NotificationForMobile
