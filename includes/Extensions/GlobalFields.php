@@ -618,7 +618,7 @@ class GlobalFields {
                                             'is_pro'       => true,
                                             'copyOnClick'  => false,
                                             'priority'     => 5,
-                                            'info'         => InfoTooltipManager::get_instance()->render('advanced_template'),
+                                            'info'         => InfoTooltipManager::get_instance()->render('custom_css'),
                                             'help'         => __('Use custom CSS to style this Notification.', 'notificationx'),
                                         ],
                                     ]
@@ -2014,6 +2014,7 @@ class GlobalFields {
                                     'default'  => 'default',
                                     'classes'  => NotificationX::is_pro() ? '' : 'animation-pro-disabled',
                                     'priority' => 10,
+                                    'info'     => InfoTooltipManager::get_instance()->render('animation'),
                                     'options'  => [
                                         'default' => [
                                             'label' => __('Default', 'notificationx'),
@@ -2111,7 +2112,7 @@ class GlobalFields {
                                     'priority' => 0,
                                     'default'  => false,
                                     'is_pro'   => true,
-                                    'info'    => InfoTooltipManager::get_instance()->render('advanced_template'),
+                                    'info'    => InfoTooltipManager::get_instance()->render('global_queue_management'),
                                     'description' => sprintf('%s <a href="%s" target="_blank">%s</a>', __('Activate global queue system for this notification.', 'notificationx'), 'https://notificationx.com/docs/centralized-queue', __('Check out this doc.', 'notificationx')),
                                 ],
                             ]

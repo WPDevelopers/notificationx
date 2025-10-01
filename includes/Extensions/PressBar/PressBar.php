@@ -1258,6 +1258,7 @@ class PressBar extends Extension {
             'id'       => 'targeting',
             'classes'  => 'nx-targeting',
             'priority' => 100,
+            'info'     => InfoTooltipManager::get_instance()->render('button'),
             'fields'   => []
         ];
 
@@ -1280,6 +1281,7 @@ class PressBar extends Extension {
                 ],
             ],
             'rules'    => Rules::is('source', $this->id),
+            'info'     => InfoTooltipManager::get_instance()->render('targeting'),
         ];
 
         // User Role Targeting
@@ -1299,7 +1301,7 @@ class PressBar extends Extension {
             'default'  => ['all_users'],
             'options'  => GlobalFields::get_instance()->normalize_fields($wp_roles_with_default),
             'multiple' => true,
-            'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
+            'info'     => InfoTooltipManager::get_instance()->render('targeting'),
             'rules'    => Rules::is('source', $this->id),
         ];
 
@@ -1349,6 +1351,7 @@ class PressBar extends Extension {
                             // 'icon'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/schedule/custom.png',
                         ),
                     ),
+                    'info'     => InfoTooltipManager::get_instance()->render('schedule_type'),
                 ),
                 'daily_from_time' => array(
                     'name'     => 'daily_from_time',

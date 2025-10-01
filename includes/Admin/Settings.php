@@ -362,6 +362,7 @@ class Settings extends UsabilityDynamicsSettings {
                                         )
                                     ),
                                     'rules'    => Rules::is( 'disable_reporting', false ),
+                                    'info'     => InfoTooltipManager::get_instance()->render('reporting_frequency'),
                                 ),
                                 'reporting_monthly_help_text' => array(
                                     'name'     => 'reporting_monthly_help_text',

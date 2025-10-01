@@ -5,7 +5,7 @@ import { Header } from '../../components'
 import nxHelper, { proAlert } from '../../core/functions';
 import { AnalyticsHeader } from '../Analytics';
 import { Documentation } from '.';
-import { InfoIcon } from '../../icons';
+import { InfoIcon, DocIcon } from '../../icons';
 import { useNotificationXContext } from '../../hooks';
 import nxToast, { ToastAlert } from "../../core/ToasterMsg";
 import { __ } from '@wordpress/i18n';
@@ -83,7 +83,7 @@ const SettingsInner = (props) => {
         //         <span>Notification Pro: <strong>2.0.0</strong></span>
         //     </>
         // })
-        builder.registerIcons('link', <InfoIcon />);
+        builder.registerIcons('link', <DocIcon />);
         builder.registerAlert('pro_alert', proAlert);
         builder.registerAlert('toast', ToastAlert);
     }, []);

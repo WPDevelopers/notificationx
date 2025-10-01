@@ -213,12 +213,15 @@
         position: relative;
         .wprf-control-label {
             position: unset;
+            align-items: center;
         }
         .wprf-badge {
             left: auto;
             right: 2px;
             top: 2px;
             z-index: 99;
+            position: unset !important;
+            margin-left: 8px;
         }
     }
 }
@@ -468,11 +471,11 @@
 
                     span {
                         border-radius: 3px;
-                        box-shadow: 0px 6px 12px -2px #1B212C0F;
+                        box-shadow: 0px 6px 12px -2px rgba(27, 33, 44, 0.3588235294);
                         background: #fff;
                         border: none;
                         width: 100%;
-                        max-width: 200px;
+                        max-width: 250px;
                         white-space: pre-wrap;
                         padding: 12px;
                         text-align: center;
@@ -499,7 +502,7 @@
                             height: 132px;
                         }
                         h3 {
-                            font-size: 12px;
+                            font-size: 14px;
                             line-height: 16px;
                             font-weight: 400;
                             color: #000;
@@ -1525,6 +1528,15 @@
         display: none;
     }
 
+}
+#tab-general .wprf-control-wrapper .wprf-control-label a {
+    border: none;
+    width: 17px;
+    height: 17px;
+    svg {
+        width: 17px;
+        height: 17px;
+    }
 }
 .wprf-control-section.closed_button_section_fields {
     flex: 70%;
