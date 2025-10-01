@@ -54,20 +54,25 @@ export const handleCloseNotification = (config, id, dispatch) => {
     };
     const reappearance = config?.type === 'notification_bar'
                             ? config?.bar_reappearance
-                            : config?.notification_reappearance ?? 'dont_show_welcomebar';
+                            : config?.notification_reappearance ?? 'show_notification_next_visit';
 
     let countRand = config?.countdown_rand ? `-${config.countdown_rand}` : '';
+    const cacheDuration = config?.type == 'notification_bar' ? config?.bar_cache_duration_for_dont_show ?? 10 : config?.cache_duration_for_dont_show ?? 10;
     const cookieKey = "notificationx_" + config?.nx_id + countRand;
     // Determine expiration based on bar_reappearance value
     switch (reappearance) {
         case 'dont_show_welcomebar':
-            options.expires = new Date(date.getTime() + 2 * 30 * 24 * 60 * 60 * 1000); // 2 months
+        case 'dont_show_notification': 
+            // formate date based on cacheDuration 
+            options.expires = new Date(date.getTime() + cacheDuration * 24 * 60 * 60 * 1000);
             break;
         case 'show_welcomebar_next_visit':
+        case 'show_notification_next_visit':
             sessionStorage.setItem(cookieKey, 'closed');
             // Don't set expires for session cookie
             break;
         case 'show_welcomebar_every_page':
+        case 'show_notification_every_page':
             // sessionStorage.setItem("notificationx_" + config?.nx_id, "closed");
             break;
         default:
@@ -78,7 +83,7 @@ export const handleCloseNotification = (config, id, dispatch) => {
             }
     }
 
-    if (reappearance === 'dont_show_welcomebar') {
+    if (reappearance === 'dont_show_welcomebar' || reappearance === 'dont_show_notification') {
         cookie.save(cookieKey, true, options);
     }
 

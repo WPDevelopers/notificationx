@@ -36,8 +36,8 @@ const NotificationContainer = (props: any) => {
                     const countRand = countdown_rand ? `-${countdown_rand}` : '';
                     const storageKey = `notificationx_${nx_id}${countRand}`;
                     const storageMap = {
-                        dont_show_welcomebar: localStorage,
-                        show_welcomebar_next_visit: sessionStorage,
+                        dont_show_notification: localStorage,
+                        show_notification_next_visit: sessionStorage,
                     };
 
                     if (storageMap[notification_reappearance]?.getItem(storageKey)) {

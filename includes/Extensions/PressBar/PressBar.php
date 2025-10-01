@@ -1098,6 +1098,20 @@ class PressBar extends Extension {
                 'show_welcomebar_every_page' => __( 'Show the Bar when the user refreshes/goes to another page', 'notificationx' ),
             ]),
         );
+        $fields['visibility']['fields']['bar_cache_duration_for_dont_show'] = [
+            'label'   => __( 'Cache Duration for "Don\'t show again"', 'notificationx' ),
+            'name'    => 'bar_cache_duration_for_dont_show',
+            'type'    => 'number',
+            'default' => 10,
+            'min'     => 1,
+            'max'     => 365,
+            'step'    => 1,
+            'description' => __('Days', 'notificationx'),
+            'rules'   => Rules::logicalRule([
+                Rules::is('bar_reappearance', 'dont_show_welcomebar'),
+                Rules::is('source', $this->id),
+            ]),
+        ];
         return $fields;
     }
 

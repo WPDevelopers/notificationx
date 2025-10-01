@@ -1913,16 +1913,29 @@ class GlobalFields {
                                     'label'   => __( 'Notification Reappearance', 'notificationx' ),
                                     'type'    => 'select',
                                     'name'    => 'notification_reappearance',
-                                    'default' => 'show_welcomebar_next_visit',
+                                    'default' => 'show_notification_next_visit',
                                     'rules'   => Rules::logicalRule([
                                         Rules::is('source', 'press_bar', true),
                                     ]),
                                     'options'  => GlobalFields::get_instance()->normalize_fields([
-                                        'dont_show_welcomebar'       => __( "Don't show the Notification again for the user", 'notificationx' ),
-                                        'show_welcomebar_next_visit' => __( 'Show the Notification again when the user visits the website next time', 'notificationx' ),
-                                        'show_welcomebar_every_page' => __( 'Show the Notification when the user refreshes/goes to another page', 'notificationx' ),
+                                        'dont_show_notification'       => __( "Don't show the Notification again for the user", 'notificationx' ),
+                                        'show_notification_next_visit' => __( 'Show the Notification again when the user visits the website next time', 'notificationx' ),
+                                        'show_notification_every_page' => __( 'Show the Notification when the user refreshes/goes to another page', 'notificationx' ),
                                     ]),
                                 ),
+                                'cache_duration_for_dont_show' => [
+                                    'label'   => __( 'Cache Duration for "Don\'t show again"', 'notificationx' ),
+                                    'name'    => 'cache_duration_for_dont_show',
+                                    'type'    => 'number',
+                                    'default' => 10,
+                                    'min'     => 1,
+                                    'max'     => 365,
+                                    'step'    => 1,
+                                    'description' => __('Days', 'notificationx'),
+                                    'rules'   => Rules::logicalRule([
+                                        Rules::is('notification_reappearance', 'dont_show_notification'),
+                                    ]),
+                                ],
                             ]
                         ],
                         'animation' => [
