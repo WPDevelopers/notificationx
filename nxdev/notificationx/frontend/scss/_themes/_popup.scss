@@ -121,6 +121,74 @@
                 }
             }
         }
+        &.popup_notification_theme-four,
+        &.popup_notification_theme-five {
+            background: linear-gradient(270deg, #D4ECFF 31.24%, #F0E5FF 100%);
+            border: 1px solid #EAEEF2;
+            border-radius: 16px;
+            box-shadow: 0px 4px 4px 0px #CBD2E4, 0px 4px 20px 5px #FFFFFF80 inset;
+            
+            .nx-popup-container {
+                .nx-popup-header {
+                    padding: 24px 24px 12px;
+
+                    h3.nx-popup-title {
+                        font-size: 20px;
+                        line-height: 110%;
+                        font-weight: 600;
+                        color: #092161;
+                    }
+                }
+                .nx-popup-content {
+                    min-width: 300px;
+                    padding: 0 24px;
+
+                    .nx-popup-description {
+                        font-size: 14px;
+                        line-height: 130%;
+                        color: #535D77;
+                        margin-bottom: 12px;
+                        max-width: 290px;
+                    }
+
+                    input {
+                        background: #FFF;
+                        border: 1px solid #EFF6FC;
+                        border-radius: 8px;
+                        padding: 12px;
+                        font-size: 12px;
+                        line-height: 150%;
+                        color: #092161;
+                        width: 100%;
+                        margin-bottom: 12px;
+                    }
+                    textarea {
+                        background: #FFF;
+                        border: 1px solid #EFF6FC;
+                        border-radius: 8px;
+                        padding: 12px;
+                        font-size: 12px;
+                        line-height: 150%;
+                        color: #092161;
+                        width: 100%;
+                        height: 80px;
+                        resize: none;
+                        margin-bottom: 12px
+
+                    }
+                    .nx-popup-button.nx-popup-primary-button {
+                        border: 1px solid #FFFFFF80;
+                        box-shadow: none;
+                        background: radial-gradient(96.55% 96.55% at 49.23% 0%, #EDE4FF 0%, #7484FF 100%);
+                        border-radius: 6px;
+                        margin: 0 0 18px;
+                    }
+                }
+                .nx-popup-footer {
+                    background: #FFFFFF;
+                }
+            } 
+        }
         .nx-popup-container {
             button.nx-popup-close.top-right {
                 position: absolute;
