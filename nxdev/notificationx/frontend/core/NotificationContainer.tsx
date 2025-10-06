@@ -39,8 +39,11 @@ const NotificationContainer = (props: any) => {
                         dont_show_notification: localStorage,
                         show_notification_next_visit: sessionStorage,
                     };
-
-                    if (storageMap[notification_reappearance]?.getItem(storageKey)) {
+                    // @ts-ignore 
+                    const crossValue = window?.notificationXArr[0]?.cross;
+                    const reappearance = crossValue ? 'show_notification_next_visit' : notification_reappearance;
+                    
+                    if (storageMap[reappearance]?.getItem(storageKey)) {
                         return null;
                     }
 

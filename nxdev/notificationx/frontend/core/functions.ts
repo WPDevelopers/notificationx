@@ -52,13 +52,20 @@ export const handleCloseNotification = (config, id, dispatch) => {
         path: "/",
         expires: null,
     };
-    const reappearance = config?.type === 'notification_bar'
-                            ? config?.bar_reappearance
-                            : config?.notification_reappearance ?? 'show_notification_next_visit';
+     // @ts-ignore 
+    const crossValue = window?.notificationXArr[0]?.cross;
+    const reappearance = crossValue
+        ? 'show_notification_next_visit' // Force this if cross domain
+        : (
+            config?.type === 'notification_bar'
+                ? config?.bar_reappearance
+                : (config?.notification_reappearance ?? 'show_notification_next_visit')
+        );
 
-    let countRand = config?.countdown_rand ? `-${config.countdown_rand}` : '';
+
+    let   countRand     = config?.countdown_rand ? `-${config.countdown_rand}` : '';
     const cacheDuration = config?.type == 'notification_bar' ? config?.bar_cache_duration_for_dont_show ?? 10 : config?.cache_duration_for_dont_show ?? 10;
-    const cookieKey = "notificationx_" + config?.nx_id + countRand;
+    const cookieKey     = "notificationx_" + config?.nx_id + countRand;
     // Determine expiration based on bar_reappearance value
     switch (reappearance) {
         case 'dont_show_welcomebar':
