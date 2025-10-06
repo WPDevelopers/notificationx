@@ -106,14 +106,35 @@
                 .nx-popup-content {
                     padding: 20px 20px 16px;
 
-                    iframe {
-                        border-radius: 8px;
+                    .nx-popup-description {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 16px;
+                        margin-bottom: 0;
+                        .des-item-wrap {
+                            background: linear-gradient(90deg, #FFF3ED 0%, #FFFFFF 100%);
+                            padding: 12px 16px;
+                            border-radius: 8px;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 4px;
+
+                            h3 {
+                                font-size: 16px;
+                                font-weight: 600;
+                                line-height: 150%;
+                                color: #092161;
+                            }
+                            p {
+                                font-size: 14px;
+                                line-height: 150%;
+                                color: #535D77;
+                                margin: 0;
+                            }
+                        }
                     }
-                    .nx-popup-button.nx-popup-primary-button {
-                        background: #6A4BFF;
-                        border: 1px solid #EADFFF;
-                        box-shadow: 0px 25.45px 30.55px 0px #8A50E629;
-                        margin: 8px 0 12px;
+                    .nx-popup-actions {
+                        display: none;
                     }
                 }
                 .nx-popup-footer {
@@ -122,7 +143,9 @@
             }
         }
         &.popup_notification_theme-four,
-        &.popup_notification_theme-five {
+        &.popup_notification_theme-five,
+        &.popup_notification_theme-six,
+        &.popup_notification_theme-seven {
             background: linear-gradient(270deg, #D4ECFF 31.24%, #F0E5FF 100%);
             border: 1px solid #EAEEF2;
             border-radius: 16px;
@@ -212,10 +235,15 @@
 
             
             }
-            .nx-popup-header {
-            }
             .nx-popup-content {
                 padding: 0 16px;
+
+                .nx-popup-description {
+                    font-size: 14px;
+                    line-height: 130%;
+                    color: #535D77;
+                    margin-bottom: 12px;
+                }
                 .nx-popup-button.nx-popup-primary-button {
                     font-size: 14px;
                     font-weight: 500;

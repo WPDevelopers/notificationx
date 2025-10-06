@@ -349,7 +349,7 @@ const Popup = (props: any) => {
                         { settings.theme.includes("popup_notification_theme-three") && (
                             <div className="nx-popup-description" style={descColorFont}>
                                 {settings.popup_content_repeater.map((item: any, index: number) => (
-                                    <div key={index}>
+                                    <div className='des-item-wrap' key={index}>
                                         <h3>{item.repeater_title}</h3>
                                         <p>{item.repeater_subtitle}</p>
                                     </div>
