@@ -135,10 +135,11 @@ class Settings extends UsabilityDynamicsSettings {
                     'priority' => 10,
                     'fields'   => [
                         'section-modules' => [
-                            'label'  => __( 'Modules', 'notificationx' ),
-                            'name'   => 'section-modules',
-                            'type'   => 'section',
-                            'fields' => [
+                            'label'   => __( 'Modules', 'notificationx' ),
+                            'name'    => 'section-modules',
+                            'type'    => 'section',
+                            'classes' => NotificationX::get_instance()->is_pro() ? 'section-modules pro-activated' : 'section-modules',
+                            'fields'  => [
                                 'modules' => [
                                     // 'label'   => "Modules",
                                     'name'     => 'modules',

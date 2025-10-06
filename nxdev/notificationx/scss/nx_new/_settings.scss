@@ -19,16 +19,24 @@
                 flex: 6;
             }
         }
-        #tab-general #section-modules .wprf-section-fields .wprf-column {
-            flex : 1 1 calc(50% - 10px);
-            &:last-child {
-                flex: 0.5;
-                margin-right: 30px;
-                @media only screen and (max-width: 1399px) {
-                    margin-right: 15px;
+        #tab-general #section-modules {
+            &.pro-activated {
+                .wprf-section-fields .wprf-column {
+                    flex: unset;
+                }
+            }
+            .wprf-section-fields .wprf-column {
+                flex : 1 1 calc(50% - 10px);
+                &:last-child {
+                    flex: 0.5;
+                    margin-right: 30px;
+                    @media only screen and (max-width: 1399px) {
+                        margin-right: 15px;
+                    }
                 }
             }
         }
+        
     }
     // Right Side Settings CSS
     .nx-settings-right {
