@@ -80,11 +80,14 @@ export const handleCloseNotification = (config, id, dispatch) => {
             break;
         case 'show_welcomebar_every_page':
         case 'show_notification_every_page':
-            // sessionStorage.setItem("notificationx_" + config?.nx_id, "closed");
+            // @ts-ignore
+           window.notificationXClosed = window.notificationXClosed || {};
+           // @ts-ignore
+           window.notificationXClosed[config?.nx_id] = true;
             break;
         default:
             if (config?.close_forever) {
-                options.expires = new Date(date.getTime() + 2 * 30 * 24 * 60 * 60 * 1000);
+                options.expires = new Date(date.getTime() + cacheDuration * 24 * 60 * 60 * 1000);
             } else if (config?.evergreen_timer && config?.time_reset) {
                 options.expires = new Date(date.getTime() + 24 * 60 * 60 * 1000); // 1 day
             }
