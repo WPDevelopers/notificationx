@@ -24,7 +24,7 @@ class CCPA_Notification extends Extension {
 
     public $priority        = 20;
     public $id              = 'ccpa_notification';
-    public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
+    public $doc_link        = 'https://notificationx.com/docs/how-to-configure-cookies-policy-for-website/';
     public $types           = 'gdpr';
     // public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/vimeo.png';
     public $show_on_module  = false;
