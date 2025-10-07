@@ -243,7 +243,7 @@
             .wprf-badge {
                 position: absolute;
                 right: -95px;
-                z-index: 99;
+                z-index: 9;
             }
         }
     }
@@ -1504,7 +1504,7 @@
 
     &.animation-pro-disabled .wprf-select__menu .wprf-select__menu-list:after {
         position: absolute;
-        content: url('../icons/crown.svg');
+        content: url('../icons/crown-new.svg');
         // content: "Get Pro to Unlock";
         // padding: 10px 20px;
         // background-color: #6A4BFF;
@@ -1518,7 +1518,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 6;
+        z-index: 999;
     }
 
     &.animation-pro-disabled #animation_notification_show .wprf-select__menu .wprf-select__menu-list .wprf-select__option::before {
