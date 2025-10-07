@@ -330,10 +330,10 @@
 
         .wprf-control-label {
             display: inline-flex;
-            align-items: flex-start;
+            align-items: center;
 
             .wprf-info {
-                transform: translate(10px, 3px) !important;
+                transform: translate(10px, -8px) !important;
             }
         }
 

@@ -470,6 +470,11 @@
                         }
                     }
                 }
+               @media (max-width: 1540px) {
+                    #custom_css .wprf-section-fields .wprf-control-wrapper .wprf-badge-wrapper {
+                        flex-direction: column;
+                    }
+                }
             }
 
             #themes.themes {
