@@ -1528,6 +1528,36 @@
         display: none;
     }
 
+    &.wprf-name-add_custom_css {
+        .wprf-control-label {
+            align-items: start !important;
+            .wprf-info {
+                margin-top: 13px;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 1540px) {
+        &.wprf-name-add_custom_css .wprf-badge-wrapper {
+            .wprf-code-viewer {
+                max-width: 100% !important;
+                width: 100%;
+            }
+        }
+        &.wprf-name-add_custom_css .wprf-control-label{
+            display: none;
+            .wprf-info {
+                transform: translate(10px, 4px) !important;
+            }
+            .wprf-badge {
+                right: 0;
+                top: 50px;
+            }
+            .wprf-code-viewer {
+                max-width: 100%;
+            }
+        }
+    }
 }
 #tab-general .wprf-control-wrapper .wprf-control-label a {
     border: none;

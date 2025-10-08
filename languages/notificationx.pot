@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-07T10:49:28+00:00\n"
+"POT-Creation-Date: 2025-10-08T10:29:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -1481,9 +1481,9 @@ msgstr ""
 #: includes/Extensions/Tutor/Tutor.php:531
 #: includes/Extensions/Tutor/Tutor.php:532
 #: includes/Extensions/Tutor/Tutor.php:533
-#: includes/Extensions/WooCommerce/WooCommerce.php:526
 #: includes/Extensions/WooCommerce/WooCommerce.php:527
 #: includes/Extensions/WooCommerce/WooCommerce.php:528
+#: includes/Extensions/WooCommerce/WooCommerce.php:529
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:73
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:85
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:97
@@ -1761,7 +1761,7 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:210
 #: includes/Extensions/SureCart/SureCart.php:453
 #: includes/Extensions/Tutor/Tutor.php:129
-#: includes/Extensions/WooCommerce/WooCommerce.php:102
+#: includes/Extensions/WooCommerce/WooCommerce.php:103
 #: includes/Extensions/WooCommerce/WOOReviews.php:231
 #: includes/Extensions/WPF/WPForms.php:90
 msgid "You have to install"
@@ -1777,7 +1777,7 @@ msgstr ""
 #: includes/Extensions/NJF/NinjaForms.php:93
 #: includes/Extensions/SureCart/SureCart.php:456
 #: includes/Extensions/Tutor/Tutor.php:132
-#: includes/Extensions/WooCommerce/WooCommerce.php:105
+#: includes/Extensions/WooCommerce/WooCommerce.php:106
 #: includes/Extensions/WooCommerce/WOOReviews.php:234
 #: includes/Extensions/WPF/WPForms.php:93
 msgid "plugin first."
@@ -1867,13 +1867,13 @@ msgid "Easy Digital Downloads"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:129
-#: includes/Extensions/WooCommerce/WooCommerce.php:477
+#: includes/Extensions/WooCommerce/WooCommerce.php:478
 msgid "more products"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:147
 #: includes/Extensions/SureCart/SureCart.php:431
-#: includes/Extensions/WooCommerce/WooCommerce.php:132
+#: includes/Extensions/WooCommerce/WooCommerce.php:133
 #: includes/Types/DownloadStats.php:199
 #: includes/Types/Traits/Reviews.php:22
 msgid "Product Page"
@@ -1884,7 +1884,7 @@ msgstr ""
 #: includes/Extensions/LearnPress/LearnPress.php:539
 #: includes/Extensions/SureCart/SureCart.php:441
 #: includes/Extensions/Tutor/Tutor.php:534
-#: includes/Extensions/WooCommerce/WooCommerce.php:529
+#: includes/Extensions/WooCommerce/WooCommerce.php:530
 #: includes/Types/Conversions.php:68
 #: includes/Types/WooCommerceSales.php:66
 msgid "Anonymous Product"
@@ -4263,7 +4263,7 @@ msgstr ""
 
 #: includes/Extensions/WooCommerce/WooCommerce.php:54
 #: includes/Extensions/WooCommerce/WooCommerce.php:55
-#: includes/Extensions/WooCommerce/WooCommerce.php:104
+#: includes/Extensions/WooCommerce/WooCommerce.php:105
 #: includes/Extensions/WooCommerce/WOOReviews.php:55
 #: includes/Extensions/WooCommerce/WOOReviews.php:56
 #: includes/Extensions/WooCommerce/WOOReviews.php:233
@@ -4277,11 +4277,11 @@ msgid "Product Title Raw"
 msgstr ""
 
 #. translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
-#: includes/Extensions/WooCommerce/WooCommerce.php:480
+#: includes/Extensions/WooCommerce/WooCommerce.php:481
 msgid "%1$s & %2$s %3$s"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerce.php:537
+#: includes/Extensions/WooCommerce/WooCommerce.php:538
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:203
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:167
 msgid ""
