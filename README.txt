@@ -209,7 +209,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.1.5 - 07/10/2025 =
+= 3.1.5 - 08/10/2025 =
 Added: Feature explanation GIFs to improve user experience.
 Added: Option to make notifications reappear for all types.
 Few minor bug fixes and improvements.
