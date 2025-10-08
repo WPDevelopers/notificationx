@@ -259,5 +259,120 @@ class Conversions extends Types {
     public function init_fields() {
         parent::init_fields();
     } 
+
+     /**
+     * @todo remove in the future.
+     *
+     * @param [type] $data
+     * @param [type] $settings
+     * @return void
+     */
+    public function nx_can_entry($return, $entry, $settings){
+        if(!($this->_excludes_product($entry['data'], $settings) && $this->_show_purchaseof($entry['data'], $settings))){
+            return false;
+        }
+
+        return $return;
+    }
+
+     /**
+     * @todo remove in the future.
+     *
+     * @param [type] $data
+     * @param [type] $settings
+     * @return void
+     */
+    public function show_exclude_product( $data, $settings ){
+        $new_data = [];
+
+        if( ! empty( $data ) ) {
+            foreach( $data as $key => $product ) {
+                if( $this->_excludes_product($product, $settings) && $this->_show_purchaseof($product, $settings)  ) {
+                    $new_data[ $key ] = $product;
+                }
+            }
+        }
+
+        return $new_data;
+
+    }
+
+    public function _excludes_product( $product, $settings ){
+        if( empty( $settings['product_exclude_by'] ) || $settings['product_exclude_by'] === 'none' ) {
+            return true;
+        }
+
+        $product_category_list = [];
+
+        $product_id = $product['product_id'];
+        if( $settings['product_exclude_by'] == 'product_category' ) {
+            $term = 'product_cat';
+            if($settings['source'] == 'edd' || $settings['source'] == 'edd_inline'){
+                $term = 'download_category';
+            }
+            $product_categories = get_the_terms( $product_id, $term );
+            if( ! is_wp_error( $product_categories ) ) {
+                foreach( $product_categories as $category ) {
+                    $product_category_list[] = $category->slug;
+                }
+            }
+
+            $product_category_count = count( $product_category_list );
+            $array_diff = array_diff( $product_category_list, $settings['exclude_categories'] );
+            $array_diff_count = count( $array_diff );
+
+            if( ! ( $array_diff_count < $product_category_count ) ) {
+                return true;
+            }
+            $product_category_list = [];
+        }
+        if( $settings['product_exclude_by'] == 'manual_selection' ) {
+            if( isset($settings['exclude_products']) && is_array($settings['exclude_products']) && ! in_array( $product_id, $settings['exclude_products'] ) ) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+
+    public function _show_purchaseof( $product, $settings ){
+        if( empty( $settings['product_control'] ) || $settings['product_control'] === 'none' ) {
+            return true;
+        }
+
+        $product_category_list = [];
+
+        $product_id = $product['product_id'];
+        if( $settings['product_control'] == 'product_category' ) {
+            $term = 'product_cat';
+            if($settings['source'] == 'edd' || $settings['source'] == 'edd_inline'){
+                $term = 'download_category';
+            }
+            $product_categories = get_the_terms( $product_id, $term );
+            if(is_array($product_categories) && ! is_wp_error( $product_categories ) ) {
+                foreach( $product_categories as $category ) {
+                    $product_category_list[] = $category->slug;
+                }
+            }
+
+            $product_category_count = count( $product_category_list );
+            $array_diff = array_diff( $product_category_list, $settings['category_list'] );
+            $array_diff_count = count( $array_diff );
+
+            if( $array_diff_count < $product_category_count ) {
+                return true;
+            }
+
+        }
+        if( $settings['product_control'] == 'manual_selection' ) {
+            if( in_array( $product_id, $settings['product_list'] ) ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
     
 }

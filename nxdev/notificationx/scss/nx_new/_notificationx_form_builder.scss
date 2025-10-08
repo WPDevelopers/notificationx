@@ -142,10 +142,10 @@
                 }
 
                 & {
-                    background-image: url('../icons/crown-new.svg');
+                    background-image: url('../icons/crown.svg');
                     background-repeat: no-repeat;
                     top: 8px;
-                    left: calc(100% - 58px);
+                    left: calc(100% - 32px);
                 }
             }
         }
@@ -235,7 +235,7 @@
             .wprf-badge {
                 position: absolute;
                 right: -105px;
-                z-index: 99;
+                z-index: 9;
             }
         }
     &.wprf-type-checkbox {
@@ -253,7 +253,7 @@
             .wprf-badge {
                 position: absolute;
                 right: -388px;
-                z-index: 99;
+                z-index: 9;
             }
         }
     }
@@ -384,7 +384,7 @@
             }
 
             & {
-                background-image: url('../icons/crown-new.svg');
+                background-image: url('../icons/crown.svg');
                 background-repeat: no-repeat;
                 width: 50px;
                 height: 24px;
@@ -1435,7 +1435,7 @@
             }
 
             & {
-                background-image: url('../icons/crown-new.svg');
+                background-image: url('../icons/crown.svg');
                 background-repeat: no-repeat;
                 top: 28px;
                 left: calc(100% - 85px);
@@ -1504,7 +1504,7 @@
 
     &.animation-pro-disabled .wprf-select__menu .wprf-select__menu-list:after {
         position: absolute;
-        content: url('../icons/crown-new.svg');
+        content: url('../icons/crown.svg');
         // content: "Get Pro to Unlock";
         // padding: 10px 20px;
         // background-color: #6A4BFF;

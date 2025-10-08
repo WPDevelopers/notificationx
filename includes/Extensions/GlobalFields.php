@@ -798,8 +798,8 @@ class GlobalFields {
                                     'type'     => 'select',
                                     'priority' => 94,
                                     'default'  => 'none',
-                                    'is_pro'   => true,
-                                    'disable' => true,
+                                    // 'is_pro'   => true,
+                                    // 'disable' => true,
                                     'options'  => GlobalFields::get_instance()->normalize_fields([
                                         'none'             => __('All', 'notificationx'),
                                         'product_category' => __('Product Category', 'notificationx'),
@@ -857,8 +857,8 @@ class GlobalFields {
                                     'type'     => 'select',
                                     'priority' => 97,
                                     'default'  => 'none',
-                                    'is_pro'   => true,
-                                    'disable' => true,
+                                    // 'is_pro'   => true,
+                                    // 'disable' => true,
                                     'options'  => GlobalFields::get_instance()->normalize_fields([
                                         'none'             => __('None', 'notificationx'),
                                         'product_category' => __('Product Category', 'notificationx'),
