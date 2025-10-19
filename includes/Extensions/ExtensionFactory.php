@@ -74,6 +74,7 @@ class ExtensionFactory {
 			'vimeo'                           => 'NotificationX\Extensions\Vimeo\Vimeo',
 			'wistia'                          => 'NotificationX\Extensions\Wistia\Wistia',
 			'surecart'                        => 'NotificationX\Extensions\SureCart\SureCart',
+			'fluentcart'                      => 'NotificationX\Extensions\FluentCart\FluentCart',
 			'ActiveCampaign'				  => 'NotificationX\Extensions\ActiveCampaign\ActiveCampaign',
 			'gdpr_notification'				  => 'NotificationX\Extensions\GDPR\GDPR_Notification',
 			'ccpa_notification'				  => 'NotificationX\Extensions\CCPA\CCPA_Notification',

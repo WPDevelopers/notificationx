@@ -789,7 +789,7 @@ class GlobalFields {
                                     'default'     => 0,
                                     'is_pro'      => true,
                                     'description' => __('Enable to show notification in random order.', 'notificationx'),
-                                    'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart","custom_notification", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline']),
+                                    'rules'       => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart","custom_notification", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart']),
                                     'info'    => InfoTooltipManager::get_instance()->render('random_order'),
                                 ),
                                 'product_control' => array(
