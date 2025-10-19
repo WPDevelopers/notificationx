@@ -75,12 +75,34 @@ class FluentCart extends Extension {
     }
 
     public function check_order_status($return, $entry, $settings){
-        $done = !empty($settings['fluentcart_order_status']) ? $settings['fluentcart_order_status'] : ['paid'];
-        if( ( !empty( $entry['data']['payment_status'] ) && in_array($entry['data']['payment_status'], $done ) ) || ( !empty( $entry['data']['status'] ) && in_array($entry['data']['status'], $done ) ) || ( !empty( $entry['data']['shipping_status'] ) && in_array($entry['data']['shipping_status'], $done ) ) ){
-            return $return;
+        // Default to 'paid' and 'processing' if no status is specified
+        $allowed_statuses = !empty($settings['fluentcart_order_status']) ? $settings['fluentcart_order_status'] : ['paid', 'processing'];
+
+        // Check if any of the order's statuses match the allowed statuses
+        $status_matches = false;
+
+        // Check payment status
+        if (!empty($entry['data']['payment_status']) && in_array($entry['data']['payment_status'], $allowed_statuses)) {
+            $status_matches = true;
         }
-        return true;
-        return false;
+
+        // Check order status
+        if (!empty($entry['data']['status']) && in_array($entry['data']['status'], $allowed_statuses)) {
+            $status_matches = true;
+        }
+
+        // Check shipping status
+        if (!empty($entry['data']['shipping_status']) && in_array($entry['data']['shipping_status'], $allowed_statuses)) {
+            $status_matches = true;
+        }
+
+        // Check fulfillment status (FluentCart specific)
+        if (!empty($entry['data']['fulfillment_status']) && in_array($entry['data']['fulfillment_status'], $allowed_statuses)) {
+            $status_matches = true;
+        }
+
+        // Return the original return value if status matches, otherwise return false
+        return $status_matches ? $return : false;
     }
 
     public function product_lists($products) {
@@ -121,14 +143,66 @@ class FluentCart extends Extension {
     }
 
     public function order_status($options){
-        $order_status = [
-            'processing'  => __( 'Processing','notificationx' ),
-            'unfulfilled' => __( 'Unfulfilled','notificationx' ),
-            'fulfilled'   => __( 'Fulfilled','notificationx' ),
-            'shipped'     => __( 'Shipped','notificationx' ),
-            'delivered'   => __( 'Delivered','notificationx' ),
-            'not-shipped' => __( 'Not Shipped','notificationx' ),
-         ];
+        // Get FluentCart's native order and payment statuses
+        $order_status = [];
+
+        try {
+            // Check if FluentCart Status class is available
+            if (class_exists('\FluentCart\App\Helpers\Status')) {
+                // Get Order Statuses
+                $order_statuses = \FluentCart\App\Helpers\Status::getOrderStatuses();
+                foreach ($order_statuses as $key => $label) {
+                    $order_status[$key] = $label;
+                }
+
+                // Get Payment Statuses
+                $payment_statuses = \FluentCart\App\Helpers\Status::getPaymentStatuses();
+                foreach ($payment_statuses as $key => $label) {
+                    $order_status[$key] = $label . ' (' . __('Payment', 'notificationx') . ')';
+                }
+
+                // Get Shipping Statuses if available
+                $shipping_statuses = \FluentCart\App\Helpers\Status::getShippingStatuses();
+                foreach ($shipping_statuses as $key => $label) {
+                    $order_status[$key] = $label . ' (' . __('Shipping', 'notificationx') . ')';
+                }
+
+            } else {
+                // Fallback to manual status list if FluentCart classes are not available
+                $order_status = [
+                    // Order Statuses
+                    'processing'  => __( 'Processing','notificationx' ),
+                    'completed'   => __( 'Completed','notificationx' ),
+                    'on-hold'     => __( 'On Hold','notificationx' ),
+                    'canceled'    => __( 'Canceled','notificationx' ),
+                    'failed'      => __( 'Failed','notificationx' ),
+
+                    // Payment Statuses
+                    'pending'              => __( 'Pending (Payment)','notificationx' ),
+                    'paid'                 => __( 'Paid (Payment)','notificationx' ),
+                    'partially_paid'       => __( 'Partially Paid (Payment)','notificationx' ),
+                    'payment_failed'       => __( 'Failed (Payment)','notificationx' ),
+                    'refunded'             => __( 'Refunded (Payment)','notificationx' ),
+                    'partially_refunded'   => __( 'Partially Refunded (Payment)','notificationx' ),
+                    'authorized'           => __( 'Authorized (Payment)','notificationx' ),
+
+                    // Shipping Statuses
+                    'unfulfilled' => __( 'Unfulfilled (Shipping)','notificationx' ),
+                    'fulfilled'   => __( 'Fulfilled (Shipping)','notificationx' ),
+                    'shipped'     => __( 'Shipped (Shipping)','notificationx' ),
+                    'delivered'   => __( 'Delivered (Shipping)','notificationx' ),
+                ];
+            }
+        } catch (\Exception $e) {
+            // Fallback in case of any errors
+            $order_status = [
+                'processing'  => __( 'Processing','notificationx' ),
+                'completed'   => __( 'Completed','notificationx' ),
+                'paid'        => __( 'Paid','notificationx' ),
+                'fulfilled'   => __( 'Fulfilled','notificationx' ),
+            ];
+        }
+
         $options = GlobalFields::get_instance()->normalize_fields( $order_status, 'source', $this->id, $options);
         return $options;
     }
@@ -219,6 +293,12 @@ class FluentCart extends Extension {
             }
             if( !empty( $order->shipping_status ) ) {
                 $return['shipping_status'] = $order->shipping_status;
+            }
+            if( !empty( $order->fulfillment_status ) ) {
+                $return['fulfillment_status'] = $order->fulfillment_status;
+            }
+            if( !empty( $order->fulfillment_type ) ) {
+                $return['fulfillment_type'] = $order->fulfillment_type;
             }
             if( !empty( $order->created_at ) ) {
                 $return['timestamp'] = $order->created_at;
