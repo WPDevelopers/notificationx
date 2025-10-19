@@ -32,6 +32,28 @@ const NotificationContainer = (props: any) => {
         return (
             <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
                 {NoticeList.map((notice) => {
+                    const { nx_id, notification_reappearance, countdown_rand } = notice?.config ?? {};
+                    const countRand = countdown_rand ? `-${countdown_rand}` : '';
+                    const storageKey = `notificationx_${nx_id}${countRand}`;
+                     let shouldShowBar = false;
+                    // @ts-ignore Check if already closed in current session (global)
+                    if ( window.notificationXClosed && window.notificationXClosed[nx_id] ) {
+                        shouldShowBar = true; // skip showing
+                    }
+
+                    const storageMap = {
+                        dont_show_notification: localStorage,
+                        show_notification_next_visit: sessionStorage,
+                    };
+                    
+                    // @ts-ignore 
+                    const crossValue = window?.notificationXArr[0]?.cross;
+                    const reappearance = crossValue ? 'show_notification_next_visit' : notification_reappearance;
+                    
+                    if (storageMap[reappearance]?.getItem(storageKey) || shouldShowBar) {
+                        return null;
+                    }
+
                     if (isMobileAndPro && notice?.config?.is_mobile_responsive && !noMobileDesign?.includes(notice?.config?.source) ) {
                         return (
                             <NotificationForMobile

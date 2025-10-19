@@ -14,3 +14,4 @@ export { default as UncategorizedIcon } from './UncategorizedIcon';
 export { default as EditIcon } from './EditIcon';
 export { default as ScanHistory } from './ScanHistory';
 export { default as DiscoveredCookies } from './DiscoveredCookies';
+export { default as DocIcon } from './DocIcon';

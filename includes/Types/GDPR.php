@@ -8,6 +8,7 @@
 
 namespace NotificationX\Types;
 
+use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\Core\Rule;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\ExtensionFactory;
@@ -476,6 +477,7 @@ class GDPR extends Types {
             'default'  => [
                 'url' => 'https://notificationx.com/wp-content/uploads/2025/01/cookie-image.png',
             ],
+            'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
             'rules' => Rules::logicalRule([
                 Rules::is('themes', 'gdpr_theme-banner-light-one', true),
                 Rules::is('themes', 'gdpr_theme-light-one', true),

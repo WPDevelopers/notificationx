@@ -135,10 +135,11 @@ class Settings extends UsabilityDynamicsSettings {
                     'priority' => 10,
                     'fields'   => [
                         'section-modules' => [
-                            'label'  => __( 'Modules', 'notificationx' ),
-                            'name'   => 'section-modules',
-                            'type'   => 'section',
-                            'fields' => [
+                            'label'   => __( 'Modules', 'notificationx' ),
+                            'name'    => 'section-modules',
+                            'type'    => 'section',
+                            'classes' => NotificationX::get_instance()->is_pro() ? 'section-modules pro-activated' : 'section-modules',
+                            'fields'  => [
                                 'modules' => [
                                     // 'label'   => "Modules",
                                     'name'     => 'modules',
@@ -362,6 +363,7 @@ class Settings extends UsabilityDynamicsSettings {
                                         )
                                     ),
                                     'rules'    => Rules::is( 'disable_reporting', false ),
+                                    'info'     => InfoTooltipManager::get_instance()->render('reporting_frequency'),
                                 ),
                                 'reporting_monthly_help_text' => array(
                                     'name'     => 'reporting_monthly_help_text',

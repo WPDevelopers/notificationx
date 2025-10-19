@@ -12,6 +12,7 @@ return array(
     'NotificationX\\Admin\\DashboardWidget' => $baseDir . '/includes/Admin/DashboardWidget.php',
     'NotificationX\\Admin\\Entries' => $baseDir . '/includes/Admin/Entries.php',
     'NotificationX\\Admin\\ImportExport' => $baseDir . '/includes/Admin/ImportExport.php',
+    'NotificationX\\Admin\\InfoTooltipManager' => $baseDir . '/includes/Admin/InfoTooltipManager.php',
     'NotificationX\\Admin\\Notice' => $baseDir . '/includes/Admin/Notice.php',
     'NotificationX\\Admin\\PluginInsights' => $baseDir . '/includes/Admin/PluginInsights.php',
     'NotificationX\\Admin\\Rating\\EmailTemplate' => $baseDir . '/includes/Admin/Rating/EmailTemplate.php',

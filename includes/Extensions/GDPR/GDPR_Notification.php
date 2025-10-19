@@ -26,7 +26,7 @@ class GDPR_Notification extends Extension {
 
     public $priority        = 15;
     public $id              = 'gdpr_notification';
-    public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
+    public $doc_link        = 'https://notificationx.com/docs/how-to-configure-cookies-policy-for-website/';
     public $types           = 'gdpr';
     public $module          = 'modules_gdpr';
     // public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/GDPR.png';
