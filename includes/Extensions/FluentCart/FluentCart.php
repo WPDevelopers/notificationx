@@ -27,6 +27,7 @@ class FluentCart extends Extension {
     public $module          = 'modules_fluentcart';
     public $module_priority = 35;
     public $class           = '\FluentCart\Framework\Foundation\App';
+    public $post_type       = 'fluent-products';
 
     /**
      * Initially Invoked when initialized.
@@ -133,7 +134,7 @@ class FluentCart extends Extension {
     }
 
     public function save_new_records($data) {
-        $order = isset($data['order']) ? $data['order'] : null;
+        $order    = isset($data['order']) ? $data['order'] : null;
         $customer = isset($data['customer']) ? $data['customer'] : null;
 
         if (!$order || !$customer) {
@@ -167,8 +168,8 @@ class FluentCart extends Extension {
         $customer_fields = ['first_name','last_name','email','full_name'];
 
         // Get product information from order item
-        if( !empty( $order_item->title ) ) {
-            $return['title'] = $order_item->title;
+        if( !empty( $order_item->post_title ) ) {
+            $return['title'] = $order_item->post_title;
         }
         if( !empty( $order_item->post_title ) ) {
             $return['product_title'] = $order_item->post_title;
@@ -447,6 +448,122 @@ class FluentCart extends Extension {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Lists available FluentCart products for search functionality.
+     *
+     * @param array $args An array of arguments, including inputValue.
+     * @return array An indexed array of product IDs and titles.
+     */
+    public function restResponse($args) {
+        // Check if inputValue is provided or if we should return empty results
+        if ( empty( $args['search_empty']) && empty($args['inputValue'] ) ) {
+            return [];
+        }
+
+        // Use FluentCart's native search if available, otherwise fallback to WordPress search
+        $products = $this->search_fluentcart_products($args['inputValue']);
+
+        // If FluentCart search didn't work, fallback to WordPress post search
+        if (empty($products)) {
+            $products = Helper::get_post_titles_by_search($this->post_type, $args['inputValue']);
+        }
+
+        // Normalize the fields and return as an indexed array
+        return array_values(GlobalFields::get_instance()->normalize_fields($products, 'source', $this->id));
+    }
+
+    /**
+     * Search FluentCart products using FluentCart's native methods
+     *
+     * @param string $search_term The search term
+     * @return array Array of products with ID and title
+     */
+    private function search_fluentcart_products($search_term = '') {
+        $products = [];
+
+        try {
+            // Check if FluentCart is available
+            if (!class_exists('\FluentCart\App\Models\Product')) {
+                return $products;
+            }
+
+            // Use FluentCart's Product model to search
+            $query = \FluentCart\App\Models\Product::query()
+                ->where('post_status', 'publish');
+
+            // Add search condition if search term is provided
+            if (!empty($search_term)) {
+                $query->where(function($q) use ($search_term) {
+                    // Search by product title
+                    $q->where('post_title', 'like', '%' . $search_term . '%')
+                      // Also search by product content/description
+                      ->orWhere('post_content', 'like', '%' . $search_term . '%')
+                      // Search by product excerpt
+                      ->orWhere('post_excerpt', 'like', '%' . $search_term . '%');
+                });
+            }
+
+            $fluent_products = $query->get();
+
+            // Convert to the expected format
+            foreach ($fluent_products as $product) {
+                $products[$product->ID] = $product->post_title;
+            }
+
+        } catch (\Exception $e) {
+            // If FluentCart search fails, return empty array to trigger fallback
+            return [];
+        }
+
+        return $products;
+    }
+
+    /**
+     * Get products by category for enhanced search functionality
+     *
+     * @param string $category_slug The category slug to search for
+     * @return array Array of products in the specified category
+     */
+    public function get_products_by_category($category_slug = '') {
+        $products = [];
+
+        if (empty($category_slug)) {
+            return $products;
+        }
+
+        try {
+            // Get products that belong to the specified category
+            $args = array(
+                'post_type'      => $this->post_type,
+                'post_status'    => 'publish',
+                'posts_per_page' => 20,
+                'tax_query'      => array(
+                    array(
+                        'taxonomy' => 'product-categories',
+                        'field'    => 'slug',
+                        'terms'    => $category_slug,
+                    ),
+                ),
+            );
+
+            $query = new \WP_Query($args);
+
+            if ($query->have_posts()) {
+                while ($query->have_posts()) {
+                    $query->the_post();
+                    $products[get_the_ID()] = get_the_title();
+                }
+                wp_reset_postdata();
+            }
+
+        } catch (\Exception $e) {
+            // If category search fails, return empty array
+            return [];
+        }
+
+        return $products;
     }
 
     /**
