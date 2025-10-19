@@ -95,9 +95,20 @@ class FluentCart extends Extension {
     }
 
     public function collections($options) {
-        // FluentCart doesn't have collections like SureCart, so we return empty
-        $collection_list = [];
-        $options = GlobalFields::get_instance()->normalize_fields($collection_list, 'source', $this->id, $options);
+        // Get FluentCart product categories using the product-categories taxonomy
+        $categories = get_terms([
+            'taxonomy'   => 'product-categories',
+            'hide_empty' => false,
+        ]);
+
+        $category_list = [];
+        if (!is_wp_error($categories) && !empty($categories)) {
+            foreach ($categories as $category) {
+                $category_list[$category->slug] = $category->name;
+            }
+        }
+
+        $options = GlobalFields::get_instance()->normalize_fields($category_list, 'source', $this->id, $options);
         return $options;
     }
 
@@ -353,7 +364,16 @@ class FluentCart extends Extension {
                 if ($createdAt >= strtotime($dateFrom) && $createdAt <= strtotime($dateTo)) {
                     if( !empty( $order->order_items ) && $order->order_items->count() > 0 ) {
                         foreach ($order->order_items as $order_item) {
-                            if(( $this->_excludes_product($order_item, $post) === $this->_show_purchaseof($order_item, $post))){
+                            // Get product categories for this order item
+                            $categories = [];
+                            if (!empty($order_item->post_id)) {
+                                $product_categories = get_the_terms($order_item->post_id, 'product-categories');
+                                if (!is_wp_error($product_categories) && !empty($product_categories)) {
+                                    $categories = $product_categories;
+                                }
+                            }
+
+                            if(( $this->_excludes_product($order_item, $post, $categories) === $this->_show_purchaseof($order_item, $post, $categories))){
                                 continue;
                             }
 
@@ -373,7 +393,7 @@ class FluentCart extends Extension {
         return $orders;
     }
 
-    private function _excludes_product($order_item, $settings) {
+    private function _excludes_product($order_item, $settings, $categories = []) {
         if( !empty( $settings['product_exclude_by'] ) && $settings['product_exclude_by'] === 'none' ) {
             if( !empty( $settings['product_control'] ) && $settings['product_control'] === 'none' ) {
                 return true;
@@ -389,10 +409,18 @@ class FluentCart extends Extension {
                 }
             }
         }
+        // Check category list
+        if( $settings['product_exclude_by'] == 'product_category' && !empty( $settings['exclude_categories'] ) && count( $settings['exclude_categories'] ) > 0 ) {
+            foreach ($categories as $category) {
+                if( in_array( $category->slug, $settings['exclude_categories'] ) ) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
-    private function _show_purchaseof($order_item, $settings) {
+    private function _show_purchaseof($order_item, $settings, $categories = []) {
         if( !empty( $settings['product_control'] ) && $settings['product_control'] === 'none' ) {
             if( !empty( $settings['product_exclude_by'] ) && $settings['product_exclude_by'] === 'none' ) {
                 return false;
@@ -404,6 +432,15 @@ class FluentCart extends Extension {
             foreach ( $settings['product_list'] as $__product ) {
                 $product_slug = get_post_field('post_name', $order_item->post_id);
                 if( $__product['value'] == $product_slug ) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        // Check category list
+        if( $settings['product_control'] == 'product_category' && !empty( $settings['category_list'] ) && count( $settings['category_list'] ) > 0 ) {
+            foreach ($categories as $category) {
+                if( in_array( $category->slug, $settings['category_list'] ) ) {
                     return true;
                 }
             }

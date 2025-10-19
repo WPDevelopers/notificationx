@@ -62,4 +62,5 @@ trait Woo {
         // Normalize the fields and return as an indexed array
         return array_values(GlobalFields::get_instance()->normalize_fields($products, 'source', $this->id));
     }
+    
 }
