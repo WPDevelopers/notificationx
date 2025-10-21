@@ -150,8 +150,7 @@ class FluentCartInline extends FluentCart {
                     'tag_on_our_site' => __( 'on our site!', 'notificationx' ),
                 ],
                 '_themes'      => [
-                    "{$this->id}_stock-theme-one",
-                    "{$this->id}_stock-theme-two",
+                    'fluentcart_inline_conv-theme-seven',
                 ],
             ],
         ];
