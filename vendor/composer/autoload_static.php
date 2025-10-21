@@ -86,6 +86,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\ExtensionFactory' => __DIR__ . '/../..' . '/includes/Extensions/ExtensionFactory.php',
         'NotificationX\\Extensions\\FlashingTab\\FlashingTab' => __DIR__ . '/../..' . '/includes/Extensions/FlashingTab/FlashingTab.php',
         'NotificationX\\Extensions\\FluentCart\\FluentCart' => __DIR__ . '/../..' . '/includes/Extensions/FluentCart/FluentCart.php',
+        'NotificationX\\Extensions\\FluentCart\\FluentCartInline' => __DIR__ . '/../..' . '/includes/Extensions/FluentCart/FluentCartInline.php',
         'NotificationX\\Extensions\\FluentForm\\FluentForm' => __DIR__ . '/../..' . '/includes/Extensions/FluentForm/FluentForm.php',
         'NotificationX\\Extensions\\Freemius\\Freemius' => __DIR__ . '/../..' . '/includes/Extensions/Freemius/Freemius.php',
         'NotificationX\\Extensions\\Freemius\\FreemiusConversions' => __DIR__ . '/../..' . '/includes/Extensions/Freemius/FreemiusConversions.php',

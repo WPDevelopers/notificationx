@@ -137,6 +137,7 @@ class Inline {
             case 'google_reviews_maps_theme':
                 return "{$params['first_param']} {$params['second_param']} in {$params['third_param']} {$params['fourth_param']}";
             case 'woocommerce_sales_inline_conv-theme-seven':
+            case 'fluentcart_inline_conv-theme-seven':
             case 'woo_inline_conv-theme-seven':
                 return "{$params['first_param']} {$params['second_param']} {$params['third_param']} {$params['fourth_param']}";
             case 'youtube_channel-1':

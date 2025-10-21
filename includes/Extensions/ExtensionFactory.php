@@ -75,6 +75,7 @@ class ExtensionFactory {
 			'wistia'                          => 'NotificationX\Extensions\Wistia\Wistia',
 			'surecart'                        => 'NotificationX\Extensions\SureCart\SureCart',
 			'fluentcart'                      => 'NotificationX\Extensions\FluentCart\FluentCart',
+			'fluentcart_inline'               => 'NotificationX\Extensions\FluentCart\FluentCartInline',
 			'ActiveCampaign'				  => 'NotificationX\Extensions\ActiveCampaign\ActiveCampaign',
 			'gdpr_notification'				  => 'NotificationX\Extensions\GDPR\GDPR_Notification',
 			'ccpa_notification'				  => 'NotificationX\Extensions\CCPA\CCPA_Notification',

@@ -63,6 +63,7 @@ return array(
     'NotificationX\\Extensions\\ExtensionFactory' => $baseDir . '/includes/Extensions/ExtensionFactory.php',
     'NotificationX\\Extensions\\FlashingTab\\FlashingTab' => $baseDir . '/includes/Extensions/FlashingTab/FlashingTab.php',
     'NotificationX\\Extensions\\FluentCart\\FluentCart' => $baseDir . '/includes/Extensions/FluentCart/FluentCart.php',
+    'NotificationX\\Extensions\\FluentCart\\FluentCartInline' => $baseDir . '/includes/Extensions/FluentCart/FluentCartInline.php',
     'NotificationX\\Extensions\\FluentForm\\FluentForm' => $baseDir . '/includes/Extensions/FluentForm/FluentForm.php',
     'NotificationX\\Extensions\\Freemius\\Freemius' => $baseDir . '/includes/Extensions/Freemius/Freemius.php',
     'NotificationX\\Extensions\\Freemius\\FreemiusConversions' => $baseDir . '/includes/Extensions/Freemius/FreemiusConversions.php',

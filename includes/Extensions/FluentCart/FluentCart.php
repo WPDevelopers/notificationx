@@ -67,14 +67,14 @@ class FluentCart extends Extension {
      */
     public function admin_actions() {
         parent::admin_actions();
-        add_filter("nx_can_entry_{$this->id}", array($this, 'check_order_status'), 10, 3);
+        add_filter("nx_can_entry_{$this->id}", array($this, 'nx_can_entry'), 10, 3);
     }
 
     public function public_actions(){
         parent::public_actions();
     }
 
-    public function check_order_status($return, $entry, $settings){
+    public function nx_can_entry($return, $entry, $settings){
         // Default to 'paid' and 'processing' if no status is specified
         $allowed_statuses = !empty($settings['fluentcart_order_status']) ? $settings['fluentcart_order_status'] : ['paid', 'processing'];
 
@@ -474,7 +474,7 @@ class FluentCart extends Extension {
         return $orders;
     }
 
-    private function _excludes_product($order_item, $settings, $categories = []) {
+    public function _excludes_product($order_item, $settings, $categories = []) {
         if( !empty( $settings['product_exclude_by'] ) && $settings['product_exclude_by'] === 'none' ) {
             if( !empty( $settings['product_control'] ) && $settings['product_control'] === 'none' ) {
                 return true;
@@ -501,7 +501,7 @@ class FluentCart extends Extension {
         return false;
     }
 
-    private function _show_purchaseof($order_item, $settings, $categories = []) {
+    public function _show_purchaseof($order_item, $settings, $categories = []) {
         if( !empty( $settings['product_control'] ) && $settings['product_control'] === 'none' ) {
             if( !empty( $settings['product_exclude_by'] ) && $settings['product_exclude_by'] === 'none' ) {
                 return false;
@@ -644,6 +644,28 @@ class FluentCart extends Extension {
         }
 
         return $products;
+    }
+
+     /**
+     * @todo remove in the future.
+     *
+     * @param [type] $data
+     * @param [type] $settings
+     * @return void
+     */
+    public function show_exclude_product( $data, $settings ){
+        $new_data = [];
+
+        if( ! empty( $data ) ) {
+            foreach( $data as $key => $product ) {
+                if( $this->_excludes_product($product, $settings) && $this->_show_purchaseof($product, $settings)  ) {
+                    $new_data[ $key ] = $product;
+                }
+            }
+        }
+
+        return $new_data;
+
     }
 
     /**

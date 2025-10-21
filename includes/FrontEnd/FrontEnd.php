@@ -769,7 +769,7 @@ class FrontEnd {
      */
     public function filtered_data($entries, $post, $params) {
         if (is_array($entries) && (!defined('NX_DEBUG') || !NX_DEBUG)) {
-            if (!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'google_reviews', 'youtube','woocommerce_sales_inline'])) {
+            if (!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'google_reviews', 'youtube','woocommerce_sales_inline','fluentcart_inline'])) {
                 $entries = array_slice($entries, 0, $post['display_last']);
             }
             foreach ($entries as $index => $entry) {

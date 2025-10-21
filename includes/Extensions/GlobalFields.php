@@ -806,7 +806,7 @@ class GlobalFields {
                                         'manual_selection' => __('Selected Product', 'notificationx'),
                                     ]),
                                     'info'    => InfoTooltipManager::get_instance()->render('show_purchase_of'),
-                                    'rules'       => Rules::includes('source', ['woocommerce','woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart']),
+                                    'rules'       => Rules::includes('source', ['woocommerce','woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart','fluentcart_inline']),
                                 ),
                                 'category_list' => array(
                                     'label'    => __('Select Product Category', 'notificationx'),
@@ -816,7 +816,7 @@ class GlobalFields {
                                     'priority' => 95,
                                     'options'  => apply_filters('nx_conversion_category_list', []),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce' , 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart']),
+                                        Rules::includes('source', ['woocommerce' , 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart','fluentcart_inline']),
                                         Rules::is( 'product_control', 'product_category' ),
                                     ]),
                                 ),
@@ -834,7 +834,7 @@ class GlobalFields {
                                         ],
                                     ]),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart']),
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart','fluentcart_inline']),
                                         Rules::is( 'product_control', 'manual_selection' ),
                                     ]),
                                     'ajax'   => [
@@ -846,7 +846,7 @@ class GlobalFields {
                                         ],
                                         // 'target' => "product_list",
                                         'rules'  => Rules::logicalRule([
-                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart']),
+                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart','fluentcart_inline']),
                                             Rules::is( 'product_control', 'manual_selection' ),
                                         ]),
                                     ],
@@ -865,7 +865,7 @@ class GlobalFields {
                                         'manual_selection' => __('Selected Product', 'notificationx'),
                                     ]),
                                     'info'    => InfoTooltipManager::get_instance()->render('exclude_by'),
-                                    'rules' => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart']),
+                                    'rules' => Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart','fluentcart_inline']),
                                 ),
                                 'exclude_categories' => array(
                                     'label'    => __('Select Product Category', 'notificationx'),
@@ -875,7 +875,7 @@ class GlobalFields {
                                     'priority' => 98,
                                     'options'  => apply_filters('nx_conversion_category_list', []),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart']),
+                                        Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart','fluentcart_inline']),
                                         Rules::is( 'product_exclude_by', 'product_category' ),
                                     ]),
                                 ),
@@ -893,7 +893,7 @@ class GlobalFields {
                                         ],
                                     ]),
                                     'rules'       => Rules::logicalRule([
-                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart']),
+                                        Rules::includes('source', ['woocommerce', 'woocommerce_sales', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline","surecart",'woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart','fluentcart_inline']),
                                         Rules::is( 'product_exclude_by', 'manual_selection' ),
                                     ]),
                                     'ajax'   => [
@@ -904,7 +904,7 @@ class GlobalFields {
                                             'field'  => "exclude_products",
                                         ],
                                         'rules'       => Rules::logicalRule([
-                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart']),
+                                            Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart','fluentcart_inline']),
                                             Rules::is( 'product_exclude_by', 'manual_selection' ),
                                         ]),
                                     ],
@@ -948,7 +948,7 @@ class GlobalFields {
                                     'multiple' => true,
                                     'is_pro'   => true,
                                     'priority' => 99.8,
-                                    'default'  => ['processing','fulfilled'],
+                                    'default'  => ['on-hold','completed','processing'],
                                     'help'     => __("By default it will show Processing & Fulfilled status."),
                                     'options'  => apply_filters('nx_fluentcart_order_status', []),
                                     'info'     => InfoTooltipManager::get_instance()->render('order_status'),
