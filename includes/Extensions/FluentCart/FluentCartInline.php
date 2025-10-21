@@ -74,7 +74,7 @@ class FluentCartInline extends FluentCart {
                 'is_pro'      => true,
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/woo-inline.jpg',
                 'image_shape' => 'rounded',
-                'inline_location' => [ 'fluentcart_before_add_to_cart_form' ],
+                'inline_location' => [ 'fluentcart_single' ],
                 'template'    => [
                     'first_param'         => 'tag_sales_count',
                     'custom_first_param'  => __( '99', 'notificationx' ),
@@ -89,7 +89,7 @@ class FluentCartInline extends FluentCart {
                 'is_pro'      => true,
                 'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/woo-inline-2.jpg',
                 'image_shape' => 'rounded',
-                'inline_location' => [ 'fluentcart_before_add_to_cart_form' ],
+                'inline_location' => [ 'fluentcart_single' ],
                 'template'    => [
                     // 'first_param'         => 'tag_sales_count',
                     // 'custom_first_param'  => __( 'Someone', 'notificationx' ),
