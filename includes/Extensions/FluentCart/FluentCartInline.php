@@ -68,7 +68,8 @@ class FluentCartInline extends FluentCart {
 
     public function init_extension()
     {
-        
+        $this->title = __('FluentCart', 'notificationx');
+        $this->module_title = __('FluentCart', 'notificationx');
         $this->themes = [
             'conv-theme-seven' => array(
                 'is_pro'      => true,
