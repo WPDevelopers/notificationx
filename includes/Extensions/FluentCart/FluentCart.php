@@ -695,7 +695,7 @@ class FluentCart extends Extension {
 
     public function source_error_message($messages) {
         if (!$this->class_exists()) {
-            $url = admin_url('plugin-install.php?s=fluent-cart&tab=search&type=term');
+            $url = admin_url('plugin-install.php?s=fluentcart&tab=search&type=term');
             $messages[$this->id] = [
                 'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
                     __( 'You have to install', 'notificationx' ),

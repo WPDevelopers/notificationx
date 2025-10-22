@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-22T09:49:37+00:00\n"
+"POT-Creation-Date: 2025-10-22T10:35:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -1757,7 +1757,8 @@ msgstr ""
 #: includes/Extensions/EDD/EDD.php:96
 #: includes/Extensions/Elementor/From.php:61
 #: includes/Extensions/FluentCart/FluentCart.php:701
-#: includes/Extensions/FluentCart/FluentCartInline.php:164
+#: includes/Extensions/FluentCart/FluentCartInline.php:167
+#: includes/Extensions/FluentCart/FluentCartInline.php:184
 #: includes/Extensions/FluentForm/FluentForm.php:90
 #: includes/Extensions/Give/Give.php:103
 #: includes/Extensions/GRVF/GravityForms.php:65
@@ -1776,7 +1777,7 @@ msgstr ""
 #: includes/Extensions/EDD/EDD.php:99
 #: includes/Extensions/Elementor/From.php:64
 #: includes/Extensions/FluentCart/FluentCart.php:704
-#: includes/Extensions/FluentCart/FluentCartInline.php:167
+#: includes/Extensions/FluentCart/FluentCartInline.php:187
 #: includes/Extensions/FluentForm/FluentForm.php:93
 #: includes/Extensions/Give/Give.php:106
 #: includes/Extensions/GRVF/GravityForms.php:68
@@ -2082,6 +2083,7 @@ msgstr ""
 #: includes/Extensions/FluentCart/FluentCart.php:41
 #: includes/Extensions/FluentCart/FluentCart.php:42
 #: includes/Extensions/FluentCart/FluentCart.php:703
+#: includes/Extensions/FluentCart/FluentCartInline.php:169
 msgid "FluentCart"
 msgstr ""
 
@@ -2170,7 +2172,7 @@ msgid "Fulfilled"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCart.php:715
-#: includes/Extensions/FluentCart/FluentCartInline.php:178
+#: includes/Extensions/FluentCart/FluentCartInline.php:200
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">FluentCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "        <a target=\"_blank\" href=\"%3$s\">👉 NotificationX Integration with FluentCart</a>"
@@ -2239,8 +2241,13 @@ msgstr ""
 msgid "order soon."
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCartInline.php:166
+#: includes/Extensions/FluentCart/FluentCartInline.php:171
+#: includes/Extensions/FluentCart/FluentCartInline.php:186
 msgid "FluentCart Pro"
+msgstr ""
+
+#: includes/Extensions/FluentCart/FluentCartInline.php:172
+msgid "plugins first."
 msgstr ""
 
 #: includes/Extensions/FluentForm/FluentForm.php:48
