@@ -31,7 +31,7 @@ class FluentCartInline extends FluentCart {
     public $types           = 'inline';
     public $module          = 'modules_fluentcart';
     public $module_priority = 3;
-    public $class           = '\FluentCart\Framework\Foundation\App';
+    public $class           = '\FluentCartPro\App\Core\Application';
     public $is_pro          = true;
 
      /**
@@ -154,6 +154,33 @@ class FluentCartInline extends FluentCart {
                 ],
             ],
         ];
+    }
+
+    public function source_error_message($messages) {
+        if (!$this->class_exists()) {
+            $url = esc_url('https://fluentcart.com/#pricing');
+            $messages[$this->id] = [
+                'message' => sprintf( '%s <a href="%s" target="_blank">%s</a> %s',
+                    __( 'You have to install', 'notificationx' ),
+                    $url,
+                    __( 'FluentCart Pro', 'notificationx' ),
+                    __( 'plugin first.', 'notificationx' )
+                ),
+                'html' => true,
+                'type' => 'error',
+                'rules' => Rules::is('source', $this->id),
+            ];
+        }
+        return $messages;
+    }
+
+     public function doc(){
+        return sprintf(__('<p>Make sure that you have the <a target="_blank" href="%1$s">FluentCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target="_blank" href="%2$s">documentation</a>.</p>
+        <a target="_blank" href="%3$s">👉 NotificationX Integration with FluentCart</a>', 'notificationx'),
+        'https://wordpress.org/plugins/fluent-cart/',
+        'https://notificationx.com/docs/fluentcart-growth-alert/',
+        'https://notificationx.com/docs/fluentcart-growth-alert/'
+        );
     }
 
 }
