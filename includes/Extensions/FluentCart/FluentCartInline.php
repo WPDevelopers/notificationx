@@ -31,7 +31,6 @@ class FluentCartInline extends FluentCart {
     public $types           = 'inline';
     public $module          = 'modules_fluentcart';
     public $module_priority = 3;
-    public $class           = '\FluentCartPro\App\Core\Application';
     public $is_pro          = true;
 
      /**
@@ -155,46 +154,6 @@ class FluentCartInline extends FluentCart {
                 ],
             ],
         ];
-    }
-
-    public function source_error_message($messages) {
-        if ( ! class_exists( '\FluentCart\Framework\Foundation\App' ) ) {
-            $free_url = admin_url('plugin-install.php?s=fluentcart&tab=search&type=term');
-            $pro_url  = esc_url( 'https://fluentcart.com/#pricing' );
-
-            $messages[ $this->id ] = [
-                'message' => sprintf(
-                    '%s <a href="%s" target="_blank">%s</a> &amp; <a href="%s" target="_blank">%s</a> %s',
-                    __( 'You have to install', 'notificationx' ),
-                    $free_url,
-                    __( 'FluentCart', 'notificationx' ),
-                    $pro_url,
-                    __( 'FluentCart Pro', 'notificationx' ),
-                    __( 'plugins first.', 'notificationx' )
-                ),
-                'html'  => true,
-                'type'  => 'error',
-                'rules' => Rules::is( 'source', $this->id ),
-            ];
-
-        } elseif ( ! $this->class_exists() ) {
-            $url = esc_url( 'https://fluentcart.com/#pricing' );
-            $messages[ $this->id ] = [
-                'message' => sprintf(
-                    '%s <a href="%s" target="_blank">%s</a> %s',
-                    __( 'You have to install', 'notificationx' ),
-                    $url,
-                    __( 'FluentCart Pro', 'notificationx' ),
-                    __( 'plugin first.', 'notificationx' )
-                ),
-                'html'  => true,
-                'type'  => 'error',
-                'rules' => Rules::is( 'source', $this->id ),
-            ];
-        }
-
-        return $messages;
-
     }
 
      public function doc(){
