@@ -527,7 +527,7 @@ const useNotificationX = (props: any) => {
         let fixedOrder = ['top','bottom', 'bottom_left', 'bottom_right', 'top_left', 'top_right','center','cookie_notice_bottom_left','cookie_notice_bottom_right', 'cookie_notice_center','cookie_banner_top', 'cookie_banner_bottom'];
         for (let i = 0; i < state.notices.length; i++) {
             const notice = state.notices[i];
-            let get_position;
+            let get_position = "top"; // default to "top"
             if( notice.config.type == 'gdpr' ) {
                 let { gdpr_position } = notice.config;
                 get_position = gdpr_position;
@@ -535,7 +535,7 @@ const useNotificationX = (props: any) => {
                 let { position } = notice.config;
                 get_position = position;
             }
-            if (get_position.startsWith('notificationx-shortcode-')) {
+            if (get_position && get_position.startsWith('notificationx-shortcode-')) {
                 fixedOrder.push(get_position);
             }
             noticeToRender[get_position] || (noticeToRender[get_position] = []);
