@@ -296,8 +296,6 @@ const Popup = (props: any) => {
         componentClasses = classNames(...baseClasses);
         componentStyle.animation = animationStyle;
     }
-
-    console.log('popup_title',settings);
     
 
     return (
@@ -349,26 +347,54 @@ const Popup = (props: any) => {
                         )}
                         { settings.theme.includes("popup_notification_theme-three") && (
                             <div className="nx-popup-description" style={descColorFont}>
-                                {settings.popup_content_repeater.map((item: any, index: number) => (
-                                    <div className='des-item-wrap' key={index}>
-                                        {item.repeater_highlight_text && (
-                                            <span
-                                                className="nx-popup-highlight-text"
-                                                style={{
-                                                    color: settings?.popup_repeater_highlight_color || '#FF6B1B',
-                                                    fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '24px',
-                                                    fontWeight: 'bold',
-                                                    display: 'block',
-                                                    marginBottom: '8px'
-                                                }}
-                                            >
-                                                {item.repeater_highlight_text}
-                                            </span>
-                                        )}
-                                        <h3>{item.repeater_title}</h3>
-                                        <p>{item.repeater_subtitle}</p>
+                                {(settings.popup_content_repeater && Array.isArray(settings.popup_content_repeater) && settings.popup_content_repeater.length > 0) ? (
+                                    settings.popup_content_repeater.map((item: any, index: number) => {
+                                        // Provide default highlight text for existing items that don't have it
+                                        const defaultHighlightTexts = ['30% OFF', '50% OFF', 'LIMITED'];
+                                        const highlightText = item.repeater_highlight_text || defaultHighlightTexts[index] || '30% OFF';
+
+                                        return (
+                                            <div className='des-item-wrap' key={index}>
+                                                {highlightText && highlightText.trim() !== '' && (
+                                                    <span
+                                                        className="nx-popup-highlight-text"
+                                                        style={{
+                                                            color: settings?.popup_repeater_highlight_color || '#FF6B1B',
+                                                            fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '24px',
+                                                            fontWeight: 'bold',
+                                                            display: 'block',
+                                                            marginBottom: '8px',
+                                                            lineHeight: '1.2'
+                                                        }}
+                                                    >
+                                                        {highlightText}
+                                                    </span>
+                                                )}
+                                                <h3 style={{ margin: '0 0 4px 0' }}>{item.repeater_title}</h3>
+                                                <p style={{ margin: '0 0 16px 0' }}>{item.repeater_subtitle}</p>
+                                            </div>
+                                        );
+                                    })
+                                ) : (
+                                    // Fallback content if repeater is empty or not set
+                                    <div className='des-item-wrap'>
+                                        <span
+                                            className="nx-popup-highlight-text"
+                                            style={{
+                                                color: settings?.popup_repeater_highlight_color || '#FF6B1B',
+                                                fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '24px',
+                                                fontWeight: 'bold',
+                                                display: 'block',
+                                                marginBottom: '8px',
+                                                lineHeight: '1.2'
+                                            }}
+                                        >
+                                            30% OFF
+                                        </span>
+                                        <h3 style={{ margin: '0 0 4px 0' }}>on all products!</h3>
+                                        <p style={{ margin: '0 0 16px 0' }}>Limited time offer - don't miss out!</p>
                                     </div>
-                                ))}
+                                )}
                             </div>
                         ) }
                         {/* Name Field - Show if enabled for form themes */}

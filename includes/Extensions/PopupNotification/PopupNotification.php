@@ -919,6 +919,9 @@ class PopupNotification extends Extension {
                     'type'     => 'repeater',
                     'priority' => 65,
                     'rules'    => Rules::is('themes', 'popup_notification_theme-three'),
+                     'button'  => [
+                        'label' => __('Add New', 'notificationx')
+                    ],
                     'fields'   => [
                         [
                             'label' => __('Highlight Text', 'notificationx'),
