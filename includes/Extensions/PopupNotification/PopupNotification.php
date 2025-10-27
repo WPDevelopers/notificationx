@@ -158,7 +158,7 @@ class PopupNotification extends Extension {
                 'column' => "12",
                 'defaults' => [
                     'popup_title'             => __('Boost your sales using SureCart', 'notificationx'),
-                    'popup_content'           => __('Display SureCart Sales Alerts using NotificationX', 'notificationx'),
+                    'popup_content'           => __('<iframe width="560" height="315" src="https://www.youtube.com/embed/dw176Jmk74M?si=3suUqkCkQuYQrh2G" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'notificationx'),
                     'popup_button_text'       => __('See How', 'notificationx'),
                     'popup_bg_color'          => '#ffffff',
                     'popup_title_color'       => '#333333',
@@ -750,28 +750,38 @@ class PopupNotification extends Extension {
                     'name'     => 'popup_show_email_field',
                     'type'     => 'toggle',
                     'priority' => 30,
-                    'default'  => true,
-                    'help'     => __('Email field is enabled by default for email collection themes', 'notificationx'),
+                    'help'     => __('Enable email field for form submission. Default: disabled for theme-four, enabled for themes 5-7', 'notificationx'),
                     'rules'    => Rules::logicalRule([
                         Rules::is('themes', 'popup_notification_theme-four'),
                         Rules::is('themes', 'popup_notification_theme-five'),
                         Rules::is('themes', 'popup_notification_theme-six'),
                         Rules::is('themes', 'popup_notification_theme-seven'),
                     ], 'or'),
+                    'default'  => [
+                        'popup_notification_theme-four' => false,  // Default false for theme-four
+                        'popup_notification_theme-five' => true,   // Default true for theme-five
+                        'popup_notification_theme-six' => true,    // Default true for theme-six
+                        'popup_notification_theme-seven' => true,  // Default true for theme-seven
+                    ],
                 ],
                 [
                     'label'    => __('Show Message Field', 'notificationx'),
                     'name'     => 'popup_show_message_field',
                     'type'     => 'toggle',
                     'priority' => 35,
-                    'default'  => true,
-                    'help'     => __('Message field for collecting user feedback or inquiries', 'notificationx'),
+                    'help'     => __('Enable message field for form submission. Default: enabled for all form themes', 'notificationx'),
                     'rules'    => Rules::logicalRule([
                         Rules::is('themes', 'popup_notification_theme-four'),
                         Rules::is('themes', 'popup_notification_theme-five'),
                         Rules::is('themes', 'popup_notification_theme-six'),
                         Rules::is('themes', 'popup_notification_theme-seven'),
                     ], 'or'),
+                    'default'  => [
+                        'popup_notification_theme-four' => true,   // Default true for theme-four
+                        'popup_notification_theme-five' => true,   // Default true for theme-five
+                        'popup_notification_theme-six' => true,    // Default true for theme-six
+                        'popup_notification_theme-seven' => true,  // Default true for theme-seven
+                    ],
                 ],
                 // Name placeholder field - only for form themes when name field is enabled
                 [
@@ -791,7 +801,7 @@ class PopupNotification extends Extension {
                     ]),
                 ],
 
-                // Email placeholder field - only for themes 5, 6, 7 (email collection themes)
+                // Email placeholder field - shows when email field is enabled for any theme
                 [
                     'label'    => __('Email Address Placeholder', 'notificationx'),
                     'name'     => 'popup_email_placeholder',
@@ -1096,7 +1106,6 @@ class PopupNotification extends Extension {
             'value' => 'center',
             'rules' => Rules::is('source', $this->id),
         ];
-        $conversion_position['center']  = Rules::is('source', $this->id, true, $conversion_position['center']);
         // Popup specific settings
         $fields['popup_settings'] = [
             'label'    => __('Popup Settings', 'notificationx'),

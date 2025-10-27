@@ -7,6 +7,7 @@ import 'animate.css';
 import { isObject, handleClosePopup } from "../core/functions";
 import { __ } from '@wordpress/i18n';
 import nxHelper from './functions';
+import NXBranding from '../themes/helpers/NXBranding';
 
 const useMediaQuery = (query: string) => {
     const mediaQuery = window.matchMedia(query);
@@ -434,7 +435,8 @@ const Popup = (props: any) => {
                         <div className="nx-popup-footer">
                             {!settings?.disable_powered_by && (
                                 <div className="nx-popup-branding">
-                                    <span>{ __('Powered by NotificationX', 'notificationx') }</span>
+                                    <span>{ __('Powered by ', 'notificationx') }</span>
+                                     <NXBranding />
                                 </div>
                             )}
                         </div>

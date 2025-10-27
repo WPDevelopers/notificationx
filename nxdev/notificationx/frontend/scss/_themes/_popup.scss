@@ -397,11 +397,32 @@
                 line-height: 120%;
                 border-radius: 0 0 16px 16px;
 
-                .nx-popup-branding span {
-                    font-size: 12px;
-                    font-weight: 500;
-                    line-height: 120%;
-                    color: #7884A0;
+                .nx-popup-branding {
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                     span {
+                        font-size: 12px;
+                        font-weight: 500;
+                        line-height: 120%;
+                        color: #7884A0;
+                    }
+                }
+            }
+        }
+        .nx-branding {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            .nx-byline {
+                display: none;
+            }
+            .nx-powered-by {
+                display: inline-flex;
+                svg {
+                    width: 65px;
+                    height: 8px;
                 }
             }
         }
