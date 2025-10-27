@@ -181,6 +181,7 @@ class PopupNotification extends Extension {
                     'popup_bg_color'          => '#fef7ed',
                     'popup_title_color'       => '#333333',
                     'popup_desc_color'        => '#666666',
+                    'popup_repeater_highlight_color' => '#FF6B1B',
                     'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
                 ],
             ],
@@ -635,6 +636,13 @@ class PopupNotification extends Extension {
                     'help'  => __('Background color for each content item', 'notificationx'),
                 ],
                 [
+                    'label' => __("Highlight Text Color", 'notificationx'),
+                    'name'  => "popup_repeater_highlight_color",
+                    'type'  => "colorpicker",
+                    'default'  => "#FF6B1B",
+                    'help'  => __('Color for the highlight text (e.g., "30% OFF")', 'notificationx'),
+                ],
+                [
                     'label' => __("Item Title Color", 'notificationx'),
                     'name'  => "popup_repeater_title_color",
                     'type'  => "colorpicker",
@@ -913,6 +921,13 @@ class PopupNotification extends Extension {
                     'rules'    => Rules::is('themes', 'popup_notification_theme-three'),
                     'fields'   => [
                         [
+                            'label' => __('Highlight Text', 'notificationx'),
+                            'name'  => 'repeater_highlight_text',
+                            'type'  => 'text',
+                            'default' => __('30% OFF', 'notificationx'),
+                            'help'  => __('Text that will be highlighted in a different color (e.g., "30% OFF")', 'notificationx'),
+                        ],
+                        [
                             'label' => __('Title', 'notificationx'),
                             'name'  => 'repeater_title',
                             'type'  => 'text',
@@ -927,14 +942,17 @@ class PopupNotification extends Extension {
                     ],
                     'default' => [
                         [
+                            'repeater_highlight_text' => __('30% OFF', 'notificationx'),
                             'repeater_title' => __('Boost Sales', 'notificationx'),
                             'repeater_subtitle' => __('Increase conversions with social proof', 'notificationx'),
                         ],
                         [
+                            'repeater_highlight_text' => __('50% OFF', 'notificationx'),
                             'repeater_title' => __('Build Trust', 'notificationx'),
                             'repeater_subtitle' => __('Show real customer activity', 'notificationx'),
                         ],
                         [
+                            'repeater_highlight_text' => __('LIMITED', 'notificationx'),
                             'repeater_title' => __('Drive Action', 'notificationx'),
                             'repeater_subtitle' => __('Create urgency and FOMO', 'notificationx'),
                         ],

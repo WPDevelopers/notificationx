@@ -351,6 +351,20 @@ const Popup = (props: any) => {
                             <div className="nx-popup-description" style={descColorFont}>
                                 {settings.popup_content_repeater.map((item: any, index: number) => (
                                     <div className='des-item-wrap' key={index}>
+                                        {item.repeater_highlight_text && (
+                                            <span
+                                                className="nx-popup-highlight-text"
+                                                style={{
+                                                    color: settings?.popup_repeater_highlight_color || '#FF6B1B',
+                                                    fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '24px',
+                                                    fontWeight: 'bold',
+                                                    display: 'block',
+                                                    marginBottom: '8px'
+                                                }}
+                                            >
+                                                {item.repeater_highlight_text}
+                                            </span>
+                                        )}
                                         <h3>{item.repeater_title}</h3>
                                         <p>{item.repeater_subtitle}</p>
                                     </div>
@@ -398,7 +412,7 @@ const Popup = (props: any) => {
                                     />
                                 </div>
                         ) }
-                        {/* Action Buttons */}
+                        {/* Action Buttons - Show for all themes as originally designed */}
                         {(settings?.popup_button_text) && (
                             <div className="nx-popup-actions">
                                 {/* Check if this is a form theme */}
@@ -443,6 +457,39 @@ const Popup = (props: any) => {
                     )}
                 </div>
             </div>
+
+                {/* Additional External Button for theme-three and theme-seven only */}
+                {["popup_notification_theme-three", "popup_notification_theme-seven"].some(theme => settings.theme.includes(theme)) && (
+                    <div className="nx-popup-external-button" style={{
+                        marginTop: '15px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        width: '100%'
+                    }}>
+                        <button
+                            className="nx-popup-button nx-popup-primary-button nx-popup-external"
+                            style={{
+                                ...buttonStyles,
+                                borderRadius: '5px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px'
+                            }}
+                            onClick={handleButtonClick}
+                        >
+                            {settings?.popup_button_icon && settings.popup_button_icon !== 'none' && (
+                                <span className="nx-button-icon">
+                                    {settings.popup_button_icon.startsWith('http') || settings.popup_button_icon.startsWith('data:') ? (
+                                        <img src={settings.popup_button_icon} alt="" style={{ width: '16px', height: '16px' }} />
+                                    ) : (
+                                        <img src={`${(frontEndContext?.assets || '/wp-content/plugins/notificationx/assets/public/').replace('public/', 'admin/')}images/icons/${settings.popup_button_icon}`} alt="" style={{ width: '16px', height: '16px' }} />
+                                    )}
+                                </span>
+                            )}
+                            {settings?.popup_button_text}
+                        </button>
+                    </div>
+                )}
         </div>
     );
 }
