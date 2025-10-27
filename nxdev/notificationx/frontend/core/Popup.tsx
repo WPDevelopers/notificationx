@@ -355,22 +355,24 @@ const Popup = (props: any) => {
 
                                         return (
                                             <div className='des-item-wrap' key={index}>
-                                                {highlightText && highlightText.trim() !== '' && (
-                                                    <span
-                                                        className="nx-popup-highlight-text"
-                                                        style={{
-                                                            color: settings?.popup_repeater_highlight_color || '#FF6B1B',
-                                                            fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '24px',
-                                                            fontWeight: 'bold',
-                                                            display: 'block',
-                                                            marginBottom: '8px',
-                                                            lineHeight: '1.2'
-                                                        }}
-                                                    >
-                                                        {highlightText}
-                                                    </span>
-                                                )}
-                                                <h3 style={{ margin: '0 0 4px 0' }}>{item.repeater_title}</h3>
+                                                <div className="nx-popup-title-wrapper">
+                                                    {highlightText && highlightText.trim() !== '' && (
+                                                        <span
+                                                            className="nx-popup-highlight-text"
+                                                            style={{
+                                                                color: settings?.popup_repeater_highlight_color || '#FF6B1B',
+                                                                fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '24px',
+                                                                fontWeight: 'bold',
+                                                                display: 'block',
+                                                                marginBottom: '8px',
+                                                                lineHeight: '1.2'
+                                                            }}
+                                                        >
+                                                            {highlightText}
+                                                        </span>
+                                                    )}
+                                                    <h3 style={{ margin: '0 0 4px 0' }}>{item.repeater_title}</h3>
+                                                </div>
                                                 <p style={{ margin: '0 0 16px 0' }}>{item.repeater_subtitle}</p>
                                             </div>
                                         );
@@ -503,15 +505,7 @@ const Popup = (props: any) => {
                             }}
                             onClick={handleButtonClick}
                         >
-                            {settings?.popup_button_icon && settings.popup_button_icon !== 'none' && (
-                                <span className="nx-button-icon">
-                                    {settings.popup_button_icon.startsWith('http') || settings.popup_button_icon.startsWith('data:') ? (
-                                        <img src={settings.popup_button_icon} alt="" style={{ width: '16px', height: '16px' }} />
-                                    ) : (
-                                        <img src={`${(frontEndContext?.assets || '/wp-content/plugins/notificationx/assets/public/').replace('public/', 'admin/')}images/icons/${settings.popup_button_icon}`} alt="" style={{ width: '16px', height: '16px' }} />
-                                    )}
-                                </span>
-                            )}
+                           
                             {settings?.popup_button_text}
                         </button>
                     </div>
