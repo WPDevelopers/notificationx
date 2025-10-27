@@ -174,11 +174,13 @@ class PopupNotification extends Extension {
                 'defaults' => [
                     'popup_title'             => __('All Offers', 'notificationx'),
                     'popup_button_text'       => __('Latest Offers', 'notificationx'),
+                    'popup_button_icon'       => 'none',
+                    'popup_button_bg_color'   => '#d97706',
+                    'popup_button_text_color' => '#ffffff',
+                    'popup_button_border_color' => '#d97706',
                     'popup_bg_color'          => '#fef7ed',
                     'popup_title_color'       => '#333333',
                     'popup_desc_color'        => '#666666',
-                    'popup_button_bg_color'   => '#d97706',
-                    'popup_button_text_color' => '#ffffff',
                     'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
                 ],
             ],
@@ -235,12 +237,14 @@ class PopupNotification extends Extension {
                     'popup_title'             => __('Want latest updates?', 'notificationx'),
                     'popup_subtitle'          => __('Would like to get the lastes news & updates instantly?', 'notificationx'),
                     'popup_email_placeholder' => __('Enter email address', 'notificationx'),
-                    'popup_button_text'       => __('Subscribe', 'notificationx'),
+                    'popup_button_text'       => __('Get In Touch', 'notificationx'),
+                    'popup_button_icon'       => 'none',
+                    'popup_button_bg_color'   => '#f59e0b',
+                    'popup_button_text_color' => '#ffffff',
+                    'popup_button_border_color' => '#f59e0b',
                     'popup_bg_color'          => '#fef3c7',
                     'popup_title_color'       => '#92400e',
                     'popup_desc_color'        => '#b6ac9fff',
-                    'popup_button_bg_color'   => '#f59e0b',
-                    'popup_button_text_color' => '#ffffff',
                     'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
                 ],
             ],
@@ -857,6 +861,47 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-one'),
                         Rules::is('themes', 'popup_notification_theme-two'),
                         Rules::is('themes', 'popup_notification_theme-three'),
+                    ], 'or'),
+                ],
+
+                // Button Icon field - only for theme-three and theme-seven
+                [
+                    'label'       => __('Button Icon', 'notificationx'),
+                    'name'        => 'popup_button_icon',
+                    'type'        => 'icon-picker',
+                    'priority'    => 62,
+                    'iconPrefix'  => NOTIFICATIONX_ADMIN_URL . 'images/icons/',
+                    'default'     => 'none',
+                    'options'     => [
+                        [
+                            'icon'  => 'shop_now.svg',
+                            'label' => __('Shop Now', 'notificationx')
+                        ],
+                        [
+                            'icon'  => 'shop_now_white.svg',
+                            'label' => __('Shop Now White', 'notificationx')
+                        ],
+                        [
+                            'icon'  => 'offer.svg',
+                            'label' => __('Offer', 'notificationx')
+                        ],
+                        [
+                            'icon'  => 'contact.svg',
+                            'label' => __('Contact', 'notificationx')
+                        ],
+                        [
+                            'icon'  => 'arrow-right.svg',
+                            'label' => __('Arrow Right', 'notificationx')
+                        ],
+                        [
+                            'icon'  => 'star.svg',
+                            'label' => __('Star', 'notificationx')
+                        ],
+                    ],
+                    'description' => __('Select an icon to display with the button text', 'notificationx'),
+                    'rules'       => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-three'),
+                        Rules::is('themes', 'popup_notification_theme-seven'),
                     ], 'or'),
                 ],
                 // Repeater fields - only for theme-three
