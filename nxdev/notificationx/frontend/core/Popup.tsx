@@ -359,21 +359,21 @@ const Popup = (props: any) => {
                                                     {highlightText && highlightText.trim() !== '' && (
                                                         <span
                                                             className="nx-popup-highlight-text"
-                                                            style={{
-                                                                color: settings?.popup_repeater_highlight_color || '#FF6B1B',
-                                                                fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '24px',
-                                                                fontWeight: 'bold',
-                                                                display: 'block',
-                                                                marginBottom: '8px',
-                                                                lineHeight: '1.2'
-                                                            }}
+                                                            // style={{
+                                                            //     color: settings?.popup_repeater_highlight_color || '#FF6B1B',
+                                                            //     fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '24px',
+                                                            //     fontWeight: 'bold',
+                                                            //     display: 'block',
+                                                            //     marginBottom: '8px',
+                                                            //     lineHeight: '1.2'
+                                                            // }}
                                                         >
                                                             {highlightText}
                                                         </span>
                                                     )}
-                                                    <h3 style={{ margin: '0 0 4px 0' }}>{item.repeater_title}</h3>
+                                                    <h3>{item.repeater_title}</h3>
                                                 </div>
-                                                <p style={{ margin: '0 0 16px 0' }}>{item.repeater_subtitle}</p>
+                                                <p>{item.repeater_subtitle}</p>
                                             </div>
                                         );
                                     })
@@ -488,21 +488,23 @@ const Popup = (props: any) => {
 
                 {/* Additional External Button for theme-three and theme-seven only */}
                 {["popup_notification_theme-three", "popup_notification_theme-seven"].some(theme => settings.theme.includes(theme)) && (
-                    <div className="nx-popup-external-button" style={{
-                        marginTop: '15px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        width: '100%'
-                    }}>
+                    <div className="nx-popup-external-button" 
+                        // style={{
+                        //     marginTop: '15px',
+                        //     display: 'flex',
+                        //     justifyContent: 'center',
+                        //     width: '100%'
+                        // }}
+                    >
                         <button
                             className="nx-popup-button nx-popup-primary-button nx-popup-external"
-                            style={{
-                                ...buttonStyles,
-                                borderRadius: '5px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px'
-                            }}
+                            // style={{
+                            //     ...buttonStyles,
+                            //     borderRadius: '5px',
+                            //     display: 'flex',
+                            //     alignItems: 'center',
+                            //     gap: '8px'
+                            // }}
                             onClick={handleButtonClick}
                         >
                            
