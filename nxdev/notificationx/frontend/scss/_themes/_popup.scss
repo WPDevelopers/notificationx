@@ -161,7 +161,7 @@
                 margin-top: 24px;
                 display: flex;
                 justify-content: flex-end;
-                button.nx-popup-button.nx-popup-primary-button.nx-popup-external {
+                button.nx-popup-button {
                     background: #F35500;
                     color: #FFF;
                     border: 1px solid #FFEADF;
@@ -170,6 +170,7 @@
                     font-size: 14px;
                     line-height: 110%;
                     font-weight: 500;
+                    padding: 12px 16px;
                 }
             }
         }
@@ -380,7 +381,7 @@
                 margin-top: 24px;
                 display: flex;
                 justify-content: flex-start;
-                button.nx-popup-button.nx-popup-primary-button.nx-popup-external {
+                button.nx-popup-button {
                     background: #3972D5;
                     color: #FFF;
                     border: 1px solid #DFEAFF;
@@ -389,6 +390,7 @@
                     font-size: 14px;
                     line-height: 110%;
                     font-weight: 500;
+                    padding: 12px 16px;
                 }
             }
         }
