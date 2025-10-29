@@ -1512,7 +1512,7 @@ class PressBar extends Extension {
         // var_dump(current_action());die;
         $args = [
             'label'               => __('NotificationX Bar', 'notificationx'),
-            'public'              => true,
+            'public'              => false,
             'show_ui'             => false,
             'rewrite'             => false,
             'menu_icon'           => 'dashicons-admin-page',
@@ -1546,7 +1546,7 @@ class PressBar extends Extension {
             array(
                 'label'              => __('NotificationX Bar (Gutenberg)', 'notificationx'),
                 'show_in_rest'       => true,
-                'public'             => true,
+                'public'             => false,
                 'show_ui'            => true,
                 'can_export'         => true,
                 'show_in_menu'       => false,
