@@ -1513,7 +1513,8 @@ class PressBar extends Extension {
         $args = [
             'label'               => __('NotificationX Bar', 'notificationx'),
             'public'              => false,
-            'show_ui'             => false,
+            'publicly_queryable'  => true,
+            'show_ui'             => true,
             'rewrite'             => false,
             'menu_icon'           => 'dashicons-admin-page',
             'show_in_menu'        => true,
