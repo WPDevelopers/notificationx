@@ -47,6 +47,11 @@ const Popup = (props: any) => {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitSuccess, setSubmitSuccess] = useState(false);
+    const [validationErrors, setValidationErrors] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
 
     // Check if popup was closed in this session
     useEffect(() => {
@@ -129,6 +134,42 @@ const Popup = (props: any) => {
         }
     };
 
+    // Validation functions
+    const validateEmail = (email: string) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const validateForm = () => {
+        const errors = {
+            name: '',
+            email: '',
+            message: ''
+        };
+
+        // Validate name field if it's shown and required
+        if (settings.popup_show_name_field && !formData.name.trim()) {
+            errors.name = __('Please enter your name.', 'notificationx');
+        }
+
+        // Validate email field if it's shown
+        if (settings.popup_show_email_field) {
+            if (!formData.email.trim()) {
+                errors.email = __('Please enter your email address.', 'notificationx');
+            } else if (!validateEmail(formData.email)) {
+                errors.email = __('Please enter a valid email address.', 'notificationx');
+            }
+        }
+
+        // Validate message field if it's shown and required
+        if (settings.popup_show_message_field && !formData.message.trim()) {
+            errors.message = __('Please enter your message.', 'notificationx');
+        }
+
+        setValidationErrors(errors);
+        return !errors.name && !errors.email && !errors.message;
+    };
+
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -143,6 +184,11 @@ const Popup = (props: any) => {
         if (!isEmailTheme && !isMessageTheme) {
             // For non-form themes, just handle button click
             handleButtonClick();
+            return;
+        }
+
+        // Validate form before submission
+        if (!validateForm()) {
             return;
         }
 
@@ -200,6 +246,14 @@ const Popup = (props: any) => {
             ...prev,
             [field]: value
         }));
+
+        // Clear validation error for this field when user starts typing
+        if (validationErrors[field as keyof typeof validationErrors]) {
+            setValidationErrors(prev => ({
+                ...prev,
+                [field]: ''
+            }));
+        }
     };
 
     if (!isVisible) {
@@ -409,7 +463,13 @@ const Popup = (props: any) => {
                                         value={formData.name}
                                         onChange={(e) => handleInputChange('name', e.target.value)}
                                         disabled={isSubmitting}
+                                        className={validationErrors.name ? 'nx-popup-input-error' : ''}
                                     />
+                                    {validationErrors.name && (
+                                        <div className="nx-popup-error-message">
+                                            {validationErrors.name}
+                                        </div>
+                                    )}
                                 </div>
                         ) }
 
@@ -423,8 +483,14 @@ const Popup = (props: any) => {
                                         value={formData.email}
                                         onChange={(e) => handleInputChange('email', e.target.value)}
                                         disabled={isSubmitting}
+                                        className={validationErrors.email ? 'nx-popup-input-error' : ''}
                                         required
                                     />
+                                    {validationErrors.email && (
+                                        <div className="nx-popup-error-message">
+                                            {validationErrors.email}
+                                        </div>
+                                    )}
                                 </div>
                         ) }
 
@@ -437,7 +503,13 @@ const Popup = (props: any) => {
                                         value={formData.message}
                                         onChange={(e) => handleInputChange('message', e.target.value)}
                                         disabled={isSubmitting}
+                                        className={validationErrors.message ? 'nx-popup-input-error' : ''}
                                     />
+                                    {validationErrors.message && (
+                                        <div className="nx-popup-error-message">
+                                            {validationErrors.message}
+                                        </div>
+                                    )}
                                 </div>
                         ) }
                         {/* Action Buttons - Show for all themes as originally designed */}
