@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, notification ba
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 5.6
-Stable tag: 3.1.7
+Stable tag: 3.1.8
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -208,6 +208,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 3.1.8 - 03/11/2025 =
+ Fixed: Cross-domain notifications persisting after being disabled on the main site.
+ Fixed: NX Bar padding issues on responsive devices.
+ Fixed: NX Bar Elementor templates not loading properly.
+ Few minor bug fixes and performance improvements.
 
 = 3.1.7 - 29/10/2025 =
 Fixed: Mobile responsiveness issue for Custom Notification type.
