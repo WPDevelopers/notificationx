@@ -13,7 +13,7 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                 if( selectedType ) {
                     setContentHeight(document.documentElement.scrollHeight);
                 }
-                const forcedDesktopValues = ['woocommerce_sales','woocommerce_sales_inline', 'announcements', 'gdpr', 'flashing_tab', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'learnpress_inline', 'custom_notification'];
+                const forcedDesktopValues = ['woocommerce_sales','woocommerce_sales_inline', 'announcements', 'gdpr', 'flashing_tab', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'learnpress_inline', 'custom_notification','fluentcart_inline'];
                 const nx_type = builderContext.values.type;
                 const builderValues = builderContext?.values;                
                 const isBuildWithBuilder =  (builderValues?.elementor_id && builderValues?.is_elementor) || (builderValues?.is_gutenberg && builderValues?.gutenberg_id);                
@@ -22,6 +22,7 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                     : (forcedDesktopValues.includes(nx_type)
                         ? 'for_desktop'
                         : (builderContext?.values?.themes_tab || 'for_desktop'));
+                builderContext.setFieldValue( "is_mobile_responsive", nx_type !== "custom");
                 setTimeout(() => {
                     builderContext.setFieldValue("themes_tab", themeTabValue);
                 }, 100);
@@ -36,6 +37,21 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                 });
             }, 300);
         }, [contentHeight]);
+
+        useEffect(() => {
+            const timeout = setTimeout(() => {
+                const links = document.querySelectorAll(".wprf-info-text .nx-pro-feature-tooltip a");
+                links.forEach(link => link.addEventListener("click", stopPropagationHandler));
+            }, 2000);
+
+            const stopPropagationHandler = (e) => e.stopPropagation();
+
+            return () => {
+                clearTimeout(timeout);
+                const links = document.querySelectorAll(".wprf-info-text .nx-pro-feature-tooltip a");
+                links.forEach(link => link.removeEventListener("click", stopPropagationHandler));
+            };
+        }, [builderContext.values.type]);
         
         return (
             <div className={classes}>

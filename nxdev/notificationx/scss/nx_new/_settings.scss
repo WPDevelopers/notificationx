@@ -12,13 +12,24 @@
         }
         .wprf-tab-flex {
             display: flex;
-            @media only screen and (max-width: 1279px) {
+            @media only screen and (max-width: 1399px) {
                 flex-direction: column-reverse;
             }
             .wprf-tab-contents {
                 flex: 6;
             }
         }
+        #tab-general #section-modules {
+            &.pro-activated {
+                .wprf-section-fields .wprf-column {
+                    flex: unset;
+                }
+            }
+            .wprf-section-fields .wprf-column {
+                flex : 1 1 calc(50% - 10px);
+            }
+        }
+        
     }
     // Right Side Settings CSS
     .nx-settings-right {

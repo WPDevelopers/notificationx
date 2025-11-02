@@ -99,7 +99,7 @@ function animatePng(png) {
     const promise = new Promise((resolve, reject) => {
         if (!initialized) {
             // reject the promise with an error message
-            reject(new Error("Function not initialized"));
+            // reject(new Error("Function not initialized"));
         } else {
             removeIcon();
             // createIcon();

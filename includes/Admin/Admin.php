@@ -62,6 +62,7 @@ class Admin {
         RatingEmail::get_instance();
         ImportExport::get_instance();
         XSS::get_instance();
+        InfoTooltipManager::get_instance();
         add_action('init', [$this, 'init'], 5);
     }
 

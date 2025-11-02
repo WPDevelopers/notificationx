@@ -80,6 +80,7 @@ class WooCommerce extends Extension {
     public function admin_actions() {
         parent::admin_actions();
         add_filter("nx_can_entry_{$this->id}", array($this, 'check_order_status'), 10, 3);
+        add_filter("nx_can_entry_{$this->id}", array($this->get_type(), 'nx_can_entry'), 10, 3);
     }
 
     public function public_actions(){

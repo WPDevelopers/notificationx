@@ -19,6 +19,7 @@ use NotificationX\FrontEnd\Preview;
 use NotificationX\GetInstance;
 
 use Elementor\Core\Files\CSS\Post as Post_CSS;
+use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\NotificationX;
 
 /**
@@ -1098,6 +1099,20 @@ class PressBar extends Extension {
                 'show_welcomebar_every_page' => __( 'Show the Bar when the user refreshes/goes to another page', 'notificationx' ),
             ]),
         );
+        $fields['visibility']['fields']['bar_cache_duration_for_dont_show'] = [
+            'label'   => __( 'Cache Duration for "Don\'t show again"', 'notificationx' ),
+            'name'    => 'bar_cache_duration_for_dont_show',
+            'type'    => 'number',
+            'default' => 10,
+            'min'     => 1,
+            'max'     => 365,
+            'step'    => 1,
+            'description' => __('Days', 'notificationx'),
+            'rules'   => Rules::logicalRule([
+                Rules::is('bar_reappearance', 'dont_show_welcomebar'),
+                Rules::is('source', $this->id),
+            ]),
+        ];
         return $fields;
     }
 
@@ -1257,6 +1272,7 @@ class PressBar extends Extension {
             'id'       => 'targeting',
             'classes'  => 'nx-targeting',
             'priority' => 100,
+            'info'     => InfoTooltipManager::get_instance()->render('button'),
             'fields'   => []
         ];
 
@@ -1279,6 +1295,7 @@ class PressBar extends Extension {
                 ],
             ],
             'rules'    => Rules::is('source', $this->id),
+            'info'     => InfoTooltipManager::get_instance()->render('targeting'),
         ];
 
         // User Role Targeting
@@ -1298,6 +1315,7 @@ class PressBar extends Extension {
             'default'  => ['all_users'],
             'options'  => GlobalFields::get_instance()->normalize_fields($wp_roles_with_default),
             'multiple' => true,
+            'info'     => InfoTooltipManager::get_instance()->render('targeting'),
             'rules'    => Rules::is('source', $this->id),
         ];
 
@@ -1347,6 +1365,7 @@ class PressBar extends Extension {
                             // 'icon'  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/schedule/custom.png',
                         ),
                     ),
+                    'info'     => InfoTooltipManager::get_instance()->render('schedule_type'),
                 ),
                 'daily_from_time' => array(
                     'name'     => 'daily_from_time',
@@ -1382,6 +1401,7 @@ class PressBar extends Extension {
                         'saturday'  => __('Saturday', 'notificationx'),
                         'sunday'    => __('Sunday', 'notificationx'),
                     ]),
+                    'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
                     'rules'    => Rules::is('schedule_type', 'weekly'),
                 ),
                 'weekly_from_time' => array(
@@ -1409,6 +1429,7 @@ class PressBar extends Extension {
                     'priority' => 65,
                     'is_pro'   => true,
                     'format'   => 'h:i A',
+                    'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
                     'rules'    => Rules::is('schedule_type', 'custom'),
                 ),
                 'custom_from_time' => array(
@@ -1491,7 +1512,7 @@ class PressBar extends Extension {
         // var_dump(current_action());die;
         $args = [
             'label'               => __('NotificationX Bar', 'notificationx'),
-            'public'              => true,
+            'public'              => false,
             'show_ui'             => false,
             'rewrite'             => false,
             'menu_icon'           => 'dashicons-admin-page',
@@ -1525,7 +1546,7 @@ class PressBar extends Extension {
             array(
                 'label'              => __('NotificationX Bar (Gutenberg)', 'notificationx'),
                 'show_in_rest'       => true,
-                'public'             => true,
+                'public'             => false,
                 'show_ui'            => true,
                 'can_export'         => true,
                 'show_in_menu'       => false,

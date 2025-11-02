@@ -26,7 +26,7 @@ class YouTube extends Extension {
     public $priority        = 5;
     public $id              = 'youtube';
     // public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/google-rating.png';
-    public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
+    public $doc_link        = 'https://notificationx.com/docs/youtube-video-activities-popups/';
     public $types           = 'video';
     public $module          = 'modules_google_youtube';
     public $module_priority = 25;
@@ -251,7 +251,7 @@ class YouTube extends Extension {
             ],
         ];
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/google-reviews-with-notificationx/
+            "denyButtonText" => __("<a href='https://notificationx.com/docs/youtube-video-activities-popups/
             ' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             "html"=> __('

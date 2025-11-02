@@ -32,7 +32,7 @@ class FlashingTab extends Extension {
     public $priority        = 5;
     public $id              = 'flashing_tab';
     public $img             = '';
-    public $doc_link        = 'https://notificationx.com/docs/contact-form-submission-alert/';
+    public $doc_link        = 'https://notificationx.com/docs/flashing-tab-alerts/';
     public $types           = 'flashing_tab';
     // used in Settings > General tab
     public $module          = 'modules_flashing';
