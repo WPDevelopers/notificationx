@@ -1514,7 +1514,7 @@ class PressBar extends Extension {
             'label'               => __('NotificationX Bar', 'notificationx'),
             'public'              => false,
             'publicly_queryable'  => true,
-            'show_ui'             => true,
+            'show_ui'             => false,
             'rewrite'             => false,
             'menu_icon'           => 'dashicons-admin-page',
             'show_in_menu'        => true,
