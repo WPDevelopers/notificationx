@@ -172,17 +172,17 @@ class PopupNotification extends Extension {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-three.png',
                 'column' => "12",
                 'defaults' => [
-                    'popup_title'             => __('All Offers', 'notificationx'),
-                    'popup_button_text'       => __('Latest Offers', 'notificationx'),
-                    'popup_button_icon'       => 'none',
-                    'popup_button_bg_color'   => '#d97706',
-                    'popup_button_text_color' => '#ffffff',
-                    'popup_button_border_color' => '#d97706',
-                    'popup_bg_color'          => '#fef7ed',
-                    'popup_title_color'       => '#333333',
-                    'popup_desc_color'        => '#666666',
+                    'popup_title'                    => __('All Offers', 'notificationx'),
+                    'popup_button_text'              => __('Latest Offers', 'notificationx'),
+                    'popup_button_icon'              => 'latest_offer.svg',
+                    'popup_button_bg_color'          => '#d97706',
+                    'popup_button_text_color'        => '#ffffff',
+                    'popup_button_border_color'      => '#d97706',
+                    'popup_bg_color'                 => '#fef7ed',
+                    'popup_title_color'              => '#333333',
+                    'popup_desc_color'               => '#666666',
                     'popup_repeater_highlight_color' => '#FF6B1B',
-                    'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
+                    'overlay_color'                  => 'rgba(0, 0, 0, 0.5)',
                 ],
             ],
             'theme-four' => [
@@ -222,7 +222,7 @@ class PopupNotification extends Extension {
                 'defaults' => [
                     'popup_title'             => __('Get latest news & updates', 'notificationx'),
                     'popup_email_placeholder' => __('Your email address', 'notificationx'),
-                    'popup_button_text'       => __('Subscribe', 'notificationx'),
+                    'popup_button_text'       => __('Submit Now', 'notificationx'),
                     'popup_bg_color'          => '#1f2937',
                     'popup_title_color'       => '#ffffff',
                     'popup_desc_color'        => '#d1d5db',
@@ -239,6 +239,7 @@ class PopupNotification extends Extension {
                     'popup_subtitle'          => __('Would like to get the lastes news & updates instantly?', 'notificationx'),
                     'popup_email_placeholder' => __('Enter email address', 'notificationx'),
                     'popup_button_text'       => __('Get In Touch', 'notificationx'),
+                    'popup_icon'              => 'none',
                     'popup_button_icon'       => 'none',
                     'popup_button_bg_color'   => '#f59e0b',
                     'popup_button_text_color' => '#ffffff',
@@ -731,6 +732,22 @@ class PopupNotification extends Extension {
                     'priority' => 10,
                     'default'  => __('Special Offer!', 'notificationx'),
                 ],
+                // Popup Icon field - only for theme-seven
+                [
+                    'label'       => __('Popup Icon', 'notificationx'),
+                    'name'        => 'popup_icon',
+                    'type'        => 'icon-picker',
+                    'priority'    => 15,
+                    'iconPrefix'  => NOTIFICATIONX_ADMIN_URL . 'images/icons/',
+                    'default'     => 'none',
+                    'rules'       => Rules::is('themes', 'popup_notification_theme-seven'),
+                    'options'     => [
+                        [
+                            'icon'  => 'mail_icon.svg',
+                            'label' => __('Mail Icon', 'notificationx')
+                        ],
+                    ],
+                ],
                 [
                     'label'    => __('Content', 'notificationx'),
                     'name'     => 'popup_content',
@@ -879,8 +896,16 @@ class PopupNotification extends Extension {
                     'type'        => 'icon-picker',
                     'priority'    => 62,
                     'iconPrefix'  => NOTIFICATIONX_ADMIN_URL . 'images/icons/',
-                    'default'     => 'none',
+                    'default'     => 'mail_icon.svg',
                     'options'     => [
+                        [
+                            'icon'  => 'mail_icon.svg',
+                            'label' => __('Mail Icon', 'notificationx')
+                        ],
+                        [
+                            'icon'  => 'latest_offer.svg',
+                            'label' => __('Latest OFfer', 'notificationx')
+                        ],
                         [
                             'icon'  => 'shop_now.svg',
                             'label' => __('Shop Now', 'notificationx')
@@ -888,22 +913,6 @@ class PopupNotification extends Extension {
                         [
                             'icon'  => 'shop_now_white.svg',
                             'label' => __('Shop Now White', 'notificationx')
-                        ],
-                        [
-                            'icon'  => 'offer.svg',
-                            'label' => __('Offer', 'notificationx')
-                        ],
-                        [
-                            'icon'  => 'contact.svg',
-                            'label' => __('Contact', 'notificationx')
-                        ],
-                        [
-                            'icon'  => 'arrow-right.svg',
-                            'label' => __('Arrow Right', 'notificationx')
-                        ],
-                        [
-                            'icon'  => 'star.svg',
-                            'label' => __('Star', 'notificationx')
                         ],
                     ],
                     'description' => __('Select an icon to display with the button text', 'notificationx'),
@@ -946,18 +955,18 @@ class PopupNotification extends Extension {
                     'default' => [
                         [
                             'repeater_highlight_text' => __('30% OFF', 'notificationx'),
-                            'repeater_title' => __('Boost Sales', 'notificationx'),
-                            'repeater_subtitle' => __('Increase conversions with social proof', 'notificationx'),
+                            'repeater_title'          => __('Boost Sales', 'notificationx'),
+                            'repeater_subtitle'       => __('Increase conversions with social proof', 'notificationx'),
                         ],
                         [
                             'repeater_highlight_text' => __('50% OFF', 'notificationx'),
-                            'repeater_title' => __('Build Trust', 'notificationx'),
-                            'repeater_subtitle' => __('Show real customer activity', 'notificationx'),
+                            'repeater_title'          => __('Build Trust', 'notificationx'),
+                            'repeater_subtitle'       => __('Show real customer activity', 'notificationx'),
                         ],
                         [
                             'repeater_highlight_text' => __('LIMITED', 'notificationx'),
-                            'repeater_title' => __('Drive Action', 'notificationx'),
-                            'repeater_subtitle' => __('Create urgency and FOMO', 'notificationx'),
+                            'repeater_title'          => __('Drive Action', 'notificationx'),
+                            'repeater_subtitle'       => __('Create urgency and FOMO', 'notificationx'),
                         ],
                     ],
                 ],

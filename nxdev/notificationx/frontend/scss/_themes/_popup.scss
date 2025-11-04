@@ -171,6 +171,10 @@
                     line-height: 110%;
                     font-weight: 500;
                     padding: 12px 16px;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    justify-content: center;
                 }
             }
         }
@@ -195,7 +199,9 @@
                 .nx-popup-content {
                     min-width: 300px;
                     padding: 0 24px;
-
+                    .nx-popup-email, .nx-popup-name, .nx-popup-message, .nx-popup-textarea {
+                        margin-bottom: 12px;
+                    }
                     .nx-popup-description {
                         font-size: 14px;
                         line-height: 130%;
@@ -213,7 +219,6 @@
                         line-height: 150%;
                         color: #092161;
                         width: 100%;
-                        margin-bottom: 12px;
                     }
                     textarea {
                         background: #FFF;
@@ -226,8 +231,6 @@
                         width: 100%;
                         height: 80px;
                         resize: none;
-                        margin-bottom: 12px
-
                     }
                     .nx-popup-button.nx-popup-primary-button {
                         border: 1px solid #FFFFFF80;
@@ -319,26 +322,43 @@
                 .nx-popup-header {
                     padding: 24px;
                     padding-bottom: 4px;
-
+                    .nx-popup-header-wrapper {
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 10px;
+                        .nx-popup-header-icon {
+                            background: linear-gradient(180deg, #2862C6 0%, rgba(45, 105, 209, 0.141558) 61.82%, rgba(46, 107, 211, 0.0104167) 99.99%, rgba(80, 198, 230, 0.01) 100%);
+                            border-radius: 20%;
+                            width: 45px;
+                            height: 45px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                    }
                     h3.nx-popup-title {
                         font-size: 20px;
                         line-height: 110%;
                         font-weight: 600;
                         color: #092161;
                     }
+                    .nx-popup-description {
+                        font-size: 14px;
+                        line-height: 120%;
+                        color: #535D77;
+                        margin-bottom: 24px;
+                        margin-top: 10px;
+                    }
                 }
                 .nx-popup-content {
                     min-width: 300px;
                     padding: 0 24px 16px;
-
-                    .nx-popup-description {
-                        font-size: 12px;
-                        line-height: 130%;
-                        max-width: 234px;
+                     .nx-popup-description {
+                        font-size: 14px;
+                        line-height: 120%;
                         color: #535D77;
                         margin-bottom: 24px;
                     }
-
                     input {
                         background: #FAFBFC;
                         border: 1px solid #EAEEF2;
@@ -391,6 +411,10 @@
                     line-height: 110%;
                     font-weight: 500;
                     padding: 12px 16px;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    justify-content: center;
                 }
             }
         }
@@ -419,7 +443,11 @@
             }
             .nx-popup-content {
                 padding: 0 16px;
-
+                .nx-popup-error-message {
+                    font-size: 12px;
+                    margin-top: 5px;
+                    color: #FB2A04;
+                }
                 .nx-popup-description {
                     font-size: 14px;
                     line-height: 130%;
