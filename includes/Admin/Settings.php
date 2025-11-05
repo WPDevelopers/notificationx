@@ -407,7 +407,8 @@ class Settings extends UsabilityDynamicsSettings {
                                     'name'     => 'reporting_subject',
                                     'type'     => 'text',
                                     'label'    => __( 'Reporting Email Subject', 'notificationx' ),
-                                    'default'  => __( "Weekly Engagement Summary of ‘{$site_name}’", 'notificationx' ),
+                                    /* translators: %s: site name */ 
+                                    'default' => sprintf( __( 'Weekly Engagement Summary of ‘%s’', 'notificationx' ), $site_name ),
                                     'priority' => 4,
                                     'disable'  => true,
                                     'rules'    => Rules::is( 'disable_reporting', false ),

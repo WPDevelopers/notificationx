@@ -149,7 +149,8 @@ class Integration {
             if( $notificationx ) {
                 return wp_send_json( true );
             }
-            $error['message'] = __( 'There is no notification created with this id:' . $id, 'notificationx' );
+            /* translators: %d: notification ID */
+            $error['message'] = sprintf( __( 'There is no notification created with this id: %d', 'notificationx' ), $id );
             return wp_send_json_error( $error, 401 );
 		} else {
 			$error['message'] = __( 'Error: API Key Invalid!', 'notificationx' );

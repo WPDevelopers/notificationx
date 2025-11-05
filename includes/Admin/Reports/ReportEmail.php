@@ -260,7 +260,8 @@ class ReportEmail {
      */
     public function email_subject() {
         $site_name = get_bloginfo( 'name' );
-        $subject = __( "Weekly Engagement Summary of ‘{$site_name}’", 'notificationx' );
+        /* translators: %s: site name */
+        $subject = sprintf( __( 'Weekly Engagement Summary of ‘%s’', 'notificationx' ), $site_name );
         if( isset( $this->settings['reporting_subject'] ) && ! empty( $this->settings['reporting_subject'] ) ) {
             $subject = stripcslashes( $this->settings['reporting_subject'] );
         }
