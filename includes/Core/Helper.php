@@ -594,6 +594,7 @@ class Helper {
 
         // Prepare and execute the query using wpdb methods
         $sql = $wpdb->prepare( $sql, $query_args );
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $products = $wpdb->get_results( $sql );
 
         if ( ! empty( $products ) ) {

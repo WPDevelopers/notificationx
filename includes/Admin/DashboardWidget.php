@@ -69,7 +69,7 @@ class DashboardWidget {
      */
     public function analytics_counter(){
         global $wpdb;
-
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $results = $wpdb->get_row(
             "SELECT *, ( clicks/views ) * 100 as ctr FROM ( SELECT SUM(views) as views, SUM(clicks) as clicks FROM {$wpdb->prefix}nx_stats ) AS STATS",
             ARRAY_A
