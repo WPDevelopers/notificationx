@@ -110,12 +110,12 @@ class NinjaForms extends Extension {
         if (!class_exists('Ninja_Forms')) {
             return [];
         }
-        global $wpdb;
-        $form_result = $wpdb->get_results('SELECT id, title FROM `' . $wpdb->prefix . 'nf3_forms` ORDER BY title');
+        $form_result = Ninja_Forms()->form()->get_forms();
+        $forms = [];
         if (!empty($form_result)) {
             foreach ($form_result as $form) {
-                $key = $this->key($form->id);
-                $forms[$key] = $form->title;
+                $key = $this->key($form->get_id());
+                $forms[$key] = $form->get_setting( 'title' );
             }
         }
 
@@ -140,7 +140,7 @@ class NinjaForms extends Extension {
         if( !empty($form_list) ) {
             $form_list = explode('_',$form_list);
             $submissions = $this->get_submissions($form_list[1], $data);
-            if( count( $submissions ) > 0 ) {
+            if( is_array($submissions) && count( $submissions ) > 0 ) {
                 $entries = [];
                 foreach ( $submissions as $submission ) {
                     if( !empty( $submission ) ) {
