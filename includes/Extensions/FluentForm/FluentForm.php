@@ -142,6 +142,7 @@ class FluentForm extends Extension {
                 '%' . $wpdb->esc_like($args['inputValue']) . '%','published',$limit
             );
             // Execute the query and retrieve the results
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $form_result = $wpdb->get_results($query);
             if (!empty($form_result)) {
                 foreach ($form_result as $form) {

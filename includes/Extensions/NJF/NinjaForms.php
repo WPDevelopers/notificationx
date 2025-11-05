@@ -298,6 +298,7 @@ class NinjaForms extends Extension {
                 '%' . $wpdb->esc_like($args['inputValue']) . '%',$limit
             );
             // Execute the query and retrieve the results
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $form_result = $wpdb->get_results($query);
             if (!empty($form_result)) {
                 foreach ($form_result as $form) {
@@ -315,6 +316,7 @@ class NinjaForms extends Extension {
             }else{
                 $form_id = intval($args['form_id']);
             }
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $queryresult = $wpdb->get_results('SELECT meta_value FROM `' . $wpdb->prefix . 'nf3_form_meta` WHERE parent_id = ' . $form_id . ' AND meta_key = "formContentData"');
 
             if(isset($queryresult[0]) && isset($queryresult[0]->meta_value)){

@@ -108,7 +108,7 @@ class Migration {
         $posts = [];
         $post_meta = [];
         $query = "SELECT * FROM $wpdb->posts WHERE post_type = 'notificationx'"; // AND ID = $id
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $_posts = $wpdb->get_results($query, ARRAY_A);
         // $nx_ids = array_column($_posts, 'ID');
 

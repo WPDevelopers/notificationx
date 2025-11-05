@@ -62,22 +62,36 @@ class DashboardWidget {
     public function widget_action(){
         wp_add_dashboard_widget( self::WIDGET_ID, $this->widget_name, array( $this, 'widget_output' ) );
     }
+    
     /**
      * Get all analytics data
      *
      * @return mixed
      */
-    public function analytics_counter(){
+    public function analytics_counter() {
         global $wpdb;
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $results = $wpdb->get_row(
-            "SELECT *, ( clicks/views ) * 100 as ctr FROM ( SELECT SUM(views) as views, SUM(clicks) as clicks FROM {$wpdb->prefix}nx_stats ) AS STATS",
-            ARRAY_A
-        );
 
-        $views_link = admin_url( 'admin.php?page=nx-analytics&comparison=views' );
+        // Define a unique cache key
+        $cache_key   = 'nx_analytics_counter';
+        $cache_group = 'notificationx';
+
+        // Try to get data from cache
+        $results = wp_cache_get( $cache_key, $cache_group );
+
+        if ( false === $results ) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+            $results = $wpdb->get_row(
+                "SELECT *, ( clicks/views ) * 100 as ctr FROM ( SELECT SUM(views) as views, SUM(clicks) as clicks FROM {$wpdb->prefix}nx_stats ) AS STATS",
+                ARRAY_A
+            );
+
+            // Save results to cache for 1 hour (3600 seconds)
+            wp_cache_set( $cache_key, $results, $cache_group, HOUR_IN_SECONDS );
+        }
+
+        $views_link  = admin_url( 'admin.php?page=nx-analytics&comparison=views' );
         $clicks_link = admin_url( 'admin.php?page=nx-analytics&comparison=clicks' );
-        $ctr_link = admin_url( 'admin.php?page=nx-analytics&comparison=ctr' );
+        $ctr_link    = admin_url( 'admin.php?page=nx-analytics&comparison=ctr' );
 
         $default = [
             'views_link'  => $views_link,
@@ -88,21 +102,22 @@ class DashboardWidget {
             'ctr'         => 0,
         ];
 
-        if( ! empty( $results ) ) {
+        if ( ! empty( $results ) ) {
             $_results = [];
-            foreach( $results as $key => $value ) {
-                if( $key === 'ctr' ) {
-                    if( $value !== null ) {
-                        $_results[ $key ] = round( $value, 2 );
-                    }
+            foreach ( $results as $key => $value ) {
+                if ( $key === 'ctr' ) {
+                    $_results[ $key ] = ( $value !== null ) ? round( $value, 2 ) : 0;
                 } else {
                     $_results[ $key ] = Helper::nice_number( $value );
                 }
             }
             return array_merge( $default, $_results );
         }
+
         return $default;
     }
+
+
     /**
      * Widget Output
      *
