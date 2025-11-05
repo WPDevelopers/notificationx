@@ -376,7 +376,7 @@ class PluginInsights {
          */
         $plugin = $this->plugin_data();
         if ( empty( $plugin ) ) {
-            $body['message'] .= __( 'We can\'t detect any plugin information. This is most probably because you have not included the code in the plugin main file.', 'plugin-usage-tracker' );
+            $body['message'] .= __( 'We can\'t detect any plugin information. This is most probably because you have not included the code in the plugin main file.', 'notificationx' );
             $body['status']   = 'NOT FOUND';
         } else {
             if ( isset( $plugin['Name'] ) ) {
@@ -645,9 +645,9 @@ class PluginInsights {
      */
     public function set_notice_options( $options = [] ) {
         $default_options      = [
-            'consent_button_text' => __( 'What we collect.', 'wpinsight' ),
-            'yes'                 => __( 'Sure, I\'d like to help', 'wpinsight' ),
-            'no'                  => __( 'No Thanks.', 'wpinsight' ),
+            'consent_button_text' => __( 'What we collect.', 'notificationx' ),
+            'yes'                 => __( 'Sure, I\'d like to help', 'notificationx' ),
+            'no'                  => __( 'No Thanks.', 'notificationx' ),
         ];
         $options              = wp_parse_args( $options, $default_options );
         $this->notice_options = $options;
@@ -754,20 +754,20 @@ class PluginInsights {
      */
     public function deactivation_reasons() {
         $form            = array();
-        $form['heading'] = __( 'Sorry to see you go', 'wpinsight' );
-        $form['body']    = __( 'Before you deactivate the plugin, would you quickly give us your reason for doing so?', 'wpinsight' );
+        $form['heading'] = __( 'Sorry to see you go', 'notificationx' );
+        $form['body']    = __( 'Before you deactivate the plugin, would you quickly give us your reason for doing so?', 'notificationx' );
 
         $form['options'] = array(
-            __( 'I no longer need the plugin', 'wpinsight' ),
+            __( 'I no longer need the plugin', 'notificationx' ),
             [
-                'label'       => __( 'I found a better plugin', 'wpinsight' ),
-                'extra_field' => __( 'Please share which plugin', 'wpinsight' ),
+                'label'       => __( 'I found a better plugin', 'notificationx' ),
+                'extra_field' => __( 'Please share which plugin', 'notificationx' ),
             ],
-            __( "I couldn't get the plugin to work", 'wpinsight' ),
-            __( 'It\'s a temporary deactivation', 'wpinsight' ),
+            __( "I couldn't get the plugin to work", 'notificationx' ),
+            __( 'It\'s a temporary deactivation', 'notificationx' ),
             [
-                'label'       => __( 'Other', 'wpinsight' ),
-                'extra_field' => __( 'Please share the reason', 'wpinsight' ),
+                'label'       => __( 'Other', 'notificationx' ),
+                'extra_field' => __( 'Please share the reason', 'notificationx' ),
                 'type'        => 'textarea',
             ],
         );
@@ -959,7 +959,7 @@ class PluginInsights {
             $html .= '</ul></div><!-- .wpinsights-' . esc_attr( $this->plugin_name ) . '-goodbye-options -->';
         }
         $html .= '</div><!-- .wpinsights-goodbye-form-body -->';
-        $html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Submitting form', 'wpinsight' ) . '</p>';
+        $html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Submitting form', 'notificationx' ) . '</p>';
 
         ?>
         <script type="text/javascript">
@@ -969,7 +969,7 @@ class PluginInsights {
                     var url = document.getElementById("wpinsights-goodbye-link-<?php echo esc_attr( $this->plugin_name ); ?>");
                     $('body').toggleClass('wpinsights-form-active-<?php echo esc_attr( $this->plugin_name ); ?>');
                     $(".wpinsights-goodbye-form-wrapper-<?php echo esc_attr( $this->plugin_name ); ?> #wpinsights-goodbye-form").fadeIn();
-                    $(".wpinsights-goodbye-form-wrapper-<?php echo esc_attr( $this->plugin_name ); ?> #wpinsights-goodbye-form").html( '<?php echo $html; ?>' + '<div class="wpinsights-goodbye-form-footer"><div class="wpinsights-goodbye-form-buttons"><a id="wpinsights-submit-form-<?php echo esc_attr( $this->plugin_name ); ?>" class="wpinsights-submit-btn" href="#"><?php esc_html_e( 'Submit and Deactivate', 'wpinsight' ); ?></a>&nbsp;<a class="wpsp-put-deactivate-btn" href="'+url+'"><?php esc_html_e( 'Just Deactivate', 'wpinsight' ); ?></a></div></div>');
+                    $(".wpinsights-goodbye-form-wrapper-<?php echo esc_attr( $this->plugin_name ); ?> #wpinsights-goodbye-form").html( '<?php echo $html; ?>' + '<div class="wpinsights-goodbye-form-footer"><div class="wpinsights-goodbye-form-buttons"><a id="wpinsights-submit-form-<?php echo esc_attr( $this->plugin_name ); ?>" class="wpinsights-submit-btn" href="#"><?php esc_html_e( 'Submit and Deactivate', 'notificationx' ); ?></a>&nbsp;<a class="wpsp-put-deactivate-btn" href="'+url+'"><?php esc_html_e( 'Just Deactivate', 'notificationx' ); ?></a></div></div>');
                     $('#wpinsights-submit-form-<?php echo esc_attr( $this->plugin_name ); ?>').on('click', function(e){
                         // As soon as we click, the body of the form should disappear
                         $("#wpinsights-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .wpinsights-goodbye-form-body").fadeOut();

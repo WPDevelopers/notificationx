@@ -46,6 +46,7 @@ class XSS {
                     'is_pro'       => true,
                     'copyOnClick'  => true,
                     'readOnly'     => true,
+                    /* translators: %s: URL to the Cross Domain Notice documentation */
                     'help'         => sprintf( __( 'Show your Notification Alerts in another website using <a target="_blank" href="%s">Cross Domain Notice</a>.', 'notificationx' ), 'https://notificationx.com/docs/notificationx-cross-domain-notice/' ),
                     'default'      => apply_filters( 'nx_settings_xss_code_default', "<div id='notificationx-frontend'></div>\n<script>....</script>\n<script src='....../crossSite.js'></script>" ),
                     'priority'     => 1,

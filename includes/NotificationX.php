@@ -143,7 +143,7 @@ class NotificationX {
             $args = wp_parse_args($args, [
                 "showConfirmButton"=> true,
                 "showCloseButton"=>true,
-                "title" => __('Opps! This is PRO Feature.'),
+                "title" => __( 'Opps! This is a PRO Feature.', 'notificationx' ),
                 "customClass"=> [
                     "container"=> 'pro-video-popup',
                     "closeButton"=> 'pro-video-close-button',

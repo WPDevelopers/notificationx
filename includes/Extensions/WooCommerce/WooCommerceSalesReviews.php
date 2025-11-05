@@ -248,6 +248,12 @@ class WooCommerceSalesReviews extends WooReviews {
     }
 
     public function doc() {
+        /* translators: 
+            %1$s: URL to WooCommerce plugin, 
+            %2$s: URL to WooCommerce documentation, 
+            %3$s: URL to video tutorial, 
+            %4$s: URL to blog post about boosting WooCommerce sales 
+        */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 Watch <a target="_blank" href="%3$s">video tutorial</a> to learn quickly</p>
 		<p><strong>Recommended Blog:</strong></p>

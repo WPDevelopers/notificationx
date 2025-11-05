@@ -475,7 +475,8 @@ class WooCommerce extends Extension {
             }
         }
 
-        $products_more_title = isset($settings['combine_multiorder_text']) && !empty($settings['combine_multiorder_text']) ? __($settings['combine_multiorder_text'], 'notificationx') : __('more products', 'notificationx');
+        $products_more_title = !empty($settings['combine_multiorder_text']) ? esc_html($settings['combine_multiorder_text']) : __('more products', 'notificationx');
+
         foreach ($item_counts as $key => $item) {
             // translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
             $items[$key]['title'] = sprintf(__('%1$s & %2$s %3$s', 'notificationx'), $items[$key]['title'], $item, $products_more_title);
@@ -535,6 +536,13 @@ class WooCommerce extends Extension {
     }
 
     public function doc(){
+        /* translators: 
+            %1$s: URL to WooCommerce plugin, 
+            %2$s: URL to WooCommerce documentation, 
+            %3$s: URL to video tutorial, 
+            %4$s: URL to blog about the Best FOMO and Social Proof plugin, 
+            %5$s: URL to blog about boosting WooCommerce sales 
+        */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a href="%3$s" target="_blank">Watch video tutorial</a> to learn quickly</p>
 		<p>⭐ NotificationX Integration with WooCommerce</p>

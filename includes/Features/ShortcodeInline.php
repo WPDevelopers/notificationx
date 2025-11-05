@@ -63,14 +63,14 @@ class ShortcodeInline {
             if ( ! current_user_can( 'administrator' ) ) {
                 return;
             }
-            return '<p class="nx-shortcode-notice">' . __( 'Choose a Notification from the dropdown.', 'notificationx-pro' ) . '</p>';
+            return '<p class="nx-shortcode-notice">' . __( 'Choose a Notification from the dropdown.', 'notificationx' ) . '</p>';
         }
 
         if ( ! PostType::get_instance()->is_enabled( $nx_id ) ) {
             if ( ! current_user_can( 'administrator' ) ) {
                 return;
             }
-            return '<p class="nx-shortcode-notice">' . __( 'Make sure you have enabled the notification which ID you have given.', 'notificationx-pro' ) . '</p>';
+            return '<p class="nx-shortcode-notice">' . __( 'Make sure you have enabled the notification which ID you have given.', 'notificationx' ) . '</p>';
         }
 
         do_action( 'nx_inline' );
@@ -141,7 +141,7 @@ class ShortcodeInline {
                         if ( $timestamp ) {
                             $diff_for_humans = sprintf(
                                 /* translators: time */
-                                _x( '%s ago', 'Inline Shortcode', 'notificationx-pro' ),
+                                _x( '%s ago', 'Inline Shortcode', 'notificationx' ),
                                 human_time_diff( $timestamp )
                             );
                             $_template = str_replace( '{{time}}', $diff_for_humans, $_template );

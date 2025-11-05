@@ -401,6 +401,12 @@ class FluentForm extends Extension {
 
 
     public function doc() {
+        /* translators: 
+            %1$s: URL to Fluent Forms plugin, 
+            %2$s: URL to Fluent Forms documentation, 
+            %3$s: URL to video tutorial, 
+            %4$s: URL to blog post about displaying submission alert 
+        */
         return sprintf(__('
         <p>To use the campaign & form subscription data, make sure that you have <a target="_blank" href="%1$s">Fluent Forms installed and configured</a> on your website. For detailed guidelines, follow this <a target="_blank" href="%2$s">documentation</a>.</p>
 
