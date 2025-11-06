@@ -157,6 +157,11 @@ class FluentCartInline extends FluentCart {
     }
 
      public function doc(){
+        /* translators: 
+            %1$s: URL to the FluentCart WordPress plugin page, 
+            %2$s: URL to the step-by-step documentation for FluentCart integration with NotificationX, 
+            %3$s: URL to the NotificationX integration guide for FluentCart 
+        */
         return sprintf(__('<p>Make sure that you have the <a target="_blank" href="%1$s">FluentCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target="_blank" href="%2$s">documentation</a>.</p>
         <a target="_blank" href="%3$s">👉 NotificationX Integration with FluentCart</a>', 'notificationx'),
         'https://wordpress.org/plugins/fluent-cart/',
