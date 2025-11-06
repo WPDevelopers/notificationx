@@ -46,11 +46,9 @@ class LearnDash extends Extension {
         $this->title = __('LearnDash', 'notificationx');
         $this->module_title = __('LearnDash', 'notificationx');
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx/' target='_blank'>More Info</a>", "notificationx"),
+            "denyButtonText"    => __("<a href='https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
-            "html"=> __('
-                <span>A widely used WordPress learning management system.</span>
-            ', 'notificationx')
+            'html'              => wp_kses_post( '<span>' . __( 'A widely used WordPress learning management system.', 'notificationx' ) . '</span>' )
         ];
     }
 
