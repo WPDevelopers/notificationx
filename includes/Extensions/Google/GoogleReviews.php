@@ -182,6 +182,11 @@ class GoogleReviews extends Extension {
 
     public function doc(){
         $url = admin_url('admin.php?page=nx-settings&tab=tab-api-integrations#google_reviews_settings_section');
+        /* translators: 
+            %1$s: URL to the Google Reviews API settings page in the WordPress admin, 
+            %2$s: URL to the step-by-step documentation for Google Reviews API setup, 
+            %3$s: URL to the NotificationX integration guide for Google Reviews 
+        */
         return sprintf(__('<p>Make sure that you have configured your <a target="_blank" href="%1$s">Google Reviews API</a> key, to showcase your reviews. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 
 		<p>👉NotificationX <a target="_blank" href="%3$s">Integration with Google Reviews</a>.</p>', 'notificationx'),

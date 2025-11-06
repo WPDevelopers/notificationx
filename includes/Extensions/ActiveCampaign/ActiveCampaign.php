@@ -55,6 +55,12 @@ class ActiveCampaign extends Extension {
     }
 
     public function doc(){
+        /* translators: 
+            %1$s: URL to the ActiveCampaign API setup guide, 
+            %2$s: URL to the ActiveCampaign documentation for NotificationX, 
+            %3$s: URL to the NotificationX integration page for ActiveCampaign, 
+            %4$s: URL to the blog about boosting engagement with ActiveCampaign email alerts 
+        */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">signed in & retrieved API URL & API key from ActiveCampaign account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>👉 NotificationX <a target="_blank" href="%3$s">Integration with ActiveCampaign</a></p>
 		<p><strong>Recommended Blogs:</strong></p>
