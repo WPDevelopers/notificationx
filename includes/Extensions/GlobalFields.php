@@ -917,7 +917,7 @@ class GlobalFields {
                                     'is_pro'   => true,
                                     'priority' => 99.5,
                                     'default'  => ['wc-completed', 'wc-processing'],
-                                    'help'     => __("By default it will show Processing & Completed status."),
+                                    'help'     => __("By default it will show Processing & Completed status.",'notificationx'),
                                     'options'  => apply_filters('nx_woo_order_status', []),
                                     'info'    => InfoTooltipManager::get_instance()->render('order_status'),
                                     'rules'    => Rules::logicalRule([
@@ -934,7 +934,7 @@ class GlobalFields {
                                     'is_pro'   => true,
                                     'priority' => 99.6,
                                     'default'  => ['processing','fulfilled'],
-                                    'help'     => __("By default it will show Processing & Fulfilled status."),
+                                    'help'     => __("By default it will show Processing & Fulfilled status.",'notificationx'),
                                     'options'  => apply_filters('nx_surecart_order_status', []),
                                     'info'     => InfoTooltipManager::get_instance()->render('order_status'),
                                     'rules'    => Rules::logicalRule([
@@ -949,7 +949,7 @@ class GlobalFields {
                                     'is_pro'   => true,
                                     'priority' => 99.8,
                                     'default'  => ['on-hold','completed','processing'],
-                                    'help'     => __("By default it will show Processing & Fulfilled status."),
+                                    'help'     => __("By default it will show Processing & Fulfilled status.",'notificationx'),
                                     'options'  => apply_filters('nx_fluentcart_order_status', []),
                                     'info'     => InfoTooltipManager::get_instance()->render('order_status'),
                                     'rules'    => Rules::logicalRule([
@@ -1061,7 +1061,7 @@ class GlobalFields {
                                     'name'    => "gdpr_force_reload",
                                     'type'    => "better-toggle",
                                     'default' => false,
-                                    'toggle_label'     => ['toggle_label_1' => __('Enable Force Reload', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
+                                    'toggle_label'     => ['toggle_label_1' => __('Enable Force Reload', 'notificationx'), 'toggle_label_2' => '' ],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
@@ -1072,7 +1072,7 @@ class GlobalFields {
                                     'name'    => "gdpr_cookie_removal",
                                     'type'    => "better-toggle",
                                     'default' => false,
-                                    'toggle_label'     => ['toggle_label_1' => __('Enable Cookie Removal', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
+                                    'toggle_label'     => ['toggle_label_1' => __('Enable Cookie Removal', 'notificationx'), 'toggle_label_2' => ''],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
@@ -1154,7 +1154,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => '',
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1177,7 +1177,7 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'necessary_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx'),
+                                                    'label'    => '',
                                                     'name'     => 'necessary_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
@@ -1209,7 +1209,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => '',
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1232,13 +1232,13 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'functional_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'label'    => '',
                                                     'name'     => 'functional_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
                                                     'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
-                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'label'    => __('Add New', 'notificationx'),
                                                         'position' => 'top',
                                                     ],
                                                     'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
@@ -1263,7 +1263,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => '',
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1286,13 +1286,13 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'analytics_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'label'    => '',
                                                     'name'     => 'analytics_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
                                                     'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
-                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'label'    => __('Add New', 'notificationx'),
                                                         'position' => 'top',
                                                     ],
                                                     'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
@@ -1317,7 +1317,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => '',
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1340,13 +1340,13 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'performance_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'label'    => '',
                                                     'name'     => 'performance_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
                                                     'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
-                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'label'    => __('Add New', 'notificationx'),
                                                         'position' => 'top',
                                                     ],
                                                     'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
@@ -1371,7 +1371,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => '',
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1394,13 +1394,13 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'advertising_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'label'    => '',
                                                     'name'     => 'advertising_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
                                                     'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
-                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'label'    => __('Add New', 'notificationx'),
                                                         'position' => 'top',
                                                     ],
                                                     'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
@@ -1425,7 +1425,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => '',
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1448,13 +1448,13 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'uncategorized_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx-pro'),
+                                                    'label'    => '',
                                                     'name'     => 'uncategorized_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
                                                     'placeholder_img'=> NOTIFICATIONX_ADMIN_URL . 'images/extensions/empty-cookie.png',
                                                     'button'  => [
-                                                        'label'    => __('Add New', 'notificationx-pro'),
+                                                        'label'    => __('Add New', 'notificationx'),
                                                         'position' => 'top',
                                                     ],
                                                     'visible_fields' => Helper::gdpr_cookie_list_visible_fields(),
