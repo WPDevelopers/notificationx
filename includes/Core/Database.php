@@ -278,7 +278,7 @@ class Database {
                     } elseif ( in_array( $compare, [ '<', '<=', '>', '>=' ], true ) ) {
                         $value = "'" . esc_sql( $value[1] ) . "'";
                     } else {
-                        throw new \Exception( "Unknown parameter $compare.", 1 );
+                        throw new \Exception( sprintf( __( 'Unknown parameter %s.', 'notificationx' ), esc_html( $compare ) ), 1 );
                     }
                 } else {
                     $value = "'" . esc_sql( $value ) . "'"; // is_bool($value) ? $value :.

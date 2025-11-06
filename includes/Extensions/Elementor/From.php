@@ -47,9 +47,8 @@ class From extends Extension {
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/docs/elementor-form-with-notificationx/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
-            "html"=> __('
-                <span>Elementor forms that can help you keep important leads and stay in touch with your customers.</span>
-            ', 'notificationx')
+            /* translators: Description about Elementor forms. */
+            "html" => '<span>' . wp_kses_post( __( 'Elementor forms that can help you keep important leads and stay in touch with your customers.', 'notificationx' ) ) . '</span>',
         ];
     }
 

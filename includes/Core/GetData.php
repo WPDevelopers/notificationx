@@ -19,7 +19,8 @@ class GetData extends \ArrayObject {
         if ($this->offsetExists($name)) {
             return $this->offsetGet($name);
         }
-        trigger_error('Undefined property: ' . $name);
+        /* translators: %s is the undefined property name. */
+        trigger_error( sprintf( __( 'Undefined property: %s', 'notificationx' ), esc_html( $name ) ) );
     }
 
     #[\ReturnTypeWillChange]

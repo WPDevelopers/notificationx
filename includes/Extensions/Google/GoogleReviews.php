@@ -161,9 +161,8 @@ class GoogleReviews extends Extension {
             "denyButtonText" => __("<a href='https://notificationx.com/docs/google-reviews-with-notificationx/
             ' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
-            "html"=> __('
-                <span>Google reviews provide helpful information and make your business stand out.</span>
-            ', 'notificationx')
+            /* translators: Description about Google Reviews. */
+            "html" => '<span>' . wp_kses_post( __( 'Google reviews provide helpful information and make your business stand out.', 'notificationx' ) ) . '</span>',
         ];
     }
 
