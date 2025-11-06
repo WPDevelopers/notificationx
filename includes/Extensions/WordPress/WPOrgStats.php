@@ -202,7 +202,7 @@ class WPOrgStats extends Extension {
         // translators: %s: number of downloads of all time.
         $saved_data['all_time'] = sprintf(__( '%s times', 'notificationx' ), Helper::nice_number( $saved_data['all_time'] ));
         /* translators: %s: number of active installs */
-        $saved_data['active_installs'] = sprintf( __( '%s', 'notificationx' ), Helper::nice_number( $saved_data['active_installs'] ) );
+        $saved_data['active_installs'] = Helper::nice_number( $saved_data['active_installs'] );
         // wp_send_json($saved_data);
         return $saved_data;
     }
