@@ -15,7 +15,10 @@
                 <?php
                     echo
                         // translators: html tags
-                        __( 'To work <strong><em>NotificationX</em></strong> properly you need to <strong>Enable JavaScript</strong> in your browser or make sure you have installed updated browser in your device.', 'notificationx' );
+                        wp_kses_post(
+                            __( 'To work <strong><em>NotificationX</em></strong> properly you need to <strong>Enable JavaScript</strong> in your browser or make sure you have installed updated browser in your device.', 'notificationx' )
+                        );
+
                 ?>
             </p>
         </noscript>

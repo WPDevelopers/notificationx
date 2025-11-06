@@ -110,12 +110,12 @@ class NinjaForms extends Extension {
         if (!class_exists('Ninja_Forms')) {
             return [];
         }
-        global $wpdb;
-        $form_result = $wpdb->get_results('SELECT id, title FROM `' . $wpdb->prefix . 'nf3_forms` ORDER BY title');
+        $form_result = Ninja_Forms()->form()->get_forms();
+        $forms = [];
         if (!empty($form_result)) {
             foreach ($form_result as $form) {
-                $key = $this->key($form->id);
-                $forms[$key] = $form->title;
+                $key = $this->key($form->get_id());
+                $forms[$key] = $form->get_setting( 'title' );
             }
         }
 
@@ -140,7 +140,7 @@ class NinjaForms extends Extension {
         if( !empty($form_list) ) {
             $form_list = explode('_',$form_list);
             $submissions = $this->get_submissions($form_list[1], $data);
-            if( count( $submissions ) > 0 ) {
+            if( is_array($submissions) && count( $submissions ) > 0 ) {
                 $entries = [];
                 foreach ( $submissions as $submission ) {
                     if( !empty( $submission ) ) {
@@ -298,6 +298,7 @@ class NinjaForms extends Extension {
                 '%' . $wpdb->esc_like($args['inputValue']) . '%',$limit
             );
             // Execute the query and retrieve the results
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $form_result = $wpdb->get_results($query);
             if (!empty($form_result)) {
                 foreach ($form_result as $form) {
@@ -315,6 +316,7 @@ class NinjaForms extends Extension {
             }else{
                 $form_id = intval($args['form_id']);
             }
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $queryresult = $wpdb->get_results('SELECT meta_value FROM `' . $wpdb->prefix . 'nf3_form_meta` WHERE parent_id = ' . $form_id . ' AND meta_key = "formContentData"');
 
             if(isset($queryresult[0]) && isset($queryresult[0]->meta_value)){

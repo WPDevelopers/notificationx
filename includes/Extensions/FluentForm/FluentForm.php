@@ -105,22 +105,17 @@ class FluentForm extends Extension {
         return array_merge($forms, $_forms);
     }
 
+    /**
+     * Get available FluentForm forms name.
+     *
+     * @return array
+     */
     public function get_forms() {
         $forms = [];
         if (!$this->class_exists()) {
             return [];
         }
-        global $wpdb;
-
-        $table_name = $wpdb->prefix . 'fluentform_forms';
-        $limit      = 10;
-        // Prepare the query with a WHERE condition
-        $query = $wpdb->prepare(
-            "SELECT id, title FROM {$table_name} WHERE status = %s LIMIT %d",
-            'published', $limit
-        );
-        // Execute the query and retrieve the results
-        $form_result = $wpdb->get_results($query);
+        $form_result = wpFluent()->table('fluentform_forms')->take(10)->get();
 
         if (!empty($form_result)) {
             foreach ($form_result as $form) {
@@ -147,6 +142,7 @@ class FluentForm extends Extension {
                 '%' . $wpdb->esc_like($args['inputValue']) . '%','published',$limit
             );
             // Execute the query and retrieve the results
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $form_result = $wpdb->get_results($query);
             if (!empty($form_result)) {
                 foreach ($form_result as $form) {
