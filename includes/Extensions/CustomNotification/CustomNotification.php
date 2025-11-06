@@ -88,6 +88,11 @@ class CustomNotification extends Extension {
     }
 
     public function doc(){
+        /* translators: 
+            %1$s: URL to the step-by-step documentation for creating custom notifications in NotificationX,
+            %2$s: URL to the video tutorial for custom notifications,
+            %3$s: URL to the blog post about displaying custom notification alerts on your website
+        */
         return sprintf(__('<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target="_blank" href="%1$s">documentation</a>.</p>
 		<p>🎦 Watch <a target="_blank" href="%2$s">video tutorial</a> to learn quickly</p>
 		<p><strong>Recommended Blog:</strong></p>
