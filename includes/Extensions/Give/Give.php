@@ -294,6 +294,13 @@ class Give extends Extension {
     }
 
     public function doc() {
+        /* translators: 
+            %1$s: URL to the GiveWP WordPress plugin page, 
+            %2$s: URL to the step-by-step documentation for GiveWP donation alerts in NotificationX, 
+            %3$s: URL to the video tutorial for GiveWP integration, 
+            %4$s: URL to the NotificationX integration page for GiveWP, 
+            %5$s: URL to the blog about increasing sales with NotificationX on WordPress websites
+        */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with GiveWP</a></p>

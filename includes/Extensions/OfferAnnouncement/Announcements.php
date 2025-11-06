@@ -266,6 +266,10 @@ class Announcements extends Extension {
     }
 
     public function doc(){
+        /* translators: 
+            %1$s: URL to the step-by-step documentation for configuring Discount Alert popup in NotificationX, 
+            %2$s: URL to the blog guide about using Discount Alert to notify customers about on-sale products 
+        */
         return sprintf(__('<p>You can showcase the discount alert popup on your WordPress website to make visitors take purchasing action immediately. For further assistance, check out our step-by-step <a target="_blank" href="%1$s">documentation</a>.</p>
 		<p><strong>Recommended Blog:</strong></p>
 		<p>🔥Introducing Discount Alert By NotificationX <a target="_blank" href="%2$s">Guide To Notify Customers About On-Sale Products</a> </p>', 'notificationx'),
