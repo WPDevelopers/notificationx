@@ -255,7 +255,6 @@ class YouTube extends Extension {
             ' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             'html'              => wp_kses_post( '<span>' . __( 'Google reviews provide helpful information and make your business stand out.', 'notificationx' ) . '</span>' ),
-
         ];
     }
 

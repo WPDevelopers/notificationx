@@ -65,6 +65,13 @@ class LearnDash extends Extension {
     }
 
     public function doc(){
+        /* translators: 
+            %1$s: URL to the LearnDash plugin website, 
+            %2$s: URL to the step-by-step documentation for displaying LearnDash course enrollment alerts using NotificationX, 
+            %3$s: URL to the video tutorial for LearnDash integration, 
+            %4$s: URL to the NotificationX integration guide for LearnDash, 
+            %5$s: URL to the blog about increasing LearnDash course enrollment rates 
+        */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">LearnDash installed & configured</a> to use its campaign & course selling data.  For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with LearnDash</a> </p>
