@@ -76,6 +76,13 @@ class GravityForms extends Extension {
     }
 
     public function doc(){
+        /* translators: 
+            %1$s: URL to the Gravity Forms plugin, 
+            %2$s: URL to Gravity Forms documentation, 
+            %3$s: URL to the video tutorial, 
+            %4$s: URL to the NotificationX integration page for Gravity Forms, 
+            %5$s: URL to the blog about increasing WordPress contact form submissions 
+        */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">Gravity Forms installed & configured</a>, to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
 		<p>👉NotificationX <a target="_blank" href="%4$s">Integration with Ninja Forms</a></p>

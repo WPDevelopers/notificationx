@@ -200,6 +200,13 @@ class WooCommerceSales extends WooCommerce {
     }
 
     public function doc(){
+        /* translators: 
+            %1$s: URL to the WooCommerce plugin, 
+            %2$s: URL to the WooCommerce documentation, 
+            %3$s: URL to the video tutorial, 
+            %4$s: URL to the blog post about the Best FOMO and Social Proof plugin, 
+            %5$s: URL to the blog post about boosting WooCommerce sales 
+        */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a href="%3$s" target="_blank">Watch video tutorial</a> to learn quickly</p>
 		<p>⭐ NotificationX Integration with WooCommerce</p>
