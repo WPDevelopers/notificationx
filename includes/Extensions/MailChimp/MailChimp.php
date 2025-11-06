@@ -55,6 +55,14 @@ class MailChimp extends Extension {
     }
 
     public function doc(){
+        /* translators: 
+            %1$s: URL to MailChimp API key help page, 
+            %2$s: URL to the step-by-step documentation for MailChimp email subscription alert setup, 
+            %3$s: URL to the video tutorial for MailChimp integration, 
+            %4$s: URL to the NotificationX integration guide for MailChimp, 
+            %5$s: URL to the blog about improving email marketing strategy with social proof, 
+            %6$s: URL to the blog about growing email subscription list on WordPress 
+        */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">signed in & retrieved API key from MailChimp account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with MailChimp</a></p>

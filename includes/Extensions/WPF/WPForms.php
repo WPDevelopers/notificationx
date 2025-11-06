@@ -339,6 +339,13 @@ class WPForms extends Extension {
     }
 
     public function doc() {
+        /* translators: 
+            %1$s: URL to the WPForms plugin page, 
+            %2$s: URL to the step-by-step documentation for WPForms integration with NotificationX, 
+            %3$s: URL to the video tutorial for WPForms integration, 
+            %4$s: URL to the NotificationX integration guide for WPForms, 
+            %5$s: URL to the blog about increasing WordPress contact form submission rates using NotificationX 
+        */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with WPForms</a></p>

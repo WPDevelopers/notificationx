@@ -55,6 +55,13 @@ class ConvertKit extends Extension {
     }
 
     public function doc(){
+        /* translators: 
+            %1$s: URL to the ConvertKit login page to retrieve API key, 
+            %2$s: URL to the step-by-step documentation for ConvertKit alert setup, 
+            %3$s: URL to the video tutorial for ConvertKit integration, 
+            %4$s: URL to the NotificationX integration guide for ConvertKit, 
+            %5$s: URL to the blog about connecting NotificationX with ConvertKit to grow audience 
+        */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">signed in & retrieved your API key from ConvertKit account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with ConvertKit</a></p>

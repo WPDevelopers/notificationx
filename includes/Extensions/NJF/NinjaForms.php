@@ -401,6 +401,13 @@ class NinjaForms extends Extension {
     }
 
     public function doc() {
+        /* translators: 
+            %1$s: URL to the Ninja Forms plugin page, 
+            %2$s: URL to the step-by-step documentation for Ninja Forms integration with NotificationX, 
+            %3$s: URL to the video tutorial for Ninja Forms integration, 
+            %4$s: URL to the NotificationX integration guide for Ninja Forms, 
+            %5$s: URL to the blog about increasing WordPress contact form submission rates using NotificationX 
+        */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Ninja Forms</a></p>

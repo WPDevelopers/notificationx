@@ -126,7 +126,7 @@ class EDD extends Extension {
             }
         }
 
-        $products_more_title = isset($settings['combine_multiorder_text']) && !empty($settings['combine_multiorder_text']) ? __($settings['combine_multiorder_text'], 'notificationx') : __('more products', 'notificationx');
+        $products_more_title = isset($settings['combine_multiorder_text']) && !empty($settings['combine_multiorder_text']) ? $settings['combine_multiorder_text'] : __('more products', 'notificationx');
         foreach ($item_counts as $key => $item) {
             $items[$key]['title'] = $items[$key]['title'] . ' & ' . $item . ' ' . $products_more_title;
         }
@@ -359,6 +359,12 @@ class EDD extends Extension {
     /* #endregion */
 
     public function doc(){
+        /* translators: 
+            %1$s: URL to the Easy Digital Downloads plugin page, 
+            %2$s: URL to the step-by-step documentation for NotificationX EDD campaign setup, 
+            %3$s: URL to the NotificationX integration guide for Easy Digital Downloads, 
+            %4$s: URL to the blog about how NotificationX increases sales on WordPress websites 
+        */
         return sprintf(__('<p>Make sure that you have <a href="%1$s" target="_blank">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>👉 NotificationX <a target="_blank" href="%3$s">Integration with Easy Digital Downloads</a></p>
 		<p><strong>Recommended Blog:</strong></p>

@@ -537,6 +537,12 @@ class Tutor extends Extension {
     }
 
     public function doc(){
+        /* translators: 
+            %1$s: URL to the Tutor LMS plugin page, 
+            %2$s: URL to the step-by-step documentation for Tutor LMS integration with NotificationX, 
+            %3$s: URL to the video tutorial for Tutor LMS integration, 
+            %4$s: URL to the NotificationX integration guide for Tutor LMS 
+        */
         return sprintf(__('<p>Make sure that you have <a href="%1$s" target="_blank">Tutor LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 Watch <a target="_blank" href="%3$s">video tutorial</a> to learn quickly</p>
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Tutor LMS</a></p>', 'notificationx'),
