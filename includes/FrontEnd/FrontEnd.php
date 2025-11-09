@@ -47,7 +47,7 @@ class FrontEnd {
      */
     public function __construct() {
         Analytics::get_instance();
-        if (!is_admin() || !empty($_GET['frontend'])) {
+        if (!is_admin() || !empty($_GET['frontend'])) {  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             add_action('init', [$this, 'init'], 10);
         }
         add_filter('nx_frontend_localize_data', [$this, 'get_localize_data']);
@@ -114,9 +114,14 @@ class FrontEnd {
         );
 
         $exit = false;
-        if(isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'wp-admin/widgets.php') !== false){
-            $exit = ['total' => 0];
+        if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
+            $referer = wp_unslash( $_SERVER['HTTP_REFERER'] ); // Remove slashes added by PHP
+            $referer = esc_url_raw( $referer ); // Sanitize as URL
+            if ( strpos( $referer, 'wp-admin/widgets.php' ) !== false ) {
+                $exit = ['total' => 0];
+            }
         }
+
 
         $exit = apply_filters('nx_before_enqueue_scripts', $exit);
         if(!empty($exit)){
@@ -124,7 +129,7 @@ class FrontEnd {
             return;
         }
 
-        if (!$exit && empty($_GET['elementor-preview'])) {
+        if (!$exit && empty($_GET['elementor-preview'])) {  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $this->notificationXArr = $this->get_notifications_ids();
             if ($this->notificationXArr['total'] > 0) {
                 $lang = get_locale();
@@ -321,7 +326,7 @@ class FrontEnd {
                 $entry               = $this->apply_defaults($entry, $defaults);
                 $entry['image_data'] = $this->get_image_url($entry, $settings);
                 if (!empty($entry['title'])) {
-                    $entry['title'] = strip_tags(html_entity_decode($entry['title']));
+                    $entry['title'] = wp_strip_all_tags(html_entity_decode($entry['title']));
                 }
 
                 $entry = apply_filters("nx_filtered_entry_$type", $entry, $settings);
@@ -913,7 +918,7 @@ class FrontEnd {
 
         // checking if content is empty
         $_bar_content = str_replace(array("\r\n", "\n", "\r"), '', $bar_content);
-        $_bar_content = trim(strip_tags($_bar_content));
+        $_bar_content = trim(wp_strip_all_tags($_bar_content));
         if (empty($_bar_content) && !empty($settings['enable_countdown'])) {
             $bar_content = '&nbsp;';
         }
