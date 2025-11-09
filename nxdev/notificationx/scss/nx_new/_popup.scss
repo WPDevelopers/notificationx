@@ -1,3 +1,118 @@
+#notificationx .notificationx-items {
+    .nx-admin-items {
+        .nx-search-wrapper {
+            max-width: 320px;
+            input.nx-search-input {
+                border: 1px solid #E6EFFB;
+                padding: 12px;
+                border-radius: 6px;
+                font-size: 16px;
+                line-height: 150%;
+                font-weight: 400;
+                color: #535D77;
+                margin: 0;
+                &:focus,
+                &:focus-visible {
+                    box-shadow: none;
+                    outline: 0;
+                }
+            }
+        }
+        table {
+            &.wp-list-table {
+                border-spacing: 0 4px;
+                thead {
+                    tr td {
+                        font-size: 16px;
+                        line-height: 150%;
+                        color: #7C8DB5;
+                        height: auto;
+                        padding: 16px 24px;
+                        box-sizing: border-box;
+
+                        &:first-child {
+                            display: none;
+                        }
+                        &:nth-child(2) {
+                            width: 8%;
+                        }
+                        &:nth-child(3) {
+                            width: 15%;
+                        }
+                        &:nth-child(4) {
+                            width: 20%;
+                        }
+                        &:nth-child(5) {
+                            width: 27%;
+                        }
+                        &:nth-child(6) {
+                            width: 15%;
+                        }
+                        &:last-child {
+                            width: 15%;
+                            text-align: left;
+                        }
+                    }
+                }
+                tbody {
+                    tr td {
+                        font-size: 16px;
+                        line-height: 150%;
+                        color: #092161;
+                        height: auto;
+                        padding: 16px 24px;
+                        box-sizing: border-box;
+
+                        &:first-child {
+                            display: none;
+                        }
+                        &:nth-child(2) {
+                            width: 8%;
+                        }
+                        &:nth-child(3) {
+                            width: 15%;
+                        }
+                        &:nth-child(4) {
+                            width: 20%;
+                        }
+                        &:nth-child(5) {
+                            width: 27%;
+                        }
+                        &:nth-child(6) {
+                            width: 15%;
+                        }
+                        &:last-child {
+                            width: 15%;
+                            text-align: left;
+                        }
+                        .nx-action-buttons {
+                            display: flex;
+                            gap: 12px;
+
+                            button.nx-btn {
+                                border: 1px solid #EBEEF5;
+                                border-radius: 3px;
+                                background: transparent;
+                                font-size: 10px;
+                                width: 24px;
+                                height: 24px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .nx-admin-items-footer {
+            margin-top: 0;
+            padding: 16px 0;
+            border-top: none;
+        }
+    }
+}
 
 .nx-modal-overlay {
     position: fixed;
