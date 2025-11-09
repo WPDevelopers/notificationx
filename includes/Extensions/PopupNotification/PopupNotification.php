@@ -140,7 +140,6 @@ class PopupNotification extends Extension {
         $this->themes = [
             'theme-one' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-one.png',
-                'column' => "12",
                 'defaults' => [
                     'popup_title'             => __('Want to build credibility & boost sales?', 'notificationx'),
                     'popup_content'           => __('We help you optimize conversions & drive sales', 'notificationx'),
@@ -155,7 +154,6 @@ class PopupNotification extends Extension {
             ],
             'theme-two' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-two.png',
-                'column' => "12",
                 'defaults' => [
                     'popup_title'             => __('Boost your sales using SureCart', 'notificationx'),
                     'popup_content'           => __('<iframe width="560" height="315" src="https://www.youtube.com/embed/dw176Jmk74M?si=3suUqkCkQuYQrh2G" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'notificationx'),
@@ -170,7 +168,6 @@ class PopupNotification extends Extension {
             ],
             'theme-three' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-three.png',
-                'column' => "12",
                 'defaults' => [
                     'popup_title'                    => __('All Offers', 'notificationx'),
                     'popup_button_text'              => __('Latest Offers', 'notificationx'),
@@ -187,7 +184,6 @@ class PopupNotification extends Extension {
             ],
             'theme-four' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-four.webp',
-                'column' => "12",
                 'defaults' => [
                     'popup_title'             => __('Need Help?', 'notificationx'),
                     'popup_content'           => __('Get the latest news and updates delivered to your inbox.', 'notificationx'),
@@ -202,7 +198,6 @@ class PopupNotification extends Extension {
             ],
             'theme-five' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-five.webp',
-                'column' => "12",
                 'defaults' => [
                     'popup_title'             => __('Need Help?', 'notificationx'),
                     'popup_content'           => __('Subscribe to receive exclusive offers and updates directly in your inbox.', 'notificationx'),
@@ -218,7 +213,6 @@ class PopupNotification extends Extension {
             ],
             'theme-six' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-six.webp',
-                'column' => "12",
                 'defaults' => [
                     'popup_title'             => __('Get latest news & updates', 'notificationx'),
                     'popup_email_placeholder' => __('Your email address', 'notificationx'),
@@ -233,7 +227,6 @@ class PopupNotification extends Extension {
             ],
             'theme-seven' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-seven.webp',
-                'column' => "12",
                 'defaults' => [
                     'popup_title'             => __('Want latest updates?', 'notificationx'),
                     'popup_subtitle'          => __('Would like to get the lastes news & updates instantly?', 'notificationx'),

@@ -1,8 +1,81 @@
-#notificationx .notificationx-items#notificationx-feedback-wrapper .nx-admin-items {
-    table thead tr > td:nth-child(2) {
-        width: 50px;
-    }
-    table thead tr > td:nth-child(3) {
-        width: 80px;
+
+.nx-modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #00000047;
+    padding: 36px;
+
+    .nx-modal {
+        width: 640px;
+        margin: 0 auto;
+        background: #FFF;
+        border-radius: 8px;
+
+        .nx-modal-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #EBEEF5;
+            position: relative;
+            h3 {
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 100%;
+                color: #092161;
+                margin: 0;
+            }
+
+            button.nx-modal-close {
+                border: none;
+                background: transparent;
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #535D77;
+                font-size: 16px;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 24px;
+                cursor: pointer;
+            }
+        }
+        .nx-modal-body {
+            padding: 24px;
+            .nx-entry-field {
+                &:not(:last-child) {
+                    margin-bottom: 16px;
+                }
+                strong {
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 150%;
+                    color: #535D77;
+                    max-width: 80px;
+                    min-width: 80px;
+                    display: inline-block;
+                }
+                span {
+                    font-size: 14px;
+                    line-height: 150%;
+                    font-weight: 500;
+                    color: #092161;
+                    margin-left: 30px;
+                }
+                .nx-message-content {
+                    font-size: 14px;
+                    line-height: 150%;
+                    color: #092161;
+                    margin-top: 4px;
+                }
+            }
+        }
+
+        .nx-modal-footer {
+            display: none;
+        }
     }
 }
