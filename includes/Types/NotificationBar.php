@@ -85,13 +85,12 @@ class NotificationBar extends Types {
             if ($settings['schedule_type'] === 'daily' &&
                 !empty($settings['daily_from_time']) &&
                 !empty($settings['daily_to_time'])) {
-
-                $from_time = strtotime(date('Y-m-d ') . date('H:i:s', strtotime($settings['daily_from_time'])));
-                $to_time = strtotime(date('Y-m-d ') . date('H:i:s', strtotime($settings['daily_to_time'])));
-
+                $today     = wp_date( 'Y-m-d', $current_time );
+                $from_time = strtotime( $today . ' ' . wp_date( 'H:i:s', strtotime( $settings['daily_from_time'] ) ) );
+                $to_time   = strtotime( $today . ' ' . wp_date( 'H:i:s', strtotime( $settings['daily_to_time'] ) ) );
                 // Handle case where to_time is on the next day
                 if ($to_time < $from_time) {
-                    $to_time += 86400; // Add 24 hours
+                    $to_time += DAY_IN_SECONDS; // Add 24 hours
                 }
 
                 if ($current_time < $from_time || $current_time > $to_time) {
@@ -105,13 +104,14 @@ class NotificationBar extends Types {
                 !empty($settings['weekly_from_time']) &&
                 !empty($settings['weekly_to_time'])) {
 
-                $current_day = strtolower(date('l', $current_time));
-                $from_time = strtotime(date('Y-m-d ') . date('H:i:s', strtotime($settings['weekly_from_time'])));
-                $to_time = strtotime(date('Y-m-d ') . date('H:i:s', strtotime($settings['weekly_to_time'])));
+                $current_day = strtolower( wp_date('l', $current_time) );
+                $today       = wp_date( 'Y-m-d', $current_time );
+                $from_time   = strtotime( $today . ' ' . wp_date( 'H:i:s', strtotime( $settings['weekly_from_time'] ) ) );
+                $to_time     = strtotime( $today . ' ' . wp_date( 'H:i:s', strtotime( $settings['weekly_to_time'] ) ) );
 
                 // Handle case where to_time is on the next day
                 if ($to_time < $from_time) {
-                    $to_time += 86400; // Add 24 hours
+                    $to_time += DAY_IN_SECONDS; // Add 24 hours
                 }
 
                 // Check if current day is in the selected days
@@ -145,11 +145,12 @@ class NotificationBar extends Types {
                 }
 
                 // Daily time range (use today’s date for both from and to)
-                $from_time = strtotime(gmdate('Y-m-d ') . date('H:i:s', strtotime($settings['custom_from_time'])));
-                $to_time = strtotime(gmdate('Y-m-d ') . date('H:i:s', strtotime($settings['custom_to_time'])));
+                $today     = wp_date( 'Y-m-d', $current_time );
+                $from_time = strtotime( $today . ' ' . wp_date( 'H:i:s', strtotime( $settings['custom_from_time'] ) ) );
+                $to_time   = strtotime( $today . ' ' . wp_date( 'H:i:s', strtotime( $settings['custom_to_time'] ) ) );
 
                 if ($to_time < $from_time) {
-                    $to_time += 86400; // Handle overnight ranges
+                    $to_time += DAY_IN_SECONDS; // Handle overnight ranges
                 }
 
                 if ($current_time < $from_time || $current_time > $to_time) {

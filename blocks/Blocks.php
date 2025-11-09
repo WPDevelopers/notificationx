@@ -164,7 +164,7 @@ class Blocks {
             add_filter('nx_is_preview',function(){
                 return true;
             });
-            $product_id = rand();
+            $product_id = wp_rand();
         }
         $shortcode = do_shortcode( "[notificationx_inline post_type='{$post_type}' product_id='{$product_id}' id='{$nx_id}' show_link=false]" );
         if ( $shortcode ) {

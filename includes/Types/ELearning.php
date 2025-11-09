@@ -290,7 +290,7 @@ class ELearning extends Types {
 
     public function conversion_data($saved_data, $settings) {
         if ( ! empty( $saved_data['course_title'] ) ) {
-            $saved_data['course_title'] = strip_tags( html_entity_decode( $saved_data['course_title'] ) );
+            $saved_data['course_title'] = wp_strip_all_tags( html_entity_decode( $saved_data['course_title'] ) );
         }
         return $saved_data;
     }

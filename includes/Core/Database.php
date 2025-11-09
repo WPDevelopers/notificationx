@@ -110,15 +110,23 @@ class Database {
     public function update_analytics( $col, $id, $date, $data = null ) {
         $table_name = self::$table_stats;
         $_data = is_null( $data ) ? 1 : intval( $data );
+        $table  = esc_sql( $table_name );
+        $column = esc_sql( $col );
+        $data   = floatval( $_data );          // Use floatval/intval depending on your column type
+        $id     = intval( $id );
+        $date   = sanitize_text_field( $date );
 
-        return $this->wpdb->query( $this->wpdb->prepare( '
-            UPDATE %1$s
-            SET `%2$s` = `%3$s` + %4$s
-            WHERE nx_id = "%5$s"
-            AND created_at = "%6$s"',
-            $table_name, esc_sql( $col ), esc_sql( $col ), $_data, intval( $id ), $date
-        )
+        $sql = $this->wpdb->prepare(
+            "UPDATE `$table`
+            SET `$column` = `$column` + %f
+            WHERE nx_id = %d
+            AND created_at = %s",
+            $data,
+            $id,
+            $date
         );
+
+        return $this->wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
     }
 
     public function insert_post( $table_name, $post, $format = null ) {
@@ -278,10 +286,8 @@ class Database {
                     } elseif ( in_array( $compare, [ '<', '<=', '>', '>=' ], true ) ) {
                         $value = "'" . esc_sql( $value[1] ) . "'";
                     } else {
-                        throw new \Exception( sprintf( 
-                            /** translators: %s is the unknown parameter. */
-                            __( 'Unknown parameter %s.', 'notificationx' ), esc_html( $compare ) ), 1
-                        );
+                        /* translators: %s is the unknown parameter. */
+                        throw new \Exception( sprintf( esc_html__( 'Unknown parameter %s.', 'notificationx' ), esc_html( $compare ) ), 1 );
                     }
                 } else {
                     $value = "'" . esc_sql( $value ) . "'"; // is_bool($value) ? $value :.

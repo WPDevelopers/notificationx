@@ -154,7 +154,7 @@ class PressBar extends Extension {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/press_bar_theme-six-preview.webp',
                 'column'  => "12",
                 'defaults' => [
-                    'press_content'               => wp_kses_post( '<p>' . __('<span style="color: #000;">🎁 Flash 30%</span> Sale is On Now! Don’t miss out on this opportunity.','notificationx') . '</p>' ),
+                    'press_content'               => wp_kses_post( '<p>' . __('<span style="color: #000;">🎁 Flash 30%</span> Sale is On Now! Don’t miss out on this opportunity.','notificationx') ),
                     'enable_countdown'            => 1,
                     'nx_bar_border_radius_left'   => 16,
                     'nx_bar_border_radius_right'  => 16,
@@ -169,7 +169,7 @@ class PressBar extends Extension {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/press_bar_theme-seven-preview.webp',
                 'column'  => "12",
                 'defaults' => [
-                    'press_content'               => wp_kses_post( '<p>' . __('<span style="color: #9F7800;">4 years</span> Of Seamlessly Creating NotificationX!</p>','notificationx') ),
+                    'press_content'               => wp_kses_post( '<p>' . __('<span style="color: #9F7800;">4 years</span> Of Seamlessly Creating NotificationX!','notificationx') . '</p>' ),
                     'enable_countdown'            => 0,
                     'nx_bar_border_radius_left'   => 0,
                     'nx_bar_border_radius_right'  => 0,
