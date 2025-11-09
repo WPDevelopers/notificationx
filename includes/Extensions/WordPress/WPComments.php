@@ -121,7 +121,7 @@ class WPComments extends Extension {
         global $wp_version;
 
         // $from = isset($data['display_from']) ? intval($data['display_from']) : 0;
-        $from = date('Y-m-d H:i:s', Helper::generate_time_string($data));
+        $from   = gmdate('Y-m-d H:i:s', Helper::generate_time_string($data));
         $needed = isset($data['display_last']) ? intval($data['display_last']) : 0;
 
         $args = [

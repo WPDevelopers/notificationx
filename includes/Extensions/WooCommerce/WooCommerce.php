@@ -321,7 +321,7 @@ class WooCommerce extends Extension {
                 $new_order['var_product_id'] = $item->get_variation_id();
             }
             $new_order['product_id'] = $item->get_product_id();
-            $new_order['title']      = strip_tags($product_data['title']);
+            $new_order['title']      = wp_strip_all_tags($product_data['title']);
             $new_order['link']       = $product_data['link'];
         }
         if($date && method_exists($date, 'getTimestamp')){
@@ -396,7 +396,7 @@ class WooCommerce extends Extension {
         if (empty($data) || !function_exists('wc_get_orders')) return null;
         $orders = [];
         $time   = Helper::generate_time_string($data);
-        $from   = strtotime(date('Y-m-d h:i', $time));
+        $from   = strtotime(gmdate('Y-m-d h:i', $time));
         $status = !empty($data['order_status']) ? $data['order_status'] : ['wc-completed', 'wc-processing'];
         $wc_orders = \wc_get_orders([
             'status'       => $status,

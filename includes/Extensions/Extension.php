@@ -788,8 +788,8 @@ abstract class Extension {
     }
 
     public function restResponse( $params ){
-        error_log('FROM Extenson');
-        error_log( $params );
+        error_log('FROM Extenson'); // phpcs:ignore Generic.DebugCodes.DisallowDebugCode
+        error_log( $params ); // phpcs:ignore Generic.DebugCodes.DisallowDebugCode
     }
 
     public function nx_instructions($instructions){

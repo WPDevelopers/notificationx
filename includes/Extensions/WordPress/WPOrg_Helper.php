@@ -17,7 +17,7 @@ class WPOrg_Helper {
 
 		foreach ( $linkTags as $tag ) {
 			if ( $strip_tags ) {
-				$links[] = trim( strip_tags( $tag->ownerDocument->saveXML( $tag ) ) );
+				$links[] = trim( wp_strip_all_tags( $tag->ownerDocument->saveXML( $tag ) ) );
 			} else {
 				$links[] = $tag->ownerDocument->saveXML( $tag );
 			}
@@ -77,7 +77,7 @@ class WPOrg_Helper {
 			$content = $element->ownerDocument->saveXML( $element );
 		}
 
-		return trim( strip_tags( $content ) );
+		return trim( wp_strip_all_tags( $content ) );
 
     }
     
@@ -93,7 +93,7 @@ class WPOrg_Helper {
 		}
 
 		if ( ! empty( $titlepaths ) ) {
-			return trim( strip_tags( $titlepaths[0] ) );
+			return trim( wp_strip_all_tags( $titlepaths[0] ) );
 		} else{
 			return '';
 		}
@@ -112,7 +112,7 @@ class WPOrg_Helper {
 			$content = $element->getAttribute('data-rating');
 		}
 
-		return trim( strip_tags( $content ) );
+		return trim( wp_strip_all_tags( $content ) );
 
 	}
 

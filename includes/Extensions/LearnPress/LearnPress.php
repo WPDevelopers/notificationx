@@ -209,7 +209,7 @@ class LearnPress extends Extension {
         $userdata = get_userdata($user_id);
         $data     = array();
         if (isset($_SERVER['REMOTE_ADDR'])) {
-            $user_ip    = $_SERVER['REMOTE_ADDR'];
+            $user_ip    = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) );
             $data['ip'] = $user_ip;
         }
         $data['first_name'] = $userdata->first_name;
@@ -500,7 +500,7 @@ class LearnPress extends Extension {
         }
         $orders   = array();
         // $from     = date(get_option('date_format'), strtotime('-' . intval($data['display_from']) . ' days'));
-        $from     = date('Y-m-d H:i:s', Helper::generate_time_string($data));
+        $from     = gmdate('Y-m-d H:i:s', Helper::generate_time_string($data));
         $enrolled = get_posts(
             array(
                 'post_type'      => 'lp_order',

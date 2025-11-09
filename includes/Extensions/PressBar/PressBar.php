@@ -336,7 +336,7 @@ class PressBar extends Extension {
         unset($post['data']['is_gb_confirmed']);
         $post['data']['countdown_start_date'] = !empty( $data['countdown_start_date'] ) ? Helper::mysql_time($data['countdown_start_date']) : '';
         $post['data']['countdown_end_date'] = !empty( $data['countdown_end_date'] ) ? Helper::mysql_time($data['countdown_end_date']) : '';
-        $post['data']['countdown_rand'] = rand();
+        $post['data']['countdown_rand'] = wp_rand();
         return $post;
     }
 
@@ -1951,7 +1951,7 @@ class PressBar extends Extension {
                     'label' => __('End Date', 'notificationx'),
                     'type'  => 'date',
                     // @todo Something
-                    'default' => date('Y-m-d H:i:s', time() + 7 * 24 * 60 * 60),
+                    'default' => gmdate('Y-m-d H:i:s', time() + 7 * 24 * 60 * 60),
                     'rules' => ["and", ['is', 'evergreen_timer', false], ['is', 'enable_countdown', true]],
                 ),
                 'time_randomize'         => array(

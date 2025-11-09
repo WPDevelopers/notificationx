@@ -429,9 +429,9 @@ class FluentCart extends Extension {
             return;
         }
 
-        $dateFrom = !empty( $post['display_from'] ) ? date('Y-m-d',strtotime('-'.$post['display_from'].' days',time())) : '';
-        $dateTo = date('Y-m-d',strtotime('1 days',time()));
-        $amount = !empty( $post['display_last'] ) ? $post['display_last'] : 10;
+        $dateFrom = !empty( $post['display_from'] ) ? gmdate('Y-m-d',strtotime('-'.$post['display_from'].' days',time())) : '';
+        $dateTo   = gmdate('Y-m-d',strtotime('1 days',time()));
+        $amount   = !empty( $post['display_last'] ) ? $post['display_last'] : 10;
 
         $get_orders = \FluentCart\App\Models\Order::with(['customer', 'order_items', 'billing_address', 'shipping_address'])
             ->orderBy('created_at', 'desc')

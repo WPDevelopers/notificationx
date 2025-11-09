@@ -217,7 +217,7 @@ class EDD extends Extension {
     public function get_payments( $days, $amount ) {
         // $date       = '-' . intval( $days ) . ' days';
         // $start_date = strtotime( $date );
-        $from   = date('Y-m-d H:i:s', $days);
+        $from   = gmdate('Y-m-d H:i:s', $days);
 
         $amount = $amount > 0 ? $amount : -1;
 

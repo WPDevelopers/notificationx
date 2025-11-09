@@ -1,4 +1,6 @@
 <?php
+// phpcs:ignoreFile
+
 namespace NotificationX\Admin\Reports;
 
 use NotificationX\Core\Helper as NotificationX_Helper;

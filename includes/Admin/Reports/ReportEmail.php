@@ -82,7 +82,7 @@ class ReportEmail {
     }
 
     public function create_date($count = '-7days'){
-        return date('Y-m-d', strtotime($count, self::timestamps()));
+        return gmdate('Y-m-d', strtotime($count, self::timestamps()));
     }
 
     public function get_stats( $start_date, $end_date = null ){
@@ -106,9 +106,7 @@ class ReportEmail {
         $query = "SELECT MAIN.`nx_id`, MAIN.`title`, MAIN.`type`, STATS.`views`, STATS.`clicks`, STATS.`CTR` FROM ( SELECT P.`nx_id`, title, type FROM {$wpdb->prefix}nx_posts as P LEFT JOIN {$wpdb->prefix}nx_stats as S ON P.`nx_id` = S.`nx_id` GROUP BY P.nx_id ) AS MAIN INNER JOIN ( SELECT *, (clicks/views)*100 as ctr FROM ( SELECT SUM(views) as views, SUM(clicks) as clicks, nx_id FROM {$wpdb->prefix}nx_stats WHERE created_at $extra_query GROUP BY nx_id ) as VCID ) as STATS
         ON MAIN.`nx_id` = STATS.`nx_id`";
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $results = $wpdb->get_results( $query );
-
+        $results = $wpdb->get_results( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery
         // Cache the results for 5 minutes
         wp_cache_set( $cache_key, $results, 'notificationx', 5 * MINUTE_IN_SECONDS );
 

@@ -320,8 +320,8 @@ class SureCart extends Extension {
         if( empty( $post ) ) {
             return;
         }
-        $dateFrom = !empty( $post['display_from'] ) ? date('Y-m-d',strtotime('-'.$post['display_from'].' days',time())) : '';
-        $dateTo = date('Y-m-d',strtotime('1 days',time()));
+        $dateFrom = !empty( $post['display_from'] ) ? gmdate('Y-m-d',strtotime('-'.$post['display_from'].' days',time())) : '';
+        $dateTo = gmdate('Y-m-d',strtotime('1 days',time()));
         $amount = !empty( $post['display_last'] ) ? $post['display_last'] : 10;
         $get_orders = \SureCart\Models\Order::with( [ 'checkout', 'checkout.charge', 'checkout.customer','checkout.line_items','line_item.price','price.product','checkout.shipping_address','checkout.billing_address','product.collection' ] )->paginate( [ 'per_page' => $amount ] );
         $orders = [];

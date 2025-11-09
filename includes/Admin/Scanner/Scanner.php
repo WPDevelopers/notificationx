@@ -152,7 +152,7 @@ class Scanner
                         'source'     => 'gdpr_notification',
                         'entry_key'  => $scanId . '_cookies',
                         'data'       => $cookies,
-                        'created_at' => date('Y-m-d H:i:s'),
+                        'created_at' => gmdate('Y-m-d H:i:s'),
                     ];
                 }
 
@@ -163,7 +163,7 @@ class Scanner
                         'source'     => 'gdpr_notification',
                         'entry_key'  => $scanId . '_stats',
                         'data'       => $stats,
-                        'created_at' => date('Y-m-d H:i:s'),
+                        'created_at' => gmdate('Y-m-d H:i:s'),
                     ];
                 }
 
