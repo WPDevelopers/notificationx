@@ -163,8 +163,8 @@ class PluginInsights {
      * @return void
      */
     private function redirect_to() {
-        $request_uri  = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
-        $query_string = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_QUERY );
+        $request_uri  = wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+        $query_string = wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_QUERY );
         parse_str( $query_string, $current_url );
 
         $unset_array = array( 'dismiss', 'plugin', '_wpnonce', 'later', 'plugin_action', 'marketing_optin' );

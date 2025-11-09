@@ -161,7 +161,11 @@ class Notice {
         add_action( 'wpdeveloper_after_upsale_notice_for_' . $this->plugin_name, array( $this, 'after' ) );
         add_action( $this->do_notice_action, array( $this, 'content' ) );
         if ( current_user_can( 'install_plugins' ) ) {
-            if ( isset( $_GET['plugin'] ) && $_GET['plugin'] == $this->plugin_name ) {
+            if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'wpdeveloper_notice_action' ) ) {
+                return;
+            }
+            
+            if ( isset( $_GET['plugin'] ) && $_GET['plugin'] === $this->plugin_name ) {
                 if ( isset( $_GET['tab'] ) && $_GET['tab'] === 'plugin-information' ) {
                     return;
                 }
@@ -259,7 +263,7 @@ class Notice {
      * @return integer
      */
     public function makeTime( $current, $time ) {
-        return intval( strtotime( date( 'r', $current ) . " +$time" ) );
+        return intval( strtotime( gmdate( 'r', $current ) . " +$time" ) );
     }
     /**
      * Automatice Maybe Later.
@@ -343,8 +347,8 @@ class Notice {
      * @return void
      */
     private function redirect_to() {
-        $request_uri  = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
-        $query_string = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_QUERY );
+        $request_uri  = wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+        $query_string = wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_QUERY );
         parse_str( $query_string, $current_url );
 
         $unset_array = array( 'dismiss', 'plugin', '_wpnonce', 'later', 'plugin_action', 'marketing_optin' );
@@ -605,7 +609,7 @@ class Notice {
                             }
                             $data_args['plugin'] = $this->plugin_name;
                             $normal_link         = add_query_arg( $data_args, $link );
-                            $link                = wp_nonce_url( $normal_link, 'wpdeveloper-nonce' );
+                            $link                = wp_nonce_url( $normal_link, 'wpdeveloper_notice_action' );
                         }
                         $class = '';
                         if ( isset( $link_value['link_class'] ) ) {
