@@ -107,9 +107,12 @@ class Migration {
         global $wpdb;
         $posts = [];
         $post_meta = [];
-        $query = "SELECT * FROM $wpdb->posts WHERE post_type = 'notificationx'"; // AND ID = $id
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $_posts = $wpdb->get_results($query, ARRAY_A);
+        $post_type = 'notificationx';
+        $query = $wpdb->prepare(
+            "SELECT * FROM {$wpdb->posts} WHERE post_type = %s",
+            $post_type
+        );
+        $_posts = $wpdb->get_results($query, ARRAY_A); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
         // $nx_ids = array_column($_posts, 'ID');
 
         if(empty($_posts)) return false;
@@ -1210,7 +1213,7 @@ class Migration {
                         $ext->update_notification($_entry);
                     }
                 } else {
-                    error_log("$source not found");
+                    error_log("$source not found"); // phpcs:ignore Generic.DebugCodes.DisallowDebugCode
                 }
             }
         }
@@ -1251,7 +1254,7 @@ class Migration {
                             'nx_id'      => $nx_id,
                             'clicks'     => !empty($value['clicks']) ? $value['clicks'] : 0,
                             'views'      => !empty($value['impressions']) ? $value['impressions'] : 0,
-                            'created_at' => date(Analytics::$date_format, strtotime($date)),
+                            'created_at' => gmdate(Analytics::$date_format, strtotime($date)),
                         ];
                         $stats[] = $data;
                     }

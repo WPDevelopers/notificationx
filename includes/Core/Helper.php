@@ -299,9 +299,9 @@ class Helper {
     public static function write_log($log) {
         if (true === WP_DEBUG) {
             if (is_array($log) || is_object($log)) {
-                error_log(print_r($log, true));
+                error_log(print_r($log, true)); // phpcs:ignore Generic.DebugCodes.DisallowDebugCode
             } else {
-                error_log($log);
+                error_log($log); // phpcs:ignore Generic.DebugCodes.DisallowDebugCode
             }
         }
     }
@@ -340,13 +340,13 @@ class Helper {
         }
         $new_data = array();
         $timestamp = current_time('timestamp');
-        $date = date('Y-m-d', $timestamp);
-        $date_7_days_back = date('Y-m-d', strtotime($date . ' -8 days'));
+        $date = gmdate('Y-m-d', $timestamp);
+        $date_7_days_back = gmdate('Y-m-d', strtotime($date . ' -8 days'));
         $counter_7days = 0;
         $counter_todays = 0;
         foreach ($data as $single_install) {
-            date('Y-m-d', strtotime($single_install->created)) > $date_7_days_back ? $counter_7days++ : $counter_7days;
-            date('Y-m-d', strtotime($single_install->created)) == $date ? $counter_todays++ : $counter_todays;
+            gmdate('Y-m-d', strtotime($single_install->created)) > $date_7_days_back ? $counter_7days++ : $counter_7days;
+            gmdate('Y-m-d', strtotime($single_install->created)) == $date ? $counter_todays++ : $counter_todays;
         }
         return array(
             'last_week' => $counter_7days,
@@ -593,9 +593,8 @@ class Helper {
         $query_args[] = $numberposts;
 
         // Prepare and execute the query using wpdb methods
-        $sql = $wpdb->prepare( $sql, $query_args );
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $products = $wpdb->get_results( $sql );
+        $sql = $wpdb->prepare( $sql, $query_args ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $products = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
 
         if ( ! empty( $products ) ) {
             // Loop through the results and build the output array
