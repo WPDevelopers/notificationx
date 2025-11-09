@@ -115,7 +115,6 @@ class Database {
         $data   = floatval( $_data );          // Use floatval/intval depending on your column type
         $id     = intval( $id );
         $date   = sanitize_text_field( $date );
-
         $sql = $this->wpdb->prepare(
             "UPDATE `$table`
             SET `$column` = `$column` + %f
@@ -126,7 +125,7 @@ class Database {
             $date
         );
 
-        return $this->wpdb->query( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        return $this->wpdb->query( $sql );  // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
     }
 
     public function insert_post( $table_name, $post, $format = null ) {
@@ -159,7 +158,7 @@ class Database {
             }
             $query .= implode( ', ', $place_holders );
             $query  = $this->wpdb->prepare( "$query", $values );
-            $this->wpdb->query( $query );
+            $this->wpdb->query( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         }
     }
 
@@ -229,11 +228,9 @@ class Database {
     }
 
     public function delete_posts_limit( $table_name, $wheres, $limit ) {
-        $limit  = absint( $limit );
-        $query  = "DELETE FROM `$table_name` ";
-        $query .= $this->get_where_query( $wheres );
-        $query .= " LIMIT $limit";
-        return $this->wpdb->query( $query );
+        $limit = absint( $limit );
+        $query = "DELETE FROM `$table_name` " . $this->get_where_query( $wheres ) . " LIMIT %d";
+        return $this->wpdb->query( $this->wpdb->prepare( $query, $limit ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
     }
 
     public function serialize_data( $post ) {
@@ -242,10 +239,10 @@ class Database {
         }
         // created_at and updated_at if not empty convert to mysql date
         if ( ! empty( $post['created_at'] ) ) {
-            $post['created_at'] = date( 'Y-m-d H:i:s', strtotime( $post['created_at'] ) );
+            $post['created_at'] = gmdate( 'Y-m-d H:i:s', strtotime( $post['created_at'] ) );
         }
         if ( ! empty( $post['updated_at'] ) ) {
-            $post['updated_at'] = date( 'Y-m-d H:i:s', strtotime( $post['updated_at'] ) );
+            $post['updated_at'] = gmdate( 'Y-m-d H:i:s', strtotime( $post['updated_at'] ) );
         }
         return $post;
     }
@@ -299,7 +296,7 @@ class Database {
     }
 
     public function update_option( $key, $value, $autoload = 'no' ) {
-        $is_exists = $this->wpdb->get_row( $this->wpdb->prepare( "SELECT * FROM {$this->wpdb->prefix}options WHERE option_name=%s LIMIT 1", $key ) );
+        $is_exists = $this->wpdb->get_row( $this->wpdb->prepare( "SELECT * FROM {$this->wpdb->prefix}options WHERE option_name=%s LIMIT 1", $key ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         if ( $is_exists ) {
             if ( $is_exists->option_value == $value ) {
                 return;
@@ -314,7 +311,7 @@ class Database {
         }
     }
     public function get_option( $key, $default = false ) {
-        $results = $this->wpdb->get_row( $this->wpdb->prepare( "SELECT * FROM {$this->wpdb->options} WHERE option_name=%s LIMIT 1", $key ) );
+        $results = $this->wpdb->get_row( $this->wpdb->prepare( "SELECT * FROM {$this->wpdb->options} WHERE option_name=%s LIMIT 1", $key ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         if ( $results ) {
             return ! empty( $results->option_value ) ? $results->option_value : $default;
         }
