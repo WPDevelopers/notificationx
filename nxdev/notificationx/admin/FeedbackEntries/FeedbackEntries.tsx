@@ -325,18 +325,6 @@ const FeedbackEntries = (props: any) => {
                                                                 <div className="nx-message-content">{viewEntry.message}</div>
                                                             </div>
                                                         )}
-                                                        <div className="nx-entry-field">
-                                                            <strong>{__('Popup Title:', 'notificationx')}</strong>
-                                                            <span>{viewEntry.title || '-'}</span>
-                                                        </div>
-                                                        <div className="nx-entry-field">
-                                                            <strong>{__('Theme:', 'notificationx')}</strong>
-                                                            <span>{viewEntry.theme || '-'}</span>
-                                                        </div>
-                                                        <div className="nx-entry-field">
-                                                            <strong>{__('IP Address:', 'notificationx')}</strong>
-                                                            <span>{viewEntry.ip || '-'}</span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className="nx-modal-footer">
