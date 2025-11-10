@@ -39,7 +39,9 @@ class Upgrader {
                 $this->database->update_option('nx_db_version', Database::$version, 'no');
                 $_is_table_created = true;
             } catch (\Exception $th) {
-                error_log('NX: Database Creation Failed');
+                if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                    wp_trigger_error( 'NX: Database Creation Failed: ', E_USER_WARNING );
+                }
             }
         }
 
@@ -48,7 +50,9 @@ class Upgrader {
                 Migration::get_instance();
                 $this->database->update_option('notificationx_2x_upgraded', true, 'no');
             } catch (\Exception $th) {
-                error_log('NX: Migration Failed');
+                if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                    wp_trigger_error( 'NX: Migration Failed', E_USER_WARNING );
+                }
             }
             $this->database->update_option( 'nx_free_version', NOTIFICATIONX_VERSION, 'no' );
         } elseif(!$nx_free_version && $_is_table_created ){

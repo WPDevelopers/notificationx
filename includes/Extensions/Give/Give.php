@@ -208,7 +208,7 @@ class Give extends Extension {
             return null;
         }
         $donations = [];
-        $from = date(get_option('date_format'), strtotime('-' . intval($data['display_from']) . ' days'));
+        $from = gmdate(get_option('date_format'), strtotime('-' . intval($data['display_from']) . ' days'));
         $args = array(
             'number' => -1,
             'date_query' => array(

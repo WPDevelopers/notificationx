@@ -20,7 +20,7 @@ class GetData extends \ArrayObject {
             return $this->offsetGet($name);
         }
         /* translators: %s is the undefined property name. */
-        trigger_error( sprintf( esc_html__( 'Undefined property: %s', 'notificationx' ), esc_html( $name ) ) );
+        wp_trigger_error( sprintf( esc_html__( 'Undefined property: %s', 'notificationx' ), esc_html( $name ) ), E_USER_WARNING );
     }
 
     #[\ReturnTypeWillChange]

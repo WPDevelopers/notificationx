@@ -1213,7 +1213,8 @@ class Migration {
                         $ext->update_notification($_entry);
                     }
                 } else {
-                    error_log("$source not found"); // phpcs:ignore Generic.DebugCodes.DisallowDebugCode
+                    /* translators: %s is the undefined property name. */
+                    wp_trigger_error( sprintf( esc_html__( '%s not found.', 'notificationx' ), esc_html( $source ) ), E_USER_WARNING );
                 }
             }
         }
