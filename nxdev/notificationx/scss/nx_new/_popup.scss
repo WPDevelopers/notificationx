@@ -1,7 +1,30 @@
 #notificationx .notificationx-items#notificationx-feedback-wrapper {
     .nx-admin-items {
+        .nx-admin-header-actions {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            gap: 24px;
+
+            .wprf-name-talk_to_support {
+                margin-bottom: 0;
+                .wprf-button {
+                    font-size: 16px;
+                    font-weight: 500;
+                    line-height: 150%;
+                    min-height: auto;
+                    border: 1px solid #00C185;
+                    border-radius: 10px;
+                    padding: 12px 24px;
+                    background: #00C185;
+                }
+            }
+        }
         .nx-search-wrapper {
             max-width: 320px;
+            flex: 1;
 
             input.nx-search-input {
                 border: 1px solid #E6EFFB;
@@ -11,6 +34,7 @@
                 line-height: 150%;
                 font-weight: 400;
                 color: #535D77;
+                width: 100%;
                 margin: 0;
 
                 &:focus,
@@ -26,7 +50,7 @@
 
                 thead {
                     tr td {
-                        font-size: 16px;
+                        font-size: 14px;
                         line-height: 150%;
                         color: #7C8DB5;
                         height: auto;
@@ -40,13 +64,13 @@
                             width: 10%;
                         }
                         &:nth-child(3) {
-                            width: 15%;
+                            width: 17%;
                         }
                         &:nth-child(4) {
                             width: 20%;
                         }
                         &:nth-child(5) {
-                            width: 27%;
+                            width: 25%;
                         }
                         &:nth-child(6) {
                             width: 15%;
@@ -59,7 +83,7 @@
                 }
                 tbody {
                     tr td {
-                        font-size: 16px;
+                        font-size: 14px;
                         line-height: 150%;
                         color: #092161;
                         height: auto;
@@ -73,13 +97,13 @@
                             width: 10%;
                         }
                         &:nth-child(3) {
-                            width: 15%;
+                            width: 17%;
                         }
                         &:nth-child(4) {
                             width: 20%;
                         }
                         &:nth-child(5) {
-                            width: 27%;
+                            width: 25%;
                         }
                         &:nth-child(6) {
                             width: 15%;

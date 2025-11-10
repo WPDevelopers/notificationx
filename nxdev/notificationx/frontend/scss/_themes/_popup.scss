@@ -504,7 +504,7 @@
     } 
 } 
 #notificationx-feedback-wrapper {
-    .nx-admin-header-actions {
+    /*.nx-admin-header-actions {
         margin-bottom: 20px;
         display: flex;
         justify-content: end;
@@ -550,7 +550,7 @@
         margin-top: 20px;
         padding: 15px 0;
         border-top: 1px solid #e1e1e1;
-    }
+    }*/
 
     .nx-admin-items-footer .components-base-control {
         margin-bottom: 0;
@@ -562,7 +562,7 @@
         margin-bottom: 5px;
     }
 
-    .rc-pagination {
+    /*.rc-pagination {
         display: flex;
         align-items: center;
         gap: 5px;
@@ -602,7 +602,7 @@
     .rc-pagination-disabled:hover {
         border-color: #d1d5db;
         color: #374151;
-    }
+    }*/
 }
 .nx-feedback-wrapper-class {
     .nx-admin-wrapper {
