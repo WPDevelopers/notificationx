@@ -1,0 +1,47 @@
+
+
+.nx-admin-new-wrapper, .nx-feedback-wrapper-class {
+    .nx-analytics-wrapper {
+        display: flex;
+        gap: 32px;
+
+        .nx-analytics-content-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 32px;
+            background: #fff;
+            border-radius: 10px;
+
+            img {
+                max-width: 100%;
+                padding: 15px 18px;
+                background: #F6F7FE;
+                border: 1px solid #F0F6FF;
+                border-radius: 10px;
+                height: 68px;
+            }
+
+            .analytics-counter {
+                span.nx-counter-label {
+                    font-size: 20px;
+                    line-height: 20px;
+                    font-weight: 500;
+                    color: #778095;
+                    margin: 0;
+                    padding-bottom: 16px;
+                    display: inline-block;
+                }
+
+                h3.nx-counter-number {
+                    font-size: 36px;
+                    font-weight: 600;
+                    line-height: 30px;
+                    color: #092161;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

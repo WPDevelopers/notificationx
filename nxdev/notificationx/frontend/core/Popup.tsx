@@ -10,6 +10,7 @@ import { getIconUrl } from "../../core/functions";
 import { __ } from '@wordpress/i18n';
 import nxHelper from './functions';
 import NXBranding from '../themes/helpers/NXBranding';
+import PopupHeader from './helper/PopupHeader';
 
 const useMediaQuery = (query: string) => {
     const mediaQuery = window.matchMedia(query);
@@ -380,37 +381,14 @@ const Popup = (props: any) => {
                     )}
 
                     {/* Header Section */}
-                    {(settings?.popup_title) && (
-                        <div className="nx-popup-header">
-                            <div className="nx-popup-header-wrapper">
-                                {/* Popup Icon - Show only for theme-seven and when icon is set */}
-                                {["popup_notification_theme-seven"].some(theme => settings.theme.includes(theme)) && settings?.popup_icon && settings.popup_icon !== 'none' && (
-                                    <div className="nx-popup-header-icon">
-                                         {settings?.popup_icon && settings.popup_icon !== 'none' && (
-                                            <img src={iconUrl} alt="Popup Icon" />
-                                        )}
-                                    </div>
-                                )}
-                                <div className="nx-popup-header-content">
-                                    {settings?.popup_title && (
-                                        <h3 className="nx-popup-title" style={titleColorFont}>
-                                            {settings.popup_title}
-                                        </h3>
-                                    )}
-                                    {(settings?.popup_content && ["popup_notification_theme-seven"].some(t => settings.theme.includes(t) ) ) && (
-                                        <div className="nx-popup-description" style={descColorFont}>
-                                            {settings?.popup_content && (
-                                                <div dangerouslySetInnerHTML={{ __html: settings.popup_content }} />
-                                            )}
-                                            {content && !settings?.popup_content && (
-                                                <div dangerouslySetInnerHTML={{ __html: content }} />
-                                            )}
-                                        </div>
-                                    )}
-                                </div>
-                           </div>
-
-                        </div>
+                    {!["popup_notification_theme-two"].some(theme => settings.theme.includes(theme)) && (
+                        <PopupHeader
+                            settings={settings}
+                            iconUrl={iconUrl}
+                            titleColorFont={titleColorFont}
+                            descColorFont={descColorFont}
+                            content={content}
+                        />
                     )}
 
                     {/* Content Section */}
@@ -424,6 +402,16 @@ const Popup = (props: any) => {
                                     <div dangerouslySetInnerHTML={{ __html: content }} />
                                 )}
                             </div>
+                        )}
+
+                        {["popup_notification_theme-two"].some(theme => settings.theme.includes(theme)) && (
+                            <PopupHeader
+                                settings={settings}
+                                iconUrl={iconUrl}
+                                titleColorFont={titleColorFont}
+                                descColorFont={descColorFont}
+                                content={content}
+                            />
                         )}
                         { settings.theme.includes("popup_notification_theme-three") && (
                             <div className="nx-popup-description" style={descColorFont}>
@@ -586,30 +574,20 @@ const Popup = (props: any) => {
 
                 {/* Additional External Button for theme-three and theme-seven only */}
                 {["popup_notification_theme-three", "popup_notification_theme-seven"].some(theme => settings.theme.includes(theme)) && (
-                    <div className="nx-popup-external-button" 
-                        // style={{
-                        //     marginTop: '15px',
-                        //     display: 'flex',
-                        //     justifyContent: 'center',
-                        //     width: '100%'
-                        // }}
-                    >
-                        <button
-                            className="nx-popup-button nx-popup-primary-button nx-popup-external"
-                            // style={{
-                            //     ...buttonStyles,
-                            //     borderRadius: '5px',
-                            //     display: 'flex',
-                            //     alignItems: 'center',
-                            //     gap: '8px'
-                            // }}
-                            onClick={handleButtonClick}
-                        >
-                            {settings?.popup_button_icon && settings.popup_button_icon !== 'none' && (
-                                <img src={buttonIconUrl} alt="Button Icon" />
-                            )}
-                            {settings?.popup_button_text}
-                        </button>
+                    <div className="nx-popup-external-button">
+                        <form onSubmit={handleFormSubmit}>
+                            <button
+                                disabled={isSubmitting}
+                                className="nx-popup-button nx-popup-primary-button nx-popup-external"
+                            >
+                                {settings?.popup_button_icon && settings.popup_button_icon !== 'none' && (
+                                    <img src={buttonIconUrl} alt="Button Icon" />
+                                )}
+                                {isSubmitting ? __('Submitting...', 'notificationx') :
+                                submitSuccess ? __('Success!', 'notificationx') :
+                                settings?.popup_button_text}
+                            </button>
+                        </form>
                     </div>
                 )}
         </div>

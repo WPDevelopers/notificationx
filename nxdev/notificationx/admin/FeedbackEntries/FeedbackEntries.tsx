@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, Fragment } from 'react';
 import { __ } from '@wordpress/i18n';
 import withDocumentTitle from '../../core/withDocumentTitle';
 import nxHelper from '../../core/functions';
@@ -6,6 +6,8 @@ import { Header } from '../../components';
 import Pagination from "rc-pagination";
 import localeInfo from 'rc-pagination/es/locale/en_US';
 import { SelectControl } from "@wordpress/components";
+import { useNotificationXContext } from '../../hooks';
+import AnalyticsOverview from '../Dashboard/AnalyticsOverview';
 
 interface FeedbackEntry {
     id: number;
@@ -19,6 +21,7 @@ interface FeedbackEntry {
 }
 
 const FeedbackEntries = (props: any) => {
+    const builderContext = useNotificationXContext();
     const [entries, setEntries] = useState<FeedbackEntry[]>([]);
     const [loading, setLoading] = useState(true);
     const [checkAll, setCheckAll] = useState(false);
@@ -146,273 +149,212 @@ const FeedbackEntries = (props: any) => {
         setViewEntry(null);
     };
 
-    if (loading) {
-        return (
-            <div>
-                <Header />
-                <div className="nx-admin-wrapper">
-                    <div className="nx-loading">
-                        {__('Loading feedback entries...', 'notificationx')}
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
     return (
-        <div className='notificationx-items' id="notificationx-feedback-wrapper">
+        <div className='nx-feedback-wrapper-class'>
+            {/* Always visible */}
             <Header />
-            <div className="nx-admin-items">
-                {/* Search Bar */}
-                <div className="nx-admin-header-actions">
-                    <div className="nx-search-wrapper">
-                        <input
-                            type="text"
-                            placeholder={__('Search entries...', 'notificationx')}
-                            value={searchInput}
-                            onChange={(e) => setSearchInput(e.target.value)}
-                            className="nx-search-input"
-                        />
-                    </div>
-                </div>
-                <div className="nx-list-table-wrapper">
-                    <table className="wp-list-table widefat fixed striped notificationx-list">
-                        <thead>
-                            <tr>
-                                <td>
-                                    <div className="nx-all-selector">
-                                        <input 
-                                            type="checkbox" 
-                                            checked={checkAll} 
-                                            onChange={handleSelectAll} 
-                                            name="nx_all" 
-                                        />
-                                    </div>
-                                </td>
-                                <td>{__("No", 'notificationx')}</td>
-                                <td>{__("Date", 'notificationx')}</td>
-                                <td>{__("Email Address", 'notificationx')}</td>
-                                <td>{__("Message", 'notificationx')}</td>
-                                <td>{__("Name", 'notificationx')}</td>
-                                <td>{__("Action", 'notificationx')}</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {entries.length === 0 ? (
-                                <tr>
-                                    <td colSpan={7} style={{ textAlign: 'center', padding: '40px' }}>
-                                        {__('No feedback entries found', 'notificationx')}
-                                    </td>
-                                </tr>
-                            ) : (
-                                entries.map((entry, index) => (
-                                    <tr key={entry.id}>
-                                        <td>
-                                            <input 
-                                                type="checkbox" 
-                                                checked={checkedItems.includes(entry.id)}
-                                                onChange={(e) => handleCheckItem(entry.id, e.target.checked)}
-                                            />
-                                        </td>
-                                        <td>{(currentPage - 1) * perPage + index + 1}</td>
-                                        <td>{formatDate(entry.date)}</td>
-                                        <td>{entry.email || '-'}</td>
-                                        <td>
-                                            <div style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                                {entry.message || '-'}
-                                            </div>
-                                        </td>
-                                        <td>{entry.name || '-'}</td>
-                                        <td>
-                                            <div className="nx-action-buttons">
-                                                <button 
-                                                    className="nx-btn nx-btn-sm nx-btn-primary"
-                                                    onClick={() => handleView(entry)}
-                                                    title={__('View Details', 'notificationx')}
-                                                >
-                                                    👁️
-                                                </button>
-                                                <button 
-                                                    className="nx-btn nx-btn-sm nx-btn-danger"
-                                                    onClick={() => handleDelete(entry.id)}
-                                                    title={__('Delete Entry', 'notificationx')}
-                                                >
-                                                    🗑️
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+            <AnalyticsOverview props={props} context={builderContext} />
 
-                {/* Pagination Controls */}
-                {entries.length > 0 && (
-                    <div className="nx-admin-items-footer">
-                        <SelectControl
-                            label={__("Show Entries :", 'notificationx')}
-                            value={perPage.toString()}
-                            onChange={(p: string) => {
-                                setPerPage(parseInt(p));
-                                setCurrentPage(1);
-                            }}
-                            options={[
-                                { value: "10", label: __("10", 'notificationx') },
-                                { value: "20", label: __("20", 'notificationx') },
-                                { value: "50", label: __("50", 'notificationx') },
-                                { value: "100", label: __("100", 'notificationx') },
-                                { value: "200", label: __("200", 'notificationx') },
-                            ]}
-                        />
-                        <Pagination
-                            current={currentPage}
-                            onChange={setCurrentPage}
-                            total={totalItems}
-                            pageSize={perPage}
-                            showTitle={false}
-                            hideOnSinglePage
-                            locale={localeInfo}
-                        />
-                    </div>
-                )}
-
-                {/* View Modal */}
-                {viewEntry && (
-                    <div className="nx-modal-overlay" onClick={closeModal}>
-                        <div className="nx-modal" onClick={(e) => e.stopPropagation()}>
-                            <div className="nx-modal-header">
-                                <h3>{__('Feedback Entry Details', 'notificationx')}</h3>
-                                <button className="nx-modal-close" onClick={closeModal}>×</button>
-                            </div>
-                            <div className="nx-modal-body">
-                                <div className="nx-entry-details">
-                                    <div className="nx-entry-field">
-                                        <strong>{__('Date:', 'notificationx')}</strong>
-                                        <span>{formatDate(viewEntry.date)}</span>
-                                    </div>
-                                    {viewEntry.name && (
-                                        <div className="nx-entry-field">
-                                            <strong>{__('Name:', 'notificationx')}</strong>
-                                            <span>{viewEntry.name}</span>
-                                        </div>
-                                    )}
-                                    {viewEntry.email && (
-                                        <div className="nx-entry-field">
-                                            <strong>{__('Email:', 'notificationx')}</strong>
-                                            <span>{viewEntry.email}</span>
-                                        </div>
-                                    )}
-                                    {viewEntry.message && (
-                                        <div className="nx-entry-field">
-                                            <strong>{__('Message:', 'notificationx')}</strong>
-                                            <div className="nx-message-content">{viewEntry.message}</div>
-                                        </div>
-                                    )}
-                                    <div className="nx-entry-field">
-                                        <strong>{__('Popup Title:', 'notificationx')}</strong>
-                                        <span>{viewEntry.title || '-'}</span>
-                                    </div>
-                                    <div className="nx-entry-field">
-                                        <strong>{__('Theme:', 'notificationx')}</strong>
-                                        <span>{viewEntry.theme || '-'}</span>
-                                    </div>
-                                    <div className="nx-entry-field">
-                                        <strong>{__('IP Address:', 'notificationx')}</strong>
-                                        <span>{viewEntry.ip || '-'}</span>
-                                    </div>
+            <div className="nx-admin-wrapper">
+                <div className='notificationx-items' id="notificationx-feedback-wrapper">
+                    <div className="nx-admin-items">
+                        {/* Search Bar */}
+                        <div className="nx-admin-header-actions">
+                            <div className="wprf-control-wrapper wprf-type-button wprf-label-none nx-talk-to-support wprf-name-talk_to_support">
+                                <div className="wprf-control-field">
+                                    <a
+                                        href="https://notificationx.com/support/?support=chat"
+                                        target="_blank"
+                                        className="wprf-control wprf-button wprf-href-btn nx-talk-to-support"
+                                    >
+                                        {__('Talk to Support', 'notificationx')}
+                                    </a>
                                 </div>
                             </div>
-                            <div className="nx-modal-footer">
-                                <button className="nx-btn nx-btn-secondary" onClick={closeModal}>
-                                    {__('Close', 'notificationx')}
-                                </button>
+                            <div className="nx-search-wrapper">
+                                <input
+                                    type="text"
+                                    placeholder={__('Search entries...', 'notificationx')}
+                                    value={searchInput}
+                                    onChange={(e) => setSearchInput(e.target.value)}
+                                    className="nx-search-input"
+                                />
                             </div>
                         </div>
+                        {loading ? (
+                            <div>
+                                <div className="nx-list-table-wrapper">
+                                    {__('Loading feedback entries...', 'notificationx')}
+                                </div>
+                            </div>
+                        ) : ( 
+                                <div>
+                                    {/* Table */}
+                                    <div className="nx-list-table-wrapper">
+                                        <table className="wp-list-table widefat fixed striped notificationx-list">
+                                            <thead>
+                                                <tr>
+                                                    <td>
+                                                        <div className="nx-all-selector">
+                                                            <input 
+                                                                type="checkbox" 
+                                                                checked={checkAll} 
+                                                                onChange={handleSelectAll} 
+                                                                name="nx_all" 
+                                                            />
+                                                        </div>
+                                                    </td>
+                                                    <td>{__("No", 'notificationx')}</td>
+                                                    <td>{__("Date", 'notificationx')}</td>
+                                                    <td>{__("Email Address", 'notificationx')}</td>
+                                                    <td>{__("Message", 'notificationx')}</td>
+                                                    <td>{__("Name", 'notificationx')}</td>
+                                                    <td>{__("Action", 'notificationx')}</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {entries.length === 0 ? (
+                                                    <tr>
+                                                        <td colSpan={7} style={{ textAlign: 'center', padding: '40px' }}>
+                                                            {__('No feedback entries found', 'notificationx')}
+                                                        </td>
+                                                    </tr>
+                                                ) : (
+                                                    entries.map((entry, index) => (
+                                                        <tr key={entry.id}>
+                                                            <td>
+                                                                <input 
+                                                                    type="checkbox" 
+                                                                    checked={checkedItems.includes(entry.id)}
+                                                                    onChange={(e) => handleCheckItem(entry.id, e.target.checked)}
+                                                                />
+                                                            </td>
+                                                            <td>{(currentPage - 1) * perPage + index + 1}</td>
+                                                            <td>{formatDate(entry.date)}</td>
+                                                            <td>{entry.email || '-'}</td>
+                                                            <td>
+                                                                <div style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                                                    {entry.message || '-'}
+                                                                </div>
+                                                            </td>
+                                                            <td>{entry.name || '-'}</td>
+                                                            <td>
+                                                                <div className="nx-action-buttons">
+                                                                    <button 
+                                                                        className="nx-btn nx-btn-sm nx-btn-primary"
+                                                                        onClick={() => handleView(entry)}
+                                                                        title={__('View Details', 'notificationx')}
+                                                                    >
+                                                                        👁️
+                                                                    </button>
+                                                                    <button 
+                                                                        className="nx-btn nx-btn-sm nx-btn-danger"
+                                                                        onClick={() => handleDelete(entry.id)}
+                                                                        title={__('Delete Entry', 'notificationx')}
+                                                                    >
+                                                                        🗑️
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    ))
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    {/* Pagination */}
+                                    {entries.length > 0 && (
+                                        <div className="nx-admin-items-footer">
+                                            <SelectControl
+                                                label={__("Show Entries :", 'notificationx')}
+                                                value={perPage.toString()}
+                                                onChange={(p: string) => {
+                                                    setPerPage(parseInt(p));
+                                                    setCurrentPage(1);
+                                                }}
+                                                options={[
+                                                    { value: "10", label: __("10", 'notificationx') },
+                                                    { value: "20", label: __("20", 'notificationx') },
+                                                    { value: "50", label: __("50", 'notificationx') },
+                                                    { value: "100", label: __("100", 'notificationx') },
+                                                    { value: "200", label: __("200", 'notificationx') },
+                                                ]}
+                                            />
+                                            <Pagination
+                                                current={currentPage}
+                                                onChange={setCurrentPage}
+                                                total={totalItems}
+                                                pageSize={perPage}
+                                                showTitle={false}
+                                                hideOnSinglePage
+                                                locale={localeInfo}
+                                            />
+                                        </div>
+                                    )}
+
+                                    {/* View Modal */}
+                                    {viewEntry && (
+                                        <div className="nx-modal-overlay" onClick={closeModal}>
+                                            <div className="nx-modal" onClick={(e) => e.stopPropagation()}>
+                                                <div className="nx-modal-header">
+                                                    <h3>{__('Feedback Entry Details', 'notificationx')}</h3>
+                                                    <button className="nx-modal-close" onClick={closeModal}>×</button>
+                                                </div>
+                                                <div className="nx-modal-body">
+                                                    <div className="nx-entry-details">
+                                                        <div className="nx-entry-field">
+                                                            <strong>{__('Date:', 'notificationx')}</strong>
+                                                            <span>{formatDate(viewEntry.date)}</span>
+                                                        </div>
+                                                        {viewEntry.name && (
+                                                            <div className="nx-entry-field">
+                                                                <strong>{__('Name:', 'notificationx')}</strong>
+                                                                <span>{viewEntry.name}</span>
+                                                            </div>
+                                                        )}
+                                                        {viewEntry.email && (
+                                                            <div className="nx-entry-field">
+                                                                <strong>{__('Email:', 'notificationx')}</strong>
+                                                                <span>{viewEntry.email}</span>
+                                                            </div>
+                                                        )}
+                                                        {viewEntry.message && (
+                                                            <div className="nx-entry-field">
+                                                                <strong>{__('Message:', 'notificationx')}</strong>
+                                                                <div className="nx-message-content">{viewEntry.message}</div>
+                                                            </div>
+                                                        )}
+                                                        <div className="nx-entry-field">
+                                                            <strong>{__('Popup Title:', 'notificationx')}</strong>
+                                                            <span>{viewEntry.title || '-'}</span>
+                                                        </div>
+                                                        <div className="nx-entry-field">
+                                                            <strong>{__('Theme:', 'notificationx')}</strong>
+                                                            <span>{viewEntry.theme || '-'}</span>
+                                                        </div>
+                                                        <div className="nx-entry-field">
+                                                            <strong>{__('IP Address:', 'notificationx')}</strong>
+                                                            <span>{viewEntry.ip || '-'}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="nx-modal-footer">
+                                                    <button className="nx-btn nx-btn-secondary" onClick={closeModal}>
+                                                        {__('Close', 'notificationx')}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                     </div>
-                )}
+                </div>
             </div>
-            <style dangerouslySetInnerHTML={{
-                __html: `
-                    .nx-admin-header-actions {
-                        margin-bottom: 20px;
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                    }
-                    .nx-search-wrapper {
-                        flex: 1;
-                        max-width: 300px;
-                    }
-                    .nx-search-input {
-                        width: 100%;
-                        padding: 8px 12px;
-                        border: 1px solid #ddd;
-                        border-radius: 4px;
-                        font-size: 14px;
-                    }
-                    .nx-search-input:focus {
-                        outline: none;
-                        border-color: #0073aa;
-                        box-shadow: 0 0 0 1px #0073aa;
-                    }
-                    .nx-admin-items-footer {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        margin-top: 20px;
-                        padding: 15px 0;
-                        border-top: 1px solid #e1e1e1;
-                    }
-                    .nx-admin-items-footer .components-base-control {
-                        margin-bottom: 0;
-                        margin-right: 20px;
-                    }
-                    .nx-admin-items-footer .components-base-control__label {
-                        font-weight: 600;
-                        margin-bottom: 5px;
-                    }
-                    .rc-pagination {
-                        display: flex;
-                        align-items: center;
-                        gap: 5px;
-                    }
-                    .rc-pagination-item,
-                    .rc-pagination-prev,
-                    .rc-pagination-next {
-                        padding: 6px 12px;
-                        border: 1px solid #d1d5db;
-                        background: white;
-                        color: #374151;
-                        text-decoration: none;
-                        border-radius: 4px;
-                        cursor: pointer;
-                        transition: all 0.2s ease;
-                    }
-                    .rc-pagination-item:hover,
-                    .rc-pagination-prev:hover,
-                    .rc-pagination-next:hover {
-                        border-color: #0073aa;
-                        color: #0073aa;
-                    }
-                    .rc-pagination-item-active {
-                        background: #0073aa;
-                        border-color: #0073aa;
-                        color: white;
-                    }
-                    .rc-pagination-disabled {
-                        opacity: 0.5;
-                        cursor: not-allowed;
-                    }
-                    .rc-pagination-disabled:hover {
-                        border-color: #d1d5db;
-                        color: #374151;
-                    }
-                `
-            }} />
         </div>
-    );
+);
+
 };
 
 export default withDocumentTitle(FeedbackEntries, __("Feedback Entries", 'notificationx'));
