@@ -82,14 +82,6 @@ export const NotificationType = [
         'source'     : 'press_bar',
     },
     {
-        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/popup_notification.gif',
-        'title'      : __('Popup Notification', 'notificationx'),
-        'type'       : 'popup',
-        'button_text': __('Create Now', 'notificationx'),
-        'desc'       : __('Display engaging popup notifications to capture attention and drive conversions.', 'notificationx'),
-        'source'     : 'popup_notification',
-    },
-    {
         'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/growth_alert.gif',
         'title'      : __('Growth Alert', 'notificationx'),
         'type'       : 'inline',
