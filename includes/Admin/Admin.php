@@ -337,6 +337,25 @@ class Admin {
             ]
         );
 
+        $notice_text = "<p><strong>Black Friday Mega Sale:</strong> Boost trust & conversions with real-time social proof notification alerts – now <strong>up to $160 OFF! 🎁</strong> </p><div class='wpsp-notice-action-button' style='display: inline-flex;column-gap:5px;'><a class='button button-primary' href='https://schedulepress.com/bfcm25-pricing' target='_blank'>Upgrade To PRO</a> <button class='wpsp-notice-action-dismiss dismiss-btn' data-dismiss='true' target='_blank'>I’ll Grab It Later</button></div>";
+        $_black_friday_2025 = [
+            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
+            'html'      => $notice_text,
+        ];
+        $notices->add(
+            'nx_black_friday_2025',
+            $_black_friday_2025,
+            [
+                'start'       => $notices->time(),
+                'recurrence'  => false,
+                'dismissible' => true,
+                'refresh'     => '',
+                'screens'     => [ 'dashboard' ],
+                "expire"      => strtotime( '11:59:59pm 5th December, 2025' ),
+                'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) ),
+            ]
+        );
+
         // Holiday Deal
         $notice_text = "<p>🎁 <strong>SAVE 25% now</strong> & unlock advanced social-proof marketing features to skyrocket conversions in 2025.</p>
                         <div class='nx-notice-action-button'>
