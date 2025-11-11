@@ -68,11 +68,16 @@ class NotificationBar extends Types {
             }
 
             // Check if the bar should only show on new visits (not refreshes/page changes)
-            if ($settings['bar_reappearance'] === 'show_welcomebar_next_visit' &&
-                isset($_COOKIE[$cookie_name]) &&
-                $_COOKIE[$cookie_name] === 'shown' &&
-                !empty($_SERVER['HTTP_REFERER']) &&
-                strpos($_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST']) !== false) {
+            $http_referer = isset( $_SERVER['HTTP_REFERER'] ) ? esc_url_raw( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
+            $http_host    = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
+
+            if (
+                $settings['bar_reappearance'] === 'show_welcomebar_next_visit' &&
+                isset( $_COOKIE[ $cookie_name ] ) &&
+                $_COOKIE[ $cookie_name ] === 'shown' &&
+                ! empty( $http_referer ) &&
+                strpos( $http_referer, $http_host ) !== false
+            ) {
                 return true;
             }
         }
