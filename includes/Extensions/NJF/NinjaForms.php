@@ -292,14 +292,9 @@ class NinjaForms extends Extension {
         $table_name = $wpdb->prefix . 'nf3_forms'; 
         if (!empty($args['inputValue'])) {
             $limit      = 10;
-           // Prepare the query with a LIKE condition
-            $query = $wpdb->prepare(
-                "SELECT id, title FROM {$table_name} WHERE title LIKE %s LIMIT %d", 
-                '%' . $wpdb->esc_like($args['inputValue']) . '%',$limit
-            );
-            // Execute the query and retrieve the results
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $form_result = $wpdb->get_results($query);
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $form_result = $wpdb ->get_results( $wpdb->prepare( "SELECT id, title FROM {$table_name} WHERE title LIKE %s LIMIT %d", '%' . $wpdb->esc_like($args['inputValue']) . '%', $limit ) );
+
             if (!empty($form_result)) {
                 foreach ($form_result as $form) {
                     $key = $this->key($form->id);
@@ -316,9 +311,8 @@ class NinjaForms extends Extension {
             }else{
                 $form_id = intval($args['form_id']);
             }
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $queryresult = $wpdb->get_results('SELECT meta_value FROM `' . $wpdb->prefix . 'nf3_form_meta` WHERE parent_id = ' . $form_id . ' AND meta_key = "formContentData"');
-
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $queryresult = $wpdb->get_results( $wpdb->prepare( 'SELECT meta_value FROM `' . $wpdb->prefix . 'nf3_form_meta` WHERE parent_id = %d AND meta_key = %s', absint($form_id), 'formContentData' ) );
             if(isset($queryresult[0]) && isset($queryresult[0]->meta_value)){
                 $formdata = $queryresult[0]->meta_value;
 
