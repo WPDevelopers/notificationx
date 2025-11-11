@@ -227,7 +227,7 @@ class WPML {
 				$cookie_data = filter_var( http_build_query( ['type' => 'nx_bar'] ), FILTER_SANITIZE_URL );
 				$cookie->set_cookie( 'wp-translation_dashboard_filter', $cookie_data, time() + HOUR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
 
-                wp_redirect(admin_url("admin.php?page=wpml-translation-management/menu/main.php&sm=dashboard"));
+                wp_safe_redirect( admin_url( 'admin.php?page=wpml-translation-management/menu/main.php&sm=dashboard' ) );
                 die;
             }
             else if($post){
@@ -237,7 +237,7 @@ class WPML {
                 ], $nx_id);
 
                 $this->register_package($post, [], $nx_id);
-                wp_redirect(admin_url("admin.php?page=wpml-string-translation/menu/string-translation.php&context=notificationx-$nx_id"));
+                wp_safe_redirect(admin_url("admin.php?page=wpml-string-translation/menu/string-translation.php&context=notificationx-$nx_id"));
                 die;
             }
         }

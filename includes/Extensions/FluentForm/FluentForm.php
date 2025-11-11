@@ -136,13 +136,11 @@ class FluentForm extends Extension {
         $table_name = $wpdb->prefix . 'fluentform_forms';
         if (!empty($args['inputValue'])) {
             $limit      = 10;
-           // Prepare the query with a LIKE condition
-            $query = $wpdb->prepare(
-                "SELECT id, title FROM {$table_name} WHERE title LIKE %s AND status = %s LIMIT %d",
-                '%' . $wpdb->esc_like($args['inputValue']) . '%','published',$limit
-            );
-            // Execute the query and retrieve the results
-            $form_result = $wpdb->get_results($query); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $table_name = esc_sql( $table_name );
+
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $form_result = $wpdb ->get_results( $wpdb->prepare( "SELECT id, title FROM `{$table_name}` WHERE title LIKE %s AND status = %s LIMIT %d", '%' . $wpdb->esc_like( $args['inputValue'] ) . '%', 'published', $limit ) );
+
             if (!empty($form_result)) {
                 foreach ($form_result as $form) {
                     $key = $this->key($form->id);
