@@ -241,7 +241,7 @@ class Analytics {
                 'soso.com'      => 'sosospider',
                 'Yandex'        => 'yandex',
             );
-            $useragent = isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '';
+            $useragent = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '';
             foreach ( $bots as $name => $lookfor ) {
                 if ( ! empty( $useragent ) && ( false !== stripos( $useragent, $lookfor ) ) ) {
                     $should_count = false;
