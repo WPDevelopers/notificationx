@@ -44,8 +44,8 @@ class Announcements extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('Discount Announcement', 'notificationx');
-        $this->module_title = __('Discount Announcement', 'notificationx');
+        $this->title = __('Discount Alert', 'notificationx');
+        $this->module_title = __('Discount Alert', 'notificationx');
         $this->themes = [
             'theme-1'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/announcements/theme-1.png',

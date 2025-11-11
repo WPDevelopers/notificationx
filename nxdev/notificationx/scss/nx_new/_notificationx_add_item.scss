@@ -724,9 +724,9 @@
     }
 }
 
-.woocommerce_sales_inline, .announcements, .flashing_tab, .woo_inline, .edd_inline, .tutor_inline, .learndash_inline, .learnpress_inline, .custom_notification, .fluentcart_inline {
+.woocommerce_sales_inline, .announcements, .popup_notification, .flashing_tab, .woo_inline, .edd_inline, .tutor_inline, .learndash_inline, .learnpress_inline, .custom_notification, .fluentcart_inline {
     #design_tab #themes_section .wprf-section-fields .wprf-tabs-wrapper {
-        .woocommerce_sales_inline, .announcements, .flashing_tab, .woo_inline, .edd_inline, .tutor_inline, .learndash_inline, .learnpress_inline, .custom_notification, .fluentcart_inline {
+        .woocommerce_sales_inline, .announcements, .popup_notification, .flashing_tab, .woo_inline, .edd_inline, .tutor_inline, .learndash_inline, .learnpress_inline, .custom_notification, .fluentcart_inline {
             display: none;
         }
     }
@@ -1117,5 +1117,10 @@
         .wprf-control-section.nx_bar_import_design {
             padding-bottom: 70px !important;
         }
+    }
+}
+.woocommerce_sales_inline, .announcements, .popup_notification, .flashing_tab, .woo_inline, .edd_inline, .tutor_inline, .learndash_inline, .learnpress_inline, .custom_notification {
+    .wprf-tab-contents #source_tab #source_section {
+        display: none;
     }
 }

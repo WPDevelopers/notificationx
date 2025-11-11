@@ -45,8 +45,8 @@ class Popup extends Types {
      */
     public function init() {
         parent::init();
-        $this->title = __('Popup Notification', 'notificationx');
-        $this->dashboard_title = __('Popup', 'notificationx');
+        $this->title = __('Announcement', 'notificationx');
+        $this->dashboard_title = __('Announcement', 'notificationx');
     }
 
     /**

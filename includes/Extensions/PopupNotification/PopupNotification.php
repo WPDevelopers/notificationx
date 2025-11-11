@@ -135,8 +135,8 @@ class PopupNotification extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('Popup', 'notificationx');
-        $this->module_title = __('Popup', 'notificationx');
+        $this->title = __('Announcement', 'notificationx');
+        $this->module_title = __('Announcement', 'notificationx');
         $this->themes = [
             'theme-one' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-one.png',
@@ -1233,10 +1233,10 @@ class PopupNotification extends Extension {
     }
 
     public function doc(){
-        return sprintf(__('<p>Create engaging popup notifications to capture visitor attention and boost conversions on your WordPress site. Need help? Follow our <a href="%1$s" target="_blank">step-by-step guides</a> for creating effective popup notifications.</p>
+        return sprintf(__('<p>Create engaging Announcement to capture visitor attention and boost conversions on your WordPress site. Need help? Follow our <a href="%1$s" target="_blank">step-by-step guides</a> for creating effective Announcement.</p>
         <p>🎦 Watch the video <a target="_blank" href="%2$s">tutorial</a> for a quick guide.</p>
         <p><strong>Recommended Blogs:</strong></p>
-        <p>🔥 <a target="_blank" href="%3$s">How to Create Effective Popup Notifications with NotificationX?</a></p>
+        <p>🔥 <a target="_blank" href="%3$s">How to Create Effective Announcement with NotificationX?</a></p>
         <p><strong>Pro Tips:</strong></p>
         <p>✨ Use compelling headlines and clear call-to-action buttons for better conversion rates.</p>', 'notificationx'),
         'https://notificationx.com/docs/popup-notifications/',
