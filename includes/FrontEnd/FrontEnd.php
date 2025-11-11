@@ -296,6 +296,11 @@ class FrontEnd {
                 $nx_id    = $entry['nx_id'];
                 $settings = $notifications[$nx_id];
 
+                // check if notification is enabled or not.
+                if (!$settings['enabled']) {
+                    continue;
+                }
+
                 $type   = $settings['type'];
                 $source = $settings['source'];
 

@@ -222,7 +222,7 @@
     &.nx-bar-has-elementor {
         .nx-bar-inner {
             display: block;
-            padding: 0;
+            padding: 0 !important;
 
             .nx-bar-content-wrap {
                 display: block;
