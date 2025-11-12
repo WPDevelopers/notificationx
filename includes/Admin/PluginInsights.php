@@ -163,8 +163,10 @@ class PluginInsights {
      * @return void
      */
     private function redirect_to() {
-        $request_uri  = wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
-        $query_string = wp_parse_url( $_SERVER['REQUEST_URI'], PHP_URL_QUERY );
+        $request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+        $query_string = wp_parse_url( $request_uri, PHP_URL_QUERY );
+        $request_uri  = wp_parse_url( $request_uri, PHP_URL_PATH );
+
         parse_str( $query_string, $current_url );
 
         $unset_array = array( 'dismiss', 'plugin', '_wpnonce', 'later', 'plugin_action', 'marketing_optin' );
@@ -347,7 +349,7 @@ class PluginInsights {
             }
         }
         $body['marketing_method'] = $this->marketing;
-        $body['server']           = isset( $_SERVER['SERVER_SOFTWARE'] ) ? $_SERVER['SERVER_SOFTWARE'] : '';
+        $body['server'] = isset( $_SERVER['SERVER_SOFTWARE'] )  ? sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) ) : '';
 
         /**
          * Collect all active and inactive plugins
@@ -438,7 +440,8 @@ class PluginInsights {
          */
         if ( $site_id == false && $this->item_id !== false && $original_site_url === false ) {
             if ( isset( $_SERVER['REMOTE_ADDR'] ) && ! empty( $_SERVER['REMOTE_ADDR'] && $_SERVER['REMOTE_ADDR'] != '127.0.0.1' ) ) {
-                $country_request = wp_remote_get( 'http://ip-api.com/json/' . $_SERVER['REMOTE_ADDR'] . '?fields=country' );
+                $remote_ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+                $country_request = wp_remote_get( 'http://ip-api.com/json/' . $remote_ip . '?fields=country' );
                 if ( ! is_wp_error( $country_request ) && $country_request['response']['code'] == 200 ) {
                     $ip_data         = json_decode( $country_request['body'] );
                     $body['country'] = isset( $ip_data->country ) ? $ip_data->country : 'NOT SET';
@@ -663,12 +666,13 @@ class PluginInsights {
                 return;
             }
 
-            if( ! wp_verify_nonce( $_GET[ '_wpnonce' ], '_wpnonce_optin_' . $this->plugin_name ) ) {
+            $nonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+            if ( ! wp_verify_nonce( $nonce, '_wpnonce_optin_' . $this->plugin_name ) ) {
                 return;
             }
 
-            $plugin = sanitize_text_field( $_GET['plugin'] );
-            $action = sanitize_text_field( $_GET['plugin_action'] );
+            $plugin = sanitize_text_field( wp_unslash( $_GET['plugin'] ) );
+            $action = sanitize_text_field( wp_unslash( $_GET['plugin_action'] ) );
             if ( $action == 'yes' ) {
                 $this->schedule_tracking();
                 $this->set_is_tracking_allowed( true, $plugin );
@@ -715,11 +719,11 @@ class PluginInsights {
     public function deactivate_reasons_form_submit() {
         check_ajax_referer( 'wpins_deactivation_nonce', 'security' );
         if ( isset( $_POST['values'] ) ) {
-            $values = sanitize_text_field( $_POST['values'] );
+            $values = sanitize_text_field( wp_unslash( $_POST['values'] ) );
             update_option( 'wpins_deactivation_reason_' . $this->plugin_name, $values, 'no' );
         }
         if ( isset( $_POST['details'] ) ) {
-            $details = sanitize_text_field( $_POST['details'] );
+            $details = sanitize_text_field( wp_unslash( $_POST['details'] ) );
             update_option( 'wpins_deactivation_details_' . $this->plugin_name, $details, 'no' );
         }
         echo 'success';
