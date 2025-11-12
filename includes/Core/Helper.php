@@ -298,10 +298,10 @@ class Helper {
 
     public static function write_log($log) {
         if (true === WP_DEBUG) {
-            if (is_array($log) || is_object($log)) {
-                error_log(print_r($log, true)); // phpcs:ignore Generic.DebugCodes.DisallowDebugCode
+            if ( is_array( $log ) || is_object( $log ) ) {
+                wp_trigger_error( wp_json_encode( $log ), E_USER_NOTICE );
             } else {
-                error_log($log); // phpcs:ignore Generic.DebugCodes.DisallowDebugCode
+                wp_trigger_error( $log, E_USER_NOTICE );
             }
         }
     }
@@ -1096,14 +1096,14 @@ class Helper {
     }
 
     public static function nx_get_visitor_country_code() {
-        $ip = '';
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
-        } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }
+        $http_forwarded_for = !empty( $_SERVER['HTTP_X_FORWARDED_FOR'][0] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'][0]) )  : [];
+        $remove_addr = !empty( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+        $ip = !empty($_SERVER['HTTP_CLIENT_IP']) 
+            ? sanitize_text_field( wp_unslash($_SERVER['HTTP_CLIENT_IP']) ) 
+            : ( !empty($_SERVER['HTTP_X_FORWARDED_FOR']) 
+                ? explode(',', $http_forwarded_for )
+                : $remove_addr
+            );
         
         // Prevent localhost IP from erroring
         if ($ip === '127.0.0.1' || $ip === '::1') {
