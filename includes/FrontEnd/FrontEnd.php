@@ -115,7 +115,7 @@ class FrontEnd {
 
         $exit = false;
         if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
-            $referer = wp_unslash( $_SERVER['HTTP_REFERER'] ); // Remove slashes added by PHP
+            $referer = sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ); // Remove slashes added by PHP
             $referer = esc_url_raw( $referer ); // Sanitize as URL
             if ( strpos( $referer, 'wp-admin/widgets.php' ) !== false ) {
                 $exit = ['total' => 0];

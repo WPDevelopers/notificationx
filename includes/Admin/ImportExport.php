@@ -157,7 +157,7 @@ class ImportExport{
     }
 
     public function import($request){
-        @set_time_limit(0);
+        wp_raise_memory_limit('admin'); 
         $params = $request->get_params();
         $status = 'error';
         if(!empty($params['import'])){
@@ -238,7 +238,7 @@ class ImportExport{
     }
 
     public function export($request){
-        @set_time_limit(0);
+        wp_raise_memory_limit('admin'); 
         $params = $request->get_params();
         $export = [];
         if(!empty($params['export-settings'])){
