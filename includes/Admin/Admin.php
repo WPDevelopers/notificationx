@@ -84,6 +84,7 @@ class Admin {
         Settings::get_instance()->init();
         Entries::get_instance();
         Scanner::get_instance();
+        MilestoneNotification::get_instance();
     }
 
     /**
