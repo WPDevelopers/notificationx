@@ -209,7 +209,7 @@ class Admin {
 			'lifetime'       => 3,
 			'stylesheet_url' => '',
 			'styles'         => self::ASSET_URL . 'css/wpdeveloper-review-notice.css',
-			'priority'       => 7,
+			'priority'       => 5,
             // 'dev_mode'       => true
         ]);
 
