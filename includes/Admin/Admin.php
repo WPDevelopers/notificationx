@@ -76,6 +76,7 @@ class Admin {
         if( ! NotificationX::is_pro() ){
             $this->plugin_usage_insights();
             $this->admin_notices();
+            MilestoneNotification::get_instance();
         }
         add_action('admin_init', [$this, 'admin_init']);
         add_action('admin_menu', [$this, 'menu'], 10);
@@ -84,7 +85,6 @@ class Admin {
         Settings::get_instance()->init();
         Entries::get_instance();
         Scanner::get_instance();
-        MilestoneNotification::get_instance();
     }
 
     /**

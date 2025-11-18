@@ -28,6 +28,7 @@
 
 namespace NotificationX\Admin;
 
+use NotificationX\NotificationX;
 use NotificationX\GetInstance;
 use NotificationX\Core\Analytics;
 use NotificationX\Core\Helper;
@@ -162,6 +163,8 @@ class MilestoneNotification
 
         // Get milestone data
         $data = $this->get_milestone_data();
+        $graph               = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/analytics-overview.png' );
+        $black_friday_notice = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/black-friday-small.png' );
 
 ?>
         <div id="notificationx-milestone-container" style="display: none;">
@@ -181,16 +184,25 @@ class MilestoneNotification
 
                     <!-- Content -->
                     <div class="milestone-content">
+                        <?php 
+                            // Get current date in UTC
+                            $today    = gmdate('Y-m-d');
+                            $end_date = gmdate('Y-m-d', strtotime('December 4'));
+                           if ( $today <= $end_date ) : ?>
+                            <div class="black-friday-notice">
+                                <img src="<?php echo esc_url( $black_friday_notice ) ?>" alt="<?php echo esc_attr__('Black Friday','notificationx') ?>">
+                            </div>
+                        <?php endif ?>
                         <!-- Achievement Banner -->
                         <div class="milestone-achievement">
                             <h3 class="milestone-achievement-title">
-                                <?php echo $data['emoji']; ?> <?php echo wp_kses_post($data['title']); ?>
+                                <?php echo esc_html( $data['emoji'] ); ?> <?php echo wp_kses_post($data['title']); ?>
                             </h3>
                             <p class="milestone-achievement-subtitle">
                                 <?php echo wp_kses_post($data['subtitle']); ?>
                             </p>
-                            <a href="<?php echo esc_url(admin_url('admin.php?page=nx-analytics')); ?>" class="milestone-link">
-                                View Analytics
+                            <a href="<?php echo esc_url(admin_url('admin.php?page=nx-analytics')); ?>" class="milestone-link <?php echo NotificationX::is_pro() ? 'pro-activated' : 'pro-deactivated' ?>">
+                                <?php echo ! NotificationX::is_pro() ? esc_html__('View Analytics', 'notificationx') : esc_html__('View Detail Insights', 'notificationx'); ?>
                             </a>
                         </div>
 
@@ -208,7 +220,7 @@ class MilestoneNotification
 
                                 <!-- CTA Button -->
                                 <a href="<?php echo esc_url('https://notificationx.com/pricing/'); ?>" target="_blank" class="milestone-cta">
-                                     Unlock Pro Features
+                                    <?php echo esc_html__('Unlock Advanced Analytics Data', 'notificationx'); ?>
                                 </a>
                             </div>
                         </div>
@@ -270,19 +282,15 @@ class MilestoneNotification
         return array_merge($milestone_config, [
             'stats' => [
                 [
-                    'label' => 'Total Notifications',
-                    'value' => $notifications_formatted
-                ],
-                [
-                    'label' => 'Total Views',
+                    'label' => esc_html__('Total Views', 'notificationx'),
                     'value' => $views_formatted
                 ],
                 [
-                    'label' => 'Total Clicks',
+                    'label' => esc_html__('Total Clicks', 'notificationx'),
                     'value' => $clicks_formatted
                 ],
                 [
-                    'label' => 'Click Rate',
+                    'label' => esc_html__('Click Rate', 'notificationx'),
                     'value' => $ctr_formatted
                 ]
             ]
@@ -319,24 +327,54 @@ class MilestoneNotification
     private function get_milestone_config($total_interactions)
     {
         // Define milestone levels with unique messages
-        $milestones = [
-            1000000 => [
-                'emoji' => '👑',
-                'title' => 'Legendary! <strong>1M+ interactions achieved!</strong>',
+       $milestones = [
+            2000000 => [
+                'emoji'    => '🌌',
+                'title'    => 'Legendary! <strong>2M+ interactions achieved!</strong>',
                 'subtitle' => 'You\'re an <strong>absolute legend</strong>! Your notifications are reaching millions. Pro features will help you scale to infinity.',
-                'level' => '1m'
+                'level'    => '2m'
+            ],
+            1000000 => [
+                'emoji'    => '👑',
+                'title'    => 'Legendary! <strong>1M+ interactions achieved!</strong>',
+                'subtitle' => 'You\'re an <strong>absolute legend</strong>! Your notifications are reaching millions. Pro features will help you scale to infinity.',
+                'level'    => '1m'
+            ],
+            700000 => [
+                'emoji'    => '🏅',
+                'title'    => 'Legendary! <strong>700K+ interactions achieved!</strong>',
+                'subtitle' => 'You\'re an <strong>absolute legend</strong>! Your notifications are reaching millions. Pro features will help you scale to infinity.',
+                'level'    => '700k'
             ],
             500000 => [
-                'emoji' => '💎',
-                'title' => 'Diamond Status! <strong>500K+ interactions!</strong>',
-                'subtitle' => 'You\'ve reached <strong>diamond tier</strong>! Your content is viral. Unlock Pro to maximize your massive reach.',
-                'level' => '500k'
+                'emoji'    => '🏅',
+                'title'    => 'Legendary! <strong>500K+ interactions achieved!</strong>',
+                'subtitle' => 'You\'re an <strong>absolute legend</strong>! Your notifications are reaching millions. Pro features will help you scale to infinity.',
+                'level'    => '500k'
+            ],
+            300000 => [
+                'emoji'    => '🥇',
+                'title'    => 'Legendary! <strong>300K+ interactions achieved!</strong>',
+                'subtitle' => 'You\'re an <strong>absolute legend</strong>! Your notifications are reaching millions. Pro features will help you scale to infinity.',
+                'level'    => '300k'
             ],
             250000 => [
-                'emoji' => '🏆',
-                'title' => 'Champion! <strong>250K+ interactions unlocked!</strong>',
+                'emoji'    => '💎',
+                'title'    => 'Diamond Status! <strong>250K+ interactions!</strong>',
+                'subtitle' => 'You\'ve reached <strong>diamond tier</strong>! Your content is viral. Unlock Pro to maximize your massive reach.',
+                'level'    => '250k'
+            ],
+            200000 => [
+                'emoji'    => '🏆',
+                'title'    => 'Champion! <strong>200K+ interactions unlocked!</strong>',
                 'subtitle' => 'You\'re a <strong>true champion</strong>! Your notifications are crushing it. Get Pro insights to dominate even more.',
-                'level' => '250k'
+                'level'    => '200k'
+            ],
+            150000 => [
+                'emoji'    => '🏆',
+                'title'    => 'Champion! <strong>150K+ interactions unlocked!</strong>',
+                'subtitle' => 'You\'re a <strong>true champion</strong>! Your notifications are crushing it. Get Pro insights to dominate even more.',
+                'level'    => '150k'
             ],
             100000 => [
                 'emoji' => '🌟',
@@ -344,35 +382,53 @@ class MilestoneNotification
                 'subtitle' => 'You\'re a <strong>superstar</strong>! Your content is exploding. Upgrade to Pro for enterprise-level features.',
                 'level' => '100k'
             ],
-            50000 => [
-                'emoji' => '🚀',
-                'title' => 'Incredible! <strong>50K+ interactions achieved!</strong>',
-                'subtitle' => 'You\'re a <strong>Pro</strong>! Unlock advanced features to scale even further and dominate your niche.',
-                'level' => '50k'
+            75000 => [
+                'emoji' => '✨',
+                'title' => 'Superstar! <strong>75K+ interactions reached!</strong>',
+                'subtitle' => 'You\'re a <strong>superstar</strong>! Your content is exploding. Upgrade to Pro for enterprise-level features.',
+                'level' => '75k'
             ],
-            20000 => [
+            50000 => [
+                'emoji'    => '🚀',
+                'title'    => 'Incredible! <strong>50K+ interactions achieved!</strong>',
+                'subtitle' => 'You\'re a <strong>Pro</strong>! Unlock advanced features to scale even further and dominate your niche.',
+                'level'    => '50k'
+            ],
+            25000 => [
                 'emoji' => '🔥',
-                'title' => 'Amazing! <strong>20K+ interactions and counting!</strong>',
+                'title' => 'Amazing! <strong>25K+ interactions and counting!</strong>',
                 'subtitle' => 'Your notifications are <strong>on fire</strong>! Get Pro to unlock powerful features and boost performance.',
-                'level' => '20k'
+                'level' => '25k'
             ],
             10000 => [
-                'emoji' => '⭐',
-                'title' => 'Fantastic! You\'ve reached <strong>10K</strong> interactions!',
+                'emoji'    => '⭐',
+                'title'    => 'Fantastic! You\'ve reached <strong>10K</strong> interactions!',
                 'subtitle' => 'You\'re doing <strong>great</strong>! Upgrade to Pro to see detailed analytics and grow even faster.',
-                'level' => '10k'
+                'level'    => '10k'
             ],
             5000 => [
-                'emoji' => '🎯',
-                'title' => 'Awesome! <strong>5K interactions milestone unlocked!</strong>',
+                'emoji'    => '🎯',
+                'title'    => 'Awesome! <strong>5K interactions milestone unlocked!</strong>',
                 'subtitle' => 'Your content is <strong>resonating</strong>! Unlock Pro to discover what\'s working best.',
-                'level' => '5k'
+                'level'    => '5k'
+            ],
+            2000 => [
+                'emoji'    => '🎉',
+                'title'    => 'Congratulations! <strong>2K+ interactions reached!</strong>',
+                'subtitle' => 'Your notifications are <strong>gaining traction</strong>! Upgrade to Pro to see advanced analytics and improve performance.',
+                'level'    => '2k'
             ],
             1000 => [
-                'emoji' => '🎉',
-                'title' => 'Congratulations! <strong>1K+ interactions reached!</strong>',
+                'emoji'    => '🎉',
+                'title'    => 'Congratulations! <strong>1K+ interactions reached!</strong>',
                 'subtitle' => 'Your notifications are <strong>gaining traction</strong>! Upgrade to Pro to see advanced analytics and improve performance.',
-                'level' => '1k'
+                'level'    => '1k'
+            ],
+            100 => [
+                'emoji'    => '🎊',
+                'title'    => 'Congratulations! <strong>100+ interactions reached!</strong>',
+                'subtitle' => 'A strong start! Keep going and unlock more powerful features with Pro.',
+                'level'    => '100'
             ]
         ];
 
@@ -384,12 +440,7 @@ class MilestoneNotification
         }
 
         // Default for users below 1K interactions
-        return [
-            'emoji'    => '👋',
-            'title'    => 'You\'ve reached 32K+ active installations',
-            'subtitle' => 'Setup almost complete unlock full performance insights.',
-            'level'    => 'starter'
-        ];
+        return [];
     }
 
     /**
@@ -456,25 +507,42 @@ class MilestoneNotification
 
         // Determine current milestone level
         $current_level = 'starter';
-        if ($total_interactions >= 1000000) {
+        if ($total_interactions >= 2000000) {
+            $current_level = '2m';
+        } elseif ($total_interactions >= 1000000) {
             $current_level = '1m';
+        } elseif ($total_interactions >= 700000) {
+            $current_level = '700k';
         } elseif ($total_interactions >= 500000) {
             $current_level = '500k';
+        } elseif ($total_interactions >= 300000) {
+            $current_level = '300k';
         } elseif ($total_interactions >= 250000) {
             $current_level = '250k';
+        } elseif ($total_interactions >= 200000) {
+            $current_level = '200k';
+        } elseif ($total_interactions >= 150000) {
+            $current_level = '150k';
         } elseif ($total_interactions >= 100000) {
             $current_level = '100k';
+        } elseif ($total_interactions >= 75000) {
+            $current_level = '75k';
         } elseif ($total_interactions >= 50000) {
             $current_level = '50k';
-        } elseif ($total_interactions >= 20000) {
-            $current_level = '20k';
+        } elseif ($total_interactions >= 25000) {
+            $current_level = '25k';
         } elseif ($total_interactions >= 10000) {
             $current_level = '10k';
         } elseif ($total_interactions >= 5000) {
             $current_level = '5k';
+        } elseif ($total_interactions >= 2000) {
+            $current_level = '2k';
         } elseif ($total_interactions >= 1000) {
             $current_level = '1k';
+        } elseif ($total_interactions >= 100) {
+            $current_level = '100';
         }
+
 
         // Get the last seen milestone level (site-wide option)
         $last_seen_level = get_option('notificationx_milestone_level', '');
