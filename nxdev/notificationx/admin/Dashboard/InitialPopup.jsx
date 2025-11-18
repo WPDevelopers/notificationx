@@ -1,8 +1,34 @@
 import { __ } from '@wordpress/i18n'
-import React, { Fragment } from 'react'
+import React, { useState } from 'react'
 import { assetsURL } from '../../core/functions'
+import nxHelper from '../../core/functions'
 
-const InitialPopup = () => {
+const InitialPopup = ({ onDismiss }) => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleDismiss = async () => {
+    setIsLoading(true)
+
+    try {
+      const response = await nxHelper.post('miscellaneous', {
+        action: 'dismiss_initial_popup'
+      })
+
+      if (response?.success) {
+        // Call the onDismiss callback to hide the popup
+        if (onDismiss) {
+          onDismiss()
+        }
+      } else {
+        console.error('Failed to dismiss popup:', response)
+      }
+    } catch (error) {
+      console.error('Error dismissing popup:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
       <div className="nx-pop-up">
         <div className="nx-flex nx-pop-up-content">
@@ -40,8 +66,14 @@ const InitialPopup = () => {
               <img src={ assetsURL('image/reports/popup-banner.png', false) } alt="Premium Features Image" />
             </div>
           </div>
-          <button className='nx-dismiss'>
-            <span className="nx-cancel-button">{ __('Dismiss', 'notificationx') }</span>
+          <button
+            className='nx-dismiss'
+            onClick={handleDismiss}
+            disabled={isLoading}
+          >
+            <span className="nx-cancel-button">
+              {isLoading ? __('Dismissing...', 'notificationx') : __('Dismiss', 'notificationx')}
+            </span>
           </button>
         </div>
       </div>

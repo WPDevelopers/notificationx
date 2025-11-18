@@ -1415,9 +1415,7 @@
 
 /* Popup overlay */
 .nx-pop-up {
-    display: block !important;
-    visibility: visible;
-    opacity: 1 !important;
+    display: block;
     position: fixed;
     top: 0;
     left: 0;
@@ -1425,14 +1423,7 @@
     height: 100vh;
     background: #BFBFBF94;
     z-index: 9999;
-    display: none;
-    opacity: 0;
     transition: opacity 0.3s ease-in-out;
-    &.show {
-        display: block;
-        opacity: 1;
-    }
-
     /* Popup content */
     .nx-pop-up-content {
         position: absolute;

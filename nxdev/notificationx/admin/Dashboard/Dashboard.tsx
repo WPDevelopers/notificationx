@@ -19,9 +19,17 @@ const Dashboard = (props) => {
     const builder = useBuilder(notificationxTabs.quick_build);
     const [isLoading, setIsLoading] = useState(true);
     const [title, setTitle] = useState("");
+    const [showInitialPopup, setShowInitialPopup] = useState(true);
+
     useEffect(() => {
         setIsLoading(false);
-    }, []);
+        const shouldShowPopup = builderContext?.show_initial_popup ? true: false;
+        setShowInitialPopup(shouldShowPopup);
+    }, [builderContext]);
+
+    const handleDismissPopup = () => {
+        setShowInitialPopup(false);
+    };
 
     return (
         <BuilderProvider
@@ -36,7 +44,7 @@ const Dashboard = (props) => {
                     <AnalyticsDashboard props={props} context={builderContext} />
                     <NotificationTypeResource props={props} context={builderContext} />
                     <Docs props={props} context={builderContext}  />
-                    <InitialPopup/>
+                    {showInitialPopup && <InitialPopup onDismiss={handleDismissPopup} />}
                 </div>
             </WrapperWithLoader>
         </BuilderProvider>

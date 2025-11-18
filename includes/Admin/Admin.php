@@ -64,6 +64,8 @@ class Admin {
         XSS::get_instance();
         InfoTooltipManager::get_instance();
         add_action('init', [$this, 'init'], 5);
+        add_filter('nx_rest_miscellaneous', [$this, 'handle_miscellaneous_actions'], 10, 2);
+        add_filter('nx_builder_configs', [$this, 'add_popup_status_to_context'], 10, 1);
     }
 
     /**
@@ -386,5 +388,66 @@ class Admin {
 			popular plugins and themes. No spam, I promise.', 'notificationx' ),
 		));
 		$this->insights->init();
+    }
+
+    /**
+     * Handle miscellaneous REST API actions
+     *
+     * @param mixed $result
+     * @param array $params
+     * @return mixed
+     */
+    public function handle_miscellaneous_actions($result, $params) {
+        if (isset($params['action']) && $params['action'] === 'dismiss_initial_popup') {
+            return $this->dismiss_initial_popup();
+        }
+        return $result;
+    }
+
+    /**
+     * Dismiss the initial popup
+     *
+     * @return bool
+     */
+    public function dismiss_initial_popup() {
+        // Check user permissions
+        if (!current_user_can('manage_options')) {
+            return false;
+        }
+
+        // Update the option to mark popup as dismissed
+        $result = update_option('nx_initial_popup_dismissed', true);
+
+        return $result;
+    }
+
+    /**
+     * Check if popup should be shown
+     *
+     * @return bool
+     */
+    public function should_show_initial_popup() {
+        // Don't show if already dismissed
+        if (get_option('nx_initial_popup_dismissed', false)) {
+            return false;
+        }
+
+        // Don't show for non-admin users
+        if (!current_user_can('manage_options')) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Add popup status to admin context
+     *
+     * @param array $data
+     * @return array
+     */
+    public function add_popup_status_to_context($data) {
+        $data['show_initial_popup'] = $this->should_show_initial_popup();
+        return $data;
     }
 }
