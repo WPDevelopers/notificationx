@@ -1557,6 +1557,18 @@
         transition: 0.3s ease-in-out;
         gap: 8px;
     }
+    .nx-dismiss {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        border: none;
+        background: none;
+        text-decoration: none;
+        span {
+            color: #6A4BFF;
+            font-size: 14px;
+        }
+    }
 
     .nx-pop-up-btn span {
         font-size: 13px;

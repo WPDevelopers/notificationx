@@ -8,7 +8,7 @@ const InitialPopup = () => {
         <div className="nx-flex nx-pop-up-content">
           <div className="nx-pop-up-left-content">
             <div className="nx-black-friday-deal">
-                <img src={ assetsURL('image/reports/black-friday-small.png', false) } alt="Black Friday Deal" />
+                <img src={ assetsURL('image/reports/black-friday-small.png', false) } alt={ __('Black Friday Deal', 'notificationx') } />
             </div>
             <span className="nx-premium-tag">{ __('Premium','notificationx') }</span>
             <h2 className="nx-font-xl nx-pop-up-header">{ __('Want to maximize clicks and sales? Upgrade to PRO for advanced alerts.','notificationx') }</h2>
@@ -40,6 +40,9 @@ const InitialPopup = () => {
               <img src={ assetsURL('image/reports/popup-banner.png', false) } alt="Premium Features Image" />
             </div>
           </div>
+          <button className='nx-dismiss'>
+            <span className="nx-cancel-button">{ __('Dismiss', 'notificationx') }</span>
+          </button>
         </div>
       </div>
   )
