@@ -12,6 +12,7 @@ import { BuilderProvider, useBuilder } from "quickbuilder";
 import { WrapperWithLoader } from "../../components";
 // @ts-ignore
 import { __ } from "@wordpress/i18n";
+import InitialPopup from "./InitialPopup";
 
 const Dashboard = (props) => {
     const builderContext = useNotificationXContext();
@@ -35,6 +36,7 @@ const Dashboard = (props) => {
                     <AnalyticsDashboard props={props} context={builderContext} />
                     <NotificationTypeResource props={props} context={builderContext} />
                     <Docs props={props} context={builderContext}  />
+                    <InitialPopup/>
                 </div>
             </WrapperWithLoader>
         </BuilderProvider>
