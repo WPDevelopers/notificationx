@@ -5,37 +5,45 @@ import nxHelper from '../../core/functions'
 
 const InitialPopup = ({ onDismiss }) => {
   const [isLoading, setIsLoading] = useState(false)
+    const today = new Date();
+    const endDate = new Date('2025-12-04T23:59:59'); // Show until end of Dec 4
+    const showDeal = today <= endDate;
+        
+    const handleDismiss = async () => {
+        setIsLoading(true)
 
-  const handleDismiss = async () => {
-    setIsLoading(true)
+        try {
+        const response = await nxHelper.post('miscellaneous', {
+            action: 'dismiss_initial_popup'
+        })
 
-    try {
-      const response = await nxHelper.post('miscellaneous', {
-        action: 'dismiss_initial_popup'
-      })
-
-      if (response?.success) {
-        // Call the onDismiss callback to hide the popup
-        if (onDismiss) {
-          onDismiss()
+        if (response?.success) {
+            // Call the onDismiss callback to hide the popup
+            if (onDismiss) {
+            onDismiss()
+            }
+        } else {
+            console.error('Failed to dismiss popup:', response)
         }
-      } else {
-        console.error('Failed to dismiss popup:', response)
-      }
-    } catch (error) {
-      console.error('Error dismissing popup:', error)
-    } finally {
-      setIsLoading(false)
+        } catch (error) {
+        console.error('Error dismissing popup:', error)
+        } finally {
+        setIsLoading(false)
+        }
     }
-  }
 
   return (
       <div className="nx-pop-up">
         <div className="nx-flex nx-pop-up-content">
           <div className="nx-pop-up-left-content">
-            <div className="nx-black-friday-deal">
-                <img src={ assetsURL('image/reports/black-friday-small.png', false) } alt={ __('Black Friday Deal', 'notificationx') } />
-            </div>
+            {showDeal && (
+                <div className="nx-black-friday-deal">
+                    <img
+                        src={assetsURL('image/reports/black-friday-small.png', false)}
+                        alt={__('Black Friday Deal', 'notificationx')}
+                    />
+                </div>
+            )}
             <span className="nx-premium-tag">{ __('Premium','notificationx') }</span>
             <h2 className="nx-font-xl nx-pop-up-header">{ __('Want to maximize clicks and sales? Upgrade to PRO for advanced alerts.','notificationx') }</h2>
             <ul className="nx-premium-features-list">
