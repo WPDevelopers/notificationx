@@ -290,10 +290,13 @@
             box-shadow: 0px 4px 4px 0px #CBD2E4;
             
             .nx-popup-container {
+                max-width: 280px;
+
                 .nx-popup-header {
                     padding: 40px 30px 80px 24px;
                     background: #FF6E20;
                     border-radius: 16px 16px 0 0;
+                    background-image: url("/assets/images/theme-bg.png");
 
                     h3.nx-popup-title {
                         font-size: 28px;
@@ -304,7 +307,7 @@
                     }
                 }
                 .nx-popup-content {
-                    min-width: 300px;
+                    min-width: 280px;
                     padding: 20px 24px 16px;
 
                     .nx-popup-description {
