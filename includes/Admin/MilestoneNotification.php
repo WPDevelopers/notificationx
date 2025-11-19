@@ -163,7 +163,8 @@ class MilestoneNotification
 
         // Get milestone data
         $data                = $this->get_milestone_data();
-        $black_friday_notice = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/black-friday-small.png' );
+        $black_friday_notice = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/black-friday-small.webp' );
+        $nx_icon             = esc_url( NOTIFICATIONX_ADMIN_URL . 'images/nx-icon.svg' );
 
 ?>
         <div id="notificationx-milestone-container" style="display: none;">
@@ -172,7 +173,8 @@ class MilestoneNotification
                     <!-- Header -->
                     <div class="milestone-header">
                         <h2 class="milestone-title">
-                            <?php echo esc_html__('Your Milestones', 'notificationx'); ?>
+                            <img width="24" src="<?php echo esc_url( $nx_icon ) ?>" alt="">
+                            <?php echo esc_html__('NotificationX Milestones', 'notificationx'); ?>
                         </h2>
                         <button class="milestone-close" onclick="hideNotificationXMilestone(event)" aria-label="Close">
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -189,7 +191,9 @@ class MilestoneNotification
                             $end_date = gmdate('Y-m-d', strtotime('December 4'));
                            if ( $today <= $end_date ) : ?>
                             <div class="black-friday-notice">
-                                <img src="<?php echo esc_url( $black_friday_notice ) ?>" alt="<?php echo esc_attr__('Black Friday','notificationx') ?>">
+                                <a target="_blank" href="<?php echo esc_url( 'https://notificationx.com/bfcm2025-admin-notice' ) ?>">
+                                    <img src="<?php echo esc_url( $black_friday_notice ) ?>" alt="<?php echo esc_attr__('Black Friday','notificationx') ?>">
+                                </a>
                             </div>
                         <?php endif ?>
                         <!-- Achievement Banner -->
@@ -328,108 +332,124 @@ class MilestoneNotification
         // Define milestone levels with unique messages
        $milestones = [
             2000000 => [
-                'emoji'    => '🌌',
-                'title'    => 'Legendary! <strong>2M+ interactions achieved!</strong>',
-                'subtitle' => 'You\'re an <strong>absolute legend</strong>! Your notifications are reaching millions. Pro features will help you scale to infinity.',
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('<strong>Mega Milestone Unlocked!</strong> 🚀', 'notificationx') ),
+                'subtitle' => esc_html__( 'Your website notifications are on fire! Over 2M+ interactions have taken place across the globe.', 'notificationx' ),
                 'level'    => '2m'
             ],
+
             1000000 => [
-                'emoji'    => '👑',
-                'title'    => 'Legendary! <strong>1M+ interactions achieved!</strong>',
-                'subtitle' => 'You\'re an <strong>absolute legend</strong>! Your notifications are reaching millions. Pro features will help you scale to infinity.',
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('<strong>Huge milestone achieved!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'You have achieved something unbelievable. 1M+ interactions have already happened on your website globally.', 'notificationx' ),
                 'level'    => '1m'
             ],
+
             700000 => [
-                'emoji'    => '🏅',
-                'title'    => 'Legendary! <strong>700K+ interactions achieved!</strong>',
-                'subtitle' => 'You\'re an <strong>absolute legend</strong>! Your notifications are reaching millions. Pro features will help you scale to infinity.',
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('700,000 <strong>interaction milestone reached!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'New interactions milestone achieved! Create more amazing notifications to reach out to a wider audience globally.', 'notificationx' ),
                 'level'    => '700k'
             ],
+
             500000 => [
-                'emoji'    => '🏅',
-                'title'    => 'Legendary! <strong>500K+ interactions achieved!</strong>',
-                'subtitle' => 'You\'re an <strong>absolute legend</strong>! Your notifications are reaching millions. Pro features will help you scale to infinity.',
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('<strong>You are doing amazing!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'Your notification is doing great and getting global clicks and impressions. See the detailed analytics below.', 'notificationx' ),
                 'level'    => '500k'
             ],
+
             300000 => [
-                'emoji'    => '🥇',
-                'title'    => 'Legendary! <strong>300K+ interactions achieved!</strong>',
-                'subtitle' => 'You\'re an <strong>absolute legend</strong>! Your notifications are reaching millions. Pro features will help you scale to infinity.',
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('<strong>Legendary achievement!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'New interactions milestone achieved! Create more amazing notifications to reach out to a wider audience globally.', 'notificationx' ),
                 'level'    => '300k'
             ],
+
             250000 => [
-                'emoji'    => '💎',
-                'title'    => 'Diamond Status! <strong>250K+ interactions!</strong>',
-                'subtitle' => 'You\'ve reached <strong>diamond tier</strong>! Your content is viral. Unlock Pro to maximize your massive reach.',
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('<strong>Diamond Status!!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'Your notification is grabbing attention globally. Check the detailed analytics to learn more about the performance.', 'notificationx' ),
                 'level'    => '250k'
             ],
+
             200000 => [
-                'emoji'    => '🏆',
-                'title'    => 'Champion! <strong>200K+ interactions unlocked!</strong>',
-                'subtitle' => 'You\'re a <strong>true champion</strong>! Your notifications are crushing it. Get Pro insights to dominate even more.',
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('200,000 <strong>interaction milestone reached!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'Globally, 200,000 interactions are happening on your website. Check the detailed analytics to grow your audience further.', 'notificationx' ),
                 'level'    => '200k'
             ],
+
             150000 => [
-                'emoji'    => '🏆',
-                'title'    => 'Champion! <strong>150K+ interactions unlocked!</strong>',
-                'subtitle' => 'You\'re a <strong>true champion</strong>! Your notifications are crushing it. Get Pro insights to dominate even more.',
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('Congratulations! <strong>Another milestone</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'Your notifications are performing incredibly well worldwide. Check out the detailed analytics below!', 'notificationx' ),
                 'level'    => '150k'
             ],
+
             100000 => [
-                'emoji' => '🌟',
-                'title' => 'Superstar! <strong>100K+ interactions reached!</strong>',
-                'subtitle' => 'You\'re a <strong>superstar</strong>! Your content is exploding. Upgrade to Pro for enterprise-level features.',
-                'level' => '100k'
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('100,000 <strong>interaction milestone reached!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'New interactions milestone achieved! Create more amazing notifications to reach out to a wider audience globally.', 'notificationx' ),
+                'level'    => '100k'
             ],
+
             75000 => [
-                'emoji' => '✨',
-                'title' => 'Superstar! <strong>75K+ interactions reached!</strong>',
-                'subtitle' => 'You\'re a <strong>superstar</strong>! Your content is exploding. Upgrade to Pro for enterprise-level features.',
-                'level' => '75k'
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('75,000+ <strong>interactions achieved today!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'Your notification is doing great and getting global clicks and impressions. See the detailed analytics below.', 'notificationx' ),
+                'level'    => '75k'
             ],
+
             50000 => [
-                'emoji'    => '🚀',
-                'title'    => 'Incredible! <strong>50K+ interactions achieved!</strong>',
-                'subtitle' => 'You\'re a <strong>Pro</strong>! Unlock advanced features to scale even further and dominate your niche.',
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('Incredible, <strong>50,000 interactions unlocked!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'You are going great with your notification. Do not forget to check the detailed analytics to learn more.', 'notificationx' ),
                 'level'    => '50k'
             ],
+
             25000 => [
-                'emoji' => '🔥',
-                'title' => 'Amazing! <strong>25K+ interactions and counting!</strong>',
-                'subtitle' => 'Your notifications are <strong>on fire</strong>! Get Pro to unlock powerful features and boost performance.',
-                'level' => '25k'
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('25,000 <strong>interaction milestone reached!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'Globally, 25,000 interactions are happening on your website. Check the detailed analytics to grow your audience further.', 'notificationx' ),
+                'level'    => '25k'
             ],
+
             10000 => [
-                'emoji'    => '⭐',
-                'title'    => 'Fantastic! You\'ve reached <strong>10K</strong> interactions!',
-                'subtitle' => 'You\'re doing <strong>great</strong>! Upgrade to Pro to see detailed analytics and grow even faster.',
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('Fantastic! <strong>10,000 interactions reached!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'New interactions milestone achieved! Create more amazing notifications to reach out to a wider audience globally.', 'notificationx' ),
                 'level'    => '10k'
             ],
+
             5000 => [
-                'emoji'    => '🎯',
-                'title'    => 'Awesome! <strong>5K interactions milestone unlocked!</strong>',
-                'subtitle' => 'Your content is <strong>resonating</strong>! Unlock Pro to discover what\'s working best.',
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('Awesome - <strong>you got 5,000 interactions!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'Your amazing website reached 5,000 interactions from your notification. Check the detailed analytics and achieve more.', 'notificationx' ),
                 'level'    => '5k'
             ],
             2000 => [
-                'emoji'    => '🎉',
-                'title'    => wp_kses_post( __('2,000 <strong>interaction milestone achieved!</strong>', 'notificationx') ),
-                'subtitle' => 'Your website has more than 2,000 interactions from your notification. Do not forget to check the detailed analytics and achieve more.',
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('2,000 <strong>interaction milestone achieved!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'Your website has more than 2,000 interactions from your notification. Do not forget to check the detailed analytics and achieve more.', 'notificationx' ),
                 'level'    => '2000'
             ],
+
             1000 => [
-                'emoji'    => '👏',
-                'title'    => wp_kses_post( __('Great - <strong>1,000 interactions achieved!</strong>', 'notificationx') ),
-                'subtitle' => esc_html__('Your notifications are performing incredibly well worldwide. Check out the detailed analytics below!', 'notificationx'),
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('Great - <strong>1,000 interactions achieved!</strong> 👏', 'notificationx') ),
+                'subtitle' => esc_html__( 'Your notifications are performing incredibly well worldwide. Check out the detailed analytics below!', 'notificationx' ),
                 'level'    => '1000'
             ],
+
             100 => [
-                'emoji'    => '🎉',
-                'title'    => wp_kses_post( __('You\'ve got <strong>100 interactions overall!</strong>', 'notificationx') ),
-                'subtitle' => esc_html__('Your notification is doing great and getting global clicks and impressions. See the detailed analytics below.', 'notificationx'),
+                'emoji'    => '',
+                'title'    => wp_kses_post( __('You\'ve got <strong>100 interactions overall!</strong> 🎉', 'notificationx') ),
+                'subtitle' => esc_html__( 'Your notification is doing great and getting global clicks and impressions. See the detailed analytics below.', 'notificationx' ),
                 'level'    => '100'
-            ]
+            ],
         ];
+
 
         // Find the appropriate milestone level
         foreach ($milestones as $threshold => $config) {
@@ -478,8 +498,8 @@ class MilestoneNotification
 
         // Get real analytics data
         $total_notifications = 0;
-        $total_views = 0;
-        $total_clicks = 0;
+        $total_views         = 0;
+        $total_clicks        = 0;
 
         try {
             // Get total count data
@@ -540,8 +560,10 @@ class MilestoneNotification
             $current_level = '1k';
         } elseif ($total_interactions >= 100) {
             $current_level = '100';
+        } elseif( $total_interactions < 100 ) {
+            return false;
         }
-
+        
 
         // Get the last seen milestone level (site-wide option)
         $last_seen_level = get_option('notificationx_milestone_level', '');

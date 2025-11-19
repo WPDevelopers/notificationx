@@ -7,51 +7,42 @@ const InitialPopup = ({ onDismiss }) => {
   const [isLoading, setIsLoading] = useState(false)
     const today = new Date();
     const endDate = new Date('2025-12-04T23:59:59'); // Show until end of Dec 4
-    const showDeal = today <= endDate;
         
-    const handleDismiss = async () => {
-        setIsLoading(true)
+    const handleDismiss = () => {
+      setIsLoading(true);
 
-        try {
-        const response = await nxHelper.post('miscellaneous', {
-            action: 'dismiss_initial_popup'
-        })
+      nxHelper.post('miscellaneous', { action: 'dismiss_initial_popup' })
+          .then(response => {
+              if (response?.success && onDismiss) onDismiss();
+              else console.error('Failed to dismiss popup:', response);
+          })
+          .catch(err => {})
+          .finally(() => setIsLoading(false));
+  };
 
-        if (response?.success) {
-            // Call the onDismiss callback to hide the popup
-            if (onDismiss) {
-            onDismiss()
-            }
-        } else {
-            console.error('Failed to dismiss popup:', response)
-        }
-        } catch (error) {
-        console.error('Error dismissing popup:', error)
-        } finally {
-        setIsLoading(false)
-        }
-    }
 
   return (
       <div className="nx-pop-up">
         <div className="nx-flex nx-pop-up-content">
           <div className="nx-pop-up-left-content">
-            {showDeal && (
+            { (today <= endDate) && (
                 <div className="nx-black-friday-deal">
+                  <a href={'https://notificationx.com/bfcm2025-admin-notice'} target='_blank'>
                     <img
-                        src={assetsURL('image/reports/black-friday-small.png', false)}
-                        alt={__('Black Friday Deal', 'notificationx')}
+                      src={ assetsURL('image/reports/black-friday-small.webp', false) }
+                      alt={__('Black Friday Deal', 'notificationx')}
                     />
+                  </a>
                 </div>
             )}
             <span className="nx-premium-tag">{ __('Premium','notificationx') }</span>
             <h2 className="nx-font-xl nx-pop-up-header">{ __('Want to maximize clicks and sales? Upgrade to PRO for advanced alerts.','notificationx') }</h2>
             <ul className="nx-premium-features-list">
-              <li className="nx-font-m nx-premium-features-list-item">{ __('Highlight promotional offers','notificationx') }</li>
-              <li className="nx-font-m nx-premium-features-list-item">{ __('Display sales count','notificationx') }</li>
-              <li className="nx-font-m nx-premium-features-list-item">{ __('Grab instant attention','notificationx') }</li>
-              <li className="nx-font-m nx-premium-features-list-item">{ __('Display low-stock alerts','notificationx') }</li>
               <li className="nx-font-m nx-premium-features-list-item">{ __('Location-specific notifications','notificationx') }</li>
+              <li className="nx-font-m nx-premium-features-list-item">{ __('Create custom popup notifications','notificationx') }</li>
+              <li className="nx-font-m nx-premium-features-list-item">{ __('Highlight promotional offers with coupons','notificationx') }</li>
+              <li className="nx-font-m nx-premium-features-list-item">{ __('Display sales counts & low-stock alerts','notificationx') }</li>
+              <li className="nx-font-m nx-premium-features-list-item">{ __('Grab instant attention with flashing tabs','notificationx') }</li>
             </ul>
             <a target="_blank" href="https://notificationx.com/#pricing" className="nx-btn nx-btn-primary nx-pop-up-btn">
               <span className="nx-line-height-0 nx-mr-4 nx-pop-up-btn-icon">

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-02T11:23:58+00:00\n"
+"POT-Creation-Date: 2025-11-19T10:14:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -51,48 +51,48 @@ msgstr ""
 msgid "There is no data in this notification."
 msgstr ""
 
-#: includes/Admin/Admin.php:116
+#: includes/Admin/Admin.php:122
 #: assets/admin/js/admin.js:11
 msgid "All NotificationX"
 msgstr ""
 
-#: includes/Admin/Admin.php:218
+#: includes/Admin/Admin.php:224
 msgid "We hope you're enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
 msgstr ""
 
-#: includes/Admin/Admin.php:223
+#: includes/Admin/Admin.php:229
 msgid "Ok, you deserve it!"
 msgstr ""
 
-#: includes/Admin/Admin.php:227
+#: includes/Admin/Admin.php:233
 msgid "I already did"
 msgstr ""
 
-#: includes/Admin/Admin.php:234
+#: includes/Admin/Admin.php:240
 msgid "Maybe Later"
 msgstr ""
 
-#: includes/Admin/Admin.php:242
+#: includes/Admin/Admin.php:248
 msgid "I need help"
 msgstr ""
 
-#: includes/Admin/Admin.php:246
+#: includes/Admin/Admin.php:252
 msgid "Never show again"
 msgstr ""
 
-#: includes/Admin/Admin.php:279
+#: includes/Admin/Admin.php:285
 msgid "<p><strong>Black Friday Exclusive:</strong> SAVE up to 40% & access to <strong>NotificationX Pro</strong> features.</p>"
 msgstr ""
 
-#: includes/Admin/Admin.php:279
+#: includes/Admin/Admin.php:285
 msgid "Grab The Offer"
 msgstr ""
 
-#: includes/Admin/Admin.php:381
+#: includes/Admin/Admin.php:406
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:382
+#: includes/Admin/Admin.php:407
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -176,6 +176,166 @@ msgstr ""
 
 #: includes/Admin/ImportExport.php:147
 msgid "Import completed successfully."
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:177
+msgid "NotificationX Milestones"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:195
+msgid "Black Friday"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:208
+msgid "View Analytics"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:208
+msgid "View Detail Insights"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:226
+msgid "Unlock Advanced Analytics Data"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:288
+#: includes/Admin/views/analytics.views.php:7
+#: includes/Admin/views/analytics.views.php:11
+#: includes/Extensions/Google/YouTube.php:220
+#: includes/Extensions/Google/YouTube.php:234
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:11
+msgid "Total Views"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:292
+#: includes/Admin/views/analytics.views.php:20
+#: includes/Admin/views/analytics.views.php:24
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:11
+msgid "Total Clicks"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:296
+msgid "Click Rate"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:336
+msgid "<strong>Mega Milestone Unlocked!</strong> 🚀"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:337
+msgid "Your website notifications are on fire! Over 2M+ interactions have taken place across the globe."
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:343
+msgid "<strong>Huge milestone achieved!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:344
+msgid "You have achieved something unbelievable. 1M+ interactions have already happened on your website globally."
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:350
+msgid "700,000 <strong>interaction milestone reached!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:351
+#: includes/Admin/MilestoneNotification.php:365
+#: includes/Admin/MilestoneNotification.php:393
+#: includes/Admin/MilestoneNotification.php:421
+msgid "New interactions milestone achieved! Create more amazing notifications to reach out to a wider audience globally."
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:357
+msgid "<strong>You are doing amazing!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:358
+#: includes/Admin/MilestoneNotification.php:400
+#: includes/Admin/MilestoneNotification.php:448
+msgid "Your notification is doing great and getting global clicks and impressions. See the detailed analytics below."
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:364
+msgid "<strong>Legendary achievement!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:371
+msgid "<strong>Diamond Status!!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:372
+msgid "Your notification is grabbing attention globally. Check the detailed analytics to learn more about the performance."
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:378
+msgid "200,000 <strong>interaction milestone reached!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:379
+msgid "Globally, 200,000 interactions are happening on your website. Check the detailed analytics to grow your audience further."
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:385
+msgid "Congratulations! <strong>Another milestone</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:386
+#: includes/Admin/MilestoneNotification.php:441
+msgid "Your notifications are performing incredibly well worldwide. Check out the detailed analytics below!"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:392
+msgid "100,000 <strong>interaction milestone reached!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:399
+msgid "75,000+ <strong>interactions achieved today!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:406
+msgid "Incredible, <strong>50,000 interactions unlocked!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:407
+msgid "You are going great with your notification. Do not forget to check the detailed analytics to learn more."
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:413
+msgid "25,000 <strong>interaction milestone reached!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:414
+msgid "Globally, 25,000 interactions are happening on your website. Check the detailed analytics to grow your audience further."
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:420
+msgid "Fantastic! <strong>10,000 interactions reached!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:427
+msgid "Awesome - <strong>you got 5,000 interactions!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:428
+msgid "Your amazing website reached 5,000 interactions from your notification. Check the detailed analytics and achieve more."
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:433
+msgid "2,000 <strong>interaction milestone achieved!</strong> 🎉"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:434
+msgid "Your website has more than 2,000 interactions from your notification. Do not forget to check the detailed analytics and achieve more."
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:440
+msgid "Great - <strong>1,000 interactions achieved!</strong> 👏"
+msgstr ""
+
+#: includes/Admin/MilestoneNotification.php:447
+msgid "You've got <strong>100 interactions overall!</strong> 🎉"
 msgstr ""
 
 #: includes/Admin/Notice.php:469
@@ -508,22 +668,6 @@ msgstr ""
 
 #: includes/Admin/Settings.php:537
 msgid "Successfully deleted Transient."
-msgstr ""
-
-#: includes/Admin/views/analytics.views.php:7
-#: includes/Admin/views/analytics.views.php:11
-#: includes/Extensions/Google/YouTube.php:220
-#: includes/Extensions/Google/YouTube.php:234
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
-msgid "Total Views"
-msgstr ""
-
-#: includes/Admin/views/analytics.views.php:20
-#: includes/Admin/views/analytics.views.php:24
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
-msgid "Total Clicks"
 msgstr ""
 
 #: includes/Admin/views/analytics.views.php:33
@@ -6243,6 +6387,62 @@ msgstr ""
 msgid "Your quick feedback helps us grow and build more awesome features for you!"
 msgstr ""
 
+#: assets/admin/js/admin.js:11
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:33
+msgid "Black Friday Deal"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:38
+msgid "Premium"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:39
+msgid "Want to maximize clicks and sales? Upgrade to PRO for advanced alerts."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Highlight promotional offers"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Display sales count"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Grab instant attention"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Display low-stock alerts"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:41
+msgid "Location-specific notifications"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:51
+msgid "Unlock All Features"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:60
+msgid "No risk 14-day money-back guarantee included."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:74
+msgid "Dismissing..."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:74
+msgid "Dismiss"
+msgstr ""
+
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
 #: assets/admin/js/admin.js:14
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
@@ -6594,4 +6794,20 @@ msgstr ""
 #: blocks/notificationx/components/inspector.js:301
 #: blocks/notificationx/index.js:1
 msgid "Link Color"
+msgstr ""
+
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:42
+msgid "Create custom popup notifications"
+msgstr ""
+
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:43
+msgid "Highlight promotional offers with coupons"
+msgstr ""
+
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:44
+msgid "Display sales counts & low-stock alerts"
+msgstr ""
+
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:45
+msgid "Grab instant attention with flashing tabs"
 msgstr ""

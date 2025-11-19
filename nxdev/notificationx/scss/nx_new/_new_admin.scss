@@ -1458,7 +1458,7 @@
                 font-family: "DM Sans", sans-serif;
                 font-weight: 400;                   
                 font-style: normal;
-                font-size: 12px;
+                font-size: 14px;
                 line-height: 100%;
                 letter-spacing: 0%;
                 vertical-align: middle;
@@ -1514,13 +1514,14 @@
 
     /* Premium tag */
     .nx-premium-tag {
-        font-size: 8px;
+        font-size: 12px;
         font-weight: 600;
         color: #000;
-        padding: 1px 5px;
+        padding: 2px 8px;
         border-radius: 4px;
         background-color: #FCA108;
         display: inline-block;
+        line-height: 1.5rem;
     }
 
     /* Header and subheader */

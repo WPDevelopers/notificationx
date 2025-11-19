@@ -23,7 +23,7 @@ const Dashboard = (props) => {
 
     useEffect(() => {
         setIsLoading(false);
-        const shouldShowPopup = builderContext?.show_initial_popup ? true: false;
+        const shouldShowPopup = builderContext?.show_initial_popup && !builderContext?.is_pro_active ? true: false;
         setShowInitialPopup(shouldShowPopup);
     }, [builderContext]);
 
