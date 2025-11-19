@@ -215,7 +215,7 @@ class Admin {
 			'lifetime'       => 3,
 			'stylesheet_url' => '',
 			'styles'         => self::ASSET_URL . 'css/wpdeveloper-review-notice.css',
-			'priority'       => 7,
+			'priority'       => 5,
             // 'dev_mode'       => true
         ]);
 
@@ -340,6 +340,25 @@ class Admin {
                 'screens'     => [ 'dashboard' ],
                 "expire"      => strtotime( '11:59:59pm 5th December, 2024' ),
                 'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
+            ]
+        );
+
+        $notice_text = "<p><strong>Black Friday Mega Sale:</strong> Boost trust & conversions with real-time social proof notification alerts – now <strong>up to $160 OFF! 🎁</strong> </p><div class='wpsp-notice-action-button' style='display: inline-flex;column-gap:5px;'><a class='button button-primary' href='https://notificationx.com/bfcm2025-admin-notice' target='_blank'>Upgrade To PRO</a> <button class='wpsp-notice-action-dismiss dismiss-btn' data-dismiss='true' target='_blank'>I’ll Grab It Later</button></div>";
+        $_black_friday_2025 = [
+            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
+            'html'      => $notice_text,
+        ];
+        $notices->add(
+            'nx_black_friday_2025',
+            $_black_friday_2025,
+            [
+                'start'       => $notices->time(),
+                'recurrence'  => false,
+                'dismissible' => true,
+                'refresh'     => '',
+                'screens'     => [ 'dashboard' ],
+                "expire"      => strtotime( '11:59:59pm 4th December, 2025' ),
+                'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) ),
             ]
         );
 
