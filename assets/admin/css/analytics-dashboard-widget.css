@@ -187,6 +187,8 @@
 
 #notificationx-milestone-container .milestone-stats-inner-wrapper {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     flex-direction: column;
     gap: 16px;
     padding: 12px;
@@ -198,6 +200,9 @@
     display: flex;
     gap: 12px;
     justify-content: space-between;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #E8EEFA;
+    width: 100%;
 }
 
 #notificationx-milestone-container .milestone-stat-card {
@@ -224,13 +229,15 @@
     background: #7152FF;
     color: #fff;
     text-decoration: none;
-    padding: 12px 20px;
+    padding: 8px 12px;
     border-radius: 6px;
     font-weight: 600;
-    font-size: 14px;
-    text-align: center;
+    font-size: 12px;
     transition: all 0.2s ease;
     box-shadow: 0 2px 4px rgba(106, 75, 255, 0.2);
+    max-width: 60%;
+    text-align: center;
+    align-items: center;
 }
 
 #notificationx-milestone-container .milestone-cta:hover {
@@ -240,15 +247,8 @@
 }
 
 /* Responsive Design */
-@media (max-width: 480px) {
-    #notificationx-milestone-container .milestone-notification {
-        bottom: 10px;
-        right: 10px;
-        left: 10px;
-        width: auto;
-        max-width: none;
-    }
-    #notificationx-milestone-container .milestone-achievement-title {
-        font-size: 18px;
+@media (max-width: 460px) {
+    #notificationx-milestone-container{
+        display: none !important;
     }
 }

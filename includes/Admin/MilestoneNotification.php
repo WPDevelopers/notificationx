@@ -162,8 +162,7 @@ class MilestoneNotification
         }
 
         // Get milestone data
-        $data = $this->get_milestone_data();
-        $graph               = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/analytics-overview.png' );
+        $data                = $this->get_milestone_data();
         $black_friday_notice = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/black-friday-small.png' );
 
 ?>
@@ -414,20 +413,20 @@ class MilestoneNotification
             ],
             2000 => [
                 'emoji'    => '🎉',
-                'title'    => 'Congratulations! <strong>2K+ interactions reached!</strong>',
-                'subtitle' => 'Your notifications are <strong>gaining traction</strong>! Upgrade to Pro to see advanced analytics and improve performance.',
-                'level'    => '2k'
+                'title'    => wp_kses_post( __('2,000 <strong>interaction milestone achieved!</strong>', 'notificationx') ),
+                'subtitle' => 'Your website has more than 2,000 interactions from your notification. Do not forget to check the detailed analytics and achieve more.',
+                'level'    => '2000'
             ],
             1000 => [
-                'emoji'    => '🎉',
-                'title'    => 'Congratulations! <strong>1K+ interactions reached!</strong>',
-                'subtitle' => 'Your notifications are <strong>gaining traction</strong>! Upgrade to Pro to see advanced analytics and improve performance.',
-                'level'    => '1k'
+                'emoji'    => '👏',
+                'title'    => wp_kses_post( __('Great - <strong>1,000 interactions achieved!</strong>', 'notificationx') ),
+                'subtitle' => esc_html__('Your notifications are performing incredibly well worldwide. Check out the detailed analytics below!', 'notificationx'),
+                'level'    => '1000'
             ],
             100 => [
-                'emoji'    => '🎊',
-                'title'    => 'Congratulations! <strong>100+ interactions reached!</strong>',
-                'subtitle' => 'A strong start! Keep going and unlock more powerful features with Pro.',
+                'emoji'    => '🎉',
+                'title'    => wp_kses_post( __('You\'ve got <strong>100 interactions overall!</strong>', 'notificationx') ),
+                'subtitle' => esc_html__('Your notification is doing great and getting global clicks and impressions. See the detailed analytics below.', 'notificationx'),
                 'level'    => '100'
             ]
         ];

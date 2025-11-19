@@ -78,7 +78,10 @@ class Admin {
         if( ! NotificationX::is_pro() ){
             $this->plugin_usage_insights();
             $this->admin_notices();
-            MilestoneNotification::get_instance();
+            $is_embedpress_milestone_showing = get_option('is_embedpress_milestone_showing', false);
+            if (!$is_embedpress_milestone_showing) {
+                MilestoneNotification::get_instance();
+            }
         }
         add_action('admin_init', [$this, 'admin_init']);
         add_action('admin_menu', [$this, 'menu'], 10);
