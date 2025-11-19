@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.1.8\n"
+"Project-Id-Version: NotificationX 3.1.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-19T10:14:07+00:00\n"
+"POT-Creation-Date: 2025-11-19T11:56:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -6403,24 +6403,28 @@ msgid "Want to maximize clicks and sales? Upgrade to PRO for advanced alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-msgid "Highlight promotional offers"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Display sales count"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Grab instant attention"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
-msgid "Display low-stock alerts"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:41
 msgid "Location-specific notifications"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:42
+msgid "Create custom popup notifications"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:43
+msgid "Highlight promotional offers with coupons"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:44
+msgid "Display sales counts & low-stock alerts"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:45
+msgid "Grab instant attention with flashing tabs"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
@@ -6794,20 +6798,4 @@ msgstr ""
 #: blocks/notificationx/components/inspector.js:301
 #: blocks/notificationx/index.js:1
 msgid "Link Color"
-msgstr ""
-
-#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:42
-msgid "Create custom popup notifications"
-msgstr ""
-
-#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:43
-msgid "Highlight promotional offers with coupons"
-msgstr ""
-
-#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:44
-msgid "Display sales counts & low-stock alerts"
-msgstr ""
-
-#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:45
-msgid "Grab instant attention with flashing tabs"
 msgstr ""
