@@ -238,8 +238,8 @@ class PopupNotification extends Extension {
                     'popup_subtitle'            => __('Would like to get the lastes news & updates instantly?', 'notificationx'),
                     'popup_email_placeholder'   => __('Enter email address', 'notificationx'),
                     'popup_button_text'         => __('Get In Touch', 'notificationx'),
-                    'popup_icon'                => 'none',
-                    'popup_button_icon'         => 'none',
+                    'popup_icon'                => 'mail_icon.svg',
+                    'popup_button_icon'         => 'mail_icon.svg',
                     'popup_button_bg_color'     => '#f59e0b',
                     'popup_button_text_color'   => '#ffffff',
                     'popup_button_border_color' => '#f59e0b',
@@ -739,7 +739,7 @@ class PopupNotification extends Extension {
                     'type'        => 'icon-picker',
                     'priority'    => 15,
                     'iconPrefix'  => NOTIFICATIONX_ADMIN_URL . 'images/icons/',
-                    'default'     => 'none',
+                    'default'     => 'mail_icon.svg',
                     'rules'       => Rules::is('themes', 'popup_notification_theme-seven'),
                     'options'     => [
                         [

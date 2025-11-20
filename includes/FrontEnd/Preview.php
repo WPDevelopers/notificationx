@@ -60,6 +60,7 @@ class Preview {
                 'pressbar'  => [],
                 'active'    => [],
                 'gdpr'      => [],
+                'popup'     => [],
             ];
 
             $settings = $this->preview_settings();
@@ -80,6 +81,15 @@ class Preview {
                 ];
             } else if($source === 'gdpr_notification') {
                 $args['gdpr'] = [
+                    $source => [
+                        'entries' => [
+                            $this->preview_entry($settings),
+                        ],
+                        'post'    => $settings,
+                    ]
+                ];
+            }  else if($source === 'popup_notification') {
+                $args['popup'] = [
                     $source => [
                         'entries' => [
                             $this->preview_entry($settings),
