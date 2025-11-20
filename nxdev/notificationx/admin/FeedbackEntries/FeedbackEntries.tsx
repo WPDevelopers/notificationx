@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useRef, Fragment } from 'react';
 import { __ } from '@wordpress/i18n';
 import withDocumentTitle from '../../core/withDocumentTitle';
-import nxHelper from '../../core/functions';
+import nxHelper, { assetsURL } from '../../core/functions';
 import { Header } from '../../components';
 import Pagination from "rc-pagination";
 import localeInfo from 'rc-pagination/es/locale/en_US';
 import { SelectControl } from "@wordpress/components";
 import { useNotificationXContext } from '../../hooks';
 import AnalyticsOverview from '../Dashboard/AnalyticsOverview';
-
 interface FeedbackEntry {
     id: number;
     date: string;
@@ -34,6 +33,7 @@ const FeedbackEntries = (props: any) => {
     const [searchInput, setSearchInput] = useState('');
     const isMounted = useRef(true);
     const searchTimeout = useRef<NodeJS.Timeout | null>(null);
+    const logoURL = assetsURL('images/logos/large-logo-icon.png');
 
     useEffect(() => {
         isMounted.current = true;
@@ -190,78 +190,90 @@ const FeedbackEntries = (props: any) => {
                         ) : ( 
                                 <div>
                                     {/* Table */}
-                                    <div className="nx-list-table-wrapper">
-                                        <table className="wp-list-table widefat fixed striped notificationx-list">
-                                            <thead>
-                                                <tr>
-                                                    <td>
-                                                        <div className="nx-all-selector">
-                                                            <input 
-                                                                type="checkbox" 
-                                                                checked={checkAll} 
-                                                                onChange={handleSelectAll} 
-                                                                name="nx_all" 
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                    <td>{__("No", 'notificationx')}</td>
-                                                    <td>{__("Date", 'notificationx')}</td>
-                                                    <td>{__("Email Address", 'notificationx')}</td>
-                                                    <td>{__("Message", 'notificationx')}</td>
-                                                    <td>{__("Name", 'notificationx')}</td>
-                                                    <td>{__("Action", 'notificationx')}</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {entries.length === 0 ? (
+                                   <div className="nx-list-table-wrapper">
+                                        {entries.length === 0 ? (
+                                            <div className="nx-no-items">
+                                                <img src={logoURL} />
+                                                <h4>{__("No entries found.", 'notificationx')}</h4>
+                                                <p>
+                                                    {__(`Seems like you haven’t received any feedback entries yet.`, 'notificationx')}
+                                                </p>
+                                            </div>
+                                        ) : (
+                                            <table className="wp-list-table widefat fixed striped notificationx-list">
+                                                <thead>
                                                     <tr>
-                                                        <td colSpan={7} style={{ textAlign: 'center', padding: '40px' }}>
-                                                            {__('No feedback entries found', 'notificationx')}
+                                                    <th>
+                                                        <div className="nx-all-selector">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={checkAll}
+                                                            onChange={handleSelectAll}
+                                                            name="nx_all"
+                                                        />
+                                                        </div>
+                                                    </th>
+                                                    <th>{__("No", 'notificationx')}</th>
+                                                    <th>{__("Date", 'notificationx')}</th>
+                                                    <th>{__("Email Address", 'notificationx')}</th>
+                                                    <th>{__("Message", 'notificationx')}</th>
+                                                    <th>{__("Name", 'notificationx')}</th>
+                                                    <th>{__("Action", 'notificationx')}</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    {entries.map((entry, index) => (
+                                                    <tr key={entry.id}>
+                                                        <td>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={checkedItems.includes(entry.id)}
+                                                            onChange={(e) => handleCheckItem(entry.id, e.target.checked)}
+                                                        />
+                                                        </td>
+                                                        <td>{(currentPage - 1) * perPage + index + 1}</td>
+                                                        <td>{formatDate(entry.date)}</td>
+                                                        <td>{entry.email || '-'}</td>
+
+                                                        <td>
+                                                        <div style={{
+                                                            maxWidth: '200px',
+                                                            overflow: 'hidden',
+                                                            textOverflow: 'ellipsis',
+                                                            whiteSpace: 'nowrap'
+                                                        }}>
+                                                            {entry.message || '-'}
+                                                        </div>
+                                                        </td>
+
+                                                        <td>{entry.name || '-'}</td>
+
+                                                        <td>
+                                                        <div className="nx-action-buttons">
+                                                            <button
+                                                            className="nx-btn nx-btn-sm nx-btn-primary"
+                                                            onClick={() => handleView(entry)}
+                                                            title={__('View Details', 'notificationx')}
+                                                            >
+                                                            👁️
+                                                            </button>
+                                                            <button
+                                                            className="nx-btn nx-btn-sm nx-btn-danger"
+                                                            onClick={() => handleDelete(entry.id)}
+                                                            title={__('Delete Entry', 'notificationx')}
+                                                            >
+                                                            🗑️
+                                                            </button>
+                                                        </div>
                                                         </td>
                                                     </tr>
-                                                ) : (
-                                                    entries.map((entry, index) => (
-                                                        <tr key={entry.id}>
-                                                            <td>
-                                                                <input 
-                                                                    type="checkbox" 
-                                                                    checked={checkedItems.includes(entry.id)}
-                                                                    onChange={(e) => handleCheckItem(entry.id, e.target.checked)}
-                                                                />
-                                                            </td>
-                                                            <td>{(currentPage - 1) * perPage + index + 1}</td>
-                                                            <td>{formatDate(entry.date)}</td>
-                                                            <td>{entry.email || '-'}</td>
-                                                            <td>
-                                                                <div style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                                                    {entry.message || '-'}
-                                                                </div>
-                                                            </td>
-                                                            <td>{entry.name || '-'}</td>
-                                                            <td>
-                                                                <div className="nx-action-buttons">
-                                                                    <button 
-                                                                        className="nx-btn nx-btn-sm nx-btn-primary"
-                                                                        onClick={() => handleView(entry)}
-                                                                        title={__('View Details', 'notificationx')}
-                                                                    >
-                                                                        👁️
-                                                                    </button>
-                                                                    <button 
-                                                                        className="nx-btn nx-btn-sm nx-btn-danger"
-                                                                        onClick={() => handleDelete(entry.id)}
-                                                                        title={__('Delete Entry', 'notificationx')}
-                                                                    >
-                                                                        🗑️
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    ))
-                                                )}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        )}
+                                        </div>
+
 
                                     {/* Pagination */}
                                     {entries.length > 0 && (
