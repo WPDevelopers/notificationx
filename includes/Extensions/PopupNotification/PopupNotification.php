@@ -732,7 +732,6 @@ class PopupNotification extends Extension {
                     'priority' => 10,
                     'default'  => __('Special Offer!', 'notificationx'),
                 ],
-                // Popup Icon field - only for theme-seven
                 [
                     'label'       => __('Popup Icon', 'notificationx'),
                     'name'        => 'popup_icon',
