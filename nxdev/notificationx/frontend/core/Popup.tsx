@@ -178,11 +178,11 @@ const Popup = (props: any) => {
 
         // Check if this is an email collection theme
         const isEmailTheme = ["popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
-            .some(theme => settings.theme.includes(theme));
+            .some(theme => settings.themes.includes(theme));
 
         // Check if this is a message theme
         const isMessageTheme = ["popup_notification_theme-four", "popup_notification_theme-five"]
-            .some(theme => settings.theme.includes(theme));
+            .some(theme => settings.themes.includes(theme));
 
         if (!isEmailTheme && !isMessageTheme) {
             // For non-form themes, just handle button click
@@ -203,7 +203,7 @@ const Popup = (props: any) => {
                 name: settings.popup_show_name_field ? formData.name : '',
                 email: settings.popup_show_email_field ? formData.email : '',
                 message: settings.popup_show_message_field ? formData.message : '',
-                theme: settings.theme,
+                theme: settings.themes,
                 title: settings.popup_title || '',
                 timestamp: Math.floor(Date.now() / 1000)
             };
@@ -355,7 +355,7 @@ const Popup = (props: any) => {
     }
     const iconUrl = getIconUrl(settings?.popup_icon);
     const buttonIconUrl = getIconUrl(settings?.popup_button_icon);
-
+    
     return (
         <div className="nx-popup-overlay" style={overlayStyles} onClick={handleOverlayClick}>
             <div
@@ -381,7 +381,7 @@ const Popup = (props: any) => {
                     )}
 
                     {/* Header Section */}
-                    {!["popup_notification_theme-two"].some(theme => settings.theme.includes(theme)) && (
+                    {!["popup_notification_theme-two"].some(theme => settings.themes.includes(theme)) && (
                         <PopupHeader
                             settings={settings}
                             iconUrl={iconUrl}
@@ -393,7 +393,7 @@ const Popup = (props: any) => {
 
                     {/* Content Section */}
                     <div className="nx-popup-content">
-                        {(settings?.popup_content && !["popup_notification_theme-three", "popup_notification_theme-four", "popup_notification_theme-seven"].some(t => settings.theme.includes(t) ) ) && (
+                        {(settings?.popup_content && !["popup_notification_theme-three", "popup_notification_theme-four", "popup_notification_theme-seven"].some(t => settings.themes.includes(t) ) ) && (
                             <div className="nx-popup-description" style={descColorFont}>
                                 {settings?.popup_content && (
                                     <div dangerouslySetInnerHTML={{ __html: settings.popup_content }} />
@@ -404,7 +404,7 @@ const Popup = (props: any) => {
                             </div>
                         )}
 
-                        {["popup_notification_theme-two"].some(theme => settings.theme.includes(theme)) && (
+                        {["popup_notification_theme-two"].some(theme => settings.themes.includes(theme)) && (
                             <PopupHeader
                                 settings={settings}
                                 iconUrl={iconUrl}
@@ -413,7 +413,7 @@ const Popup = (props: any) => {
                                 content={content}
                             />
                         )}
-                        { settings.theme.includes("popup_notification_theme-three") && (
+                        { settings.themes.includes("popup_notification_theme-three") && (
                             <div className="nx-popup-description" style={descColorFont}>
                                 {(settings.popup_content_repeater && Array.isArray(settings.popup_content_repeater) && settings.popup_content_repeater.length > 0) ? (
                                     settings.popup_content_repeater.map((item: any, index: number) => {
@@ -469,7 +469,7 @@ const Popup = (props: any) => {
                         ) }
                         {/* Name Field - Show if enabled for form themes */}
                         { ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
-                            .some(theme => settings.theme.includes(theme)) && settings.popup_show_name_field && (
+                            .some(theme => settings.themes.includes(theme)) && settings.popup_show_name_field && (
                                 <div className="nx-popup-name">
                                     <input
                                         type="text"
@@ -489,7 +489,7 @@ const Popup = (props: any) => {
 
                         {/* Email Field - Show if enabled for form themes */}
                         { ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
-                            .some(theme => settings.theme.includes(theme)) && settings.popup_show_email_field && (
+                            .some(theme => settings.themes.includes(theme)) && settings.popup_show_email_field && (
                                 <div className="nx-popup-email">
                                     <input
                                         type="email"
@@ -510,7 +510,7 @@ const Popup = (props: any) => {
 
                         {/* Message Field - Show if enabled for form themes */}
                         { ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
-                            .some(theme => settings.theme.includes(theme)) && settings.popup_show_message_field && (
+                            .some(theme => settings.themes.includes(theme)) && settings.popup_show_message_field && (
                                 <div className="nx-popup-textarea">
                                     <textarea
                                         placeholder={settings?.popup_message_placeholder || __('Enter your message...', 'notificationx')}
@@ -531,7 +531,7 @@ const Popup = (props: any) => {
                             <div className="nx-popup-actions">
                                 {/* Check if this is a form theme */}
                                 {(["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
-                                    .some(theme => settings.theme.includes(theme))) ? (
+                                    .some(theme => settings.themes.includes(theme))) ? (
                                     <form onSubmit={handleFormSubmit}>
                                         <button
                                             type="submit"
@@ -573,7 +573,7 @@ const Popup = (props: any) => {
             </div>
 
                 {/* Additional External Button for theme-three and theme-seven only */}
-                {["popup_notification_theme-three", "popup_notification_theme-seven"].some(theme => settings.theme.includes(theme)) && (
+                {["popup_notification_theme-three", "popup_notification_theme-seven"].some(theme => settings.themes.includes(theme)) && (
                     <div className="nx-popup-external-button">
                         <form onSubmit={handleFormSubmit}>
                             <button
