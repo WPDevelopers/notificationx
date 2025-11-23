@@ -58,3 +58,197 @@
 .nx-analytics-header-counter-wrapper.nx-analytics-widget .nx-header-analytics-counter>a span.nx-counter-label {
     font-size: 14px;
 }
+/* NotificationX Milestone Notification Styles */
+#notificationx-milestone-container {
+    position: fixed;
+    right: 0;
+    width: 450px;
+    height: auto;
+    bottom: 0;
+    z-index: 999999;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+#notificationx-milestone-container .black-friday-notice img{
+    width: 100%;
+}
+
+#notificationx-milestone-container .milestone-notification {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 420px;
+    max-width: calc(100vw - 40px);
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+#notificationx-milestone-container .milestone-notification--visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+#notificationx-milestone-container .milestone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0 12px;
+    border-bottom: 1px solid #e5e7eb;
+    margin: 0 18px;
+}
+
+#notificationx-milestone-container .milestone-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+    line-height: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#notificationx-milestone-container .milestone-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    color: #64748b;
+    transition: all 0.2s ease;
+}
+
+#notificationx-milestone-container .milestone-close:hover {
+    background: #f1f5f9;
+    color: #334155;
+}
+
+#notificationx-milestone-container .milestone-content {
+    padding: 20px;
+}
+
+#notificationx-milestone-container .milestone-achievement {
+    text-align: left;
+    margin-bottom: 24px;
+}
+
+#notificationx-milestone-container .milestone-achievement-title {
+    margin: 10px 0 6px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #707070;
+    line-height: 1.5;
+    font-family: DM Sans, sans-serif;
+}
+
+#notificationx-milestone-container .milestone-achievement-title strong {
+    font-weight: 700;
+    color: #25396f;
+}
+
+#notificationx-milestone-container .milestone-achievement-subtitle {
+    font-size: 14px;
+    color: #535D77;
+    margin: 0 0 16px;
+    line-height: 1.5;
+}
+
+#notificationx-milestone-container .milestone-link {
+    display: inline-block;
+    color: #6A4BFF;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 2px 0;
+    border-bottom: 1px solid #6A4BFF;
+    transition: border-color 0.2s ease;
+}
+
+#notificationx-milestone-container .milestone-link.pro-activated {
+    background: #6A4BFF;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+#notificationx-milestone-container .milestone-link:hover {
+    text-decoration: none;
+}
+
+#notificationx-milestone-container .milestone-stats {
+    background: #00000099;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+#notificationx-milestone-container .milestone-stats-inner-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+    padding: 12px;
+    background: #FFFFFF;
+    border-radius: 8px;
+}
+
+#notificationx-milestone-container .milestone-stats-inner {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #E8EEFA;
+    width: 100%;
+}
+
+#notificationx-milestone-container .milestone-stat-card {
+    background: #fff;
+    padding: 0 12px;
+    text-align: left;
+}
+
+#notificationx-milestone-container .milestone-stat-label {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+#notificationx-milestone-container .milestone-stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #6A4BFF;
+}
+
+#notificationx-milestone-container .milestone-cta {
+    display: block;
+    background: #7152FF;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(106, 75, 255, 0.2);
+    max-width: 60%;
+    text-align: center;
+    align-items: center;
+}
+
+#notificationx-milestone-container .milestone-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(106, 75, 255, 0.3);
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 460px) {
+    #notificationx-milestone-container{
+        display: none !important;
+    }
+}

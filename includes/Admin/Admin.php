@@ -64,6 +64,8 @@ class Admin {
         XSS::get_instance();
         InfoTooltipManager::get_instance();
         add_action('init', [$this, 'init'], 5);
+        add_filter('nx_rest_miscellaneous', [$this, 'handle_miscellaneous_actions'], 10, 2);
+        add_filter('nx_builder_configs', [$this, 'add_popup_status_to_context'], 10, 1);
     }
 
     /**
@@ -76,6 +78,10 @@ class Admin {
         if( ! NotificationX::is_pro() ){
             $this->plugin_usage_insights();
             $this->admin_notices();
+            $is_embedpress_milestone_showing = get_option('is_embedpress_milestone_showing', false);
+            if (!$is_embedpress_milestone_showing) {
+                MilestoneNotification::get_instance();
+            }
         }
         add_action('admin_init', [$this, 'admin_init']);
         add_action('admin_menu', [$this, 'menu'], 10);
@@ -209,7 +215,7 @@ class Admin {
 			'lifetime'       => 3,
 			'stylesheet_url' => '',
 			'styles'         => self::ASSET_URL . 'css/wpdeveloper-review-notice.css',
-			'priority'       => 7,
+			'priority'       => 5,
             // 'dev_mode'       => true
         ]);
 
@@ -337,6 +343,25 @@ class Admin {
             ]
         );
 
+        $notice_text = "<p><strong>Black Friday Mega Sale:</strong> Boost trust & conversions with real-time social proof notification alerts – now <strong>up to $160 OFF! 🎁</strong> </p><div class='wpsp-notice-action-button' style='display: inline-flex;column-gap:5px;'><a class='button button-primary' href='https://notificationx.com/bfcm2025-admin-notice' target='_blank'>Upgrade To PRO</a> <button class='wpsp-notice-action-dismiss dismiss-btn' data-dismiss='true' target='_blank'>I’ll Grab It Later</button></div>";
+        $_black_friday_2025 = [
+            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
+            'html'      => $notice_text,
+        ];
+        $notices->add(
+            'nx_black_friday_2025',
+            $_black_friday_2025,
+            [
+                'start'       => $notices->time(),
+                'recurrence'  => false,
+                'dismissible' => true,
+                'refresh'     => '',
+                'screens'     => [ 'dashboard' ],
+                "expire"      => strtotime( '11:59:59pm 4th December, 2025' ),
+                'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) ),
+            ]
+        );
+
         // Holiday Deal
         $notice_text = "<p>🎁 <strong>SAVE 25% now</strong> & unlock advanced social-proof marketing features to skyrocket conversions in 2025.</p>
                         <div class='nx-notice-action-button'>
@@ -385,5 +410,66 @@ class Admin {
 			popular plugins and themes. No spam, I promise.', 'notificationx' ),
 		));
 		$this->insights->init();
+    }
+
+    /**
+     * Handle miscellaneous REST API actions
+     *
+     * @param mixed $result
+     * @param array $params
+     * @return mixed
+     */
+    public function handle_miscellaneous_actions($result, $params) {
+        if (isset($params['action']) && $params['action'] === 'dismiss_initial_popup') {
+            return $this->dismiss_initial_popup();
+        }
+        return $result;
+    }
+
+    /**
+     * Dismiss the initial popup
+     *
+     * @return bool
+     */
+    public function dismiss_initial_popup() {
+        // Check user permissions
+        if (!current_user_can('manage_options')) {
+            return false;
+        }
+
+        // Update the option to mark popup as dismissed
+        $result = update_option('nx_initial_popup_dismissed', true);
+
+        return $result;
+    }
+
+    /**
+     * Check if popup should be shown
+     *
+     * @return bool
+     */
+    public function should_show_initial_popup() {
+        // Don't show if already dismissed
+        if (get_option('nx_initial_popup_dismissed', false)) {
+            return false;
+        }
+
+        // Don't show for non-admin users
+        if (!current_user_can('manage_options')) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Add popup status to admin context
+     *
+     * @param array $data
+     * @return array
+     */
+    public function add_popup_status_to_context($data) {
+        $data['show_initial_popup'] = $this->should_show_initial_popup();
+        return $data;
     }
 }

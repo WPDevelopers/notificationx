@@ -305,7 +305,7 @@ span.coupon-code {
     width: 100%;
 }
 #wpnotice-notificationx-nx_halloween_2024 .wpnotice-content-wrapper p, #wpnotice-notificationx-nx_black_friday_2024 .wpnotice-content-wrapper p {
-    font-size: 15px;
+    font-size: 14px;
     margin: 0;
 }
 .notice-notificationx-nx_halloween_2024.is-dismissible .wpnotice-thumbnail-wrapper img, .notice-notificationx-nx_black_friday_2024.is-dismissible .wpnotice-thumbnail-wrapper img {
@@ -318,6 +318,58 @@ span.coupon-code {
         display: none !important;
     }
 }
+
+
+/**
+ * Black Friday Notice 2025
+*/
+#wpnotice-notificationx-nx_black_friday_2025 {
+    border-left-color: #7F4DDE;
+    padding: 10px 40px 10px 20px;
+}
+#wpnotice-notificationx-nx_black_friday_2025 .wpnotice-thumbnail-wrapper img{
+    width: 180px;
+}
+#wpnotice-notificationx-nx_black_friday_2025 .wpnotice-content-wrapper .wpsp-notice-action-button > a.button-primary,
+#wpnotice-notificationx-nx_black_friday_2025 .wpnotice-content-wrapper .wpsp-notice-action-button > a.button-primary:focus,
+#wpnotice-notificationx-nx_black_friday_2025 .wpnotice-content-wrapper .wpsp-notice-action-button > a.button-primary:hover {
+    background-color: #3B4045;
+    color: #fff;
+    box-shadow: 0px 1px 0px 0px #000000;
+    border: none;
+    border-radius: 6px;
+    padding: 2px 16px;
+}
+
+#wpnotice-notificationx-nx_black_friday_2025 .wpnotice-content-wrapper .wpsp-notice-action-button .wpsp-notice-action-dismiss {
+    background: none;
+    border: none;
+    color: #424242;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+
+#wpnotice-notificationx-nx_black_friday_2025 .wpnotice-content-wrapper {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: column;
+}
+#wpnotice-notificationx-nx_black_friday_2025 .wpnotice-content-wrapper p{
+    font-size: 15px;
+    margin-top: 0;
+    padding-top: 0;
+}
+
 
 /*
 * Holidays Deal css

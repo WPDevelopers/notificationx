@@ -12,15 +12,24 @@ import { BuilderProvider, useBuilder } from "quickbuilder";
 import { WrapperWithLoader } from "../../components";
 // @ts-ignore
 import { __ } from "@wordpress/i18n";
+import InitialPopup from "./InitialPopup";
 
 const Dashboard = (props) => {
     const builderContext = useNotificationXContext();
     const builder = useBuilder(notificationxTabs.quick_build);
     const [isLoading, setIsLoading] = useState(true);
     const [title, setTitle] = useState("");
+    const [showInitialPopup, setShowInitialPopup] = useState(true);
+
     useEffect(() => {
         setIsLoading(false);
-    }, []);
+        const shouldShowPopup = builderContext?.show_initial_popup && !builderContext?.is_pro_active ? true: false;
+        setShowInitialPopup(shouldShowPopup);
+    }, [builderContext]);
+
+    const handleDismissPopup = () => {
+        setShowInitialPopup(false);
+    };
 
     return (
         <BuilderProvider
@@ -35,6 +44,7 @@ const Dashboard = (props) => {
                     <AnalyticsDashboard props={props} context={builderContext} />
                     <NotificationTypeResource props={props} context={builderContext} />
                     <Docs props={props} context={builderContext}  />
+                    {showInitialPopup && <InitialPopup onDismiss={handleDismissPopup} />}
                 </div>
             </WrapperWithLoader>
         </BuilderProvider>
