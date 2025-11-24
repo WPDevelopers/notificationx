@@ -172,25 +172,23 @@ const FeedbackEntries = (props: any) => {
             reverseButtons: true,
             customClass: { actions: "nx-delete-actions" },
             confirmedCallback: () => {
-                // Delete entries one by one
-                const deletePromises = selectedEntries.map(entry =>
-                    nxHelper.delete(`feedback-entries/${entry.id}`)
-                );
-                return Promise.all(deletePromises);
+                // Use bulk delete API for better performance
+                const entryIds = selectedEntries.map(entry => entry.id);
+                return nxHelper.post('feedback-entries/bulk-delete', {
+                    ids: entryIds
+                });
             },
             completeAction: (result) => {
-
-            },
-            completeArgs: (result) => {
-                // translators: %d: Number of feedback entries deleted.
-                return ["deleted", sprintf(_n(`%d feedback entry has been deleted.`, `%d feedback entries have been deleted.`, result?.all || 0, 'notificationx'), (result?.all || 0))];
-            },
-            afterComplete: () => { 
                 // Trigger reload to fetch fresh data
                 setCheckAll(false);
                 setReload(r => !r);
                 return {all: selectedEntries.length};
             },
+            completeArgs: (result) => {
+                // translators: %d: Number of feedback entries deleted.
+                return ["deleted", sprintf(_n(`%d feedback entry has been deleted.`, `%d feedback entries have been deleted.`, result?.all || 0, 'notificationx'), (result?.all || 0))];
+            },
+            afterComplete: () => { },
         });
     };
 

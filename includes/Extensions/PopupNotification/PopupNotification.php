@@ -131,6 +131,24 @@ class PopupNotification extends Extension {
                 ],
             ],
         ]);
+
+        // Bulk delete feedback entries endpoint
+        register_rest_route('notificationx/v1', '/feedback-entries/bulk-delete', [
+            'methods' => 'POST',
+            'callback' => [$this, 'bulk_delete_feedback_entries'],
+            'permission_callback' => function() {
+                return current_user_can('edit_notificationx');
+            },
+            'args' => [
+                'ids' => [
+                    'required' => true,
+                    'type' => 'array',
+                    'items' => [
+                        'type' => 'integer',
+                    ],
+                ],
+            ],
+        ]);
     }
 
     public function init_extension()
@@ -1140,6 +1158,65 @@ class PopupNotification extends Extension {
         return new \WP_REST_Response([
             'success' => true,
             'message' => __('Entry deleted successfully', 'notificationx'),
+        ], 200);
+    }
+
+    /**
+     * Bulk delete feedback entries
+     *
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response
+     */
+    public function bulk_delete_feedback_entries($request) {
+        global $wpdb;
+
+        $entry_ids = $request->get_param('ids');
+        $table_name = $wpdb->prefix . 'nx_entries';
+
+        if (empty($entry_ids) || !is_array($entry_ids)) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('No entries selected for deletion', 'notificationx'),
+            ], 400);
+        }
+
+        // Sanitize entry IDs
+        $entry_ids = array_map('absint', $entry_ids);
+        $entry_ids = array_filter($entry_ids); // Remove any zero values
+
+        if (empty($entry_ids)) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('Invalid entry IDs provided', 'notificationx'),
+            ], 400);
+        }
+
+        // Create placeholders for the IN clause
+        $placeholders = implode(',', array_fill(0, count($entry_ids), '%d'));
+
+        // Prepare the query with source filter
+        $query = $wpdb->prepare(
+            "DELETE FROM {$table_name} WHERE entry_id IN ({$placeholders}) AND source = %s",
+            array_merge($entry_ids, [$this->id])
+        );
+
+        $result = $wpdb->query($query);
+
+        if ($result === false) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('Failed to delete entries', 'notificationx'),
+            ], 500);
+        }
+
+        return new \WP_REST_Response([
+            'success' => true,
+            'message' => sprintf(
+                /* translators: %d: Number of entries deleted */
+                _n('%d entry deleted successfully', '%d entries deleted successfully', $result, 'notificationx'),
+                $result
+            ),
+            'deleted_count' => $result,
         ], 200);
     }
 
