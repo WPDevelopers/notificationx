@@ -9,6 +9,7 @@ import { SelectControl } from "@wordpress/components";
 import { useNotificationXContext } from '../../hooks';
 import AnalyticsOverview from '../Dashboard/AnalyticsOverview';
 import nxToast from '../../core/ToasterMsg';
+import { Link } from 'react-router-dom';
 interface FeedbackEntry {
     id: number;
     date: string;
@@ -18,6 +19,9 @@ interface FeedbackEntry {
     title: string;
     theme: string;
     ip: string;
+    notification_name: string;
+    notification_id: number;
+    nx_id: number;
     checked?: boolean;
 }
 
@@ -282,7 +286,7 @@ const FeedbackEntries = (props: any) => {
                                                         />
                                                         </div>
                                                     </td>
-                                                    <td>{__("No", 'notificationx')}</td>
+                                                    <td>{__("NotificationX Title", 'notificationx')}</td>
                                                     <td>{__("Date", 'notificationx')}</td>
                                                     <td>{__("Email Address", 'notificationx')}</td>
                                                     <td>{__("Message", 'notificationx')}</td>
@@ -293,52 +297,57 @@ const FeedbackEntries = (props: any) => {
 
                                                 <tbody>
                                                     {entries.map((entry, index) => (
-                                                    <tr key={entry.id}>
-                                                        <td>
-                                                            <div className="nx-item-selector">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    checked={entry.checked || false}
-                                                                    onChange={() => checkItem(index)}
-                                                                />
+                                                        <tr key={entry.id}>
+                                                            <td>
+                                                                <div className="nx-item-selector">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checked={entry.checked || false}
+                                                                        onChange={() => checkItem(index)}
+                                                                    />
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <Link to={{
+                                                                    pathname: '/admin.php',
+                                                                    search: `?page=nx-edit&id=${entry.notification_id}`,
+                                                                }}>{entry.notification_name || entry.notification_id}</Link>
+                                                            </td>
+                                                            <td>{formatDate(entry.date)}</td>
+                                                            <td>{entry.email || '-'}</td>
+
+                                                            <td>
+                                                            <div style={{
+                                                                maxWidth: '200px',
+                                                                overflow: 'hidden',
+                                                                textOverflow: 'ellipsis',
+                                                                whiteSpace: 'nowrap'
+                                                            }}>
+                                                                {entry.message || '-'}
                                                             </div>
-                                                        </td>
-                                                        <td>{(currentPage - 1) * perPage + index + 1}</td>
-                                                        <td>{formatDate(entry.date)}</td>
-                                                        <td>{entry.email || '-'}</td>
+                                                            </td>
 
-                                                        <td>
-                                                        <div style={{
-                                                            maxWidth: '200px',
-                                                            overflow: 'hidden',
-                                                            textOverflow: 'ellipsis',
-                                                            whiteSpace: 'nowrap'
-                                                        }}>
-                                                            {entry.message || '-'}
-                                                        </div>
-                                                        </td>
+                                                            <td>{entry.name || '-'}</td>
 
-                                                        <td>{entry.name || '-'}</td>
-
-                                                        <td>
-                                                        <div className="nx-action-buttons">
-                                                            <button
-                                                            className="nx-btn nx-btn-sm nx-btn-primary"
-                                                            onClick={() => handleView(entry)}
-                                                            title={__('View Details', 'notificationx')}
-                                                            >
-                                                            👁️
-                                                            </button>
-                                                            <button
-                                                            className="nx-btn nx-btn-sm nx-btn-danger"
-                                                            onClick={() => handleDelete(entry.id)}
-                                                            title={__('Delete Entry', 'notificationx')}
-                                                            >
-                                                            🗑️
-                                                            </button>
-                                                        </div>
-                                                        </td>
-                                                    </tr>
+                                                            <td>
+                                                            <div className="nx-action-buttons">
+                                                                <button
+                                                                className="nx-btn nx-btn-sm nx-btn-primary"
+                                                                onClick={() => handleView(entry)}
+                                                                title={__('View Details', 'notificationx')}
+                                                                >
+                                                                👁️
+                                                                </button>
+                                                                <button
+                                                                className="nx-btn nx-btn-sm nx-btn-danger"
+                                                                onClick={() => handleDelete(entry.id)}
+                                                                title={__('Delete Entry', 'notificationx')}
+                                                                >
+                                                                🗑️
+                                                                </button>
+                                                            </div>
+                                                            </td>
+                                                        </tr>
                                                     ))}
                                                 </tbody>
                                             </table>

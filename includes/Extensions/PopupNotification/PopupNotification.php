@@ -8,6 +8,7 @@
 
 namespace NotificationX\Extensions\Popup;
 
+use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\GetInstance;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\GlobalFields;
@@ -796,7 +797,7 @@ class PopupNotification extends Extension {
                     'name'     => 'popup_show_email_field',
                     'type'     => 'toggle',
                     'priority' => 30,
-                    'help'     => __('Enable email field for form submission. Default: disabled for theme-four, enabled for themes 5-7', 'notificationx'),
+                    'info'     => InfoTooltipManager::get_instance()->render('popup_notification_email_field'),
                     'rules'    => Rules::logicalRule([
                         Rules::is('themes', 'popup_notification_theme-four'),
                         Rules::is('themes', 'popup_notification_theme-five'),
@@ -815,7 +816,7 @@ class PopupNotification extends Extension {
                     'name'     => 'popup_show_message_field',
                     'type'     => 'toggle',
                     'priority' => 35,
-                    'help'     => __('Enable message field for form submission. Default: enabled for all form themes', 'notificationx'),
+                    'info'     => InfoTooltipManager::get_instance()->render('popup_notification_message_field'),
                     'rules'    => Rules::logicalRule([
                         Rules::is('themes', 'popup_notification_theme-four'),
                         Rules::is('themes', 'popup_notification_theme-five'),
@@ -1076,12 +1077,12 @@ class PopupNotification extends Extension {
         $offset = ($page - 1) * $per_page;
 
         // Build WHERE clause
-        $where_conditions = ["source = %s"];
+        $where_conditions = ["e.source = %s"];
         $where_values = [$this->id];
 
         // Add search functionality
         if (!empty($search)) {
-            $where_conditions[] = "(data LIKE %s OR created_at LIKE %s)";
+            $where_conditions[] = "(e.data LIKE %s OR e.created_at LIKE %s)";
             $search_term = '%' . $wpdb->esc_like($search) . '%';
             $where_values[] = $search_term;
             $where_values[] = $search_term;
@@ -1091,14 +1092,20 @@ class PopupNotification extends Extension {
 
         // Get total count for pagination
         $total_query = $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$table_name} WHERE {$where_clause}",
+            "SELECT COUNT(*) FROM {$table_name} e WHERE {$where_clause}",
             ...$where_values
         );
         $total_items = (int) $wpdb->get_var($total_query);
 
-        // Get paginated entries
+        // Get paginated entries with notification information
+        $posts_table = $wpdb->prefix . 'nx_posts';
         $entries_query = $wpdb->prepare(
-            "SELECT * FROM {$table_name} WHERE {$where_clause} ORDER BY created_at DESC LIMIT %d OFFSET %d",
+            "SELECT e.*, p.title as notification_name, p.nx_id as notification_id
+             FROM {$table_name} e
+             LEFT JOIN {$posts_table} p ON e.nx_id = p.nx_id
+             WHERE {$where_clause}
+             ORDER BY e.created_at DESC
+             LIMIT %d OFFSET %d",
             ...array_merge($where_values, [$per_page, $offset])
         );
         $entries = $wpdb->get_results($entries_query, ARRAY_A);
@@ -1107,14 +1114,17 @@ class PopupNotification extends Extension {
         foreach ($entries as $entry) {
             $data = maybe_unserialize($entry['data']);
             $formatted_entries[] = [
-                'id' => $entry['entry_id'],
-                'date' => $entry['created_at'],
-                'name' => $data['name'] ?? '',
-                'email' => $data['email'] ?? '',
-                'message' => $data['message'] ?? '',
-                'title' => $data['title'] ?? '',
-                'theme' => $data['theme'] ?? '',
-                'ip' => $data['ip'] ?? '',
+                'id'                => $entry['entry_id'],
+                'date'              => $entry['created_at'],
+                'name'              => $data['name'] ?? '',
+                'email'             => $data['email'] ?? '',
+                'message'           => $data['message'] ?? '',
+                'title'             => $data['title'] ?? '',
+                'theme'             => $data['theme'] ?? '',
+                'ip'                => $data['ip'] ?? '',
+                'notification_name' => $entry['notification_name'] ?? '',
+                'notification_id'   => $entry['notification_id'] ?? 0,
+                'nx_id'             => $entry['nx_id'] ?? 0,
             ];
         }
 
