@@ -17,6 +17,7 @@ interface FeedbackEntry {
     title: string;
     theme: string;
     ip: string;
+    checked?: boolean;
 }
 
 const FeedbackEntries = (props: any) => {
@@ -24,7 +25,6 @@ const FeedbackEntries = (props: any) => {
     const [entries, setEntries] = useState<FeedbackEntry[]>([]);
     const [loading, setLoading] = useState(true);
     const [checkAll, setCheckAll] = useState(false);
-    const [checkedItems, setCheckedItems] = useState<number[]>([]);
     const [viewEntry, setViewEntry] = useState<FeedbackEntry | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(20);
@@ -107,24 +107,23 @@ const FeedbackEntries = (props: any) => {
         });
     };
 
-    const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const checked = e.target.checked;
-        setCheckAll(checked);
-        if (checked) {
-            setCheckedItems(entries.map(entry => entry.id));
-        } else {
-            setCheckedItems([]);
-        }
-    };
+    const selectAll = () => {
+        const updatedEntries = entries.map((item, i) => {
+            return {...item, checked: !checkAll};
+        });
+        setEntries(updatedEntries);
+        setCheckAll(!checkAll);
+    }
 
-    const handleCheckItem = (id: number, checked: boolean) => {
-        if (checked) {
-            setCheckedItems(prev => [...prev, id]);
-        } else {
-            setCheckedItems(prev => prev.filter(item => item !== id));
-            setCheckAll(false);
-        }
-    };
+    const checkItem = (index: number) => {
+        const updatedEntries = entries.map((item, i) => {
+            if(index == i){
+                return {...item, checked: !item?.checked};
+            }
+            return {...item};
+        });
+        setEntries(updatedEntries);
+    }
 
     const handleDelete = async (id: number) => {
         if (!confirm(__('Are you sure you want to delete this entry?', 'notificationx'))) {
@@ -134,10 +133,45 @@ const FeedbackEntries = (props: any) => {
         try {
             await nxHelper.delete(`feedback-entries/${id}`);
             setEntries(prev => prev.filter(entry => entry.id !== id));
-            setCheckedItems(prev => prev.filter(item => item !== id));
         } catch (error) {
             console.error('Error deleting entry:', error);
             alert(__('Failed to delete entry', 'notificationx'));
+        }
+    };
+
+    const bulkDelete = async () => {
+        // Get selected entries
+        const selectedEntries = entries.filter(entry => entry.checked);
+
+        if (selectedEntries.length === 0) {
+            alert(__('Please select entries to delete', 'notificationx'));
+            return;
+        }
+
+        const confirmMessage = selectedEntries.length === 1
+            ? __("Are you sure you want to delete this entry? You won't be able to revert this!", 'notificationx')
+            : `${__("Are you sure you want to delete", 'notificationx')} ${selectedEntries.length} ${__("entries? You won't be able to revert this!", 'notificationx')}`;
+
+        if (!confirm(confirmMessage)) {
+            return;
+        }
+
+        try {
+            // Delete entries one by one
+            const deletePromises = selectedEntries.map(entry =>
+                nxHelper.delete(`feedback-entries/${entry.id}`)
+            );
+
+            await Promise.all(deletePromises);
+
+            // Update local state - remove deleted entries
+            setEntries(prev => prev.filter(entry => !entry.checked));
+            setCheckAll(false);
+
+            alert(`${selectedEntries.length} ${selectedEntries.length === 1 ? __('entry has', 'notificationx') : __('entries have', 'notificationx')} ${__('been deleted.', 'notificationx')}`);
+        } catch (error) {
+            console.error('Error deleting entries:', error);
+            alert(__('Failed to delete some entries', 'notificationx'));
         }
     };
 
@@ -158,7 +192,7 @@ const FeedbackEntries = (props: any) => {
             <div className="nx-admin-wrapper">
                 <div className='notificationx-items' id="notificationx-feedback-wrapper">
                     <div className="nx-admin-items">
-                        {/* Search Bar */}
+                        {/* Search Bar and Bulk Actions */}
                         <div className="nx-admin-header-actions">
                             <div className="wprf-control-wrapper wprf-type-button wprf-label-none nx-talk-to-support wprf-name-talk_to_support">
                                 <div className="wprf-control-field">
@@ -171,6 +205,24 @@ const FeedbackEntries = (props: any) => {
                                     </a>
                                 </div>
                             </div>
+                            {entries.some(entry => entry.checked) && (
+                                <div className="nx-bulk-actions" style={{ marginRight: '10px' }}>
+                                    <button
+                                        className="wprf-control wprf-button nx-bulk-delete-btn"
+                                        onClick={bulkDelete}
+                                        style={{
+                                            backgroundColor: '#dc3545',
+                                            color: 'white',
+                                            border: 'none',
+                                            padding: '8px 16px',
+                                            borderRadius: '4px',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        {__('Delete Selected', 'notificationx')} ({entries.filter(entry => entry.checked).length})
+                                    </button>
+                                </div>
+                            )}
                             <div className="nx-search-wrapper">
                                 <input
                                     type="text"
@@ -203,22 +255,22 @@ const FeedbackEntries = (props: any) => {
                                             <table className="wp-list-table widefat fixed striped notificationx-list">
                                                 <thead>
                                                     <tr>
-                                                    <th>
+                                                    <td>
                                                         <div className="nx-all-selector">
                                                         <input
                                                             type="checkbox"
                                                             checked={checkAll}
-                                                            onChange={handleSelectAll}
+                                                            onChange={selectAll}
                                                             name="nx_all"
                                                         />
                                                         </div>
-                                                    </th>
-                                                    <th>{__("No", 'notificationx')}</th>
-                                                    <th>{__("Date", 'notificationx')}</th>
-                                                    <th>{__("Email Address", 'notificationx')}</th>
-                                                    <th>{__("Message", 'notificationx')}</th>
-                                                    <th>{__("Name", 'notificationx')}</th>
-                                                    <th>{__("Action", 'notificationx')}</th>
+                                                    </td>
+                                                    <td>{__("No", 'notificationx')}</td>
+                                                    <td>{__("Date", 'notificationx')}</td>
+                                                    <td>{__("Email Address", 'notificationx')}</td>
+                                                    <td>{__("Message", 'notificationx')}</td>
+                                                    <td>{__("Name", 'notificationx')}</td>
+                                                    <td>{__("Action", 'notificationx')}</td>
                                                     </tr>
                                                 </thead>
 
@@ -226,11 +278,13 @@ const FeedbackEntries = (props: any) => {
                                                     {entries.map((entry, index) => (
                                                     <tr key={entry.id}>
                                                         <td>
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={checkedItems.includes(entry.id)}
-                                                            onChange={(e) => handleCheckItem(entry.id, e.target.checked)}
-                                                        />
+                                                            <div className="nx-item-selector">
+                                                                <input
+                                                                    type="checkbox"
+                                                                    checked={entry.checked || false}
+                                                                    onChange={() => checkItem(index)}
+                                                                />
+                                                            </div>
                                                         </td>
                                                         <td>{(currentPage - 1) * perPage + index + 1}</td>
                                                         <td>{formatDate(entry.date)}</td>
