@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, Fragment } from 'react';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf, _n } from '@wordpress/i18n';
 import withDocumentTitle from '../../core/withDocumentTitle';
 import nxHelper, { assetsURL } from '../../core/functions';
 import { Header } from '../../components';
@@ -8,6 +8,7 @@ import localeInfo from 'rc-pagination/es/locale/en_US';
 import { SelectControl } from "@wordpress/components";
 import { useNotificationXContext } from '../../hooks';
 import AnalyticsOverview from '../Dashboard/AnalyticsOverview';
+import nxToast from '../../core/ToasterMsg';
 interface FeedbackEntry {
     id: number;
     date: string;
@@ -31,6 +32,7 @@ const FeedbackEntries = (props: any) => {
     const [totalItems, setTotalItems] = useState(0);
     const [searchKey, setSearchKey] = useState('');
     const [searchInput, setSearchInput] = useState('');
+    const [reload, setReload] = useState(false);
     const isMounted = useRef(true);
     const searchTimeout = useRef<NodeJS.Timeout | null>(null);
     const logoURL = assetsURL('images/logos/large-logo-icon.png');
@@ -63,7 +65,7 @@ const FeedbackEntries = (props: any) => {
     useEffect(() => {
         if (currentPage === 0 || perPage === 0) return;
         fetchEntries();
-    }, [currentPage, perPage, searchKey]);
+    }, [currentPage, perPage, searchKey, reload]);
 
     const fetchEntries = async () => {
         try {
@@ -126,17 +128,29 @@ const FeedbackEntries = (props: any) => {
     }
 
     const handleDelete = async (id: number) => {
-        if (!confirm(__('Are you sure you want to delete this entry?', 'notificationx'))) {
-            return;
-        }
-
-        try {
-            await nxHelper.delete(`feedback-entries/${id}`);
-            setEntries(prev => prev.filter(entry => entry.id !== id));
-        } catch (error) {
-            console.error('Error deleting entry:', error);
-            alert(__('Failed to delete entry', 'notificationx'));
-        }
+        nxHelper.swal({
+            title: __("Are you sure?", 'notificationx'),
+            text: __("You won't be able to revert this!", 'notificationx'),
+            icon: "error",
+            showCancelButton: true,
+            confirmButtonText: __("Yes, Delete It", 'notificationx'),
+            cancelButtonText: __("No, Cancel", 'notificationx'),
+            reverseButtons: true,
+            customClass: { actions: "nx-delete-actions" },
+            confirmedCallback: () => {
+                return nxHelper.delete(`feedback-entries/${id}`);
+            },
+            completeAction: (response) => {
+                setEntries(prev => prev.filter(entry => entry.id !== id));
+            },
+            completeArgs: () => {
+                return [
+                    "deleted",
+                    __("Feedback entry has been deleted.", "notificationx"),
+                ];
+            },
+            afterComplete: () => { },
+        });
     };
 
     const bulkDelete = async () => {
@@ -144,35 +158,40 @@ const FeedbackEntries = (props: any) => {
         const selectedEntries = entries.filter(entry => entry.checked);
 
         if (selectedEntries.length === 0) {
-            alert(__('Please select entries to delete', 'notificationx'));
+            nxToast.error(__('Please select entries to delete', 'notificationx'));
             return;
         }
 
-        const confirmMessage = selectedEntries.length === 1
-            ? __("Are you sure you want to delete this entry? You won't be able to revert this!", 'notificationx')
-            : `${__("Are you sure you want to delete", 'notificationx')} ${selectedEntries.length} ${__("entries? You won't be able to revert this!", 'notificationx')}`;
+        nxHelper.swal({
+            title: __("Are you sure?", 'notificationx'),
+            html: sprintf(_n("You're about to delete %s feedback entry,<br />", "You're about to delete %s feedback entries,<br />", selectedEntries.length, 'notificationx'), selectedEntries.length) + __("You won't be able to revert this!", 'notificationx'),
+            icon: "error",
+            showCancelButton: true,
+            confirmButtonText: __("Yes, Delete It", 'notificationx'),
+            cancelButtonText: __("No, Cancel", 'notificationx'),
+            reverseButtons: true,
+            customClass: { actions: "nx-delete-actions" },
+            confirmedCallback: () => {
+                // Delete entries one by one
+                const deletePromises = selectedEntries.map(entry =>
+                    nxHelper.delete(`feedback-entries/${entry.id}`)
+                );
+                return Promise.all(deletePromises);
+            },
+            completeAction: (result) => {
 
-        if (!confirm(confirmMessage)) {
-            return;
-        }
-
-        try {
-            // Delete entries one by one
-            const deletePromises = selectedEntries.map(entry =>
-                nxHelper.delete(`feedback-entries/${entry.id}`)
-            );
-
-            await Promise.all(deletePromises);
-
-            // Update local state - remove deleted entries
-            setEntries(prev => prev.filter(entry => !entry.checked));
-            setCheckAll(false);
-
-            alert(`${selectedEntries.length} ${selectedEntries.length === 1 ? __('entry has', 'notificationx') : __('entries have', 'notificationx')} ${__('been deleted.', 'notificationx')}`);
-        } catch (error) {
-            console.error('Error deleting entries:', error);
-            alert(__('Failed to delete some entries', 'notificationx'));
-        }
+            },
+            completeArgs: (result) => {
+                // translators: %d: Number of feedback entries deleted.
+                return ["deleted", sprintf(_n(`%d feedback entry has been deleted.`, `%d feedback entries have been deleted.`, result?.all || 0, 'notificationx'), (result?.all || 0))];
+            },
+            afterComplete: () => { 
+                // Trigger reload to fetch fresh data
+                setCheckAll(false);
+                setReload(r => !r);
+                return {all: selectedEntries.length};
+            },
+        });
     };
 
     const handleView = (entry: FeedbackEntry) => {
