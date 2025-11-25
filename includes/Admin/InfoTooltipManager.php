@@ -95,14 +95,14 @@ class InfoTooltipManager {
         ],
         'popup_notification_message_field' => [
             'type'    => 'content',
-            'title'   => esc_html__('Enable message field for form submission.','notificationx'),
+            'title'   => 'Enable message field for form submission.','notificationx',
             'content' => '',
             'width'   => '450',
             'height'  => '235',
         ],
         'popup_notification_email_field' => [
             'type'    => 'content',
-            'title'   => esc_html__('Enable email field for form submission.','notificationx'),
+            'title'   => 'Enable email field for form submission.','notificationx',
             'content' => '',
             'width'   => '450',
             'height'  => '235',

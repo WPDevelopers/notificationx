@@ -235,8 +235,8 @@ const FeedbackEntries = (props: any) => {
                                             backgroundColor: '#dc3545',
                                             color: 'white',
                                             border: 'none',
-                                            padding: '8px 16px',
-                                            borderRadius: '4px',
+                                            padding: '15px 20px',
+                                            borderRadius: '10px',
                                             cursor: 'pointer'
                                         }}
                                     >

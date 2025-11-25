@@ -804,12 +804,7 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-six'),
                         Rules::is('themes', 'popup_notification_theme-seven'),
                     ], 'or'),
-                    'default'  => [
-                        'popup_notification_theme-four' => false,  // Default false for theme-four
-                        'popup_notification_theme-five' => true,   // Default true for theme-five
-                        'popup_notification_theme-six' => true,    // Default true for theme-six
-                        'popup_notification_theme-seven' => true,  // Default true for theme-seven
-                    ],
+                    'default'  => true,
                 ],
                 [
                     'label'    => __('Show Message Field', 'notificationx'),
@@ -823,12 +818,7 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-six'),
                         Rules::is('themes', 'popup_notification_theme-seven'),
                     ], 'or'),
-                    'default'  => [
-                        'popup_notification_theme-four' => true,   // Default true for theme-four
-                        'popup_notification_theme-five' => true,   // Default true for theme-five
-                        'popup_notification_theme-six' => true,    // Default true for theme-six
-                        'popup_notification_theme-seven' => true,  // Default true for theme-seven
-                    ],
+                    'default'  => true,
                 ],
                 // Name placeholder field - only for form themes when name field is enabled
                 [
