@@ -41,6 +41,7 @@ const Popup = (props: any) => {
     const isTablet = useMediaQuery("(max-width: 768px)");
     const [notificationSize, setNotificationSize] = useState();
     const is_pro = frontEndContext?.state?.is_pro ?? false;
+    const [isButtonHovered, setIsButtonHovered] = useState(false);
 
     // Form state
     const [formData, setFormData] = useState({
@@ -78,34 +79,34 @@ const Popup = (props: any) => {
     let titleColorFont = {};
     let descColorFont = {};
     let buttonStyles = {};
-    let overlayStyles = {};
-
+    let overlayStyles = {};    
     if (settings?.advance_edit) {
         mainBGColor = {
             backgroundColor: settings?.popup_bg_color,
-            borderRadius: settings?.popup_border_radius ? `${settings.popup_border_radius}px` : '8px',
+            borderRadius: settings?.popup_border_radius ? `${settings.popup_border_radius}px` : '',
         };
         titleColorFont = {
             color: settings?.popup_title_color,
-            fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '24px',
+            fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '',
+            fontWeight: settings?.popup_title_font_weight ? `${settings.popup_title_font_weight}` : '',
         };
         descColorFont = {
             color: settings?.popup_desc_color,
-            fontSize: settings?.popup_desc_font_size ? `${settings.popup_desc_font_size}px` : '16px',
+            fontSize: settings?.popup_desc_font_size ? `${settings.popup_desc_font_size}px` : '',
         };
         buttonStyles = {
-            backgroundColor: settings?.popup_button_bg_color,
+            background: settings?.popup_button_bg_color,
             color: settings?.popup_button_text_color,
             borderColor: settings?.popup_button_border_color,
-            borderRadius: settings?.popup_button_border_radius ? `${settings.popup_button_border_radius}px` : '4px',
-            padding: settings?.popup_button_padding || '12px 24px',
-            fontSize: settings?.popup_button_font_size ? `${settings.popup_button_font_size}px` : '16px',
+            borderRadius: settings?.popup_button_border_radius ? `${settings.popup_button_border_radius}px` : '',
+            padding: settings?.popup_button_padding || '',
+            fontSize: settings?.popup_button_font_size ? `${settings.popup_button_font_size}px` : '',
             border: `1px solid ${settings?.popup_button_border_color || settings?.popup_button_bg_color}`,
         };
         overlayStyles = {
-            backgroundColor: settings?.overlay_color || 'rgba(0, 0, 0, 0.5)',
+            backgroundColor: settings?.overlay_color || '',
         };
-    }
+    }    
 
     useEffect(() => {
         if (settings?.size) {
@@ -355,6 +356,16 @@ const Popup = (props: any) => {
     }
     const iconUrl = getIconUrl(settings?.popup_icon);
     const buttonIconUrl = getIconUrl(settings?.popup_button_icon);
+
+    const finalButtonStyles = {
+    ...buttonStyles,
+    ...(isButtonHovered && {
+        backgroundColor: settings?.popup_button_hover_bg_color || '',
+        color: settings?.popup_button_hover_text_color || '',
+        borderColor: settings?.popup_button_border_hover_color || '',
+    })
+};
+
     
     return (
         <div className="nx-popup-overlay" style={overlayStyles} onClick={handleOverlayClick}>
@@ -536,7 +547,9 @@ const Popup = (props: any) => {
                                         <button
                                             type="submit"
                                             className="nx-popup-button nx-popup-primary-button"
-                                            style={buttonStyles}
+                                            style={finalButtonStyles}
+                                            onMouseEnter={() => setIsButtonHovered(true)}
+                                            onMouseLeave={() => setIsButtonHovered(false)}
                                             disabled={isSubmitting}
                                         >
                                             {isSubmitting ? __('Submitting...', 'notificationx') :
@@ -547,7 +560,9 @@ const Popup = (props: any) => {
                                 ) : (
                                     <button
                                         className="nx-popup-button nx-popup-primary-button"
-                                        style={buttonStyles}
+                                        style={finalButtonStyles}
+                                        onMouseEnter={() => setIsButtonHovered(true)}
+                                        onMouseLeave={() => setIsButtonHovered(false)}
                                         onClick={handleButtonClick}
                                     >
                                         {settings?.popup_button_text}
