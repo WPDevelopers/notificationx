@@ -130,11 +130,9 @@ const Popup = (props: any) => {
             padding: settings?.popup_email_padding || '',
             fontSize: settings?.popup_email_font_size ? `${settings.popup_email_font_size}px` : '',
             height: settings?.popup_email_height ? `${settings.popup_email_height}px` : '',
-            border: `${settings?.popup_email_border_width || 1}px solid ${settings?.popup_email_border_color || '#dddddd'}`,
-            outline: 'none',
-            boxShadow: 'none',
+            border: `${settings?.popup_email_border_width || ''}px solid ${settings?.popup_email_border_color || ''}`,
             // CSS custom properties for placeholder styling
-            '--placeholder-color': settings?.popup_email_placeholder_color || '#999999',
+            '--placeholder-color': settings?.popup_email_placeholder_color || '',
         } as React.CSSProperties & { [key: string]: any };
 
         // Textarea styles (same as input but can be extended)
@@ -306,7 +304,7 @@ const Popup = (props: any) => {
         return {
             ...inputStyles,
             borderColor: isFocused ? (settings?.popup_email_focus_border_color || settings?.popup_email_border_color) : (settings?.popup_email_border_color || '#dddddd'),
-            border: `${settings?.popup_email_border_width || 1}px solid ${isFocused ? (settings?.popup_email_focus_border_color || settings?.popup_email_border_color) : (settings?.popup_email_border_color || '#dddddd')}`,
+            border: `${settings?.popup_email_border_width || ''}px solid ${isFocused ? (settings?.popup_email_focus_border_color || settings?.popup_email_border_color) : (settings?.popup_email_border_color || '#dddddd')}`,
         };
     };
 
