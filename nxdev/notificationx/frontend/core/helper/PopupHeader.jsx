@@ -1,6 +1,6 @@
 import React from "react";
 
-const PopupHeader = ({ settings, iconUrl, titleColorFont, descColorFont, content }) => {
+const PopupHeader = ({ settings, iconUrl, titleColorFont, subtitleColorFont, descColorFont, content }) => {
     const isThemeSeven = ["popup_notification_theme-seven"].some(theme =>
         settings?.theme?.includes(theme)
     );
@@ -25,7 +25,6 @@ const PopupHeader = ({ settings, iconUrl, titleColorFont, descColorFont, content
                             {settings.popup_title}
                         </h3>
                     )}
-
                     {settings?.popup_content && isThemeSeven && (
                         <div className="nx-popup-description" style={descColorFont}>
                             {settings?.popup_content ? (

@@ -42,6 +42,7 @@ const Popup = (props: any) => {
     const [notificationSize, setNotificationSize] = useState();
     const is_pro = frontEndContext?.state?.is_pro ?? false;
     const [isButtonHovered, setIsButtonHovered] = useState(false);
+    const [focusedField, setFocusedField] = useState<string | null>(null);
 
     // Form state
     const [formData, setFormData] = useState({
@@ -77,22 +78,31 @@ const Popup = (props: any) => {
     // Dynamic styles based on settings
     let mainBGColor = {};
     let titleColorFont = {};
+    let subtitleColorFont = {};
     let descColorFont = {};
     let buttonStyles = {};
-    let overlayStyles = {};    
+    let overlayStyles = {};
+    let inputStyles = {};
+    let textareaStyles = {};
+
     if (settings?.advance_edit) {
         mainBGColor = {
             backgroundColor: settings?.popup_bg_color,
             borderRadius: settings?.popup_border_radius ? `${settings.popup_border_radius}px` : '',
+            padding: settings?.popup_padding || '',
         };
         titleColorFont = {
             color: settings?.popup_title_color,
             fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '',
             fontWeight: settings?.popup_title_font_weight ? `${settings.popup_title_font_weight}` : '',
         };
+        subtitleColorFont = {
+            color: settings?.popup_subtitle_color,
+            fontSize: settings?.popup_subtitle_font_size ? `${settings.popup_subtitle_font_size}px` : '',
+        };
         descColorFont = {
-            color: settings?.popup_desc_color,
-            fontSize: settings?.popup_desc_font_size ? `${settings.popup_desc_font_size}px` : '',
+            color: settings?.popup_content_color,
+            fontSize: settings?.popup_content_font_size ? `${settings.popup_content_font_size}px` : '',
         };
         buttonStyles = {
             background: settings?.popup_button_bg_color,
@@ -101,12 +111,40 @@ const Popup = (props: any) => {
             borderRadius: settings?.popup_button_border_radius ? `${settings.popup_button_border_radius}px` : '',
             padding: settings?.popup_button_padding || '',
             fontSize: settings?.popup_button_font_size ? `${settings.popup_button_font_size}px` : '',
-            border: `1px solid ${settings?.popup_button_border_color || settings?.popup_button_bg_color}`,
+            fontWeight: settings?.popup_button_font_weight || '',
+            border: `${settings?.popup_button_border_width || 1}px solid ${settings?.popup_button_border_color || settings?.popup_button_bg_color}`,
+            width: settings?.popup_button_width === 'custom' ? `${settings?.popup_button_custom_width || 200}px` :
+                   settings?.popup_button_width === '100%' ? '100%' : 'auto',
         };
         overlayStyles = {
             backgroundColor: settings?.overlay_color || '',
         };
-    }    
+
+        // Input field styles
+        inputStyles = {
+            backgroundColor: settings?.popup_email_bg_color || '',
+            color: settings?.popup_email_text_color || '',
+            borderColor: settings?.popup_email_border_color || '',
+            borderWidth: settings?.popup_email_border_width ? `${settings.popup_email_border_width}px` : '',
+            borderRadius: settings?.popup_email_border_radius ? `${settings.popup_email_border_radius}px` : '',
+            padding: settings?.popup_email_padding || '',
+            fontSize: settings?.popup_email_font_size ? `${settings.popup_email_font_size}px` : '',
+            height: settings?.popup_email_height ? `${settings.popup_email_height}px` : '',
+            border: `${settings?.popup_email_border_width || 1}px solid ${settings?.popup_email_border_color || '#dddddd'}`,
+            outline: 'none',
+            boxShadow: 'none',
+            // CSS custom properties for placeholder styling
+            '--placeholder-color': settings?.popup_email_placeholder_color || '#999999',
+        } as React.CSSProperties & { [key: string]: any };
+
+        // Textarea styles (same as input but can be extended)
+        textareaStyles = {
+            ...inputStyles,
+            height: 'auto', // Override height for textarea
+            minHeight: '80px',
+            resize: 'vertical',
+        } as React.CSSProperties & { [key: string]: any };
+    }
 
     useEffect(() => {
         if (settings?.size) {
@@ -260,6 +298,30 @@ const Popup = (props: any) => {
         }
     };
 
+    // Get input styles with focus state
+    const getInputStyles = (fieldName: string) => {
+        if (!settings?.advance_edit) return {};
+
+        const isFocused = focusedField === fieldName;
+        return {
+            ...inputStyles,
+            borderColor: isFocused ? (settings?.popup_email_focus_border_color || settings?.popup_email_border_color) : (settings?.popup_email_border_color || '#dddddd'),
+            border: `${settings?.popup_email_border_width || 1}px solid ${isFocused ? (settings?.popup_email_focus_border_color || settings?.popup_email_border_color) : (settings?.popup_email_border_color || '#dddddd')}`,
+        };
+    };
+
+    // Get textarea styles with focus state
+    const getTextareaStyles = (fieldName: string) => {
+        if (!settings?.advance_edit) return {};
+
+        const isFocused = focusedField === fieldName;
+        return {
+            ...textareaStyles,
+            borderColor: isFocused ? (settings?.popup_email_focus_border_color || settings?.popup_email_border_color) : (settings?.popup_email_border_color || '#dddddd'),
+            border: `${settings?.popup_email_border_width || 1}px solid ${isFocused ? (settings?.popup_email_focus_border_color || settings?.popup_email_border_color) : (settings?.popup_email_border_color || '#dddddd')}`,
+        };
+    };
+
     if (!isVisible) {
         return null;
     }
@@ -366,9 +428,21 @@ const Popup = (props: any) => {
     })
 };
 
-    
+
     return (
-        <div className="nx-popup-overlay" style={overlayStyles} onClick={handleOverlayClick}>
+        <>
+            {/* Dynamic CSS for placeholder colors */}
+            {settings?.advance_edit && settings?.popup_email_placeholder_color && (
+                <style>
+                    {`
+                        #nx-popup-${settings.nx_id} input::placeholder,
+                        #nx-popup-${settings.nx_id} textarea::placeholder {
+                            color: ${settings.popup_email_placeholder_color} !important;
+                        }
+                    `}
+                </style>
+            )}
+            <div className="nx-popup-overlay" style={overlayStyles} onClick={handleOverlayClick}>
             <div
                 id={`nx-popup-${settings.nx_id}`}
                 className={componentClasses}
@@ -382,6 +456,12 @@ const Popup = (props: any) => {
                             className={`nx-popup-close ${settings?.close_button_position || 'top-right'}`}
                             onClick={handleClose}
                             aria-label="Close popup"
+                            style={settings?.advance_edit ? {
+                                color: settings?.close_btn_color || '',
+                                fontSize: settings?.close_btn_size ? `${settings.close_btn_size}px` : '',
+                                width: settings?.close_btn_size ? `${settings.close_btn_size}px` : '',
+                                height: settings?.close_btn_size ? `${settings.close_btn_size}px` : '',
+                            } : {}}
                         >
                             {settings?.close_button_icon ? (
                                 <span dangerouslySetInnerHTML={{ __html: settings.close_button_icon }} />
@@ -397,6 +477,7 @@ const Popup = (props: any) => {
                             settings={settings}
                             iconUrl={iconUrl}
                             titleColorFont={titleColorFont}
+                            subtitleColorFont={subtitleColorFont}
                             descColorFont={descColorFont}
                             content={content}
                         />
@@ -420,6 +501,7 @@ const Popup = (props: any) => {
                                 settings={settings}
                                 iconUrl={iconUrl}
                                 titleColorFont={titleColorFont}
+                                subtitleColorFont={subtitleColorFont}
                                 descColorFont={descColorFont}
                                 content={content}
                             />
@@ -433,37 +515,65 @@ const Popup = (props: any) => {
                                         const highlightText = item.repeater_highlight_text || defaultHighlightTexts[index] || '30% OFF';
 
                                         return (
-                                            <div className='des-item-wrap' key={index}>
+                                            <div
+                                                className='des-item-wrap'
+                                                key={index}
+                                                style={settings?.advance_edit ? {
+                                                    backgroundColor: settings?.popup_repeater_item_bg_color || '',
+                                                    borderRadius: settings?.popup_repeater_item_border_radius ? `${settings.popup_repeater_item_border_radius}px` : '',
+                                                    padding: settings?.popup_repeater_item_padding || '',
+                                                    marginBottom: settings?.popup_repeater_item_spacing ? `${settings.popup_repeater_item_spacing}px` : '',
+                                                } : {}}
+                                            >
                                                 <div className="nx-popup-title-wrapper">
                                                     {highlightText && highlightText.trim() !== '' && (
                                                         <span
                                                             className="nx-popup-highlight-text"
-                                                            // style={{
-                                                            //     color: settings?.popup_repeater_highlight_color || '#FF6B1B',
-                                                            //     fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '24px',
-                                                            //     fontWeight: 'bold',
-                                                            //     display: 'block',
-                                                            //     marginBottom: '8px',
-                                                            //     lineHeight: '1.2'
-                                                            // }}
+                                                            style={settings?.advance_edit ? {
+                                                                color: settings?.popup_repeater_highlight_color || '',
+                                                                fontSize: settings?.popup_repeater_title_font_size ? `${settings.popup_repeater_title_font_size}px` : '',
+                                                                fontWeight: settings?.popup_repeater_title_font_weight || '',
+                                                            } : {}}
                                                         >
                                                             {highlightText}
                                                         </span>
                                                     )}
-                                                    <h3>{item.repeater_title}</h3>
+                                                    <h3 style={settings?.advance_edit ? {
+                                                        color: settings?.popup_repeater_title_color || '',
+                                                        fontSize: settings?.popup_repeater_title_font_size ? `${settings.popup_repeater_title_font_size}px` : '',
+                                                        fontWeight: settings?.popup_repeater_title_font_weight || '',
+                                                    } : {}}>{item.repeater_title}</h3>
                                                 </div>
-                                                <p>{item.repeater_subtitle}</p>
+                                                <p style={settings?.advance_edit ? {
+                                                    color: settings?.popup_repeater_subtitle_color || '',
+                                                    fontSize: settings?.popup_repeater_subtitle_font_size ? `${settings.popup_repeater_subtitle_font_size}px` : '',
+                                                } : {}}>{item.repeater_subtitle}</p>
                                             </div>
                                         );
                                     })
                                 ) : (
                                     // Fallback content if repeater is empty or not set
-                                    <div className='des-item-wrap'>
+                                    <div
+                                        className='des-item-wrap'
+                                        style={settings?.advance_edit ? {
+                                            backgroundColor: settings?.popup_repeater_item_bg_color || '',
+                                            borderRadius: settings?.popup_repeater_item_border_radius ? `${settings.popup_repeater_item_border_radius}px` : '',
+                                            padding: settings?.popup_repeater_item_padding || '',
+                                            marginBottom: settings?.popup_repeater_item_spacing ? `${settings.popup_repeater_item_spacing}px` : '',
+                                        } : {}}
+                                    >
                                         <span
                                             className="nx-popup-highlight-text"
-                                            style={{
+                                            style={settings?.advance_edit ? {
                                                 color: settings?.popup_repeater_highlight_color || '#FF6B1B',
-                                                fontSize: settings?.popup_title_font_size ? `${settings.popup_title_font_size}px` : '24px',
+                                                fontSize: settings?.popup_repeater_title_font_size ? `${settings.popup_repeater_title_font_size}px` : '24px',
+                                                fontWeight: settings?.popup_repeater_title_font_weight || 'bold',
+                                                display: 'block',
+                                                marginBottom: '8px',
+                                                lineHeight: '1.2'
+                                            } : {
+                                                color: '#FF6B1B',
+                                                fontSize: '24px',
                                                 fontWeight: 'bold',
                                                 display: 'block',
                                                 marginBottom: '8px',
@@ -472,8 +582,17 @@ const Popup = (props: any) => {
                                         >
                                             30% OFF
                                         </span>
-                                        <h3 style={{ margin: '0 0 4px 0' }}>on all products!</h3>
-                                        <p style={{ margin: '0 0 16px 0' }}>Limited time offer - don't miss out!</p>
+                                        <h3 style={settings?.advance_edit ? {
+                                            color: settings?.popup_repeater_title_color || '',
+                                            fontSize: settings?.popup_repeater_title_font_size ? `${settings.popup_repeater_title_font_size}px` : '',
+                                            fontWeight: settings?.popup_repeater_title_font_weight || '',
+                                            margin: '0 0 4px 0'
+                                        } : { margin: '0 0 4px 0' }}>on all products!</h3>
+                                        <p style={settings?.advance_edit ? {
+                                            color: settings?.popup_repeater_subtitle_color || '',
+                                            fontSize: settings?.popup_repeater_subtitle_font_size ? `${settings.popup_repeater_subtitle_font_size}px` : '',
+                                            margin: '0 0 16px 0'
+                                        } : { margin: '0 0 16px 0' }}>Limited time offer - don't miss out!</p>
                                     </div>
                                 )}
                             </div>
@@ -487,8 +606,11 @@ const Popup = (props: any) => {
                                         placeholder={settings?.popup_name_placeholder || __('Enter your name', 'notificationx')}
                                         value={formData.name}
                                         onChange={(e) => handleInputChange('name', e.target.value)}
+                                        onFocus={() => setFocusedField('name')}
+                                        onBlur={() => setFocusedField(null)}
                                         disabled={isSubmitting}
                                         className={validationErrors.name ? 'nx-popup-input-error' : ''}
+                                        style={getInputStyles('name')}
                                     />
                                     {validationErrors.name && (
                                         <div className="nx-popup-error-message">
@@ -507,8 +629,11 @@ const Popup = (props: any) => {
                                         placeholder={settings?.popup_email_placeholder || __('Enter your email address', 'notificationx')}
                                         value={formData.email}
                                         onChange={(e) => handleInputChange('email', e.target.value)}
+                                        onFocus={() => setFocusedField('email')}
+                                        onBlur={() => setFocusedField(null)}
                                         disabled={isSubmitting}
                                         className={validationErrors.email ? 'nx-popup-input-error' : ''}
+                                        style={getInputStyles('email')}
                                         required
                                     />
                                     {validationErrors.email && (
@@ -527,8 +652,11 @@ const Popup = (props: any) => {
                                         placeholder={settings?.popup_message_placeholder || __('Enter your message...', 'notificationx')}
                                         value={formData.message}
                                         onChange={(e) => handleInputChange('message', e.target.value)}
+                                        onFocus={() => setFocusedField('message')}
+                                        onBlur={() => setFocusedField(null)}
                                         disabled={isSubmitting}
                                         className={validationErrors.message ? 'nx-popup-input-error' : ''}
+                                        style={getTextareaStyles('message')}
                                     />
                                     {validationErrors.message && (
                                         <div className="nx-popup-error-message">
@@ -605,7 +733,8 @@ const Popup = (props: any) => {
                         </form>
                     </div>
                 )}
-        </div>
+            </div>
+        </>
     );
 }
 
