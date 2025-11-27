@@ -87,7 +87,7 @@ const Popup = (props: any) => {
 
     if (settings?.advance_edit) {
         mainBGColor = {
-            backgroundColor: settings?.popup_bg_color,
+            background: settings?.popup_bg_color,
             borderRadius: settings?.popup_border_radius ? `${settings.popup_border_radius}px` : '',
             padding: settings?.popup_padding || '',
         };
@@ -117,12 +117,12 @@ const Popup = (props: any) => {
                    settings?.popup_button_width === '100%' ? '100%' : 'auto',
         };
         overlayStyles = {
-            backgroundColor: settings?.overlay_color || '',
+            background: settings?.overlay_color || '',
         };
 
         // Input field styles
         inputStyles = {
-            backgroundColor: settings?.popup_email_bg_color || '',
+            background: settings?.popup_email_bg_color || '',
             color: settings?.popup_email_text_color || '',
             borderColor: settings?.popup_email_border_color || '',
             borderWidth: settings?.popup_email_border_width ? `${settings.popup_email_border_width}px` : '',
@@ -420,7 +420,7 @@ const Popup = (props: any) => {
     const finalButtonStyles = {
     ...buttonStyles,
     ...(isButtonHovered && {
-        backgroundColor: settings?.popup_button_hover_bg_color || '',
+        background: settings?.popup_button_hover_bg_color || '',
         color: settings?.popup_button_hover_text_color || '',
         borderColor: settings?.popup_button_border_hover_color || '',
     })
@@ -517,7 +517,7 @@ const Popup = (props: any) => {
                                                 className='des-item-wrap'
                                                 key={index}
                                                 style={settings?.advance_edit ? {
-                                                    backgroundColor: settings?.popup_repeater_item_bg_color || '',
+                                                    background: settings?.popup_repeater_item_bg_color || '',
                                                     borderRadius: settings?.popup_repeater_item_border_radius ? `${settings.popup_repeater_item_border_radius}px` : '',
                                                     padding: settings?.popup_repeater_item_padding || '',
                                                     marginBottom: settings?.popup_repeater_item_spacing ? `${settings.popup_repeater_item_spacing}px` : '',
@@ -554,7 +554,7 @@ const Popup = (props: any) => {
                                     <div
                                         className='des-item-wrap'
                                         style={settings?.advance_edit ? {
-                                            backgroundColor: settings?.popup_repeater_item_bg_color || '',
+                                            background: settings?.popup_repeater_item_bg_color || '',
                                             borderRadius: settings?.popup_repeater_item_border_radius ? `${settings.popup_repeater_item_border_radius}px` : '',
                                             padding: settings?.popup_repeater_item_padding || '',
                                             marginBottom: settings?.popup_repeater_item_spacing ? `${settings.popup_repeater_item_spacing}px` : '',
