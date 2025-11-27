@@ -598,7 +598,7 @@ class MilestoneNotification
         if (!empty($current_level)) {
             // Mark this milestone level as seen (site-wide)
             update_option('notificationx_milestone_level', $current_level);
-
+            update_option('notificationx_force_milestone', '1');
             // Clean up the temporary option
             delete_option('notificationx_milestone_current_level');
         }

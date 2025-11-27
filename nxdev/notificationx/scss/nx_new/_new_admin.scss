@@ -445,6 +445,35 @@
                         }
                     }
                 }
+                .nx-view-all-button-wrapper {
+                    padding: 0;
+                    margin-top: 16px;
+                    text-align: left;
+                    display: flex;
+                    justify-content: center;
+                    a.nx-dashboard-view-all {
+                        background-color: #6A4BFF;
+                        color: #fff;
+                        border: none;
+                        padding: 12px 16px;
+                        font-size: 16px;
+                        font-weight: 500;
+                        border-radius: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 6px;
+                        min-height: 48px;
+                        box-sizing: border-box;
+                        transition: 0.3s ease-in-out;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: #5414d0;
+                            box-shadow: 0 15px 25px -5px rgba(86, 20, 213, 0.3);
+                        }
+                    }
+                }
             }
         }
 

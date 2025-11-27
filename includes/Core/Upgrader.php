@@ -32,6 +32,18 @@ class Upgrader {
         $nx_free_version = $this->database->get_option('nx_free_version');
         $nx_db_version   = $this->database->get_option('nx_db_version');
 
+        // Show milestone notification only for 3.1.10
+        $force_milstone = get_option('notificationx_force_milestone', '');
+        if ( version_compare( NOTIFICATIONX_VERSION, '3.1.10', '==' ) && empty($force_milstone) ) {
+            delete_option('notificationx_milestone_level');
+        }
+
+        // Show popup notification only for 3.1.10 
+        $force_popup = get_option('nx_force_popup_dismissed', '');
+        if ( version_compare( NOTIFICATIONX_VERSION, '3.1.10', '==' ) && empty($force_popup) ) {
+            delete_option('nx_initial_popup_dismissed');
+        }
+
         $_is_table_created = false;
         if ($nx_db_version === false || $nx_db_version != Database::$version) {
             try {
