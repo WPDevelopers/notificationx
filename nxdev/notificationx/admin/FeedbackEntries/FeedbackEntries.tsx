@@ -44,6 +44,8 @@ const FeedbackEntries = (props: any) => {
     const searchTimeout = useRef<NodeJS.Timeout | null>(null);
     const logoURL = assetsURL('images/logos/large-logo-icon.png');
     const [showSearchInput, setShowSearchInput] = useState(false);
+    const [popupNotifications, setPopupNotifications] = useState([]);
+    const [selectedNotification, setSelectedNotification] = useState(null);
 
     useEffect(() => {
         isMounted.current = true;
@@ -73,15 +75,31 @@ const FeedbackEntries = (props: any) => {
     useEffect(() => {
         if (currentPage === 0 || perPage === 0) return;
         fetchEntries();
-    }, [currentPage, perPage, searchKey, reload]);
+    }, [currentPage, perPage, searchKey, reload, selectedNotification]);
+
+    useEffect(() => {
+        fetchPopupNotifications();
+    }, []);
 
     const fetchEntries = async () => {
         try {
             setLoading(true);
             const controller = typeof AbortController === 'undefined' ? undefined : new AbortController();
 
+            // Build query parameters
+            const queryParams = new URLSearchParams({
+                page: currentPage.toString(),
+                per_page: perPage.toString(),
+                s: searchKey
+            });
+
+            // Add notification filter if selected
+            if (selectedNotification?.value) {
+                queryParams.append('notification_id', selectedNotification.value.toString());
+            }
+
             const response = await nxHelper.get(
-                `feedback-entries?page=${currentPage}&per_page=${perPage}&s=${searchKey}`,
+                `feedback-entries?${queryParams.toString()}`,
                 { signal: controller?.signal }
             );
 
@@ -105,6 +123,32 @@ const FeedbackEntries = (props: any) => {
             if (isMounted.current) {
                 setLoading(false);
             }
+        }
+    };
+
+    const fetchPopupNotifications = async () => {
+        try {
+            const controller = typeof AbortController === 'undefined' ? undefined : new AbortController();
+
+            const response = await nxHelper.get(
+                `nx?source=popup_notification&per_page=100`,
+                { signal: controller?.signal }
+            );
+
+            if (controller?.signal?.aborted) {
+                return;
+            }
+
+            if (isMounted.current && response?.posts) {
+                // @ts-ignore
+                setPopupNotifications(response.posts);
+            }
+        } catch (error) {
+            if (error.name === 'AbortError') {
+                console.log('Fetch aborted');
+                return;
+            }
+            console.error('Error fetching popup notifications:', error);
         }
     };
 
@@ -207,12 +251,26 @@ const FeedbackEntries = (props: any) => {
     const closeModal = () => {
         setViewEntry(null);
     };
-    
-    const changeSearchInputValue = (event) => {
-        const term = event.target.value;
-        setSearchKey(term);
-        setShowSearchInput(true);
-    }
+
+    const handleSearchIconClick = () => {
+        if (showSearchInput && searchInput) {
+            // Clear search if input is open and has content
+            setSearchInput('');
+            setSearchKey('');
+        }
+        setShowSearchInput(!showSearchInput);
+    };
+
+    const handleSearchKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            setSearchKey(searchInput);
+            setCurrentPage(1);
+        } else if (e.key === 'Escape') {
+            setSearchInput('');
+            setSearchKey('');
+            setShowSearchInput(false);
+        }
+    };
 
     return (
         <div className='nx-feedback-wrapper-class'>
@@ -242,8 +300,36 @@ const FeedbackEntries = (props: any) => {
                             )}
                              <div id="nx-search-wrapper" className="nx-search-wrapper">
                                 <div className={`input-box ${showSearchInput ? 'open' : ''}`}>
-                                    <input type="text" id="search_input" className="nx-search-input" placeholder={'Search...'} value={searchInput}  onChange={(e) => changeSearchInputValue(e)} />
-                                    <span className="icon input-search-icon" onClick={ () => setShowSearchInput(!showSearchInput)  }>
+                                    <input
+                                        type="text"
+                                        id="search_input"
+                                        className="nx-search-input"
+                                        placeholder={__('Search...', 'notificationx')}
+                                        value={searchInput}
+                                        onChange={(e) => setSearchInput(e.target.value)}
+                                        onKeyDown={handleSearchKeyDown}
+                                    />
+                                    {searchInput && showSearchInput && (
+                                        <span
+                                            className="icon input-clear-icon"
+                                            onClick={() => {
+                                                setSearchInput('');
+                                                setSearchKey('');
+                                            }}
+                                            style={{
+                                                position: 'absolute',
+                                                right: '35px',
+                                                top: '50%',
+                                                transform: 'translateY(-50%)',
+                                                cursor: 'pointer',
+                                                fontSize: '16px',
+                                                color: '#666'
+                                            }}
+                                        >
+                                            ×
+                                        </span>
+                                    )}
+                                    <span className="icon input-search-icon" onClick={handleSearchIconClick}>
                                         <img src={searchIcon} alt={'search-icon'} />
                                     </span>
                                 </div>
@@ -253,6 +339,20 @@ const FeedbackEntries = (props: any) => {
                                 className="bulk-action-select"
                                 classNamePrefix="bulk-action-select"
                                 isSearchable={false}
+                                placeholder={__('Filter by Notification', 'notificationx')}
+                                value={selectedNotification}
+                                onChange={(option) => {
+                                    setSelectedNotification(option);
+                                    setCurrentPage(1); // Reset to first page when filter changes
+                                }}
+                                options={[
+                                    { value: '', label: __('All Notifications', 'notificationx') },
+                                    ...popupNotifications.map((notification: any) => ({
+                                        value: notification.nx_id,
+                                        label: notification.title || `Notification #${notification.nx_id}`
+                                    }))
+                                ]}
+                                isClearable
                             />
                         </div>
                         {loading ? (

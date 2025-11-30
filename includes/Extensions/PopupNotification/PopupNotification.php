@@ -115,6 +115,11 @@ class PopupNotification extends Extension {
                     'type' => 'string',
                     'sanitize_callback' => 'sanitize_text_field',
                 ],
+                'notification_id' => [
+                    'default' => '',
+                    'type' => 'string',
+                    'sanitize_callback' => 'sanitize_text_field',
+                ],
             ],
         ]);
 
@@ -1045,11 +1050,18 @@ class PopupNotification extends Extension {
         $page = $request->get_param('page') ?: 1;
         $per_page = $request->get_param('per_page') ?: 20;
         $search = $request->get_param('s') ?: '';
+        $notification_id = $request->get_param('notification_id') ?: '';
         $offset = ($page - 1) * $per_page;
 
         // Build WHERE clause
         $where_conditions = ["e.source = %s"];
         $where_values = [$this->id];
+
+        // Add notification filter
+        if (!empty($notification_id)) {
+            $where_conditions[] = "e.nx_id = %d";
+            $where_values[] = intval($notification_id);
+        }
 
         // Add search functionality
         if (!empty($search)) {
