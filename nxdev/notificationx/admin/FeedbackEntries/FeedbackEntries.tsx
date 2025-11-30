@@ -207,25 +207,11 @@ const FeedbackEntries = (props: any) => {
     return (
         <div className='nx-feedback-wrapper-class'>
             {/* Always visible */}
-            <Header />
-            <AnalyticsOverview props={props} context={builderContext} />
-
             <div className="nx-admin-wrapper">
                 <div className='notificationx-items' id="notificationx-feedback-wrapper">
                     <div className="nx-admin-items">
                         {/* Search Bar and Bulk Actions */}
                         <div className="nx-admin-header-actions">
-                            <div className="wprf-control-wrapper wprf-type-button wprf-label-none nx-talk-to-support wprf-name-talk_to_support">
-                                <div className="wprf-control-field">
-                                    <a
-                                        href="https://notificationx.com/support/?support=chat"
-                                        target="_blank"
-                                        className="wprf-control wprf-button wprf-href-btn nx-talk-to-support"
-                                    >
-                                        {__('Talk to Support', 'notificationx')}
-                                    </a>
-                                </div>
-                            </div>
                             {entries.some(entry => entry.checked) && (
                                 <div className="nx-bulk-actions" style={{ marginRight: '10px' }}>
                                     <button
@@ -437,4 +423,4 @@ const FeedbackEntries = (props: any) => {
 
 };
 
-export default withDocumentTitle(FeedbackEntries, __("Feedback Entries", 'notificationx'));
+export default withDocumentTitle(FeedbackEntries, __("Feedback", 'notificationx'));

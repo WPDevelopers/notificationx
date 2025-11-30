@@ -234,6 +234,7 @@ class PopupNotification extends Extension {
                     // 'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
                     'position'                => 'center',
                 ],
+                'is_pro' => true,
             ],
             'theme-six' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-six.webp',
@@ -249,6 +250,7 @@ class PopupNotification extends Extension {
                     // 'overlay_color'           => 'rgba(0, 0, 0, 0.7)',
                     'position'                => 'center',
                 ],
+                'is_pro' => true,
             ],
             'theme-seven' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-seven.webp',
@@ -268,6 +270,7 @@ class PopupNotification extends Extension {
                     // 'overlay_color'             => 'rgba(0, 0, 0, 0.5)',
                     'position'                  => 'center',
                 ],
+                'is_pro' => true,
             ],
         ];
     }
@@ -277,6 +280,15 @@ class PopupNotification extends Extension {
         add_filter('nx_design_tab_fields', [$this, 'design_fields'], 99);
         add_filter('nx_content_fields', [$this, 'content_fields'], 999);
         add_filter('nx_customize_fields', [$this, 'customize_fields'], 999);
+        add_filter('nx_display_fields', [$this, 'display_fields'], 999);
+    }
+
+    public function display_fields($fields) {
+        // Hide image selection 
+        if (isset($fields['image-section'])) {
+            $fields['image-section'] = Rules::is('source', $this->id, true, $fields['image-section']);
+        }
+        return $fields;
     }
 
     public function design_fields( $fields ) {
@@ -759,6 +771,7 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-six'),
                         Rules::is('themes', 'popup_notification_theme-seven'),
                     ], 'or'),
+                    'is_pro'   => true,
                 ],
                 [
                     'label'    => __('Show Email Field', 'notificationx'),
@@ -772,7 +785,7 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-six'),
                         Rules::is('themes', 'popup_notification_theme-seven'),
                     ], 'or'),
-                    'default'  => true,
+                    'is_pro'   => true,
                 ],
                 [
                     'label'    => __('Show Message Field', 'notificationx'),
@@ -1210,6 +1223,8 @@ class PopupNotification extends Extension {
      * @return mixed
      */
     public function customize_fields($fields) {
+        $fields["timing"]['fields']['delay_between'] = Rules::is('source', $this->id, true, $fields["timing"]['fields']['delay_between']);
+        
         if (isset($fields['behaviour'])) {
             $fields['behaviour'] = Rules::is('source', $this->id, true, $fields['behaviour']);
         }

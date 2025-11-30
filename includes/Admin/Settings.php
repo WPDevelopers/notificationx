@@ -441,6 +441,21 @@ class Settings extends UsabilityDynamicsSettings {
                     ],
                     ]
                 ),
+                'feedback'  => apply_filters('nx_settings_tab_feedback', [
+                    'label'    => __( 'Feedback', 'notificationx' ),
+                    'id'       => 'feedback',
+                    'classes'  => 'tab-advanced-settings',
+                    'priority' => 35,
+                    'fields'   => [
+                        'feedback_entries'       => array(
+                            'name'     => 'feedback_entries',
+                            'priority' => 10,
+                            'type'     => 'feedback-entries',
+                            'label'    => __( 'Analytics', 'notificationx' ),
+                        ),
+                    ],
+                    ]
+                ),
                 'cache_settings_tab'         => apply_filters('nx_settings_tab_cache', [
                     'id'       => 'tab-cache-settings',
                     'label'    => __( 'Cache Settings', 'notificationx' ),
