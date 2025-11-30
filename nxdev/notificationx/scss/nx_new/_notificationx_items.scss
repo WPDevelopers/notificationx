@@ -73,84 +73,6 @@
         .nx-bulk-action-wrapper {
             display: flex;
             flex-wrap: wrap;
-            .nx-search-wrapper {
-                display: flex;
-                justify-content: end;
-                overflow: hidden;
-                width: 300px;
-                .input-box {
-                    position: relative;
-                    height: 40px;
-                    max-width: 55px;
-                    width: 100%;
-                    margin-right: 10px;
-                    border-radius: 6px;
-                    background-color: #fff;
-                    transition: all 0.6s;
-                    &:not(.open) {
-                        width: 20px;
-                        background-color: transparent;
-                        transition: 0.6s;
-                        input {
-                            display: none;
-                        }
-                    }
-                }
-                .input-box.open {
-                    max-width: 280px;
-                   .icon {
-                    border-radius: 0 6px 6px 0;
-                   } 
-                }
-                input {
-                    position: relative;
-                    outline: none;
-                    border: none;
-                    height: 100%;
-                    width: 100%;
-                    border-radius: 6px;
-                    font-size: 16px;
-                    font-weight: 400;
-                    color: #333;
-                    background-color: #fff;
-                    padding-left: 12px;
-                    margin: 0;
-                    border: 2px solid #e9e8fe;
-                    transform: translateX(-5px);
-                    &:focus {
-                        box-shadow: none;
-                    }
-                    &::placeholder {
-                        font-size: 13px;
-                        font-family: "DM Sans", sans-serif;
-                    }
-                }
-                .icon {
-                    position: absolute;
-                    height: 36px;
-                    top: 0;
-                    right: -1px;
-                    width: 40px;
-                    border-radius: 6px;
-                    display: flex;
-                    justify-content: center;
-                    background-color: #efeffe;
-                    border: 2px solid #e9e8fe;
-                    cursor: pointer;
-                }
-                .input-search-icon img{
-                    width: 18px;
-                }
-                .search-icon {
-                    position: absolute;
-                    top: 50%;
-                    font-size: 30px;
-                    transition: all 0.6s;
-                }
-                .search-icon {
-                    color: #000;
-                }
-            }
             .bulk-action-select {
                 height: 40px;
                 .components-input-control__container {
@@ -910,5 +832,85 @@
             color: #7c8db5;
             font-size: 14px;
         }
+    }
+}
+
+
+.nx-search-wrapper {
+    display: flex;
+    justify-content: end;
+    overflow: hidden;
+    width: 300px;
+    .input-box {
+        position: relative;
+        height: 40px;
+        max-width: 55px;
+        width: 100%;
+        margin-right: 10px;
+        border-radius: 6px;
+        background-color: #fff;
+        transition: all 0.6s;
+        &:not(.open) {
+            width: 20px;
+            background-color: transparent;
+            transition: 0.6s;
+            input {
+                display: none;
+            }
+        }
+    }
+    .input-box.open {
+        max-width: 280px;
+        .icon {
+        border-radius: 0 6px 6px 0;
+        } 
+    }
+    input {
+        position: relative;
+        outline: none;
+        border: none;
+        height: 100%;
+        width: 100%;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 400;
+        color: #333;
+        background-color: #fff;
+        padding-left: 12px;
+        margin: 0;
+        border: 2px solid #e9e8fe;
+        transform: translateX(-5px);
+        &:focus {
+            box-shadow: none;
+        }
+        &::placeholder {
+            font-size: 13px;
+            font-family: "DM Sans", sans-serif;
+        }
+    }
+    .icon {
+        position: absolute;
+        height: 36px;
+        top: 0;
+        right: -1px;
+        width: 40px;
+        border-radius: 6px;
+        display: flex;
+        justify-content: center;
+        background-color: #efeffe;
+        border: 2px solid #e9e8fe;
+        cursor: pointer;
+    }
+    .input-search-icon img{
+        width: 18px;
+    }
+    .search-icon {
+        position: absolute;
+        top: 50%;
+        font-size: 30px;
+        transition: all 0.6s;
+    }
+    .search-icon {
+        color: #000;
     }
 }

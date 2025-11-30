@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, Fragment } from 'react';
+import React, { useEffect, useState, useRef, Fragment, useCallback } from 'react';
 import { __, sprintf, _n } from '@wordpress/i18n';
 import withDocumentTitle from '../../core/withDocumentTitle';
 import nxHelper, { assetsURL } from '../../core/functions';
@@ -10,6 +10,9 @@ import { useNotificationXContext } from '../../hooks';
 import AnalyticsOverview from '../Dashboard/AnalyticsOverview';
 import nxToast from '../../core/ToasterMsg';
 import { Link } from 'react-router-dom';
+import searchIcon from '../../icons/searchIcon.svg';
+import Select from "react-select";
+
 interface FeedbackEntry {
     id: number;
     date: string;
@@ -40,6 +43,7 @@ const FeedbackEntries = (props: any) => {
     const isMounted = useRef(true);
     const searchTimeout = useRef<NodeJS.Timeout | null>(null);
     const logoURL = assetsURL('images/logos/large-logo-icon.png');
+    const [showSearchInput, setShowSearchInput] = useState(false);
 
     useEffect(() => {
         isMounted.current = true;
@@ -203,6 +207,12 @@ const FeedbackEntries = (props: any) => {
     const closeModal = () => {
         setViewEntry(null);
     };
+    
+    const changeSearchInputValue = (event) => {
+        const term = event.target.value;
+        setSearchKey(term);
+        setShowSearchInput(true);
+    }
 
     return (
         <div className='nx-feedback-wrapper-class'>
@@ -230,15 +240,20 @@ const FeedbackEntries = (props: any) => {
                                     </button>
                                 </div>
                             )}
-                            <div className="nx-search-wrapper">
-                                <input
-                                    type="text"
-                                    placeholder={__('Search entries...', 'notificationx')}
-                                    value={searchInput}
-                                    onChange={(e) => setSearchInput(e.target.value)}
-                                    className="nx-search-input"
-                                />
+                             <div id="nx-search-wrapper" className="nx-search-wrapper">
+                                <div className={`input-box ${showSearchInput ? 'open' : ''}`}>
+                                    <input type="text" id="search_input" className="nx-search-input" placeholder={'Search...'} value={searchInput}  onChange={(e) => changeSearchInputValue(e)} />
+                                    <span className="icon input-search-icon" onClick={ () => setShowSearchInput(!showSearchInput)  }>
+                                        <img src={searchIcon} alt={'search-icon'} />
+                                    </span>
+                                </div>
                             </div>
+                             <Select
+                                name="bulk-action"
+                                className="bulk-action-select"
+                                classNamePrefix="bulk-action-select"
+                                isSearchable={false}
+                            />
                         </div>
                         {loading ? (
                             <div>
