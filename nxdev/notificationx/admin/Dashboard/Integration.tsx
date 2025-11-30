@@ -46,9 +46,6 @@ const Integration = ({props, context}) => {
     <div className='nx-admin-content-wrapper nx-notifications-wrapper notificationx-items'>
         <div className='nx-integrations-details nx-content-details header'>
           <h4>{ __('Notifications', 'notificationx') }</h4>
-          <Link className="nx-secondary-btn" to={ { pathname: "/admin.php", search: `?page=nx-admin`} }>
-              { __('View All Notifications', 'notificationx') }
-          </Link>
         </div>
         <div className="nx-admin-items">
           <div className="nx-list-table-wrapper">
@@ -86,6 +83,11 @@ const Integration = ({props, context}) => {
                   </div>
                 }
               </table>
+              <div className="nx-view-all-button-wrapper">
+                  <Link className="nx-dashboard-view-all" to={ { pathname: "/admin.php", search: `?page=nx-admin`} }>
+                    { __('View All Notifications', 'notificationx') }
+                  </Link>
+              </div>
           </div>
         </div>
     </div>

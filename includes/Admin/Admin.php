@@ -438,6 +438,7 @@ class Admin {
         }
 
         // Update the option to mark popup as dismissed
+        update_option('nx_force_popup_dismissed', '1');
         $result = update_option('nx_initial_popup_dismissed', true);
 
         return $result;
