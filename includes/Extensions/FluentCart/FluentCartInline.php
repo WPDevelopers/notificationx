@@ -31,7 +31,6 @@ class FluentCartInline extends FluentCart {
     public $types           = 'inline';
     public $module          = 'modules_fluentcart';
     public $module_priority = 3;
-    public $is_pro          = true;
 
      /**
      * Get the instance of called class.
