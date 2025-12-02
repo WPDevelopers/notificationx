@@ -42,22 +42,6 @@ class PopupNotification extends Extension {
     public function init() {
         parent::init();
         add_action('rest_api_init', [$this, 'register_rest_routes']);
-        add_action('admin_menu', [$this, 'add_feedback_entries_menu'], 35);
-    }
-
-    /**
-     * Add Feedback Entries menu
-     */
-    public function add_feedback_entries_menu() {
-        add_submenu_page(
-            'nx-admin',
-            __('Feedback Entries', 'notificationx'),
-            __('Feedback Entries', 'notificationx'),
-            'read_notificationx',
-            'nx-feedback-entries',
-            [\NotificationX\Admin\Admin::get_instance(), 'views'],
-            25
-        );
     }
 
     /**
