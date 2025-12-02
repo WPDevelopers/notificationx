@@ -437,7 +437,7 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 20,
-                                    // 'rules'    => Rules::is('themes_tab', 'for_desktop'),
+                                    'rules'    => Rules::is('themes_tab', 'for_desktop'),
                                 ],
                             ]
                         ],
