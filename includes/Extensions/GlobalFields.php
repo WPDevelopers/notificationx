@@ -451,11 +451,6 @@ class GlobalFields {
                                 'classes'  => 'advanced_active',
                                 'selector' => '#advance_design_section',
                             ],
-                            // 'classes' => 'wprf-no-bg',
-                            'rules'   => Rules::logicalRule([
-                                // Rules::is('advance_edit', true),
-                                Rules::is('themes_tab', 'for_desktop'),
-                             ]),
                             'fields' => [
                                 "advance_edit" => [
                                     'label'    => __("Advanced Toggle", 'notificationx'),

@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.1.10\n"
+"Project-Id-Version: NotificationX 3.1.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-27T11:43:08+00:00\n"
+"POT-Creation-Date: 2025-12-03T06:57:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -121,7 +121,7 @@ msgstr ""
 #: includes/Admin/ImportExport.php:63
 #: includes/Admin/Settings.php:294
 #: includes/Core/Analytics.php:46
-#: includes/Extensions/GlobalFields.php:1250
+#: includes/Extensions/GlobalFields.php:1245
 #: includes/FrontEnd/FrontEnd.php:97
 #: assets/admin/js/admin.js:1
 msgid "Analytics"
@@ -523,7 +523,7 @@ msgid "Analytics From"
 msgstr ""
 
 #: includes/Admin/Settings.php:317
-#: includes/Extensions/GlobalFields.php:1709
+#: includes/Extensions/GlobalFields.php:1704
 #: includes/Types/GDPR.php:264
 msgid "Everyone"
 msgstr ""
@@ -689,14 +689,14 @@ msgid "Cross Domain Notice"
 msgstr ""
 
 #: includes/Admin/XSS.php:44
-#: includes/Extensions/GlobalFields.php:616
+#: includes/Extensions/GlobalFields.php:611
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:18
 msgid "Click to Copy"
 msgstr ""
 
 #: includes/Admin/XSS.php:45
-#: includes/Extensions/GlobalFields.php:617
+#: includes/Extensions/GlobalFields.php:612
 msgid "Copied to clipboard."
 msgstr ""
 
@@ -1606,7 +1606,7 @@ msgstr ""
 #: includes/Extensions/Give/Give.php:82
 #: includes/Extensions/Give/Give.php:83
 #: includes/Extensions/Give/Give.php:84
-#: includes/Extensions/GlobalFields.php:685
+#: includes/Extensions/GlobalFields.php:680
 #: includes/Extensions/Google/GoogleReviews.php:55
 #: includes/Extensions/Google/GoogleReviews.php:69
 #: includes/Extensions/Google/GoogleReviews.php:83
@@ -1691,7 +1691,7 @@ msgid "Someone"
 msgstr ""
 
 #: includes/Core/PostType.php:77
-#: includes/Extensions/GlobalFields.php:1186
+#: includes/Extensions/GlobalFields.php:1181
 #: includes/Extensions/PressBar/PressBar.php:1689
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:11
@@ -1709,8 +1709,8 @@ msgid "Quick Builder"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:92
-#: includes/Extensions/GlobalFields.php:631
-#: includes/Extensions/GlobalFields.php:658
+#: includes/Extensions/GlobalFields.php:626
+#: includes/Extensions/GlobalFields.php:653
 #: includes/Extensions/PressBar/PressBar.php:1654
 msgid "Content"
 msgstr ""
@@ -2050,14 +2050,14 @@ msgid ""
 msgstr ""
 
 #: includes/Extensions/EDD/EDInline.php:46
-#: includes/Extensions/FluentCart/FluentCartInline.php:81
+#: includes/Extensions/FluentCart/FluentCartInline.php:80
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:77
 #: includes/Extensions/WooCommerce/WooInline.php:81
 msgid "people purchased"
 msgstr ""
 
 #: includes/Extensions/EDD/EDInline.php:50
-#: includes/Extensions/FluentCart/FluentCartInline.php:85
+#: includes/Extensions/FluentCart/FluentCartInline.php:84
 #: includes/Extensions/LearnDash/LearnDashInline.php:50
 #: includes/Extensions/LearnPress/LearnPressInline.php:48
 #: includes/Extensions/LearnPress/LearnPressInline.php:62
@@ -2069,7 +2069,7 @@ msgid "in last {{day:7}}"
 msgstr ""
 
 #: includes/Extensions/EDD/EDInline.php:57
-#: includes/Extensions/FluentCart/FluentCartInline.php:126
+#: includes/Extensions/FluentCart/FluentCartInline.php:125
 #: includes/Extensions/LearnDash/LearnDashInline.php:57
 #: includes/Extensions/LearnPress/LearnPressInline.php:69
 #: includes/Extensions/Tutor/TutorInline.php:69
@@ -2079,7 +2079,7 @@ msgid "Sales Count"
 msgstr ""
 
 #: includes/Extensions/EDD/EDInline.php:60
-#: includes/Extensions/FluentCart/FluentCartInline.php:129
+#: includes/Extensions/FluentCart/FluentCartInline.php:128
 #: includes/Extensions/ReviewX/ReviewX.php:157
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:125
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:151
@@ -2094,7 +2094,7 @@ msgid "Product Title"
 msgstr ""
 
 #: includes/Extensions/EDD/EDInline.php:63
-#: includes/Extensions/FluentCart/FluentCartInline.php:132
+#: includes/Extensions/FluentCart/FluentCartInline.php:131
 #: includes/Extensions/LearnDash/LearnDashInline.php:63
 #: includes/Extensions/LearnPress/LearnPressInline.php:75
 #: includes/Extensions/Tutor/TutorInline.php:75
@@ -2105,7 +2105,7 @@ msgid "In last 1 day"
 msgstr ""
 
 #: includes/Extensions/EDD/EDInline.php:64
-#: includes/Extensions/FluentCart/FluentCartInline.php:133
+#: includes/Extensions/FluentCart/FluentCartInline.php:132
 #: includes/Extensions/LearnDash/LearnDashInline.php:64
 #: includes/Extensions/LearnPress/LearnPressInline.php:76
 #: includes/Extensions/Tutor/TutorInline.php:76
@@ -2118,7 +2118,7 @@ msgid "In last 7 days"
 msgstr ""
 
 #: includes/Extensions/EDD/EDInline.php:65
-#: includes/Extensions/FluentCart/FluentCartInline.php:134
+#: includes/Extensions/FluentCart/FluentCartInline.php:133
 #: includes/Extensions/LearnDash/LearnDashInline.php:65
 #: includes/Extensions/LearnPress/LearnPressInline.php:77
 #: includes/Extensions/Tutor/TutorInline.php:77
@@ -2224,8 +2224,8 @@ msgstr ""
 #: includes/Extensions/FluentCart/FluentCart.php:41
 #: includes/Extensions/FluentCart/FluentCart.php:42
 #: includes/Extensions/FluentCart/FluentCart.php:703
+#: includes/Extensions/FluentCart/FluentCartInline.php:69
 #: includes/Extensions/FluentCart/FluentCartInline.php:70
-#: includes/Extensions/FluentCart/FluentCartInline.php:71
 msgid "FluentCart"
 msgstr ""
 
@@ -2314,26 +2314,26 @@ msgid "Fulfilled"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCart.php:715
-#: includes/Extensions/FluentCart/FluentCartInline.php:160
+#: includes/Extensions/FluentCart/FluentCartInline.php:159
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">FluentCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "        <a target=\"_blank\" href=\"%3$s\">👉 NotificationX Integration with FluentCart</a>"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCartInline.php:80
+#: includes/Extensions/FluentCart/FluentCartInline.php:79
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:76
 #: includes/Extensions/WooCommerce/WooInline.php:80
 msgid "99"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCartInline.php:96
+#: includes/Extensions/FluentCart/FluentCartInline.php:95
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:92
 #: includes/Extensions/WooCommerce/WooInline.php:96
 msgid "Only"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCartInline.php:100
-#: includes/Extensions/FluentCart/FluentCartInline.php:145
+#: includes/Extensions/FluentCart/FluentCartInline.php:99
+#: includes/Extensions/FluentCart/FluentCartInline.php:144
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:96
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:141
 #: includes/Extensions/WooCommerce/WooInline.php:100
@@ -2341,20 +2341,20 @@ msgstr ""
 msgid "left in stock"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCartInline.php:102
+#: includes/Extensions/FluentCart/FluentCartInline.php:101
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:98
 #: includes/Extensions/WooCommerce/WooInline.php:102
 msgid "- order soon."
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCartInline.php:113
+#: includes/Extensions/FluentCart/FluentCartInline.php:112
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:109
 #: includes/Extensions/WooCommerce/WooInline.php:113
 msgid "In high demand - only"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCartInline.php:117
-#: includes/Extensions/FluentCart/FluentCartInline.php:146
+#: includes/Extensions/FluentCart/FluentCartInline.php:116
+#: includes/Extensions/FluentCart/FluentCartInline.php:145
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:113
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:142
 #: includes/Extensions/WooCommerce/WooInline.php:117
@@ -2362,8 +2362,8 @@ msgstr ""
 msgid "left"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCartInline.php:119
-#: includes/Extensions/FluentCart/FluentCartInline.php:150
+#: includes/Extensions/FluentCart/FluentCartInline.php:118
+#: includes/Extensions/FluentCart/FluentCartInline.php:149
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:115
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:146
 #: includes/Extensions/WooCommerce/WooInline.php:119
@@ -2371,13 +2371,13 @@ msgstr ""
 msgid "on our site!"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCartInline.php:142
+#: includes/Extensions/FluentCart/FluentCartInline.php:141
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:138
 #: includes/Extensions/WooCommerce/WooInline.php:142
 msgid "Stock Count"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCartInline.php:149
+#: includes/Extensions/FluentCart/FluentCartInline.php:148
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:145
 #: includes/Extensions/WooCommerce/WooInline.php:149
 msgid "order soon."
@@ -2460,7 +2460,7 @@ msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:65
 #: includes/Extensions/GlobalFields.php:238
-#: includes/Extensions/GlobalFields.php:468
+#: includes/Extensions/GlobalFields.php:463
 msgid "Design"
 msgstr ""
 
@@ -2468,7 +2468,7 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:157
 #: includes/Extensions/GDPR/GDPR_Notification.php:201
 #: includes/Extensions/GDPR/GDPR_Notification.php:239
-#: includes/Extensions/GlobalFields.php:476
+#: includes/Extensions/GlobalFields.php:471
 #: includes/Extensions/PressBar/PressBar.php:512
 #: blocks/notificationx/components/inspector.js:313
 #: blocks/notificationx/index.js:1
@@ -2520,14 +2520,14 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:163
 #: includes/Extensions/GDPR/GDPR_Notification.php:207
 #: includes/Extensions/GDPR/GDPR_Notification.php:245
-#: includes/Extensions/GlobalFields.php:513
+#: includes/Extensions/GlobalFields.php:508
 msgid "Border Color"
 msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:169
 #: includes/Extensions/GDPR/GDPR_Notification.php:213
 #: includes/Extensions/GDPR/GDPR_Notification.php:251
-#: includes/Extensions/GlobalFields.php:482
+#: includes/Extensions/GlobalFields.php:477
 #: includes/Extensions/PressBar/PressBar.php:524
 #: blocks/notificationx/components/inspector.js:307
 #: blocks/notificationx/index.js:1
@@ -2537,9 +2537,9 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:175
 #: includes/Extensions/GDPR/GDPR_Notification.php:219
 #: includes/Extensions/GDPR/GDPR_Notification.php:257
-#: includes/Extensions/GlobalFields.php:548
-#: includes/Extensions/GlobalFields.php:556
-#: includes/Extensions/GlobalFields.php:564
+#: includes/Extensions/GlobalFields.php:543
+#: includes/Extensions/GlobalFields.php:551
+#: includes/Extensions/GlobalFields.php:559
 #: includes/Extensions/PressBar/PressBar.php:651
 msgid "Font Size"
 msgstr ""
@@ -2572,9 +2572,9 @@ msgid "GiveWP"
 msgstr ""
 
 #: includes/Extensions/Give/Give.php:86
-#: includes/Extensions/GlobalFields.php:710
-#: includes/Extensions/GlobalFields.php:728
-#: includes/Extensions/GlobalFields.php:2320
+#: includes/Extensions/GlobalFields.php:705
+#: includes/Extensions/GlobalFields.php:723
+#: includes/Extensions/GlobalFields.php:2315
 #: includes/Extensions/Google/GoogleReviews.php:60
 #: includes/Extensions/Google/GoogleReviews.php:74
 #: includes/Extensions/Google/GoogleReviews.php:88
@@ -2683,14 +2683,14 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:254
 #: includes/Extensions/GlobalFields.php:262
-#: includes/Extensions/GlobalFields.php:641
-#: includes/Extensions/GlobalFields.php:649
-#: includes/Extensions/GlobalFields.php:1037
-#: includes/Extensions/GlobalFields.php:1045
-#: includes/Extensions/GlobalFields.php:1483
-#: includes/Extensions/GlobalFields.php:1491
-#: includes/Extensions/GlobalFields.php:1730
-#: includes/Extensions/GlobalFields.php:1738
+#: includes/Extensions/GlobalFields.php:636
+#: includes/Extensions/GlobalFields.php:644
+#: includes/Extensions/GlobalFields.php:1032
+#: includes/Extensions/GlobalFields.php:1040
+#: includes/Extensions/GlobalFields.php:1478
+#: includes/Extensions/GlobalFields.php:1486
+#: includes/Extensions/GlobalFields.php:1725
+#: includes/Extensions/GlobalFields.php:1733
 #: includes/FrontEnd/Preview.php:375
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:11
@@ -2738,21 +2738,21 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:405
 #: includes/Extensions/GlobalFields.php:421
-#: includes/Extensions/GlobalFields.php:593
-#: includes/Extensions/GlobalFields.php:1752
-#: includes/Extensions/GlobalFields.php:1837
+#: includes/Extensions/GlobalFields.php:588
+#: includes/Extensions/GlobalFields.php:1747
+#: includes/Extensions/GlobalFields.php:1832
 msgid "Position"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:410
-#: includes/Extensions/GlobalFields.php:1759
-#: includes/Extensions/GlobalFields.php:1844
+#: includes/Extensions/GlobalFields.php:1754
+#: includes/Extensions/GlobalFields.php:1839
 msgid "Bottom Left"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:411
-#: includes/Extensions/GlobalFields.php:1763
-#: includes/Extensions/GlobalFields.php:1848
+#: includes/Extensions/GlobalFields.php:1758
+#: includes/Extensions/GlobalFields.php:1843
 msgid "Bottom Right"
 msgstr ""
 
@@ -2779,176 +2779,176 @@ msgstr ""
 msgid "Advanced Design"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:461
+#: includes/Extensions/GlobalFields.php:456
 msgid "Advanced Toggle"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:488
+#: includes/Extensions/GlobalFields.php:483
 msgid "Want Border?"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:494
+#: includes/Extensions/GlobalFields.php:489
 msgid "Border Size"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:501
+#: includes/Extensions/GlobalFields.php:496
 msgid "Border Style"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:506
+#: includes/Extensions/GlobalFields.php:501
 msgid "Solid"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:507
+#: includes/Extensions/GlobalFields.php:502
 msgid "Dashed"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:508
+#: includes/Extensions/GlobalFields.php:503
 msgid "Dotted"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:520
+#: includes/Extensions/GlobalFields.php:515
 msgid "Discount Text Color"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:530
+#: includes/Extensions/GlobalFields.php:525
 msgid "Discount Background"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:541
+#: includes/Extensions/GlobalFields.php:536
 #: includes/Extensions/PressBar/PressBar.php:644
 #: blocks/notificationx/components/inspector.js:254
 #: blocks/notificationx/index.js:1
 msgid "Typography"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:553
+#: includes/Extensions/GlobalFields.php:548
 #: includes/Extensions/PressBar/PressBar.php:657
 msgid "This font size will be applied for <mark>first</mark> row"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:561
+#: includes/Extensions/GlobalFields.php:556
 msgid "This font size will be applied for <mark>second</mark> row"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:569
+#: includes/Extensions/GlobalFields.php:564
 msgid "This font size will be applied for <mark>third</mark> row"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:574
+#: includes/Extensions/GlobalFields.php:569
 msgid "Image Appearance"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:581
+#: includes/Extensions/GlobalFields.php:576
 msgid "Image Shape"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:587
+#: includes/Extensions/GlobalFields.php:582
 msgid "Circle"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:588
+#: includes/Extensions/GlobalFields.php:583
 msgid "Rounded"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:589
+#: includes/Extensions/GlobalFields.php:584
 msgid "Square"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:599
+#: includes/Extensions/GlobalFields.php:594
 #: includes/Extensions/PressBar/PressBar.php:448
 #: includes/Extensions/PressBar/PressBar.php:587
 #: includes/Extensions/PressBar/PressBar.php:604
 msgid "Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:600
+#: includes/Extensions/GlobalFields.php:595
 #: includes/Extensions/PressBar/PressBar.php:455
 #: includes/Extensions/PressBar/PressBar.php:588
 #: includes/Extensions/PressBar/PressBar.php:626
 msgid "Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:606
+#: includes/Extensions/GlobalFields.php:601
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:613
+#: includes/Extensions/GlobalFields.php:608
 msgid "Add Custom CSS"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:622
+#: includes/Extensions/GlobalFields.php:617
 msgid "Use custom CSS to style this Notification."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:664
+#: includes/Extensions/GlobalFields.php:659
 msgid "Notification Template"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:677
-#: includes/Extensions/GlobalFields.php:702
-#: includes/Extensions/GlobalFields.php:720
-#: includes/Extensions/GlobalFields.php:737
-#: includes/Extensions/GlobalFields.php:754
+#: includes/Extensions/GlobalFields.php:672
+#: includes/Extensions/GlobalFields.php:697
+#: includes/Extensions/GlobalFields.php:715
+#: includes/Extensions/GlobalFields.php:732
+#: includes/Extensions/GlobalFields.php:749
 #: includes/Extensions/PressBar/PressBar.php:406
 #: includes/Extensions/PressBar/PressBar.php:414
 #: includes/Extensions/PressBar/PressBar.php:1364
 msgid "Custom"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:693
+#: includes/Extensions/GlobalFields.php:688
 msgid "recently purchased"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:769
-#: includes/Extensions/GlobalFields.php:780
+#: includes/Extensions/GlobalFields.php:764
+#: includes/Extensions/GlobalFields.php:775
 msgid "Advanced Template"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:786
+#: includes/Extensions/GlobalFields.php:781
 msgid "Random Order"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:791
+#: includes/Extensions/GlobalFields.php:786
 msgid "Enable to show notification in random order."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:796
+#: includes/Extensions/GlobalFields.php:791
 msgid "Show Purchase Of"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:804
+#: includes/Extensions/GlobalFields.php:799
 #: includes/Types/ELearning.php:240
 msgid "All"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:805
-#: includes/Extensions/GlobalFields.php:864
+#: includes/Extensions/GlobalFields.php:800
+#: includes/Extensions/GlobalFields.php:859
 msgid "Product Category"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:806
-#: includes/Extensions/GlobalFields.php:865
+#: includes/Extensions/GlobalFields.php:801
+#: includes/Extensions/GlobalFields.php:860
 msgid "Selected Product"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:812
-#: includes/Extensions/GlobalFields.php:871
+#: includes/Extensions/GlobalFields.php:807
+#: includes/Extensions/GlobalFields.php:866
 msgid "Select Product Category"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:824
-#: includes/Extensions/GlobalFields.php:883
+#: includes/Extensions/GlobalFields.php:819
+#: includes/Extensions/GlobalFields.php:878
 msgid "Select Product"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:855
+#: includes/Extensions/GlobalFields.php:850
 msgid "Exclude By"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:863
-#: includes/Extensions/GlobalFields.php:993
-#: includes/Extensions/GlobalFields.php:1598
+#: includes/Extensions/GlobalFields.php:858
+#: includes/Extensions/GlobalFields.php:988
+#: includes/Extensions/GlobalFields.php:1593
 #: includes/Extensions/Google/YouTube.php:221
 #: includes/Extensions/Google/YouTube.php:225
 #: includes/Extensions/Google/YouTube.php:235
@@ -2958,240 +2958,240 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:913
-#: includes/Extensions/GlobalFields.php:930
-#: includes/Extensions/GlobalFields.php:945
+#: includes/Extensions/GlobalFields.php:908
+#: includes/Extensions/GlobalFields.php:925
+#: includes/Extensions/GlobalFields.php:940
 msgid "Order Status"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:960
+#: includes/Extensions/GlobalFields.php:955
 msgid "Combine Multi Order"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:965
+#: includes/Extensions/GlobalFields.php:960
 msgid "Combine order like, 2 more products."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:974
+#: includes/Extensions/GlobalFields.php:969
 msgid "Cookies Content"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:982
+#: includes/Extensions/GlobalFields.php:977
 msgid "Link Options"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:988
+#: includes/Extensions/GlobalFields.php:983
 msgid "Link Type"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:997
+#: includes/Extensions/GlobalFields.php:992
 msgid "Button"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1010
+#: includes/Extensions/GlobalFields.php:1005
 msgid "Enable button with link"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1026
+#: includes/Extensions/GlobalFields.php:1021
 msgid "Manager"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1054
+#: includes/Extensions/GlobalFields.php:1049
 msgid "General Settings"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1060
+#: includes/Extensions/GlobalFields.php:1055
 msgid "Force Reload"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1064
+#: includes/Extensions/GlobalFields.php:1059
 msgid "Enable Force Reload"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1068
+#: includes/Extensions/GlobalFields.php:1063
 msgid "Choose whether the page should reload after the user accepts cookies. If not, your analytics software won’t register the current page visit, as cookies will only be loaded during the next page load"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1071
+#: includes/Extensions/GlobalFields.php:1066
 msgid "Cookie Removal"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1075
+#: includes/Extensions/GlobalFields.php:1070
 msgid "Enable Cookie Removal"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1079
+#: includes/Extensions/GlobalFields.php:1074
 msgid "When cookies are not accepted, non-essential cookies are removed, ensuring compliance with GDPR requirements."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1082
+#: includes/Extensions/GlobalFields.php:1077
 msgid "Consent Expiry"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1086
-#: includes/Extensions/GlobalFields.php:1958
+#: includes/Extensions/GlobalFields.php:1081
+#: includes/Extensions/GlobalFields.php:1953
 #: includes/Extensions/PressBar/PressBar.php:1110
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Days"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1109
+#: includes/Extensions/GlobalFields.php:1104
 msgid "By default, consent expires after 30 days. If needed, you can adjust this number to your preference"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1141
+#: includes/Extensions/GlobalFields.php:1136
 #: includes/FrontEnd/FrontEnd.php:89
 msgid "Necessary"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1157
-#: includes/Extensions/GlobalFields.php:1212
-#: includes/Extensions/GlobalFields.php:1266
-#: includes/Extensions/GlobalFields.php:1320
-#: includes/Extensions/GlobalFields.php:1374
-#: includes/Extensions/GlobalFields.php:1428
+#: includes/Extensions/GlobalFields.php:1152
+#: includes/Extensions/GlobalFields.php:1207
+#: includes/Extensions/GlobalFields.php:1261
+#: includes/Extensions/GlobalFields.php:1315
+#: includes/Extensions/GlobalFields.php:1369
+#: includes/Extensions/GlobalFields.php:1423
 msgid " "
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1172
-#: includes/Extensions/GlobalFields.php:1227
-#: includes/Extensions/GlobalFields.php:1281
-#: includes/Extensions/GlobalFields.php:1335
-#: includes/Extensions/GlobalFields.php:1389
-#: includes/Extensions/GlobalFields.php:1443
+#: includes/Extensions/GlobalFields.php:1167
+#: includes/Extensions/GlobalFields.php:1222
+#: includes/Extensions/GlobalFields.php:1276
+#: includes/Extensions/GlobalFields.php:1330
+#: includes/Extensions/GlobalFields.php:1384
+#: includes/Extensions/GlobalFields.php:1438
 msgid "Edit Category "
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1196
+#: includes/Extensions/GlobalFields.php:1191
 #: includes/FrontEnd/FrontEnd.php:93
 msgid "Functional"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1304
+#: includes/Extensions/GlobalFields.php:1299
 #: includes/FrontEnd/FrontEnd.php:101
 msgid "Performance"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1358
+#: includes/Extensions/GlobalFields.php:1353
 #: includes/FrontEnd/FrontEnd.php:105
 msgid "Advertisement"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1412
+#: includes/Extensions/GlobalFields.php:1407
 #: includes/FrontEnd/FrontEnd.php:109
 msgid "Uncategorized"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1472
+#: includes/Extensions/GlobalFields.php:1467
 msgid "Display"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1500
+#: includes/Extensions/GlobalFields.php:1495
 msgid "IMAGE"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1508
+#: includes/Extensions/GlobalFields.php:1503
 msgid "Show Default Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1514
+#: includes/Extensions/GlobalFields.php:1509
 msgid "Choose an Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1518
+#: includes/Extensions/GlobalFields.php:1513
 msgid "If checked, this will show in notifications."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1526
+#: includes/Extensions/GlobalFields.php:1521
 msgid "Verified"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1531
+#: includes/Extensions/GlobalFields.php:1526
 msgid "Flames"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1536
+#: includes/Extensions/GlobalFields.php:1531
 msgid "Flames GIF"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1541
+#: includes/Extensions/GlobalFields.php:1536
 msgid "Pink Face"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1546
+#: includes/Extensions/GlobalFields.php:1541
 msgid "Blue Face"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1553
+#: includes/Extensions/GlobalFields.php:1548
 msgid "Upload an Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1555
+#: includes/Extensions/GlobalFields.php:1550
 #: includes/Extensions/PressBar/PressBar.php:519
 #: assets/admin/js/admin.js:18
 msgid "Upload"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1561
+#: includes/Extensions/GlobalFields.php:1556
 #: includes/Extensions/OfferAnnouncement/Announcements.php:243
 msgid "Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1602
+#: includes/Extensions/GlobalFields.php:1597
 msgid "Featured Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1635
+#: includes/Extensions/GlobalFields.php:1630
 msgid "Gravatar"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1673
+#: includes/Extensions/GlobalFields.php:1668
 #: includes/Types/GDPR.php:238
 msgid "Visibility"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1678
+#: includes/Extensions/GlobalFields.php:1673
 #: includes/Types/GDPR.php:245
 msgid "Show On"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1684
+#: includes/Extensions/GlobalFields.php:1679
 #: includes/Types/GDPR.php:251
 msgid "Show Everywhere"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1685
+#: includes/Extensions/GlobalFields.php:1680
 msgid "Show On Selected"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1686
+#: includes/Extensions/GlobalFields.php:1681
 msgid "Hide On Selected"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1690
+#: includes/Extensions/GlobalFields.php:1685
 msgid "Locations"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1703
-#: includes/Extensions/GlobalFields.php:2183
+#: includes/Extensions/GlobalFields.php:1698
+#: includes/Extensions/GlobalFields.php:2178
 #: includes/Types/GDPR.php:258
 msgid "Display For"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1710
+#: includes/Extensions/GlobalFields.php:1705
 msgid "Logged Out User"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1711
+#: includes/Extensions/GlobalFields.php:1706
 msgid "Logged In User"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1713
+#: includes/Extensions/GlobalFields.php:1708
 msgid "More Control in Pro"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1720
+#: includes/Extensions/GlobalFields.php:1715
 #: includes/Types/GDPR.php:441
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
@@ -3199,298 +3199,298 @@ msgstr ""
 msgid "Customize"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1747
-#: includes/Extensions/GlobalFields.php:1832
+#: includes/Extensions/GlobalFields.php:1742
+#: includes/Extensions/GlobalFields.php:1827
 msgid "Appearance"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1769
+#: includes/Extensions/GlobalFields.php:1764
 msgid "Close Icon Position"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1776
+#: includes/Extensions/GlobalFields.php:1771
 msgid "Top Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1780
+#: includes/Extensions/GlobalFields.php:1775
 msgid "Top Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1787
-#: includes/Extensions/GlobalFields.php:1854
+#: includes/Extensions/GlobalFields.php:1782
+#: includes/Extensions/GlobalFields.php:1849
 msgid "Notification Size"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1811
-#: includes/Extensions/GlobalFields.php:1878
+#: includes/Extensions/GlobalFields.php:1806
+#: includes/Extensions/GlobalFields.php:1873
 msgid "Set a max width for notification."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1814
+#: includes/Extensions/GlobalFields.php:1809
 msgid "Display Close Option"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1819
+#: includes/Extensions/GlobalFields.php:1814
 msgid "Display a close button."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1822
+#: includes/Extensions/GlobalFields.php:1817
 msgid "Mobile Visibility"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1827
+#: includes/Extensions/GlobalFields.php:1822
 msgid "Hide NotificationX on mobile."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1881
+#: includes/Extensions/GlobalFields.php:1876
 msgid "Display Close Button"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1890
-#: includes/Extensions/GlobalFields.php:1918
+#: includes/Extensions/GlobalFields.php:1885
+#: includes/Extensions/GlobalFields.php:1913
 msgid "Desktop"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1897
-#: includes/Extensions/GlobalFields.php:1925
+#: includes/Extensions/GlobalFields.php:1892
+#: includes/Extensions/GlobalFields.php:1920
 msgid "Tablet"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1904
-#: includes/Extensions/GlobalFields.php:1932
+#: includes/Extensions/GlobalFields.php:1899
+#: includes/Extensions/GlobalFields.php:1927
 msgid "Mobile"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1909
+#: includes/Extensions/GlobalFields.php:1904
 msgid "Notification Visibility"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1937
+#: includes/Extensions/GlobalFields.php:1932
 msgid "Notification Reappearance"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1945
+#: includes/Extensions/GlobalFields.php:1940
 msgid "Don't show the Notification again for the user"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1946
+#: includes/Extensions/GlobalFields.php:1941
 msgid "Show the Notification again when the user visits the website next time"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1947
+#: includes/Extensions/GlobalFields.php:1942
 msgid "Show the Notification when the user refreshes/goes to another page"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1951
+#: includes/Extensions/GlobalFields.php:1946
 #: includes/Extensions/PressBar/PressBar.php:1103
 msgid "Cache Duration for \"Don't show again\""
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1966
+#: includes/Extensions/GlobalFields.php:1961
 msgid "Animation"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1972
+#: includes/Extensions/GlobalFields.php:1967
 msgid "Notification Show"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1981
-#: includes/Extensions/GlobalFields.php:2062
+#: includes/Extensions/GlobalFields.php:1976
+#: includes/Extensions/GlobalFields.php:2057
 msgid "Default"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1986
+#: includes/Extensions/GlobalFields.php:1981
 msgid "Fade In"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1991
+#: includes/Extensions/GlobalFields.php:1986
 msgid "Fade In Up"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1996
+#: includes/Extensions/GlobalFields.php:1991
 msgid "Fade In Down"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2001
+#: includes/Extensions/GlobalFields.php:1996
 msgid "Fade In Down Big"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2006
+#: includes/Extensions/GlobalFields.php:2001
 msgid "Fade In Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2011
+#: includes/Extensions/GlobalFields.php:2006
 msgid "Fade In Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2016
+#: includes/Extensions/GlobalFields.php:2011
 msgid "Light Speed In Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2021
+#: includes/Extensions/GlobalFields.php:2016
 msgid "Light Speed In Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2026
+#: includes/Extensions/GlobalFields.php:2021
 msgid "Zoom In"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2031
+#: includes/Extensions/GlobalFields.php:2026
 msgid "Slide In Up"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2036
+#: includes/Extensions/GlobalFields.php:2031
 msgid "Slide In Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2041
+#: includes/Extensions/GlobalFields.php:2036
 msgid "Slide In Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2046
+#: includes/Extensions/GlobalFields.php:2041
 msgid "Slide In Down"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2053
+#: includes/Extensions/GlobalFields.php:2048
 msgid "Notification Hide"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2066
+#: includes/Extensions/GlobalFields.php:2061
 msgid "Fade Out"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2071
+#: includes/Extensions/GlobalFields.php:2066
 msgid "Fade Out Down"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2076
+#: includes/Extensions/GlobalFields.php:2071
 msgid "Fade Out Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2081
+#: includes/Extensions/GlobalFields.php:2076
 msgid "Fade Out Up"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2086
+#: includes/Extensions/GlobalFields.php:2081
 msgid "Light Speed Out Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2091
+#: includes/Extensions/GlobalFields.php:2086
 msgid "Zoom Out"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2096
+#: includes/Extensions/GlobalFields.php:2091
 msgid "Slide Out Down"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2101
+#: includes/Extensions/GlobalFields.php:2096
 msgid "Slide Out Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2106
+#: includes/Extensions/GlobalFields.php:2101
 msgid "Slide Out Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2111
+#: includes/Extensions/GlobalFields.php:2106
 msgid "Slide Out Up"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2143
+#: includes/Extensions/GlobalFields.php:2138
 msgid "Queue Management"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2151
+#: includes/Extensions/GlobalFields.php:2146
 msgid "Enable Global Queue"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2158
+#: includes/Extensions/GlobalFields.php:2153
 msgid "Activate global queue system for this notification."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2158
+#: includes/Extensions/GlobalFields.php:2153
 msgid "Check out this doc."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2163
+#: includes/Extensions/GlobalFields.php:2158
 msgid "Timing"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2171
+#: includes/Extensions/GlobalFields.php:2166
 msgid "Delay Before First Notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2176
+#: includes/Extensions/GlobalFields.php:2171
 #: includes/Extensions/PressBar/PressBar.php:1256
 #: includes/Extensions/PressBar/PressBar.php:1261
 #: includes/Types/GDPR.php:276
 msgid "Initial Delay"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2177
-#: includes/Extensions/GlobalFields.php:2184
-#: includes/Extensions/GlobalFields.php:2193
+#: includes/Extensions/GlobalFields.php:2172
+#: includes/Extensions/GlobalFields.php:2179
+#: includes/Extensions/GlobalFields.php:2188
 #: includes/Extensions/PressBar/PressBar.php:1203
 #: includes/Extensions/PressBar/PressBar.php:1262
 msgid "seconds"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2185
+#: includes/Extensions/GlobalFields.php:2180
 msgid "Display each notification for * seconds"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2192
+#: includes/Extensions/GlobalFields.php:2187
 msgid "Delay Between"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2194
+#: includes/Extensions/GlobalFields.php:2189
 msgid "Delay between each notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2201
+#: includes/Extensions/GlobalFields.php:2196
 msgid "Behavior"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2210
+#: includes/Extensions/GlobalFields.php:2205
 msgid "Display The Last"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2219
+#: includes/Extensions/GlobalFields.php:2214
 msgid "Display From The Last"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2233
+#: includes/Extensions/GlobalFields.php:2228
 msgid "Hours"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2242
+#: includes/Extensions/GlobalFields.php:2237
 msgid "Minutes"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2255
+#: includes/Extensions/GlobalFields.php:2250
 msgid "Loop Notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2263
+#: includes/Extensions/GlobalFields.php:2258
 msgid "Open Link In New Tab"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2308
+#: includes/Extensions/GlobalFields.php:2303
 msgid "Full Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2309
+#: includes/Extensions/GlobalFields.php:2304
 msgid "First Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2310
+#: includes/Extensions/GlobalFields.php:2305
 msgid "Last Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2313
+#: includes/Extensions/GlobalFields.php:2308
 msgid "Display Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2319
+#: includes/Extensions/GlobalFields.php:2314
 #: includes/Extensions/Google/GoogleReviews.php:148
 #: includes/Extensions/OfferAnnouncement/Announcements.php:238
 #: includes/Extensions/ReviewX/ReviewX.php:163
