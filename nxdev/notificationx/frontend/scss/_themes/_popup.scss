@@ -638,5 +638,8 @@
 .nx-feedback-wrapper-class {
     .nx-admin-wrapper {
         display: block;
+        .nx-admin-items-footer {
+            z-index: 999 !important;
+        }
     }
 }

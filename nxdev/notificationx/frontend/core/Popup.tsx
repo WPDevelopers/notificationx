@@ -168,12 +168,6 @@ const Popup = (props: any) => {
         }, 300);
     };
 
-    const handleOverlayClick = (e: any) => {
-        if (e.target === e.currentTarget && settings?.close_on_overlay_click) {
-            handleClose();
-        }
-    };
-
     // Validation functions
     const validateEmail = (email: string) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -440,7 +434,7 @@ const Popup = (props: any) => {
                     `}
                 </style>
             )}
-            <div className="nx-popup-overlay" style={overlayStyles} onClick={handleOverlayClick}>
+            <div className="nx-popup-overlay" style={overlayStyles}>
             <div
                 id={`nx-popup-${settings.nx_id}`}
                 className={componentClasses}

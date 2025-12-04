@@ -139,6 +139,25 @@ class PopupNotification extends Extension {
                 ],
             ],
         ]);
+
+        // Export feedback entries endpoint
+        register_rest_route('notificationx/v1', '/feedback-entries/export', [
+            'methods' => 'POST',
+            'callback' => [$this, 'export_feedback_entries'],
+            'permission_callback' => function() {
+                return current_user_can('read_notificationx');
+            },
+            'args' => [
+                's' => [
+                    'required' => false,
+                    'type' => 'string',
+                ],
+                'notification_id' => [
+                    'required' => false,
+                    'type' => 'string',
+                ],
+            ],
+        ]);
     }
 
     public function init_extension()
@@ -763,39 +782,10 @@ class PopupNotification extends Extension {
                     'is_pro'   => true,
                 ],
                 [
-                    'label'    => __('Show Email Field', 'notificationx'),
-                    'name'     => 'popup_show_email_field',
-                    'type'     => 'toggle',
-                    'priority' => 30,
-                    'info'     => InfoTooltipManager::get_instance()->render('popup_notification_email_field'),
-                    'rules'    => Rules::logicalRule([
-                        Rules::is('themes', 'popup_notification_theme-four'),
-                        Rules::is('themes', 'popup_notification_theme-five'),
-                        Rules::is('themes', 'popup_notification_theme-six'),
-                        Rules::is('themes', 'popup_notification_theme-seven'),
-                    ], 'or'),
-                    'is_pro'   => true,
-                ],
-                [
-                    'label'    => __('Show Message Field', 'notificationx'),
-                    'name'     => 'popup_show_message_field',
-                    'type'     => 'toggle',
-                    'priority' => 35,
-                    'info'     => InfoTooltipManager::get_instance()->render('popup_notification_message_field'),
-                    'rules'    => Rules::logicalRule([
-                        Rules::is('themes', 'popup_notification_theme-four'),
-                        Rules::is('themes', 'popup_notification_theme-five'),
-                        Rules::is('themes', 'popup_notification_theme-six'),
-                        Rules::is('themes', 'popup_notification_theme-seven'),
-                    ], 'or'),
-                    'default'  => true,
-                ],
-                // Name placeholder field - only for form themes when name field is enabled
-                [
                     'label'    => __('Name Field Placeholder', 'notificationx'),
                     'name'     => 'popup_name_placeholder',
                     'type'     => 'text',
-                    'priority' => 40,
+                    'priority' => 30,
                     'default'  => __('Enter your name', 'notificationx'),
                     'rules'    => Rules::logicalRule([
                         Rules::logicalRule([
@@ -807,13 +797,25 @@ class PopupNotification extends Extension {
                         Rules::is('popup_show_name_field', true),
                     ]),
                 ],
-
-                // Email placeholder field - shows when email field is enabled for any theme
                 [
+                    'label'    => __('Show Email Field', 'notificationx'),
+                    'name'     => 'popup_show_email_field',
+                    'type'     => 'toggle',
+                    'priority' => 35,
+                    'info'     => InfoTooltipManager::get_instance()->render('popup_notification_email_field'),
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-four'),
+                        Rules::is('themes', 'popup_notification_theme-five'),
+                        Rules::is('themes', 'popup_notification_theme-six'),
+                        Rules::is('themes', 'popup_notification_theme-seven'),
+                    ], 'or'),
+                    'is_pro'   => true,
+                ],
+                 [
                     'label'    => __('Email Address Placeholder', 'notificationx'),
                     'name'     => 'popup_email_placeholder',
                     'type'     => 'text',
-                    'priority' => 45,
+                    'priority' => 40,
                     'default'  => __('Enter your email', 'notificationx'),
                     'rules'    => Rules::logicalRule([
                         Rules::logicalRule([
@@ -825,8 +827,20 @@ class PopupNotification extends Extension {
                         Rules::is('popup_show_email_field', true),
                     ]),
                 ],
-
-                // Message placeholder field - only for form themes when message field is enabled
+                [
+                    'label'    => __('Show Message Field', 'notificationx'),
+                    'name'     => 'popup_show_message_field',
+                    'type'     => 'toggle',
+                    'priority' => 45,
+                    'info'     => InfoTooltipManager::get_instance()->render('popup_notification_message_field'),
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-four'),
+                        Rules::is('themes', 'popup_notification_theme-five'),
+                        Rules::is('themes', 'popup_notification_theme-six'),
+                        Rules::is('themes', 'popup_notification_theme-seven'),
+                    ], 'or'),
+                    'default'  => true,
+                ],
                 [
                     'label'    => __('Message Field Placeholder', 'notificationx'),
                     'name'     => 'popup_message_placeholder',
@@ -852,7 +866,6 @@ class PopupNotification extends Extension {
                     'priority' => 55,
                     'default'  => __('Get Offer', 'notificationx'),
                 ],
-
                 // Button URL field - only for themes 1-3 (promotional themes with external links)
                 [
                     'label'    => __('Button URL', 'notificationx'),
@@ -897,6 +910,17 @@ class PopupNotification extends Extension {
                     'rules'       => Rules::logicalRule([
                         Rules::is('themes', 'popup_notification_theme-three'),
                         Rules::is('themes', 'popup_notification_theme-seven'),
+                    ], 'or'),
+                ],
+                'open_in_new_tab' => [
+                    'label'   => __('Open URL in New Tab', 'notificationx'),
+                    'name'    => 'open_in_new_tab',
+                    'type'    => 'toggle',
+                    'default' => false,
+                    'rules'   => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-one'),
+                        Rules::is('themes', 'popup_notification_theme-two'),
+                        Rules::is('themes', 'popup_notification_theme-three'),
                     ], 'or'),
                 ],
                 // Repeater fields - only for theme-three
@@ -1198,6 +1222,124 @@ class PopupNotification extends Extension {
     }
 
     /**
+     * Export feedback entries
+     *
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response
+     */
+    public function export_feedback_entries($request) {
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . 'nx_entries';
+        $search = $request->get_param('s') ?: '';
+        $notification_id = $request->get_param('notification_id') ?: '';
+
+        // Build WHERE clause
+        $where_conditions = ["e.source = %s"];
+        $where_values = [$this->id];
+
+        // Add notification filter if provided
+        if (!empty($notification_id)) {
+            $where_conditions[] = "e.nx_id = %d";
+            $where_values[] = intval($notification_id);
+        }
+
+        // Add search functionality if provided
+        if (!empty($search)) {
+            $where_conditions[] = "(e.data LIKE %s OR e.created_at LIKE %s)";
+            $search_term = '%' . $wpdb->esc_like($search) . '%';
+            $where_values[] = $search_term;
+            $where_values[] = $search_term;
+        }
+
+        $where_clause = implode(' AND ', $where_conditions);
+
+        // Get all entries for export (no pagination)
+        $posts_table = $wpdb->prefix . 'nx_posts';
+        $query = $wpdb->prepare(
+            "SELECT e.entry_id, e.nx_id, e.data, e.created_at, p.title as notification_name
+             FROM {$table_name} e
+             LEFT JOIN {$posts_table} p ON e.nx_id = p.nx_id
+             WHERE {$where_clause}
+             ORDER BY e.created_at DESC",
+            ...$where_values
+        );
+
+        $entries = $wpdb->get_results($query, ARRAY_A);
+
+        if (empty($entries)) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('No entries found to export', 'notificationx'),
+            ], 404);
+        }
+
+        // Generate CSV content
+        $csv_data = $this->generate_csv_data($entries);
+
+        // Generate filename
+        $filename = 'notificationx-feedback-entries-' . date('Y-m-d-H-i-s') . '.csv';
+
+        return new \WP_REST_Response([
+            'success' => true,
+            'csv_content' => $csv_data,
+            'filename' => $filename,
+            'total_entries' => count($entries),
+            'message' => sprintf(__('Successfully prepared %d entries for export', 'notificationx'), count($entries))
+        ], 200);
+    }
+
+    /**
+     * Generate CSV data from entries
+     *
+     * @param array $entries
+     * @return string
+     */
+    private function generate_csv_data($entries) {
+        $csv_data = [];
+
+        // CSV Headers
+        $csv_data[] = [
+            __('No', 'notificationx'),
+            __('Date', 'notificationx'),
+            __('NotificationX Title', 'notificationx'),
+            __('Name', 'notificationx'),
+            __('Email Address', 'notificationx'),
+            __('Message', 'notificationx'),
+            __('IP Address', 'notificationx'),
+            __('Theme', 'notificationx'),
+        ];
+
+        // Add data rows
+        $counter = 1;
+        foreach ($entries as $entry) {
+            $data = maybe_unserialize($entry['data']);
+            $date = new \DateTime($entry['created_at']);
+
+            $csv_data[] = [
+                $counter++,
+                $date->format('F j, Y'),
+                $entry['notification_name'] ?: sprintf(__('Notification #%d', 'notificationx'), $entry['nx_id']),
+                $data['name'] ?? '',
+                $data['email'] ?? '',
+                $data['message'] ?? '',
+                $data['ip'] ?? '',
+                $data['theme'] ?? '',
+            ];
+        }
+
+        // Convert array to CSV string
+        $csv_content = '';
+        foreach ($csv_data as $row) {
+            $csv_content .= '"' . implode('","', array_map(function($field) {
+                return str_replace('"', '""', $field); // Escape quotes
+            }, $row)) . '"' . "\n";
+        }
+
+        return $csv_content;
+    }
+
+    /**
      * Get user IP address
      *
      * @return string
@@ -1227,6 +1369,9 @@ class PopupNotification extends Extension {
         if (isset($fields['sound_section'])) {
             $fields['sound_section'] = Rules::is('source', $this->id, true, $fields['sound_section']);
         }
+        if (isset($fields['queue_management'])) {
+			$fields['queue_management'] = Rules::is('source', $this->id, true, $fields['queue_management']);
+		}
 
         $_fields             = &$fields["appearance"]['fields'];
         $conversion_position = &$_fields['position']['options'];
@@ -1244,21 +1389,15 @@ class PopupNotification extends Extension {
             'priority' => 15,
             'rules'    => Rules::is('source', $this->id),
             'fields'   => [
-                'close_on_overlay_click' => [
-                    'label'   => __('Close on Overlay Click', 'notificationx'),
-                    'name'    => 'close_on_overlay_click',
+                'show_close_button' => [
+                    'label'   => __('Show Close Button', 'notificationx'),
+                    'name'    => 'show_close_button',
                     'type'    => 'toggle',
                     'default' => true,
                 ],
                 'close_on_button_click' => [
                     'label'   => __('Close on Button Click', 'notificationx'),
                     'name'    => 'close_on_button_click',
-                    'type'    => 'toggle',
-                    'default' => true,
-                ],
-                'show_close_button' => [
-                    'label'   => __('Show Close Button', 'notificationx'),
-                    'name'    => 'show_close_button',
                     'type'    => 'toggle',
                     'default' => true,
                 ],
@@ -1274,12 +1413,6 @@ class PopupNotification extends Extension {
                         'bottom-left'  => __('Bottom Left', 'notificationx'),
                     ]),
                     'rules' => Rules::is('show_close_button', true),
-                ],
-                'open_in_new_tab' => [
-                    'label'   => __('Open URL in New Tab', 'notificationx'),
-                    'name'    => 'open_in_new_tab',
-                    'type'    => 'toggle',
-                    'default' => false,
                 ],
             ]
         ];

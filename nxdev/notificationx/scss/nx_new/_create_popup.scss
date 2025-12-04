@@ -2,6 +2,11 @@
     // display: flex;
     margin-right: 0;
     margin-left: 0;
+    .nx-settings-form-wrapper.feedback {
+        .wprf-submit.wprf-control {
+            display: none;
+        }
+    }
     .nx-admin-sidebar {
         min-width: 240px;
         margin-left: 30px;

@@ -139,6 +139,7 @@ const FeedbackEntries = (props: any) => {
                 return;
             }
 
+            // @ts-ignore 
             if (isMounted.current && response?.posts) {
                 // @ts-ignore
                 setPopupNotifications(response.posts);
@@ -272,6 +273,52 @@ const FeedbackEntries = (props: any) => {
         }
     };
 
+    const handleExport = async () => {
+        try {
+            // Show loading state
+            nxToast.info(__('Preparing export...', 'notificationx'));
+
+            // Prepare export data
+            const exportData = {
+                s: searchKey,
+                notification_id: selectedNotification?.value || ''
+            };
+
+            console.log('Export data:', exportData);
+
+            // Make API call
+            const response: any = await nxHelper.post('feedback-entries/export', exportData);
+            console.log('Export response:', response);
+
+            if (response?.success && response?.csv_content) {
+                // Create blob from CSV content
+                const blob = new Blob([response.csv_content], { type: 'text/csv;charset=utf-8;' });
+
+                // Create download link
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.href = url;
+                link.download = response.filename || `notificationx-feedback-entries-${new Date().toISOString().split('T')[0]}.csv`;
+
+                // Trigger download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Clean up
+                URL.revokeObjectURL(url);
+
+                nxToast.connected(__(`Successfully exported ${response.total_entries || 0} entries`, 'notificationx'));
+            } else {
+                throw new Error(response?.message || 'Export failed');
+            }
+
+        } catch (error) {
+            console.error('Export error:', error);
+            nxToast.error(__('Failed to export entries', 'notificationx'));
+        }
+    };
+
     return (
         <div className='nx-feedback-wrapper-class'>
             {/* Always visible */}
@@ -354,6 +401,9 @@ const FeedbackEntries = (props: any) => {
                                 ]}
                                 isClearable
                             />
+                            <button onClick={ handleExport } className='wprf-button'>
+                                {__('Export', 'notificationx')}
+                            </button>
                         </div>
                         {loading ? (
                             <div>
