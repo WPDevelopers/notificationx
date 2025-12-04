@@ -174,7 +174,31 @@ class Posts extends WP_REST_Controller {
         $query->offset($start_from)
                 ->limit($per_page);
         $posts = $query->get();
-        $posts       = PostType::get_instance()->__get_posts( $posts, '*' );
+        $posts = PostType::get_instance()->__get_posts( $posts, '*' );
+
+        // Add entries count for popup notifications
+        global $wpdb;
+        $entries_table = $wpdb->prefix . 'nx_entries';
+        $entries_counts = $wpdb->get_results(
+            "SELECT nx_id, COUNT(*) as entries_count
+             FROM {$entries_table}
+             WHERE source = 'popup_notification'
+             GROUP BY nx_id",
+            ARRAY_A
+        );
+
+        // Create a lookup array for entries counts
+        $entries_lookup = [];
+        foreach ($entries_counts as $entry) {
+            $entries_lookup[$entry['nx_id']] = $entry['entries_count'];
+        }
+
+        // Add entries count to posts
+        foreach ($posts as $key => $post) {
+            if ($post['source'] === 'popup_notification') {
+                $posts[$key]['entries'] = isset($entries_lookup[$post['nx_id']]) ? $entries_lookup[$post['nx_id']] : 0;
+            }
+        }
         
         $total_posts = Database::get_instance()->get_post(Database::$table_posts, [], 'count(*) AS total');
         $enabled     = Database::get_instance()->get_post(Database::$table_posts, ['enabled' => true], 'count(*) AS total');

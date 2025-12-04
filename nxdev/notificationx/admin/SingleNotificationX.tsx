@@ -155,15 +155,31 @@ const SingleNotificationX = ({
             </td>
             <td>
                 <div className="nx-admin-stats">
-                    <NavLink
-                    title={sprintf(__("%s clicks", "notificationx"), (item?.clicks || 0))}
-                    to={{
-                        pathname: '/admin.php',
-                        search  : "?page=nx-analytics&comparison=views&nx=" + id,
-                    }}>
-                        {/* translators: %d: Number of views for a Notification Alert. */}
-                        {sprintf(__("%s views", "notificationx"), (item?.views || 0))}
-                    </NavLink>
+                        <>
+                             <NavLink
+                                title={sprintf(__("%s clicks", "notificationx"), (item?.clicks || 0))}
+                                to={{
+                                    pathname: '/admin.php',
+                                    search  : "?page=nx-analytics&comparison=views&nx=" + id,
+                                }}>
+                                    {/* translators: %d: Number of views for a Notification Alert. */}
+                                    {sprintf(__("%s views", "notificationx"), (item?.views || 0))}
+                            </NavLink>
+                        </>
+                    )}
+                    {item?.source === 'popup_notification' && (
+                        <>
+                            <NavLink
+                                title={sprintf(__("%s entries", "notificationx"), (item?.entries || 0))}
+                                to={{
+                                    pathname: '/admin.php',
+                                    search: `?page=nx-settings&tab=feedback&notification_id=${id}`,
+                                }}>
+                                {/* translators: %d: Number of entries for a Popup Notification. */}
+                                {sprintf(__("%s entries", "notificationx"), (item?.entries || 0))}
+                            </NavLink>
+                        </>
+                    )}
                 </div>
             </td>
             <td>

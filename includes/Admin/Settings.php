@@ -448,12 +448,12 @@ class Settings extends UsabilityDynamicsSettings {
                     'priority' => 35,
                     'fields'   => [
                         'feedback_entries'       => array(
-                            'name'     => 'feedback_entries',
-                            'priority' => 10,
-                            'type'     => 'feedback-entries',
-                            'label'    => __( 'Analytics', 'notificationx' ),
-                        ),
-                    ],
+                                'name'     => 'feedback_entries',
+                                'priority' => 10,
+                                'type'     => 'feedback-entries',
+                                'label'    => __( 'Analytics', 'notificationx' ),
+                            ),
+                        ],
                     ]
                 ),
                 'cache_settings_tab'         => apply_filters('nx_settings_tab_cache', [

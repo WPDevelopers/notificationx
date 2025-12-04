@@ -436,11 +436,35 @@ class PostType {
 
     public function get_post_with_analytics( $wheres = [], $extra_query = '' ) {
         $posts = $this->get_posts( $wheres, 'a.*, SUM(b.clicks) AS clicks, SUM(b.views) AS views', Database::$table_stats, 'a.nx_id', 'LEFT JOIN', $extra_query );
+
+        // Get entries count for popup notifications
+        global $wpdb;
+        $entries_table = $wpdb->prefix . 'nx_entries';
+        $entries_counts = $wpdb->get_results(
+            "SELECT nx_id, COUNT(*) as entries_count
+             FROM {$entries_table}
+             WHERE source = 'popup_notification'
+             GROUP BY nx_id",
+            ARRAY_A
+        );
+
+        // Create a lookup array for entries counts
+        $entries_lookup = [];
+        foreach ($entries_counts as $entry) {
+            $entries_lookup[$entry['nx_id']] = $entry['entries_count'];
+        }
+
         foreach ( $posts as $key => $post ) {
             $source                          = $post['source'];
             $posts[ $key ]['can_regenerate'] = false;
             $extension                       = ExtensionFactory::get_instance()->get( $source );
             $posts[ $key ]['source_label']   = $extension->title;
+
+            // Add entries count for popup notifications
+            if ($source === 'popup_notification') {
+                $posts[ $key ]['entries'] = isset($entries_lookup[$post['nx_id']]) ? $entries_lookup[$post['nx_id']] : 0;
+            }
+
             if ( ! empty( $extension ) && method_exists( $extension, 'get_notification_ready' ) && $extension->is_active( false ) ) {
                 $posts[ $key ]['can_regenerate'] = true;
             }

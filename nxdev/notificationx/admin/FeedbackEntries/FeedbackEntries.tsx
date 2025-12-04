@@ -46,6 +46,29 @@ const FeedbackEntries = (props: any) => {
     const [showSearchInput, setShowSearchInput] = useState(false);
     const [popupNotifications, setPopupNotifications] = useState([]);
     const [selectedNotification, setSelectedNotification] = useState(null);
+    const urlParams = new URLSearchParams(window.location.search);
+    const notificationId = urlParams.get('notification_id');
+
+
+    // Get notification_id from URL parameters
+    useEffect(() => {
+        if (notificationId) {
+            // Find the notification in the list and set it as selected
+            const notification = popupNotifications.find((notif: any) => notif.nx_id.toString() === notificationId);
+            if (notification) {
+                setSelectedNotification({
+                    value: notification.nx_id,
+                    label: notification.title || `Notification #${notification.nx_id}`
+                });
+            } else {
+                // If notification not found in list, create a temporary selection
+                setSelectedNotification({
+                    value: parseInt(notificationId),
+                    label: `Notification #${notificationId}`
+                });
+            }
+        }
+    }, [popupNotifications]);
 
     useEffect(() => {
         isMounted.current = true;
@@ -77,7 +100,7 @@ const FeedbackEntries = (props: any) => {
         fetchEntries();
     }, [currentPage, perPage, searchKey, reload, selectedNotification]);
 
-    useEffect(() => {
+    useEffect(() => {      
         fetchPopupNotifications();
     }, []);
 
@@ -115,7 +138,6 @@ const FeedbackEntries = (props: any) => {
             }
         } catch (error) {
             if (error.name === 'AbortError') {
-                console.log('Fetch aborted');
                 return;
             }
             console.error('Error fetching feedback entries:', error);
@@ -146,7 +168,6 @@ const FeedbackEntries = (props: any) => {
             }
         } catch (error) {
             if (error.name === 'AbortError') {
-                console.log('Fetch aborted');
                 return;
             }
             console.error('Error fetching popup notifications:', error);
@@ -284,12 +305,8 @@ const FeedbackEntries = (props: any) => {
                 notification_id: selectedNotification?.value || ''
             };
 
-            console.log('Export data:', exportData);
-
             // Make API call
             const response: any = await nxHelper.post('feedback-entries/export', exportData);
-            console.log('Export response:', response);
-
             if (response?.success && response?.csv_content) {
                 // Create blob from CSV content
                 const blob = new Blob([response.csv_content], { type: 'text/csv;charset=utf-8;' });
