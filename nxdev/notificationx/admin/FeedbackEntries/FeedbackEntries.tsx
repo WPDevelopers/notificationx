@@ -327,24 +327,6 @@ const FeedbackEntries = (props: any) => {
                     <div className="nx-admin-items">
                         {/* Search Bar and Bulk Actions */}
                         <div className="nx-admin-header-actions">
-                            {entries.some(entry => entry.checked) && (
-                                <div className="nx-bulk-actions" style={{ marginRight: '10px' }}>
-                                    <button
-                                        className="wprf-control wprf-button nx-bulk-delete-btn"
-                                        onClick={bulkDelete}
-                                        style={{
-                                            backgroundColor: '#dc3545',
-                                            color: 'white',
-                                            border: 'none',
-                                            padding: '15px 20px',
-                                            borderRadius: '10px',
-                                            cursor: 'pointer'
-                                        }}
-                                    >
-                                        {__('Delete Selected', 'notificationx')} ({entries.filter(entry => entry.checked).length})
-                                    </button>
-                                </div>
-                            )}
                              <div id="nx-search-wrapper" className="nx-search-wrapper">
                                 <div className={`input-box ${showSearchInput ? 'open' : ''}`}>
                                     <input
@@ -381,6 +363,24 @@ const FeedbackEntries = (props: any) => {
                                     </span>
                                 </div>
                             </div>
+                            {entries.some(entry => entry.checked) && (
+                                <div className="nx-bulk-actions" style={{ marginRight: '10px' }}>
+                                    <button
+                                        className="wprf-control wprf-button nx-bulk-delete-btn"
+                                        onClick={bulkDelete}
+                                        style={{
+                                            backgroundColor: '#dc3545',
+                                            color: 'white',
+                                            border: 'none',
+                                            padding: '10px 20px',
+                                            borderRadius: '5px',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        {__('Delete Selected', 'notificationx')} ({entries.filter(entry => entry.checked).length})
+                                    </button>
+                                </div>
+                            )}
                              <Select
                                 name="bulk-action"
                                 className="bulk-action-select"

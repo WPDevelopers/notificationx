@@ -6,7 +6,10 @@
             align-items: center;
             margin-top: 32px;
             margin-bottom: 16px;
-            gap: 24px;
+            gap: 10px;
+            .nx-bulk-actions {
+                margin-right: none;
+            }
         }
         .nx-search-wrapper {
             max-width: 320px;
