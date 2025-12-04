@@ -155,6 +155,7 @@ const SingleNotificationX = ({
             </td>
             <td>
                 <div className="nx-admin-stats">
+                    {item?.source != 'popup_notification' && (
                         <>
                              <NavLink
                                 title={sprintf(__("%s clicks", "notificationx"), (item?.clicks || 0))}
