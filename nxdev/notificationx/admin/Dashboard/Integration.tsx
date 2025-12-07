@@ -83,11 +83,13 @@ const Integration = ({props, context}) => {
                   </div>
                 }
               </table>
-              <div className="nx-view-all-button-wrapper">
-                  <Link className="nx-dashboard-view-all" to={ { pathname: "/admin.php", search: `?page=nx-admin`} }>
-                    { __('View All Notifications', 'notificationx') }
-                  </Link>
-              </div>
+              { totalItems.all > 3 &&
+                <div className="nx-view-all-button-wrapper">
+                    <Link className="nx-dashboard-view-all" to={ { pathname: "/admin.php", search: `?page=nx-admin`} }>
+                      { __('View All Notifications', 'notificationx') }
+                    </Link>
+                </div>
+              }
           </div>
         </div>
     </div>
