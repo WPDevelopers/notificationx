@@ -46,29 +46,32 @@ const FeedbackEntries = (props: any) => {
     const [showSearchInput, setShowSearchInput] = useState(false);
     const [popupNotifications, setPopupNotifications] = useState([]);
     const [selectedNotification, setSelectedNotification] = useState(null);
-    const urlParams = new URLSearchParams(window.location.search);
-    const notificationId = urlParams.get('notification_id');
-
-
-    // Get notification_id from URL parameters
+    // Get notification_id from URL parameters once on mount
     useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const notificationId = urlParams.get('notification_id');
+
         if (notificationId) {
-            // Find the notification in the list and set it as selected
-            const notification = popupNotifications.find((notif: any) => notif.nx_id.toString() === notificationId);
-            if (notification) {
-                setSelectedNotification({
-                    value: notification.nx_id,
+            // Set the notification ID immediately, even before popup notifications are loaded
+            setSelectedNotification({
+                value: parseInt(notificationId),
+                label: `Notification #${notificationId}`
+            });
+        }
+    }, []); // Empty dependency array - only run once on mount
+
+    // Update the label when popup notifications are loaded
+    useEffect(() => {
+        if (selectedNotification && popupNotifications.length > 0) {
+            const notification = popupNotifications.find((notif: any) => notif.nx_id.toString() === selectedNotification.value.toString());
+            if (notification && notification.title !== selectedNotification.label) {
+                setSelectedNotification(prev => ({
+                    ...prev,
                     label: notification.title || `Notification #${notification.nx_id}`
-                });
-            } else {
-                // If notification not found in list, create a temporary selection
-                setSelectedNotification({
-                    value: parseInt(notificationId),
-                    label: `Notification #${notificationId}`
-                });
+                }));
             }
         }
-    }, [popupNotifications]);
+    }, [popupNotifications]); // Only depend on popupNotifications, not selectedNotification
 
     useEffect(() => {
         isMounted.current = true;
