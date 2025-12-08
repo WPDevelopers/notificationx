@@ -248,13 +248,17 @@ const Popup = (props: any) => {
             if (response && response.success) {
                 setSubmitSuccess(true);
                 // Store in session storage to prevent showing again in this session
-                const cookieKey = "notificationx_popup_" + settings?.nx_id;
-                sessionStorage.setItem(cookieKey, 'closed');
+                // const cookieKey = "notificationx_popup_" + settings?.nx_id;
+                // sessionStorage.setItem(cookieKey, 'closed');
 
+                if (dispatch) {
+                    dispatch({
+                        type: "REMOVE_NOTIFICATION",
+                        payload: nxPopup.id,
+                    });
+                }
                 // Close popup after successful submission
-                setTimeout(() => {
-                    handleClose();
-                }, 1500);
+                handleClose();
             }
         } catch (error) {
             console.error('Form submission error:', error);
@@ -572,7 +576,7 @@ const Popup = (props: any) => {
                                                 lineHeight: '1.2'
                                             }}
                                         >
-                                            30% OFF
+                                            { __('30% OFF','notificationx') }
                                         </span>
                                         <h3 style={settings?.advance_edit ? {
                                             color: settings?.popup_repeater_title_color || '',
@@ -584,7 +588,7 @@ const Popup = (props: any) => {
                                             color: settings?.popup_repeater_subtitle_color || '',
                                             fontSize: settings?.popup_repeater_subtitle_font_size ? `${settings.popup_repeater_subtitle_font_size}px` : '',
                                             margin: '0 0 16px 0'
-                                        } : { margin: '0 0 16px 0' }}>Limited time offer - don't miss out!</p>
+                                        } : { margin: '0 0 16px 0' }}>{ __('Limited time offer - don\'t miss out!', 'notificationx') }</p>
                                     </div>
                                 )}
                             </div>
@@ -683,6 +687,7 @@ const Popup = (props: any) => {
                                         style={finalButtonStyles}
                                         onMouseEnter={() => setIsButtonHovered(true)}
                                         onMouseLeave={() => setIsButtonHovered(false)}
+                                        disabled={isSubmitting}
                                         onClick={handleButtonClick}
                                     >
                                         {settings?.popup_button_text}

@@ -30,6 +30,8 @@ interface FeedbackEntry {
 
 const FeedbackEntries = (props: any) => {
     const builderContext = useNotificationXContext();
+    const urlParams = new URLSearchParams(window.location.search);
+
     const [entries, setEntries] = useState<FeedbackEntry[]>([]);
     const [loading, setLoading] = useState(true);
     const [checkAll, setCheckAll] = useState(false);
@@ -46,28 +48,17 @@ const FeedbackEntries = (props: any) => {
     const [showSearchInput, setShowSearchInput] = useState(false);
     const [popupNotifications, setPopupNotifications] = useState([]);
     const [selectedNotification, setSelectedNotification] = useState(null);
-    // Get notification_id from URL parameters once on mount
-    useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const notificationId = urlParams.get('notification_id');
-
-        if (notificationId) {
-            // Set the notification ID immediately, even before popup notifications are loaded
-            setSelectedNotification({
-                value: parseInt(notificationId),
-                label: `Notification #${notificationId}`
-            });
-        }
-    }, []); // Empty dependency array - only run once on mount
+    const [notificationId, setNotificationId] = useState(urlParams.get('notification_id'));
 
     // Update the label when popup notifications are loaded
     useEffect(() => {
-        if (selectedNotification && popupNotifications.length > 0) {
-            const notification = popupNotifications.find((notif: any) => notif.nx_id.toString() === selectedNotification.value.toString());
-            if (notification && notification.title !== selectedNotification.label) {
+        if (popupNotifications.length > 0) {
+            const notification = popupNotifications.find((notif: any) => notif.nx_id == notificationId);
+            if (notification) {
                 setSelectedNotification(prev => ({
                     ...prev,
-                    label: notification.title || `Notification #${notification.nx_id}`
+                    label: notification.title || `Notification #${notification.nx_id}`,
+                    value: notification.nx_id
                 }));
             }
         }
@@ -75,6 +66,7 @@ const FeedbackEntries = (props: any) => {
 
     useEffect(() => {
         isMounted.current = true;
+        fetchPopupNotifications();
         return () => {
             isMounted.current = false;
         };
@@ -98,14 +90,19 @@ const FeedbackEntries = (props: any) => {
         };
     }, [searchInput]);
 
+    useEffect(() => {     
+        if ( notificationId && selectedNotification?.value == notificationId ) {
+            fetchEntries();
+        }
+    }, [selectedNotification]);
+
     useEffect(() => {
         if (currentPage === 0 || perPage === 0) return;
-        fetchEntries();
-    }, [currentPage, perPage, searchKey, reload, selectedNotification]);
+        if ( !notificationId ) {
+            fetchEntries();
+        }
+    }, [ currentPage, perPage, searchKey, reload, selectedNotification ]);
 
-    useEffect(() => {      
-        fetchPopupNotifications();
-    }, []);
 
     const fetchEntries = async () => {
         try {
@@ -167,7 +164,8 @@ const FeedbackEntries = (props: any) => {
             // @ts-ignore 
             if (isMounted.current && response?.posts) {
                 // @ts-ignore
-                setPopupNotifications(response.posts);
+                const popupNotification = response.posts.filter(item => item.source === 'popup_notification');
+                setPopupNotifications(popupNotification);
             }
         } catch (error) {
             if (error.name === 'AbortError') {
@@ -409,6 +407,7 @@ const FeedbackEntries = (props: any) => {
                                 placeholder={__('Filter by Notification', 'notificationx')}
                                 value={selectedNotification}
                                 onChange={(option) => {
+                                    setNotificationId('');
                                     setSelectedNotification(option);
                                     setCurrentPage(1); // Reset to first page when filter changes
                                 }}
