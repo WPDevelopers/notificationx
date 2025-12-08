@@ -317,6 +317,20 @@ const Popup = (props: any) => {
         };
     };
 
+    useEffect(() => {
+        const delay = (+settings?.delay_before || 0) * 1000;
+        // Hide first
+        setIsVisible(false);
+
+        // Show after initial delay
+        const timer = setTimeout(() => {
+            setIsVisible(true);
+        }, delay);
+
+        return () => clearTimeout(timer);
+    }, [settings?.initial_delay]);
+
+
     if (!isVisible) {
         return null;
     }
@@ -415,13 +429,13 @@ const Popup = (props: any) => {
     const buttonIconUrl = getIconUrl(settings?.popup_button_icon);
 
     const finalButtonStyles = {
-    ...buttonStyles,
-    ...(isButtonHovered && {
-        background: settings?.popup_button_hover_bg_color || '',
-        color: settings?.popup_button_hover_text_color || '',
-        borderColor: settings?.popup_button_border_hover_color || '',
-    })
-};
+        ...buttonStyles,
+        ...(isButtonHovered && {
+            background: settings?.popup_button_hover_bg_color || '',
+            color: settings?.popup_button_hover_text_color || '',
+            borderColor: settings?.popup_button_border_hover_color || '',
+        })
+    };
 
 
     return (
