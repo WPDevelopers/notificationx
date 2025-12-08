@@ -105,17 +105,6 @@ export const handleCloseNotification = (config, id, dispatch) => {
     document.body.style.paddingTop = `0px`;
 };
 
-export const handleClosePopup = (config, id, dispatch) => {
-    // Store in session storage to prevent showing again in this session
-    const cookieKey = "notificationx_popup_" + config?.nx_id;
-    sessionStorage.setItem(cookieKey, 'closed');
-
-    dispatch({
-        type: "REMOVE_NOTIFICATION",
-        payload: id,
-    });
-};
-
 export function calculateAnimationStartTime(userInput, animationType) {
     const allowedAnimations = [
         'animate__slideOutDown',

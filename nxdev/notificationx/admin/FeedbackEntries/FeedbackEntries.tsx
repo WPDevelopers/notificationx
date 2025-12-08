@@ -500,22 +500,22 @@ const FeedbackEntries = (props: any) => {
                                                             <td>{entry.name || '-'}</td>
 
                                                             <td>
-                                                            <div className="nx-action-buttons">
-                                                                <button
-                                                                className="nx-btn nx-btn-sm nx-btn-primary"
-                                                                onClick={() => handleView(entry)}
-                                                                title={__('View Details', 'notificationx')}
-                                                                >
-                                                                👁️
-                                                                </button>
-                                                                <button
-                                                                className="nx-btn nx-btn-sm nx-btn-danger"
-                                                                onClick={() => handleDelete(entry.id)}
-                                                                title={__('Delete Entry', 'notificationx')}
-                                                                >
-                                                                🗑️
-                                                                </button>
-                                                            </div>
+                                                                <div className="nx-action-buttons">
+                                                                    <button
+                                                                    className="nx-btn nx-btn-sm nx-btn-primary"
+                                                                    onClick={() => handleView(entry)}
+                                                                    title={__('View Details', 'notificationx')}
+                                                                    >
+                                                                    👁️
+                                                                    </button>
+                                                                    <button
+                                                                    className="nx-btn nx-btn-sm nx-btn-danger"
+                                                                    onClick={() => handleDelete(entry.id)}
+                                                                    title={__('Delete Entry', 'notificationx')}
+                                                                    >
+                                                                    🗑️
+                                                                    </button>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     ))}
@@ -603,7 +603,7 @@ const FeedbackEntries = (props: any) => {
                 </div>
             </div>
         </div>
-);
+    );
 
 };
 

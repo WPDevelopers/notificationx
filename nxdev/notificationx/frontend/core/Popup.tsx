@@ -4,7 +4,7 @@ import { isAdminBar } from './utils';
 import CloseIcon from '../../icons/Close';
 import useNotificationContext from "./NotificationProvider";
 import 'animate.css';
-import { isObject, handleClosePopup } from "../core/functions";
+import { isObject, handleCloseNotification } from "../core/functions";
 import { getIconUrl } from "../../core/functions";
 
 import { __ } from '@wordpress/i18n';
@@ -160,9 +160,8 @@ const Popup = (props: any) => {
 
     const handleClose = () => {
         // Store in session storage to prevent showing again in this session
-        handleClosePopup(settings, nxPopup.id, dispatch);
-
         setAnimation(true);
+        handleCloseNotification(settings, nxPopup.id, dispatch);
         setTimeout(() => {
             setIsVisible(false);
         }, 300);
