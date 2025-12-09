@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-03T06:57:42+00:00\n"
+"POT-Creation-Date: 2025-12-09T07:03:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -19,8 +19,8 @@ msgstr ""
 #: includes/Admin/Settings.php:110
 #: includes/Core/QuickBuild.php:115
 #: includes/Extensions/GlobalFields.php:52
-#: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:16
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxdev/notificationx/frontend/themes/helpers/NotificationText.js:13
@@ -120,6 +120,7 @@ msgstr ""
 
 #: includes/Admin/ImportExport.php:63
 #: includes/Admin/Settings.php:294
+#: includes/Admin/Settings.php:454
 #: includes/Core/Analytics.php:46
 #: includes/Extensions/GlobalFields.php:1245
 #: includes/FrontEnd/FrontEnd.php:97
@@ -129,7 +130,7 @@ msgstr ""
 
 #: includes/Admin/ImportExport.php:72
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Status"
 msgstr ""
 
@@ -140,6 +141,7 @@ msgstr ""
 #: includes/Admin/ImportExport.php:93
 #: includes/Admin/ImportExport.php:94
 #: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:13
 msgid "Export"
 msgstr ""
 
@@ -204,7 +206,7 @@ msgstr ""
 #: includes/Extensions/Google/YouTube.php:220
 #: includes/Extensions/Google/YouTube.php:234
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Total Views"
 msgstr ""
 
@@ -212,7 +214,7 @@ msgstr ""
 #: includes/Admin/views/analytics.views.php:20
 #: includes/Admin/views/analytics.views.php:24
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Total Clicks"
 msgstr ""
 
@@ -618,62 +620,67 @@ msgstr ""
 msgid "Successfully Sent a Test Report in Your Email."
 msgstr ""
 
-#: includes/Admin/Settings.php:446
-#: includes/Admin/Settings.php:452
+#: includes/Admin/Settings.php:445
+#: assets/admin/js/admin.js:13
+msgid "Feedback"
+msgstr ""
+
+#: includes/Admin/Settings.php:461
+#: includes/Admin/Settings.php:467
 msgid "Cache Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:458
+#: includes/Admin/Settings.php:473
 msgid "Cache Limit"
 msgstr ""
 
-#: includes/Admin/Settings.php:459
+#: includes/Admin/Settings.php:474
 msgid "Number of Notification Data to be saved in Database."
 msgstr ""
 
-#: includes/Admin/Settings.php:466
+#: includes/Admin/Settings.php:481
 msgid "Download Stats Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:467
-#: includes/Admin/Settings.php:475
+#: includes/Admin/Settings.php:482
+#: includes/Admin/Settings.php:490
 msgid "Minutes (Schedule Duration to fetch new data)."
 msgstr ""
 
-#: includes/Admin/Settings.php:474
+#: includes/Admin/Settings.php:489
 msgid "Reviews Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:486
+#: includes/Admin/Settings.php:501
 msgid "Miscellaneous"
 msgstr ""
 
-#: includes/Admin/Settings.php:500
+#: includes/Admin/Settings.php:515
 msgid "Danger Zone"
 msgstr ""
 
-#: includes/Admin/Settings.php:505
-#: includes/Admin/Settings.php:506
+#: includes/Admin/Settings.php:520
+#: includes/Admin/Settings.php:521
 msgid "Delete Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:517
+#: includes/Admin/Settings.php:532
 msgid "Successfully deleted Settings."
 msgstr ""
 
-#: includes/Admin/Settings.php:525
-#: includes/Admin/Settings.php:526
+#: includes/Admin/Settings.php:540
+#: includes/Admin/Settings.php:541
 msgid "Delete Transient"
 msgstr ""
 
-#: includes/Admin/Settings.php:537
+#: includes/Admin/Settings.php:552
 msgid "Successfully deleted Transient."
 msgstr ""
 
 #: includes/Admin/views/analytics.views.php:33
 #: includes/Admin/views/analytics.views.php:37
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Click-Through-Rate"
 msgstr ""
 
@@ -691,7 +698,7 @@ msgstr ""
 #: includes/Admin/XSS.php:44
 #: includes/Extensions/GlobalFields.php:611
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Click to Copy"
 msgstr ""
 
@@ -716,7 +723,7 @@ msgid "Enabled"
 msgstr ""
 
 #: includes/Core/Helper.php:645
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Discovered"
 msgstr ""
 
@@ -753,6 +760,8 @@ msgid "Footer"
 msgstr ""
 
 #: includes/Core/Helper.php:789
+#: includes/Extensions/PopupNotification/PopupNotification.php:1306
+#: assets/admin/js/admin.js:13
 msgid "Name"
 msgstr ""
 
@@ -1647,10 +1656,10 @@ msgstr ""
 #: includes/Extensions/WordPress/WPComments.php:262
 #: includes/Extensions/WordPress/WPComments.php:263
 #: includes/Extensions/WordPress/WPComments.php:264
-#: includes/FrontEnd/FrontEnd.php:274
-#: includes/FrontEnd/FrontEnd.php:275
-#: includes/FrontEnd/FrontEnd.php:276
-#: includes/FrontEnd/FrontEnd.php:758
+#: includes/FrontEnd/FrontEnd.php:277
+#: includes/FrontEnd/FrontEnd.php:278
+#: includes/FrontEnd/FrontEnd.php:279
+#: includes/FrontEnd/FrontEnd.php:781
 #: includes/Types/Comments.php:54
 #: includes/Types/Comments.php:67
 #: includes/Types/Comments.php:80
@@ -1692,10 +1701,11 @@ msgstr ""
 
 #: includes/Core/PostType.php:77
 #: includes/Extensions/GlobalFields.php:1181
+#: includes/Extensions/PopupNotification/PopupNotification.php:934
 #: includes/Extensions/PressBar/PressBar.php:1689
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:20
 msgid "Add New"
 msgstr ""
 
@@ -1704,13 +1714,14 @@ msgid "%1$s of %2$s free scans used"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:47
-#: assets/admin/js/admin.js:16
+#: assets/admin/js/admin.js:18
 msgid "Quick Builder"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:92
 #: includes/Extensions/GlobalFields.php:626
 #: includes/Extensions/GlobalFields.php:653
+#: includes/Extensions/PopupNotification/PopupNotification.php:758
 #: includes/Extensions/PressBar/PressBar.php:1654
 msgid "Content"
 msgstr ""
@@ -1861,8 +1872,8 @@ msgstr ""
 msgid "Whether to bypass Trash and force deletion."
 msgstr ""
 
-#: includes/Core/Rest/Posts.php:218
-#: includes/Core/Rest/Posts.php:238
+#: includes/Core/Rest/Posts.php:242
+#: includes/Core/Rest/Posts.php:262
 msgid "Cannot create existing post."
 msgstr ""
 
@@ -2100,7 +2111,7 @@ msgstr ""
 #: includes/Extensions/Tutor/TutorInline.php:75
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:128
 #: includes/Extensions/WooCommerce/WooInline.php:132
-#: includes/FrontEnd/Preview.php:278
+#: includes/FrontEnd/Preview.php:288
 msgid "In last 1 day"
 msgstr ""
 
@@ -2111,7 +2122,7 @@ msgstr ""
 #: includes/Extensions/Tutor/TutorInline.php:76
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:129
 #: includes/Extensions/WooCommerce/WooInline.php:133
-#: includes/FrontEnd/Preview.php:279
+#: includes/FrontEnd/Preview.php:289
 #: includes/Types/DownloadStats.php:136
 #: includes/Types/DownloadStats.php:156
 msgid "In last 7 days"
@@ -2124,7 +2135,7 @@ msgstr ""
 #: includes/Extensions/Tutor/TutorInline.php:77
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:130
 #: includes/Extensions/WooCommerce/WooInline.php:134
-#: includes/FrontEnd/Preview.php:280
+#: includes/FrontEnd/Preview.php:290
 msgid "In last 30 days"
 msgstr ""
 
@@ -2469,6 +2480,8 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:201
 #: includes/Extensions/GDPR/GDPR_Notification.php:239
 #: includes/Extensions/GlobalFields.php:471
+#: includes/Extensions/PopupNotification/PopupNotification.php:328
+#: includes/Extensions/PopupNotification/PopupNotification.php:463
 #: includes/Extensions/PressBar/PressBar.php:512
 #: blocks/notificationx/components/inspector.js:313
 #: blocks/notificationx/index.js:1
@@ -2480,10 +2493,12 @@ msgid "Footer Background Color"
 msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:87
+#: includes/Extensions/PopupNotification/PopupNotification.php:384
 msgid "Title Color"
 msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:93
+#: includes/Extensions/PopupNotification/PopupNotification.php:389
 msgid "Title Font Size"
 msgstr ""
 
@@ -2504,11 +2519,13 @@ msgid "This font size will be applied for <mark>Description</mark> only"
 msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:115
+#: includes/Extensions/PopupNotification/PopupNotification.php:359
 #: includes/Extensions/PressBar/PressBar.php:549
 msgid "Close Button Color"
 msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:129
+#: includes/Extensions/PopupNotification/PopupNotification.php:364
 #: includes/Extensions/PressBar/PressBar.php:554
 msgid "Close Button Size"
 msgstr ""
@@ -2521,6 +2538,7 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:207
 #: includes/Extensions/GDPR/GDPR_Notification.php:245
 #: includes/Extensions/GlobalFields.php:508
+#: includes/Extensions/PopupNotification/PopupNotification.php:485
 msgid "Border Color"
 msgstr ""
 
@@ -2528,6 +2546,7 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:213
 #: includes/Extensions/GDPR/GDPR_Notification.php:251
 #: includes/Extensions/GlobalFields.php:477
+#: includes/Extensions/PopupNotification/PopupNotification.php:474
 #: includes/Extensions/PressBar/PressBar.php:524
 #: blocks/notificationx/components/inspector.js:307
 #: blocks/notificationx/index.js:1
@@ -2540,6 +2559,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:543
 #: includes/Extensions/GlobalFields.php:551
 #: includes/Extensions/GlobalFields.php:559
+#: includes/Extensions/PopupNotification/PopupNotification.php:502
 #: includes/Extensions/PressBar/PressBar.php:651
 msgid "Font Size"
 msgstr ""
@@ -2604,7 +2624,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:117
 #: includes/Extensions/WooCommerce/WOOReviews.php:129
 #: includes/Extensions/WordPress/WPComments.php:266
-#: includes/FrontEnd/FrontEnd.php:278
+#: includes/FrontEnd/FrontEnd.php:281
 #: includes/Types/Comments.php:59
 #: includes/Types/Comments.php:72
 #: includes/Types/Comments.php:85
@@ -2691,10 +2711,10 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:1486
 #: includes/Extensions/GlobalFields.php:1725
 #: includes/Extensions/GlobalFields.php:1733
-#: includes/FrontEnd/Preview.php:375
+#: includes/FrontEnd/Preview.php:385
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:20
 msgid "Preview"
 msgstr ""
 
@@ -2724,7 +2744,7 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:370
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Get PRO to Unlock"
 msgstr ""
 
@@ -2747,16 +2767,19 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:410
 #: includes/Extensions/GlobalFields.php:1754
 #: includes/Extensions/GlobalFields.php:1839
+#: includes/Extensions/PopupNotification/PopupNotification.php:1414
 msgid "Bottom Left"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:411
 #: includes/Extensions/GlobalFields.php:1758
 #: includes/Extensions/GlobalFields.php:1843
+#: includes/Extensions/PopupNotification/PopupNotification.php:1413
 msgid "Bottom Right"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:412
+#: includes/Extensions/PopupNotification/PopupNotification.php:1381
 msgid "Center"
 msgstr ""
 
@@ -2816,6 +2839,7 @@ msgid "Discount Background"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:536
+#: includes/Extensions/PopupNotification/PopupNotification.php:374
 #: includes/Extensions/PressBar/PressBar.php:644
 #: blocks/notificationx/components/inspector.js:254
 #: blocks/notificationx/index.js:1
@@ -3129,7 +3153,7 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1550
 #: includes/Extensions/PressBar/PressBar.php:519
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Upload"
 msgstr ""
 
@@ -3209,10 +3233,12 @@ msgid "Close Icon Position"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1771
+#: includes/Extensions/PopupNotification/PopupNotification.php:1411
 msgid "Top Right"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1775
+#: includes/Extensions/PopupNotification/PopupNotification.php:1412
 msgid "Top Left"
 msgstr ""
 
@@ -3657,7 +3683,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:173
 #: includes/Extensions/WooCommerce/WOOReviews.php:142
 #: includes/Extensions/WooCommerce/WOOReviews.php:162
-#: includes/FrontEnd/FrontEnd.php:277
+#: includes/FrontEnd/FrontEnd.php:280
 #: includes/Types/Donations.php:54
 #: includes/Types/EmailSubscription.php:68
 #: includes/Types/Reviews.php:205
@@ -3861,7 +3887,8 @@ msgstr ""
 
 #: includes/Extensions/OfferAnnouncement/Announcements.php:47
 #: includes/Extensions/OfferAnnouncement/Announcements.php:48
-msgid "Discount Announcement"
+#: includes/Types/OfferAnnouncement.php:47
+msgid "Discount Alert"
 msgstr ""
 
 #: includes/Extensions/OfferAnnouncement/Announcements.php:55
@@ -3945,6 +3972,690 @@ msgid ""
 "\t\t<p>🔥Introducing Discount Alert By NotificationX <a target=\"_blank\" href=\"%2$s\">Guide To Notify Customers About On-Sale Products</a> </p>"
 msgstr ""
 
+#: includes/Extensions/PopupNotification/PopupNotification.php:165
+#: includes/Extensions/PopupNotification/PopupNotification.php:166
+#: includes/Types/Popup.php:48
+#: includes/Types/Popup.php:49
+msgid "Announcement"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:171
+msgid "Want to build credibility & boost sales?"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:172
+msgid "We help you optimize conversions & drive sales"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:173
+msgid "Get Started with Free Plan"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:186
+msgid "Boost your sales using SureCart"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:187
+msgid "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/dw176Jmk74M?si=3suUqkCkQuYQrh2G\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:188
+msgid "See How"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:201
+msgid "All Offers"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:202
+msgid "Latest Offers"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:218
+#: includes/Extensions/PopupNotification/PopupNotification.php:233
+#: assets/admin/js/admin.js:13
+#: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:10
+msgid "Need Help?"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:219
+msgid "Get the latest news and updates delivered to your inbox."
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:220
+#: includes/Extensions/PopupNotification/PopupNotification.php:236
+msgid "Submit"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:234
+msgid "Subscribe to receive exclusive offers and updates directly in your inbox."
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:235
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Enter your email address"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:250
+msgid "Get latest news & updates"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:251
+msgid "Your email address"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:252
+msgid "Submit Now"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:266
+msgid "Want latest updates?"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:267
+msgid "Would like to get the lastes news & updates instantly?"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:268
+msgid "Enter email address"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:269
+msgid "Get In Touch"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:318
+msgid "Popup Design"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:333
+msgid "Overlay Background Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:336
+msgid "Background color of the overlay behind the popup"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:339
+msgid "Popup Width"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:343
+msgid "Maximum width of the popup container"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:346
+#: includes/Extensions/PopupNotification/PopupNotification.php:520
+#: includes/Extensions/PressBar/PressBar.php:445
+msgid "Border Radius"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:350
+msgid "Rounded corners for the popup container"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:353
+msgid "Popup Padding"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:356
+msgid "Internal spacing of popup content (e.g., 30px or 20px 30px)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:393
+msgid "Font size for the popup title"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:396
+msgid "Title Font Weight"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:400
+#: includes/Extensions/PopupNotification/PopupNotification.php:512
+msgid "Light (300)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:401
+#: includes/Extensions/PopupNotification/PopupNotification.php:513
+#: includes/Extensions/PopupNotification/PopupNotification.php:669
+msgid "Normal (400)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:402
+#: includes/Extensions/PopupNotification/PopupNotification.php:514
+#: includes/Extensions/PopupNotification/PopupNotification.php:670
+msgid "Medium (500)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:403
+#: includes/Extensions/PopupNotification/PopupNotification.php:515
+#: includes/Extensions/PopupNotification/PopupNotification.php:671
+msgid "Semi Bold (600)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:404
+#: includes/Extensions/PopupNotification/PopupNotification.php:516
+#: includes/Extensions/PopupNotification/PopupNotification.php:672
+msgid "Bold (700)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:405
+msgid "Extra Bold (800)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:409
+msgid "Subtitle Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:415
+msgid "Subtitle Font Size"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:419
+msgid "Font size for the popup subtitle"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:423
+msgid "Content/Message Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:435
+msgid "Content/Message Font Size"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:439
+msgid "Font size for the popup content/message text"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:453
+msgid "Button Design"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:468
+msgid "Hover Background Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:471
+msgid "Background color when button is hovered"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:479
+msgid "Hover Text Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:482
+msgid "Text color when button is hovered"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:490
+msgid "Hover Border Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:495
+msgid "Border Width"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:499
+msgid "Width of the button border"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:508
+msgid "Font Weight"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:524
+msgid "Rounded corners for the button"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:527
+msgid "Padding"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:530
+msgid "Button spacing in CSS format (e.g., 12px 24px)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:533
+msgid "Button Width"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:538
+msgid "Auto Width"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:539
+msgid "Full Width"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:540
+msgid "Custom Width"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:544
+msgid "Custom Button Width"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:555
+msgid "Email Input Design"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:570
+msgid "Input Background Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:575
+msgid "Input Text Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:580
+msgid "Input Border Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:585
+msgid "Input Focus Border Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:588
+msgid "Border color when input is focused"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:591
+msgid "Placeholder Text Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:596
+msgid "Input Font Size"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:602
+msgid "Input Border Width"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:608
+msgid "Input Border Radius"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:614
+msgid "Input Padding"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:617
+msgid "Input field spacing in CSS format (e.g., 12px 16px)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:620
+msgid "Input Height"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:624
+msgid "Height of the email input field"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:631
+msgid "Content Items Design"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:642
+msgid "Item Background Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:645
+msgid "Background color for each content item"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:648
+msgid "Highlight Text Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:651
+msgid "Color for the highlight text (e.g., \"30% OFF\")"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:654
+msgid "Item Title Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:659
+msgid "Item Title Font Size"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:665
+msgid "Item Title Font Weight"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:676
+msgid "Item Subtitle Color"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:681
+msgid "Item Subtitle Font Size"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:687
+msgid "Item Border Radius"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:691
+msgid "Rounded corners for each content item"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:694
+msgid "Item Padding"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:697
+msgid "Internal spacing for each content item (e.g., 16px)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:700
+msgid "Item Spacing"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:704
+msgid "Space between content items"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:721
+msgid "Popup Content"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:728
+#: includes/Extensions/PopupNotification/PopupNotification.php:945
+#: includes/Types/GDPR.php:294
+#: includes/Types/GDPR.php:297
+#: includes/Types/GDPR.php:404
+msgid "Title"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:732
+msgid "Special Offer!"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:735
+#: includes/Extensions/PopupNotification/PopupNotification.php:951
+msgid "Subtitle"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:739
+msgid "Would like to get the latest news & updates instantly?"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:743
+msgid "Popup Icon"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:753
+#: includes/Extensions/PopupNotification/PopupNotification.php:894
+msgid "Mail Icon"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:762
+msgid "Don't miss out on this amazing deal!"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:771
+msgid "Show Name Field"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:785
+msgid "Name Field Text"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:789
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Enter your name"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:801
+msgid "Show Email Field"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:815
+msgid "Email Field Text"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:819
+msgid "Enter your email"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:831
+msgid "Show Message Field"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:845
+msgid "Message Field Text"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:849
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Enter your message..."
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:863
+#: includes/Extensions/PressBar/PressBar.php:1734
+#: includes/Extensions/PressBar/PressBar.php:1824
+#: includes/Types/GDPR.php:424
+#: includes/Types/GDPR.php:432
+#: includes/Types/GDPR.php:440
+msgid "Button Text"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:867
+#: includes/Extensions/PressBar/PressBar.php:98
+#: includes/Extensions/PressBar/PressBar.php:1736
+msgid "Get Offer"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:871
+#: includes/Extensions/PressBar/PressBar.php:1745
+msgid "Button URL"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:885
+#: includes/Extensions/PressBar/PressBar.php:1756
+msgid "Button Icon"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:898
+msgid "Latest OFfer"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:902
+#: includes/Extensions/PressBar/PressBar.php:163
+#: includes/Extensions/PressBar/PressBar.php:178
+#: includes/Extensions/PressBar/PressBar.php:1762
+msgid "Shop Now"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:906
+msgid "Shop Now White"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:909
+msgid "Select an icon to display with the button text"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:916
+msgid "Open URL in New Tab"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:928
+msgid "Content Items"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:938
+msgid "Highlight Text"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:941
+#: includes/Extensions/PopupNotification/PopupNotification.php:959
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "30% OFF"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:942
+msgid "Text that will be highlighted in a different color (e.g., \"30% OFF\")"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:948
+msgid "Feature Title"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:954
+msgid "Feature description"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:960
+msgid "Boost Sales"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:961
+msgid "Increase conversions with social proof"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:964
+msgid "50% OFF"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:965
+msgid "Build Trust"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:966
+msgid "Show real customer activity"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:969
+msgid "LIMITED"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:970
+msgid "Drive Action"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:971
+msgid "Create urgency and FOMO"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:992
+msgid "Popup Submission"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1032
+msgid "Submission saved successfully"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1155
+msgid "Failed to delete entry"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1161
+msgid "Entry deleted successfully"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1180
+msgid "No entries selected for deletion"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1191
+msgid "Invalid entry IDs provided"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1209
+msgid "Failed to delete entries"
+msgstr ""
+
+#. translators: %d: Number of entries deleted
+#: includes/Extensions/PopupNotification/PopupNotification.php:1217
+msgid "%d entry deleted successfully"
+msgid_plural "%d entries deleted successfully"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1273
+msgid "No entries found to export"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1288
+msgid "Successfully prepared %d entries for export"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1303
+msgid "No"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1304
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:13
+msgid "Date"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1305
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:18
+msgid "NotificationX Title"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1307
+#: assets/admin/js/admin.js:13
+msgid "Email Address"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1308
+#: includes/Types/GDPR.php:315
+#: includes/Types/GDPR.php:318
+#: includes/Types/GDPR.php:412
+#: includes/Types/GDPR.php:417
+#: assets/admin/js/admin.js:13
+msgid "Message"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1309
+msgid "IP Address"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1310
+#: includes/Extensions/WordPress/WPOrgStats.php:136
+msgid "Theme"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1322
+msgid "Notification #%d"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1387
+msgid "Popup Settings"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1394
+msgid "Show Close Button"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1400
+msgid "Close on Button Click"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1406
+#: includes/Extensions/PressBar/PressBar.php:573
+#: includes/Extensions/PressBar/PressBar.php:582
+msgid "Close Button Position"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:1425
+msgid ""
+"<p>Create compelling Announcements that capture visitor interest and help you generate more leads on your WordPress site. Need help? Check out our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> to build impactful Announcements.</p>\n"
+"        <p>🎦 Watch the quick video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for an easy walk-through.</p>\n"
+"        <p><strong>Recommended Blogs:</strong></p>\n"
+"        <p>🔥 <a target=\"_blank\" href=\"%3$s\">How to Create High-Performing Announcements with NotificationX?</a></p>\n"
+"        <p><strong>Pro Tips:</strong></p>\n"
+"        <p>✨ Use attention-grabbing headlines and clear action prompts to encourage more sign-ups.</p>"
+msgstr ""
+
 #: includes/Extensions/PressBar/PressBar.php:66
 msgid "Press Bar"
 msgstr ""
@@ -3960,11 +4671,6 @@ msgstr ""
 #: includes/Extensions/PressBar/PressBar.php:97
 #: includes/Extensions/PressBar/PressBar.php:114
 msgid "<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:98
-#: includes/Extensions/PressBar/PressBar.php:1736
-msgid "Get Offer"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:115
@@ -3991,12 +4697,6 @@ msgstr ""
 msgid "<p><span style=\"color: #000;\">🎁 Flash 30%</span> Sale is On Now! Don’t miss out on this opportunity</p>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:163
-#: includes/Extensions/PressBar/PressBar.php:178
-#: includes/Extensions/PressBar/PressBar.php:1762
-msgid "Shop Now"
-msgstr ""
-
 #: includes/Extensions/PressBar/PressBar.php:172
 msgid "<p><span style=\"color: #9F7800;\">4 years</span> Of Seamlessly Creating NotificationX!</p>"
 msgstr ""
@@ -4009,10 +4709,6 @@ msgstr ""
 msgid "NX Bar"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:445
-msgid "Border Radius"
-msgstr ""
-
 #: includes/Extensions/PressBar/PressBar.php:517
 msgid "Background Image"
 msgstr ""
@@ -4023,11 +4719,6 @@ msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:544
 msgid "Countdown Text Color"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:573
-#: includes/Extensions/PressBar/PressBar.php:582
-msgid "Close Button Position"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:592
@@ -4217,14 +4908,14 @@ msgstr ""
 #: includes/Extensions/PressBar/PressBar.php:1373
 #: includes/Extensions/PressBar/PressBar.php:1410
 #: includes/Extensions/PressBar/PressBar.php:1438
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "From"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:1382
 #: includes/Extensions/PressBar/PressBar.php:1419
 #: includes/Extensions/PressBar/PressBar.php:1447
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "To"
 msgstr ""
 
@@ -4287,22 +4978,6 @@ msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:1719
 msgid "Time interval between slides in milliseconds"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:1734
-#: includes/Extensions/PressBar/PressBar.php:1824
-#: includes/Types/GDPR.php:424
-#: includes/Types/GDPR.php:432
-#: includes/Types/GDPR.php:440
-msgid "Button Text"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:1745
-msgid "Button URL"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:1756
-msgid "Button Icon"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:1766
@@ -4728,10 +5403,6 @@ msgstr ""
 msgid "WP.Org Stats"
 msgstr ""
 
-#: includes/Extensions/WordPress/WPOrgStats.php:136
-msgid "Theme"
-msgstr ""
-
 #: includes/Extensions/WordPress/WPOrgStats.php:181
 #: includes/Extensions/WordPress/WPOrgStats.php:184
 msgid "Try It Out"
@@ -4889,6 +5560,7 @@ msgstr ""
 
 #: includes/Extensions/Zapier/ZapierEmailSubscription.php:65
 #: includes/Extensions/Zapier/ZapierReviews.php:70
+#: assets/admin/js/admin.js:13
 msgid "Email:"
 msgstr ""
 
@@ -4957,7 +5629,7 @@ msgstr ""
 msgid "Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types."
 msgstr ""
 
-#: includes/FrontEnd/Preview.php:367
+#: includes/FrontEnd/Preview.php:377
 msgid "Talk to Support"
 msgstr ""
 
@@ -5045,6 +5717,7 @@ msgid "recently donated for"
 msgstr ""
 
 #: includes/Types/Donations.php:52
+#: assets/admin/js/admin.js:13
 msgid "100"
 msgstr ""
 
@@ -5178,12 +5851,6 @@ msgstr ""
 msgid "Seconds"
 msgstr ""
 
-#: includes/Types/GDPR.php:294
-#: includes/Types/GDPR.php:297
-#: includes/Types/GDPR.php:404
-msgid "Title"
-msgstr ""
-
 #: includes/Types/GDPR.php:298
 msgid "Customized Cookie Preferences"
 msgstr ""
@@ -5203,13 +5870,6 @@ msgstr ""
 
 #: includes/Types/GDPR.php:312
 msgid "If you use services offered by Google, such as AdSense, Firebase, and Analytics on your website, the Digital Markets Act (DMA) requires you to display Google's Privacy Policy on the second layer of your banner."
-msgstr ""
-
-#: includes/Types/GDPR.php:315
-#: includes/Types/GDPR.php:318
-#: includes/Types/GDPR.php:412
-#: includes/Types/GDPR.php:417
-msgid "Message"
 msgstr ""
 
 #: includes/Types/GDPR.php:319
@@ -5357,10 +6017,6 @@ msgid ""
 "                    <source src=\"https://notificationx.com/wp-content/uploads/2024/01/Introducing-Growth-Alert-Instant-Sales-Booster-With-NotificationX.mp4\" type=\"video/mp4\">\n"
 "                </video>\n"
 "            "
-msgstr ""
-
-#: includes/Types/OfferAnnouncement.php:47
-msgid "Discount Alert"
 msgstr ""
 
 #: includes/Types/OfferAnnouncement.php:49
@@ -5552,7 +6208,7 @@ msgid "Field must have a #type. see documentation."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Copied to Clipboard."
 msgstr ""
 
@@ -5577,7 +6233,7 @@ msgid "#options is a required arguments for RadioCard field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/GradientPicker.jsx:62
 msgid "Reset"
 msgstr ""
@@ -5637,7 +6293,8 @@ msgid "Access Denied"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:20
 msgid "Close"
 msgstr ""
 
@@ -5659,22 +6316,30 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:20
 msgid "Are you sure?"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "You won't be able to revert this!"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Yes, Delete It"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "No, Cancel"
 msgstr ""
 
@@ -5692,7 +6357,7 @@ msgid "Delete Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "Publish"
 msgstr ""
 
@@ -5737,7 +6402,7 @@ msgid "Publish On"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Update"
 msgstr ""
 
@@ -5822,7 +6487,7 @@ msgid "All Separated"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Analytics Data"
 msgstr ""
 
@@ -5831,7 +6496,7 @@ msgid "Inline Notification Alert has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Cancel"
 msgstr ""
 
@@ -5844,8 +6509,8 @@ msgid "Three Dots"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:16
 #: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Edit"
 msgstr ""
 
@@ -5907,7 +6572,7 @@ msgid "Notification Alert has been Reset."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Delete"
 msgstr ""
 
@@ -5920,32 +6585,25 @@ msgid "%s views"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+msgid "%s entries"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
 msgid "Published"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:16
-msgid "NotificationX Title"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Type"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Stats"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
-msgid "Date"
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Action"
 msgstr ""
 
@@ -5963,6 +6621,7 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "NotificationX Fetch Error: "
 msgstr ""
 
@@ -6210,6 +6869,7 @@ msgid "We love having you in the NotificationX family. We are making it more awe
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:31
@@ -6235,7 +6895,7 @@ msgid "Documentation"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Join Our Community"
@@ -6270,429 +6930,525 @@ msgid "Changes Saved Successfully."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+msgid "Search..."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Please select entries to delete"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "You're about to delete %s feedback entry,<br />"
+msgid_plural "You're about to delete %s feedback entries,<br />"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: Number of feedback entries deleted.
+#: assets/admin/js/admin.js:13
+msgid "%d feedback entry has been deleted."
+msgid_plural "%d feedback entries have been deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/admin/js/admin.js:13
+msgid "Delete Selected"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Filter by Notification"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "All Notifications"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Preparing export..."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Failed to export entries"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Loading feedback entries..."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "No entries found."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Seems like you haven’t received any feedback entries yet."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "View Details"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Feedback entry has been deleted."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Delete Entry"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Show Entries :"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "10"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "20"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "50"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "200"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Feedback Entry Details"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Date:"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Name:"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Message:"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
 msgid "NotificationX Logo"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "video-widget"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Launch Setup Wizard"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Watch Tutorials"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "link-icon"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Notifications"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "View All Notifications"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Exclusive Features & Notification Types"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Get various types of notification support including"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Helpful Resources"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Explore More"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Customer Success Stories"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Learn More"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "eCom Founder Web & Ops AI Consultant"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "author img"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Emilio Johann"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "San Diego, CA"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Converting Prospects to Customers: Barn2's Success Story with NotificationX"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "WordPress Plugin Developer Company"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Katie Keith"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Co-Founder & CEO at Barn2"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:20
 msgid "Integrations"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "View All Integrations"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
-#: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:10
-msgid "Need Help?"
-msgstr ""
-
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:11
 msgid "Our dedicated support team is here to assist you with all your inquiries, anytime you need."
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:15
 msgid "Contact Us"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:26
 msgid "Love NotificationX?"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:27
 msgid "Your quick feedback helps us grow and build more awesome features for you!"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:33
 msgid "Black Friday Deal"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:38
 msgid "Premium"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:39
 msgid "Want to maximize clicks and sales? Upgrade to PRO for advanced alerts."
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:41
 msgid "Location-specific notifications"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:42
 msgid "Create custom popup notifications"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:43
 msgid "Highlight promotional offers with coupons"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:44
 msgid "Display sales counts & low-stock alerts"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:45
 msgid "Grab instant attention with flashing tabs"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:51
 msgid "Unlock All Features"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:60
 msgid "No risk 14-day money-back guarantee included."
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:74
 msgid "Dismissing..."
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:74
 msgid "Dismiss"
 msgstr ""
 
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
 msgstr ""
 
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "QuickBuilder Error: "
 msgstr ""
 
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "Publishing..."
 msgstr ""
 
 #. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
-#: assets/admin/js/admin.js:16
+#: assets/admin/js/admin.js:18
 msgid "NotificationX - %1$s - %2$s"
 msgstr ""
 
-#: assets/admin/js/admin.js:16
+#: assets/admin/js/admin.js:18
 msgid "Successfully Updated."
 msgstr ""
 
-#: assets/admin/js/admin.js:16
+#: assets/admin/js/admin.js:18
 msgid "Successfully Created."
 msgstr ""
 
 #. translators: Postfix for notice created by duplicate button.
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid " - Copy"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Unlock pro Features"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Get Support"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Suggest a Feature"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "NX-Close-Img"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "CSV data imported successfully!"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Invalid File Type!"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Please upload a CSV file to import custom notification data."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Import Limit Exceeded."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Continue"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Error processing the CSV file"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Sample CSV"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Change Time"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "This will effect on all selected Items"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Apply Changes"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Select All"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Selected custom notification Time updated successfully!"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Do you really want to delete the selected items? This process cannot be undone."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Yes, Delete Them"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "No, Keep Them"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Custom Notification Preview"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Items Per Page"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Edit Cookie"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Are you sure you want to delete this Cookie?"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "The cookie <strong>%s</strong> will be permanently deleted. This cookie will no longer be displayed on your cookie list nor be blocked prior to receiving user consent."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Delete Cookie"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Edit Custom Cookie"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Add Custom Cookie"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Save"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Custom Cookies"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Edit Category"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:14
 msgid "History"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:24
 msgid "Scan Date"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:25
 msgid "Scan Status"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:26
 msgid "Category"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:27
 msgid "Cookies"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:28
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:47
 msgid "More Info"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:54
 msgid "No scan history available"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/HistoryMoreInfo.jsx:14
 #: nxdev/notificationx/fields/ModalContent/HistoryMoreInfo.jsx:24
 msgid "Scanned URL"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Scan failed. Try again."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Scan complete! Your results are now available."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Last Successfully Scan"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "No scan history found"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Start your first scan now"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Scanning"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Scan Now"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Scan limit exceeded for this website."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Ready to start scanning?"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Your existing cookie list (cookies discovered in the previous scan) will be replaced with the cookies discovered in this scan. Therefore, make sure you don’t exclude the pages that sets cookies."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxdev/notificationx/fields/helpers/PressbarAdminPreview.jsx:361
 msgid "You should setup NX Bar properly"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/IconPicker.jsx:239
 msgid "Icons"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/NxBarPresets.jsx:47
 msgid "Create with Your Preferred Builder/Editor"
 msgstr ""
@@ -6727,6 +7483,46 @@ msgstr ""
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Powered by"
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Please enter your name."
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Please enter your email address."
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Please enter your message."
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Limited time offer - don't miss out!"
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Submitting..."
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Success!"
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Powered by "
 msgstr ""
 
 #: assets/public/js/crossSite.js:1

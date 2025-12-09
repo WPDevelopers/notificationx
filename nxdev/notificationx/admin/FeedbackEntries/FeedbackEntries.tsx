@@ -1,17 +1,16 @@
 import React, { useEffect, useState, useRef, Fragment, useCallback } from 'react';
 import { __, sprintf, _n } from '@wordpress/i18n';
 import withDocumentTitle from '../../core/withDocumentTitle';
-import nxHelper, { assetsURL } from '../../core/functions';
-import { Header } from '../../components';
+import nxHelper, { assetsURL, getAlert, proAlert } from '../../core/functions';
 import Pagination from "rc-pagination";
 import localeInfo from 'rc-pagination/es/locale/en_US';
 import { SelectControl } from "@wordpress/components";
 import { useNotificationXContext } from '../../hooks';
-import AnalyticsOverview from '../Dashboard/AnalyticsOverview';
 import nxToast from '../../core/ToasterMsg';
 import { Link } from 'react-router-dom';
 import searchIcon from '../../icons/searchIcon.svg';
 import Select from "react-select";
+import ProIcon from '../../icons/ProIcon';
 
 interface FeedbackEntry {
     id: number;
@@ -30,6 +29,7 @@ interface FeedbackEntry {
 
 const FeedbackEntries = (props: any) => {
     const builderContext = useNotificationXContext();
+    const is_pro    = builderContext?.is_pro_active;
     const urlParams = new URLSearchParams(window.location.search);
 
     const [entries, setEntries] = useState<FeedbackEntry[]>([]);
@@ -458,9 +458,15 @@ const FeedbackEntries = (props: any) => {
                                                     </td>
                                                     <td>{__("NotificationX Title", 'notificationx')}</td>
                                                     <td>{__("Date", 'notificationx')}</td>
-                                                    <td>{__("Email Address", 'notificationx')}</td>
+                                                    <td>
+                                                        {__("Email Address", 'notificationx')} 
+                                                        <span style={ { marginLeft: '8px' } }>{!is_pro && <ProIcon />}</span>
+                                                    </td>
                                                     <td>{__("Message", 'notificationx')}</td>
-                                                    <td>{__("Name", 'notificationx')}</td>
+                                                    <td>
+                                                        {__("Name", 'notificationx')}
+                                                        <span style={ { marginLeft: '8px' } }>{!is_pro && <ProIcon />}</span>
+                                                    </td>
                                                     <td>{__("Action", 'notificationx')}</td>
                                                     </tr>
                                                 </thead>
@@ -484,8 +490,24 @@ const FeedbackEntries = (props: any) => {
                                                                 }}>{entry.notification_name || entry.notification_id}</Link>
                                                             </td>
                                                             <td>{formatDate(entry.date)}</td>
-                                                            <td>{entry.email || '-'}</td>
-
+                                                            <td
+                                                                onClick={ () => {
+                                                                    if( !is_pro ) {
+                                                                         const popup = getAlert('popup', builderContext);
+                                                                        proAlert(popup).fire();
+                                                                    }
+                                                                } }
+                                                                style={{
+                                                                    filter: !is_pro && entry.email ? "blur(3px)" : "none",
+                                                                    userSelect: is_pro ? "auto" : "none",
+                                                                }}
+                                                            >
+                                                            {
+                                                            is_pro
+                                                                ? (entry.email || '-')
+                                                                : (entry.email ? 'example@mail.com' : '-')
+                                                            }
+                                                            </td>
                                                             <td>
                                                             <div style={{
                                                                 maxWidth: '200px',
@@ -496,8 +518,24 @@ const FeedbackEntries = (props: any) => {
                                                                 {entry.message || '-'}
                                                             </div>
                                                             </td>
-
-                                                            <td>{entry.name || '-'}</td>
+                                                            <td
+                                                                onClick={ () => {
+                                                                    if( !is_pro ) {
+                                                                         const popup = getAlert('popup', builderContext);
+                                                                        proAlert(popup).fire();
+                                                                    }
+                                                                } }
+                                                                style={{
+                                                                    filter: !is_pro && entry.name ? "blur(3px)" : "none",
+                                                                    userSelect: is_pro ? "auto" : "none",
+                                                                }}
+                                                            >
+                                                            {
+                                                            is_pro
+                                                                ? (entry.name || '-')
+                                                                : (entry.name ? 'John Doe' : '-')
+                                                            }
+                                                            </td>
 
                                                             <td>
                                                                 <div className="nx-action-buttons">
@@ -569,13 +607,13 @@ const FeedbackEntries = (props: any) => {
                                                             <strong>{__('Date:', 'notificationx')}</strong>
                                                             <span>{formatDate(viewEntry.date)}</span>
                                                         </div>
-                                                        {viewEntry.name && (
+                                                        {(viewEntry.name && is_pro) && (
                                                             <div className="nx-entry-field">
                                                                 <strong>{__('Name:', 'notificationx')}</strong>
                                                                 <span>{viewEntry.name}</span>
                                                             </div>
                                                         )}
-                                                        {viewEntry.email && (
+                                                        {(viewEntry.email && is_pro) && (
                                                             <div className="nx-entry-field">
                                                                 <strong>{__('Email:', 'notificationx')}</strong>
                                                                 <span>{viewEntry.email}</span>

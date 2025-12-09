@@ -41,123 +41,6 @@ class PopupNotification extends Extension {
 
     public function init() {
         parent::init();
-        add_action('rest_api_init', [$this, 'register_rest_routes']);
-    }
-
-    /**
-     * Register REST API routes for popup form submission
-     */
-    public function register_rest_routes() {
-        register_rest_route('notificationx/v1', '/popup-submit', [
-            'methods' => 'POST',
-            'callback' => [$this, 'handle_popup_submission'],
-            'permission_callback' => '__return_true',
-            'args' => [
-                'nx_id' => [
-                    'required' => true,
-                    'type'     => 'string',
-                ],
-                'email' => [
-                    'type'              => 'string',
-                    'sanitize_callback' => 'sanitize_email',
-                ],
-                'message' => [
-                    'type'              => 'string',
-                    'sanitize_callback' => 'sanitize_textarea_field',
-                ],
-                'name' => [
-                    'type'              => 'string',
-                    'sanitize_callback' => 'sanitize_textarea_field',
-                ],
-                'timestamp' => [
-                    'type' => 'integer',
-                ],
-            ],
-        ]);
-
-        // Feedback entries endpoint
-        register_rest_route('notificationx/v1', '/feedback-entries', [
-            'methods' => 'GET',
-            'callback' => [$this, 'get_feedback_entries'],
-            'permission_callback' => function() {
-                return current_user_can('read_notificationx');
-            },
-            'args' => [
-                'page' => [
-                    'default' => 1,
-                    'type' => 'integer',
-                    'minimum' => 1,
-                ],
-                'per_page' => [
-                    'default' => 20,
-                    'type' => 'integer',
-                    'minimum' => 1,
-                    'maximum' => 200,
-                ],
-                's' => [
-                    'default' => '',
-                    'type' => 'string',
-                    'sanitize_callback' => 'sanitize_text_field',
-                ],
-                'notification_id' => [
-                    'default' => '',
-                    'type' => 'string',
-                    'sanitize_callback' => 'sanitize_text_field',
-                ],
-            ],
-        ]);
-
-        // Delete feedback entry endpoint
-        register_rest_route('notificationx/v1', '/feedback-entries/(?P<id>\d+)', [
-            'methods' => 'DELETE',
-            'callback' => [$this, 'delete_feedback_entry'],
-            'permission_callback' => function() {
-                return current_user_can('edit_notificationx');
-            },
-            'args' => [
-                'id' => [
-                    'required' => true,
-                    'type' => 'integer',
-                ],
-            ],
-        ]);
-
-        // Bulk delete feedback entries endpoint
-        register_rest_route('notificationx/v1', '/feedback-entries/bulk-delete', [
-            'methods' => 'POST',
-            'callback' => [$this, 'bulk_delete_feedback_entries'],
-            'permission_callback' => function() {
-                return current_user_can('edit_notificationx');
-            },
-            'args' => [
-                'ids' => [
-                    'required' => true,
-                    'type' => 'array',
-                    'items' => [
-                        'type' => 'integer',
-                    ],
-                ],
-            ],
-        ]);
-
-        // Export feedback entries endpoint
-        register_rest_route('notificationx/v1', '/feedback-entries/export', [
-            'methods' => 'POST',
-            'callback' => [$this, 'export_feedback_entries'],
-            'permission_callback' => function() {
-                return current_user_can('read_notificationx');
-            },
-            'args' => [
-                's' => [
-                    'required' => false,
-                    'type' => 'string',
-                ],
-                'notification_id' => [
-                    'required' => false,
-                    'type' => 'string',
-                ],
-            ],
-        ]);
     }
 
     public function init_extension()
@@ -171,12 +54,6 @@ class PopupNotification extends Extension {
                     'popup_title'             => __('Want to build credibility & boost sales?', 'notificationx'),
                     'popup_content'           => __('We help you optimize conversions & drive sales', 'notificationx'),
                     'popup_button_text'       => __('Get Started with Free Plan', 'notificationx'),
-                    // 'popup_bg_color'          => '#ffffff',
-                    // 'popup_title_color'       => '#ffffff',
-                    // 'popup_desc_color'        => '#333333',
-                    // 'popup_button_bg_color'   => '#ff6b35',
-                    // 'popup_button_text_color' => '#ffffff',
-                    // 'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
                     'position'                => 'center',
                 ],
             ],
@@ -186,12 +63,6 @@ class PopupNotification extends Extension {
                     'popup_title'             => __('Boost your sales using SureCart', 'notificationx'),
                     'popup_content'           => __('<iframe width="560" height="315" src="https://www.youtube.com/embed/dw176Jmk74M?si=3suUqkCkQuYQrh2G" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'notificationx'),
                     'popup_button_text'       => __('See How', 'notificationx'),
-                    // 'popup_bg_color'          => '#ffffff',
-                    // 'popup_title_color'       => '#333333',
-                    // 'popup_desc_color'        => '#666666',
-                    // 'popup_button_bg_color'   => '#8b5cf6',
-                    // 'popup_button_text_color' => '#ffffff',
-                    // 'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
                     'position'                => 'center',
                 ],
             ],
@@ -201,14 +72,6 @@ class PopupNotification extends Extension {
                     'popup_title'                    => __('All Offers', 'notificationx'),
                     'popup_button_text'              => __('Latest Offers', 'notificationx'),
                     'popup_button_icon'              => 'latest_offer.svg',
-                    // 'popup_button_bg_color'          => '#d97706',
-                    // 'popup_button_text_color'        => '#ffffff',
-                    // 'popup_button_border_color'      => '#d97706',
-                    // 'popup_bg_color'                 => '#fef7ed',
-                    // 'popup_title_color'              => '#333333',
-                    // 'popup_desc_color'               => '#666666',
-                    // 'popup_repeater_highlight_color' => '#FF6B1B',
-                    // 'overlay_color'                  => 'rgba(0, 0, 0, 0.5)',
                     'position'                       => 'center',
                 ],
             ],
@@ -218,12 +81,6 @@ class PopupNotification extends Extension {
                     'popup_title'             => __('Need Help?', 'notificationx'),
                     'popup_content'           => __('Get the latest news and updates delivered to your inbox.', 'notificationx'),
                     'popup_button_text'       => __('Submit', 'notificationx'),
-                    // 'popup_bg_color'          => '#ffffff',
-                    // 'popup_title_color'       => '#333333',
-                    // 'popup_desc_color'        => '#666666',
-                    // 'popup_button_bg_color'   => '#007cba',
-                    // 'popup_button_text_color' => '#ffffff',
-                    // 'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
                     'position'                => 'center',
                 ],
             ],
@@ -234,12 +91,6 @@ class PopupNotification extends Extension {
                     'popup_content'           => __('Subscribe to receive exclusive offers and updates directly in your inbox.', 'notificationx'),
                     'popup_email_placeholder' => __('Enter your email address', 'notificationx'),
                     'popup_button_text'       => __('Submit', 'notificationx'),
-                    // 'popup_bg_color'          => '#f8fafc',
-                    // 'popup_title_color'       => '#1e293b',
-                    // 'popup_desc_color'        => '#64748b',
-                    // 'popup_button_bg_color'   => '#3b82f6',
-                    // 'popup_button_text_color' => '#ffffff',
-                    // 'overlay_color'           => 'rgba(0, 0, 0, 0.5)',
                     'position'                => 'center',
                 ],
                 'is_pro' => true,
@@ -250,12 +101,6 @@ class PopupNotification extends Extension {
                     'popup_title'             => __('Get latest news & updates', 'notificationx'),
                     'popup_email_placeholder' => __('Your email address', 'notificationx'),
                     'popup_button_text'       => __('Submit Now', 'notificationx'),
-                    // 'popup_bg_color'          => '#1f2937',
-                    // 'popup_title_color'       => '#ffffff',
-                    // 'popup_desc_color'        => '#d1d5db',
-                    // 'popup_button_bg_color'   => '#10b981',
-                    // 'popup_button_text_color' => '#ffffff',
-                    // 'overlay_color'           => 'rgba(0, 0, 0, 0.7)',
                     'position'                => 'center',
                 ],
                 'is_pro' => true,
@@ -269,13 +114,6 @@ class PopupNotification extends Extension {
                     'popup_button_text'         => __('Get In Touch', 'notificationx'),
                     'popup_icon'                => 'mail_icon.svg',
                     'popup_button_icon'         => 'mail_icon.svg',
-                    // 'popup_button_bg_color'     => '#f59e0b',
-                    // 'popup_button_text_color'   => '#ffffff',
-                    // 'popup_button_border_color' => '#f59e0b',
-                    // 'popup_bg_color'            => '#fef3c7',
-                    // 'popup_title_color'         => '#92400e',
-                    // 'popup_desc_color'          => '#b6ac9fff',
-                    // 'overlay_color'             => 'rgba(0, 0, 0, 0.5)',
                     'position'                  => 'center',
                 ],
                 'is_pro' => true,
@@ -782,7 +620,7 @@ class PopupNotification extends Extension {
                     'is_pro'   => true,
                 ],
                 [
-                    'label'    => __('Name Field Placeholder', 'notificationx'),
+                    'label'    => __('Name Field Text', 'notificationx'),
                     'name'     => 'popup_name_placeholder',
                     'type'     => 'text',
                     'priority' => 30,
@@ -812,7 +650,7 @@ class PopupNotification extends Extension {
                     'is_pro'   => true,
                 ],
                  [
-                    'label'    => __('Email Address Placeholder', 'notificationx'),
+                    'label'    => __('Email Field Text', 'notificationx'),
                     'name'     => 'popup_email_placeholder',
                     'type'     => 'text',
                     'priority' => 40,
@@ -842,7 +680,7 @@ class PopupNotification extends Extension {
                     'default'  => true,
                 ],
                 [
-                    'label'    => __('Message Field Placeholder', 'notificationx'),
+                    'label'    => __('Message Field Text', 'notificationx'),
                     'name'     => 'popup_message_placeholder',
                     'type'     => 'text',
                     'priority' => 50,
@@ -979,6 +817,17 @@ class PopupNotification extends Extension {
     }
 
     /**
+     * Generate entry key
+     *
+     * @param string $key
+     * @return string
+    */
+    public function key($key = '') {
+        return $this->id . '_' . $key;
+    }
+
+
+     /**
      * Handle popup form submission
      *
      * @param WP_REST_Request $request
@@ -1033,311 +882,6 @@ class PopupNotification extends Extension {
         ], 200);
     }
 
-    /**
-     * Generate entry key
-     *
-     * @param string $key
-     * @return string
-     */
-    public function key($key = '') {
-        return $this->id . '_' . $key;
-    }
-
-    /**
-     * Get feedback entries
-     *
-     * @param WP_REST_Request $request
-     * @return WP_REST_Response
-     */
-    public function get_feedback_entries($request) {
-        global $wpdb;
-
-        $table_name = $wpdb->prefix . 'nx_entries';
-
-        // Get pagination parameters
-        $page = $request->get_param('page') ?: 1;
-        $per_page = $request->get_param('per_page') ?: 20;
-        $search = $request->get_param('s') ?: '';
-        $notification_id = $request->get_param('notification_id') ?: '';
-        $offset = ($page - 1) * $per_page;
-
-        // Build WHERE clause
-        $where_conditions = ["e.source = %s"];
-        $where_values = [$this->id];
-
-        // Add notification filter
-        if (!empty($notification_id)) {
-            $where_conditions[] = "e.nx_id = %d";
-            $where_values[] = intval($notification_id);
-        }
-
-        // Add search functionality
-        if (!empty($search)) {
-            $where_conditions[] = "(e.data LIKE %s OR e.created_at LIKE %s)";
-            $search_term = '%' . $wpdb->esc_like($search) . '%';
-            $where_values[] = $search_term;
-            $where_values[] = $search_term;
-        }
-
-        $where_clause = implode(' AND ', $where_conditions);
-
-        // Get total count for pagination
-        $total_query = $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$table_name} e WHERE {$where_clause}",
-            ...$where_values
-        );
-        $total_items = (int) $wpdb->get_var($total_query);
-
-        // Get paginated entries with notification information
-        $posts_table = $wpdb->prefix . 'nx_posts';
-        $entries_query = $wpdb->prepare(
-            "SELECT e.*, p.title as notification_name, p.nx_id as notification_id
-             FROM {$table_name} e
-             LEFT JOIN {$posts_table} p ON e.nx_id = p.nx_id
-             WHERE {$where_clause}
-             ORDER BY e.created_at DESC
-             LIMIT %d OFFSET %d",
-            ...array_merge($where_values, [$per_page, $offset])
-        );
-        $entries = $wpdb->get_results($entries_query, ARRAY_A);
-
-        $formatted_entries = [];
-        foreach ($entries as $entry) {
-            $data = maybe_unserialize($entry['data']);
-            $formatted_entries[] = [
-                'id'                => $entry['entry_id'],
-                'date'              => $entry['created_at'],
-                'name'              => $data['name'] ?? '',
-                'email'             => $data['email'] ?? '',
-                'message'           => $data['message'] ?? '',
-                'title'             => $data['title'] ?? '',
-                'theme'             => $data['theme'] ?? '',
-                'ip'                => $data['ip'] ?? '',
-                'notification_name' => $entry['notification_name'] ?? '',
-                'notification_id'   => $entry['notification_id'] ?? 0,
-                'nx_id'             => $entry['nx_id'] ?? 0,
-            ];
-        }
-
-        return new \WP_REST_Response([
-            'entries' => $formatted_entries,
-            'total' => $total_items,
-            'page' => $page,
-            'per_page' => $per_page,
-            'total_pages' => ceil($total_items / $per_page),
-        ], 200);
-    }
-
-    /**
-     * Delete feedback entry
-     *
-     * @param WP_REST_Request $request
-     * @return WP_REST_Response
-     */
-    public function delete_feedback_entry($request) {
-        global $wpdb;
-
-        $entry_id = $request->get_param('id');
-        $table_name = $wpdb->prefix . 'nx_entries';
-
-        $result = $wpdb->delete(
-            $table_name,
-            [
-                'entry_id' => $entry_id,
-                'source' => $this->id
-            ],
-            ['%d', '%s']
-        );
-
-        if ($result === false) {
-            return new \WP_REST_Response([
-                'success' => false,
-                'message' => __('Failed to delete entry', 'notificationx'),
-            ], 500);
-        }
-
-        return new \WP_REST_Response([
-            'success' => true,
-            'message' => __('Entry deleted successfully', 'notificationx'),
-        ], 200);
-    }
-
-    /**
-     * Bulk delete feedback entries
-     *
-     * @param WP_REST_Request $request
-     * @return WP_REST_Response
-     */
-    public function bulk_delete_feedback_entries($request) {
-        global $wpdb;
-
-        $entry_ids = $request->get_param('ids');
-        $table_name = $wpdb->prefix . 'nx_entries';
-
-        if (empty($entry_ids) || !is_array($entry_ids)) {
-            return new \WP_REST_Response([
-                'success' => false,
-                'message' => __('No entries selected for deletion', 'notificationx'),
-            ], 400);
-        }
-
-        // Sanitize entry IDs
-        $entry_ids = array_map('absint', $entry_ids);
-        $entry_ids = array_filter($entry_ids); // Remove any zero values
-
-        if (empty($entry_ids)) {
-            return new \WP_REST_Response([
-                'success' => false,
-                'message' => __('Invalid entry IDs provided', 'notificationx'),
-            ], 400);
-        }
-
-        // Create placeholders for the IN clause
-        $placeholders = implode(',', array_fill(0, count($entry_ids), '%d'));
-
-        // Prepare the query with source filter
-        $query = $wpdb->prepare(
-            "DELETE FROM {$table_name} WHERE entry_id IN ({$placeholders}) AND source = %s",
-            array_merge($entry_ids, [$this->id])
-        );
-
-        $result = $wpdb->query($query);
-
-        if ($result === false) {
-            return new \WP_REST_Response([
-                'success' => false,
-                'message' => __('Failed to delete entries', 'notificationx'),
-            ], 500);
-        }
-
-        return new \WP_REST_Response([
-            'success' => true,
-            'message' => sprintf(
-                /* translators: %d: Number of entries deleted */
-                _n('%d entry deleted successfully', '%d entries deleted successfully', $result, 'notificationx'),
-                $result
-            ),
-            'deleted_count' => $result,
-        ], 200);
-    }
-
-    /**
-     * Export feedback entries
-     *
-     * @param WP_REST_Request $request
-     * @return WP_REST_Response
-     */
-    public function export_feedback_entries($request) {
-        global $wpdb;
-
-        $table_name = $wpdb->prefix . 'nx_entries';
-        $search = $request->get_param('s') ?: '';
-        $notification_id = $request->get_param('notification_id') ?: '';
-
-        // Build WHERE clause
-        $where_conditions = ["e.source = %s"];
-        $where_values = [$this->id];
-
-        // Add notification filter if provided
-        if (!empty($notification_id)) {
-            $where_conditions[] = "e.nx_id = %d";
-            $where_values[] = intval($notification_id);
-        }
-
-        // Add search functionality if provided
-        if (!empty($search)) {
-            $where_conditions[] = "(e.data LIKE %s OR e.created_at LIKE %s)";
-            $search_term = '%' . $wpdb->esc_like($search) . '%';
-            $where_values[] = $search_term;
-            $where_values[] = $search_term;
-        }
-
-        $where_clause = implode(' AND ', $where_conditions);
-
-        // Get all entries for export (no pagination)
-        $posts_table = $wpdb->prefix . 'nx_posts';
-        $query = $wpdb->prepare(
-            "SELECT e.entry_id, e.nx_id, e.data, e.created_at, p.title as notification_name
-             FROM {$table_name} e
-             LEFT JOIN {$posts_table} p ON e.nx_id = p.nx_id
-             WHERE {$where_clause}
-             ORDER BY e.created_at DESC",
-            ...$where_values
-        );
-
-        $entries = $wpdb->get_results($query, ARRAY_A);
-
-        if (empty($entries)) {
-            return new \WP_REST_Response([
-                'success' => false,
-                'message' => __('No entries found to export', 'notificationx'),
-            ], 404);
-        }
-
-        // Generate CSV content
-        $csv_data = $this->generate_csv_data($entries);
-
-        // Generate filename
-        $filename = 'notificationx-feedback-entries-' . date('Y-m-d-H-i-s') . '.csv';
-
-        return new \WP_REST_Response([
-            'success' => true,
-            'csv_content' => $csv_data,
-            'filename' => $filename,
-            'total_entries' => count($entries),
-            'message' => sprintf(__('Successfully prepared %d entries for export', 'notificationx'), count($entries))
-        ], 200);
-    }
-
-    /**
-     * Generate CSV data from entries
-     *
-     * @param array $entries
-     * @return string
-     */
-    private function generate_csv_data($entries) {
-        $csv_data = [];
-
-        // CSV Headers
-        $csv_data[] = [
-            __('No', 'notificationx'),
-            __('Date', 'notificationx'),
-            __('NotificationX Title', 'notificationx'),
-            __('Name', 'notificationx'),
-            __('Email Address', 'notificationx'),
-            __('Message', 'notificationx'),
-            __('IP Address', 'notificationx'),
-            __('Theme', 'notificationx'),
-        ];
-
-        // Add data rows
-        $counter = 1;
-        foreach ($entries as $entry) {
-            $data = maybe_unserialize($entry['data']);
-            $date = new \DateTime($entry['created_at']);
-
-            $csv_data[] = [
-                $counter++,
-                $date->format('F j, Y'),
-                $entry['notification_name'] ?: sprintf(__('Notification #%d', 'notificationx'), $entry['nx_id']),
-                $data['name'] ?? '',
-                $data['email'] ?? '',
-                $data['message'] ?? '',
-                $data['ip'] ?? '',
-                $data['theme'] ?? '',
-            ];
-        }
-
-        // Convert array to CSV string
-        $csv_content = '';
-        foreach ($csv_data as $row) {
-            $csv_content .= '"' . implode('","', array_map(function($field) {
-                return str_replace('"', '""', $field); // Escape quotes
-            }, $row)) . '"' . "\n";
-        }
-
-        return $csv_content;
-    }
 
     /**
      * Get user IP address
@@ -1353,6 +897,7 @@ class PopupNotification extends Extension {
             return $_SERVER['REMOTE_ADDR'] ?? '';
         }
     }
+
 
      /**
      * This method is an implementable method for All Extension coming forward.
@@ -1422,12 +967,12 @@ class PopupNotification extends Extension {
     }
 
     public function doc(){
-        return sprintf(__('<p>Create engaging Announcement to capture visitor attention and boost conversions on your WordPress site. Need help? Follow our <a href="%1$s" target="_blank">step-by-step guides</a> for creating effective Announcement.</p>
-        <p>🎦 Watch the video <a target="_blank" href="%2$s">tutorial</a> for a quick guide.</p>
+        return sprintf(__('<p>Create compelling Announcements that capture visitor interest and help you generate more leads on your WordPress site. Need help? Check out our <a href="%1$s" target="_blank">step-by-step guides</a> to build impactful Announcements.</p>
+        <p>🎦 Watch the quick video <a target="_blank" href="%2$s">tutorial</a> for an easy walk-through.</p>
         <p><strong>Recommended Blogs:</strong></p>
-        <p>🔥 <a target="_blank" href="%3$s">How to Create Effective Announcement with NotificationX?</a></p>
+        <p>🔥 <a target="_blank" href="%3$s">How to Create High-Performing Announcements with NotificationX?</a></p>
         <p><strong>Pro Tips:</strong></p>
-        <p>✨ Use compelling headlines and clear call-to-action buttons for better conversion rates.</p>', 'notificationx'),
+        <p>✨ Use attention-grabbing headlines and clear action prompts to encourage more sign-ups.</p>', 'notificationx'),
         'https://notificationx.com/docs/popup-notifications/',
         'https://youtu.be/popup-tutorial',
         'https://notificationx.com/blog/popup-notifications/'

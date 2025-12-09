@@ -507,6 +507,12 @@
             display:block;
         }
     }
+    .wprf-tab-content-wrapper.popup_notification .wprf-name-themes{
+        .wprf-option-has-image:hover .wprf-label-image{
+            transform: scale(1.6);
+            transition: transform 0.4s ease;
+        }
+    }
 }
 
 .nx-no-items {

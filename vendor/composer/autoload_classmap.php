@@ -44,6 +44,7 @@ return array(
     'NotificationX\\Core\\Rest\\BulkAction' => $baseDir . '/includes/Core/Rest/BulkAction.php',
     'NotificationX\\Core\\Rest\\Entries' => $baseDir . '/includes/Core/Rest/Entries.php',
     'NotificationX\\Core\\Rest\\Integration' => $baseDir . '/includes/Core/Rest/Integration.php',
+    'NotificationX\\Core\\Rest\\Popup' => $baseDir . '/includes/Core/Rest/Popup.php',
     'NotificationX\\Core\\Rest\\Posts' => $baseDir . '/includes/Core/Rest/Posts.php',
     'NotificationX\\Core\\Rule' => $baseDir . '/includes/Core/Rule.php',
     'NotificationX\\Core\\Rules' => $baseDir . '/includes/Core/Rules.php',
