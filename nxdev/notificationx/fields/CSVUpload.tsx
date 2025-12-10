@@ -181,11 +181,21 @@ const Media = (props) => {
         }
     };
 
-    useEffect(() => {
-        if (complete) {
-            builderContext.setFieldValue("custom_contents", localContents);
-        }
+   useEffect(() => {
+    if (complete) {
+        const existingContents =
+            builderContext?.values?.custom_contents || [];
+
+        // Append instead of replacing
+        const mergedContents = [
+            ...existingContents,
+            ...localContents
+        ];
+
+        builderContext.setFieldValue("custom_contents", mergedContents);
+    }
     }, [complete]);
+
 
     return (
         <div className="wprf-control wprf-media wprf-csv-upload">
