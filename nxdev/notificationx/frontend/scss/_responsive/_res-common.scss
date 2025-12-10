@@ -153,5 +153,10 @@
                 margin-bottom: 20px;
             }
         }
+        @media screen and (max-width: 600px) {
+             .nx-popup.source-res-popup_notification {
+                display: none;
+            }
+        }
     }
 }
