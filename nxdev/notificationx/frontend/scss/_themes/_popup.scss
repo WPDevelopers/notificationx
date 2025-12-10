@@ -41,19 +41,16 @@
                         background: #9E642E;
                         box-shadow: 0px 25.45px 30.55px 0px #9E642E29;
                         margin: 0 0 24px;
+                        border: none;
 
                         &:hover {
-                            background: #885729;
+                            background: #885729 !important;
                         }
                     }
                 }
                 .nx-popup-footer {
                     background: #FFFEFC;
                 }
-            }
-            .nx-popup-footer {
-                display: flex;
-                justify-content: center;
             }
         }
         &.popup_notification_theme-two {
@@ -73,8 +70,6 @@
                     }
                 }
                 .nx-popup-content {
-                    padding: 0 16px;
-
                     .nx-popup-description {
                         margin-top: 16px;
                         margin-bottom: 16px;
@@ -82,7 +77,9 @@
 
                     iframe {
                         border-radius: 8px;
-                        max-width: 100%;
+                        box-sizing: border-box;
+                        max-width: 320px;
+                        max-height: 200px;
                     }
                     .nx-popup-button.nx-popup-primary-button {
                         background: #6A4BFF;
@@ -91,7 +88,7 @@
                         margin: 0 0 12px;
 
                         &:hover {
-                            background: #6045E1;
+                            background: #6045E1 !important;
                         }
                     }
                 }
@@ -150,13 +147,12 @@
                                 font-weight: 600;
                                 line-height: 150%;
                             }
-
                             h3 {
                                 font-size: 16px;
                                 font-weight: 600;
                                 line-height: 150%;
                                 color: #092161;
-                                margin-bottom: 0;
+                                margin: 0;
                             }
                             p {
                                 font-size: 14px;
@@ -194,7 +190,7 @@
                     justify-content: center;
 
                     &:hover {
-                        background: #F35500;
+                        background: #F35500 !important;
                     }
 
                     img {
@@ -281,6 +277,10 @@
                         background: radial-gradient(96.55% 96.55% at 49.23% 0%, #EDE4FF 0%, #7484FF 100%);
                         border-radius: 6px;
                         margin: 0 0 16px;
+
+                        &:hover {
+                            background:  radial-gradient(96.55% 96.55% at 49.23% 0%, #EDE4FF 0%, #7484FF 100%) !important;
+                        }
                     }
                 }
                 .nx-popup-footer {
@@ -371,6 +371,10 @@
                         background: radial-gradient(51.87% 101.72% at 49.46% -5.17%, #FFD6C1 0%, #F3661A 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
                         border-radius: 6px;
                         margin: 0;
+                    
+                        &:hover {
+                            background: radial-gradient(51.87% 101.72% at 49.46% -5.17%, #FFD6C1 0%, #F3661A 100%) !important /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+                        } 
                     }
                 }
                 .nx-popup-footer {
@@ -468,6 +472,10 @@
                         background: radial-gradient(51.87% 101.72% at 49.46% -5.17%, #FFD6C1 0%, #3570D5 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
                         border-radius: 6px;
                         margin: 0;
+                    
+                        &:hover {
+                            background: radial-gradient(51.87% 101.72% at 49.46% -5.17%, #FFD6C1 0%, #3570D5 100%) !important /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+                        } 
                     }
                 }
                 .nx-popup-footer {
@@ -515,15 +523,32 @@
                 padding: 0;
                 margin: 0;
                 box-shadow: 0px 0px 4px 0px #CBD2E4;
+                border: none;
+                cursor: pointer;
 
                 svg path {
                     stroke: #535D77;
                 }
-
-            
+            }
+            .nx-popup-header {
+                h3 {
+                    margin: 0;
+                }
             }
             .nx-popup-content {
                 padding: 0 16px;
+                box-sizing: border-box;
+
+                input,
+                textarea {
+                    box-sizing: border-box;
+
+                    &:focus,
+                    &:focus-visible {
+                        outline: 0;
+                        box-shadow: none;
+                    }
+                }
 
                 .nx-popup-error-message {
                     font-size: 10px;
@@ -542,9 +567,10 @@
                     font-weight: 500;
                     color: #FFF;
                     border-radius: 8px;
-                    padding: 12px 16px;
+                    padding: 11px 16px;
                     margin: 8px 0 12px;
                     transition: ease-in-out .25s;
+                    cursor: pointer;
                 }
             }
             .nx-popup-footer {
@@ -584,6 +610,54 @@
     } 
 } 
 #notificationx-feedback-wrapper {
+    /*.nx-admin-header-actions {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        margin-top: 20px;
+        gap: 15px;
+        .wprf-name-talk_to_support {
+            margin-bottom: 0;
+            .wprf-button {
+                line-height: 1em;
+                min-height: 50px;
+                border: 1px solid #00C185;
+                border-radius: 10px;
+                padding: 2px 24px;
+                background: #00c185;
+            }
+        }
+    }
+
+    .nx-search-wrapper {
+        flex: 1;
+        max-width: 300px;
+    }
+
+    .nx-search-input {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .nx-search-input:focus {
+        outline: none;
+        border-color: #0073aa;
+        box-shadow: 0 0 0 1px #0073aa;
+    }
+
+    .nx-admin-items-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        padding: 15px 0;
+        border-top: 1px solid #e1e1e1;
+    }*/
+
     .nx-admin-items-footer .components-base-control {
         margin-bottom: 0;
         margin-right: 20px;
@@ -639,8 +713,5 @@
 .nx-feedback-wrapper-class {
     .nx-admin-wrapper {
         display: block;
-        .nx-admin-items-footer {
-            z-index: 999 !important;
-        }
     }
 }
