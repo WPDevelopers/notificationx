@@ -65,10 +65,10 @@ class Modules {
      */
     public function is_enabled($module) {
         $enabled_types = (array) Settings::get_instance()->get('settings.modules');
-
-        if( isset( $enabled_types[ $module ] ) && $enabled_types[$module] ) {
-            return $enabled_types[$module];
-        } elseif( ! isset( $enabled_types[ $module ] ) ) {
+        $module_key = $module ?? ''; // Use empty string if null
+        if( isset( $enabled_types[  $module_key ] ) && $enabled_types[ $module_key] ) {
+            return $enabled_types[ $module_key ];
+        } elseif( ! isset( $enabled_types[  $module_key ] ) ) {
             return true;
         }
 
