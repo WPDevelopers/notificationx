@@ -379,6 +379,7 @@ class Admin {
                 'refresh'     => NOTIFICATIONX_VERSION,
                 'screens'     => [ 'dashboard' ],
                 "expire"      => strtotime( '11:59:59pm 7th January, 2026' ),
+                "start"       => strtotime( '11:59:59pm 15th December, 2025' ),
                 'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) ),
             ]
         );
