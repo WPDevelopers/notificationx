@@ -910,7 +910,6 @@
         &:first-child {
             background: linear-gradient(238.66deg, #ECE8FC 0%, #FFFFFF 57.84%);
             position: relative;
-            z-index: -1;
             &::after {
                 content: "";
                 position: absolute;
