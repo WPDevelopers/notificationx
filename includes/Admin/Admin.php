@@ -343,6 +343,7 @@ class Admin {
             ]
         );
 
+        // Black Friday 2025
         $notice_text = "<p><strong>Black Friday Mega Sale:</strong> Boost trust & conversions with real-time social proof notification alerts – now <strong>up to $160 OFF! 🎁</strong> </p><div class='wpsp-notice-action-button' style='display: inline-flex;column-gap:5px;'><a class='button button-primary' href='https://notificationx.com/bfcm2025-admin-notice' target='_blank'>Upgrade To PRO</a> <button class='wpsp-notice-action-dismiss dismiss-btn' data-dismiss='true' target='_blank'>I’ll Grab It Later</button></div>";
         $_black_friday_2025 = [
             'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
@@ -358,6 +359,26 @@ class Admin {
                 'refresh'     => '',
                 'screens'     => [ 'dashboard' ],
                 "expire"      => strtotime( '11:59:59pm 4th December, 2025' ),
+                'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) ),
+            ]
+        );
+
+        // Holiday Deal
+        $notice_text = "<p><strong>Season's Best Deal:</strong> Boost trust & conversions with real-time social proof notification alerts – now <strong>up to 25% OFF! ⚡</strong> </p><div class='wpsp-notice-action-button' style='display: inline-flex;column-gap:5px;'><a class='button button-primary' href='https://notificationx.com/holiday2025-admin-notice' target='_blank'>Upgrade To PRO</a> <button class='wpsp-notice-action-dismiss dismiss-btn' data-dismiss='true' target='_blank'>I’ll Grab It Later</button></div>";
+        $_nx_holiday_2025 = [
+            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
+            'html'      => $notice_text,
+        ];
+        $notices->add(
+            'nx_holiday_2025',
+            $_nx_holiday_2025,
+            [
+                'start'       => $notices->time(),
+                'recurrence'  => false,
+                'dismissible' => true,
+                'refresh'     => NOTIFICATIONX_VERSION,
+                'screens'     => [ 'dashboard' ],
+                "expire"      => strtotime( '11:59:59pm 7th January, 2026' ),
                 'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) ),
             ]
         );
