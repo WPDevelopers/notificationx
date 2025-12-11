@@ -441,9 +441,9 @@ class Settings extends UsabilityDynamicsSettings {
                     ],
                     ]
                 ),
-                'feedback'  => apply_filters('nx_settings_tab_feedback', [
-                    'label'    => __( 'Feedback', 'notificationx' ),
-                    'id'       => 'feedback',
+                'entries'  => apply_filters('nx_settings_tab_entries', [
+                    'label'    => __( 'Entries', 'notificationx' ),
+                    'id'       => 'entries',
                     'classes'  => 'tab-advanced-settings',
                     'priority' => 35,
                     'fields'   => [

@@ -4,6 +4,7 @@ namespace NotificationX\Core\Rest;
 
 use NotificationX\GetInstance;
 use NotificationX\Core\PopupNotification;
+use NotificationX\Extensions\Popup\PopupNotification as PopupPopupNotification;
 use WP_REST_Server;
 
 /**
@@ -44,7 +45,7 @@ class Popup {
     public function register_routes() {
          register_rest_route('notificationx/v1', '/popup-submit', [
             'methods' => 'POST',
-            'callback' => [$this, 'handle_popup_submission'],
+            'callback' => [ $this , 'handle_popup_submission' ],
             'permission_callback' => '__return_true',
             'args' => [
                 'nx_id' => [
@@ -152,6 +153,17 @@ class Popup {
                 ],
             ],
         ]);
+    }
+
+    /**
+     * Handle popup form submission
+     *
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response
+     */
+    public function handle_popup_submission($request) {
+        $popup = PopupPopupNotification::get_instance();
+        return $popup->handle_popup_submission($request);
     }
 
 

@@ -95,14 +95,14 @@ class InfoTooltipManager {
         ],
         'popup_notification_message_field' => [
             'type'    => 'content',
-            'title'   => 'Enable message field for form submission.','notificationx',
+            'title'   => 'Enable this field to let users send messages or feedback.','notificationx',
             'content' => '',
             'width'   => '450',
             'height'  => '235',
         ],
         'popup_notification_email_field' => [
             'type'    => 'content',
-            'title'   => 'Enable email field for form submission.','notificationx',
+            'title'   => 'Enable this field to collect user\'s email addresses..','notificationx',
             'content' => '',
             'width'   => '450',
             'height'  => '235',
