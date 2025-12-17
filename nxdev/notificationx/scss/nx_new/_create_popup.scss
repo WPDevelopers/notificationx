@@ -3,10 +3,7 @@
     margin-right: 0;
     margin-left: 0;
     .nx-settings-form-wrapper.entries {
-        .wprf-tab-content-wrapper .nx-settings-right {
-            display: none;
-        }
-        .wprf-submit.wprf-control {
+        .wprf-tab-content-wrapper .nx-settings-right, .wprf-submit.wprf-control  {
             display: none;
         }
     }
@@ -467,9 +464,6 @@
         }
     }
     .nx-admin-content {
-        // width: 80%;
-        // flex-basis: 80%;
-        // max-width: 80%;
         width: initial;
         max-width: initial;
         flex-grow: 1;

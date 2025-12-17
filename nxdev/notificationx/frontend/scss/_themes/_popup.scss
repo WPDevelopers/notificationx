@@ -1,7 +1,9 @@
 .nx-container {
     margin-left: 30px;
     margin-bottom: 30px;
-    
+    .nx-popup-overlay {
+        position: absolute;
+    }
     .nx-popup-overlay:not(:last-child) {
         margin-bottom: 20px;
     }
