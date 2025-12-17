@@ -102,7 +102,7 @@ class InfoTooltipManager {
         ],
         'popup_notification_email_field' => [
             'type'    => 'content',
-            'title'   => 'Enable this field to collect user\'s email addresses..','notificationx',
+            'title'   => 'Enable this field to collect user\'s email addresses.','notificationx',
             'content' => '',
             'width'   => '450',
             'height'  => '235',

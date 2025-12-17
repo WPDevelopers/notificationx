@@ -430,8 +430,6 @@ class Popup {
             __('Name', 'notificationx'),
             __('Email Address', 'notificationx'),
             __('Message', 'notificationx'),
-            __('IP Address', 'notificationx'),
-            __('Theme', 'notificationx'),
         ];
 
         // Add data rows
@@ -447,8 +445,6 @@ class Popup {
                 $data['name'] ?? '',
                 $data['email'] ?? '',
                 $data['message'] ?? '',
-                $data['ip'] ?? '',
-                $data['theme'] ?? '',
             ];
         }
 

@@ -49,6 +49,7 @@ const FeedbackEntries = (props: any) => {
     const [popupNotifications, setPopupNotifications] = useState([]);
     const [selectedNotification, setSelectedNotification] = useState(null);
     const [notificationId, setNotificationId] = useState(urlParams.get('notification_id'));
+    const searchInputRef = useRef<HTMLInputElement>(null);
 
     // Update the label when popup notifications are loaded
     useEffect(() => {
@@ -284,6 +285,12 @@ const FeedbackEntries = (props: any) => {
         setShowSearchInput(!showSearchInput);
     };
 
+    useEffect(() => {
+        if (showSearchInput) {
+            searchInputRef.current?.focus();
+        }
+    }, [showSearchInput]);
+
     const handleSearchKeyDown = (e) => {
         if (e.key === 'Enter') {
             setSearchKey(searchInput);
@@ -297,9 +304,6 @@ const FeedbackEntries = (props: any) => {
 
     const handleExport = async () => {
         try {
-            // Show loading state
-            nxToast.info(__('Preparing export...', 'notificationx'));
-
             // Prepare export data
             const exportData = {
                 s: searchKey,
@@ -355,6 +359,7 @@ const FeedbackEntries = (props: any) => {
                                         value={searchInput}
                                         onChange={(e) => setSearchInput(e.target.value)}
                                         onKeyDown={handleSearchKeyDown}
+                                        ref={searchInputRef}
                                     />
                                     {searchInput && showSearchInput && (
                                         <span
@@ -365,12 +370,13 @@ const FeedbackEntries = (props: any) => {
                                             }}
                                             style={{
                                                 position: 'absolute',
-                                                right: '35px',
+                                                right: '40px',
                                                 top: '50%',
                                                 transform: 'translateY(-50%)',
                                                 cursor: 'pointer',
                                                 fontSize: '16px',
-                                                color: '#666'
+                                                color: '#666',
+                                                alignItems: 'center',
                                             }}
                                         >
                                             ×
@@ -404,7 +410,7 @@ const FeedbackEntries = (props: any) => {
                                 className="bulk-action-select"
                                 classNamePrefix="bulk-action-select"
                                 isSearchable={false}
-                                placeholder={__('Filter by Notification', 'notificationx')}
+                                placeholder={__('All Notifications', 'notificationx')}
                                 value={selectedNotification}
                                 onChange={(option) => {
                                     setNotificationId('');

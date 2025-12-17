@@ -27,6 +27,7 @@ class Popup extends Types {
     public $themes = [];
     public $module = [];
     public $default_source = 'popup_notification';
+    public $id = 'popup';
     public $default_theme = 'popup_theme-one';
     public $link_type = 'popup_url';
 
@@ -35,7 +36,6 @@ class Popup extends Types {
      */
     public function __construct() {
         parent::__construct();
-        $this->id = 'popup';
     }
 
     /**
