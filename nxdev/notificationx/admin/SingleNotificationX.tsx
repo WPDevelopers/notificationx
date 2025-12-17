@@ -150,7 +150,7 @@ const SingleNotificationX = ({
             </td>
             <td>
                 <div className="nx-admin-type" title={item?.source_label}>
-                    {item?.type_label || item.type}
+                    {item?.type_label || item?.source_label || item.type}
                 </div>
             </td>
             <td>
@@ -174,7 +174,7 @@ const SingleNotificationX = ({
                                 title={sprintf(__("%s entries", "notificationx"), (item?.entries || 0))}
                                 to={{
                                     pathname: '/admin.php',
-                                    search: `?page=nx-settings&tab=feedback&notification_id=${id}`,
+                                    search: `?page=nx-settings&tab=entries&notification_id=${id}`,
                                 }}>
                                 {/* translators: %d: Number of entries for a Popup Notification. */}
                                 {sprintf(__("%s entries", "notificationx"), (item?.entries || 0))}

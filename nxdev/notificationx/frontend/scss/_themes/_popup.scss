@@ -508,10 +508,8 @@
             }
         }
         .nx-popup-container {
-            button.nx-popup-close.top-right {
+            button.nx-popup-close {
                 position: absolute;
-                right: -36px;
-                top: -0px;
                 background: #FFF;
                 color: #535D77;
                 width: 24px;
@@ -529,6 +527,22 @@
                 svg path {
                     stroke: #535D77;
                 }
+            }
+            button.nx-popup-close.top-left {
+                left: -36px;
+                top: -0px;
+            }
+            button.nx-popup-close.top-right {
+                right: -36px;
+                top: -0px;
+            }
+            button.nx-popup-close.bottom-right {
+                right: -36px;
+                bottom: 0px;
+            }
+            button.nx-popup-close.bottom-left {
+                left: -36px;
+                bottom: 0px;
             }
             .nx-popup-header {
                 h3 {
