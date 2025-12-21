@@ -13,7 +13,7 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                 if( selectedType ) {
                     setContentHeight(document.documentElement.scrollHeight);
                 }
-                const forcedDesktopValues = ['woocommerce_sales','woocommerce_sales_inline', 'announcements', 'gdpr', 'flashing_tab', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'learnpress_inline', 'custom_notification','fluentcart_inline'];
+                const forcedDesktopValues = ['woocommerce_sales','woocommerce_sales_inline', 'announcements', 'gdpr', 'flashing_tab', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'learnpress_inline', 'custom_notification','fluentcart_inline','popup','notification_bar'];
                 const nx_type = builderContext.values.type;
                 const builderValues = builderContext?.values;                
                 const isBuildWithBuilder =  (builderValues?.elementor_id && builderValues?.is_elementor) || (builderValues?.is_gutenberg && builderValues?.gutenberg_id);                

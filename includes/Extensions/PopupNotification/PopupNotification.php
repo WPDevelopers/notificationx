@@ -56,6 +56,7 @@ class PopupNotification extends Extension {
                     'popup_button_text'       => __('Get Started with Free Plan', 'notificationx'),
                     'position'                => 'center',
                 ],
+                'column'  => "5",
             ],
             'theme-two' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-two.png',
@@ -65,6 +66,7 @@ class PopupNotification extends Extension {
                     'popup_button_text'       => __('See How', 'notificationx'),
                     'position'                => 'center',
                 ],
+                'column'  => "5",
             ],
             'theme-three' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-three.png',
@@ -74,6 +76,7 @@ class PopupNotification extends Extension {
                     'popup_button_icon'              => 'latest_offer.svg',
                     'position'                       => 'center',
                 ],
+                'column'  => "5",
             ],
             'theme-four' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-four.webp',
@@ -83,6 +86,7 @@ class PopupNotification extends Extension {
                     'popup_button_text'       => __('Submit', 'notificationx'),
                     'position'                => 'center',
                 ],
+                'column'  => "5",
             ],
             'theme-five' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-five.webp',
@@ -94,6 +98,7 @@ class PopupNotification extends Extension {
                     'position'                => 'center',
                 ],
                 'is_pro' => true,
+                'column'  => "5",
             ],
             'theme-six' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-six.webp',
@@ -104,6 +109,7 @@ class PopupNotification extends Extension {
                     'position'                => 'center',
                 ],
                 'is_pro' => true,
+                'column'  => "5",
             ],
             'theme-seven' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-seven.webp',
@@ -117,6 +123,7 @@ class PopupNotification extends Extension {
                     'position'                  => 'center',
                 ],
                 'is_pro' => true,
+                'column'  => "5",
             ],
         ];
     }

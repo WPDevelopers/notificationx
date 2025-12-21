@@ -4,6 +4,11 @@
     .nx-popup-overlay {
         position: absolute;
     }
+    &.nxc-bottom_left, &.nxc-bottom_right {
+        .nx-popup-overlay {
+            bottom: 0;
+        }
+    }
     .nx-popup-overlay:not(:last-child) {
         margin-bottom: 20px;
     }
@@ -684,5 +689,15 @@
 .nx-feedback-wrapper-class {
     .nx-admin-wrapper {
         display: block;
+    }
+}
+
+.nx-admin-content .popup_notification #themes .wprf-name-themes .wprf-column-2\.4{
+    width: 25%;
+    .wprf-option-has-image {
+        img {
+            max-height: unset;
+            height: 80% !important;
+        }
     }
 }
