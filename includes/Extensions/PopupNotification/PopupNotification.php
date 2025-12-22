@@ -914,7 +914,7 @@ class PopupNotification extends Extension {
      */
     public function customize_fields($fields) {
         $fields["timing"]['fields']['delay_between'] = Rules::is('source', $this->id, true, $fields["timing"]['fields']['delay_between']);
-        $fields["timing"]['fields']['display_for'] = Rules::is('source', $this->id, true, $fields["timing"]['fields']['delay_between']);
+        $fields["timing"]['fields']['display_for'] = Rules::is('source', $this->id, true, $fields["timing"]['fields']['display_for']);
         
         if (isset($fields['behaviour'])) {
             $fields['behaviour'] = Rules::is('source', $this->id, true, $fields['behaviour']);

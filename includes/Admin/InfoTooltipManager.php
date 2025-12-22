@@ -139,11 +139,13 @@ class InfoTooltipManager {
                 esc_attr($tooltip['title'])
             );
         } else {
-            $html .= sprintf('<p>%s</p>', wp_kses_post($tooltip['content']));
+            if( !empty($tooltip['content']) ) {
+                $html .= sprintf('<p style="margin-bottom:5px;">%s</p>', wp_kses_post($tooltip['content']));
+            }
         }
 
         if (!empty($tooltip['title'])) {
-            $html .= '<h3 style="margin:5px 0;">' . wp_kses_post($tooltip['title']);
+            $html .= '<h3 style="margin-bottom:5px;">' . wp_kses_post($tooltip['title']);
             $html .= '</h3>';
         }
 

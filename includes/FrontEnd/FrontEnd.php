@@ -424,10 +424,10 @@ class FrontEnd {
 
         // Popup Notification
         if (!empty($popup)) {
-            $notifications = $this->get_notifications($popup);
-            foreach ($notifications as $key => $settings) {
+            $popup_notifications = $this->get_notifications($popup);
+            foreach ($popup_notifications as $key => $settings) {
                 $_nx_id            = $settings['nx_id'];
-                if (!empty($_params['all_active'])) {
+                if ( !$settings['enabled'] ) {
                     continue;
                 }
 

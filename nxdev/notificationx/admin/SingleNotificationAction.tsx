@@ -40,6 +40,8 @@ const SingleNotificationAction = ({
             if (!item?.elementor_id) {
                 xss_id = { pressbar: [id] };
             }
+        } if (item.source == "popup_notification") {
+            xss_id = { popup: [id] };
         } else if (item?.global_queue) {
             xss_id = { global: [id] };
         } else {

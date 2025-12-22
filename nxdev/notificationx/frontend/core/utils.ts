@@ -16,6 +16,7 @@ export const processNotice = ({ config }) => {
             global: config.global || [],
             active: config.active || [],
             pressbar: config.pressbar || [],
+            popup: config.popup || [],
             shortcode: config.shortcode || [],
         })
         .then(normalizeResponse)
