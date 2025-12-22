@@ -7,6 +7,7 @@
     &.nxc-bottom_left, &.nxc-bottom_right {
         .nx-popup-overlay {
             bottom: 0;
+            margin-bottom: 0 !important;
         }
     }
     .nx-popup-overlay:not(:last-child) {

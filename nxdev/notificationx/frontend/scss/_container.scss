@@ -79,6 +79,7 @@
             height: 100vh;
             bottom: 0;
             pointer-events: unset;
+            z-index: 9;
         }
 
         .nx-notification {
