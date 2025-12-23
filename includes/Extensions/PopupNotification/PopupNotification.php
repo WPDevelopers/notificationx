@@ -28,7 +28,7 @@ class PopupNotification extends Extension {
 
     public $priority        = 15;
     public $id              = 'popup_notification';
-    public $doc_link        = 'https://notificationx.com/docs/google-reviews-with-notificationx/';
+    public $doc_link        = 'https://notificationx.com/docs/how-to-show-announcement-using-notificationx/';
     public $types           = 'popup';
     public $module          = 'modules_popup';
 
@@ -980,9 +980,9 @@ class PopupNotification extends Extension {
         <p>🔥 <a target="_blank" href="%3$s">How to Create High-Performing Announcements with NotificationX?</a></p>
         <p><strong>Pro Tips:</strong></p>
         <p>✨ Use attention-grabbing headlines and clear action prompts to encourage more sign-ups.</p>', 'notificationx'),
-        'https://notificationx.com/docs/popup-notifications/',
-        'https://youtu.be/popup-tutorial',
-        'https://notificationx.com/blog/popup-notifications/'
+        'https://notificationx.com/docs/how-to-show-announcement-using-notificationx/',
+        'https://www.youtube.com/playlist?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK',
+        'https://notificationx.com/blog/announcement-notifications-on-wordpress'
     );
     }
 

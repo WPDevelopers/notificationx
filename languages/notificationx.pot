@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-23T06:17:09+00:00\n"
+"POT-Creation-Date: 2025-12-23T08:50:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -19,8 +19,8 @@ msgstr ""
 #: includes/Admin/Settings.php:110
 #: includes/Core/QuickBuild.php:115
 #: includes/Extensions/GlobalFields.php:52
-#: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:16
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxdev/notificationx/frontend/themes/helpers/NotificationText.js:13
@@ -130,7 +130,7 @@ msgstr ""
 
 #: includes/Admin/ImportExport.php:72
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Status"
 msgstr ""
 
@@ -141,6 +141,7 @@ msgstr ""
 #: includes/Admin/ImportExport.php:93
 #: includes/Admin/ImportExport.php:94
 #: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:13
 msgid "Export"
 msgstr ""
 
@@ -205,7 +206,7 @@ msgstr ""
 #: includes/Extensions/Google/YouTube.php:220
 #: includes/Extensions/Google/YouTube.php:234
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Total Views"
 msgstr ""
 
@@ -213,7 +214,7 @@ msgstr ""
 #: includes/Admin/views/analytics.views.php:20
 #: includes/Admin/views/analytics.views.php:24
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Total Clicks"
 msgstr ""
 
@@ -678,7 +679,7 @@ msgstr ""
 #: includes/Admin/views/analytics.views.php:33
 #: includes/Admin/views/analytics.views.php:37
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Click-Through-Rate"
 msgstr ""
 
@@ -696,7 +697,7 @@ msgstr ""
 #: includes/Admin/XSS.php:44
 #: includes/Extensions/GlobalFields.php:611
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Click to Copy"
 msgstr ""
 
@@ -721,7 +722,7 @@ msgid "Enabled"
 msgstr ""
 
 #: includes/Core/Helper.php:645
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Discovered"
 msgstr ""
 
@@ -759,6 +760,7 @@ msgstr ""
 
 #: includes/Core/Helper.php:789
 #: includes/Core/Rest/Popup.php:430
+#: assets/admin/js/admin.js:13
 msgid "Name"
 msgstr ""
 
@@ -1701,8 +1703,8 @@ msgstr ""
 #: includes/Extensions/PopupNotification/PopupNotification.php:779
 #: includes/Extensions/PressBar/PressBar.php:1689
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:20
 msgid "Add New"
 msgstr ""
 
@@ -1711,7 +1713,7 @@ msgid "%1$s of %2$s free scans used"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:47
-#: assets/admin/js/admin.js:16
+#: assets/admin/js/admin.js:18
 msgid "Quick Builder"
 msgstr ""
 
@@ -1906,18 +1908,19 @@ msgstr ""
 
 #: includes/Core/Rest/Popup.php:428
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Date"
 msgstr ""
 
 #: includes/Core/Rest/Popup.php:429
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:16
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:18
 msgid "NotificationX Title"
 msgstr ""
 
 #: includes/Core/Rest/Popup.php:431
+#: assets/admin/js/admin.js:13
 msgid "Email Address"
 msgstr ""
 
@@ -1926,6 +1929,7 @@ msgstr ""
 #: includes/Types/GDPR.php:318
 #: includes/Types/GDPR.php:412
 #: includes/Types/GDPR.php:417
+#: assets/admin/js/admin.js:13
 msgid "Message"
 msgstr ""
 
@@ -2778,8 +2782,8 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:1733
 #: includes/FrontEnd/Preview.php:385
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:20
 msgid "Preview"
 msgstr ""
 
@@ -2809,7 +2813,7 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:370
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Get PRO to Unlock"
 msgstr ""
 
@@ -3218,7 +3222,7 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1550
 #: includes/Extensions/PressBar/PressBar.php:519
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Upload"
 msgstr ""
 
@@ -4078,7 +4082,7 @@ msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:84
 #: includes/Extensions/PopupNotification/PopupNotification.php:94
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:10
 msgid "Need Help?"
 msgstr ""
@@ -4097,6 +4101,8 @@ msgid "Subscribe to receive exclusive offers and updates directly in your inbox.
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:96
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Enter your email address"
 msgstr ""
 
@@ -4466,6 +4472,8 @@ msgid "Name Field Text"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:634
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Enter your name"
 msgstr ""
 
@@ -4490,6 +4498,8 @@ msgid "Message Field Text"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:694
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Enter your message..."
 msgstr ""
 
@@ -4551,6 +4561,8 @@ msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:786
 #: includes/Extensions/PopupNotification/PopupNotification.php:804
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "30% OFF"
 msgstr ""
 
@@ -4886,14 +4898,14 @@ msgstr ""
 #: includes/Extensions/PressBar/PressBar.php:1373
 #: includes/Extensions/PressBar/PressBar.php:1410
 #: includes/Extensions/PressBar/PressBar.php:1438
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "From"
 msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:1382
 #: includes/Extensions/PressBar/PressBar.php:1419
 #: includes/Extensions/PressBar/PressBar.php:1447
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "To"
 msgstr ""
 
@@ -5542,6 +5554,7 @@ msgstr ""
 
 #: includes/Extensions/Zapier/ZapierEmailSubscription.php:65
 #: includes/Extensions/Zapier/ZapierReviews.php:70
+#: assets/admin/js/admin.js:13
 msgid "Email:"
 msgstr ""
 
@@ -5698,6 +5711,7 @@ msgid "recently donated for"
 msgstr ""
 
 #: includes/Types/Donations.php:52
+#: assets/admin/js/admin.js:13
 msgid "100"
 msgstr ""
 
@@ -6188,7 +6202,7 @@ msgid "Field must have a #type. see documentation."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Copied to Clipboard."
 msgstr ""
 
@@ -6213,7 +6227,7 @@ msgid "#options is a required arguments for RadioCard field."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/GradientPicker.jsx:62
 msgid "Reset"
 msgstr ""
@@ -6273,7 +6287,8 @@ msgid "Access Denied"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:20
 msgid "Close"
 msgstr ""
 
@@ -6295,22 +6310,30 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:20
 msgid "Are you sure?"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "You won't be able to revert this!"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Yes, Delete It"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
+#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "No, Cancel"
 msgstr ""
 
@@ -6328,7 +6351,7 @@ msgid "Delete Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "Publish"
 msgstr ""
 
@@ -6373,7 +6396,7 @@ msgid "Publish On"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Update"
 msgstr ""
 
@@ -6458,7 +6481,7 @@ msgid "All Separated"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Analytics Data"
 msgstr ""
 
@@ -6467,7 +6490,7 @@ msgid "Inline Notification Alert has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Cancel"
 msgstr ""
 
@@ -6480,8 +6503,8 @@ msgid "Three Dots"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:16
 #: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Edit"
 msgstr ""
 
@@ -6543,7 +6566,7 @@ msgid "Notification Alert has been Reset."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Delete"
 msgstr ""
 
@@ -6556,21 +6579,25 @@ msgid "%s views"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+msgid "%s entries"
+msgstr ""
+
+#: assets/admin/js/admin.js:1
 msgid "Published"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Type"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Stats"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Action"
 msgstr ""
 
@@ -6588,6 +6615,7 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "NotificationX Fetch Error: "
 msgstr ""
 
@@ -6835,6 +6863,7 @@ msgid "We love having you in the NotificationX family. We are making it more awe
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:31
@@ -6860,7 +6889,7 @@ msgid "Documentation"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Join Our Community"
@@ -6895,424 +6924,521 @@ msgid "Changes Saved Successfully."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+msgid "Search..."
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "Please select entries to delete"
+msgstr ""
+
+#: assets/admin/js/admin.js:11
+msgid "You're about to delete %s feedback entry,<br />"
+msgid_plural "You're about to delete %s feedback entries,<br />"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: Number of feedback entries deleted.
+#: assets/admin/js/admin.js:13
+msgid "%d feedback entry has been deleted."
+msgid_plural "%d feedback entries have been deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/admin/js/admin.js:13
+msgid "Delete Selected"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "All Notifications"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Failed to export entries"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Loading feedback entries..."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "No entries found."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Seems like you haven’t received any feedback entries yet."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "View Details"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Feedback entry has been deleted."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Delete Entry"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Show Entries :"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "10"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "20"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "50"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "200"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Feedback Entry Details"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Date:"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Name:"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Message:"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Feedback"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
 msgid "NotificationX Logo"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "video-widget"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Launch Setup Wizard"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Watch Tutorials"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "link-icon"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Notifications"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "View All Notifications"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Exclusive Features & Notification Types"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Get various types of notification support including"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Helpful Resources"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Explore More"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Customer Success Stories"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Learn More"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "eCom Founder Web & Ops AI Consultant"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "author img"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Emilio Johann"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "San Diego, CA"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Converting Prospects to Customers: Barn2's Success Story with NotificationX"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "WordPress Plugin Developer Company"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Katie Keith"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "Co-Founder & CEO at Barn2"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:20
 msgid "Integrations"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 msgid "View All Integrations"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:11
 msgid "Our dedicated support team is here to assist you with all your inquiries, anytime you need."
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:15
 msgid "Contact Us"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:26
 msgid "Love NotificationX?"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:27
 msgid "Your quick feedback helps us grow and build more awesome features for you!"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:33
 msgid "Black Friday Deal"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:38
 msgid "Premium"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:39
 msgid "Want to maximize clicks and sales? Upgrade to PRO for advanced alerts."
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:41
 msgid "Location-specific notifications"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:42
 msgid "Create custom popup notifications"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:43
 msgid "Highlight promotional offers with coupons"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:44
 msgid "Display sales counts & low-stock alerts"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:45
 msgid "Grab instant attention with flashing tabs"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:51
 msgid "Unlock All Features"
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:60
 msgid "No risk 14-day money-back guarantee included."
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:74
 msgid "Dismissing..."
 msgstr ""
 
-#: assets/admin/js/admin.js:11
+#: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:74
 msgid "Dismiss"
 msgstr ""
 
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
 msgstr ""
 
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "QuickBuilder Error: "
 msgstr ""
 
-#: assets/admin/js/admin.js:14
+#: assets/admin/js/admin.js:16
 msgid "Publishing..."
 msgstr ""
 
 #. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
-#: assets/admin/js/admin.js:16
+#: assets/admin/js/admin.js:18
 msgid "NotificationX - %1$s - %2$s"
 msgstr ""
 
-#: assets/admin/js/admin.js:16
+#: assets/admin/js/admin.js:18
 msgid "Successfully Updated."
 msgstr ""
 
-#: assets/admin/js/admin.js:16
+#: assets/admin/js/admin.js:18
 msgid "Successfully Created."
 msgstr ""
 
 #. translators: Postfix for notice created by duplicate button.
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid " - Copy"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Unlock pro Features"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Get Support"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Suggest a Feature"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "NX-Close-Img"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "CSV data imported successfully!"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Invalid File Type!"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Please upload a CSV file to import custom notification data."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Import Limit Exceeded."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Continue"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Error processing the CSV file"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Sample CSV"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Change Time"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "This will effect on all selected Items"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Apply Changes"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Select All"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Selected custom notification Time updated successfully!"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Do you really want to delete the selected items? This process cannot be undone."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Yes, Delete Them"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "No, Keep Them"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Custom Notification Preview"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Items Per Page"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Edit Cookie"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Are you sure you want to delete this Cookie?"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "The cookie <strong>%s</strong> will be permanently deleted. This cookie will no longer be displayed on your cookie list nor be blocked prior to receiving user consent."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Delete Cookie"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Edit Custom Cookie"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Add Custom Cookie"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Save"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Custom Cookies"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Edit Category"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:14
 msgid "History"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:24
 msgid "Scan Date"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:25
 msgid "Scan Status"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:26
 msgid "Category"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:27
 msgid "Cookies"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:28
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:47
 msgid "More Info"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/ScannerHistory.jsx:54
 msgid "No scan history available"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/ModalContent/HistoryMoreInfo.jsx:14
 #: nxdev/notificationx/fields/ModalContent/HistoryMoreInfo.jsx:24
 msgid "Scanned URL"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Scan failed. Try again."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Scan complete! Your results are now available."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Last Successfully Scan"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "No scan history found"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Start your first scan now"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Scanning"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Scan Now"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Scan limit exceeded for this website."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Ready to start scanning?"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 msgid "Your existing cookie list (cookies discovered in the previous scan) will be replaced with the cookies discovered in this scan. Therefore, make sure you don’t exclude the pages that sets cookies."
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxdev/notificationx/fields/helpers/PressbarAdminPreview.jsx:361
 msgid "You should setup NX Bar properly"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/IconPicker.jsx:239
 msgid "Icons"
 msgstr ""
 
-#: assets/admin/js/admin.js:18
+#: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/NxBarPresets.jsx:47
 msgid "Create with Your Preferred Builder/Editor"
 msgstr ""
@@ -7347,6 +7473,46 @@ msgstr ""
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Powered by"
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Please enter your name."
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Please enter your email address."
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Please enter your message."
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Limited time offer - don't miss out!"
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Submitting..."
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Success!"
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Powered by "
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
