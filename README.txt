@@ -209,7 +209,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.2.0 - 23/12/2025 =
+= 3.2.0 - 24/12/2025 =
 Added: New Announcement notification type.
 Fixed: Custom Notification entries were erased during CSV import
 Fixed: Compatibility issues with PHP 8.5
