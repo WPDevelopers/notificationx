@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 import searchIcon from '../../icons/searchIcon.svg';
 import Select from "react-select";
 import ProIcon from '../../icons/ProIcon';
+import ChevronUp from '../../icons/ChevronUp';
+import ChevronDown from '../../icons/ChevronDown';
 
 interface FeedbackEntry {
     id: number;
@@ -44,6 +46,7 @@ const FeedbackEntries = (props: any) => {
     const [reload, setReload] = useState(false);
     const isMounted = useRef(true);
     const searchTimeout = useRef<NodeJS.Timeout | null>(null);
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc'); // default descending
     const logoURL = assetsURL('images/logos/large-logo-icon.png');
     const [showSearchInput, setShowSearchInput] = useState(false);
     const [popupNotifications, setPopupNotifications] = useState([]);
@@ -72,6 +75,19 @@ const FeedbackEntries = (props: any) => {
             isMounted.current = false;
         };
     }, []);
+
+    const handleSortByDate = () => {
+        const newDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+        const sortedEntries = [...entries].sort((a, b) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return newDirection === 'asc' ? dateA - dateB : dateB - dateA;
+        });
+
+        setEntries(sortedEntries);
+        setSortDirection(newDirection);
+    };
+
 
     // Debounced search
     useEffect(() => {
@@ -463,7 +479,12 @@ const FeedbackEntries = (props: any) => {
                                                         </div>
                                                     </td>
                                                     <td>{__("NotificationX Title", 'notificationx')}</td>
-                                                    <td>{__("Date", 'notificationx')}</td>
+                                                    <td onClick={handleSortByDate} style={{ cursor: 'pointer' }}>
+                                                        {__("Date", 'notificationx')}
+                                                        <div className="nx-date-icon-wrapper" style={ { display: 'inline-block', marginLeft: '20px' } }>
+                                                            {sortDirection === 'asc' ? <ChevronUp /> :  <ChevronDown />}
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         {__("Email Address", 'notificationx')} 
                                                         <span style={ { marginLeft: '8px' } }>{!is_pro && <ProIcon />}</span>

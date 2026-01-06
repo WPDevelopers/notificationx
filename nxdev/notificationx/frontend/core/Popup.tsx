@@ -246,18 +246,15 @@ const Popup = (props: any) => {
 
             if (response && response.success) {
                 setSubmitSuccess(true);
-                // Store in session storage to prevent showing again in this session
-                // const cookieKey = "notificationx_popup_" + settings?.nx_id;
-                // sessionStorage.setItem(cookieKey, 'closed');
-
-                if (dispatch) {
-                    dispatch({
-                        type: "REMOVE_NOTIFICATION",
-                        payload: nxPopup.id,
-                    });
-                }
-                // Close popup after successful submission
-                handleClose();
+                setTimeout(() => {
+                    if (dispatch) {
+                        dispatch({
+                            type: "REMOVE_NOTIFICATION",
+                            payload: nxPopup.id,
+                        });
+                    }
+                    handleClose();
+                }, 1000);
             }
         } catch (error) {
             console.error('Form submission error:', error);
@@ -436,7 +433,6 @@ const Popup = (props: any) => {
             borderColor: settings?.popup_button_border_hover_color || '',
         })
     };
-
 
     return (
         <>
@@ -690,7 +686,7 @@ const Popup = (props: any) => {
                                             disabled={isSubmitting}
                                         >
                                             {isSubmitting ? __('Submitting...', 'notificationx') :
-                                             submitSuccess ? __('Success!', 'notificationx') :
+                                             submitSuccess ? __('Submitted!', 'notificationx') :
                                              settings?.popup_button_text}
                                         </button>
                                     </form>

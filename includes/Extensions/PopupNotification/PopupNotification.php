@@ -9,6 +9,7 @@
 namespace NotificationX\Extensions\Popup;
 
 use NotificationX\Admin\InfoTooltipManager;
+use NotificationX\Core\PostType;
 use NotificationX\GetInstance;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\GlobalFields;
@@ -68,16 +69,7 @@ class PopupNotification extends Extension {
                 ],
                 'column'  => "5",
             ],
-            'theme-three' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-three.png',
-                'defaults' => [
-                    'popup_title'                    => __('All Offers', 'notificationx'),
-                    'popup_button_text'              => __('Latest Offers', 'notificationx'),
-                    'popup_button_icon'              => 'latest_offer.svg',
-                    'position'                       => 'center',
-                ],
-                'column'  => "5",
-            ],
+            
             'theme-four' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-four.webp',
                 'defaults' => [
@@ -100,17 +92,6 @@ class PopupNotification extends Extension {
                 'is_pro' => true,
                 'column'  => "5",
             ],
-            'theme-six' => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-six.webp',
-                'defaults' => [
-                    'popup_title'             => __('Get latest news & updates', 'notificationx'),
-                    'popup_email_placeholder' => __('Your email address', 'notificationx'),
-                    'popup_button_text'       => __('Submit Now', 'notificationx'),
-                    'position'                => 'center',
-                ],
-                'is_pro' => true,
-                'column'  => "5",
-            ],
             'theme-seven' => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-seven.webp',
                 'defaults' => [
@@ -125,6 +106,28 @@ class PopupNotification extends Extension {
                 'is_pro' => true,
                 'column'  => "5",
             ],
+            'theme-six' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-six.webp',
+                'defaults' => [
+                    'popup_title'             => __('Get latest news & updates', 'notificationx'),
+                    'popup_email_placeholder' => __('Your email address', 'notificationx'),
+                    'popup_button_text'       => __('Submit Now', 'notificationx'),
+                    'position'                => 'center',
+                ],
+                'is_pro' => true,
+                'column'  => "5",
+            ],
+            'theme-three' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-three.png',
+                'defaults' => [
+                    'popup_title'                    => __('All Offers', 'notificationx'),
+                    'popup_button_text'              => __('Latest Offers', 'notificationx'),
+                    'popup_button_icon'              => 'latest_offer.svg',
+                    'position'                       => 'center',
+                ],
+                'column'   => "5",
+            ],
+            
         ];
     }
 
@@ -843,10 +846,19 @@ class PopupNotification extends Extension {
     public function handle_popup_submission($request) {
         $params = $request->get_params();
 
+        $id = $params['nx_id'];
+        $notificationx = PostType::get_instance()->get_post( $id );
+        if( !$notificationx ) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('Notification not found', 'notificationx'),
+            ], 404);
+        }
+
         // Prepare entry data
         $data = [
             'title' => $params['title'] ?: __('Popup Submission', 'notificationx'),
-            'timestamp' => $params['timestamp'] ?: time(),
+            'timestamp' => time(),
         ];
 
         // Add email if provided

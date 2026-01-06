@@ -5,6 +5,7 @@ namespace NotificationX\Core\Rest;
 use NotificationX\GetInstance;
 use NotificationX\Core\PopupNotification;
 use NotificationX\Extensions\Popup\PopupNotification as PopupPopupNotification;
+use NotificationX\NotificationX;
 use WP_REST_Server;
 
 /**
@@ -421,16 +422,23 @@ class Popup {
      */
     private function generate_csv_data($entries) {
         $csv_data = [];
+        $is_pro = NotificationX::is_pro();
 
         // CSV Headers
-        $csv_data[] = [
+       $csv_headers = [
             __('No', 'notificationx'),
             __('Date', 'notificationx'),
             __('NotificationX Title', 'notificationx'),
-            __('Name', 'notificationx'),
-            __('Email Address', 'notificationx'),
-            __('Message', 'notificationx'),
         ];
+
+        if ($is_pro) {
+            $csv_headers[] = __('Name', 'notificationx');
+            $csv_headers[] = __('Email Address', 'notificationx');
+        }
+
+        $csv_headers[] = __('Message', 'notificationx');
+
+        $csv_data[] = $csv_headers;
 
         // Add data rows
         $counter = 1;
@@ -438,14 +446,20 @@ class Popup {
             $data = maybe_unserialize($entry['data']);
             $date = new \DateTime($entry['created_at']);
 
-            $csv_data[] = [
+            $row = [
                 $counter++,
                 $date->format('F j, Y'),
                 $entry['notification_name'] ?: sprintf(__('Notification #%d', 'notificationx'), $entry['nx_id']),
-                $data['name'] ?? '',
-                $data['email'] ?? '',
-                $data['message'] ?? '',
             ];
+
+            if ($is_pro) {
+                $row[] = $data['name'] ?? '';
+                $row[] = $data['email'] ?? '';
+            }
+
+            $row[] = $data['message'] ?? '';
+
+            $csv_data[] = $row;
         }
 
         // Convert array to CSV string
