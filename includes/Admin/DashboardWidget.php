@@ -60,6 +60,9 @@ class DashboardWidget {
      * @return void
      */
     public function widget_action(){
+         if( ! current_user_can( 'read_notificationx_analytics' ) ) {
+            return;
+        }
         wp_add_dashboard_widget( self::WIDGET_ID, $this->widget_name, array( $this, 'widget_output' ) );
     }
     /**

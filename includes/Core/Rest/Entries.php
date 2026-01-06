@@ -125,6 +125,7 @@ class Entries {
      * @return \WP_Error|bool
      */
     public function check_permission( $request ) {
-        return current_user_can( 'edit_posts' );
+        // return current_user_can( 'edit_posts' );
+        return current_user_can( 'edit_notificationx' );
     }
 }

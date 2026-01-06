@@ -333,9 +333,25 @@ class Preview {
         return $defaults;
     }
 
-    public function get_settings(){
-        $settings = base64_decode($_POST['nx-preview']);
-        $settings = json_decode($settings, true);
+    public function get_settings() {
+        if ( empty($_POST['nx-preview']) ) {
+            return array();
+        }
+
+        $settings = base64_decode( wp_unslash($_POST['nx-preview']), true );
+        $settings = json_decode( $settings, true );
+
+        if ( ! is_array($settings) ) {
+            return array();
+        }
+
+        // Simple sanitization
+        array_walk_recursive( $settings, function ( &$value ) {
+            if ( is_string( $value ) ) {
+                $value = wp_strip_all_tags( $value );
+            }
+        });
+
         return $settings;
     }
 
