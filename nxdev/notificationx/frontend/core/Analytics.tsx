@@ -6,13 +6,13 @@ import { getIconUrl } from "../../core/functions";
 export const analyticsOnClick = (event, restUrl, config, dispatch, credentials = true) => {
     const nx_id = config?.nx_id;
     const enable_analytics = config?.enable_analytics;
-    handleCloseNotification(config, nx_id, dispatch);
 
     if (!event.target?.href && (!event.delegateTarget || !event.delegateTarget.href)) {
         event.preventDefault();
         return false;
     }
     if(!enable_analytics){
+        handleCloseNotification(config, nx_id, dispatch);
         return;
     }
 
@@ -32,7 +32,10 @@ export const analyticsOnClick = (event, restUrl, config, dispatch, credentials =
         .then((response) => {
             // console.log("response: ", response);
         })
-        .catch((err) => console.error("Fetch Error: ", err));
+        .catch((err) => console.error("Fetch Error: ", err)).finally(() => {
+            handleCloseNotification(config, nx_id, dispatch);
+        });
+
 }
 
 type AnalyticsProps = {
