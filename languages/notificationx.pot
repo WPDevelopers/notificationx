@@ -1,15 +1,15 @@
-# Copyright (C) 2025 WPDeveloper
+# Copyright (C) 2026 WPDeveloper
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.2.0\n"
+"Project-Id-Version: NotificationX 3.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-24T05:52:30+00:00\n"
+"POT-Creation-Date: 2026-01-06T11:27:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -759,7 +759,7 @@ msgid "Footer"
 msgstr ""
 
 #: includes/Core/Helper.php:789
-#: includes/Core/Rest/Popup.php:430
+#: includes/Core/Rest/Popup.php:435
 #: assets/admin/js/admin.js:13
 msgid "Name"
 msgstr ""
@@ -1700,7 +1700,7 @@ msgstr ""
 
 #: includes/Core/PostType.php:77
 #: includes/Extensions/GlobalFields.php:1181
-#: includes/Extensions/PopupNotification/PopupNotification.php:779
+#: includes/Extensions/PopupNotification/PopupNotification.php:782
 #: includes/Extensions/PressBar/PressBar.php:1689
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
@@ -1720,7 +1720,7 @@ msgstr ""
 #: includes/Core/QuickBuild.php:92
 #: includes/Extensions/GlobalFields.php:626
 #: includes/Extensions/GlobalFields.php:653
-#: includes/Extensions/PopupNotification/PopupNotification.php:603
+#: includes/Extensions/PopupNotification/PopupNotification.php:606
 #: includes/Extensions/PressBar/PressBar.php:1654
 msgid "Content"
 msgstr ""
@@ -1867,64 +1867,64 @@ msgstr ""
 msgid "Error: Invalid API key."
 msgstr ""
 
-#: includes/Core/Rest/Popup.php:279
+#: includes/Core/Rest/Popup.php:280
 msgid "Failed to delete entry"
 msgstr ""
 
-#: includes/Core/Rest/Popup.php:285
+#: includes/Core/Rest/Popup.php:286
 msgid "Entry deleted successfully"
 msgstr ""
 
-#: includes/Core/Rest/Popup.php:304
+#: includes/Core/Rest/Popup.php:305
 msgid "No entries selected for deletion"
 msgstr ""
 
-#: includes/Core/Rest/Popup.php:315
+#: includes/Core/Rest/Popup.php:316
 msgid "Invalid entry IDs provided"
 msgstr ""
 
-#: includes/Core/Rest/Popup.php:333
+#: includes/Core/Rest/Popup.php:334
 msgid "Failed to delete entries"
 msgstr ""
 
 #. translators: %d: Number of entries deleted
-#: includes/Core/Rest/Popup.php:341
+#: includes/Core/Rest/Popup.php:342
 msgid "%d entry deleted successfully"
 msgid_plural "%d entries deleted successfully"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Core/Rest/Popup.php:397
+#: includes/Core/Rest/Popup.php:398
 msgid "No entries found to export"
 msgstr ""
 
-#: includes/Core/Rest/Popup.php:412
+#: includes/Core/Rest/Popup.php:413
 msgid "Successfully prepared %d entries for export"
 msgstr ""
 
-#: includes/Core/Rest/Popup.php:427
+#: includes/Core/Rest/Popup.php:429
 msgid "No"
 msgstr ""
 
-#: includes/Core/Rest/Popup.php:428
+#: includes/Core/Rest/Popup.php:430
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 msgid "Date"
 msgstr ""
 
-#: includes/Core/Rest/Popup.php:429
+#: includes/Core/Rest/Popup.php:431
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 #: assets/admin/js/admin.js:18
 msgid "NotificationX Title"
 msgstr ""
 
-#: includes/Core/Rest/Popup.php:431
+#: includes/Core/Rest/Popup.php:436
 #: assets/admin/js/admin.js:13
 msgid "Email Address"
 msgstr ""
 
-#: includes/Core/Rest/Popup.php:432
+#: includes/Core/Rest/Popup.php:439
 #: includes/Types/GDPR.php:315
 #: includes/Types/GDPR.php:318
 #: includes/Types/GDPR.php:412
@@ -1933,7 +1933,7 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: includes/Core/Rest/Popup.php:444
+#: includes/Core/Rest/Popup.php:452
 msgid "Notification #%d"
 msgstr ""
 
@@ -2549,8 +2549,8 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:201
 #: includes/Extensions/GDPR/GDPR_Notification.php:239
 #: includes/Extensions/GlobalFields.php:471
-#: includes/Extensions/PopupNotification/PopupNotification.php:173
-#: includes/Extensions/PopupNotification/PopupNotification.php:308
+#: includes/Extensions/PopupNotification/PopupNotification.php:176
+#: includes/Extensions/PopupNotification/PopupNotification.php:311
 #: includes/Extensions/PressBar/PressBar.php:512
 #: blocks/notificationx/components/inspector.js:313
 #: blocks/notificationx/index.js:1
@@ -2562,12 +2562,12 @@ msgid "Footer Background Color"
 msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:87
-#: includes/Extensions/PopupNotification/PopupNotification.php:229
+#: includes/Extensions/PopupNotification/PopupNotification.php:232
 msgid "Title Color"
 msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:93
-#: includes/Extensions/PopupNotification/PopupNotification.php:234
+#: includes/Extensions/PopupNotification/PopupNotification.php:237
 msgid "Title Font Size"
 msgstr ""
 
@@ -2588,13 +2588,13 @@ msgid "This font size will be applied for <mark>Description</mark> only"
 msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:115
-#: includes/Extensions/PopupNotification/PopupNotification.php:204
+#: includes/Extensions/PopupNotification/PopupNotification.php:207
 #: includes/Extensions/PressBar/PressBar.php:549
 msgid "Close Button Color"
 msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:129
-#: includes/Extensions/PopupNotification/PopupNotification.php:209
+#: includes/Extensions/PopupNotification/PopupNotification.php:212
 #: includes/Extensions/PressBar/PressBar.php:554
 msgid "Close Button Size"
 msgstr ""
@@ -2607,7 +2607,7 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:207
 #: includes/Extensions/GDPR/GDPR_Notification.php:245
 #: includes/Extensions/GlobalFields.php:508
-#: includes/Extensions/PopupNotification/PopupNotification.php:330
+#: includes/Extensions/PopupNotification/PopupNotification.php:333
 msgid "Border Color"
 msgstr ""
 
@@ -2615,7 +2615,7 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:213
 #: includes/Extensions/GDPR/GDPR_Notification.php:251
 #: includes/Extensions/GlobalFields.php:477
-#: includes/Extensions/PopupNotification/PopupNotification.php:319
+#: includes/Extensions/PopupNotification/PopupNotification.php:322
 #: includes/Extensions/PressBar/PressBar.php:524
 #: blocks/notificationx/components/inspector.js:307
 #: blocks/notificationx/index.js:1
@@ -2628,7 +2628,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:543
 #: includes/Extensions/GlobalFields.php:551
 #: includes/Extensions/GlobalFields.php:559
-#: includes/Extensions/PopupNotification/PopupNotification.php:347
+#: includes/Extensions/PopupNotification/PopupNotification.php:350
 #: includes/Extensions/PressBar/PressBar.php:651
 msgid "Font Size"
 msgstr ""
@@ -2780,7 +2780,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:1486
 #: includes/Extensions/GlobalFields.php:1725
 #: includes/Extensions/GlobalFields.php:1733
-#: includes/FrontEnd/Preview.php:385
+#: includes/FrontEnd/Preview.php:401
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 #: assets/admin/js/admin.js:20
@@ -2836,19 +2836,19 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:410
 #: includes/Extensions/GlobalFields.php:1754
 #: includes/Extensions/GlobalFields.php:1839
-#: includes/Extensions/PopupNotification/PopupNotification.php:966
+#: includes/Extensions/PopupNotification/PopupNotification.php:978
 msgid "Bottom Left"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:411
 #: includes/Extensions/GlobalFields.php:1758
 #: includes/Extensions/GlobalFields.php:1843
-#: includes/Extensions/PopupNotification/PopupNotification.php:965
+#: includes/Extensions/PopupNotification/PopupNotification.php:977
 msgid "Bottom Right"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:412
-#: includes/Extensions/PopupNotification/PopupNotification.php:933
+#: includes/Extensions/PopupNotification/PopupNotification.php:945
 msgid "Center"
 msgstr ""
 
@@ -2908,7 +2908,7 @@ msgid "Discount Background"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:536
-#: includes/Extensions/PopupNotification/PopupNotification.php:219
+#: includes/Extensions/PopupNotification/PopupNotification.php:222
 #: includes/Extensions/PressBar/PressBar.php:644
 #: blocks/notificationx/components/inspector.js:254
 #: blocks/notificationx/index.js:1
@@ -3302,12 +3302,12 @@ msgid "Close Icon Position"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1771
-#: includes/Extensions/PopupNotification/PopupNotification.php:963
+#: includes/Extensions/PopupNotification/PopupNotification.php:975
 msgid "Top Right"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1775
-#: includes/Extensions/PopupNotification/PopupNotification.php:964
+#: includes/Extensions/PopupNotification/PopupNotification.php:976
 msgid "Top Left"
 msgstr ""
 
@@ -4041,469 +4041,469 @@ msgid ""
 "\t\t<p>🔥Introducing Discount Alert By NotificationX <a target=\"_blank\" href=\"%2$s\">Guide To Notify Customers About On-Sale Products</a> </p>"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:48
 #: includes/Extensions/PopupNotification/PopupNotification.php:49
+#: includes/Extensions/PopupNotification/PopupNotification.php:50
 #: includes/Types/Popup.php:48
 #: includes/Types/Popup.php:49
 msgid "Announcement"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:54
+#: includes/Extensions/PopupNotification/PopupNotification.php:55
 msgid "Want to build credibility & boost sales?"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:55
+#: includes/Extensions/PopupNotification/PopupNotification.php:56
 msgid "We help you optimize conversions & drive sales"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:56
+#: includes/Extensions/PopupNotification/PopupNotification.php:57
 msgid "Get Started with Free Plan"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:64
+#: includes/Extensions/PopupNotification/PopupNotification.php:65
 msgid "Boost your sales using SureCart"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:65
+#: includes/Extensions/PopupNotification/PopupNotification.php:66
 msgid "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/dw176Jmk74M?si=3suUqkCkQuYQrh2G\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:66
+#: includes/Extensions/PopupNotification/PopupNotification.php:67
 msgid "See How"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:74
-msgid "All Offers"
-msgstr ""
-
-#: includes/Extensions/PopupNotification/PopupNotification.php:75
-msgid "Latest Offers"
-msgstr ""
-
-#: includes/Extensions/PopupNotification/PopupNotification.php:84
-#: includes/Extensions/PopupNotification/PopupNotification.php:94
+#: includes/Extensions/PopupNotification/PopupNotification.php:76
+#: includes/Extensions/PopupNotification/PopupNotification.php:86
 #: assets/admin/js/admin.js:13
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:10
 msgid "Need Help?"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:85
+#: includes/Extensions/PopupNotification/PopupNotification.php:77
 msgid "Get the latest news and updates delivered to your inbox."
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:86
-#: includes/Extensions/PopupNotification/PopupNotification.php:97
+#: includes/Extensions/PopupNotification/PopupNotification.php:78
+#: includes/Extensions/PopupNotification/PopupNotification.php:89
 msgid "Submit"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:95
+#: includes/Extensions/PopupNotification/PopupNotification.php:87
 msgid "Subscribe to receive exclusive offers and updates directly in your inbox."
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:96
+#: includes/Extensions/PopupNotification/PopupNotification.php:88
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Enter your email address"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:106
-msgid "Get latest news & updates"
-msgstr ""
-
-#: includes/Extensions/PopupNotification/PopupNotification.php:107
-msgid "Your email address"
-msgstr ""
-
-#: includes/Extensions/PopupNotification/PopupNotification.php:108
-msgid "Submit Now"
-msgstr ""
-
-#: includes/Extensions/PopupNotification/PopupNotification.php:117
+#: includes/Extensions/PopupNotification/PopupNotification.php:98
 msgid "Want latest updates?"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:118
+#: includes/Extensions/PopupNotification/PopupNotification.php:99
 msgid "Would like to get the lastes news & updates instantly?"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:119
+#: includes/Extensions/PopupNotification/PopupNotification.php:100
 msgid "Enter email address"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:120
+#: includes/Extensions/PopupNotification/PopupNotification.php:101
 msgid "Get In Touch"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:163
+#: includes/Extensions/PopupNotification/PopupNotification.php:112
+msgid "Get latest news & updates"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:113
+msgid "Your email address"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:114
+msgid "Submit Now"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:123
+msgid "All Offers"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:124
+msgid "Latest Offers"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:166
 msgid "Popup Design"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:178
+#: includes/Extensions/PopupNotification/PopupNotification.php:181
 msgid "Overlay Background Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:181
+#: includes/Extensions/PopupNotification/PopupNotification.php:184
 msgid "Background color of the overlay behind the popup"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:184
+#: includes/Extensions/PopupNotification/PopupNotification.php:187
 msgid "Popup Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:188
+#: includes/Extensions/PopupNotification/PopupNotification.php:191
 msgid "Maximum width of the popup container"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:191
-#: includes/Extensions/PopupNotification/PopupNotification.php:365
+#: includes/Extensions/PopupNotification/PopupNotification.php:194
+#: includes/Extensions/PopupNotification/PopupNotification.php:368
 #: includes/Extensions/PressBar/PressBar.php:445
 msgid "Border Radius"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:195
+#: includes/Extensions/PopupNotification/PopupNotification.php:198
 msgid "Rounded corners for the popup container"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:198
+#: includes/Extensions/PopupNotification/PopupNotification.php:201
 msgid "Popup Padding"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:201
+#: includes/Extensions/PopupNotification/PopupNotification.php:204
 msgid "Internal spacing of popup content (e.g., 30px or 20px 30px)"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:238
+#: includes/Extensions/PopupNotification/PopupNotification.php:241
 msgid "Font size for the popup title"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:241
+#: includes/Extensions/PopupNotification/PopupNotification.php:244
 msgid "Title Font Weight"
-msgstr ""
-
-#: includes/Extensions/PopupNotification/PopupNotification.php:245
-#: includes/Extensions/PopupNotification/PopupNotification.php:357
-msgid "Light (300)"
-msgstr ""
-
-#: includes/Extensions/PopupNotification/PopupNotification.php:246
-#: includes/Extensions/PopupNotification/PopupNotification.php:358
-#: includes/Extensions/PopupNotification/PopupNotification.php:514
-msgid "Normal (400)"
-msgstr ""
-
-#: includes/Extensions/PopupNotification/PopupNotification.php:247
-#: includes/Extensions/PopupNotification/PopupNotification.php:359
-#: includes/Extensions/PopupNotification/PopupNotification.php:515
-msgid "Medium (500)"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:248
 #: includes/Extensions/PopupNotification/PopupNotification.php:360
-#: includes/Extensions/PopupNotification/PopupNotification.php:516
-msgid "Semi Bold (600)"
+msgid "Light (300)"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:249
 #: includes/Extensions/PopupNotification/PopupNotification.php:361
 #: includes/Extensions/PopupNotification/PopupNotification.php:517
-msgid "Bold (700)"
+msgid "Normal (400)"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:250
+#: includes/Extensions/PopupNotification/PopupNotification.php:362
+#: includes/Extensions/PopupNotification/PopupNotification.php:518
+msgid "Medium (500)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:251
+#: includes/Extensions/PopupNotification/PopupNotification.php:363
+#: includes/Extensions/PopupNotification/PopupNotification.php:519
+msgid "Semi Bold (600)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:252
+#: includes/Extensions/PopupNotification/PopupNotification.php:364
+#: includes/Extensions/PopupNotification/PopupNotification.php:520
+msgid "Bold (700)"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:253
 msgid "Extra Bold (800)"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:254
+#: includes/Extensions/PopupNotification/PopupNotification.php:257
 msgid "Subtitle Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:260
+#: includes/Extensions/PopupNotification/PopupNotification.php:263
 msgid "Subtitle Font Size"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:264
+#: includes/Extensions/PopupNotification/PopupNotification.php:267
 msgid "Font size for the popup subtitle"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:268
+#: includes/Extensions/PopupNotification/PopupNotification.php:271
 msgid "Content/Message Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:280
+#: includes/Extensions/PopupNotification/PopupNotification.php:283
 msgid "Content/Message Font Size"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:284
+#: includes/Extensions/PopupNotification/PopupNotification.php:287
 msgid "Font size for the popup content/message text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:298
+#: includes/Extensions/PopupNotification/PopupNotification.php:301
 msgid "Button Design"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:313
+#: includes/Extensions/PopupNotification/PopupNotification.php:316
 msgid "Hover Background Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:316
+#: includes/Extensions/PopupNotification/PopupNotification.php:319
 msgid "Background color when button is hovered"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:324
+#: includes/Extensions/PopupNotification/PopupNotification.php:327
 msgid "Hover Text Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:327
+#: includes/Extensions/PopupNotification/PopupNotification.php:330
 msgid "Text color when button is hovered"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:335
+#: includes/Extensions/PopupNotification/PopupNotification.php:338
 msgid "Hover Border Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:340
+#: includes/Extensions/PopupNotification/PopupNotification.php:343
 msgid "Border Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:344
+#: includes/Extensions/PopupNotification/PopupNotification.php:347
 msgid "Width of the button border"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:353
+#: includes/Extensions/PopupNotification/PopupNotification.php:356
 msgid "Font Weight"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:369
+#: includes/Extensions/PopupNotification/PopupNotification.php:372
 msgid "Rounded corners for the button"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:372
+#: includes/Extensions/PopupNotification/PopupNotification.php:375
 msgid "Padding"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:375
+#: includes/Extensions/PopupNotification/PopupNotification.php:378
 msgid "Button spacing in CSS format (e.g., 12px 24px)"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:378
+#: includes/Extensions/PopupNotification/PopupNotification.php:381
 msgid "Button Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:383
+#: includes/Extensions/PopupNotification/PopupNotification.php:386
 msgid "Auto Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:384
+#: includes/Extensions/PopupNotification/PopupNotification.php:387
 msgid "Full Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:385
+#: includes/Extensions/PopupNotification/PopupNotification.php:388
 msgid "Custom Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:389
+#: includes/Extensions/PopupNotification/PopupNotification.php:392
 msgid "Custom Button Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:400
+#: includes/Extensions/PopupNotification/PopupNotification.php:403
 msgid "Email Input Design"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:415
+#: includes/Extensions/PopupNotification/PopupNotification.php:418
 msgid "Input Background Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:420
+#: includes/Extensions/PopupNotification/PopupNotification.php:423
 msgid "Input Text Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:425
+#: includes/Extensions/PopupNotification/PopupNotification.php:428
 msgid "Input Border Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:430
+#: includes/Extensions/PopupNotification/PopupNotification.php:433
 msgid "Input Focus Border Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:433
+#: includes/Extensions/PopupNotification/PopupNotification.php:436
 msgid "Border color when input is focused"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:436
+#: includes/Extensions/PopupNotification/PopupNotification.php:439
 msgid "Placeholder Text Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:441
+#: includes/Extensions/PopupNotification/PopupNotification.php:444
 msgid "Input Font Size"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:447
+#: includes/Extensions/PopupNotification/PopupNotification.php:450
 msgid "Input Border Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:453
+#: includes/Extensions/PopupNotification/PopupNotification.php:456
 msgid "Input Border Radius"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:459
+#: includes/Extensions/PopupNotification/PopupNotification.php:462
 msgid "Input Padding"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:462
+#: includes/Extensions/PopupNotification/PopupNotification.php:465
 msgid "Input field spacing in CSS format (e.g., 12px 16px)"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:465
+#: includes/Extensions/PopupNotification/PopupNotification.php:468
 msgid "Input Height"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:469
+#: includes/Extensions/PopupNotification/PopupNotification.php:472
 msgid "Height of the email input field"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:476
+#: includes/Extensions/PopupNotification/PopupNotification.php:479
 msgid "Content Items Design"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:487
+#: includes/Extensions/PopupNotification/PopupNotification.php:490
 msgid "Item Background Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:490
+#: includes/Extensions/PopupNotification/PopupNotification.php:493
 msgid "Background color for each content item"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:493
+#: includes/Extensions/PopupNotification/PopupNotification.php:496
 msgid "Highlight Text Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:496
+#: includes/Extensions/PopupNotification/PopupNotification.php:499
 msgid "Color for the highlight text (e.g., \"30% OFF\")"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:499
+#: includes/Extensions/PopupNotification/PopupNotification.php:502
 msgid "Item Title Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:504
+#: includes/Extensions/PopupNotification/PopupNotification.php:507
 msgid "Item Title Font Size"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:510
+#: includes/Extensions/PopupNotification/PopupNotification.php:513
 msgid "Item Title Font Weight"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:521
+#: includes/Extensions/PopupNotification/PopupNotification.php:524
 msgid "Item Subtitle Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:526
+#: includes/Extensions/PopupNotification/PopupNotification.php:529
 msgid "Item Subtitle Font Size"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:532
+#: includes/Extensions/PopupNotification/PopupNotification.php:535
 msgid "Item Border Radius"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:536
+#: includes/Extensions/PopupNotification/PopupNotification.php:539
 msgid "Rounded corners for each content item"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:539
+#: includes/Extensions/PopupNotification/PopupNotification.php:542
 msgid "Item Padding"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:542
+#: includes/Extensions/PopupNotification/PopupNotification.php:545
 msgid "Internal spacing for each content item (e.g., 16px)"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:545
+#: includes/Extensions/PopupNotification/PopupNotification.php:548
 msgid "Item Spacing"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:549
+#: includes/Extensions/PopupNotification/PopupNotification.php:552
 msgid "Space between content items"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:566
+#: includes/Extensions/PopupNotification/PopupNotification.php:569
 msgid "Popup Content"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:573
-#: includes/Extensions/PopupNotification/PopupNotification.php:790
+#: includes/Extensions/PopupNotification/PopupNotification.php:576
+#: includes/Extensions/PopupNotification/PopupNotification.php:793
 #: includes/Types/GDPR.php:294
 #: includes/Types/GDPR.php:297
 #: includes/Types/GDPR.php:404
 msgid "Title"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:577
+#: includes/Extensions/PopupNotification/PopupNotification.php:580
 msgid "Special Offer!"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:580
-#: includes/Extensions/PopupNotification/PopupNotification.php:796
+#: includes/Extensions/PopupNotification/PopupNotification.php:583
+#: includes/Extensions/PopupNotification/PopupNotification.php:799
 msgid "Subtitle"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:584
+#: includes/Extensions/PopupNotification/PopupNotification.php:587
 msgid "Would like to get the latest news & updates instantly?"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:588
+#: includes/Extensions/PopupNotification/PopupNotification.php:591
 msgid "Popup Icon"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:598
-#: includes/Extensions/PopupNotification/PopupNotification.php:739
+#: includes/Extensions/PopupNotification/PopupNotification.php:601
+#: includes/Extensions/PopupNotification/PopupNotification.php:742
 msgid "Mail Icon"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:607
+#: includes/Extensions/PopupNotification/PopupNotification.php:610
 msgid "Don't miss out on this amazing deal!"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:616
+#: includes/Extensions/PopupNotification/PopupNotification.php:619
 msgid "Show Name Field"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:630
+#: includes/Extensions/PopupNotification/PopupNotification.php:633
 msgid "Name Field Text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:634
+#: includes/Extensions/PopupNotification/PopupNotification.php:637
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Enter your name"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:646
+#: includes/Extensions/PopupNotification/PopupNotification.php:649
 msgid "Show Email Field"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:660
+#: includes/Extensions/PopupNotification/PopupNotification.php:663
 msgid "Email Field Text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:664
+#: includes/Extensions/PopupNotification/PopupNotification.php:667
 msgid "Enter your email"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:676
+#: includes/Extensions/PopupNotification/PopupNotification.php:679
 msgid "Show Message Field"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:690
+#: includes/Extensions/PopupNotification/PopupNotification.php:693
 msgid "Message Field Text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:694
+#: includes/Extensions/PopupNotification/PopupNotification.php:697
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Enter your message..."
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:708
+#: includes/Extensions/PopupNotification/PopupNotification.php:711
 #: includes/Extensions/PressBar/PressBar.php:1734
 #: includes/Extensions/PressBar/PressBar.php:1824
 #: includes/Types/GDPR.php:424
@@ -4512,131 +4512,135 @@ msgstr ""
 msgid "Button Text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:712
+#: includes/Extensions/PopupNotification/PopupNotification.php:715
 #: includes/Extensions/PressBar/PressBar.php:98
 #: includes/Extensions/PressBar/PressBar.php:1736
 msgid "Get Offer"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:716
+#: includes/Extensions/PopupNotification/PopupNotification.php:719
 #: includes/Extensions/PressBar/PressBar.php:1745
 msgid "Button URL"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:730
+#: includes/Extensions/PopupNotification/PopupNotification.php:733
 #: includes/Extensions/PressBar/PressBar.php:1756
 msgid "Button Icon"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:743
+#: includes/Extensions/PopupNotification/PopupNotification.php:746
 msgid "Latest OFfer"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:747
+#: includes/Extensions/PopupNotification/PopupNotification.php:750
 #: includes/Extensions/PressBar/PressBar.php:163
 #: includes/Extensions/PressBar/PressBar.php:178
 #: includes/Extensions/PressBar/PressBar.php:1762
 msgid "Shop Now"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:751
+#: includes/Extensions/PopupNotification/PopupNotification.php:754
 msgid "Shop Now White"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:754
+#: includes/Extensions/PopupNotification/PopupNotification.php:757
 msgid "Select an icon to display with the button text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:761
+#: includes/Extensions/PopupNotification/PopupNotification.php:764
 msgid "Open URL in New Tab"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:773
+#: includes/Extensions/PopupNotification/PopupNotification.php:776
 msgid "Content Items"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:783
+#: includes/Extensions/PopupNotification/PopupNotification.php:786
 msgid "Highlight Text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:786
-#: includes/Extensions/PopupNotification/PopupNotification.php:804
+#: includes/Extensions/PopupNotification/PopupNotification.php:789
+#: includes/Extensions/PopupNotification/PopupNotification.php:807
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "30% OFF"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:787
+#: includes/Extensions/PopupNotification/PopupNotification.php:790
 msgid "Text that will be highlighted in a different color (e.g., \"30% OFF\")"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:793
+#: includes/Extensions/PopupNotification/PopupNotification.php:796
 msgid "Feature Title"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:799
+#: includes/Extensions/PopupNotification/PopupNotification.php:802
 msgid "Feature description"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:805
+#: includes/Extensions/PopupNotification/PopupNotification.php:808
 msgid "Boost Sales"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:806
+#: includes/Extensions/PopupNotification/PopupNotification.php:809
 msgid "Increase conversions with social proof"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:809
+#: includes/Extensions/PopupNotification/PopupNotification.php:812
 msgid "50% OFF"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:810
+#: includes/Extensions/PopupNotification/PopupNotification.php:813
 msgid "Build Trust"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:811
+#: includes/Extensions/PopupNotification/PopupNotification.php:814
 msgid "Show real customer activity"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:814
+#: includes/Extensions/PopupNotification/PopupNotification.php:817
 msgid "LIMITED"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:815
+#: includes/Extensions/PopupNotification/PopupNotification.php:818
 msgid "Drive Action"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:816
+#: includes/Extensions/PopupNotification/PopupNotification.php:819
 msgid "Create urgency and FOMO"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:848
+#: includes/Extensions/PopupNotification/PopupNotification.php:854
+msgid "Notification not found"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:860
 msgid "Popup Submission"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:888
+#: includes/Extensions/PopupNotification/PopupNotification.php:900
 msgid "Submission saved successfully"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:939
+#: includes/Extensions/PopupNotification/PopupNotification.php:951
 msgid "Popup Settings"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:946
+#: includes/Extensions/PopupNotification/PopupNotification.php:958
 msgid "Show Close Button"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:952
+#: includes/Extensions/PopupNotification/PopupNotification.php:964
 msgid "Close on Button Click"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:958
+#: includes/Extensions/PopupNotification/PopupNotification.php:970
 #: includes/Extensions/PressBar/PressBar.php:573
 #: includes/Extensions/PressBar/PressBar.php:582
 msgid "Close Button Position"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:977
+#: includes/Extensions/PopupNotification/PopupNotification.php:989
 msgid ""
 "<p>Create compelling Announcements that capture visitor interest and help you generate more leads on your WordPress site. Need help? Check out our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> to build impactful Announcements.</p>\n"
 "        <p>🎦 Watch the quick video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for an easy walk-through.</p>\n"
@@ -5623,7 +5627,7 @@ msgstr ""
 msgid "Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types."
 msgstr ""
 
-#: includes/FrontEnd/Preview.php:377
+#: includes/FrontEnd/Preview.php:393
 msgid "Talk to Support"
 msgstr ""
 
@@ -7507,12 +7511,17 @@ msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-msgid "Success!"
+msgid "Submitted!"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Powered by "
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Success!"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
