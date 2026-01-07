@@ -1548,6 +1548,8 @@ class PressBar extends Extension {
                 'label'              => __('NotificationX Bar (Gutenberg)', 'notificationx'),
                 'show_in_rest'       => true,
                 'public'             => false,
+                'publicly_queryable' => true,
+                'exclude_from_search'=> true,
                 'show_ui'            => true,
                 'can_export'         => true,
                 'show_in_menu'       => false,
