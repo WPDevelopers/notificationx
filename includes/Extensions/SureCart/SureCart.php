@@ -21,7 +21,7 @@ class SureCart extends Extension {
     use GetInstance;
     public $priority        = 8;
     public $id              = 'surecart';
-    public $doc_link        = 'https://notificationx.com/docs/surecart-sales-notifications/';
+    public $doc_link        = 'https://notificationx.com/docs/how-to-display-surecart-sales-alerts-using-notificationx/';
     public $types           = 'conversions';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/surecart.png';
     public $module          = 'modules_surecart';
@@ -467,7 +467,7 @@ class SureCart extends Extension {
         return sprintf(__('<p>Make sure that you have the <a target="_blank" href="%1$s">SureCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target="_blank" href="%2$s">documentation</a>.</p>
         <a target="_blank" href="%3$s">👉 NotificationX Integration with SureCart</a>', 'notificationx'),
         'https://wordpress.org/plugins/surecart/',
-        'https://notificationx.com/docs/surecart-sales-alert/',
+        'https://notificationx.com/docs/how-to-display-surecart-sales-alerts-using-notificationx/',
         'https://notificationx.com/surecart/'
         );
     }
