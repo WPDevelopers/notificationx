@@ -71,24 +71,24 @@ class BitIntegrationsConversions extends Extension {
      * @param array $messages
      * @return array
      */
-    // public function source_error_message($messages) {
-    //     if(!$this->class_exists()){
-    //         $url = admin_url('plugin-install.php?s=bit+integrations&tab=search&type=term');
-    //         $messages['cf7'] = [
-    //             'message' => sprintf(
-    //                 '%s <a href="%s" target="_blank">%s</a> %s',
-    //                 __('You have to install', 'notificationx'),
-    //                 $url,
-    //                 __('Bit Integrations', 'notificationx'),
-    //                 __('plugin first.', 'notificationx')
-    //             ),
-    //             'html' => true,
-    //             'type' => 'error',
-    //             // 'rules' => Rules::is('source', $this->id),
-    //         ];
-    //     }
-    //     return $messages;
-    // }
+   public function source_error_message($messages) {
+        if (!$this->class_exists()) {
+            $url = admin_url('plugin-install.php?s=bit+integrations&tab=search&type=term');
+            $messages[$this->id] = [
+                'message' => sprintf(
+                    '%s <a href="%s" target="_blank">%s</a> %s',
+                    __('You have to install', 'notificationx'),
+                    $url,
+                    __('Bit Integrations', 'notificationx'),
+                    __('plugin first.', 'notificationx')
+                ),
+                'html' => true,
+                'type' => 'error',
+                'rules' => Rules::is('source', $this->id),
+            ];
+        }
+        return $messages;
+    }
 
     public function doc(){
         return '

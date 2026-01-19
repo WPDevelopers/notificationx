@@ -31,7 +31,7 @@ class BitIntegrationsEmailSubscription extends Extension {
     public $types           = 'email_subscription';
     public $module          = 'modules_bitintegration';
     public $module_priority = 16;
-    // public $class           = 'BitCode\FI\Plugin';
+    public $class           = 'BitCode\FI\Plugin';
 
     /**
      * Initially Invoked when initialized.
@@ -56,16 +56,16 @@ class BitIntegrationsEmailSubscription extends Extension {
         return 'Hello From BitIntegrations';
     }
 
-    /**
+     /**
      * Error message if BitIntegrations is disabled.
      *
      * @param array $messages
      * @return array
      */
-    public function source_error_message($messages) {
-        if(!$this->class_exists()){
+   public function source_error_message($messages) {
+        if (!$this->class_exists()) {
             $url = admin_url('plugin-install.php?s=bit+integrations&tab=search&type=term');
-            $messages['bitintegrations_conversions'] = [
+            $messages[$this->id] = [
                 'message' => sprintf(
                     '%s <a href="%s" target="_blank">%s</a> %s',
                     __('You have to install', 'notificationx'),
@@ -75,7 +75,7 @@ class BitIntegrationsEmailSubscription extends Extension {
                 ),
                 'html' => true,
                 'type' => 'error',
-                // 'rules' => Rules::is('source', $this->id),
+                'rules' => Rules::is('source', $this->id),
             ];
         }
         return $messages;
