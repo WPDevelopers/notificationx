@@ -22,6 +22,7 @@ import IconPicker from "./IconPicker";
 import NxEditor from './NxEditor';
 import NxBarPresets from './NxBarPresets';
 import { FeedbackEntries } from '../admin';
+import BuildWithAI from './BuildWithAI';
 
 const Field = (ret, type, props) => {
 
@@ -71,6 +72,8 @@ const Field = (ret, type, props) => {
             return <NxBarPresets {...props} />;
         case "feedback-entries":
             return <FeedbackEntries {...props} />;
+        case "nxbar-build_with_ai":
+            return <BuildWithAI {...props} />;
         default:
             return ret;
     }
