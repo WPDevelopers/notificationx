@@ -1,0 +1,12 @@
+.nxbar_build_with_ai {
+    .build-with-ai__presets-list {
+        .nx-bar {
+            position: unset;
+            max-width: 90%;
+            margin: 30px auto;
+            &:last-child {
+                margin-bottom: 30px;
+            }
+        }
+    }
+}

@@ -437,7 +437,10 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 20,
-                                    'rules'    => Rules::is('themes_tab', 'for_desktop'),
+                                    'rules'    =>   Rules::logicalRule([
+                                        Rules::is('themes_tab', 'for_desktop'),
+                                        Rules::is('themes_tab', 'nxbar_build_with_ai'),
+                                    ], 'or'),
                                 ],
                             ]
                         ],

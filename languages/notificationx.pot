@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-06T11:27:35+00:00\n"
+"POT-Creation-Date: 2026-01-22T05:32:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -1670,7 +1670,7 @@ msgstr ""
 #: includes/Types/ContactForm.php:60
 #: includes/Types/ContactForm.php:73
 #: includes/Types/ContactForm.php:86
-#: includes/Types/Conversions.php:65
+#: includes/Types/Conversions.php:66
 #: includes/Types/Donations.php:49
 #: includes/Types/ELearning.php:58
 #: includes/Types/ELearning.php:71
@@ -1744,7 +1744,7 @@ msgstr ""
 #: includes/Core/QuickBuild.php:256
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:198
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:199
-#: includes/Types/Conversions.php:61
+#: includes/Types/Conversions.php:62
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
@@ -1967,16 +1967,59 @@ msgid ""
 "\t\t<p>🔥 Boosting Engagement with <a target=\"_blank\" href=\"%4$s\">ActiveCampaign Email Subscription Alerts</a> via NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/CCPA/CCPA_Notification.php:42
-msgid "CCPA"
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:44
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:45
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:82
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:73
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:45
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:46
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:70
+msgid "Bit Integrations"
 msgstr ""
 
-#: includes/Extensions/CF7/CF7.php:50
-#: includes/Extensions/CF7/CF7.php:51
-#: includes/Extensions/CF7/CF7.php:101
-msgid "Contact Form 7"
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:47
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:48
+msgid "<a href='https://notificationx.com/docs/bitintegrations-notification-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:48
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:49
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:47
+#: includes/Extensions/Elementor/From.php:49
+#: includes/Extensions/Envato/Envato.php:48
+#: includes/Extensions/Freemius/FreemiusConversions.php:48
+#: includes/Extensions/Freemius/FreemiusReviews.php:48
+#: includes/Extensions/Freemius/FreemiusStats.php:49
+#: includes/Extensions/Google/GoogleReviews.php:163
+#: includes/Extensions/Google/YouTube.php:256
+#: includes/Extensions/GRVF/GravityForms.php:50
+#: includes/Extensions/LearnDash/LearnDash.php:50
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:156
+#: includes/Extensions/Zapier/ZapierConversions.php:48
+#: includes/Extensions/Zapier/ZapierReviews.php:48
+#: includes/Types/EmailSubscription.php:54
+#: includes/Types/FlashingTab.php:47
+#: includes/Types/Inline.php:48
+#: includes/Types/OfferAnnouncement.php:50
+#: includes/Types/PageAnalytics.php:48
+#: includes/Types/Video.php:53
+msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:49
+#: includes/Extensions/Zapier/ZapierConversions.php:49
+msgid ""
+"\n"
+"                <span>A well-known web-based tool to connect with any of your web-based applications & boost productivity.</span>\n"
+"                <iframe id=\"email_subscription_video\" type=\"text/html\" allowfullscreen width=\"450\" height=\"235\"\n"
+"                src=\"https://www.youtube.com/embed/KjdLv5YMByQ\">\n"
+"                </iframe>\n"
+"            "
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:80
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:71
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:68
 #: includes/Extensions/CF7/CF7.php:99
 #: includes/Extensions/EDD/EDD.php:96
 #: includes/Extensions/Elementor/From.php:61
@@ -1995,6 +2038,9 @@ msgstr ""
 msgid "You have to install"
 msgstr ""
 
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:83
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:74
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:71
 #: includes/Extensions/CF7/CF7.php:102
 #: includes/Extensions/EDD/EDD.php:99
 #: includes/Extensions/Elementor/From.php:64
@@ -2010,6 +2056,192 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:234
 #: includes/Extensions/WPF/WPForms.php:93
 msgid "plugin first."
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:96
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:87
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:94
+#: includes/Extensions/Zapier/ZapierConversions.php:71
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
+#: includes/Extensions/Zapier/ZapierReviews.php:68
+msgid "Field Name:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:96
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:87
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:94
+#: includes/Extensions/Zapier/ZapierConversions.php:71
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
+#: includes/Extensions/Zapier/ZapierReviews.php:68
+msgid "Field Key"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:97
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:88
+#: includes/Extensions/Zapier/ZapierConversions.php:72
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:62
+msgid "Full Name:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:98
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:89
+#: includes/Extensions/Zapier/ZapierConversions.php:73
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:63
+msgid "First Name:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:99
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:90
+#: includes/Extensions/Zapier/ZapierConversions.php:74
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:64
+msgid "Last Name:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:100
+#: includes/Extensions/Zapier/ZapierConversions.php:75
+msgid "Sales Count:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:101
+#: includes/Extensions/Zapier/ZapierConversions.php:76
+msgid "Customer Email:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:102
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:92
+#: includes/Extensions/Zapier/ZapierConversions.php:77
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:66
+msgid "Title, Product Title:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:103
+#: includes/Extensions/Zapier/ZapierConversions.php:78
+msgid "Anonymous Title, Product:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:104
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:94
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:103
+#: includes/Extensions/Zapier/ZapierConversions.php:79
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:68
+#: includes/Extensions/Zapier/ZapierReviews.php:77
+msgid "Definite Time:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:105
+#: includes/Extensions/Zapier/ZapierConversions.php:80
+msgid "Sometime:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:106
+#: includes/Extensions/Zapier/ZapierConversions.php:81
+msgid "In last 1 day:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:107
+#: includes/Extensions/Zapier/ZapierConversions.php:82
+msgid "In last 7 days:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:108
+#: includes/Extensions/Zapier/ZapierConversions.php:83
+msgid "In last 30 days:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:109
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:96
+#: includes/Extensions/Zapier/ZapierConversions.php:84
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:70
+msgid "City:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:110
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:97
+#: includes/Extensions/Zapier/ZapierConversions.php:85
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:71
+msgid "Country:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:111
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:98
+#: includes/Extensions/Zapier/ZapierConversions.php:86
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:72
+msgid "City,Country:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:45
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:46
+msgid "BitIntegrations"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:91
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:96
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:65
+#: includes/Extensions/Zapier/ZapierReviews.php:70
+#: assets/admin/js/admin.js:13
+msgid "Email:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:93
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:101
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:67
+#: includes/Extensions/Zapier/ZapierReviews.php:75
+msgid "Anonymous Title:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:95
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:104
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:69
+#: includes/Extensions/Zapier/ZapierReviews.php:78
+msgid "Some time ago:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:50
+#: includes/Extensions/Zapier/ZapierReviews.php:49
+msgid ""
+"\n"
+"                <span>Display review alerts from popular social media networks & encourage visitors to place trust in your business.</span>\n"
+"            "
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:95
+#: includes/Extensions/Zapier/ZapierReviews.php:69
+msgid "Username:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:97
+#: includes/Extensions/Zapier/ZapierReviews.php:71
+msgid "Rated:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:98
+#: includes/Extensions/Zapier/ZapierReviews.php:72
+msgid "Plugin Name:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:99
+#: includes/Extensions/Zapier/ZapierReviews.php:73
+msgid "Plugin Review:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:100
+#: includes/Extensions/Zapier/ZapierReviews.php:74
+msgid "Review Title:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:102
+#: includes/Extensions/Zapier/ZapierReviews.php:76
+msgid "Rating:"
+msgstr ""
+
+#: includes/Extensions/CCPA/CCPA_Notification.php:42
+msgid "CCPA"
+msgstr ""
+
+#: includes/Extensions/CF7/CF7.php:50
+#: includes/Extensions/CF7/CF7.php:51
+#: includes/Extensions/CF7/CF7.php:101
+msgid "Contact Form 7"
 msgstr ""
 
 #. translators: links
@@ -2057,28 +2289,6 @@ msgstr ""
 msgid "<a href='https://notificationx.com/docs/custom-notification/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:47
-#: includes/Extensions/Elementor/From.php:49
-#: includes/Extensions/Envato/Envato.php:48
-#: includes/Extensions/Freemius/FreemiusConversions.php:48
-#: includes/Extensions/Freemius/FreemiusReviews.php:48
-#: includes/Extensions/Freemius/FreemiusStats.php:49
-#: includes/Extensions/Google/GoogleReviews.php:163
-#: includes/Extensions/Google/YouTube.php:256
-#: includes/Extensions/GRVF/GravityForms.php:50
-#: includes/Extensions/LearnDash/LearnDash.php:50
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:156
-#: includes/Extensions/Zapier/ZapierConversions.php:48
-#: includes/Extensions/Zapier/ZapierReviews.php:48
-#: includes/Types/EmailSubscription.php:54
-#: includes/Types/FlashingTab.php:47
-#: includes/Types/Inline.php:48
-#: includes/Types/OfferAnnouncement.php:50
-#: includes/Types/PageAnalytics.php:48
-#: includes/Types/Video.php:53
-msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
-msgstr ""
-
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:48
 msgid ""
 "\n"
@@ -2116,7 +2326,7 @@ msgstr ""
 #: includes/Extensions/SureCart/SureCart.php:441
 #: includes/Extensions/Tutor/Tutor.php:534
 #: includes/Extensions/WooCommerce/WooCommerce.php:530
-#: includes/Types/Conversions.php:68
+#: includes/Types/Conversions.php:69
 #: includes/Types/WooCommerceSales.php:66
 msgid "Anonymous Product"
 msgstr ""
@@ -2166,8 +2376,8 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooInline.php:129
 #: includes/Extensions/WooCommerce/WOOReviews.php:140
 #: includes/Extensions/WooCommerce/WOOReviews.php:165
-#: includes/Types/Conversions.php:210
-#: includes/Types/Conversions.php:235
+#: includes/Types/Conversions.php:211
+#: includes/Types/Conversions.php:236
 #: includes/Types/WooCommerceSales.php:207
 #: includes/Types/WooCommerceSales.php:225
 msgid "Product Title"
@@ -2705,7 +2915,7 @@ msgstr ""
 #: includes/Types/ContactForm.php:65
 #: includes/Types/ContactForm.php:78
 #: includes/Types/ContactForm.php:91
-#: includes/Types/Conversions.php:70
+#: includes/Types/Conversions.php:71
 #: includes/Types/Donations.php:56
 #: includes/Types/ELearning.php:63
 #: includes/Types/ELearning.php:76
@@ -3594,7 +3804,7 @@ msgstr ""
 #: includes/Types/Comments.php:218
 #: includes/Types/Comments.php:235
 #: includes/Types/ContactForm.php:145
-#: includes/Types/Conversions.php:213
+#: includes/Types/Conversions.php:214
 #: includes/Types/Donations.php:177
 #: includes/Types/ELearning.php:188
 #: includes/Types/EmailSubscription.php:127
@@ -3990,8 +4200,8 @@ msgid "Grab Now"
 msgstr ""
 
 #: includes/Extensions/OfferAnnouncement/Announcements.php:106
-#: includes/Types/Conversions.php:118
-#: includes/Types/Conversions.php:128
+#: includes/Types/Conversions.php:119
+#: includes/Types/Conversions.php:129
 msgid "Buy Now"
 msgstr ""
 
@@ -5465,144 +5675,6 @@ msgstr ""
 msgid "<a href='https://notificationx.com/docs/zapier-notification-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:49
-msgid ""
-"\n"
-"                <span>A well-known web-based tool to connect with any of your web-based applications & boost productivity.</span>\n"
-"                <iframe id=\"email_subscription_video\" type=\"text/html\" allowfullscreen width=\"450\" height=\"235\"\n"
-"                src=\"https://www.youtube.com/embed/KjdLv5YMByQ\">\n"
-"                </iframe>\n"
-"            "
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:71
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
-#: includes/Extensions/Zapier/ZapierReviews.php:68
-msgid "Field Name:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:71
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
-#: includes/Extensions/Zapier/ZapierReviews.php:68
-msgid "Field Key"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:72
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:62
-msgid "Full Name:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:73
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:63
-msgid "First Name:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:74
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:64
-msgid "Last Name:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:75
-msgid "Sales Count:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:76
-msgid "Customer Email:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:77
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:66
-msgid "Title, Product Title:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:78
-msgid "Anonymous Title, Product:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:79
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:68
-#: includes/Extensions/Zapier/ZapierReviews.php:77
-msgid "Definite Time:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:80
-msgid "Sometime:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:81
-msgid "In last 1 day:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:82
-msgid "In last 7 days:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:83
-msgid "In last 30 days:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:84
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:70
-msgid "City:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:85
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:71
-msgid "Country:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:86
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:72
-msgid "City,Country:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:65
-#: includes/Extensions/Zapier/ZapierReviews.php:70
-#: assets/admin/js/admin.js:13
-msgid "Email:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:67
-#: includes/Extensions/Zapier/ZapierReviews.php:75
-msgid "Anonymous Title:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:69
-#: includes/Extensions/Zapier/ZapierReviews.php:78
-msgid "Some time ago:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:49
-msgid ""
-"\n"
-"                <span>Display review alerts from popular social media networks & encourage visitors to place trust in your business.</span>\n"
-"            "
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:69
-msgid "Username:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:71
-msgid "Rated:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:72
-msgid "Plugin Name:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:73
-msgid "Plugin Review:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:74
-msgid "Review Title:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:76
-msgid "Rating:"
-msgstr ""
-
 #: includes/FrontEnd/FrontEnd.php:90
 msgid "Necessary cookies are needed to ensure the basic functions of this site, like allowing secure log-ins and managing your consent settings. These cookies do not collect any personal information."
 msgstr ""
@@ -5701,7 +5773,7 @@ msgstr ""
 msgid "Select a Form"
 msgstr ""
 
-#: includes/Types/Conversions.php:66
+#: includes/Types/Conversions.php:67
 #: includes/Types/WooCommerceSales.php:64
 msgid "just purchased"
 msgstr ""

@@ -1,18 +1,27 @@
-import React from 'react'
-import BuildHeader from '../components/build-with-ai/BuildHeader'
-import SuggestionGrid from '../components/build-with-ai/SuggestionGrid'
-import PromptSection from '../components/build-with-ai/PromptSection'
-import NavigationTab from '../components/build-with-ai/NavigationTab'
+import React, { useContext } from 'react';
+import { applyFilters } from '@wordpress/hooks';
+import { useBuilderContext } from 'quickbuilder'
+
+const BuildWithAIContent = () => {
+    const builderContext = useBuilderContext();
+    
+    return (
+      <>
+        {applyFilters(
+          'nx_build_ai_render',
+          null,
+          { builderContext }
+        )}
+      </>
+    );
+};
 
 const BuildWithAI = () => {
   return (
-    <div className="nx-build-ai">
-      <NavigationTab/>
-      <BuildHeader />
-      <SuggestionGrid />
-      <PromptSection />
-    </div>
-  )
-}
+      <div className="nx-build-ai">
+        <BuildWithAIContent />
+      </div>
+  );
+};
 
-export default BuildWithAI
+export default BuildWithAI;
