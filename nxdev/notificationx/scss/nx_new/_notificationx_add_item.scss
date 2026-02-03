@@ -799,6 +799,7 @@
                                 }
                             }
                         }
+
                     }
                     &.press_bar {
                         .wprf-tab-nav {
@@ -810,8 +811,10 @@
                                     &::after {
                                         display: none;
                                     }
-                                }
-                                
+                                } 
+                            }
+                            .wprf-tab-nav-item:last-child {
+                                margin-left: auto;
                             }
                         }
                     }
