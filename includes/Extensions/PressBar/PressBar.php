@@ -677,6 +677,7 @@ class PressBar extends Extension {
                     'name'        => "bar_font_size",
                     'type'        => "number",
                     'default'     => '13',
+                    'min'         => 1,
                     'priority'    => 5,
                     'description' => 'px',
                     'help'        => __('This font size will be applied for <mark>first</mark> row', 'notificationx'),
