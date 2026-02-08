@@ -304,7 +304,8 @@ class FrontEnd {
                 $type   = $settings['type'];
                 $source = $settings['source'];
 
-                if (apply_filters("nx_entry_show_on_frontend_$source", true, $entry, $settings)) {
+                $should_continue = apply_filters("nx_entry_show_on_frontend_$source", false, $entry, $settings);
+                if ( $should_continue ) {
                     continue;
                 }
 
