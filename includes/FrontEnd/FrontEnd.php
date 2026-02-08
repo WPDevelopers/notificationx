@@ -304,6 +304,10 @@ class FrontEnd {
                 $type   = $settings['type'];
                 $source = $settings['source'];
 
+                if (apply_filters("nx_entry_show_on_frontend_$source", true, $entry, $settings)) {
+                    continue;
+                }
+
                 if (!empty($entry['timestamp'])) {
                     $timestamp    = $entry['timestamp'];
                     $display_from = !empty($settings['display_from']) ? $settings['display_from'] : 2;

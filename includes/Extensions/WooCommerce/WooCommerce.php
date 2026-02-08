@@ -63,6 +63,18 @@ class WooCommerce extends Extension {
         add_action('woocommerce_order_status_changed', array($this, 'status_transition'), 10, 4);
         add_action('woocommerce_process_shop_order_meta', array( $this, 'manual_order'), 10, 2 );
         add_action('woocommerce_new_order_item', array($this, 'save_new_orders'), 10, 3);
+        add_filter('nx_entry_show_on_frontend_woocommerce', [$this, 'entry_display'], 10, 3);
+    }
+    public function entry_display($data, $post, $entry) {
+        $product_id = $post['product_id'];
+        if (empty($product_id)) {
+            return true;
+        }
+        $product = wc_get_product($product_id);
+        if ( $product->get_status() !== 'publish' ) {
+            return true;
+        }
+        return false;
     }
 
     public function init_fields(){
