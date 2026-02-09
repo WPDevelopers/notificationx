@@ -302,9 +302,14 @@ class WooCommerce extends Extension {
         }
         if (!empty($shipping_country)) {
             $new_order['country'] = isset($countries->countries[$shipping_country]) ? $countries->countries[$shipping_country] : '';
-            $shipping_state = $order->get_shipping_state();
-            if (!empty($shipping_state)) {
-                $new_order['state'] = isset($countries->states[$shipping_country], $countries->states[$shipping_country][$shipping_state]) ? $countries->states[$shipping_country][$shipping_state] : $shipping_state;
+            $billing_state = $order->get_billing_state();
+            if (!empty($billing_state)) {
+                $new_order['state'] = isset($countries->states[$shipping_country], $countries->states[$shipping_country][$billing_state]) ? $countries->states[$shipping_country][$billing_state] : $billing_state;
+            }else {
+                $shipping_state = $order->get_shipping_state();
+                if (!empty($shipping_state)) {
+                    $new_order['state'] = isset($countries->states[$shipping_country], $countries->states[$shipping_country][$shipping_state]) ? $countries->states[$shipping_country][$shipping_state] : $shipping_state;
+                }
             }
         }
         $new_order['city'] = $order->get_billing_city();
