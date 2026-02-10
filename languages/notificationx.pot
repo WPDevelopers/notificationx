@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.2.1\n"
+"Project-Id-Version: NotificationX 3.2.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-06T11:27:35+00:00\n"
+"POT-Creation-Date: 2026-02-10T10:51:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -88,11 +88,11 @@ msgstr ""
 msgid "Grab The Offer"
 msgstr ""
 
-#: includes/Admin/Admin.php:428
+#: includes/Admin/Admin.php:367
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:429
+#: includes/Admin/Admin.php:368
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -184,23 +184,19 @@ msgstr ""
 msgid "NotificationX Milestones"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:195
-msgid "Black Friday"
-msgstr ""
-
-#: includes/Admin/MilestoneNotification.php:208
+#: includes/Admin/MilestoneNotification.php:197
 msgid "View Analytics"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:208
+#: includes/Admin/MilestoneNotification.php:197
 msgid "View Detail Insights"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:226
+#: includes/Admin/MilestoneNotification.php:215
 msgid "Unlock Advanced Analytics Data"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:288
+#: includes/Admin/MilestoneNotification.php:277
 #: includes/Admin/views/analytics.views.php:7
 #: includes/Admin/views/analytics.views.php:11
 #: includes/Extensions/Google/YouTube.php:220
@@ -210,7 +206,7 @@ msgstr ""
 msgid "Total Views"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:292
+#: includes/Admin/MilestoneNotification.php:281
 #: includes/Admin/views/analytics.views.php:20
 #: includes/Admin/views/analytics.views.php:24
 #: assets/admin/js/admin.js:1
@@ -218,125 +214,125 @@ msgstr ""
 msgid "Total Clicks"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:296
+#: includes/Admin/MilestoneNotification.php:285
 msgid "Click Rate"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:336
+#: includes/Admin/MilestoneNotification.php:325
 msgid "<strong>Mega Milestone Unlocked!</strong> 🚀"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:337
+#: includes/Admin/MilestoneNotification.php:326
 msgid "Your website notifications are on fire! Over 2M+ interactions have taken place across the globe."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:343
+#: includes/Admin/MilestoneNotification.php:332
 msgid "<strong>Huge milestone achieved!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:344
+#: includes/Admin/MilestoneNotification.php:333
 msgid "You have achieved something unbelievable. 1M+ interactions have already happened on your website globally."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:350
+#: includes/Admin/MilestoneNotification.php:339
 msgid "700,000 <strong>interaction milestone reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:351
-#: includes/Admin/MilestoneNotification.php:365
-#: includes/Admin/MilestoneNotification.php:393
-#: includes/Admin/MilestoneNotification.php:421
+#: includes/Admin/MilestoneNotification.php:340
+#: includes/Admin/MilestoneNotification.php:354
+#: includes/Admin/MilestoneNotification.php:382
+#: includes/Admin/MilestoneNotification.php:410
 msgid "New interactions milestone achieved! Create more amazing notifications to reach out to a wider audience globally."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:357
+#: includes/Admin/MilestoneNotification.php:346
 msgid "<strong>You are doing amazing!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:358
-#: includes/Admin/MilestoneNotification.php:400
-#: includes/Admin/MilestoneNotification.php:448
+#: includes/Admin/MilestoneNotification.php:347
+#: includes/Admin/MilestoneNotification.php:389
+#: includes/Admin/MilestoneNotification.php:437
 msgid "Your notification is doing great and getting global clicks and impressions. See the detailed analytics below."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:364
+#: includes/Admin/MilestoneNotification.php:353
 msgid "<strong>Legendary achievement!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:371
+#: includes/Admin/MilestoneNotification.php:360
 msgid "<strong>Diamond Status!!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:372
+#: includes/Admin/MilestoneNotification.php:361
 msgid "Your notification is grabbing attention globally. Check the detailed analytics to learn more about the performance."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:378
+#: includes/Admin/MilestoneNotification.php:367
 msgid "200,000 <strong>interaction milestone reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:379
+#: includes/Admin/MilestoneNotification.php:368
 msgid "Globally, 200,000 interactions are happening on your website. Check the detailed analytics to grow your audience further."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:385
+#: includes/Admin/MilestoneNotification.php:374
 msgid "Congratulations! <strong>Another milestone</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:386
-#: includes/Admin/MilestoneNotification.php:441
+#: includes/Admin/MilestoneNotification.php:375
+#: includes/Admin/MilestoneNotification.php:430
 msgid "Your notifications are performing incredibly well worldwide. Check out the detailed analytics below!"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:392
+#: includes/Admin/MilestoneNotification.php:381
 msgid "100,000 <strong>interaction milestone reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:399
+#: includes/Admin/MilestoneNotification.php:388
 msgid "75,000+ <strong>interactions achieved today!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:406
+#: includes/Admin/MilestoneNotification.php:395
 msgid "Incredible, <strong>50,000 interactions unlocked!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:407
+#: includes/Admin/MilestoneNotification.php:396
 msgid "You are going great with your notification. Do not forget to check the detailed analytics to learn more."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:413
+#: includes/Admin/MilestoneNotification.php:402
 msgid "25,000 <strong>interaction milestone reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:414
+#: includes/Admin/MilestoneNotification.php:403
 msgid "Globally, 25,000 interactions are happening on your website. Check the detailed analytics to grow your audience further."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:420
+#: includes/Admin/MilestoneNotification.php:409
 msgid "Fantastic! <strong>10,000 interactions reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:427
+#: includes/Admin/MilestoneNotification.php:416
 msgid "Awesome - <strong>you got 5,000 interactions!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:428
+#: includes/Admin/MilestoneNotification.php:417
 msgid "Your amazing website reached 5,000 interactions from your notification. Check the detailed analytics and achieve more."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:433
+#: includes/Admin/MilestoneNotification.php:422
 msgid "2,000 <strong>interaction milestone achieved!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:434
+#: includes/Admin/MilestoneNotification.php:423
 msgid "Your website has more than 2,000 interactions from your notification. Do not forget to check the detailed analytics and achieve more."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:440
+#: includes/Admin/MilestoneNotification.php:429
 msgid "Great - <strong>1,000 interactions achieved!</strong> 👏"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:447
+#: includes/Admin/MilestoneNotification.php:436
 msgid "You've got <strong>100 interactions overall!</strong> 🎉"
 msgstr ""
 
@@ -1636,9 +1632,9 @@ msgstr ""
 #: includes/Extensions/Tutor/Tutor.php:531
 #: includes/Extensions/Tutor/Tutor.php:532
 #: includes/Extensions/Tutor/Tutor.php:533
-#: includes/Extensions/WooCommerce/WooCommerce.php:527
-#: includes/Extensions/WooCommerce/WooCommerce.php:528
-#: includes/Extensions/WooCommerce/WooCommerce.php:529
+#: includes/Extensions/WooCommerce/WooCommerce.php:560
+#: includes/Extensions/WooCommerce/WooCommerce.php:561
+#: includes/Extensions/WooCommerce/WooCommerce.php:562
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:73
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:85
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:97
@@ -1658,7 +1654,7 @@ msgstr ""
 #: includes/FrontEnd/FrontEnd.php:277
 #: includes/FrontEnd/FrontEnd.php:278
 #: includes/FrontEnd/FrontEnd.php:279
-#: includes/FrontEnd/FrontEnd.php:781
+#: includes/FrontEnd/FrontEnd.php:786
 #: includes/Types/Comments.php:54
 #: includes/Types/Comments.php:67
 #: includes/Types/Comments.php:80
@@ -1701,7 +1697,7 @@ msgstr ""
 #: includes/Core/PostType.php:77
 #: includes/Extensions/GlobalFields.php:1181
 #: includes/Extensions/PopupNotification/PopupNotification.php:782
-#: includes/Extensions/PressBar/PressBar.php:1689
+#: includes/Extensions/PressBar/PressBar.php:1691
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 #: assets/admin/js/admin.js:20
@@ -1721,7 +1717,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:626
 #: includes/Extensions/GlobalFields.php:653
 #: includes/Extensions/PopupNotification/PopupNotification.php:606
-#: includes/Extensions/PressBar/PressBar.php:1654
+#: includes/Extensions/PressBar/PressBar.php:1656
 msgid "Content"
 msgstr ""
 
@@ -1989,7 +1985,7 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:210
 #: includes/Extensions/SureCart/SureCart.php:453
 #: includes/Extensions/Tutor/Tutor.php:129
-#: includes/Extensions/WooCommerce/WooCommerce.php:103
+#: includes/Extensions/WooCommerce/WooCommerce.php:131
 #: includes/Extensions/WooCommerce/WOOReviews.php:231
 #: includes/Extensions/WPF/WPForms.php:90
 msgid "You have to install"
@@ -2006,7 +2002,7 @@ msgstr ""
 #: includes/Extensions/NJF/NinjaForms.php:93
 #: includes/Extensions/SureCart/SureCart.php:456
 #: includes/Extensions/Tutor/Tutor.php:132
-#: includes/Extensions/WooCommerce/WooCommerce.php:106
+#: includes/Extensions/WooCommerce/WooCommerce.php:134
 #: includes/Extensions/WooCommerce/WOOReviews.php:234
 #: includes/Extensions/WPF/WPForms.php:93
 msgid "plugin first."
@@ -2096,14 +2092,14 @@ msgid "Easy Digital Downloads"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:129
-#: includes/Extensions/WooCommerce/WooCommerce.php:478
+#: includes/Extensions/WooCommerce/WooCommerce.php:511
 msgid "more products"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:147
 #: includes/Extensions/FluentCart/FluentCart.php:679
 #: includes/Extensions/SureCart/SureCart.php:431
-#: includes/Extensions/WooCommerce/WooCommerce.php:133
+#: includes/Extensions/WooCommerce/WooCommerce.php:161
 #: includes/Types/DownloadStats.php:199
 #: includes/Types/Traits/Reviews.php:22
 msgid "Product Page"
@@ -2115,7 +2111,7 @@ msgstr ""
 #: includes/Extensions/LearnPress/LearnPress.php:539
 #: includes/Extensions/SureCart/SureCart.php:441
 #: includes/Extensions/Tutor/Tutor.php:534
-#: includes/Extensions/WooCommerce/WooCommerce.php:530
+#: includes/Extensions/WooCommerce/WooCommerce.php:563
 #: includes/Types/Conversions.php:68
 #: includes/Types/WooCommerceSales.php:66
 msgid "Anonymous Product"
@@ -4504,8 +4500,8 @@ msgid "Enter your message..."
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:711
-#: includes/Extensions/PressBar/PressBar.php:1734
-#: includes/Extensions/PressBar/PressBar.php:1824
+#: includes/Extensions/PressBar/PressBar.php:1736
+#: includes/Extensions/PressBar/PressBar.php:1826
 #: includes/Types/GDPR.php:424
 #: includes/Types/GDPR.php:432
 #: includes/Types/GDPR.php:440
@@ -4514,17 +4510,17 @@ msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:715
 #: includes/Extensions/PressBar/PressBar.php:98
-#: includes/Extensions/PressBar/PressBar.php:1736
+#: includes/Extensions/PressBar/PressBar.php:1738
 msgid "Get Offer"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:719
-#: includes/Extensions/PressBar/PressBar.php:1745
+#: includes/Extensions/PressBar/PressBar.php:1747
 msgid "Button URL"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:733
-#: includes/Extensions/PressBar/PressBar.php:1756
+#: includes/Extensions/PressBar/PressBar.php:1758
 msgid "Button Icon"
 msgstr ""
 
@@ -4535,7 +4531,7 @@ msgstr ""
 #: includes/Extensions/PopupNotification/PopupNotification.php:750
 #: includes/Extensions/PressBar/PressBar.php:163
 #: includes/Extensions/PressBar/PressBar.php:178
-#: includes/Extensions/PressBar/PressBar.php:1762
+#: includes/Extensions/PressBar/PressBar.php:1764
 msgid "Shop Now"
 msgstr ""
 
@@ -4933,197 +4929,197 @@ msgstr ""
 msgid "NotificationX Bar (Gutenberg)"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1646
+#: includes/Extensions/PressBar/PressBar.php:1648
 msgid "Text Content"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1660
-#: includes/Extensions/PressBar/PressBar.php:1675
+#: includes/Extensions/PressBar/PressBar.php:1662
+#: includes/Extensions/PressBar/PressBar.php:1677
 msgid "Static Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1665
+#: includes/Extensions/PressBar/PressBar.php:1667
 msgid "Slide Multiple Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1676
+#: includes/Extensions/PressBar/PressBar.php:1678
 msgid "Write something here..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1686
+#: includes/Extensions/PressBar/PressBar.php:1688
 msgid "Sliding Text Items"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1693
+#: includes/Extensions/PressBar/PressBar.php:1695
 msgid "🚀 Supercharge Your Marketing Forever!"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1696
+#: includes/Extensions/PressBar/PressBar.php:1698
 msgid "Get <strong>Lifetime Access to NotificationX</strong> for just <strong>$299</strong>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1703
+#: includes/Extensions/PressBar/PressBar.php:1705
 msgid "Slide Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1715
+#: includes/Extensions/PressBar/PressBar.php:1717
 msgid "Sliding Interval"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1719
+#: includes/Extensions/PressBar/PressBar.php:1721
 msgid "Time interval between slides in milliseconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1766
+#: includes/Extensions/PressBar/PressBar.php:1768
 msgid "Shop Now White "
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1769
+#: includes/Extensions/PressBar/PressBar.php:1771
 msgid "Select an icon to display before the button text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1776
+#: includes/Extensions/PressBar/PressBar.php:1778
 msgid "Transition Speed"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1782
+#: includes/Extensions/PressBar/PressBar.php:1784
 msgid "Transition speed in milliseconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1789
+#: includes/Extensions/PressBar/PressBar.php:1791
 msgid "Transition Style"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1795
+#: includes/Extensions/PressBar/PressBar.php:1797
 msgid "Slide in Right"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1796
+#: includes/Extensions/PressBar/PressBar.php:1798
 msgid "Slide in Left"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1806
+#: includes/Extensions/PressBar/PressBar.php:1808
 msgid "Coupon"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1818
+#: includes/Extensions/PressBar/PressBar.php:1820
 msgid "Enable Coupon"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1826
-#: includes/Extensions/PressBar/PressBar.php:1836
+#: includes/Extensions/PressBar/PressBar.php:1828
+#: includes/Extensions/PressBar/PressBar.php:1838
 msgid "SAVE20"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1834
+#: includes/Extensions/PressBar/PressBar.php:1836
 msgid "Coupon Code"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1844
+#: includes/Extensions/PressBar/PressBar.php:1846
 msgid "Coupon Copied Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1846
+#: includes/Extensions/PressBar/PressBar.php:1848
 msgid "Copied!"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1854
+#: includes/Extensions/PressBar/PressBar.php:1856
 msgid "Coupon Tooltip"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1856
+#: includes/Extensions/PressBar/PressBar.php:1858
 msgid "Use this coupon code to get 20% off"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1864
+#: includes/Extensions/PressBar/PressBar.php:1866
 msgid "Coupon Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1874
+#: includes/Extensions/PressBar/PressBar.php:1876
 msgid "Coupon Text Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1884
+#: includes/Extensions/PressBar/PressBar.php:1886
 msgid "Coupon Border Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1900
+#: includes/Extensions/PressBar/PressBar.php:1902
 msgid "Countdown Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1906
+#: includes/Extensions/PressBar/PressBar.php:1908
 msgid "Enable Countdown"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1912
+#: includes/Extensions/PressBar/PressBar.php:1914
 msgid "Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1916
+#: includes/Extensions/PressBar/PressBar.php:1918
 msgid "To configure Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1921
+#: includes/Extensions/PressBar/PressBar.php:1923
 msgid "Countdown Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1923
+#: includes/Extensions/PressBar/PressBar.php:1925
 msgid "Ending in"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1932
+#: includes/Extensions/PressBar/PressBar.php:1934
 msgid "Expired Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1934
+#: includes/Extensions/PressBar/PressBar.php:1936
 msgid "Expired"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1944
+#: includes/Extensions/PressBar/PressBar.php:1946
 msgid "Start Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1951
+#: includes/Extensions/PressBar/PressBar.php:1953
 msgid "End Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1959
+#: includes/Extensions/PressBar/PressBar.php:1961
 msgid "Randomize"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1965
+#: includes/Extensions/PressBar/PressBar.php:1967
 msgid "Time Between"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1971
+#: includes/Extensions/PressBar/PressBar.php:1973
 msgid "Start Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1978
+#: includes/Extensions/PressBar/PressBar.php:1980
 msgid "End Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1987
+#: includes/Extensions/PressBar/PressBar.php:1989
 msgid "Time Rotation"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1995
+#: includes/Extensions/PressBar/PressBar.php:1997
 msgid "Daily Time Reset"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2001
+#: includes/Extensions/PressBar/PressBar.php:2003
 msgid "Permanent Close"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2006
+#: includes/Extensions/PressBar/PressBar.php:2008
 msgid "Close After Expire"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2214
+#: includes/Extensions/PressBar/PressBar.php:2216
 msgid "Install Essential Blocks"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2224
+#: includes/Extensions/PressBar/PressBar.php:2226
 msgid ""
 "<p>You can showcase the notification bar to run instant popup campaigns on WordPress sites. For further assistance, check out our step-by-step guides on adding notification bars built with both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
 "\t\t<p>🎦 Watch the <a target = \"_blank\" href = \"%3$s\">video tutorial</a> for a quick guide.</p>\n"
@@ -5245,7 +5241,7 @@ msgstr ""
 
 #: includes/Extensions/WooCommerce/WooCommerce.php:54
 #: includes/Extensions/WooCommerce/WooCommerce.php:55
-#: includes/Extensions/WooCommerce/WooCommerce.php:105
+#: includes/Extensions/WooCommerce/WooCommerce.php:133
 #: includes/Extensions/WooCommerce/WOOReviews.php:55
 #: includes/Extensions/WooCommerce/WOOReviews.php:56
 #: includes/Extensions/WooCommerce/WOOReviews.php:233
@@ -5259,11 +5255,11 @@ msgid "Product Title Raw"
 msgstr ""
 
 #. translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
-#: includes/Extensions/WooCommerce/WooCommerce.php:481
+#: includes/Extensions/WooCommerce/WooCommerce.php:514
 msgid "%1$s & %2$s %3$s"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerce.php:538
+#: includes/Extensions/WooCommerce/WooCommerce.php:571
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:203
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:167
 msgid ""
