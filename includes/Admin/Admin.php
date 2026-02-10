@@ -326,7 +326,7 @@ class Admin {
         // February Deal
         $_february_deal = "<p>Boost trust & conversions with real-time social proof notification alerts – now <strong>Flat 20% OFF! 🎁</strong></p>
                         <div class='nx-notice-action-button'>
-                            <a style='display: inline-flex;column-gap:5px;' class='button button-primary' href='https://notificationx.com/holiday24-admin-notice' target='_blank'>
+                            <a style='display: inline-flex;column-gap:5px;' class='button button-primary' href='https://notificationx.com/feb2026-admin-notice' target='_blank'>
                                 Upgrade To PRO
                             </a>
                             <a class='nx-notice-action-dismiss dismiss-btn' data-dismiss='true' href='#'>
@@ -342,12 +342,12 @@ class Admin {
             'nx_february_deal',
             $_february_deal_html,
             [
-                'start'       => $notices->time(),
+                'start'       => strtotime('11:59:59pm 9th February, 2026'),
                 'recurrence'  => false,
                 'dismissible' => true,
                 'refresh'     => NOTIFICATIONX_VERSION,
                 'screens'     => [ 'dashboard' ],
-                "expire"      => strtotime('11:59:59pm 8th March, 2026'),
+                "expire"      => strtotime('11:59:59pm 7th March, 2026'),
                 'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
             ]
         );
