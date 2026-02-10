@@ -185,17 +185,6 @@ class MilestoneNotification
 
                     <!-- Content -->
                     <div class="milestone-content">
-                        <?php 
-                            // Get current date in UTC
-                            $today    = gmdate('Y-m-d');
-                            $end_date = gmdate('Y-m-d', strtotime('December 4'));
-                           if ( $today <= $end_date ) : ?>
-                            <div class="black-friday-notice">
-                                <a target="_blank" href="<?php echo esc_url( 'https://notificationx.com/bfcm2025-admin-notice' ) ?>">
-                                    <img src="<?php echo esc_url( $black_friday_notice ) ?>" alt="<?php echo esc_attr__('Black Friday','notificationx') ?>">
-                                </a>
-                            </div>
-                        <?php endif ?>
                         <!-- Achievement Banner -->
                         <div class="milestone-achievement">
                             <h3 class="milestone-achievement-title">
