@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.2.1\n"
+"Project-Id-Version: NotificationX 3.2.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-22T05:32:40+00:00\n"
+"POT-Creation-Date: 2026-02-10T10:51:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -88,11 +88,11 @@ msgstr ""
 msgid "Grab The Offer"
 msgstr ""
 
-#: includes/Admin/Admin.php:428
+#: includes/Admin/Admin.php:367
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:429
+#: includes/Admin/Admin.php:368
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -184,23 +184,19 @@ msgstr ""
 msgid "NotificationX Milestones"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:195
-msgid "Black Friday"
-msgstr ""
-
-#: includes/Admin/MilestoneNotification.php:208
+#: includes/Admin/MilestoneNotification.php:197
 msgid "View Analytics"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:208
+#: includes/Admin/MilestoneNotification.php:197
 msgid "View Detail Insights"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:226
+#: includes/Admin/MilestoneNotification.php:215
 msgid "Unlock Advanced Analytics Data"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:288
+#: includes/Admin/MilestoneNotification.php:277
 #: includes/Admin/views/analytics.views.php:7
 #: includes/Admin/views/analytics.views.php:11
 #: includes/Extensions/Google/YouTube.php:220
@@ -210,7 +206,7 @@ msgstr ""
 msgid "Total Views"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:292
+#: includes/Admin/MilestoneNotification.php:281
 #: includes/Admin/views/analytics.views.php:20
 #: includes/Admin/views/analytics.views.php:24
 #: assets/admin/js/admin.js:1
@@ -218,125 +214,125 @@ msgstr ""
 msgid "Total Clicks"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:296
+#: includes/Admin/MilestoneNotification.php:285
 msgid "Click Rate"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:336
+#: includes/Admin/MilestoneNotification.php:325
 msgid "<strong>Mega Milestone Unlocked!</strong> 🚀"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:337
+#: includes/Admin/MilestoneNotification.php:326
 msgid "Your website notifications are on fire! Over 2M+ interactions have taken place across the globe."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:343
+#: includes/Admin/MilestoneNotification.php:332
 msgid "<strong>Huge milestone achieved!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:344
+#: includes/Admin/MilestoneNotification.php:333
 msgid "You have achieved something unbelievable. 1M+ interactions have already happened on your website globally."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:350
+#: includes/Admin/MilestoneNotification.php:339
 msgid "700,000 <strong>interaction milestone reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:351
-#: includes/Admin/MilestoneNotification.php:365
-#: includes/Admin/MilestoneNotification.php:393
-#: includes/Admin/MilestoneNotification.php:421
+#: includes/Admin/MilestoneNotification.php:340
+#: includes/Admin/MilestoneNotification.php:354
+#: includes/Admin/MilestoneNotification.php:382
+#: includes/Admin/MilestoneNotification.php:410
 msgid "New interactions milestone achieved! Create more amazing notifications to reach out to a wider audience globally."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:357
+#: includes/Admin/MilestoneNotification.php:346
 msgid "<strong>You are doing amazing!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:358
-#: includes/Admin/MilestoneNotification.php:400
-#: includes/Admin/MilestoneNotification.php:448
+#: includes/Admin/MilestoneNotification.php:347
+#: includes/Admin/MilestoneNotification.php:389
+#: includes/Admin/MilestoneNotification.php:437
 msgid "Your notification is doing great and getting global clicks and impressions. See the detailed analytics below."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:364
+#: includes/Admin/MilestoneNotification.php:353
 msgid "<strong>Legendary achievement!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:371
+#: includes/Admin/MilestoneNotification.php:360
 msgid "<strong>Diamond Status!!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:372
+#: includes/Admin/MilestoneNotification.php:361
 msgid "Your notification is grabbing attention globally. Check the detailed analytics to learn more about the performance."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:378
+#: includes/Admin/MilestoneNotification.php:367
 msgid "200,000 <strong>interaction milestone reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:379
+#: includes/Admin/MilestoneNotification.php:368
 msgid "Globally, 200,000 interactions are happening on your website. Check the detailed analytics to grow your audience further."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:385
+#: includes/Admin/MilestoneNotification.php:374
 msgid "Congratulations! <strong>Another milestone</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:386
-#: includes/Admin/MilestoneNotification.php:441
+#: includes/Admin/MilestoneNotification.php:375
+#: includes/Admin/MilestoneNotification.php:430
 msgid "Your notifications are performing incredibly well worldwide. Check out the detailed analytics below!"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:392
+#: includes/Admin/MilestoneNotification.php:381
 msgid "100,000 <strong>interaction milestone reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:399
+#: includes/Admin/MilestoneNotification.php:388
 msgid "75,000+ <strong>interactions achieved today!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:406
+#: includes/Admin/MilestoneNotification.php:395
 msgid "Incredible, <strong>50,000 interactions unlocked!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:407
+#: includes/Admin/MilestoneNotification.php:396
 msgid "You are going great with your notification. Do not forget to check the detailed analytics to learn more."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:413
+#: includes/Admin/MilestoneNotification.php:402
 msgid "25,000 <strong>interaction milestone reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:414
+#: includes/Admin/MilestoneNotification.php:403
 msgid "Globally, 25,000 interactions are happening on your website. Check the detailed analytics to grow your audience further."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:420
+#: includes/Admin/MilestoneNotification.php:409
 msgid "Fantastic! <strong>10,000 interactions reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:427
+#: includes/Admin/MilestoneNotification.php:416
 msgid "Awesome - <strong>you got 5,000 interactions!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:428
+#: includes/Admin/MilestoneNotification.php:417
 msgid "Your amazing website reached 5,000 interactions from your notification. Check the detailed analytics and achieve more."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:433
+#: includes/Admin/MilestoneNotification.php:422
 msgid "2,000 <strong>interaction milestone achieved!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:434
+#: includes/Admin/MilestoneNotification.php:423
 msgid "Your website has more than 2,000 interactions from your notification. Do not forget to check the detailed analytics and achieve more."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:440
+#: includes/Admin/MilestoneNotification.php:429
 msgid "Great - <strong>1,000 interactions achieved!</strong> 👏"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:447
+#: includes/Admin/MilestoneNotification.php:436
 msgid "You've got <strong>100 interactions overall!</strong> 🎉"
 msgstr ""
 
@@ -1636,9 +1632,9 @@ msgstr ""
 #: includes/Extensions/Tutor/Tutor.php:531
 #: includes/Extensions/Tutor/Tutor.php:532
 #: includes/Extensions/Tutor/Tutor.php:533
-#: includes/Extensions/WooCommerce/WooCommerce.php:527
-#: includes/Extensions/WooCommerce/WooCommerce.php:528
-#: includes/Extensions/WooCommerce/WooCommerce.php:529
+#: includes/Extensions/WooCommerce/WooCommerce.php:560
+#: includes/Extensions/WooCommerce/WooCommerce.php:561
+#: includes/Extensions/WooCommerce/WooCommerce.php:562
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:73
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:85
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:97
@@ -1658,7 +1654,7 @@ msgstr ""
 #: includes/FrontEnd/FrontEnd.php:277
 #: includes/FrontEnd/FrontEnd.php:278
 #: includes/FrontEnd/FrontEnd.php:279
-#: includes/FrontEnd/FrontEnd.php:781
+#: includes/FrontEnd/FrontEnd.php:786
 #: includes/Types/Comments.php:54
 #: includes/Types/Comments.php:67
 #: includes/Types/Comments.php:80
@@ -1670,7 +1666,7 @@ msgstr ""
 #: includes/Types/ContactForm.php:60
 #: includes/Types/ContactForm.php:73
 #: includes/Types/ContactForm.php:86
-#: includes/Types/Conversions.php:66
+#: includes/Types/Conversions.php:65
 #: includes/Types/Donations.php:49
 #: includes/Types/ELearning.php:58
 #: includes/Types/ELearning.php:71
@@ -1701,7 +1697,7 @@ msgstr ""
 #: includes/Core/PostType.php:77
 #: includes/Extensions/GlobalFields.php:1181
 #: includes/Extensions/PopupNotification/PopupNotification.php:782
-#: includes/Extensions/PressBar/PressBar.php:1689
+#: includes/Extensions/PressBar/PressBar.php:1691
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 #: assets/admin/js/admin.js:20
@@ -1721,7 +1717,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:626
 #: includes/Extensions/GlobalFields.php:653
 #: includes/Extensions/PopupNotification/PopupNotification.php:606
-#: includes/Extensions/PressBar/PressBar.php:1654
+#: includes/Extensions/PressBar/PressBar.php:1656
 msgid "Content"
 msgstr ""
 
@@ -1744,7 +1740,7 @@ msgstr ""
 #: includes/Core/QuickBuild.php:256
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:198
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:199
-#: includes/Types/Conversions.php:62
+#: includes/Types/Conversions.php:61
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
@@ -1967,59 +1963,16 @@ msgid ""
 "\t\t<p>🔥 Boosting Engagement with <a target=\"_blank\" href=\"%4$s\">ActiveCampaign Email Subscription Alerts</a> via NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:44
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:45
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:82
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:73
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:45
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:46
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:70
-msgid "Bit Integrations"
+#: includes/Extensions/CCPA/CCPA_Notification.php:42
+msgid "CCPA"
 msgstr ""
 
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:47
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:48
-msgid "<a href='https://notificationx.com/docs/bitintegrations-notification-alert/' target='_blank'>More Info</a>"
+#: includes/Extensions/CF7/CF7.php:50
+#: includes/Extensions/CF7/CF7.php:51
+#: includes/Extensions/CF7/CF7.php:101
+msgid "Contact Form 7"
 msgstr ""
 
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:48
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:49
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:47
-#: includes/Extensions/Elementor/From.php:49
-#: includes/Extensions/Envato/Envato.php:48
-#: includes/Extensions/Freemius/FreemiusConversions.php:48
-#: includes/Extensions/Freemius/FreemiusReviews.php:48
-#: includes/Extensions/Freemius/FreemiusStats.php:49
-#: includes/Extensions/Google/GoogleReviews.php:163
-#: includes/Extensions/Google/YouTube.php:256
-#: includes/Extensions/GRVF/GravityForms.php:50
-#: includes/Extensions/LearnDash/LearnDash.php:50
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:156
-#: includes/Extensions/Zapier/ZapierConversions.php:48
-#: includes/Extensions/Zapier/ZapierReviews.php:48
-#: includes/Types/EmailSubscription.php:54
-#: includes/Types/FlashingTab.php:47
-#: includes/Types/Inline.php:48
-#: includes/Types/OfferAnnouncement.php:50
-#: includes/Types/PageAnalytics.php:48
-#: includes/Types/Video.php:53
-msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:49
-#: includes/Extensions/Zapier/ZapierConversions.php:49
-msgid ""
-"\n"
-"                <span>A well-known web-based tool to connect with any of your web-based applications & boost productivity.</span>\n"
-"                <iframe id=\"email_subscription_video\" type=\"text/html\" allowfullscreen width=\"450\" height=\"235\"\n"
-"                src=\"https://www.youtube.com/embed/KjdLv5YMByQ\">\n"
-"                </iframe>\n"
-"            "
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:80
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:71
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:68
 #: includes/Extensions/CF7/CF7.php:99
 #: includes/Extensions/EDD/EDD.php:96
 #: includes/Extensions/Elementor/From.php:61
@@ -2032,15 +1985,12 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:210
 #: includes/Extensions/SureCart/SureCart.php:453
 #: includes/Extensions/Tutor/Tutor.php:129
-#: includes/Extensions/WooCommerce/WooCommerce.php:103
+#: includes/Extensions/WooCommerce/WooCommerce.php:131
 #: includes/Extensions/WooCommerce/WOOReviews.php:231
 #: includes/Extensions/WPF/WPForms.php:90
 msgid "You have to install"
 msgstr ""
 
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:83
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:74
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:71
 #: includes/Extensions/CF7/CF7.php:102
 #: includes/Extensions/EDD/EDD.php:99
 #: includes/Extensions/Elementor/From.php:64
@@ -2052,196 +2002,10 @@ msgstr ""
 #: includes/Extensions/NJF/NinjaForms.php:93
 #: includes/Extensions/SureCart/SureCart.php:456
 #: includes/Extensions/Tutor/Tutor.php:132
-#: includes/Extensions/WooCommerce/WooCommerce.php:106
+#: includes/Extensions/WooCommerce/WooCommerce.php:134
 #: includes/Extensions/WooCommerce/WOOReviews.php:234
 #: includes/Extensions/WPF/WPForms.php:93
 msgid "plugin first."
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:96
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:87
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:94
-#: includes/Extensions/Zapier/ZapierConversions.php:71
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
-#: includes/Extensions/Zapier/ZapierReviews.php:68
-msgid "Field Name:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:96
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:87
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:94
-#: includes/Extensions/Zapier/ZapierConversions.php:71
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
-#: includes/Extensions/Zapier/ZapierReviews.php:68
-msgid "Field Key"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:97
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:88
-#: includes/Extensions/Zapier/ZapierConversions.php:72
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:62
-msgid "Full Name:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:98
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:89
-#: includes/Extensions/Zapier/ZapierConversions.php:73
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:63
-msgid "First Name:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:99
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:90
-#: includes/Extensions/Zapier/ZapierConversions.php:74
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:64
-msgid "Last Name:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:100
-#: includes/Extensions/Zapier/ZapierConversions.php:75
-msgid "Sales Count:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:101
-#: includes/Extensions/Zapier/ZapierConversions.php:76
-msgid "Customer Email:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:102
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:92
-#: includes/Extensions/Zapier/ZapierConversions.php:77
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:66
-msgid "Title, Product Title:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:103
-#: includes/Extensions/Zapier/ZapierConversions.php:78
-msgid "Anonymous Title, Product:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:104
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:94
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:103
-#: includes/Extensions/Zapier/ZapierConversions.php:79
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:68
-#: includes/Extensions/Zapier/ZapierReviews.php:77
-msgid "Definite Time:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:105
-#: includes/Extensions/Zapier/ZapierConversions.php:80
-msgid "Sometime:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:106
-#: includes/Extensions/Zapier/ZapierConversions.php:81
-msgid "In last 1 day:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:107
-#: includes/Extensions/Zapier/ZapierConversions.php:82
-msgid "In last 7 days:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:108
-#: includes/Extensions/Zapier/ZapierConversions.php:83
-msgid "In last 30 days:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:109
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:96
-#: includes/Extensions/Zapier/ZapierConversions.php:84
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:70
-msgid "City:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:110
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:97
-#: includes/Extensions/Zapier/ZapierConversions.php:85
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:71
-msgid "Country:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:111
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:98
-#: includes/Extensions/Zapier/ZapierConversions.php:86
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:72
-msgid "City,Country:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:45
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:46
-msgid "BitIntegrations"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:91
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:96
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:65
-#: includes/Extensions/Zapier/ZapierReviews.php:70
-#: assets/admin/js/admin.js:13
-msgid "Email:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:93
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:101
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:67
-#: includes/Extensions/Zapier/ZapierReviews.php:75
-msgid "Anonymous Title:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:95
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:104
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:69
-#: includes/Extensions/Zapier/ZapierReviews.php:78
-msgid "Some time ago:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:50
-#: includes/Extensions/Zapier/ZapierReviews.php:49
-msgid ""
-"\n"
-"                <span>Display review alerts from popular social media networks & encourage visitors to place trust in your business.</span>\n"
-"            "
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:95
-#: includes/Extensions/Zapier/ZapierReviews.php:69
-msgid "Username:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:97
-#: includes/Extensions/Zapier/ZapierReviews.php:71
-msgid "Rated:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:98
-#: includes/Extensions/Zapier/ZapierReviews.php:72
-msgid "Plugin Name:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:99
-#: includes/Extensions/Zapier/ZapierReviews.php:73
-msgid "Plugin Review:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:100
-#: includes/Extensions/Zapier/ZapierReviews.php:74
-msgid "Review Title:"
-msgstr ""
-
-#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:102
-#: includes/Extensions/Zapier/ZapierReviews.php:76
-msgid "Rating:"
-msgstr ""
-
-#: includes/Extensions/CCPA/CCPA_Notification.php:42
-msgid "CCPA"
-msgstr ""
-
-#: includes/Extensions/CF7/CF7.php:50
-#: includes/Extensions/CF7/CF7.php:51
-#: includes/Extensions/CF7/CF7.php:101
-msgid "Contact Form 7"
 msgstr ""
 
 #. translators: links
@@ -2289,6 +2053,28 @@ msgstr ""
 msgid "<a href='https://notificationx.com/docs/custom-notification/' target='_blank'>More Info</a>"
 msgstr ""
 
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:47
+#: includes/Extensions/Elementor/From.php:49
+#: includes/Extensions/Envato/Envato.php:48
+#: includes/Extensions/Freemius/FreemiusConversions.php:48
+#: includes/Extensions/Freemius/FreemiusReviews.php:48
+#: includes/Extensions/Freemius/FreemiusStats.php:49
+#: includes/Extensions/Google/GoogleReviews.php:163
+#: includes/Extensions/Google/YouTube.php:256
+#: includes/Extensions/GRVF/GravityForms.php:50
+#: includes/Extensions/LearnDash/LearnDash.php:50
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:156
+#: includes/Extensions/Zapier/ZapierConversions.php:48
+#: includes/Extensions/Zapier/ZapierReviews.php:48
+#: includes/Types/EmailSubscription.php:54
+#: includes/Types/FlashingTab.php:47
+#: includes/Types/Inline.php:48
+#: includes/Types/OfferAnnouncement.php:50
+#: includes/Types/PageAnalytics.php:48
+#: includes/Types/Video.php:53
+msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
+msgstr ""
+
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:48
 msgid ""
 "\n"
@@ -2306,14 +2092,14 @@ msgid "Easy Digital Downloads"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:129
-#: includes/Extensions/WooCommerce/WooCommerce.php:478
+#: includes/Extensions/WooCommerce/WooCommerce.php:511
 msgid "more products"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:147
 #: includes/Extensions/FluentCart/FluentCart.php:679
 #: includes/Extensions/SureCart/SureCart.php:431
-#: includes/Extensions/WooCommerce/WooCommerce.php:133
+#: includes/Extensions/WooCommerce/WooCommerce.php:161
 #: includes/Types/DownloadStats.php:199
 #: includes/Types/Traits/Reviews.php:22
 msgid "Product Page"
@@ -2325,8 +2111,8 @@ msgstr ""
 #: includes/Extensions/LearnPress/LearnPress.php:539
 #: includes/Extensions/SureCart/SureCart.php:441
 #: includes/Extensions/Tutor/Tutor.php:534
-#: includes/Extensions/WooCommerce/WooCommerce.php:530
-#: includes/Types/Conversions.php:69
+#: includes/Extensions/WooCommerce/WooCommerce.php:563
+#: includes/Types/Conversions.php:68
 #: includes/Types/WooCommerceSales.php:66
 msgid "Anonymous Product"
 msgstr ""
@@ -2376,8 +2162,8 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooInline.php:129
 #: includes/Extensions/WooCommerce/WOOReviews.php:140
 #: includes/Extensions/WooCommerce/WOOReviews.php:165
-#: includes/Types/Conversions.php:211
-#: includes/Types/Conversions.php:236
+#: includes/Types/Conversions.php:210
+#: includes/Types/Conversions.php:235
 #: includes/Types/WooCommerceSales.php:207
 #: includes/Types/WooCommerceSales.php:225
 msgid "Product Title"
@@ -2915,7 +2701,7 @@ msgstr ""
 #: includes/Types/ContactForm.php:65
 #: includes/Types/ContactForm.php:78
 #: includes/Types/ContactForm.php:91
-#: includes/Types/Conversions.php:71
+#: includes/Types/Conversions.php:70
 #: includes/Types/Donations.php:56
 #: includes/Types/ELearning.php:63
 #: includes/Types/ELearning.php:76
@@ -3804,7 +3590,7 @@ msgstr ""
 #: includes/Types/Comments.php:218
 #: includes/Types/Comments.php:235
 #: includes/Types/ContactForm.php:145
-#: includes/Types/Conversions.php:214
+#: includes/Types/Conversions.php:213
 #: includes/Types/Donations.php:177
 #: includes/Types/ELearning.php:188
 #: includes/Types/EmailSubscription.php:127
@@ -4200,8 +3986,8 @@ msgid "Grab Now"
 msgstr ""
 
 #: includes/Extensions/OfferAnnouncement/Announcements.php:106
-#: includes/Types/Conversions.php:119
-#: includes/Types/Conversions.php:129
+#: includes/Types/Conversions.php:118
+#: includes/Types/Conversions.php:128
 msgid "Buy Now"
 msgstr ""
 
@@ -4714,8 +4500,8 @@ msgid "Enter your message..."
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:711
-#: includes/Extensions/PressBar/PressBar.php:1734
-#: includes/Extensions/PressBar/PressBar.php:1824
+#: includes/Extensions/PressBar/PressBar.php:1736
+#: includes/Extensions/PressBar/PressBar.php:1826
 #: includes/Types/GDPR.php:424
 #: includes/Types/GDPR.php:432
 #: includes/Types/GDPR.php:440
@@ -4724,17 +4510,17 @@ msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:715
 #: includes/Extensions/PressBar/PressBar.php:98
-#: includes/Extensions/PressBar/PressBar.php:1736
+#: includes/Extensions/PressBar/PressBar.php:1738
 msgid "Get Offer"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:719
-#: includes/Extensions/PressBar/PressBar.php:1745
+#: includes/Extensions/PressBar/PressBar.php:1747
 msgid "Button URL"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:733
-#: includes/Extensions/PressBar/PressBar.php:1756
+#: includes/Extensions/PressBar/PressBar.php:1758
 msgid "Button Icon"
 msgstr ""
 
@@ -4745,7 +4531,7 @@ msgstr ""
 #: includes/Extensions/PopupNotification/PopupNotification.php:750
 #: includes/Extensions/PressBar/PressBar.php:163
 #: includes/Extensions/PressBar/PressBar.php:178
-#: includes/Extensions/PressBar/PressBar.php:1762
+#: includes/Extensions/PressBar/PressBar.php:1764
 msgid "Shop Now"
 msgstr ""
 
@@ -5143,197 +4929,197 @@ msgstr ""
 msgid "NotificationX Bar (Gutenberg)"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1646
+#: includes/Extensions/PressBar/PressBar.php:1648
 msgid "Text Content"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1660
-#: includes/Extensions/PressBar/PressBar.php:1675
+#: includes/Extensions/PressBar/PressBar.php:1662
+#: includes/Extensions/PressBar/PressBar.php:1677
 msgid "Static Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1665
+#: includes/Extensions/PressBar/PressBar.php:1667
 msgid "Slide Multiple Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1676
+#: includes/Extensions/PressBar/PressBar.php:1678
 msgid "Write something here..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1686
+#: includes/Extensions/PressBar/PressBar.php:1688
 msgid "Sliding Text Items"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1693
+#: includes/Extensions/PressBar/PressBar.php:1695
 msgid "🚀 Supercharge Your Marketing Forever!"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1696
+#: includes/Extensions/PressBar/PressBar.php:1698
 msgid "Get <strong>Lifetime Access to NotificationX</strong> for just <strong>$299</strong>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1703
+#: includes/Extensions/PressBar/PressBar.php:1705
 msgid "Slide Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1715
+#: includes/Extensions/PressBar/PressBar.php:1717
 msgid "Sliding Interval"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1719
+#: includes/Extensions/PressBar/PressBar.php:1721
 msgid "Time interval between slides in milliseconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1766
+#: includes/Extensions/PressBar/PressBar.php:1768
 msgid "Shop Now White "
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1769
+#: includes/Extensions/PressBar/PressBar.php:1771
 msgid "Select an icon to display before the button text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1776
+#: includes/Extensions/PressBar/PressBar.php:1778
 msgid "Transition Speed"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1782
+#: includes/Extensions/PressBar/PressBar.php:1784
 msgid "Transition speed in milliseconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1789
+#: includes/Extensions/PressBar/PressBar.php:1791
 msgid "Transition Style"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1795
+#: includes/Extensions/PressBar/PressBar.php:1797
 msgid "Slide in Right"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1796
+#: includes/Extensions/PressBar/PressBar.php:1798
 msgid "Slide in Left"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1806
+#: includes/Extensions/PressBar/PressBar.php:1808
 msgid "Coupon"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1818
+#: includes/Extensions/PressBar/PressBar.php:1820
 msgid "Enable Coupon"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1826
-#: includes/Extensions/PressBar/PressBar.php:1836
+#: includes/Extensions/PressBar/PressBar.php:1828
+#: includes/Extensions/PressBar/PressBar.php:1838
 msgid "SAVE20"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1834
+#: includes/Extensions/PressBar/PressBar.php:1836
 msgid "Coupon Code"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1844
+#: includes/Extensions/PressBar/PressBar.php:1846
 msgid "Coupon Copied Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1846
+#: includes/Extensions/PressBar/PressBar.php:1848
 msgid "Copied!"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1854
+#: includes/Extensions/PressBar/PressBar.php:1856
 msgid "Coupon Tooltip"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1856
+#: includes/Extensions/PressBar/PressBar.php:1858
 msgid "Use this coupon code to get 20% off"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1864
+#: includes/Extensions/PressBar/PressBar.php:1866
 msgid "Coupon Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1874
+#: includes/Extensions/PressBar/PressBar.php:1876
 msgid "Coupon Text Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1884
+#: includes/Extensions/PressBar/PressBar.php:1886
 msgid "Coupon Border Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1900
+#: includes/Extensions/PressBar/PressBar.php:1902
 msgid "Countdown Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1906
+#: includes/Extensions/PressBar/PressBar.php:1908
 msgid "Enable Countdown"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1912
+#: includes/Extensions/PressBar/PressBar.php:1914
 msgid "Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1916
+#: includes/Extensions/PressBar/PressBar.php:1918
 msgid "To configure Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1921
+#: includes/Extensions/PressBar/PressBar.php:1923
 msgid "Countdown Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1923
+#: includes/Extensions/PressBar/PressBar.php:1925
 msgid "Ending in"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1932
+#: includes/Extensions/PressBar/PressBar.php:1934
 msgid "Expired Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1934
+#: includes/Extensions/PressBar/PressBar.php:1936
 msgid "Expired"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1944
+#: includes/Extensions/PressBar/PressBar.php:1946
 msgid "Start Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1951
+#: includes/Extensions/PressBar/PressBar.php:1953
 msgid "End Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1959
+#: includes/Extensions/PressBar/PressBar.php:1961
 msgid "Randomize"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1965
+#: includes/Extensions/PressBar/PressBar.php:1967
 msgid "Time Between"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1971
+#: includes/Extensions/PressBar/PressBar.php:1973
 msgid "Start Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1978
+#: includes/Extensions/PressBar/PressBar.php:1980
 msgid "End Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1987
+#: includes/Extensions/PressBar/PressBar.php:1989
 msgid "Time Rotation"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1995
+#: includes/Extensions/PressBar/PressBar.php:1997
 msgid "Daily Time Reset"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2001
+#: includes/Extensions/PressBar/PressBar.php:2003
 msgid "Permanent Close"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2006
+#: includes/Extensions/PressBar/PressBar.php:2008
 msgid "Close After Expire"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2214
+#: includes/Extensions/PressBar/PressBar.php:2216
 msgid "Install Essential Blocks"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2224
+#: includes/Extensions/PressBar/PressBar.php:2226
 msgid ""
 "<p>You can showcase the notification bar to run instant popup campaigns on WordPress sites. For further assistance, check out our step-by-step guides on adding notification bars built with both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
 "\t\t<p>🎦 Watch the <a target = \"_blank\" href = \"%3$s\">video tutorial</a> for a quick guide.</p>\n"
@@ -5455,7 +5241,7 @@ msgstr ""
 
 #: includes/Extensions/WooCommerce/WooCommerce.php:54
 #: includes/Extensions/WooCommerce/WooCommerce.php:55
-#: includes/Extensions/WooCommerce/WooCommerce.php:105
+#: includes/Extensions/WooCommerce/WooCommerce.php:133
 #: includes/Extensions/WooCommerce/WOOReviews.php:55
 #: includes/Extensions/WooCommerce/WOOReviews.php:56
 #: includes/Extensions/WooCommerce/WOOReviews.php:233
@@ -5469,11 +5255,11 @@ msgid "Product Title Raw"
 msgstr ""
 
 #. translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
-#: includes/Extensions/WooCommerce/WooCommerce.php:481
+#: includes/Extensions/WooCommerce/WooCommerce.php:514
 msgid "%1$s & %2$s %3$s"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerce.php:538
+#: includes/Extensions/WooCommerce/WooCommerce.php:571
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:203
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:167
 msgid ""
@@ -5675,6 +5461,144 @@ msgstr ""
 msgid "<a href='https://notificationx.com/docs/zapier-notification-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
+#: includes/Extensions/Zapier/ZapierConversions.php:49
+msgid ""
+"\n"
+"                <span>A well-known web-based tool to connect with any of your web-based applications & boost productivity.</span>\n"
+"                <iframe id=\"email_subscription_video\" type=\"text/html\" allowfullscreen width=\"450\" height=\"235\"\n"
+"                src=\"https://www.youtube.com/embed/KjdLv5YMByQ\">\n"
+"                </iframe>\n"
+"            "
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:71
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
+#: includes/Extensions/Zapier/ZapierReviews.php:68
+msgid "Field Name:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:71
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
+#: includes/Extensions/Zapier/ZapierReviews.php:68
+msgid "Field Key"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:72
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:62
+msgid "Full Name:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:73
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:63
+msgid "First Name:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:74
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:64
+msgid "Last Name:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:75
+msgid "Sales Count:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:76
+msgid "Customer Email:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:77
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:66
+msgid "Title, Product Title:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:78
+msgid "Anonymous Title, Product:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:79
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:68
+#: includes/Extensions/Zapier/ZapierReviews.php:77
+msgid "Definite Time:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:80
+msgid "Sometime:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:81
+msgid "In last 1 day:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:82
+msgid "In last 7 days:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:83
+msgid "In last 30 days:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:84
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:70
+msgid "City:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:85
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:71
+msgid "Country:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierConversions.php:86
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:72
+msgid "City,Country:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:65
+#: includes/Extensions/Zapier/ZapierReviews.php:70
+#: assets/admin/js/admin.js:13
+msgid "Email:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:67
+#: includes/Extensions/Zapier/ZapierReviews.php:75
+msgid "Anonymous Title:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:69
+#: includes/Extensions/Zapier/ZapierReviews.php:78
+msgid "Some time ago:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:49
+msgid ""
+"\n"
+"                <span>Display review alerts from popular social media networks & encourage visitors to place trust in your business.</span>\n"
+"            "
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:69
+msgid "Username:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:71
+msgid "Rated:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:72
+msgid "Plugin Name:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:73
+msgid "Plugin Review:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:74
+msgid "Review Title:"
+msgstr ""
+
+#: includes/Extensions/Zapier/ZapierReviews.php:76
+msgid "Rating:"
+msgstr ""
+
 #: includes/FrontEnd/FrontEnd.php:90
 msgid "Necessary cookies are needed to ensure the basic functions of this site, like allowing secure log-ins and managing your consent settings. These cookies do not collect any personal information."
 msgstr ""
@@ -5773,7 +5697,7 @@ msgstr ""
 msgid "Select a Form"
 msgstr ""
 
-#: includes/Types/Conversions.php:67
+#: includes/Types/Conversions.php:66
 #: includes/Types/WooCommerceSales.php:64
 msgid "just purchased"
 msgstr ""

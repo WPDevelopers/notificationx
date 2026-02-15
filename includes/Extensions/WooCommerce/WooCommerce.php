@@ -63,7 +63,35 @@ class WooCommerce extends Extension {
         add_action('woocommerce_order_status_changed', array($this, 'status_transition'), 10, 4);
         add_action('woocommerce_process_shop_order_meta', array( $this, 'manual_order'), 10, 2 );
         add_action('woocommerce_new_order_item', array($this, 'save_new_orders'), 10, 3);
+        add_filter("nx_entry_show_on_frontend_{$this->id}", [$this, 'entry_display'], 10, 3);
     }
+
+    /**
+     * This function is responsible for checking if the product is published or not.
+     *
+     * @param boolean $data
+     * @param array $post
+     * @param array $entry
+     * @return boolean
+     */
+    public function entry_display($data, $post, $entry) {
+        $product_id = $post['product_id'];
+        if ( empty($product_id) ) {
+            return true;
+        }
+
+        $product = wc_get_product($product_id);
+        if ( ! $product ) {
+            return true;
+        }
+
+        if ( $product->get_status() !== 'publish' ) {
+            return true;
+        }
+
+        return false;
+    }
+
 
     public function init_fields(){
         parent::init_fields();
@@ -302,9 +330,14 @@ class WooCommerce extends Extension {
         }
         if (!empty($shipping_country)) {
             $new_order['country'] = isset($countries->countries[$shipping_country]) ? $countries->countries[$shipping_country] : '';
-            $shipping_state = $order->get_shipping_state();
-            if (!empty($shipping_state)) {
-                $new_order['state'] = isset($countries->states[$shipping_country], $countries->states[$shipping_country][$shipping_state]) ? $countries->states[$shipping_country][$shipping_state] : $shipping_state;
+            $billing_state = $order->get_billing_state();
+            if (!empty($billing_state)) {
+                $new_order['state'] = isset($countries->states[$shipping_country], $countries->states[$shipping_country][$billing_state]) ? $countries->states[$shipping_country][$billing_state] : $billing_state;
+            }else {
+                $shipping_state = $order->get_shipping_state();
+                if (!empty($shipping_state)) {
+                    $new_order['state'] = isset($countries->states[$shipping_country], $countries->states[$shipping_country][$shipping_state]) ? $countries->states[$shipping_country][$shipping_state] : $shipping_state;
+                }
             }
         }
         $new_order['city'] = $order->get_billing_city();

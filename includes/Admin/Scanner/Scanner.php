@@ -114,7 +114,7 @@ class Scanner
         }
 
         // Process the scan result if the status is 'completed'
-        if (!empty($status['status']) && $status['status'] === 'completed') {
+        if ( is_array($status) && !empty($status['status']) && $status['status'] === 'completed') {
             // Update scan count to the options
             $pre_count = get_option('nx_scan_count', 0);
             update_option('nx_scan_count', $pre_count + 1);

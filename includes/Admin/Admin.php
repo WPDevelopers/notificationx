@@ -323,93 +323,32 @@ class Admin {
 		);
 
         $crown = self::ASSET_URL . 'images/crown.svg';
-        // Back Friday 2024
-        $notice_text = "<p>🛍️ This Black Friday, enjoy <strong>up to 35% OFF</strong> on NotificationX PRO and unlock exclusive marketing strategies.</p><a style='display: inline-flex;column-gap:5px;' class='button button-primary' href='https://notificationx.com/bfcm24-pricing' target='_blank'><img style='width:15px;' src='{$crown}'/>Upgrade to pro</a>";
-            $_black_friday_2024 = [
-            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
-            'html'      => $notice_text,
-        ];
-        $notices->add(
-            'nx_black_friday_2024',
-            $_black_friday_2024,
-            [
-                'start'       => $notices->time(),
-                'recurrence'  => false,
-                'dismissible' => true,
-                'refresh'     => NOTIFICATIONX_VERSION,
-                'screens'     => [ 'dashboard' ],
-                "expire"      => strtotime( '11:59:59pm 5th December, 2024' ),
-                'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
-            ]
-        );
-
-        // Black Friday 2025
-        $notice_text = "<p><strong>Black Friday Mega Sale:</strong> Boost trust & conversions with real-time social proof notification alerts – now <strong>up to $160 OFF! 🎁</strong> </p><div class='wpsp-notice-action-button' style='display: inline-flex;column-gap:5px;'><a class='button button-primary' href='https://notificationx.com/bfcm2025-admin-notice' target='_blank'>Upgrade To PRO</a> <button class='wpsp-notice-action-dismiss dismiss-btn' data-dismiss='true' target='_blank'>I’ll Grab It Later</button></div>";
-        $_black_friday_2025 = [
-            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
-            'html'      => $notice_text,
-        ];
-        $notices->add(
-            'nx_black_friday_2025',
-            $_black_friday_2025,
-            [
-                'start'       => $notices->time(),
-                'recurrence'  => false,
-                'dismissible' => true,
-                'refresh'     => '',
-                'screens'     => [ 'dashboard' ],
-                "expire"      => strtotime( '11:59:59pm 4th December, 2025' ),
-                'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) ),
-            ]
-        );
-
-        // Holiday Deal
-        $notice_text = "<p><strong>Season's Best Deal:</strong> Boost trust & conversions with real-time social proof notification alerts – now <strong>up to 25% OFF! ⚡</strong> </p><div class='wpsp-notice-action-button' style='display: inline-flex;column-gap:5px;'><a class='button button-primary' href='https://notificationx.com/holiday2025-admin-notice' target='_blank'>Upgrade To PRO</a> <button class='wpsp-notice-action-dismiss dismiss-btn' data-dismiss='true' target='_blank'>I’ll Grab It Later</button></div>";
-        $_nx_holiday_2025 = [
-            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
-            'html'      => $notice_text,
-        ];
-        $notices->add(
-            'nx_holiday_2025',
-            $_nx_holiday_2025,
-            [
-                'start'       => $notices->time(),
-                'recurrence'  => false,
-                'dismissible' => true,
-                'refresh'     => NOTIFICATIONX_VERSION,
-                'screens'     => [ 'dashboard' ],
-                "expire"      => strtotime( '11:59:59pm 7th January, 2026' ),
-                "start"       => strtotime( '11:59:59pm 15th December, 2025' ),
-                'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) ),
-            ]
-        );
-
-        // Holiday Deal
-        $notice_text = "<p>🎁 <strong>SAVE 25% now</strong> & unlock advanced social-proof marketing features to skyrocket conversions in 2025.</p>
+        // February Deal
+        $_february_deal = "<p>Boost trust & conversions with real-time social proof notification alerts – now <strong>Flat 20% OFF! 🎁</strong></p>
                         <div class='nx-notice-action-button'>
-                            <a style='display: inline-flex;column-gap:5px;' class='button button-primary' href='https://notificationx.com/holiday24-admin-notice' target='_blank'>
-                                <img style='width:15px;' src='{$crown}'/>GET PRO Lifetime Access
+                            <a style='display: inline-flex;column-gap:5px;' class='button button-primary' href='https://notificationx.com/feb2026-admin-notice' target='_blank'>
+                                Upgrade To PRO
                             </a>
                             <a class='nx-notice-action-dismiss dismiss-btn' data-dismiss='true' href='#'>
-                                <img style='width:15px;' src='{$crown}'/>No, I'll Pay Full Price Later
+                                I’ll Grab It Later
                             </a>
                         </div>
                         ";
-            $_holidays_deal = [
+        $_february_deal_html = [
             'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
-            'html'      => $notice_text,
+            'html'      => $_february_deal,
         ];
         $notices->add(
-            'nx_holidays_deal',
-            $_holidays_deal,
+            'nx_february_deal',
+            $_february_deal_html,
             [
-                'start'       => $notices->time(),
+                'start'       => strtotime('11:59:59pm 9th February, 2026'),
                 'recurrence'  => false,
                 'dismissible' => true,
                 'refresh'     => NOTIFICATIONX_VERSION,
                 'screens'     => [ 'dashboard' ],
-                "expire"      => strtotime( '11:59:59pm 10th January, 2025' ),
-                // 'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
+                "expire"      => strtotime('11:59:59pm 7th March, 2026'),
+                'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
             ]
         );
 
