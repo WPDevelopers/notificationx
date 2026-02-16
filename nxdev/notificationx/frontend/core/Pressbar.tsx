@@ -225,8 +225,11 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     }, []);
 
     useEffect(() => {
-        calcHeight();
-    }, [isLoading, gutenbergRef.current])
+        const cleanup = calcHeight();
+        return () => {
+            if (typeof cleanup === 'function') cleanup();
+        };
+    }, [isLoading, gutenbergRef.current, settings]);
 
     useEffect(() => {
         if(!settings.is_gutenberg || !settings.gutenberg_id){

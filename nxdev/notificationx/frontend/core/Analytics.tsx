@@ -106,14 +106,19 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
     const iconUrl = getIconUrl(config.button_icon);
 
     if( config.source == 'press_bar' ) {
+        // Apply computed styles to the anchor to avoid conflicting wrapper styles
+        const { style: incomingStyle, ...otherRest } = rest || {};
+        const anchorStyle: React.CSSProperties = Object.assign({}, incomingStyle || {}, styles);
+
         return (
             <>
-                <div  className="notificationx-link-wrapper" style={styles}>
+                <div className="notificationx-link-wrapper">
                     <a
                         href={ link }
                         target={config?.link_open ? "_blank" : ""}
                         onClick={e => analyticsOnClick(e, restUrl, config, dispatch, frontendContext.rest.omit_credentials)}
-                        {...rest}
+                        style={anchorStyle}
+                        {...otherRest}
                     >
                         { (config?.button_icon && config?.button_icon !== 'none') && (
                             <img
