@@ -432,7 +432,7 @@ class PressBar extends Extension {
             'name'   => 'nxbar_build_with_ai',
             'id'     => 'nxbar_build_with_ai',
             'type'   => 'section',
-            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/icons/nxbar-custom-tab.svg',
+            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/icons/build-with-ai-icon.svg',
             'rules'  => Rules::is('source', $this->id),
             'fields' => [
                 'nxbar_build_with_ai' => [
