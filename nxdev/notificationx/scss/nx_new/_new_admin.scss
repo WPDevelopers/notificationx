@@ -1,6 +1,4 @@
-div#notificationx {
-    position: relative;
-}
+
 .nx-admin-new-wrapper {
 
     box-sizing: border-box;
@@ -15,10 +13,6 @@ div#notificationx {
     // .analytics-display-area.nx-stats-tease {
     //     min-height: 300px;
     // }
-
-    @media only screen and (max-width: 1399px) {
-        position: relative;
-    }
 
     a {
         text-decoration: none;
@@ -169,7 +163,7 @@ div#notificationx {
     }
 
     .nx-admin-header {
-        padding-top: 84px;
+        padding-top: 32px;
         display: flex;
         align-items: center;
         gap: 32px;
@@ -899,15 +893,7 @@ div#notificationx {
         gap: 8px;
         font-size: 16px;
         font-weight: 500;
-        position: absolute;
-        left: -32px;
-        right: -29px;
-        top: -10px;
-
-        @media only screen and (max-width: 1399px) {
-            left: -22px;
-            right: -20px;
-        }
+        position: relative;
 
         span {
             font-weight: 400;
@@ -918,6 +904,7 @@ div#notificationx {
             color: #E7E2FF;
             text-decoration: underline;
         }
+
         .close-button {
             position: absolute;
             right: 16px;
