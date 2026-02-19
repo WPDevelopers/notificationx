@@ -26,7 +26,10 @@ const Notice = ( { props, context } ) => {
     
     return (
         <div className='nx-dashboard-notice-wrapper'>
-            <span>✨ { __('Introducing Build with AI in NotificationX - Create Notification bar with prompt', 'notificationx') }</span> 
+            <div>✨ 
+                { __('Introducing Build with AI in NotificationX', 'notificationx') }
+                <span>{ __(' - Create Notification bar with prompt', 'notificationx') }</span>
+            </div> 
             <a href="https://notificationx.com/changelog" target="_blank">Changelog</a>
             <button className='close-button' onClick={ handleNoticeClose }>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
