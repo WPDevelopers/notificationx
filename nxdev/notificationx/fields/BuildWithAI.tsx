@@ -8,7 +8,7 @@ const BuildWithAIContent = () => {
     
     return (
       <>
-        { builderContext?.is_pro_active && <ProAlertForBuildWithAI/> }
+        { !builderContext?.is_pro_active && <ProAlertForBuildWithAI/> }
         {applyFilters(
           'nx_build_ai_render',
           null,
