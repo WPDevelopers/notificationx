@@ -882,6 +882,34 @@
             }
         }
     }
+
+    // notice 
+    .nx-dashboard-notice-wrapper {
+        background-color: #3F0AA7;
+        padding: 17px 0;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 16px;
+        font-weight: 500;
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .close-button {
+            position: absolute;
+            right: 15px;
+            top: 12px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
 }
 
 .nx-more-docs-wrapper {

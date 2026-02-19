@@ -432,6 +432,7 @@ class Admin {
      */
     public function add_popup_status_to_context($data) {
         $data['show_initial_popup'] = $this->should_show_initial_popup();
+        $data['nx_admin_notice_close'] = get_option('nx_admin_notice_close', false);
         return $data;
     }
 }
