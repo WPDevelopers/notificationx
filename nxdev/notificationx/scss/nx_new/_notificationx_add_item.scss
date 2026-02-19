@@ -101,7 +101,6 @@
                         background-color: #6a4bff;
                         border-color: #6a4bff;
                         color: #fff;
-
                         svg,
                         img {
                             fill: #fff;
@@ -771,6 +770,21 @@
 
                                 path {
                                     fill: #778095;
+                                }
+                            }
+                            &[data-key="nxbar_custom"]{
+                                position: relative;
+                                &::after{
+                                    content: "";
+                                    position: absolute;
+                                    top: 0;
+                                    right: 0;
+                                    transform: translate(50%, -50%);
+                                    background: url('../icons/new-img/elementor-gutenberg.png');
+                                    color: #fff;
+                                    padding: 2px 6px;
+                                    font-size: 10px;
+                                    border-radius: 0 0 0 10px;
                                 }
                             }
                             &.wprf-active-nav {
