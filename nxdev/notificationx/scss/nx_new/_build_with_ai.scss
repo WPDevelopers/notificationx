@@ -11,11 +11,23 @@
             }
         }
     }
+    .wprf-section-title {
+        display: none !important;
+    }
     .wprf-section-fields {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+
         .nx-build-ai {
             &.nx-build-ai-free-bg {
                 background-image: url('/assets/images/build-ai-bg.png');
+                margin-top: -62px;
+                padding: 80px 0;
+                background-position: center;
+                background-size: contain;
+                border-radius: 0 0 10px 10px;
             }
+
             .nx-bar_build_with_ai-pro-alert {
                 display: flex;
                 flex-direction: column;
@@ -49,7 +61,7 @@
                     }
                 }
                 &-button {
-                    padding: 16px;
+                    padding: 16px 0;
                     border-top: 1px solid #EAECFA;
                     width: 100%;
 
