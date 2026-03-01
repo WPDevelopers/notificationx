@@ -3,9 +3,7 @@ import { applyFilters } from '@wordpress/hooks';
 import { useBuilderContext } from 'quickbuilder'
 import ProAlertForBuildWithAI from '../components/ProAlertForBuildWithAI';
 
-const BuildWithAIContent = () => {
-    const builderContext = useBuilderContext();
-    
+const BuildWithAIContent = ({builderContext}) => {
     return (
       <>
         { !builderContext?.is_pro_active && <ProAlertForBuildWithAI/> }
@@ -19,9 +17,11 @@ const BuildWithAIContent = () => {
 };
 
 const BuildWithAI = () => {
+  const builderContext = useBuilderContext();
+    
   return (
-      <div className="nx-build-ai">
-        <BuildWithAIContent />
+      <div className={`nx-build-ai ${!builderContext?.is_pro_active ? 'nx-build-ai-free-bg' : ''}`}>
+        <BuildWithAIContent builderContext={builderContext} />
       </div>
   );
 };
