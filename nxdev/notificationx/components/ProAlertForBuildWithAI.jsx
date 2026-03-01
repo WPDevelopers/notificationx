@@ -1,8 +1,6 @@
 import React from 'react'
 import ProCrownIcon from '../icons/pro-crown-icon'
 import { __ } from '@wordpress/i18n'
-import Crown from '../icons/Crown'
-import BgImg from '../frontend/assets/img/build-ai-bg.png'
 
 const ProAlertForBuildWithAI = () => {
   return (
