@@ -8,6 +8,9 @@ const ProAlertForBuildWithAI = () => {
   return (
     <div className='nx-bar_build_with_ai-pro-alert'>
         <div className='nx-bar_build_with_ai-pro-alert-info'>
+
+          {/* <img src={ assetsURL('image/icons/crown-2.svg', false) } alt="Crown" /> */}
+
           <ProCrownIcon/>
           <h3>{ __('Build with AI Available for PRO Users Only', 'notificationx') }</h3>
           <span>{ __('The import option is a premium feature. Please upgrade to a PRO plan to access template importing.', 'notificationx') }</span>
