@@ -147,7 +147,13 @@
     .press_bar {
         #design_tab {
            #themes #themes_section {
-                display: none;
+                // display: none;
+                .wprf-tab-nav-item[data-key=nxbar_custom] {
+                    display: none;
+                }
+                &.pro-activated {
+                    display: none;
+                }
             }
         }
     }
