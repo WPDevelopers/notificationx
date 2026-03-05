@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.2.2\n"
+"Project-Id-Version: NotificationX 3.2.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-05T05:48:44+00:00\n"
+"POT-Creation-Date: 2026-03-05T07:45:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -7085,6 +7085,14 @@ msgid "link-icon"
 msgstr ""
 
 #: assets/admin/js/admin.js:13
+msgid "Introducing Build with AI in NotificationX"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid " - Create Notification bar with prompt"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
 msgid "Notifications"
 msgstr ""
 
@@ -7487,6 +7495,21 @@ msgstr ""
 msgid "Create with Your Preferred Builder/Editor"
 msgstr ""
 
+#: assets/admin/js/admin.js:20
+#: nxdev/notificationx/components/ProAlertForBuildWithAI.jsx:13
+msgid "Build with AI Available for PRO Users Only"
+msgstr ""
+
+#: assets/admin/js/admin.js:20
+#: nxdev/notificationx/components/ProAlertForBuildWithAI.jsx:14
+msgid "The import option is a premium feature. Please upgrade to a PRO plan to access template importing."
+msgstr ""
+
+#: assets/admin/js/admin.js:20
+#: nxdev/notificationx/components/ProAlertForBuildWithAI.jsx:23
+msgid "Go Premium"
+msgstr ""
+
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 #: nxdev/notificationx/frontend/themes/helpers/NXBranding.js:9
@@ -7633,16 +7656,4 @@ msgstr ""
 #: blocks/notificationx/components/inspector.js:301
 #: blocks/notificationx/index.js:1
 msgid "Link Color"
-msgstr ""
-
-#: nxdev/notificationx/components/ProAlertForBuildWithAI.jsx:13
-msgid "Build with AI Available for PRO Users Only"
-msgstr ""
-
-#: nxdev/notificationx/components/ProAlertForBuildWithAI.jsx:14
-msgid "The import option is a premium feature. Please upgrade to a PRO plan to access template importing."
-msgstr ""
-
-#: nxdev/notificationx/components/ProAlertForBuildWithAI.jsx:23
-msgid "Go Premium"
 msgstr ""
