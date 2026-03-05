@@ -86,6 +86,20 @@
                     }
                 }
             }
+              .nx-bar_build_with_ai-version-compare {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: #FEEEDC;
+                border-radius: 4px;
+                padding: 12px;
+                p {
+                    font-size: 14px;
+                    line-height: 140%;
+                    margin: 0;
+                    color: #535D77;
+                }
+            }
         }
     }
 }
