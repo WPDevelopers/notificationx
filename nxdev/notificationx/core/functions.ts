@@ -482,20 +482,21 @@ export const getIconUrl = (iconValue, iconPrefix = '') => {
 };
 
 export const compareVersions = (v1, v2) => {
-  const a = v1.split('.').map(Number);
-  const b = v2.split('.').map(Number);
+    if( v1 == null || v2 == null ) return 0;
+    const a = v1.split('.').map(Number);
+    const b = v2.split('.').map(Number);
 
-  const length = Math.max(a.length, b.length);
+    const length = Math.max(a.length, b.length);
 
-  for (let i = 0; i < length; i++) {
-    const num1 = a[i] || 0;
-    const num2 = b[i] || 0;
+    for (let i = 0; i < length; i++) {
+        const num1 = a[i] || 0;
+        const num2 = b[i] || 0;
 
-    if (num1 > num2) return 1;
-    if (num1 < num2) return -1;
-  }
+        if (num1 > num2) return 1;
+        if (num1 < num2) return -1;
+    }
 
-  return 0;
+    return 0;
 };
 
 export const themes_has_bg = ['press_bar_theme-four','press_bar_theme-five'];
