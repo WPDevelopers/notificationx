@@ -427,6 +427,31 @@ class PressBar extends Extension {
                 ],
             ]
         ];
+        $import_design[] = [
+            'label'  => __("Build With AI", 'notificationx'),
+            'name'   => 'nxbar_build_with_ai',
+            'id'     => 'nxbar_build_with_ai',
+            'type'   => 'section',
+            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/icons/build-with-ai-icon.svg',
+            'rules'  => Rules::is('source', $this->id),
+            'fields' => [
+                'nxbar_build_with_ai' => [
+                    'label'  => __("Build With AI", 'notificationx'),
+                    'name'   => 'nxbar_build_with_ai',
+                    'id'     => 'nxbar_build_with_ai',
+                    'type'   => 'section',
+                    'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                    'fields' => [
+                        'nxbar_build_with_ai_fields' => [
+                            'name'     => "nxbar_build_with_ai_fields",
+                            'type'     => "nxbar-build_with_ai",
+                            'label'    => __('NX Bar', 'notificationx'),
+                            'priority' => 10,
+                        ],
+                    ]
+                ],
+            ]
+        ];
         return $fields;
     }
 
@@ -652,6 +677,7 @@ class PressBar extends Extension {
                     'name'        => "bar_font_size",
                     'type'        => "number",
                     'default'     => '13',
+                    'min'         => 1,
                     'priority'    => 5,
                     'description' => 'px',
                     'help'        => __('This font size will be applied for <mark>first</mark> row', 'notificationx'),
