@@ -24,10 +24,10 @@ class BitIntegrtionsReviews extends Extension {
     use GetInstance;
     use BitIntegrations;
 
-    public $priority        = 25;
+    public $priority        = 16;
     public $id              = 'bitintegrations_reviews';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/bit-integrations.png';
-    public $doc_link        = 'https://notificationx.com/docs/bitintegration-notification-alert/';
+    // public $doc_link        = 'https://notificationx.com/docs/bitintegration-notification-alert/';
     public $types           = 'reviews';
     public $module          = 'modules_bitintegrations';
     public $module_priority = 16;

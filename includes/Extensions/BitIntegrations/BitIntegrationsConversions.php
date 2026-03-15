@@ -23,10 +23,10 @@ class BitIntegrationsConversions extends Extension {
      */
     use GetInstance;
 
-    public $priority        = 20;
+    public $priority        = 12;
     public $id              = 'bitintegrations_conversions';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/bit-integrations.png';
-    public $doc_link        = 'https://notificationx.com/docs/bitintegrations-notification-alert/';
+    // public $doc_link        = 'https://notificationx.com/docs/bitintegrations-notification-alert/';
     public $types           = 'conversions';
     public $module          = 'modules_bitintegrations';
     public $module_priority = 16;
@@ -43,16 +43,6 @@ class BitIntegrationsConversions extends Extension {
     {
         $this->title = __('Bit Integrations', 'notificationx');
         $this->module_title = __('Bit Integrations', 'notificationx');
-        $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/bitintegrations-notification-alert/' target='_blank'>More Info</a>", "notificationx"),
-            "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
-            "html"=> __('
-                <span>A well-known web-based tool to connect with any of your web-based applications & boost productivity.</span>
-                <iframe id="email_subscription_video" type="text/html" allowfullscreen width="450" height="235"
-                src="https://www.youtube.com/embed/KjdLv5YMByQ">
-                </iframe>
-            ', 'notificationx')
-        ];
     }
 
     /**
