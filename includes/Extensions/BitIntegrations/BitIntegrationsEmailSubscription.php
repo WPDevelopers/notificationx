@@ -25,7 +25,7 @@ class BitIntegrationsEmailSubscription extends Extension {
     use BitIntegrations;
 
     public $priority        = 15;
-    public $id              = 'bitintegration_email_subscription';
+    public $id              = 'bitintegrations_email_subscription';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/bit-integrations.png';
     // public $doc_link        = 'https://notificationx.com/docs/bitintegration-notification-alert/';
     public $types           = 'email_subscription';
