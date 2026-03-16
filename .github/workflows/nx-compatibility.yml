@@ -1,0 +1,302 @@
+name: QA - NotificationX Compatibility Testing
+
+on:
+  workflow_dispatch: # Manual trigger
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true 
+
+jobs:
+  # ──────────────────────────────────────────────────────────────────────────
+  # Job 0: Plugin Version consistency (Sanity Test)
+  # ──────────────────────────────────────────────────────────────────────────
+  version-check:
+    runs-on: ubuntu-24.04
+    name: Version Consistency Check
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check all version numbers are consistent
+        run: |
+          # Extract each version string from its canonical location
+          MAIN_FILE="notificationx.php"
+          V_HEADER=$(grep -oP "^\s*\*\s*Version:\s*\K[\d.]+" "$MAIN_FILE" | head -1)
+          # NOTIFICATIONX_VERSION is defined in notificationx.php
+          V_CONST=$(grep -oP "define\( 'NOTIFICATIONX_VERSION', '\K[\d.]+" "$MAIN_FILE" | head -1)
+          V_README=$(grep -oP "Stable tag:\s*\K[\d.]+" README.txt | head -1)
+
+          echo "Plugin header (Version:):   $V_HEADER"
+          echo "notificationx.php version:   $V_CONST"
+          echo "README.txt Stable tag:       $V_README"
+
+          MISMATCH=0
+          [ "$V_HEADER" != "$V_CONST"   ] && echo "::error::MISMATCH: Plugin header ($V_HEADER) ≠ notificationx.php version ($V_CONST)"          && MISMATCH=1
+          [ "$V_HEADER" != "$V_README"  ] && echo "::error::MISMATCH: Plugin header ($V_HEADER) ≠ README.txt Stable tag ($V_README)" && MISMATCH=1
+          [ "$MISMATCH" -eq 1 ] && exit 1
+
+          echo "✅ All version numbers are consistent: $V_HEADER"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # Job 1: PHP syntax lint
+  # ──────────────────────────────────────────────────────────────────────────
+  php-syntax-check:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ["7.4","8.0", "8.1", "8.2", "8.3", "8.4", "8.5"]
+    name: PHP Syntax (${{ matrix.php-version }})
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+
+      - name: Lint all PHP files
+        run: |
+          FILES=$(find . -name "*.php" \
+            -not -path "./vendor/*" \
+            -not -path "./includes/Deps/*" \
+            -not -path "./node_modules/*" \
+            -not -path "./.git/*")
+
+          ERRORS=0
+          while IFS= read -r file; do
+            OUTPUT=$(php -l "$file" 2>&1)
+            if [ $? -ne 0 ]; then
+              echo "::error file=$file::$OUTPUT"
+              echo "❌ Syntax Error in $file: $OUTPUT"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done <<< "$FILES"
+
+          if [ "$ERRORS" -gt 0 ]; then
+            echo "::error::Found $ERRORS syntax errors on PHP ${{ matrix.php-version }}"
+            exit 1
+          fi
+          echo "✅ Checked all files. No syntax errors found on PHP ${{ matrix.php-version }}."
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # Job 2: Build the plugin zip
+  # ──────────────────────────────────────────────────────────────────────────
+  build:
+    uses: ./.github/workflows/dist-archive.yml
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # Job 3: Matrix compatibility tests
+  # ──────────────────────────────────────────────────────────────────────────
+  compatibility-test:
+    needs: [version-check, php-syntax-check, build]
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - wp-version: "6.9.4"
+            php-version: "7.4"
+          - wp-version: "6.9.4"
+            php-version: "8.0"
+          - wp-version: "6.9.4"
+            php-version: "8.2"
+          - wp-version: "6.9.4"
+            php-version: "8.4"
+          - wp-version: "6.9.4"
+            php-version: "8.5"
+          - wp-version: "6.5.5"
+            php-version: "8.1"
+          - wp-version: "6.0.9"
+            php-version: "7.4"
+
+    name: WP ${{ matrix.wp-version }} / PHP ${{ matrix.php-version }}
+
+    steps:
+      - name: Setup PHP Runtime
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mysqli, mbstring, xml, gd
+          tools: wp-cli
+
+      - name: Download Built NotificationX
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact-name }}
+          path: ./notificationx-dist
+
+      - name: Start Database
+        run: |
+          sudo systemctl start mysql
+          mysql -u root -proot -e "CREATE DATABASE wordpress_test;"
+
+      - name: Install WordPress Core
+        run: |
+          wp core download --version=${{ matrix.wp-version }} --path=./test-site --allow-root
+          cd test-site 
+          wp config create --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=127.0.0.1 --allow-root
+          wp core install --url=http://localhost:8080 --title="NotificationX Test" --admin_user=admin --admin_password=password --admin_email=admin@example.com --allow-root
+
+      - name: Install and Activate NotificationX
+        run: |
+          mkdir -p ./test-site/wp-content/plugins/notificationx
+          cp -r ./notificationx-dist/notificationx/. ./test-site/wp-content/plugins/notificationx/
+          cd test-site
+          wp plugin activate notificationx --allow-root
+
+      - name: Run Integrity Check
+        run: |
+          cd test-site
+          WP_STATUS=$(wp eval 'echo "Ready";' --quiet --allow-root)
+          if [[ "$WP_STATUS" != "Ready" ]]; then
+            echo "::error::WordPress crashed after activating NotificationX."
+            exit 1
+          fi
+          echo "✅ NotificationX is active and stable on WP ${{ matrix.wp-version }} / PHP ${{ matrix.php-version }}"
+
+      - name: Verify NotificationX Constants & Options
+        run: |
+          cd test-site
+          wp eval '
+            $constants = [
+              "NOTIFICATIONX_VERSION",
+              "NOTIFICATIONX_FILE",
+              "NOTIFICATIONX_BASENAME",
+              "NOTIFICATIONX_PATH",
+            ];
+            $failed = false;
+            foreach ($constants as $c) {
+              if (!defined($c)) {
+                echo "::error::Missing constant: $c\n";
+                $failed = true;
+              }
+            }
+            if ($failed) exit(1);
+            echo "✅ All NotificationX constants defined\n";
+
+            $val = get_option("notificationx", "__MISSING__");
+            if ($val === "__MISSING__") {
+              echo "::warning::DB option notificationx not found (may be expected on fresh install)\n";
+            } else {
+              echo "✅ Plugin settings option found in DB\n";
+            }
+          ' --allow-root
+
+      - name: Verify NotificationX Shortcodes Registered
+        run: |
+          cd test-site
+          wp eval '
+            $shortcodes = ["notificationx_inline"];
+            $failed = false;
+            foreach ($shortcodes as $sc) {
+              if (!shortcode_exists($sc)) {
+                echo "::error::Shortcode not registered: [$sc]\n";
+                $failed = true;
+              }
+            }
+            if ($failed) exit(1);
+            echo "✅ All NotificationX shortcodes registered\n";
+          ' --allow-root
+
+      - name: Verify NotificationX Database Tables
+        run: |
+          cd test-site
+          wp eval '
+            global $wpdb;
+            $tables = [
+              $wpdb->prefix . "nx_entries",
+              $wpdb->prefix . "nx_posts",
+              $wpdb->prefix . "nx_stats",
+            ];
+            $failed = false;
+            foreach ($tables as $table) {
+              $exists = $wpdb->get_var("SHOW TABLES LIKE \"$table\"");
+              if ($exists !== $table) {
+                echo "::error::Missing NotificationX DB table: $table\n";
+                $failed = true;
+              }
+            }
+            if ($failed) exit(1);
+            echo "✅ All NotificationX DB tables exist\n";
+          ' --allow-root
+
+      - name: Verify NotificationX REST API Routes Registered
+        run: |
+          cd test-site
+          wp eval '
+            $server = rest_get_server();
+            $routes = $server->get_routes();
+            $namespace  = "notificationx/v1";
+            $expected   = "/$namespace/settings";
+            $found_ns   = false;
+
+            foreach (array_keys($routes) as $r) {
+              if (strpos($r, $namespace) !== false) {
+                $found_ns = true;
+                break;
+              }
+            }
+
+            if (!$found_ns) {
+              echo "::error::No REST routes found under namespace: $namespace\n";
+              exit(1);
+            }
+
+            echo "✅ NotificationX REST routes are registered under namespace: $namespace\n";
+
+            if (!isset($routes[$expected])) {
+              echo "::error::Settings route ($expected) not found\n";
+              echo "Registered routes with notificationx namespace:\n";
+              foreach (array_keys($routes) as $r) {
+                if (strpos($r, $namespace) !== false) echo "  - $r\n";
+              }
+              exit(1);
+            } else {
+              echo "✅ NotificationX settings REST route is registered\n";
+            }
+          ' --allow-root
+
+      - name: Check for PHP Warnings & Deprecations
+        run: |
+          cd test-site
+          wp config set WP_DEBUG true --raw --allow-root
+          wp config set WP_DEBUG_LOG true --raw --allow-root
+          wp eval 'do_action("init"); do_action("admin_init"); echo "Bootstrap OK\n";' --allow-root
+
+          if [ -f wp-content/debug.log ]; then
+            FATALS=$(grep -c "PHP Fatal" wp-content/debug.log || true)
+            DEPRECATED=$(grep -c "PHP Deprecated" wp-content/debug.log || true)
+
+            if [ "$FATALS" -gt 0 ]; then
+              echo "::error::PHP Fatal errors detected:"
+              grep "PHP Fatal" wp-content/debug.log
+              exit 1
+            fi
+
+            if [ "$DEPRECATED" -gt 0 ]; then
+              echo "::warning::PHP Deprecation notices found ($DEPRECATED total)."
+              grep "PHP Deprecated" wp-content/debug.log | head -20
+            fi
+          fi
+          echo "✅ No fatal PHP errors under WP_DEBUG"
+
+      - name: Verify REST API Health
+        run: |
+          cd test-site
+          wp eval '
+            $request  = new WP_REST_Request("GET", "/wp/v2/posts");
+            $response = rest_do_request($request);
+            if ($response->is_error()) {
+              echo "::error::REST API broken: " . $response->as_error()->get_error_message() . "\n";
+              exit(1);
+            }
+            echo "✅ REST API responding normally\n";
+          ' --allow-root
+
+      - name: Upload Debug Log on Failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-log-WP-${{ matrix.wp-version }}-PHP-${{ matrix.php-version }}
+          path: test-site/wp-content/debug.log
+          retention-days: 5
