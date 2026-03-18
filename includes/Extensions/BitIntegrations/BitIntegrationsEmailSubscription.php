@@ -31,7 +31,7 @@ class BitIntegrationsEmailSubscription extends Extension {
     public $types           = 'email_subscription';
     public $module          = 'modules_bitintegration';
     public $module_priority = 16;
-    public $class           = 'BitCode\FI\Plugin';
+    public $class           = 'BitApps\Integrations\Config';
 
     /**
      * Initially Invoked when initialized.

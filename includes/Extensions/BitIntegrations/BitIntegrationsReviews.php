@@ -31,7 +31,7 @@ class BitIntegrtionsReviews extends Extension {
     public $types           = 'reviews';
     public $module          = 'modules_bitintegrations';
     public $module_priority = 16;
-    public $class           = 'BitCode\FI\Plugin';
+    public $class           = 'BitApps\Integrations\Config';
 
     /**
      * Initially Invoked when initialized.
