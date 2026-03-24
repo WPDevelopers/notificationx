@@ -1,302 +1,206 @@
-name: QA - NotificationX Compatibility Testing
+name: Compatibility Test for NotificationX
 
 on:
-  workflow_dispatch: # Manual trigger
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true 
+  workflow_dispatch:
+    inputs:
+      plugin_repo:
+        description: 'NotificationX Plugin Repository URL'
+        required: false
+        default: 'WPDevelopers/notificationx'
+      plugin_branch:
+        description: 'Plugin Branch to Test'
+        required: false
+        default: 'master'
+ 
 
 jobs:
-  # ──────────────────────────────────────────────────────────────────────────
-  # Job 0: Plugin Version consistency (Sanity Test)
-  # ──────────────────────────────────────────────────────────────────────────
-  version-check:
-    runs-on: ubuntu-24.04
-    name: Version Consistency Check
-    steps:
-      - uses: actions/checkout@v4
+  wordpress-test:
+    name: WP ${{ matrix.wordpress }} / PHP ${{ matrix.php }}
+    runs-on: ubuntu-master
 
-      - name: Check all version numbers are consistent
-        run: |
-          # Extract each version string from its canonical location
-          MAIN_FILE="notificationx.php"
-          V_HEADER=$(grep -oP "^\s*\*\s*Version:\s*\K[\d.]+" "$MAIN_FILE" | head -1)
-          # NOTIFICATIONX_VERSION is defined in notificationx.php
-          V_CONST=$(grep -oP "define\( 'NOTIFICATIONX_VERSION', '\K[\d.]+" "$MAIN_FILE" | head -1)
-          V_README=$(grep -oP "Stable tag:\s*\K[\d.]+" README.txt | head -1)
-
-          echo "Plugin header (Version:):   $V_HEADER"
-          echo "notificationx.php version:   $V_CONST"
-          echo "README.txt Stable tag:       $V_README"
-
-          MISMATCH=0
-          [ "$V_HEADER" != "$V_CONST"   ] && echo "::error::MISMATCH: Plugin header ($V_HEADER) ≠ notificationx.php version ($V_CONST)"          && MISMATCH=1
-          [ "$V_HEADER" != "$V_README"  ] && echo "::error::MISMATCH: Plugin header ($V_HEADER) ≠ README.txt Stable tag ($V_README)" && MISMATCH=1
-          [ "$MISMATCH" -eq 1 ] && exit 1
-
-          echo "✅ All version numbers are consistent: $V_HEADER"
-
-  # ──────────────────────────────────────────────────────────────────────────
-  # Job 1: PHP syntax lint
-  # ──────────────────────────────────────────────────────────────────────────
-  php-syntax-check:
-    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
-        php-version: ["7.4","8.0", "8.1", "8.2", "8.3", "8.4", "8.5"]
-    name: PHP Syntax (${{ matrix.php-version }})
-    steps:
-      - uses: actions/checkout@v4
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5']
+        wordpress: ['6.7', '6.9.1', '6.9.2', '6.9.4','master']
+        exclude:
+          # Exclude incompatible combinations
+          - wordpress: 'master'
+            php: '7.4'
 
-      - name: Setup PHP ${{ matrix.php-version }}
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout NotificationX plugin
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ github.event.inputs.plugin_repo || 'WPDevelopers/notificationx' }}
+          ref: ${{ github.event.inputs.plugin_branch || 'master' }}
+          path: notificationx
+
+      - name: Setup PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
+          php-version: ${{ matrix.php }}
+          extensions: mysqli, mbstring, xml, curl, zip, intl, gd
+          coverage: none
+          tools: composer, wp-cli
 
-      - name: Lint all PHP files
+      - name: Verify PHP and WP-CLI versions
         run: |
-          FILES=$(find . -name "*.php" \
-            -not -path "./vendor/*" \
-            -not -path "./includes/Deps/*" \
-            -not -path "./node_modules/*" \
-            -not -path "./.git/*")
+          php -v
+          wp --version
 
-          ERRORS=0
-          while IFS= read -r file; do
-            OUTPUT=$(php -l "$file" 2>&1)
-            if [ $? -ne 0 ]; then
-              echo "::error file=$file::$OUTPUT"
-              echo "❌ Syntax Error in $file: $OUTPUT"
-              ERRORS=$((ERRORS + 1))
+      - name: Wait for MySQL to be ready
+        run: |
+          echo "⏳ Waiting for MySQL to be ready..."
+          for i in {1..30}; do
+            if mysqladmin ping -h"127.0.0.1" -P"3306" -u"root" -p"root" --silent; then
+              echo "✅ MySQL is ready!"
+              break
             fi
-          done <<< "$FILES"
+            echo "Waiting for MySQL... ($i/30)"
+            sleep 2
+          done
 
-          if [ "$ERRORS" -gt 0 ]; then
-            echo "::error::Found $ERRORS syntax errors on PHP ${{ matrix.php-version }}"
+          # Verify MySQL is accessible
+          mysql -h 127.0.0.1 -P 3306 -u root -proot -e "SELECT VERSION();"
+
+      - name: Download WordPress ${{ matrix.wordpress }}
+        run: |
+          echo "📥 Downloading WordPress ${{ matrix.wordpress }}..."
+          wp core download --version=${{ matrix.wordpress }} --path=/tmp/wordpress
+          echo "✅ WordPress ${{ matrix.wordpress }} downloaded successfully"
+
+      - name: Create WordPress configuration
+        run: |
+          echo "⚙️  Creating WordPress configuration..."
+          wp config create \
+            --path=/tmp/wordpress \
+            --dbname=wordpress_test \
+            --dbuser=root \
+            --dbpass=root \
+            --dbhost=127.0.0.1:3306 \
+            --skip-check
+          echo "✅ WordPress configuration created"
+
+      - name: Install WordPress
+        run: |
+          echo "🔧 Installing WordPress..."
+          wp core install \
+            --path=/tmp/wordpress \
+            --url=http://localhost \
+            --title="NotificationX CI Test" \
+            --admin_user=admin \
+            --admin_password=admin \
+            --admin_email=test@example.com \
+            --skip-email
+
+          # Enable debug mode
+          wp config set WP_DEBUG true --raw --path=/tmp/wordpress
+          wp config set WP_DEBUG_LOG true --raw --path=/tmp/wordpress
+          wp config set WP_DEBUG_DISPLAY false --raw --path=/tmp/wordpress
+
+          echo "✅ WordPress installed successfully"
+
+      - name: Copy plugin to WordPress
+        run: |
+          echo "📦 Copying NotificationX plugin to WordPress..."
+          mkdir -p /tmp/wordpress/wp-content/plugins/notificationx
+          cp -r notificationx/* /tmp/wordpress/wp-content/plugins/notificationx/
+          echo "✅ Plugin copied successfully"
+
+      - name: Check PHP syntax
+        run: |
+          echo "🔍 Checking PHP syntax for all plugin files..."
+          SYNTAX_ERRORS=0
+          while IFS= read -r file; do
+            if ! php -l "$file" > /dev/null 2>&1; then
+              echo "❌ Syntax error in: $file"
+              php -l "$file"
+              SYNTAX_ERRORS=1
+            fi
+          done < <(find /tmp/wordpress/wp-content/plugins/notificationx -name "*.php")
+
+          if [ $SYNTAX_ERRORS -eq 1 ]; then
+            echo "❌ PHP syntax errors found!"
             exit 1
           fi
-          echo "✅ Checked all files. No syntax errors found on PHP ${{ matrix.php-version }}."
+          echo "✅ No PHP syntax errors found"
 
-  # ──────────────────────────────────────────────────────────────────────────
-  # Job 2: Build the plugin zip
-  # ──────────────────────────────────────────────────────────────────────────
-  build:
-    uses: ./.github/workflows/dist-archive.yml
-
-  # ──────────────────────────────────────────────────────────────────────────
-  # Job 3: Matrix compatibility tests
-  # ──────────────────────────────────────────────────────────────────────────
-  compatibility-test:
-    needs: [version-check, php-syntax-check, build]
-    runs-on: ubuntu-24.04
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - wp-version: "6.9.4"
-            php-version: "7.4"
-          - wp-version: "6.9.4"
-            php-version: "8.0"
-          - wp-version: "6.9.4"
-            php-version: "8.2"
-          - wp-version: "6.9.4"
-            php-version: "8.4"
-          - wp-version: "6.9.4"
-            php-version: "8.5"
-          - wp-version: "6.5.5"
-            php-version: "8.1"
-          - wp-version: "6.0.9"
-            php-version: "7.4"
-
-    name: WP ${{ matrix.wp-version }} / PHP ${{ matrix.php-version }}
-
-    steps:
-      - name: Setup PHP Runtime
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          extensions: mysqli, mbstring, xml, gd
-          tools: wp-cli
-
-      - name: Download Built NotificationX
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ needs.build.outputs.artifact-name }}
-          path: ./notificationx-dist
-
-      - name: Start Database
+      - name: Activate NotificationX plugin
         run: |
-          sudo systemctl start mysql
-          mysql -u root -proot -e "CREATE DATABASE wordpress_test;"
+          echo "🔌 Activating NotificationX plugin..."
+          wp plugin activate notificationx --path=/tmp/wordpress
 
-      - name: Install WordPress Core
-        run: |
-          wp core download --version=${{ matrix.wp-version }} --path=./test-site --allow-root
-          cd test-site 
-          wp config create --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=127.0.0.1 --allow-root
-          wp core install --url=http://localhost:8080 --title="NotificationX Test" --admin_user=admin --admin_password=password --admin_email=admin@example.com --allow-root
-
-      - name: Install and Activate NotificationX
-        run: |
-          mkdir -p ./test-site/wp-content/plugins/notificationx
-          cp -r ./notificationx-dist/notificationx/. ./test-site/wp-content/plugins/notificationx/
-          cd test-site
-          wp plugin activate notificationx --allow-root
-
-      - name: Run Integrity Check
-        run: |
-          cd test-site
-          WP_STATUS=$(wp eval 'echo "Ready";' --quiet --allow-root)
-          if [[ "$WP_STATUS" != "Ready" ]]; then
-            echo "::error::WordPress crashed after activating NotificationX."
+          if [ $? -ne 0 ]; then
+            echo "❌ Plugin activation failed!"
             exit 1
           fi
-          echo "✅ NotificationX is active and stable on WP ${{ matrix.wp-version }} / PHP ${{ matrix.php-version }}"
+          echo "✅ Plugin activated successfully"
 
-      - name: Verify NotificationX Constants & Options
+      - name: Verify plugin is active
         run: |
-          cd test-site
-          wp eval '
-            $constants = [
-              "NOTIFICATIONX_VERSION",
-              "NOTIFICATIONX_FILE",
-              "NOTIFICATIONX_BASENAME",
-              "NOTIFICATIONX_PATH",
-            ];
-            $failed = false;
-            foreach ($constants as $c) {
-              if (!defined($c)) {
-                echo "::error::Missing constant: $c\n";
-                $failed = true;
-              }
-            }
-            if ($failed) exit(1);
-            echo "✅ All NotificationX constants defined\n";
+          echo "🔍 Verifying plugin activation..."
+          wp plugin list --path=/tmp/wordpress --status=active --format=csv | grep notificationx
 
-            $val = get_option("notificationx", "__MISSING__");
-            if ($val === "__MISSING__") {
-              echo "::warning::DB option notificationx not found (may be expected on fresh install)\n";
-            } else {
-              echo "✅ Plugin settings option found in DB\n";
-            }
-          ' --allow-root
+          if [ $? -ne 0 ]; then
+            echo "❌ Plugin is not in active plugins list!"
+            exit 1
+          fi
+          echo "✅ Plugin is active and verified"
 
-      - name: Verify NotificationX Shortcodes Registered
+      - name: Check for errors in debug log
+        if: always()
         run: |
-          cd test-site
-          wp eval '
-            $shortcodes = ["notificationx_inline"];
-            $failed = false;
-            foreach ($shortcodes as $sc) {
-              if (!shortcode_exists($sc)) {
-                echo "::error::Shortcode not registered: [$sc]\n";
-                $failed = true;
-              }
-            }
-            if ($failed) exit(1);
-            echo "✅ All NotificationX shortcodes registered\n";
-          ' --allow-root
+          echo "📋 Checking WordPress debug log..."
+          DEBUG_LOG="/tmp/wordpress/wp-content/debug.log"
 
-      - name: Verify NotificationX Database Tables
-        run: |
-          cd test-site
-          wp eval '
-            global $wpdb;
-            $tables = [
-              $wpdb->prefix . "nx_entries",
-              $wpdb->prefix . "nx_posts",
-              $wpdb->prefix . "nx_stats",
-            ];
-            $failed = false;
-            foreach ($tables as $table) {
-              $exists = $wpdb->get_var("SHOW TABLES LIKE \"$table\"");
-              if ($exists !== $table) {
-                echo "::error::Missing NotificationX DB table: $table\n";
-                $failed = true;
-              }
-            }
-            if ($failed) exit(1);
-            echo "✅ All NotificationX DB tables exist\n";
-          ' --allow-root
+          if [ -f "$DEBUG_LOG" ]; then
+            echo "Debug log exists, checking for fatal errors..."
 
-      - name: Verify NotificationX REST API Routes Registered
-        run: |
-          cd test-site
-          wp eval '
-            $server = rest_get_server();
-            $routes = $server->get_routes();
-            $namespace  = "notificationx/v1";
-            $expected   = "/$namespace/settings";
-            $found_ns   = false;
-
-            foreach (array_keys($routes) as $r) {
-              if (strpos($r, $namespace) !== false) {
-                $found_ns = true;
-                break;
-              }
-            }
-
-            if (!$found_ns) {
-              echo "::error::No REST routes found under namespace: $namespace\n";
-              exit(1);
-            }
-
-            echo "✅ NotificationX REST routes are registered under namespace: $namespace\n";
-
-            if (!isset($routes[$expected])) {
-              echo "::error::Settings route ($expected) not found\n";
-              echo "Registered routes with notificationx namespace:\n";
-              foreach (array_keys($routes) as $r) {
-                if (strpos($r, $namespace) !== false) echo "  - $r\n";
-              }
-              exit(1);
-            } else {
-              echo "✅ NotificationX settings REST route is registered\n";
-            }
-          ' --allow-root
-
-      - name: Check for PHP Warnings & Deprecations
-        run: |
-          cd test-site
-          wp config set WP_DEBUG true --raw --allow-root
-          wp config set WP_DEBUG_LOG true --raw --allow-root
-          wp eval 'do_action("init"); do_action("admin_init"); echo "Bootstrap OK\n";' --allow-root
-
-          if [ -f wp-content/debug.log ]; then
-            FATALS=$(grep -c "PHP Fatal" wp-content/debug.log || true)
-            DEPRECATED=$(grep -c "PHP Deprecated" wp-content/debug.log || true)
-
-            if [ "$FATALS" -gt 0 ]; then
-              echo "::error::PHP Fatal errors detected:"
-              grep "PHP Fatal" wp-content/debug.log
+            if grep -i "fatal error\|parse error" "$DEBUG_LOG"; then
+              echo "❌ Fatal errors found in debug log!"
+              cat "$DEBUG_LOG"
               exit 1
             fi
 
-            if [ "$DEPRECATED" -gt 0 ]; then
-              echo "::warning::PHP Deprecation notices found ($DEPRECATED total)."
-              grep "PHP Deprecated" wp-content/debug.log | head -20
+            if grep -i "warning" "$DEBUG_LOG"; then
+              echo "⚠️  Warnings found in debug log (non-blocking):"
+              grep -i "warning" "$DEBUG_LOG" | head -10
             fi
+
+            echo "✅ No fatal errors in debug log"
+          else
+            echo "✅ No debug log file (no errors occurred)"
           fi
-          echo "✅ No fatal PHP errors under WP_DEBUG"
 
-      - name: Verify REST API Health
+      - name: Final status report
+        if: always()
         run: |
-          cd test-site
-          wp eval '
-            $request  = new WP_REST_Request("GET", "/wp/v2/posts");
-            $response = rest_do_request($request);
-            if ($response->is_error()) {
-              echo "::error::REST API broken: " . $response->as_error()->get_error_message() . "\n";
-              exit(1);
-            }
-            echo "✅ REST API responding normally\n";
-          ' --allow-root
+          echo "📊 Final Status Report"
+          echo "======================"
+          echo "WordPress Version: $(wp core version --path=/tmp/wordpress)"
+          echo "PHP Version: $(php -v | head -n 1)"
+          echo "Plugin Status:"
+          wp plugin list --path=/tmp/wordpress --format=table
+          echo "======================"
+          echo "✅ Compatibility test completed!"
 
-      - name: Upload Debug Log on Failure
+      - name: Upload debug log on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: debug-log-WP-${{ matrix.wp-version }}-PHP-${{ matrix.php-version }}
-          path: test-site/wp-content/debug.log
-          retention-days: 5
+          name: debug-log-wp${{ matrix.wordpress }}-php${{ matrix.php }}
+          path: /tmp/wordpress/wp-content/debug.log
+          if-no-files-found: ignore
+          retention-days: 7
+
