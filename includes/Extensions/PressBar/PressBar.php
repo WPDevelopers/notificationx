@@ -81,6 +81,7 @@ class PressBar extends Extension {
                     'button_text'                 => __('Show Me!', 'notificationx'),
                     'link_button_bg_color'        => '#9c2bff',
                     'link_button_text_color'      => '#ffffff',
+                    'bar_counter_bg'              => '',
                 ],
             ],
             'theme-one'   => [
@@ -94,10 +95,12 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_bottom' => 0,
                     'button_icon'                 => 'none',
                     'bar_bg_color'                => '#dddddd',
-                    'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>','notificationx'),
+                    'press_content'               => __('<p style="color: #000;"><span>Save Big & Get Lifetime unlimited</span> <strong>NotificationX</strong> for $99!</p>','notificationx'),
                     'button_text'                 => __('Get Offer', 'notificationx'),
                     'link_button_bg_color'        => '#000',
                     'link_button_text_color'      => '#ffffff',
+                    'bar_counter_bg'              => '#262626',
+                    'bar_counter_text_color'      => '#fff'
                 ],
             ],
             'theme-three' => [
@@ -115,6 +118,8 @@ class PressBar extends Extension {
                     'button_text'                 => __('Get Offer!', 'notificationx'),
                     'link_button_bg_color'        => '#6A4BFF',
                     'link_button_text_color'      => '#ffffff',
+                    'bar_counter_bg'              => '#6549fe',
+                    'bar_counter_text_color'      => '#fff',
                 ],
             ],
             'theme-four' => [
@@ -131,6 +136,8 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_top'    => 16,
                     'nx_bar_border_radius_bottom' => 16,
                     'button_icon'                 => 'none',
+                    'bar_counter_bg'              => 'rgba(255, 255, 255, 0.5019607843)',
+                    'bar_counter_text_color'      => '#230600',
                 ],
             ],
             'theme-five' => [
@@ -148,6 +155,8 @@ class PressBar extends Extension {
                     'link_button_bg_color'        => '#2e72ff',
                     'link_button_text_color'      => '#ffffff',
                     'bar_bg_color'                => '',
+                    'bar_counter_bg'              => 'transparent',
+                    'bar_counter_text_color'      => '#fff',
                 ],
             ],
             'theme-six' => [
@@ -162,7 +171,9 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_bottom' => 16,
                     'button_text'                 => __('Shop Now', 'notificationx'),
                     'bar_bg_color'                => 'linear-gradient(90deg, #94F9FC 0%, #E2DAFE 100%)',
-                    'button_icon'                => 'shop-icon.svg',
+                    'button_icon'                 => 'shop-icon.svg',
+                    'bar_counter_bg'              => 'rgba(255, 255, 255, 0.5019607843)',
+                    'bar_counter_text_color'      => '#230600',
                 ],
             ],
             'theme-seven' => [
@@ -180,6 +191,7 @@ class PressBar extends Extension {
                     'button_icon'                => 'shop_now.svg',
                     'link_button_bg_color'        => '#e3dac2',
                     'link_button_text_color'      => '#000',
+                    'bar_counter_bg'              => '',
                 ],
             ],
         ];

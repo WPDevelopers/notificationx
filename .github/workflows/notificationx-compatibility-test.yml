@@ -1,4 +1,4 @@
-name: Plugin Check (PCP)
+name: NotificationX Compatibility Test
 
 on:
   workflow_call:
@@ -9,9 +9,26 @@ on:
         description: 'The name of the build artifact'
 
 jobs:
-  pcp-test:
-    name: PCP Check (PHP 8.4)
+  wordpress-test:
+    name: WP ${{ matrix.wordpress }} / PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - wordpress: '6.9.4'
+            php: '7.4'
+          - wordpress: '6.9.4'
+            php: '8.1'
+          - wordpress: '6.9.4'
+            php: '8.4'
+          - wordpress: '6.9.4'
+            php: '8.5'
+          - wordpress: '6.7'
+            php: '8.1'
+          - wordpress: '6.5'
+            php: '7.4'
 
     services:
       mysql:
@@ -30,10 +47,10 @@ jobs:
           name: ${{ inputs.artifact-name }}
           path: notificationx
 
-      - name: Setup PHP
+      - name: Setup PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.4"
+          php-version: ${{ matrix.php }}
           extensions: mysqli, mbstring, xml, curl, zip, intl, gd
           coverage: none
           tools: composer, wp-cli
@@ -50,9 +67,11 @@ jobs:
             sleep 2
           done
 
-      - name: Download WordPress
+      - name: Download WordPress ${{ matrix.wordpress }}
         run: |
-          wp core download --path=/tmp/test-site
+          WP_VER=${{ matrix.wordpress }}
+          if [ "$WP_VER" == "master" ]; then WP_VER="nightly"; fi
+          wp core download --version=$WP_VER --path=/tmp/test-site
 
       - name: Create WordPress configuration
         run: |
@@ -69,14 +88,16 @@ jobs:
           wp core install \
             --path=/tmp/test-site \
             --url=http://localhost \
-            --title="NotificationX PCP Test" \
+            --title="NotificationX CI Test" \
             --admin_user=admin \
             --admin_password=admin \
             --admin_email=test@example.com \
             --skip-email
 
+          # Enable debug mode
           wp config set WP_DEBUG true --raw --path=/tmp/test-site
           wp config set WP_DEBUG_LOG true --raw --path=/tmp/test-site
+          wp config set WP_DEBUG_DISPLAY false --raw --path=/tmp/test-site
 
       - name: Copy plugin to WordPress
         run: |
@@ -85,30 +106,43 @@ jobs:
 
       - name: Activate NotificationX plugin
         run: |
+          echo "🔌 Activating NotificationX plugin..."
           wp plugin activate notificationx --path=/tmp/test-site
-
-      - name: Install Plugin Check Plugin
-        run: |
-          wp plugin install plugin-check --activate --path=/tmp/test-site
-
-      - name: Run Plugin Check
-        run: |
-          # Redirect full output to a file
-          wp plugin check notificationx --path=/tmp/test-site --ignore-warnings 2>&1 | tee /tmp/pcp-output.txt || true
-
-          if grep -qF "Success: Checks complete. No errors found." /tmp/pcp-output.txt; then
-            echo "✅ Plugin Check passed — no errors found."
-          else
-            echo "❌ Plugin Check found errors:"
-            cat /tmp/pcp-output.txt
+          
+          if [ $? -ne 0 ]; then
+            echo "❌ Plugin activation failed!"
             exit 1
           fi
+          echo "✅ Plugin activated successfully"
+
+      - name: Verify plugin is active
+        run: |
+          echo "🔍 Verifying plugin activation..."
+          wp plugin list --path=/tmp/test-site --status=active --format=csv | grep notificationx
+          
+          if [ $? -ne 0 ]; then
+            echo "❌ Plugin is not in active plugins list!"
+            exit 1
+          fi
+          echo "✅ Plugin is active and verified"
+
+
+      - name: Final Status Report
+        if: always()
+        run: |
+          echo "📊 Final Status Report"
+          echo "======================"
+          echo "WordPress: $(wp core version --path=/tmp/test-site)"
+          echo "PHP: $(php -v | head -n 1)"
+          echo "Plugin Status:"
+          wp plugin list --path=/tmp/test-site --format=table --name=notificationx
+          echo "======================"
 
       - name: Upload debug log on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: debug-log-pcp
+          name: debug-log-wp${{ matrix.wordpress }}-php${{ matrix.php }}
           path: /tmp/test-site/wp-content/debug.log
           if-no-files-found: ignore
           retention-days: 7

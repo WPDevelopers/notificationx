@@ -1,0 +1,55 @@
+name: Create Plugin Zip
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'The branch, tag or SHA to checkout'
+        required: false
+        type: string
+        default: ''
+    outputs:
+      artifact-name:
+        description: 'The name of the uploaded artifact'
+        value: ${{ jobs.generate-archive.outputs.artifact-name }}
+
+jobs:
+  generate-archive:
+    runs-on: ubuntu-22.04
+    outputs:
+      artifact-name: notificationx
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+
+      - name: Running NPM Install
+        run: npm install
+
+      - name: Delete WordPress Compose node_modules
+        run: rm -rf ./node_modules/@wordpress/compose/node_modules
+
+      - name: Delete WordPress Scripts node_modules
+        run: rm -rf ./node_modules/@wordpress/scripts/node_modules
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Package native build via Rsync
+        run: |
+          echo "📦 Packaging built NotificationX natively without 3rd party zip tools..."
+          mkdir -p build_output/notificationx
+          rsync -rc --exclude-from=".distignore" ./ build_output/notificationx/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: notificationx
+          path: build_output/notificationx
+          retention-days: 1
