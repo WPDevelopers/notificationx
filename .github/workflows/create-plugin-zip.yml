@@ -1,6 +1,10 @@
 name: Create Plugin Zip
 
 on:
+  push:
+    branches: [main, master, 'release/*']
+  pull_request:
+    branches: [main, master]
   workflow_dispatch:
   workflow_call:
     inputs:

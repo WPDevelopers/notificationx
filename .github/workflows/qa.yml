@@ -1,10 +1,6 @@
 name: QA
 
 on:
-  push:
-    branches: [main, master, 'release/*']
-  pull_request:
-    branches: [main, master]
   workflow_dispatch:
     inputs:
       plugin_repo:
@@ -52,5 +48,8 @@ jobs:
     with:
       artifact-name: ${{ needs.build.outputs.artifact-name }}
 
-
-
+  e2e-free:
+    needs: [build]
+    uses: ./.github/workflows/e2e-free.yml
+    with:
+      artifact-name: ${{ needs.build.outputs.artifact-name }}
