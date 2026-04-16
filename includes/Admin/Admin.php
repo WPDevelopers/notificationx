@@ -352,6 +352,35 @@ class Admin {
             ]
         );
 
+        // Spring Campaign 2026
+        $_spring_deal = "<p><strong>🌸 Spring Savings:</strong> Boost conversions with real-time social proof & AI-powered notification alerts – now <strong>Flat 25% OFF!</strong> ⚡️</p>
+                        <div class='nx-notice-action-button'>
+                            <a style='display: inline-flex;column-gap:5px;' class='button button-primary' href='https://notificationx.com/spring2026-admin-notice' target='_blank'>
+                                Upgrade To Pro Now
+                            </a>
+                            <a class='nx-notice-action-dismiss dismiss-btn' data-dismiss='true' href='#'>
+                                Maybe Later
+                            </a>
+                        </div>
+                        ";
+        $_spring_deal_html = [
+            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
+            'html'      => $_spring_deal,
+        ];
+        $notices->add(
+            'nx_spring_deal_2026',
+            $_spring_deal_html,
+            [
+                'start'       => strtotime('12:00:00am 8th April, 2026'),
+                'recurrence'  => false,
+                'dismissible' => true,
+                'refresh'     => NOTIFICATIONX_VERSION,
+                'screens'     => [ 'dashboard' ],
+                "expire"      => strtotime('11:59:59pm 10th May, 2026'),
+                'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
+            ]
+        );
+
         // $notices->init();
         self::$cache_bank->create_account( $notices );
 		self::$cache_bank->calculate_deposits( $notices );

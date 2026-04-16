@@ -484,6 +484,73 @@ span.coupon-code {
 }
 
 
+/**
+ * Spring Campaign 2026
+*/
+#wpnotice-notificationx-nx_spring_deal_2026 {
+    border-left: 3px solid #5252dc;
+    background-color: #ffffff;
+    padding: 10px 40px 10px 20px;
+}
+#wpnotice-notificationx-nx_spring_deal_2026 .wpnotice-thumbnail-wrapper img {
+    width: 180px;
+}
+#wpnotice-notificationx-nx_spring_deal_2026 .wpnotice-content-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+}
+#wpnotice-notificationx-nx_spring_deal_2026 .wpnotice-content-wrapper p {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    color: #171717;
+}
+#wpnotice-notificationx-nx_spring_deal_2026 .wpnotice-content-wrapper p strong {
+    font-weight: 600;
+    color: #171717;
+}
+#wpnotice-notificationx-nx_spring_deal_2026 .nx-notice-action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+#wpnotice-notificationx-nx_spring_deal_2026 .nx-notice-action-button > a.button-primary,
+#wpnotice-notificationx-nx_spring_deal_2026 .nx-notice-action-button > a.button-primary:focus,
+#wpnotice-notificationx-nx_spring_deal_2026 .nx-notice-action-button > a.button-primary:hover {
+    background-color: #5252dc;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+    box-shadow: none;
+    text-shadow: none;
+}
+#wpnotice-notificationx-nx_spring_deal_2026 .nx-notice-action-button .nx-notice-action-dismiss.dismiss-btn {
+    background: none;
+    border: none;
+    color: #424242;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 8px 0;
+    margin: 0;
+    display: inline-block;
+    box-shadow: none;
+}
+
+
 /*
 * Holidays Deal css
 */
