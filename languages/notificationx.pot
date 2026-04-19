@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.2.5\n"
+"Project-Id-Version: NotificationX 3.2.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-09T04:44:37+00:00\n"
+"POT-Creation-Date: 2026-04-19T08:49:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -88,11 +88,11 @@ msgstr ""
 msgid "Grab The Offer"
 msgstr ""
 
-#: includes/Admin/Admin.php:367
+#: includes/Admin/Admin.php:396
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:368
+#: includes/Admin/Admin.php:397
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -5346,11 +5346,11 @@ msgstr ""
 
 #: includes/Extensions/PressBar/PressBar.php:2264
 msgid ""
-"<p>You can showcase the notification bar to run instant popup campaigns on WordPress sites. For further assistance, check out our step-by-step guides on adding notification bars built with both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
-"\t\t<p>🎦 Watch the <a target = \"_blank\" href = \"%3$s\">video tutorial</a> for a quick guide.</p>\n"
+"<p>Supercharge your WordPress site with an <strong>AI-powered Notification Bar</strong> that help you create and launches instant popup campaigns — smarter and faster than ever. Let AI generate compelling bar content for you in seconds. Need help getting started? Explore our step-by-step guides to set up your AI-enhanced notification bars using both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
+"\t\t<p>🎦 Check the <a target = \"_blank\" href = \"%3$s\">documentation</a> for a quick guide.</p>\n"
 "\t\t<p><strong>Recommended Blog                     : </strong></p>\n"
-"\t\t<p>🔥 How to <a target=\"_blank\" href=\"%4$s\">design a Notification Bar with Elementor Page Builder.</a></p>\n"
-"\t\t<p>🔥 <a href=\"%5$s\" target=\"_blank\">Evergreen Dynamic Notification Bar</a> to Boost Sales in WordPress.</p>"
+"\t\t<p>🔥<a target=\"_blank\" href=\"%4$s\">How to Design a Notification Bar with AI Using NotificationX (A Comprehensive Guide)</a></p>\n"
+"\t\t<p>🔥 <a href=\"%5$s\" target=\"_blank\">How to design a Notification Bar with Elementor Page Builder.</p>"
 msgstr ""
 
 #: includes/Extensions/ReviewX/ReviewX.php:72

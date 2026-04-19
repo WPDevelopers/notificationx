@@ -2261,16 +2261,16 @@ class PressBar extends Extension {
     }
 
     public function doc() {
-        return sprintf(__('<p>You can showcase the notification bar to run instant popup campaigns on WordPress sites. For further assistance, check out our step-by-step guides on adding notification bars built with both <a target="_blank" href="%1$s">Elementor</a> and <a target="_blank" href="%2$s">Gutenberg</a>.</p>
-		<p>🎦 Watch the <a target = "_blank" href = "%3$s">video tutorial</a> for a quick guide.</p>
+        return sprintf(__('<p>Supercharge your WordPress site with an <strong>AI-powered Notification Bar</strong> that help you create and launches instant popup campaigns — smarter and faster than ever. Let AI generate compelling bar content for you in seconds. Need help getting started? Explore our step-by-step guides to set up your AI-enhanced notification bars using both <a target="_blank" href="%1$s">Elementor</a> and <a target="_blank" href="%2$s">Gutenberg</a>.</p>
+		<p>🎦 Check the <a target = "_blank" href = "%3$s">documentation</a> for a quick guide.</p>
 		<p><strong>Recommended Blog                     : </strong></p>
-		<p>🔥 How to <a target="_blank" href="%4$s">design a Notification Bar with Elementor Page Builder.</a></p>
-		<p>🔥 <a href="%5$s" target="_blank">Evergreen Dynamic Notification Bar</a> to Boost Sales in WordPress.</p>', 'notificationx'),
+		<p>🔥<a target="_blank" href="%4$s">How to Design a Notification Bar with AI Using NotificationX (A Comprehensive Guide)</a></p>
+		<p>🔥 <a href="%5$s" target="_blank">How to design a Notification Bar with Elementor Page Builder.</p>', 'notificationx'),
         'https://notificationx.com/docs/notification-bar/',
         'https://notificationx.com/docs/configure-a-notification-bar-in-gutenberg/',
-        'https://www.youtube.com/watch?v=l7s9FXgzbEM',
-        'https://notificationx.com/docs/notification-bar-with-elementor/',
-        'https://notificationx.com/blog/dynamic-notification-bar-wordpress/'
+        'https://notificationx.com/docs/how-to-design-a-notification-bar-with-ai/',
+        'https://notificationx.com/blog/guide-to-design-a-notification-bar-with-ai/',
+        'https://notificationx.com/docs/notification-bar-with-elementor/'
         );
     }
 }
