@@ -304,12 +304,17 @@ class FrontEnd {
                 $type   = $settings['type'];
                 $source = $settings['source'];
 
+                $should_continue = apply_filters("nx_entry_show_on_frontend_$source", false, $entry, $settings);
+                if ( $should_continue ) {
+                    continue;
+                }
+
                 if (!empty($entry['timestamp'])) {
                     $timestamp    = $entry['timestamp'];
                     $display_from = !empty($settings['display_from']) ? $settings['display_from'] : 2;
                     $display_from = Helper::generate_time_string($settings);
                     if (!is_numeric($timestamp)) {
-                        $entry['timestamp'] = $timestamp = strtotime($timestamp);
+                        $entry['timestamp'] = $timestamp = is_string($timestamp) ? strtotime($timestamp) : false;
                     }
                     if ($timestamp && $display_from > $timestamp) {
                         if (apply_filters("nx_entry_display_$source", true, $entry, $settings)) {

@@ -1,0 +1,55 @@
+name: QA
+
+on:
+  workflow_dispatch:
+    inputs:
+      plugin_repo:
+        description: 'NotificationX Plugin Repository URL'
+        required: false
+        default: 'WPDevelopers/notificationx'
+      plugin_branch:
+        description: 'Plugin Branch to Test'
+        required: false
+        default: 'master'
+
+permissions: read-all
+
+concurrency:
+  group: qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    uses: ./.github/workflows/create-plugin-zip.yml
+    with:
+      ref: ${{ github.event.inputs.plugin_branch || github.ref }}
+
+  plugin-version-check:
+    uses: ./.github/workflows/plugin-version-verification.yml
+    with:
+      plugin_repo: ${{ github.event.inputs.plugin_repo || 'WPDevelopers/notificationx' }}
+      plugin_branch: ${{ github.event.inputs.plugin_branch || 'master' }}
+
+  php-syntax-check:
+    uses: ./.github/workflows/php-syntax-check.yml
+    with:
+      plugin_repo: ${{ github.event.inputs.plugin_repo || 'WPDevelopers/notificationx' }}
+      plugin_branch: ${{ github.event.inputs.plugin_branch || 'master' }}
+
+  pcp-plugin-check:
+    needs: build
+    uses: ./.github/workflows/pcp-plugin-check.yml
+    with:
+      artifact-name: ${{ needs.build.outputs.artifact-name }}
+
+  compatibility-test:
+    needs: [build, plugin-version-check, php-syntax-check]
+    uses: ./.github/workflows/notificationx-compatibility-test.yml
+    with:
+      artifact-name: ${{ needs.build.outputs.artifact-name }}
+
+  e2e-free:
+    needs: [build]
+    uses: ./.github/workflows/e2e-free.yml
+    with:
+      artifact-name: ${{ needs.build.outputs.artifact-name }}

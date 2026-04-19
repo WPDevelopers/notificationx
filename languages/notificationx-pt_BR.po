@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NotificationX Pro\n"
-"POT-Creation-Date: 2024-11-17 01:30-0300\n"
-"PO-Revision-Date: 2024-11-17 01:34-0300\n"
+"POT-Creation-Date: 2026-02-12 21:32-0300\n"
+"PO-Revision-Date: 2026-02-12 21:37-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -10,14 +10,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.8\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: notificationx-pro.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
@@ -116,11 +115,11 @@ msgstr "Não foi possível ler o arquivo CSV."
 msgid "Please check the CSV file and try again."
 msgstr "Verifique o arquivo CSV e tente novamente."
 
-#: includes/Core/CSV_Handler.php:96
+#: includes/Core/CSV_Handler.php:97
 msgid "Invalid CSV File"
 msgstr "Arquivo CSV inválido"
 
-#: includes/Core/CSV_Handler.php:97
+#: includes/Core/CSV_Handler.php:98
 msgid "Please upload a valid CSV file."
 msgstr "Envie um arquivo CSV válido."
 
@@ -161,7 +160,7 @@ msgstr "Ocorreu um erro, tente novamente"
 #. translators: %s: expiry date of the license.
 #. translators: the license key expiration date
 #: includes/Core/Licensing/Licensing.php:424
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:381
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:387
 #, php-format
 msgid "Your license key expired on %s."
 msgstr "Sua chave de licença expirou em %s."
@@ -171,7 +170,7 @@ msgid "Your license key has been disabled."
 msgstr "Sua chave de licença foi desativada."
 
 #: includes/Core/Licensing/Licensing.php:433
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:402
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:408
 msgid "Invalid license."
 msgstr "Licença inválida."
 
@@ -184,7 +183,7 @@ msgid "This appears to be an invalid license key for"
 msgstr "Parece que esta é uma chave de licença inválida para"
 
 #: includes/Core/Licensing/Licensing.php:444
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:415
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:421
 msgid "Your license key has reached its activation limit."
 msgstr "Sua chave de licença atingiu o limite de ativação."
 
@@ -199,9 +198,9 @@ msgstr ""
 "do %1$s."
 
 #: includes/Core/Licensing/Licensing.php:458
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:348
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:351
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:423
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:354
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:357
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:429
 msgid "An error occurred, please try again."
 msgstr "Ocorreu um erro, tente novamente."
 
@@ -285,7 +284,7 @@ msgstr "Falha nas verificações do nonce."
 msgid "You don't have permission to take this action."
 msgstr "Você não tem permissão para realizar esta ação."
 
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:147
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:153
 #, php-format
 msgid ""
 "%1$sActivate your %3$s License Key%2$s to receive regular updates and secure "
@@ -294,19 +293,19 @@ msgstr ""
 "%1$sAtive sua %3$s chave de licença%2$s para receber atualizações regulares "
 "e proteger seu site WordPress."
 
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:314
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:320
 msgid "Please provide a valid license."
 msgstr "Forneça uma licença válida."
 
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:385
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:391
 msgid "Your license confirmation code is invalid."
 msgstr "Seu código de confirmação de licença é inválido."
 
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:389
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:395
 msgid "Your license confirmation code has been expired."
 msgstr "Seu código de confirmação de licença expirou."
 
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:393
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:399
 #, php-format
 msgid ""
 "%1$sAttention:%2$s Please %3$sVerify your %5$s License Key%4$s to get "
@@ -315,22 +314,22 @@ msgstr ""
 "%1$s$Atenção: %2$s %3$sVerifique sua chave de licença do %5$s%4$s para "
 "receber atualizações regulares e proteger seu site WordPress."
 
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:398
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:404
 #, php-format
 msgid "Your %s license key has been disabled."
 msgstr "Sua chave de licença do %s foi desativada."
 
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:407
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:413
 msgid "Your license is not active for this URL."
 msgstr "Sua licença não está ativa para este URL."
 
 #. translators: the plugin name
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:411
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:417
 #, php-format
 msgid "This appears to be an invalid license key for %s."
 msgstr "Parece que esta é uma chave de licença inválida para %s."
 
-#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:419
+#: includes/Dependencies/WPDeveloper/Licensing/LicenseManager.php:425
 #: includes/Extensions/Freemius/inc/Helper.php:61
 #: includes/Extensions/Freemius/inc/Helper.php:67
 msgid "Something went wrong."
@@ -391,7 +390,7 @@ msgstr ""
 
 #: includes/Extensions/ActiveCampaign/ActiveCampaign.php:149
 #: includes/Extensions/ConvertKit/ConvertKit.php:146
-#: includes/Extensions/Freemius/Freemius.php:272
+#: includes/Extensions/Freemius/Freemius.php:273
 msgid "Something went wrong. Try again."
 msgstr "Algo deu errado. Tente novamente."
 
@@ -430,9 +429,9 @@ msgstr "Chave de API"
 #: includes/Extensions/ConvertKit/ConvertKit.php:302
 #: includes/Extensions/ConvertKit/ConvertKit.php:310
 #: includes/Extensions/Envato/Envato.php:91
-#: includes/Extensions/Freemius/Freemius.php:88
-#: includes/Extensions/Freemius/Freemius.php:100
-#: includes/Extensions/Freemius/Freemius.php:112
+#: includes/Extensions/Freemius/Freemius.php:89
+#: includes/Extensions/Freemius/Freemius.php:101
+#: includes/Extensions/Freemius/Freemius.php:113
 #: includes/Extensions/Zapier/Zapier.php:79
 msgid "Click here"
 msgstr "Clique aqui"
@@ -453,7 +452,7 @@ msgstr "para receber o URL da API."
 #: includes/Extensions/ActiveCampaign/ActiveCampaign.php:327
 #: includes/Extensions/ConvertKit/ConvertKit.php:315
 #: includes/Extensions/Envato/Envato.php:102
-#: includes/Extensions/Freemius/Freemius.php:120
+#: includes/Extensions/Freemius/Freemius.php:121
 #: includes/Extensions/Google/GoogleReviews.php:247
 #: includes/Extensions/Google/Google_Analytics.php:323
 #: includes/Extensions/Google/Youtube.php:301
@@ -464,7 +463,7 @@ msgstr "Duração do cache"
 #: includes/Extensions/ActiveCampaign/ActiveCampaign.php:330
 #: includes/Extensions/ConvertKit/ConvertKit.php:318
 #: includes/Extensions/Envato/Envato.php:105
-#: includes/Extensions/Freemius/Freemius.php:123
+#: includes/Extensions/Freemius/Freemius.php:124
 #: includes/Extensions/Google/Google_Analytics.php:327
 #: includes/Extensions/MailChimp/MailChimp.php:151
 msgid "Minutes, scheduled duration for collecting new data."
@@ -473,7 +472,7 @@ msgstr "Minutos, duração agendada para a coleta de novos dados."
 #: includes/Extensions/ActiveCampaign/ActiveCampaign.php:338
 #: includes/Extensions/ConvertKit/ConvertKit.php:326
 #: includes/Extensions/Envato/Envato.php:113
-#: includes/Extensions/Freemius/Freemius.php:131
+#: includes/Extensions/Freemius/Freemius.php:132
 #: includes/Extensions/MailChimp/MailChimp.php:159
 #: includes/Features/Maps.php:327
 msgid "Connect"
@@ -482,7 +481,7 @@ msgstr "Conectar"
 #: includes/Extensions/ActiveCampaign/ActiveCampaign.php:339
 #: includes/Extensions/ConvertKit/ConvertKit.php:327
 #: includes/Extensions/Envato/Envato.php:114
-#: includes/Extensions/Freemius/Freemius.php:132
+#: includes/Extensions/Freemius/Freemius.php:133
 #: includes/Extensions/Google/GoogleReviews.php:270
 #: includes/Extensions/Google/Youtube.php:324
 #: includes/Extensions/MailChimp/MailChimp.php:160
@@ -493,7 +492,7 @@ msgstr "Atualizar"
 #: includes/Extensions/ActiveCampaign/ActiveCampaign.php:340
 #: includes/Extensions/ConvertKit/ConvertKit.php:328
 #: includes/Extensions/Envato/Envato.php:115
-#: includes/Extensions/Freemius/Freemius.php:133
+#: includes/Extensions/Freemius/Freemius.php:134
 #: includes/Extensions/MailChimp/MailChimp.php:161
 #: includes/Features/Maps.php:329
 msgid "Refreshing..."
@@ -547,19 +546,19 @@ msgstr "Insira uma chave de API válida."
 
 #: includes/Extensions/CustomNotification/CustomNotification.php:147
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:116
-#: includes/Features/SalesFeatures.php:150
+#: includes/Features/SalesFeatures.php:156
 msgid "in last 1 day"
 msgstr "no último 1 dia"
 
 #: includes/Extensions/CustomNotification/CustomNotification.php:148
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:117
-#: includes/Features/SalesFeatures.php:151
+#: includes/Features/SalesFeatures.php:157
 msgid "in last 7 days"
 msgstr "nos últimos 7 dias"
 
 #: includes/Extensions/CustomNotification/CustomNotification.php:149
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:118
-#: includes/Features/SalesFeatures.php:152
+#: includes/Features/SalesFeatures.php:158
 msgid "in last 30 days"
 msgstr "nos últimos 30 dias"
 
@@ -689,6 +688,7 @@ msgid "{{name}} recently purchased"
 msgstr "{{name}} comprou recentemente"
 
 #: includes/Extensions/EDD/EDDInline.php:77
+#: includes/Extensions/FluentCart/FluentCartInline.php:88
 #: includes/Extensions/LearnPress/LearnPressInline.php:53
 #: includes/Extensions/Tutor/TutorInline.php:57
 msgid "Archive Page"
@@ -701,8 +701,8 @@ msgid "Single Page"
 msgstr "Página única"
 
 #: includes/Extensions/EDD/EDDInline.php:184
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:312
-#: includes/Extensions/WooCommerce/WooInline.php:301
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:316
+#: includes/Extensions/WooCommerce/WooInline.php:305
 msgid "Create a product to get the preview."
 msgstr "Crie um produto para obter a pré-visualização."
 
@@ -894,76 +894,122 @@ msgstr "Usuário conectado"
 msgid "Content"
 msgstr "Conteúdo"
 
-#: includes/Extensions/Freemius/Freemius.php:75
+#: includes/Extensions/FluentCart/FluentCartInline.php:89
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:53
+#: includes/Extensions/WooCommerce/WooInline.php:52
+msgid "Single Product Page"
+msgstr "Página de produto único"
+
+#: includes/Extensions/FluentCart/FluentCartInline.php:465
+#: includes/Extensions/FluentCart/FluentCartInline.php:483
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:273
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:290
+#: includes/Extensions/WooCommerce/WooInline.php:262
+#: includes/Extensions/WooCommerce/WooInline.php:279
+msgid "left in stock"
+msgstr "em estoque"
+
+#: includes/Extensions/FluentCart/FluentCartInline.php:466
+#: includes/Extensions/FluentCart/FluentCartInline.php:484
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:274
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:291
+#: includes/Extensions/WooCommerce/WooInline.php:263
+#: includes/Extensions/WooCommerce/WooInline.php:280
+msgid "left"
+msgstr "restantes"
+
+#: includes/Extensions/FluentCart/FluentCartInline.php:467
+#: includes/Extensions/FluentCart/FluentCartInline.php:485
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:275
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:292
+#: includes/Extensions/WooCommerce/WooInline.php:264
+#: includes/Extensions/WooCommerce/WooInline.php:281
+msgid "- order soon."
+msgstr "- faça seu pedido logo."
+
+#: includes/Extensions/FluentCart/FluentCartInline.php:468
+#: includes/Extensions/FluentCart/FluentCartInline.php:486
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:276
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:293
+#: includes/Extensions/WooCommerce/WooInline.php:265
+#: includes/Extensions/WooCommerce/WooInline.php:282
+msgid "on our site!"
+msgstr "em nosso site!"
+
+#: includes/Extensions/FluentCart/FluentCartInline.php:503
+msgid "Create a FluentCart product to get the preview."
+msgstr "Crie um produto no FluentCart para ver a pré-visualização."
+
+#: includes/Extensions/Freemius/Freemius.php:76
 msgid "Freemius Settings"
 msgstr "Configurações do Freemius"
 
-#: includes/Extensions/Freemius/Freemius.php:84
+#: includes/Extensions/Freemius/Freemius.php:85
 msgid "Developer ID"
 msgstr "ID do desenvolvedor"
 
-#: includes/Extensions/Freemius/Freemius.php:89
+#: includes/Extensions/Freemius/Freemius.php:90
 msgid "to get Developer ID."
 msgstr "para receber o ID do desenvolvedor."
 
-#: includes/Extensions/Freemius/Freemius.php:96
+#: includes/Extensions/Freemius/Freemius.php:97
 msgid "Developer Public Key"
 msgstr "Chave pública do desenvolvedor"
 
-#: includes/Extensions/Freemius/Freemius.php:101
+#: includes/Extensions/Freemius/Freemius.php:102
 msgid "to get Developer Public Key."
 msgstr "para receber a chave pública do desenvolvedor."
 
-#: includes/Extensions/Freemius/Freemius.php:108
+#: includes/Extensions/Freemius/Freemius.php:109
 msgid "Developer Secret Key"
 msgstr "Chave secreta do desenvolvedor"
 
-#: includes/Extensions/Freemius/Freemius.php:113
+#: includes/Extensions/Freemius/Freemius.php:114
 msgid "to get Developer Secret Key."
 msgstr "para receber a chave secreta do desenvolvedor."
 
-#: includes/Extensions/Freemius/Freemius.php:169
+#: includes/Extensions/Freemius/Freemius.php:170
 msgid "Item Type"
 msgstr "Tipo de item"
 
-#: includes/Extensions/Freemius/Freemius.php:172
+#: includes/Extensions/Freemius/Freemius.php:173
 msgid "Plugin"
 msgstr "Plugin"
 
-#: includes/Extensions/Freemius/Freemius.php:173
+#: includes/Extensions/Freemius/Freemius.php:174
 msgid "Theme"
 msgstr "Tema"
 
-#: includes/Extensions/Freemius/Freemius.php:174
+#: includes/Extensions/Freemius/Freemius.php:175
 msgid "Bundle"
 msgstr "Pacote"
 
-#: includes/Extensions/Freemius/Freemius.php:175
+#: includes/Extensions/Freemius/Freemius.php:176
 msgid "Add-on"
 msgstr "Complemento"
 
-#: includes/Extensions/Freemius/Freemius.php:184
+#: includes/Extensions/Freemius/Freemius.php:185
 msgid "Select a Theme"
 msgstr "Selecione um tema"
 
-#: includes/Extensions/Freemius/Freemius.php:198
+#: includes/Extensions/Freemius/Freemius.php:199
 msgid "Select a Plugin"
 msgstr "Selecione um plugin"
 
-#: includes/Extensions/Freemius/Freemius.php:213
+#: includes/Extensions/Freemius/Freemius.php:214
 msgid "Select a Bundle"
 msgstr "Selecione um pacote"
 
-#: includes/Extensions/Freemius/Freemius.php:220
+#: includes/Extensions/Freemius/Freemius.php:221
 msgid "Freemius Add-on"
 msgstr "Complemento Freemius"
 
-#: includes/Extensions/Freemius/Freemius.php:226
+#: includes/Extensions/Freemius/Freemius.php:227
 #: includes/Extensions/Give/Give.php:57
 msgid "All"
 msgstr "Tudo"
 
-#: includes/Extensions/Freemius/Freemius.php:271
+#: includes/Extensions/Freemius/Freemius.php:272
 msgid ""
 "You have successfully connected with Freemius, Your lists has been recorded "
 "for future use."
@@ -1022,12 +1068,12 @@ msgstr "Anônimo"
 
 #: includes/Extensions/Freemius/FreemiusReviews.php:51
 #: includes/Extensions/IFTTT/IFTTT.php:51
-#: includes/Extensions/LearnDash/_LearnDash.php:223
 #: includes/Extensions/LearnDash/_LearnDash.php:224
 #: includes/Extensions/LearnDash/_LearnDash.php:225
+#: includes/Extensions/LearnDash/_LearnDash.php:226
 #: includes/Extensions/Zapier/Zapier.php:208 includes/Features/Maps.php:90
-#: includes/Types/Conversions.php:37 includes/Types/Donations.php:33
-#: includes/Types/WooCommerceSales.php:37
+#: includes/Types/Conversions.php:42 includes/Types/Donations.php:37
+#: includes/Types/WooCommerceSales.php:41
 msgid "Someone"
 msgstr "Alguém"
 
@@ -1432,7 +1478,7 @@ msgstr[0] "dia"
 msgstr[1] "dias"
 
 #: includes/Extensions/Google/Google_Analytics.php:638
-#: includes/Features/SalesFeatures.php:149
+#: includes/Features/SalesFeatures.php:155
 #, php-format
 msgid "%d day"
 msgid_plural "%d days"
@@ -1558,12 +1604,12 @@ msgid "just subscribed to"
 msgstr "acabou de assinar"
 
 #: includes/Extensions/IFTTT/IFTTT.php:54 includes/Features/Maps.php:96
-#: includes/Features/Maps.php:114 includes/Types/Donations.php:36
+#: includes/Features/Maps.php:114 includes/Types/Donations.php:40
 msgid "Anonymous Title"
 msgstr "Título anônimo"
 
 #: includes/Extensions/IFTTT/IFTTT.php:56 includes/Features/Maps.php:98
-#: includes/Types/ELearning.php:43
+#: includes/Types/ELearning.php:47
 msgid "Some time ago"
 msgstr "Há algum tempo"
 
@@ -1594,8 +1640,8 @@ msgstr "Página de curso único"
 msgid "Create a course to get the preview."
 msgstr "Crie um curso para obter a pré-visualização."
 
-#: includes/Extensions/LearnDash/_LearnDash.php:226
-#: includes/Types/Conversions.php:116 includes/Types/WooCommerceSales.php:116
+#: includes/Extensions/LearnDash/_LearnDash.php:227
+#: includes/Types/Conversions.php:121 includes/Types/WooCommerceSales.php:121
 msgid "Anonymous Product"
 msgstr "Produto anônimo"
 
@@ -1680,53 +1726,20 @@ msgstr "Página única totalmente reservada"
 msgid "Single Page Purchasable"
 msgstr "Página única disponível para compra"
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:36
-#: includes/Extensions/WooCommerce/WooInline.php:36
-msgid "Single Product Page"
-msgstr "Página de produto único"
-
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:40
-#: includes/Extensions/WooCommerce/WooInline.php:40
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:57
+#: includes/Extensions/WooCommerce/WooInline.php:56
 msgid "Shop Archive Page - After Product Title"
 msgstr "Página de arquivo da loja - Após o título do produto"
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:44
-#: includes/Extensions/WooCommerce/WooInline.php:44
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:61
+#: includes/Extensions/WooCommerce/WooInline.php:60
 msgid "Shop Archive Page - After Product Container"
 msgstr "Página de arquivo da loja - Após o contêiner do produto"
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:48
-#: includes/Extensions/WooCommerce/WooInline.php:48
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:65
+#: includes/Extensions/WooCommerce/WooInline.php:64
 msgid "Shop Cart Page"
 msgstr "Página do carrinho de compras"
-
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:269
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:286
-#: includes/Extensions/WooCommerce/WooInline.php:258
-#: includes/Extensions/WooCommerce/WooInline.php:275
-msgid "left in stock"
-msgstr "em estoque"
-
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:270
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:287
-#: includes/Extensions/WooCommerce/WooInline.php:259
-#: includes/Extensions/WooCommerce/WooInline.php:276
-msgid "left"
-msgstr "restantes"
-
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:271
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:288
-#: includes/Extensions/WooCommerce/WooInline.php:260
-#: includes/Extensions/WooCommerce/WooInline.php:277
-msgid "- order soon."
-msgstr "- faça seu pedido logo."
-
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:272
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:289
-#: includes/Extensions/WooCommerce/WooInline.php:261
-#: includes/Extensions/WooCommerce/WooInline.php:278
-msgid "on our site!"
-msgstr "em nosso site!"
 
 #: includes/Extensions/Zapier/Zapier.php:71
 msgid "Zapier Settings"
@@ -1810,16 +1823,16 @@ msgstr ""
 "<a target=\"_blank\" rel=\"nofollow\" href=\"%s\">Clique aqui</a> para "
 "receber sua chave de API."
 
-#: includes/Features/SalesFeatures.php:148
+#: includes/Features/SalesFeatures.php:154
 #, php-format
 msgid "in last %d days"
 msgstr "nos últimos %d dias"
 
-#: includes/Features/SalesFeatures.php:165
+#: includes/Features/SalesFeatures.php:171
 msgid "Sales count Cache Duration"
 msgstr "Duração do cache da contagem de vendas"
 
-#: includes/Features/SalesFeatures.php:166
+#: includes/Features/SalesFeatures.php:172
 msgid "Minutes (Schedule Duration to fetch new data)."
 msgstr "Minutos (duração do agendamento para coletar novos dados)."
 
@@ -1863,114 +1876,114 @@ msgstr "Intuição"
 msgid "Volume"
 msgstr "Volume"
 
-#: includes/Types/Comments.php:31
+#: includes/Types/Comments.php:35
 msgid "commented on"
 msgstr "comentou em"
 
-#: includes/Types/Conversions.php:32 includes/Types/Conversions.php:33
-#: includes/Types/WooCommerceSales.php:32
-#: includes/Types/WooCommerceSales.php:33
+#: includes/Types/Conversions.php:37 includes/Types/Conversions.php:38
+#: includes/Types/WooCommerceSales.php:36
+#: includes/Types/WooCommerceSales.php:37
 msgid "purchased"
 msgstr "comprado"
 
-#: includes/Types/Conversions.php:38 includes/Types/WooCommerceSales.php:38
+#: includes/Types/Conversions.php:43 includes/Types/WooCommerceSales.php:42
 msgid "people purchased"
 msgstr "pessoas compraram"
 
-#: includes/Types/Conversions.php:41 includes/Types/Donations.php:38
-#: includes/Types/ELearning.php:50 includes/Types/WooCommerceSales.php:41
+#: includes/Types/Conversions.php:46 includes/Types/Donations.php:42
+#: includes/Types/ELearning.php:54 includes/Types/WooCommerceSales.php:45
 msgid "in last {{day:7}}"
 msgstr "nos últimos {{day:7}}"
 
-#: includes/Types/Conversions.php:49 includes/Types/ELearning.php:61
-#: includes/Types/WooCommerceSales.php:49
+#: includes/Types/Conversions.php:54 includes/Types/ELearning.php:65
+#: includes/Types/WooCommerceSales.php:53
 msgid "Sales Count"
 msgstr "Contagem de vendas"
 
-#: includes/Types/Conversions.php:50 includes/Types/Donations.php:49
-#: includes/Types/ELearning.php:62 includes/Types/WooCommerceSales.php:50
+#: includes/Types/Conversions.php:55 includes/Types/Donations.php:53
+#: includes/Types/ELearning.php:66 includes/Types/WooCommerceSales.php:54
 msgid "In last 1 day"
 msgstr "No último 1 dia"
 
-#: includes/Types/Conversions.php:51 includes/Types/Donations.php:50
-#: includes/Types/ELearning.php:63 includes/Types/WooCommerceSales.php:51
+#: includes/Types/Conversions.php:56 includes/Types/Donations.php:54
+#: includes/Types/ELearning.php:67 includes/Types/WooCommerceSales.php:55
 msgid "In last 7 days"
 msgstr "Nos últimos 7 dias"
 
-#: includes/Types/Conversions.php:52 includes/Types/Donations.php:51
-#: includes/Types/ELearning.php:64 includes/Types/WooCommerceSales.php:52
+#: includes/Types/Conversions.php:57 includes/Types/Donations.php:55
+#: includes/Types/ELearning.php:68 includes/Types/WooCommerceSales.php:56
 msgid "In last 30 days"
 msgstr "Nos últimos 30 dias"
 
-#: includes/Types/Conversions.php:70 includes/Types/WooCommerceSales.php:71
+#: includes/Types/Conversions.php:75 includes/Types/WooCommerceSales.php:75
 msgid "Link Button"
 msgstr "Link do botão"
 
-#: includes/Types/Conversions.php:74 includes/Types/WooCommerceSales.php:75
+#: includes/Types/Conversions.php:79 includes/Types/WooCommerceSales.php:79
 msgid "Background Color"
 msgstr "Cor de fundo"
 
-#: includes/Types/Conversions.php:80 includes/Types/WooCommerceSales.php:81
+#: includes/Types/Conversions.php:85 includes/Types/WooCommerceSales.php:85
 msgid "Text Color"
 msgstr "Cor do texto"
 
-#: includes/Types/Conversions.php:86 includes/Types/WooCommerceSales.php:87
+#: includes/Types/Conversions.php:91 includes/Types/WooCommerceSales.php:91
 msgid "Font Size"
 msgstr "Tamanho da fonte"
 
-#: includes/Types/Conversions.php:124 includes/Types/DownloadStats.php:24
-#: includes/Types/EmailSubscription.php:56 includes/Types/PageAnalytics.php:35
-#: includes/Types/Reviews.php:32 includes/Types/WooCommerceSales.php:124
+#: includes/Types/Conversions.php:129 includes/Types/DownloadStats.php:24
+#: includes/Types/EmailSubscription.php:60 includes/Types/PageAnalytics.php:40
+#: includes/Types/Reviews.php:37 includes/Types/WooCommerceSales.php:129
 msgid "Sound One"
 msgstr "Som um"
 
-#: includes/Types/Conversions.php:125 includes/Types/DownloadStats.php:25
-#: includes/Types/EmailSubscription.php:57 includes/Types/PageAnalytics.php:36
-#: includes/Types/Reviews.php:33 includes/Types/WooCommerceSales.php:125
+#: includes/Types/Conversions.php:130 includes/Types/DownloadStats.php:25
+#: includes/Types/EmailSubscription.php:61 includes/Types/PageAnalytics.php:41
+#: includes/Types/Reviews.php:38 includes/Types/WooCommerceSales.php:130
 msgid "Sound Two"
 msgstr "Som dois"
 
-#: includes/Types/CustomNotification.php:33
+#: includes/Types/CustomNotification.php:38
 msgid "Subscription Sound One"
 msgstr "Som um de assinatura"
 
-#: includes/Types/CustomNotification.php:34
+#: includes/Types/CustomNotification.php:39
 msgid "Subscription Sound Two"
 msgstr "Som dois de assinatura"
 
-#: includes/Types/Donations.php:34
+#: includes/Types/Donations.php:38
 msgid "people donated"
 msgstr "pessoas doaram"
 
-#: includes/Types/Donations.php:41
+#: includes/Types/Donations.php:45
 msgid "donated"
 msgstr "doou"
 
-#: includes/Types/Donations.php:43
+#: includes/Types/Donations.php:47
 msgid "donated for"
 msgstr "doado para"
 
-#: includes/Types/Donations.php:48
+#: includes/Types/Donations.php:52
 msgid "Donation Count"
 msgstr "Contagem de doações"
 
-#: includes/Types/ELearning.php:32 includes/Types/ELearning.php:34
+#: includes/Types/ELearning.php:36 includes/Types/ELearning.php:38
 msgid "recently enrolled"
 msgstr "matriculado recentemente"
 
-#: includes/Types/ELearning.php:38
+#: includes/Types/ELearning.php:42
 msgid "John D."
 msgstr "Fulano de Tal."
 
-#: includes/Types/ELearning.php:39
+#: includes/Types/ELearning.php:43
 msgid "Just Enrolled in"
 msgstr "Acabou de se matricular em"
 
-#: includes/Types/ELearning.php:41
+#: includes/Types/ELearning.php:45
 msgid "Anonymous Course"
 msgstr "Curso anônimo"
 
-#: includes/Types/ELearning.php:47
+#: includes/Types/ELearning.php:51
 msgid "people enrolled"
 msgstr "pessoas matriculadas"
 
@@ -1982,11 +1995,11 @@ msgstr "Visibilidade em dispositivos móveis"
 msgid "Hide NotificationX on mobile."
 msgstr "Ocultar o NotificationX em dispositivos móveis."
 
-#: includes/Types/PageAnalytics.php:56
+#: includes/Types/PageAnalytics.php:61
 msgid "in last "
 msgstr "nos últimos "
 
-#: includes/Types/PageAnalytics.php:64
+#: includes/Types/PageAnalytics.php:69
 msgid "7 "
 msgstr "7 "
 

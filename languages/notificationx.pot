@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.2.1\n"
+"Project-Id-Version: NotificationX 3.2.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-06T11:27:35+00:00\n"
+"POT-Creation-Date: 2026-04-09T04:44:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -88,11 +88,11 @@ msgstr ""
 msgid "Grab The Offer"
 msgstr ""
 
-#: includes/Admin/Admin.php:428
+#: includes/Admin/Admin.php:367
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:429
+#: includes/Admin/Admin.php:368
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -122,7 +122,7 @@ msgstr ""
 #: includes/Admin/Settings.php:294
 #: includes/Admin/Settings.php:454
 #: includes/Core/Analytics.php:46
-#: includes/Extensions/GlobalFields.php:1245
+#: includes/Extensions/GlobalFields.php:1248
 #: includes/FrontEnd/FrontEnd.php:97
 #: assets/admin/js/admin.js:1
 msgid "Analytics"
@@ -163,16 +163,16 @@ msgstr ""
 
 #: includes/Admin/ImportExport.php:133
 #: includes/Admin/ImportExport.php:134
-#: includes/Extensions/PressBar/PressBar.php:786
-#: includes/Extensions/PressBar/PressBar.php:787
-#: includes/Extensions/PressBar/PressBar.php:993
-#: includes/Extensions/PressBar/PressBar.php:994
+#: includes/Extensions/PressBar/PressBar.php:824
+#: includes/Extensions/PressBar/PressBar.php:825
+#: includes/Extensions/PressBar/PressBar.php:1031
+#: includes/Extensions/PressBar/PressBar.php:1032
 msgid "Import"
 msgstr ""
 
 #: includes/Admin/ImportExport.php:135
-#: includes/Extensions/PressBar/PressBar.php:788
-#: includes/Extensions/PressBar/PressBar.php:995
+#: includes/Extensions/PressBar/PressBar.php:826
+#: includes/Extensions/PressBar/PressBar.php:1033
 msgid "Importing..."
 msgstr ""
 
@@ -184,23 +184,19 @@ msgstr ""
 msgid "NotificationX Milestones"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:195
-msgid "Black Friday"
-msgstr ""
-
-#: includes/Admin/MilestoneNotification.php:208
+#: includes/Admin/MilestoneNotification.php:197
 msgid "View Analytics"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:208
+#: includes/Admin/MilestoneNotification.php:197
 msgid "View Detail Insights"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:226
+#: includes/Admin/MilestoneNotification.php:215
 msgid "Unlock Advanced Analytics Data"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:288
+#: includes/Admin/MilestoneNotification.php:277
 #: includes/Admin/views/analytics.views.php:7
 #: includes/Admin/views/analytics.views.php:11
 #: includes/Extensions/Google/YouTube.php:220
@@ -210,7 +206,7 @@ msgstr ""
 msgid "Total Views"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:292
+#: includes/Admin/MilestoneNotification.php:281
 #: includes/Admin/views/analytics.views.php:20
 #: includes/Admin/views/analytics.views.php:24
 #: assets/admin/js/admin.js:1
@@ -218,125 +214,125 @@ msgstr ""
 msgid "Total Clicks"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:296
+#: includes/Admin/MilestoneNotification.php:285
 msgid "Click Rate"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:336
+#: includes/Admin/MilestoneNotification.php:325
 msgid "<strong>Mega Milestone Unlocked!</strong> 🚀"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:337
+#: includes/Admin/MilestoneNotification.php:326
 msgid "Your website notifications are on fire! Over 2M+ interactions have taken place across the globe."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:343
+#: includes/Admin/MilestoneNotification.php:332
 msgid "<strong>Huge milestone achieved!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:344
+#: includes/Admin/MilestoneNotification.php:333
 msgid "You have achieved something unbelievable. 1M+ interactions have already happened on your website globally."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:350
+#: includes/Admin/MilestoneNotification.php:339
 msgid "700,000 <strong>interaction milestone reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:351
-#: includes/Admin/MilestoneNotification.php:365
-#: includes/Admin/MilestoneNotification.php:393
-#: includes/Admin/MilestoneNotification.php:421
+#: includes/Admin/MilestoneNotification.php:340
+#: includes/Admin/MilestoneNotification.php:354
+#: includes/Admin/MilestoneNotification.php:382
+#: includes/Admin/MilestoneNotification.php:410
 msgid "New interactions milestone achieved! Create more amazing notifications to reach out to a wider audience globally."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:357
+#: includes/Admin/MilestoneNotification.php:346
 msgid "<strong>You are doing amazing!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:358
-#: includes/Admin/MilestoneNotification.php:400
-#: includes/Admin/MilestoneNotification.php:448
+#: includes/Admin/MilestoneNotification.php:347
+#: includes/Admin/MilestoneNotification.php:389
+#: includes/Admin/MilestoneNotification.php:437
 msgid "Your notification is doing great and getting global clicks and impressions. See the detailed analytics below."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:364
+#: includes/Admin/MilestoneNotification.php:353
 msgid "<strong>Legendary achievement!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:371
+#: includes/Admin/MilestoneNotification.php:360
 msgid "<strong>Diamond Status!!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:372
+#: includes/Admin/MilestoneNotification.php:361
 msgid "Your notification is grabbing attention globally. Check the detailed analytics to learn more about the performance."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:378
+#: includes/Admin/MilestoneNotification.php:367
 msgid "200,000 <strong>interaction milestone reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:379
+#: includes/Admin/MilestoneNotification.php:368
 msgid "Globally, 200,000 interactions are happening on your website. Check the detailed analytics to grow your audience further."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:385
+#: includes/Admin/MilestoneNotification.php:374
 msgid "Congratulations! <strong>Another milestone</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:386
-#: includes/Admin/MilestoneNotification.php:441
+#: includes/Admin/MilestoneNotification.php:375
+#: includes/Admin/MilestoneNotification.php:430
 msgid "Your notifications are performing incredibly well worldwide. Check out the detailed analytics below!"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:392
+#: includes/Admin/MilestoneNotification.php:381
 msgid "100,000 <strong>interaction milestone reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:399
+#: includes/Admin/MilestoneNotification.php:388
 msgid "75,000+ <strong>interactions achieved today!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:406
+#: includes/Admin/MilestoneNotification.php:395
 msgid "Incredible, <strong>50,000 interactions unlocked!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:407
+#: includes/Admin/MilestoneNotification.php:396
 msgid "You are going great with your notification. Do not forget to check the detailed analytics to learn more."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:413
+#: includes/Admin/MilestoneNotification.php:402
 msgid "25,000 <strong>interaction milestone reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:414
+#: includes/Admin/MilestoneNotification.php:403
 msgid "Globally, 25,000 interactions are happening on your website. Check the detailed analytics to grow your audience further."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:420
+#: includes/Admin/MilestoneNotification.php:409
 msgid "Fantastic! <strong>10,000 interactions reached!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:427
+#: includes/Admin/MilestoneNotification.php:416
 msgid "Awesome - <strong>you got 5,000 interactions!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:428
+#: includes/Admin/MilestoneNotification.php:417
 msgid "Your amazing website reached 5,000 interactions from your notification. Check the detailed analytics and achieve more."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:433
+#: includes/Admin/MilestoneNotification.php:422
 msgid "2,000 <strong>interaction milestone achieved!</strong> 🎉"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:434
+#: includes/Admin/MilestoneNotification.php:423
 msgid "Your website has more than 2,000 interactions from your notification. Do not forget to check the detailed analytics and achieve more."
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:440
+#: includes/Admin/MilestoneNotification.php:429
 msgid "Great - <strong>1,000 interactions achieved!</strong> 👏"
 msgstr ""
 
-#: includes/Admin/MilestoneNotification.php:447
+#: includes/Admin/MilestoneNotification.php:436
 msgid "You've got <strong>100 interactions overall!</strong> 🎉"
 msgstr ""
 
@@ -385,6 +381,11 @@ msgstr ""
 #: includes/Admin/Reports/ReportEmail.php:228
 #: includes/Admin/Settings.php:362
 msgid "Once Monthly"
+msgstr ""
+
+#: includes/Admin/Reports/ReportEmail.php:263
+#: includes/Admin/Settings.php:410
+msgid "Weekly Engagement Summary of “%s”"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:311
@@ -525,7 +526,7 @@ msgid "Analytics From"
 msgstr ""
 
 #: includes/Admin/Settings.php:317
-#: includes/Extensions/GlobalFields.php:1704
+#: includes/Extensions/GlobalFields.php:1707
 #: includes/Types/GDPR.php:264
 msgid "Everyone"
 msgstr ""
@@ -567,32 +568,32 @@ msgid "Select Reporting Day"
 msgstr ""
 
 #: includes/Admin/Settings.php:383
-#: includes/Extensions/PressBar/PressBar.php:1402
+#: includes/Extensions/PressBar/PressBar.php:1440
 msgid "Sunday"
 msgstr ""
 
 #: includes/Admin/Settings.php:384
-#: includes/Extensions/PressBar/PressBar.php:1396
+#: includes/Extensions/PressBar/PressBar.php:1434
 msgid "Monday"
 msgstr ""
 
 #: includes/Admin/Settings.php:385
-#: includes/Extensions/PressBar/PressBar.php:1397
+#: includes/Extensions/PressBar/PressBar.php:1435
 msgid "Tuesday"
 msgstr ""
 
 #: includes/Admin/Settings.php:386
-#: includes/Extensions/PressBar/PressBar.php:1398
+#: includes/Extensions/PressBar/PressBar.php:1436
 msgid "Wednesday"
 msgstr ""
 
 #: includes/Admin/Settings.php:387
-#: includes/Extensions/PressBar/PressBar.php:1399
+#: includes/Extensions/PressBar/PressBar.php:1437
 msgid "Thursday"
 msgstr ""
 
 #: includes/Admin/Settings.php:388
-#: includes/Extensions/PressBar/PressBar.php:1400
+#: includes/Extensions/PressBar/PressBar.php:1438
 msgid "Friday"
 msgstr ""
 
@@ -695,14 +696,14 @@ msgid "Cross Domain Notice"
 msgstr ""
 
 #: includes/Admin/XSS.php:44
-#: includes/Extensions/GlobalFields.php:611
+#: includes/Extensions/GlobalFields.php:614
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:20
 msgid "Click to Copy"
 msgstr ""
 
 #: includes/Admin/XSS.php:45
-#: includes/Extensions/GlobalFields.php:612
+#: includes/Extensions/GlobalFields.php:615
 msgid "Copied to clipboard."
 msgstr ""
 
@@ -1614,7 +1615,7 @@ msgstr ""
 #: includes/Extensions/Give/Give.php:82
 #: includes/Extensions/Give/Give.php:83
 #: includes/Extensions/Give/Give.php:84
-#: includes/Extensions/GlobalFields.php:680
+#: includes/Extensions/GlobalFields.php:683
 #: includes/Extensions/Google/GoogleReviews.php:55
 #: includes/Extensions/Google/GoogleReviews.php:69
 #: includes/Extensions/Google/GoogleReviews.php:83
@@ -1636,9 +1637,9 @@ msgstr ""
 #: includes/Extensions/Tutor/Tutor.php:531
 #: includes/Extensions/Tutor/Tutor.php:532
 #: includes/Extensions/Tutor/Tutor.php:533
-#: includes/Extensions/WooCommerce/WooCommerce.php:527
-#: includes/Extensions/WooCommerce/WooCommerce.php:528
-#: includes/Extensions/WooCommerce/WooCommerce.php:529
+#: includes/Extensions/WooCommerce/WooCommerce.php:560
+#: includes/Extensions/WooCommerce/WooCommerce.php:561
+#: includes/Extensions/WooCommerce/WooCommerce.php:562
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:73
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:85
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:97
@@ -1658,7 +1659,7 @@ msgstr ""
 #: includes/FrontEnd/FrontEnd.php:277
 #: includes/FrontEnd/FrontEnd.php:278
 #: includes/FrontEnd/FrontEnd.php:279
-#: includes/FrontEnd/FrontEnd.php:781
+#: includes/FrontEnd/FrontEnd.php:786
 #: includes/Types/Comments.php:54
 #: includes/Types/Comments.php:67
 #: includes/Types/Comments.php:80
@@ -1670,7 +1671,7 @@ msgstr ""
 #: includes/Types/ContactForm.php:60
 #: includes/Types/ContactForm.php:73
 #: includes/Types/ContactForm.php:86
-#: includes/Types/Conversions.php:65
+#: includes/Types/Conversions.php:66
 #: includes/Types/Donations.php:49
 #: includes/Types/ELearning.php:58
 #: includes/Types/ELearning.php:71
@@ -1699,9 +1700,14 @@ msgid "Someone"
 msgstr ""
 
 #: includes/Core/PostType.php:77
-#: includes/Extensions/GlobalFields.php:1181
+#: includes/Extensions/GlobalFields.php:1184
+#: includes/Extensions/GlobalFields.php:1239
+#: includes/Extensions/GlobalFields.php:1293
+#: includes/Extensions/GlobalFields.php:1347
+#: includes/Extensions/GlobalFields.php:1401
+#: includes/Extensions/GlobalFields.php:1455
 #: includes/Extensions/PopupNotification/PopupNotification.php:782
-#: includes/Extensions/PressBar/PressBar.php:1689
+#: includes/Extensions/PressBar/PressBar.php:1729
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 #: assets/admin/js/admin.js:20
@@ -1718,71 +1724,71 @@ msgid "Quick Builder"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:92
-#: includes/Extensions/GlobalFields.php:626
-#: includes/Extensions/GlobalFields.php:653
+#: includes/Extensions/GlobalFields.php:629
+#: includes/Extensions/GlobalFields.php:656
 #: includes/Extensions/PopupNotification/PopupNotification.php:606
-#: includes/Extensions/PressBar/PressBar.php:1654
+#: includes/Extensions/PressBar/PressBar.php:1694
 msgid "Content"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:254
+#: includes/Core/QuickBuild.php:255
 #: includes/Extensions/PressBar/PressBar.php:67
-#: includes/Types/NotificationBar.php:227
+#: includes/Types/NotificationBar.php:234
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Notification Bar"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:255
+#: includes/Core/QuickBuild.php:256
 #: includes/Extensions/Google/YouTube.php:133
 #: includes/Extensions/Google/YouTube.php:175
 #: includes/Types/Comments.php:46
 msgid "Comments"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:256
+#: includes/Core/QuickBuild.php:257
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:198
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:199
-#: includes/Types/Conversions.php:61
+#: includes/Types/Conversions.php:62
 #: assets/admin/js/admin.js:11
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Sales Notification"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:257
+#: includes/Core/QuickBuild.php:258
 #: includes/Types/Video.php:50
 msgid "Video"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:258
+#: includes/Core/QuickBuild.php:259
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:65
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:66
 #: includes/Types/Reviews.php:56
 msgid "Reviews"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:259
+#: includes/Core/QuickBuild.php:260
 #: includes/Types/DownloadStats.php:49
 msgid "Download Stats"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:260
+#: includes/Core/QuickBuild.php:261
 #: includes/Types/ELearning.php:51
 msgid "eLearning"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:261
+#: includes/Core/QuickBuild.php:262
 msgid "Donation"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:262
+#: includes/Core/QuickBuild.php:263
 #: includes/Types/ContactForm.php:52
 msgid "Contact Form"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:263
+#: includes/Core/QuickBuild.php:264
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:66
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:67
 #: includes/Types/Inline.php:45
@@ -1792,7 +1798,7 @@ msgstr ""
 msgid "Growth Alert"
 msgstr ""
 
-#: includes/Core/QuickBuild.php:264
+#: includes/Core/QuickBuild.php:265
 #: includes/Extensions/GDPR/GDPR_Notification.php:47
 #: includes/Types/GDPR.php:50
 #: assets/admin/js/admin.js:11
@@ -1801,15 +1807,15 @@ msgstr ""
 msgid "Cookie Notice"
 msgstr ""
 
-#: includes/Core/REST.php:465
+#: includes/Core/REST.php:480
 msgid "Unauthorized Access: You have to logged in first."
 msgstr ""
 
-#: includes/Core/REST.php:468
+#: includes/Core/REST.php:483
 msgid "Invalid Type: You have to give a type."
 msgstr ""
 
-#: includes/Core/REST.php:471
+#: includes/Core/REST.php:486
 msgid "400 Bad Request."
 msgstr ""
 
@@ -1852,7 +1858,7 @@ msgid "Unique identifier for the site."
 msgstr ""
 
 #: includes/Core/Rest/Integration.php:152
-msgid "There is no notification created with this id:"
+msgid "There is no notification created with this id: %s"
 msgstr ""
 
 #: includes/Core/Rest/Integration.php:155
@@ -1967,16 +1973,19 @@ msgid ""
 "\t\t<p>🔥 Boosting Engagement with <a target=\"_blank\" href=\"%4$s\">ActiveCampaign Email Subscription Alerts</a> via NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/CCPA/CCPA_Notification.php:42
-msgid "CCPA"
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:44
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:45
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:72
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:73
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:45
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:46
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:70
+msgid "Bit Integrations"
 msgstr ""
 
-#: includes/Extensions/CF7/CF7.php:50
-#: includes/Extensions/CF7/CF7.php:51
-#: includes/Extensions/CF7/CF7.php:101
-msgid "Contact Form 7"
-msgstr ""
-
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:70
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:71
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:68
 #: includes/Extensions/CF7/CF7.php:99
 #: includes/Extensions/EDD/EDD.php:96
 #: includes/Extensions/Elementor/From.php:61
@@ -1989,12 +1998,15 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:210
 #: includes/Extensions/SureCart/SureCart.php:453
 #: includes/Extensions/Tutor/Tutor.php:129
-#: includes/Extensions/WooCommerce/WooCommerce.php:103
+#: includes/Extensions/WooCommerce/WooCommerce.php:131
 #: includes/Extensions/WooCommerce/WOOReviews.php:231
 #: includes/Extensions/WPF/WPForms.php:90
 msgid "You have to install"
 msgstr ""
 
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:73
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:74
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:71
 #: includes/Extensions/CF7/CF7.php:102
 #: includes/Extensions/EDD/EDD.php:99
 #: includes/Extensions/Elementor/From.php:64
@@ -2006,10 +2018,223 @@ msgstr ""
 #: includes/Extensions/NJF/NinjaForms.php:93
 #: includes/Extensions/SureCart/SureCart.php:456
 #: includes/Extensions/Tutor/Tutor.php:132
-#: includes/Extensions/WooCommerce/WooCommerce.php:106
+#: includes/Extensions/WooCommerce/WooCommerce.php:134
 #: includes/Extensions/WooCommerce/WOOReviews.php:234
 #: includes/Extensions/WPF/WPForms.php:93
 msgid "plugin first."
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:86
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:87
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:94
+#: includes/Extensions/Zapier/ZapierConversions.php:71
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
+#: includes/Extensions/Zapier/ZapierReviews.php:68
+msgid "Field Name:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:86
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:87
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:94
+#: includes/Extensions/Zapier/ZapierConversions.php:71
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
+#: includes/Extensions/Zapier/ZapierReviews.php:68
+msgid "Field Key"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:87
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:88
+#: includes/Extensions/Zapier/ZapierConversions.php:72
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:62
+msgid "Full Name:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:88
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:89
+#: includes/Extensions/Zapier/ZapierConversions.php:73
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:63
+msgid "First Name:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:89
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:90
+#: includes/Extensions/Zapier/ZapierConversions.php:74
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:64
+msgid "Last Name:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:90
+#: includes/Extensions/Zapier/ZapierConversions.php:75
+msgid "Sales Count:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:91
+#: includes/Extensions/Zapier/ZapierConversions.php:76
+msgid "Customer Email:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:92
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:92
+#: includes/Extensions/Zapier/ZapierConversions.php:77
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:66
+msgid "Title, Product Title:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:93
+#: includes/Extensions/Zapier/ZapierConversions.php:78
+msgid "Anonymous Title, Product:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:94
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:94
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:103
+#: includes/Extensions/Zapier/ZapierConversions.php:79
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:68
+#: includes/Extensions/Zapier/ZapierReviews.php:77
+msgid "Definite Time:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:95
+#: includes/Extensions/Zapier/ZapierConversions.php:80
+msgid "Sometime:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:96
+#: includes/Extensions/Zapier/ZapierConversions.php:81
+msgid "In last 1 day:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:97
+#: includes/Extensions/Zapier/ZapierConversions.php:82
+msgid "In last 7 days:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:98
+#: includes/Extensions/Zapier/ZapierConversions.php:83
+msgid "In last 30 days:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:99
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:96
+#: includes/Extensions/Zapier/ZapierConversions.php:84
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:70
+msgid "City:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:100
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:97
+#: includes/Extensions/Zapier/ZapierConversions.php:85
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:71
+msgid "Country:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:101
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:98
+#: includes/Extensions/Zapier/ZapierConversions.php:86
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:72
+msgid "City,Country:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:45
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:46
+msgid "BitIntegrations"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:91
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:96
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:65
+#: includes/Extensions/Zapier/ZapierReviews.php:70
+#: assets/admin/js/admin.js:13
+msgid "Email:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:93
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:101
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:67
+#: includes/Extensions/Zapier/ZapierReviews.php:75
+msgid "Anonymous Title:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:95
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:104
+#: includes/Extensions/Zapier/ZapierEmailSubscription.php:69
+#: includes/Extensions/Zapier/ZapierReviews.php:78
+msgid "Some time ago:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:48
+msgid "<a href='https://notificationx.com/docs/bitintegrations-notification-alert/' target='_blank'>More Info</a>"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:49
+#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:47
+#: includes/Extensions/Elementor/From.php:49
+#: includes/Extensions/Envato/Envato.php:48
+#: includes/Extensions/Freemius/FreemiusConversions.php:48
+#: includes/Extensions/Freemius/FreemiusReviews.php:48
+#: includes/Extensions/Freemius/FreemiusStats.php:49
+#: includes/Extensions/Google/GoogleReviews.php:163
+#: includes/Extensions/Google/YouTube.php:256
+#: includes/Extensions/GRVF/GravityForms.php:50
+#: includes/Extensions/LearnDash/LearnDash.php:50
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:156
+#: includes/Extensions/Zapier/ZapierConversions.php:48
+#: includes/Extensions/Zapier/ZapierReviews.php:48
+#: includes/Types/EmailSubscription.php:54
+#: includes/Types/FlashingTab.php:47
+#: includes/Types/Inline.php:48
+#: includes/Types/OfferAnnouncement.php:50
+#: includes/Types/PageAnalytics.php:48
+#: includes/Types/Video.php:53
+msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:50
+#: includes/Extensions/Zapier/ZapierReviews.php:49
+msgid ""
+"\n"
+"                <span>Display review alerts from popular social media networks & encourage visitors to place trust in your business.</span>\n"
+"            "
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:95
+#: includes/Extensions/Zapier/ZapierReviews.php:69
+msgid "Username:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:97
+#: includes/Extensions/Zapier/ZapierReviews.php:71
+msgid "Rated:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:98
+#: includes/Extensions/Zapier/ZapierReviews.php:72
+msgid "Plugin Name:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:99
+#: includes/Extensions/Zapier/ZapierReviews.php:73
+msgid "Plugin Review:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:100
+#: includes/Extensions/Zapier/ZapierReviews.php:74
+msgid "Review Title:"
+msgstr ""
+
+#: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:102
+#: includes/Extensions/Zapier/ZapierReviews.php:76
+msgid "Rating:"
+msgstr ""
+
+#: includes/Extensions/CCPA/CCPA_Notification.php:42
+msgid "CCPA"
+msgstr ""
+
+#: includes/Extensions/CF7/CF7.php:50
+#: includes/Extensions/CF7/CF7.php:51
+#: includes/Extensions/CF7/CF7.php:101
+msgid "Contact Form 7"
 msgstr ""
 
 #. translators: links
@@ -2057,28 +2282,6 @@ msgstr ""
 msgid "<a href='https://notificationx.com/docs/custom-notification/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/CustomNotification/CustomNotificationConversions.php:47
-#: includes/Extensions/Elementor/From.php:49
-#: includes/Extensions/Envato/Envato.php:48
-#: includes/Extensions/Freemius/FreemiusConversions.php:48
-#: includes/Extensions/Freemius/FreemiusReviews.php:48
-#: includes/Extensions/Freemius/FreemiusStats.php:49
-#: includes/Extensions/Google/GoogleReviews.php:163
-#: includes/Extensions/Google/YouTube.php:256
-#: includes/Extensions/GRVF/GravityForms.php:50
-#: includes/Extensions/LearnDash/LearnDash.php:50
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:156
-#: includes/Extensions/Zapier/ZapierConversions.php:48
-#: includes/Extensions/Zapier/ZapierReviews.php:48
-#: includes/Types/EmailSubscription.php:54
-#: includes/Types/FlashingTab.php:47
-#: includes/Types/Inline.php:48
-#: includes/Types/OfferAnnouncement.php:50
-#: includes/Types/PageAnalytics.php:48
-#: includes/Types/Video.php:53
-msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
-msgstr ""
-
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:48
 msgid ""
 "\n"
@@ -2096,14 +2299,14 @@ msgid "Easy Digital Downloads"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:129
-#: includes/Extensions/WooCommerce/WooCommerce.php:478
+#: includes/Extensions/WooCommerce/WooCommerce.php:511
 msgid "more products"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:147
 #: includes/Extensions/FluentCart/FluentCart.php:679
 #: includes/Extensions/SureCart/SureCart.php:431
-#: includes/Extensions/WooCommerce/WooCommerce.php:133
+#: includes/Extensions/WooCommerce/WooCommerce.php:161
 #: includes/Types/DownloadStats.php:199
 #: includes/Types/Traits/Reviews.php:22
 msgid "Product Page"
@@ -2115,8 +2318,8 @@ msgstr ""
 #: includes/Extensions/LearnPress/LearnPress.php:539
 #: includes/Extensions/SureCart/SureCart.php:441
 #: includes/Extensions/Tutor/Tutor.php:534
-#: includes/Extensions/WooCommerce/WooCommerce.php:530
-#: includes/Types/Conversions.php:68
+#: includes/Extensions/WooCommerce/WooCommerce.php:563
+#: includes/Types/Conversions.php:69
 #: includes/Types/WooCommerceSales.php:66
 msgid "Anonymous Product"
 msgstr ""
@@ -2166,8 +2369,8 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooInline.php:129
 #: includes/Extensions/WooCommerce/WOOReviews.php:140
 #: includes/Extensions/WooCommerce/WOOReviews.php:165
-#: includes/Types/Conversions.php:210
-#: includes/Types/Conversions.php:235
+#: includes/Types/Conversions.php:211
+#: includes/Types/Conversions.php:236
 #: includes/Types/WooCommerceSales.php:207
 #: includes/Types/WooCommerceSales.php:225
 msgid "Product Title"
@@ -2540,7 +2743,7 @@ msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:65
 #: includes/Extensions/GlobalFields.php:238
-#: includes/Extensions/GlobalFields.php:463
+#: includes/Extensions/GlobalFields.php:466
 msgid "Design"
 msgstr ""
 
@@ -2548,10 +2751,10 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:157
 #: includes/Extensions/GDPR/GDPR_Notification.php:201
 #: includes/Extensions/GDPR/GDPR_Notification.php:239
-#: includes/Extensions/GlobalFields.php:471
+#: includes/Extensions/GlobalFields.php:474
 #: includes/Extensions/PopupNotification/PopupNotification.php:176
 #: includes/Extensions/PopupNotification/PopupNotification.php:311
-#: includes/Extensions/PressBar/PressBar.php:512
+#: includes/Extensions/PressBar/PressBar.php:549
 #: blocks/notificationx/components/inspector.js:313
 #: blocks/notificationx/index.js:1
 msgid "Background Color"
@@ -2589,13 +2792,13 @@ msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:115
 #: includes/Extensions/PopupNotification/PopupNotification.php:207
-#: includes/Extensions/PressBar/PressBar.php:549
+#: includes/Extensions/PressBar/PressBar.php:586
 msgid "Close Button Color"
 msgstr ""
 
 #: includes/Extensions/GDPR/GDPR_Notification.php:129
 #: includes/Extensions/PopupNotification/PopupNotification.php:212
-#: includes/Extensions/PressBar/PressBar.php:554
+#: includes/Extensions/PressBar/PressBar.php:591
 msgid "Close Button Size"
 msgstr ""
 
@@ -2606,7 +2809,7 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:163
 #: includes/Extensions/GDPR/GDPR_Notification.php:207
 #: includes/Extensions/GDPR/GDPR_Notification.php:245
-#: includes/Extensions/GlobalFields.php:508
+#: includes/Extensions/GlobalFields.php:511
 #: includes/Extensions/PopupNotification/PopupNotification.php:333
 msgid "Border Color"
 msgstr ""
@@ -2614,9 +2817,9 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:169
 #: includes/Extensions/GDPR/GDPR_Notification.php:213
 #: includes/Extensions/GDPR/GDPR_Notification.php:251
-#: includes/Extensions/GlobalFields.php:477
+#: includes/Extensions/GlobalFields.php:480
 #: includes/Extensions/PopupNotification/PopupNotification.php:322
-#: includes/Extensions/PressBar/PressBar.php:524
+#: includes/Extensions/PressBar/PressBar.php:561
 #: blocks/notificationx/components/inspector.js:307
 #: blocks/notificationx/index.js:1
 msgid "Text Color"
@@ -2625,11 +2828,11 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:175
 #: includes/Extensions/GDPR/GDPR_Notification.php:219
 #: includes/Extensions/GDPR/GDPR_Notification.php:257
-#: includes/Extensions/GlobalFields.php:543
-#: includes/Extensions/GlobalFields.php:551
-#: includes/Extensions/GlobalFields.php:559
+#: includes/Extensions/GlobalFields.php:546
+#: includes/Extensions/GlobalFields.php:554
+#: includes/Extensions/GlobalFields.php:562
 #: includes/Extensions/PopupNotification/PopupNotification.php:350
-#: includes/Extensions/PressBar/PressBar.php:651
+#: includes/Extensions/PressBar/PressBar.php:688
 msgid "Font Size"
 msgstr ""
 
@@ -2661,9 +2864,9 @@ msgid "GiveWP"
 msgstr ""
 
 #: includes/Extensions/Give/Give.php:86
-#: includes/Extensions/GlobalFields.php:705
-#: includes/Extensions/GlobalFields.php:723
-#: includes/Extensions/GlobalFields.php:2315
+#: includes/Extensions/GlobalFields.php:708
+#: includes/Extensions/GlobalFields.php:726
+#: includes/Extensions/GlobalFields.php:2318
 #: includes/Extensions/Google/GoogleReviews.php:60
 #: includes/Extensions/Google/GoogleReviews.php:74
 #: includes/Extensions/Google/GoogleReviews.php:88
@@ -2705,7 +2908,7 @@ msgstr ""
 #: includes/Types/ContactForm.php:65
 #: includes/Types/ContactForm.php:78
 #: includes/Types/ContactForm.php:91
-#: includes/Types/Conversions.php:70
+#: includes/Types/Conversions.php:71
 #: includes/Types/Donations.php:56
 #: includes/Types/ELearning.php:63
 #: includes/Types/ELearning.php:76
@@ -2756,8 +2959,8 @@ msgid "Previous"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:73
-#: includes/Extensions/PressBar/PressBar.php:805
-#: includes/Extensions/PressBar/PressBar.php:1012
+#: includes/Extensions/PressBar/PressBar.php:843
+#: includes/Extensions/PressBar/PressBar.php:1050
 msgid "Next"
 msgstr ""
 
@@ -2772,14 +2975,14 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:254
 #: includes/Extensions/GlobalFields.php:262
-#: includes/Extensions/GlobalFields.php:636
-#: includes/Extensions/GlobalFields.php:644
-#: includes/Extensions/GlobalFields.php:1032
-#: includes/Extensions/GlobalFields.php:1040
-#: includes/Extensions/GlobalFields.php:1478
-#: includes/Extensions/GlobalFields.php:1486
-#: includes/Extensions/GlobalFields.php:1725
-#: includes/Extensions/GlobalFields.php:1733
+#: includes/Extensions/GlobalFields.php:639
+#: includes/Extensions/GlobalFields.php:647
+#: includes/Extensions/GlobalFields.php:1035
+#: includes/Extensions/GlobalFields.php:1043
+#: includes/Extensions/GlobalFields.php:1481
+#: includes/Extensions/GlobalFields.php:1489
+#: includes/Extensions/GlobalFields.php:1728
+#: includes/Extensions/GlobalFields.php:1736
 #: includes/FrontEnd/Preview.php:401
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
@@ -2827,22 +3030,22 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:405
 #: includes/Extensions/GlobalFields.php:421
-#: includes/Extensions/GlobalFields.php:588
-#: includes/Extensions/GlobalFields.php:1747
-#: includes/Extensions/GlobalFields.php:1832
+#: includes/Extensions/GlobalFields.php:591
+#: includes/Extensions/GlobalFields.php:1750
+#: includes/Extensions/GlobalFields.php:1835
 msgid "Position"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:410
-#: includes/Extensions/GlobalFields.php:1754
-#: includes/Extensions/GlobalFields.php:1839
+#: includes/Extensions/GlobalFields.php:1757
+#: includes/Extensions/GlobalFields.php:1842
 #: includes/Extensions/PopupNotification/PopupNotification.php:978
 msgid "Bottom Left"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:411
-#: includes/Extensions/GlobalFields.php:1758
-#: includes/Extensions/GlobalFields.php:1843
+#: includes/Extensions/GlobalFields.php:1761
+#: includes/Extensions/GlobalFields.php:1846
 #: includes/Extensions/PopupNotification/PopupNotification.php:977
 msgid "Bottom Right"
 msgstr ""
@@ -2853,195 +3056,195 @@ msgid "Center"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:426
-#: includes/Extensions/PressBar/PressBar.php:469
-#: includes/Extensions/PressBar/PressBar.php:1157
+#: includes/Extensions/PressBar/PressBar.php:506
+#: includes/Extensions/PressBar/PressBar.php:1195
 msgid "Bottom"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:427
-#: includes/Extensions/PressBar/PressBar.php:462
-#: includes/Extensions/PressBar/PressBar.php:593
-#: includes/Extensions/PressBar/PressBar.php:615
-#: includes/Extensions/PressBar/PressBar.php:1152
+#: includes/Extensions/PressBar/PressBar.php:499
+#: includes/Extensions/PressBar/PressBar.php:630
+#: includes/Extensions/PressBar/PressBar.php:652
+#: includes/Extensions/PressBar/PressBar.php:1190
 msgid "Top"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:435
-#: includes/Extensions/GlobalFields.php:445
+#: includes/Extensions/GlobalFields.php:448
 msgid "Advanced Design"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:456
+#: includes/Extensions/GlobalFields.php:459
 msgid "Advanced Toggle"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:483
+#: includes/Extensions/GlobalFields.php:486
 msgid "Want Border?"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:489
+#: includes/Extensions/GlobalFields.php:492
 msgid "Border Size"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:496
+#: includes/Extensions/GlobalFields.php:499
 msgid "Border Style"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:501
+#: includes/Extensions/GlobalFields.php:504
 msgid "Solid"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:502
+#: includes/Extensions/GlobalFields.php:505
 msgid "Dashed"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:503
+#: includes/Extensions/GlobalFields.php:506
 msgid "Dotted"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:515
+#: includes/Extensions/GlobalFields.php:518
 msgid "Discount Text Color"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:525
+#: includes/Extensions/GlobalFields.php:528
 msgid "Discount Background"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:536
+#: includes/Extensions/GlobalFields.php:539
 #: includes/Extensions/PopupNotification/PopupNotification.php:222
-#: includes/Extensions/PressBar/PressBar.php:644
+#: includes/Extensions/PressBar/PressBar.php:681
 #: blocks/notificationx/components/inspector.js:254
 #: blocks/notificationx/index.js:1
 msgid "Typography"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:548
-#: includes/Extensions/PressBar/PressBar.php:657
+#: includes/Extensions/GlobalFields.php:551
+#: includes/Extensions/PressBar/PressBar.php:695
 msgid "This font size will be applied for <mark>first</mark> row"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:556
+#: includes/Extensions/GlobalFields.php:559
 msgid "This font size will be applied for <mark>second</mark> row"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:564
+#: includes/Extensions/GlobalFields.php:567
 msgid "This font size will be applied for <mark>third</mark> row"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:569
+#: includes/Extensions/GlobalFields.php:572
 msgid "Image Appearance"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:576
+#: includes/Extensions/GlobalFields.php:579
 msgid "Image Shape"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:582
+#: includes/Extensions/GlobalFields.php:585
 msgid "Circle"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:583
+#: includes/Extensions/GlobalFields.php:586
 msgid "Rounded"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:584
+#: includes/Extensions/GlobalFields.php:587
 msgid "Square"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:594
-#: includes/Extensions/PressBar/PressBar.php:448
-#: includes/Extensions/PressBar/PressBar.php:587
-#: includes/Extensions/PressBar/PressBar.php:604
+#: includes/Extensions/GlobalFields.php:597
+#: includes/Extensions/PressBar/PressBar.php:485
+#: includes/Extensions/PressBar/PressBar.php:624
+#: includes/Extensions/PressBar/PressBar.php:641
 msgid "Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:595
-#: includes/Extensions/PressBar/PressBar.php:455
-#: includes/Extensions/PressBar/PressBar.php:588
-#: includes/Extensions/PressBar/PressBar.php:626
+#: includes/Extensions/GlobalFields.php:598
+#: includes/Extensions/PressBar/PressBar.php:492
+#: includes/Extensions/PressBar/PressBar.php:625
+#: includes/Extensions/PressBar/PressBar.php:663
 msgid "Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:601
+#: includes/Extensions/GlobalFields.php:604
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:608
+#: includes/Extensions/GlobalFields.php:611
 msgid "Add Custom CSS"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:617
+#: includes/Extensions/GlobalFields.php:620
 msgid "Use custom CSS to style this Notification."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:659
+#: includes/Extensions/GlobalFields.php:662
 msgid "Notification Template"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:672
-#: includes/Extensions/GlobalFields.php:697
-#: includes/Extensions/GlobalFields.php:715
-#: includes/Extensions/GlobalFields.php:732
-#: includes/Extensions/GlobalFields.php:749
-#: includes/Extensions/PressBar/PressBar.php:406
-#: includes/Extensions/PressBar/PressBar.php:414
-#: includes/Extensions/PressBar/PressBar.php:1364
+#: includes/Extensions/GlobalFields.php:675
+#: includes/Extensions/GlobalFields.php:700
+#: includes/Extensions/GlobalFields.php:718
+#: includes/Extensions/GlobalFields.php:735
+#: includes/Extensions/GlobalFields.php:752
+#: includes/Extensions/PressBar/PressBar.php:418
+#: includes/Extensions/PressBar/PressBar.php:426
+#: includes/Extensions/PressBar/PressBar.php:1402
 msgid "Custom"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:688
+#: includes/Extensions/GlobalFields.php:691
 msgid "recently purchased"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:764
-#: includes/Extensions/GlobalFields.php:775
+#: includes/Extensions/GlobalFields.php:767
+#: includes/Extensions/GlobalFields.php:778
 msgid "Advanced Template"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:781
+#: includes/Extensions/GlobalFields.php:784
 msgid "Random Order"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:786
+#: includes/Extensions/GlobalFields.php:789
 msgid "Enable to show notification in random order."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:791
+#: includes/Extensions/GlobalFields.php:794
 msgid "Show Purchase Of"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:799
+#: includes/Extensions/GlobalFields.php:802
 #: includes/Types/ELearning.php:240
 msgid "All"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:800
-#: includes/Extensions/GlobalFields.php:859
+#: includes/Extensions/GlobalFields.php:803
+#: includes/Extensions/GlobalFields.php:862
 msgid "Product Category"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:801
-#: includes/Extensions/GlobalFields.php:860
+#: includes/Extensions/GlobalFields.php:804
+#: includes/Extensions/GlobalFields.php:863
 msgid "Selected Product"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:807
-#: includes/Extensions/GlobalFields.php:866
+#: includes/Extensions/GlobalFields.php:810
+#: includes/Extensions/GlobalFields.php:869
 msgid "Select Product Category"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:819
-#: includes/Extensions/GlobalFields.php:878
+#: includes/Extensions/GlobalFields.php:822
+#: includes/Extensions/GlobalFields.php:881
 msgid "Select Product"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:850
+#: includes/Extensions/GlobalFields.php:853
 msgid "Exclude By"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:858
-#: includes/Extensions/GlobalFields.php:988
-#: includes/Extensions/GlobalFields.php:1593
+#: includes/Extensions/GlobalFields.php:861
+#: includes/Extensions/GlobalFields.php:991
+#: includes/Extensions/GlobalFields.php:1596
 #: includes/Extensions/Google/YouTube.php:221
 #: includes/Extensions/Google/YouTube.php:225
 #: includes/Extensions/Google/YouTube.php:235
@@ -3051,240 +3254,249 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:908
-#: includes/Extensions/GlobalFields.php:925
-#: includes/Extensions/GlobalFields.php:940
+#: includes/Extensions/GlobalFields.php:911
+#: includes/Extensions/GlobalFields.php:928
+#: includes/Extensions/GlobalFields.php:943
 msgid "Order Status"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:955
+#: includes/Extensions/GlobalFields.php:918
+msgid "By default it will show Processing & Completed status."
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:935
+#: includes/Extensions/GlobalFields.php:950
+msgid "By default it will show Processing & Fulfilled status."
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:958
 msgid "Combine Multi Order"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:960
+#: includes/Extensions/GlobalFields.php:963
 msgid "Combine order like, 2 more products."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:969
+#: includes/Extensions/GlobalFields.php:972
 msgid "Cookies Content"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:977
+#: includes/Extensions/GlobalFields.php:980
 msgid "Link Options"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:983
+#: includes/Extensions/GlobalFields.php:986
 msgid "Link Type"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:992
+#: includes/Extensions/GlobalFields.php:995
 msgid "Button"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1005
+#: includes/Extensions/GlobalFields.php:1008
 msgid "Enable button with link"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1021
+#: includes/Extensions/GlobalFields.php:1024
 msgid "Manager"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1049
+#: includes/Extensions/GlobalFields.php:1052
 msgid "General Settings"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1055
+#: includes/Extensions/GlobalFields.php:1058
 msgid "Force Reload"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1059
+#: includes/Extensions/GlobalFields.php:1062
 msgid "Enable Force Reload"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1063
+#: includes/Extensions/GlobalFields.php:1066
 msgid "Choose whether the page should reload after the user accepts cookies. If not, your analytics software won’t register the current page visit, as cookies will only be loaded during the next page load"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1066
+#: includes/Extensions/GlobalFields.php:1069
 msgid "Cookie Removal"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1070
+#: includes/Extensions/GlobalFields.php:1073
 msgid "Enable Cookie Removal"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1074
+#: includes/Extensions/GlobalFields.php:1077
 msgid "When cookies are not accepted, non-essential cookies are removed, ensuring compliance with GDPR requirements."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1077
+#: includes/Extensions/GlobalFields.php:1080
 msgid "Consent Expiry"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1081
-#: includes/Extensions/GlobalFields.php:1953
-#: includes/Extensions/PressBar/PressBar.php:1110
+#: includes/Extensions/GlobalFields.php:1084
+#: includes/Extensions/GlobalFields.php:1956
+#: includes/Extensions/PressBar/PressBar.php:1148
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Days"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1104
+#: includes/Extensions/GlobalFields.php:1107
 msgid "By default, consent expires after 30 days. If needed, you can adjust this number to your preference"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1136
+#: includes/Extensions/GlobalFields.php:1139
 #: includes/FrontEnd/FrontEnd.php:89
 msgid "Necessary"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1152
-#: includes/Extensions/GlobalFields.php:1207
-#: includes/Extensions/GlobalFields.php:1261
-#: includes/Extensions/GlobalFields.php:1315
-#: includes/Extensions/GlobalFields.php:1369
-#: includes/Extensions/GlobalFields.php:1423
+#: includes/Extensions/GlobalFields.php:1155
+#: includes/Extensions/GlobalFields.php:1210
+#: includes/Extensions/GlobalFields.php:1264
+#: includes/Extensions/GlobalFields.php:1318
+#: includes/Extensions/GlobalFields.php:1372
+#: includes/Extensions/GlobalFields.php:1426
 msgid " "
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1167
-#: includes/Extensions/GlobalFields.php:1222
-#: includes/Extensions/GlobalFields.php:1276
-#: includes/Extensions/GlobalFields.php:1330
-#: includes/Extensions/GlobalFields.php:1384
-#: includes/Extensions/GlobalFields.php:1438
+#: includes/Extensions/GlobalFields.php:1170
+#: includes/Extensions/GlobalFields.php:1225
+#: includes/Extensions/GlobalFields.php:1279
+#: includes/Extensions/GlobalFields.php:1333
+#: includes/Extensions/GlobalFields.php:1387
+#: includes/Extensions/GlobalFields.php:1441
 msgid "Edit Category "
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1191
+#: includes/Extensions/GlobalFields.php:1194
 #: includes/FrontEnd/FrontEnd.php:93
 msgid "Functional"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1299
+#: includes/Extensions/GlobalFields.php:1302
 #: includes/FrontEnd/FrontEnd.php:101
 msgid "Performance"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1353
+#: includes/Extensions/GlobalFields.php:1356
 #: includes/FrontEnd/FrontEnd.php:105
 msgid "Advertisement"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1407
+#: includes/Extensions/GlobalFields.php:1410
 #: includes/FrontEnd/FrontEnd.php:109
 msgid "Uncategorized"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1467
+#: includes/Extensions/GlobalFields.php:1470
 msgid "Display"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1495
+#: includes/Extensions/GlobalFields.php:1498
 msgid "IMAGE"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1503
+#: includes/Extensions/GlobalFields.php:1506
 msgid "Show Default Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1509
+#: includes/Extensions/GlobalFields.php:1512
 msgid "Choose an Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1513
+#: includes/Extensions/GlobalFields.php:1516
 msgid "If checked, this will show in notifications."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1521
+#: includes/Extensions/GlobalFields.php:1524
 msgid "Verified"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1526
+#: includes/Extensions/GlobalFields.php:1529
 msgid "Flames"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1531
+#: includes/Extensions/GlobalFields.php:1534
 msgid "Flames GIF"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1536
+#: includes/Extensions/GlobalFields.php:1539
 msgid "Pink Face"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1541
+#: includes/Extensions/GlobalFields.php:1544
 msgid "Blue Face"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1548
+#: includes/Extensions/GlobalFields.php:1551
 msgid "Upload an Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1550
-#: includes/Extensions/PressBar/PressBar.php:519
+#: includes/Extensions/GlobalFields.php:1553
+#: includes/Extensions/PressBar/PressBar.php:556
 #: assets/admin/js/admin.js:20
 msgid "Upload"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1556
+#: includes/Extensions/GlobalFields.php:1559
 #: includes/Extensions/OfferAnnouncement/Announcements.php:243
 msgid "Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1597
+#: includes/Extensions/GlobalFields.php:1600
 msgid "Featured Image"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1630
+#: includes/Extensions/GlobalFields.php:1633
 msgid "Gravatar"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1668
+#: includes/Extensions/GlobalFields.php:1671
 #: includes/Types/GDPR.php:238
 msgid "Visibility"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1673
+#: includes/Extensions/GlobalFields.php:1676
 #: includes/Types/GDPR.php:245
 msgid "Show On"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1679
+#: includes/Extensions/GlobalFields.php:1682
 #: includes/Types/GDPR.php:251
 msgid "Show Everywhere"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1680
+#: includes/Extensions/GlobalFields.php:1683
 msgid "Show On Selected"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1681
+#: includes/Extensions/GlobalFields.php:1684
 msgid "Hide On Selected"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1685
+#: includes/Extensions/GlobalFields.php:1688
 msgid "Locations"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1698
-#: includes/Extensions/GlobalFields.php:2178
+#: includes/Extensions/GlobalFields.php:1701
+#: includes/Extensions/GlobalFields.php:2181
 #: includes/Types/GDPR.php:258
 msgid "Display For"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1705
+#: includes/Extensions/GlobalFields.php:1708
 msgid "Logged Out User"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1706
+#: includes/Extensions/GlobalFields.php:1709
 msgid "Logged In User"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1708
+#: includes/Extensions/GlobalFields.php:1711
 msgid "More Control in Pro"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1715
+#: includes/Extensions/GlobalFields.php:1718
 #: includes/Types/GDPR.php:441
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
@@ -3292,300 +3504,300 @@ msgstr ""
 msgid "Customize"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1742
-#: includes/Extensions/GlobalFields.php:1827
+#: includes/Extensions/GlobalFields.php:1745
+#: includes/Extensions/GlobalFields.php:1830
 msgid "Appearance"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1764
+#: includes/Extensions/GlobalFields.php:1767
 msgid "Close Icon Position"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1771
+#: includes/Extensions/GlobalFields.php:1774
 #: includes/Extensions/PopupNotification/PopupNotification.php:975
 msgid "Top Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1775
+#: includes/Extensions/GlobalFields.php:1778
 #: includes/Extensions/PopupNotification/PopupNotification.php:976
 msgid "Top Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1782
-#: includes/Extensions/GlobalFields.php:1849
+#: includes/Extensions/GlobalFields.php:1785
+#: includes/Extensions/GlobalFields.php:1852
 msgid "Notification Size"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1806
-#: includes/Extensions/GlobalFields.php:1873
+#: includes/Extensions/GlobalFields.php:1809
+#: includes/Extensions/GlobalFields.php:1876
 msgid "Set a max width for notification."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1809
+#: includes/Extensions/GlobalFields.php:1812
 msgid "Display Close Option"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1814
+#: includes/Extensions/GlobalFields.php:1817
 msgid "Display a close button."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1817
+#: includes/Extensions/GlobalFields.php:1820
 msgid "Mobile Visibility"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1822
+#: includes/Extensions/GlobalFields.php:1825
 msgid "Hide NotificationX on mobile."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1876
+#: includes/Extensions/GlobalFields.php:1879
 msgid "Display Close Button"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1885
-#: includes/Extensions/GlobalFields.php:1913
+#: includes/Extensions/GlobalFields.php:1888
+#: includes/Extensions/GlobalFields.php:1916
 msgid "Desktop"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1892
-#: includes/Extensions/GlobalFields.php:1920
+#: includes/Extensions/GlobalFields.php:1895
+#: includes/Extensions/GlobalFields.php:1923
 msgid "Tablet"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1899
-#: includes/Extensions/GlobalFields.php:1927
+#: includes/Extensions/GlobalFields.php:1902
+#: includes/Extensions/GlobalFields.php:1930
 msgid "Mobile"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1904
+#: includes/Extensions/GlobalFields.php:1907
 msgid "Notification Visibility"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1932
+#: includes/Extensions/GlobalFields.php:1935
 msgid "Notification Reappearance"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1940
+#: includes/Extensions/GlobalFields.php:1943
 msgid "Don't show the Notification again for the user"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1941
+#: includes/Extensions/GlobalFields.php:1944
 msgid "Show the Notification again when the user visits the website next time"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1942
+#: includes/Extensions/GlobalFields.php:1945
 msgid "Show the Notification when the user refreshes/goes to another page"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1946
-#: includes/Extensions/PressBar/PressBar.php:1103
+#: includes/Extensions/GlobalFields.php:1949
+#: includes/Extensions/PressBar/PressBar.php:1141
 msgid "Cache Duration for \"Don't show again\""
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1961
+#: includes/Extensions/GlobalFields.php:1964
 msgid "Animation"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1967
+#: includes/Extensions/GlobalFields.php:1970
 msgid "Notification Show"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1976
-#: includes/Extensions/GlobalFields.php:2057
+#: includes/Extensions/GlobalFields.php:1979
+#: includes/Extensions/GlobalFields.php:2060
 msgid "Default"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1981
+#: includes/Extensions/GlobalFields.php:1984
 msgid "Fade In"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1986
+#: includes/Extensions/GlobalFields.php:1989
 msgid "Fade In Up"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1991
+#: includes/Extensions/GlobalFields.php:1994
 msgid "Fade In Down"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:1996
+#: includes/Extensions/GlobalFields.php:1999
 msgid "Fade In Down Big"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2001
+#: includes/Extensions/GlobalFields.php:2004
 msgid "Fade In Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2006
+#: includes/Extensions/GlobalFields.php:2009
 msgid "Fade In Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2011
+#: includes/Extensions/GlobalFields.php:2014
 msgid "Light Speed In Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2016
+#: includes/Extensions/GlobalFields.php:2019
 msgid "Light Speed In Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2021
+#: includes/Extensions/GlobalFields.php:2024
 msgid "Zoom In"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2026
+#: includes/Extensions/GlobalFields.php:2029
 msgid "Slide In Up"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2031
+#: includes/Extensions/GlobalFields.php:2034
 msgid "Slide In Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2036
+#: includes/Extensions/GlobalFields.php:2039
 msgid "Slide In Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2041
+#: includes/Extensions/GlobalFields.php:2044
 msgid "Slide In Down"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2048
+#: includes/Extensions/GlobalFields.php:2051
 msgid "Notification Hide"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2061
+#: includes/Extensions/GlobalFields.php:2064
 msgid "Fade Out"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2066
+#: includes/Extensions/GlobalFields.php:2069
 msgid "Fade Out Down"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2071
+#: includes/Extensions/GlobalFields.php:2074
 msgid "Fade Out Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2076
+#: includes/Extensions/GlobalFields.php:2079
 msgid "Fade Out Up"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2081
+#: includes/Extensions/GlobalFields.php:2084
 msgid "Light Speed Out Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2086
+#: includes/Extensions/GlobalFields.php:2089
 msgid "Zoom Out"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2091
+#: includes/Extensions/GlobalFields.php:2094
 msgid "Slide Out Down"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2096
+#: includes/Extensions/GlobalFields.php:2099
 msgid "Slide Out Left"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2101
+#: includes/Extensions/GlobalFields.php:2104
 msgid "Slide Out Right"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2106
+#: includes/Extensions/GlobalFields.php:2109
 msgid "Slide Out Up"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2138
+#: includes/Extensions/GlobalFields.php:2141
 msgid "Queue Management"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2146
+#: includes/Extensions/GlobalFields.php:2149
 msgid "Enable Global Queue"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2153
+#: includes/Extensions/GlobalFields.php:2156
 msgid "Activate global queue system for this notification."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2153
+#: includes/Extensions/GlobalFields.php:2156
 msgid "Check out this doc."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2158
+#: includes/Extensions/GlobalFields.php:2161
 msgid "Timing"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2166
+#: includes/Extensions/GlobalFields.php:2169
 msgid "Delay Before First Notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2171
-#: includes/Extensions/PressBar/PressBar.php:1256
-#: includes/Extensions/PressBar/PressBar.php:1261
+#: includes/Extensions/GlobalFields.php:2174
+#: includes/Extensions/PressBar/PressBar.php:1294
+#: includes/Extensions/PressBar/PressBar.php:1299
 #: includes/Types/GDPR.php:276
 msgid "Initial Delay"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2172
-#: includes/Extensions/GlobalFields.php:2179
-#: includes/Extensions/GlobalFields.php:2188
-#: includes/Extensions/PressBar/PressBar.php:1203
-#: includes/Extensions/PressBar/PressBar.php:1262
+#: includes/Extensions/GlobalFields.php:2175
+#: includes/Extensions/GlobalFields.php:2182
+#: includes/Extensions/GlobalFields.php:2191
+#: includes/Extensions/PressBar/PressBar.php:1241
+#: includes/Extensions/PressBar/PressBar.php:1300
 msgid "seconds"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2180
+#: includes/Extensions/GlobalFields.php:2183
 msgid "Display each notification for * seconds"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2187
+#: includes/Extensions/GlobalFields.php:2190
 msgid "Delay Between"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2189
+#: includes/Extensions/GlobalFields.php:2192
 msgid "Delay between each notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2196
+#: includes/Extensions/GlobalFields.php:2199
 msgid "Behavior"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2205
+#: includes/Extensions/GlobalFields.php:2208
 msgid "Display The Last"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2214
+#: includes/Extensions/GlobalFields.php:2217
 msgid "Display From The Last"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2228
+#: includes/Extensions/GlobalFields.php:2231
 msgid "Hours"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2237
+#: includes/Extensions/GlobalFields.php:2240
 msgid "Minutes"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2250
+#: includes/Extensions/GlobalFields.php:2253
 msgid "Loop Notification"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2258
+#: includes/Extensions/GlobalFields.php:2261
 msgid "Open Link In New Tab"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2303
+#: includes/Extensions/GlobalFields.php:2306
 msgid "Full Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2304
+#: includes/Extensions/GlobalFields.php:2307
 msgid "First Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2305
+#: includes/Extensions/GlobalFields.php:2308
 msgid "Last Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2308
+#: includes/Extensions/GlobalFields.php:2311
 msgid "Display Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2314
+#: includes/Extensions/GlobalFields.php:2317
 #: includes/Extensions/Google/GoogleReviews.php:148
 #: includes/Extensions/OfferAnnouncement/Announcements.php:238
 #: includes/Extensions/ReviewX/ReviewX.php:163
@@ -3594,7 +3806,7 @@ msgstr ""
 #: includes/Types/Comments.php:218
 #: includes/Types/Comments.php:235
 #: includes/Types/ContactForm.php:145
-#: includes/Types/Conversions.php:213
+#: includes/Types/Conversions.php:214
 #: includes/Types/Donations.php:177
 #: includes/Types/ELearning.php:188
 #: includes/Types/EmailSubscription.php:127
@@ -3990,8 +4202,8 @@ msgid "Grab Now"
 msgstr ""
 
 #: includes/Extensions/OfferAnnouncement/Announcements.php:106
-#: includes/Types/Conversions.php:118
-#: includes/Types/Conversions.php:128
+#: includes/Types/Conversions.php:119
+#: includes/Types/Conversions.php:129
 msgid "Buy Now"
 msgstr ""
 
@@ -4156,7 +4368,7 @@ msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:194
 #: includes/Extensions/PopupNotification/PopupNotification.php:368
-#: includes/Extensions/PressBar/PressBar.php:445
+#: includes/Extensions/PressBar/PressBar.php:482
 msgid "Border Radius"
 msgstr ""
 
@@ -4504,8 +4716,8 @@ msgid "Enter your message..."
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:711
-#: includes/Extensions/PressBar/PressBar.php:1734
-#: includes/Extensions/PressBar/PressBar.php:1824
+#: includes/Extensions/PressBar/PressBar.php:1774
+#: includes/Extensions/PressBar/PressBar.php:1864
 #: includes/Types/GDPR.php:424
 #: includes/Types/GDPR.php:432
 #: includes/Types/GDPR.php:440
@@ -4513,18 +4725,18 @@ msgid "Button Text"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:715
-#: includes/Extensions/PressBar/PressBar.php:98
-#: includes/Extensions/PressBar/PressBar.php:1736
+#: includes/Extensions/PressBar/PressBar.php:99
+#: includes/Extensions/PressBar/PressBar.php:1776
 msgid "Get Offer"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:719
-#: includes/Extensions/PressBar/PressBar.php:1745
+#: includes/Extensions/PressBar/PressBar.php:1785
 msgid "Button URL"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:733
-#: includes/Extensions/PressBar/PressBar.php:1756
+#: includes/Extensions/PressBar/PressBar.php:1796
 msgid "Button Icon"
 msgstr ""
 
@@ -4533,9 +4745,9 @@ msgid "Latest OFfer"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:750
-#: includes/Extensions/PressBar/PressBar.php:163
-#: includes/Extensions/PressBar/PressBar.php:178
-#: includes/Extensions/PressBar/PressBar.php:1762
+#: includes/Extensions/PressBar/PressBar.php:172
+#: includes/Extensions/PressBar/PressBar.php:189
+#: includes/Extensions/PressBar/PressBar.php:1802
 msgid "Shop Now"
 msgstr ""
 
@@ -4635,8 +4847,8 @@ msgid "Close on Button Click"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:970
-#: includes/Extensions/PressBar/PressBar.php:573
-#: includes/Extensions/PressBar/PressBar.php:582
+#: includes/Extensions/PressBar/PressBar.php:610
+#: includes/Extensions/PressBar/PressBar.php:619
 msgid "Close Button Position"
 msgstr ""
 
@@ -4662,468 +4874,477 @@ msgstr ""
 msgid "Show Me!"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:97
-#: includes/Extensions/PressBar/PressBar.php:114
+#: includes/Extensions/PressBar/PressBar.php:98
+msgid "<p style=\"color: #000;\"><span>Save Big & Get Lifetime unlimited</span> <strong>NotificationX</strong> for $99!</p>"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:117
 msgid "<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:115
+#: includes/Extensions/PressBar/PressBar.php:118
 msgid "Get Offer!"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:125
+#: includes/Extensions/PressBar/PressBar.php:130
 msgid "<p><span style=\"color: #F54747;\">4 Years</span> Of Seamlessly Creating NotificationX!</p>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:126
+#: includes/Extensions/PressBar/PressBar.php:131
 msgid "Grab Deal Now"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:140
+#: includes/Extensions/PressBar/PressBar.php:147
 msgid "<p><span style=\"color: #fff;\">🎁 Flash 30%</span> Sale is On Now! Don’t miss out on this opportunity</p>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:147
+#: includes/Extensions/PressBar/PressBar.php:154
 msgid "Save $20"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:157
+#: includes/Extensions/PressBar/PressBar.php:166
 msgid "<p><span style=\"color: #000;\">🎁 Flash 30%</span> Sale is On Now! Don’t miss out on this opportunity</p>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:172
+#: includes/Extensions/PressBar/PressBar.php:183
 msgid "<p><span style=\"color: #9F7800;\">4 years</span> Of Seamlessly Creating NotificationX!</p>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:398
+#: includes/Extensions/PressBar/PressBar.php:410
 msgid "Presets"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:423
+#: includes/Extensions/PressBar/PressBar.php:435
+#: includes/Extensions/PressBar/PressBar.php:460
 msgid "NX Bar"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:517
+#: includes/Extensions/PressBar/PressBar.php:443
+#: includes/Extensions/PressBar/PressBar.php:451
+msgid "Build With AI"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:554
 msgid "Background Image"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:539
+#: includes/Extensions/PressBar/PressBar.php:576
 msgid "Countdown Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:544
+#: includes/Extensions/PressBar/PressBar.php:581
 msgid "Countdown Text Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:592
-#: includes/Extensions/PressBar/PressBar.php:614
+#: includes/Extensions/PressBar/PressBar.php:629
+#: includes/Extensions/PressBar/PressBar.php:651
 msgid "Close Button Position Top"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:603
+#: includes/Extensions/PressBar/PressBar.php:640
 msgid "Close Button Position Left"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:625
+#: includes/Extensions/PressBar/PressBar.php:662
 msgid "Close Button Position Right"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:663
+#: includes/Extensions/PressBar/PressBar.php:701
 msgid "Activate"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:663
+#: includes/Extensions/PressBar/PressBar.php:701
 msgid "Install"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:718
+#: includes/Extensions/PressBar/PressBar.php:756
 msgid "Edit With Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:734
-#: includes/Extensions/PressBar/PressBar.php:940
+#: includes/Extensions/PressBar/PressBar.php:772
+#: includes/Extensions/PressBar/PressBar.php:978
 msgid "Remove"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:766
+#: includes/Extensions/PressBar/PressBar.php:804
 msgid "Build With Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:826
-#: includes/Extensions/PressBar/PressBar.php:1033
+#: includes/Extensions/PressBar/PressBar.php:864
+#: includes/Extensions/PressBar/PressBar.php:1071
 msgid "Choose Your "
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:862
+#: includes/Extensions/PressBar/PressBar.php:900
 msgid "Activate Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:862
+#: includes/Extensions/PressBar/PressBar.php:900
 msgid "Install Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:863
+#: includes/Extensions/PressBar/PressBar.php:901
 msgid "Activated Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:863
+#: includes/Extensions/PressBar/PressBar.php:901
 msgid "Installed Elementor"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:864
+#: includes/Extensions/PressBar/PressBar.php:902
 msgid "Activating Elementor..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:864
+#: includes/Extensions/PressBar/PressBar.php:902
 msgid "Installing Elementor..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:891
+#: includes/Extensions/PressBar/PressBar.php:929
 msgid "Successfully Activated"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:925
+#: includes/Extensions/PressBar/PressBar.php:963
 msgid "Edit With Gutenberg"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:973
+#: includes/Extensions/PressBar/PressBar.php:1011
 msgid "Build With Gutenberg"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1089
+#: includes/Extensions/PressBar/PressBar.php:1127
 msgid "Bar Reappearance"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1097
+#: includes/Extensions/PressBar/PressBar.php:1135
 msgid "Don't show the Bar again for the user"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1098
+#: includes/Extensions/PressBar/PressBar.php:1136
 msgid "Show the Bar again when the user visits the website next time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1099
+#: includes/Extensions/PressBar/PressBar.php:1137
 msgid "Show the Bar when the user refreshes/goes to another page"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1163
+#: includes/Extensions/PressBar/PressBar.php:1201
 msgid "Sticky Bar?"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1168
+#: includes/Extensions/PressBar/PressBar.php:1206
 msgid "If checked, this will fixed Notification Bar at top or bottom."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1173
+#: includes/Extensions/PressBar/PressBar.php:1211
 msgid "Display Overlapping"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1178
+#: includes/Extensions/PressBar/PressBar.php:1216
 msgid "Show Notification Bar overlapping content instead of pushing."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1188
+#: includes/Extensions/PressBar/PressBar.php:1226
 msgid "Auto Hide"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1193
+#: includes/Extensions/PressBar/PressBar.php:1231
 msgid "If checked, notification bar will be hidden after the time set below."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1198
+#: includes/Extensions/PressBar/PressBar.php:1236
 msgid "Hide After"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1204
+#: includes/Extensions/PressBar/PressBar.php:1242
 msgid "Hide after 60 seconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1209
+#: includes/Extensions/PressBar/PressBar.php:1247
 msgid "Notification Bar will Appear"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1218
+#: includes/Extensions/PressBar/PressBar.php:1256
 msgid "After a few seconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1222
+#: includes/Extensions/PressBar/PressBar.php:1260
 msgid "On Scroll"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1230
+#: includes/Extensions/PressBar/PressBar.php:1268
 msgid "Scroll Offset"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1245
+#: includes/Extensions/PressBar/PressBar.php:1283
 msgid "PX"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1246
+#: includes/Extensions/PressBar/PressBar.php:1284
 msgid "VH"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1247
+#: includes/Extensions/PressBar/PressBar.php:1285
 msgid "%"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1270
+#: includes/Extensions/PressBar/PressBar.php:1308
 msgid "Targeting"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1281
+#: includes/Extensions/PressBar/PressBar.php:1319
 msgid "Country Targeting"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1305
+#: includes/Extensions/PressBar/PressBar.php:1343
 msgid "Show for All Users"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1310
+#: includes/Extensions/PressBar/PressBar.php:1348
 msgid "Set Target Audience"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1338
+#: includes/Extensions/PressBar/PressBar.php:1376
 #: assets/admin/js/admin.js:1
 msgid "Schedule"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1346
+#: includes/Extensions/PressBar/PressBar.php:1384
 msgid "Schedule Type"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1354
+#: includes/Extensions/PressBar/PressBar.php:1392
 msgid "Daily"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1359
+#: includes/Extensions/PressBar/PressBar.php:1397
 msgid "Weekly"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1373
-#: includes/Extensions/PressBar/PressBar.php:1410
-#: includes/Extensions/PressBar/PressBar.php:1438
+#: includes/Extensions/PressBar/PressBar.php:1411
+#: includes/Extensions/PressBar/PressBar.php:1448
+#: includes/Extensions/PressBar/PressBar.php:1476
 #: assets/admin/js/admin.js:20
 msgid "From"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1382
-#: includes/Extensions/PressBar/PressBar.php:1419
-#: includes/Extensions/PressBar/PressBar.php:1447
+#: includes/Extensions/PressBar/PressBar.php:1420
+#: includes/Extensions/PressBar/PressBar.php:1457
+#: includes/Extensions/PressBar/PressBar.php:1485
 #: assets/admin/js/admin.js:20
 msgid "To"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1391
+#: includes/Extensions/PressBar/PressBar.php:1429
 msgid "Select Days"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1401
+#: includes/Extensions/PressBar/PressBar.php:1439
 msgid "Saturday"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1428
+#: includes/Extensions/PressBar/PressBar.php:1466
 msgid "Custom Schedule"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1514
+#: includes/Extensions/PressBar/PressBar.php:1552
 msgid "NotificationX Bar"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1548
+#: includes/Extensions/PressBar/PressBar.php:1586
 msgid "NotificationX Bar (Gutenberg)"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1646
+#: includes/Extensions/PressBar/PressBar.php:1686
 msgid "Text Content"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1660
-#: includes/Extensions/PressBar/PressBar.php:1675
+#: includes/Extensions/PressBar/PressBar.php:1700
+#: includes/Extensions/PressBar/PressBar.php:1715
 msgid "Static Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1665
+#: includes/Extensions/PressBar/PressBar.php:1705
 msgid "Slide Multiple Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1676
+#: includes/Extensions/PressBar/PressBar.php:1716
 msgid "Write something here..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1686
+#: includes/Extensions/PressBar/PressBar.php:1726
 msgid "Sliding Text Items"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1693
+#: includes/Extensions/PressBar/PressBar.php:1733
 msgid "🚀 Supercharge Your Marketing Forever!"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1696
+#: includes/Extensions/PressBar/PressBar.php:1736
 msgid "Get <strong>Lifetime Access to NotificationX</strong> for just <strong>$299</strong>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1703
+#: includes/Extensions/PressBar/PressBar.php:1743
 msgid "Slide Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1715
+#: includes/Extensions/PressBar/PressBar.php:1755
 msgid "Sliding Interval"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1719
+#: includes/Extensions/PressBar/PressBar.php:1759
 msgid "Time interval between slides in milliseconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1766
+#: includes/Extensions/PressBar/PressBar.php:1806
 msgid "Shop Now White "
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1769
+#: includes/Extensions/PressBar/PressBar.php:1809
 msgid "Select an icon to display before the button text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1776
+#: includes/Extensions/PressBar/PressBar.php:1816
 msgid "Transition Speed"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1782
+#: includes/Extensions/PressBar/PressBar.php:1822
 msgid "Transition speed in milliseconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1789
+#: includes/Extensions/PressBar/PressBar.php:1829
 msgid "Transition Style"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1795
+#: includes/Extensions/PressBar/PressBar.php:1835
 msgid "Slide in Right"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1796
+#: includes/Extensions/PressBar/PressBar.php:1836
 msgid "Slide in Left"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1806
+#: includes/Extensions/PressBar/PressBar.php:1846
 msgid "Coupon"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1818
+#: includes/Extensions/PressBar/PressBar.php:1858
 msgid "Enable Coupon"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1826
-#: includes/Extensions/PressBar/PressBar.php:1836
+#: includes/Extensions/PressBar/PressBar.php:1866
+#: includes/Extensions/PressBar/PressBar.php:1876
 msgid "SAVE20"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1834
+#: includes/Extensions/PressBar/PressBar.php:1874
 msgid "Coupon Code"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1844
+#: includes/Extensions/PressBar/PressBar.php:1884
 msgid "Coupon Copied Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1846
+#: includes/Extensions/PressBar/PressBar.php:1886
 msgid "Copied!"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1854
+#: includes/Extensions/PressBar/PressBar.php:1894
 msgid "Coupon Tooltip"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1856
+#: includes/Extensions/PressBar/PressBar.php:1896
 msgid "Use this coupon code to get 20% off"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1864
+#: includes/Extensions/PressBar/PressBar.php:1904
 msgid "Coupon Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1874
+#: includes/Extensions/PressBar/PressBar.php:1914
 msgid "Coupon Text Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1884
+#: includes/Extensions/PressBar/PressBar.php:1924
 msgid "Coupon Border Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1900
+#: includes/Extensions/PressBar/PressBar.php:1940
 msgid "Countdown Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1906
+#: includes/Extensions/PressBar/PressBar.php:1946
 msgid "Enable Countdown"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1912
+#: includes/Extensions/PressBar/PressBar.php:1952
 msgid "Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1916
+#: includes/Extensions/PressBar/PressBar.php:1956
 msgid "To configure Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1921
+#: includes/Extensions/PressBar/PressBar.php:1961
 msgid "Countdown Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1923
+#: includes/Extensions/PressBar/PressBar.php:1963
 msgid "Ending in"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1932
+#: includes/Extensions/PressBar/PressBar.php:1972
 msgid "Expired Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1934
+#: includes/Extensions/PressBar/PressBar.php:1974
 msgid "Expired"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1944
+#: includes/Extensions/PressBar/PressBar.php:1984
 msgid "Start Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1951
+#: includes/Extensions/PressBar/PressBar.php:1991
 msgid "End Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1959
+#: includes/Extensions/PressBar/PressBar.php:1999
 msgid "Randomize"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1965
+#: includes/Extensions/PressBar/PressBar.php:2005
 msgid "Time Between"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1971
+#: includes/Extensions/PressBar/PressBar.php:2011
 msgid "Start Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1978
+#: includes/Extensions/PressBar/PressBar.php:2018
 msgid "End Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1987
+#: includes/Extensions/PressBar/PressBar.php:2027
 msgid "Time Rotation"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1995
+#: includes/Extensions/PressBar/PressBar.php:2035
 msgid "Daily Time Reset"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2001
+#: includes/Extensions/PressBar/PressBar.php:2041
 msgid "Permanent Close"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2006
+#: includes/Extensions/PressBar/PressBar.php:2046
 msgid "Close After Expire"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2214
+#: includes/Extensions/PressBar/PressBar.php:2254
 msgid "Install Essential Blocks"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2224
+#: includes/Extensions/PressBar/PressBar.php:2264
 msgid ""
 "<p>You can showcase the notification bar to run instant popup campaigns on WordPress sites. For further assistance, check out our step-by-step guides on adding notification bars built with both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
 "\t\t<p>🎦 Watch the <a target = \"_blank\" href = \"%3$s\">video tutorial</a> for a quick guide.</p>\n"
@@ -5245,7 +5466,7 @@ msgstr ""
 
 #: includes/Extensions/WooCommerce/WooCommerce.php:54
 #: includes/Extensions/WooCommerce/WooCommerce.php:55
-#: includes/Extensions/WooCommerce/WooCommerce.php:105
+#: includes/Extensions/WooCommerce/WooCommerce.php:133
 #: includes/Extensions/WooCommerce/WOOReviews.php:55
 #: includes/Extensions/WooCommerce/WOOReviews.php:56
 #: includes/Extensions/WooCommerce/WOOReviews.php:233
@@ -5259,11 +5480,11 @@ msgid "Product Title Raw"
 msgstr ""
 
 #. translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
-#: includes/Extensions/WooCommerce/WooCommerce.php:481
+#: includes/Extensions/WooCommerce/WooCommerce.php:514
 msgid "%1$s & %2$s %3$s"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerce.php:538
+#: includes/Extensions/WooCommerce/WooCommerce.php:571
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:203
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:167
 msgid ""
@@ -5475,132 +5696,18 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:71
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
-#: includes/Extensions/Zapier/ZapierReviews.php:68
-msgid "Field Name:"
+#: includes/Features/ShortcodeInline.php:66
+msgid "Choose a Notification from the dropdown."
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:71
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:61
-#: includes/Extensions/Zapier/ZapierReviews.php:68
-msgid "Field Key"
+#: includes/Features/ShortcodeInline.php:73
+msgid "Make sure you have enabled the notification which ID you have given."
 msgstr ""
 
-#: includes/Extensions/Zapier/ZapierConversions.php:72
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:62
-msgid "Full Name:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:73
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:63
-msgid "First Name:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:74
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:64
-msgid "Last Name:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:75
-msgid "Sales Count:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:76
-msgid "Customer Email:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:77
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:66
-msgid "Title, Product Title:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:78
-msgid "Anonymous Title, Product:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:79
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:68
-#: includes/Extensions/Zapier/ZapierReviews.php:77
-msgid "Definite Time:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:80
-msgid "Sometime:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:81
-msgid "In last 1 day:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:82
-msgid "In last 7 days:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:83
-msgid "In last 30 days:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:84
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:70
-msgid "City:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:85
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:71
-msgid "Country:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierConversions.php:86
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:72
-msgid "City,Country:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:65
-#: includes/Extensions/Zapier/ZapierReviews.php:70
-#: assets/admin/js/admin.js:13
-msgid "Email:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:67
-#: includes/Extensions/Zapier/ZapierReviews.php:75
-msgid "Anonymous Title:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierEmailSubscription.php:69
-#: includes/Extensions/Zapier/ZapierReviews.php:78
-msgid "Some time ago:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:49
-msgid ""
-"\n"
-"                <span>Display review alerts from popular social media networks & encourage visitors to place trust in your business.</span>\n"
-"            "
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:69
-msgid "Username:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:71
-msgid "Rated:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:72
-msgid "Plugin Name:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:73
-msgid "Plugin Review:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:74
-msgid "Review Title:"
-msgstr ""
-
-#: includes/Extensions/Zapier/ZapierReviews.php:76
-msgid "Rating:"
+#. translators: time
+#: includes/Features/ShortcodeInline.php:144
+msgctxt "Inline Shortcode"
+msgid "%s ago"
 msgstr ""
 
 #: includes/FrontEnd/FrontEnd.php:90
@@ -5629,6 +5736,10 @@ msgstr ""
 
 #: includes/FrontEnd/Preview.php:393
 msgid "Talk to Support"
+msgstr ""
+
+#: includes/NotificationX.php:146
+msgid "Opps! This is PRO Feature."
 msgstr ""
 
 #: includes/NotificationX.php:172
@@ -5701,7 +5812,7 @@ msgstr ""
 msgid "Select a Form"
 msgstr ""
 
-#: includes/Types/Conversions.php:66
+#: includes/Types/Conversions.php:67
 #: includes/Types/WooCommerceSales.php:64
 msgid "just purchased"
 msgstr ""
@@ -6232,7 +6343,7 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:20
-#: nxdev/notificationx/fields/GradientPicker.jsx:62
+#: nxdev/notificationx/fields/GradientPicker.jsx:66
 msgid "Reset"
 msgstr ""
 
@@ -6495,6 +6606,7 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:20
+#: nxdev/notificationx/components/ProAlertForBuildWithAI.jsx:17
 msgid "Cancel"
 msgstr ""
 
@@ -7045,6 +7157,14 @@ msgid "link-icon"
 msgstr ""
 
 #: assets/admin/js/admin.js:13
+msgid "Introducing Build with AI in NotificationX"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid " - Create Notification bar with prompt"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
 msgid "Notifications"
 msgstr ""
 
@@ -7178,22 +7298,22 @@ msgid "Grab instant attention with flashing tabs"
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:51
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:52
 msgid "Unlock All Features"
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:60
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:61
 msgid "No risk 14-day money-back guarantee included."
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:74
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:75
 msgid "Dismissing..."
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:74
+#: nxdev/notificationx/admin/Dashboard/InitialPopup.jsx:75
 msgid "Dismiss"
 msgstr ""
 
@@ -7445,6 +7565,21 @@ msgstr ""
 #: assets/admin/js/admin.js:20
 #: nxdev/notificationx/fields/NxBarPresets.jsx:47
 msgid "Create with Your Preferred Builder/Editor"
+msgstr ""
+
+#: assets/admin/js/admin.js:20
+#: nxdev/notificationx/components/ProAlertForBuildWithAI.jsx:13
+msgid "Build with AI Available for PRO Users Only"
+msgstr ""
+
+#: assets/admin/js/admin.js:20
+#: nxdev/notificationx/components/ProAlertForBuildWithAI.jsx:14
+msgid "The import option is a premium feature. Please upgrade to a PRO plan to access template importing."
+msgstr ""
+
+#: assets/admin/js/admin.js:20
+#: nxdev/notificationx/components/ProAlertForBuildWithAI.jsx:23
+msgid "Go Premium"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1
