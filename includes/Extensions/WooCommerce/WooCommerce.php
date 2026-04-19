@@ -508,10 +508,29 @@ class WooCommerce extends Extension {
             }
         }
 
-        $products_more_title = isset($settings['combine_multiorder_text']) && !empty($settings['combine_multiorder_text']) ? __($settings['combine_multiorder_text'], 'notificationx') : __('more products', 'notificationx');
         foreach ($item_counts as $key => $item) {
-            // translators: %1$s: title, %2$s: number of product, %3$s: Combine Multi Order Text.
-            $items[$key]['title'] = sprintf(__('%1$s & %2$s %3$s', 'notificationx'), $items[$key]['title'], $item, $products_more_title);
+
+            $singular = !empty($settings['combine_multiorder_text'])
+                ? __($settings['combine_multiorder_text'], 'notificationx')
+                : __('more product', 'notificationx');
+
+            $plural = !empty($settings['combine_multiorder_text_plural'])
+                ? __($settings['combine_multiorder_text_plural'], 'notificationx')
+                : __('more products', 'notificationx');
+
+            // Proper plural handling
+            $more_product_text = sprintf(
+                _n($singular, $plural, $item, 'notificationx'),
+                $item
+            );
+            $products_more_title = sprintf('%d %s', $item, $more_product_text);
+
+            // translators: %1$s: title, %2$s: combined more products text.
+            $items[$key]['title'] = sprintf(
+                __('%1$s & %2$s', 'notificationx'),
+                $items[$key]['title'],
+                $products_more_title
+            );
         }
 
         // @todo maybe sort
