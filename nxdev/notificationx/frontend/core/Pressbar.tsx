@@ -208,7 +208,13 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     useEffect(() => {
         setTimeout(() => {
             const barHeight = document.getElementById(`nx-bar-${settings.nx_id}`).offsetHeight;
-            document.body.style.paddingTop = `${barHeight}px`;
+            if (!settings?.pressbar_body) {
+                if (position == 'top') {
+                    document.body.style.paddingTop = `${barHeight}px`;
+                }else {
+                    document.body.style.paddingBottom = `${barHeight}px`;
+                }
+            }
         }, 0);
         setTimeout(() => {
             calcHeight();
