@@ -56,6 +56,16 @@ const SettingsInner = (props) => {
                 page: `nx-admin`,
             });
         }
+        document.body.addEventListener('click', function (e) {
+            // @ts-ignore 
+            const link = e.target.closest(
+                '.nx-settings-content .nx-settings-form-wrapper .wprf-tab-content-wrapper #tab-general .wprf-control-wrapper .wprf-control-label a'
+            );
+            if (!link) return;
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            window.location.assign(link.href);
+        }, true);
     }, [])
 
 

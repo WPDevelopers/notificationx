@@ -130,7 +130,7 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
 
             Object.assign(componentCSS, {
                 color: settings.bar_text_color,
-                fontSize: settings.bar_font_size,
+                fontSize: settings.bar_font_size || '13px',
                 backgroundImage: settings.bar_bg_image?.url ? `url('${settings.bar_bg_image.url}')` : undefined,
                 transition: transitionValue,
             });

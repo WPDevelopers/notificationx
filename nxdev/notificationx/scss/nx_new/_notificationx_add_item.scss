@@ -101,7 +101,6 @@
                         background-color: #6a4bff;
                         border-color: #6a4bff;
                         color: #fff;
-
                         svg,
                         img {
                             fill: #fff;
@@ -746,8 +745,11 @@
                 .wprf-tab-menu-wrapper {
                     border-bottom: 1px solid #F6F7FE;
                     padding: 0 32px;
+
                     .wprf-tab-nav {
                         margin: 0;
+                        gap: 8px;
+
                         .wprf-tab-nav-item {
                             font-size: 16px;
                             line-height: 24px;
@@ -755,7 +757,7 @@
                             text-transform: capitalize;
                             color: #778095;
                             min-height: auto;
-                            padding: 20px;
+                            padding: 20px 16px;
                             border-radius: 0;
                             margin: 0;
                             background: transparent;
@@ -773,10 +775,28 @@
                                     fill: #778095;
                                 }
                             }
+                            &[data-key="nxbar_custom"]{
+                                position: relative;
+                                padding-right: 50px;
+
+                                &::after{
+                                    content: "";
+                                    position: absolute;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    right: 12px;
+                                    background: url('../icons/new-img/elementor-gutenberg.png');;
+                                    background-repeat: no-repeat;
+                                    background-size: 34px 16px;
+                                    width: 34px;
+                                    height: 16px;
+                                }
+                            }
                             &.wprf-active-nav {
-                                background: transparent;
+                                background: linear-gradient(180deg, #FFFFFF 40.23%, #F0ECFF 100%);
                                 border-color: #6A4BFF;
                                 color: #092161;
+
                                 svg {
                                     path {
                                         fill: #778095;
@@ -786,6 +806,7 @@
 
                             &:nth-child(2) {
                                 position: relative;
+                                
                                 &::after {
                                     content: '';
                                     position: absolute;
@@ -799,6 +820,7 @@
                                 }
                             }
                         }
+
                     }
                     &.press_bar {
                         .wprf-tab-nav {
@@ -810,8 +832,7 @@
                                     &::after {
                                         display: none;
                                     }
-                                }
-                                
+                                } 
                             }
                         }
                     }
