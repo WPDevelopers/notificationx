@@ -11,6 +11,10 @@ const GradientPicker = (props) => {
     const pickerRef = useRef(null);
 
     useEffect(() => {
+        setGradient(value || '');
+    }, [value]);
+
+    useEffect(() => {
         setDefaultGradient(value || '');
     }, []);
 
@@ -24,7 +28,7 @@ const GradientPicker = (props) => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    useEffect(() => {
+    useEffect(() => {        
         onChange({
             target: {
                 type: 'gradientpicker',
@@ -50,7 +54,7 @@ const GradientPicker = (props) => {
                 }}
             />
             {showPicker && (
-                <div className="wprf-gradientpicker-popup" style={{ position: 'relative', zIndex: 9999 }}>
+                <div className="wprf-gradientpicker-popup" style={{ position: 'absolute', zIndex: 9999, top: '100%', left: 0, right: 0 }}>
                     <button
                         className="wprf-gradientpicker-reset"
                         onClick={(e) => {

@@ -81,6 +81,7 @@ class PressBar extends Extension {
                     'button_text'                 => __('Show Me!', 'notificationx'),
                     'link_button_bg_color'        => '#9c2bff',
                     'link_button_text_color'      => '#ffffff',
+                    'bar_counter_bg'              => '',
                 ],
             ],
             'theme-one'   => [
@@ -94,10 +95,12 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_bottom' => 0,
                     'button_icon'                 => 'none',
                     'bar_bg_color'                => '#dddddd',
-                    'press_content'               => __('<b>Save Big & Get Lifetime unlimited <strong>NotificationX</strong> for $99</b>','notificationx'),
+                    'press_content'               => __('<p style="color: #000;"><span>Save Big & Get Lifetime unlimited</span> <strong>NotificationX</strong> for $99!</p>','notificationx'),
                     'button_text'                 => __('Get Offer', 'notificationx'),
                     'link_button_bg_color'        => '#000',
                     'link_button_text_color'      => '#ffffff',
+                    'bar_counter_bg'              => '#262626',
+                    'bar_counter_text_color'      => '#fff'
                 ],
             ],
             'theme-three' => [
@@ -115,6 +118,8 @@ class PressBar extends Extension {
                     'button_text'                 => __('Get Offer!', 'notificationx'),
                     'link_button_bg_color'        => '#6A4BFF',
                     'link_button_text_color'      => '#ffffff',
+                    'bar_counter_bg'              => '#6549fe',
+                    'bar_counter_text_color'      => '#fff',
                 ],
             ],
             'theme-four' => [
@@ -131,6 +136,8 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_top'    => 16,
                     'nx_bar_border_radius_bottom' => 16,
                     'button_icon'                 => 'none',
+                    'bar_counter_bg'              => 'rgba(255, 255, 255, 0.5019607843)',
+                    'bar_counter_text_color'      => '#230600',
                 ],
             ],
             'theme-five' => [
@@ -148,6 +155,8 @@ class PressBar extends Extension {
                     'link_button_bg_color'        => '#2e72ff',
                     'link_button_text_color'      => '#ffffff',
                     'bar_bg_color'                => '',
+                    'bar_counter_bg'              => 'transparent',
+                    'bar_counter_text_color'      => '#fff',
                 ],
             ],
             'theme-six' => [
@@ -162,7 +171,9 @@ class PressBar extends Extension {
                     'nx_bar_border_radius_bottom' => 16,
                     'button_text'                 => __('Shop Now', 'notificationx'),
                     'bar_bg_color'                => 'linear-gradient(90deg, #94F9FC 0%, #E2DAFE 100%)',
-                    'button_icon'                => 'shop-icon.svg',
+                    'button_icon'                 => 'shop-icon.svg',
+                    'bar_counter_bg'              => 'rgba(255, 255, 255, 0.5019607843)',
+                    'bar_counter_text_color'      => '#230600',
                 ],
             ],
             'theme-seven' => [
@@ -180,6 +191,7 @@ class PressBar extends Extension {
                     'button_icon'                => 'shop_now.svg',
                     'link_button_bg_color'        => '#e3dac2',
                     'link_button_text_color'      => '#000',
+                    'bar_counter_bg'              => '',
                 ],
             ],
         ];
@@ -427,6 +439,31 @@ class PressBar extends Extension {
                 ],
             ]
         ];
+        $import_design[] = [
+            'label'  => __("Build With AI", 'notificationx'),
+            'name'   => 'nxbar_build_with_ai',
+            'id'     => 'nxbar_build_with_ai',
+            'type'   => 'section',
+            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/icons/build-with-ai-icon.svg',
+            'rules'  => Rules::is('source', $this->id),
+            'fields' => [
+                'nxbar_build_with_ai' => [
+                    'label'  => __("Build With AI", 'notificationx'),
+                    'name'   => 'nxbar_build_with_ai',
+                    'id'     => 'nxbar_build_with_ai',
+                    'type'   => 'section',
+                    'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                    'fields' => [
+                        'nxbar_build_with_ai_fields' => [
+                            'name'     => "nxbar_build_with_ai_fields",
+                            'type'     => "nxbar-build_with_ai",
+                            'label'    => __('NX Bar', 'notificationx'),
+                            'priority' => 10,
+                        ],
+                    ]
+                ],
+            ]
+        ];
         return $fields;
     }
 
@@ -652,6 +689,7 @@ class PressBar extends Extension {
                     'name'        => "bar_font_size",
                     'type'        => "number",
                     'default'     => '13',
+                    'min'         => 1,
                     'priority'    => 5,
                     'description' => 'px',
                     'help'        => __('This font size will be applied for <mark>first</mark> row', 'notificationx'),
@@ -2223,16 +2261,16 @@ class PressBar extends Extension {
     }
 
     public function doc() {
-        return sprintf(__('<p>You can showcase the notification bar to run instant popup campaigns on WordPress sites. For further assistance, check out our step-by-step guides on adding notification bars built with both <a target="_blank" href="%1$s">Elementor</a> and <a target="_blank" href="%2$s">Gutenberg</a>.</p>
-		<p>🎦 Watch the <a target = "_blank" href = "%3$s">video tutorial</a> for a quick guide.</p>
+        return sprintf(__('<p>Supercharge your WordPress site with an <strong>AI-powered Notification Bar</strong> that help you create and launches instant popup campaigns — smarter and faster than ever. Let AI generate compelling bar content for you in seconds. Need help getting started? Explore our step-by-step guides to set up your AI-enhanced notification bars using both <a target="_blank" href="%1$s">Elementor</a> and <a target="_blank" href="%2$s">Gutenberg</a>.</p>
+		<p>🎦 Check the <a target = "_blank" href = "%3$s">documentation</a> for a quick guide.</p>
 		<p><strong>Recommended Blog                     : </strong></p>
-		<p>🔥 How to <a target="_blank" href="%4$s">design a Notification Bar with Elementor Page Builder.</a></p>
-		<p>🔥 <a href="%5$s" target="_blank">Evergreen Dynamic Notification Bar</a> to Boost Sales in WordPress.</p>', 'notificationx'),
+		<p>🔥<a target="_blank" href="%4$s">How to Design a Notification Bar with AI Using NotificationX (A Comprehensive Guide)</a></p>
+		<p>🔥 <a href="%5$s" target="_blank">How to design a Notification Bar with Elementor Page Builder.</p>', 'notificationx'),
         'https://notificationx.com/docs/notification-bar/',
         'https://notificationx.com/docs/configure-a-notification-bar-in-gutenberg/',
-        'https://www.youtube.com/watch?v=l7s9FXgzbEM',
-        'https://notificationx.com/docs/notification-bar-with-elementor/',
-        'https://notificationx.com/blog/dynamic-notification-bar-wordpress/'
+        'https://notificationx.com/docs/how-to-design-a-notification-bar-with-ai/',
+        'https://notificationx.com/blog/guide-to-design-a-notification-bar-with-ai/',
+        'https://notificationx.com/docs/notification-bar-with-elementor/'
         );
     }
 }

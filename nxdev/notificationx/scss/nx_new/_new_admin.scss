@@ -1,8 +1,15 @@
+
 .nx-admin-new-wrapper {
 
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    background: #F6F7FE;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 1686px;
+    margin: 0 auto;
     // .analytics-display-area.nx-stats-tease {
     //     min-height: 300px;
     // }
@@ -24,14 +31,6 @@
     img {
         max-width: 100%;
     }
-
-    // padding: 20px 32px;
-    background: #F6F7FE;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    max-width: 1686px;
-    margin: 0 auto;
 
     .nx-content-details {
         h2 {
@@ -882,6 +881,41 @@
             }
         }
     }
+
+    // notice 
+    .nx-dashboard-notice-wrapper {
+        background-color: #3F0AA7;
+        padding: 17px 0;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        position: relative;
+        display: none;
+        span {
+            font-weight: 400;
+            color: #E7E2FF;
+        }
+
+        a {
+            color: #E7E2FF;
+            text-decoration: underline;
+            text-decoration-skip-ink: none;
+        }
+
+        .close-button {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    }
 }
 
 .nx-more-docs-wrapper {
@@ -1405,9 +1439,10 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #BFBFBF94;
+    background: #000000B2;
     z-index: 9999;
     transition: opacity 0.3s ease-in-out;
+
     @media (max-width: 768px) {
         display: none;
     }
@@ -1438,46 +1473,141 @@
             justify-content: center;
             border-radius: 10px;
             padding: 20px 24px;
-            .nx-premium-features-list-item {
-                font-family: "DM Sans", sans-serif;
-                font-weight: 400;                   
-                font-style: normal;
-                font-size: 14px;
+
+            .nx-black-friday-deal {
+                margin-bottom: 20px;
+            }
+
+            /* Premium tag */
+            .nx-premium-tag {
+                font-size: 10px;
+                font-weight: 600;
+                color: #FFF;
+                padding: 4px 8px;
+                border-radius: 12px;
+                background-color: #FCA108;
+                display: inline-block;
                 line-height: 100%;
-                letter-spacing: 0%;
-                vertical-align: middle;
-                position: relative;
-                padding-left: 20px;
-                list-style: none;
-                color: #535D77;
+            }
+
+            /* Header and subheader */
+            .nx-pop-up-header {
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 110%;
+                margin: 12px 0;
+                letter-spacing: 0px;
+                max-width: 400px;
+            }
+
+            .nx-pop-up-sub-header {
                 margin-bottom: 10px;
+                font-size: 0.75rem;
             }
 
-            /* Add a tick icon before each item */
-            .nx-premium-features-list-item::before {
-                content: '';
-                position: absolute;
-                left: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 10px;
-                height: 9px;
-                background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9' fill='none'><path d='M8.75 0L3.5 7.08333L0.75 5L0 6L3.75 8.83333L9.75 0.75L8.75 0Z' fill='%23FAAD14'/></svg>");
-                background-size: contain;
-                background-repeat: no-repeat;
+            .nx-premium-features-list {
+                margin: 0;
+            
+                .nx-premium-features-list-item {
+                    font-family: "DM Sans", sans-serif;
+                    font-weight: 400;                   
+                    font-style: normal;
+                    font-size: 14px;
+                    line-height: 100%;
+                    letter-spacing: 0%;
+                    vertical-align: middle;
+                    position: relative;
+                    padding-left: 20px;
+                    list-style: none;
+                    color: #535D77;
+                    margin-bottom: 10px;
+                }
+
+                /* Add a tick icon before each item */
+                .nx-premium-features-list-item::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 10px;
+                    height: 9px;
+                    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9' fill='none'><path d='M8.75 0L3.5 7.08333L0.75 5L0 6L3.75 8.83333L9.75 0.75L8.75 0Z' fill='%23FAAD14'/></svg>");
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                }
             }
 
-        }
-        .nx-pop-up-left-content .nx-black-friday-deal {
-            margin-bottom: 20px;
-        }
-        .nx-pop-up-left-content .nx-pop-up-header {
-            font-weight: 600;
-            font-size: 23px;
-            line-height: 110%;
-            letter-spacing: 0px;
-        }
+            /* Button */
+            .nx-pop-up-btn {
+                color: #fff;
+                background-color: #FF8A25;
+                box-shadow: 0px 8px 10px 0px #FFFFFF80 inset;
+                border: 1px solid #FFD4AE;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                margin-top: 8px;
+                margin-bottom: 12px;
+                border-radius: 8px;
+                padding: 12px 24px;
+                justify-content: center;
+                text-decoration: none;
+                cursor: pointer;
+                transition: 0.3s ease-in-out;
+                gap: 8px;
+            }
 
+            .nx-pop-up-btn span {
+                font-size: 13px;
+                line-height: 0;
+            }
+
+            .nx-pop-up-btn-icon {
+                height: 20px;
+            }
+
+            .nx-pop-up-btn-icon img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                margin-top: -2px;
+            }
+
+            /* Guarantee text */
+            .nx-guarantee {
+                color: #666666;
+                font-size: 0.8rem;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+
+                span {
+                    color: #535D77;
+                }
+            }
+
+            .nx-line-height-0  {
+                line-height: 0.7;
+            }
+
+            /* Right side text */
+            .nx-text-wrapper p {
+                font-size: 0.625rem;
+            }
+
+            /* Cancel button */
+            .nx-cancel-button {
+                text-align: right;
+                text-decoration: underline;
+                background: transparent;
+                cursor: pointer;
+                font-size: 0.75rem;
+                color: #7f78ad;
+                margin-right: 15px;
+                padding-bottom: 10px;
+            }
+        }
 
         /* Right side */
         .nx-pop-up-right-content {
@@ -1487,114 +1617,26 @@
             align-items: flex-end;
             justify-content: center;
             margin-right: 15px;
+
+            /* Images */
+            .nx-img-wrapper img {
+                max-width: 265px;
+            }
         }
-    }
+            
+        .nx-dismiss {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            border: none;
+            background: none;
+            text-decoration: underline;
 
-
-    /* Images */
-    .nx-img-wrapper img {
-        max-width: 265px;
-    }
-
-    /* Premium tag */
-    .nx-premium-tag {
-        font-size: 12px;
-        font-weight: 600;
-        color: #000;
-        padding: 2px 8px;
-        border-radius: 4px;
-        background-color: #FCA108;
-        display: inline-block;
-        line-height: 1.5rem;
-    }
-
-    /* Header and subheader */
-    .nx-pop-up-header {
-        font-weight: 600;
-        margin: 8px 0;
-    }
-
-    .nx-pop-up-sub-header {
-        margin-bottom: 10px;
-        font-size: 0.75rem;
-    }
-
-    /* Button */
-    .nx-pop-up-btn {
-        color: #fff;
-        background-color: #6A4BFF;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        min-width: 190px;
-        margin-bottom: 13px;
-        border-radius: 6px;
-        padding: 10px 8px;
-        justify-content: center;
-        text-decoration: none;
-        cursor: pointer;
-        transition: 0.3s ease-in-out;
-        gap: 8px;
-    }
-    .nx-dismiss {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        border: none;
-        background: none;
-        text-decoration: none;
-        span {
-            color: #6A4BFF;
-            font-size: 12px;
+            span {
+                color: #6A4BFF;
+                font-size: 12px;
+            }
         }
-    }
-
-    .nx-pop-up-btn span {
-        font-size: 13px;
-        line-height: 0;
-    }
-
-    .nx-pop-up-btn-icon {
-        height: 20px;
-    }
-
-    .nx-pop-up-btn-icon img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        margin-top: -2px;
-    }
-
-    /* Guarantee text */
-    .nx-guarantee {
-        color: #666666;
-        font-size: 0.8rem;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        span {
-            color: #535D77;
-        }
-    }
-    .nx-line-height-0  {
-        line-height: 0.7;
-    }
-
-    /* Right side text */
-    .nx-text-wrapper p {
-        font-size: 0.625rem;
-    }
-
-    /* Cancel button */
-    .nx-cancel-button {
-        text-align: right;
-        text-decoration: underline;
-        background: transparent;
-        cursor: pointer;
-        font-size: 0.75rem;
-        color: #7f78ad;
-        margin-right: 15px;
-        padding-bottom: 10px;
     }
 
     /* Responsive adjustments */
