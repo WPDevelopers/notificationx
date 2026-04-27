@@ -24,7 +24,9 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                         : (builderContext?.values?.themes_tab || 'for_desktop'));
                 builderContext.setFieldValue( "is_mobile_responsive", nx_type !== "custom");
                 setTimeout(() => {
-                    builderContext.setFieldValue("themes_tab", themeTabValue);
+                     if ( nx_type !== 'notification_bar' ) {
+                        builderContext.setFieldValue("themes_tab", themeTabValue);
+                    }
                 }, 100);
             }
         }, [builderContext.values.type])

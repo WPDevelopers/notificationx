@@ -28,16 +28,19 @@ const PreviewButton = ({config, children = null, href = null, data = {}, ...rest
     const iconUrl = getIconUrl(config.button_icon);
         
     if( config.source == 'press_bar' ) {
+        // Prevent inline style conflicts by applying computed styles only to the anchor
+        const { style: incomingStyle, ...otherRest } = rest || {};
+        // Ensure config-derived styles take precedence over incoming styles
+        const anchorStyle = Object.assign({}, incomingStyle || {}, styles);
+
         return (
             <>
-                <div 
-                    className="notificationx-link-wrapper"
-                    style={styles}
-                >
+                <div className="notificationx-link-wrapper">
                     <a
                         href={ link }
                         target={config?.link_open ? "_blank" : ""}
-                        {...rest}
+                        style={anchorStyle}
+                        {...otherRest}
                     >
                         { (config?.button_icon && config?.button_icon !== 'none') && (
                             <img

@@ -38,7 +38,7 @@ class NotificationBar extends Types {
     public function __construct() {
         parent::__construct();
         $this->id = 'notification_bar';
-        add_action('nx_show_on_exclude', [$this, 'show_on_exclude'], 10, 4);
+        add_filter('nx_show_on_exclude', [$this, 'show_on_exclude'], 10, 2);
     }
     
 
@@ -135,23 +135,30 @@ class NotificationBar extends Types {
                 !empty($settings['custom_from_time']) &&
                 !empty($settings['custom_to_time'])
             ) {
-                // Parse date range (strip timezone)
-                $start_date = strtotime(substr($settings['custom_schedule']['startDate'], 0, 10));
-                $end_date = strtotime(substr($settings['custom_schedule']['endDate'], 0, 10));
-                $current_date = strtotime(gmdate('Y-m-d', $current_time)); // Compare in GMT
-
+               // Parse date range (strip timezone)
+                $start_date       = strtotime(substr($settings['custom_schedule']['startDate'], 0, 10));
+                $end_date         = strtotime(substr($settings['custom_schedule']['endDate'], 0, 10));
+                $current_date     = strtotime(gmdate('Y-m-d', $current_time));                            // Current day in GMT
+                $custom_from_time = $settings['custom_from_time'];
+                $custom_to_time   = $settings['custom_to_time'];
+                // Check if current date is outside range
                 if ($current_date < $start_date || $current_date > $end_date) {
                     return true;
                 }
 
-                // Daily time range (use today’s date for both from and to)
-                $from_time = strtotime(gmdate('Y-m-d ') . date('H:i:s', strtotime($settings['custom_from_time'])));
-                $to_time = strtotime(gmdate('Y-m-d ') . date('H:i:s', strtotime($settings['custom_to_time'])));
+                // Combine current date with from/to times
+                $from_time = strtotime(date('Y-m-d ') . date('H:i:s', strtotime($custom_from_time)));
+                $to_time = strtotime(date('Y-m-d ') . date('H:i:s', strtotime($custom_to_time)));
 
+                // Handle overnight time ranges (e.g., 10 PM - 6 AM)
                 if ($to_time < $from_time) {
-                    $to_time += 86400; // Handle overnight ranges
+                    $to_time += 86400; // add 24 hours
+                     if ($current_time < $from_time) {
+                        $current_time += 86400;
+                    }
                 }
 
+                // Check if current timestamp is outside the daily time range
                 if ($current_time < $from_time || $current_time > $to_time) {
                     return true;
                 }

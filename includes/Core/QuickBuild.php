@@ -249,6 +249,7 @@ class QuickBuild {
                 'time_randomize_between',
                 'time_rotation',
                 'time_reset',
+                'nxbar_build_with_ai',
             ],
             'types_title' => apply_filters( 'nx_source_types_title', array(
                 'notification_bar' => __('Notification Bar', 'notificationx'),

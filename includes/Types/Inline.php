@@ -80,4 +80,20 @@ class Inline extends Types {
         }
         return $exclude;
     }
+
+     public function is_stock_theme( $theme ) {
+        $themes = [ 'woocommerce_sales_inline_stock-theme-one', 'woocommerce_sales_inline_stock-theme-two' ];
+        if ( in_array( $theme, $themes, true ) ) {
+            return true;
+        }
+        return false;
+    }
+
+    public function nx_can_entry( $result, $entry, $settings ) {
+        if ( $this->is_stock_theme( $settings['themes'] ) ) {
+            return false;
+        }
+        return $result;
+    }
+    
 }
