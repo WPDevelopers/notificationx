@@ -121,7 +121,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                 componentCSS.backgroundImage = `url('${settings.bar_bg_image.url}')`;
             }
             if (settings?.bar_text_color) componentCSS.color = settings.bar_text_color;
-            if (settings?.bar_font_size) componentCSS.fontSize = settings.bar_font_size;
+            if (typeof settings?.bar_font_size !== 'undefined') componentCSS.fontSize = settings.bar_font_size || '13px';
             if (settings?.bar_btn_bg) buttonCSS.backgroundColor = settings.bar_btn_bg;
             if (settings?.bar_btn_text_color) buttonCSS.color = settings.bar_btn_text_color;
             if (settings?.bar_counter_bg) counterCSS.backgroundColor = settings.bar_counter_bg;
@@ -208,7 +208,13 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     useEffect(() => {
         setTimeout(() => {
             const barHeight = document.getElementById(`nx-bar-${settings.nx_id}`).offsetHeight;
-            document.body.style.paddingTop = `${barHeight}px`;
+            if (!settings?.pressbar_body) {
+                if (position == 'top') {
+                    document.body.style.paddingTop = `${barHeight}px`;
+                }else {
+                    document.body.style.paddingBottom = `${barHeight}px`;
+                }
+            }
         }, 0);
         setTimeout(() => {
             calcHeight();
@@ -225,8 +231,11 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     }, []);
 
     useEffect(() => {
-        calcHeight();
-    }, [isLoading, gutenbergRef.current])
+        const cleanup = calcHeight();
+        return () => {
+            if (typeof cleanup === 'function') cleanup();
+        };
+    }, [isLoading, gutenbergRef.current, settings]);
 
     useEffect(() => {
         if(!settings.is_gutenberg || !settings.gutenberg_id){

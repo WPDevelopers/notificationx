@@ -253,7 +253,22 @@ class REST {
             'callback'  => array( ImportExport::get_instance(), 'export' ),
             'permission_callback' => array($this, 'edit_permission'),
         ));
+
+        // Admin notice for dashboard
+
+        register_rest_route( $namespace, '/admin-notice-close', array(
+            'methods'   => WP_REST_Server::EDITABLE,
+            'callback'  => array( $this, 'nx_dashboard_admin_notice_close' ),
+            'permission_callback' => array($this, 'read_permission'),
+        ));
     }
+
+    public function nx_dashboard_admin_notice_close( $request ){
+        update_option('nx_admin_notice_close', true);
+        return new \WP_REST_Response(array('success' => true), 200);
+    }
+
+
 
     public function get_builder( $request ){
         return PostType::get_instance()->get_localize_scripts();

@@ -314,7 +314,7 @@ class FrontEnd {
                     $display_from = !empty($settings['display_from']) ? $settings['display_from'] : 2;
                     $display_from = Helper::generate_time_string($settings);
                     if (!is_numeric($timestamp)) {
-                        $entry['timestamp'] = $timestamp = strtotime($timestamp);
+                        $entry['timestamp'] = $timestamp = is_string($timestamp) ? strtotime($timestamp) : false;
                     }
                     if ($timestamp && $display_from > $timestamp) {
                         if (apply_filters("nx_entry_display_$source", true, $entry, $settings)) {
