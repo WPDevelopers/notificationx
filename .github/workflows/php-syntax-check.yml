@@ -1,0 +1,78 @@
+name: QA - PHP Syntax Check
+
+permissions: read-all
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      plugin_repo:
+        required: false
+        type: string
+        default: 'WPDevelopers/notificationx'
+      plugin_branch:
+        required: false
+        type: string
+        default: 'master'
+
+jobs:
+  php-syntax-check:
+    runs-on: ubuntu-24.04
+    name: PHP Syntax Check (7.4, 8.2, 8.5)
+    steps:
+      - name: Checkout NotificationX plugin
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.plugin_repo }}
+          ref: ${{ inputs.plugin_branch }}
+
+      - name: Find PHP files
+        id: find
+        run: |
+          FILES=$(find . -name "*.php" \
+            -not -path "./vendor/*" \
+            -not -path "./node_modules/*" \
+            -not -path "./.git/*")
+          echo "TOTAL=$(echo "$FILES" | wc -l | tr -d ' ')" >> "$GITHUB_ENV"
+          # Write file list to a temp file so all steps share it
+          echo "$FILES" > /tmp/php_files.txt
+
+      - name: PHP Syntax Check (All Versions)
+        run: |
+          # We test all PHP versions from 7.4 up to 8.5
+          VERSIONS="7.4 8.0 8.1 8.2 8.3 8.4 8.5"
+          TOTAL_ERRORS=0
+
+          for PHP_VER in $VERSIONS; do
+            echo "::group::PHP $PHP_VER Syntax Check"
+            
+            # Use setup-php directly in the run block via a fast installation script
+            sudo update-alternatives --set php /usr/bin/php$PHP_VER 2>/dev/null || {
+              sudo add-apt-repository ppa:ondrej/php -y >/dev/null 2>&1
+              sudo apt-get update >/dev/null 2>&1
+              sudo apt-get install -y php$PHP_VER-cli >/dev/null 2>&1
+              sudo update-alternatives --set php /usr/bin/php$PHP_VER
+            }
+            
+            VERSION_ERRORS=0
+            while IFS= read -r file; do
+              OUTPUT=$(php -l "$file" 2>&1)
+              if [ $? -ne 0 ]; then
+                echo "::error file=$file::$OUTPUT"
+                VERSION_ERRORS=$((VERSION_ERRORS + 1))
+                TOTAL_ERRORS=$((TOTAL_ERRORS + 1))
+              fi
+            done < /tmp/php_files.txt
+            
+            if [ "$VERSION_ERRORS" -gt 0 ]; then
+              echo "❌ PHP syntax errors found in $VERSION_ERRORS file(s) on PHP $PHP_VER"
+            else
+              echo "✅ All $TOTAL PHP files passed syntax check on PHP $PHP_VER"
+            fi
+            echo "::endgroup::"
+          done
+
+          if [ "$TOTAL_ERRORS" -gt 0 ]; then
+            echo "::error::PHP syntax errors found across $TOTAL_ERRORS total check(s)"
+            exit 1
+          fi
