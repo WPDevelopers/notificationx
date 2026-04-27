@@ -685,7 +685,7 @@ class Helper {
             'description' => array(
                 'type'     => 'textarea',
                 'name'     => 'description',
-                'label'    => __('Description', 'notificationx-pro'),
+                'label'    => __('Description', 'notificationx'),
                 'priority' => 30,
             ), 
             'is_add_script' => array(
@@ -709,7 +709,7 @@ class Helper {
             'script_url_pattern' => array(
                 'type'     => 'codeviewer',
                 'name'     => 'script_url_pattern',
-                'label'    => __('Script', 'notificationx-pro'),
+                'label'    => __('Script', 'notificationx'),
                 'priority' => 45,
             ), 
         ];
