@@ -139,12 +139,24 @@ class Integration {
         );
     }
 
+    /**
+     * Returns the site's integration API key, generating and persisting one if it doesn't exist yet.
+     */
+    public static function get_api_key() {
+        $key = get_option( 'nx_integration_api_key' );
+        if ( empty( $key ) ) {
+            $key = wp_generate_password( 32, false );
+            update_option( 'nx_integration_api_key', $key, false );
+        }
+        return $key;
+    }
+
     public function get_response( \WP_REST_Request $request ){
         $id        = $request['id'];
 		$api_key   = $request['api_key'];
         $error     = [];
 
-		if( $api_key === md5( home_url( '', 'http' ) ) || $api_key === md5( home_url( '', 'https' ) ) ) {
+		if( hash_equals( self::get_api_key(), (string) $api_key ) ) {
             $notificationx = PostType::get_instance()->get_post( $id );
             if( $notificationx ) {
                 return wp_send_json( true );
@@ -172,7 +184,7 @@ class Integration {
         if ( ! isset( $request['api_key'] ) ) {
             $response_data['error'] = __('Error: You should provide an API key.', 'notificationx');
         } else {
-            if( md5( home_url( '', 'http' ) ) != $request['api_key'] && md5( home_url( '', 'https' ) ) != $request['api_key'] ) {
+            if ( ! hash_equals( self::get_api_key(), (string) $request['api_key'] ) ) {
                 $response_data['error'] = __('Error: Invalid API key.', 'notificationx');
             }
         }
