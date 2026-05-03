@@ -11,6 +11,7 @@ return array(
     'NotificationX\\Admin\\Cron' => $baseDir . '/includes/Admin/Cron.php',
     'NotificationX\\Admin\\DashboardWidget' => $baseDir . '/includes/Admin/DashboardWidget.php',
     'NotificationX\\Admin\\Entries' => $baseDir . '/includes/Admin/Entries.php',
+    'NotificationX\\Admin\\EntriesMailReceiver' => $baseDir . '/includes/Admin/EntriesMailReceiver.php',
     'NotificationX\\Admin\\ImportExport' => $baseDir . '/includes/Admin/ImportExport.php',
     'NotificationX\\Admin\\InfoTooltipManager' => $baseDir . '/includes/Admin/InfoTooltipManager.php',
     'NotificationX\\Admin\\MilestoneNotification' => $baseDir . '/includes/Admin/MilestoneNotification.php',

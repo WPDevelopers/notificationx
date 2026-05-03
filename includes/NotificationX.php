@@ -10,6 +10,7 @@ namespace NotificationX;
 
 use NotificationX\Admin\Admin;
 use NotificationX\Admin\Cron;
+use NotificationX\Admin\EntriesMailReceiver;
 use NotificationX\Admin\Settings;
 use NotificationX\Blocks\Blocks;
 use NotificationX\Core\Database;
@@ -85,6 +86,7 @@ class NotificationX {
         // 3rd Party features.
         WPML::get_instance();
         VisualPortfolio::get_instance();
+        EntriesMailReceiver::get_instance();
     }
     /**
      * The Plugin Activator
