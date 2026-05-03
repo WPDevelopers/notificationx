@@ -351,10 +351,9 @@ class Settings extends UsabilityDynamicsSettings {
                                 'entries_mail_email'     => array(
                                     'name'        => 'entries_mail_email',
                                     'type'        => 'text',
-                                    'label'       => __( 'Receiver Email(s)', 'notificationx' ),
+                                    'label'       => __( 'Entry Recipient Email', 'notificationx' ),
                                     'default'     => get_option( 'admin_email' ),
                                     'priority'    => 1,
-                                    'description' => __( 'Enter one or multiple email addresses separated by commas.', 'notificationx' ),
                                     'rules'       => Rules::is( 'enable_entries_mail', true ),
                                 ),
                                 'entries_mail_subject'   => array(
