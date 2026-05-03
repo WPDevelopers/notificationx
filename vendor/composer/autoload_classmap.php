@@ -63,6 +63,8 @@ return array(
     'NotificationX\\Extensions\\CustomNotification\\CustomNotificationConversions' => $baseDir . '/includes/Extensions/CustomNotification/CustomNotificationConversions.php',
     'NotificationX\\Extensions\\EDD\\EDD' => $baseDir . '/includes/Extensions/EDD/EDD.php',
     'NotificationX\\Extensions\\EDD\\EDDInline' => $baseDir . '/includes/Extensions/EDD/EDInline.php',
+    'NotificationX\\Extensions\\Elementor\\CountdownWidget' => $baseDir . '/includes/Extensions/Elementor/CountdownWidget.php',
+    'NotificationX\\Extensions\\Elementor\\ElementorManager' => $baseDir . '/includes/Extensions/Elementor/ElementorManager.php',
     'NotificationX\\Extensions\\Elementor\\From' => $baseDir . '/includes/Extensions/Elementor/From.php',
     'NotificationX\\Extensions\\Envato\\Envato' => $baseDir . '/includes/Extensions/Envato/Envato.php',
     'NotificationX\\Extensions\\Extension' => $baseDir . '/includes/Extensions/Extension.php',
