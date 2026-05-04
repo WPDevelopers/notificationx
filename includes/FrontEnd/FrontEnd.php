@@ -243,12 +243,13 @@ class FrontEnd {
     public function get_notifications_data($params) {
         $_params = $params;
         $result  = [
-            'global'   => [],
-            'active'   => [],
-            'pressbar' => [],
-            'gdpr'     => [],
-            'shortcode' => [],
-            'popup'    => [],
+            'global'      => [],
+            'active'      => [],
+            'pressbar'    => [],
+            'gdpr'        => [],
+            'shortcode'   => [],
+            'popup'       => [],
+            'exit_intent' => [],
         ];
         if (!empty($_params['all_active'])) {
             $params = $this->get_notifications_ids();
@@ -261,16 +262,18 @@ class FrontEnd {
                 'pressbar'         => [],
                 'gdpr'             => [],
                 'popup'            => [],
+                'exit_intent'      => [],
                 'shortcode'        => [],
                 'inline_shortcode' => false,
             ]
         );
-        $global    = $params['global'];
-        $active    = $params['active'];
-        $pressbar  = $params['pressbar'];
-        $gdpr      = $params['gdpr'];
-        $popup     = $params['popup'];
-        $shortcode = $params['shortcode'];
+        $global       = $params['global'];
+        $active       = $params['active'];
+        $pressbar     = $params['pressbar'];
+        $gdpr         = $params['gdpr'];
+        $popup        = $params['popup'];
+        $exit_intent  = $params['exit_intent'];
+        $shortcode    = $params['shortcode'];
         $all       = array_merge($global, $active, $shortcode);
         $_defaults = array(
             'none'            => '',
@@ -444,6 +447,21 @@ class FrontEnd {
             }
         }
 
+        // Exit Intent Notification
+        if (!empty($exit_intent)) {
+            $exit_intent_notifications = $this->get_notifications($exit_intent);
+            foreach ($exit_intent_notifications as $key => $settings) {
+                $_nx_id = $settings['nx_id'];
+                if ( !$settings['enabled'] ) {
+                    continue;
+                }
+                $settings = apply_filters('nx_filtered_post', $settings, $params);
+                $result['exit_intent'][$_nx_id]['post']    = $settings;
+                $result['exit_intent'][$_nx_id]['content'] = "";
+                unset($_nx_id);
+            }
+        }
+
         $result['settings'] = $this->get_settings();
         return $result;
     }
@@ -474,7 +492,7 @@ class FrontEnd {
         ]);
         $notifications = PostType::get_instance()->get_posts($args);
 
-        $active_notifications = $global_notifications = $bar_notifications = $gdpr_notification = $popup_notifications = array();
+        $active_notifications = $global_notifications = $bar_notifications = $gdpr_notification = $popup_notifications = $exit_intent_notifications = array();
 
         foreach ($notifications as $key => $settings) {
             // $settings        = NotificationX::get_instance()->normalize_post($post);
@@ -556,6 +574,8 @@ class FrontEnd {
                 $gdpr_notification[] = $return_posts ? $settings : $settings['nx_id'];
             } elseif($settings['source'] == 'popup_notification') {
                 $popup_notifications[] = $settings['nx_id'];
+            } elseif($settings['source'] == 'exit_intent_custom') {
+                $exit_intent_notifications[] = $settings['nx_id'];
             } elseif ($active_global_queue && NotificationX::is_pro()) {
                 $global_notifications[] = $return_posts ? $settings : $settings['nx_id'];
             } else {
@@ -571,12 +591,13 @@ class FrontEnd {
         return apply_filters(
             'get_notifications_ids',
             [
-                'global'   => $global_notifications,
-                'active'   => $active_notifications,
-                'pressbar' => $bar_notifications,
-                'gdpr'     => $gdpr_notification,
-                'popup'    => $popup_notifications,
-                'total'    => (count($global_notifications) + count($active_notifications) + count($bar_notifications) + count($gdpr_notification) + count($popup_notifications)),
+                'global'      => $global_notifications,
+                'active'      => $active_notifications,
+                'pressbar'    => $bar_notifications,
+                'gdpr'        => $gdpr_notification,
+                'popup'       => $popup_notifications,
+                'exit_intent' => $exit_intent_notifications,
+                'total'       => (count($global_notifications) + count($active_notifications) + count($bar_notifications) + count($gdpr_notification) + count($popup_notifications) + count($exit_intent_notifications)),
             ],
             $notifications
         );

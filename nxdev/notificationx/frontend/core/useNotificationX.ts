@@ -24,6 +24,7 @@ const useNotificationX = (props: any) => {
     const [gdprNotices, setGdprNotices] = useState(null);
     const [popupNotices, setPopupNotices] = useState(null);
     const [shortcodeNotices, setShortcodeNotices] = useState(null);
+    const [exitIntentNotices, setExitIntentNotices] = useState(null);
 
     const getTime = (value?, keepLocalTime: boolean = false) => {
         const _value = moment.utc(value ? value : undefined).utcOffset(+props.config.gmt_offset, keepLocalTime);
@@ -183,6 +184,7 @@ const useNotificationX = (props: any) => {
             shortcode   : props.config?.shortcode || [],
             gdpr        : props.config?.gdpr || [],
             popup       : props.config?.popup || [],
+            exit_intent : props.config?.exit_intent || [],
             deviceType: deviceType,
             extra     : { ...extras,'url': location.pathname, 'page_title': document.title },
         };
@@ -218,6 +220,7 @@ const useNotificationX = (props: any) => {
                 setPressbarNotices(response?.pressbar);
                 setGdprNotices(response?.gdpr);
                 setPopupNotices(response?.popup);
+                setExitIntentNotices(response?.exit_intent);
             }
         });
         return () => {
@@ -563,6 +566,35 @@ const useNotificationX = (props: any) => {
             
         }
     }, [popupNotices]);
+
+    /**
+     * Exit Intent
+     */
+    useEffect(() => {
+        if (exitIntentNotices != null && exitIntentNotices.length > 0) {
+            const triggered = new Set();
+
+            const handleMouseLeave = (e: MouseEvent) => {
+                if (e.clientY > 10) return;
+
+                exitIntentNotices.forEach((exitItem) => {
+                    const config = exitItem.post;
+                    const nx_id = config?.nx_id;
+                    if (triggered.has(nx_id)) return;
+
+                    const sessionKey = `notificationx_exit_intent_${nx_id}`;
+                    if (sessionStorage.getItem(sessionKey) === 'closed') return;
+
+                    triggered.add(nx_id);
+                    const args = { intervalID: null, timeoutID: null, data: exitItem.content || null, config };
+                    dispatchNotification(args);
+                });
+            };
+
+            document.addEventListener('mouseleave', handleMouseLeave);
+            return () => document.removeEventListener('mouseleave', handleMouseLeave);
+        }
+    }, [exitIntentNotices]);
 
     /**
      * ShortCode Dispatch

@@ -7,3 +7,4 @@ export { default as useNotificationContext, NotificationProvider, NotificationCo
 export { default as Shortcode } from './Shortcode'
 export { default as Pressbar } from './Pressbar'
 export { default as Popup } from './Popup'
+export { default as ExitIntentPopup } from './ExitIntentPopup'

@@ -8,6 +8,7 @@ node_modules/
 *.tar.gz
 *.zip
 .vscode/
+.docs/
 src/wp-react-form
 src/form-builder
 assets/public/local/

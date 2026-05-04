@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNotificationContext, Notification, Shortcode, Pressbar } from ".";
 import GDPR from "./GDPR";
 import Popup from "./Popup";
+import ExitIntentPopup from "./ExitIntentPopup";
 import NotificationForMobile from "./NotificationForMobile";
 const NotificationContainer = (props: any) => {
     const frontendContext = useNotificationContext();
@@ -91,6 +92,16 @@ const NotificationContainer = (props: any) => {
                                     key={`popup-${popupItem?.config?.nx_id}`}
                                     position={position}
                                     nxPopup={popupItem}
+                                    dispatch={frontendContext.dispatch} />
+                            );
+                        }
+
+                        if (notice?.config?.type == 'exit_intent') {
+                            const exitItem = notice;
+                            return (
+                                <ExitIntentPopup
+                                    key={`exit-intent-${exitItem?.config?.nx_id}`}
+                                    nxExitIntent={exitItem}
                                     dispatch={frontendContext.dispatch} />
                             );
                         }

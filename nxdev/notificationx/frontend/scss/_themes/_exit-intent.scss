@@ -1,0 +1,49 @@
+.nx-exit-intent-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nx-exit-intent-popup {
+    background: #fff;
+    border-radius: 8px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.nx-exit-intent-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+    padding: 0;
+
+    &:hover {
+        color: #333;
+    }
+}
+
+.nx-exit-intent-content {
+    text-align: center;
+
+    h2 {
+        margin: 0;
+        font-size: 28px;
+        color: #333;
+    }
+}

@@ -49,6 +49,7 @@ export const normalizeResponse = (response: any) => {
     let pressbar             = normalizePressBar(response?.pressbar, response?.settings);
     let gdpr                 = normalizePressBar(response?.gdpr, response?.settings);
     let popup                = normalizePressBar(response?.popup, response?.settings);
+    let exit_intent          = normalizePressBar(response?.exit_intent, response?.settings);
 
     return {
         settings       : response?.settings,
@@ -58,6 +59,7 @@ export const normalizeResponse = (response: any) => {
         pressbar       : pressbar,
         gdpr           : gdpr,
         popup          : popup,
+        exit_intent    : exit_intent,
     };
 };
 
