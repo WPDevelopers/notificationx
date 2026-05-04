@@ -176,13 +176,13 @@ const useNotificationX = (props: any) => {
         const extras = props.config?.extra || [];
         const deviceType = getDeviceType();
         const data = {
-            all_active: props.config?.all_active || false,
-            global    : props.config?.global || [],
-            active    : props.config?.active || [],
-            pressbar  : props.config?.pressbar || [],
-            shortcode : props.config?.shortcode || [],
-            gdpr      : props.config?.gdpr || [],
-            popup     : props.config?.popup || [],
+            all_active  : props.config?.all_active || false,
+            global      : props.config?.global || [],
+            active      : props.config?.active || [],
+            pressbar    : props.config?.pressbar || [],
+            shortcode   : props.config?.shortcode || [],
+            gdpr        : props.config?.gdpr || [],
+            popup       : props.config?.popup || [],
             deviceType: deviceType,
             extra     : { ...extras,'url': location.pathname, 'page_title': document.title },
         };

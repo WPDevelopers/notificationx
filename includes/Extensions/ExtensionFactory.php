@@ -67,6 +67,7 @@ class ExtensionFactory {
 			'zapier_conversions'                 => 'NotificationX\Extensions\Zapier\ZapierConversions',
 			'zapier_email_subscription'          => 'NotificationX\Extensions\Zapier\ZapierEmailSubscription',
 			'zapier_reviews'                     => 'NotificationX\Extensions\Zapier\ZapierReviews',
+			'exit_intent_custom'                 => 'NotificationX\Extensions\ExitIntent\ExitIntentNotification',
 			'elementor_form'                     => 'NotificationX\Extensions\Elementor\From',
 			'flashing_tab'                       => 'NotificationX\Extensions\FlashingTab\FlashingTab',
 			'fluentform'                         => 'NotificationX\Extensions\FluentForm\FluentForm',

@@ -243,12 +243,12 @@ class FrontEnd {
     public function get_notifications_data($params) {
         $_params = $params;
         $result  = [
-            'global'    => [],
-            'active'    => [],
-            'pressbar'  => [],
-            'gdpr'      => [],
+            'global'   => [],
+            'active'   => [],
+            'pressbar' => [],
+            'gdpr'     => [],
             'shortcode' => [],
-            'popup'     => [],
+            'popup'    => [],
         ];
         if (!empty($_params['all_active'])) {
             $params = $this->get_notifications_ids();
@@ -554,8 +554,8 @@ class FrontEnd {
                 }
             } elseif($settings['source'] == 'gdpr_notification') {
                 $gdpr_notification[] = $return_posts ? $settings : $settings['nx_id'];
-            }  elseif($settings['source'] == 'popup_notification') {
-                $popup_notifications[] =  $settings['nx_id'];
+            } elseif($settings['source'] == 'popup_notification') {
+                $popup_notifications[] = $settings['nx_id'];
             } elseif ($active_global_queue && NotificationX::is_pro()) {
                 $global_notifications[] = $return_posts ? $settings : $settings['nx_id'];
             } else {

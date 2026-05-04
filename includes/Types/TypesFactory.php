@@ -32,6 +32,7 @@ class TypeFactory {
             'popup'              => 'NotificationX\Types\Popup',
             'form'               => 'NotificationX\Types\ContactForm',
             'email_subscription' => 'NotificationX\Types\EmailSubscription',
+            'exit_intent'        => 'NotificationX\Types\ExitIntent',
             'page_analytics'     => 'NotificationX\Types\PageAnalytics',
             'custom'             => 'NotificationX\Types\CustomNotification',
             'inline'             => 'NotificationX\Types\Inline',
