@@ -31,6 +31,7 @@ const ExitIntentPopup = (props: any) => {
     const [reason, setReason]        = useState('');
     const [name, setName]            = useState('');
     const [email, setEmail]          = useState('');
+    const [videoPlaying, setVideoPlaying] = useState(false);
 
     const theme     = settings?.themes?.replace(`${settings?.source}_`, '') || 'theme-one';
     const showClose = settings?.show_close_button !== false;
@@ -50,6 +51,81 @@ const ExitIntentPopup = (props: any) => {
 
     if (!isVisible) return null;
 
+    // ─── Theme Four ───────────────────────────────────────────────────────────
+    if (theme === 'theme-four') {
+        const badge    = settings?.exit_intent_t4_badge    || 'Before you go...';
+        const title    = settings?.exit_intent_t4_title    || 'Watch this short demo video';
+        const subtitle = settings?.exit_intent_t4_subtitle || 'See how our product simplifies your workflow.';
+        const imageUrl = settings?.exit_intent_image_url?.url || settings?.exit_intent_image_url || '';
+
+        const videoUrl = settings?.exit_intent_t4_video_url || '';
+
+        const getEmbedUrl = (url: string) => {
+            const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?/]+)/);
+            if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1`;
+            const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+            if (vimeoMatch) return `https://player.vimeo.com/video/${vimeoMatch[1]}?autoplay=1`;
+            return url;
+        };
+
+        const handlePlay = (e: React.MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (videoUrl && !videoPlaying) setVideoPlaying(true);
+        };
+
+        return (
+            <div className="nx-exit-intent-overlay" onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+                <div
+                    className={`nx-exit-intent-popup nx-exit-intent-theme-four nx-exit-intent-${settings?.nx_id}`}
+                >
+                    {showClose && (
+                        <button className="nx-exit-intent-close" onClick={handleClose} aria-label="Close">
+                            &times;
+                        </button>
+                    )}
+
+                    <span className="nx-exit-intent-t4-badge">{badge}</span>
+                    <h2 className="nx-exit-intent-t4-title">{title}</h2>
+                    {subtitle && <p className="nx-exit-intent-t4-subtitle">{subtitle}</p>}
+
+                    {videoPlaying && videoUrl ? (
+                        <iframe
+                            className="nx-exit-intent-t4-iframe"
+                            src={getEmbedUrl(videoUrl)}
+                            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                            allowFullScreen
+                            title="Video"
+                        />
+                    ) : (
+                        <div
+                            className={`nx-exit-intent-t4-video-wrap${!imageUrl ? ' nx-exit-intent-t4-no-image' : ''}`}
+                            onClick={videoUrl ? handlePlay : undefined}
+                            role={videoUrl ? 'button' : undefined}
+                            tabIndex={videoUrl ? 0 : undefined}
+                        >
+                            {imageUrl && <img src={imageUrl} alt="" />}
+                            {videoUrl && (
+                                <button
+                                    type="button"
+                                    className="nx-exit-intent-t4-play"
+                                    aria-label="Play video"
+                                    onClick={handlePlay}
+                                >
+                                    <div className="nx-exit-intent-t4-play-icon">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <polygon points="5,3 19,12 5,21" fill="#1a1a2e"/>
+                                        </svg>
+                                    </div>
+                                </button>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    }
+
     // ─── Theme Two ────────────────────────────────────────────────────────────
     if (theme === 'theme-two') {
         const saleBadge      = settings?.exit_intent_sale_badge      || 'Flash Sale';
@@ -66,10 +142,9 @@ const ExitIntentPopup = (props: any) => {
             : {};
 
         return (
-            <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={handleClose}>
+            <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-two nx-exit-intent-${settings?.nx_id}`}
-                    onClick={(e) => e.stopPropagation()}
                 >
                     {showClose && (
                         <button className="nx-exit-intent-close" onClick={handleClose} aria-label="Close">
@@ -130,10 +205,9 @@ const ExitIntentPopup = (props: any) => {
         const imageUrl   = settings?.exit_intent_image_url?.url || settings?.exit_intent_image_url || '';
 
         return (
-            <div className="nx-exit-intent-overlay" onClick={handleClose}>
+            <div className="nx-exit-intent-overlay" onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-three nx-exit-intent-${settings?.nx_id}`}
-                    onClick={(e) => e.stopPropagation()}
                 >
                     {imageUrl && (
                         <div className="nx-exit-intent-t3-character" aria-hidden="true">
@@ -223,11 +297,10 @@ const ExitIntentPopup = (props: any) => {
     const showPattern = !adv || settings?.exit_intent_show_pattern !== false;
 
     return (
-        <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={handleClose}>
+        <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
             <div
                 className={`nx-exit-intent-popup nx-exit-intent-theme-one nx-exit-intent-${settings?.nx_id}`}
                 style={popupStyle}
-                onClick={(e) => e.stopPropagation()}
             >
                 {showPattern && (
                     <div className="nx-exit-intent-pattern" aria-hidden="true">

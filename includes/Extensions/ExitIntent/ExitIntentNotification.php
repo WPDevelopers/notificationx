@@ -79,6 +79,18 @@ class ExitIntentNotification extends Extension {
                 ],
                 'column' => '5',
             ],
+            'theme-four' => [
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-four.svg',
+                'defaults' => [
+                    'exit_intent_t4_badge'    => __( 'Before you go...', 'notificationx' ),
+                    'exit_intent_t4_title'    => __( 'Watch this short demo video', 'notificationx' ),
+                    'exit_intent_t4_subtitle' => __( 'See how our product simplifies your workflow.', 'notificationx' ),
+                    'exit_intent_image_url'    => [],
+                    'exit_intent_t4_video_url' => '',
+                    'position'                => 'center',
+                ],
+                'column' => '5',
+            ],
         ];
     }
 
@@ -245,6 +257,58 @@ class ExitIntentNotification extends Extension {
             ],
         ];
 
+        // ── Theme Four content fields ─────────────────────────────────────────────
+        $fields['exit_intent_theme_four_section'] = [
+            'label'    => __( 'Exit Intent Content', 'notificationx' ),
+            'name'     => 'exit_intent_theme_four_section',
+            'type'     => 'section',
+            'priority' => 5,
+            'rules'    => Rules::logicalRule( [
+                Rules::is( 'source', $this->id ),
+                Rules::is( 'themes', $this->id . '_theme-four' ),
+            ] ),
+            'fields'   => [
+                [
+                    'label'    => __( 'Video Thumbnail', 'notificationx' ),
+                    'name'     => 'exit_intent_image_url',
+                    'type'     => 'media',
+                    'priority' => 5,
+                    'default'  => [],
+                    'help'     => __( 'Upload or select the video thumbnail/preview image.', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Badge Text', 'notificationx' ),
+                    'name'     => 'exit_intent_t4_badge',
+                    'type'     => 'text',
+                    'priority' => 10,
+                    'default'  => __( 'Before you go...', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Headline', 'notificationx' ),
+                    'name'     => 'exit_intent_t4_title',
+                    'type'     => 'text',
+                    'priority' => 20,
+                    'default'  => __( 'Watch this short demo video', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Subtitle', 'notificationx' ),
+                    'name'     => 'exit_intent_t4_subtitle',
+                    'type'     => 'text',
+                    'priority' => 30,
+                    'default'  => __( 'See how our product simplifies your workflow.', 'notificationx' ),
+                ],
+                [
+                    'label'       => __( 'Video URL', 'notificationx' ),
+                    'name'        => 'exit_intent_t4_video_url',
+                    'type'        => 'text',
+                    'priority'    => 40,
+                    'default'     => '',
+                    'placeholder' => 'https://www.youtube.com/watch?v=...',
+                    'help'        => __( 'Paste a YouTube, Vimeo, or other video platform URL.', 'notificationx' ),
+                ],
+            ],
+        ];
+
         // ── Theme One content fields ─────────────────────────────────────────────
         $fields['exit_intent_content_section'] = [
             'label'    => __( 'Exit Intent Content', 'notificationx' ),
@@ -255,6 +319,7 @@ class ExitIntentNotification extends Extension {
                 Rules::is( 'source', $this->id ),
                 Rules::is( 'themes', $this->id . '_theme-two',   true ),
                 Rules::is( 'themes', $this->id . '_theme-three', true ),
+                Rules::is( 'themes', $this->id . '_theme-four',  true ),
             ] ),
             'fields'   => [
                 // ── Main copy ────────────────────────────────────────────

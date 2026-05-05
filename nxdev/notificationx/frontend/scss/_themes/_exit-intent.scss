@@ -653,3 +653,192 @@
         }
     }
 }
+
+// ─── Theme Four ───────────────────────────────────────────────────────────────
+
+.nx-exit-intent-popup.nx-exit-intent-theme-four {
+    overflow: visible;
+    width: 520px;
+    background: linear-gradient(135deg, #ebe8fb 0%, #d4d0f0 100%);
+    border-radius: 22px;
+    padding: 32px 32px 36px;
+    text-align: center;
+    box-shadow: 0 24px 80px rgba(60, 40, 140, 0.28);
+}
+
+.nx-exit-intent-theme-four {
+
+    // Close button — peeks outside top-right corner
+    .nx-exit-intent-close {
+        position: absolute;
+        top: -14px;
+        right: -14px;
+        z-index: 3;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+        line-height: 1;
+        color: #555555;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+        transition: background 0.15s, transform 0.15s;
+        padding: 0;
+
+        &:hover {
+            background: #ffffff;
+            transform: scale(1.08);
+        }
+    }
+
+    // Badge pill
+    .nx-exit-intent-t4-badge {
+        display: inline-block;
+        padding: 6px 18px;
+        background: #1a1a2e;
+        color: #ffffff;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        margin-bottom: 14px;
+    }
+
+    // Main heading
+    .nx-exit-intent-t4-title {
+        margin: 0 0 10px;
+        font-size: 26px;
+        font-weight: 900;
+        color: #1a1a2e;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+    }
+
+    // Subtitle
+    .nx-exit-intent-t4-subtitle {
+        margin: 0 0 18px;
+        font-size: 14px;
+        color: #5a5a7a;
+        line-height: 1.5;
+    }
+
+    // Video / image container — forced 16:9 landscape
+    .nx-exit-intent-t4-video-wrap {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+        background: #c8c3ea;
+        cursor: pointer;
+        aspect-ratio: 16 / 9;
+        box-shadow: 0 8px 32px rgba(60, 40, 140, 0.18);
+
+        img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+        }
+
+        &.nx-exit-intent-t4-no-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    // Play button overlay (now a <button> element)
+    .nx-exit-intent-t4-play {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(15, 10, 40, 0.25);
+        border: none;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        transition: background 0.2s;
+        appearance: none;
+        -webkit-appearance: none;
+        z-index: 1;
+
+        &:hover {
+            background: rgba(15, 10, 40, 0.38);
+
+            .nx-exit-intent-t4-play-icon {
+                transform: scale(1.1);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.32);
+            }
+        }
+    }
+
+    // White circle with play triangle
+    .nx-exit-intent-t4-play-icon {
+        width: 72px;
+        height: 72px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.28);
+        transition: transform 0.2s, box-shadow 0.2s;
+
+        svg {
+            width: 28px;
+            height: 28px;
+            margin-left: 5px;
+        }
+    }
+
+    // Embedded video iframe or HTML5 video
+    .nx-exit-intent-t4-iframe {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border: none;
+        border-radius: 12px;
+        display: block;
+        background: #000;
+    }
+}
+
+// ─── Mobile — Theme Four ──────────────────────────────────────────────────────
+
+@media (max-width: 620px) {
+    .nx-exit-intent-popup.nx-exit-intent-theme-four {
+        width: calc(100% - 32px);
+        padding: 32px 24px 32px;
+    }
+
+    .nx-exit-intent-theme-four {
+        .nx-exit-intent-t4-title {
+            font-size: 22px;
+        }
+
+        .nx-exit-intent-t4-subtitle {
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .nx-exit-intent-t4-play-icon {
+            width: 54px;
+            height: 54px;
+
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+}
