@@ -1,49 +1,655 @@
+// ─── Exit Intent Popup ───────────────────────────────────────────────────────
+
 .nx-exit-intent-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
     z-index: 999999;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
 }
 
 .nx-exit-intent-popup {
-    background: #fff;
-    border-radius: 8px;
-    padding: 40px;
-    max-width: 500px;
-    width: 90%;
     position: relative;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 540px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
+    box-sizing: border-box;
 }
 
-.nx-exit-intent-close {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #666;
-    line-height: 1;
-    padding: 0;
+// ─── Theme One ───────────────────────────────────────────────────────────────
 
-    &:hover {
-        color: #333;
+.nx-exit-intent-theme-one {
+    background: #EDE7FF;
+    padding: 48px 44px 44px;
+
+    // Watermark triangle pattern
+    .nx-exit-intent-pattern {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        overflow: hidden;
+
+        svg {
+            width: 78%;
+            height: auto;
+            color: rgba(180, 155, 255, 0.35);
+        }
+    }
+
+    // Close button
+    .nx-exit-intent-close {
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        z-index: 2;
+        background: none;
+        border: none;
+        font-size: 28px;
+        line-height: 1;
+        color: #1a1a2e;
+        cursor: pointer;
+        padding: 0 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.15s;
+
+        &:hover {
+            opacity: 0.6;
+        }
+    }
+
+    // Body — sits above the pattern
+    .nx-exit-intent-body {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+    }
+
+    // Title
+    .nx-exit-intent-title {
+        margin: 0 0 12px;
+        font-size: 32px;
+        font-weight: 800;
+        color: #1a1a2e;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+    }
+
+    // Subtitle
+    .nx-exit-intent-subtitle {
+        margin: 0 0 28px;
+        font-size: 16px;
+        font-weight: 400;
+        color: #4a4a6a;
+        line-height: 1.5;
+    }
+
+    // Form
+    .nx-exit-intent-form {
+        text-align: left;
+    }
+
+    // Question
+    .nx-exit-intent-question {
+        margin: 0 0 12px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #1a1a2e;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    // Select wrapper (for custom chevron)
+    .nx-exit-intent-select-wrap {
+        position: relative;
+        margin-bottom: 16px;
+
+        .nx-exit-intent-chevron {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #4a4a6a;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    // Select & inputs — shared base
+    .nx-exit-intent-select,
+    .nx-exit-intent-input {
+        width: 100%;
+        padding: 14px 16px;
+        background: #f5f0ff;
+        border: 1.5px solid #d4c3ff;
+        border-radius: 10px;
+        font-size: 15px;
+        color: #1a1a2e;
+        box-sizing: border-box;
+        outline: none;
+        appearance: none;
+        -webkit-appearance: none;
+        transition: border-color 0.15s;
+
+        &:focus {
+            border-color: #7c3aed;
+            background: #fff;
+        }
+
+        &::placeholder {
+            color: #9b8bbf;
+        }
+    }
+
+    .nx-exit-intent-select {
+        // Extra right padding for the custom chevron
+        padding-right: 44px;
+        cursor: pointer;
+    }
+
+    // Two-column field grid (name + email)
+    .nx-exit-intent-fields {
+        margin-bottom: 16px;
+
+        &.nx-exit-intent-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+    }
+
+    // Submit button
+    .nx-exit-intent-submit {
+        display: block;
+        width: 100%;
+        padding: 15px 24px;
+        background: #6d28d9;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        cursor: pointer;
+        margin-top: 4px;
+        transition: background 0.2s;
+        box-sizing: border-box;
+
+        &:hover {
+            background: #5b21b6;
+        }
+
+        &:active {
+            background: #4c1d95;
+        }
     }
 }
 
-.nx-exit-intent-content {
-    text-align: center;
+// ─── Mobile — Theme One ───────────────────────────────────────────────────────
 
-    h2 {
-        margin: 0;
-        font-size: 28px;
-        color: #333;
+@media (max-width: 480px) {
+    .nx-exit-intent-theme-one {
+        padding: 40px 24px 32px;
+
+        .nx-exit-intent-title {
+            font-size: 24px;
+        }
+
+        .nx-exit-intent-fields.nx-exit-intent-two-col {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+// ─── Theme Two ───────────────────────────────────────────────────────────────
+
+.nx-exit-intent-theme-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 680px;
+    background: #fff;
+    padding: 0;
+
+    // Close button
+    .nx-exit-intent-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.92);
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+        line-height: 1;
+        color: #444;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s, transform 0.15s;
+        padding: 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+        &:hover {
+            background: #fff;
+            transform: scale(1.08);
+        }
+    }
+
+    // Left content panel — dark navy
+    .nx-exit-intent-t2-left {
+        background: #1a1a2e;
+        position: relative;
+        padding: 44px 36px 36px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+
+        // Bottom-left decorative ring
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 36px solid rgba(233, 30, 140, 0.07);
+            pointer-events: none;
+        }
+
+        // Top-right decorative ring
+        &::after {
+            content: '';
+            position: absolute;
+            top: -35px;
+            right: -35px;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 22px solid rgba(124, 58, 237, 0.06);
+            pointer-events: none;
+        }
+    }
+
+    // Badge pill
+    .nx-exit-intent-t2-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #e91e8c;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 5px 16px;
+        border-radius: 20px;
+        margin-bottom: 14px;
+        position: relative;
+        z-index: 1;
+    }
+
+    // Big sale headline
+    .nx-exit-intent-t2-headline {
+        margin: 0 0 4px;
+        font-size: 60px;
+        font-weight: 900;
+        color: #ffffff;
+        line-height: 1;
+        letter-spacing: -2px;
+        position: relative;
+        z-index: 1;
+    }
+
+    // Sale description
+    .nx-exit-intent-t2-desc {
+        margin: 0 0 20px;
+        font-size: 10px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.45);
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        position: relative;
+        z-index: 1;
+    }
+
+    // Countdown label
+    .nx-exit-intent-t2-countdown-label {
+        margin: 0 0 10px;
+        font-size: 10px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.38);
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        line-height: 1.4;
+        position: relative;
+        z-index: 1;
+    }
+
+    // Countdown row of boxes
+    .nx-exit-intent-t2-countdown {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 24px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .nx-exit-intent-t2-countdown-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nx-exit-intent-t2-countdown-num {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        border: 1.5px solid #e91e8c;
+        border-radius: 8px;
+        font-size: 24px;
+        font-weight: 800;
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.05);
+        box-sizing: border-box;
+    }
+
+    .nx-exit-intent-t2-countdown-lbl {
+        margin-top: 6px;
+        font-size: 9px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.35);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    // CTA button — gradient
+    .nx-exit-intent-t2-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 20px;
+        background: linear-gradient(90deg, #e91e8c 0%, #7c3aed 100%);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+        margin-bottom: 12px;
+        transition: opacity 0.2s, transform 0.15s;
+        box-sizing: border-box;
+        box-shadow: 0 4px 20px rgba(233, 30, 140, 0.38);
+        position: relative;
+        z-index: 1;
+
+        &:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    // Dismiss link
+    .nx-exit-intent-t2-dismiss {
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.28);
+        font-size: 12px;
+        cursor: pointer;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        padding: 0;
+        transition: color 0.15s;
+        position: relative;
+        z-index: 1;
+
+        &:hover {
+            color: rgba(255, 255, 255, 0.55);
+        }
+    }
+
+    // Right image panel — warm pink gradient fallback
+    .nx-exit-intent-t2-right {
+        background: linear-gradient(160deg, #ffd6e7 0%, #ff9fc8 100%) top center / cover no-repeat;
+        background-position: top center;
+        background-size: cover;
+        min-height: 360px;
+    }
+}
+
+// ─── Mobile — Theme Two ───────────────────────────────────────────────────────
+
+@media (max-width: 600px) {
+    .nx-exit-intent-theme-two {
+        grid-template-columns: 1fr;
+        width: 100%;
+
+        .nx-exit-intent-t2-right {
+            min-height: 200px;
+            order: -1;
+        }
+
+        .nx-exit-intent-t2-headline {
+            font-size: 48px;
+        }
+
+        .nx-exit-intent-t2-countdown-num {
+            width: 46px;
+            height: 46px;
+            font-size: 20px;
+        }
+    }
+}
+
+// ─── Theme Three ──────────────────────────────────────────────────────────────
+
+// Override popup defaults for theme-three stacked layout
+.nx-exit-intent-popup.nx-exit-intent-theme-three {
+    overflow: visible;
+    width: 460px;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+.nx-exit-intent-theme-three {
+
+    // Character illustration — sits above the card, overlaps it via negative margin
+    .nx-exit-intent-t3-character {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        margin-bottom: -70px;
+        pointer-events: none;
+        width: 100%;
+
+        img {
+            width: 200px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+            object-position: bottom center;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
+        }
+    }
+
+    // Close button — lavender tint, anchored to the white card top-right
+    .nx-exit-intent-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        z-index: 3;
+        background: #ede9fe;
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+        line-height: 1;
+        color: #7c3aed;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s, transform 0.15s;
+        padding: 0;
+
+        &:hover {
+            background: #ddd6fe;
+            transform: scale(1.08);
+        }
+    }
+
+    // White card body — top padding clears the overlapping character
+    .nx-exit-intent-t3-body {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 90px 48px 40px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        position: relative;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    // Headline
+    .nx-exit-intent-t3-title {
+        margin: 0 0 10px;
+        font-size: 30px;
+        font-weight: 900;
+        color: #1a1a2e;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+    }
+
+    // Subtitle
+    .nx-exit-intent-t3-subtitle {
+        margin: 0 0 18px;
+        font-size: 15px;
+        font-weight: 400;
+        color: #555555;
+        line-height: 1.5;
+    }
+
+    // Offer text — vibrant pink
+    .nx-exit-intent-t3-offer {
+        margin: 0 0 8px;
+        font-size: 16px;
+        font-weight: 700;
+        color: #e91e8c;
+        line-height: 1.4;
+    }
+
+    // Coupon info
+    .nx-exit-intent-t3-coupon-text {
+        margin: 0 0 28px;
+        font-size: 13px;
+        color: #777777;
+        line-height: 1.5;
+    }
+
+    // Claim Offer CTA
+    .nx-exit-intent-t3-btn {
+        display: inline-block;
+        padding: 14px 44px;
+        background: #6d28d9;
+        color: #ffffff;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+        cursor: pointer;
+        margin-bottom: 14px;
+        transition: background 0.2s, transform 0.15s;
+        box-shadow: 0 4px 18px rgba(109, 40, 217, 0.35);
+
+        &:hover {
+            background: #5b21b6;
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            background: #4c1d95;
+            transform: translateY(0);
+        }
+    }
+
+    // Dismiss link
+    .nx-exit-intent-t3-dismiss {
+        display: block;
+        background: none;
+        border: none;
+        color: #aaaaaa;
+        font-size: 12px;
+        cursor: pointer;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        padding: 0;
+        margin: 0 auto;
+        transition: color 0.15s;
+
+        &:hover {
+            color: #777777;
+        }
+    }
+}
+
+// ─── Mobile — Theme Three ─────────────────────────────────────────────────────
+
+@media (max-width: 520px) {
+    .nx-exit-intent-popup.nx-exit-intent-theme-three {
+        width: calc(100% - 32px);
+    }
+
+    .nx-exit-intent-theme-three {
+        .nx-exit-intent-t3-character {
+            margin-bottom: -55px;
+
+            img {
+                width: 160px;
+            }
+        }
+
+        .nx-exit-intent-t3-body {
+            padding: 72px 24px 32px;
+        }
+
+        .nx-exit-intent-t3-title {
+            font-size: 24px;
+        }
+
+        .nx-exit-intent-t3-btn {
+            padding: 13px 32px;
+            font-size: 14px;
+        }
     }
 }

@@ -34,7 +34,7 @@ class ExitIntentNotification extends Extension {
         $this->module_title = __( 'Exit Intent Popup', 'notificationx' );
         $this->themes       = [
             'theme-one' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/themes/theme-blank.jpg',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-one.svg',
                 'defaults' => [
                     'exit_intent_title'        => __( 'Wait! Before You Go...', 'notificationx' ),
                     'exit_intent_subtitle'     => __( "We'd love to understand what's holding you back", 'notificationx' ),
@@ -47,6 +47,35 @@ class ExitIntentNotification extends Extension {
                     'exit_intent_name_label'   => __( 'Name *', 'notificationx' ),
                     'exit_intent_email_label'  => __( 'Enter Your Email *', 'notificationx' ),
                     'position'                 => 'center',
+                ],
+                'column' => '5',
+            ],
+            'theme-two' => [
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-two.svg',
+                'defaults' => [
+                    'exit_intent_sale_badge'       => __( 'Flash Sale', 'notificationx' ),
+                    'exit_intent_sale_headline'    => __( '50% OFF', 'notificationx' ),
+                    'exit_intent_sale_desc'        => __( 'ON ENTIRE ORDER', 'notificationx' ),
+                    'exit_intent_countdown_label'  => __( 'LIMITED-TIME OFFER! SALE ENDS IN', 'notificationx' ),
+                    'exit_intent_countdown_end'    => '',
+                    'exit_intent_button_text'      => __( 'Shop The Flash Sale Now', 'notificationx' ),
+                    'exit_intent_dismiss_text'     => __( 'NO, THANKS!', 'notificationx' ),
+                    'exit_intent_image_url'        => [ 'url' => NOTIFICATIONX_COMMON_URL . 'exit-intend-popup/theme-two.jpg' ],
+                    'position'                     => 'center',
+                ],
+                'column' => '5',
+            ],
+            'theme-three' => [
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-three.svg',
+                'defaults' => [
+                    'exit_intent_t3_title'       => __( "Wait, don't go!", 'notificationx' ),
+                    'exit_intent_t3_subtitle'    => __( 'Before you leave, we have a special offer just for you!', 'notificationx' ),
+                    'exit_intent_t3_offer'       => __( 'Get 15% off your next purchase!', 'notificationx' ),
+                    'exit_intent_t3_coupon_text' => __( "Use code STAY15 at checkout. Don't miss out on this limited-time offer.", 'notificationx' ),
+                    'exit_intent_button_text'    => __( 'Claim Offer', 'notificationx' ),
+                    'exit_intent_dismiss_text'   => __( 'No, thanks!', 'notificationx' ),
+                    'exit_intent_image_url'      => '',
+                    'position'                   => 'center',
                 ],
                 'column' => '5',
             ],
@@ -77,12 +106,156 @@ class ExitIntentNotification extends Extension {
             $fields['content'] = Rules::is( 'source', $this->id, true, $fields['content'] );
         }
 
+        // ── Theme Two content fields ─────────────────────────────────────────────
+        $fields['exit_intent_theme_two_section'] = [
+            'label'    => __( 'Exit Intent Content', 'notificationx' ),
+            'name'     => 'exit_intent_theme_two_section',
+            'type'     => 'section',
+            'priority' => 5,
+            'rules'    => Rules::logicalRule( [
+                Rules::is( 'source', $this->id ),
+                Rules::is( 'themes', $this->id . '_theme-two' ),
+            ] ),
+            'fields'   => [
+                [
+                    'label'    => __( 'Right Panel Image', 'notificationx' ),
+                    'name'     => 'exit_intent_image_url',
+                    'type'     => 'media',
+                    'priority' => 5,
+                    'default'  => [
+                        'url' => NOTIFICATIONX_COMMON_URL . 'exit-intend-popup/theme-two.jpg',
+                    ],
+                    'help'     => __( 'Upload or select the image to display in the right panel.', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Sale Badge Text', 'notificationx' ),
+                    'name'     => 'exit_intent_sale_badge',
+                    'type'     => 'text',
+                    'priority' => 10,
+                    'default'  => __( 'Flash Sale', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Sale Headline', 'notificationx' ),
+                    'name'     => 'exit_intent_sale_headline',
+                    'type'     => 'text',
+                    'priority' => 20,
+                    'default'  => __( '50% OFF', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Sale Description', 'notificationx' ),
+                    'name'     => 'exit_intent_sale_desc',
+                    'type'     => 'text',
+                    'priority' => 30,
+                    'default'  => __( 'ON ENTIRE ORDER', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Countdown Label', 'notificationx' ),
+                    'name'     => 'exit_intent_countdown_label',
+                    'type'     => 'text',
+                    'priority' => 40,
+                    'default'  => __( 'LIMITED-TIME OFFER! SALE ENDS IN', 'notificationx' ),
+                ],
+                [
+                    'label'       => __( 'Sale End Date & Time', 'notificationx' ),
+                    'name'        => 'exit_intent_countdown_end',
+                    'type'        => 'text',
+                    'priority'    => 50,
+                    'default'     => '',
+                    'placeholder' => 'YYYY-MM-DD HH:MM:SS',
+                    'help'        => __( 'Enter the date and time when the sale ends, e.g. 2025-12-31 23:59:59', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Button Text', 'notificationx' ),
+                    'name'     => 'exit_intent_button_text',
+                    'type'     => 'text',
+                    'priority' => 60,
+                    'default'  => __( 'Shop The Flash Sale Now', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Dismiss Link Text', 'notificationx' ),
+                    'name'     => 'exit_intent_dismiss_text',
+                    'type'     => 'text',
+                    'priority' => 70,
+                    'default'  => __( 'NO, THANKS!', 'notificationx' ),
+                ],
+            ],
+        ];
+
+        // ── Theme Three content fields ────────────────────────────────────────────
+        $fields['exit_intent_theme_three_section'] = [
+            'label'    => __( 'Exit Intent Content', 'notificationx' ),
+            'name'     => 'exit_intent_theme_three_section',
+            'type'     => 'section',
+            'priority' => 5,
+            'rules'    => Rules::logicalRule( [
+                Rules::is( 'source', $this->id ),
+                Rules::is( 'themes', $this->id . '_theme-three' ),
+            ] ),
+            'fields'   => [
+                [
+                    'label'    => __( 'Character Image', 'notificationx' ),
+                    'name'     => 'exit_intent_image_url',
+                    'type'     => 'media',
+                    'priority' => 5,
+                    'default'  => [],
+                    'help'     => __( 'Upload or select a character/illustration image. It will appear above the popup card.', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Headline', 'notificationx' ),
+                    'name'     => 'exit_intent_t3_title',
+                    'type'     => 'text',
+                    'priority' => 10,
+                    'default'  => __( "Wait, don't go!", 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Subtitle', 'notificationx' ),
+                    'name'     => 'exit_intent_t3_subtitle',
+                    'type'     => 'text',
+                    'priority' => 20,
+                    'default'  => __( 'Before you leave, we have a special offer just for you!', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Offer Text', 'notificationx' ),
+                    'name'     => 'exit_intent_t3_offer',
+                    'type'     => 'text',
+                    'priority' => 30,
+                    'default'  => __( 'Get 15% off your next purchase!', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Coupon / Details Text', 'notificationx' ),
+                    'name'     => 'exit_intent_t3_coupon_text',
+                    'type'     => 'text',
+                    'priority' => 40,
+                    'default'  => __( "Use code STAY15 at checkout. Don't miss out on this limited-time offer.", 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Button Text', 'notificationx' ),
+                    'name'     => 'exit_intent_button_text',
+                    'type'     => 'text',
+                    'priority' => 50,
+                    'default'  => __( 'Claim Offer', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Dismiss Link Text', 'notificationx' ),
+                    'name'     => 'exit_intent_dismiss_text',
+                    'type'     => 'text',
+                    'priority' => 60,
+                    'default'  => __( 'No, thanks!', 'notificationx' ),
+                ],
+            ],
+        ];
+
+        // ── Theme One content fields ─────────────────────────────────────────────
         $fields['exit_intent_content_section'] = [
             'label'    => __( 'Exit Intent Content', 'notificationx' ),
             'name'     => 'exit_intent_content_section',
             'type'     => 'section',
             'priority' => 5,
-            'rules'    => Rules::is( 'source', $this->id ),
+            'rules'    => Rules::logicalRule( [
+                Rules::is( 'source', $this->id ),
+                Rules::is( 'themes', $this->id . '_theme-two',   true ),
+                Rules::is( 'themes', $this->id . '_theme-three', true ),
+            ] ),
             'fields'   => [
                 // ── Main copy ────────────────────────────────────────────
                 [

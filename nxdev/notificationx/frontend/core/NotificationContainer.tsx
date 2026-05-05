@@ -96,16 +96,6 @@ const NotificationContainer = (props: any) => {
                             );
                         }
 
-                        if (notice?.config?.type == 'exit_intent') {
-                            const exitItem = notice;
-                            return (
-                                <ExitIntentPopup
-                                    key={`exit-intent-${exitItem?.config?.nx_id}`}
-                                    nxExitIntent={exitItem}
-                                    dispatch={frontendContext.dispatch} />
-                            );
-                        }
-
                         return (
                             <Notification
                                 assets={frontendContext.assets}
@@ -122,6 +112,16 @@ const NotificationContainer = (props: any) => {
     return (
         <>
             {frontendContext.getNxToRender((position, NoticeList) => {                
+                if (NoticeList?.[0]?.config?.type == 'exit_intent') {
+                    return NoticeList.map((notice) => (
+                        <ExitIntentPopup
+                            key={`exit-intent-${notice?.config?.nx_id}`}
+                            nxExitIntent={notice}
+                            dispatch={frontendContext.dispatch}
+                        />
+                    ));
+                }
+
                 if (NoticeList?.[0]?.config?.type == 'notification_bar' && (position == 'top' || position == 'bottom')) {
                     return NoticeList.map((nxBar) => {
                         const nxId = nxBar?.config?.nx_id;

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <!-- Background -->
+  <rect width="320" height="200" fill="#f0f0f0"/>
+
+  <!-- Popup card -->
+  <rect x="24" y="16" width="272" height="168" rx="12" fill="#EDE7FF"/>
+
+  <!-- Watermark triangles -->
+  <polygon points="160,44 218,148 102,148" fill="none" stroke="#C9B4FF" stroke-width="10" stroke-linejoin="round"/>
+  <polygon points="160,72 200,140 120,140" fill="none" stroke="#C9B4FF" stroke-width="6"  stroke-linejoin="round"/>
+
+  <!-- Close × -->
+  <text x="278" y="36" font-family="Arial,sans-serif" font-size="14" fill="#1a1a2e" text-anchor="middle">✕</text>
+
+  <!-- Title -->
+  <text x="160" y="58" font-family="Arial,sans-serif" font-size="11" font-weight="800" fill="#1a1a2e" text-anchor="middle">Wait! Before You Go...</text>
+
+  <!-- Subtitle -->
+  <text x="160" y="72" font-family="Arial,sans-serif" font-size="7" fill="#4a4a6a" text-anchor="middle">We'd love to understand what's holding you back</text>
+
+  <!-- Question -->
+  <text x="160" y="88" font-family="Arial,sans-serif" font-size="7" font-weight="600" fill="#1a1a2e" text-anchor="middle">What's stopping you from getting our product today?</text>
+
+  <!-- Dropdown -->
+  <rect x="40" y="94" width="240" height="22" rx="6" fill="#f5f0ff" stroke="#d4c3ff" stroke-width="1"/>
+  <text x="52" y="109" font-family="Arial,sans-serif" font-size="7.5" fill="#9b8bbf">Just exploring</text>
+  <text x="268" y="109" font-family="Arial,sans-serif" font-size="8" fill="#4a4a6a" text-anchor="middle">⌄</text>
+
+  <!-- Name + Email inputs -->
+  <rect x="40"  y="122" width="114" height="18" rx="5" fill="#f5f0ff" stroke="#d4c3ff" stroke-width="1"/>
+  <text x="50"  y="134" font-family="Arial,sans-serif" font-size="7" fill="#9b8bbf">Name *</text>
+
+  <rect x="166" y="122" width="114" height="18" rx="5" fill="#f5f0ff" stroke="#d4c3ff" stroke-width="1"/>
+  <text x="176" y="134" font-family="Arial,sans-serif" font-size="7" fill="#9b8bbf">Enter Your Email *</text>
+
+  <!-- Submit button -->
+  <rect x="40" y="147" width="240" height="22" rx="6" fill="#6d28d9"/>
+  <text x="160" y="162" font-family="Arial,sans-serif" font-size="8.5" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="0.8">SUBMIT</text>
+</svg>

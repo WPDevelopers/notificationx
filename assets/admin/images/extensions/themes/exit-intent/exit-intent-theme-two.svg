@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <defs>
+    <clipPath id="cardClip">
+      <rect x="16" y="14" width="288" height="172" rx="14"/>
+    </clipPath>
+    <linearGradient id="rightBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffd6e7"/>
+      <stop offset="100%" stop-color="#ff9fc8"/>
+    </linearGradient>
+    <linearGradient id="btnGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e91e8c"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="dressShadow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#388e3c"/>
+      <stop offset="100%" stop-color="#4caf50"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Page background -->
+  <rect width="320" height="200" fill="#e8eaf0"/>
+
+  <!-- Card drop shadow -->
+  <rect x="20" y="20" width="284" height="166" rx="14" fill="rgba(0,0,0,0.13)"/>
+
+  <!-- Card base -->
+  <rect x="16" y="14" width="288" height="172" rx="14" fill="#fff"/>
+
+  <!-- ── All card content clipped to card bounds ── -->
+  <g clip-path="url(#cardClip)">
+
+    <!-- LEFT PANEL — deep navy -->
+    <rect x="16" y="14" width="144" height="172" fill="#1a1a2e"/>
+
+    <!-- Left panel decorative rings -->
+    <circle cx="16"  cy="186" r="80"  fill="none" stroke="rgba(233,30,140,0.07)"  stroke-width="22"/>
+    <circle cx="162" cy="14"  r="55"  fill="none" stroke="rgba(124,58,237,0.06)" stroke-width="16"/>
+
+    <!-- RIGHT PANEL — warm pink gradient -->
+    <rect x="160" y="14" width="144" height="172" fill="url(#rightBg)"/>
+
+    <!-- Right panel soft glow circles -->
+    <circle cx="232" cy="85"  r="58"  fill="rgba(255,255,255,0.22)"/>
+    <circle cx="200" cy="162" r="32"  fill="rgba(233,30,140,0.10)"/>
+    <circle cx="288" cy="35"  r="22"  fill="rgba(255,255,255,0.18)"/>
+
+    <!-- ── WOMAN FIGURE ── -->
+
+    <!-- Hair — back layers -->
+    <ellipse cx="237" cy="60" rx="20" ry="15" fill="#2d1608"/>
+    <ellipse cx="220" cy="71" rx="8"  ry="17" fill="#2d1608"/>
+    <ellipse cx="254" cy="70" rx="7"  ry="14" fill="#2d1608"/>
+
+    <!-- Face / head -->
+    <circle cx="237" cy="73" r="17" fill="#c8956c"/>
+
+    <!-- Hair top — sweeps across forehead -->
+    <ellipse cx="237" cy="57" rx="19" ry="11" fill="#2d1608"/>
+
+    <!-- Ear hints -->
+    <circle cx="221" cy="74" r="4" fill="#b87f58"/>
+    <circle cx="253" cy="74" r="4" fill="#b87f58"/>
+
+    <!-- Neck -->
+    <rect x="233" y="87" width="8" height="11" rx="3" fill="#c8956c"/>
+
+    <!-- Dress — A-line trapezoid -->
+    <path d="M217,97 L208,172 L266,172 L257,97 Z" fill="#4caf50"/>
+
+    <!-- Bodice / top of dress -->
+    <rect x="221" y="96" width="32" height="18" rx="3" fill="url(#dressShadow)"/>
+
+    <!-- Belt detail -->
+    <rect x="222" y="111" width="30" height="4" rx="1" fill="#2e7d32"/>
+
+    <!-- Dress skirt fold lines -->
+    <line x1="218" y1="120" x2="210" y2="172" stroke="rgba(56,142,60,0.5)" stroke-width="1"/>
+    <line x1="256" y1="120" x2="264" y2="172" stroke="rgba(56,142,60,0.5)" stroke-width="1"/>
+
+    <!-- Left arm (toward shopping bag) -->
+    <path d="M222,103 L204,130" stroke="#c8956c" stroke-width="9" stroke-linecap="round"/>
+
+    <!-- Right arm (toward shopping bags) -->
+    <path d="M252,103 L271,128" stroke="#c8956c" stroke-width="9" stroke-linecap="round"/>
+
+    <!-- Legs -->
+    <rect x="226" y="168" width="10" height="16" rx="3" fill="#388e3c"/>
+    <rect x="242" y="168" width="10" height="16" rx="3" fill="#388e3c"/>
+
+    <!-- Shoes (white sneakers) -->
+    <ellipse cx="231" cy="183" rx="12" ry="4" fill="#ffffff"/>
+    <ellipse cx="247" cy="183" rx="12" ry="4" fill="#ffffff"/>
+    <ellipse cx="231" cy="182" rx="8"  ry="2" fill="#e0e0e0"/>
+    <ellipse cx="247" cy="182" rx="8"  ry="2" fill="#e0e0e0"/>
+
+    <!-- Shopping bag LEFT — orange/amber -->
+    <rect x="187" y="122" width="19" height="25" rx="3" fill="#FFA726"/>
+    <rect x="188" y="122" width="17" height="5"  rx="1" fill="#FF8F00" opacity="0.35"/>
+    <path d="M191,122 Q191,112 206,112 Q206,122 206,122" fill="none" stroke="#E65100" stroke-width="2" stroke-linecap="round"/>
+    <line x1="196" y1="130" x2="196" y2="145" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+
+    <!-- Shopping bag RIGHT top — vivid pink -->
+    <rect x="268" y="112" width="19" height="24" rx="3" fill="#e91e8c"/>
+    <rect x="269" y="112" width="17" height="5"  rx="1" fill="#c0146e" opacity="0.4"/>
+    <path d="M272,112 Q272,103 287,103 Q287,112 287,112" fill="none" stroke="#880e4f" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Shopping bag RIGHT bottom — purple -->
+    <rect x="264" y="125" width="21" height="28" rx="3" fill="#9c27b0"/>
+    <rect x="265" y="125" width="19" height="5"  rx="1" fill="#7b1fa2" opacity="0.4"/>
+    <path d="M268,125 Q268,116 285,116 Q285,125 285,125" fill="none" stroke="#6a1b9a" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Sparkle stars -->
+    <path d="M183,52 L184.6,57 L190,58 L184.6,59 L183,64 L181.4,59 L176,58 L181.4,57 Z" fill="#e91e8c"/>
+    <path d="M298,72 L299.2,76 L303,77 L299.2,78 L298,82 L296.8,78 L293,77 L296.8,76 Z" fill="#7c3aed"/>
+    <path d="M175,143 L176,146.5 L179.5,147.5 L176,148.5 L175,152 L174,148.5 L170.5,147.5 L174,146.5 Z" fill="#fbbf24"/>
+    <circle cx="304" cy="115" r="2.5" fill="#e91e8c" opacity="0.55"/>
+    <circle cx="173" cy="97"  r="2"   fill="#7c3aed" opacity="0.45"/>
+    <circle cx="292" cy="155" r="2"   fill="#e91e8c" opacity="0.4"/>
+
+    <!-- ── LEFT PANEL CONTENT ── -->
+
+    <!-- Flash Sale badge (solid pink pill) -->
+    <rect x="26" y="25" width="70" height="16" rx="8" fill="#e91e8c"/>
+    <text x="61" y="36.5" font-family="Arial,sans-serif" font-size="7" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="0.6">⚡ FLASH SALE</text>
+
+    <!-- "50%" big white headline -->
+    <text x="88" y="68" font-family="Arial,sans-serif" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="-1">50%</text>
+
+    <!-- "OFF" pink accent -->
+    <text x="88" y="86" font-family="Arial,sans-serif" font-size="18" font-weight="900" fill="#e91e8c" text-anchor="middle" letter-spacing="3">OFF</text>
+
+    <!-- ON ENTIRE ORDER -->
+    <text x="88" y="98" font-family="Arial,sans-serif" font-size="5.5" font-weight="700" fill="rgba(255,255,255,0.45)" text-anchor="middle" letter-spacing="1.8">ON ENTIRE ORDER</text>
+
+    <!-- Thin divider -->
+    <line x1="36" y1="105" x2="140" y2="105" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+    <!-- Countdown label -->
+    <text x="88" y="115" font-family="Arial,sans-serif" font-size="4.8" fill="rgba(255,255,255,0.38)" text-anchor="middle" letter-spacing="0.4">LIMITED-TIME OFFER! SALE ENDS IN</text>
+
+    <!-- Countdown box 1 — DAYS -->
+    <rect x="26" y="119" width="25" height="22" rx="4" fill="rgba(255,255,255,0.05)" stroke="#e91e8c" stroke-width="1.2"/>
+    <text x="38.5" y="133" font-family="Arial,sans-serif" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">01</text>
+    <text x="38.5" y="145" font-family="Arial,sans-serif" font-size="4.5" fill="rgba(255,255,255,0.35)" text-anchor="middle">DAYS</text>
+
+    <!-- Countdown box 2 — HRS -->
+    <rect x="55" y="119" width="25" height="22" rx="4" fill="rgba(255,255,255,0.05)" stroke="#e91e8c" stroke-width="1.2"/>
+    <text x="67.5" y="133" font-family="Arial,sans-serif" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">14</text>
+    <text x="67.5" y="145" font-family="Arial,sans-serif" font-size="4.5" fill="rgba(255,255,255,0.35)" text-anchor="middle">HRS</text>
+
+    <!-- Countdown box 3 — MIN -->
+    <rect x="84" y="119" width="25" height="22" rx="4" fill="rgba(255,255,255,0.05)" stroke="#e91e8c" stroke-width="1.2"/>
+    <text x="96.5" y="133" font-family="Arial,sans-serif" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">30</text>
+    <text x="96.5" y="145" font-family="Arial,sans-serif" font-size="4.5" fill="rgba(255,255,255,0.35)" text-anchor="middle">MIN</text>
+
+    <!-- Countdown box 4 — SEC -->
+    <rect x="113" y="119" width="25" height="22" rx="4" fill="rgba(255,255,255,0.05)" stroke="#e91e8c" stroke-width="1.2"/>
+    <text x="125.5" y="133" font-family="Arial,sans-serif" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">26</text>
+    <text x="125.5" y="145" font-family="Arial,sans-serif" font-size="4.5" fill="rgba(255,255,255,0.35)" text-anchor="middle">SEC</text>
+
+    <!-- CTA gradient button -->
+    <rect x="26" y="150" width="124" height="22" rx="7" fill="url(#btnGrad)"/>
+    <text x="88" y="164.5" font-family="Arial,sans-serif" font-size="6.5" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="0.2">Shop The Flash Sale Now</text>
+
+    <!-- Dismiss link -->
+    <text x="88" y="181" font-family="Arial,sans-serif" font-size="5.5" fill="rgba(255,255,255,0.28)" text-anchor="middle">NO, THANKS!</text>
+
+  </g>
+
+  <!-- Close button — overlaps card corner -->
+  <circle cx="294" cy="26" r="10" fill="rgba(255,255,255,0.92)"/>
+  <text x="294" y="30.5" font-family="Arial,sans-serif" font-size="11" fill="#555555" text-anchor="middle">✕</text>
+</svg>
