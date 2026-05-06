@@ -151,12 +151,26 @@ class Integration {
         return $key;
     }
 
+    /**
+     * Validates an incoming API key against the stored key and the legacy MD5-based key.
+     * The MD5 fallback preserves backward compatibility for existing integrations (e.g. Zapier)
+     * that were configured before the random-key migration.
+     */
+    public static function is_valid_api_key( string $api_key ): bool {
+        if ( hash_equals( self::get_api_key(), $api_key ) ) {
+            return true;
+        }
+        // Legacy fallback: old key was md5(home_url)
+        return hash_equals( md5( home_url( '', 'http' ) ), $api_key )
+            || hash_equals( md5( home_url( '', 'https' ) ), $api_key );
+    }
+
     public function get_response( \WP_REST_Request $request ){
         $id        = $request['id'];
 		$api_key   = $request['api_key'];
         $error     = [];
 
-		if( hash_equals( self::get_api_key(), (string) $api_key ) ) {
+		if( self::is_valid_api_key( (string) $api_key ) ) {
             $notificationx = PostType::get_instance()->get_post( $id );
             if( $notificationx ) {
                 return wp_send_json( true );
@@ -184,7 +198,7 @@ class Integration {
         if ( ! isset( $request['api_key'] ) ) {
             $response_data['error'] = __('Error: You should provide an API key.', 'notificationx');
         } else {
-            if ( ! hash_equals( self::get_api_key(), (string) $request['api_key'] ) ) {
+            if ( ! self::is_valid_api_key( (string) $request['api_key'] ) ) {
                 $response_data['error'] = __('Error: Invalid API key.', 'notificationx');
             }
         }
