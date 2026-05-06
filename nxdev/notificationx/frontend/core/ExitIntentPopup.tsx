@@ -58,9 +58,13 @@ const ExitIntentPopup = (props: any) => {
         const subtitle = settings?.exit_intent_t4_subtitle || 'See how our product simplifies your workflow.';
         const imageUrl = settings?.exit_intent_image_url?.url || settings?.exit_intent_image_url || '';
 
-        const videoUrl = settings?.exit_intent_t4_video_url || '';
+        const rawVideoUrl = settings?.exit_intent_t4_video_url;
+        const videoUrl = typeof rawVideoUrl === 'string'
+            ? rawVideoUrl
+            : (rawVideoUrl?.url || '');
 
         const getEmbedUrl = (url: string) => {
+            if (typeof url !== 'string' || !url) return '';
             const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?/]+)/);
             if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1`;
             const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
@@ -215,13 +219,12 @@ const ExitIntentPopup = (props: any) => {
                         </div>
                     )}
 
-                    {showClose && (
-                        <button className="nx-exit-intent-close" onClick={handleClose} aria-label="Close">
-                            &times;
-                        </button>
-                    )}
-
                     <div className="nx-exit-intent-t3-body">
+                        {showClose && (
+                            <button className="nx-exit-intent-close" onClick={handleClose} aria-label="Close">
+                                &times;
+                            </button>
+                        )}
                         <h2 className="nx-exit-intent-t3-title">{title}</h2>
                         <p  className="nx-exit-intent-t3-subtitle">{subtitle}</p>
                         <p  className="nx-exit-intent-t3-offer">{offerText}</p>
