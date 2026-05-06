@@ -582,7 +582,7 @@ const useNotificationX = (props: any) => {
                     const nx_id = config?.nx_id;
                     if (triggered.has(nx_id)) return;
 
-                    const sessionKey = `notificationx_exit_intent_${nx_id}`;
+                    const sessionKey = `notificationx_exit_intent_${nx_id}_${config?.themes || ''}`;
                     if (sessionStorage.getItem(sessionKey) === 'closed') return;
 
                     triggered.add(nx_id);

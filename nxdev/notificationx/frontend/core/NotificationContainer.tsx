@@ -101,7 +101,8 @@ const NotificationContainer = (props: any) => {
                                 <ExitIntentPopup
                                     key={`exit-intent-${notice?.config?.nx_id}`}
                                     nxExitIntent={notice}
-                                    dispatch={frontendContext.dispatch} />
+                                    dispatch={frontendContext.dispatch}
+                                    rest={frontendContext.rest} />
                             );
                         }
 
@@ -127,6 +128,7 @@ const NotificationContainer = (props: any) => {
                             key={`exit-intent-${notice?.config?.nx_id}`}
                             nxExitIntent={notice}
                             dispatch={frontendContext.dispatch}
+                            rest={frontendContext.rest}
                         />
                     ));
                 }

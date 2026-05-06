@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import nxHelper from './functions';
 
 const useCountdown = (endDateStr: string) => {
     const calc = () => {
@@ -25,13 +26,15 @@ const useCountdown = (endDateStr: string) => {
 const pad = (n: number) => String(n).padStart(2, '0');
 
 const ExitIntentPopup = (props: any) => {
-    const { nxExitIntent, dispatch } = props;
-    const { config: settings }       = nxExitIntent;
-    const [isVisible, setIsVisible]  = useState(true);
-    const [reason, setReason]        = useState('');
-    const [name, setName]            = useState('');
-    const [email, setEmail]          = useState('');
-    const [videoPlaying, setVideoPlaying] = useState(false);
+    const { nxExitIntent, dispatch, rest } = props;
+    const { config: settings }             = nxExitIntent;
+    const [isVisible, setIsVisible]        = useState(true);
+    const [name, setName]                  = useState('');
+    const [email, setEmail]                = useState('');
+    const [message, setMessage]            = useState('');
+    const [submitting, setSubmitting]      = useState(false);
+    const [submitted, setSubmitted]        = useState(false);
+    const [videoPlaying, setVideoPlaying]  = useState(false);
 
     const theme     = settings?.themes?.replace(`${settings?.source}_`, '') || 'theme-one';
     const showClose = settings?.show_close_button !== false;
@@ -39,14 +42,47 @@ const ExitIntentPopup = (props: any) => {
     const timeLeft = useCountdown(settings?.exit_intent_countdown_end || '');
 
     const handleClose = () => {
-        sessionStorage.setItem(`notificationx_exit_intent_${settings?.nx_id}`, 'closed');
+        const _theme = settings?.themes || '';
+        sessionStorage.setItem(`notificationx_exit_intent_${settings?.nx_id}_${_theme}`, 'closed');
         setIsVisible(false);
         dispatch?.({ type: 'REMOVE_NOTIFICATION', payload: nxExitIntent.id });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        handleClose();
+        if (submitting) return;
+
+        if (!rest) {
+            handleClose();
+            return;
+        }
+
+        setSubmitting(true);
+        try {
+            const _showName    = settings?.exit_intent_show_name    !== false;
+            const _showEmail   = settings?.exit_intent_show_email   !== false;
+            const _showMessage = settings?.exit_intent_show_message === true;
+
+            const payload: Record<string, any> = {
+                nx_id: String(settings?.nx_id || ''),
+                theme: settings?.themes        || '',
+                title: settings?.exit_intent_title || '',
+            };
+
+            if (_showName    && name)    payload.name    = name;
+            if (_showEmail   && email)   payload.email   = email;
+            if (_showMessage && message) payload.message = message;
+
+            const submitUrl = nxHelper.getPath(rest, 'popup-submit');
+            await nxHelper.post(submitUrl, payload, { credentials: 'same-origin' });
+
+            setSubmitted(true);
+            setTimeout(() => handleClose(), 2500);
+        } catch {
+            handleClose();
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     if (!isVisible) return null;
@@ -242,24 +278,15 @@ const ExitIntentPopup = (props: any) => {
     }
 
     // ─── Theme One (default) ──────────────────────────────────────────────────
-    const title    = settings?.exit_intent_title    || 'Wait! Before You Go...';
-    const subtitle = settings?.exit_intent_subtitle || "We'd love to understand what's holding you back";
-    const productName = settings?.exit_intent_product_name || 'our product';
-    const question = (settings?.exit_intent_question || "What's stopping you from getting {product} today?")
-        .replace('{product}', productName);
-    const reasons: { reason_label: string }[] = settings?.exit_intent_reasons || [
-        { reason_label: "It's too expensive" },
-        { reason_label: 'I need more information' },
-        { reason_label: "I'm not ready yet" },
-        { reason_label: 'Found a better alternative' },
-    ];
-    const reasonPlaceholder = settings?.exit_intent_reason_placeholder || 'Select Reason';
-    const buttonText        = settings?.exit_intent_button_text        || 'SUBMIT';
-    const showReason        = settings?.exit_intent_show_reason  !== false;
-    const showName          = settings?.exit_intent_show_name    !== false;
-    const showEmail         = settings?.exit_intent_show_email   !== false;
-    const namePlaceholder   = settings?.exit_intent_name_label   || 'Name *';
-    const emailPlaceholder  = settings?.exit_intent_email_label  || 'Enter Your Email *';
+    const title       = settings?.exit_intent_title    || 'Wait! Before You Go...';
+    const subtitle    = settings?.exit_intent_subtitle || "We'd love to understand what's holding you back";
+    const buttonText  = settings?.exit_intent_button_text || 'SUBMIT';
+    const showName    = settings?.exit_intent_show_name  !== false;
+    const showEmail   = settings?.exit_intent_show_email !== false;
+    const showMessage = settings?.exit_intent_show_message === true;
+    const namePlaceholder    = settings?.exit_intent_name_label          || 'Name *';
+    const emailPlaceholder   = settings?.exit_intent_email_label         || 'Enter Your Email *';
+    const messagePlaceholder = settings?.exit_intent_message_placeholder || 'Your message...';
 
     const adv = settings?.advance_edit;
     const popupStyle: React.CSSProperties = adv ? {
@@ -324,60 +351,62 @@ const ExitIntentPopup = (props: any) => {
                     <h2 className="nx-exit-intent-title" style={titleStyle}>{title}</h2>
                     <p  className="nx-exit-intent-subtitle" style={subtitleStyle}>{subtitle}</p>
 
-                    <form className="nx-exit-intent-form" onSubmit={handleSubmit}>
-                        {showReason && (
-                            <>
-                                <p className="nx-exit-intent-question" style={questionStyle}>{question}</p>
-                                <div className="nx-exit-intent-select-wrap">
-                                    <select
-                                        className="nx-exit-intent-select"
-                                        style={inputStyle}
-                                        value={reason}
-                                        onChange={(e) => setReason(e.target.value)}
-                                    >
-                                        <option value="">{reasonPlaceholder}</option>
-                                        {reasons.map((r, i) => (
-                                            <option key={i} value={r.reason_label}>{r.reason_label}</option>
-                                        ))}
-                                    </select>
-                                    <span className="nx-exit-intent-chevron" aria-hidden="true">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </>
-                        )}
-
-                        {(showName || showEmail) && (
-                            <div className={`nx-exit-intent-fields ${showName && showEmail ? 'nx-exit-intent-two-col' : ''}`}>
-                                {showName && (
-                                    <input
-                                        type="text"
-                                        className="nx-exit-intent-input"
-                                        style={inputStyle}
-                                        placeholder={namePlaceholder}
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                    />
-                                )}
-                                {showEmail && (
-                                    <input
-                                        type="email"
-                                        className="nx-exit-intent-input"
-                                        style={inputStyle}
-                                        placeholder={emailPlaceholder}
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                )}
+                    {submitted ? (
+                        <div className="nx-exit-intent-success">
+                            <div className="nx-exit-intent-success-icon">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
                             </div>
-                        )}
+                            <p className="nx-exit-intent-success-text">Thank you! We received your message.</p>
+                        </div>
+                    ) : (
+                        <form className="nx-exit-intent-form" onSubmit={handleSubmit}>
+                            {(showName || showEmail) && (
+                                <div className={`nx-exit-intent-fields ${showName && showEmail ? 'nx-exit-intent-two-col' : ''}`}>
+                                    {showName && (
+                                        <input
+                                            type="text"
+                                            className="nx-exit-intent-input"
+                                            style={inputStyle}
+                                            placeholder={namePlaceholder}
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                        />
+                                    )}
+                                    {showEmail && (
+                                        <input
+                                            type="email"
+                                            className="nx-exit-intent-input"
+                                            style={inputStyle}
+                                            placeholder={emailPlaceholder}
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
+                                    )}
+                                </div>
+                            )}
 
-                        <button type="submit" className="nx-exit-intent-submit" style={btnStyle}>
-                            {buttonText}
-                        </button>
-                    </form>
+                            {showMessage && (
+                                <textarea
+                                    className="nx-exit-intent-input nx-exit-intent-textarea"
+                                    style={inputStyle}
+                                    placeholder={messagePlaceholder}
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                />
+                            )}
+
+                            <button
+                                type="submit"
+                                className="nx-exit-intent-submit"
+                                style={btnStyle}
+                                disabled={submitting}
+                            >
+                                {submitting ? '...' : buttonText}
+                            </button>
+                        </form>
+                    )}
                 </div>
             </div>
         </div>

@@ -38,15 +38,14 @@ class ExitIntentNotification extends Extension {
                 'defaults' => [
                     'exit_intent_title'        => __( 'Wait! Before You Go...', 'notificationx' ),
                     'exit_intent_subtitle'     => __( "We'd love to understand what's holding you back", 'notificationx' ),
-                    'exit_intent_question'     => __( "What's stopping you from getting {product} today?", 'notificationx' ),
-                    'exit_intent_product_name' => __( 'our product', 'notificationx' ),
                     'exit_intent_button_text'  => __( 'SUBMIT', 'notificationx' ),
-                    'exit_intent_show_name'    => true,
-                    'exit_intent_show_email'   => true,
-                    'exit_intent_show_reason'  => true,
-                    'exit_intent_name_label'   => __( 'Name *', 'notificationx' ),
-                    'exit_intent_email_label'  => __( 'Enter Your Email *', 'notificationx' ),
-                    'position'                 => 'center',
+                    'exit_intent_show_name'           => true,
+                    'exit_intent_show_email'          => true,
+                    'exit_intent_name_label'          => __( 'Name *', 'notificationx' ),
+                    'exit_intent_email_label'         => __( 'Enter Your Email *', 'notificationx' ),
+                    'exit_intent_show_message'        => false,
+                    'exit_intent_message_placeholder' => __( 'Your message...', 'notificationx' ),
+                    'position'                        => 'center',
                 ],
                 'column' => '5',
             ],
@@ -337,62 +336,6 @@ class ExitIntentNotification extends Extension {
                     'priority' => 20,
                     'default'  => __( "We'd love to understand what's holding you back", 'notificationx' ),
                 ],
-                [
-                    'label'    => __( 'Question', 'notificationx' ),
-                    'name'     => 'exit_intent_question',
-                    'type'     => 'text',
-                    'priority' => 30,
-                    'default'  => __( "What's stopping you from getting {product} today?", 'notificationx' ),
-                    'help'     => __( 'Use {product} as a placeholder for the product name below.', 'notificationx' ),
-                ],
-                [
-                    'label'    => __( 'Product / Brand Name', 'notificationx' ),
-                    'name'     => 'exit_intent_product_name',
-                    'type'     => 'text',
-                    'priority' => 40,
-                    'default'  => __( 'our product', 'notificationx' ),
-                    'help'     => __( 'Replaces {product} in the question above.', 'notificationx' ),
-                ],
-
-                // ── Reason dropdown ──────────────────────────────────────
-                [
-                    'label'    => __( 'Show Reason Dropdown', 'notificationx' ),
-                    'name'     => 'exit_intent_show_reason',
-                    'type'     => 'toggle',
-                    'default'  => true,
-                    'priority' => 50,
-                ],
-                [
-                    'label'    => __( 'Dropdown Placeholder', 'notificationx' ),
-                    'name'     => 'exit_intent_reason_placeholder',
-                    'type'     => 'text',
-                    'default'  => __( 'Select Reason', 'notificationx' ),
-                    'priority' => 55,
-                    'rules'    => Rules::is( 'exit_intent_show_reason', true ),
-                ],
-                [
-                    'label'    => __( 'Reason Options', 'notificationx' ),
-                    'name'     => 'exit_intent_reasons',
-                    'type'     => 'repeater',
-                    'priority' => 60,
-                    'rules'    => Rules::is( 'exit_intent_show_reason', true ),
-                    'button'   => [ 'label' => __( 'Add Reason', 'notificationx' ) ],
-                    'fields'   => [
-                        [
-                            'label'   => __( 'Reason Text', 'notificationx' ),
-                            'name'    => 'reason_label',
-                            'type'    => 'text',
-                            'default' => '',
-                        ],
-                    ],
-                    'default' => [
-                        [ 'reason_label' => __( 'It\'s too expensive', 'notificationx' ) ],
-                        [ 'reason_label' => __( 'I need more information', 'notificationx' ) ],
-                        [ 'reason_label' => __( 'I\'m not ready yet', 'notificationx' ) ],
-                        [ 'reason_label' => __( 'Found a better alternative', 'notificationx' ) ],
-                    ],
-                ],
-
                 // ── Form fields ──────────────────────────────────────────
                 [
                     'label'    => __( 'Show Name Field', 'notificationx' ),
@@ -423,6 +366,21 @@ class ExitIntentNotification extends Extension {
                     'default'  => __( 'Enter Your Email *', 'notificationx' ),
                     'priority' => 85,
                     'rules'    => Rules::is( 'exit_intent_show_email', true ),
+                ],
+                [
+                    'label'    => __( 'Show Message Field', 'notificationx' ),
+                    'name'     => 'exit_intent_show_message',
+                    'type'     => 'toggle',
+                    'default'  => false,
+                    'priority' => 87,
+                ],
+                [
+                    'label'    => __( 'Message Placeholder', 'notificationx' ),
+                    'name'     => 'exit_intent_message_placeholder',
+                    'type'     => 'text',
+                    'default'  => __( 'Your message...', 'notificationx' ),
+                    'priority' => 88,
+                    'rules'    => Rules::is( 'exit_intent_show_message', true ),
                 ],
 
                 // ── Button ───────────────────────────────────────────────

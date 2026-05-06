@@ -168,6 +168,46 @@
         }
     }
 
+    // Message textarea
+    .nx-exit-intent-textarea {
+        resize: vertical;
+        min-height: 88px;
+        line-height: 1.5;
+        margin-bottom: 16px;
+        font-family: inherit;
+    }
+
+    // Success state
+    .nx-exit-intent-success {
+        text-align: center;
+        padding: 24px 0 8px;
+
+        .nx-exit-intent-success-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #6d28d9;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+
+            svg {
+                width: 28px;
+                height: 28px;
+            }
+        }
+
+        .nx-exit-intent-success-text {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin: 0;
+            line-height: 1.4;
+        }
+    }
+
     // Submit button
     .nx-exit-intent-submit {
         display: block;
