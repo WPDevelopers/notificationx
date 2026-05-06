@@ -12,7 +12,7 @@ const useNotificationX = (props: any) => {
 
     const [state, dispatch] = useReducer(frontendReducer, {
         is_pro: props?.config?.is_pro,
-        notices: {},
+        notices: [],
         templates: {},
     });
 
@@ -650,14 +650,16 @@ const useNotificationX = (props: any) => {
     const getNxToRender = (callback: (position, NoticeList: []) => void) => {
         const noticeToRender = {};
         // Define a fixed order of positions
-        let fixedOrder = ['top','bottom', 'bottom_left', 'bottom_right', 'top_left', 'top_right','center','cookie_notice_bottom_left','cookie_notice_bottom_right', 'cookie_notice_center','cookie_banner_top', 'cookie_banner_bottom'];
+        let fixedOrder = ['top','bottom', 'bottom_left', 'bottom_right', 'top_left', 'top_right','center','cookie_notice_bottom_left','cookie_notice_bottom_right', 'cookie_notice_center','cookie_banner_top', 'cookie_banner_bottom', 'exit_intent'];
         for (let i = 0; i < state.notices.length; i++) {
             const notice = state.notices[i];
             let get_position = "top"; // default to "top"
             if( notice.config.type == 'gdpr' ) {
                 let { gdpr_position } = notice.config;
                 get_position = gdpr_position;
-            }else{
+            } else if( notice.config.type == 'exit_intent' ) {
+                get_position = 'exit_intent';
+            } else {
                 let { position } = notice.config;
                 get_position = position;
             }
