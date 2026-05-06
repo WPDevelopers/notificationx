@@ -13,6 +13,7 @@
 .gitlab-ci.yml
 .travis.yml
 .DS_Store
+.docs
 .wordpress-org
 Thumbs.db
 behat.yml
