@@ -90,6 +90,28 @@ class ExitIntentNotification extends Extension {
                 ],
                 'column' => '5',
             ],
+            'theme-five' => [
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-five.svg',
+                'defaults' => [
+                    'exit_intent_t5_title'           => __( 'Flash Sale', 'notificationx' ),
+                    'exit_intent_t5_headline'        => __( '50% OFF', 'notificationx' ),
+                    'exit_intent_t5_desc'            => __( 'ON ENTIRE ORDER', 'notificationx' ),
+                    'exit_intent_t5_show_timer'      => true,
+                    'exit_intent_t5_countdown_label' => __( 'LIMITED-TIME OFFER! SALE ENDS IN', 'notificationx' ),
+                    'exit_intent_countdown_end'      => '',
+                    'exit_intent_t5_days_label'      => __( 'DAYS', 'notificationx' ),
+                    'exit_intent_t5_hours_label'     => __( 'HRS', 'notificationx' ),
+                    'exit_intent_t5_minutes_label'   => __( 'MIN', 'notificationx' ),
+                    'exit_intent_t5_seconds_label'   => __( 'SEC', 'notificationx' ),
+                    'exit_intent_t5_timer_bg'        => '#fff0f5',
+                    'exit_intent_t5_timer_color'    => '#e91e63',
+                    'exit_intent_button_text'        => __( 'Shop The Flash Sale Now', 'notificationx' ),
+                    'exit_intent_dismiss_text'       => __( 'NO, THANKS!', 'notificationx' ),
+                    'exit_intent_image_url'          => [ 'url' => NOTIFICATIONX_COMMON_URL . 'exit-intend-popup/theme-two.jpg' ],
+                    'position'                       => 'center',
+                ],
+                'column' => '5',
+            ],
         ];
     }
 
@@ -308,6 +330,152 @@ class ExitIntentNotification extends Extension {
             ],
         ];
 
+        // ── Theme Five content fields ────────────────────────────────────────────
+        $fields['exit_intent_theme_five_section'] = [
+            'label'    => __( 'Exit Intent Content', 'notificationx' ),
+            'name'     => 'exit_intent_theme_five_section',
+            'type'     => 'section',
+            'priority' => 5,
+            'rules'    => Rules::logicalRule( [
+                Rules::is( 'source', $this->id ),
+                Rules::is( 'themes', $this->id . '_theme-five' ),
+            ] ),
+            'fields'   => [
+                [
+                    'label'    => __( 'Right Panel Image', 'notificationx' ),
+                    'name'     => 'exit_intent_image_url',
+                    'type'     => 'media',
+                    'priority' => 5,
+                    'default'  => [
+                        'url' => NOTIFICATIONX_COMMON_URL . 'exit-intend-popup/theme-two.jpg',
+                    ],
+                    'help'     => __( 'Upload or select the image to display in the right panel.', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Title', 'notificationx' ),
+                    'name'     => 'exit_intent_t5_title',
+                    'type'     => 'text',
+                    'priority' => 10,
+                    'default'  => __( 'Flash Sale', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Headline', 'notificationx' ),
+                    'name'     => 'exit_intent_t5_headline',
+                    'type'     => 'text',
+                    'priority' => 20,
+                    'default'  => __( '50% OFF', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Description', 'notificationx' ),
+                    'name'     => 'exit_intent_t5_desc',
+                    'type'     => 'text',
+                    'priority' => 30,
+                    'default'  => __( 'ON ENTIRE ORDER', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Button Text', 'notificationx' ),
+                    'name'     => 'exit_intent_button_text',
+                    'type'     => 'text',
+                    'priority' => 60,
+                    'default'  => __( 'Shop The Flash Sale Now', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Dismiss Link Text', 'notificationx' ),
+                    'name'     => 'exit_intent_dismiss_text',
+                    'type'     => 'text',
+                    'priority' => 70,
+                    'default'  => __( 'NO, THANKS!', 'notificationx' ),
+                ],
+            ],
+        ];
+
+        // ── Theme Five Timer Settings ────────────────────────────────────────────
+        $fields['exit_intent_theme_five_timer_section'] = [
+            'label'    => __( 'Timer Settings', 'notificationx' ),
+            'name'     => 'exit_intent_theme_five_timer_section',
+            'type'     => 'section',
+            'priority' => 6,
+            'rules'    => Rules::logicalRule( [
+                Rules::is( 'source', $this->id ),
+                Rules::is( 'themes', $this->id . '_theme-five' ),
+            ] ),
+            'fields'   => [
+                [
+                    'label'    => __( 'Show Countdown Timer', 'notificationx' ),
+                    'name'     => 'exit_intent_t5_show_timer',
+                    'type'     => 'toggle',
+                    'priority' => 5,
+                    'default'  => true,
+                ],
+                [
+                    'label'    => __( 'Countdown Label', 'notificationx' ),
+                    'name'     => 'exit_intent_t5_countdown_label',
+                    'type'     => 'text',
+                    'priority' => 10,
+                    'default'  => __( 'LIMITED-TIME OFFER! SALE ENDS IN', 'notificationx' ),
+                    'rules'    => Rules::is( 'exit_intent_t5_show_timer', true ),
+                ],
+                [
+                    'label'       => __( 'Sale End Date & Time', 'notificationx' ),
+                    'name'        => 'exit_intent_countdown_end',
+                    'type'        => 'text',
+                    'priority'    => 20,
+                    'default'     => '',
+                    'placeholder' => 'YYYY-MM-DD HH:MM:SS',
+                    'help'        => __( 'Enter the date and time when the sale ends, e.g. 2025-12-31 23:59:59. Leave empty to display static demo numbers.', 'notificationx' ),
+                    'rules'       => Rules::is( 'exit_intent_t5_show_timer', true ),
+                ],
+                [
+                    'label'    => __( 'Days Label', 'notificationx' ),
+                    'name'     => 'exit_intent_t5_days_label',
+                    'type'     => 'text',
+                    'priority' => 30,
+                    'default'  => __( 'DAYS', 'notificationx' ),
+                    'rules'    => Rules::is( 'exit_intent_t5_show_timer', true ),
+                ],
+                [
+                    'label'    => __( 'Hours Label', 'notificationx' ),
+                    'name'     => 'exit_intent_t5_hours_label',
+                    'type'     => 'text',
+                    'priority' => 40,
+                    'default'  => __( 'HRS', 'notificationx' ),
+                    'rules'    => Rules::is( 'exit_intent_t5_show_timer', true ),
+                ],
+                [
+                    'label'    => __( 'Minutes Label', 'notificationx' ),
+                    'name'     => 'exit_intent_t5_minutes_label',
+                    'type'     => 'text',
+                    'priority' => 50,
+                    'default'  => __( 'MIN', 'notificationx' ),
+                    'rules'    => Rules::is( 'exit_intent_t5_show_timer', true ),
+                ],
+                [
+                    'label'    => __( 'Seconds Label', 'notificationx' ),
+                    'name'     => 'exit_intent_t5_seconds_label',
+                    'type'     => 'text',
+                    'priority' => 60,
+                    'default'  => __( 'SEC', 'notificationx' ),
+                    'rules'    => Rules::is( 'exit_intent_t5_show_timer', true ),
+                ],
+                [
+                    'label'    => __( 'Timer Box Background', 'notificationx' ),
+                    'name'     => 'exit_intent_t5_timer_bg',
+                    'type'     => 'colorpicker',
+                    'priority' => 70,
+                    'default'  => '#fff0f5',
+                    'rules'    => Rules::is( 'exit_intent_t5_show_timer', true ),
+                ],
+                [
+                    'label'    => __( 'Timer Number Color', 'notificationx' ),
+                    'name'     => 'exit_intent_t5_timer_color',
+                    'type'     => 'colorpicker',
+                    'priority' => 80,
+                    'default'  => '#e91e63',
+                    'rules'    => Rules::is( 'exit_intent_t5_show_timer', true ),
+                ],
+            ],
+        ];
+
         // ── Theme One content fields ─────────────────────────────────────────────
         $fields['exit_intent_content_section'] = [
             'label'    => __( 'Exit Intent Content', 'notificationx' ),
@@ -319,6 +487,7 @@ class ExitIntentNotification extends Extension {
                 Rules::is( 'themes', $this->id . '_theme-two',   true ),
                 Rules::is( 'themes', $this->id . '_theme-three', true ),
                 Rules::is( 'themes', $this->id . '_theme-four',  true ),
+                Rules::is( 'themes', $this->id . '_theme-five',  true ),
             ] ),
             'fields'   => [
                 // ── Main copy ────────────────────────────────────────────

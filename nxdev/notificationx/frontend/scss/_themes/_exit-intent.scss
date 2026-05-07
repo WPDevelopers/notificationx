@@ -882,3 +882,251 @@
         }
     }
 }
+
+// ─── Theme Five ───────────────────────────────────────────────────────────────
+
+.nx-exit-intent-popup.nx-exit-intent-theme-five {
+    display: grid;
+    grid-template-columns: 496px 400px;
+    width: 896px;
+    max-width: calc(100% - 32px);
+    background: #ffffff;
+    border-radius: 2px;
+    overflow: hidden;
+    padding: 0;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+    // Pink circular close button
+    .nx-exit-intent-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 3;
+        background: #e91e63;
+        border: none;
+        border-radius: 9999px;
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+        line-height: 20px;
+        color: #ffffff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        padding: 0;
+        transition: background 0.15s;
+
+        &:hover {
+            background: #c2185b;
+        }
+    }
+
+    // Left content panel
+    .nx-exit-intent-t5-left {
+        position: relative;
+        z-index: 2;
+        padding: 48px 88px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background: #ffffff;
+        overflow: hidden;
+    }
+
+    // Decorative outline circle behind the content (per Figma: top -40, ~24% width, centered-ish)
+    .nx-exit-intent-t5-decor {
+        position: absolute;
+        top: -40px;
+        left: 35.81%;
+        right: 40%;
+        height: 120px;
+        border: 1px solid #fce7f3;
+        border-radius: 60px;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .nx-exit-intent-t5-title {
+        margin: 0;
+        padding-bottom: 8px;
+        font-size: 30px;
+        font-weight: 800;
+        color: #333333;
+        line-height: 36px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .nx-exit-intent-t5-headline {
+        margin: 0;
+        padding-bottom: 16px;
+        font-size: 72px;
+        font-weight: 900;
+        color: #e91e63;
+        line-height: 72px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .nx-exit-intent-t5-desc {
+        margin: 0;
+        padding-bottom: 8px;
+        font-size: 16px;
+        font-weight: 700;
+        color: #333333;
+        letter-spacing: 1.6px;
+        line-height: 24px;
+        text-transform: uppercase;
+        position: relative;
+        z-index: 1;
+    }
+
+    .nx-exit-intent-t5-countdown-label {
+        margin: 0;
+        padding-bottom: 24px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #777777;
+        letter-spacing: 0.6px;
+        line-height: 16px;
+        text-transform: uppercase;
+        position: relative;
+        z-index: 1;
+    }
+
+    .nx-exit-intent-t5-countdown {
+        display: flex;
+        gap: 12px;
+        padding-bottom: 32px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .nx-exit-intent-t5-countdown-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nx-exit-intent-t5-countdown-num {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        height: 64px;
+        background: #fff0f5;
+        color: #e91e63;
+        border-radius: 2px;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 32px;
+        box-sizing: border-box;
+    }
+
+    .nx-exit-intent-t5-countdown-lbl {
+        margin-top: 4px;
+        font-size: 10px;
+        font-weight: 700;
+        color: #777777;
+        line-height: 15px;
+        text-transform: uppercase;
+    }
+
+    .nx-exit-intent-t5-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 320px;
+        padding: 16px 24px;
+        background: #e91e63;
+        color: #ffffff;
+        border: none;
+        border-radius: 2px;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 24px;
+        cursor: pointer;
+        margin-bottom: 16px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        transition: background 0.15s, transform 0.15s;
+        box-sizing: border-box;
+        position: relative;
+        z-index: 1;
+
+        &:hover {
+            background: #c2185b;
+            transform: translateY(-1px);
+        }
+    }
+
+    .nx-exit-intent-t5-dismiss {
+        background: none;
+        border: none;
+        color: #777777;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        line-height: 16px;
+        text-transform: uppercase;
+        cursor: pointer;
+        padding: 0;
+        transition: color 0.15s;
+        position: relative;
+        z-index: 1;
+
+        &:hover {
+            color: #333333;
+        }
+    }
+
+    .nx-exit-intent-t5-right {
+        background: #e91e63 center / cover no-repeat;
+        min-height: 540px;
+    }
+}
+
+@media (max-width: 900px) {
+    .nx-exit-intent-popup.nx-exit-intent-theme-five {
+        grid-template-columns: 1fr;
+        width: 100%;
+        max-width: calc(100% - 24px);
+
+        .nx-exit-intent-t5-left {
+            padding: 40px 24px;
+        }
+
+        .nx-exit-intent-t5-right {
+            min-height: 220px;
+            order: -1;
+        }
+
+        .nx-exit-intent-t5-headline {
+            font-size: 56px;
+            line-height: 56px;
+        }
+
+        .nx-exit-intent-t5-title {
+            font-size: 24px;
+            line-height: 30px;
+        }
+
+        .nx-exit-intent-t5-countdown {
+            gap: 8px;
+        }
+
+        .nx-exit-intent-t5-countdown-num {
+            width: 52px;
+            height: 52px;
+            font-size: 20px;
+        }
+
+        .nx-exit-intent-t5-decor {
+            left: 30%;
+            right: 35%;
+        }
+    }
+}

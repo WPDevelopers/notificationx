@@ -1,10 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import nxHelper from './functions';
 
-const useCountdown = (endDateStr: string) => {
+const useCountdown = (endDateStr: string, fallbackDurationMs?: number) => {
+    // Stable fallback end timestamp — set once when no explicit end date is configured
+    // but a fallback duration is supplied (used by theme-five so the timer always ticks).
+    const fallbackEndRef = useRef<number | null>(null);
+    if (!endDateStr && fallbackDurationMs && fallbackEndRef.current === null) {
+        fallbackEndRef.current = Date.now() + fallbackDurationMs;
+    }
+
     const calc = () => {
-        const end = Date.parse(endDateStr);
-        if (!end || isNaN(end)) return null;
+        let end: number | null = null;
+        if (endDateStr) {
+            const parsed = Date.parse(endDateStr) || Date.parse(endDateStr.replace(' ', 'T'));
+            if (parsed && !isNaN(parsed)) end = parsed;
+        } else if (fallbackEndRef.current) {
+            end = fallbackEndRef.current;
+        }
+        if (end === null) return null;
         const diff = end - Date.now();
         if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
         return {
@@ -16,10 +29,11 @@ const useCountdown = (endDateStr: string) => {
     };
     const [timeLeft, setTimeLeft] = useState(calc);
     useEffect(() => {
-        if (!endDateStr) return;
+        if (!endDateStr && !fallbackDurationMs) return;
+        setTimeLeft(calc());
         const timer = setInterval(() => setTimeLeft(calc()), 1000);
         return () => clearInterval(timer);
-    }, [endDateStr]);
+    }, [endDateStr, fallbackDurationMs]);
     return timeLeft;
 };
 
@@ -39,7 +53,11 @@ const ExitIntentPopup = (props: any) => {
     const theme     = settings?.themes?.replace(`${settings?.source}_`, '') || 'theme-one';
     const showClose = settings?.show_close_button !== false;
 
-    const timeLeft = useCountdown(settings?.exit_intent_countdown_end || '');
+    // Theme-five always shows a live timer — supply a default duration (1d 14h 30m 26s)
+    // so the timer ticks even when the merchant hasn't entered an end date yet.
+    const t5FallbackMs = ((1 * 24 + 14) * 3600 + 30 * 60 + 26) * 1000;
+    const fallbackDuration = theme === 'theme-five' ? t5FallbackMs : undefined;
+    const timeLeft = useCountdown(settings?.exit_intent_countdown_end || '', fallbackDuration);
 
     const handleClose = () => {
         const _theme = settings?.themes || '';
@@ -161,6 +179,94 @@ const ExitIntentPopup = (props: any) => {
                             )}
                         </div>
                     )}
+                </div>
+            </div>
+        );
+    }
+
+    // ─── Theme Five ───────────────────────────────────────────────────────────
+    if (theme === 'theme-five') {
+        const t5Title        = settings?.exit_intent_t5_title           || 'Flash Sale';
+        const t5Headline     = settings?.exit_intent_t5_headline        || '50% OFF';
+        const t5Desc         = settings?.exit_intent_t5_desc            || 'ON ENTIRE ORDER';
+        const showTimer      = settings?.exit_intent_t5_show_timer      !== false;
+        const countdownLabel = settings?.exit_intent_t5_countdown_label || 'LIMITED-TIME OFFER! SALE ENDS IN';
+        const daysLbl        = settings?.exit_intent_t5_days_label      || 'DAYS';
+        const hoursLbl       = settings?.exit_intent_t5_hours_label     || 'HRS';
+        const minutesLbl     = settings?.exit_intent_t5_minutes_label   || 'MIN';
+        const secondsLbl     = settings?.exit_intent_t5_seconds_label   || 'SEC';
+        const timerBg        = settings?.exit_intent_t5_timer_bg        || '#fff0f5';
+        const timerColor     = settings?.exit_intent_t5_timer_color     || '#e91e63';
+        const buttonText     = settings?.exit_intent_button_text        || 'Shop The Flash Sale Now';
+        const dismissText    = settings?.exit_intent_dismiss_text       || 'NO, THANKS!';
+        const imageUrl       = settings?.exit_intent_image_url?.url || settings?.exit_intent_image_url || '';
+
+        const adv = settings?.advance_edit;
+        const overlayStyle: React.CSSProperties = adv
+            ? { background: settings.exit_intent_overlay_color || 'rgba(0,0,0,0.6)' }
+            : {};
+
+        // useCountdown always returns a live, ticking value for theme-five
+        // (fallback duration is supplied above when no end date is configured).
+        const display = timeLeft || { days: 0, hours: 0, minutes: 0, seconds: 0 };
+        const unitMeta: Array<{ key: 'days' | 'hours' | 'minutes' | 'seconds'; lbl: string }> = [
+            { key: 'days',    lbl: daysLbl },
+            { key: 'hours',   lbl: hoursLbl },
+            { key: 'minutes', lbl: minutesLbl },
+            { key: 'seconds', lbl: secondsLbl },
+        ];
+
+        return (
+            <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+                <div
+                    className={`nx-exit-intent-popup nx-exit-intent-theme-five nx-exit-intent-${settings?.nx_id}`}
+                >
+                    {showClose && (
+                        <button className="nx-exit-intent-close" onClick={handleClose} aria-label="Close">
+                            &times;
+                        </button>
+                    )}
+
+                    {/* Left column */}
+                    <div className="nx-exit-intent-t5-left">
+                        <span className="nx-exit-intent-t5-decor" aria-hidden="true" />
+
+                        <h2 className="nx-exit-intent-t5-title">{t5Title}</h2>
+                        <div className="nx-exit-intent-t5-headline">{t5Headline}</div>
+                        <p className="nx-exit-intent-t5-desc">{t5Desc}</p>
+
+                        {showTimer && (
+                            <>
+                                <p className="nx-exit-intent-t5-countdown-label">{countdownLabel}</p>
+                                <div className="nx-exit-intent-t5-countdown">
+                                    {unitMeta.map(({ key, lbl }) => (
+                                        <div key={key} className="nx-exit-intent-t5-countdown-unit">
+                                            <span
+                                                className="nx-exit-intent-t5-countdown-num"
+                                                style={{ background: timerBg, color: timerColor }}
+                                            >
+                                                {pad(display[key])}
+                                            </span>
+                                            <span className="nx-exit-intent-t5-countdown-lbl">{lbl}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </>
+                        )}
+
+                        <button type="button" className="nx-exit-intent-t5-btn" onClick={handleClose}>
+                            {buttonText}
+                        </button>
+                        <button type="button" className="nx-exit-intent-t5-dismiss" onClick={handleClose}>
+                            {dismissText}
+                        </button>
+                    </div>
+
+                    {/* Right column — image panel */}
+                    <div
+                        className="nx-exit-intent-t5-right"
+                        style={imageUrl ? { backgroundImage: `url(${imageUrl})` } : undefined}
+                    />
                 </div>
             </div>
         );
