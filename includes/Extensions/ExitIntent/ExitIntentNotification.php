@@ -55,8 +55,6 @@ class ExitIntentNotification extends Extension {
                     'exit_intent_sale_badge'       => __( 'Flash Sale', 'notificationx' ),
                     'exit_intent_sale_headline'    => __( '50% OFF', 'notificationx' ),
                     'exit_intent_sale_desc'        => __( 'ON ENTIRE ORDER', 'notificationx' ),
-                    'exit_intent_countdown_label'  => __( 'LIMITED-TIME OFFER! SALE ENDS IN', 'notificationx' ),
-                    'exit_intent_countdown_end'    => '',
                     'exit_intent_button_text'      => __( 'Shop The Flash Sale Now', 'notificationx' ),
                     'exit_intent_dismiss_text'     => __( 'NO, THANKS!', 'notificationx' ),
                     'exit_intent_image_url'        => [ 'url' => NOTIFICATIONX_COMMON_URL . 'exit-intend-popup/theme-two.jpg' ],
@@ -180,22 +178,6 @@ class ExitIntentNotification extends Extension {
                     'type'     => 'text',
                     'priority' => 30,
                     'default'  => __( 'ON ENTIRE ORDER', 'notificationx' ),
-                ],
-                [
-                    'label'    => __( 'Countdown Label', 'notificationx' ),
-                    'name'     => 'exit_intent_countdown_label',
-                    'type'     => 'text',
-                    'priority' => 40,
-                    'default'  => __( 'LIMITED-TIME OFFER! SALE ENDS IN', 'notificationx' ),
-                ],
-                [
-                    'label'       => __( 'Sale End Date & Time', 'notificationx' ),
-                    'name'        => 'exit_intent_countdown_end',
-                    'type'        => 'text',
-                    'priority'    => 50,
-                    'default'     => '',
-                    'placeholder' => 'YYYY-MM-DD HH:MM:SS',
-                    'help'        => __( 'Enter the date and time when the sale ends, e.g. 2025-12-31 23:59:59', 'notificationx' ),
                 ],
                 [
                     'label'    => __( 'Button Text', 'notificationx' ),
@@ -416,14 +398,13 @@ class ExitIntentNotification extends Extension {
                     'rules'    => Rules::is( 'exit_intent_t5_show_timer', true ),
                 ],
                 [
-                    'label'       => __( 'Sale End Date & Time', 'notificationx' ),
-                    'name'        => 'exit_intent_countdown_end',
-                    'type'        => 'text',
-                    'priority'    => 20,
-                    'default'     => '',
-                    'placeholder' => 'YYYY-MM-DD HH:MM:SS',
-                    'help'        => __( 'Enter the date and time when the sale ends, e.g. 2025-12-31 23:59:59. Leave empty to display static demo numbers.', 'notificationx' ),
-                    'rules'       => Rules::is( 'exit_intent_t5_show_timer', true ),
+                    'label'    => __( 'Sale End Date & Time', 'notificationx' ),
+                    'name'     => 'exit_intent_countdown_end',
+                    'type'     => 'date',
+                    'priority' => 20,
+                    'default'  => '',
+                    'help'     => __( 'Pick the date and time when the sale ends. Leave empty to display static demo numbers.', 'notificationx' ),
+                    'rules'    => Rules::is( 'exit_intent_t5_show_timer', true ),
                 ],
                 [
                     'label'    => __( 'Days Label', 'notificationx' ),
@@ -567,226 +548,287 @@ class ExitIntentNotification extends Extension {
     }
 
     public function design_fields( $fields ) {
-        // Hide irrelevant standard design sections for this source
-        foreach ( [ 'advance_design_section', 'image-appearance' ] as $key ) {
-            if ( isset( $fields[ $key ] ) ) {
-                $fields[ $key ] = Rules::is( 'source', $this->id, true, $fields[ $key ] );
+        // Hide the inner sub-sections of the global advance_design_section for this source,
+        // but keep advance_design_section itself visible so its `advance_edit` toggle renders.
+        foreach ( [ 'design', 'typography', 'image-appearance', 'link_button_design' ] as $key ) {
+            if ( isset( $fields['advance_design_section']['fields'][ $key ] ) ) {
+                $fields['advance_design_section']['fields'][ $key ] = Rules::is(
+                    'source', $this->id, true, $fields['advance_design_section']['fields'][ $key ]
+                );
             }
         }
 
-        // ── Exit Intent Advanced Design ──────────────────────────────────
-        $fields['exit_intent_design_section'] = [
-            'label'    => __( 'Advanced Design', 'notificationx' ),
-            'name'     => 'exit_intent_design_section',
-            'type'     => 'section',
-            'priority' => 5,
-            'rules'    => Rules::logicalRule( [
-                Rules::is( 'source', $this->id ),
-                Rules::is( 'advance_edit', true ),
-            ] ),
-            'fields'   => [
+        // Inline every theme's design fields directly into advance_design_section so they appear
+        // flat under the existing "Advanced Design" heading — no per-theme sub-headers.
+        // Priorities are auto-assigned starting at 20 so all theme controls sort BEFORE the
+        // global Custom CSS section (priority 150).
+        $design   = &$fields['advance_design_section']['fields'];
+        $priority = 20;
+        $merge    = function( $theme_slug, $list ) use ( &$design, &$priority ) {
+            $rule = $this->theme_design_rules( $theme_slug );
+            foreach ( $list as $field ) {
+                if ( ! empty( $field['rules'] ) ) {
+                    $field['rules'] = Rules::logicalRule( [ $rule, $field['rules'] ] );
+                } else {
+                    $field['rules'] = $rule;
+                }
+                if ( ! isset( $field['priority'] ) ) {
+                    $field['priority'] = $priority;
+                }
+                $priority++;
+                $design[ $field['name'] ] = $field;
+            }
+        };
 
-                // Container
-                [
-                    'label'       => __( 'Popup Max Width', 'notificationx' ),
-                    'name'        => 'exit_intent_max_width',
-                    'type'        => 'number',
-                    'default'     => 540,
-                    'description' => 'px',
-                ],
-                [
-                    'label'       => __( 'Border Radius', 'notificationx' ),
-                    'name'        => 'exit_intent_border_radius',
-                    'type'        => 'number',
-                    'default'     => 12,
-                    'description' => 'px',
-                ],
-                [
-                    'label'   => __( 'Background Color', 'notificationx' ),
-                    'name'    => 'exit_intent_bg_color',
-                    'type'    => 'colorpicker',
-                    'default' => '#EDE7FF',
-                ],
-                [
-                    'label'   => __( 'Overlay Background Color', 'notificationx' ),
-                    'name'    => 'exit_intent_overlay_color',
-                    'type'    => 'colorpicker',
-                    'default' => 'rgba(0,0,0,0.5)',
-                    'help'    => __( 'Color of the backdrop behind the popup.', 'notificationx' ),
-                ],
-                [
-                    'label'   => __( 'Show Background Pattern', 'notificationx' ),
-                    'name'    => 'exit_intent_show_pattern',
-                    'type'    => 'toggle',
-                    'default' => true,
-                ],
-                [
-                    'label'   => __( 'Pattern Color', 'notificationx' ),
-                    'name'    => 'exit_intent_pattern_color',
-                    'type'    => 'colorpicker',
-                    'default' => '#D4C3FF',
-                    'rules'   => Rules::is( 'exit_intent_show_pattern', true ),
-                ],
-
-                // Typography — Title
-                [
-                    'label'       => __( 'Title Color', 'notificationx' ),
-                    'name'        => 'exit_intent_title_color',
-                    'type'        => 'colorpicker',
-                    'default'     => '#1a1a2e',
-                ],
-                [
-                    'label'       => __( 'Title Font Size', 'notificationx' ),
-                    'name'        => 'exit_intent_title_font_size',
-                    'type'        => 'number',
-                    'default'     => 26,
-                    'description' => 'px',
-                ],
-                [
-                    'label'   => __( 'Title Font Weight', 'notificationx' ),
-                    'name'    => 'exit_intent_title_font_weight',
-                    'type'    => 'select',
-                    'default' => '700',
-                    'options' => GlobalFields::get_instance()->normalize_fields( [
-                        '400' => __( 'Normal (400)', 'notificationx' ),
-                        '600' => __( 'Semi Bold (600)', 'notificationx' ),
-                        '700' => __( 'Bold (700)', 'notificationx' ),
-                        '800' => __( 'Extra Bold (800)', 'notificationx' ),
-                    ] ),
-                ],
-
-                // Typography — Subtitle
-                [
-                    'label'   => __( 'Subtitle Color', 'notificationx' ),
-                    'name'    => 'exit_intent_subtitle_color',
-                    'type'    => 'colorpicker',
-                    'default' => '#4a4a6a',
-                ],
-                [
-                    'label'       => __( 'Subtitle Font Size', 'notificationx' ),
-                    'name'        => 'exit_intent_subtitle_font_size',
-                    'type'        => 'number',
-                    'default'     => 14,
-                    'description' => 'px',
-                ],
-
-                // Typography — Question
-                [
-                    'label'   => __( 'Question Color', 'notificationx' ),
-                    'name'    => 'exit_intent_question_color',
-                    'type'    => 'colorpicker',
-                    'default' => '#1a1a2e',
-                ],
-                [
-                    'label'       => __( 'Question Font Size', 'notificationx' ),
-                    'name'        => 'exit_intent_question_font_size',
-                    'type'        => 'number',
-                    'default'     => 15,
-                    'description' => 'px',
-                ],
-
-                // Input fields
-                [
-                    'label'   => __( 'Input Background Color', 'notificationx' ),
-                    'name'    => 'exit_intent_input_bg',
-                    'type'    => 'colorpicker',
-                    'default' => '#ffffff',
-                ],
-                [
-                    'label'   => __( 'Input Border Color', 'notificationx' ),
-                    'name'    => 'exit_intent_input_border_color',
-                    'type'    => 'colorpicker',
-                    'default' => '#dddddd',
-                ],
-                [
-                    'label'   => __( 'Input Focus Border Color', 'notificationx' ),
-                    'name'    => 'exit_intent_input_focus_color',
-                    'type'    => 'colorpicker',
-                    'default' => '#7600ff',
-                ],
-                [
-                    'label'       => __( 'Input Border Radius', 'notificationx' ),
-                    'name'        => 'exit_intent_input_border_radius',
-                    'type'        => 'number',
-                    'default'     => 6,
-                    'description' => 'px',
-                ],
-                [
-                    'label'   => __( 'Input Text Color', 'notificationx' ),
-                    'name'    => 'exit_intent_input_text_color',
-                    'type'    => 'colorpicker',
-                    'default' => '#333333',
-                ],
-                [
-                    'label'   => __( 'Input Placeholder Color', 'notificationx' ),
-                    'name'    => 'exit_intent_placeholder_color',
-                    'type'    => 'colorpicker',
-                    'default' => '#999999',
-                ],
-
-                // Button
-                [
-                    'label'   => __( 'Button Background Color', 'notificationx' ),
-                    'name'    => 'exit_intent_btn_bg',
-                    'type'    => 'colorpicker',
-                    'default' => '#6B21A8',
-                ],
-                [
-                    'label'   => __( 'Button Hover Background', 'notificationx' ),
-                    'name'    => 'exit_intent_btn_hover_bg',
-                    'type'    => 'colorpicker',
-                    'default' => '#581C87',
-                ],
-                [
-                    'label'   => __( 'Button Text Color', 'notificationx' ),
-                    'name'    => 'exit_intent_btn_color',
-                    'type'    => 'colorpicker',
-                    'default' => '#ffffff',
-                ],
-                [
-                    'label'       => __( 'Button Border Radius', 'notificationx' ),
-                    'name'        => 'exit_intent_btn_border_radius',
-                    'type'        => 'number',
-                    'default'     => 6,
-                    'description' => 'px',
-                ],
-                [
-                    'label'       => __( 'Button Font Size', 'notificationx' ),
-                    'name'        => 'exit_intent_btn_font_size',
-                    'type'        => 'number',
-                    'default'     => 14,
-                    'description' => 'px',
-                ],
-                [
-                    'label'   => __( 'Button Font Weight', 'notificationx' ),
-                    'name'    => 'exit_intent_btn_font_weight',
-                    'type'    => 'select',
-                    'default' => '700',
-                    'options' => GlobalFields::get_instance()->normalize_fields( [
-                        '400' => __( 'Normal', 'notificationx' ),
-                        '600' => __( 'Semi Bold', 'notificationx' ),
-                        '700' => __( 'Bold', 'notificationx' ),
-                    ] ),
-                ],
-
-                // Close button
-                [
-                    'label'   => __( 'Close Button Color', 'notificationx' ),
-                    'name'    => 'exit_intent_close_color',
-                    'type'    => 'colorpicker',
-                    'default' => '#666666',
-                ],
-                [
-                    'label'       => __( 'Close Button Size', 'notificationx' ),
-                    'name'        => 'exit_intent_close_size',
-                    'type'        => 'number',
-                    'default'     => 20,
-                    'description' => 'px',
-                ],
-            ],
-        ];
+        $merge( 'theme-one',   $this->theme_one_design_fields() );
+        $merge( 'theme-two',   $this->theme_two_design_fields() );
+        $merge( 'theme-three', $this->theme_three_design_fields() );
+        $merge( 'theme-four',  $this->theme_four_design_fields() );
+        $merge( 'theme-five',  $this->theme_five_design_fields() );
 
         return $fields;
+    }
+
+    /** Build a rule scoped to source + advance_edit + a specific theme. */
+    private function theme_design_rules( $theme_slug ) {
+        return Rules::logicalRule( [
+            Rules::is( 'source', $this->id ),
+            Rules::is( 'advance_edit', true ),
+            Rules::is( 'themes', $this->id . '_' . $theme_slug ),
+        ] );
+    }
+
+    private function font_weight_options() {
+        return GlobalFields::get_instance()->normalize_fields( [
+            '400' => __( 'Normal (400)', 'notificationx' ),
+            '500' => __( 'Medium (500)', 'notificationx' ),
+            '600' => __( 'Semi Bold (600)', 'notificationx' ),
+            '700' => __( 'Bold (700)', 'notificationx' ),
+            '800' => __( 'Extra Bold (800)', 'notificationx' ),
+        ] );
+    }
+
+    /** ───────────────────────── Theme One — Feedback Form ───────────────────────── */
+    private function theme_one_design_fields() {
+        return [
+                // Container
+                [ 'label' => __( 'Popup Max Width', 'notificationx' ),         'name' => 'exit_intent_max_width',         'type' => 'number',      'default' => 540,                  'description' => 'px' ],
+                [ 'label' => __( 'Border Radius', 'notificationx' ),           'name' => 'exit_intent_border_radius',     'type' => 'number',      'default' => 12,                   'description' => 'px' ],
+                [ 'label' => __( 'Background Color', 'notificationx' ),        'name' => 'exit_intent_bg_color',          'type' => 'colorpicker', 'default' => '#EDE7FF' ],
+                [ 'label' => __( 'Overlay Background Color', 'notificationx' ),'name' => 'exit_intent_overlay_color',     'type' => 'colorpicker', 'default' => 'rgba(0,0,0,0.5)',
+                  'help'  => __( 'Color of the backdrop behind the popup.', 'notificationx' ) ],
+                [ 'label' => __( 'Show Background Pattern', 'notificationx' ), 'name' => 'exit_intent_show_pattern',      'type' => 'toggle',      'default' => true ],
+                [ 'label' => __( 'Pattern Color', 'notificationx' ),           'name' => 'exit_intent_pattern_color',     'type' => 'colorpicker', 'default' => '#D4C3FF',
+                  'rules' => Rules::is( 'exit_intent_show_pattern', true ) ],
+
+                // Title
+                [ 'label' => __( 'Title Color', 'notificationx' ),       'name' => 'exit_intent_title_color',       'type' => 'colorpicker', 'default' => '#1a1a2e' ],
+                [ 'label' => __( 'Title Font Size', 'notificationx' ),   'name' => 'exit_intent_title_font_size',   'type' => 'number',      'default' => 26, 'description' => 'px' ],
+                [ 'label' => __( 'Title Font Weight', 'notificationx' ), 'name' => 'exit_intent_title_font_weight', 'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
+
+                // Subtitle
+                [ 'label' => __( 'Subtitle Color', 'notificationx' ),     'name' => 'exit_intent_subtitle_color',     'type' => 'colorpicker', 'default' => '#4a4a6a' ],
+                [ 'label' => __( 'Subtitle Font Size', 'notificationx' ), 'name' => 'exit_intent_subtitle_font_size', 'type' => 'number',      'default' => 14, 'description' => 'px' ],
+
+                // Inputs
+                [ 'label' => __( 'Input Background Color', 'notificationx' ), 'name' => 'exit_intent_input_bg',            'type' => 'colorpicker', 'default' => '#ffffff' ],
+                [ 'label' => __( 'Input Border Color', 'notificationx' ),     'name' => 'exit_intent_input_border_color',  'type' => 'colorpicker', 'default' => '#dddddd' ],
+                [ 'label' => __( 'Input Border Radius', 'notificationx' ),    'name' => 'exit_intent_input_border_radius', 'type' => 'number',      'default' => 6, 'description' => 'px' ],
+                [ 'label' => __( 'Input Text Color', 'notificationx' ),       'name' => 'exit_intent_input_text_color',    'type' => 'colorpicker', 'default' => '#333333' ],
+
+                // Button
+                [ 'label' => __( 'Button Background Color', 'notificationx' ), 'name' => 'exit_intent_btn_bg',            'type' => 'colorpicker', 'default' => '#6B21A8' ],
+                [ 'label' => __( 'Button Text Color', 'notificationx' ),       'name' => 'exit_intent_btn_color',         'type' => 'colorpicker', 'default' => '#ffffff' ],
+                [ 'label' => __( 'Button Border Radius', 'notificationx' ),    'name' => 'exit_intent_btn_border_radius', 'type' => 'number',      'default' => 6, 'description' => 'px' ],
+                [ 'label' => __( 'Button Font Size', 'notificationx' ),        'name' => 'exit_intent_btn_font_size',     'type' => 'number',      'default' => 14, 'description' => 'px' ],
+                [ 'label' => __( 'Button Font Weight', 'notificationx' ),      'name' => 'exit_intent_btn_font_weight',   'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
+
+                // Close button
+                [ 'label' => __( 'Close Button Color', 'notificationx' ), 'name' => 'exit_intent_close_color', 'type' => 'colorpicker', 'default' => '#666666' ],
+                [ 'label' => __( 'Close Button Size', 'notificationx' ),  'name' => 'exit_intent_close_size',  'type' => 'number',      'default' => 20, 'description' => 'px' ],
+        ];
+    }
+
+    /** ───────────────────────── Theme Two — Flash Sale w/ Countdown ───────────────────────── */
+    private function theme_two_design_fields() {
+        return [
+                // Container / overlay / close
+                [ 'label' => __( 'Popup Max Width', 'notificationx' ),          'name' => 'exit_intent_t2_max_width',     'type' => 'number',      'default' => 760, 'description' => 'px' ],
+                [ 'label' => __( 'Border Radius', 'notificationx' ),            'name' => 'exit_intent_t2_border_radius', 'type' => 'number',      'default' => 12,  'description' => 'px' ],
+                [ 'label' => __( 'Left Panel Background', 'notificationx' ),    'name' => 'exit_intent_t2_bg_color',      'type' => 'colorpicker', 'default' => '#ffffff' ],
+                [ 'label' => __( 'Overlay Background Color', 'notificationx' ), 'name' => 'exit_intent_overlay_color',    'type' => 'colorpicker', 'default' => 'rgba(0,0,0,0.5)' ],
+                [ 'label' => __( 'Close Button Color', 'notificationx' ),       'name' => 'exit_intent_close_color',      'type' => 'colorpicker', 'default' => '#666666' ],
+                [ 'label' => __( 'Close Button Size', 'notificationx' ),        'name' => 'exit_intent_close_size',       'type' => 'number',      'default' => 20, 'description' => 'px' ],
+
+                // Sale badge
+                [ 'label' => __( 'Badge Background', 'notificationx' ), 'name' => 'exit_intent_t2_badge_bg',        'type' => 'colorpicker', 'default' => '#ffe4ec' ],
+                [ 'label' => __( 'Badge Text Color', 'notificationx' ),'name' => 'exit_intent_t2_badge_color',     'type' => 'colorpicker', 'default' => '#e91e63' ],
+                [ 'label' => __( 'Badge Font Size', 'notificationx' ), 'name' => 'exit_intent_t2_badge_font_size', 'type' => 'number',      'default' => 12, 'description' => 'px' ],
+
+                // Headline
+                [ 'label' => __( 'Headline Color', 'notificationx' ),       'name' => 'exit_intent_t2_headline_color',       'type' => 'colorpicker', 'default' => '#1a1a2e' ],
+                [ 'label' => __( 'Headline Font Size', 'notificationx' ),   'name' => 'exit_intent_t2_headline_font_size',   'type' => 'number',      'default' => 56, 'description' => 'px' ],
+                [ 'label' => __( 'Headline Font Weight', 'notificationx' ), 'name' => 'exit_intent_t2_headline_font_weight', 'type' => 'select',      'default' => '800',
+                  'options' => $this->font_weight_options() ],
+
+                // Description
+                [ 'label' => __( 'Description Color', 'notificationx' ),     'name' => 'exit_intent_t2_desc_color',     'type' => 'colorpicker', 'default' => '#4a4a6a' ],
+                [ 'label' => __( 'Description Font Size', 'notificationx' ), 'name' => 'exit_intent_t2_desc_font_size', 'type' => 'number',      'default' => 14, 'description' => 'px' ],
+
+                // CTA button
+                [ 'label' => __( 'Button Background', 'notificationx' ),     'name' => 'exit_intent_t2_btn_bg',            'type' => 'colorpicker', 'default' => '#e91e63' ],
+                [ 'label' => __( 'Button Text Color', 'notificationx' ),     'name' => 'exit_intent_t2_btn_color',         'type' => 'colorpicker', 'default' => '#ffffff' ],
+                [ 'label' => __( 'Button Border Radius', 'notificationx' ),  'name' => 'exit_intent_t2_btn_border_radius', 'type' => 'number',      'default' => 6, 'description' => 'px' ],
+                [ 'label' => __( 'Button Font Size', 'notificationx' ),      'name' => 'exit_intent_t2_btn_font_size',     'type' => 'number',      'default' => 14, 'description' => 'px' ],
+                [ 'label' => __( 'Button Font Weight', 'notificationx' ),    'name' => 'exit_intent_t2_btn_font_weight',   'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
+
+                // Dismiss link
+                [ 'label' => __( 'Dismiss Text Color', 'notificationx' ),     'name' => 'exit_intent_t2_dismiss_color',     'type' => 'colorpicker', 'default' => '#9a9aa8' ],
+                [ 'label' => __( 'Dismiss Font Size', 'notificationx' ),      'name' => 'exit_intent_t2_dismiss_font_size', 'type' => 'number',      'default' => 12, 'description' => 'px' ],
+        ];
+    }
+
+    /** ───────────────────────── Theme Three — Coupon Offer ───────────────────────── */
+    private function theme_three_design_fields() {
+        return [
+                // Container / overlay / close
+                [ 'label' => __( 'Popup Max Width', 'notificationx' ),          'name' => 'exit_intent_t3_max_width',     'type' => 'number',      'default' => 460, 'description' => 'px' ],
+                [ 'label' => __( 'Border Radius', 'notificationx' ),            'name' => 'exit_intent_t3_border_radius', 'type' => 'number',      'default' => 16,  'description' => 'px' ],
+                [ 'label' => __( 'Background Color', 'notificationx' ),         'name' => 'exit_intent_t3_bg_color',      'type' => 'colorpicker', 'default' => '#ffffff' ],
+                [ 'label' => __( 'Overlay Background Color', 'notificationx' ), 'name' => 'exit_intent_overlay_color',    'type' => 'colorpicker', 'default' => 'rgba(0,0,0,0.5)' ],
+                [ 'label' => __( 'Close Button Color', 'notificationx' ),       'name' => 'exit_intent_close_color',      'type' => 'colorpicker', 'default' => '#666666' ],
+                [ 'label' => __( 'Close Button Size', 'notificationx' ),        'name' => 'exit_intent_close_size',       'type' => 'number',      'default' => 20, 'description' => 'px' ],
+
+                // Title
+                [ 'label' => __( 'Title Color', 'notificationx' ),       'name' => 'exit_intent_t3_title_color',       'type' => 'colorpicker', 'default' => '#1a1a2e' ],
+                [ 'label' => __( 'Title Font Size', 'notificationx' ),   'name' => 'exit_intent_t3_title_font_size',   'type' => 'number',      'default' => 26, 'description' => 'px' ],
+                [ 'label' => __( 'Title Font Weight', 'notificationx' ), 'name' => 'exit_intent_t3_title_font_weight', 'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
+
+                // Subtitle
+                [ 'label' => __( 'Subtitle Color', 'notificationx' ),     'name' => 'exit_intent_t3_subtitle_color',     'type' => 'colorpicker', 'default' => '#4a4a6a' ],
+                [ 'label' => __( 'Subtitle Font Size', 'notificationx' ), 'name' => 'exit_intent_t3_subtitle_font_size', 'type' => 'number',      'default' => 14, 'description' => 'px' ],
+
+                // Offer line
+                [ 'label' => __( 'Offer Color', 'notificationx' ),       'name' => 'exit_intent_t3_offer_color',       'type' => 'colorpicker', 'default' => '#e91e63' ],
+                [ 'label' => __( 'Offer Font Size', 'notificationx' ),   'name' => 'exit_intent_t3_offer_font_size',   'type' => 'number',      'default' => 18, 'description' => 'px' ],
+                [ 'label' => __( 'Offer Font Weight', 'notificationx' ), 'name' => 'exit_intent_t3_offer_font_weight', 'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
+
+                // Coupon block
+                [ 'label' => __( 'Coupon Block Background', 'notificationx' ),    'name' => 'exit_intent_t3_coupon_bg',            'type' => 'colorpicker', 'default' => '#fff7fb' ],
+                [ 'label' => __( 'Coupon Text Color', 'notificationx' ),          'name' => 'exit_intent_t3_coupon_color',         'type' => 'colorpicker', 'default' => '#1a1a2e' ],
+                [ 'label' => __( 'Coupon Font Size', 'notificationx' ),           'name' => 'exit_intent_t3_coupon_font_size',     'type' => 'number',      'default' => 14, 'description' => 'px' ],
+                [ 'label' => __( 'Coupon Block Border Radius', 'notificationx' ), 'name' => 'exit_intent_t3_coupon_border_radius', 'type' => 'number',      'default' => 8,  'description' => 'px' ],
+
+                // CTA button
+                [ 'label' => __( 'Button Background', 'notificationx' ),     'name' => 'exit_intent_t3_btn_bg',            'type' => 'colorpicker', 'default' => '#e91e63' ],
+                [ 'label' => __( 'Button Text Color', 'notificationx' ),     'name' => 'exit_intent_t3_btn_color',         'type' => 'colorpicker', 'default' => '#ffffff' ],
+                [ 'label' => __( 'Button Border Radius', 'notificationx' ),  'name' => 'exit_intent_t3_btn_border_radius', 'type' => 'number',      'default' => 6, 'description' => 'px' ],
+                [ 'label' => __( 'Button Font Size', 'notificationx' ),      'name' => 'exit_intent_t3_btn_font_size',     'type' => 'number',      'default' => 14, 'description' => 'px' ],
+                [ 'label' => __( 'Button Font Weight', 'notificationx' ),    'name' => 'exit_intent_t3_btn_font_weight',   'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
+
+                // Dismiss link
+                [ 'label' => __( 'Dismiss Text Color', 'notificationx' ),     'name' => 'exit_intent_t3_dismiss_color',     'type' => 'colorpicker', 'default' => '#9a9aa8' ],
+                [ 'label' => __( 'Dismiss Font Size', 'notificationx' ),      'name' => 'exit_intent_t3_dismiss_font_size', 'type' => 'number',      'default' => 12, 'description' => 'px' ],
+        ];
+    }
+
+    /** ───────────────────────── Theme Four — Video Popup ───────────────────────── */
+    private function theme_four_design_fields() {
+        return [
+                // Container / overlay / close
+                [ 'label' => __( 'Popup Max Width', 'notificationx' ),          'name' => 'exit_intent_t4_max_width',     'type' => 'number',      'default' => 520, 'description' => 'px' ],
+                [ 'label' => __( 'Border Radius', 'notificationx' ),            'name' => 'exit_intent_t4_border_radius', 'type' => 'number',      'default' => 16,  'description' => 'px' ],
+                [ 'label' => __( 'Background Color', 'notificationx' ),         'name' => 'exit_intent_t4_bg_color',      'type' => 'colorpicker', 'default' => '#f4ecff' ],
+                [ 'label' => __( 'Overlay Background Color', 'notificationx' ), 'name' => 'exit_intent_overlay_color',    'type' => 'colorpicker', 'default' => 'rgba(0,0,0,0.5)' ],
+                [ 'label' => __( 'Close Button Color', 'notificationx' ),       'name' => 'exit_intent_close_color',      'type' => 'colorpicker', 'default' => '#666666' ],
+                [ 'label' => __( 'Close Button Size', 'notificationx' ),        'name' => 'exit_intent_close_size',       'type' => 'number',      'default' => 20, 'description' => 'px' ],
+
+                // Badge
+                [ 'label' => __( 'Badge Background', 'notificationx' ), 'name' => 'exit_intent_t4_badge_bg',        'type' => 'colorpicker', 'default' => '#ffffff' ],
+                [ 'label' => __( 'Badge Text Color', 'notificationx' ),'name' => 'exit_intent_t4_badge_color',     'type' => 'colorpicker', 'default' => '#6B21A8' ],
+                [ 'label' => __( 'Badge Font Size', 'notificationx' ), 'name' => 'exit_intent_t4_badge_font_size', 'type' => 'number',      'default' => 12, 'description' => 'px' ],
+
+                // Title
+                [ 'label' => __( 'Title Color', 'notificationx' ),       'name' => 'exit_intent_t4_title_color',       'type' => 'colorpicker', 'default' => '#1a1a2e' ],
+                [ 'label' => __( 'Title Font Size', 'notificationx' ),   'name' => 'exit_intent_t4_title_font_size',   'type' => 'number',      'default' => 24, 'description' => 'px' ],
+                [ 'label' => __( 'Title Font Weight', 'notificationx' ), 'name' => 'exit_intent_t4_title_font_weight', 'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
+
+                // Subtitle
+                [ 'label' => __( 'Subtitle Color', 'notificationx' ),     'name' => 'exit_intent_t4_subtitle_color',     'type' => 'colorpicker', 'default' => '#4a4a6a' ],
+                [ 'label' => __( 'Subtitle Font Size', 'notificationx' ), 'name' => 'exit_intent_t4_subtitle_font_size', 'type' => 'number',      'default' => 14, 'description' => 'px' ],
+
+                // Video wrap + play icon
+                [ 'label' => __( 'Video Wrapper Background', 'notificationx' ),    'name' => 'exit_intent_t4_video_bg',     'type' => 'colorpicker', 'default' => '#000000' ],
+                [ 'label' => __( 'Video Wrapper Border Radius', 'notificationx' ), 'name' => 'exit_intent_t4_video_radius', 'type' => 'number',      'default' => 12, 'description' => 'px' ],
+                [ 'label' => __( 'Play Icon Background', 'notificationx' ),        'name' => 'exit_intent_t4_play_bg',      'type' => 'colorpicker', 'default' => '#ffffff' ],
+                [ 'label' => __( 'Play Icon Color', 'notificationx' ),             'name' => 'exit_intent_t4_play_color',   'type' => 'colorpicker', 'default' => '#1a1a2e' ],
+        ];
+    }
+
+    /** ───────────────────────── Theme Five — Live Flash Sale ───────────────────────── */
+    private function theme_five_design_fields() {
+        return [
+                // Container / overlay / close
+                [ 'label' => __( 'Popup Max Width', 'notificationx' ),          'name' => 'exit_intent_t5_max_width',     'type' => 'number',      'default' => 760, 'description' => 'px' ],
+                [ 'label' => __( 'Border Radius', 'notificationx' ),            'name' => 'exit_intent_t5_border_radius', 'type' => 'number',      'default' => 12,  'description' => 'px' ],
+                [ 'label' => __( 'Left Panel Background', 'notificationx' ),    'name' => 'exit_intent_t5_bg_color',      'type' => 'colorpicker', 'default' => '#ffffff' ],
+                [ 'label' => __( 'Overlay Background Color', 'notificationx' ), 'name' => 'exit_intent_overlay_color',    'type' => 'colorpicker', 'default' => 'rgba(0,0,0,0.6)' ],
+                [ 'label' => __( 'Close Button Color', 'notificationx' ),       'name' => 'exit_intent_close_color',      'type' => 'colorpicker', 'default' => '#666666' ],
+                [ 'label' => __( 'Close Button Size', 'notificationx' ),        'name' => 'exit_intent_close_size',       'type' => 'number',      'default' => 20, 'description' => 'px' ],
+
+                // Title
+                [ 'label' => __( 'Title Color', 'notificationx' ),       'name' => 'exit_intent_t5_title_color',       'type' => 'colorpicker', 'default' => '#1a1a2e' ],
+                [ 'label' => __( 'Title Font Size', 'notificationx' ),   'name' => 'exit_intent_t5_title_font_size',   'type' => 'number',      'default' => 18, 'description' => 'px' ],
+                [ 'label' => __( 'Title Font Weight', 'notificationx' ), 'name' => 'exit_intent_t5_title_font_weight', 'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
+
+                // Headline
+                [ 'label' => __( 'Headline Color', 'notificationx' ),       'name' => 'exit_intent_t5_headline_color',       'type' => 'colorpicker', 'default' => '#1a1a2e' ],
+                [ 'label' => __( 'Headline Font Size', 'notificationx' ),   'name' => 'exit_intent_t5_headline_font_size',   'type' => 'number',      'default' => 56, 'description' => 'px' ],
+                [ 'label' => __( 'Headline Font Weight', 'notificationx' ), 'name' => 'exit_intent_t5_headline_font_weight', 'type' => 'select',      'default' => '800',
+                  'options' => $this->font_weight_options() ],
+
+                // Description
+                [ 'label' => __( 'Description Color', 'notificationx' ),     'name' => 'exit_intent_t5_desc_color',     'type' => 'colorpicker', 'default' => '#4a4a6a' ],
+                [ 'label' => __( 'Description Font Size', 'notificationx' ), 'name' => 'exit_intent_t5_desc_font_size', 'type' => 'number',      'default' => 14, 'description' => 'px' ],
+
+                // Countdown label + numbers + unit labels
+                [ 'label' => __( 'Countdown Label Color', 'notificationx' ),         'name' => 'exit_intent_t5_cd_label_color',     'type' => 'colorpicker', 'default' => '#1a1a2e',
+                  'rules' => Rules::is( 'exit_intent_t5_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Label Font Size', 'notificationx' ),     'name' => 'exit_intent_t5_cd_label_font_size', 'type' => 'number',      'default' => 12, 'description' => 'px',
+                  'rules' => Rules::is( 'exit_intent_t5_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Number Background', 'notificationx' ),   'name' => 'exit_intent_t5_cd_num_bg',          'type' => 'colorpicker', 'default' => '#fff0f5',
+                  'rules' => Rules::is( 'exit_intent_t5_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Number Color', 'notificationx' ),        'name' => 'exit_intent_t5_cd_num_color',       'type' => 'colorpicker', 'default' => '#e91e63',
+                  'rules' => Rules::is( 'exit_intent_t5_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Number Font Size', 'notificationx' ),    'name' => 'exit_intent_t5_cd_num_font_size',   'type' => 'number',      'default' => 22, 'description' => 'px',
+                  'rules' => Rules::is( 'exit_intent_t5_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Number Border Radius', 'notificationx' ),'name' => 'exit_intent_t5_cd_num_radius',      'type' => 'number',      'default' => 6,  'description' => 'px',
+                  'rules' => Rules::is( 'exit_intent_t5_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Unit Label Color', 'notificationx' ),    'name' => 'exit_intent_t5_cd_unit_color',      'type' => 'colorpicker', 'default' => '#4a4a6a',
+                  'rules' => Rules::is( 'exit_intent_t5_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Unit Label Font Size', 'notificationx' ),'name' => 'exit_intent_t5_cd_unit_font_size',  'type' => 'number',      'default' => 11, 'description' => 'px',
+                  'rules' => Rules::is( 'exit_intent_t5_show_timer', true ) ],
+
+                // CTA button
+                [ 'label' => __( 'Button Background', 'notificationx' ),     'name' => 'exit_intent_t5_btn_bg',            'type' => 'colorpicker', 'default' => '#e91e63' ],
+                [ 'label' => __( 'Button Text Color', 'notificationx' ),     'name' => 'exit_intent_t5_btn_color',         'type' => 'colorpicker', 'default' => '#ffffff' ],
+                [ 'label' => __( 'Button Border Radius', 'notificationx' ),  'name' => 'exit_intent_t5_btn_border_radius', 'type' => 'number',      'default' => 6, 'description' => 'px' ],
+                [ 'label' => __( 'Button Font Size', 'notificationx' ),      'name' => 'exit_intent_t5_btn_font_size',     'type' => 'number',      'default' => 14, 'description' => 'px' ],
+                [ 'label' => __( 'Button Font Weight', 'notificationx' ),    'name' => 'exit_intent_t5_btn_font_weight',   'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
+
+                // Dismiss link
+                [ 'label' => __( 'Dismiss Text Color', 'notificationx' ),     'name' => 'exit_intent_t5_dismiss_color',     'type' => 'colorpicker', 'default' => '#9a9aa8' ],
+                [ 'label' => __( 'Dismiss Font Size', 'notificationx' ),      'name' => 'exit_intent_t5_dismiss_font_size', 'type' => 'number',      'default' => 12, 'description' => 'px' ],
+        ];
     }
 
     public function customize_fields( $fields ) {
