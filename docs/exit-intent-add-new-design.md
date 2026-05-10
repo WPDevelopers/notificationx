@@ -1,8 +1,8 @@
 # Adding a New Design (Theme) to the Exit Intent Popup
 
-This guide is a **companion to** [exit-intent-popup.md](exit-intent-popup.md), which documents the existing feature (data flow, trigger mechanism, and existing themes `theme-one` … `theme-four`). Read that first.
+This guide is a **companion to** [exit-intent-popup.md](exit-intent-popup.md), which documents the existing feature (data flow, trigger mechanism, and existing themes `theme-one` … `theme-five`). Read that first.
 
-This document is a step-by-step **how-to** for adding a fifth design — what to touch, in what order, and what to leave alone.
+This document is a step-by-step **how-to** for adding a new design (e.g. `theme-six`) — what to touch, in what order, and what to leave alone. The examples below use `theme-five` placeholders for readability, but the same shape applies to any subsequent theme; just bump the slug, prefix (`t6_*`), and SVG filename.
 
 ---
 
@@ -26,12 +26,12 @@ The factory wiring at [includes/Types/TypesFactory.php](../includes/Types/TypesF
 
 Match what existing themes do (see [exit-intent-popup.md](exit-intent-popup.md) for full field tables):
 
-- **Theme key:** `theme-five` (used in the React `theme === '...'` check and in field rules)
-- **Theme rules selector:** `Rules::is('themes', 'exit_intent_custom_theme-five')`
-- **Field name prefix:** `exit_intent_` for shared fields, `exit_intent_t5_*` for theme-specific ones (mirroring the existing `t3_*` / `t4_*` pattern)
-- **CSS root class:** `.nx-exit-intent-popup.nx-exit-intent-theme-five`
-- **Per-theme content section ID:** `exit_intent_theme_five_section`
-- **SVG filename:** `exit-intent-theme-five.svg`
+- **Theme key:** `theme-six` (used in the React `theme === '...'` check and in field rules)
+- **Theme rules selector:** `Rules::is('themes', 'exit_intent_custom_theme-six')`
+- **Field name prefix:** `exit_intent_` for shared fields, `exit_intent_t6_*` for theme-specific ones (mirroring the existing `t3_*` / `t4_*` / `t5_*` pattern)
+- **CSS root class:** `.nx-exit-intent-popup.nx-exit-intent-theme-six`
+- **Per-theme content section ID:** `exit_intent_theme_six_section`
+- **SVG filename:** `exit-intent-theme-six.svg`
 
 ---
 
@@ -45,11 +45,11 @@ Match what existing themes do (see [exit-intent-popup.md](exit-intent-popup.md) 
 Add a new entry:
 
 ```php
-'theme-five' => [
-    'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-five.svg',
+'theme-six' => [
+    'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.svg',
     'defaults' => [
-        'exit_intent_t5_title'    => __( 'Don\'t leave yet!', 'notificationx' ),
-        'exit_intent_t5_subtitle' => __( 'Grab 20% off before you go.', 'notificationx' ),
+        'exit_intent_t6_title'    => __( 'Don\'t leave yet!', 'notificationx' ),
+        'exit_intent_t6_subtitle' => __( 'Grab 20% off before you go.', 'notificationx' ),
         'exit_intent_button_text' => __( 'Claim Offer', 'notificationx' ),
         // any other field keys your theme exposes
     ],
@@ -59,21 +59,23 @@ Add a new entry:
 
 > `source` is the preview SVG. Defaults populate the form on first load and must use the **same field names** you'll register in Step 2.
 
+> If your theme uses a date/time picker (e.g. for a sale-end timestamp like theme-five's `exit_intent_countdown_end`), use `'type' => 'date'` — that's the same field type the Custom Notification "Time" repeater field uses.
+
 ### Step 2 — Add content fields for the new theme
 
-Same file, `content_fields()`. Each existing theme has its own section gated by a theme rule. Mirror that pattern with a new section, e.g. `exit_intent_theme_five_section`:
+Same file, `content_fields()`. Each existing theme has its own section gated by a theme rule. Mirror that pattern with a new section, e.g. `exit_intent_theme_six_section`:
 
 ```php
-'exit_intent_theme_five_section' => [
-    'label'  => __( 'Theme Five Content', 'notificationx' ),
-    'rules'  => Rules::is( 'themes', 'exit_intent_custom_theme-five' ),
+'exit_intent_theme_six_section' => [
+    'label'  => __( 'Theme Six Content', 'notificationx' ),
+    'rules'  => Rules::is( 'themes', 'exit_intent_custom_theme-six' ),
     'fields' => [
-        'exit_intent_t5_title' => [
+        'exit_intent_t6_title' => [
             'label'    => __( 'Headline', 'notificationx' ),
             'type'     => 'text',
             'priority' => 10,
         ],
-        'exit_intent_t5_subtitle' => [
+        'exit_intent_t6_subtitle' => [
             'label'    => __( 'Subtitle', 'notificationx' ),
             'type'     => 'text',
             'priority' => 20,
@@ -91,14 +93,35 @@ Reuse shared keys (`exit_intent_button_text`, `exit_intent_image_url`, `exit_int
 
 ### Step 3 — Add design fields (optional)
 
-Same file, `design_fields()` (around line 442). If the new theme has unique stylable parts, add them inside a `Rules::is('themes', 'exit_intent_custom_theme-five')` block. Reuse existing keys where possible:
+Same file, `design_fields()`. The Advanced Design panel is **flat** — there is no per-theme sub-section. Each theme contributes a list of fields via a private helper (`theme_one_design_fields()`, `theme_two_design_fields()`, …), and `design_fields()` merges them into the global `advance_design_section.fields` with the theme rule attached to every field automatically:
 
-- Container: `exit_intent_max_width`, `exit_intent_border_radius`, `exit_intent_bg_color`, `exit_intent_overlay_color`
-- Button: `exit_intent_btn_bg`, `exit_intent_btn_hover_bg`, `exit_intent_btn_color`, `exit_intent_btn_border_radius`
-- Title typography: `exit_intent_title_color`, `exit_intent_title_font_size`, `exit_intent_title_font_weight`
-- Close button: `exit_intent_close_color`, `exit_intent_close_size`
+```php
+private function theme_six_design_fields() {
+    return [
+        // Container
+        [ 'label' => __( 'Popup Max Width', 'notificationx' ), 'name' => 'exit_intent_t6_max_width',     'type' => 'number',      'default' => 540, 'description' => 'px' ],
+        [ 'label' => __( 'Background Color', 'notificationx' ),'name' => 'exit_intent_t6_bg_color',      'type' => 'colorpicker', 'default' => '#ffffff' ],
+        [ 'label' => __( 'Overlay Color', 'notificationx' ),   'name' => 'exit_intent_overlay_color',    'type' => 'colorpicker', 'default' => 'rgba(0,0,0,0.5)' ],
+        [ 'label' => __( 'Close Color', 'notificationx' ),     'name' => 'exit_intent_close_color',      'type' => 'colorpicker', 'default' => '#666666' ],
+        [ 'label' => __( 'Close Size', 'notificationx' ),      'name' => 'exit_intent_close_size',       'type' => 'number',      'default' => 20, 'description' => 'px' ],
+        // Add typography / button / theme-specific elements as needed.
+    ];
+}
+```
 
-Full list in [exit-intent-popup.md § Advanced Design](exit-intent-popup.md#advanced-design-design-tab).
+Then register it inside `design_fields()` next to the existing `$merge` calls:
+
+```php
+$merge( 'theme-six', $this->theme_six_design_fields() );
+```
+
+The `$merge` closure handles three things automatically:
+
+1. **Theme rule** — wraps every field with `Rules::logicalRule( [ source==exit_intent_custom, advance_edit==true, themes==<source>_theme-six ] )`, so the controls only appear when that theme is selected and Advanced Edit is on.
+2. **Priority** — auto-assigns an incrementing priority starting at `20`. Custom CSS sits at priority `150`, so theme controls naturally render above it. Don't set your own `priority` ≥ 150 unless you intentionally want a field below Custom CSS.
+3. **Field name uniqueness** — each field is keyed by its `name` in the merged array; collisions overwrite, so reuse names only when you want true cross-theme sharing (e.g. `exit_intent_overlay_color`, `exit_intent_close_color`, `exit_intent_close_size`).
+
+Use existing shared keys where possible. Pseudo-state styling (`:hover`, `:focus`, `::placeholder`) is **not supported** — inline styles can't apply pseudo-selectors, so registering a `*_hover_bg` / `*_focus_color` field would be dead. If you need pseudo-state styling, render a scoped `<style>` block from React. Full list of existing fields per theme is in [exit-intent-popup.md § Advanced Design](exit-intent-popup.md#advanced-design-design-tab).
 
 ### Step 4 — Customize tab settings
 
@@ -108,24 +131,33 @@ Full list in [exit-intent-popup.md § Advanced Design](exit-intent-popup.md#adva
 
 **File:** [nxdev/notificationx/frontend/core/ExitIntentPopup.tsx](../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx)
 
-The component reads `settings = nxExitIntent.config` and dispatches by `theme`. Add a new branch:
+The component reads `settings = nxExitIntent.config` and dispatches by `theme`. Each theme branch builds inline `React.CSSProperties` objects gated by the shared `adv = !!settings.advance_edit` flag and attaches them to the matching elements. Add a new branch following that pattern:
 
 ```tsx
-if (theme === 'theme-five') {
+if (theme === 'theme-six') {
+    const popupStyle: React.CSSProperties = adv ? {
+        background:   s.exit_intent_t6_bg_color || undefined,
+        borderRadius: px(s.exit_intent_t6_border_radius),
+        maxWidth:     px(s.exit_intent_t6_max_width),
+    } : {};
+    const overlayStyle: React.CSSProperties = adv
+        ? { background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.5)' } : {};
+    // titleStyle, btnStyle, etc. — follow the pattern in the other branches
+
     return (
-        <div className="nx-exit-intent-overlay" onClick={handleOverlayClose}>
+        <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
             <div
-                className="nx-exit-intent-popup nx-exit-intent-theme-five"
-                onClick={(e) => e.stopPropagation()}
+                className={`nx-exit-intent-popup nx-exit-intent-theme-six nx-exit-intent-${settings?.nx_id}`}
+                style={popupStyle}
             >
-                {settings.show_close_button && (
-                    <button className="nx-exit-intent-close" onClick={handleClose}>×</button>
+                {showClose && (
+                    <button className="nx-exit-intent-close" style={closeStyle} onClick={handleClose} aria-label="Close">×</button>
                 )}
 
-                <h2 className="nx-exit-intent-t5-title">{settings.exit_intent_t5_title}</h2>
-                <p  className="nx-exit-intent-t5-subtitle">{settings.exit_intent_t5_subtitle}</p>
+                <h2 className="nx-exit-intent-t6-title">{settings.exit_intent_t6_title}</h2>
+                {/* …more theme-specific markup… */}
 
-                <button className="nx-exit-intent-t5-btn" onClick={handlePrimary}>
+                <button className="nx-exit-intent-t6-btn" onClick={handleClose}>
                     {settings.exit_intent_button_text}
                 </button>
             </div>
@@ -134,7 +166,7 @@ if (theme === 'theme-five') {
 }
 ```
 
-**Re-use existing handlers** (`handleClose`, the `videoPlaying` state from theme-four, the `useCountdown` hook from theme-two, etc.) — do not duplicate them.
+**Re-use existing handlers and helpers** (`handleClose`, the shared `closeStyle`, `px(...)`, the `videoPlaying` state from theme-four, the `useCountdown` hook used by theme-five, etc.) — do not duplicate them. The `s` alias = `settings || {}` and `px(n)` = number → `"{n}px"` are defined at the top of the component.
 
 The session-storage dismissal key (`notificationx_exit_intent_{nx_id}`) and the one-shot-per-page-load `triggered` Set are handled in [useNotificationX.ts](../nxdev/notificationx/frontend/core/useNotificationX.ts) and need no changes.
 
@@ -142,10 +174,10 @@ The session-storage dismissal key (`notificationx_exit_intent_{nx_id}`) and the 
 
 **File:** [nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss](../nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss)
 
-Append a new block after the existing per-theme blocks (theme-four currently ends near line 657+):
+Append a new block after the existing per-theme blocks (theme-five is the last block currently):
 
 ```scss
-.nx-exit-intent-popup.nx-exit-intent-theme-five {
+.nx-exit-intent-popup.nx-exit-intent-theme-six {
     // layout, typography, button styling
 
     .nx-exit-intent-t5-title    { /* … */ }
@@ -165,7 +197,7 @@ Do **not** modify the shared `.nx-exit-intent-overlay` or base `.nx-exit-intent-
 Drop a new file at:
 
 ```
-assets/admin/images/extensions/themes/exit-intent/exit-intent-theme-five.svg
+assets/admin/images/extensions/themes/exit-intent/exit-intent-theme-six.svg
 ```
 
 Match the dimensions and visual language of the existing four SVGs (open them as reference) so the admin theme picker stays consistent. The path must match the `source` URL set in Step 1.
@@ -212,14 +244,14 @@ Compiled output lands in `nxbuild/public/js/frontend.js` and `nxbuild/public/css
 
 ```
 defaults (init_extension)
-   └─► content_fields  (Rules::is theme-five)
-   └─► design_fields   (Rules::is theme-five, optional)
+   └─► content_fields    (own section, Rules::is theme-six)
+   └─► design_fields     ($merge('theme-six', $this->theme_six_design_fields()) — flat, theme rule auto-applied)
         ↓
-   React branch:  if (theme === 'theme-five') { ... }
+   React branch:  if (theme === 'theme-six') { ... }
         ↓
-   SCSS block:    .nx-exit-intent-theme-five { ... }
+   SCSS block:    .nx-exit-intent-theme-six { ... }
         ↓
-   Preview SVG:   exit-intent-theme-five.svg
+   Preview SVG:   exit-intent-theme-six.svg
         ↓
    npm run build
 ```
