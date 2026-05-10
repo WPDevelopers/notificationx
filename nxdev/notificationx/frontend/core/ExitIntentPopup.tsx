@@ -347,6 +347,148 @@ const ExitIntentPopup = (props: any) => {
         );
     }
 
+    // ─── Theme Seven ──────────────────────────────────────────────────────────
+    if (theme === 'theme-seven') {
+        const headline      = s.exit_intent_t7_headline          || 'Home Is Where Your Story Begins';
+        const discountText  = s.exit_intent_t7_discount_text     || 'Get 15% Off Your First Order!';
+        const description   = s.exit_intent_t7_description       || 'Discover timeless pieces that turn any space into a sanctuary.';
+        const emailPlaceholder = s.exit_intent_t7_email_placeholder || 'Enter your email';
+        const buttonText    = s.exit_intent_button_text          || 'SEND COUPON';
+        const imageUrl      = s.exit_intent_image_url?.url || s.exit_intent_image_url || '';
+
+        const overlayStyle: React.CSSProperties = adv
+            ? { background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.5)' } : {};
+        const popupStyle: React.CSSProperties = adv ? {
+            background:   s.exit_intent_t7_bg_color   || undefined,
+            borderRadius: px(s.exit_intent_t7_border_radius),
+            maxWidth:     px(s.exit_intent_t7_max_width),
+        } : {};
+        const imagePanelStyle: React.CSSProperties = {
+            background: imageUrl
+                ? `${adv ? (s.exit_intent_t7_image_bg || '#534542') : '#534542'} center / cover no-repeat`
+                : (adv ? (s.exit_intent_t7_image_bg || undefined) : undefined),
+            backgroundImage: imageUrl ? `url(${imageUrl})` : undefined,
+        };
+        const headlineStyle: React.CSSProperties = adv ? {
+            color:      s.exit_intent_t7_headline_color       || undefined,
+            fontSize:   px(s.exit_intent_t7_headline_font_size),
+            fontWeight: s.exit_intent_t7_headline_font_weight || undefined,
+            fontFamily: s.exit_intent_t7_headline_font_family && s.exit_intent_t7_headline_font_family !== 'inherit'
+                ? s.exit_intent_t7_headline_font_family
+                : undefined,
+        } : {};
+        const discountStyle: React.CSSProperties = adv ? {
+            background:   s.exit_intent_t7_discount_bg     || undefined,
+            borderColor:  s.exit_intent_t7_discount_border || undefined,
+            color:        s.exit_intent_t7_discount_color  || undefined,
+            fontSize:     px(s.exit_intent_t7_discount_font_size),
+            borderRadius: px(s.exit_intent_t7_discount_radius),
+        } : {};
+        const descStyle: React.CSSProperties = adv ? {
+            color:    s.exit_intent_t7_desc_color || undefined,
+            fontSize: px(s.exit_intent_t7_desc_font_size),
+        } : {};
+        const inputStyle: React.CSSProperties = adv ? {
+            background:   s.exit_intent_t7_input_bg            || undefined,
+            borderColor:  s.exit_intent_t7_input_border_color  || undefined,
+            borderRadius: px(s.exit_intent_t7_input_border_radius),
+            color:        s.exit_intent_t7_input_text_color    || undefined,
+        } : {};
+        const btnStyle: React.CSSProperties = adv ? {
+            background:   s.exit_intent_t7_btn_bg            || undefined,
+            color:        s.exit_intent_t7_btn_color         || undefined,
+            borderRadius: px(s.exit_intent_t7_btn_border_radius),
+            fontSize:     px(s.exit_intent_t7_btn_font_size),
+            fontWeight:   s.exit_intent_t7_btn_font_weight   || undefined,
+        } : {};
+
+        const handleT7Submit = (e: React.FormEvent) => {
+            e.preventDefault();
+            if (submitting) return;
+            if (!rest) { handleClose(); return; }
+
+            setSubmitting(true);
+            (async () => {
+                try {
+                    const payload: Record<string, any> = {
+                        nx_id: String(settings?.nx_id || ''),
+                        theme: settings?.themes        || '',
+                        title: headline,
+                    };
+                    if (email) payload.email = email;
+                    const submitUrl = nxHelper.getPath(rest, 'popup-submit');
+                    await nxHelper.post(submitUrl, payload, { credentials: 'same-origin' });
+                    setSubmitted(true);
+                    setTimeout(() => handleClose(), 2500);
+                } catch {
+                    handleClose();
+                } finally {
+                    setSubmitting(false);
+                }
+            })();
+        };
+
+        return (
+            <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+                <div
+                    className={`nx-exit-intent-popup nx-exit-intent-theme-seven nx-exit-intent-${settings?.nx_id}`}
+                    style={popupStyle}
+                >
+                    {showClose && (
+                        <button className="nx-exit-intent-close" style={closeStyle} onClick={handleClose} aria-label="Close">
+                            &times;
+                        </button>
+                    )}
+
+                    <div className="nx-exit-intent-t7-left" style={imagePanelStyle} aria-hidden="true" />
+
+                    <div className="nx-exit-intent-t7-right">
+                        <h2 className="nx-exit-intent-t7-headline" style={headlineStyle}>{headline}</h2>
+
+                        {discountText && (
+                            <div className="nx-exit-intent-t7-discount" style={discountStyle}>
+                                {discountText}
+                            </div>
+                        )}
+
+                        {description && (
+                            <p className="nx-exit-intent-t7-desc" style={descStyle}>{description}</p>
+                        )}
+
+                        {submitted ? (
+                            <div className="nx-exit-intent-t7-success" style={{ color: discountStyle.color }}>
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                                    <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                                <span>Thank you! Check your inbox for the coupon.</span>
+                            </div>
+                        ) : (
+                            <form className="nx-exit-intent-t7-form" onSubmit={handleT7Submit}>
+                                <input
+                                    type="email"
+                                    className="nx-exit-intent-t7-input"
+                                    style={inputStyle}
+                                    placeholder={emailPlaceholder}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                                <button
+                                    type="submit"
+                                    className="nx-exit-intent-t7-btn"
+                                    style={btnStyle}
+                                    disabled={submitting}
+                                >
+                                    {submitting ? '...' : buttonText}
+                                </button>
+                            </form>
+                        )}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     // ─── Theme Six ────────────────────────────────────────────────────────────
     if (theme === 'theme-six') {
         const t6Title        = s.exit_intent_t6_title           || 'Limited Edition Bass Boost Headphones';

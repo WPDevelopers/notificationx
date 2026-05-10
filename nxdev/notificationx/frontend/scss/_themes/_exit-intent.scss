@@ -1284,6 +1284,179 @@
     }
 }
 
+// ─── Theme Seven ──────────────────────────────────────────────────────────────
+
+.nx-exit-intent-popup.nx-exit-intent-theme-seven {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 750px;
+    max-width: calc(100% - 32px);
+    min-height: 400px;
+    background: #413532;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 0;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+    .nx-exit-intent-close {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        z-index: 3;
+        background: none;
+        border: none;
+        font-size: 26px;
+        line-height: 1;
+        color: #f3d5a2;
+        cursor: pointer;
+        padding: 0 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.15s;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    .nx-exit-intent-t7-left {
+        background: #534542 center / cover no-repeat;
+        min-height: 400px;
+    }
+
+    .nx-exit-intent-t7-right {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        background: #413532;
+        box-sizing: border-box;
+    }
+
+    .nx-exit-intent-t7-headline {
+        margin: 0 0 16px;
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 36px;
+        color: #f3d5a2;
+    }
+
+    .nx-exit-intent-t7-discount {
+        margin: 0 0 16px;
+        padding: 7px 17px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 2px;
+        color: #f3d5a2;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        line-height: 24px;
+        box-sizing: border-box;
+    }
+
+    .nx-exit-intent-t7-desc {
+        margin: 0 0 24px;
+        max-width: 320px;
+        font-size: 16px;
+        line-height: 24px;
+        color: rgba(243, 213, 162, 0.9);
+    }
+
+    .nx-exit-intent-t7-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+    }
+
+    .nx-exit-intent-t7-input {
+        width: 100%;
+        padding: 10px 13px 11px;
+        background: #ffffff;
+        border: 1px solid #6b7280;
+        border-radius: 0;
+        font-size: 14px;
+        line-height: normal;
+        color: #1f2937;
+        outline: none;
+        box-sizing: border-box;
+
+        &::placeholder {
+            color: rgba(31, 41, 55, 0.6);
+        }
+
+        &:focus {
+            border-color: #f3d5a2;
+        }
+    }
+
+    .nx-exit-intent-t7-btn {
+        width: 100%;
+        padding: 12px 24px;
+        background: #f3d5a2;
+        color: #4d3e3e;
+        border: none;
+        border-radius: 0;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 20px;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-sizing: border-box;
+        transition: background 0.15s, transform 0.15s;
+
+        &:hover:not(:disabled) {
+            background: #ecc888;
+            transform: translateY(-1px);
+        }
+
+        &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+    }
+
+    .nx-exit-intent-t7-success {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        color: #f3d5a2;
+        font-size: 14px;
+        line-height: 20px;
+    }
+}
+
+@media (max-width: 720px) {
+    .nx-exit-intent-popup.nx-exit-intent-theme-seven {
+        grid-template-columns: 1fr;
+        width: 100%;
+        max-width: calc(100% - 24px);
+        min-height: 0;
+
+        .nx-exit-intent-t7-left {
+            min-height: 180px;
+        }
+
+        .nx-exit-intent-t7-right {
+            padding: 28px 24px;
+        }
+
+        .nx-exit-intent-t7-headline {
+            font-size: 24px;
+            line-height: 30px;
+        }
+    }
+}
+
 @media (max-width: 600px) {
     .nx-exit-intent-popup.nx-exit-intent-theme-six {
         padding: 32px 20px;

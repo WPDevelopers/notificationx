@@ -110,6 +110,19 @@ class ExitIntentNotification extends Extension {
                 ],
                 'column' => '5',
             ],
+            'theme-seven' => [
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-seven.svg',
+                'defaults' => [
+                    'exit_intent_t7_headline'      => __( 'Home Is Where Your Story Begins', 'notificationx' ),
+                    'exit_intent_t7_discount_text' => __( 'Get 15% Off Your First Order!', 'notificationx' ),
+                    'exit_intent_t7_description'   => __( 'Discover timeless pieces that turn any space into a sanctuary.', 'notificationx' ),
+                    'exit_intent_t7_email_placeholder' => __( 'Enter your email', 'notificationx' ),
+                    'exit_intent_button_text'      => __( 'SEND COUPON', 'notificationx' ),
+                    'exit_intent_image_url'        => [],
+                    'position'                     => 'center',
+                ],
+                'column' => '5',
+            ],
             'theme-six' => [
                 'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.svg',
                 'defaults' => [
@@ -474,6 +487,63 @@ class ExitIntentNotification extends Extension {
             ],
         ];
 
+        // ── Theme Seven content fields ───────────────────────────────────────────
+        $fields['exit_intent_theme_seven_section'] = [
+            'label'    => __( 'Exit Intent Content', 'notificationx' ),
+            'name'     => 'exit_intent_theme_seven_section',
+            'type'     => 'section',
+            'priority' => 5,
+            'rules'    => Rules::logicalRule( [
+                Rules::is( 'source', $this->id ),
+                Rules::is( 'themes', $this->id . '_theme-seven' ),
+            ] ),
+            'fields'   => [
+                [
+                    'label'    => __( 'Left Panel Image', 'notificationx' ),
+                    'name'     => 'exit_intent_image_url',
+                    'type'     => 'media',
+                    'priority' => 5,
+                    'default'  => [],
+                    'help'     => __( 'Upload or select the image to display in the left panel.', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Headline', 'notificationx' ),
+                    'name'     => 'exit_intent_t7_headline',
+                    'type'     => 'text',
+                    'priority' => 10,
+                    'default'  => __( 'Home Is Where Your Story Begins', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Discount Banner Text', 'notificationx' ),
+                    'name'     => 'exit_intent_t7_discount_text',
+                    'type'     => 'text',
+                    'priority' => 20,
+                    'default'  => __( 'Get 15% Off Your First Order!', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Description', 'notificationx' ),
+                    'name'     => 'exit_intent_t7_description',
+                    'type'     => 'text',
+                    'priority' => 30,
+                    'default'  => __( 'Discover timeless pieces that turn any space into a sanctuary.', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Email Placeholder', 'notificationx' ),
+                    'name'     => 'exit_intent_t7_email_placeholder',
+                    'type'     => 'text',
+                    'priority' => 40,
+                    'default'  => __( 'Enter your email', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Button Text', 'notificationx' ),
+                    'name'     => 'exit_intent_button_text',
+                    'type'     => 'text',
+                    'priority' => 50,
+                    'default'  => __( 'SEND COUPON', 'notificationx' ),
+                ],
+            ],
+        ];
+
         // ── Theme Six content fields ─────────────────────────────────────────────
         $fields['exit_intent_theme_six_section'] = [
             'label'    => __( 'Exit Intent Content', 'notificationx' ),
@@ -593,6 +663,7 @@ class ExitIntentNotification extends Extension {
                 Rules::is( 'themes', $this->id . '_theme-four',  true ),
                 Rules::is( 'themes', $this->id . '_theme-five',  true ),
                 Rules::is( 'themes', $this->id . '_theme-six',   true ),
+                Rules::is( 'themes', $this->id . '_theme-seven', true ),
             ] ),
             'fields'   => [
                 // ── Main copy ────────────────────────────────────────────
@@ -710,6 +781,7 @@ class ExitIntentNotification extends Extension {
         $merge( 'theme-four',  $this->theme_four_design_fields() );
         $merge( 'theme-five',  $this->theme_five_design_fields() );
         $merge( 'theme-six',   $this->theme_six_design_fields() );
+        $merge( 'theme-seven', $this->theme_seven_design_fields() );
 
         return $fields;
     }
@@ -1001,6 +1073,64 @@ class ExitIntentNotification extends Extension {
                 [ 'label' => __( 'Button Border Radius', 'notificationx' ),  'name' => 'exit_intent_t6_btn_border_radius', 'type' => 'number',      'default' => 4, 'description' => 'px' ],
                 [ 'label' => __( 'Button Font Size', 'notificationx' ),      'name' => 'exit_intent_t6_btn_font_size',     'type' => 'number',      'default' => 24, 'description' => 'px' ],
                 [ 'label' => __( 'Button Font Weight', 'notificationx' ),    'name' => 'exit_intent_t6_btn_font_weight',   'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
+        ];
+    }
+
+    /** ───────────────────────── Theme Seven — Lead Capture w/ Image ───────────────────────── */
+    private function theme_seven_design_fields() {
+        $font_family_options = GlobalFields::get_instance()->normalize_fields( [
+            'inherit'                                          => __( 'Default (inherit)', 'notificationx' ),
+            "'Playfair Display', Georgia, serif"               => __( 'Playfair Display (serif)', 'notificationx' ),
+            "Georgia, 'Times New Roman', serif"                => __( 'Georgia (serif)', 'notificationx' ),
+            "'Times New Roman', Times, serif"                  => __( 'Times New Roman (serif)', 'notificationx' ),
+            "Inter, 'Helvetica Neue', Arial, sans-serif"       => __( 'Inter (sans-serif)', 'notificationx' ),
+            "'Helvetica Neue', Helvetica, Arial, sans-serif"   => __( 'Helvetica (sans-serif)', 'notificationx' ),
+        ] );
+
+        return [
+                // Container / overlay / close
+                [ 'label' => __( 'Popup Max Width', 'notificationx' ),          'name' => 'exit_intent_t7_max_width',     'type' => 'number',      'default' => 750, 'description' => 'px' ],
+                [ 'label' => __( 'Border Radius', 'notificationx' ),            'name' => 'exit_intent_t7_border_radius', 'type' => 'number',      'default' => 12,  'description' => 'px' ],
+                [ 'label' => __( 'Background Color', 'notificationx' ),         'name' => 'exit_intent_t7_bg_color',      'type' => 'colorpicker', 'default' => '#413532',
+                  'help'  => __( 'Right (content) panel background.', 'notificationx' ) ],
+                [ 'label' => __( 'Image Panel Background', 'notificationx' ),   'name' => 'exit_intent_t7_image_bg',      'type' => 'colorpicker', 'default' => '#534542',
+                  'help'  => __( 'Shown behind the image (visible only if the image leaves transparent areas or fails to load).', 'notificationx' ) ],
+                [ 'label' => __( 'Overlay Background Color', 'notificationx' ), 'name' => 'exit_intent_overlay_color',    'type' => 'colorpicker', 'default' => 'rgba(0,0,0,0.5)' ],
+                [ 'label' => __( 'Close Button Color', 'notificationx' ),       'name' => 'exit_intent_close_color',      'type' => 'colorpicker', 'default' => '#f3d5a2' ],
+                [ 'label' => __( 'Close Button Size', 'notificationx' ),        'name' => 'exit_intent_close_size',       'type' => 'number',      'default' => 22, 'description' => 'px' ],
+
+                // Headline
+                [ 'label' => __( 'Headline Color', 'notificationx' ),       'name' => 'exit_intent_t7_headline_color',       'type' => 'colorpicker', 'default' => '#f3d5a2' ],
+                [ 'label' => __( 'Headline Font Size', 'notificationx' ),   'name' => 'exit_intent_t7_headline_font_size',   'type' => 'number',      'default' => 30, 'description' => 'px' ],
+                [ 'label' => __( 'Headline Font Weight', 'notificationx' ), 'name' => 'exit_intent_t7_headline_font_weight', 'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
+                [ 'label' => __( 'Headline Font Family', 'notificationx' ), 'name' => 'exit_intent_t7_headline_font_family', 'type' => 'select',      'default' => "'Playfair Display', Georgia, serif",
+                  'options' => $font_family_options ],
+
+                // Discount banner
+                [ 'label' => __( 'Discount Banner Background', 'notificationx' ),    'name' => 'exit_intent_t7_discount_bg',           'type' => 'colorpicker', 'default' => 'rgba(255,255,255,0.1)' ],
+                [ 'label' => __( 'Discount Banner Border Color', 'notificationx' ),  'name' => 'exit_intent_t7_discount_border',       'type' => 'colorpicker', 'default' => 'rgba(255,255,255,0.05)' ],
+                [ 'label' => __( 'Discount Banner Text Color', 'notificationx' ),    'name' => 'exit_intent_t7_discount_color',        'type' => 'colorpicker', 'default' => '#f3d5a2' ],
+                [ 'label' => __( 'Discount Banner Font Size', 'notificationx' ),     'name' => 'exit_intent_t7_discount_font_size',    'type' => 'number',      'default' => 16, 'description' => 'px' ],
+                [ 'label' => __( 'Discount Banner Border Radius', 'notificationx' ), 'name' => 'exit_intent_t7_discount_radius',       'type' => 'number',      'default' => 2,  'description' => 'px' ],
+
+                // Description
+                [ 'label' => __( 'Description Color', 'notificationx' ),     'name' => 'exit_intent_t7_desc_color',     'type' => 'colorpicker', 'default' => 'rgba(243,213,162,0.9)' ],
+                [ 'label' => __( 'Description Font Size', 'notificationx' ), 'name' => 'exit_intent_t7_desc_font_size', 'type' => 'number',      'default' => 16, 'description' => 'px' ],
+
+                // Email input
+                [ 'label' => __( 'Input Background Color', 'notificationx' ),    'name' => 'exit_intent_t7_input_bg',           'type' => 'colorpicker', 'default' => '#ffffff' ],
+                [ 'label' => __( 'Input Border Color', 'notificationx' ),        'name' => 'exit_intent_t7_input_border_color', 'type' => 'colorpicker', 'default' => '#6b7280' ],
+                [ 'label' => __( 'Input Border Radius', 'notificationx' ),       'name' => 'exit_intent_t7_input_border_radius','type' => 'number',      'default' => 0, 'description' => 'px' ],
+                [ 'label' => __( 'Input Text Color', 'notificationx' ),          'name' => 'exit_intent_t7_input_text_color',   'type' => 'colorpicker', 'default' => '#1f2937' ],
+
+                // CTA button
+                [ 'label' => __( 'Button Background', 'notificationx' ),     'name' => 'exit_intent_t7_btn_bg',            'type' => 'colorpicker', 'default' => '#f3d5a2' ],
+                [ 'label' => __( 'Button Text Color', 'notificationx' ),     'name' => 'exit_intent_t7_btn_color',         'type' => 'colorpicker', 'default' => '#4d3e3e' ],
+                [ 'label' => __( 'Button Border Radius', 'notificationx' ),  'name' => 'exit_intent_t7_btn_border_radius', 'type' => 'number',      'default' => 0, 'description' => 'px' ],
+                [ 'label' => __( 'Button Font Size', 'notificationx' ),      'name' => 'exit_intent_t7_btn_font_size',     'type' => 'number',      'default' => 14, 'description' => 'px' ],
+                [ 'label' => __( 'Button Font Weight', 'notificationx' ),    'name' => 'exit_intent_t7_btn_font_weight',   'type' => 'select',      'default' => '700',
                   'options' => $this->font_weight_options() ],
         ];
     }
