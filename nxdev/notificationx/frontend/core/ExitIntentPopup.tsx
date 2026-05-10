@@ -54,9 +54,9 @@ const ExitIntentPopup = (props: any) => {
     const adv       = !!settings?.advance_edit;
     const s         = settings || {};
 
-    // Theme-five fallback duration so timer ticks even without an end date.
-    const t5FallbackMs = ((1 * 24 + 14) * 3600 + 30 * 60 + 26) * 1000;
-    const fallbackDuration = theme === 'theme-five' ? t5FallbackMs : undefined;
+    // Fallback duration so the timer ticks even without an end date (themes that show a countdown).
+    const cdFallbackMs = ((2 * 24 + 14) * 3600 + 30 * 60 + 21) * 1000;
+    const fallbackDuration = (theme === 'theme-five' || theme === 'theme-six') ? cdFallbackMs : undefined;
     const timeLeft = useCountdown(s.exit_intent_countdown_end || '', fallbackDuration);
 
     const handleClose = () => {
@@ -342,6 +342,116 @@ const ExitIntentPopup = (props: any) => {
                         className="nx-exit-intent-t5-right"
                         style={imageUrl ? { backgroundImage: `url(${imageUrl})` } : undefined}
                     />
+                </div>
+            </div>
+        );
+    }
+
+    // ─── Theme Six ────────────────────────────────────────────────────────────
+    if (theme === 'theme-six') {
+        const t6Title        = s.exit_intent_t6_title           || 'Limited Edition Bass Boost Headphones';
+        const showTimer      = s.exit_intent_t6_show_timer      !== false;
+        const countdownLabel = s.exit_intent_t6_countdown_label || 'Offer Ends In';
+        const daysLbl        = s.exit_intent_t6_days_label      || 'DAYS';
+        const hoursLbl       = s.exit_intent_t6_hours_label     || 'HOURS';
+        const minutesLbl     = s.exit_intent_t6_minutes_label   || 'MIN';
+        const secondsLbl     = s.exit_intent_t6_seconds_label   || 'SEC';
+        const buttonText     = s.exit_intent_button_text        || 'Grab Now';
+        const imageUrl       = s.exit_intent_image_url?.url || s.exit_intent_image_url || '';
+
+        const bgStart = (adv && s.exit_intent_t6_bg_start) || '#ffffff';
+        const bgMid   = (adv && s.exit_intent_t6_bg_mid)   || '#fdf2f8';
+        const bgEnd   = (adv && s.exit_intent_t6_bg_end)   || '#f5f3ff';
+
+        const overlayStyle: React.CSSProperties = adv
+            ? { background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.5)' } : {};
+        const popupStyle: React.CSSProperties = {
+            background:   `radial-gradient(circle at center, ${bgStart} 0%, ${bgMid} 50%, ${bgEnd} 100%)`,
+            borderRadius: adv ? px(s.exit_intent_t6_border_radius) : undefined,
+            maxWidth:     adv ? px(s.exit_intent_t6_max_width)     : undefined,
+        };
+        const titleStyle: React.CSSProperties = adv ? {
+            color:      s.exit_intent_t6_title_color       || undefined,
+            fontSize:   px(s.exit_intent_t6_title_font_size),
+            fontWeight: s.exit_intent_t6_title_font_weight || undefined,
+        } : {};
+        const cdLabelStyle: React.CSSProperties = adv ? {
+            color:    s.exit_intent_t6_cd_label_color || undefined,
+            fontSize: px(s.exit_intent_t6_cd_label_font_size),
+        } : {};
+        const cdNumStyle: React.CSSProperties = adv ? {
+            background:   s.exit_intent_t6_cd_num_bg     || undefined,
+            color:        s.exit_intent_t6_cd_num_color  || undefined,
+            fontSize:     px(s.exit_intent_t6_cd_num_font_size),
+            borderRadius: px(s.exit_intent_t6_cd_num_radius),
+        } : {};
+        const cdUnitStyle: React.CSSProperties = adv ? {
+            color:    s.exit_intent_t6_cd_unit_color || undefined,
+            fontSize: px(s.exit_intent_t6_cd_unit_font_size),
+        } : {};
+        const cdSepStyle: React.CSSProperties = adv ? {
+            fontSize: px(s.exit_intent_t6_cd_num_font_size),
+        } : {};
+        const btnStyle: React.CSSProperties = adv ? {
+            background:   s.exit_intent_t6_btn_bg            || undefined,
+            color:        s.exit_intent_t6_btn_color         || undefined,
+            borderRadius: px(s.exit_intent_t6_btn_border_radius),
+            fontSize:     px(s.exit_intent_t6_btn_font_size),
+            fontWeight:   s.exit_intent_t6_btn_font_weight   || undefined,
+        } : {};
+
+        const display = timeLeft || { days: 0, hours: 0, minutes: 0, seconds: 0 };
+        const unitMeta: Array<{ key: 'days' | 'hours' | 'minutes' | 'seconds'; lbl: string }> = [
+            { key: 'days',    lbl: daysLbl },
+            { key: 'hours',   lbl: hoursLbl },
+            { key: 'minutes', lbl: minutesLbl },
+            { key: 'seconds', lbl: secondsLbl },
+        ];
+
+        return (
+            <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+                <div
+                    className={`nx-exit-intent-popup nx-exit-intent-theme-six nx-exit-intent-${settings?.nx_id}`}
+                    style={popupStyle}
+                >
+                    {showClose && (
+                        <button className="nx-exit-intent-close" style={closeStyle} onClick={handleClose} aria-label="Close">
+                            &times;
+                        </button>
+                    )}
+
+                    {imageUrl && (
+                        <div className="nx-exit-intent-t6-image">
+                            <img src={imageUrl} alt="" />
+                        </div>
+                    )}
+
+                    <h2 className="nx-exit-intent-t6-title" style={titleStyle}>{t6Title}</h2>
+
+                    {showTimer && (
+                        <div className="nx-exit-intent-t6-countdown-wrap">
+                            <p className="nx-exit-intent-t6-countdown-label" style={cdLabelStyle}>{countdownLabel}</p>
+                            <div className="nx-exit-intent-t6-countdown">
+                                {unitMeta.map(({ key, lbl }, idx) => (
+                                    <React.Fragment key={key}>
+                                        {idx > 0 && (
+                                            <span className="nx-exit-intent-t6-countdown-sep" style={cdSepStyle} aria-hidden="true">:</span>
+                                        )}
+                                        <div className="nx-exit-intent-t6-countdown-unit">
+                                            <span className="nx-exit-intent-t6-countdown-num" style={cdNumStyle}>
+                                                {pad(display[key])}
+                                            </span>
+                                            <span className="nx-exit-intent-t6-countdown-lbl" style={cdUnitStyle}>{lbl}</span>
+                                        </div>
+                                    </React.Fragment>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    <button type="button" className="nx-exit-intent-t6-btn" style={btnStyle} onClick={handleClose}>
+                        {buttonText}
+                    </button>
                 </div>
             </div>
         );

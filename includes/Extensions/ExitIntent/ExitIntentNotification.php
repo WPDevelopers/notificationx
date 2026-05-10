@@ -110,6 +110,23 @@ class ExitIntentNotification extends Extension {
                 ],
                 'column' => '5',
             ],
+            'theme-six' => [
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.svg',
+                'defaults' => [
+                    'exit_intent_t6_title'           => __( 'Limited Edition Bass Boost Headphones', 'notificationx' ),
+                    'exit_intent_t6_show_timer'      => true,
+                    'exit_intent_t6_countdown_label' => __( 'Offer Ends In', 'notificationx' ),
+                    'exit_intent_countdown_end'      => '',
+                    'exit_intent_t6_days_label'      => __( 'DAYS', 'notificationx' ),
+                    'exit_intent_t6_hours_label'     => __( 'HOURS', 'notificationx' ),
+                    'exit_intent_t6_minutes_label'   => __( 'MIN', 'notificationx' ),
+                    'exit_intent_t6_seconds_label'   => __( 'SEC', 'notificationx' ),
+                    'exit_intent_button_text'        => __( 'Grab Now', 'notificationx' ),
+                    'exit_intent_image_url'          => [],
+                    'position'                       => 'center',
+                ],
+                'column' => '5',
+            ],
         ];
     }
 
@@ -457,6 +474,112 @@ class ExitIntentNotification extends Extension {
             ],
         ];
 
+        // ── Theme Six content fields ─────────────────────────────────────────────
+        $fields['exit_intent_theme_six_section'] = [
+            'label'    => __( 'Exit Intent Content', 'notificationx' ),
+            'name'     => 'exit_intent_theme_six_section',
+            'type'     => 'section',
+            'priority' => 5,
+            'rules'    => Rules::logicalRule( [
+                Rules::is( 'source', $this->id ),
+                Rules::is( 'themes', $this->id . '_theme-six' ),
+            ] ),
+            'fields'   => [
+                [
+                    'label'    => __( 'Product Image', 'notificationx' ),
+                    'name'     => 'exit_intent_image_url',
+                    'type'     => 'media',
+                    'priority' => 5,
+                    'default'  => [],
+                    'help'     => __( 'Upload or select the product image to display at the top of the popup.', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Headline', 'notificationx' ),
+                    'name'     => 'exit_intent_t6_title',
+                    'type'     => 'text',
+                    'priority' => 10,
+                    'default'  => __( 'Limited Edition Bass Boost Headphones', 'notificationx' ),
+                ],
+                [
+                    'label'    => __( 'Button Text', 'notificationx' ),
+                    'name'     => 'exit_intent_button_text',
+                    'type'     => 'text',
+                    'priority' => 60,
+                    'default'  => __( 'Grab Now', 'notificationx' ),
+                ],
+            ],
+        ];
+
+        // ── Theme Six Timer Settings ─────────────────────────────────────────────
+        $fields['exit_intent_theme_six_timer_section'] = [
+            'label'    => __( 'Timer Settings', 'notificationx' ),
+            'name'     => 'exit_intent_theme_six_timer_section',
+            'type'     => 'section',
+            'priority' => 6,
+            'rules'    => Rules::logicalRule( [
+                Rules::is( 'source', $this->id ),
+                Rules::is( 'themes', $this->id . '_theme-six' ),
+            ] ),
+            'fields'   => [
+                [
+                    'label'    => __( 'Show Countdown Timer', 'notificationx' ),
+                    'name'     => 'exit_intent_t6_show_timer',
+                    'type'     => 'toggle',
+                    'priority' => 5,
+                    'default'  => true,
+                ],
+                [
+                    'label'    => __( 'Countdown Label', 'notificationx' ),
+                    'name'     => 'exit_intent_t6_countdown_label',
+                    'type'     => 'text',
+                    'priority' => 10,
+                    'default'  => __( 'Offer Ends In', 'notificationx' ),
+                    'rules'    => Rules::is( 'exit_intent_t6_show_timer', true ),
+                ],
+                [
+                    'label'    => __( 'Sale End Date & Time', 'notificationx' ),
+                    'name'     => 'exit_intent_countdown_end',
+                    'type'     => 'date',
+                    'priority' => 20,
+                    'default'  => '',
+                    'help'     => __( 'Pick the date and time when the sale ends. Leave empty to display static demo numbers.', 'notificationx' ),
+                    'rules'    => Rules::is( 'exit_intent_t6_show_timer', true ),
+                ],
+                [
+                    'label'    => __( 'Days Label', 'notificationx' ),
+                    'name'     => 'exit_intent_t6_days_label',
+                    'type'     => 'text',
+                    'priority' => 30,
+                    'default'  => __( 'DAYS', 'notificationx' ),
+                    'rules'    => Rules::is( 'exit_intent_t6_show_timer', true ),
+                ],
+                [
+                    'label'    => __( 'Hours Label', 'notificationx' ),
+                    'name'     => 'exit_intent_t6_hours_label',
+                    'type'     => 'text',
+                    'priority' => 40,
+                    'default'  => __( 'HOURS', 'notificationx' ),
+                    'rules'    => Rules::is( 'exit_intent_t6_show_timer', true ),
+                ],
+                [
+                    'label'    => __( 'Minutes Label', 'notificationx' ),
+                    'name'     => 'exit_intent_t6_minutes_label',
+                    'type'     => 'text',
+                    'priority' => 50,
+                    'default'  => __( 'MIN', 'notificationx' ),
+                    'rules'    => Rules::is( 'exit_intent_t6_show_timer', true ),
+                ],
+                [
+                    'label'    => __( 'Seconds Label', 'notificationx' ),
+                    'name'     => 'exit_intent_t6_seconds_label',
+                    'type'     => 'text',
+                    'priority' => 60,
+                    'default'  => __( 'SEC', 'notificationx' ),
+                    'rules'    => Rules::is( 'exit_intent_t6_show_timer', true ),
+                ],
+            ],
+        ];
+
         // ── Theme One content fields ─────────────────────────────────────────────
         $fields['exit_intent_content_section'] = [
             'label'    => __( 'Exit Intent Content', 'notificationx' ),
@@ -469,6 +592,7 @@ class ExitIntentNotification extends Extension {
                 Rules::is( 'themes', $this->id . '_theme-three', true ),
                 Rules::is( 'themes', $this->id . '_theme-four',  true ),
                 Rules::is( 'themes', $this->id . '_theme-five',  true ),
+                Rules::is( 'themes', $this->id . '_theme-six',   true ),
             ] ),
             'fields'   => [
                 // ── Main copy ────────────────────────────────────────────
@@ -585,6 +709,7 @@ class ExitIntentNotification extends Extension {
         $merge( 'theme-three', $this->theme_three_design_fields() );
         $merge( 'theme-four',  $this->theme_four_design_fields() );
         $merge( 'theme-five',  $this->theme_five_design_fields() );
+        $merge( 'theme-six',   $this->theme_six_design_fields() );
 
         return $fields;
     }
@@ -828,6 +953,55 @@ class ExitIntentNotification extends Extension {
                 // Dismiss link
                 [ 'label' => __( 'Dismiss Text Color', 'notificationx' ),     'name' => 'exit_intent_t5_dismiss_color',     'type' => 'colorpicker', 'default' => '#9a9aa8' ],
                 [ 'label' => __( 'Dismiss Font Size', 'notificationx' ),      'name' => 'exit_intent_t5_dismiss_font_size', 'type' => 'number',      'default' => 12, 'description' => 'px' ],
+        ];
+    }
+
+    /** ───────────────────────── Theme Six — Product Countdown ───────────────────────── */
+    private function theme_six_design_fields() {
+        return [
+                // Container / overlay / close
+                [ 'label' => __( 'Popup Max Width', 'notificationx' ),          'name' => 'exit_intent_t6_max_width',     'type' => 'number',      'default' => 600, 'description' => 'px' ],
+                [ 'label' => __( 'Border Radius', 'notificationx' ),            'name' => 'exit_intent_t6_border_radius', 'type' => 'number',      'default' => 12,  'description' => 'px' ],
+                [ 'label' => __( 'Background Start Color', 'notificationx' ),   'name' => 'exit_intent_t6_bg_start',      'type' => 'colorpicker', 'default' => '#ffffff',
+                  'help'  => __( 'Center color of the radial background gradient.', 'notificationx' ) ],
+                [ 'label' => __( 'Background Mid Color', 'notificationx' ),     'name' => 'exit_intent_t6_bg_mid',        'type' => 'colorpicker', 'default' => '#fdf2f8' ],
+                [ 'label' => __( 'Background End Color', 'notificationx' ),     'name' => 'exit_intent_t6_bg_end',        'type' => 'colorpicker', 'default' => '#f5f3ff',
+                  'help'  => __( 'Outer color of the radial background gradient.', 'notificationx' ) ],
+                [ 'label' => __( 'Overlay Background Color', 'notificationx' ), 'name' => 'exit_intent_overlay_color',    'type' => 'colorpicker', 'default' => 'rgba(0,0,0,0.5)' ],
+                [ 'label' => __( 'Close Button Color', 'notificationx' ),       'name' => 'exit_intent_close_color',      'type' => 'colorpicker', 'default' => '#1f2937' ],
+                [ 'label' => __( 'Close Button Size', 'notificationx' ),        'name' => 'exit_intent_close_size',       'type' => 'number',      'default' => 20, 'description' => 'px' ],
+
+                // Title
+                [ 'label' => __( 'Title Color', 'notificationx' ),       'name' => 'exit_intent_t6_title_color',       'type' => 'colorpicker', 'default' => '#1f2937' ],
+                [ 'label' => __( 'Title Font Size', 'notificationx' ),   'name' => 'exit_intent_t6_title_font_size',   'type' => 'number',      'default' => 36, 'description' => 'px' ],
+                [ 'label' => __( 'Title Font Weight', 'notificationx' ), 'name' => 'exit_intent_t6_title_font_weight', 'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
+
+                // Countdown label + numbers + unit labels
+                [ 'label' => __( 'Countdown Label Color', 'notificationx' ),         'name' => 'exit_intent_t6_cd_label_color',     'type' => 'colorpicker', 'default' => '#4b5563',
+                  'rules' => Rules::is( 'exit_intent_t6_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Label Font Size', 'notificationx' ),     'name' => 'exit_intent_t6_cd_label_font_size', 'type' => 'number',      'default' => 18, 'description' => 'px',
+                  'rules' => Rules::is( 'exit_intent_t6_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Number Background', 'notificationx' ),   'name' => 'exit_intent_t6_cd_num_bg',          'type' => 'colorpicker', 'default' => '#f3e8f2',
+                  'rules' => Rules::is( 'exit_intent_t6_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Number Color', 'notificationx' ),        'name' => 'exit_intent_t6_cd_num_color',       'type' => 'colorpicker', 'default' => '#374151',
+                  'rules' => Rules::is( 'exit_intent_t6_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Number Font Size', 'notificationx' ),    'name' => 'exit_intent_t6_cd_num_font_size',   'type' => 'number',      'default' => 24, 'description' => 'px',
+                  'rules' => Rules::is( 'exit_intent_t6_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Number Border Radius', 'notificationx' ),'name' => 'exit_intent_t6_cd_num_radius',      'type' => 'number',      'default' => 2,  'description' => 'px',
+                  'rules' => Rules::is( 'exit_intent_t6_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Unit Label Color', 'notificationx' ),    'name' => 'exit_intent_t6_cd_unit_color',      'type' => 'colorpicker', 'default' => '#9f1239',
+                  'rules' => Rules::is( 'exit_intent_t6_show_timer', true ) ],
+                [ 'label' => __( 'Countdown Unit Label Font Size', 'notificationx' ),'name' => 'exit_intent_t6_cd_unit_font_size',  'type' => 'number',      'default' => 12, 'description' => 'px',
+                  'rules' => Rules::is( 'exit_intent_t6_show_timer', true ) ],
+
+                // CTA button
+                [ 'label' => __( 'Button Background', 'notificationx' ),     'name' => 'exit_intent_t6_btn_bg',            'type' => 'colorpicker', 'default' => '#845e7c' ],
+                [ 'label' => __( 'Button Text Color', 'notificationx' ),     'name' => 'exit_intent_t6_btn_color',         'type' => 'colorpicker', 'default' => '#ffffff' ],
+                [ 'label' => __( 'Button Border Radius', 'notificationx' ),  'name' => 'exit_intent_t6_btn_border_radius', 'type' => 'number',      'default' => 4, 'description' => 'px' ],
+                [ 'label' => __( 'Button Font Size', 'notificationx' ),      'name' => 'exit_intent_t6_btn_font_size',     'type' => 'number',      'default' => 24, 'description' => 'px' ],
+                [ 'label' => __( 'Button Font Weight', 'notificationx' ),    'name' => 'exit_intent_t6_btn_font_weight',   'type' => 'select',      'default' => '700',
+                  'options' => $this->font_weight_options() ],
         ];
     }
 
