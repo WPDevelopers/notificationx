@@ -20,6 +20,8 @@ _None._
 | Doc | Status | Notes |
 |---|---|---|
 | `AGENTS.md` symlink → `CLAUDE.md` | pending | `ln -s CLAUDE.md AGENTS.md` from plugin root |
+| Tier 2 skills: `nx-pro-bridge`, `nx-release`, `nx-version-discipline` | pending | After Tier 1 is used in practice |
+| Tier 2 commands: `/nx-scaffold-type`, `/nx-scaffold-rest`, `/nx-inspect`, `/nx-test`, `/nx-pot` | pending | After Tier 1 is used in practice |
 | Verify route table in [rest-api.md](rest-api.md) against current code | pending | Run the grep noted at bottom of that doc |
 | Add a real PHPUnit test (any) to break the placeholder-only state | pending | See [testing.md § priority order](testing.md) |
 | Real preview screenshots for design picker in [recipes/add-frontend-design.md](recipes/add-frontend-design.md) | pending | Optional / quality bump |
@@ -28,6 +30,12 @@ _None._
 
 | Doc | Date | Notes |
 |---|---|---|
+| `.claude/skills/nx-extension-author/SKILL.md` | 2026-05-12 | Tier 1 skill |
+| `.claude/skills/nx-debug/SKILL.md` | 2026-05-12 | Tier 1 skill |
+| `.claude/skills/nx-dual-runtime-check/SKILL.md` | 2026-05-12 | Tier 1 skill |
+| `.claude/commands/nx-scaffold-extension.md` | 2026-05-12 | Tier 1 command |
+| `.claude/commands/nx-bump.md` | 2026-05-12 | Tier 1 command |
+| `.claude/commands/nx-list-hooks.md` | 2026-05-12 | Tier 1 command |
 | [CLAUDE.md](../CLAUDE.md) — Glossary + Anti-patterns + post-type fix | 2026-05-12 | Surgical edits; fixed `nx_bar` → `notificationx` |
 | [docs/README.md](README.md) — index | 2026-05-12 | "I want to…" routing table |
 | [docs/architecture.md](architecture.md) | 2026-05-12 | Bootstrap, Type↔Extension, storage, dual runtimes |

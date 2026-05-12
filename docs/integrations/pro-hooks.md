@@ -43,9 +43,9 @@ These filters fire **per Extension `$id`** and let Pro (or any code) tap into sp
 | `nx_save_post_{$source}` | [PostType.php:107](../../includes/Core/PostType.php) | Mutate notification data right before save. |
 | `nx_saved_post_{$source}` | [PostType.php:118](../../includes/Core/PostType.php) | Side-effect hook after a notification is saved (e.g. schedule cron). |
 | `nx_can_entry_{$source}` | [Extension.php:654](../../includes/Extensions/Extension.php) | Validate / accept-or-reject an inbound entry before storage. |
-| `nx_preview_entry_{$source}` | [Extension.php:113](../../includes/Extensions/Extension.php) | Customize the builder-preview entry. |
-| `nx_preview_settings_{$source}` | [Extension.php:116](../../includes/Extensions/Extension.php) | Customize the builder-preview settings payload. |
-| `nx_fallback_data_{$source}` | [Extension.php:175](../../includes/Extensions/Extension.php) | Provide fallback data when no real entries exist. |
+| `nx_preview_entry_{$source}` | fired in [FrontEnd/Preview.php:308–309](../../includes/FrontEnd/Preview.php), registered in [Extension.php:113](../../includes/Extensions/Extension.php) | Customize the builder-preview entry. |
+| `nx_preview_settings_{$source}` | fired in [FrontEnd/Preview.php:382](../../includes/FrontEnd/Preview.php), registered in [Extension.php:116](../../includes/Extensions/Extension.php) | Customize the builder-preview settings payload. |
+| `nx_fallback_data_{$source}` | fired in [FrontEnd/Preview.php:310,461](../../includes/FrontEnd/Preview.php) and [FrontEnd/FrontEnd.php:326](../../includes/FrontEnd/FrontEnd.php), registered in [Extension.php:175](../../includes/Extensions/Extension.php) | Provide fallback data when no real entries exist. |
 | `nx_notification_image_{$source}` | `includes/FrontEnd/FrontEnd.php` | Override the image rendered for this source. |
 | `nx_notification_link_{$source}` | `includes/FrontEnd/FrontEnd.php` | Override the click-through link. |
 | `nx_filtered_data_{$source}` | `includes/FrontEnd/FrontEnd.php` | Transform frontend payload (tag replacement, formatting). |
