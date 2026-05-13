@@ -96,16 +96,6 @@ const NotificationContainer = (props: any) => {
                             );
                         }
 
-                        if (notice?.config?.type == 'exit_intent') {
-                            return (
-                                <ExitIntentPopup
-                                    key={`exit-intent-${notice?.config?.nx_id}`}
-                                    nxExitIntent={notice}
-                                    dispatch={frontendContext.dispatch}
-                                    rest={frontendContext.rest} />
-                            );
-                        }
-
                         return (
                             <Notification
                                 assets={frontendContext.assets}

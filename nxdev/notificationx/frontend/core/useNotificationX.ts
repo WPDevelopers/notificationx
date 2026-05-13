@@ -144,7 +144,23 @@ const useNotificationX = (props: any) => {
                 });
                 setPopupNotices(normalizePressBar(filteredConfig, config.settings));
             }
-        }        
+
+            if(config && config?.exit_intent && Object.keys(config.exit_intent).length){
+                const filteredConfig = {};
+                Object.keys(config.exit_intent).forEach((key) => {
+                    const exitIntent = config.exit_intent[key];
+                    let settings = {...exitIntent['post'], previewType};
+                    if(settings._global_queue){
+                        settings = {...settings, ...config.settings};
+                    }
+                    if(!(previewType === 'phone' && settings.hide_on_mobile)){
+                        exitIntent['post']  = settings;
+                        filteredConfig[key] = exitIntent;
+                    }
+                });
+                setExitIntentNotices(normalizePressBar(filteredConfig, config.settings));
+            }
+        }
     }, [previewType])
 
     const getDeviceType = () => {
@@ -574,21 +590,27 @@ const useNotificationX = (props: any) => {
         if (exitIntentNotices != null && exitIntentNotices.length > 0) {
             const triggered = new Set();
 
+            const trigger = (exitItem) => {
+                const config = exitItem.post;
+                const nx_id = config?.nx_id;
+                if (triggered.has(nx_id)) return;
+
+                const sessionKey = `notificationx_exit_intent_${nx_id}_${config?.themes || ''}`;
+                if (sessionStorage.getItem(sessionKey) === 'closed') return;
+
+                triggered.add(nx_id);
+                const args = { intervalID: null, timeoutID: null, data: exitItem.content || null, config };
+                dispatchNotification(args);
+            };
+
+            if (props.config.nxPreview) {
+                exitIntentNotices.forEach(trigger);
+                return;
+            }
+
             const handleMouseLeave = (e: MouseEvent) => {
                 if (e.clientY > 10) return;
-
-                exitIntentNotices.forEach((exitItem) => {
-                    const config = exitItem.post;
-                    const nx_id = config?.nx_id;
-                    if (triggered.has(nx_id)) return;
-
-                    const sessionKey = `notificationx_exit_intent_${nx_id}_${config?.themes || ''}`;
-                    if (sessionStorage.getItem(sessionKey) === 'closed') return;
-
-                    triggered.add(nx_id);
-                    const args = { intervalID: null, timeoutID: null, data: exitItem.content || null, config };
-                    dispatchNotification(args);
-                });
+                exitIntentNotices.forEach(trigger);
             };
 
             document.addEventListener('mouseleave', handleMouseLeave);

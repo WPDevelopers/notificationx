@@ -55,12 +55,13 @@ class Preview {
     public function enqueue_scripts($return) {
         if ($this->is_preview()) {
             $args = [
-                'total'     => 1,
-                'nxPreview' => true,
-                'pressbar'  => [],
-                'active'    => [],
-                'gdpr'      => [],
-                'popup'     => [],
+                'total'       => 1,
+                'nxPreview'   => true,
+                'pressbar'    => [],
+                'active'      => [],
+                'gdpr'        => [],
+                'popup'       => [],
+                'exit_intent' => [],
             ];
 
             $settings = $this->preview_settings();
@@ -71,8 +72,18 @@ class Preview {
                 return $args;
             }
 
-            $source   = $settings['source'];
-            if ($source === 'press_bar') {
+            $source = $settings['source'];
+            $type   = $settings['type'];
+            if ($type === 'exit_intent') {
+                $args['exit_intent'] = [
+                    $source => [
+                        'entries' => [
+                            $this->preview_entry($settings),
+                        ],
+                        'post'    => $settings,
+                    ]
+                ];
+            } else if ($source === 'press_bar') {
                 $args['pressbar'] = [
                     $source => [
                         'content' => FrontEnd::get_instance()->get_bar_content($settings, true),
