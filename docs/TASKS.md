@@ -36,6 +36,7 @@ _None._
 | `.claude/commands/nx-scaffold-extension.md` | 2026-05-12 | Tier 1 command |
 | `.claude/commands/nx-bump.md` | 2026-05-12 | Tier 1 command |
 | `.claude/commands/nx-list-hooks.md` | 2026-05-12 | Tier 1 command |
+| `.distignore` + `.gitattributes` — exclude AI/dev docs from dist zip | 2026-05-12 | Excludes `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, `.claude/`, `docs/` (~192KB / 26 files) |
 | [CLAUDE.md](../CLAUDE.md) — Glossary + Anti-patterns + post-type fix | 2026-05-12 | Surgical edits; fixed `nx_bar` → `notificationx` |
 | [docs/README.md](README.md) — index | 2026-05-12 | "I want to…" routing table |
 | [docs/architecture.md](architecture.md) | 2026-05-12 | Bootstrap, Type↔Extension, storage, dual runtimes |

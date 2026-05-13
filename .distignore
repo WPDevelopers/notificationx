@@ -75,3 +75,10 @@ vendor/priyomukul/.editorconfig
 vendor/priyomukul/.gitignore
 vendor/priyomukul/composer.json
 vendor/priyomukul/README.md
+
+# AI / developer documentation — not shipped to end users
+CLAUDE.md
+AGENTS.md
+.cursorrules
+.claude
+docs

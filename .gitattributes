@@ -68,3 +68,10 @@ vendor/priyomukul/.editorconfig     export-ignore
 vendor/priyomukul/.gitignore       export-ignore
 vendor/priyomukul/composer.json     export-ignore
 vendor/priyomukul/README.md     export-ignore
+
+# AI / developer documentation — not shipped to end users
+CLAUDE.md         export-ignore
+AGENTS.md         export-ignore
+.cursorrules      export-ignore
+.claude           export-ignore
+docs              export-ignore
