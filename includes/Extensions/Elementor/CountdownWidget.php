@@ -594,11 +594,18 @@ class CountdownWidget extends Widget_Base {
             ]
         );
 
-        foreach ( [ 'days' => 'Days', 'hours' => 'Hours', 'minutes' => 'Minutes', 'seconds' => 'Seconds' ] as $unit => $label ) {
+        $unit_labels = [
+            'days'    => esc_html__( 'Days', 'notificationx' ),
+            'hours'   => esc_html__( 'Hours', 'notificationx' ),
+            'minutes' => esc_html__( 'Minutes', 'notificationx' ),
+            'seconds' => esc_html__( 'Seconds', 'notificationx' ),
+        ];
+
+        foreach ( $unit_labels as $unit => $label ) {
             $this->add_control(
                 "nx_{$unit}_heading",
                 [
-                    'label' => esc_html__( $label, 'notificationx' ), // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
+                    'label' => $label,
                     'type'  => Controls_Manager::HEADING,
                 ]
             );

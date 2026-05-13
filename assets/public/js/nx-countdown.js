@@ -100,10 +100,6 @@
                 } else {
                     window.location.href = redirectUrl;
                 }
-            } else if (expireType === 'template') {
-                var $tpl = $wrapper.find('.nx-countdown-expiry-template');
-                $list.html($tpl.html());
-                $tpl.hide();
             }
             // 'none' — do nothing
         }

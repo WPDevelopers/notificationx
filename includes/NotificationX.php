@@ -86,7 +86,11 @@ class NotificationX {
         // 3rd Party features.
         WPML::get_instance();
         VisualPortfolio::get_instance();
-        ElementorManager::get_instance();
+        if ( did_action( 'elementor/loaded' ) ) {
+            ElementorManager::get_instance();
+        } else {
+            add_action( 'elementor/loaded', [ ElementorManager::class, 'get_instance' ] );
+        }
     }
     /**
      * The Plugin Activator
