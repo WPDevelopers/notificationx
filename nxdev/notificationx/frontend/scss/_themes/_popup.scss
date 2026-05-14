@@ -696,8 +696,23 @@
     }
 }
 
-.nx-admin-content .popup_notification #themes .wprf-name-themes .wprf-column-2\.4{
+.nx-admin-content .popup_notification #themes .wprf-name-themes .wprf-column-2\.4 {
     width: 25%;
+    @media only screen and (max-width: 1024px) {
+        width: 33.3333%;
+    }
+    .wprf-option-has-image {
+        img {
+            max-height: unset;
+            height: auto;
+        }
+    }
+}
+.nx-admin-content .exit_intent_custom #themes .wprf-name-themes .wprf-column-2\.4 {
+    width: 33.3333%;
+    @media only screen and (max-width: 1024px) {
+        width: 50%;
+    }
     .wprf-option-has-image {
         img {
             max-height: unset;
