@@ -34,7 +34,7 @@ class ExitIntentNotification extends Extension {
         $this->module_title = __( 'Exit Intent Popup', 'notificationx' );
         $this->themes       = [
             'theme-one' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-one.svg',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-one.png',
                 'defaults' => [
                     'exit_intent_title'        => __( 'Wait! Before You Go...', 'notificationx' ),
                     'exit_intent_subtitle'     => __( "We'd love to understand what's holding you back", 'notificationx' ),
@@ -50,7 +50,7 @@ class ExitIntentNotification extends Extension {
                 'column' => '5',
             ],
             'theme-two' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-two.svg',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-two.png',
                 'defaults' => [
                     'exit_intent_sale_badge'       => __( 'Flash Sale', 'notificationx' ),
                     'exit_intent_sale_headline'    => __( '50% OFF', 'notificationx' ),
@@ -63,7 +63,7 @@ class ExitIntentNotification extends Extension {
                 'column' => '5',
             ],
             'theme-three' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-three.svg',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-three.png',
                 'defaults' => [
                     'exit_intent_t3_title'       => __( "Wait, don't go!", 'notificationx' ),
                     'exit_intent_t3_subtitle'    => __( 'Before you leave, we have a special offer just for you!', 'notificationx' ),
@@ -77,7 +77,7 @@ class ExitIntentNotification extends Extension {
                 'column' => '5',
             ],
             'theme-four' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-four.svg',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-four.png',
                 'defaults' => [
                     'exit_intent_t4_badge'    => __( 'Before you go...', 'notificationx' ),
                     'exit_intent_t4_title'    => __( 'Watch this short demo video', 'notificationx' ),
@@ -89,7 +89,7 @@ class ExitIntentNotification extends Extension {
                 'column' => '5',
             ],
             'theme-five' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-five.svg',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-five.png',
                 'defaults' => [
                     'exit_intent_t5_title'           => __( 'Flash Sale', 'notificationx' ),
                     'exit_intent_t5_headline'        => __( '50% OFF', 'notificationx' ),
@@ -110,21 +110,8 @@ class ExitIntentNotification extends Extension {
                 ],
                 'column' => '5',
             ],
-            'theme-seven' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-seven.svg',
-                'defaults' => [
-                    'exit_intent_t7_headline'      => __( 'Home Is Where Your Story Begins', 'notificationx' ),
-                    'exit_intent_t7_discount_text' => __( 'Get 15% Off Your First Order!', 'notificationx' ),
-                    'exit_intent_t7_description'   => __( 'Discover timeless pieces that turn any space into a sanctuary.', 'notificationx' ),
-                    'exit_intent_t7_email_placeholder' => __( 'Enter your email', 'notificationx' ),
-                    'exit_intent_button_text'      => __( 'SEND COUPON', 'notificationx' ),
-                    'exit_intent_image_url'        => [],
-                    'position'                     => 'center',
-                ],
-                'column' => '5',
-            ],
             'theme-six' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.svg',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-seven.png',
                 'defaults' => [
                     'exit_intent_t6_title'           => __( 'Limited Edition Bass Boost Headphones', 'notificationx' ),
                     'exit_intent_t6_show_timer'      => true,
@@ -137,6 +124,19 @@ class ExitIntentNotification extends Extension {
                     'exit_intent_button_text'        => __( 'Grab Now', 'notificationx' ),
                     'exit_intent_image_url'          => [],
                     'position'                       => 'center',
+                ],
+                'column' => '5',
+            ],
+            'theme-seven' => [
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.png',
+                'defaults' => [
+                    'exit_intent_t7_headline'      => __( 'Home Is Where Your Story Begins', 'notificationx' ),
+                    'exit_intent_t7_discount_text' => __( 'Get 15% Off Your First Order!', 'notificationx' ),
+                    'exit_intent_t7_description'   => __( 'Discover timeless pieces that turn any space into a sanctuary.', 'notificationx' ),
+                    'exit_intent_t7_email_placeholder' => __( 'Enter your email', 'notificationx' ),
+                    'exit_intent_button_text'      => __( 'SEND COUPON', 'notificationx' ),
+                    'exit_intent_image_url'        => [],
+                    'position'                     => 'center',
                 ],
                 'column' => '5',
             ],
