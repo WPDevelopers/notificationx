@@ -31,11 +31,26 @@ const useMediaQuery = (query: string) => {
     return match;
 };
 
+const EXIT_INTENT_COOKIE_PREFIX = 'nx_exit_intent_';
+
+const readExitIntentCookie = (nxId: any) => {
+    if (typeof document === 'undefined') return false;
+    const key = `${EXIT_INTENT_COOKIE_PREFIX}${nxId}=`;
+    return document.cookie.split(';').some(c => c.trim().startsWith(key));
+};
+
+const writeExitIntentCookie = (nxId: any, days: number) => {
+    if (typeof document === 'undefined') return;
+    const maxAge = Math.max(1, days) * 24 * 60 * 60;
+    document.cookie = `${EXIT_INTENT_COOKIE_PREFIX}${nxId}=1; path=/; max-age=${maxAge}; SameSite=Lax`;
+};
+
 const Popup = (props: any) => {
     const { position, nxPopup, dispatch } = props;
     const { config: settings, data: content } = nxPopup;
     const frontEndContext = useNotificationContext();
-    const [isVisible, setIsVisible] = useState(true);
+    const isExitIntent = !!settings?.convert_to_exit_intent;
+    const [isVisible, setIsVisible] = useState(!isExitIntent);
     const [animation, setAnimation] = useState(false);
     const isMobile = useMediaQuery("(max-width: 480px)");
     const isTablet = useMediaQuery("(max-width: 768px)");
@@ -161,6 +176,10 @@ const Popup = (props: any) => {
     const handleClose = () => {
         // Store in session storage to prevent showing again in this session
         setAnimation(true);
+        if (isExitIntent) {
+            const days = parseInt(settings?.exit_intent_cookie_duration, 10) || 7;
+            writeExitIntentCookie(settings?.nx_id, days);
+        }
         handleCloseNotification(settings, nxPopup.id, dispatch);
         setTimeout(() => {
             setIsVisible(false);
@@ -315,6 +334,7 @@ const Popup = (props: any) => {
     };
 
     useEffect(() => {
+        if (isExitIntent) return;
         const delay = (+settings?.delay_before || 0) * 1000;
         // Hide first
         setIsVisible(false);
@@ -325,7 +345,24 @@ const Popup = (props: any) => {
         }, delay);
 
         return () => clearTimeout(timer);
-    }, [settings?.initial_delay]);
+    }, [settings?.initial_delay, isExitIntent]);
+
+    // Exit-intent trigger: show on cursor exit, suppress via cookie.
+    useEffect(() => {
+        if (!isExitIntent) return;
+        if (readExitIntentCookie(settings?.nx_id)) {
+            if (dispatch) {
+                dispatch({ type: "REMOVE_NOTIFICATION", payload: nxPopup.id });
+            }
+            return;
+        }
+        const handleMouseLeave = (e: MouseEvent) => {
+            if (e.clientY > 0) return; // only top-edge exit
+            setIsVisible(true);
+        };
+        document.documentElement.addEventListener('mouseleave', handleMouseLeave);
+        return () => document.documentElement.removeEventListener('mouseleave', handleMouseLeave);
+    }, [isExitIntent, settings?.nx_id, settings?.exit_intent_cookie_duration, dispatch, nxPopup.id]);
 
 
     if (!isVisible) {
@@ -382,9 +419,9 @@ const Popup = (props: any) => {
         settings?.popup_theme ? `popup-${settings?.popup_theme}` : 'popup-default',
         `nx-popup-${settings.nx_id}`,
         {
-            "nx-popup-center": settings?.popup_position === 'center',
-            "nx-popup-top": settings?.popup_position === 'top',
-            "nx-popup-bottom": settings?.popup_position === 'bottom',
+            "nx-popup-center": isExitIntent || settings?.popup_position === 'center',
+            "nx-popup-top": !isExitIntent && settings?.popup_position === 'top',
+            "nx-popup-bottom": !isExitIntent && settings?.popup_position === 'bottom',
             "nx-admin": isAdminBar(),
             "nx-popup-mobile": isMobile,
             "nx-popup-tablet": isTablet,
