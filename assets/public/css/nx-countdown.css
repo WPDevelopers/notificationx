@@ -17,10 +17,13 @@
 .nx-countdown-layout-grid {
     flex-direction: row;
     flex-wrap: wrap;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
 }
 
 .nx-countdown-layout-grid .nx-countdown-item {
-    display: flex;
+    display: table-cell;
 }
 
 /* ── Layout: List View (stacked full-width) ──────────────────────────────── */
