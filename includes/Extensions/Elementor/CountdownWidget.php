@@ -849,10 +849,6 @@ class CountdownWidget extends Widget_Base {
 
             </ul>
 
-            <?php if ( $settings['nx_expire_type'] === 'text' ) : ?>
-                <div class="nx-countdown-expiry-template" style="display:none;"></div>
-            <?php endif; ?>
-
         </div>
 
         <?php

@@ -883,13 +883,15 @@ class PopupNotification extends Extension {
         // Add IP address
         $data['ip'] = $this->get_user_ip();
 
-        // Save entry using the standard NotificationX pattern
-        $entry_key = $this->key($params['nx_id']);
+        // Use the post's own source so exit-intent submissions aren't mis-tagged as
+        // popup_notification (the same /popup-submit endpoint serves both types).
+        $source    = ! empty( $notificationx['source'] ) ? $notificationx['source'] : $this->id;
+        $entry_key = $source . '_' . $params['nx_id'];
         $entry = [
-            'nx_id' => $params['nx_id'],
-            'source' => $this->id,
+            'nx_id'     => $params['nx_id'],
+            'source'    => $source,
             'entry_key' => $entry_key,
-            'data' => $data,
+            'data'      => $data,
         ];
 
         // Save the entry
