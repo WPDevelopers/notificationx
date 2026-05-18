@@ -86,6 +86,8 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\CustomNotification\\CustomNotificationConversions' => __DIR__ . '/../..' . '/includes/Extensions/CustomNotification/CustomNotificationConversions.php',
         'NotificationX\\Extensions\\EDD\\EDD' => __DIR__ . '/../..' . '/includes/Extensions/EDD/EDD.php',
         'NotificationX\\Extensions\\EDD\\EDDInline' => __DIR__ . '/../..' . '/includes/Extensions/EDD/EDInline.php',
+        'NotificationX\\Extensions\\Elementor\\CountdownWidget' => __DIR__ . '/../..' . '/includes/Extensions/Elementor/CountdownWidget.php',
+        'NotificationX\\Extensions\\Elementor\\ElementorManager' => __DIR__ . '/../..' . '/includes/Extensions/Elementor/ElementorManager.php',
         'NotificationX\\Extensions\\Elementor\\From' => __DIR__ . '/../..' . '/includes/Extensions/Elementor/From.php',
         'NotificationX\\Extensions\\Envato\\Envato' => __DIR__ . '/../..' . '/includes/Extensions/Envato/Envato.php',
         'NotificationX\\Extensions\\ExitIntent\\ExitIntentNotification' => __DIR__ . '/../..' . '/includes/Extensions/ExitIntent/ExitIntentNotification.php',

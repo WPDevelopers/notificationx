@@ -1,0 +1,120 @@
+/* ── NotificationX Countdown Timer Widget ─────────────────────────────────── */
+
+.nx-countdown-wrapper {
+    display: block;
+}
+
+.nx-countdown-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* ── Layout: Grid View (side by side) ────────────────────────────────────── */
+.nx-countdown-layout-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.nx-countdown-layout-grid .nx-countdown-item {
+    display: flex;
+}
+
+/* ── Layout: List View (stacked full-width) ──────────────────────────────── */
+.nx-countdown-layout-list {
+    flex-direction: column;
+}
+
+.nx-countdown-layout-list .nx-countdown-item {
+    display: block;
+    width: 100%;
+}
+
+.nx-countdown-layout-list .nx-countdown-item > div {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ── Each time unit item ──────────────────────────────────────────────────── */
+.nx-countdown-item {
+    display: flex;
+}
+
+.nx-countdown-item > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 24px;
+    text-align: center;
+}
+
+/* ── Digits ──────────────────────────────────────────────────────────────── */
+.nx-countdown-digits {
+    display: block;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fec503;
+}
+
+/* ── Labels ──────────────────────────────────────────────────────────────── */
+.nx-countdown-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 6px;
+    color: #aaaaaa; /* explicit fallback — overridden by the style control */
+}
+
+/* ── Label position variants ─────────────────────────────────────────────── */
+.nx-countdown-label-inline .nx-countdown-label {
+    display: inline-block;
+    margin-top: 0;
+}
+
+/* ── Separator (pseudo-element on the digits wrapper) ────────────────────── */
+.nx-countdown-item > div {
+    position: relative;
+}
+
+.nx-countdown-show-separator .nx-countdown-digits::after {
+    content: ':';
+    position: absolute;
+    top: 50%;
+    left: 98%;
+    transform: translateY(-50%);
+    font-size: inherit;
+    font-weight: inherit;
+    pointer-events: none;
+}
+
+.nx-countdown-show-separator.nx-countdown-separator-dotted .nx-countdown-digits::after {
+    content: '·';
+    font-size: 2em;
+    line-height: 0;
+}
+
+.nx-countdown-show-separator .nx-countdown-item:last-child .nx-countdown-digits::after {
+    display: none;
+}
+
+/* ── Finish / expiry message ─────────────────────────────────────────────── */
+.nx-countdown-finish-message {
+    padding: 16px;
+}
+
+.nx-countdown-finish-message .nx-expiry-title {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+/* ── Template expiry (hidden by default, shown by JS) ───────────────────── */
+.nx-countdown-expiry-template {
+    display: none;
+}
