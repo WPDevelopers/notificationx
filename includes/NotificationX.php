@@ -10,6 +10,7 @@ namespace NotificationX;
 
 use NotificationX\Admin\Admin;
 use NotificationX\Admin\Cron;
+use NotificationX\Admin\EntriesMailReceiver;
 use NotificationX\Admin\Settings;
 use NotificationX\Blocks\Blocks;
 use NotificationX\Core\Database;
@@ -91,6 +92,7 @@ class NotificationX {
         } else {
             add_action( 'elementor/loaded', [ ElementorManager::class, 'get_instance' ] );
         }
+        EntriesMailReceiver::get_instance();
     }
     /**
      * The Plugin Activator

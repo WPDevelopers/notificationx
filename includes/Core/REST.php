@@ -14,6 +14,7 @@ use NotificationX\Admin\Settings;
 use NotificationX\CoreInstaller;
 use NotificationX\Extensions\PressBar\PressBar;
 use NotificationX\Admin\Reports\ReportEmail;
+use NotificationX\Admin\EntriesMailReceiver;
 use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\Extensions\Google\GoogleReviews;
 use NotificationX\FrontEnd\FrontEnd;
@@ -185,6 +186,13 @@ class REST {
             'permission_callback' => array($this, 'settings_permission'),
         ));
 
+        // Entries Mail Receiver Test
+        register_rest_route( $namespace, '/entries-mail-test', array(
+            'methods'             => WP_REST_Server::EDITABLE,
+            'callback'            => array( $this, 'entries_mail_test' ),
+            'permission_callback' => array( $this, 'settings_permission' ),
+        ));
+
         // NX Settings
         register_rest_route($namespace, '/settings', array(
             array(
@@ -329,6 +337,10 @@ class REST {
      */
     public function reporting_test( $request ){
         return ReportEmail::get_instance()->reporting( $request );
+    }
+
+    public function entries_mail_test( $request ) {
+        return EntriesMailReceiver::get_instance()->send_test( $request );
     }
 
     public function get_notificationX( $request ){

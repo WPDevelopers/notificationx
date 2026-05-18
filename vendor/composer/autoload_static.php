@@ -34,6 +34,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Admin\\Cron' => __DIR__ . '/../..' . '/includes/Admin/Cron.php',
         'NotificationX\\Admin\\DashboardWidget' => __DIR__ . '/../..' . '/includes/Admin/DashboardWidget.php',
         'NotificationX\\Admin\\Entries' => __DIR__ . '/../..' . '/includes/Admin/Entries.php',
+        'NotificationX\\Admin\\EntriesMailReceiver' => __DIR__ . '/../..' . '/includes/Admin/EntriesMailReceiver.php',
         'NotificationX\\Admin\\ImportExport' => __DIR__ . '/../..' . '/includes/Admin/ImportExport.php',
         'NotificationX\\Admin\\InfoTooltipManager' => __DIR__ . '/../..' . '/includes/Admin/InfoTooltipManager.php',
         'NotificationX\\Admin\\MilestoneNotification' => __DIR__ . '/../..' . '/includes/Admin/MilestoneNotification.php',
