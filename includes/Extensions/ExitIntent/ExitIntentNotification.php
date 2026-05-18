@@ -758,6 +758,7 @@ class ExitIntentNotification extends Extension {
                     'type'     => 'toggle',
                     'default'  => true,
                     'priority' => 70,
+                    'is_pro'   => true,
                 ],
                 [
                     'label'    => __( 'Name Placeholder', 'notificationx' ),
@@ -773,6 +774,7 @@ class ExitIntentNotification extends Extension {
                     'type'     => 'toggle',
                     'default'  => true,
                     'priority' => 80,
+                    'is_pro'   => true,
                 ],
                 [
                     'label'    => __( 'Email Placeholder', 'notificationx' ),

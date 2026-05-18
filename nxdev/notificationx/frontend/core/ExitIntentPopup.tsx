@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import nxHelper from './functions';
+import useNotificationContext from './NotificationProvider';
 
 const useCountdown = (endDateStr: string, fallbackDurationMs?: number) => {
     const fallbackEndRef = useRef<number | null>(null);
@@ -41,6 +42,8 @@ const px = (v: any): string | undefined => (v || v === 0) ? `${v}px` : undefined
 const ExitIntentPopup = (props: any) => {
     const { nxExitIntent, dispatch, rest } = props;
     const { config: settings }             = nxExitIntent;
+    const frontEndContext                  = useNotificationContext();
+    const is_pro                           = frontEndContext?.state?.is_pro ?? false;
     const [isVisible, setIsVisible]        = useState(true);
     const [name, setName]                  = useState('');
     const [email, setEmail]                = useState('');
@@ -109,8 +112,9 @@ const ExitIntentPopup = (props: any) => {
 
         setSubmitting(true);
         try {
-            const _showName    = s.exit_intent_show_name    !== false;
-            const _showEmail   = s.exit_intent_show_email   !== false;
+            // exit_intent_show_name / exit_intent_show_email are pro features — force off on free.
+            const _showName    = is_pro && s.exit_intent_show_name  !== false;
+            const _showEmail   = is_pro && s.exit_intent_show_email !== false;
             const _showMessage = s.exit_intent_show_message === true;
 
             const payload: Record<string, any> = {
@@ -786,8 +790,9 @@ const ExitIntentPopup = (props: any) => {
     const title       = s.exit_intent_title    || 'Wait! Before You Go...';
     const subtitle    = s.exit_intent_subtitle || "We'd love to understand what's holding you back";
     const buttonText  = s.exit_intent_button_text || 'SUBMIT';
-    const showName    = s.exit_intent_show_name  !== false;
-    const showEmail   = s.exit_intent_show_email !== false;
+    // exit_intent_show_name / exit_intent_show_email are pro features — force off on free.
+    const showName    = is_pro && s.exit_intent_show_name  !== false;
+    const showEmail   = is_pro && s.exit_intent_show_email !== false;
     const showMessage = s.exit_intent_show_message === true;
     const namePlaceholder    = s.exit_intent_name_label          || 'Name *';
     const emailPlaceholder   = s.exit_intent_email_label         || 'Enter Your Email *';
