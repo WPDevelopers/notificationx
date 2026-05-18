@@ -590,13 +590,21 @@ const useNotificationX = (props: any) => {
         if (exitIntentNotices != null && exitIntentNotices.length > 0) {
             const triggered = new Set();
 
+            const dismissKey = (config) =>
+                `notificationx_exit_intent_${config?.nx_id}_${config?.themes || ''}`;
+
+            const isDismissed = (config) => {
+                const key = dismissKey(config);
+                if (sessionStorage.getItem(key) === 'closed') return true;
+                const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                return new RegExp('(?:^|; )' + escaped + '=').test(document.cookie);
+            };
+
             const trigger = (exitItem) => {
                 const config = exitItem.post;
                 const nx_id = config?.nx_id;
                 if (triggered.has(nx_id)) return;
-
-                const sessionKey = `notificationx_exit_intent_${nx_id}_${config?.themes || ''}`;
-                if (sessionStorage.getItem(sessionKey) === 'closed') return;
+                if (isDismissed(config)) return;
 
                 triggered.add(nx_id);
                 const args = { intervalID: null, timeoutID: null, data: exitItem.content || null, config };
@@ -608,9 +616,27 @@ const useNotificationX = (props: any) => {
                 return;
             }
 
+            const isTouchDevice = ('ontouchstart' in window) ||
+                (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+
+            const eligible = exitIntentNotices.filter((item) => {
+                const cfg = item?.post || {};
+                // exit_intent_mobile_disable defaults to true; only honor when explicitly false to
+                // suppress on touch devices.
+                if (isTouchDevice && cfg.exit_intent_mobile_disable !== false) return false;
+                return true;
+            });
+
+            if (eligible.length === 0) return;
+
             const handleMouseLeave = (e: MouseEvent) => {
-                if (e.clientY > 10) return;
-                exitIntentNotices.forEach(trigger);
+                eligible.forEach((item) => {
+                    const cfg = item?.post || {};
+                    const parsed = parseInt(cfg.exit_intent_sensitivity, 10);
+                    const threshold = Number.isFinite(parsed) ? parsed : 20;
+                    if (e.clientY > threshold) return;
+                    trigger(item);
+                });
             };
 
             document.addEventListener('mouseleave', handleMouseLeave);

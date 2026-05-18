@@ -61,9 +61,41 @@ const ExitIntentPopup = (props: any) => {
 
     const handleClose = () => {
         const _theme = settings?.themes || '';
-        sessionStorage.setItem(`notificationx_exit_intent_${settings?.nx_id}_${_theme}`, 'closed');
+        const key = `notificationx_exit_intent_${settings?.nx_id}_${_theme}`;
+        sessionStorage.setItem(key, 'closed');
+        const days = parseInt(settings?.exit_intent_cookie_days, 10);
+        if (Number.isFinite(days) && days > 0) {
+            const exp = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+            document.cookie = `${key}=closed; expires=${exp.toUTCString()}; path=/; SameSite=Lax`;
+        }
         setIsVisible(false);
         dispatch?.({ type: 'REMOVE_NOTIFICATION', payload: nxExitIntent.id });
+    };
+
+    const renderCta = (className: string, style: React.CSSProperties, label: string) => {
+        const rawUrl  = s.exit_intent_button_url;
+        const url     = typeof rawUrl === 'string' ? rawUrl.trim() : '';
+        const newTab  = s.exit_intent_button_new_tab !== false;
+        const onClick = () => handleClose();
+        if (url) {
+            return (
+                <a
+                    href={url}
+                    className={className}
+                    style={style}
+                    target={newTab ? '_blank' : '_self'}
+                    rel={newTab ? 'noopener noreferrer' : undefined}
+                    onClick={onClick}
+                >
+                    {label}
+                </a>
+            );
+        }
+        return (
+            <button type="button" className={className} style={style} onClick={onClick}>
+                {label}
+            </button>
+        );
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -330,9 +362,7 @@ const ExitIntentPopup = (props: any) => {
                             </>
                         )}
 
-                        <button type="button" className="nx-exit-intent-t5-btn" style={btnStyle} onClick={handleClose}>
-                            {buttonText}
-                        </button>
+                        {renderCta('nx-exit-intent-t5-btn', btnStyle, buttonText)}
                         <button type="button" className="nx-exit-intent-t5-dismiss" style={dismissStyle} onClick={handleClose}>
                             {dismissText}
                         </button>
@@ -591,9 +621,7 @@ const ExitIntentPopup = (props: any) => {
                         </div>
                     )}
 
-                    <button type="button" className="nx-exit-intent-t6-btn" style={btnStyle} onClick={handleClose}>
-                        {buttonText}
-                    </button>
+                    {renderCta('nx-exit-intent-t6-btn', btnStyle, buttonText)}
                 </div>
             </div>
         );
@@ -658,9 +686,7 @@ const ExitIntentPopup = (props: any) => {
                         <h2 className="nx-exit-intent-t2-headline" style={headlineStyle}>{saleHeadline}</h2>
                         <p className="nx-exit-intent-t2-desc" style={descStyle}>{saleDesc}</p>
 
-                        <button type="button" className="nx-exit-intent-t2-btn" style={btnStyle} onClick={handleClose}>
-                            {buttonText}
-                        </button>
+                        {renderCta('nx-exit-intent-t2-btn', btnStyle, buttonText)}
                         <button type="button" className="nx-exit-intent-t2-dismiss" style={dismissStyle} onClick={handleClose}>
                             {dismissText}
                         </button>
@@ -746,9 +772,7 @@ const ExitIntentPopup = (props: any) => {
                         <p  className="nx-exit-intent-t3-subtitle" style={subtitleStyle}>{subtitle}</p>
                         <p  className="nx-exit-intent-t3-offer" style={offerStyle}>{offerText}</p>
                         <p  className="nx-exit-intent-t3-coupon-text" style={couponStyle}>{couponText}</p>
-                        <button type="button" className="nx-exit-intent-t3-btn" style={btnStyle} onClick={handleClose}>
-                            {buttonText}
-                        </button>
+                        {renderCta('nx-exit-intent-t3-btn', btnStyle, buttonText)}
                         <button type="button" className="nx-exit-intent-t3-dismiss" style={dismissStyle} onClick={handleClose}>
                             {dismissText}
                         </button>
