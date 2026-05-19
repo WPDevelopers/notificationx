@@ -170,7 +170,7 @@ const FeedbackEntries = (props: any) => {
             const controller = typeof AbortController === 'undefined' ? undefined : new AbortController();
 
             const response = await nxHelper.get(
-                `nx?source=popup_notification&per_page=100`,
+                `nx?per_page=100`,
                 { signal: controller?.signal }
             );
 
@@ -178,10 +178,11 @@ const FeedbackEntries = (props: any) => {
                 return;
             }
 
-            // @ts-ignore 
+            // @ts-ignore
             if (isMounted.current && response?.posts) {
+                const formSources = ['popup_notification', 'exit_intent_custom'];
                 // @ts-ignore
-                const popupNotification = response.posts.filter(item => item.source === 'popup_notification');
+                const popupNotification = response.posts.filter(item => formSources.includes(item.source));
                 setPopupNotifications(popupNotification);
             }
         } catch (error) {

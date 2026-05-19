@@ -182,7 +182,7 @@ class Posts extends WP_REST_Controller {
         $entries_counts = $wpdb->get_results(
             "SELECT nx_id, COUNT(*) as entries_count
              FROM {$entries_table}
-             WHERE source = 'popup_notification'
+             WHERE source IN ('popup_notification', 'exit_intent_custom')
              GROUP BY nx_id",
             ARRAY_A
         );

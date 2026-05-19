@@ -49,6 +49,49 @@ class ExitIntentNotification extends Extension {
                 ],
                 'column' => '5',
             ],
+            'theme-four' => [
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-four.png',
+                'defaults' => [
+                    'exit_intent_t4_badge'    => __( 'Before you go...', 'notificationx' ),
+                    'exit_intent_t4_title'    => __( 'Watch this short demo video', 'notificationx' ),
+                    'exit_intent_t4_subtitle' => __( 'See how our product simplifies your workflow.', 'notificationx' ),
+                    'exit_intent_image_url'    => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-four.jpg' ],
+                    'exit_intent_t4_video_url' => '',
+                    'position'                => 'center',
+                ],
+                'column' => '5',
+            ],
+            'theme-three' => [
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-three.png',
+                'defaults' => [
+                    'exit_intent_t3_title'       => __( "Wait, don't go!", 'notificationx' ),
+                    'exit_intent_t3_subtitle'    => __( 'Before you leave, we have a special offer just for you!', 'notificationx' ),
+                    'exit_intent_t3_offer'       => __( 'Get 15% off your next purchase!', 'notificationx' ),
+                    'exit_intent_t3_coupon_text' => __( "Use code STAY15 at checkout. Don't miss out on this limited-time offer.", 'notificationx' ),
+                    'exit_intent_button_text'    => __( 'Claim Offer', 'notificationx' ),
+                    'exit_intent_dismiss_text'   => __( 'No, thanks!', 'notificationx' ),
+                    'exit_intent_image_url'      => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-three.png' ],
+                    'position'                   => 'center',
+                ],
+                'column' => '5',
+            ],
+            'theme-six' => [
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-seven.png',
+                'defaults' => [
+                    'exit_intent_t6_title'           => __( 'Limited Edition Bass Boost Headphones', 'notificationx' ),
+                    // 'exit_intent_t6_show_timer'      => true,
+                    'exit_intent_t6_countdown_label' => __( 'Offer Ends In', 'notificationx' ),
+                    'exit_intent_countdown_end'      => '',
+                    'exit_intent_t6_days_label'      => __( 'DAYS', 'notificationx' ),
+                    'exit_intent_t6_hours_label'     => __( 'HOURS', 'notificationx' ),
+                    'exit_intent_t6_minutes_label'   => __( 'MIN', 'notificationx' ),
+                    'exit_intent_t6_seconds_label'   => __( 'SEC', 'notificationx' ),
+                    'exit_intent_button_text'        => __( 'Grab Now', 'notificationx' ),
+                    'exit_intent_image_url'          => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-six.png' ],
+                    'position'                       => 'center',
+                ],
+                'column' => '5',
+            ],
             'theme-two' => [
                 'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-two.png',
                 'defaults' => [
@@ -59,6 +102,19 @@ class ExitIntentNotification extends Extension {
                     'exit_intent_dismiss_text'     => __( 'NO, THANKS!', 'notificationx' ),
                     'exit_intent_image_url'        => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-two-five-seven.jpg' ],
                     'position'                     => 'center',
+                ],
+                'column' => '5',
+            ],
+             'theme-seven' => [
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.png',
+                'defaults' => [
+                    'exit_intent_t7_headline'          => __( 'Turn Your House Into a Home', 'notificationx' ),
+                    'exit_intent_t7_discount_text'     => __( 'Your First Order Comes With a Surprise Deal!', 'notificationx' ),
+                    'exit_intent_t7_description'       => __( 'Handpicked décor that feels like home the moment it arrives.', 'notificationx' ),
+                    'exit_intent_t7_email_placeholder' => __( 'Enter your email', 'notificationx' ),
+                    'exit_intent_button_text'          => __( 'SEND COUPON', 'notificationx' ),
+                    'exit_intent_image_url'            => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-five.png' ],
+                    'position'                         => 'center',
                 ],
                 'column' => '5',
             ],
@@ -80,62 +136,6 @@ class ExitIntentNotification extends Extension {
                     'exit_intent_dismiss_text'       => __( 'NO, THANKS!', 'notificationx' ),
                     'exit_intent_image_url'          => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-two-five-seven.jpg' ],
                     'position'                       => 'center',
-                ],
-                'column' => '5',
-            ],
-            'theme-four' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-four.png',
-                'defaults' => [
-                    'exit_intent_t4_badge'    => __( 'Before you go...', 'notificationx' ),
-                    'exit_intent_t4_title'    => __( 'Watch this short demo video', 'notificationx' ),
-                    'exit_intent_t4_subtitle' => __( 'See how our product simplifies your workflow.', 'notificationx' ),
-                    'exit_intent_image_url'    => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-four.jpg' ],
-                    'exit_intent_t4_video_url' => '',
-                    'position'                => 'center',
-                ],
-                'column' => '5',
-            ],
-            'theme-seven' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.png',
-                'defaults' => [
-                    'exit_intent_t7_headline'          => __( 'Turn Your House Into a Home', 'notificationx' ),
-                    'exit_intent_t7_discount_text'     => __( 'Your First Order Comes With a Surprise Deal!', 'notificationx' ),
-                    'exit_intent_t7_description'       => __( 'Handpicked décor that feels like home the moment it arrives.', 'notificationx' ),
-                    'exit_intent_t7_email_placeholder' => __( 'Enter your email', 'notificationx' ),
-                    'exit_intent_button_text'          => __( 'SEND COUPON', 'notificationx' ),
-                    'exit_intent_image_url'            => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-five.png' ],
-                    'position'                         => 'center',
-                ],
-                'column' => '5',
-            ],
-            'theme-six' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-seven.png',
-                'defaults' => [
-                    'exit_intent_t6_title'           => __( 'Limited Edition Bass Boost Headphones', 'notificationx' ),
-                    // 'exit_intent_t6_show_timer'      => true,
-                    'exit_intent_t6_countdown_label' => __( 'Offer Ends In', 'notificationx' ),
-                    'exit_intent_countdown_end'      => '',
-                    'exit_intent_t6_days_label'      => __( 'DAYS', 'notificationx' ),
-                    'exit_intent_t6_hours_label'     => __( 'HOURS', 'notificationx' ),
-                    'exit_intent_t6_minutes_label'   => __( 'MIN', 'notificationx' ),
-                    'exit_intent_t6_seconds_label'   => __( 'SEC', 'notificationx' ),
-                    'exit_intent_button_text'        => __( 'Grab Now', 'notificationx' ),
-                    'exit_intent_image_url'          => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-six.png' ],
-                    'position'                       => 'center',
-                ],
-                'column' => '5',
-            ],
-            'theme-three' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-three.png',
-                'defaults' => [
-                    'exit_intent_t3_title'       => __( "Wait, don't go!", 'notificationx' ),
-                    'exit_intent_t3_subtitle'    => __( 'Before you leave, we have a special offer just for you!', 'notificationx' ),
-                    'exit_intent_t3_offer'       => __( 'Get 15% off your next purchase!', 'notificationx' ),
-                    'exit_intent_t3_coupon_text' => __( "Use code STAY15 at checkout. Don't miss out on this limited-time offer.", 'notificationx' ),
-                    'exit_intent_button_text'    => __( 'Claim Offer', 'notificationx' ),
-                    'exit_intent_dismiss_text'   => __( 'No, thanks!', 'notificationx' ),
-                    'exit_intent_image_url'      => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-three.png' ],
-                    'position'                   => 'center',
                 ],
                 'column' => '5',
             ],
@@ -1214,7 +1214,7 @@ class ExitIntentNotification extends Extension {
                 $fields['timing']['fields'][ $key ] = Rules::is( 'source', $this->id, true, $fields['timing']['fields'][ $key ] );
             }
         }
-        foreach ( [ 'behaviour', 'sound_section', 'queue_management' ] as $key ) {
+        foreach ( [ 'behaviour', 'sound_section', 'queue_management', 'appearance' ] as $key ) {
             if ( isset( $fields[ $key ] ) ) {
                 $fields[ $key ] = Rules::is( 'source', $this->id, true, $fields[ $key ] );
             }

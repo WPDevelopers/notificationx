@@ -23,6 +23,14 @@ class Popup {
     public $id              = 'popup_notification';
 
     /**
+     * Sources that share the popup-submit form pipeline.
+     * Entries from these sources are listed/managed together in the Feedback Entries screen.
+     */
+    private function form_sources() {
+        return [ 'popup_notification', 'exit_intent_custom' ];
+    }
+
+    /**
      * Constructor.
      *
      * @since 4.7.0
@@ -186,9 +194,11 @@ class Popup {
         $notification_id = $request->get_param('notification_id') ?: '';
         $offset = ($page - 1) * $per_page;
 
-        // Build WHERE clause
-        $where_conditions = ["e.source = %s"];
-        $where_values = [$this->id];
+        // Build WHERE clause — include both popup and exit-intent submissions
+        $sources       = $this->form_sources();
+        $src_placeholders = implode(',', array_fill(0, count($sources), '%s'));
+        $where_conditions = ["e.source IN ({$src_placeholders})"];
+        $where_values     = $sources;
 
         // Add notification filter
         if (!empty($notification_id)) {
@@ -265,14 +275,13 @@ class Popup {
         $entry_id = $request->get_param('id');
         $table_name = $wpdb->prefix . 'nx_entries';
 
-        $result = $wpdb->delete(
-            $table_name,
-            [
-                'entry_id' => $entry_id,
-                'source' => $this->id
-            ],
-            ['%d', '%s']
+        $sources          = $this->form_sources();
+        $src_placeholders = implode(',', array_fill(0, count($sources), '%s'));
+        $delete_query     = $wpdb->prepare(
+            "DELETE FROM {$table_name} WHERE entry_id = %d AND source IN ({$src_placeholders})",
+            array_merge([$entry_id], $sources)
         );
+        $result = $wpdb->query($delete_query);
 
         if ($result === false) {
             return new \WP_REST_Response([
@@ -317,13 +326,15 @@ class Popup {
             ], 400);
         }
 
-        // Create placeholders for the IN clause
-        $placeholders = implode(',', array_fill(0, count($entry_ids), '%d'));
+        // Create placeholders for the IN clauses
+        $placeholders     = implode(',', array_fill(0, count($entry_ids), '%d'));
+        $sources          = $this->form_sources();
+        $src_placeholders = implode(',', array_fill(0, count($sources), '%s'));
 
         // Prepare the query with source filter
         $query = $wpdb->prepare(
-            "DELETE FROM {$table_name} WHERE entry_id IN ({$placeholders}) AND source = %s",
-            array_merge($entry_ids, [$this->id])
+            "DELETE FROM {$table_name} WHERE entry_id IN ({$placeholders}) AND source IN ({$src_placeholders})",
+            array_merge($entry_ids, $sources)
         );
 
         $result = $wpdb->query($query);
@@ -359,9 +370,11 @@ class Popup {
         $search = $request->get_param('s') ?: '';
         $notification_id = $request->get_param('notification_id') ?: '';
 
-        // Build WHERE clause
-        $where_conditions = ["e.source = %s"];
-        $where_values = [$this->id];
+        // Build WHERE clause — include both popup and exit-intent submissions
+        $sources          = $this->form_sources();
+        $src_placeholders = implode(',', array_fill(0, count($sources), '%s'));
+        $where_conditions = ["e.source IN ({$src_placeholders})"];
+        $where_values     = $sources;
 
         // Add notification filter if provided
         if (!empty($notification_id)) {

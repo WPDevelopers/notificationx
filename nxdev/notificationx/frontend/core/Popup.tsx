@@ -180,13 +180,12 @@ const Popup = (props: any) => {
             message: ''
         };
 
-        // Validate name field if it's shown and required
-        if (settings.popup_show_name_field && !formData.name.trim()) {
+        // Name/email are pro-only — skip validation when running the free build
+        if (is_pro && settings.popup_show_name_field && !formData.name.trim()) {
             errors.name = __('Please enter your name.', 'notificationx');
         }
 
-        // Validate email field if it's shown
-        if (settings.popup_show_email_field) {
+        if (is_pro && settings.popup_show_email_field) {
             if (!formData.email.trim()) {
                 errors.email = __('Please enter your email address.', 'notificationx');
             } else if (!validateEmail(formData.email)) {
@@ -230,8 +229,8 @@ const Popup = (props: any) => {
         try {
             const submissionData = {
                 nx_id: settings.nx_id,
-                name: settings.popup_show_name_field ? formData.name : '',
-                email: settings.popup_show_email_field ? formData.email : '',
+                name: (is_pro && settings.popup_show_name_field) ? formData.name : '',
+                email: (is_pro && settings.popup_show_email_field) ? formData.email : '',
                 message: settings.popup_show_message_field ? formData.message : '',
                 theme: settings.themes,
                 title: settings.popup_title || '',
@@ -602,8 +601,8 @@ const Popup = (props: any) => {
                                 )}
                             </div>
                         ) }
-                        {/* Name Field - Show if enabled for form themes */}
-                        { ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
+                        {/* Name Field - Pro-only, only renders when pro is active and the toggle is on */}
+                        { is_pro && ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
                             .some(theme => settings.themes.includes(theme)) && settings.popup_show_name_field && (
                                 <div className="nx-popup-name">
                                     <input
@@ -625,8 +624,8 @@ const Popup = (props: any) => {
                                 </div>
                         ) }
 
-                        {/* Email Field - Show if enabled for form themes */}
-                        { ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
+                        {/* Email Field - Pro-only, only renders when pro is active and the toggle is on */}
+                        { is_pro && ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
                             .some(theme => settings.themes.includes(theme)) && settings.popup_show_email_field && (
                                 <div className="nx-popup-email">
                                     <input
