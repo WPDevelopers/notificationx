@@ -1286,9 +1286,10 @@ class ExitIntentNotification extends Extension {
     }
 
     public function doc() {
-        return sprintf(
-            __( '<p>Display a targeted popup when visitors are about to leave your site to recover abandoning users. Need help? Check out our <a href="%1$s" target="_blank">documentation</a>.</p>', 'notificationx' ),
-            $this->doc_link
+        return sprintf(__('
+        <p>Show a targeted message at the exact moment someone is about to close your tab & bring them back into the funnel. Need help? Check out our <a target="_blank" href="%1$s">documentation</a>.</p>', 
+        'notificationx'),
+        'https://notificationx.com/docs/how-to-configure-exit-intent-popup/',
         );
     }
 }
