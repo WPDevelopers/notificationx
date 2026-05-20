@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.2.6\n"
+"Project-Id-Version: NotificationX 3.2.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-20T05:47:11+00:00\n"
+"POT-Creation-Date: 2026-05-20T10:12:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -3855,8 +3855,10 @@ msgstr ""
 msgid "Exit intent detection is unreliable on touch devices."
 msgstr ""
 
-#: includes/Extensions/ExitIntent/ExitIntentNotification.php:1290
-msgid "<p>Display a targeted popup when visitors are about to leave your site to recover abandoning users. Need help? Check out our <a href=\"%1$s\" target=\"_blank\">documentation</a>.</p>"
+#: includes/Extensions/ExitIntent/ExitIntentNotification.php:1289
+msgid ""
+"\n"
+"        <p>Show a targeted message at the exact moment someone is about to close your tab & bring them back into the funnel. Need help? Check out our <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>"
 msgstr ""
 
 #: includes/Extensions/FlashingTab/FlashingTab.php:52

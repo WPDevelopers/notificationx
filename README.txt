@@ -3,9 +3,9 @@ Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, s
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, notification bar
 Requires at least: 5.0
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 3.2.6
+Stable tag: 3.2.7
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -208,6 +208,13 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 3.2.7 - 20/05/2026 =
+Added: Exit Intent Popup.
+Added: WordPress 7.0 Compatibility.
+Added: Countdown widget for Elementor.
+Added: Option to customize recipient email address.
+Few minor bug fixes and improvements.
 
 = 3.2.6 - 19/04/2026 =
 Fixed: NotificationX bar at the bottom causing layout shift (CLS)
