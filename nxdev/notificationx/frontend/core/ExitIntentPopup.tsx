@@ -56,6 +56,8 @@ const ExitIntentPopup = (props: any) => {
     const showClose = settings?.show_close_button !== false;
     const adv       = !!settings?.advance_edit;
     const s         = settings || {};
+    const position  = ['center', 'bottom-left', 'bottom-right'].includes(s.exit_intent_position) ? s.exit_intent_position : 'center';
+    const overlayClass = `nx-exit-intent-overlay nx-exit-intent-position-${position}`;
 
     // Fallback duration so the timer ticks even without an end date (themes that show a countdown).
     const cdFallbackMs = ((2 * 24 + 14) * 3600 + 30 * 60 + 21) * 1000;
@@ -205,7 +207,7 @@ const ExitIntentPopup = (props: any) => {
         const playFill = adv ? (s.exit_intent_t4_play_color || '#1a1a2e') : '#1a1a2e';
 
         return (
-            <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-four nx-exit-intent-${settings?.nx_id}`}
                     style={popupStyle}
@@ -332,7 +334,7 @@ const ExitIntentPopup = (props: any) => {
         ];
 
         return (
-            <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-five nx-exit-intent-${settings?.nx_id}`}
                     style={popupStyle}
@@ -463,7 +465,7 @@ const ExitIntentPopup = (props: any) => {
         };
 
         return (
-            <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-seven nx-exit-intent-${settings?.nx_id}`}
                     style={popupStyle}
@@ -585,7 +587,7 @@ const ExitIntentPopup = (props: any) => {
         ];
 
         return (
-            <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-six nx-exit-intent-${settings?.nx_id}`}
                     style={popupStyle}
@@ -674,7 +676,7 @@ const ExitIntentPopup = (props: any) => {
         } : {};
 
         return (
-            <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-two nx-exit-intent-${settings?.nx_id}`}
                     style={popupStyle}
@@ -755,7 +757,7 @@ const ExitIntentPopup = (props: any) => {
         } : {};
 
         return (
-            <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-three nx-exit-intent-${settings?.nx_id}`}
                     style={popupStyle}
@@ -835,7 +837,7 @@ const ExitIntentPopup = (props: any) => {
     const showPattern = !adv || s.exit_intent_show_pattern !== false;
 
     return (
-        <div className="nx-exit-intent-overlay" style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+        <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
             <div
                 className={`nx-exit-intent-popup nx-exit-intent-theme-one nx-exit-intent-${settings?.nx_id}`}
                 style={popupStyle}

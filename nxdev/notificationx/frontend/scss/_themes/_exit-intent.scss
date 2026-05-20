@@ -10,6 +10,17 @@
     justify-content: center;
     padding: 16px;
     box-sizing: border-box;
+
+    &.nx-exit-intent-position-bottom-left {
+        align-items: flex-end;
+        justify-content: flex-start;
+        background: transparent;
+    }
+    &.nx-exit-intent-position-bottom-right {
+        align-items: flex-end;
+        justify-content: flex-end;
+        background: transparent;
+    }
 }
 
 .nx-exit-intent-popup {
@@ -299,7 +310,7 @@
         align-items: center;
         text-align: center;
         overflow: hidden;
-
+        justify-content: center;
         // Bottom-left decorative ring
         &::before {
             content: '';

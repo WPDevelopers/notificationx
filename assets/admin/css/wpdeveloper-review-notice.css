@@ -5,7 +5,9 @@
 .wpnotice-wrapper.notificationx .wpnotice-thumbnail-wrapper img {
     width: 45px;
 }
-
+.notice-notificationx-nx_summer_deal_2026 .wpnotice-thumbnail-wrapper img {
+    width: 180px !important;
+}
 .button.button-primary.btn-nx-cta {
     background-color: #6A4BFF;
 }
@@ -596,6 +598,56 @@ span.coupon-code {
 }
 @media screen and (max-width: 574px) {
 #wpnotice-notificationx-nx_holidays_deal {
+        display: none !important;
+    }
+}
+
+/*
+ * Nx Summer Deal 2026 Notice
+ */
+#wpnotice-notificationx-nx_summer_deal_2026 {
+    border-left-color: #5252dc;
+    padding: 10px 40px 10px 20px;
+}
+#wpnotice-notificationx-nx_summer_deal_2026 .wpnotice-content-wrapper {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: column;
+    gap: 5px;
+}
+#wpnotice-notificationx-nx_summer_deal_2026 .wpnotice-content-wrapper p {
+    font-size: 14px;
+    margin-top: 0;
+    padding-top: 0;
+}
+#wpnotice-notificationx-nx_summer_deal_2026 .wpnotice-content-wrapper .nx-notice-action-button > a.button-primary,
+#wpnotice-notificationx-nx_summer_deal_2026 .wpnotice-content-wrapper .nx-notice-action-button > a.button-primary:focus,
+#wpnotice-notificationx-nx_summer_deal_2026 .wpnotice-content-wrapper .nx-notice-action-button > a.button-primary:hover {
+    background-color: #5252dc;
+    color: #ffffff;
+    box-shadow: 0px 1px 0px 0px #000000;
+    border: none;
+    border-radius: 6px;
+    padding: 2px 16px;
+}
+#wpnotice-notificationx-nx_summer_deal_2026 .wpnotice-content-wrapper .nx-notice-action-button .nx-notice-action-dismiss {
+    background: none;
+    border: none;
+    color: #424242;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    margin-left: 5px;
+}
+@media screen and (max-width: 574px) {
+    #wpnotice-notificationx-nx_summer_deal_2026 {
         display: none !important;
     }
 }

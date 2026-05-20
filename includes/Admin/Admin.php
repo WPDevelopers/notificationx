@@ -381,6 +381,29 @@ class Admin {
             ]
         );
 
+        // nx_summer_deal_2026 notice
+        $_nx_summer_deal_2026_text = "<p>🏖️ Turn visitors into buyers — faster. Launch real-time social proof & AI-powered alerts that drive conversions <strong>- up to \$150 OFF!</strong></p>
+                        <div class='nx-notice-action-button' style='display: inline-flex;column-gap:5px;align-items:center;'>
+                            <a class='button button-primary' href='https://notificationx.com/summer2026-admin-notice' target='_blank'>Upgrade To Pro Now</a> <a class='nx-notice-action-dismiss dismiss-btn' data-dismiss='true' href='#'>I Don't Want Any Discount</a>
+                        </div>";
+        $_nx_summer_deal_2026 = [
+            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
+            'html'      => $_nx_summer_deal_2026_text,
+        ];
+        $notices->add(
+            'nx_summer_deal_2026',
+            $_nx_summer_deal_2026,
+            [
+                'start'       => $notices->time(),
+                'recurrence'  => false,
+                'dismissible' => true,
+                'refresh'     => NOTIFICATIONX_VERSION,
+                'screens'     => [ 'dashboard' ],
+                "expire"      => strtotime( '11:59:59pm 25th June, 2026' ),
+                'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
+            ]
+        );
+
         // $notices->init();
         self::$cache_bank->create_account( $notices );
 		self::$cache_bank->calculate_deposits( $notices );

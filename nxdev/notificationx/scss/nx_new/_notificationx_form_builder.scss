@@ -2133,7 +2133,9 @@
         }
     }
 }
-
+.exit_intent_custom .wprf-name-themes .wprf-input-label .wprf-badge {
+    z-index: 9;
+}
 .wprf-name-youtube_channel_id,
 .wprf-name-youtube_video_id {
     .wprf-help {

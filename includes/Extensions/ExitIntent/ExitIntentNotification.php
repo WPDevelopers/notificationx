@@ -91,6 +91,7 @@ class ExitIntentNotification extends Extension {
                     'position'                       => 'center',
                 ],
                 'column' => '5',
+                'is_pro'   => true,
             ],
             'theme-two' => [
                 'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-two.png',
@@ -100,23 +101,25 @@ class ExitIntentNotification extends Extension {
                     'exit_intent_sale_desc'        => __( 'ON ENTIRE ORDER', 'notificationx' ),
                     'exit_intent_button_text'      => __( 'Shop The Flash Sale Now', 'notificationx' ),
                     'exit_intent_dismiss_text'     => __( 'NO, THANKS!', 'notificationx' ),
-                    'exit_intent_image_url'        => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-two-five-seven.jpg' ],
+                    'exit_intent_image_url'        => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-two.jpg' ],
                     'position'                     => 'center',
                 ],
                 'column' => '5',
+                'is_pro'   => true,
             ],
              'theme-seven' => [
                 'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.png',
                 'defaults' => [
                     'exit_intent_t7_headline'          => __( 'Turn Your House Into a Home', 'notificationx' ),
                     'exit_intent_t7_discount_text'     => __( 'Your First Order Comes With a Surprise Deal!', 'notificationx' ),
-                    'exit_intent_t7_description'       => __( 'Handpicked décor that feels like home the moment it arrives.', 'notificationx' ),
+                    'exit_intent_t7_description'       => __( 'Handpicked decor that feels like home the moment it arrives.', 'notificationx' ),
                     'exit_intent_t7_email_placeholder' => __( 'Enter your email', 'notificationx' ),
                     'exit_intent_button_text'          => __( 'SEND COUPON', 'notificationx' ),
                     'exit_intent_image_url'            => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-five.png' ],
                     'position'                         => 'center',
                 ],
                 'column' => '5',
+                'is_pro'   => true,
             ],
             'theme-five' => [
                 'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-five.png',
@@ -134,10 +137,11 @@ class ExitIntentNotification extends Extension {
                     'exit_intent_t5_timer_color'    => '#e91e63',
                     'exit_intent_button_text'        => __( 'Shop The Flash Sale Now', 'notificationx' ),
                     'exit_intent_dismiss_text'       => __( 'NO, THANKS!', 'notificationx' ),
-                    'exit_intent_image_url'          => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-two-five-seven.jpg' ],
+                    'exit_intent_image_url'          => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-six.jpg' ],
                     'position'                       => 'center',
                 ],
                 'column' => '5',
+                'is_pro'   => true,
             ],
         ];
     }
@@ -1045,7 +1049,7 @@ class ExitIntentNotification extends Extension {
     private function theme_five_design_fields() {
         return [
                 // Container / overlay / close
-                [ 'label' => __( 'Popup Max Width', 'notificationx' ),          'name' => 'exit_intent_t5_max_width',     'type' => 'number',      'default' => 760, 'description' => 'px' ],
+                [ 'label' => __( 'Popup Max Width', 'notificationx' ),          'name' => 'exit_intent_t5_max_width',     'type' => 'number',      'default' => 900, 'description' => 'px' ],
                 [ 'label' => __( 'Border Radius', 'notificationx' ),            'name' => 'exit_intent_t5_border_radius', 'type' => 'number',      'default' => 12,  'description' => 'px' ],
                 [ 'label' => __( 'Left Panel Background', 'notificationx' ),    'name' => 'exit_intent_t5_bg_color',      'type' => 'colorpicker', 'default' => '#ffffff' ],
                 [ 'label' => __( 'Overlay Background Color', 'notificationx' ), 'name' => 'exit_intent_overlay_color',    'type' => 'colorpicker', 'default' => 'rgba(0,0,0,0.6)' ],
@@ -1209,12 +1213,7 @@ class ExitIntentNotification extends Extension {
 
     public function customize_fields( $fields ) {
         // Hide standard timing/behaviour irrelevant to exit intent
-        foreach ( [ 'delay_between', 'display_for' ] as $key ) {
-            if ( isset( $fields['timing']['fields'][ $key ] ) ) {
-                $fields['timing']['fields'][ $key ] = Rules::is( 'source', $this->id, true, $fields['timing']['fields'][ $key ] );
-            }
-        }
-        foreach ( [ 'behaviour', 'sound_section', 'queue_management', 'appearance' ] as $key ) {
+        foreach ( [ 'timing', 'behaviour', 'sound_section', 'queue_management', 'appearance', 'animation' ] as $key ) {
             if ( isset( $fields[ $key ] ) ) {
                 $fields[ $key ] = Rules::is( 'source', $this->id, true, $fields[ $key ] );
             }
@@ -1241,6 +1240,17 @@ class ExitIntentNotification extends Extension {
                     'name'    => 'show_close_button',
                     'type'    => 'toggle',
                     'default' => true,
+                ],
+                'exit_intent_position' => [
+                    'label'   => __( 'Position', 'notificationx' ),
+                    'name'    => 'exit_intent_position',
+                    'type'    => 'select',
+                    'default' => 'center',
+                    'options' => GlobalFields::get_instance()->normalize_fields( [
+                        'center'       => __( 'Center', 'notificationx' ),
+                        'bottom-left'  => __( 'Bottom Left', 'notificationx' ),
+                        'bottom-right' => __( 'Bottom Right', 'notificationx' ),
+                    ] ),
                 ],
                 'exit_intent_sensitivity' => [
                     'label'   => __( 'Trigger Sensitivity', 'notificationx' ),
