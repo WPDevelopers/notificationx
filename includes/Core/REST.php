@@ -13,6 +13,7 @@ use NotificationX\Types\ContactForm;
 use NotificationX\Admin\Settings;
 use NotificationX\CoreInstaller;
 use NotificationX\Extensions\PressBar\PressBar;
+use NotificationX\Extensions\ExitIntent\ExitIntentNotification;
 use NotificationX\Admin\Reports\ReportEmail;
 use NotificationX\Admin\EntriesMailReceiver;
 use NotificationX\Extensions\ExtensionFactory;
@@ -179,6 +180,17 @@ class REST {
             'callback'  => array( $this, 'gutenberg_remove' ),
             'permission_callback' => array($this, 'edit_permission'),
         ));
+        // Exit Intent — Elementor Import / Remove
+        register_rest_route( $namespace, '/exit-intent/elementor/import', array(
+            'methods'             => WP_REST_Server::EDITABLE,
+            'callback'            => array( $this, 'exit_intent_elementor_import' ),
+            'permission_callback' => array( $this, 'edit_permission' ),
+        ));
+        register_rest_route( $namespace, '/exit-intent/elementor/remove', array(
+            'methods'             => WP_REST_Server::EDITABLE,
+            'callback'            => array( $this, 'exit_intent_elementor_remove' ),
+            'permission_callback' => array( $this, 'edit_permission' ),
+        ));
         // Reporting Import
         register_rest_route( $namespace, '/reporting-test', array(
             'methods'   => WP_REST_Server::EDITABLE,
@@ -303,6 +315,26 @@ class REST {
     public function elementor_remove( $request ){
         $params = $request->get_params();
         PressBar::get_instance()->delete_elementor_post($params['elementor_id']);
+        return true;
+    }
+
+    /**
+     * Exit Intent — Elementor import.
+     * Creates an `nx_exit_intent` Elementor document from a packaged seed and
+     * returns its ID + edit URL via wp_send_json_success(['context' => ...]).
+     */
+    public function exit_intent_elementor_import( $request ) {
+        $params = $request->get_params();
+        ExitIntentNotification::get_instance()->create_exit_intent_with_elementor( $params );
+        return true;
+    }
+
+    /**
+     * Exit Intent — Elementor remove. Deletes the linked `nx_exit_intent` post.
+     */
+    public function exit_intent_elementor_remove( $request ) {
+        $params = $request->get_params();
+        ExitIntentNotification::get_instance()->delete_elementor_post( $params['elementor_id'] ?? 0 );
         return true;
     }
 
@@ -539,6 +571,8 @@ class REST {
             '/wp-json/notificationx/v1/gutenberg/import',
             '/wp-json/notificationx/v1/elementor/remove',
             '/wp-json/notificationx/v1/gutenberg/remove',
+            '/wp-json/notificationx/v1/exit-intent/elementor/import',
+            '/wp-json/notificationx/v1/exit-intent/elementor/remove',
             '/wp-json/notificationx/v1/reporting-test',
             '/wp-json/notificationx/v1/settings',
             '/wp-json/notificationx/v1/miscellaneous',
