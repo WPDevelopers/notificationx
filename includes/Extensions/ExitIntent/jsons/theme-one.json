@@ -9,8 +9,9 @@
                 "structure": "10",
                 "gap": "no",
                 "content_position": "middle",
+                "css_classes": "nx-exit-intent-section",
                 "background_background": "classic",
-                "background_color": "#FFFFFF",
+                "background_color": "#EDE7FF",
                 "border_radius": {
                     "unit": "px",
                     "top": "16",
@@ -21,19 +22,19 @@
                 },
                 "padding": {
                     "unit": "px",
-                    "top": "40",
-                    "right": "32",
-                    "bottom": "40",
-                    "left": "32",
+                    "top": "48",
+                    "right": "40",
+                    "bottom": "48",
+                    "left": "40",
                     "isLinked": false
                 },
                 "box_shadow_box_shadow_type": "yes",
                 "box_shadow_box_shadow": {
                     "horizontal": 0,
-                    "vertical": 20,
-                    "blur": 60,
+                    "vertical": 24,
+                    "blur": 64,
                     "spread": 0,
-                    "color": "rgba(0,0,0,0.15)"
+                    "color": "rgba(20, 0, 80, 0.18)"
                 }
             },
             "elements": [
@@ -47,14 +48,14 @@
                         {
                             "id": "ex1head01",
                             "settings": {
-                                "title": "Wait! Before You Go…",
+                                "title": "Wait! Before You Go……",
                                 "header_size": "h2",
                                 "align": "center",
-                                "title_color": "#1A1A1A",
+                                "title_color": "#1A1A2E",
                                 "typography_typography": "custom",
                                 "typography_font_size": {
                                     "unit": "px",
-                                    "size": 28,
+                                    "size": 26,
                                     "sizes": []
                                 },
                                 "typography_font_weight": "700",
@@ -75,19 +76,19 @@
                         {
                             "id": "ex1text01",
                             "settings": {
-                                "editor": "<p style=\"text-align: center;\">We have a special offer just for you. Don't miss out before you leave!<\/p>",
-                                "text_color": "#555555",
+                                "editor": "<p style=\"text-align: center;\">We'd love to get your feedback and help us make this better for everyone.<\/p>",
+                                "text_color": "#5A5A75",
                                 "typography_typography": "custom",
                                 "typography_font_size": {
                                     "unit": "px",
-                                    "size": 16,
+                                    "size": 15,
                                     "sizes": []
                                 },
                                 "_margin": {
                                     "unit": "px",
                                     "top": "0",
                                     "right": "0",
-                                    "bottom": "28",
+                                    "bottom": "24",
                                     "left": "0",
                                     "isLinked": false
                                 }
@@ -98,34 +99,57 @@
                             "elType": "widget"
                         },
                         {
+                            "id": "ex1form01",
+                            "settings": {
+                                "html": "<style>.nx-exit-form{display:flex;flex-direction:column;gap:12px;}.nx-exit-form .nx-row{display:flex;gap:12px;}.nx-exit-form input,.nx-exit-form textarea{width:100%;padding:12px 14px;border:1px solid #D6D0EE;border-radius:8px;background:#FFFFFF;font-size:14px;color:#1A1A2E;box-sizing:border-box;font-family:inherit;}.nx-exit-form input::placeholder,.nx-exit-form textarea::placeholder{color:#9A95B5;}.nx-exit-form textarea{min-height:96px;resize:vertical;}<\/style><div class=\"nx-exit-form\"><div class=\"nx-row\"><input type=\"text\" name=\"name\" placeholder=\"Name *\" \/><input type=\"email\" name=\"email\" placeholder=\"Enter Your Email *\" \/><\/div><textarea name=\"message\" placeholder=\"Your message...\"><\/textarea><\/div>"
+                            },
+                            "elements": [],
+                            "isInner": false,
+                            "widgetType": "html",
+                            "elType": "widget"
+                        },
+                        {
                             "id": "ex1btn001",
                             "settings": {
-                                "text": "Claim Your Offer",
-                                "align": "center",
+                                "text": "SUBMIT",
+                                "align": "stretch",
                                 "size": "md",
                                 "background_color": "#6A4BFF",
                                 "button_text_color": "#FFFFFF",
                                 "border_radius": {
                                     "unit": "px",
-                                    "top": "8",
-                                    "right": "8",
-                                    "bottom": "8",
-                                    "left": "8",
+                                    "top": "10",
+                                    "right": "10",
+                                    "bottom": "10",
+                                    "left": "10",
                                     "isLinked": true
                                 },
                                 "typography_typography": "custom",
-                                "typography_font_weight": "600",
+                                "typography_font_weight": "700",
                                 "typography_font_size": {
                                     "unit": "px",
                                     "size": 15,
                                     "sizes": []
                                 },
+                                "typography_letter_spacing": {
+                                    "unit": "px",
+                                    "size": 1,
+                                    "sizes": []
+                                },
                                 "text_padding": {
                                     "unit": "px",
                                     "top": "14",
-                                    "right": "32",
+                                    "right": "20",
                                     "bottom": "14",
-                                    "left": "32",
+                                    "left": "20",
+                                    "isLinked": false
+                                },
+                                "_margin": {
+                                    "unit": "px",
+                                    "top": "20",
+                                    "right": "0",
+                                    "bottom": "0",
+                                    "left": "0",
                                     "isLinked": false
                                 }
                             },

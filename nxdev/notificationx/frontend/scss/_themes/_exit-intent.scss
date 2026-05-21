@@ -32,6 +32,45 @@
     box-sizing: border-box;
 }
 
+// ─── Elementor-built popup wrapper ───────────────────────────────────────────
+// Wraps the Elementor-rendered HTML inside the React overlay. The section's
+// own width is driven by .nx-exit-intent-section (see below), shared with the
+// Elementor editor preview so what-you-see matches what-you-get.
+.nx-exit-intent-elementor {
+    position: relative;
+    width: auto;
+    box-sizing: border-box;
+
+    .nx-exit-intent-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 2;
+        width: 32px;
+        height: 32px;
+        line-height: 1;
+        font-size: 22px;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        color: #1a1a1a;
+    }
+}
+
+// Constrain the Elementor section that backs an Exit Intent popup, both in
+// the editor preview iframe and on the live frontend. Applied via the
+// `css_classes` setting baked into the seed JSON.
+.nx-exit-intent-section.elementor-section,
+.elementor-section.nx-exit-intent-section,
+.nx-exit-intent-section {
+    width: 100% !important;
+    max-width: 540px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 // ─── Theme One ───────────────────────────────────────────────────────────────
 
 .nx-exit-intent-theme-one {

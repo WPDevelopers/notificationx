@@ -149,6 +149,40 @@ const ExitIntentPopup = (props: any) => {
         fontSize: px(s.exit_intent_close_size),
     } : {};
 
+    // ─── Elementor-built popup ────────────────────────────────────────────────
+    // When the campaign is backed by an Elementor design, render only the
+    // React chrome (overlay + close button) and drop the server-rendered
+    // Elementor HTML inside. All per-theme branches are skipped.
+    if (s.mode === 'elementor' && typeof s.elementor_html === 'string' && s.elementor_html) {
+        const overlayStyle: React.CSSProperties = {
+            background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.5)',
+        };
+        return (
+            <div
+                className={overlayClass}
+                style={overlayStyle}
+                onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
+            >
+                <div className="nx-exit-intent-elementor">
+                    {showClose && (
+                        <button
+                            className="nx-exit-intent-close"
+                            style={closeStyle}
+                            onClick={handleClose}
+                            aria-label="Close"
+                        >
+                            ×
+                        </button>
+                    )}
+                    <div
+                        className="nx-exit-intent-elementor-body"
+                        dangerouslySetInnerHTML={{ __html: s.elementor_html }}
+                    />
+                </div>
+            </div>
+        );
+    }
+
     // ─── Theme Four ───────────────────────────────────────────────────────────
     if (theme === 'theme-four') {
         const badge    = s.exit_intent_t4_badge    || 'Before you go...';

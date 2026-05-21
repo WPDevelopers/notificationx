@@ -28,7 +28,7 @@ Each task is incremental — finish + verify before moving to the next.
 | 05 | [Hidden state fields — `elementor_id`, `is_elementor`, `is_confirmed`, edit link](./05-state-fields.md) | done |
 | 06 | [Suppress built-in theme fields when `elementor_id` is set](./06-suppress-builtin-fields.md) | done |
 | 07 | [Seed Elementor JSON templates in `jsons/`](./07-seed-templates.md) | partial (theme-one only) |
-| 08 | [Frontend render — inject Elementor HTML into the React popup shell](./08-frontend-render.md) | todo |
+| 08 | [Frontend render — inject Elementor HTML into the React popup shell](./08-frontend-render.md) | done |
 | 09 | [Lifecycle — `saved_post`, `nx_get_post`, `nx_delete_post`, WPML](./09-lifecycle.md) | todo |
 | 10 | [Integrations — WP Rocket RUCSS safelist, `get_edit_post_link` filter](./10-integrations.md) | todo |
 

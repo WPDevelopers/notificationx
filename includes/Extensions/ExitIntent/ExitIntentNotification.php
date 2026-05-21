@@ -38,6 +38,90 @@ class ExitIntentNotification extends Extension {
         parent::__construct();
         add_action( 'init', [ $this, 'register_post_type' ] );
         add_filter( 'get_edit_post_link', [ $this, 'filter_edit_post_link' ], 10, 3 );
+        add_filter( 'nx_filtered_post', [ $this, 'inject_elementor_html' ], 10, 2 );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_elementor_assets' ], 20 );
+        add_action( 'wp_head', [ $this, 'print_section_constraint_css' ], 99 );
+    }
+
+    /**
+     * Print the popup section's width constraint inline in <head>.
+     *
+     * Two cases:
+     * 1. Sections that have the `nx-exit-intent-section` class baked in via the
+     *    seed JSON's css_classes setting — constrained by the first rule.
+     * 2. The Elementor editor preview iframe loads the nx_exit_intent post
+     *    directly as its own page (body.single-nx_exit_intent). The second
+     *    rule constrains ANY section on that page, including legacy imports
+     *    made before css_classes was added to the seed JSON.
+     */
+    public function print_section_constraint_css() {
+        echo "<style id='nx-exit-intent-section-constraint'>\n";
+        echo ".nx-exit-intent-section{width:100%!important;max-width:540px!important;margin-left:auto!important;margin-right:auto!important;}\n";
+        if ( is_singular( 'nx_exit_intent' ) ) {
+            echo "body.single-nx_exit_intent .elementor-section,body.single-nx_exit_intent .e-con{width:100%!important;max-width:540px!important;margin-left:auto!important;margin-right:auto!important;}\n";
+        }
+        echo "</style>\n";
+    }
+
+    /**
+     * Server-side: inject the Elementor-rendered HTML + a `mode` flag into the
+     * REST payload so the React popup shell can render it.
+     *
+     * Runs for every campaign settings array via the `nx_filtered_post` filter;
+     * scoped to Exit Intent campaigns that have a linked, published nx_exit_intent.
+     */
+    public function inject_elementor_html( $settings, $params ) {
+        if ( empty( $settings['source'] ) || $settings['source'] !== $this->id ) {
+            return $settings;
+        }
+        $elementor_id = isset( $settings['elementor_id'] ) ? (int) $settings['elementor_id'] : 0;
+        if ( ! $elementor_id || ! class_exists( '\\Elementor\\Plugin' ) ) {
+            $settings['mode'] = 'built_in';
+            return $settings;
+        }
+        if ( get_post_status( $elementor_id ) !== 'publish' ) {
+            $settings['mode'] = 'built_in';
+            return $settings;
+        }
+
+        $resolved_id = apply_filters( 'wpml_object_id', $elementor_id, 'nx_exit_intent', true );
+        $html = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $resolved_id, false );
+
+        $settings['mode']           = 'elementor';
+        $settings['elementor_html'] = $html;
+        return $settings;
+    }
+
+    /**
+     * Make sure Elementor's per-document CSS/JS is enqueued on every page where
+     * an Exit Intent campaign can fire — get_builder_content_for_display alone
+     * registers some assets, but not on pages other than the document's own URL.
+     */
+    public function enqueue_elementor_assets() {
+        if ( ! class_exists( '\\Elementor\\Core\\Files\\CSS\\Post' ) ) {
+            return;
+        }
+        $ids = [];
+        try {
+            $posts = \NotificationX\Core\PostType::get_instance()->get_posts( [ 'source' => $this->id ] );
+            foreach ( $posts as $post ) {
+                if ( ! empty( $post['elementor_id'] ) && empty( $post['enabled'] ) === false ) {
+                    $ids[] = (int) $post['elementor_id'];
+                }
+            }
+        } catch ( \Exception $e ) {
+            return;
+        }
+        foreach ( $ids as $id ) {
+            try {
+                $css = \Elementor\Core\Files\CSS\Post::create( $id );
+                if ( $css ) {
+                    $css->enqueue();
+                }
+            } catch ( \Exception $e ) {
+                // swallow — one broken doc shouldn't break the rest.
+            }
+        }
     }
 
     /**
