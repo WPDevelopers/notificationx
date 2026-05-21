@@ -355,6 +355,20 @@ class ExitIntentNotification extends Extension {
                 'column' => '12',
                 'title'  => 'Exit Intent Theme One',
             ],
+            'theme-three' => [
+                'label'  => 'theme-three',
+                'value'  => 'theme-three',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-three.png',
+                'column' => '12',
+                'title'  => 'Exit Intent Theme Three',
+            ],
+            'theme-four' => [
+                'label'  => 'theme-four',
+                'value'  => 'theme-four',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-four.png',
+                'column' => '12',
+                'title'  => 'Exit Intent Theme Four',
+            ],
         ];
     }
 

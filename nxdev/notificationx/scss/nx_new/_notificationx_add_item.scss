@@ -1145,3 +1145,52 @@
         display: none;
     }
 }
+
+// Exit Intent — Custom tab: center the empty-state illustration + heading
+// + "Build With Elementor" / Edit / Remove / Install buttons.
+// Scoped to specific children so the THEMES section title and other
+// surrounding labels keep their default left alignment.
+.exit_intent_custom .wprf-tab-exit_intent_custom_tab {
+
+    .nxbar-presets-empty-state {
+        text-align: center;
+        padding: 40px 0 24px;
+        img {
+            width: 280px;
+            max-width: 100%;
+        }
+        h4 {
+            font-size: 16px;
+            font-weight: 500;
+            margin: 20px 0;
+        }
+    }
+
+    // Center every modal trigger + button row in the Custom tab.
+    .wprf-control.wprf-modal,
+    .wprf-control.wprf-button {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+// Exit Intent — hide the global "For Desktop" / "For Mobile" tab nav buttons.
+// The PHP rule-based suppression doesn't always stick when QuickBuilder
+// rebuilds field state, so we belt-and-suspenders with CSS.
+.exit_intent_custom {
+    .wprf-tab-menu-wrapper {
+        .wprf-tab-nav-item[data-key="for_desktop"],
+        .wprf-tab-nav-item[data-key="for_mobile"] {
+            display: none !important;
+        }
+    }
+
+    // Hide the global themes radio-card (the 7-theme grid) whenever the
+    // Custom tab is the active one — uses :has() (supported in all modern
+    // browsers since 2023).
+    .wprf-tabs-wrapper:has(#exit_intent_custom_tab.wprf-active) ~ .wprf-control.wprf-name-themes,
+    .wp-react-form:has(#exit_intent_custom_tab.wprf-active) ~ .wprf-control.wprf-name-themes,
+    .wprf-control-section:has(#exit_intent_custom_tab.wprf-active) ~ .wprf-control.wprf-name-themes {
+        display: none !important;
+    }
+}
