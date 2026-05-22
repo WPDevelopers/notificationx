@@ -101,8 +101,31 @@ class FluentCart extends Extension {
             $status_matches = true;
         }
 
-        // Return the original return value if status matches, otherwise return false
-        return $status_matches ? $return : false;
+        if (!$status_matches) {
+            return false;
+        }
+
+        // Apply the product / category filter (Show Purchase Of / Exclude Products).
+        // Real-time orders bypass get_orders(), so this filter is the only place
+        // these settings are enforced for live FluentCart orders.
+        $product_id = !empty($entry['data']['product_id']) ? (int) $entry['data']['product_id'] : 0;
+        if ($product_id) {
+            $order_item = (object) ['post_id' => $product_id];
+
+            $categories = [];
+            $product_categories = get_the_terms($product_id, 'product-categories');
+            if (!is_wp_error($product_categories) && !empty($product_categories)) {
+                $categories = $product_categories;
+            }
+
+            // Mirrors the condition used inside get_orders(): when _excludes_product
+            // and _show_purchaseof agree, the item should NOT pass the filter.
+            if ($this->_excludes_product($order_item, $settings, $categories) === $this->_show_purchaseof($order_item, $settings, $categories)) {
+                return false;
+            }
+        }
+
+        return $return;
     }
 
     public function product_lists($products) {
