@@ -45,7 +45,7 @@ class EntriesMailReceiver {
         $body    = $this->build_email_body( $entry );
         $headers = [
             'Content-Type: text/html; charset=UTF-8',
-            'From: NotificationX <support@wpdeveloper.com>',
+            $this->from_header(),
         ];
 
         wp_mail( $emails, $subject, $body, $headers );
@@ -59,7 +59,7 @@ class EntriesMailReceiver {
      */
     public function send_test( $request ) {
         $raw_email = $request->get_param( 'entries_mail_email' );
-        $subject   = $request->get_param( 'entries_mail_subject' );
+        $subject   = sanitize_text_field( (string) $request->get_param( 'entries_mail_subject' ) );
 
         $emails = $this->receiver_emails( ! empty( $raw_email ) ? $raw_email : null );
         if ( empty( $emails ) ) {
@@ -83,7 +83,7 @@ class EntriesMailReceiver {
         $body    = $this->build_email_body( $dummy_entry );
         $headers = [
             'Content-Type: text/html; charset=UTF-8',
-            'From: NotificationX <support@wpdeveloper.com>',
+            $this->from_header(),
         ];
 
         $sent = wp_mail( $emails, $subject, $body, $headers );
@@ -151,7 +151,32 @@ class EntriesMailReceiver {
             $site_name = get_bloginfo( 'name' );
             $subject   = sprintf( __( 'New Entry Received on "%s"', 'notificationx' ), $site_name );
         }
-        return stripcslashes( $subject );
+        return sanitize_text_field( $subject );
+    }
+
+    /**
+     * Build the "From" mail header.
+     *
+     * Derived from the module settings, falling back to the site name and
+     * the site admin email. Avoids a hardcoded wpdeveloper.com address that
+     * most sites have no SPF/DKIM for (silent spam-quarantine). Both parts
+     * are sanitized so a CR/LF in either can't inject extra headers.
+     *
+     * @return string
+     */
+    public function from_header() {
+        $settings  = Settings::get_instance();
+        $from_name = sanitize_text_field( (string) $settings->get( 'settings.entries_mail_from_name', '' ) );
+        if ( empty( $from_name ) ) {
+            $from_name = get_bloginfo( 'name' );
+        }
+
+        $from_email = trim( (string) $settings->get( 'settings.entries_mail_from_email', '' ) );
+        if ( ! is_email( $from_email ) ) {
+            $from_email = get_option( 'admin_email' );
+        }
+
+        return sprintf( 'From: %s <%s>', $from_name, $from_email );
     }
 
     /**
