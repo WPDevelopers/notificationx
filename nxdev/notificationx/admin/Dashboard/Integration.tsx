@@ -49,40 +49,42 @@ const Integration = ({props, context}) => {
         </div>
         <div className="nx-admin-items">
           <div className="nx-list-table-wrapper">
-              <table className="wp-list-table widefat fixed striped notificationx-list">
-                 { notificationx?.length > 0 &&
-                    <Fragment>
-                      <thead>
-                        <tr>
-                        <td>
-                        </td>
-                            <td>{__("NotificationX Title", 'notificationx')}</td>
-                            <td>{__("Preview", 'notificationx')}</td>
-                            <td>{__("Status", 'notificationx')}</td>
-                            <td>{__("Type", 'notificationx')}</td>
-                            <td>{__("Stats", 'notificationx')}</td>
-                            <td>{__("Date", 'notificationx')}</td>
-                            <td>{__("Action", 'notificationx')}</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      { notificationx.map((item, i) => {
-                        return <SingleNotificationX updateNotice={setNotificationx} totalItems={totalItems} setTotalItems={setTotalItems} i={i} key={`nx-${item.nx_id}`} setReload={setReload} {...item} />
-                      } ) }
-                    </tbody>
-                  </Fragment>
-                 }
-                { notificationx?.length <= 0 &&
-                  <div className='notifications-not-found nx-content-details'>
-                    <img src={ assetsURL('/images/new-img/not-found.svg') } alt="icon" />
-                    <h5>{ sprintf( '%s', NOT_FOUND_TITLE  ) }</h5>
-                    <p>{ sprintf( '%s', NOT_FOUND_DESC  ) }</p>
-                    <Link className="nx-primary-btn" to={ { pathname: "/admin.php", search: `?page=nx-edit`} }>
-                      { __('Add New', 'notificationx') }
-                    </Link>
-                  </div>
-                }
-              </table>
+              <div style={{ overflow: 'auto' }}>
+                <table className="wp-list-table widefat fixed striped notificationx-list">
+                  { notificationx?.length > 0 &&
+                      <Fragment>
+                        <thead>
+                          <tr>
+                          <td>
+                          </td>
+                              <td>{__("NotificationX Title", 'notificationx')}</td>
+                              <td>{__("Preview", 'notificationx')}</td>
+                              <td>{__("Status", 'notificationx')}</td>
+                              <td>{__("Type", 'notificationx')}</td>
+                              <td>{__("Stats", 'notificationx')}</td>
+                              <td>{__("Date", 'notificationx')}</td>
+                              <td>{__("Action", 'notificationx')}</td>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        { notificationx.map((item, i) => {
+                          return <SingleNotificationX updateNotice={setNotificationx} totalItems={totalItems} setTotalItems={setTotalItems} i={i} key={`nx-${item.nx_id}`} setReload={setReload} {...item} />
+                        } ) }
+                      </tbody>
+                    </Fragment>
+                  }
+                  { notificationx?.length <= 0 &&
+                    <div className='notifications-not-found nx-content-details'>
+                      <img src={ assetsURL('/images/new-img/not-found.svg') } alt="icon" />
+                      <h5>{ sprintf( '%s', NOT_FOUND_TITLE  ) }</h5>
+                      <p>{ sprintf( '%s', NOT_FOUND_DESC  ) }</p>
+                      <Link className="nx-primary-btn" to={ { pathname: "/admin.php", search: `?page=nx-edit`} }>
+                        { __('Add New', 'notificationx') }
+                      </Link>
+                    </div>
+                  }
+                </table>
+              </div>
               { totalItems.all > 3 &&
                 <div className="nx-view-all-button-wrapper">
                     <Link className="nx-dashboard-view-all" to={ { pathname: "/admin.php", search: `?page=nx-admin`} }>
