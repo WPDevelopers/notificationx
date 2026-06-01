@@ -21,7 +21,7 @@
                 width: 50%;
             }
 
-            @media only screen and (max-width: 575px) {
+            @media only screen and (max-width: 650px) {
                 width: 100%;
             }
         }
@@ -595,7 +595,7 @@
 
             input[type="number"],
             input[type="text"] {
-                min-height: 40px;
+                min-height: auto;
                 padding: 2px 15px;
                 border: 1.5px solid #e6effb;
                 border-radius: 5px;
@@ -968,7 +968,7 @@
                 }
 
                 &:focus {
-                    border-color: #7c8db5;
+                    border-color: #e6effb;
                     box-shadow: none;
                     outline: none;
                 }
