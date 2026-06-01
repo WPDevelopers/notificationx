@@ -352,21 +352,21 @@ class ExitIntentNotification extends Extension {
                 'label'  => 'theme-one',
                 'value'  => 'theme-one',
                 'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-one.png',
-                'column' => '12',
+                'column' => '6',
                 'title'  => 'Exit Intent Theme One',
             ],
             'theme-three' => [
                 'label'  => 'theme-three',
                 'value'  => 'theme-three',
                 'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-three.png',
-                'column' => '12',
+                'column' => '6',
                 'title'  => 'Exit Intent Theme Three',
             ],
             'theme-four' => [
                 'label'  => 'theme-four',
                 'value'  => 'theme-four',
                 'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-four.png',
-                'column' => '12',
+                'column' => '6',
                 'title'  => 'Exit Intent Theme Four',
             ],
         ];
@@ -380,9 +380,11 @@ class ExitIntentNotification extends Extension {
         add_filter( 'nx_customize_fields',      [ $this, 'customize_fields' ],     999 );
         add_filter( 'nx_display_fields',        [ $this, 'display_fields' ],       999 );
 
-        // Suppress built-in theme controls when an Elementor doc is linked (Task 06).
+        // Hide per-theme content sections when an Elementor doc is linked (Task 06).
+        // We deliberately do NOT hide the themes radio-card itself — keeping it
+        // visible on the Default tab lets users switch back to a built-in theme
+        // after they've imported an Elementor design.
         add_filter( 'nx_content_fields',        [ $this, 'suppress_when_elementor' ],   1001 );
-        add_filter( 'nx_design_tab_fields',     [ $this, 'suppress_themes_radio' ],     1001 );
     }
 
     /**
@@ -400,17 +402,27 @@ class ExitIntentNotification extends Extension {
     }
 
     /**
-     * Hide the built-in 7-theme radio-card once an Elementor design is linked.
-     * The per-theme design fields self-hide via their existing themes==X rule
-     * (the import flow sets themes=null), so we don't need to touch them.
+     * @deprecated Kept for back-compat only; the filter that called this has
+     * been removed so the themes radio stays visible on the Default tab even
+     * when an Elementor design is linked (lets users switch back).
      */
     public function suppress_themes_radio( $fields ) {
-        if ( isset( $fields['themes']['fields']['themes'] ) ) {
-            $fields['themes']['fields']['themes'] = Rules::logicalRule( [
-                Rules::is( 'source', $this->id, true ),
-                Rules::isOfType( 'elementor_id', 'number', true ),
-            ], 'or', $fields['themes']['fields']['themes'] );
+        if ( ! isset( $fields['themes']['fields']['themes']['rules'] ) ) {
+            return $fields;
         }
+        $existing   = $fields['themes']['fields']['themes']['rules'];
+        // Additional clause: either we're NOT on Exit Intent (so this rule
+        // shouldn't change anything for other sources), OR elementor_id is
+        // not yet set. Combined via AND with the existing tab-gate so other
+        // sources (e.g. PressBar) keep their tab-based hiding intact.
+        $additional = Rules::logicalRule( [
+            Rules::is( 'source', $this->id, true ),
+            Rules::isOfType( 'elementor_id', 'number', true ),
+        ], 'or' );
+        $fields['themes']['fields']['themes']['rules'] = Rules::logicalRule( [
+            $existing,
+            $additional,
+        ], 'and' );
         return $fields;
     }
 
