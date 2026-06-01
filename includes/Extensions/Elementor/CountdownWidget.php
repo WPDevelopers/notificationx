@@ -555,6 +555,57 @@ class CountdownWidget extends Widget_Base {
         );
 
         $this->add_control(
+            'nx_digits_bg_color',
+            [
+                'label'     => esc_html__( 'Background Color', 'notificationx' ),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .nx-countdown-digits' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'nx_digits_padding',
+            [
+                'label'      => esc_html__( 'Padding', 'notificationx' ),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', 'em', '%' ],
+                'selectors'  => [
+                    '{{WRAPPER}} .nx-countdown-digits' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            [
+                'name'     => 'nx_digits_border',
+                'selector' => '{{WRAPPER}} .nx-countdown-digits',
+            ]
+        );
+
+        $this->add_responsive_control(
+            'nx_digits_border_radius',
+            [
+                'label'      => esc_html__( 'Border Radius', 'notificationx' ),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%' ],
+                'selectors'  => [
+                    '{{WRAPPER}} .nx-countdown-digits' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Box_Shadow::get_type(),
+            [
+                'name'     => 'nx_digits_box_shadow',
+                'selector' => '{{WRAPPER}} .nx-countdown-digits',
+            ]
+        );
+
+        $this->add_control(
             'nx_labels_heading',
             [
                 'label' => esc_html__( 'Labels', 'notificationx' ),
