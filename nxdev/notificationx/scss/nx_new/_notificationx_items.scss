@@ -6,7 +6,7 @@
         margin-top: 30px;
         margin-bottom: 0px;
         display: flex;
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
         justify-content: space-between;
         @media only screen and (max-width: 1399px) {
             margin-top: 20px;
@@ -18,16 +18,20 @@
             margin-bottom: 0px;
             margin-top: 0;
             &:not(:last-child) {
-                margin-right: 10px;
+                margin-right: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
             }
             li {
                 display: inline-block;
+                margin: 0;
                 a {
                     background: rgba(#6a4bff, 0.05);
                     border: 2px solid rgba(#6a4bff, 0.05);
                     border-radius: 10px;
                     color: #25396f;
-                    margin-right: 20px;
+                    margin-right: 0;
                     text-decoration: none;
                     text-transform: uppercase;
                     display: inline-flex;
@@ -72,7 +76,7 @@
         }
         .nx-bulk-action-wrapper {
             display: flex;
-            flex-wrap: wrap;
+            // flex-wrap: wrap;
             .bulk-action-select {
                 height: 40px;
                 .components-input-control__container {
@@ -162,12 +166,14 @@
             margin-top: 20px;
             display: block;
             width: 100%;
+            overflow: auto;
             @media only screen and (max-width: 1599px) {
                 margin-top: 10px;
             }
         }
         table {
             border-spacing: 0 5px;
+            min-width: 1080px;
             td {
                 padding: 10px 25px;
                 font-size: 18px;
@@ -839,8 +845,8 @@
 .nx-search-wrapper {
     display: flex;
     justify-content: end;
-    overflow: hidden;
-    width: 300px;
+    // overflow: hidden;
+    // width: 300px;
     .input-box {
         position: relative;
         height: 40px;
@@ -851,7 +857,7 @@
         background-color: #fff;
         transition: all 0.6s;
         &:not(.open) {
-            width: 20px;
+            width: 44px;
             background-color: transparent;
             transition: 0.6s;
             input {
@@ -861,6 +867,7 @@
     }
     .input-box.open {
         max-width: 280px;
+        min-width: 180px;
         .icon {
         border-radius: 0 6px 6px 0;
         } 
@@ -901,7 +908,7 @@
         border: 2px solid #e9e8fe;
         cursor: pointer;
     }
-    .input-search-icon img{
+    .input-search-icon img {
         width: 18px;
     }
     .search-icon {

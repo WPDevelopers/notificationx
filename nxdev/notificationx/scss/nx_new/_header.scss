@@ -33,11 +33,18 @@
             transition: 0.3s ease-in-out;
             text-align: center;
             &:hover,
-            &:focus{
+            &:focus {
                 color: #fff;
                 background-color: darken(#5614d5, 1%);
                 outline: none;
                 box-shadow: 0 15px 25px -5px rgba(#5614d5, 0.3);
+            }
+
+            @media screen and (max-width: 1024px) {
+                margin-left: 32px;
+                padding: 2px 22px;
+                font-size: 14px;
+                min-height: 42px;
             }
         }
     }
