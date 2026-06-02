@@ -102,7 +102,56 @@ class FluentCart extends Extension {
         }
 
         // Return the original return value if status matches, otherwise return false
-        return $status_matches ? $return : false;
+        if (!$status_matches) {
+            return false;
+        }
+
+        // Apply product / category filter so real-time orders respect each
+        // campaign's Selected Product / Exclude Product settings — matching the
+        // Regenerate path. Operates against the DB-loaded settings shape, where
+        // product_list / exclude_products / category_list / exclude_categories
+        // are flat arrays of slugs (flattened by async_select_remove_label).
+        $product_id = !empty($entry['data']['product_id']) ? $entry['data']['product_id'] : 0;
+        if ($product_id) {
+            $product_slug = get_post_field('post_name', $product_id);
+            $category_slugs = [];
+            $terms = get_the_terms($product_id, 'product-categories');
+            if (is_array($terms)) {
+                foreach ($terms as $term) {
+                    $category_slugs[] = $term->slug;
+                }
+            }
+
+            // Show-purchase-of filter
+            $control = !empty($settings['product_control']) ? $settings['product_control'] : 'none';
+            if ($control === 'manual_selection') {
+                $list = !empty($settings['product_list']) ? (array) $settings['product_list'] : [];
+                if (!in_array($product_slug, $list, true)) {
+                    return false;
+                }
+            } elseif ($control === 'product_category') {
+                $list = !empty($settings['category_list']) ? (array) $settings['category_list'] : [];
+                if (empty(array_intersect($category_slugs, $list))) {
+                    return false;
+                }
+            }
+
+            // Exclude-product filter
+            $exclude_by = !empty($settings['product_exclude_by']) ? $settings['product_exclude_by'] : 'none';
+            if ($exclude_by === 'manual_selection') {
+                $list = !empty($settings['exclude_products']) ? (array) $settings['exclude_products'] : [];
+                if (in_array($product_slug, $list, true)) {
+                    return false;
+                }
+            } elseif ($exclude_by === 'product_category') {
+                $list = !empty($settings['exclude_categories']) ? (array) $settings['exclude_categories'] : [];
+                if (!empty(array_intersect($category_slugs, $list))) {
+                    return false;
+                }
+            }
+        }
+
+        return $return;
     }
 
     public function product_lists($products) {
