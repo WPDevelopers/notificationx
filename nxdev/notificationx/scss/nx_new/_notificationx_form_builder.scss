@@ -403,9 +403,9 @@
             box-sizing: border-box;
             display: inline-flex;
 
-            @media only screen and (max-width: 1599px) {
+            /*@media only screen and (max-width: 1599px) {
                 flex: 20%;
-            }
+            }*/
 
             @media only screen and (max-width: 700px) {
                 margin-top: 0px;
@@ -1582,9 +1582,9 @@
             padding-right: 10px;
             box-sizing: border-box;
             display: inline-flex;
-            @media only screen and (max-width: 1599px) {
+            /*@media only screen and (max-width: 1599px) {
                 flex: 20%;
-            }
+            }*/
             h4 {
                 font-size: 15px;
                 font-weight: 500;
@@ -1661,9 +1661,9 @@
         box-sizing: border-box;
         display: inline-flex;
         padding: 0;
-        @media only screen and (max-width: 1599px) {
+        /*@media only screen and (max-width: 1599px) {
             flex: 20%;
-        }
+        }*/
         h4 {
             font-size: 15px;
             font-weight: 400;

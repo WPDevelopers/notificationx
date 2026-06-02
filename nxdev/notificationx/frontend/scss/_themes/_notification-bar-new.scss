@@ -1926,10 +1926,6 @@
                                                     display: inline-flex;
                                                     margin-left: 30%;
                                                     margin-right: 16px;
-                                        
-                                                    @media only screen and (max-width: 1599px) {
-                                                        margin-left: 25%;
-                                                    }
                                                     @media only screen and (max-width: 700px) {
                                                         margin-left: 0;
                                                     }
@@ -1949,6 +1945,12 @@
                                                 &.wprf-name-custom_to_time {
                                                     flex-direction: column;
                                                     display: inline-flex;
+                                                    @media only screen and (max-width: 1193px) {
+                                                        margin-left: 30%;
+                                                    }
+                                                    @media only screen and (max-width: 700px) {
+                                                        margin-left: 0;
+                                                    }
                                                     .wprf-control-label {
                                                         flex: 1;
                                                         display: inline-flex;

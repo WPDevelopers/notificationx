@@ -257,6 +257,10 @@
                     transition: 0.3s ease-in-out;
                     cursor: pointer;
 
+                    @media only screen and (max-width: 1399px) {
+                        font-size: 14px;
+                    }
+
                     @media only screen and (max-width: 1024px) {
                         min-height: 42px;
                         padding: 2px 20px;
