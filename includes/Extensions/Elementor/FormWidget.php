@@ -341,6 +341,29 @@ class FormWidget extends Widget_Base {
             ]
         );
 
+        $this->add_control(
+            'nx_placeholder_color',
+            [
+                'label'     => esc_html__( 'Placeholder Color', 'notificationx' ),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .nx-form-input::-webkit-input-placeholder' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .nx-form-input::-moz-placeholder'          => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .nx-form-input:-ms-input-placeholder'      => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .nx-form-input::placeholder'               => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name'     => 'nx_placeholder_typography',
+                'label'    => esc_html__( 'Placeholder Typography', 'notificationx' ),
+                'selector' => '{{WRAPPER}} .nx-form-input::placeholder',
+            ]
+        );
+
         $this->add_group_control(
             Group_Control_Border::get_type(),
             [

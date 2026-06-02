@@ -469,7 +469,7 @@ class CountdownWidget extends Widget_Base {
                 'range'     => [ 'px' => [ 'min' => 0, 'max' => 100 ] ],
                 'selectors' => [
                     '{{WRAPPER}} .nx-countdown-item > div'  => 'margin-right:{{SIZE}}px; margin-left:{{SIZE}}px;',
-                    '{{WRAPPER}} .nx-countdown-container'   => 'margin-right:-{{SIZE}}px; margin-left:-{{SIZE}}px;',
+                    '{{WRAPPER}} .nx-countdown-container'   => 'margin-right:-{{SIZE}}px; margin-left:-{{SIZE}}px; --nx-countdown-box-spacing:{{SIZE}}px;',
                 ],
             ]
         );
