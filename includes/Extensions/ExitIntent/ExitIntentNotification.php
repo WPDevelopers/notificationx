@@ -7,6 +7,7 @@
 
 namespace NotificationX\Extensions\ExitIntent;
 
+use NotificationX\NotificationX;
 use NotificationX\GetInstance;
 use NotificationX\Core\Rules;
 use NotificationX\Core\Helper;
@@ -41,6 +42,8 @@ class ExitIntentNotification extends Extension {
         add_filter( 'nx_filtered_post', [ $this, 'inject_elementor_html' ], 10, 2 );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_elementor_assets' ], 20 );
         add_action( 'wp_head', [ $this, 'print_section_constraint_css' ], 99 );
+        add_action( 'elementor/documents/register_controls', [ $this, 'register_popup_layout_controls' ] );
+        add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'enqueue_editor_live_preview' ] );
     }
 
     /**
@@ -55,10 +58,28 @@ class ExitIntentNotification extends Extension {
      *    made before css_classes was added to the seed JSON.
      */
     public function print_section_constraint_css() {
-        echo "<style id='nx-exit-intent-section-constraint'>\n";
-        echo ".nx-exit-intent-section{width:100%!important;max-width:540px!important;margin-left:auto!important;margin-right:auto!important;}\n";
+        // Width is governed by the Layout panel's Width control via the
+        // `--nx-exit-width` CSS variable; fall back to the historical 540px cap
+        // when it is unset (older popups / default).
+        $vars = '';
         if ( is_singular( 'nx_exit_intent' ) ) {
-            echo "body.single-nx_exit_intent .elementor-section,body.single-nx_exit_intent .e-con{width:100%!important;max-width:540px!important;margin-left:auto!important;margin-right:auto!important;}\n";
+            // Editor preview / direct view: resolve the variable from the saved
+            // Layout-panel settings on this document.
+            $layout = $this->get_popup_layout_settings( get_the_ID() );
+            if ( ! empty( $layout['width'] ) ) {
+                $vars .= '--nx-exit-width:' . $layout['width'] . ';';
+            }
+            if ( ! empty( $layout['height'] ) ) {
+                $vars .= '--nx-exit-height:' . $layout['height'] . ';';
+            }
+        }
+        echo "<style id='nx-exit-intent-section-constraint'>\n";
+        if ( '' !== $vars ) {
+            echo "body.single-nx_exit_intent{" . $vars . "}\n";
+        }
+        echo ".nx-exit-intent-section{width:100%!important;max-width:var(--nx-exit-width,540px)!important;margin-left:auto!important;margin-right:auto!important;}\n";
+        if ( is_singular( 'nx_exit_intent' ) ) {
+            echo "body.single-nx_exit_intent .elementor-section,body.single-nx_exit_intent .e-con{width:100%!important;max-width:var(--nx-exit-width,540px)!important;margin-left:auto!important;margin-right:auto!important;}\n";
         }
         echo "</style>\n";
     }
@@ -87,9 +108,75 @@ class ExitIntentNotification extends Extension {
         $resolved_id = apply_filters( 'wpml_object_id', $elementor_id, 'nx_exit_intent', true );
         $html = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $resolved_id, false );
 
+        // Surface the Layout-panel settings (registered in register_popup_layout_controls)
+        // so the popup runtime can honour them, and set --nx-exit-width on a wrapper so
+        // the section width constraint reflects the configured Width on the frontend.
+        $layout       = $this->get_popup_layout_settings( $resolved_id );
+        $wrapper_vars = '';
+        if ( ! empty( $layout['width'] ) ) {
+            $wrapper_vars .= '--nx-exit-width:' . $layout['width'] . ';';
+        }
+        if ( ! empty( $layout['height'] ) ) {
+            $wrapper_vars .= '--nx-exit-height:' . $layout['height'] . ';';
+        }
+        if ( '' !== $wrapper_vars ) {
+            $html = '<div class="nx-exit-intent-elementor-wrap" style="' . esc_attr( $wrapper_vars ) . '">' . $html . '</div>';
+        }
+
         $settings['mode']           = 'elementor';
         $settings['elementor_html'] = $html;
+        $settings['popup_layout']   = $layout;
         return $settings;
+    }
+
+    /**
+     * Read the Layout-panel settings off an nx_exit_intent Elementor document and
+     * normalise them into a flat array the popup runtime can consume.
+     *
+     * @param int $elementor_id
+     * @return array
+     */
+    protected function get_popup_layout_settings( $elementor_id ) {
+        $defaults = [
+            'width'             => '',
+            'height_mode'       => 'fit',
+            'height'            => '',
+            'horizontal'        => 'center',
+            'vertical'          => 'center',
+            'overlay'           => true,
+            'close_button'      => true,
+            'entrance_animation' => '',
+            'exit_animation'    => '',
+        ];
+
+        if ( ! class_exists( '\\Elementor\\Plugin' ) ) {
+            return $defaults;
+        }
+        $document = \Elementor\Plugin::$instance->documents->get( $elementor_id );
+        if ( ! $document ) {
+            return $defaults;
+        }
+
+        $size = static function ( $value ) {
+            if ( is_array( $value ) && isset( $value['size'] ) && '' !== $value['size'] ) {
+                return $value['size'] . ( isset( $value['unit'] ) ? $value['unit'] : 'px' );
+            }
+            return '';
+        };
+
+        $height_mode = $document->get_settings( 'nx_popup_height' );
+
+        return [
+            'width'              => $size( $document->get_settings( 'nx_popup_width' ) ),
+            'height_mode'        => $height_mode ? $height_mode : 'fit',
+            'height'             => 'custom' === $height_mode ? $size( $document->get_settings( 'nx_popup_custom_height' ) ) : '',
+            'horizontal'         => $document->get_settings( 'nx_popup_horizontal' ) ?: 'center',
+            'vertical'           => $document->get_settings( 'nx_popup_vertical' ) ?: 'center',
+            'overlay'            => 'yes' === $document->get_settings( 'nx_popup_overlay' ),
+            'close_button'       => 'yes' === $document->get_settings( 'nx_popup_close_button' ),
+            'entrance_animation' => (string) $document->get_settings( 'nx_popup_entrance_animation' ),
+            'exit_animation'     => (string) $document->get_settings( 'nx_popup_exit_animation' ),
+        ];
     }
 
     /**
@@ -148,6 +235,235 @@ class ExitIntentNotification extends Extension {
             'menu_icon'           => 'dashicons-admin-page',
             'supports'            => [ 'title', 'content', 'author', 'elementor' ],
         ] );
+    }
+
+    /**
+     * Add a "Layout" section to the Elementor document-settings panel, but ONLY
+     * for nx_exit_intent documents. Mirrors Elementor Pro's Popup → Layout panel
+     * (Width / Height / Position / Overlay / Close Button / Animations).
+     *
+     * Hooked on `elementor/documents/register_controls`, which fires for every
+     * document right after its built-in controls register. We bail for any other
+     * post type so these controls never leak into normal pages/posts.
+     *
+     * Width is wired live via the `--nx-exit-width` CSS variable that
+     * print_section_constraint_css()/inject_elementor_html() read; the remaining
+     * controls persist into the document's page settings (`_elementor_page_settings`)
+     * so the popup runtime can consume them.
+     *
+     * @param \Elementor\Core\Base\Document $document
+     * @return void
+     */
+    public function register_popup_layout_controls( $document ) {
+        if ( ! is_object( $document ) || ! method_exists( $document, 'get_post' ) ) {
+            return;
+        }
+        $post = $document->get_post();
+        if ( ! $post || 'nx_exit_intent' !== $post->post_type ) {
+            return;
+        }
+
+        $cm = '\Elementor\Controls_Manager';
+
+        $document->start_controls_section(
+            'nx_popup_layout',
+            [
+                'label' => __( 'Layout', 'notificationx' ),
+                'tab'   => $cm::TAB_SETTINGS,
+            ]
+        );
+
+        $document->add_responsive_control(
+            'nx_popup_width',
+            [
+                'label'      => __( 'Width', 'notificationx' ),
+                'type'       => $cm::SLIDER,
+                'size_units' => [ 'px', '%', 'vw' ],
+                'range'      => [
+                    'px' => [ 'min' => 100, 'max' => 1140 ],
+                    '%'  => [ 'min' => 10,  'max' => 100 ],
+                    'vw' => [ 'min' => 10,  'max' => 100 ],
+                ],
+                // Default matches the current popup constraint (540px) so existing
+                // designs are not silently widened.
+                //
+                // NOTE: no `selectors` key — Elementor silently drops document-level
+                // controls that carry `selectors`. The value is applied server-side
+                // via the --nx-exit-width variable in print_section_constraint_css()
+                // (preview) and inject_elementor_html() (frontend) instead.
+                'default'    => [ 'unit' => 'px', 'size' => 540 ],
+            ]
+        );
+
+        $document->add_control(
+            'nx_popup_height',
+            [
+                'label'   => __( 'Height', 'notificationx' ),
+                'type'    => $cm::SELECT,
+                'default' => 'fit',
+                'options' => [
+                    'fit'    => __( 'Fit To Content', 'notificationx' ),
+                    'custom' => __( 'Custom Height', 'notificationx' ),
+                ],
+            ]
+        );
+
+        $document->add_responsive_control(
+            'nx_popup_custom_height',
+            [
+                'label'      => __( 'Custom Height', 'notificationx' ),
+                'type'       => $cm::SLIDER,
+                'size_units' => [ 'px', 'vh' ],
+                'range'      => [
+                    'px' => [ 'min' => 100, 'max' => 1000 ],
+                    'vh' => [ 'min' => 10,  'max' => 100 ],
+                ],
+                'default'    => [ 'unit' => 'px', 'size' => 480 ],
+                'condition'  => [ 'nx_popup_height' => 'custom' ],
+                // No `selectors` (see nx_popup_width note); applied via --nx-exit-height.
+            ]
+        );
+
+        $document->add_control(
+            'nx_popup_position_heading',
+            [
+                'label'     => __( 'Position', 'notificationx' ),
+                'type'      => $cm::HEADING,
+                'separator' => 'before',
+            ]
+        );
+
+        $document->add_responsive_control(
+            'nx_popup_horizontal',
+            [
+                'label'   => __( 'Horizontal', 'notificationx' ),
+                'type'    => $cm::CHOOSE,
+                'default' => 'center',
+                'options' => [
+                    'start'  => [ 'title' => __( 'Start', 'notificationx' ),  'icon' => 'eicon-h-align-left' ],
+                    'center' => [ 'title' => __( 'Center', 'notificationx' ), 'icon' => 'eicon-h-align-center' ],
+                    'end'    => [ 'title' => __( 'End', 'notificationx' ),    'icon' => 'eicon-h-align-right' ],
+                ],
+            ]
+        );
+
+        $document->add_responsive_control(
+            'nx_popup_vertical',
+            [
+                'label'   => __( 'Vertical', 'notificationx' ),
+                'type'    => $cm::CHOOSE,
+                'default' => 'center',
+                'options' => [
+                    'start'  => [ 'title' => __( 'Top', 'notificationx' ),    'icon' => 'eicon-v-align-top' ],
+                    'center' => [ 'title' => __( 'Middle', 'notificationx' ), 'icon' => 'eicon-v-align-middle' ],
+                    'end'    => [ 'title' => __( 'Bottom', 'notificationx' ), 'icon' => 'eicon-v-align-bottom' ],
+                ],
+            ]
+        );
+
+        $document->add_control(
+            'nx_popup_overlay',
+            [
+                'label'        => __( 'Overlay', 'notificationx' ),
+                'type'         => $cm::SWITCHER,
+                'label_on'     => __( 'Show', 'notificationx' ),
+                'label_off'    => __( 'Hide', 'notificationx' ),
+                'return_value' => 'yes',
+                'default'      => 'yes',
+                'separator'    => 'before',
+            ]
+        );
+
+        $document->add_control(
+            'nx_popup_close_button',
+            [
+                'label'        => __( 'Close Button', 'notificationx' ),
+                'type'         => $cm::SWITCHER,
+                'label_on'     => __( 'Show', 'notificationx' ),
+                'label_off'    => __( 'Hide', 'notificationx' ),
+                'return_value' => 'yes',
+                'default'      => 'yes',
+            ]
+        );
+
+        $document->add_control(
+            'nx_popup_entrance_animation',
+            [
+                'label'     => __( 'Entrance Animation', 'notificationx' ),
+                'type'      => $cm::ANIMATION,
+                'separator' => 'before',
+            ]
+        );
+
+        $document->add_control(
+            'nx_popup_exit_animation',
+            [
+                'label' => __( 'Exit Animation', 'notificationx' ),
+                'type'  => $cm::EXIT_ANIMATION,
+            ]
+        );
+
+        $document->end_controls_section();
+    }
+
+    /**
+     * Live-preview bridge for the Layout panel inside the Elementor editor.
+     *
+     * Document-level controls can't carry a `selectors` key (Elementor drops
+     * them), so Width/Height don't get Elementor's built-in live CSS injection.
+     * This registers page-settings change callbacks that write the
+     * `--nx-exit-width` / `--nx-exit-height` variables straight onto the preview
+     * iframe's <body> as the slider moves — so changes reflect instantly instead
+     * of only after a reload.
+     *
+     * Scoped to nx_exit_intent documents only.
+     *
+     * @return void
+     */
+    public function enqueue_editor_live_preview() {
+        if ( ! class_exists( '\\Elementor\\Plugin' ) ) {
+            return;
+        }
+        $post_id = \Elementor\Plugin::$instance->editor->get_post_id();
+        if ( ! $post_id || 'nx_exit_intent' !== get_post_type( $post_id ) ) {
+            return;
+        }
+
+        $js = <<<'JS'
+( function ( $ ) {
+    function toCss( value ) {
+        if ( value && '' !== value.size && null != value.size ) {
+            return value.size + ( value.unit || 'px' );
+        }
+        return '';
+    }
+    function previewBody() {
+        var frame = elementor.$preview && elementor.$preview[0];
+        var win   = frame && frame.contentWindow;
+        return win && win.document ? win.document.body : null;
+    }
+    function applyVar( name, value ) {
+        var body = previewBody();
+        if ( ! body ) { return; }
+        var css = toCss( value );
+        if ( css ) { body.style.setProperty( name, css ); }
+        else { body.style.removeProperty( name ); }
+    }
+    $( window ).on( 'elementor:init', function () {
+        if ( 'undefined' === typeof elementor || ! elementor.settings || ! elementor.settings.page ) {
+            return;
+        }
+        elementor.settings.page.addChangeCallback( 'nx_popup_width', function ( value ) {
+            applyVar( '--nx-exit-width', value );
+        } );
+        elementor.settings.page.addChangeCallback( 'nx_popup_custom_height', function ( value ) {
+            applyVar( '--nx-exit-height', value );
+        } );
+    } );
+} )( jQuery );
+JS;
+
+        wp_add_inline_script( 'elementor-editor', $js );
     }
 
     /**
@@ -347,6 +663,14 @@ class ExitIntentNotification extends Extension {
         // Preview images live under assets/admin/images/extensions/themes/exit-intent-elementor/.
         // Until per-theme Elementor previews are rendered, we fall back to the existing
         // built-in screenshots so the modal renders with a real image.
+        // Order intentionally mirrors the built-in $themes preset order above
+        // (one, four, three, six, two, seven, five) so the Elementor modal lists
+        // the same designs in the same sequence as the Default-theme picker.
+        //
+        // Unlike $themes (processed by Extension::__nx_themes), this array is fed
+        // straight to the radio-card field, so we must resolve the pro badge here:
+        // only flag a theme as pro when the Pro plugin is NOT active.
+        $is_pro_badge = ! NotificationX::is_pro();
         $this->elementor_themes = [
             'theme-one' => [
                 'label'  => 'theme-one',
@@ -355,6 +679,13 @@ class ExitIntentNotification extends Extension {
                 'column' => '6',
                 'title'  => 'Exit Intent Theme One',
             ],
+            'theme-four' => [
+                'label'  => 'theme-four',
+                'value'  => 'theme-four',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-four.png',
+                'column' => '6',
+                'title'  => 'Exit Intent Theme Four',
+            ],
             'theme-three' => [
                 'label'  => 'theme-three',
                 'value'  => 'theme-three',
@@ -362,12 +693,37 @@ class ExitIntentNotification extends Extension {
                 'column' => '6',
                 'title'  => 'Exit Intent Theme Three',
             ],
-            'theme-four' => [
-                'label'  => 'theme-four',
-                'value'  => 'theme-four',
-                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-four.png',
+            'theme-six' => [
+                'label'  => 'theme-six',
+                'value'  => 'theme-six',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.png',
                 'column' => '6',
-                'title'  => 'Exit Intent Theme Four',
+                'title'  => 'Exit Intent Theme Six',
+                'is_pro' => $is_pro_badge,
+            ],
+            'theme-two' => [
+                'label'  => 'theme-two',
+                'value'  => 'theme-two',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-two.png',
+                'column' => '6',
+                'title'  => 'Exit Intent Theme Two',
+                'is_pro' => $is_pro_badge,
+            ],
+            'theme-seven' => [
+                'label'  => 'theme-seven',
+                'value'  => 'theme-seven',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-seven.png',
+                'column' => '6',
+                'title'  => 'Exit Intent Theme Seven',
+                'is_pro' => $is_pro_badge,
+            ],
+            'theme-five' => [
+                'label'  => 'theme-five',
+                'value'  => 'theme-five',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-five.png',
+                'column' => '6',
+                'title'  => 'Exit Intent Theme Five',
+                'is_pro' => $is_pro_badge,
             ],
         ];
     }
