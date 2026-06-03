@@ -166,8 +166,17 @@ class ExitIntentNotification extends Extension {
 
         $height_mode = $document->get_settings( 'nx_popup_height' );
 
+        // Width precedence: the Layout-panel Width control if the user set one,
+        // otherwise the design's own top-level container width (boxed_width).
+        // Without this, every popup falls back to the CSS 540px default, which
+        // crushes wider designs (e.g. the two-column 896px themes).
+        $width = $size( $document->get_settings( 'nx_popup_width' ) );
+        if ( '' === $width ) {
+            $width = $this->resolve_design_width( $document );
+        }
+
         return [
-            'width'              => $size( $document->get_settings( 'nx_popup_width' ) ),
+            'width'              => $width,
             'height_mode'        => $height_mode ? $height_mode : 'fit',
             'height'             => 'custom' === $height_mode ? $size( $document->get_settings( 'nx_popup_custom_height' ) ) : '',
             'horizontal'         => $document->get_settings( 'nx_popup_horizontal' ) ?: 'center',
@@ -177,6 +186,40 @@ class ExitIntentNotification extends Extension {
             'entrance_animation' => (string) $document->get_settings( 'nx_popup_entrance_animation' ),
             'exit_animation'     => (string) $document->get_settings( 'nx_popup_exit_animation' ),
         ];
+    }
+
+    /**
+     * Derive the popup's intended width from its Elementor design — the widest
+     * px width among the top-level elements (boxed_width / width / content_width).
+     * Used as the default popup width when no Layout-panel Width is configured,
+     * so each design keeps its own width instead of the 540px CSS fallback.
+     * Only top-level elements are inspected so inner column widths are ignored.
+     *
+     * @param \Elementor\Core\Base\Document $document
+     * @return string e.g. "896px", or '' when no explicit px width is defined.
+     */
+    protected function resolve_design_width( $document ) {
+        if ( ! $document || ! method_exists( $document, 'get_elements_data' ) ) {
+            return '';
+        }
+        $data = $document->get_elements_data();
+        if ( empty( $data ) || ! is_array( $data ) ) {
+            return '';
+        }
+        $max = 0;
+        foreach ( $data as $element ) {
+            if ( empty( $element['settings'] ) || ! is_array( $element['settings'] ) ) {
+                continue;
+            }
+            foreach ( [ 'boxed_width', 'width', 'content_width' ] as $key ) {
+                $val = isset( $element['settings'][ $key ] ) ? $element['settings'][ $key ] : null;
+                if ( is_array( $val ) && isset( $val['size'] ) && is_numeric( $val['size'] )
+                    && ( ! isset( $val['unit'] ) || 'px' === $val['unit'] ) ) {
+                    $max = max( $max, (float) $val['size'] );
+                }
+            }
+        }
+        return $max > 0 ? $max . 'px' : '';
     }
 
     /**
@@ -284,14 +327,16 @@ class ExitIntentNotification extends Extension {
                     '%'  => [ 'min' => 10,  'max' => 100 ],
                     'vw' => [ 'min' => 10,  'max' => 100 ],
                 ],
-                // Default matches the current popup constraint (540px) so existing
-                // designs are not silently widened.
+                // No default: when the user hasn't set a Width, the popup falls back
+                // to the design's own container width (resolve_design_width()), not a
+                // fixed 540px — otherwise wider designs (e.g. the 896px two-column
+                // themes) get crushed. An explicit value here still wins.
                 //
                 // NOTE: no `selectors` key — Elementor silently drops document-level
                 // controls that carry `selectors`. The value is applied server-side
                 // via the --nx-exit-width variable in print_section_constraint_css()
                 // (preview) and inject_elementor_html() (frontend) instead.
-                'default'    => [ 'unit' => 'px', 'size' => 540 ],
+                'default'    => [ 'unit' => 'px', 'size' => '' ],
             ]
         );
 

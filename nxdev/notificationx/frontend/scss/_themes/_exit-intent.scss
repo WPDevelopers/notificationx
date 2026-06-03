@@ -38,16 +38,32 @@
 // Elementor editor preview so what-you-see matches what-you-get.
 .nx-exit-intent-elementor {
     position: relative;
-    width: auto;
+    // Match the popup card's width (driven by --nx-exit-width, default 540px,
+    // shared with .nx-exit-intent-section) so the absolutely-positioned close
+    // button anchors to the card's corner, not the full-width overlay.
+    width: 100%;
+    max-width: var(--nx-exit-width, 540px);
     box-sizing: border-box;
 
     .nx-exit-intent-close {
         position: absolute;
-        top: 12px;
-        right: 12px;
+        // Overhang the card's top-right corner so the close sits just outside
+        // the popup (negative offsets are not clipped — the wrapper has no
+        // overflow:hidden).
+        top: -16px;
+        right: -16px;
         z-index: 2;
+        // Center the × and lock the box model so a host theme's global
+        // `button` padding/min-width can't stretch it into an ellipse.
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
         width: 32px;
         height: 32px;
+        min-width: 32px;
+        padding: 0;
+        margin: 0;
         line-height: 1;
         font-size: 22px;
         background: rgba(255, 255, 255, 0.9);
@@ -56,6 +72,8 @@
         cursor: pointer;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         color: #1a1a1a;
+        appearance: none;
+        -webkit-appearance: none;
     }
 }
 
