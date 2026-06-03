@@ -235,6 +235,24 @@ const GetTemplate = (settings) => {
                 `${params?.second_param} ${params?.third_param} ${params?.fourth_param}`,
             ];
             break;
+        // Figma "theme-two": row 1 = name + time (time right-aligned via CSS),
+        // row 2 = action + product. Empty 3rd row carries the verified badge.
+        case "conv-theme-thirteen":
+            return [
+                `${params?.first_param} ${params?.fourth_param}`,
+                `${params?.second_param} ${params?.third_param}`,
+            ];
+            break;
+        // Figma "theme-four": row 1 = time (right-aligned via CSS),
+        // row 2 = name + action + product. Empty 3rd row carries the verified badge.
+        // (Figma shows a location on row 1, but popup conversions have no location
+        // param, so row 1 carries the time only.)
+        case "conv-theme-fifteen":
+            return [
+                `${params?.fourth_param}`,
+                `${params?.first_param} ${params?.second_param} ${params?.third_param}`,
+            ];
+            break;
         // conversion end
 
         // comments theme start.

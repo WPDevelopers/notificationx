@@ -141,6 +141,30 @@ class Conversions extends Types {
                     'link_button_text' => __( 'Buy now', 'notificationx' ),
                 ],
             ),
+            // Figma "theme-two" — floating "Buy now" pill above top-right, rounded-square
+            // avatar, row 1 = name + right-aligned time, row 2 = "Bought <product>",
+            // green "Verified by NotificationX" badge.
+            'conv-theme-thirteen' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-13.png',
+                'image_shape' => 'rounded',
+                'template'  => $common_fields,
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
+            // Figma "theme-four" — left lavender image panel with a check badge, floating
+            // "Buy now" pill above top-right, row 1 = time (top-right), row 2 = name +
+            // action + product, green "Verified by NotificationX" badge.
+            'conv-theme-fifteen' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-15.png',
+                'image_shape' => 'rounded',
+                'template'  => $common_fields,
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
             'conv-theme-seven' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-7.png',
@@ -233,6 +257,8 @@ class Conversions extends Types {
                     'conversions_conv-theme-ten',
                     'conversions_conv-theme-eleven',
                     'conversions_conv-theme-twelve',
+                    'conversions_conv-theme-thirteen',
+                    'conversions_conv-theme-fifteen',
                     'woocommerce_sales_theme-one',
                     'woocommerce_sales_theme-two',
                     'woocommerce_sales_theme-three',
@@ -241,6 +267,8 @@ class Conversions extends Types {
                     'woocommerce_sales_conv-theme-ten',
                     'woocommerce_sales_conv-theme-eleven',
                     'woocommerce_sales_conv-theme-twelve',
+                    'woocommerce_sales_conv-theme-thirteen',
+                    'woocommerce_sales_conv-theme-fifteen',
                 ]
             ],
             'woo_template_sales_count' => [

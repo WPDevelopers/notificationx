@@ -1,0 +1,188 @@
+// Figma "theme-two" (slug: conv-theme-thirteen)
+// Floating "Buy now" pill above the top-right corner · rounded-square avatar ·
+// row 1: name (left) + time (right) · row 2: "<action> <product>" ·
+// row 3: green "Verified by NotificationX" badge.
+// Everything is scoped under this theme's selector — no effect on other themes.
+&.themes-woocommerce_sales_conv-theme-thirteen,
+&.themes-conversions_conv-theme-thirteen {
+    border-radius: 10px;
+    box-shadow: 0 4px 18px rgba(19, 27, 46, 0.12);
+    min-width: 0;
+    width: fit-content;
+    // !important so the theme stays compact regardless of the campaign "Size"
+    // setting (applied by the runtime as an inline max-width).
+    max-width: 360px !important;
+    // Room for the "Buy now" pill that floats above the top edge.
+    margin-top: 24px;
+
+    &,
+    .notificationx-inner {
+        border-radius: 10px;
+    }
+
+    .notificationx-inner {
+        align-items: center;
+        position: relative;
+        min-height: 56px;
+        width: auto;
+    }
+
+    // Rounded-square avatar.
+    .notificationx-image {
+        flex-basis: 40px;
+        width: 40px;
+        min-width: 40px;
+        padding: 0;
+        margin: 0 0 0 14px;
+        align-self: center;
+        background: #eef1fb;
+        border-radius: 10px;
+
+        img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+    }
+
+    .no-advance-edit .notificationx-content,
+    .notificationx-content {
+        margin-left: 12px;
+        flex: 0 1 auto;
+        padding: 9px 16px 9px 0;
+        // Give row 1 room to spread the name and time apart.
+        min-width: 190px;
+
+        // Row 1 — name (left) + time (right).
+        .nx-first-row {
+            display: flex;
+            width: 100%;
+            color: #131b2e;
+            font-size: 13px;
+            line-height: 1.2;
+            font-weight: 600;
+
+            & > span {
+                display: flex;
+                width: 100%;
+                align-items: baseline;
+                justify-content: space-between;
+                gap: 10px;
+
+                // Name — truncate if very long.
+                span:first-child {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                // Time — muted, smaller, never wraps.
+                span:last-child {
+                    color: #949daf;
+                    font-size: 11px;
+                    font-weight: 400;
+                    white-space: nowrap;
+                    flex: 0 0 auto;
+                }
+            }
+        }
+
+        // Row 2 — "<action> <product>". One line, ellipsis if long.
+        .nx-second-row {
+            color: #131b2e;
+            font-size: 13px;
+            line-height: 1.3;
+            font-weight: 400;
+            margin-top: 2px;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+
+            & > span {
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-right: 0;
+            }
+        }
+
+        // Row 3 — empty content; only carries the verified badge.
+        .nx-third-row {
+            margin-top: 4px;
+
+            // Recolour the NX branding into a "✓ Verified by NotificationX" badge.
+            .nx-branding {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                font-size: 10px;
+                line-height: 1;
+                color: #949daf;
+
+                // Drop the NX logo glyph; we use our own green check instead.
+                & > svg:first-child {
+                    display: none;
+                }
+
+                // Green circular check mark.
+                &::before {
+                    content: "";
+                    display: inline-block;
+                    width: 12px;
+                    height: 12px;
+                    flex: 0 0 12px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Ccircle cx='7' cy='7' r='7' fill='%23006E2F'/%3E%3Cpath d='M3.6 7.2l2 2 4.2-4.4' fill='none' stroke='%23fff' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+
+                .nx-byline {
+                    color: #949daf;
+
+                    // "by" -> "Verified by".
+                    &::before {
+                        content: "Verified ";
+                    }
+                }
+
+                & > a > svg {
+                    width: 70px;
+                    height: 9px;
+                    fill: #949daf;
+                }
+
+                & > a:hover > svg {
+                    fill: #131b2e;
+                }
+            }
+        }
+    }
+
+    // "Buy now ›" — white pill floating just above the top-right corner.
+    &.button-link .notificationx-link {
+        top: -30px;
+        right: 14px;
+        left: auto;
+        bottom: auto;
+        background: #fff;
+        color: #006e2f;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1;
+        padding: 7px 14px;
+        border-radius: 8px;
+        box-shadow: 0 4px 14px rgba(19, 27, 46, 0.14);
+
+        &::after {
+            content: "\203A"; // ›
+            margin-left: 5px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    }
+}
