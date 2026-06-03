@@ -141,7 +141,18 @@ class WooCommerceSales extends Types {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
                 'image_shape' => 'rounded',
             ),
-           
+            // Figma "theme-one" — circular avatar, name row, action+product+time row,
+            // green "Verified by NotificationX" badge (branding) + right-aligned "Buy now" link.
+            'conv-theme-twelve' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-12.png',
+                'image_shape' => 'circle',
+                'template'  => $common_fields,
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
+
         ];
         $this->res_themes = [
             'res-theme-one'   => [
@@ -217,6 +228,7 @@ class WooCommerceSales extends Types {
                     'woocommerce_sales_theme-five',
                     'woocommerce_sales_conv-theme-ten',
                     'woocommerce_sales_conv-theme-eleven',
+                    'woocommerce_sales_conv-theme-twelve',
                 ]
             ],
             'woo_template_sales_count' => [

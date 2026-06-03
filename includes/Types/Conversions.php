@@ -130,6 +130,17 @@ class Conversions extends Types {
                 ],
                 'template'  => $common_fields,
             ),
+            // Figma "theme-one" — circular avatar, name row, action+product+time row,
+            // green "Verified by NotificationX" badge (branding) + right-aligned "Buy now" link.
+            'conv-theme-twelve' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-12.png',
+                'image_shape' => 'circle',
+                'template'  => $common_fields,
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
             'conv-theme-seven' => array(
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-7.png',
@@ -221,6 +232,7 @@ class Conversions extends Types {
                     'conversions_theme-five',
                     'conversions_conv-theme-ten',
                     'conversions_conv-theme-eleven',
+                    'conversions_conv-theme-twelve',
                     'woocommerce_sales_theme-one',
                     'woocommerce_sales_theme-two',
                     'woocommerce_sales_theme-three',
@@ -228,6 +240,7 @@ class Conversions extends Types {
                     'woocommerce_sales_theme-five',
                     'woocommerce_sales_conv-theme-ten',
                     'woocommerce_sales_conv-theme-eleven',
+                    'woocommerce_sales_conv-theme-twelve',
                 ]
             ],
             'woo_template_sales_count' => [
