@@ -25,7 +25,7 @@
         width: auto;
     }
 
-    // Green cart icon — a circular badge (replaces the product image).
+    // Circular icon showing the image chosen in "Choose an Image".
     .notificationx-image {
         flex-basis: 48px;
         width: 48px;
@@ -42,16 +42,10 @@
         overflow: hidden;
 
         img {
-            display: none;
-        }
-
-        &::after {
-            content: "";
-            width: 24px;
-            height: 24px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23006E2F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='21' r='1'/%3E%3Ccircle cx='20' cy='21' r='1'/%3E%3Cpath d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-size: contain;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
         }
     }
 

@@ -198,6 +198,9 @@
                 }
 
                 .nx-byline {
+                    // Reset the inherited `.nx-branding > * { margin-right: 5px }`
+                    // so the gap to the logo matches the flex gap (not 5px + gap).
+                    margin-right: 0;
                     color: #949daf;
 
                     // "by" -> "Verified by".
