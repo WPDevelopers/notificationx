@@ -227,6 +227,27 @@ const GetTemplate = (settings) => {
                 `${params?.third_param} ${params?.fourth_param}`,
             ];
             break;
+        // Figma "theme-three": sales-count card.
+        // row 1 = count + label + product ("100 Buyers purchased T-shirt"),
+        // row 2 = period ("in last 7 days"). The empty 3rd row carries the verified
+        // badge; "Purchase now" is the link_button. (Pro aggregates the per-product
+        // sales_count; third_param = tag_product_title.)
+        case "conv-theme-fourteen":
+            return [
+                `${params?.first_param} ${params?.second_param} ${params?.third_param}`,
+                `${params?.fourth_param}`,
+            ];
+            break;
+        // Figma "theme-five": sales-count card, alternate layout. Same two data
+        // rows as conv-theme-fourteen — row 1 = count + label ("100 Buyers
+        // purchased"), row 2 = period ("In the last N days- Join them now!").
+        // The empty 3rd row carries the verified badge (CSS lifts it to the top).
+        case "conv-theme-sixteen":
+            return [
+                `${params?.first_param} ${params?.second_param}`,
+                `${params?.fourth_param}`,
+            ];
+            break;
         // Figma "theme-one": row 1 = buyer name, row 2 = action + product + time.
         // The empty 3rd row carries the "Verified by NotificationX" branding badge.
         case "conv-theme-twelve":
@@ -243,13 +264,14 @@ const GetTemplate = (settings) => {
                 `${params?.second_param} ${params?.third_param}`,
             ];
             break;
-        // Figma "theme-four": row 1 = time (right-aligned via CSS),
+        // Figma "theme-four": row 1 = location (left) + time (right, via CSS),
         // row 2 = name + action + product. Empty 3rd row carries the verified badge.
-        // (Figma shows a location on row 1, but popup conversions have no location
-        // param, so row 1 carries the time only.)
+        // Location uses the order's {{city}}/{{country}} entry data (populated by the
+        // WooCommerce extension); the pin icon is added in CSS. If a campaign has no
+        // city/country the location simply renders empty.
         case "conv-theme-fifteen":
             return [
-                `${params?.fourth_param}`,
+                `<span class="nx-loc">{{city}}, {{country}}</span> ${params?.fourth_param}`,
                 `${params?.first_param} ${params?.second_param} ${params?.third_param}`,
             ];
             break;

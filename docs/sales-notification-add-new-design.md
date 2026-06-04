@@ -180,6 +180,8 @@ Use the existing partials as templates ([_theme-ten.scss](../nxdev/notificationx
 
 > The leading `&` is required — these partials are `@import`ed **inside** the `.notification-item` selector in `_common.scss`, so `&.themes-…` resolves to `.notification-item.themes-…`. Do not write a top-level `.notification-item { … }` wrapper inside the partial.
 
+> **Branding byline → brand logo.** The new Sales themes render the full NotificationX brand logo (icon + wordmark) in the byline instead of the plain "NotificationX" text. This is automatic **if** you add the theme slug to the `BRAND_LOGO_THEMES` array in [NXBranding.js](../nxdev/notificationx/frontend/themes/helpers/NXBranding.js) — the component then renders `<BrandLogo />` (from [BrandLogo.js](../nxdev/notificationx/frontend/themes/helpers/BrandLogo.js), the inline `full-logo.svg`) in place of `<NotificationText />`. In the partial, size it via the branding link's `svg`: `.nx-branding > a > svg { height: 16px; width: auto; }` (height-based so the 180:48 logo keeps its aspect ratio — do **not** set the old `width:70px; height:9px` wordmark dimensions, which squash it).
+
 ### Step 6 — Register the partial import
 
 **File:** [nxdev/notificationx/frontend/scss/_themes/_common.scss](../nxdev/notificationx/frontend/scss/_themes/_common.scss) (around line 261).

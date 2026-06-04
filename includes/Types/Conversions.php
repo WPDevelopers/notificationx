@@ -39,7 +39,7 @@ class Conversions extends Types {
         'modules_envato',
     ];
 
-    public $conversions_count = array('conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine','woocommerce_sales_conv-theme-seven', 'woocommerce_sales_conv-theme-eight', 'woocommerce_sales_conv-theme-nine');
+    public $conversions_count = array('conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine', 'conversions_conv-theme-fourteen', 'conversions_conv-theme-sixteen', 'woocommerce_sales_conv-theme-seven', 'woocommerce_sales_conv-theme-eight', 'woocommerce_sales_conv-theme-nine', 'woocommerce_sales_conv-theme-fourteen', 'woocommerce_sales_conv-theme-sixteen');
     public $map_dependency = [];
 
 
@@ -147,7 +147,11 @@ class Conversions extends Types {
             'conv-theme-thirteen' => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-13.png',
                 'image_shape' => 'rounded',
-                'template'  => $common_fields,
+                // Row 2 reads "Bought <product>" per the design (the shared default
+                // is "just purchased"), so override the action verb for this theme.
+                'template'  => array_merge( $common_fields, [
+                    'second_param' => __( 'Bought', 'notificationx' ),
+                ] ),
                 'defaults'     => [
                     'link_button'      => true,
                     'link_button_text' => __( 'Buy now', 'notificationx' ),
@@ -180,6 +184,32 @@ class Conversions extends Types {
                 'is_pro' => true,
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
                 'image_shape' => 'rounded',
+            ),
+            // Figma "theme-three" — sales-count card (cart icon, "X Buyers purchased /
+            // in last N days / Purchase now" + verified badge). Pro: the count is
+            // aggregated by SalesFeatures (gated by $sales_count_themes) and the count
+            // template is assigned in the Pro Conversions type.
+            'conv-theme-fourteen' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-14.png',
+                'image_shape' => 'rounded',
+                'defaults'    => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Purchase now', 'notificationx' ),
+                ],
+            ),
+            // Figma "theme-five" — sales-count card, alternate layout: verified badge
+            // pill on top, cart icon (blue box) + "<count> Buyers purchased / In the
+            // last N days- Join them now!", floating "Purchase now" pill top-right.
+            // Same Pro sales-count engine as conv-theme-fourteen.
+            'conv-theme-sixteen' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-16.png',
+                'image_shape' => 'rounded',
+                'defaults'    => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Purchase now', 'notificationx' ),
+                ],
             ),
         ];
         $this->res_themes = [
@@ -284,10 +314,14 @@ class Conversions extends Types {
                     'conversions_conv-theme-seven',
                     'conversions_conv-theme-eight',
                     'conversions_conv-theme-nine',
+                    'conversions_conv-theme-fourteen',
+                    'conversions_conv-theme-sixteen',
                     'woocommerce_sales_conv-theme-six',
                     'woocommerce_sales_conv-theme-seven',
                     'woocommerce_sales_conv-theme-eight',
                     'woocommerce_sales_conv-theme-nine',
+                    'woocommerce_sales_conv-theme-fourteen',
+                    'woocommerce_sales_conv-theme-sixteen',
                 ]
             ],
         ];

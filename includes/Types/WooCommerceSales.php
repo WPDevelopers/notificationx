@@ -141,6 +141,28 @@ class WooCommerceSales extends Types {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
                 'image_shape' => 'rounded',
             ),
+            // Figma "theme-three" — sales-count card (cart icon, "X Buyers purchased /
+            // in last N days / Purchase now" + verified badge). Pro aggregates the count.
+            'conv-theme-fourteen' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-14.png',
+                'image_shape' => 'rounded',
+                'defaults'    => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Purchase now', 'notificationx' ),
+                ],
+            ),
+            // Figma "theme-five" — sales-count card, alternate layout (badge on top,
+            // blue cart box, floating "Purchase now" pill). Same Pro count engine.
+            'conv-theme-sixteen' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-16.png',
+                'image_shape' => 'rounded',
+                'defaults'    => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Purchase now', 'notificationx' ),
+                ],
+            ),
             // Figma "theme-one" — circular avatar, name row, action+product+time row,
             // green "Verified by NotificationX" badge (branding) + right-aligned "Buy now" link.
             'conv-theme-twelve' => array(
@@ -158,7 +180,11 @@ class WooCommerceSales extends Types {
             'conv-theme-thirteen' => array(
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-13.png',
                 'image_shape' => 'rounded',
-                'template'  => $common_fields,
+                // Row 2 reads "Bought <product>" per the design (the shared default
+                // is "just purchased"), so override the action verb for this theme.
+                'template'  => array_merge( $common_fields, [
+                    'second_param' => __( 'Bought', 'notificationx' ),
+                ] ),
                 'defaults'     => [
                     'link_button'      => true,
                     'link_button_text' => __( 'Buy now', 'notificationx' ),
@@ -270,6 +296,8 @@ class WooCommerceSales extends Types {
                     'woocommerce_sales_conv-theme-seven',
                     'woocommerce_sales_conv-theme-eight',
                     'woocommerce_sales_conv-theme-nine',
+                    'woocommerce_sales_conv-theme-fourteen',
+                    'woocommerce_sales_conv-theme-sixteen',
                 ]
             ],
         ];

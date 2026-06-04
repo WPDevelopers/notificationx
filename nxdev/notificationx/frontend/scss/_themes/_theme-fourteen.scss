@@ -1,0 +1,177 @@
+// Figma "theme-three" (slug: conv-theme-fourteen) — sales-count card.
+// Green cart icon · row 1: "<count> Buyers purchased" (count in green) ·
+// row 2: "in last N days" · row 3: "Purchase now ›" (left) + green "Verified by
+// NotificationX" badge (right). The count is aggregated by Pro (SalesFeatures).
+// Everything is scoped under this theme's selector — no effect on other themes.
+&.themes-woocommerce_sales_conv-theme-fourteen,
+&.themes-conversions_conv-theme-fourteen {
+    border-radius: 10px;
+    box-shadow: 0 4px 18px rgba(19, 27, 46, 0.12);
+    min-width: 0;
+    width: fit-content;
+    // !important so the theme stays compact regardless of the campaign "Size"
+    // setting (applied by the runtime as an inline max-width).
+    max-width: 360px !important;
+
+    &,
+    .notificationx-inner {
+        border-radius: 10px;
+    }
+
+    .notificationx-inner {
+        align-items: center;
+        position: relative;
+        min-height: 64px;
+        width: auto;
+    }
+
+    // Green cart icon — a circular badge (replaces the product image).
+    .notificationx-image {
+        flex-basis: 48px;
+        width: 48px;
+        min-width: 48px;
+        height: 48px;
+        padding: 0;
+        margin: 0 0 0 16px;
+        align-self: center;
+        background: #e7f6ee;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        img {
+            display: none;
+        }
+
+        &::after {
+            content: "";
+            width: 24px;
+            height: 24px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23006E2F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='21' r='1'/%3E%3Ccircle cx='20' cy='21' r='1'/%3E%3Cpath d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    }
+
+    .no-advance-edit .notificationx-content,
+    .notificationx-content {
+        margin-left: 12px;
+        flex: 0 1 auto;
+        // Bottom padding leaves room for the "Purchase now" link sitting on row 3.
+        padding: 10px 16px 10px 0;
+        // Wide enough for row 3 to fit "Purchase now" (left) and the verified
+        // badge (right) side by side without overlapping.
+        min-width: 244px;
+
+        // Row 1 — "<count> Buyers purchased <product>". Count is the first inner
+        // span (green); long product names truncate with an ellipsis.
+        .nx-first-row {
+            color: #131b2e;
+            font-size: 14px;
+            line-height: 1.25;
+            font-weight: 700;
+
+            & > span {
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+            }
+
+            & > span > span:first-child {
+                color: #006e2f;
+            }
+        }
+
+        // Row 2 — period ("in last N days").
+        .nx-second-row {
+            color: #949daf;
+            font-size: 11.5px;
+            line-height: 1.3;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        // Row 3 — "Purchase now" sits at the left (the link_button, absolutely
+        // positioned); the verified badge is pushed to the right.
+        .nx-third-row {
+            margin-top: 6px;
+            // Reserve the bottom strip; the badge itself is pinned to the card's
+            // bottom-right corner (absolute) to match the design.
+            min-height: 16px;
+
+            .nx-branding {
+                position: absolute;
+                right: 16px;
+                bottom: 12px;
+                margin: 0;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                font-size: 10px;
+                line-height: 1;
+                color: #949daf;
+
+                & > svg:first-child {
+                    display: none;
+                }
+
+                &::before {
+                    content: "";
+                    display: inline-block;
+                    width: 12px;
+                    height: 12px;
+                    flex: 0 0 12px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Ccircle cx='7' cy='7' r='7' fill='%23006E2F'/%3E%3Cpath d='M3.6 7.2l2 2 4.2-4.4' fill='none' stroke='%23fff' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+
+                // Per the design this theme shows a compact "✓ NotificationX"
+                // badge with no "Verified by" text.
+                .nx-byline {
+                    display: none;
+                }
+
+                // The full NotificationX brand logo (icon + wordmark). Sized by
+                // height so it keeps its 180:48 aspect ratio.
+                & > a > svg {
+                    height: 16px;
+                    width: auto;
+                    display: block;
+                }
+
+                & > a:hover > svg {
+                    opacity: 0.85;
+                }
+            }
+        }
+    }
+
+    // "Purchase now ›" — green text link at the bottom-left, aligned with the content.
+    &.button-link .notificationx-link {
+        top: auto;
+        bottom: 13px;
+        right: auto;
+        // icon box (48) + its left margin (16) + content margin (12) ≈ 76px.
+        left: 76px;
+        transform: none;
+        padding: 0;
+        background: none;
+        border-radius: 0;
+        color: #006e2f;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1;
+
+        &::after {
+            content: "\203A"; // ›
+            margin-left: 4px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+    }
+}

@@ -108,6 +108,12 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 margin-right: 0;
+
+                // Row 2 is "<action> <product>" — each param is its own inner
+                // <span>. Per the design, the product (2nd span) is brand purple.
+                & > span:nth-child(2) {
+                    color: #5614d5;
+                }
             }
         }
 
@@ -150,14 +156,16 @@
                     }
                 }
 
+                // The full NotificationX brand logo (icon + wordmark). Sized by
+                // height so it keeps its 180:48 aspect ratio.
                 & > a > svg {
-                    width: 70px;
-                    height: 9px;
-                    fill: #949daf;
+                    height: 16px;
+                    width: auto;
+                    display: block;
                 }
 
                 & > a:hover > svg {
-                    fill: #131b2e;
+                    opacity: 0.85;
                 }
             }
         }
@@ -170,7 +178,8 @@
         left: auto;
         bottom: auto;
         background: #fff;
-        color: #006e2f;
+        // Dark text per the design (was green).
+        color: #131b2e;
         font-size: 13px;
         font-weight: 600;
         line-height: 1;

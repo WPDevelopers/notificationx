@@ -28,17 +28,17 @@
 
     // Circular avatar on the far left.
     .notificationx-image {
-        flex-basis: 36px;
-        width: 36px;
-        min-width: 36px;
+        flex-basis: 44px;
+        width: 44px;
+        min-width: 44px;
         padding: 0;
         margin: 0 0 0 14px;
         align-self: center;
         overflow: visible;
 
         img {
-            width: 36px;
-            height: 36px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             aspect-ratio: 1 / 1;
             object-fit: cover;
@@ -87,6 +87,17 @@
                 line-clamp: 2;
                 overflow: hidden;
                 margin-right: 0;
+
+                // Row 2 is "<action> <product> <time>" — each param is its own
+                // inner <span>. Per the design, emphasize the product (2nd span)
+                // and mute the time (3rd span); the action stays regular.
+                & > span:nth-child(2) {
+                    font-weight: 600;
+                }
+
+                & > span:nth-child(3) {
+                    color: #949daf;
+                }
             }
         }
 
@@ -129,14 +140,16 @@
                     }
                 }
 
+                // The full NotificationX brand logo (icon + wordmark). Sized by
+                // height so it keeps its 180:48 aspect ratio.
                 & > a > svg {
-                    width: 70px;
-                    height: 9px;
-                    fill: #949daf;
+                    height: 16px;
+                    width: auto;
+                    display: block;
                 }
 
                 & > a:hover > svg {
-                    fill: #131b2e;
+                    opacity: 0.85;
                 }
             }
         }
