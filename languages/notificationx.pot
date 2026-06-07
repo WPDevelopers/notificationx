@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-20T10:12:27+00:00\n"
+"POT-Creation-Date: 2026-06-01T12:12:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -816,6 +816,7 @@ msgstr ""
 
 #: includes/Core/Helper.php:789
 #: includes/Core/Rest/Popup.php:448
+#: includes/Extensions/Elementor/FormWidget.php:161
 #: assets/admin/js/admin.js:13
 msgid "Name"
 msgstr ""
@@ -1666,9 +1667,9 @@ msgstr ""
 
 #: includes/Core/Migration.php:392
 #: includes/Extensions/EDD/EDInline.php:45
-#: includes/Extensions/FluentCart/FluentCart.php:686
-#: includes/Extensions/FluentCart/FluentCart.php:687
-#: includes/Extensions/FluentCart/FluentCart.php:688
+#: includes/Extensions/FluentCart/FluentCart.php:735
+#: includes/Extensions/FluentCart/FluentCart.php:736
+#: includes/Extensions/FluentCart/FluentCart.php:737
 #: includes/Extensions/Give/Give.php:82
 #: includes/Extensions/Give/Give.php:83
 #: includes/Extensions/Give/Give.php:84
@@ -1989,6 +1990,7 @@ msgid "Email Address"
 msgstr ""
 
 #: includes/Core/Rest/Popup.php:452
+#: includes/Extensions/Elementor/FormWidget.php:225
 #: includes/Types/GDPR.php:315
 #: includes/Types/GDPR.php:318
 #: includes/Types/GDPR.php:412
@@ -2047,7 +2049,7 @@ msgstr ""
 #: includes/Extensions/CF7/CF7.php:99
 #: includes/Extensions/EDD/EDD.php:96
 #: includes/Extensions/Elementor/From.php:61
-#: includes/Extensions/FluentCart/FluentCart.php:701
+#: includes/Extensions/FluentCart/FluentCart.php:750
 #: includes/Extensions/FluentForm/FluentForm.php:90
 #: includes/Extensions/Give/Give.php:103
 #: includes/Extensions/GRVF/GravityForms.php:65
@@ -2068,7 +2070,7 @@ msgstr ""
 #: includes/Extensions/CF7/CF7.php:102
 #: includes/Extensions/EDD/EDD.php:99
 #: includes/Extensions/Elementor/From.php:64
-#: includes/Extensions/FluentCart/FluentCart.php:704
+#: includes/Extensions/FluentCart/FluentCart.php:753
 #: includes/Extensions/FluentForm/FluentForm.php:93
 #: includes/Extensions/Give/Give.php:106
 #: includes/Extensions/GRVF/GravityForms.php:68
@@ -2362,7 +2364,7 @@ msgid "more products"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:147
-#: includes/Extensions/FluentCart/FluentCart.php:679
+#: includes/Extensions/FluentCart/FluentCart.php:728
 #: includes/Extensions/SureCart/SureCart.php:431
 #: includes/Extensions/WooCommerce/WooCommerce.php:161
 #: includes/Types/DownloadStats.php:199
@@ -2371,7 +2373,7 @@ msgid "Product Page"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:353
-#: includes/Extensions/FluentCart/FluentCart.php:689
+#: includes/Extensions/FluentCart/FluentCart.php:738
 #: includes/Extensions/Give/Give.php:85
 #: includes/Extensions/LearnPress/LearnPress.php:539
 #: includes/Extensions/SureCart/SureCart.php:441
@@ -2505,7 +2507,7 @@ msgstr ""
 #: includes/Extensions/Elementor/CountdownWidget.php:94
 #: includes/Extensions/Elementor/CountdownWidget.php:97
 #: includes/Extensions/Elementor/CountdownWidget.php:264
-#: includes/Extensions/Elementor/CountdownWidget.php:599
+#: includes/Extensions/Elementor/CountdownWidget.php:650
 #: includes/Extensions/GlobalFields.php:2231
 msgid "Hours"
 msgstr ""
@@ -2513,7 +2515,7 @@ msgstr ""
 #: includes/Extensions/Elementor/CountdownWidget.php:105
 #: includes/Extensions/Elementor/CountdownWidget.php:108
 #: includes/Extensions/Elementor/CountdownWidget.php:286
-#: includes/Extensions/Elementor/CountdownWidget.php:600
+#: includes/Extensions/Elementor/CountdownWidget.php:651
 #: includes/Extensions/GlobalFields.php:2240
 msgid "Minutes"
 msgstr ""
@@ -2571,7 +2573,9 @@ msgid "Inline"
 msgstr ""
 
 #: includes/Extensions/Elementor/CountdownWidget.php:206
-#: includes/Extensions/Elementor/CountdownWidget.php:673
+#: includes/Extensions/Elementor/CountdownWidget.php:724
+#: includes/Extensions/Elementor/FormWidget.php:278
+#: includes/Extensions/Elementor/FormWidget.php:464
 #: blocks/notificationx/components/inspector.js:226
 #: blocks/notificationx/components/inspector.js:260
 #: blocks/notificationx/index.js:1
@@ -2579,7 +2583,9 @@ msgid "Alignment"
 msgstr ""
 
 #: includes/Extensions/Elementor/CountdownWidget.php:209
-#: includes/Extensions/Elementor/CountdownWidget.php:676
+#: includes/Extensions/Elementor/CountdownWidget.php:727
+#: includes/Extensions/Elementor/FormWidget.php:281
+#: includes/Extensions/Elementor/FormWidget.php:467
 #: includes/Extensions/GlobalFields.php:597
 #: includes/Extensions/PressBar/PressBar.php:485
 #: includes/Extensions/PressBar/PressBar.php:624
@@ -2588,7 +2594,9 @@ msgid "Left"
 msgstr ""
 
 #: includes/Extensions/Elementor/CountdownWidget.php:210
-#: includes/Extensions/Elementor/CountdownWidget.php:677
+#: includes/Extensions/Elementor/CountdownWidget.php:728
+#: includes/Extensions/Elementor/FormWidget.php:282
+#: includes/Extensions/Elementor/FormWidget.php:468
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1225
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1250
 #: includes/Extensions/GlobalFields.php:412
@@ -2597,7 +2605,9 @@ msgid "Center"
 msgstr ""
 
 #: includes/Extensions/Elementor/CountdownWidget.php:211
-#: includes/Extensions/Elementor/CountdownWidget.php:678
+#: includes/Extensions/Elementor/CountdownWidget.php:729
+#: includes/Extensions/Elementor/FormWidget.php:283
+#: includes/Extensions/Elementor/FormWidget.php:469
 #: includes/Extensions/GlobalFields.php:598
 #: includes/Extensions/PressBar/PressBar.php:492
 #: includes/Extensions/PressBar/PressBar.php:625
@@ -2616,7 +2626,7 @@ msgid "Days Label"
 msgstr ""
 
 #: includes/Extensions/Elementor/CountdownWidget.php:242
-#: includes/Extensions/Elementor/CountdownWidget.php:598
+#: includes/Extensions/Elementor/CountdownWidget.php:649
 #: includes/Extensions/GlobalFields.php:1084
 #: includes/Extensions/GlobalFields.php:1956
 #: includes/Extensions/PressBar/PressBar.php:1148
@@ -2663,7 +2673,7 @@ msgid "Seconds Label"
 msgstr ""
 
 #: includes/Extensions/Elementor/CountdownWidget.php:308
-#: includes/Extensions/Elementor/CountdownWidget.php:601
+#: includes/Extensions/Elementor/CountdownWidget.php:652
 #: includes/Types/GDPR.php:275
 msgid "Seconds"
 msgstr ""
@@ -2718,6 +2728,7 @@ msgid "None"
 msgstr ""
 
 #: includes/Extensions/Elementor/CountdownWidget.php:377
+#: includes/Extensions/Elementor/FormWidget.php:211
 msgid "Show Message"
 msgstr ""
 
@@ -2766,6 +2777,9 @@ msgid "Space Between Boxes"
 msgstr ""
 
 #: includes/Extensions/Elementor/CountdownWidget.php:480
+#: includes/Extensions/Elementor/CountdownWidget.php:571
+#: includes/Extensions/Elementor/FormWidget.php:365
+#: includes/Extensions/Elementor/FormWidget.php:453
 #: includes/Extensions/PopupNotification/PopupNotification.php:375
 msgid "Padding"
 msgstr ""
@@ -2775,6 +2789,9 @@ msgid "Border"
 msgstr ""
 
 #: includes/Extensions/Elementor/CountdownWidget.php:501
+#: includes/Extensions/Elementor/CountdownWidget.php:591
+#: includes/Extensions/Elementor/FormWidget.php:355
+#: includes/Extensions/Elementor/FormWidget.php:443
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:889
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:932
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:972
@@ -2801,19 +2818,7 @@ msgid "Digits Color"
 msgstr ""
 
 #: includes/Extensions/Elementor/CountdownWidget.php:560
-msgid "Labels"
-msgstr ""
-
-#: includes/Extensions/Elementor/CountdownWidget.php:568
-#: includes/Extensions/Elementor/CountdownWidget.php:638
-msgid "Label Color"
-msgstr ""
-
-#: includes/Extensions/Elementor/CountdownWidget.php:592
-msgid "Individual Box Styling"
-msgstr ""
-
-#: includes/Extensions/Elementor/CountdownWidget.php:616
+#: includes/Extensions/Elementor/CountdownWidget.php:667
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:890
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:973
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1020
@@ -2831,11 +2836,25 @@ msgstr ""
 msgid "Background Color"
 msgstr ""
 
-#: includes/Extensions/Elementor/CountdownWidget.php:627
+#: includes/Extensions/Elementor/CountdownWidget.php:611
+msgid "Labels"
+msgstr ""
+
+#: includes/Extensions/Elementor/CountdownWidget.php:619
+#: includes/Extensions/Elementor/CountdownWidget.php:689
+#: includes/Extensions/Elementor/FormWidget.php:315
+msgid "Label Color"
+msgstr ""
+
+#: includes/Extensions/Elementor/CountdownWidget.php:643
+msgid "Individual Box Styling"
+msgstr ""
+
+#: includes/Extensions/Elementor/CountdownWidget.php:678
 msgid "Digit Color"
 msgstr ""
 
-#: includes/Extensions/Elementor/CountdownWidget.php:649
+#: includes/Extensions/Elementor/CountdownWidget.php:700
 #: includes/Extensions/GDPR/GDPR_Notification.php:163
 #: includes/Extensions/GDPR/GDPR_Notification.php:207
 #: includes/Extensions/GDPR/GDPR_Notification.php:245
@@ -2844,11 +2863,12 @@ msgstr ""
 msgid "Border Color"
 msgstr ""
 
-#: includes/Extensions/Elementor/CountdownWidget.php:664
+#: includes/Extensions/Elementor/CountdownWidget.php:715
 msgid "Expire Message"
 msgstr ""
 
-#: includes/Extensions/Elementor/CountdownWidget.php:689
+#: includes/Extensions/Elementor/CountdownWidget.php:740
+#: includes/Extensions/Elementor/FormWidget.php:298
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:898
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:979
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1031
@@ -2859,7 +2879,9 @@ msgstr ""
 msgid "Title Color"
 msgstr ""
 
-#: includes/Extensions/Elementor/CountdownWidget.php:709
+#: includes/Extensions/Elementor/CountdownWidget.php:760
+#: includes/Extensions/Elementor/FormWidget.php:414
+#: includes/Extensions/Elementor/FormWidget.php:425
 #: includes/Extensions/GDPR/GDPR_Notification.php:169
 #: includes/Extensions/GDPR/GDPR_Notification.php:213
 #: includes/Extensions/GDPR/GDPR_Notification.php:251
@@ -2869,6 +2891,205 @@ msgstr ""
 #: blocks/notificationx/components/inspector.js:307
 #: blocks/notificationx/index.js:1
 msgid "Text Color"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:51
+msgid "NotificationX Form"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:80
+msgid "— Select a Campaign —"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:99
+msgid "Campaign #%d"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:103
+msgid "Exit Intent"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:103
+msgid "Popup"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:116
+msgid "Form Settings"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:122
+msgid "Bind to NotificationX Campaign"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:126
+msgid "Submissions are saved as entries against the selected Popup or Exit-Intent campaign."
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:133
+#: includes/Types/ContactForm.php:141
+msgid "Form Title"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:135
+msgid "Get in touch"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:143
+msgid "Name Field"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:147
+msgid "Show Name"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:152
+#: includes/Extensions/Elementor/FormWidget.php:184
+#: includes/Extensions/Elementor/FormWidget.php:216
+#: includes/Extensions/Elementor/FormWidget.php:248
+msgid "Column Width"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:161
+#: includes/Extensions/Elementor/FormWidget.php:193
+#: includes/Extensions/Elementor/FormWidget.php:225
+msgid "Label"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:165
+#: includes/Extensions/Elementor/FormWidget.php:197
+#: includes/Extensions/Elementor/FormWidget.php:229
+msgid "Placeholder"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:165
+msgid "Your name"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:169
+#: includes/Extensions/Elementor/FormWidget.php:201
+#: includes/Extensions/Elementor/FormWidget.php:237
+msgid "Required"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:175
+msgid "Email Field"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:179
+msgid "Show Email"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:193
+msgid "Email"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:197
+msgid "you@example.com"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:207
+msgid "Message Field"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:229
+msgid "Write your message…"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:233
+msgid "Rows"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:243
+#: includes/Extensions/Elementor/FormWidget.php:256
+#: includes/Extensions/Elementor/FormWidget.php:603
+#: includes/Extensions/PopupNotification/PopupNotification.php:78
+#: includes/Extensions/PopupNotification/PopupNotification.php:89
+msgid "Submit"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:256
+#: includes/Extensions/ExitIntent/ExitIntentNotification.php:219
+#: includes/Extensions/ExitIntent/ExitIntentNotification.php:300
+#: includes/Extensions/ExitIntent/ExitIntentNotification.php:428
+#: includes/Extensions/ExitIntent/ExitIntentNotification.php:595
+#: includes/Extensions/ExitIntent/ExitIntentNotification.php:633
+#: includes/Extensions/ExitIntent/ExitIntentNotification.php:809
+#: includes/Extensions/PopupNotification/PopupNotification.php:711
+#: includes/Extensions/PressBar/PressBar.php:1774
+#: includes/Extensions/PressBar/PressBar.php:1864
+#: includes/Types/GDPR.php:424
+#: includes/Types/GDPR.php:432
+#: includes/Types/GDPR.php:440
+msgid "Button Text"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:260
+msgid "Success Message"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:260
+msgid "Thanks! Your submission has been received."
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:264
+msgid "Error Message"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:264
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:272
+msgid "Form"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:309
+msgid "Fields"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:329
+#: includes/Extensions/ExitIntent/ExitIntentNotification.php:911
+#: includes/Extensions/ExitIntent/ExitIntentNotification.php:1202
+#: includes/Extensions/PopupNotification/PopupNotification.php:423
+msgid "Input Text Color"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:338
+msgid "Input Background"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:375
+msgid "Row Gap (Vertical)"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:387
+msgid "Column Gap (Horizontal)"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:401
+#: includes/Extensions/GlobalFields.php:995
+msgid "Button"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:411
+msgid "Normal"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:418
+#: includes/Extensions/Elementor/FormWidget.php:429
+msgid "Background"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:422
+msgid "Hover"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:470
+msgid "Justified"
+msgstr ""
+
+#: includes/Extensions/Elementor/FormWidget.php:520
+msgid "Select a NotificationX campaign in the Form Settings to start collecting entries."
 msgstr ""
 
 #: includes/Extensions/Elementor/From.php:45
@@ -3151,21 +3372,6 @@ msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:212
 msgid "Sale Description"
-msgstr ""
-
-#: includes/Extensions/ExitIntent/ExitIntentNotification.php:219
-#: includes/Extensions/ExitIntent/ExitIntentNotification.php:300
-#: includes/Extensions/ExitIntent/ExitIntentNotification.php:428
-#: includes/Extensions/ExitIntent/ExitIntentNotification.php:595
-#: includes/Extensions/ExitIntent/ExitIntentNotification.php:633
-#: includes/Extensions/ExitIntent/ExitIntentNotification.php:809
-#: includes/Extensions/PopupNotification/PopupNotification.php:711
-#: includes/Extensions/PressBar/PressBar.php:1774
-#: includes/Extensions/PressBar/PressBar.php:1864
-#: includes/Types/GDPR.php:424
-#: includes/Types/GDPR.php:432
-#: includes/Types/GDPR.php:440
-msgid "Button Text"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:226
@@ -3470,12 +3676,6 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1201
 #: includes/Extensions/PopupNotification/PopupNotification.php:456
 msgid "Input Border Radius"
-msgstr ""
-
-#: includes/Extensions/ExitIntent/ExitIntentNotification.php:911
-#: includes/Extensions/ExitIntent/ExitIntentNotification.php:1202
-#: includes/Extensions/PopupNotification/PopupNotification.php:423
-msgid "Input Text Color"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:914
@@ -3899,97 +4099,97 @@ msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCart.php:41
 #: includes/Extensions/FluentCart/FluentCart.php:42
-#: includes/Extensions/FluentCart/FluentCart.php:703
+#: includes/Extensions/FluentCart/FluentCart.php:752
 #: includes/Extensions/FluentCart/FluentCartInline.php:69
 #: includes/Extensions/FluentCart/FluentCartInline.php:70
 msgid "FluentCart"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:161
+#: includes/Extensions/FluentCart/FluentCart.php:210
 msgid "Payment"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:167
+#: includes/Extensions/FluentCart/FluentCart.php:216
 msgid "Shipping"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:174
-#: includes/Extensions/FluentCart/FluentCart.php:199
+#: includes/Extensions/FluentCart/FluentCart.php:223
+#: includes/Extensions/FluentCart/FluentCart.php:248
 #: includes/Extensions/SureCart/SureCart.php:117
 msgid "Processing"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:175
-#: includes/Extensions/FluentCart/FluentCart.php:200
+#: includes/Extensions/FluentCart/FluentCart.php:224
+#: includes/Extensions/FluentCart/FluentCart.php:249
 msgid "Completed"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:176
+#: includes/Extensions/FluentCart/FluentCart.php:225
 msgid "On Hold"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:177
+#: includes/Extensions/FluentCart/FluentCart.php:226
 msgid "Canceled"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:178
+#: includes/Extensions/FluentCart/FluentCart.php:227
 msgid "Failed"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:181
+#: includes/Extensions/FluentCart/FluentCart.php:230
 msgid "Pending (Payment)"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:182
+#: includes/Extensions/FluentCart/FluentCart.php:231
 msgid "Paid (Payment)"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:183
+#: includes/Extensions/FluentCart/FluentCart.php:232
 msgid "Partially Paid (Payment)"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:184
+#: includes/Extensions/FluentCart/FluentCart.php:233
 msgid "Failed (Payment)"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:185
+#: includes/Extensions/FluentCart/FluentCart.php:234
 msgid "Refunded (Payment)"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:186
+#: includes/Extensions/FluentCart/FluentCart.php:235
 msgid "Partially Refunded (Payment)"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:187
+#: includes/Extensions/FluentCart/FluentCart.php:236
 msgid "Authorized (Payment)"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:190
+#: includes/Extensions/FluentCart/FluentCart.php:239
 msgid "Unfulfilled (Shipping)"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:191
+#: includes/Extensions/FluentCart/FluentCart.php:240
 msgid "Fulfilled (Shipping)"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:192
+#: includes/Extensions/FluentCart/FluentCart.php:241
 msgid "Shipped (Shipping)"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:193
+#: includes/Extensions/FluentCart/FluentCart.php:242
 msgid "Delivered (Shipping)"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:201
+#: includes/Extensions/FluentCart/FluentCart.php:250
 msgid "Paid"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:202
+#: includes/Extensions/FluentCart/FluentCart.php:251
 #: includes/Extensions/SureCart/SureCart.php:119
 msgid "Fulfilled"
 msgstr ""
 
-#: includes/Extensions/FluentCart/FluentCart.php:715
+#: includes/Extensions/FluentCart/FluentCart.php:764
 #: includes/Extensions/FluentCart/FluentCartInline.php:159
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">FluentCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
@@ -4565,10 +4765,6 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:986
 msgid "Link Type"
-msgstr ""
-
-#: includes/Extensions/GlobalFields.php:995
-msgid "Button"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1008
@@ -5549,11 +5745,6 @@ msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:77
 msgid "Get the latest news and updates delivered to your inbox."
-msgstr ""
-
-#: includes/Extensions/PopupNotification/PopupNotification.php:78
-#: includes/Extensions/PopupNotification/PopupNotification.php:89
-msgid "Submit"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:87
@@ -6929,10 +7120,6 @@ msgstr ""
 
 #: includes/Types/ContactForm.php:135
 msgid "Select A Tag"
-msgstr ""
-
-#: includes/Types/ContactForm.php:141
-msgid "Form Title"
 msgstr ""
 
 #: includes/Types/ContactForm.php:230
