@@ -723,9 +723,9 @@
     }
 }
 
-.announcements, .popup_notification, .flashing_tab, .woo_inline, .edd_inline, .tutor_inline, .learndash_inline, .learnpress_inline, .custom_notification, .fluentcart_inline, .exit_intent_custom {
+.announcements, .popup_notification, .flashing_tab, .woo_inline, .edd_inline, .tutor_inline, .learndash_inline, .learnpress_inline, .custom_notification, .fluentcart_inline {
     #design_tab #themes_section .wprf-section-fields .wprf-tabs-wrapper {
-        .announcements, .popup_notification, .flashing_tab, .woo_inline, .edd_inline, .tutor_inline, .learndash_inline, .learnpress_inline, .custom_notification, .fluentcart_inline, .exit_intent_custom {
+        .announcements, .popup_notification, .flashing_tab, .woo_inline, .edd_inline, .tutor_inline, .learndash_inline, .learnpress_inline, .custom_notification, .fluentcart_inline {
             display: none;
         }
     }
@@ -832,8 +832,14 @@
                                     &::after {
                                         display: none;
                                     }
-                                } 
+                                }
                             }
+                        }
+                    }
+                    // Exit Intent — hide the pro crown badge on the Custom tab.
+                    &.exit_intent_custom {
+                        .wprf-tab-nav .wprf-tab-nav-item:nth-child(2)::after {
+                            display: none;
                         }
                     }
                 }
@@ -1143,5 +1149,182 @@
 .announcements, .popup_notification, .flashing_tab, .woo_inline, .edd_inline, .tutor_inline, .learndash_inline, .learnpress_inline, .custom_notification, .exit_intent_custom {
     .wprf-tab-contents #source_tab #source_section {
         display: none;
+    }
+}
+
+// Exit Intent — Custom tab layout.
+// Full-width preview/heading rows with the action buttons collected into a
+// right-aligned row — mirrors the Notification Bar's Custom-tab UX (light
+// Elementor pill + red "Remove" text link).
+.exit_intent_custom .wprf-tab-exit_intent_custom_tab {
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    column-gap: 8px;
+    row-gap: 12px;
+    padding-right: 24px;
+
+    // Heading + preview always span the full row.
+    > .wprf-tab-heading-wrapper,
+    > .nxbar-presets {
+        flex: 1 0 100%;
+    }
+
+    // Hidden state inputs (is_elementor / elementor_id / is_confirmed) must
+    // not introduce layout gaps in the flex row.
+    > span {
+        flex: 1 0 100%;
+        line-height: 0;
+        margin: 0;
+    }
+
+    .nxbar-presets-empty-state {
+        text-align: center;
+        padding: 40px 0 24px;
+        img {
+            width: 240px;
+            max-width: 100%;
+        }
+        h4 {
+            font-size: 16px;
+            font-weight: 500;
+            margin: 20px 0;
+        }
+    }
+
+    // Selected design preview — smaller, centered card.
+    .nxbar-selected-presets {
+        display: flex;
+        justify-content: center;
+        padding: 24px 0 8px;
+        .nxbar-selected-presets-gutenberg {
+            // Light placeholder so the area reserves space and shows no blank
+            // flash while the screenshot paints.
+            background: #f7f8fa;
+            border-radius: 10px;
+            min-height: 120px;
+            min-width: 240px;
+            img {
+                display: block;
+                width: 100%;
+                max-width: 360px;
+                height: auto;
+                margin: 0 auto;
+                border-radius: 10px;
+                box-shadow: 0 4px 16px rgba(9, 33, 97, 0.08);
+            }
+        }
+    }
+
+    // Action buttons — match the Notification Bar Custom-tab styling.
+    .wprf-control-wrapper.wprf-type-button,
+    .wprf-control.wprf-modal {
+        flex: 0 0 auto;
+        width: auto;
+        margin: 0;
+        // Kill the default #design_tab wrapper padding (Edit: 0 32px 10px,
+        // Remove: 10px 32px 32px) — it both widened the gap between the buttons
+        // and made the wrappers unequal heights, breaking vertical centering.
+        // !important is needed to beat the ID-scoped default.
+        padding: 0 !important;
+    }
+
+    .wprf-control-wrapper.wprf-type-button {
+        .wprf-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1em;
+            border-radius: 8px;
+            box-sizing: border-box;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.25s ease-in-out;
+        }
+
+        // Edit With Elementor / Build With Elementor / Install — light pill
+        // with the Elementor glyph.
+        &.wprf-name-elementor_edit_link,
+        &.wprf-name-build_with_elementor,
+        &.wprf-name-nx-exit-intent_with_elementor_install {
+            .wprf-button {
+                color: #092161;
+                background: #f7f8fa;
+                border: 1px solid #d9dbe9;
+                padding-left: 40px;
+                background-image: url(../../../assets/admin/images/new-img/elementor-icon.svg);
+                background-size: 20px 20px;
+                background-repeat: no-repeat;
+                background-position: 16px center;
+                &:hover {
+                    color: #092161;
+                    background-color: #f7f8fa;
+                    border-color: #d9dbe9;
+                    box-shadow: none;
+                }
+            }
+        }
+
+        // Remove — red text link, no background.
+        &.wprf-name-nx-exit-intent_with_elementor-remove {
+            .wprf-button {
+                color: #fb2a04;
+                background: transparent;
+                border: none;
+                &:hover {
+                    color: #fb2a04;
+                    background: transparent;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}
+
+// Exit Intent — hide the global "For Desktop" / "For Mobile" tab nav buttons.
+// The PHP rule-based suppression doesn't always stick when QuickBuilder
+// rebuilds field state, so we belt-and-suspenders with CSS.
+.exit_intent_custom {
+    .wprf-tab-menu-wrapper {
+        .wprf-tab-nav-item[data-key="for_desktop"],
+        .wprf-tab-nav-item[data-key="for_mobile"] {
+            display: none !important;
+        }
+    }
+
+    // Hide the global themes radio-card (the 7-theme grid) whenever the
+    // Custom tab is the active one — uses :has() (supported in all modern
+    // browsers since 2023).
+    .wprf-tabs-wrapper:has(#exit_intent_custom_tab.wprf-active) ~ .wprf-control.wprf-name-themes,
+    .wp-react-form:has(#exit_intent_custom_tab.wprf-active) ~ .wprf-control.wprf-name-themes,
+    .wprf-control-section:has(#exit_intent_custom_tab.wprf-active) ~ .wprf-control.wprf-name-themes {
+        display: none !important;
+    }
+}
+
+
+.wprf-tab-exit_intent_custom_tab .wprf-name-elementor_exit_theme .wprf-control .wprf-row .wprf-column.wprf-column-2 {
+    width: 50%;
+}
+
+// The shared `elementor_edit_link` button name carries a high-specificity
+// !important padding from the Notification Bar:
+//   #notificationx … .wprf-tab-content #themes.themes .wprf-name-elementor_edit_link
+//   => (0,2,6,0) !important
+// Chain both ancestor IDs (#themes + the Exit Intent tab's own
+// #exit_intent_custom_tab) to reach 3 IDs and out-specify it — scoped to
+// Exit Intent only, so the bar is untouched.
+#themes #exit_intent_custom_tab {
+    .wprf-control-wrapper.wprf-name-elementor_edit_link,
+    .wprf-control-wrapper.wprf-name-nx-exit-intent_with_elementor-remove,
+    .wprf-control-wrapper.wprf-name-build_with_elementor,
+    .wprf-control-wrapper.wprf-name-nx-exit-intent_with_elementor_install {
+        padding: 0 !important;
     }
 }

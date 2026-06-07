@@ -51,6 +51,7 @@ const ExitIntentPopup = (props: any) => {
     const [submitting, setSubmitting]      = useState(false);
     const [submitted, setSubmitted]        = useState(false);
     const [videoPlaying, setVideoPlaying]  = useState(false);
+    const elementorBodyRef                 = useRef<HTMLDivElement | null>(null);
 
     const theme     = settings?.themes?.replace(`${settings?.source}_`, '') || 'theme-one';
     const showClose = settings?.show_close_button !== false;
@@ -63,6 +64,23 @@ const ExitIntentPopup = (props: any) => {
     const cdFallbackMs = ((2 * 24 + 14) * 3600 + 30 * 60 + 21) * 1000;
     const fallbackDuration = (theme === 'theme-five' || theme === 'theme-six') ? cdFallbackMs : undefined;
     const timeLeft = useCountdown(s.exit_intent_countdown_end || '', fallbackDuration);
+
+    // Boot Elementor widgets inside the server-rendered popup HTML. The markup is
+    // injected via dangerouslySetInnerHTML after page load, so Elementor's own DOM
+    // scan never sees it; fire the element_ready triggers manually (same as the
+    // Pressbar) so widgets like the countdown timer initialise their layout + JS.
+    useEffect(() => {
+        if (s.mode !== 'elementor' || !s.elementor_html) return;
+        const root = elementorBodyRef.current;
+        // @ts-ignore
+        const handler = window.elementorFrontend?.elementsHandler?.runReadyTrigger;
+        if (!root || typeof handler !== 'function') return;
+        const elements = root.getElementsByClassName('elementor-element');
+        for (const element of Array.from(elements)) {
+            // @ts-ignore
+            window.elementorFrontend.elementsHandler.runReadyTrigger(element);
+        }
+    }, [s.mode, s.elementor_html, isVisible]);
 
     const handleClose = () => {
         const _theme = settings?.themes || '';
@@ -148,6 +166,48 @@ const ExitIntentPopup = (props: any) => {
         color:    s.exit_intent_close_color || undefined,
         fontSize: px(s.exit_intent_close_size),
     } : {};
+
+    // ─── Elementor-built popup ────────────────────────────────────────────────
+    // When the campaign is backed by an Elementor design, render only the
+    // React chrome (overlay + close button) and drop the server-rendered
+    // Elementor HTML inside. All per-theme branches are skipped.
+    if (s.mode === 'elementor' && typeof s.elementor_html === 'string' && s.elementor_html) {
+        const overlayStyle: React.CSSProperties = {
+            background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.5)',
+        };
+        // Constrain the React wrapper to the configured popup width so the
+        // absolutely-positioned close button anchors to the card's corner
+        // instead of the full-width overlay. Falls back to the 540px CSS default.
+        const elementorWrapStyle: React.CSSProperties = {};
+        if (s.popup_layout?.width) {
+            (elementorWrapStyle as any)['--nx-exit-width'] = s.popup_layout.width;
+        }
+        return (
+            <div
+                className={overlayClass}
+                style={overlayStyle}
+                onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
+            >
+                <div className="nx-exit-intent-elementor" style={elementorWrapStyle}>
+                    {showClose && (
+                        <button
+                            className="nx-exit-intent-close"
+                            style={closeStyle}
+                            onClick={handleClose}
+                            aria-label="Close"
+                        >
+                            ×
+                        </button>
+                    )}
+                    <div
+                        ref={elementorBodyRef}
+                        className="nx-exit-intent-elementor-body"
+                        dangerouslySetInnerHTML={{ __html: s.elementor_html }}
+                    />
+                </div>
+            </div>
+        );
+    }
 
     // ─── Theme Four ───────────────────────────────────────────────────────────
     if (theme === 'theme-four') {

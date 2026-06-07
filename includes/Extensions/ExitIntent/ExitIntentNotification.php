@@ -7,8 +7,10 @@
 
 namespace NotificationX\Extensions\ExitIntent;
 
+use NotificationX\NotificationX;
 use NotificationX\GetInstance;
 use NotificationX\Core\Rules;
+use NotificationX\Core\Helper;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\Extensions\Extension;
 
@@ -25,8 +27,564 @@ class ExitIntentNotification extends Extension {
     public $types           = 'exit_intent';
     public $module          = 'modules_exit_intent';
 
+    /**
+     * Elementor seed-theme registry for the "Build With Elementor" modal.
+     * Populated alongside the JSON files in jsons/ (see Task 07).
+     *
+     * @var array<string, array{label:string, value:string, icon:string, column:string, title:string}>
+     */
+    public $elementor_themes = [];
+
     public function __construct() {
         parent::__construct();
+        add_action( 'init', [ $this, 'register_post_type' ] );
+        add_filter( 'get_edit_post_link', [ $this, 'filter_edit_post_link' ], 10, 3 );
+        add_filter( 'nx_filtered_post', [ $this, 'inject_elementor_html' ], 10, 2 );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_elementor_assets' ], 20 );
+        add_action( 'wp_head', [ $this, 'print_section_constraint_css' ], 99 );
+        add_action( 'elementor/documents/register_controls', [ $this, 'register_popup_layout_controls' ] );
+        add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'enqueue_editor_live_preview' ] );
+    }
+
+    /**
+     * Print the popup section's width constraint inline in <head>.
+     *
+     * Two cases:
+     * 1. Sections that have the `nx-exit-intent-section` class baked in via the
+     *    seed JSON's css_classes setting — constrained by the first rule.
+     * 2. The Elementor editor preview iframe loads the nx_exit_intent post
+     *    directly as its own page (body.single-nx_exit_intent). The second
+     *    rule constrains ANY section on that page, including legacy imports
+     *    made before css_classes was added to the seed JSON.
+     */
+    public function print_section_constraint_css() {
+        // Width is governed by the Layout panel's Width control via the
+        // `--nx-exit-width` CSS variable; fall back to the historical 540px cap
+        // when it is unset (older popups / default).
+        $vars = '';
+        if ( is_singular( 'nx_exit_intent' ) ) {
+            // Editor preview / direct view: resolve the variable from the saved
+            // Layout-panel settings on this document.
+            $layout = $this->get_popup_layout_settings( get_the_ID() );
+            if ( ! empty( $layout['width'] ) ) {
+                $vars .= '--nx-exit-width:' . $layout['width'] . ';';
+            }
+            if ( ! empty( $layout['height'] ) ) {
+                $vars .= '--nx-exit-height:' . $layout['height'] . ';';
+            }
+        }
+        echo "<style id='nx-exit-intent-section-constraint'>\n";
+        if ( '' !== $vars ) {
+            echo "body.single-nx_exit_intent{" . $vars . "}\n";
+        }
+        echo ".nx-exit-intent-section{width:100%!important;max-width:var(--nx-exit-width,540px)!important;margin-left:auto!important;margin-right:auto!important;}\n";
+        if ( is_singular( 'nx_exit_intent' ) ) {
+            echo "body.single-nx_exit_intent .elementor-section,body.single-nx_exit_intent .e-con{width:100%!important;max-width:var(--nx-exit-width,540px)!important;margin-left:auto!important;margin-right:auto!important;}\n";
+        }
+        echo "</style>\n";
+    }
+
+    /**
+     * Server-side: inject the Elementor-rendered HTML + a `mode` flag into the
+     * REST payload so the React popup shell can render it.
+     *
+     * Runs for every campaign settings array via the `nx_filtered_post` filter;
+     * scoped to Exit Intent campaigns that have a linked, published nx_exit_intent.
+     */
+    public function inject_elementor_html( $settings, $params ) {
+        if ( empty( $settings['source'] ) || $settings['source'] !== $this->id ) {
+            return $settings;
+        }
+        $elementor_id = isset( $settings['elementor_id'] ) ? (int) $settings['elementor_id'] : 0;
+        if ( ! $elementor_id || ! class_exists( '\\Elementor\\Plugin' ) ) {
+            $settings['mode'] = 'built_in';
+            return $settings;
+        }
+        if ( get_post_status( $elementor_id ) !== 'publish' ) {
+            $settings['mode'] = 'built_in';
+            return $settings;
+        }
+
+        $resolved_id = apply_filters( 'wpml_object_id', $elementor_id, 'nx_exit_intent', true );
+        $html = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $resolved_id, false );
+
+        // Surface the Layout-panel settings (registered in register_popup_layout_controls)
+        // so the popup runtime can honour them, and set --nx-exit-width on a wrapper so
+        // the section width constraint reflects the configured Width on the frontend.
+        $layout       = $this->get_popup_layout_settings( $resolved_id );
+        $wrapper_vars = '';
+        if ( ! empty( $layout['width'] ) ) {
+            $wrapper_vars .= '--nx-exit-width:' . $layout['width'] . ';';
+        }
+        if ( ! empty( $layout['height'] ) ) {
+            $wrapper_vars .= '--nx-exit-height:' . $layout['height'] . ';';
+        }
+        if ( '' !== $wrapper_vars ) {
+            $html = '<div class="nx-exit-intent-elementor-wrap" style="' . esc_attr( $wrapper_vars ) . '">' . $html . '</div>';
+        }
+
+        $settings['mode']           = 'elementor';
+        $settings['elementor_html'] = $html;
+        $settings['popup_layout']   = $layout;
+        return $settings;
+    }
+
+    /**
+     * Read the Layout-panel settings off an nx_exit_intent Elementor document and
+     * normalise them into a flat array the popup runtime can consume.
+     *
+     * @param int $elementor_id
+     * @return array
+     */
+    protected function get_popup_layout_settings( $elementor_id ) {
+        $defaults = [
+            'width'             => '',
+            'height_mode'       => 'fit',
+            'height'            => '',
+            'horizontal'        => 'center',
+            'vertical'          => 'center',
+            'overlay'           => true,
+            'close_button'      => true,
+            'entrance_animation' => '',
+            'exit_animation'    => '',
+        ];
+
+        if ( ! class_exists( '\\Elementor\\Plugin' ) ) {
+            return $defaults;
+        }
+        $document = \Elementor\Plugin::$instance->documents->get( $elementor_id );
+        if ( ! $document ) {
+            return $defaults;
+        }
+
+        $size = static function ( $value ) {
+            if ( is_array( $value ) && isset( $value['size'] ) && '' !== $value['size'] ) {
+                return $value['size'] . ( isset( $value['unit'] ) ? $value['unit'] : 'px' );
+            }
+            return '';
+        };
+
+        $height_mode = $document->get_settings( 'nx_popup_height' );
+
+        // Width precedence: the Layout-panel Width control if the user set one,
+        // otherwise the design's own top-level container width (boxed_width).
+        // Without this, every popup falls back to the CSS 540px default, which
+        // crushes wider designs (e.g. the two-column 896px themes).
+        $width = $size( $document->get_settings( 'nx_popup_width' ) );
+        if ( '' === $width ) {
+            $width = $this->resolve_design_width( $document );
+        }
+
+        return [
+            'width'              => $width,
+            'height_mode'        => $height_mode ? $height_mode : 'fit',
+            'height'             => 'custom' === $height_mode ? $size( $document->get_settings( 'nx_popup_custom_height' ) ) : '',
+            'horizontal'         => $document->get_settings( 'nx_popup_horizontal' ) ?: 'center',
+            'vertical'           => $document->get_settings( 'nx_popup_vertical' ) ?: 'center',
+            'overlay'            => 'yes' === $document->get_settings( 'nx_popup_overlay' ),
+            'close_button'       => 'yes' === $document->get_settings( 'nx_popup_close_button' ),
+            'entrance_animation' => (string) $document->get_settings( 'nx_popup_entrance_animation' ),
+            'exit_animation'     => (string) $document->get_settings( 'nx_popup_exit_animation' ),
+        ];
+    }
+
+    /**
+     * Derive the popup's intended width from its Elementor design — the widest
+     * px width among the top-level elements (boxed_width / width / content_width).
+     * Used as the default popup width when no Layout-panel Width is configured,
+     * so each design keeps its own width instead of the 540px CSS fallback.
+     * Only top-level elements are inspected so inner column widths are ignored.
+     *
+     * @param \Elementor\Core\Base\Document $document
+     * @return string e.g. "896px", or '' when no explicit px width is defined.
+     */
+    protected function resolve_design_width( $document ) {
+        if ( ! $document || ! method_exists( $document, 'get_elements_data' ) ) {
+            return '';
+        }
+        $data = $document->get_elements_data();
+        if ( empty( $data ) || ! is_array( $data ) ) {
+            return '';
+        }
+        $max = 0;
+        foreach ( $data as $element ) {
+            if ( empty( $element['settings'] ) || ! is_array( $element['settings'] ) ) {
+                continue;
+            }
+            foreach ( [ 'boxed_width', 'width', 'content_width' ] as $key ) {
+                $val = isset( $element['settings'][ $key ] ) ? $element['settings'][ $key ] : null;
+                if ( is_array( $val ) && isset( $val['size'] ) && is_numeric( $val['size'] )
+                    && ( ! isset( $val['unit'] ) || 'px' === $val['unit'] ) ) {
+                    $max = max( $max, (float) $val['size'] );
+                }
+            }
+        }
+        return $max > 0 ? $max . 'px' : '';
+    }
+
+    /**
+     * Make sure Elementor's per-document CSS/JS is enqueued on every page where
+     * an Exit Intent campaign can fire — get_builder_content_for_display alone
+     * registers some assets, but not on pages other than the document's own URL.
+     */
+    public function enqueue_elementor_assets() {
+        if ( ! class_exists( '\\Elementor\\Core\\Files\\CSS\\Post' ) ) {
+            return;
+        }
+        $ids = [];
+        try {
+            $posts = \NotificationX\Core\PostType::get_instance()->get_posts( [ 'source' => $this->id ] );
+            foreach ( $posts as $post ) {
+                if ( ! empty( $post['elementor_id'] ) && empty( $post['enabled'] ) === false ) {
+                    $ids[] = (int) $post['elementor_id'];
+                }
+            }
+        } catch ( \Exception $e ) {
+            return;
+        }
+        foreach ( $ids as $id ) {
+            try {
+                $css = \Elementor\Core\Files\CSS\Post::create( $id );
+                if ( $css ) {
+                    $css->enqueue();
+                }
+            } catch ( \Exception $e ) {
+                // swallow — one broken doc shouldn't break the rest.
+            }
+        }
+    }
+
+    /**
+     * Register the post type that backs Elementor-designed Exit Intent popups.
+     *
+     * Mirrors PressBar's `nx_bar`: not public, but publicly_queryable so Elementor's
+     * preview routes resolve. `supports[]` must include `elementor` for Elementor's
+     * documents API to treat this as a first-class document.
+     *
+     * @return void
+     */
+    public static function register_post_type() {
+        register_post_type( 'nx_exit_intent', [
+            'label'               => __( 'NotificationX Exit Intent', 'notificationx' ),
+            'public'              => false,
+            'publicly_queryable'  => true,
+            'show_ui'             => false,
+            'show_in_menu'        => true,
+            'show_in_nav_menus'   => false,
+            'exclude_from_search' => true,
+            'rewrite'             => false,
+            'capability_type'     => 'post',
+            'hierarchical'        => false,
+            'menu_icon'           => 'dashicons-admin-page',
+            'supports'            => [ 'title', 'content', 'author', 'elementor' ],
+        ] );
+    }
+
+    /**
+     * Add a "Layout" section to the Elementor document-settings panel, but ONLY
+     * for nx_exit_intent documents. Mirrors Elementor Pro's Popup → Layout panel
+     * (Width / Height / Position / Overlay / Close Button / Animations).
+     *
+     * Hooked on `elementor/documents/register_controls`, which fires for every
+     * document right after its built-in controls register. We bail for any other
+     * post type so these controls never leak into normal pages/posts.
+     *
+     * Width is wired live via the `--nx-exit-width` CSS variable that
+     * print_section_constraint_css()/inject_elementor_html() read; the remaining
+     * controls persist into the document's page settings (`_elementor_page_settings`)
+     * so the popup runtime can consume them.
+     *
+     * @param \Elementor\Core\Base\Document $document
+     * @return void
+     */
+    public function register_popup_layout_controls( $document ) {
+        if ( ! is_object( $document ) || ! method_exists( $document, 'get_post' ) ) {
+            return;
+        }
+        $post = $document->get_post();
+        if ( ! $post || 'nx_exit_intent' !== $post->post_type ) {
+            return;
+        }
+
+        $cm = '\Elementor\Controls_Manager';
+
+        $document->start_controls_section(
+            'nx_popup_layout',
+            [
+                'label' => __( 'Layout', 'notificationx' ),
+                'tab'   => $cm::TAB_SETTINGS,
+            ]
+        );
+
+        $document->add_responsive_control(
+            'nx_popup_width',
+            [
+                'label'      => __( 'Width', 'notificationx' ),
+                'type'       => $cm::SLIDER,
+                'size_units' => [ 'px', '%', 'vw' ],
+                'range'      => [
+                    'px' => [ 'min' => 100, 'max' => 1140 ],
+                    '%'  => [ 'min' => 10,  'max' => 100 ],
+                    'vw' => [ 'min' => 10,  'max' => 100 ],
+                ],
+                // No default: when the user hasn't set a Width, the popup falls back
+                // to the design's own container width (resolve_design_width()), not a
+                // fixed 540px — otherwise wider designs (e.g. the 896px two-column
+                // themes) get crushed. An explicit value here still wins.
+                //
+                // NOTE: no `selectors` key — Elementor silently drops document-level
+                // controls that carry `selectors`. The value is applied server-side
+                // via the --nx-exit-width variable in print_section_constraint_css()
+                // (preview) and inject_elementor_html() (frontend) instead.
+                'default'    => [ 'unit' => 'px', 'size' => '' ],
+            ]
+        );
+
+        $document->add_control(
+            'nx_popup_height',
+            [
+                'label'   => __( 'Height', 'notificationx' ),
+                'type'    => $cm::SELECT,
+                'default' => 'fit',
+                'options' => [
+                    'fit'    => __( 'Fit To Content', 'notificationx' ),
+                    'custom' => __( 'Custom Height', 'notificationx' ),
+                ],
+            ]
+        );
+
+        $document->add_responsive_control(
+            'nx_popup_custom_height',
+            [
+                'label'      => __( 'Custom Height', 'notificationx' ),
+                'type'       => $cm::SLIDER,
+                'size_units' => [ 'px', 'vh' ],
+                'range'      => [
+                    'px' => [ 'min' => 100, 'max' => 1000 ],
+                    'vh' => [ 'min' => 10,  'max' => 100 ],
+                ],
+                'default'    => [ 'unit' => 'px', 'size' => 480 ],
+                'condition'  => [ 'nx_popup_height' => 'custom' ],
+                // No `selectors` (see nx_popup_width note); applied via --nx-exit-height.
+            ]
+        );
+
+        $document->add_control(
+            'nx_popup_position_heading',
+            [
+                'label'     => __( 'Position', 'notificationx' ),
+                'type'      => $cm::HEADING,
+                'separator' => 'before',
+            ]
+        );
+
+        $document->add_responsive_control(
+            'nx_popup_horizontal',
+            [
+                'label'   => __( 'Horizontal', 'notificationx' ),
+                'type'    => $cm::CHOOSE,
+                'default' => 'center',
+                'options' => [
+                    'start'  => [ 'title' => __( 'Start', 'notificationx' ),  'icon' => 'eicon-h-align-left' ],
+                    'center' => [ 'title' => __( 'Center', 'notificationx' ), 'icon' => 'eicon-h-align-center' ],
+                    'end'    => [ 'title' => __( 'End', 'notificationx' ),    'icon' => 'eicon-h-align-right' ],
+                ],
+            ]
+        );
+
+        $document->add_responsive_control(
+            'nx_popup_vertical',
+            [
+                'label'   => __( 'Vertical', 'notificationx' ),
+                'type'    => $cm::CHOOSE,
+                'default' => 'center',
+                'options' => [
+                    'start'  => [ 'title' => __( 'Top', 'notificationx' ),    'icon' => 'eicon-v-align-top' ],
+                    'center' => [ 'title' => __( 'Middle', 'notificationx' ), 'icon' => 'eicon-v-align-middle' ],
+                    'end'    => [ 'title' => __( 'Bottom', 'notificationx' ), 'icon' => 'eicon-v-align-bottom' ],
+                ],
+            ]
+        );
+
+        $document->add_control(
+            'nx_popup_overlay',
+            [
+                'label'        => __( 'Overlay', 'notificationx' ),
+                'type'         => $cm::SWITCHER,
+                'label_on'     => __( 'Show', 'notificationx' ),
+                'label_off'    => __( 'Hide', 'notificationx' ),
+                'return_value' => 'yes',
+                'default'      => 'yes',
+                'separator'    => 'before',
+            ]
+        );
+
+        $document->add_control(
+            'nx_popup_close_button',
+            [
+                'label'        => __( 'Close Button', 'notificationx' ),
+                'type'         => $cm::SWITCHER,
+                'label_on'     => __( 'Show', 'notificationx' ),
+                'label_off'    => __( 'Hide', 'notificationx' ),
+                'return_value' => 'yes',
+                'default'      => 'yes',
+            ]
+        );
+
+        $document->add_control(
+            'nx_popup_entrance_animation',
+            [
+                'label'     => __( 'Entrance Animation', 'notificationx' ),
+                'type'      => $cm::ANIMATION,
+                'separator' => 'before',
+            ]
+        );
+
+        $document->add_control(
+            'nx_popup_exit_animation',
+            [
+                'label' => __( 'Exit Animation', 'notificationx' ),
+                'type'  => $cm::EXIT_ANIMATION,
+            ]
+        );
+
+        $document->end_controls_section();
+    }
+
+    /**
+     * Live-preview bridge for the Layout panel inside the Elementor editor.
+     *
+     * Document-level controls can't carry a `selectors` key (Elementor drops
+     * them), so Width/Height don't get Elementor's built-in live CSS injection.
+     * This registers page-settings change callbacks that write the
+     * `--nx-exit-width` / `--nx-exit-height` variables straight onto the preview
+     * iframe's <body> as the slider moves — so changes reflect instantly instead
+     * of only after a reload.
+     *
+     * Scoped to nx_exit_intent documents only.
+     *
+     * @return void
+     */
+    public function enqueue_editor_live_preview() {
+        if ( ! class_exists( '\\Elementor\\Plugin' ) ) {
+            return;
+        }
+        $post_id = \Elementor\Plugin::$instance->editor->get_post_id();
+        if ( ! $post_id || 'nx_exit_intent' !== get_post_type( $post_id ) ) {
+            return;
+        }
+
+        $js = <<<'JS'
+( function ( $ ) {
+    function toCss( value ) {
+        if ( value && '' !== value.size && null != value.size ) {
+            return value.size + ( value.unit || 'px' );
+        }
+        return '';
+    }
+    function previewBody() {
+        var frame = elementor.$preview && elementor.$preview[0];
+        var win   = frame && frame.contentWindow;
+        return win && win.document ? win.document.body : null;
+    }
+    function applyVar( name, value ) {
+        var body = previewBody();
+        if ( ! body ) { return; }
+        var css = toCss( value );
+        if ( css ) { body.style.setProperty( name, css ); }
+        else { body.style.removeProperty( name ); }
+    }
+    $( window ).on( 'elementor:init', function () {
+        if ( 'undefined' === typeof elementor || ! elementor.settings || ! elementor.settings.page ) {
+            return;
+        }
+        elementor.settings.page.addChangeCallback( 'nx_popup_width', function ( value ) {
+            applyVar( '--nx-exit-width', value );
+        } );
+        elementor.settings.page.addChangeCallback( 'nx_popup_custom_height', function ( value ) {
+            applyVar( '--nx-exit-height', value );
+        } );
+    } );
+} )( jQuery );
+JS;
+
+        wp_add_inline_script( 'elementor-editor', $js );
+    }
+
+    /**
+     * Create a new `nx_exit_intent` Elementor document from a seed theme and
+     * respond to the admin with the new post ID + Elementor edit URL.
+     *
+     * Counterpart of PressBar::create_bar_of_type_bar_with_elementor().
+     *
+     * @param array $params { theme_id: string }
+     * @return void Always responds via wp_send_json_{success,error}.
+     */
+    public function create_exit_intent_with_elementor( $params ) {
+        if ( empty( $params['theme_id'] ) ) {
+            wp_send_json_error( 'missing_theme_id' );
+        }
+
+        $theme    = sanitize_text_field( $params['theme_id'] );
+        $importer = new Importer();
+
+        $ID = $importer->create_nx( [
+            'theme'      => $theme,
+            'post_title' => 'Design for NotificationX Exit Intent - ',
+        ] );
+
+        if ( $ID && ! is_wp_error( $ID ) ) {
+            // Strip theme chrome — popup HTML inlines into the host page.
+            update_post_meta( $ID, '_wp_page_template', 'elementor_canvas' );
+            wp_send_json_success( [
+                'context' => [
+                    'themes'              => null,
+                    'elementor_id'        => $ID,
+                    'elementor_edit_link' => \Elementor\Plugin::$instance->documents->get( $ID )->get_edit_url(),
+                ],
+            ] );
+        } else {
+            wp_send_json_error( is_wp_error( $ID ) ? $ID->get_error_message() : 'failed' );
+        }
+    }
+
+    /**
+     * Delete the linked `nx_exit_intent` Elementor post (and its WPML translations).
+     *
+     * @param int|string $elementor_id
+     * @return void
+     */
+    public function delete_elementor_post( $elementor_id ) {
+        if ( empty( $elementor_id ) ) {
+            return;
+        }
+        $languages = apply_filters( 'wpml_active_languages', null );
+        if ( is_array( $languages ) ) {
+            foreach ( $languages as $lang => $val ) {
+                $translated_id = apply_filters( 'wpml_object_id', $elementor_id, 'nx_exit_intent', false, $lang );
+                if ( $translated_id ) {
+                    wp_delete_post( $translated_id, true );
+                }
+            }
+            return;
+        }
+        wp_delete_post( $elementor_id, true );
+    }
+
+    /**
+     * Redirect WP "Edit" links for nx_exit_intent posts straight into the Elementor editor.
+     *
+     * @param string $link
+     * @param int    $id
+     * @param string $context
+     * @return string
+     */
+    public function filter_edit_post_link( $link, $id, $context ) {
+        $post = get_post( $id );
+        if ( $post && 'nx_exit_intent' === $post->post_type && class_exists( '\\Elementor\\Plugin' ) ) {
+            return \Elementor\Plugin::$instance->documents->get( $id )->get_edit_url();
+        }
+        return $link;
     }
 
     public function init_extension() {
@@ -76,7 +634,7 @@ class ExitIntentNotification extends Extension {
                 'column' => '5',
             ],
             'theme-six' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-seven.png',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.png',
                 'defaults' => [
                     'exit_intent_t6_title'           => __( 'Limited Edition Bass Boost Headphones', 'notificationx' ),
                     // 'exit_intent_t6_show_timer'      => true,
@@ -108,7 +666,7 @@ class ExitIntentNotification extends Extension {
                 'is_pro'   => true,
             ],
              'theme-seven' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.png',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-seven.png',
                 'defaults' => [
                     'exit_intent_t7_headline'          => __( 'Turn Your House Into a Home', 'notificationx' ),
                     'exit_intent_t7_discount_text'     => __( 'Your First Order Comes With a Surprise Deal!', 'notificationx' ),
@@ -144,14 +702,375 @@ class ExitIntentNotification extends Extension {
                 'is_pro'   => true,
             ],
         ];
+
+        // Elementor seed themes for the "Build With Elementor" modal.
+        // Each entry has a matching JSON file under jsons/{value}.json (Task 07).
+        // Preview images live under assets/admin/images/extensions/themes/exit-intent-elementor/.
+        // Until per-theme Elementor previews are rendered, we fall back to the existing
+        // built-in screenshots so the modal renders with a real image.
+        // Order intentionally mirrors the built-in $themes preset order above
+        // (one, four, three, six, two, seven, five) so the Elementor modal lists
+        // the same designs in the same sequence as the Default-theme picker.
+        //
+        // Unlike $themes (processed by Extension::__nx_themes), this array is fed
+        // straight to the radio-card field, so we must resolve the pro badge here:
+        // only flag a theme as pro when the Pro plugin is NOT active.
+        $is_pro_badge = ! NotificationX::is_pro();
+        $this->elementor_themes = [
+            'theme-one' => [
+                'label'  => 'theme-one',
+                'value'  => 'theme-one',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-one.png',
+                'column' => '6',
+                'title'  => 'Exit Intent Theme One',
+            ],
+            'theme-four' => [
+                'label'  => 'theme-four',
+                'value'  => 'theme-four',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-four.png',
+                'column' => '6',
+                'title'  => 'Exit Intent Theme Four',
+            ],
+            'theme-three' => [
+                'label'  => 'theme-three',
+                'value'  => 'theme-three',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-three.png',
+                'column' => '6',
+                'title'  => 'Exit Intent Theme Three',
+            ],
+            'theme-six' => [
+                'label'  => 'theme-six',
+                'value'  => 'theme-six',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.png',
+                'column' => '6',
+                'title'  => 'Exit Intent Theme Six',
+                'is_pro' => $is_pro_badge,
+            ],
+            'theme-two' => [
+                'label'  => 'theme-two',
+                'value'  => 'theme-two',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-two.png',
+                'column' => '6',
+                'title'  => 'Exit Intent Theme Two',
+                'is_pro' => $is_pro_badge,
+            ],
+            'theme-seven' => [
+                'label'  => 'theme-seven',
+                'value'  => 'theme-seven',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-seven.png',
+                'column' => '6',
+                'title'  => 'Exit Intent Theme Seven',
+                'is_pro' => $is_pro_badge,
+            ],
+            'theme-five' => [
+                'label'  => 'theme-five',
+                'value'  => 'theme-five',
+                'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-five.png',
+                'column' => '6',
+                'title'  => 'Exit Intent Theme Five',
+                'is_pro' => $is_pro_badge,
+            ],
+        ];
     }
 
     public function init_fields() {
         parent::init_fields();
         add_filter( 'nx_content_fields',        [ $this, 'content_fields' ],       999 );
         add_filter( 'nx_design_tab_fields',     [ $this, 'design_fields' ],        99  );
+        add_filter( 'nx_design_tab_fields',     [ $this, 'builder_tabs_fields' ],  100 );
         add_filter( 'nx_customize_fields',      [ $this, 'customize_fields' ],     999 );
         add_filter( 'nx_display_fields',        [ $this, 'display_fields' ],       999 );
+
+        // Hide per-theme content sections when an Elementor doc is linked (Task 06).
+        // We deliberately do NOT hide the themes radio-card itself — keeping it
+        // visible on the Default tab lets users switch back to a built-in theme
+        // after they've imported an Elementor design.
+        add_filter( 'nx_content_fields',        [ $this, 'suppress_when_elementor' ],   1001 );
+    }
+
+    /**
+     * Hide every per-theme content section once an Elementor design is linked.
+     * Elementor owns all of these fields; showing them would let users edit
+     * values with no visible effect on the rendered popup.
+     */
+    public function suppress_when_elementor( $fields ) {
+        foreach ( $fields as $key => $field ) {
+            if ( strpos( $key, 'exit_intent_' ) === 0 && substr( $key, -8 ) === '_section' ) {
+                $fields[ $key ] = Rules::isOfType( 'elementor_id', 'number', true, $field );
+            }
+        }
+        return $fields;
+    }
+
+    /**
+     * @deprecated Kept for back-compat only; the filter that called this has
+     * been removed so the themes radio stays visible on the Default tab even
+     * when an Elementor design is linked (lets users switch back).
+     */
+    public function suppress_themes_radio( $fields ) {
+        if ( ! isset( $fields['themes']['fields']['themes']['rules'] ) ) {
+            return $fields;
+        }
+        $existing   = $fields['themes']['fields']['themes']['rules'];
+        // Additional clause: either we're NOT on Exit Intent (so this rule
+        // shouldn't change anything for other sources), OR elementor_id is
+        // not yet set. Combined via AND with the existing tab-gate so other
+        // sources (e.g. PressBar) keep their tab-based hiding intact.
+        $additional = Rules::logicalRule( [
+            Rules::is( 'source', $this->id, true ),
+            Rules::isOfType( 'elementor_id', 'number', true ),
+        ], 'or' );
+        $fields['themes']['fields']['themes']['rules'] = Rules::logicalRule( [
+            $existing,
+            $additional,
+        ], 'and' );
+        return $fields;
+    }
+
+    /**
+     * Restructures the Themes section into two tabs:
+     *   1. Default — original 7 React themes grid (the `themes` radio-card,
+     *      already gated to themes_tab='for_desktop' in GlobalFields).
+     *   2. Custom — Build With Elementor button + modal, plus Edit/Remove
+     *      and Install fallback after a doc is linked.
+     *
+     * Matches Notification Bar's Default/Custom tab structure.
+     */
+    public function builder_tabs_fields( $fields ) {
+        if ( empty( $fields['themes']['fields']['themes_section']['fields']['themes_tab']['fields'] ) ) {
+            return $fields;
+        }
+        $tab =& $fields['themes']['fields']['themes_section']['fields']['themes_tab']['fields'];
+
+        // Hide the global "For Desktop" / "For Mobile" tabs for Exit Intent only — we
+        // ship our own Default + Custom tabs below.
+        foreach ( [ 'for_desktop', 'for_mobile' ] as $key ) {
+            if ( isset( $tab[ $key ] ) ) {
+                $tab[ $key ] = Rules::is( 'source', $this->id, true, $tab[ $key ] );
+            }
+        }
+
+        // Expand the global themes radio-card so it ALSO renders when our new
+        // Default tab is active. Without this, the radio would never appear for
+        // Exit Intent — its existing rule is hard-coded to themes_tab='for_desktop'.
+        if ( isset( $fields['themes']['fields']['themes'] ) ) {
+            $fields['themes']['fields']['themes']['rules'] = Rules::logicalRule( [
+                Rules::is( 'themes_tab', 'for_desktop' ),
+                Rules::is( 'themes_tab', 'exit_intent_default_tab' ),
+            ], 'or' );
+        }
+
+        $is_installed          = Helper::is_plugin_installed( 'elementor/elementor.php' );
+        $install_activate_text = $is_installed
+            ? __( 'Activate Elementor', 'notificationx' )
+            : __( 'Install Elementor', 'notificationx' );
+
+        // Default tab — unique name (no collision with global for_desktop).
+        $tab[] = [
+            'label' => __( 'Default', 'notificationx' ),
+            'name'  => 'exit_intent_default_tab',
+            'id'    => 'exit_intent_default_tab',
+            'type'  => 'section',
+            'icon'  => NOTIFICATIONX_ADMIN_URL . 'images/icons/nxbar-presets-icon.svg',
+            'rules' => Rules::is( 'source', $this->id ),
+        ];
+
+        // The Custom tab — only renders for Exit Intent campaigns.
+        $tab[] = [
+            'label'  => __( 'Custom', 'notificationx' ),
+            'name'   => 'exit_intent_custom_tab',
+            'id'     => 'exit_intent_custom_tab',
+            'type'   => 'section',
+            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/icons/nxbar-custom-tab.svg',
+            'rules'  => Rules::is( 'source', $this->id ),
+            'fields' => [
+
+                // Preview image / empty-state illustration (reuses NxBarPresets).
+                'exit_intent_custom_preview' => [
+                    'name'     => 'exit_intent_custom_preview',
+                    'type'     => 'exit-intent-custom',
+                    'label'    => __( 'Exit Intent', 'notificationx' ),
+                    'priority' => 5,
+                ],
+
+                // Edit With Elementor — shown when an Elementor doc is linked.
+                'elementor_edit_link' => [
+                    'name'     => 'elementor_edit_link',
+                    'type'     => 'button',
+                    'text'     => __( 'Edit With Elementor', 'notificationx' ),
+                    'href'     => -1,
+                    'priority' => 10,
+                    'target'   => '_blank',
+                    'rules'    => Rules::logicalRule( [
+                        Rules::is( 'elementor_edit_link', false, true ),
+                        Rules::isOfType( 'elementor_edit_link', 'string' ),
+                        Rules::is( 'elementor_id', false, true ),
+                    ] ),
+                ],
+
+                // Remove — deletes the Elementor doc and resets state.
+                'nx-exit-intent_with_elementor-remove' => [
+                    'name'     => 'nx-exit-intent_with_elementor-remove',
+                    'type'     => 'button',
+                    'text'     => __( 'Remove', 'notificationx' ),
+                    'priority' => 15,
+                    'rules'    => Rules::logicalRule( [
+                        Rules::is( 'elementor_id', false, true ),
+                        Rules::is( 'is_elementor', true ),
+                        Rules::is( 'source', $this->id ),
+                    ] ),
+                    'ajax'     => [
+                        'on'       => 'click',
+                        'api'      => '/notificationx/v1/exit-intent/elementor/remove',
+                        'data'     => [ 'elementor_id' => '@elementor_id' ],
+                        'hideSwal' => true,
+                    ],
+                    'trigger'  => [
+                        [
+                            'type'   => 'setFieldValue',
+                            'action' => [
+                                'elementor_id'        => false,
+                                'elementor_edit_link' => '',
+                                'elementor_exit_theme' => 'theme-one',
+                                'is_confirmed'        => false,
+                                'themes'              => $this->id . '_theme-one',
+                            ],
+                        ],
+                    ],
+                ],
+
+                // Build With Elementor — modal with seed-theme picker.
+                'nx-exit-intent_with_elementor' => [
+                    'name'     => 'nx-exit-intent_with_elementor',
+                    'type'     => 'modal',
+                    'priority' => 20,
+                    'button'   => [
+                        'name'    => 'build_with_elementor',
+                        'text'    => __( 'Build With Elementor', 'notificationx' ),
+                        'trigger' => [
+                            [
+                                'type'   => 'setFieldValue',
+                                'action' => [ 'import_elementor_theme' => false ],
+                            ],
+                        ],
+                    ],
+                    'confirm_button' => [
+                        'type'   => 'button',
+                        'name'   => 'import_elementor_theme',
+                        'group'  => true,
+                        'fields' => [
+                            [
+                                'type'    => 'button',
+                                'name'    => 'import_elementor_theme',
+                                'default' => false,
+                                'text'    => [
+                                    'normal'  => __( 'Import', 'notificationx' ),
+                                    'saved'   => __( 'Import', 'notificationx' ),
+                                    'loading' => __( 'Importing...', 'notificationx' ),
+                                ],
+                                'ajax'    => [
+                                    'on'       => 'click',
+                                    'api'      => '/notificationx/v1/exit-intent/elementor/import',
+                                    'data'     => [ 'theme_id' => '@elementor_exit_theme' ],
+                                    'trigger'  => '@is_confirmed:true',
+                                    'hideSwal' => true,
+                                ],
+                                'rules' => Rules::is( 'is_confirmed', true, true ),
+                            ],
+                            [
+                                'type'    => 'button',
+                                'name'    => 'import_elementor_theme_next',
+                                'default' => false,
+                                'text'    => __( 'Next', 'notificationx' ),
+                                'rules'   => Rules::is( 'is_confirmed', true ),
+                                'trigger' => [
+                                    [
+                                        'type'   => 'setContext',
+                                        'action' => [ 'config.active' => 'display_tab' ],
+                                    ],
+                                    [
+                                        'type'   => 'setFieldValue',
+                                        'action' => [ 'import_elementor_theme_next' => true ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                    'cancel' => 'import_elementor_theme_next',
+                    'body'   => [
+                        'header' => __( 'Choose Your ', 'notificationx' ),
+                        'fields' => [
+                            'themes' => [
+                                'type'    => 'radio-card',
+                                'name'    => 'elementor_exit_theme',
+                                'style'   => [ 'label' => [ 'position' => 'top' ] ],
+                                'rules'   => Rules::is( 'is_confirmed', true, true ),
+                                'default' => 'theme-one',
+                                'options' => $this->elementor_themes,
+                            ],
+                        ],
+                    ],
+                    'rules' => Rules::logicalRule( [
+                        Rules::is( 'elementor_id', false ),
+                        Rules::is( 'is_elementor', true ),
+                        Rules::is( 'is_confirmed', true, true ),
+                        Rules::is( 'source', $this->id ),
+                    ] ),
+                ],
+
+                // Install / Activate Elementor — fallback when Elementor isn't active.
+                'nx-exit-intent_with_elementor_install' => [
+                    'name'     => 'nx-exit-intent_with_elementor_install',
+                    'type'     => 'button',
+                    'priority' => 25,
+                    'text'     => [
+                        'normal'  => $install_activate_text,
+                        'saved'   => $is_installed ? __( 'Activated Elementor', 'notificationx' ) : __( 'Installed Elementor', 'notificationx' ),
+                        'loading' => $is_installed ? __( 'Activating Elementor...', 'notificationx' ) : __( 'Installing Elementor...', 'notificationx' ),
+                    ],
+                    'rules' => Rules::logicalRule( [
+                        Rules::is( 'is_elementor', false ),
+                        Rules::is( 'source', $this->id ),
+                    ] ),
+                    'ajax' => [
+                        'on'      => 'click',
+                        'api'     => '/notificationx/v1/core-install',
+                        'data'    => [
+                            'source'       => $this->id,
+                            'slug'         => 'elementor',
+                            'file'         => 'elementor.php',
+                            'is_installed' => $is_installed,
+                        ],
+                        'swal'    => [
+                            'icon' => 'success',
+                            'text' => __( 'Successfully Activated', 'notificationx' ),
+                        ],
+                        'trigger' => '@is_elementor:true',
+                    ],
+                ],
+
+                // Hidden state fields (Task 05).
+                'is_elementor' => [
+                    'name'    => 'is_elementor',
+                    'type'    => 'hidden',
+                    'default' => class_exists( '\\Elementor\\Plugin' ),
+                    'rules'   => Rules::is( 'source', $this->id ),
+                ],
+                'elementor_id' => [
+                    'name'    => 'elementor_id',
+                    'type'    => 'hidden',
+                    'default' => false,
+                    'rules'   => Rules::is( 'source', $this->id ),
+                ],
+                'is_confirmed' => [
+                    'name'    => 'is_confirmed',
+                    'type'    => 'hidden',
+                    'default' => false,
+                ],
+            ],
+        ];
+
+        return $fields;
     }
 
     public function display_fields( $fields ) {

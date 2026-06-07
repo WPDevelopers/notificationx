@@ -576,6 +576,15 @@ class FrontEnd {
                 $popup_notifications[] = $settings['nx_id'];
             } elseif($settings['source'] == 'exit_intent_custom') {
                 $exit_intent_notifications[] = $settings['nx_id'];
+                // Force Elementor's frontend runtime + per-widget assets onto the
+                // page (elementor-frontend.js, the document CSS, and each widget's
+                // get_style_depends()/get_script_depends() — e.g. nx-countdown).
+                // The popup HTML itself is rendered later via REST, where these
+                // enqueues would be discarded, so the countdown widget would lose
+                // its layout CSS and timer JS. Mirrors the press_bar branch above.
+                if (!empty($settings['elementor_id']) && class_exists('\Elementor\Plugin')) {
+                    \Elementor\Plugin::$instance->frontend->get_builder_content($settings['elementor_id'], false);
+                }
             } elseif ($active_global_queue && NotificationX::is_pro()) {
                 $global_notifications[] = $return_posts ? $settings : $settings['nx_id'];
             } else {
