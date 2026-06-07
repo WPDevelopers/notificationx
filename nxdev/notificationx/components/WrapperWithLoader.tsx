@@ -22,7 +22,9 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                     : (forcedDesktopValues.includes(nx_type)
                         ? 'for_desktop'
                         : (builderContext?.values?.themes_tab || 'for_desktop'));
-                builderContext.setFieldValue( "is_mobile_responsive", nx_type !== "custom");
+                if ( ! builderValues?.nx_id ) {
+                    builderContext.setFieldValue( "is_mobile_responsive", nx_type !== "custom" );
+                }
                 setTimeout(() => {
                      if ( nx_type !== 'notification_bar' ) {
                         builderContext.setFieldValue("themes_tab", themeTabValue);
