@@ -1,6 +1,6 @@
 // Figma "theme-four" (slug: conv-theme-fifteen)
-// Left lavender image panel (product image + green check badge) · floating "Buy now"
-// pill above top-right · row 1: time (right) · row 2: name + action + product ·
+// Left lavender image panel (product image + green check badge) · "Buy now"
+// pill straddling the top-right corner · row 1: time (right) · row 2: name + action + product ·
 // row 3: green "Verified by NotificationX" badge.
 // Everything is scoped under this theme's selector — no effect on other themes.
 &.themes-woocommerce_sales_conv-theme-fifteen,
@@ -27,22 +27,23 @@
         width: auto;
     }
 
-    // Close button: take it out of the flex flow so it doesn't add an empty
-    // right-hand column (which squeezed the content and over-truncated row 2).
-    // Pin it to the top-right corner instead.
+    // Close (✕) — floats just outside the card's top-right corner. `!important`
+    // beats the inline top/right the Close component sets for non-bar sources.
     .notificationx-close {
-        position: absolute;
-        top: 6px;
-        right: 8px;
+        position: absolute !important;
+        top: 0 !important;
+        left: calc(100% + 6px) !important;
+        right: auto !important;
+        bottom: auto !important;
+        margin: 0 !important;
         padding: 4px;
-        margin: 0;
-        z-index: 10;
-        align-self: flex-start;
-    }
-    // Keep the time row clear of the corner close button.
-    &.has-close-btn .no-advance-edit .notificationx-content .nx-first-row,
-    &.has-close-btn .notificationx-content .nx-first-row {
-        padding-right: 28px;
+        z-index: 11;
+
+        svg {
+            width: 10px !important;
+            height: 10px !important;
+            fill: #131b2e;
+        }
     }
 
     // Full-height lavender panel holding the product image + a check badge.
@@ -92,7 +93,9 @@
     .notificationx-content {
         margin-left: 0;
         flex: 0 1 auto;
-        padding: 10px 16px 10px 14px;
+        // Extra top padding drops row 1 (location + time) below the "Buy now" pill
+        // that straddles the top-right corner, so the time never sits under it.
+        padding: 18px 16px 10px 14px;
         min-width: 210px;
 
         // Row 1 — location (left) + time (right), both muted.
@@ -142,6 +145,8 @@
             & > span > span:last-child {
                 flex: 0 0 auto;
                 white-space: nowrap;
+                position: absolute;
+                right: 14px;
             }
         }
 
@@ -212,7 +217,7 @@
                 // The full NotificationX brand logo (icon + wordmark). Sized by
                 // height so it keeps its 180:48 aspect ratio.
                 & > a > svg {
-                    height: 16px;
+                    height: 20px;
                     width: auto;
                     display: block;
                 }
@@ -224,11 +229,12 @@
         }
     }
 
-    // "Buy now" — light-green pill floating just above the top-right corner
-    // (matches the design: light-green background, dark-green text, no chevron).
+    // "Buy now" — light-green pill straddling the top-right corner: its right edge
+    // sits flush with the card edge and its lower half overlaps the card's top edge
+    // (matches the Figma design: light-green background, dark-green text, no chevron).
     &.button-link .notificationx-link {
-        top: -30px;
-        right: 14px;
+        top: -16px;
+        right: 0;
         left: auto;
         bottom: auto;
         background: #d9f4e4;

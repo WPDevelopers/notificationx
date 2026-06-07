@@ -838,9 +838,14 @@ class FrontEnd {
                     $_entry['product_id'] = $entry['product_id'];
                 }
 
-                $template_arr = array_values($post['notification-template']);
-                if ($post['template_adv']) {
-                    $adv_template = $post['advanced_template'];
+                // `notification-template` can be absent for some posts (e.g. advanced-
+                // template notifications or imported/migrated posts), so guard against
+                // passing null to array_values() — that is a fatal TypeError on PHP 8.
+                $template_arr = ( ! empty( $post['notification-template'] ) && is_array( $post['notification-template'] ) )
+                    ? array_values( $post['notification-template'] )
+                    : [];
+                if ( ! empty( $post['template_adv'] ) ) {
+                    $adv_template = isset( $post['advanced_template'] ) ? $post['advanced_template'] : '';
                     $pattern = "/{{(.+?)}}/i";
                     if (preg_match_all($pattern, $adv_template, $matches)) {
                         $template_arr = $matches[1];

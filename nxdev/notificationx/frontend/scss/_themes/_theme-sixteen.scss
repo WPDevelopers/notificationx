@@ -148,7 +148,7 @@
                 // The full NotificationX brand logo (icon + wordmark). Sized by
                 // height so it keeps its 180:48 aspect ratio.
                 & > a > svg {
-                    height: 14px;
+                    height: 20px;
                     width: auto;
                     display: block;
                 }
@@ -181,6 +181,25 @@
             margin-left: 6px;
             font-size: 14px;
             font-weight: 600;
+        }
+    }
+
+    // Close (✕) — floats just outside the card's top-right corner. `!important`
+    // beats the inline top/right the Close component sets for non-bar sources.
+    .notificationx-close {
+        position: absolute !important;
+        top: 0 !important;
+        left: calc(100% + 6px) !important;
+        right: auto !important;
+        bottom: auto !important;
+        margin: 0 !important;
+        padding: 4px;
+        z-index: 11;
+
+        svg {
+            width: 10px !important;
+            height: 10px !important;
+            fill: #131b2e;
         }
     }
 }

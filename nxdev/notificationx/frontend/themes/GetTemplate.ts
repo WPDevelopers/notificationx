@@ -248,12 +248,13 @@ const GetTemplate = (settings) => {
                 `${params?.fourth_param}`,
             ];
             break;
-        // Figma "theme-one": row 1 = buyer name, row 2 = action + product + time.
-        // The empty 3rd row carries the "Verified by NotificationX" branding badge.
+        // Figma "theme-one": row 1 = buyer name (left) + time (right, via CSS),
+        // row 2 = action + product. The empty 3rd row carries the "Verified by
+        // NotificationX" branding badge.
         case "conv-theme-twelve":
             return [
-                `${params?.first_param}`,
-                `${params?.second_param} ${params?.third_param} ${params?.fourth_param}`,
+                `${params?.first_param} ${params?.fourth_param}`,
+                `${params?.second_param} ${params?.third_param}`,
             ];
             break;
         // Figma "theme-two": row 1 = name + time (time right-aligned via CSS),
