@@ -786,6 +786,33 @@ JS;
         // visible on the Default tab lets users switch back to a built-in theme
         // after they've imported an Elementor design.
         add_filter( 'nx_content_fields',        [ $this, 'suppress_when_elementor' ],   1001 );
+
+        // Hide the whole Content wizard step when an Elementor design is linked —
+        // suppress_when_elementor() empties every content section in that case, so
+        // the step would otherwise render as a blank tab.
+        add_filter( 'nx_metabox_tabs',          [ $this, 'hide_content_tab_for_elementor' ] );
+    }
+
+    /**
+     * Remove the Content step from the wizard for Exit Intent campaigns that are
+     * built with Elementor. Elementor owns all of the popup's content there (every
+     * `exit_intent_*_section` is suppressed by suppress_when_elementor()), leaving
+     * the Content tab empty. Built-in themes keep the Content step, and all other
+     * sources are untouched.
+     *
+     * The tab stays visible UNLESS (source is Exit Intent AND elementor_id is a
+     * number), expressed below as the OR'd "show when" rule.
+     */
+    public function hide_content_tab_for_elementor( $tabs ) {
+        if ( empty( $tabs['content_tab'] ) ) {
+            return $tabs;
+        }
+        $show_rule = Rules::_logicalRule( [
+            Rules::_is( 'source', $this->id, true ),
+            Rules::_isOfType( 'elementor_id', 'number', true ),
+        ], 'or' );
+        $tabs['content_tab'] = Rules::add( $show_rule, $tabs['content_tab'] );
+        return $tabs;
     }
 
     /**

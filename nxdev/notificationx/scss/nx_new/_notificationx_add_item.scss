@@ -865,9 +865,9 @@
                                 .wprf-section-fields {
                                     .nxbar-presets-empty-state {
                                         text-align: center;
-                                        padding: 70px 0;
+                                        padding: 0;
                                         img {
-                                            width: 280px;
+                                            width: 200px;
                                             max-width: 100%;
                                         }
                                         h4 {
@@ -1156,7 +1156,13 @@
 // Full-width preview/heading rows with the action buttons collected into a
 // right-aligned row — mirrors the Notification Bar's Custom-tab UX (light
 // Elementor pill + red "Remove" text link).
-.exit_intent_custom .wprf-tab-exit_intent_custom_tab {
+//
+// Scope to `.wprf-active` only. This rule's `#notificationx`-prefixed selector
+// out-specifies QuickBuilder's `.wprf-tab-content { display: none }`, so without
+// the `.wprf-active` guard the panel's `display: flex` would win even when the
+// tab is inactive — leaking the "Build With Elementor" empty state onto the
+// Default tab.
+.exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active {
 
     display: flex;
     flex-wrap: wrap;

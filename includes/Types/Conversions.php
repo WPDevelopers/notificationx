@@ -44,7 +44,7 @@ class Conversions extends Types {
 
 
     public $default_source    = 'woocommerce';
-    public $default_theme     = 'conversions_theme-one';
+    public $default_theme     = 'conversions_conv-theme-twelve';
     public $default_res_theme = 'conversions_res-theme-one';
     public $link_type         = 'product_page';
 
@@ -71,6 +71,45 @@ class Conversions extends Types {
             'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
         ];
         $this->themes = [
+            // Figma "theme-one" — circular avatar, name row, action+product+time row,
+            // green "Verified by NotificationX" badge (branding) + right-aligned "Buy now" link.
+            'conv-theme-twelve' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-12.png',
+                'image_shape' => 'circle',
+                'template'  => $common_fields,
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
+            // Figma "theme-two" — floating "Buy now" pill above top-right, rounded-square
+            // avatar, row 1 = name + right-aligned time, row 2 = "Bought <product>",
+            // green "Verified by NotificationX" badge.
+            'conv-theme-thirteen' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-13.png',
+                'image_shape' => 'rounded',
+                // Row 2 reads "Bought <product>" per the design (the shared default
+                // is "just purchased"), so override the action verb for this theme.
+                'template'  => array_merge( $common_fields, [
+                    'second_param' => __( 'Bought', 'notificationx' ),
+                ] ),
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
+            // Figma "theme-four" — left lavender image panel with a check badge, floating
+            // "Buy now" pill above top-right, row 1 = time (top-right), row 2 = name +
+            // action + product, green "Verified by NotificationX" badge.
+            'conv-theme-fifteen' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-15.png',
+                'image_shape' => 'rounded',
+                'template'  => $common_fields,
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
             'theme-one'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-2.jpg',
                 'image_shape' => 'square',
@@ -130,62 +169,7 @@ class Conversions extends Types {
                 ],
                 'template'  => $common_fields,
             ),
-            // Figma "theme-one" — circular avatar, name row, action+product+time row,
-            // green "Verified by NotificationX" badge (branding) + right-aligned "Buy now" link.
-            'conv-theme-twelve' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-12.png',
-                'image_shape' => 'circle',
-                'template'  => $common_fields,
-                'defaults'     => [
-                    'link_button'      => true,
-                    'link_button_text' => __( 'Buy now', 'notificationx' ),
-                ],
-            ),
-            // Figma "theme-two" — floating "Buy now" pill above top-right, rounded-square
-            // avatar, row 1 = name + right-aligned time, row 2 = "Bought <product>",
-            // green "Verified by NotificationX" badge.
-            'conv-theme-thirteen' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-13.png',
-                'image_shape' => 'rounded',
-                // Row 2 reads "Bought <product>" per the design (the shared default
-                // is "just purchased"), so override the action verb for this theme.
-                'template'  => array_merge( $common_fields, [
-                    'second_param' => __( 'Bought', 'notificationx' ),
-                ] ),
-                'defaults'     => [
-                    'link_button'      => true,
-                    'link_button_text' => __( 'Buy now', 'notificationx' ),
-                ],
-            ),
-            // Figma "theme-four" — left lavender image panel with a check badge, floating
-            // "Buy now" pill above top-right, row 1 = time (top-right), row 2 = name +
-            // action + product, green "Verified by NotificationX" badge.
-            'conv-theme-fifteen' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-15.png',
-                'image_shape' => 'rounded',
-                'template'  => $common_fields,
-                'defaults'     => [
-                    'link_button'      => true,
-                    'link_button_text' => __( 'Buy now', 'notificationx' ),
-                ],
-            ),
-            'conv-theme-seven' => array(
-                'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-7.png',
-                'image_shape' => 'rounded',
-            ),
-            'conv-theme-eight' => array(
-                'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-8.png',
-                'image_shape' => 'circle',
-
-            ),
-            'conv-theme-nine' => array(
-                'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
-                'image_shape' => 'rounded',
-            ),
-            // Figma "theme-three" — sales-count card (cart icon, "X Buyers purchased /
+             // Figma "theme-three" — sales-count card (cart icon, "X Buyers purchased /
             // in last N days / Purchase now" + verified badge). Pro: the count is
             // aggregated by SalesFeatures (gated by $sales_count_themes) and the count
             // template is assigned in the Pro Conversions type.
@@ -210,6 +194,22 @@ class Conversions extends Types {
                     'link_button'      => true,
                     'link_button_text' => __( 'Purchase now', 'notificationx' ),
                 ],
+            ),
+            'conv-theme-seven' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-7.png',
+                'image_shape' => 'rounded',
+            ),
+            'conv-theme-eight' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-8.png',
+                'image_shape' => 'circle',
+
+            ),
+            'conv-theme-nine' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
+                'image_shape' => 'rounded',
             ),
         ];
         $this->res_themes = [
