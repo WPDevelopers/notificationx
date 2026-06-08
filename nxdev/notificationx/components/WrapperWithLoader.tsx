@@ -25,6 +25,15 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                 if ( ! builderValues?.nx_id ) {
                     builderContext.setFieldValue( "is_mobile_responsive", nx_type !== "custom" );
                 }
+                if( nx_type == 'exit_intent' ) {
+                    setTimeout(() => {
+                        const target = document.querySelector('[data-key="exit_intent_default_tab"]');
+                        target?.classList.add('wprf-active-nav');
+                        // @ts-ignore 
+                        target?.click();
+                    }, 100);
+                }
+
                 setTimeout(() => {
                      if ( nx_type !== 'notification_bar' ) {
                         builderContext.setFieldValue("themes_tab", themeTabValue);

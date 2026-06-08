@@ -96,7 +96,7 @@ class FormWidget extends Widget_Base {
                 if ( ! in_array( $post['source'], [ 'popup_notification', 'exit_intent_custom' ], true ) ) {
                     continue;
                 }
-                $label = $post['title'] ?: sprintf( __( 'Campaign #%d', 'notificationx' ), $post['nx_id'] );
+                $label = $post['title'] ?: sprintf( __( '#%d', 'notificationx' ), $post['nx_id'] );
                 $options[ (string) $post['nx_id'] ] = sprintf(
                     '%s (%s)',
                     $label,
@@ -119,7 +119,7 @@ class FormWidget extends Widget_Base {
         $this->add_control(
             'nx_campaign_id',
             [
-                'label'       => esc_html__( 'Bind to NotificationX Campaign', 'notificationx' ),
+                'label'       => esc_html__( 'Select Campaign', 'notificationx' ),
                 'type'        => Controls_Manager::SELECT,
                 'options'     => $this->get_nx_campaigns(),
                 'default'     => '',
