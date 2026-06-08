@@ -250,6 +250,19 @@ class QuickBuild {
                 'time_rotation',
                 'time_reset',
                 'nxbar_build_with_ai',
+                // Exit Intent Popup — Custom (Elementor) tab controls. The Quick
+                // Builder hides any field name not listed here, so without these the
+                // "Build With Elementor" button (and the rest of the Custom-tab flow)
+                // never render in the Quick Builder.
+                'exit_intent_custom_preview',
+                'build_with_elementor',
+                'nx-exit-intent_with_elementor',
+                'nx-exit-intent_with_elementor-remove',
+                'nx-exit-intent_with_elementor_install',
+                'elementor_edit_link',
+                'elementor_exit_theme',
+                'import_elementor_theme',
+                'import_elementor_theme_next',
             ],
             'types_title' => apply_filters( 'nx_source_types_title', array(
                 'notification_bar' => __('Notification Bar', 'notificationx'),
