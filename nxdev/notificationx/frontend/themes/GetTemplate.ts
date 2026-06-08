@@ -267,12 +267,13 @@ const GetTemplate = (settings) => {
             break;
         // Figma "theme-four": row 1 = location (left) + time (right, via CSS),
         // row 2 = name + action + product. Empty 3rd row carries the verified badge.
-        // Location uses the order's {{city}}/{{country}} entry data (populated by the
-        // WooCommerce extension); the pin icon is added in CSS. If a campaign has no
-        // city/country the location simply renders empty.
+        // Location uses the order's {{city_country}} entry data (populated by the
+        // WooCommerce extension); the pin icon is added in CSS. The city_country tag
+        // joins the parts only when present, so an order missing city/country renders
+        // empty instead of a stray comma.
         case "conv-theme-fifteen":
             return [
-                `<span class="nx-loc">{{city}}, {{country}}</span> ${params?.fourth_param}`,
+                `<span class="nx-loc">{{city_country}}</span> ${params?.fourth_param}`,
                 `${params?.first_param} ${params?.second_param} ${params?.third_param}`,
             ];
             break;

@@ -44,7 +44,7 @@ class Conversions extends Types {
 
 
     public $default_source    = 'woocommerce';
-    public $default_theme     = 'conversions_conv-theme-twelve';
+    public $default_theme     = 'conversions_theme-one';
     public $default_res_theme = 'conversions_res-theme-one';
     public $link_type         = 'product_page';
 
@@ -71,6 +71,11 @@ class Conversions extends Types {
             'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
         ];
         $this->themes = [
+            'theme-one'   => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-2.jpg',
+                'image_shape' => 'square',
+                'template'  => $common_fields,
+            ],
             // Figma "theme-one" — circular avatar, name row, action+product+time row,
             // green "Verified by NotificationX" badge (branding) + right-aligned "Buy now" link.
             'conv-theme-twelve' => array(
@@ -110,11 +115,6 @@ class Conversions extends Types {
                     'link_button_text' => __( 'Buy now', 'notificationx' ),
                 ],
             ),
-            'theme-one'   => [
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-2.jpg',
-                'image_shape' => 'square',
-                'template'  => $common_fields,
-            ],
             'theme-two'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-1.jpg',
                 'image_shape' => 'square',

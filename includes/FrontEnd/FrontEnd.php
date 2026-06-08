@@ -842,6 +842,12 @@ class FrontEnd {
                     'updated_at' => isset( $entry['updated_at'] ) ? $entry['updated_at'] : '',
                     'image_data' => $entry['image_data'],
                     'link'       => $entry['link'],
+                    // Location is rendered by themes (e.g. conv-theme-fifteen) via the
+                    // hardcoded {{city_country}} tag, not through a notification-template
+                    // param, so the template loop below never whitelists it. Keep the
+                    // raw parts here so the frontend can compose "City, Country".
+                    'city'       => $entry['city'] ?? '',
+                    'country'    => $entry['country'] ?? '',
                 ], $entry, $post, $params);
                 if (!empty($params['inline_shortcode']) && isset($entry['product_id'])) {
                     $_entry['product_id'] = $entry['product_id'];

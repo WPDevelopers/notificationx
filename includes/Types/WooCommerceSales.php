@@ -67,12 +67,53 @@ class WooCommerceSales extends Types {
             'fourth_param'        => 'tag_time',
             'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
         ];
+        // Theme order mirrors includes/Types/Conversions.php so the Sales
+        // Notification and WooCommerce theme grids stay in sync.
         $this->themes = [
             'theme-one'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-2.jpg',
                 'image_shape' => 'square',
                 'template'  => $common_fields,
             ],
+            // Figma "theme-one" — circular avatar, name row, action+product+time row,
+            // green "Verified by NotificationX" badge (branding) + right-aligned "Buy now" link.
+            'conv-theme-twelve' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-12.png',
+                'image_shape' => 'circle',
+                'template'  => $common_fields,
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
+            // Figma "theme-two" — floating "Buy now" pill above top-right, rounded-square
+            // avatar, row 1 = name + right-aligned time, row 2 = "Bought <product>",
+            // green "Verified by NotificationX" badge.
+            'conv-theme-thirteen' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-13.png',
+                'image_shape' => 'rounded',
+                // Row 2 reads "Bought <product>" per the design (the shared default
+                // is "just purchased"), so override the action verb for this theme.
+                'template'  => array_merge( $common_fields, [
+                    'second_param' => __( 'Bought', 'notificationx' ),
+                ] ),
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
+            // Figma "theme-four" — left lavender image panel with a check badge, floating
+            // "Buy now" pill above top-right, row 1 = time (top-right), row 2 = name +
+            // action + product, green "Verified by NotificationX" badge.
+            'conv-theme-fifteen' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-15.png',
+                'image_shape' => 'rounded',
+                'template'  => $common_fields,
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
             'theme-two'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-1.jpg',
                 'image_shape' => 'square',
@@ -125,22 +166,6 @@ class WooCommerceSales extends Types {
                 ],
                 'template'  => $common_fields,
             ),
-            'conv-theme-seven' => array(
-                'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-7.png',
-                'image_shape' => 'rounded',
-            ),
-            'conv-theme-eight' => array(
-                'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-8.png',
-                'image_shape' => 'circle',
-
-            ),
-            'conv-theme-nine' => array(
-                'is_pro' => true,
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
-                'image_shape' => 'rounded',
-            ),
             // Figma "theme-three" — sales-count card (cart icon, "X Buyers purchased /
             // in last N days / Purchase now" + verified badge). Pro aggregates the count.
             'conv-theme-fourteen' => array(
@@ -163,46 +188,22 @@ class WooCommerceSales extends Types {
                     'link_button_text' => __( 'Purchase now', 'notificationx' ),
                 ],
             ),
-            // Figma "theme-one" — circular avatar, name row, action+product+time row,
-            // green "Verified by NotificationX" badge (branding) + right-aligned "Buy now" link.
-            'conv-theme-twelve' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-12.png',
+            'conv-theme-seven' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-7.png',
+                'image_shape' => 'rounded',
+            ),
+            'conv-theme-eight' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-8.png',
                 'image_shape' => 'circle',
-                'template'  => $common_fields,
-                'defaults'     => [
-                    'link_button'      => true,
-                    'link_button_text' => __( 'Buy now', 'notificationx' ),
-                ],
-            ),
-            // Figma "theme-two" — floating "Buy now" pill above top-right, rounded-square
-            // avatar, row 1 = name + right-aligned time, row 2 = "Bought <product>",
-            // green "Verified by NotificationX" badge.
-            'conv-theme-thirteen' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-13.png',
-                'image_shape' => 'rounded',
-                // Row 2 reads "Bought <product>" per the design (the shared default
-                // is "just purchased"), so override the action verb for this theme.
-                'template'  => array_merge( $common_fields, [
-                    'second_param' => __( 'Bought', 'notificationx' ),
-                ] ),
-                'defaults'     => [
-                    'link_button'      => true,
-                    'link_button_text' => __( 'Buy now', 'notificationx' ),
-                ],
-            ),
-            // Figma "theme-four" — left lavender image panel with a check badge, floating
-            // "Buy now" pill above top-right, row 1 = time (top-right), row 2 = name +
-            // action + product, green "Verified by NotificationX" badge.
-            'conv-theme-fifteen' => array(
-                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-15.png',
-                'image_shape' => 'rounded',
-                'template'  => $common_fields,
-                'defaults'     => [
-                    'link_button'      => true,
-                    'link_button_text' => __( 'Buy now', 'notificationx' ),
-                ],
-            ),
 
+            ),
+            'conv-theme-nine' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
+                'image_shape' => 'rounded',
+            ),
         ];
         $this->res_themes = [
             'res-theme-one'   => [
