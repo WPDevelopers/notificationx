@@ -2147,9 +2147,15 @@ JS;
             ];
         }
 
-        $fields['exit_intent_settings'] = [
+        // NOTE: keep this key unique. The Announcement extension (PopupNotification)
+        // also registers a section literally named `exit_intent_settings` for its
+        // "Convert to Exit Intent" feature; sharing the key here let Popup's filter
+        // (same `nx_customize_fields` priority, registered later) overwrite this
+        // section with a `source == popup_notification` rule, hiding it for the
+        // Exit Intent type and leaving the whole Customize tab blank.
+        $fields['exit_intent_popup_settings'] = [
             'label'    => __( 'Exit Intent Settings', 'notificationx' ),
-            'name'     => 'exit_intent_settings',
+            'name'     => 'exit_intent_popup_settings',
             'type'     => 'section',
             'priority' => 15,
             'rules'    => Rules::is( 'source', $this->id ),
