@@ -1,0 +1,205 @@
+// Figma "theme-five" (slug: conv-theme-sixteen) — sales-count card, alternate layout.
+// Verified badge pill sits on TOP (lifted out of row 3); blue cart-icon box on the
+// left; row 1 = "<count> Buyers purchased" (count in green); row 2 = period
+// ("In the last N days- Join them now!"); floating "Purchase now ›" pill top-right.
+// Same Pro sales-count engine as conv-theme-fourteen. Everything is scoped under
+// this theme's selector — no effect on other themes.
+&.themes-woocommerce_sales_conv-theme-sixteen,
+&.themes-conversions_conv-theme-sixteen {
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(19, 27, 46, 0.10);
+    min-width: 0;
+    width: fit-content;
+    // !important so the theme stays compact regardless of the campaign "Size"
+    // setting (applied by the runtime as an inline max-width).
+    max-width: 360px !important;
+    // Leave headroom for the floating "Purchase now" pill that straddles the top.
+    margin-top: 18px;
+
+    &,
+    .notificationx-inner {
+        border-radius: 12px;
+    }
+
+    .notificationx-inner {
+        align-items: center;
+        position: relative;
+        // Room for the verified badge pill that is absolutely positioned on top.
+        padding-top: 42px;
+        min-height: 48px;
+        width: auto;
+    }
+
+    // Blue cart-icon box (replaces the product image).
+    .notificationx-image {
+        flex-basis: 48px;
+        width: 48px;
+        min-width: 48px;
+        height: 48px;
+        padding: 0;
+        margin: 0 0 4px 16px;
+        align-self: center;
+        background: #d9e8fb;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        // Show the image chosen in "Choose an Image".
+        img {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+    }
+
+    .no-advance-edit .notificationx-content,
+    .notificationx-content {
+        margin-left: 12px;
+        flex: 0 1 auto;
+        padding: 6px 18px 6px 0;
+        min-width: 220px;
+
+        // Row 1 — "<count> Buyers purchased". Count is the first inner span.
+        .nx-first-row {
+            color: #131b2e;
+            font-size: 15px;
+            line-height: 1.25;
+            font-weight: 700;
+
+            & > span > span:first-child {
+                color: #00892f;
+            }
+        }
+
+        // Row 2 — period ("in last N days") + the "- Join them now!" CTA from the
+        // design, appended via CSS so it shows for whichever period the user picks.
+        .nx-second-row {
+            color: #8a93a6;
+            font-size: 12.5px;
+            line-height: 1.3;
+            font-weight: 400;
+            margin-top: 3px;
+
+            // Only append the CTA when the period actually rendered text.
+            & > span:not(:empty)::after {
+                content: "- Join them now!";
+            }
+        }
+
+        // Row 3 — empty; only carries the verified badge, which is lifted to the
+        // top of the card via absolute positioning. Collapse the empty row.
+        .nx-third-row {
+            margin: 0;
+            min-height: 0;
+            line-height: 0;
+
+            & > span:empty {
+                display: none;
+            }
+
+            // The "Verified by" badge — a lavender pill anchored to the card top.
+            .nx-branding {
+                position: absolute;
+                top: 12px;
+                left: 14px;
+                margin: 0;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                background: #eef1fb;
+                border-radius: 20px;
+                padding: 4px 10px 4px 7px;
+                font-size: 10.5px;
+                line-height: 1;
+                color: #8b8fa3;
+
+                // Drop the built-in NX glyph; we use our own green check instead.
+                & > svg:first-child {
+                    display: none;
+                }
+
+                // Green circular check mark.
+                &::before {
+                    content: "";
+                    display: inline-block;
+                    width: 13px;
+                    height: 13px;
+                    flex: 0 0 13px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Ccircle cx='7' cy='7' r='7' fill='%23006E2F'/%3E%3Cpath d='M3.6 7.2l2 2 4.2-4.4' fill='none' stroke='%23fff' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+
+                .nx-byline {
+                    // Reset the inherited `.nx-branding > * { margin-right: 5px }`
+                    // so the gap to the logo matches the flex gap (not 5px + gap).
+                    margin-right: 0;
+                    color: #8b8fa3;
+
+                    // "by" -> "Verified by".
+                    &::before {
+                        content: "Verified ";
+                    }
+                }
+
+                // The full NotificationX brand logo (icon + wordmark). Sized by
+                // height so it keeps its 180:48 aspect ratio.
+                & > a > svg {
+                    height: 20px;
+                    width: auto;
+                    display: block;
+                }
+
+                & > a:hover > svg {
+                    opacity: 0.85;
+                }
+            }
+        }
+    }
+
+    // "Purchase now ›" — white pill floating at the top-right, straddling the edge.
+    &.button-link .notificationx-link {
+        top: -14px;
+        bottom: auto;
+        left: auto;
+        right: 14px;
+        transform: none;
+        padding: 7px 14px;
+        background: #ffffff;
+        box-shadow: 0 4px 12px rgba(19, 27, 46, 0.14);
+        border-radius: 8px;
+        color: #1b2a4a;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1;
+
+        &::after {
+            content: "\203A"; // ›
+            margin-left: 6px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    }
+
+    // Close (✕) — floats just outside the card's top-right corner. `!important`
+    // beats the inline top/right the Close component sets for non-bar sources.
+    .notificationx-close {
+        position: absolute !important;
+        top: 0 !important;
+        left: calc(100% + 6px) !important;
+        right: auto !important;
+        bottom: auto !important;
+        margin: 0 !important;
+        padding: 4px;
+        z-index: 11;
+
+        svg {
+            width: 10px !important;
+            height: 10px !important;
+            fill: #131b2e;
+        }
+    }
+}

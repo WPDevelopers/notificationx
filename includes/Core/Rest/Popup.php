@@ -58,8 +58,9 @@ class Popup {
             'permission_callback' => '__return_true',
             'args' => [
                 'nx_id' => [
-                    'required' => true,
-                    'type'     => 'string',
+                    'required'          => true,
+                    'type'              => 'integer',
+                    'sanitize_callback' => 'absint',
                 ],
                 'email' => [
                     'type'              => 'string',
@@ -73,8 +74,20 @@ class Popup {
                     'type'              => 'string',
                     'sanitize_callback' => 'sanitize_textarea_field',
                 ],
+                // `title` and `theme` are persisted into the entry data and later
+                // shown in the admin Feedback Entries screen and CSV export, so
+                // sanitize them on the way in instead of storing raw input.
+                'title' => [
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_text_field',
+                ],
+                'theme' => [
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_text_field',
+                ],
                 'timestamp' => [
-                    'type' => 'integer',
+                    'type'              => 'integer',
+                    'sanitize_callback' => 'absint',
                 ],
             ],
         ]);

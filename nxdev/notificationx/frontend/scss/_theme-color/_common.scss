@@ -28,3 +28,24 @@
         border-radius: 5px !important;
     }
 }
+
+.woocommerce_sales #design_tab #themes_section .wprf-section-fields .wprf-tab-menu-wrapper.woocommerce_sales,
+.woocommerce #design_tab #themes_section .wprf-section-fields .wprf-tab-menu-wrapper.woocommerce,
+.woocommerce_sales_reviews #design_tab #themes_section .wprf-section-fields .wprf-tab-menu-wrapper.woocommerce_sales_reviews, 
+.woocommerce_sales_inline #design_tab #themes_section .wprf-section-fields .wprf-tab-menu-wrapper.woocommerce_sales_inline, 
+.fluentcart #design_tab #themes_section .wprf-section-fields .wprf-tab-menu-wrapper.fluentcart, 
+.surecart #design_tab #themes_section .wprf-section-fields .wprf-tab-menu-wrapper.surecart, 
+.edd #design_tab #themes_section .wprf-section-fields .wprf-tab-menu-wrapper.edd, 
+.bitintegrations_conversions #design_tab #themes_section .wprf-section-fields .wprf-tab-menu-wrapper.bitintegrations_conversions, 
+.freemius_conversions #design_tab #themes_section .wprf-section-fields .wprf-tab-menu-wrapper.freemius_conversions,
+.zapier_conversions #design_tab #themes_section .wprf-section-fields .wprf-tab-menu-wrapper.zapier_conversions,
+.envato #design_tab #themes_section .wprf-section-fields .wprf-tab-menu-wrapper.envato,
+.custom_notification_conversions #design_tab #themes_section .wprf-section-fields .wprf-tab-menu-wrapper.custom_notification_conversions {
+    .wprf-tab-nav:has(.wprf-tab-nav-item[data-key="for_desktop"] + .wprf-tab-nav-item[data-key="for_desktop"])
+    .wprf-tab-nav-item[data-key="for_desktop"]:first-of-type {
+        display: none;
+    }
+    .wprf-tab-nav-item[data-key="for_desktop"]:nth-of-type(2)::after {
+        display: none;
+    }
+}

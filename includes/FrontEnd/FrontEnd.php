@@ -576,6 +576,15 @@ class FrontEnd {
                 $popup_notifications[] = $settings['nx_id'];
             } elseif($settings['source'] == 'exit_intent_custom') {
                 $exit_intent_notifications[] = $settings['nx_id'];
+                // Force Elementor's frontend runtime + per-widget assets onto the
+                // page (elementor-frontend.js, the document CSS, and each widget's
+                // get_style_depends()/get_script_depends() — e.g. nx-countdown).
+                // The popup HTML itself is rendered later via REST, where these
+                // enqueues would be discarded, so the countdown widget would lose
+                // its layout CSS and timer JS. Mirrors the press_bar branch above.
+                if (!empty($settings['elementor_id']) && class_exists('\Elementor\Plugin')) {
+                    \Elementor\Plugin::$instance->frontend->get_builder_content($settings['elementor_id'], false);
+                }
             } elseif ($active_global_queue && NotificationX::is_pro()) {
                 $global_notifications[] = $return_posts ? $settings : $settings['nx_id'];
             } else {
@@ -833,14 +842,25 @@ class FrontEnd {
                     'updated_at' => isset( $entry['updated_at'] ) ? $entry['updated_at'] : '',
                     'image_data' => $entry['image_data'],
                     'link'       => $entry['link'],
+                    // Location is rendered by themes (e.g. conv-theme-fifteen) via the
+                    // hardcoded {{city_country}} tag, not through a notification-template
+                    // param, so the template loop below never whitelists it. Keep the
+                    // raw parts here so the frontend can compose "City, Country".
+                    'city'       => $entry['city'] ?? '',
+                    'country'    => $entry['country'] ?? '',
                 ], $entry, $post, $params);
                 if (!empty($params['inline_shortcode']) && isset($entry['product_id'])) {
                     $_entry['product_id'] = $entry['product_id'];
                 }
 
-                $template_arr = array_values($post['notification-template']);
-                if ($post['template_adv']) {
-                    $adv_template = $post['advanced_template'];
+                // `notification-template` can be absent for some posts (e.g. advanced-
+                // template notifications or imported/migrated posts), so guard against
+                // passing null to array_values() — that is a fatal TypeError on PHP 8.
+                $template_arr = ( ! empty( $post['notification-template'] ) && is_array( $post['notification-template'] ) )
+                    ? array_values( $post['notification-template'] )
+                    : [];
+                if ( ! empty( $post['template_adv'] ) ) {
+                    $adv_template = isset( $post['advanced_template'] ) ? $post['advanced_template'] : '';
                     $pattern = "/{{(.+?)}}/i";
                     if (preg_match_all($pattern, $adv_template, $matches)) {
                         $template_arr = $matches[1];

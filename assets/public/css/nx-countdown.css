@@ -57,7 +57,9 @@
 
 /* ── Digits ──────────────────────────────────────────────────────────────── */
 .nx-countdown-digits {
+    position: relative;
     display: block;
+    width: 100%;
     font-size: 48px;
     font-weight: 700;
     line-height: 1;
@@ -90,7 +92,7 @@
     content: ':';
     position: absolute;
     top: 50%;
-    left: 98%;
+    right: calc(-1 * (var(--nx-countdown-box-spacing, 15px) + 4px));
     transform: translateY(-50%);
     font-size: inherit;
     font-weight: inherit;

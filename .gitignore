@@ -21,3 +21,4 @@ nxbuild
 
 stats.json
 pnpm-lock.yaml
+.playwright-mcp

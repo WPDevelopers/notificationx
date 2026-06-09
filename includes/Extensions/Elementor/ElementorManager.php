@@ -58,6 +58,7 @@ class ElementorManager {
      */
     public function register_widgets( $widgets_manager ) {
         $widgets_manager->register( new CountdownWidget() );
+        $widgets_manager->register( new FormWidget() );
     }
 
     /**
@@ -73,6 +74,14 @@ class ElementorManager {
             NOTIFICATIONX_VERSION,
             true  // in footer
         );
+
+        wp_register_script(
+            'nx-elementor-form',
+            NOTIFICATIONX_PUBLIC_URL . 'js/nx-elementor-form.js',
+            [],
+            NOTIFICATIONX_VERSION,
+            true
+        );
     }
 
     /**
@@ -83,6 +92,13 @@ class ElementorManager {
         wp_register_style(
             'nx-countdown',
             NOTIFICATIONX_PUBLIC_URL . 'css/nx-countdown.css',
+            [],
+            NOTIFICATIONX_VERSION
+        );
+
+        wp_register_style(
+            'nx-elementor-form',
+            NOTIFICATIONX_PUBLIC_URL . 'css/nx-elementor-form.css',
             [],
             NOTIFICATIONX_VERSION
         );

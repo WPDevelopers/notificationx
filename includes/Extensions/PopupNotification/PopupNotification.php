@@ -948,6 +948,61 @@ class PopupNotification extends Extension {
             'value' => 'center',
             'rules' => Rules::is('source', $this->id),
         ];
+        // Exit Intent Popup conversion (Announcement type).
+        $fields['exit_intent_settings'] = [
+            'label'    => __('Exit Intent Popup', 'notificationx'),
+            'name'     => 'exit_intent_settings',
+            'type'     => 'section',
+            'priority' => 14,
+            'rules'    => Rules::_is('source', $this->id),
+            'fields'   => [
+                'convert_to_exit_intent' => [
+                    'label'       => __('Convert to Exit Intent Popup', 'notificationx'),
+                    'name'        => 'convert_to_exit_intent',
+                    'type'        => 'checkbox',
+                    'default'     => false,
+                    'priority'    => 5,
+                    'description' => __('Show this Announcement as a centered popup when the visitor is about to leave the page.', 'notificationx'),
+                ],
+                'exit_intent_cookie_duration' => [
+                    'label'       => __('Cookie Duration', 'notificationx'),
+                    'name'        => 'exit_intent_cookie_duration',
+                    'type'        => 'number',
+                    'default'     => 7,
+                    'min'         => 1,
+                    'max'         => 365,
+                    'priority'    => 10,
+                    'description' => __('Days', 'notificationx'),
+                    'help'        => __('Suppress the popup for this many days after it has been shown to a visitor.', 'notificationx'),
+                    'rules'       => Rules::_is('convert_to_exit_intent', true),
+                ],
+            ],
+        ];
+
+        $hide_when_exit_intent = Rules::logicalRule([
+            Rules::_is('source', $this->id, true),
+            Rules::_is('convert_to_exit_intent', true, true),
+        ], 'or');
+
+        if (isset($fields['timing']['fields']['display_for'])) {
+            $fields['timing']['fields']['display_for'] = Rules::add(
+                $hide_when_exit_intent,
+                $fields['timing']['fields']['display_for']
+            );
+        }
+        if (isset($fields['timing']['fields']['delay_between'])) {
+            $fields['timing']['fields']['delay_between'] = Rules::add(
+                $hide_when_exit_intent,
+                $fields['timing']['fields']['delay_between']
+            );
+        }
+        if (isset($_fields['position'])) {
+            $_fields['position'] = Rules::add(
+                $hide_when_exit_intent,
+                $_fields['position']
+            );
+        }
+
         // Popup specific settings
         $fields['popup_settings'] = [
             'label'    => __('Popup Settings', 'notificationx'),

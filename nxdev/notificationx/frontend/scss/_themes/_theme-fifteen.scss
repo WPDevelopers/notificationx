@@ -1,0 +1,249 @@
+// Figma "theme-four" (slug: conv-theme-fifteen)
+// Left lavender image panel (product image + green check badge) · "Buy now"
+// pill straddling the top-right corner · row 1: time (right) · row 2: name + action + product ·
+// row 3: green "Verified by NotificationX" badge.
+// Everything is scoped under this theme's selector — no effect on other themes.
+&.themes-woocommerce_sales_conv-theme-fifteen,
+&.themes-conversions_conv-theme-fifteen {
+    border-radius: 10px;
+    box-shadow: 0 4px 18px rgba(19, 27, 46, 0.12);
+    min-width: 0;
+    width: fit-content;
+    // !important so the theme stays compact regardless of the campaign "Size"
+    // setting (applied by the runtime as an inline max-width).
+    max-width: 360px !important;
+    // Room for the "Buy now" pill that floats above the top edge.
+    margin-top: 24px;
+
+    &,
+    .notificationx-inner {
+        border-radius: 10px;
+    }
+
+    .notificationx-inner {
+        align-items: stretch;
+        position: relative;
+        min-height: 64px;
+        width: auto;
+    }
+
+    // Close (✕) — floats just outside the card's top-right corner. `!important`
+    // beats the inline top/right the Close component sets for non-bar sources.
+    .notificationx-close {
+        position: absolute !important;
+        top: 0 !important;
+        left: calc(100% + 6px) !important;
+        right: auto !important;
+        bottom: auto !important;
+        margin: 0 !important;
+        padding: 4px;
+        z-index: 11;
+
+        svg {
+            width: 10px !important;
+            height: 10px !important;
+            fill: #131b2e;
+        }
+    }
+
+    // Full-height lavender panel holding the product image + a check badge.
+    .notificationx-image {
+        flex-basis: 76px;
+        width: 76px;
+        min-width: 76px;
+        padding: 0;
+        margin: 0;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #eef1fb;
+        // Match the card's left corners (the card itself is not clipped, so the
+        // floating "Buy now" pill above it is never cut off).
+        border-radius: 10px 0 0 10px;
+        position: relative;
+        overflow: visible;
+
+        img {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background: #fff;
+        }
+
+        // Green circular check badge, overlapping the bottom-right of the image.
+        &::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            // Image is 42px and centred in a 76px panel → its bottom-right corner
+            // sits ~17px right of centre and ~21px below centre.
+            top: calc(50% + 9px);
+            left: calc(50% + 9px);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23fff'/%3E%3Ccircle cx='8' cy='8' r='6.5' fill='%23006E2F'/%3E%3Cpath d='M4.6 8.2l2.1 2.1 4.6-4.7' fill='none' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    }
+
+    .no-advance-edit .notificationx-content,
+    .notificationx-content {
+        margin-left: 0;
+        flex: 0 1 auto;
+        // Extra top padding drops row 1 (location + time) below the "Buy now" pill
+        // that straddles the top-right corner, so the time never sits under it.
+        padding: 18px 16px 10px 14px;
+        min-width: 210px;
+
+        // Row 1 — location (left) + time (right), both muted.
+        .nx-first-row {
+            display: flex;
+            width: 100%;
+            // Keep padding inside the row width so the close-button clearance
+            // (padding-right) doesn't push the row past the card edge.
+            box-sizing: border-box;
+            color: #949daf;
+            font-size: 11px;
+            line-height: 1.2;
+            font-weight: 400;
+
+            & > span {
+                display: flex;
+                width: 100%;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            // Location ("<city>, <country>") with a pin icon; truncates if long.
+            .nx-loc {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                min-width: 0;
+                flex: 0 1 auto;
+                color: #6b7280;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                &::before {
+                    content: "";
+                    flex: 0 0 11px;
+                    width: 11px;
+                    height: 11px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+            }
+
+            // Time — pinned to the right, never wraps.
+            & > span > span:last-child {
+                flex: 0 0 auto;
+                white-space: nowrap;
+                position: absolute;
+                right: 14px;
+            }
+        }
+
+        // Row 2 — "<name> <action> <product>". The prominent line.
+        .nx-second-row {
+            color: #131b2e;
+            font-size: 13px;
+            line-height: 1.3;
+            font-weight: 600;
+            margin-top: 2px;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+
+            & > span {
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-right: 0;
+            }
+        }
+
+        // Row 3 — empty content; only carries the verified badge.
+        .nx-third-row {
+            margin-top: 4px;
+
+            // Recolour the NX branding into a "✓ Verified by NotificationX" badge.
+            .nx-branding {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                font-size: 10px;
+                line-height: 1;
+                color: #949daf;
+
+                // Drop the NX logo glyph; we use our own green check instead.
+                & > svg:first-child {
+                    display: none;
+                }
+
+                // Green circular check mark.
+                &::before {
+                    content: "";
+                    display: inline-block;
+                    width: 12px;
+                    height: 12px;
+                    flex: 0 0 12px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Ccircle cx='7' cy='7' r='7' fill='%23006E2F'/%3E%3Cpath d='M3.6 7.2l2 2 4.2-4.4' fill='none' stroke='%23fff' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+
+                .nx-byline {
+                    // Reset the inherited `.nx-branding > * { margin-right: 5px }`
+                    // so the gap to the logo matches the flex gap (not 5px + gap).
+                    margin-right: 0;
+                    color: #949daf;
+
+                    // "by" -> "Verified by".
+                    &::before {
+                        content: "Verified ";
+                    }
+                }
+
+                // The full NotificationX brand logo (icon + wordmark). Sized by
+                // height so it keeps its 180:48 aspect ratio.
+                & > a > svg {
+                    height: 20px;
+                    width: auto;
+                    display: block;
+                }
+
+                & > a:hover > svg {
+                    opacity: 0.85;
+                }
+            }
+        }
+    }
+
+    // "Buy now" — light-green pill straddling the top-right corner: its right edge
+    // sits flush with the card edge and its lower half overlaps the card's top edge
+    // (matches the Figma design: light-green background, dark-green text, no chevron).
+    &.button-link .notificationx-link {
+        top: -16px;
+        right: 0;
+        left: auto;
+        bottom: auto;
+        background: #d9f4e4;
+        color: #006e2f;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1;
+        padding: 8px 18px;
+        border-radius: 18px;
+        box-shadow: 0 4px 14px rgba(19, 27, 46, 0.10);
+    }
+}

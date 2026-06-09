@@ -39,7 +39,7 @@ class Conversions extends Types {
         'modules_envato',
     ];
 
-    public $conversions_count = array('conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine','woocommerce_sales_conv-theme-seven', 'woocommerce_sales_conv-theme-eight', 'woocommerce_sales_conv-theme-nine');
+    public $conversions_count = array('conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine', 'conversions_conv-theme-fourteen', 'conversions_conv-theme-sixteen', 'woocommerce_sales_conv-theme-seven', 'woocommerce_sales_conv-theme-eight', 'woocommerce_sales_conv-theme-nine', 'woocommerce_sales_conv-theme-fourteen', 'woocommerce_sales_conv-theme-sixteen');
     public $map_dependency = [];
 
 
@@ -76,6 +76,45 @@ class Conversions extends Types {
                 'image_shape' => 'square',
                 'template'  => $common_fields,
             ],
+            // Figma "theme-one" — circular avatar, name row, action+product+time row,
+            // green "Verified by NotificationX" badge (branding) + right-aligned "Buy now" link.
+            'conv-theme-twelve' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-12.png',
+                'image_shape' => 'circle',
+                'template'  => $common_fields,
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
+            // Figma "theme-two" — floating "Buy now" pill above top-right, rounded-square
+            // avatar, row 1 = name + right-aligned time, row 2 = "Bought <product>",
+            // green "Verified by NotificationX" badge.
+            'conv-theme-thirteen' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-13.png',
+                'image_shape' => 'rounded',
+                // Row 2 reads "Bought <product>" per the design (the shared default
+                // is "just purchased"), so override the action verb for this theme.
+                'template'  => array_merge( $common_fields, [
+                    'second_param' => __( 'Bought', 'notificationx' ),
+                ] ),
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
+            // Figma "theme-four" — left lavender image panel with a check badge, floating
+            // "Buy now" pill above top-right, row 1 = time (top-right), row 2 = name +
+            // action + product, green "Verified by NotificationX" badge.
+            'conv-theme-fifteen' => array(
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-15.png',
+                'image_shape' => 'rounded',
+                'template'  => $common_fields,
+                'defaults'     => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Buy now', 'notificationx' ),
+                ],
+            ),
             'theme-two'   => [
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-1.jpg',
                 'image_shape' => 'square',
@@ -129,6 +168,32 @@ class Conversions extends Types {
                     'link_button_text'  => __( 'Buy Now','notificationx' ),
                 ],
                 'template'  => $common_fields,
+            ),
+             // Figma "theme-three" — sales-count card (cart icon, "X Buyers purchased /
+            // in last N days / Purchase now" + verified badge). Pro: the count is
+            // aggregated by SalesFeatures (gated by $sales_count_themes) and the count
+            // template is assigned in the Pro Conversions type.
+            'conv-theme-fourteen' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-14.png',
+                'image_shape' => 'rounded',
+                'defaults'    => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Purchase now', 'notificationx' ),
+                ],
+            ),
+            // Figma "theme-five" — sales-count card, alternate layout: verified badge
+            // pill on top, cart icon (blue box) + "<count> Buyers purchased / In the
+            // last N days- Join them now!", floating "Purchase now" pill top-right.
+            // Same Pro sales-count engine as conv-theme-fourteen.
+            'conv-theme-sixteen' => array(
+                'is_pro' => true,
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/nx-conv-theme-16.png',
+                'image_shape' => 'rounded',
+                'defaults'    => [
+                    'link_button'      => true,
+                    'link_button_text' => __( 'Purchase now', 'notificationx' ),
+                ],
             ),
             'conv-theme-seven' => array(
                 'is_pro' => true,
@@ -221,6 +286,9 @@ class Conversions extends Types {
                     'conversions_theme-five',
                     'conversions_conv-theme-ten',
                     'conversions_conv-theme-eleven',
+                    'conversions_conv-theme-twelve',
+                    'conversions_conv-theme-thirteen',
+                    'conversions_conv-theme-fifteen',
                     'woocommerce_sales_theme-one',
                     'woocommerce_sales_theme-two',
                     'woocommerce_sales_theme-three',
@@ -228,6 +296,9 @@ class Conversions extends Types {
                     'woocommerce_sales_theme-five',
                     'woocommerce_sales_conv-theme-ten',
                     'woocommerce_sales_conv-theme-eleven',
+                    'woocommerce_sales_conv-theme-twelve',
+                    'woocommerce_sales_conv-theme-thirteen',
+                    'woocommerce_sales_conv-theme-fifteen',
                 ]
             ],
             'woo_template_sales_count' => [
@@ -243,10 +314,14 @@ class Conversions extends Types {
                     'conversions_conv-theme-seven',
                     'conversions_conv-theme-eight',
                     'conversions_conv-theme-nine',
+                    'conversions_conv-theme-fourteen',
+                    'conversions_conv-theme-sixteen',
                     'woocommerce_sales_conv-theme-six',
                     'woocommerce_sales_conv-theme-seven',
                     'woocommerce_sales_conv-theme-eight',
                     'woocommerce_sales_conv-theme-nine',
+                    'woocommerce_sales_conv-theme-fourteen',
+                    'woocommerce_sales_conv-theme-sixteen',
                 ]
             ],
         ];

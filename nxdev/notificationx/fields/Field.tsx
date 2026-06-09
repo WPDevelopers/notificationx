@@ -21,6 +21,7 @@ import BetterSelect from './BetterSelect';
 import IconPicker from "./IconPicker";
 import NxEditor from './NxEditor';
 import NxBarPresets from './NxBarPresets';
+import ExitIntentPreset from './ExitIntentPreset';
 import { FeedbackEntries } from '../admin';
 import BuildWithAI from './BuildWithAI';
 
@@ -70,6 +71,8 @@ const Field = (ret, type, props) => {
             return <NxEditor {...props} />;
         case "nxbar-custom":
             return <NxBarPresets {...props} />;
+        case "exit-intent-custom":
+            return <ExitIntentPreset {...props} />;
         case "feedback-entries":
             return <FeedbackEntries {...props} />;
         case "nxbar-build_with_ai":
