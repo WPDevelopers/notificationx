@@ -634,7 +634,7 @@ JS;
                 'column' => '5',
             ],
             'theme-six' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.png',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-seven.png',
                 'defaults' => [
                     'exit_intent_t6_title'           => __( 'Limited Edition Bass Boost Headphones', 'notificationx' ),
                     // 'exit_intent_t6_show_timer'      => true,
@@ -666,7 +666,7 @@ JS;
                 'is_pro'   => true,
             ],
              'theme-seven' => [
-                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-seven.png',
+                'source'   => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/exit-intent/exit-intent-theme-six.png',
                 'defaults' => [
                     'exit_intent_t7_headline'          => __( 'Turn Your House Into a Home', 'notificationx' ),
                     'exit_intent_t7_discount_text'     => __( 'Your First Order Comes With a Surprise Deal!', 'notificationx' ),
