@@ -119,7 +119,7 @@ class FormWidget extends Widget_Base {
         $this->add_control(
             'nx_campaign_id',
             [
-                'label'       => esc_html__( 'Select Campaign', 'notificationx' ),
+                'label'       => esc_html__( 'Select Notification ID', 'notificationx' ),
                 'type'        => Controls_Manager::SELECT,
                 'options'     => $this->get_nx_campaigns(),
                 'default'     => '',
@@ -527,7 +527,6 @@ class FormWidget extends Widget_Base {
 
         $campaign_id = absint( $s['nx_campaign_id'] ?? 0 );
         $rest_url    = esc_url_raw( rest_url( 'notificationx/v1/popup-submit' ) );
-        $nonce       = wp_create_nonce( 'wp_rest' );
 
         $form_id     = 'nx-form-' . esc_attr( $this->get_id() );
         $show_name    = ! empty( $s['nx_show_name'] );
@@ -557,7 +556,6 @@ class FormWidget extends Widget_Base {
                 class="nx-form"
                 data-nx-id="<?php echo esc_attr( $campaign_id ); ?>"
                 data-rest-url="<?php echo esc_attr( $rest_url ); ?>"
-                data-rest-nonce="<?php echo esc_attr( $nonce ); ?>"
                 data-success="<?php echo esc_attr( $s['nx_success_message'] ?? '' ); ?>"
                 data-error="<?php echo esc_attr( $s['nx_error_message'] ?? '' ); ?>"
                 novalidate

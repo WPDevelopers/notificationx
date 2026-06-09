@@ -48,9 +48,13 @@
 
             if ( btn ) btn.disabled = true;
 
+            // popup-submit is a public endpoint (permission_callback => __return_true)
+            // and never verifies a nonce server-side. We deliberately do NOT send an
+            // X-WP-Nonce header: a baked-in wp_rest nonce goes stale in the Elementor
+            // builder and on cached pages, and WordPress core would then reject the
+            // request with "Cookie check failed" (rest_cookie_invalid_nonce). With no
+            // nonce, core treats the submission as anonymous and lets it through.
             var headers = { 'Content-Type': 'application/json' };
-            var nonce = form.getAttribute( 'data-rest-nonce' );
-            if ( nonce ) headers[ 'X-WP-Nonce' ] = nonce;
 
             fetch( url, {
                 method:  'POST',
