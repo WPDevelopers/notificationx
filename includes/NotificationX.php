@@ -119,9 +119,12 @@ class NotificationX {
         delete_transient( 'nx_activated' );
 
         if ( ! is_multisite() ) {
-            // Redirect to the welcome page.
+            // First activation: launch the onboarding Setup Wizard, otherwise
+            // fall back to the dashboard. The wizard marks itself completed on
+            // finish/skip so this only fires once.
+            $page = \NotificationX\Core\SetupWizard::is_completed() ? 'nx-dashboard' : 'nx-setup-wizard';
             wp_safe_redirect( add_query_arg( array(
-                'page'		=> 'nx-dashboard'
+                'page'		=> $page
             ), admin_url( 'admin.php' ) ) );
         }
     }

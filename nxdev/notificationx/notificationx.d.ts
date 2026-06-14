@@ -1,6 +1,7 @@
 declare module "*.svg";
 declare module "*.png";
 declare module "*.gif";
+declare module "*.webp";
 
 declare const notificationxTabs: any;
 declare const notificationx: any;

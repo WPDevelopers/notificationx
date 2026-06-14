@@ -15,6 +15,7 @@ use NotificationX\Core\Analytics;
 use NotificationX\Core\Dashboard;
 use NotificationX\Core\Database;
 use NotificationX\Core\PostType;
+use NotificationX\Core\SetupWizard;
 use NotificationX\Core\Upgrader;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\ExtensionFactory;
@@ -86,6 +87,7 @@ class Admin {
         add_action('admin_init', [$this, 'admin_init']);
         add_action('admin_menu', [$this, 'menu'], 10);
         Dashboard::get_instance();
+        SetupWizard::get_instance();
         PostType::get_instance();
         Settings::get_instance()->init();
         Entries::get_instance();

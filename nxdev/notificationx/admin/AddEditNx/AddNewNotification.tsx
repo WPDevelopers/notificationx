@@ -57,7 +57,19 @@ const AddNewNotification = (props) => {
     }, []);
 
     useEffect(() => {
-      if( notificationxContext?.state?.redirect?.state?.type ) {
+      // Preset the type/source. Prefer URL query params so the builder can be
+      // opened fresh in a new tab (e.g. the Setup Wizard "Configure" buttons);
+      // otherwise fall back to the in-app redirect state (Dashboard flow).
+      const params  = new URLSearchParams( window.location.search );
+      const urlType = params.get( 'type' );
+      if ( urlType ) {
+        const values: { type: string; source?: string } = { type: urlType };
+        const urlSource = params.get( 'source' );
+        if ( urlSource ) {
+          values.source = urlSource;
+        }
+        builder.setValues( values );
+      } else if ( notificationxContext?.state?.redirect?.state?.type ) {
         builder.setValues( { type: notificationxContext?.state?.redirect?.state?.type, source : notificationxContext?.state?.redirect?.state?.source } );
       }
     }, [])

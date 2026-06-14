@@ -1,0 +1,1457 @@
+// =============================================================
+// Setup Wizard (Onboarding) — standalone full-screen experience.
+// Tokens pulled from the Figma file (BRIX) via FigBridge:
+//   accent #4a3aff · body #f6f6ff · heading #170f49 · text #6f6c8f
+// The WP admin chrome is hidden via the `.nx-setup-wizard-active` body
+// class (set in SetupWizard.php). The Figma's own left rail + top app bar
+// are intentionally omitted per the brief.
+// =============================================================
+
+$sw-accent: #4a3aff;
+$sw-accent-400: #897fff;
+$sw-purple-200: #edecff;
+$sw-purple-100: #f9f8ff;
+$sw-bg: #f6f6ff;
+$sw-surface: #ffffff;
+$sw-h: #170f49; // heading
+$sw-text: #6f6c8f; // body
+$sw-muted: #a0a3bd;
+$sw-border: #e6e6f2;
+$sw-border-soft: #f1f2f9;
+$sw-gradient: linear-gradient(0deg, #897fff 0%, #4a3aff 100%);
+
+// ---- Welcome screen (Figma "Step 1: Welcome (Centered & Animated)") ----
+$sw-brand: #5129e6; // brand / accent on the welcome frame
+$sw-ink: #0b1c30; // welcome heading
+$sw-body2: #474556; // welcome body text
+$sw-line: #c9c4d9; // welcome card borders / dividers
+$sw-lav: #eff4ff; // illustration panel background
+
+body.nx-setup-wizard-active {
+    #adminmenumain,
+    #wpadminbar,
+    #wpfooter {
+        display: none !important;
+    }
+    #wpcontent,
+    #wpbody-content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+    }
+    &.wp-toolbar {
+        padding-top: 0 !important;
+    }
+    .notificationx-admin,
+    #notificationx,
+    .notificationx-main {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+
+.nx-sw {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    overflow-y: auto;
+    background: $sw-bg;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        sans-serif;
+    color: $sw-text;
+    font-size: 14px;
+    line-height: 1.5;
+
+    @import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap");
+
+    * {
+        box-sizing: border-box;
+    }
+
+    &__container {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 48px 24px 32px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+    }
+
+    // ---- Title / subtitle ---------------------------------------------
+    &__title {
+        font-family: "Hanken Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 34px;
+        line-height: 1.2;
+        color: $sw-h;
+        margin: 0 0 12px;
+    }
+
+    &__subtitle {
+        font-size: 15px;
+        color: $sw-text;
+        margin: 0;
+        max-width: 520px;
+    }
+
+    // ---- Stepper ------------------------------------------------------
+    &__stepper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    &__step {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+
+    &__step-dot {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        font-size: 13px;
+        font-weight: 600;
+        background: $sw-surface;
+        border: 1.5px solid $sw-border;
+        color: $sw-muted;
+        transition: all 0.2s ease;
+    }
+
+    &__step-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: $sw-muted;
+        letter-spacing: 0.02em;
+    }
+
+    &__step-bar {
+        width: 90px;
+        max-width: 12vw;
+        height: 2px;
+        background: $sw-border;
+        margin: 0 6px;
+        border-radius: 2px;
+
+        &.is-done {
+            background: $sw-accent;
+        }
+    }
+
+    &__step.is-active &__step-dot {
+        background: $sw-accent;
+        border-color: $sw-accent;
+        color: #fff;
+        box-shadow: 0 0 0 4px rgba(74, 58, 255, 0.12);
+    }
+    &__step.is-active &__step-label {
+        color: $sw-accent;
+        font-weight: 600;
+    }
+    &__step.is-done &__step-dot {
+        background: $sw-accent;
+        border-color: $sw-accent;
+        color: #fff;
+    }
+    &__step.is-done &__step-label {
+        color: $sw-h;
+    }
+
+    // ---- Card ---------------------------------------------------------
+    &__card {
+        background: $sw-surface;
+        border: 1px solid $sw-border-soft;
+        border-radius: 20px;
+        box-shadow: 0 12px 40px rgba(23, 15, 73, 0.06);
+        padding: 44px;
+        flex: 1;
+    }
+
+    &__heading-center {
+        text-align: center;
+        margin-bottom: 20px;
+
+        .nx-sw__subtitle {
+            margin: 0 auto;
+        }
+    }
+
+    // ---- Buttons ------------------------------------------------------
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: 46px;
+        padding: 0 26px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        border: 1.5px solid transparent;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        svg {
+            flex-shrink: 0;
+        }
+
+        &--primary {
+            background: $sw-accent;
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(74, 58, 255, 0.25);
+
+            &:not(:disabled):hover {
+                background: #3a2bee;
+            }
+        }
+
+        &--outline {
+            background: #fff;
+            border-color: $sw-accent;
+            color: $sw-accent;
+
+            &:not(:disabled):hover {
+                background: $sw-purple-100;
+            }
+        }
+
+        &--ghost {
+            background: #fff;
+            border-color: $sw-border;
+            color: $sw-h;
+
+            &:not(:disabled):hover {
+                border-color: $sw-muted;
+            }
+        }
+
+        &--text {
+            background: none;
+            color: $sw-text;
+            padding: 0 12px;
+
+            &:hover {
+                color: $sw-h;
+            }
+        }
+    }
+
+    &__arrow-left {
+        transform: rotate(180deg);
+    }
+
+    // ---- Nav rows -----------------------------------------------------
+    &__nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 36px;
+        gap: 16px;
+
+        &--center {
+            justify-content: center;
+        }
+    }
+
+    &__step-count {
+        font-size: 13px;
+        color: $sw-muted;
+    }
+
+    // ============================ STEP 1 ===============================
+    // Rebuilt to match the Figma "Step 1: Welcome (Centered & Animated)".
+    &__container--welcome {
+        max-width: 1024px;
+        justify-content: center;
+        padding: 40px 24px;
+    }
+
+    // ---- The card surface (shared by every step) ----------------------
+    // `__welcome-card` and `__panel` are the same chrome; each step renders
+    // the in-card header (wordmark + stepper) at the top, then its content.
+    // The card sizes to its content (compact) but never taller than the
+    // viewport — when content overflows, the body scrolls and the footer stays
+    // pinned (see `__columns` / `__panel-body` overflow + `__panel-footer`).
+    &__welcome-card,
+    &__panel {
+        display: flex;
+        flex-direction: column;
+        max-height: calc(100vh - 80px);
+        background: #fff;
+        border: 1px solid $sw-line;
+        border-radius: 12px;
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+
+    // Scrollable padded body (Recommended): the footer below it stays fixed.
+    &__panel-body {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        padding: 28px 44px;
+    }
+
+    // The in-card header block; its bottom border spans the FULL card width.
+    &__cardhead {
+        border-bottom: 1px solid $sw-line;
+    }
+
+    &__brandbar {
+        padding: 22px 32px 0;
+    }
+
+    &__wordmark {
+        font-family: "Hanken Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 32px;
+        color: $sw-brand;
+    }
+
+    // ---- In-card Figma stepper ----------------------------------------
+    // The divider lives on `__cardhead` (full width), not here.
+    &__wzsteps {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        max-width: 640px;
+        margin-top: 10px;
+        padding: 16px 32px;
+    }
+
+    &__wzstep {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    &__wzstep-dot {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    &__wzstep-label {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    &__wzstep-divider {
+        flex: 1 1 0;
+        min-width: 16px;
+        height: 1px;
+        background: $sw-line;
+    }
+
+    &__wzstep.is-active &__wzstep-dot {
+        background: $sw-brand;
+        color: #fff;
+        box-shadow: 0 0 0 2px #fff, 0 0 0 4px $sw-brand;
+    }
+    &__wzstep.is-active &__wzstep-label {
+        color: $sw-brand;
+    }
+
+    &__wzstep.is-done &__wzstep-dot {
+        background: $sw-brand;
+        color: #fff;
+    }
+    &__wzstep.is-done &__wzstep-label {
+        color: $sw-ink;
+    }
+
+    &__wzstep.is-upcoming {
+        opacity: 0.4;
+
+        .nx-sw__wzstep-dot {
+            border: 2px solid #787588;
+            color: #787588;
+        }
+        .nx-sw__wzstep-label {
+            color: #787588;
+        }
+    }
+
+    // ---- Two-column body ----------------------------------------------
+    &__welcome-body {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        display: flex;
+        align-items: stretch;
+    }
+
+    &__welcome-main {
+        flex: 1 1 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 48px;
+    }
+
+    &__welcome-title {
+        font-family: "Hanken Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 44px;
+        line-height: 1.16;
+        letter-spacing: -0.96px;
+        color: $sw-ink;
+        margin: 0 0 16px;
+    }
+
+    &__welcome-sub {
+        font-size: 18px;
+        line-height: 28px;
+        color: $sw-body2;
+        margin: 0 0 32px;
+        max-width: 420px;
+    }
+
+    &__feature-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 0 0 32px;
+    }
+
+    &__feature {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px;
+        border: 1px solid $sw-line;
+        border-radius: 8px;
+        background: #fff;
+    }
+
+    &__feature-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: rgba(106, 75, 255, 0.1);
+        color: $sw-brand;
+        flex-shrink: 0;
+    }
+
+    &__feature-label {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        color: $sw-ink;
+    }
+
+    &__welcome-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    &__cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 32px;
+        border: none;
+        border-radius: 8px;
+        background: $sw-brand;
+        color: #fff;
+        font-family: "Hanken Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 1.4;
+        cursor: pointer;
+        transition: background 0.15s ease;
+
+        &:hover {
+            background: darken($sw-brand, 6%);
+        }
+    }
+
+    &__cta-skip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 28px;
+        border: 1px solid $sw-line;
+        border-radius: 8px;
+        background: #fff;
+        color: $sw-body2;
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: border-color 0.15s ease, color 0.15s ease;
+
+        &:hover {
+            border-color: $sw-brand;
+            color: $sw-brand;
+        }
+    }
+
+    &__welcome-fineprint {
+        margin: 16px 0 0;
+        max-width: 384px;
+        font-size: 10px;
+        line-height: 1.6;
+        color: rgba(71, 69, 86, 0.6);
+    }
+
+    // ---- Right illustration / live-preview panel ----------------------
+    &__welcome-aside {
+        position: relative;
+        flex: 0 0 45%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 48px;
+        background: $sw-lav;
+        overflow: hidden;
+
+        // soft brand / coral glows behind the preview (Figma background blurs)
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            width: 256px;
+            height: 256px;
+            border-radius: 50%;
+            filter: blur(64px);
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        &::before {
+            top: -128px;
+            right: -128px;
+            background: #6a4bff;
+        }
+        &::after {
+            bottom: -128px;
+            left: -128px;
+            background: #fe7d66;
+        }
+
+        .nx-sw__showcase,
+        .nx-sw__illus {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+    }
+
+    // ---- Static Figma illustration (node 4440:259) --------------------
+    &__illus {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+        max-width: 384px;
+        margin: 0 auto;
+    }
+
+    &__mock {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px;
+        background: #f8f9ff;
+        border-radius: 12px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+            0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+        // The "Alex just purchased!" sales card gently floats up and down.
+        &--top {
+            animation: nx-sw-float 3.6s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        &--bottom {
+            align-self: flex-end;
+            width: 307px;
+            max-width: 100%;
+        }
+    }
+
+    &__mock-avatar img {
+        display: block;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+    }
+
+    &__mock-body {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+
+        strong {
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 700;
+            color: $sw-ink;
+        }
+        small {
+            font-size: 12px;
+            line-height: 16px;
+            font-weight: 500;
+            color: $sw-body2;
+        }
+    }
+
+    &__mock-verified {
+        margin-left: auto;
+        flex-shrink: 0;
+        display: inline-flex;
+        color: $sw-brand;
+    }
+
+    &__mock-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: rgba(254, 125, 102, 0.2);
+        color: #e8553a;
+        flex-shrink: 0;
+    }
+
+    &__hero {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    // ---- Animated live-preview showcase -------------------------------
+    &__showcase {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    // mini browser window that hosts the real notifications
+    &__browser {
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid $sw-border;
+        box-shadow: 0 20px 50px rgba(23, 15, 73, 0.16);
+    }
+
+    &__browser-bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 9px 13px 0;
+        background: #ececf4;
+    }
+
+    &__browser-dots {
+        display: flex;
+        gap: 6px;
+        flex-shrink: 0;
+        padding-bottom: 9px;
+
+        i {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+
+            &:nth-child(1) { background: #ff6f6f; }
+            &:nth-child(2) { background: #ffc24b; }
+            &:nth-child(3) { background: #44d07b; }
+        }
+    }
+
+    &__tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        max-width: 240px;
+        padding: 7px 12px;
+        background: #fbfbff;
+        border-radius: 9px 9px 0 0;
+        font-size: 12px;
+        font-weight: 500;
+        color: $sw-h;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    &__tab-fav {
+        width: 14px;
+        height: 14px;
+        border-radius: 4px;
+        background: $sw-gradient;
+        flex-shrink: 0;
+    }
+
+    &__tab.is-flashing &__tab-fav {
+        animation: nx-sw-blink 0.9s steps(1) infinite;
+    }
+
+    &__live-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: auto;
+        margin-bottom: 9px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #fff;
+        color: #12b886;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+    }
+
+    &__live-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #12b886;
+        box-shadow: 0 0 0 0 rgba(18, 184, 134, 0.5);
+        animation: nx-sw-pulse 1.8s infinite;
+    }
+
+    &__preview-caption {
+        margin: 0;
+        text-align: center;
+        font-size: 12.5px;
+        color: $sw-muted;
+    }
+
+    &__tab-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    // flashing tab title — two stacked labels alternating
+    &__flash {
+        position: relative;
+        display: inline-block;
+
+        .nx-sw__flash-a,
+        .nx-sw__flash-b {
+            animation: nx-sw-flip 1.8s steps(1) infinite;
+        }
+        .nx-sw__flash-b {
+            position: absolute;
+            left: 0;
+            top: 0;
+            animation-delay: 0.9s;
+        }
+    }
+
+    // site viewport
+    &__site {
+        position: relative;
+        height: 250px;
+        padding: 18px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #fbfbff 0%, #f3f3fb 100%);
+    }
+
+    &__browser.is-bar &__site-skeleton {
+        margin-top: 46px;
+    }
+
+    &__site-skeleton {
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+
+        span {
+            height: 12px;
+            border-radius: 6px;
+            background: #e7e7f2;
+
+            &.nx-sw__sk-hero {
+                height: 80px;
+                border-radius: 12px;
+                background: linear-gradient(120deg, #e9e7fb, #f1eafc);
+                margin-bottom: 6px;
+            }
+            &.nx-sw__sk-short {
+                width: 58%;
+            }
+            &:not(.nx-sw__sk-hero):not(.nx-sw__sk-short) {
+                width: 88%;
+            }
+        }
+    }
+
+    // placement slots inside the site viewport
+    &__slot-bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 3;
+        animation: nx-sw-drop 0.5s ease;
+    }
+
+    &__slot-popup {
+        position: absolute;
+        left: 16px;
+        bottom: 16px;
+        z-index: 4;
+        // One full in → hold → out cycle; JS advances to the next buyer on end.
+        animation: nx-sw-cycle 4.8s ease both;
+    }
+
+    &__slot-center {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+    }
+
+    &__site-dim {
+        position: absolute;
+        inset: 0;
+        background: rgba(20, 15, 43, 0.3);
+    }
+
+    // ---- Scope the REAL frontend notifications into the stage ---------
+    &__site {
+        // Sales / Growth popup — neutralise the runtime's fixed positioning.
+        .notification-item {
+            position: relative !important;
+            inset: auto !important;
+            margin: 0 !important;
+            transform: none !important;
+            font-family: "Inter", sans-serif;
+        }
+
+        // The slot owns the animation; the card and its descendants must not
+        // animate (would compete with / prematurely end the cycle).
+        .notification-item,
+        .notification-item * {
+            animation: none !important;
+        }
+
+        // Notification bar fills the viewport width.
+        .nx-bar {
+            position: relative !important;
+            inset: auto !important;
+            width: 100% !important;
+            border-radius: 0 !important;
+            box-shadow: 0 6px 16px rgba(8, 5, 25, 0.12) !important;
+        }
+
+        // Announcement popup — compact card, no full-screen overlay.
+        .nx-popup {
+            position: relative !important;
+            inset: auto !important;
+            width: auto !important;
+            max-width: 270px;
+            height: auto !important;
+            transform: none !important;
+            margin: 0 !important;
+            animation: nx-sw-pop 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        // Keep the footer branding logo small (the popup footer doesn't
+        // constrain it the way the Sales themes do).
+        .nx-popup-footer {
+            .nx-branding {
+                font-size: 11px;
+            }
+            .nx-brand-logo {
+                height: 15px;
+                width: auto;
+            }
+        }
+    }
+
+    &__demo-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2px;
+    }
+
+    &__demo-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: $sw-h;
+    }
+
+    &__dots {
+        display: flex;
+        justify-content: center;
+        gap: 7px;
+    }
+
+    &__dot {
+        width: 7px;
+        height: 7px;
+        padding: 0;
+        border: none;
+        border-radius: 50%;
+        background: $sw-border;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.is-active {
+            width: 20px;
+            border-radius: 999px;
+            background: $sw-accent;
+        }
+    }
+
+    // ---- Shared centered layout (all steps) ---------------------------
+    // The brand + stepper sit on the page background above the card; each
+    // step's content card + footer follow. Used on every step so the header
+    // is identical throughout the flow.
+    &__container--center {
+        max-width: 1240px;
+        justify-content: center;
+        padding: 40px 32px;
+        gap: 32px;
+    }
+
+    // ============================ STEP 2 ===============================
+    // Business Details — the panel holds the in-card header (wordmark +
+    // stepper), then two divided columns; the Back / Continue row sits below
+    // the panel.
+
+    // ---- The two divided columns (chrome lives on `__panel`) ----------
+    // Scrollable body; the footer below it stays fixed.
+    &__columns {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        display: flex;
+        align-items: stretch;
+    }
+
+    // In-card footer (Back / Continue) — fixed below the scrollable body
+    // (shared by steps 2 & 3).
+    &__panel-footer {
+        flex-shrink: 0;
+        padding: 16px 44px;
+        border-top: 1px solid $sw-border-soft;
+
+        .nx-sw__nav {
+            margin-top: 0;
+        }
+    }
+
+    &__col {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 24px 28px;
+
+        & + & {
+            border-left: 1px solid $sw-border-soft;
+        }
+    }
+
+    &__col-title {
+        font-family: "Hanken Grotesk", sans-serif;
+        font-size: 24px;
+        line-height: 32px;
+        font-weight: 600;
+        color: $sw-ink;
+        margin: 0 0 4px;
+    }
+
+    &__col-sub {
+        font-size: 14px;
+        color: $sw-text;
+        margin: 0 0 18px;
+    }
+
+    &__options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    &__option {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid $sw-line;
+        border-radius: 8px;
+        background: #fff;
+        cursor: pointer;
+        text-align: left;
+        font-family: inherit;
+        transition: border-color 0.15s ease, background 0.15s ease,
+            box-shadow 0.15s ease;
+
+        &:hover {
+            border-color: $sw-accent-400;
+        }
+
+        &.is-selected {
+            border: 2px solid #6a4bff;
+            // keep the row height stable across the 1px → 2px border swap
+            padding: 10px 13px;
+            background: rgba(106, 75, 255, 0.1);
+        }
+    }
+
+    &__option-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: #e5eeff;
+        color: $sw-ink;
+        flex-shrink: 0;
+    }
+
+    &__option.is-selected &__option-icon {
+        background: #6a4bff;
+        color: #fff;
+    }
+
+    &__option-label {
+        flex: 1;
+        font-size: 14px;
+        font-weight: 500;
+        color: $sw-ink;
+    }
+
+    &__option.is-selected &__option-label {
+        color: $sw-brand;
+        font-weight: 600;
+    }
+
+    &__option-check {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: $sw-brand;
+        color: #fff;
+        flex-shrink: 0;
+    }
+
+    // ============================ STEP 3 ===============================
+    // Campaigns are a horizontal slider: a scroll-snap viewport flanked by two
+    // circular chevron nav buttons (shown only when the row overflows).
+    &__slider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 20px 0 0;
+    }
+
+    &__slider-nav {
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #fff;
+        border: 1px solid $sw-border;
+        color: $sw-accent;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(23, 15, 73, 0.08);
+        transition: border-color 0.15s ease, box-shadow 0.15s ease,
+            opacity 0.15s ease;
+
+        &:not(:disabled):hover {
+            border-color: $sw-accent;
+            box-shadow: 0 6px 16px rgba(74, 58, 255, 0.18);
+        }
+        &:disabled {
+            opacity: 0.4;
+            cursor: default;
+            box-shadow: none;
+        }
+        // the chevron icon points left; flip it for the "next" button
+        &--next svg {
+            transform: rotate(180deg);
+        }
+    }
+
+    &__slider-viewport {
+        flex: 1 1 auto;
+        min-width: 0;
+        display: flex;
+        gap: 22px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        // breathing room so the card hover lift/shadow isn't clipped
+        padding: 8px 4px;
+        margin: -8px -4px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nx-sw__campaign {
+            flex: 0 0 calc((100% - 44px) / 3);
+            scroll-snap-align: start;
+        }
+    }
+
+    &__campaign {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid $sw-border-soft;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 4px 14px rgba(23, 15, 73, 0.05);
+        transition: box-shadow 0.16s ease, transform 0.16s ease;
+
+        &:hover {
+            box-shadow: 0 14px 30px rgba(23, 15, 73, 0.1);
+            transform: translateY(-2px);
+        }
+    }
+
+    &__campaign-media {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        background: linear-gradient(135deg, #f5f4ff 0%, #eef0fb 100%);
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            // `contain` shows the GIF at its native resolution without the
+            // crop/upscale that `cover` does (which made it look blurry).
+            object-fit: contain;
+            display: block;
+        }
+    }
+
+    &__campaign-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1;
+        padding: 3px 11px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+
+        &.is-free {
+            background: #e6faf1;
+            color: #0c8a63;
+        }
+        &.is-pro {
+            background: $sw-accent;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(74, 58, 255, 0.3);
+        }
+    }
+
+    &__campaign-body {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+        padding: 18px;
+
+        h3 {
+            font-family: "Hanken Grotesk", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: $sw-h;
+            margin: 0;
+        }
+        p {
+            font-size: 13px;
+            line-height: 1.45;
+            color: $sw-text;
+            margin: 0;
+            flex: 1;
+        }
+        .nx-sw__btn {
+            width: 100%;
+            height: 42px;
+            margin-top: 4px;
+        }
+    }
+
+    // ============================ STEP 4 ===============================
+    &__finish {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 40px 44px;
+
+        .nx-sw__subtitle {
+            margin: 0 auto;
+        }
+    }
+
+    &__finish-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 78px;
+        height: 78px;
+        border-radius: 50%;
+        background: $sw-gradient;
+        color: #fff;
+        margin-bottom: 24px;
+        box-shadow: 0 12px 30px rgba(74, 58, 255, 0.3);
+    }
+
+    &__summary {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 36px 0;
+        width: 100%;
+        max-width: 720px;
+    }
+
+    &__summary-card {
+        text-align: left;
+        padding: 18px 20px;
+        border: 1px solid $sw-border;
+        border-radius: 12px;
+        background: #fff;
+
+        small {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: $sw-muted;
+            margin-bottom: 8px;
+        }
+        span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: $sw-h;
+
+            svg {
+                color: $sw-accent;
+            }
+        }
+    }
+
+    &__goal-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    &__summary-card &__goal-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: 8px;
+        background: $sw-purple-100;
+        border: 1px solid $sw-border;
+        font-size: 13px;
+        font-weight: 600;
+        color: $sw-h;
+
+        svg {
+            color: $sw-accent;
+        }
+    }
+
+    // ---- Responsive ---------------------------------------------------
+    @media (max-width: 880px) {
+        &__welcome-body {
+            flex-direction: column;
+        }
+        &__welcome-aside {
+            flex-basis: auto;
+        }
+        &__welcome-title {
+            font-size: 34px;
+        }
+        &__columns {
+            flex-direction: column;
+        }
+        &__col + &__col {
+            border-left: none;
+            border-top: 1px solid $sw-border-soft;
+        }
+        &__slider-viewport .nx-sw__campaign {
+            // show one card with a peek of the next on small screens
+            flex-basis: 85%;
+        }
+        &__title {
+            font-size: 27px;
+        }
+        &__card {
+            padding: 28px;
+        }
+    }
+
+    // Respect users who prefer less motion.
+    @media (prefers-reduced-motion: reduce) {
+        .nx-sw__slot-popup,
+        .nx-sw__slot-bar,
+        .nx-sw__slot-center .nx-popup,
+        .nx-sw__tab-fav,
+        .nx-sw__flash-a,
+        .nx-sw__flash-b,
+        .nx-sw__mock--top {
+            animation: none !important;
+        }
+        .nx-sw__flash-b {
+            display: none;
+        }
+    }
+}
+
+// Gentle up/down float for the Welcome sales card.
+@keyframes nx-sw-float {
+    0%,
+    100% {
+        transform: translateY(-6px);
+    }
+    50% {
+        transform: translateY(6px);
+    }
+}
+
+@keyframes nx-sw-pop {
+    0% {
+        opacity: 0;
+        transform: translateY(26px) scale(0.96);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes nx-sw-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(54, 224, 163, 0.55);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(54, 224, 163, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(54, 224, 163, 0);
+    }
+}
+
+// Sales popup queue: slide in from the corner (with a slight overshoot),
+// hold, then slide back out — mirroring how NotificationX displays on a site.
+@keyframes nx-sw-cycle {
+    0% {
+        opacity: 0;
+        transform: translateX(-38px) translateY(10px) scale(0.95);
+    }
+    8% {
+        opacity: 1;
+        transform: translateX(5px) translateY(0) scale(1.012);
+    }
+    13% {
+        transform: translateX(0) scale(1);
+    }
+    87% {
+        opacity: 1;
+        transform: translateX(0) translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-30px) translateY(6px) scale(0.97);
+    }
+}
+
+@keyframes nx-sw-drop {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Flashing-tab: alternate the two stacked title labels.
+@keyframes nx-sw-flip {
+    0%,
+    50% {
+        opacity: 1;
+    }
+    50.01%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes nx-sw-blink {
+    0%,
+    50% {
+        opacity: 1;
+    }
+    50.01%,
+    100% {
+        opacity: 0.25;
+    }
+}

@@ -10,6 +10,7 @@ import {
     QuickBuild,
     Dashboard,
     FeedbackEntries,
+    SetupWizard,
 } from "./admin/index";
 
 function Route(props) {
@@ -55,6 +56,11 @@ function Route(props) {
         {
             path: "nx-builder",
             component: QuickBuild,
+            exact: true,
+        },
+        {
+            path: "nx-setup-wizard",
+            component: SetupWizard,
             exact: true,
         },
         {

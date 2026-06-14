@@ -7,6 +7,7 @@ export { default as Analytics } from "./Analytics/Analytics";
 export { default as Entries } from "./Entries/Entries";
 export { default as FeedbackEntries } from "./FeedbackEntries/FeedbackEntries";
 export { default as Dashboard } from "./Dashboard/Dashboard";
+export { default as SetupWizard } from "./SetupWizard/SetupWizard";
 export { default as SingleNotificationX } from "./SingleNotificationX";
 export { default as SingleNotificationAction } from "./SingleNotificationAction";
 export { QuickBuildWrapper as QuickBuild } from "./QuickBuild";

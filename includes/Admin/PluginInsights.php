@@ -188,6 +188,23 @@ class PluginInsights {
         $this->do_tracking( true );
     }
     /**
+     * Programmatically opt the site into tracking and (optionally) send the
+     * data to the insights API immediately. Used by the onboarding Setup Wizard
+     * when the user proceeds past the Welcome step (which is the consent point).
+     *
+     * @param bool $send Send the collected data right away.
+     * @return bool|\WP_Error
+     */
+    public function optin( $send = true ) {
+        $this->schedule_tracking();
+        $this->set_is_tracking_allowed( true, $this->plugin_name );
+        $this->update_block_notice( $this->plugin_name );
+        if ( $send ) {
+            return $this->do_tracking( true );
+        }
+        return true;
+    }
+    /**
      * This method is responsible for all the magic from the front of the plugin.
      *
      * @since 3.0.0

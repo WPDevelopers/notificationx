@@ -70,6 +70,13 @@ class Upgrader {
             $this->migrate_for_donation();
         }
         if ($nx_free_version !== NOTIFICATIONX_VERSION) {
+            // Existing user updating the plugin (had a previous version): re-launch
+            // the onboarding Setup Wizard once. It won't fire on fresh installs
+            // (handled by the activation redirect) nor after the wizard has been
+            // completed/skipped (`nx_onboarding_completed` flag).
+            if ( $nx_free_version && ! SetupWizard::is_completed() ) {
+                set_transient( 'nx_activated', true, HOUR_IN_SECONDS );
+            }
             $this->database->update_option( 'nx_free_version', NOTIFICATIONX_VERSION, 'no' );
             $this->clear_transient();
         }
