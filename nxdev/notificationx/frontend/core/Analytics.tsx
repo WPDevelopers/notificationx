@@ -105,6 +105,20 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
     }, []);
     const iconUrl = getIconUrl(config.button_icon);
 
+    // a11y: guarantee the link has a discernible accessible name.
+    // ("Links must have discernible text" — Lighthouse/axe `link-name`.)
+    // The anchor's only visible text is the optional button text, which is
+    // hidden when link_text/link_button is off or link_button_text is empty.
+    // When no visible text is rendered, fall back to the configured button
+    // text, then the notification title, then the destination URL.
+    const isLinkTextRendered = !!(
+        (config.source === 'press_bar' ? config.link_text : config.link_button) &&
+        link_text && String(link_text).trim()
+    );
+    const accessibleLabel = isLinkTextRendered
+        ? undefined
+        : (link_text || config?.title || link || undefined);
+
     if( config.source == 'press_bar' ) {
         // Apply computed styles to the anchor to avoid conflicting wrapper styles
         const { style: incomingStyle, ...otherRest } = rest || {};
@@ -116,6 +130,7 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
                     <a
                         href={ link }
                         target={config?.link_open ? "_blank" : ""}
+                        aria-label={accessibleLabel}
                         onClick={e => analyticsOnClick(e, restUrl, config, dispatch, frontendContext.rest.omit_credentials)}
                         style={anchorStyle}
                         {...otherRest}
@@ -123,6 +138,7 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
                         { (config?.button_icon && config?.button_icon !== 'none') && (
                             <img
                                 src={iconUrl}
+                                alt=""
                                 style={{ width: 24, height: 24, marginRight: 8 }}
                             />
                         )}
@@ -150,6 +166,7 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
                     href={ link }
                     style={styles}
                     target={config?.link_open ? "_blank" : ""}
+                    aria-label={accessibleLabel}
                     onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
                     {...rest}
                 >

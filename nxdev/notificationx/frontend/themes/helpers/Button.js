@@ -12,10 +12,16 @@ const Button = ({ data, config, announcementCSS = '', icon = false }) => {
     }
     const frontendContext = useNotificationContext();
     const restUrl = nxHelper.getPath(frontendContext.rest, `analytics/`);
+    // a11y: ensure a discernible accessible name when the button text is empty.
+    const accessibleLabel =
+        (announcement_link_button_text && String(announcement_link_button_text).trim())
+            ? undefined
+            : (config?.title || link || undefined);
     return (
         <a
             href={link}
             target={config?.link_open ? "_blank" : ""}
+            aria-label={accessibleLabel}
             onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
             style={{
                 ...(announcementCSS?.linkButtonTextColor && { color: announcementCSS.linkButtonTextColor }),
