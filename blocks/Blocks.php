@@ -61,6 +61,21 @@ class Blocks {
             false
         );
 
+        // Register the style-handler script up front so it is available as a
+        // dependency of the block editor script below.
+        $style_handler_js = 'style-handler/style-handler.js';
+        wp_register_script(
+            'notificationx-pro-blocks-edit-post',
+            plugins_url( $style_handler_js, __FILE__ ),
+            array( 'lodash', 'wp-i18n', 'wp-element', 'wp-hooks', 'wp-util', 'wp-components', 'wp-blocks', 'wp-editor', 'wp-block-editor' ),
+            filemtime( "{$dir}/{$style_handler_js}" ),
+            true
+        );
+        wp_localize_script( 'notificationx-pro-blocks-edit-post', 'nx_style_handler', [
+            'sth_nonce'   => wp_create_nonce( 'nx_style_handler_nonce' ),
+            'editor_type' => 'edit-post',
+        ] );
+
         $asset_file                   = include NOTIFICATIONX_PATH . 'blocks/notificationx/index.asset.php';
         $asset_file['dependencies'][] = 'notificationx-pro-blocks-edit-post';
         $index_js                     = 'notificationx/index.js';
