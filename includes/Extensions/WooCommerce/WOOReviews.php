@@ -486,7 +486,62 @@ class WooReviews extends Extension {
             }
         }
         $comment_data['email'] = get_comment_author_email($comment->comment_ID);
+
+        /**
+         * Respect anonymity chosen via the "Customer Reviews for WooCommerce" (CusRev) plugin.
+         *
+         * When a customer picks "Anonymous" on CusRev's review form, CusRev stores the review
+         * with comment_author set to its localized "Anonymous" label while still attaching the
+         * verified buyer's WordPress user id (and email) to the comment. NotificationX would
+         * otherwise take the user-id branch above and fall back to the account display name
+         * (often the email prefix, e.g. "X123" for X123@gmail.com) — leaking the very identity
+         * the customer asked to hide. The retained email would also resolve to their gravatar.
+         *
+         * When the review is anonymous we surface a neutral "Anonymous" label and drop the email
+         * so no identifying data (name, email prefix or gravatar) is exposed in the notification.
+         */
+        if ($this->is_anonymous_review($comment)) {
+            $anonymous_label = apply_filters('nx_woo_review_anonymous_label', __('Anonymous', 'notificationx'), $comment);
+            $comment_data['username']     = $anonymous_label;
+            $comment_data['name']         = $anonymous_label;
+            $comment_data['first_name']   = $anonymous_label;
+            $comment_data['last_name']    = '';
+            $comment_data['email']        = '';
+            $comment_data['is_anonymous'] = true;
+            unset($comment_data['user_id']);
+        }
+
         return $comment_data;
+    }
+
+    /**
+     * Determine whether a WooCommerce review was submitted anonymously.
+     *
+     * Anonymity is detected from the way "Customer Reviews for WooCommerce" (CusRev) stores
+     * the review:
+     *  - a comment_author equal to CusRev's "Anonymous" label, when CusRev is active. This is
+     *    the real-world case: CusRev persists the literal label (localized) as the author, so
+     *    we compare against both the localized string and the English fallback; or
+     *  - an empty comment_author (covers guest reviews left without a name and imported reviews
+     *    that CusRev's own Google feed treats as anonymous).
+     *
+     * The result is filterable so other review sources can opt into the same behaviour.
+     *
+     * @param \WP_Comment $comment
+     * @return bool
+     */
+    public function is_anonymous_review($comment) {
+        $author       = isset($comment->comment_author) ? trim((string) $comment->comment_author) : '';
+        $is_anonymous = ($author === '');
+
+        if (!$is_anonymous && (class_exists('Ivole') || class_exists('CR_Reviews'))) {
+            $cr_label = __('Anonymous', 'customer-reviews-woocommerce');
+            if (strcasecmp($author, $cr_label) === 0 || strcasecmp($author, 'Anonymous') === 0) {
+                $is_anonymous = true;
+            }
+        }
+
+        return (bool) apply_filters('nx_is_anonymous_review', $is_anonymous, $comment);
     }
 
     public function doc() {
