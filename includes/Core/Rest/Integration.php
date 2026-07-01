@@ -182,6 +182,9 @@ class Integration {
             if ( isset( $response_data['data']['api_key'] ) ) {
                 unset( $response_data['data']['api_key'] );
             }
+            array_walk_recursive( $response_data['data'], function( &$val ) {
+                $val = sanitize_text_field( (string) $val );
+            } );
             if (isset($response_data['data']['id'])){
                 $post = PostType::get_instance()->get_post($response_data['data']['id']);
                 if($post['source']){
