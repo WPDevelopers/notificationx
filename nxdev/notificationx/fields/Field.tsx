@@ -76,6 +76,7 @@ const Field = (ret, type, props) => {
         case "feedback-entries":
             return <FeedbackEntries {...props} />;
         case "nxbar-build_with_ai":
+        case "exit-intent-build_with_ai":
             return <BuildWithAI {...props} />;
         default:
             return ret;

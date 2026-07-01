@@ -1097,6 +1097,36 @@ JS;
             ],
         ];
 
+        // Build With AI tab — Pro feature. Free plugin only registers the tab
+        // shell + field type; the Pro plugin supplies the actual builder via
+        // the `nx_build_ai_render` filter (see PressBar's `nxbar_build_with_ai`
+        // for the same pattern already shipped for Notification Bar).
+        $tab[] = [
+            'label'  => __( 'Build With AI', 'notificationx' ),
+            'name'   => 'exit_intent_ai_tab',
+            'id'     => 'exit_intent_ai_tab',
+            'type'   => 'section',
+            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/icons/build-with-ai-icon.svg',
+            'rules'  => Rules::is( 'source', $this->id ),
+            'fields' => [
+                'exit_intent_ai_tab' => [
+                    'label'  => __( 'Build With AI', 'notificationx' ),
+                    'name'   => 'exit_intent_ai_tab',
+                    'id'     => 'exit_intent_ai_tab',
+                    'type'   => 'section',
+                    'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/responsive/desktop.svg',
+                    'fields' => [
+                        'exit_intent_ai_tab_fields' => [
+                            'name'     => 'exit_intent_ai_tab_fields',
+                            'type'     => 'exit-intent-build_with_ai',
+                            'label'    => __( 'Exit Intent', 'notificationx' ),
+                            'priority' => 10,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
         return $fields;
     }
 
