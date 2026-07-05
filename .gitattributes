@@ -12,6 +12,10 @@
 .travis.yml         export-ignore
 .DS_Store           export-ignore
 .wordpress-org           export-ignore
+.claude         export-ignore
+docs         export-ignore
+CLAUDE.md         export-ignore
+CLAUDE.local.md         export-ignore
 Thumbs.db           export-ignore
 behat.yml           export-ignore
 bitbucket-pipelines.yml         export-ignore

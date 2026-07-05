@@ -17,6 +17,7 @@
 .claude
 docs
 CLAUDE.md
+CLAUDE.local.md
 .wordpress-org
 Thumbs.db
 behat.yml
