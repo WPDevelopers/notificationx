@@ -391,9 +391,16 @@ const ExitIntentPopup = (props: any) => {
         const overlayStyle: React.CSSProperties = adv
             ? { background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.6)' } : {};
         const popupStyle: React.CSSProperties = adv ? {
-            background:   s.exit_intent_t5_bg_color   || undefined,
             borderRadius: px(s.exit_intent_t5_border_radius),
             maxWidth:     px(s.exit_intent_t5_max_width),
+        } : {};
+        // `.nx-exit-intent-t5-left` (not the outer grid wrapper) is the
+        // element the title/headline/desc text actually sits on — it has a
+        // hardcoded white background in SCSS that opaquely covers the whole
+        // left column, so a background applied to the outer wrapper is
+        // never visible behind it. Style the inner panel directly instead.
+        const leftPanelStyle: React.CSSProperties = adv ? {
+            background: s.exit_intent_t5_bg_color || undefined,
         } : {};
         const titleStyle: React.CSSProperties = adv ? {
             color:      s.exit_intent_t5_title_color       || undefined,
@@ -455,7 +462,7 @@ const ExitIntentPopup = (props: any) => {
                         </button>
                     )}
 
-                    <div className="nx-exit-intent-t5-left">
+                    <div className="nx-exit-intent-t5-left" style={leftPanelStyle}>
                         <span className="nx-exit-intent-t5-decor" aria-hidden="true" />
 
                         <h2 className="nx-exit-intent-t5-title" style={titleStyle}>{t5Title}</h2>
@@ -505,9 +512,16 @@ const ExitIntentPopup = (props: any) => {
         const overlayStyle: React.CSSProperties = adv
             ? { background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.5)' } : {};
         const popupStyle: React.CSSProperties = adv ? {
-            background:   s.exit_intent_t7_bg_color   || undefined,
             borderRadius: px(s.exit_intent_t7_border_radius),
             maxWidth:     px(s.exit_intent_t7_max_width),
+        } : {};
+        // The outer grid wrapper is fully covered by its image + content
+        // columns, so a background there is invisible. The right content
+        // panel (.nx-exit-intent-t7-right, hardcoded brown in SCSS) is the
+        // dominant visible surface holding the headline/discount/form —
+        // apply the AI/user background color there.
+        const rightPanelStyle: React.CSSProperties = adv ? {
+            background: s.exit_intent_t7_bg_color || undefined,
         } : {};
         const imagePanelStyle: React.CSSProperties = {
             background: imageUrl
@@ -588,7 +602,7 @@ const ExitIntentPopup = (props: any) => {
 
                     <div className="nx-exit-intent-t7-left" style={imagePanelStyle} aria-hidden="true" />
 
-                    <div className="nx-exit-intent-t7-right">
+                    <div className="nx-exit-intent-t7-right" style={rightPanelStyle}>
                         <h2 className="nx-exit-intent-t7-headline" style={headlineStyle}>{headline}</h2>
 
                         {discountText && (
@@ -755,9 +769,15 @@ const ExitIntentPopup = (props: any) => {
         const overlayStyle: React.CSSProperties = adv
             ? { background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.5)' } : {};
         const popupStyle: React.CSSProperties = adv ? {
-            background:   s.exit_intent_t2_bg_color   || undefined,
             borderRadius: px(s.exit_intent_t2_border_radius),
             maxWidth:     px(s.exit_intent_t2_max_width),
+        } : {};
+        // The outer grid wrapper is fully covered by its two columns, so a
+        // background there is invisible. The left text panel
+        // (.nx-exit-intent-t2-left, hardcoded navy in SCSS) is the dominant
+        // visible surface — apply the AI/user background color there.
+        const leftPanelStyle: React.CSSProperties = adv ? {
+            background: s.exit_intent_t2_bg_color || undefined,
         } : {};
         const badgeStyle: React.CSSProperties = adv ? {
             background: s.exit_intent_t2_badge_bg    || undefined,
@@ -797,7 +817,7 @@ const ExitIntentPopup = (props: any) => {
                         </button>
                     )}
 
-                    <div className="nx-exit-intent-t2-left">
+                    <div className="nx-exit-intent-t2-left" style={leftPanelStyle}>
                         <span className="nx-exit-intent-t2-badge" style={badgeStyle}>{saleBadge}</span>
                         <h2 className="nx-exit-intent-t2-headline" style={headlineStyle}>{saleHeadline}</h2>
                         <p className="nx-exit-intent-t2-desc" style={descStyle}>{saleDesc}</p>
@@ -830,9 +850,17 @@ const ExitIntentPopup = (props: any) => {
         const overlayStyle: React.CSSProperties = adv
             ? { background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.5)' } : {};
         const popupStyle: React.CSSProperties = adv ? {
-            background:   s.exit_intent_t3_bg_color   || undefined,
             borderRadius: px(s.exit_intent_t3_border_radius),
             maxWidth:     px(s.exit_intent_t3_max_width),
+        } : {};
+        // The outer `.nx-exit-intent-theme-three` wrapper is transparent with
+        // no padding — the visible surface is the `.nx-exit-intent-t3-body`
+        // card (hardcoded white in SCSS) that the text sits on. Apply the
+        // background there so it's actually visible, instead of the outer
+        // wrapper where it only ever showed as a thin sliver behind the
+        // floating character PNG.
+        const bodyStyle: React.CSSProperties = adv ? {
+            background: s.exit_intent_t3_bg_color || undefined,
         } : {};
         const titleStyle: React.CSSProperties = adv ? {
             color:      s.exit_intent_t3_title_color       || undefined,
@@ -878,7 +906,7 @@ const ExitIntentPopup = (props: any) => {
                         </div>
                     )}
 
-                    <div className="nx-exit-intent-t3-body">
+                    <div className="nx-exit-intent-t3-body" style={bodyStyle}>
                         {showClose && (
                             <button className="nx-exit-intent-close" style={closeStyle} onClick={handleClose} aria-label="Close">
                                 &times;
