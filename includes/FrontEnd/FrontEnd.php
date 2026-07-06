@@ -905,6 +905,7 @@ class FrontEnd {
             $ignore_props = [
                 'all_locations',
                 'category_list',
+                'combine_multiorder_display',
                 'combine_multiorder_text',
                 'content_trim_length',
                 'convertkit_form',

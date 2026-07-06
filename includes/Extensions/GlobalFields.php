@@ -966,6 +966,23 @@ class GlobalFields {
                                         Rules::includes('source', [ 'woocommerce', 'edd', 'woocommerce_sales' ]),
                                     ]),
                                 ],
+                                'combine_multiorder_display' => [
+                                    'label'       => __('Combine Display', 'notificationx'),
+                                    'name'        => 'combine_multiorder_display',
+                                    'type'        => 'select',
+                                    'priority'    => 99.71,
+                                    'default'     => 'count',
+                                    'description' => __('Show the number of other products, or list their names.', 'notificationx'),
+                                    'options'     => $this->normalize_fields([
+                                        'count' => __('Show count (e.g. & 2 more products)', 'notificationx'),
+                                        'list'  => __('List product names (e.g. & Product B & Product C)', 'notificationx'),
+                                    ]),
+                                    'rules' => Rules::logicalRule([
+                                        Rules::is('notification-template.first_param', 'tag_sales_count', true),
+                                        Rules::includes('source', [ 'woocommerce', 'edd', 'woocommerce_sales' ]),
+                                        Rules::is('combine_multiorder', true),
+                                    ]),
+                                ],
                             ],
                         ]),
                         'gdpr_content' => apply_filters('nx_content_gdpr', [
