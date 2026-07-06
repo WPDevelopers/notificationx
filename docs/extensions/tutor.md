@@ -65,7 +65,7 @@ Trace one free enrollment:
    `tutor_enrolled` posts within the configured date window.
 5. Entries are later surfaced through `FrontEnd.php` → REST → the React popup
    runtime, same as other extensions (see
-   [`docs/new-notification-type.md`](../new-notification-type.md)).
+   [`docs/new-notification-type.md`](../development/adding-a-notification-type.md)).
 
 WooCommerce- and EDD-monetized enrollments follow the same
 `update_notification()`/backfill shape but source their buyer/order data from
@@ -143,6 +143,6 @@ cross-check that the purchased product actually maps to a course via
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [`elearning` Type doc](../types/elearning.md)
 - [`inline` Type doc](../types/inline.md)

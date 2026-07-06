@@ -68,7 +68,7 @@ Two independent paths populate entries for a `fluentform` notification:
 Both paths write into the shared `Entries`/notifications-entries store
 ([`includes/Admin/Entries.php`](../../includes/Admin/Entries.php)) that the standard
 NotificationX FrontEnd/REST/React pipeline (see
-[new-notification-type.md](../new-notification-type.md)) reads from for rendering —
+[new-notification-type.md](../development/adding-a-notification-type.md)) reads from for rendering —
 this extension only supplies data, it doesn't add a new Type or a new frontend
 delivery path.
 
@@ -152,6 +152,6 @@ Two extra filters restrict entries to the form chosen in the builder:
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type docs under [../types/](../types/) (`_TODO: verify_` — no dedicated
   `form`/ContactForm type doc found under `docs/types/` at time of writing)

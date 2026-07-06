@@ -145,5 +145,5 @@ React admin app (`nxdev/`) and/or by `notificationx-pro`. _TODO: verify_.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [Envato Extension](envato.md) — same free-stub / Pro-implements-the-real-logic pattern

@@ -170,6 +170,6 @@ defined in the Pro trait's `content_fields()` and `api_integration_settings()`, 
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [Envato Extension](envato.md) — the closest analog: same free-stub / Pro-real-logic
   split, same apparently-unwired `nx_extension_classes` filter pattern

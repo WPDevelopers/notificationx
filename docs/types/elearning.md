@@ -45,7 +45,7 @@ already handle for all non-popup/non-bar types:
 (writes to the entries table) → `FrontEnd::get_notifications_ids()` (`active` bucket,
 keyed by `nx_id`) → `FrontEnd::get_notifications_data()` (`{ post, entries: [...] }` shape)
 → REST response → `normalize()` in `utils.ts` (per
-[docs/new-notification-type.md](../new-notification-type.md#choosing-normalize-vs-normalizepressbar),
+[docs/new-notification-type.md](../development/adding-a-notification-type.md#choosing-normalize-vs-normalizepressbar),
 multi-entry types use `normalize`, not `normalizePressBar`) → React runtime renders
 the standard `<Notification>` component (no dedicated eLearning React component).
 
@@ -161,4 +161,4 @@ order-completion hooks instead of the plugin's own free-enrollment hook).
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)

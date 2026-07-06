@@ -53,7 +53,7 @@ production):
 1. `gform_after_submission` fires on a real Gravity Forms submission → `save_new_records($entry, $form)` maps field inputs/labels into a flat `data` array (email detection by label substring match) and calls the base `Extension::save()`, which writes one entry per active `nx_id` post via `Entries::insert_entry()`.
 2. On first activation / re-save of the notification post, `saved_post()` calls `get_notification_ready()`, which backfills existing entries for the selected form (`form_list` setting) using `\GFAPI::get_entries()`.
 3. `can_entry_grvf` filter (`can_entry()`) restricts saved entries to the form selected in the notification's `form_list` setting.
-4. From there, storage/FrontEnd/REST/React is the same shared pipeline as every other Type (see [Adding a New Notification Type](../new-notification-type.md)).
+4. From there, storage/FrontEnd/REST/React is the same shared pipeline as every other Type (see [Adding a New Notification Type](../development/adding-a-notification-type.md)).
 
 ## Fields & settings
 
@@ -87,5 +87,5 @@ production):
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [Contact Form Type doc](../types/form.md)

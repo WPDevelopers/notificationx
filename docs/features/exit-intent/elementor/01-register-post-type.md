@@ -2,7 +2,7 @@
 
 ## Why
 
-Elementor edits *posts*. To let users design the popup in Elementor, we need a dedicated WP post type whose instances back each campaign. PressBar's analogue is `nx_bar` (see [`PressBar.php:1549`](../../../includes/Extensions/PressBar/PressBar.php#L1549)).
+Elementor edits *posts*. To let users design the popup in Elementor, we need a dedicated WP post type whose instances back each campaign. PressBar's analogue is `nx_bar` (see [`PressBar.php:1549`](../../../../includes/Extensions/PressBar/PressBar.php#L1549)).
 
 ## What
 
@@ -24,7 +24,7 @@ Add a `register_post_type()` method on `ExitIntentNotification` and hook it on `
 
 ## Files touched
 
-- [`includes/Extensions/ExitIntent/ExitIntentNotification.php`](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php)
+- [`includes/Extensions/ExitIntent/ExitIntentNotification.php`](../../../../includes/Extensions/ExitIntent/ExitIntentNotification.php)
 
 ## Verification steps
 

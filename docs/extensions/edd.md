@@ -91,5 +91,5 @@ described above._
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type docs under [../types/](../types/) (Sales/Conversions type — `_TODO: verify_` exact filename once written)

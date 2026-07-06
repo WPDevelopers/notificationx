@@ -172,5 +172,5 @@ method name — the equivalent data-fetch entry points are the `save_new_records
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [Sales / Conversions type](../types/conversions.md)

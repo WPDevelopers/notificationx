@@ -14,30 +14,30 @@ There are **seven themes** (`theme-one` … `theme-seven`). Each theme owns its 
 
 | File | Purpose |
 |------|---------|
-| [includes/Extensions/ExitIntent/ExitIntentNotification.php](../includes/Extensions/ExitIntent/ExitIntentNotification.php) | Extension class — registers all 7 themes, defines all content/design/customize fields, and sets per-theme defaults |
-| [includes/Types/ExitIntent.php](../includes/Types/ExitIntent.php) | Notification type registration (`exit_intent`) |
-| [includes/FrontEnd/FrontEnd.php](../includes/FrontEnd/FrontEnd.php) | Serializes enabled exit intent notifications into the REST response under the `exit_intent` key (see `get_notifications_data`) |
+| [includes/Extensions/ExitIntent/ExitIntentNotification.php](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php) | Extension class — registers all 7 themes, defines all content/design/customize fields, and sets per-theme defaults |
+| [includes/Types/ExitIntent.php](../../../includes/Types/ExitIntent.php) | Notification type registration (`exit_intent`) |
+| [includes/FrontEnd/FrontEnd.php](../../../includes/FrontEnd/FrontEnd.php) | Serializes enabled exit intent notifications into the REST response under the `exit_intent` key (see `get_notifications_data`) |
 
 ### Frontend (React / TypeScript)
 
 | File | Purpose |
 |------|---------|
-| [nxdev/notificationx/frontend/core/ExitIntentPopup.tsx](../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx) | React component — renders all 7 themes; owns `videoPlaying` state (theme-four), `submitted`/`submitting` form state (theme-one, theme-seven), and drives the `useCountdown` hook (theme-five, theme-six) |
-| [nxdev/notificationx/frontend/core/useNotificationX.ts](../nxdev/notificationx/frontend/core/useNotificationX.ts) | Attaches `document` `mouseleave` listener; triggers `dispatchNotification` when cursor crosses the top threshold; stores each `nx_id` in a `triggered` Set so it fires only once per page load |
-| [nxdev/notificationx/frontend/core/NotificationContainer.tsx](../nxdev/notificationx/frontend/core/NotificationContainer.tsx) | Detects `config.type === 'exit_intent'` and renders `<ExitIntentPopup>` for each notice |
-| [nxdev/notificationx/frontend/core/utils.ts](../nxdev/notificationx/frontend/core/utils.ts) | `normalizePressBar()` converts the PHP keyed object into a JS array for `exitIntentNotices`; `isNotClosed()` skips already-dismissed entries |
+| [nxdev/notificationx/frontend/core/ExitIntentPopup.tsx](../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx) | React component — renders all 7 themes; owns `videoPlaying` state (theme-four), `submitted`/`submitting` form state (theme-one, theme-seven), and drives the `useCountdown` hook (theme-five, theme-six) |
+| [nxdev/notificationx/frontend/core/useNotificationX.ts](../../../nxdev/notificationx/frontend/core/useNotificationX.ts) | Attaches `document` `mouseleave` listener; triggers `dispatchNotification` when cursor crosses the top threshold; stores each `nx_id` in a `triggered` Set so it fires only once per page load |
+| [nxdev/notificationx/frontend/core/NotificationContainer.tsx](../../../nxdev/notificationx/frontend/core/NotificationContainer.tsx) | Detects `config.type === 'exit_intent'` and renders `<ExitIntentPopup>` for each notice |
+| [nxdev/notificationx/frontend/core/utils.ts](../../../nxdev/notificationx/frontend/core/utils.ts) | `normalizePressBar()` converts the PHP keyed object into a JS array for `exitIntentNotices`; `isNotClosed()` skips already-dismissed entries |
 
 ### Styles
 
 | File | Purpose |
 |------|---------|
-| [nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss](../nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss) | All exit intent SCSS — overlay, base popup, and per-theme blocks for theme-one … theme-seven |
+| [nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss](../../../nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss) | All exit intent SCSS — overlay, base popup, and per-theme blocks for theme-one … theme-seven |
 
 ### Theme preview assets
 
 | Path | Purpose |
 |------|---------|
-| [assets/admin/images/extensions/themes/exit-intent/](../assets/admin/images/extensions/themes/exit-intent/) | PNG previews shown in the admin theme picker (`exit-intent-theme-one.png` … `exit-intent-theme-seven.png`) |
+| [assets/admin/images/extensions/themes/exit-intent/](../../../assets/admin/images/extensions/themes/exit-intent/) | PNG previews shown in the admin theme picker (`exit-intent-theme-one.png` … `exit-intent-theme-seven.png`) |
 
 > Two of the registered preview URLs are intentionally cross-wired in `init_extension()`: `theme-six`'s registry entry points at `exit-intent-theme-seven.png` and `theme-seven`'s points at `exit-intent-theme-six.png`. This swap matches the visual order chosen for the admin picker. Don't "fix" it without updating the picker layout to match.
 
@@ -45,8 +45,8 @@ There are **seven themes** (`theme-one` … `theme-seven`). Each theme owns its 
 
 | File | Purpose |
 |------|---------|
-| [nxbuild/public/js/frontend.js](../nxbuild/public/js/frontend.js) | Compiled JS (contains compiled `ExitIntentPopup`) |
-| [nxbuild/public/css/frontend.css](../nxbuild/public/css/frontend.css) | Compiled CSS including all exit intent styles |
+| [nxbuild/public/js/frontend.js](../../../nxbuild/public/js/frontend.js) | Compiled JS (contains compiled `ExitIntentPopup`) |
+| [nxbuild/public/css/frontend.css](../../../nxbuild/public/css/frontend.css) | Compiled CSS including all exit intent styles |
 
 > Run `npm run frontend` (or `npm run build`) after editing `ExitIntentPopup.tsx` or the SCSS — the compiled bundle does not pick up source changes automatically.
 
@@ -54,7 +54,7 @@ There are **seven themes** (`theme-one` … `theme-seven`). Each theme owns its 
 
 ## Trigger Mechanism
 
-Defined in [useNotificationX.ts](../nxdev/notificationx/frontend/core/useNotificationX.ts):
+Defined in [useNotificationX.ts](../../../nxdev/notificationx/frontend/core/useNotificationX.ts):
 
 ```ts
 document.addEventListener('mouseleave', handleMouseLeave);
@@ -175,7 +175,7 @@ Center-aligned card with a badge pill, heading, subtitle, and an embedded video 
 | `exit_intent_t4_subtitle` | text | `See how our product simplifies your workflow.` | Sub-heading |
 | `exit_intent_t4_video_url` | text | _(empty)_ | YouTube, Vimeo, or direct video URL |
 
-**Video embed logic** (in [ExitIntentPopup.tsx](../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx)):
+**Video embed logic** (in [ExitIntentPopup.tsx](../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx)):
 
 ```ts
 // YouTube  → https://www.youtube.com/embed/{id}?autoplay=1
@@ -210,7 +210,7 @@ Two-column flash-sale layout with a **live countdown timer** and customisable un
 | `exit_intent_button_url` / `exit_intent_button_new_tab` | text + toggle | shared CTA fields |
 | `exit_intent_dismiss_text` | text | `NO, THANKS!` | Dismiss link |
 
-**Countdown behaviour** (`useCountdown` in [ExitIntentPopup.tsx](../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx)):
+**Countdown behaviour** (`useCountdown` in [ExitIntentPopup.tsx](../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx)):
 
 - Theme-five and theme-six both pass a non-empty `fallbackDurationMs` (~2d 14h 30m 21s) into `useCountdown`. Empty `exit_intent_countdown_end` → the fallback locks in on first render and the timer ticks down from there. Non-empty → parsed via `Date.parse(endDateStr)` (with a `' '`→`'T'` fallback). Expired → all units render as `00`.
 
@@ -270,7 +270,7 @@ The right-panel content uses an inline `fontFamily` override driven by `exit_int
 
 ## Shared Settings (Customize Tab)
 
-Defined in `customize_fields()` of [ExitIntentNotification.php](../includes/Extensions/ExitIntent/ExitIntentNotification.php), registered under section `exit_intent_settings`:
+Defined in `customize_fields()` of [ExitIntentNotification.php](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php), registered under section `exit_intent_settings`:
 
 | Field name | Type | Default | Notes |
 |---|---|---|---|

@@ -138,5 +138,5 @@ field registry (`normalize_fields()` used throughout for select options).
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [Exit Intent extension](exitintent.md) — shares the `popup-submit` REST pipeline and Feedback Entries listing

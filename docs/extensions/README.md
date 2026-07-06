@@ -4,7 +4,7 @@ This folder is the **per-integration (Extension = data source)** reference. Each
 
 ## The Type ↔ Extension model
 
-A **Type** is a display category (e.g. `conversions`, `form`, `reviews`) — see [../types/README.md](../types/README.md). An **Extension** is a concrete data *source* that plugs into one or more Types (e.g. WooCommerce and SureCart both feed `conversions`). A NotificationX notification is one Type + one selected Extension + a theme. To add either side, start from [../new-notification-type.md](../new-notification-type.md); for the plugin's overall architecture and conventions see [../../CLAUDE.md](../../CLAUDE.md).
+A **Type** is a display category (e.g. `conversions`, `form`, `reviews`) — see [../types/README.md](../types/README.md). An **Extension** is a concrete data *source* that plugs into one or more Types (e.g. WooCommerce and SureCart both feed `conversions`). A NotificationX notification is one Type + one selected Extension + a theme. To add either side, start from [../development/adding-a-notification-type.md](../development/adding-a-notification-type.md); for the plugin's overall architecture and conventions see [../../CLAUDE.md](../../CLAUDE.md).
 
 Many free-plugin Extension classes are registration/UI **stubs** (`get_data()` returns a placeholder) whose real API-fetch logic lives in the sibling `notificationx-pro` plugin — the "What it surfaces" column notes where this applies.
 

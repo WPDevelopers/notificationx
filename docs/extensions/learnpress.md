@@ -154,5 +154,5 @@ call involved for the free-course path.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type docs under [../types/](../types/) (eLearning / Inline — `_TODO: verify_` exact filenames once written)

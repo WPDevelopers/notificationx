@@ -4,7 +4,7 @@
 
 This is the user-visible piece that matches the screenshot supplied in the conversation: a *Custom* tab inside the Themes section with **Build With Elementor** (+ later Build With Gutenberg) buttons; once a builder is chosen, the buttons swap to **Edit With Elementor** + **Remove**.
 
-PressBar wires this in `design_tab_presets_fields()` ([`PressBar.php:406`](../../../includes/Extensions/PressBar/PressBar.php#L406)) and `design_tab_fields()` ([`PressBar.php:527`](../../../includes/Extensions/PressBar/PressBar.php#L527)).
+PressBar wires this in `design_tab_presets_fields()` ([`PressBar.php:406`](../../../../includes/Extensions/PressBar/PressBar.php#L406)) and `design_tab_fields()` ([`PressBar.php:527`](../../../../includes/Extensions/PressBar/PressBar.php#L527)).
 
 ## What
 
@@ -27,7 +27,7 @@ PressBar wires this in `design_tab_presets_fields()` ([`PressBar.php:406`](../..
 
 ## Files touched
 
-- [`includes/Extensions/ExitIntent/ExitIntentNotification.php`](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php).
+- [`includes/Extensions/ExitIntent/ExitIntentNotification.php`](../../../../includes/Extensions/ExitIntent/ExitIntentNotification.php).
 
 ## Depends on
 

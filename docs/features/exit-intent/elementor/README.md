@@ -1,6 +1,6 @@
 # Exit Intent Popup — Elementor Builder Support
 
-Goal: let users design an Exit Intent Popup with Elementor (in addition to the existing seven built-in React themes). Mirrors the PressBar approach documented in [../../notification-bar-reference.md](../../notification-bar-reference.md).
+Goal: let users design an Exit Intent Popup with Elementor (in addition to the existing seven built-in React themes). Mirrors the PressBar approach documented in [../../notification-bar-reference.md](../../notification-bar/reference.md).
 
 Reference UI we are matching (Notification Bar's *Custom* tab):
 
@@ -38,10 +38,10 @@ Each task is incremental — finish + verify before moving to the next.
 
 ## Conventions for this track
 
-- The extension ID stays `exit_intent_custom` (see [`ExitIntentNotification.php`](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php) line 23). All new `Rules::is('source', $this->id, …)` clauses must use `$this->id`, not a hardcoded string.
+- The extension ID stays `exit_intent_custom` (see [`ExitIntentNotification.php`](../../../../includes/Extensions/ExitIntent/ExitIntentNotification.php) line 23). All new `Rules::is('source', $this->id, …)` clauses must use `$this->id`, not a hardcoded string.
 - The new Elementor-backed post type is **`nx_exit_intent`** — distinct from PressBar's `nx_bar`. Re-using `nx_bar` would collide with PressBar's `get_edit_post_link` filter, theme_preview branching, and Templately push label.
-- New seed JSON folder: [`includes/Extensions/ExitIntent/jsons/`](../../../includes/Extensions/ExitIntent/jsons/) (already exists, currently empty).
-- Image previews for Elementor themes go under [`assets/admin/images/extensions/themes/exit-intent-elementor/`](../../../assets/admin/images/extensions/themes/exit-intent-elementor/) (folder already exists).
+- New seed JSON folder: [`includes/Extensions/ExitIntent/jsons/`](../../../../includes/Extensions/ExitIntent/jsons/) (already exists, currently empty).
+- Image previews for Elementor themes go under [`assets/admin/images/extensions/themes/exit-intent-elementor/`](../../../../assets/admin/images/extensions/themes/exit-intent-elementor/) (folder already exists).
 - The user can pick **either** a built-in React theme **or** an Elementor design — never both. Once `elementor_id` is a number, the built-in `themes` radio + all per-theme content/design fields hide.
 
 ---

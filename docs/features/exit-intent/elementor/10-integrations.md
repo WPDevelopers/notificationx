@@ -5,7 +5,7 @@
 Two small but production-critical integrations PressBar wires up:
 
 1. **`get_edit_post_link` filter** for the post type so the Posts admin (and any WP UI calling `get_edit_post_link`) jumps into Elementor for `nx_exit_intent` posts. Already partly done in Task 01 — extend it to cover all WP admin paths.
-2. **WP Rocket RUCSS safelist** — Rocket's Remove Unused CSS strips Elementor's per-document CSS files because they're loaded by a non-standard handle. PressBar lifts those out of the strip list at [`PressBar.php:2214`](../../../includes/Extensions/PressBar/PressBar.php#L2214). Without the same patch for Exit Intent, Elementor-built popups will look unstyled when RUCSS is enabled.
+2. **WP Rocket RUCSS safelist** — Rocket's Remove Unused CSS strips Elementor's per-document CSS files because they're loaded by a non-standard handle. PressBar lifts those out of the strip list at [`PressBar.php:2214`](../../../../includes/Extensions/PressBar/PressBar.php#L2214). Without the same patch for Exit Intent, Elementor-built popups will look unstyled when RUCSS is enabled.
 
 ## What
 
@@ -36,7 +36,7 @@ Two small but production-critical integrations PressBar wires up:
 
 ## Files touched
 
-- [`includes/Extensions/ExitIntent/ExitIntentNotification.php`](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php).
+- [`includes/Extensions/ExitIntent/ExitIntentNotification.php`](../../../../includes/Extensions/ExitIntent/ExitIntentNotification.php).
 
 ## Depends on
 

@@ -64,7 +64,7 @@ Reviews, Conversions) — there is no dedicated bucket like `exit_intent` or `po
    `notificationx-pro`.
 4. On the React side, entries would reach the runtime through the standard `normalize()`
    shape (`{ post, entries: [...] }`), not `normalizePressBar` — same as other multi-entry
-   types (see [`docs/new-notification-type.md`](../new-notification-type.md)).
+   types (see [`docs/new-notification-type.md`](../development/adding-a-notification-type.md)).
 
 ## Fields & settings schema
 
@@ -170,6 +170,6 @@ handling/config fields are not present in this free-plugin repo — see `notific
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [Comments Notification Type](comments.md) and [Reviews Notification Type](reviews.md) —
   sibling types using the same generic entries pipeline

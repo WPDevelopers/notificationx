@@ -16,20 +16,20 @@ The examples below use a `conv-theme-twelve` placeholder for readability; bump t
 
 | # | Concern | File |
 |---|---------|------|
-| 1 | Theme registry (EDD/Freemius/etc. sources) — add to `$themes`, `$res_themes`, `$templates` | [includes/Types/Conversions.php](../includes/Types/Conversions.php) |
-| 2 | Theme registry (WooCommerce source) — **mirror the same entries** | [includes/Types/WooCommerceSales.php](../includes/Types/WooCommerceSales.php) |
-| 3 | Frontend content layout — add a `case` returning the row template for the new theme | [nxdev/notificationx/frontend/themes/GetTemplate.ts](../nxdev/notificationx/frontend/themes/GetTemplate.ts) |
-| 4 | Frontend container — add to `splitThemes` **only if** it is a split layout (image fills one side) | [nxdev/notificationx/frontend/core/Notification.tsx](../nxdev/notificationx/frontend/core/Notification.tsx) |
-| 5 | Per-theme stylesheet — new SCSS partial | [nxdev/notificationx/frontend/scss/_themes/_theme-twelve.scss](../nxdev/notificationx/frontend/scss/_themes/) (new file) |
-| 6 | SCSS import — register the new partial | [nxdev/notificationx/frontend/scss/_themes/_common.scss](../nxdev/notificationx/frontend/scss/_themes/_common.scss) (line ~261) |
-| 7 | Admin theme-picker preview image | [assets/admin/images/extensions/themes/](../assets/admin/images/extensions/themes/) |
-| 8 | Responsive theme preview (if you add a `res-theme-*`) | [assets/admin/images/extensions/themes/res_conv/](../assets/admin/images/extensions/themes/res_conv/) |
+| 1 | Theme registry (EDD/Freemius/etc. sources) — add to `$themes`, `$res_themes`, `$templates` | [includes/Types/Conversions.php](../../../includes/Types/Conversions.php) |
+| 2 | Theme registry (WooCommerce source) — **mirror the same entries** | [includes/Types/WooCommerceSales.php](../../../includes/Types/WooCommerceSales.php) |
+| 3 | Frontend content layout — add a `case` returning the row template for the new theme | [nxdev/notificationx/frontend/themes/GetTemplate.ts](../../../nxdev/notificationx/frontend/themes/GetTemplate.ts) |
+| 4 | Frontend container — add to `splitThemes` **only if** it is a split layout (image fills one side) | [nxdev/notificationx/frontend/core/Notification.tsx](../../../nxdev/notificationx/frontend/core/Notification.tsx) |
+| 5 | Per-theme stylesheet — new SCSS partial | [nxdev/notificationx/frontend/scss/_themes/_theme-twelve.scss](../../../nxdev/notificationx/frontend/scss/_themes/) (new file) |
+| 6 | SCSS import — register the new partial | [nxdev/notificationx/frontend/scss/_themes/_common.scss](../../../nxdev/notificationx/frontend/scss/_themes/_common.scss) (line ~261) |
+| 7 | Admin theme-picker preview image | [assets/admin/images/extensions/themes/](../../../assets/admin/images/extensions/themes/) |
+| 8 | Responsive theme preview (if you add a `res-theme-*`) | [assets/admin/images/extensions/themes/res_conv/](../../../assets/admin/images/extensions/themes/res_conv/) |
 
 **Do not modify** for a new theme:
-- [includes/Core/PostType.php](../includes/Core/PostType.php) — `get_theme_preview_image()` (line 493) already resolves the preview image generically from `get_themes()`.
-- [includes/Types/Types.php](../includes/Types/Types.php) — `get_themes()` / `get_res_themes()` / `get_templates()` are generic accessors (lines 86–109).
+- [includes/Core/PostType.php](../../../includes/Core/PostType.php) — `get_theme_preview_image()` (line 493) already resolves the preview image generically from `get_themes()`.
+- [includes/Types/Types.php](../../../includes/Types/Types.php) — `get_themes()` / `get_res_themes()` / `get_templates()` are generic accessors (lines 86–109).
 - The theme-picker UI / `TypesFactory` / `ExtensionFactory` — the picker is auto-generated from the registry arrays.
-- [nxdev/notificationx/frontend/themes/helpers/Content.tsx](../nxdev/notificationx/frontend/themes/helpers/Content.tsx) — the generic 3-row renderer (see [§3](#3-how-rendering-actually-works)).
+- [nxdev/notificationx/frontend/themes/helpers/Content.tsx](../../../nxdev/notificationx/frontend/themes/helpers/Content.tsx) — the generic 3-row renderer (see [§3](#3-how-rendering-actually-works)).
 
 ---
 
@@ -39,8 +39,8 @@ These conventions tie the four layers (PHP registry → content template → SCS
 
 - **Theme key (slug):** `conv-theme-twelve`. This is the array key in `$themes`. Free base themes use `theme-one` … `theme-five`; the numbered "conv" family uses `conv-theme-six` … `conv-theme-eleven`. Pick the next in sequence.
 - **Fully-qualified theme name (stored in DB / used in CSS):** `<source>_<slug>`, e.g. `conversions_conv-theme-twelve` and `woocommerce_sales_conv-theme-twelve`. The stored value lives in the post's `themes` field.
-- **Stripped theme name (used in `GetTemplate.ts` and JS switches):** `conv-theme-twelve` — the source/type prefix is stripped by `getThemeName()` ([nxdev/notificationx/core/functions.ts:203](../nxdev/notificationx/core/functions.ts#L203)).
-- **CSS container classes:** the frontend container gets *both* `themes-<stripped>` and `themes-<fully-qualified>` ([Notification.tsx:172-173](../nxdev/notificationx/frontend/core/Notification.tsx#L172)). So your SCSS targets the fully-qualified forms for both sources:
+- **Stripped theme name (used in `GetTemplate.ts` and JS switches):** `conv-theme-twelve` — the source/type prefix is stripped by `getThemeName()` ([nxdev/notificationx/core/functions.ts:203](../../../nxdev/notificationx/core/functions.ts#L203)).
+- **CSS container classes:** the frontend container gets *both* `themes-<stripped>` and `themes-<fully-qualified>` ([Notification.tsx:172-173](../../../nxdev/notificationx/frontend/core/Notification.tsx#L172)). So your SCSS targets the fully-qualified forms for both sources:
   ```scss
   &.themes-woocommerce_sales_conv-theme-twelve,
   &.themes-conversions_conv-theme-twelve { … }
@@ -55,8 +55,8 @@ These conventions tie the four layers (PHP registry → content template → SCS
 
 Unlike Exit Intent (where each theme has bespoke JSX), Sales themes share a **generic renderer** and differ only in (a) which content rows are produced and (b) CSS. Understanding this saves you from writing React for a new theme in most cases.
 
-1. **Container + classes** — [Notification.tsx](../nxdev/notificationx/frontend/core/Notification.tsx) builds the `.notification-item` container and attaches `themes-<stripped>` + `themes-<fully-qualified>` classes (lines 162–173).
-2. **Content rows** — [GetTemplate.ts](../nxdev/notificationx/frontend/themes/GetTemplate.ts) `switch (themeName)` returns an **array of up to 3 strings** (rows), each built from placeholders like `${params?.first_param}`. Example (the standard 3-row sales layout, lines 200–212):
+1. **Container + classes** — [Notification.tsx](../../../nxdev/notificationx/frontend/core/Notification.tsx) builds the `.notification-item` container and attaches `themes-<stripped>` + `themes-<fully-qualified>` classes (lines 162–173).
+2. **Content rows** — [GetTemplate.ts](../../../nxdev/notificationx/frontend/themes/GetTemplate.ts) `switch (themeName)` returns an **array of up to 3 strings** (rows), each built from placeholders like `${params?.first_param}`. Example (the standard 3-row sales layout, lines 200–212):
    ```ts
    case "theme-one":
    case "theme-two":
@@ -70,9 +70,9 @@ Unlike Exit Intent (where each theme has bespoke JSX), Sales themes share a **ge
        ];
    ```
    The "people count" themes (`conv-theme-seven/eight/nine`) return a 2-row layout instead (lines 222–228).
-3. **Rows → DOM** — [helpers/Content.tsx](../nxdev/notificationx/frontend/themes/helpers/Content.tsx) maps that array to `<p class="nx-first-row">`, `nx-second-row`, `nx-third-row` (rowClasses, line 8). **Your SCSS styles those three row classes** — that's the whole layout surface.
+3. **Rows → DOM** — [helpers/Content.tsx](../../../nxdev/notificationx/frontend/themes/helpers/Content.tsx) maps that array to `<p class="nx-first-row">`, `nx-second-row`, `nx-third-row` (rowClasses, line 8). **Your SCSS styles those three row classes** — that's the whole layout surface.
 4. **Image** — rendered by the generic `Image` helper; its shape comes from `image_shape` in the registry.
-5. **Split layouts** — if your theme's image fills one whole side (like `conv-theme-nine` / `theme-five`), add the stripped slug to the `splitThemes` array in [Notification.tsx:187-194](../nxdev/notificationx/frontend/core/Notification.tsx#L187). Split themes opt out of the global background-color advance-edit override so the image side isn't recolored.
+5. **Split layouts** — if your theme's image fills one whole side (like `conv-theme-nine` / `theme-five`), add the stripped slug to the `splitThemes` array in [Notification.tsx:187-194](../../../nxdev/notificationx/frontend/core/Notification.tsx#L187). Split themes opt out of the global background-color advance-edit override so the image side isn't recolored.
 
 **Bottom line:** a new theme that reuses the standard 3-row or 2-row content shape needs **no new React** — you just add its slug to the matching `case` in `GetTemplate.ts` and write SCSS.
 
@@ -82,7 +82,7 @@ Unlike Exit Intent (where each theme has bespoke JSX), Sales themes share a **ge
 
 ### Step 1 — Register the theme in **Conversions.php**
 
-**File:** [includes/Types/Conversions.php](../includes/Types/Conversions.php) → `init()` → the `$this->themes` array (lines 73–149).
+**File:** [includes/Types/Conversions.php](../../../includes/Types/Conversions.php) → `init()` → the `$this->themes` array (lines 73–149).
 
 Add an entry. Order in the array = order of cards in the admin picker.
 
@@ -107,11 +107,11 @@ Add an entry. Order in the array = order of cards in the admin picker.
 - `woo_template_new` (lines 208–232) — the standard name / product-title / definite-time layout. Add both `conversions_conv-theme-twelve` and `woocommerce_sales_conv-theme-twelve` here for a standard sales theme.
 - `woo_template_sales_count` (lines 233–251) — the "X people purchased in last N days" layout (used by `conv-theme-six/seven/eight/nine`). Use this list instead if your theme is a count style.
 
-> If your theme is a **count** style, also add its fully-qualified names to the `$conversions_count` property (line 42) so the count param logic in [GetTemplate.ts:65](../nxdev/notificationx/frontend/themes/GetTemplate.ts#L65) treats it correctly.
+> If your theme is a **count** style, also add its fully-qualified names to the `$conversions_count` property (line 42) so the count param logic in [GetTemplate.ts:65](../../../nxdev/notificationx/frontend/themes/GetTemplate.ts#L65) treats it correctly.
 
 ### Step 2 — Mirror it in **WooCommerceSales.php**
 
-**File:** [includes/Types/WooCommerceSales.php](../includes/Types/WooCommerceSales.php) → `init()`.
+**File:** [includes/Types/WooCommerceSales.php](../../../includes/Types/WooCommerceSales.php) → `init()`.
 
 Add the **same** `'conv-theme-twelve' => [...]` entry (lines 70–145 mirror Conversions exactly), and add `woocommerce_sales_conv-theme-twelve` to the matching `_themes` list. If you skip this, the theme will be missing for WooCommerce-sourced campaigns.
 
@@ -119,7 +119,7 @@ Add the **same** `'conv-theme-twelve' => [...]` entry (lines 70–145 mirror Con
 
 ### Step 3 — Add the content layout in **GetTemplate.ts**
 
-**File:** [nxdev/notificationx/frontend/themes/GetTemplate.ts](../nxdev/notificationx/frontend/themes/GetTemplate.ts)
+**File:** [nxdev/notificationx/frontend/themes/GetTemplate.ts](../../../nxdev/notificationx/frontend/themes/GetTemplate.ts)
 
 Find the main `switch (themeName)` for conversions (line 200). Add your slug to the `case` group whose row shape matches:
 
@@ -141,7 +141,7 @@ Only write a **new** `return [...]` block if the row composition is genuinely di
 
 ### Step 4 — Mark it split (only if needed)
 
-**File:** [nxdev/notificationx/frontend/core/Notification.tsx](../nxdev/notificationx/frontend/core/Notification.tsx) (line 187).
+**File:** [nxdev/notificationx/frontend/core/Notification.tsx](../../../nxdev/notificationx/frontend/core/Notification.tsx) (line 187).
 
 If the image occupies a full side of the card:
 
@@ -162,7 +162,7 @@ Skip this for standard inline-avatar themes.
 
 **New file:** `nxdev/notificationx/frontend/scss/_themes/_theme-twelve.scss`
 
-Use the existing partials as templates ([_theme-ten.scss](../nxdev/notificationx/frontend/scss/_themes/_theme-ten.scss) is a clean reference). Target **both** fully-qualified class names, and style the three generic row classes:
+Use the existing partials as templates ([_theme-ten.scss](../../../nxdev/notificationx/frontend/scss/_themes/_theme-ten.scss) is a clean reference). Target **both** fully-qualified class names, and style the three generic row classes:
 
 ```scss
 &.themes-woocommerce_sales_conv-theme-twelve,
@@ -180,11 +180,11 @@ Use the existing partials as templates ([_theme-ten.scss](../nxdev/notificationx
 
 > The leading `&` is required — these partials are `@import`ed **inside** the `.notification-item` selector in `_common.scss`, so `&.themes-…` resolves to `.notification-item.themes-…`. Do not write a top-level `.notification-item { … }` wrapper inside the partial.
 
-> **Branding byline → brand logo.** The new Sales themes render the full NotificationX brand logo (icon + wordmark) in the byline instead of the plain "NotificationX" text. This is automatic **if** you add the theme slug to the `BRAND_LOGO_THEMES` array in [NXBranding.js](../nxdev/notificationx/frontend/themes/helpers/NXBranding.js) — the component then renders `<BrandLogo />` (from [BrandLogo.js](../nxdev/notificationx/frontend/themes/helpers/BrandLogo.js), the inline `full-logo.svg`) in place of `<NotificationText />`. In the partial, size it via the branding link's `svg`: `.nx-branding > a > svg { height: 16px; width: auto; }` (height-based so the 180:48 logo keeps its aspect ratio — do **not** set the old `width:70px; height:9px` wordmark dimensions, which squash it).
+> **Branding byline → brand logo.** The new Sales themes render the full NotificationX brand logo (icon + wordmark) in the byline instead of the plain "NotificationX" text. This is automatic **if** you add the theme slug to the `BRAND_LOGO_THEMES` array in [NXBranding.js](../../../nxdev/notificationx/frontend/themes/helpers/NXBranding.js) — the component then renders `<BrandLogo />` (from [BrandLogo.js](../../../nxdev/notificationx/frontend/themes/helpers/BrandLogo.js), the inline `full-logo.svg`) in place of `<NotificationText />`. In the partial, size it via the branding link's `svg`: `.nx-branding > a > svg { height: 16px; width: auto; }` (height-based so the 180:48 logo keeps its aspect ratio — do **not** set the old `width:70px; height:9px` wordmark dimensions, which squash it).
 
 ### Step 6 — Register the partial import
 
-**File:** [nxdev/notificationx/frontend/scss/_themes/_common.scss](../nxdev/notificationx/frontend/scss/_themes/_common.scss) (around line 261).
+**File:** [nxdev/notificationx/frontend/scss/_themes/_common.scss](../../../nxdev/notificationx/frontend/scss/_themes/_common.scss) (around line 261).
 
 ```scss
     @import "./theme-two";
@@ -209,7 +209,7 @@ The filename must exactly match the `source` URL set in Steps 1–2. Match the d
 
 ### Step 8 — (Optional) Register a responsive variant
 
-If the theme needs a distinct mobile layout, add a `res-theme-*` entry to `$this->res_themes` in **both** PHP files (Conversions.php lines 150–206), pointing `_template` at the matching template key (`woo_template_new` / `woo_template_sales_count`). The responsive name is resolved by `getResThemeName()` ([functions.ts:37](../nxdev/notificationx/frontend/core/functions.ts#L37)) and rendered through the same generic pipeline.
+If the theme needs a distinct mobile layout, add a `res-theme-*` entry to `$this->res_themes` in **both** PHP files (Conversions.php lines 150–206), pointing `_template` at the matching template key (`woo_template_new` / `woo_template_sales_count`). The responsive name is resolved by `getResThemeName()` ([functions.ts:37](../../../nxdev/notificationx/frontend/core/functions.ts#L37)) and rendered through the same generic pipeline.
 
 ### Step 9 — Build
 

@@ -74,7 +74,7 @@ dedicated `exit_intent` Type — see [Related docs](#related-docs).
    landing in the dedicated **`popup`** bucket (not `active`). In
    `get_notifications_data()`, the `popup` bucket is populated with the `{ post, content: "" }`
    shape (lines 433-448) — the "config-only" path (`normalizePressBar`, not `normalize`,
-   on the React side per [`docs/new-notification-type.md`](../new-notification-type.md)).
+   on the React side per [`docs/new-notification-type.md`](../development/adding-a-notification-type.md)).
 5. **Frontend render** — the React runtime
    ([`nxdev/notificationx/frontend/core/useNotificationX.ts`](../../nxdev/notificationx/frontend/core/useNotificationX.ts))
    holds `popupNotices` state populated from `response.popup`, checks a
@@ -187,8 +187,8 @@ button text/url, form field toggles).
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
-- [Exit Intent Popup](../exit-intent-popup.md) — the dedicated `exit_intent` Type/theme
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
+- [Exit Intent Popup](../features/exit-intent/00-overview.md) — the dedicated `exit_intent` Type/theme
   system; related but distinct from this type's `convert_to_exit_intent` toggle
-- [Notification Bar Reference](../notification-bar-reference.md) (sibling
+- [Notification Bar Reference](../features/notification-bar/reference.md) (sibling
   `normalizePressBar`-shaped type)

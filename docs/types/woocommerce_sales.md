@@ -23,7 +23,7 @@ Registered in [`TypesFactory.php`](../../includes/Types/TypesFactory.php#L25):
 'woocommerce_sales'  => 'NotificationX\Types\WooCommerceSales',
 ```
 
-> **Naming note:** this is a distinct Type from `conversions` (`includes/Types/Conversions.php`), which is the sibling "Sales Notification" family for EDD/Freemius/SureCart/FluentCart/Envato/Zapier/etc. sources. The two classes keep **separate but parallel** `$themes` / `$res_themes` / `$templates` registries that are manually kept in lockstep — see [Adding a New Design (Theme) to the Sales Notification](../sales-notification-add-new-design.md) for the full mechanics and the naming conventions that tie them together.
+> **Naming note:** this is a distinct Type from `conversions` (`includes/Types/Conversions.php`), which is the sibling "Sales Notification" family for EDD/Freemius/SureCart/FluentCart/Envato/Zapier/etc. sources. The two classes keep **separate but parallel** `$themes` / `$res_themes` / `$templates` registries that are manually kept in lockstep — see [Adding a New Design (Theme) to the Sales Notification](../features/sales-notification/add-new-design.md) for the full mechanics and the naming conventions that tie them together.
 
 ## What it does
 
@@ -81,7 +81,7 @@ From there it's REST → the shared React runtime (`nxdev/notificationx/frontend
 - `conv-theme-fourteen` / `-sixteen` are "sales-count card" themes (aggregate purchase count + "Purchase now" button), Pro-gated, mapped to the `woo_template_sales_count` template.
 - All `res-theme-*` responsive themes are Pro and map to one of `woo_template_new`, `maps_template_new`, or `woo_template_sales_count` via their `_template` key (not `$this->templates` — a different, string-only field).
 
-For **how a theme actually renders** (container classes, the generic 3-row/2-row content renderer, split layouts, SCSS conventions) and the step-by-step process for **adding a new theme**, see the dedicated guide: **[Adding a New Design (Theme) to the Sales Notification](../sales-notification-add-new-design.md)**. That doc also covers the `conversions_*` vs `woocommerce_sales_*` fully-qualified theme-name lockstep in detail — this doc does not repeat it.
+For **how a theme actually renders** (container classes, the generic 3-row/2-row content renderer, split layouts, SCSS conventions) and the step-by-step process for **adding a new theme**, see the dedicated guide: **[Adding a New Design (Theme) to the Sales Notification](../features/sales-notification/add-new-design.md)**. That doc also covers the `conversions_*` vs `woocommerce_sales_*` fully-qualified theme-name lockstep in detail — this doc does not repeat it.
 
 ## Key files
 
@@ -95,7 +95,7 @@ For **how a theme actually renders** (container classes, the generic 3-row/2-row
 | Factory registration | [`includes/Types/TypesFactory.php`](../../includes/Types/TypesFactory.php#L25), [`includes/Extensions/ExtensionFactory.php`](../../includes/Extensions/ExtensionFactory.php#L60-L62) |
 | Shared field registry | [`includes/Extensions/GlobalFields.php`](../../includes/Extensions/GlobalFields.php) |
 | PHP frontend routing | [`includes/FrontEnd/FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php) (lines ~353, ~835) |
-| Frontend runtime (theme rendering) | `nxdev/notificationx/frontend/` — see [Adding a New Design](../sales-notification-add-new-design.md) for exact files |
+| Frontend runtime (theme rendering) | `nxdev/notificationx/frontend/` — see [Adding a New Design](../features/sales-notification/add-new-design.md) for exact files |
 
 ## Dependencies
 
@@ -111,5 +111,5 @@ For **how a theme actually renders** (container classes, the generic 3-row/2-row
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
-- [Adding a New Design (Theme) to the Sales Notification](../sales-notification-add-new-design.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
+- [Adding a New Design (Theme) to the Sales Notification](../features/sales-notification/add-new-design.md)

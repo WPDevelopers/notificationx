@@ -61,7 +61,7 @@ no `save_post`/`fallback_data`/`notification_image` methods are defined on this 
 none of the corresponding hooks in `Extension::init()` / `public_actions()` are wired up
 here. The Type/Extension registration flow (source event → `get_data()` → entries/storage
 → FrontEnd → REST → React) described in
-[docs/new-notification-type.md](../new-notification-type.md) applies once the pro
+[docs/new-notification-type.md](../development/adding-a-notification-type.md) applies once the pro
 override supplies real data; `_TODO: verify_` in the `notificationx-pro` codebase if
 tracing the live pipeline (cron schedule constant referenced there:
 `$cron_schedule = 'nx_activecampaign_interval'`).
@@ -128,5 +128,5 @@ Settings/GlobalFields, out of scope here).
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type docs under `../types/` (none yet exist for `email_subscription` — _TODO: verify_/create)

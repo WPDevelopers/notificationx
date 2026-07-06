@@ -40,7 +40,7 @@ the generic `active_notifications` bucket in `get_notifications_ids()`
 `{ post, entries: [...] }` shape (populated around
 `$result['active'][$nx_id]['entries'][] = $entry;`), which the React side normalizes
 with `normalize()` (not `normalizePressBar()`) per the convention documented in
-[../new-notification-type.md](../new-notification-type.md#choosing-normalize-vs-normalizepressbar).
+[../development/adding-a-notification-type.md](../development/adding-a-notification-type.md#choosing-normalize-vs-normalizepressbar).
 
 For the `wp_stats` source specifically:
 - `WPOrgStats::update_data()` (hooked on save and on a cron, `nx_cron_update_data_wp_stats`,
@@ -147,6 +147,6 @@ not a data-source Extension for this type.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [`includes/Extensions/WordPress/WPOrgStats.php`](../../includes/Extensions/WordPress/WPOrgStats.php)
 - [`includes/Extensions/Freemius/FreemiusStats.php`](../../includes/Extensions/Freemius/FreemiusStats.php)

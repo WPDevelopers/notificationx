@@ -91,5 +91,5 @@ returned no matches). Each class only wires the shared behaviour inherited from
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type docs under [../types/](../types/) (none yet exist for `conversions` / `email_subscription` / `reviews` at time of writing — `_TODO: verify_`)

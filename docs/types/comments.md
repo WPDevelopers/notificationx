@@ -52,7 +52,7 @@ option for the type's "Link Type" content-tab field.
    lines 487-611). In `get_notifications_data()` the `active` bucket is populated with
    the `{ post, entries: [...] }` shape (lines 243-383) — i.e. the standard "multiple
    entries per notification" path (`normalize`, not `normalizePressBar`, on the React
-   side per [`docs/new-notification-type.md`](../new-notification-type.md)).
+   side per [`docs/new-notification-type.md`](../development/adding-a-notification-type.md)).
 4. **Filtering** — `WPComments::public_actions()` adds `nx_filtered_entry_{$this->id}`
    (`conversion_data()`), which trims `post_comment` to 100 chars (80 for
    `comments_theme-seven-free`/`comments_theme-eight-free`) and wraps it in quotes for
@@ -147,5 +147,5 @@ data; no wordpress.org account is required for this specific source.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
-- [Notification Bar Reference](../notification-bar-reference.md) (sibling type, different data shape)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
+- [Notification Bar Reference](../features/notification-bar/reference.md) (sibling type, different data shape)

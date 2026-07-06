@@ -51,11 +51,11 @@ fire-and-forget — the UI advances to step 2 without waiting. **Skip does not o
 
 | File | Responsibility |
 | --- | --- |
-| [`includes/Core/SetupWizard.php`](../includes/Core/SetupWizard.php) | Registers the `nx-setup-wizard` submenu (under `nx-admin`), adds the `nx-setup-wizard-active` body class, loads the frontend popup CSS, handles the `complete_setup_wizard` and `setup_wizard_optin` REST actions, and exposes `onboarding_completed` to the SPA via `nx_builder_configs`. |
-| [`includes/Core/Upgrader.php`](../includes/Core/Upgrader.php) | On a version change for an existing (not-completed) site, sets the `nx_activated` transient so the wizard re-launches once after an update. |
-| [`includes/Admin/PluginInsights.php`](../includes/Admin/PluginInsights.php) | WP Insights tracker. `optin($send)` (added) programmatically opts in + sends data; called from the wizard's Welcome step. |
-| [`includes/NotificationX.php`](../includes/NotificationX.php) | `maybe_redirect()` — first-activation redirect into the wizard. |
-| [`includes/Core/PostType.php`](../includes/Core/PostType.php) | Adds `toplevel_page_nx-setup-wizard` to the admin-asset enqueue allowlist so the SPA bundle loads on the wizard page. |
+| [`includes/Core/SetupWizard.php`](../../../includes/Core/SetupWizard.php) | Registers the `nx-setup-wizard` submenu (under `nx-admin`), adds the `nx-setup-wizard-active` body class, loads the frontend popup CSS, handles the `complete_setup_wizard` and `setup_wizard_optin` REST actions, and exposes `onboarding_completed` to the SPA via `nx_builder_configs`. |
+| [`includes/Core/Upgrader.php`](../../../includes/Core/Upgrader.php) | On a version change for an existing (not-completed) site, sets the `nx_activated` transient so the wizard re-launches once after an update. |
+| [`includes/Admin/PluginInsights.php`](../../../includes/Admin/PluginInsights.php) | WP Insights tracker. `optin($send)` (added) programmatically opts in + sends data; called from the wizard's Welcome step. |
+| [`includes/NotificationX.php`](../../../includes/NotificationX.php) | `maybe_redirect()` — first-activation redirect into the wizard. |
+| [`includes/Core/PostType.php`](../../../includes/Core/PostType.php) | Adds `toplevel_page_nx-setup-wizard` to the admin-asset enqueue allowlist so the SPA bundle loads on the wizard page. |
 
 Key backend constants / options (in `SetupWizard.php`):
 
@@ -68,11 +68,11 @@ Key backend constants / options (in `SetupWizard.php`):
 
 | File | Responsibility |
 | --- | --- |
-| [`nxdev/notificationx/admin/SetupWizard/SetupWizard.tsx`](../nxdev/notificationx/admin/SetupWizard/SetupWizard.tsx) | The whole wizard: shared header + stepper, the four step components, data catalogs, recommendation logic, persistence + hand-off. |
-| [`nxdev/notificationx/admin/SetupWizard/icons.tsx`](../nxdev/notificationx/admin/SetupWizard/icons.tsx) | Inline 20×20 stroke-icon set (`WizardIcon`). Add a path here before referencing a new `icon` id. |
-| [`nxdev/notificationx/admin/SetupWizard/Illustration.tsx`](../nxdev/notificationx/admin/SetupWizard/Illustration.tsx) | Welcome-screen illustration: a browser frame with a shimmering skeleton wireframe page + a Sales Popup that slides in at the bottom-left and cycles through buyers. |
-| [`nxdev/notificationx/scss/nx_new/_setup_wizard.scss`](../nxdev/notificationx/scss/nx_new/_setup_wizard.scss) | All wizard styles, BEM-namespaced under `.nx-sw`. |
-| [`nxdev/notificationx/Route.tsx`](../nxdev/notificationx/Route.tsx) | Maps the `nx-setup-wizard` page to `<SetupWizard/>`. |
+| [`nxdev/notificationx/admin/SetupWizard/SetupWizard.tsx`](../../../nxdev/notificationx/admin/SetupWizard/SetupWizard.tsx) | The whole wizard: shared header + stepper, the four step components, data catalogs, recommendation logic, persistence + hand-off. |
+| [`nxdev/notificationx/admin/SetupWizard/icons.tsx`](../../../nxdev/notificationx/admin/SetupWizard/icons.tsx) | Inline 20×20 stroke-icon set (`WizardIcon`). Add a path here before referencing a new `icon` id. |
+| [`nxdev/notificationx/admin/SetupWizard/Illustration.tsx`](../../../nxdev/notificationx/admin/SetupWizard/Illustration.tsx) | Welcome-screen illustration: a browser frame with a shimmering skeleton wireframe page + a Sales Popup that slides in at the bottom-left and cycles through buyers. |
+| [`nxdev/notificationx/scss/nx_new/_setup_wizard.scss`](../../../nxdev/notificationx/scss/nx_new/_setup_wizard.scss) | All wizard styles, BEM-namespaced under `.nx-sw`. |
+| [`nxdev/notificationx/Route.tsx`](../../../nxdev/notificationx/Route.tsx) | Maps the `nx-setup-wizard` page to `<SetupWizard/>`. |
 
 `LivePreview.tsx` is **dead code** (the current `Illustration` is a leaner,
 self-contained browser-frame preview); left in place but unused.

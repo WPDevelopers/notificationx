@@ -10,14 +10,14 @@ So the strategy is: keep React as the shell, inject Elementor's pre-rendered HTM
 
 ### PHP side
 
-1. In [`FrontEnd::get_notifications_data()`](../../../includes/FrontEnd/FrontEnd.php), when serializing exit-intent campaigns:
+1. In [`FrontEnd::get_notifications_data()`](../../../../includes/FrontEnd/FrontEnd.php), when serializing exit-intent campaigns:
    - If `elementor_id` is a published `nx_exit_intent` post and Elementor is active, call `\Elementor\Plugin::$instance->frontend->get_builder_content_for_display($id, false)` and stash the HTML on the payload as `elementor_html`.
    - Also flip a payload-level `mode` field to `'elementor'`.
 2. Make sure Elementor's `wp_enqueue_scripts`-time CSS/JS for that `$id` is enqueued on every page where exit intent might fire. The simplest hook is `\Elementor\Plugin::$instance->frontend->enqueue_styles()` for the post — investigate whether `get_builder_content_for_display` already registers them and, if not, prime them via `Elementor\Core\Files\CSS\Post::create($id)->enqueue()` from `FrontEnd::enqueue_scripts()`.
 
 ### React side
 
-1. [`ExitIntentPopup.tsx`](../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx) — at the top of the component, branch on `settings.mode === 'elementor'`. When true, render only:
+1. [`ExitIntentPopup.tsx`](../../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx) — at the top of the component, branch on `settings.mode === 'elementor'`. When true, render only:
    - The overlay div (keeps `exit_intent_overlay_color` styling).
    - The close button (keeps `show_close_button`, `exit_intent_close_color`, `exit_intent_close_size`).
    - A single `<div className="nx-exit-intent-elementor-body" dangerouslySetInnerHTML={{ __html: settings.elementor_html }} />`.
@@ -36,9 +36,9 @@ Persistence (`sessionStorage notificationx_exit_intent_{nx_id}_{theme}`, `exit_i
 
 ## Files touched
 
-- [`includes/FrontEnd/FrontEnd.php`](../../../includes/FrontEnd/FrontEnd.php).
-- [`nxdev/notificationx/frontend/core/ExitIntentPopup.tsx`](../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx).
-- [`nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss`](../../../nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss).
+- [`includes/FrontEnd/FrontEnd.php`](../../../../includes/FrontEnd/FrontEnd.php).
+- [`nxdev/notificationx/frontend/core/ExitIntentPopup.tsx`](../../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx).
+- [`nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss`](../../../../nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss).
 - Rebuild with `npm run frontend`.
 
 ## Depends on

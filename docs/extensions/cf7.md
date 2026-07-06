@@ -64,7 +64,7 @@ this source.
 5. `Extension::add_cron_job()` fires on `nx_saved_post_cf7` but `CF7` does not
    set `$cron_schedule`, so no cron job is scheduled for this source.
 6. From there the standard FrontEnd → REST → React pipeline
-   (see [new-notification-type.md](../new-notification-type.md)) renders the
+   (see [new-notification-type.md](../development/adding-a-notification-type.md)) renders the
    entry using the `form` Type's themes/templates.
 
 ## Fields & settings
@@ -122,4 +122,4 @@ this source.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)

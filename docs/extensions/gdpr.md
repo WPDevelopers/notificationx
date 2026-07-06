@@ -88,7 +88,7 @@ rows that are then polled/streamed to the frontend.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type docs under [../types/](../types/) (`_TODO: verify_` — no `types/gdpr.md` found at doc-writing time)
 
 ---

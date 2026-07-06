@@ -134,7 +134,7 @@ Unlike data-pulling integrations, there is no source-event → `get_data()` →
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [CustomNotification Extension](customnotification.md) — closest analog (manual,
   no third-party dependency, Pro-gated, stub `get_data()`)
 - Related Type docs under [../types/](../types/) (Discount Alert / `offer_announcement`

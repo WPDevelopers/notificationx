@@ -20,7 +20,7 @@
 | **Module gate** | `NotificationBar::$module` is declared as `[]` (empty) on the Type class — it does not appear to gate anything itself, consistent with the pattern documented in [`docs/types/conversions.md`](conversions.md). The extension that actually loads for this type, **PressBar**, is gated by `$module = 'modules_bar'` ([PressBar.php:41](../../includes/Extensions/PressBar/PressBar.php#L41)), checked via `Modules::get_instance()->is_enabled($obj->module)` in [`ExtensionFactory::register_extensions()`](../../includes/Extensions/ExtensionFactory.php). If `modules_bar` is off, PressBar never registers and `notification_bar` has no data source. |
 | **Compatible extensions** | Exactly one: **PressBar** (`$id = 'press_bar'`, `$types = 'notification_bar'`) — see [`includes/Extensions/PressBar/PressBar.php`](../../includes/Extensions/PressBar/PressBar.php). Verified via `grep -rl "'notification_bar'" includes/Extensions` (only hits: `GlobalFields.php` and `PressBar.php`). |
 
-There is already a deep reference doc for this feature's builder (Elementor/Gutenberg) mechanics: **[`docs/notification-bar-reference.md`](../notification-bar-reference.md)**. This page is deliberately a thinner overview per the Types-doc template; read the reference doc for anything about the Elementor/Gutenberg import flow, theme registries, or the porting checklist.
+There is already a deep reference doc for this feature's builder (Elementor/Gutenberg) mechanics: **[`docs/notification-bar-reference.md`](../features/notification-bar/reference.md)**. This page is deliberately a thinner overview per the Types-doc template; read the reference doc for anything about the Elementor/Gutenberg import flow, theme registries, or the porting checklist.
 
 ## What it does
 
@@ -59,7 +59,7 @@ The Type class has no `$themes` of its own (`$themes = []`, never populated). Th
 - `PressBar::$bar_themes` — 5 Elementor seed themes (`theme-one`…`theme-five`) used by the "Build With Elementor" modal, importing from `includes/Extensions/PressBar/jsons/*.json`.
 - `PressBar::$block_themes` — 7 Gutenberg block-pattern seed themes (`theme-one`…`theme-seven`), importing from `includes/Extensions/PressBar/jsons-gb/*.json`; `theme-five`/`six`/`seven` are gated behind an Essential Blocks dependency check (`load_plugin_dependencies()`).
 
-Full mechanics (state machine for which renderer wins, import/remove flows, dependency gating) are documented in **[`docs/notification-bar-reference.md`](../notification-bar-reference.md)**.
+Full mechanics (state machine for which renderer wins, import/remove flows, dependency gating) are documented in **[`docs/notification-bar-reference.md`](../features/notification-bar/reference.md)**.
 
 ## Key files
 
@@ -90,6 +90,6 @@ None required for the built-in ("Custom") theme path — core WordPress only. Th
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
-- [Notification Bar — Reference](../notification-bar-reference.md) — the authoritative deep-dive for Elementor/Gutenberg builder mechanics on this type
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
+- [Notification Bar — Reference](../features/notification-bar/reference.md) — the authoritative deep-dive for Elementor/Gutenberg builder mechanics on this type
 - [docs/types/_TEMPLATE.md](_TEMPLATE.md) — template this doc was generated from

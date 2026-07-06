@@ -2,7 +2,7 @@
 
 ## Why
 
-The admin "Build With Elementor" / "Remove" buttons fire ajax against REST endpoints. PressBar uses `/notificationx/v1/elementor/import` + `/elementor/remove` ([`Core/REST.php:161-170`](../../../includes/Core/REST.php#L161-L170)).
+The admin "Build With Elementor" / "Remove" buttons fire ajax against REST endpoints. PressBar uses `/notificationx/v1/elementor/import` + `/elementor/remove` ([`Core/REST.php:161-170`](../../../../includes/Core/REST.php#L161-L170)).
 
 ## What
 
@@ -28,8 +28,8 @@ Mirror PressBar's `create_bar_of_type_bar_with_elementor` body inside `create_ex
 
 ## Files touched
 
-- [`includes/Core/REST.php`](../../../includes/Core/REST.php) — add two `register_rest_route` calls + two thin handlers.
-- [`includes/Extensions/ExitIntent/ExitIntentNotification.php`](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php) — add `create_exit_intent_with_elementor()` + `delete_elementor_post()`.
+- [`includes/Core/REST.php`](../../../../includes/Core/REST.php) — add two `register_rest_route` calls + two thin handlers.
+- [`includes/Extensions/ExitIntent/ExitIntentNotification.php`](../../../../includes/Extensions/ExitIntent/ExitIntentNotification.php) — add `create_exit_intent_with_elementor()` + `delete_elementor_post()`.
 
 ## Depends on
 

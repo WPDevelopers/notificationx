@@ -7,7 +7,7 @@ This is the reference doc for the **Notification Bar** (PressBar) feature. It fo
 3. How a builder-backed campaign is rendered on the frontend.
 4. The admin field schema that wires the builder modals, edit/remove buttons, and conditional rules together.
 
-Pair this with the existing [`exit-intent-popup.md`](./exit-intent-popup.md) — Exit Intent today has only the built-in React themes path; we need to bolt on the same Elementor + Gutenberg paths that PressBar already has.
+Pair this with the existing [`exit-intent-popup.md`](../exit-intent/00-overview.md) — Exit Intent today has only the built-in React themes path; we need to bolt on the same Elementor + Gutenberg paths that PressBar already has.
 
 ---
 
@@ -17,11 +17,11 @@ Pair this with the existing [`exit-intent-popup.md`](./exit-intent-popup.md) —
 
 | File | Purpose |
 |------|---------|
-| [includes/Extensions/PressBar/PressBar.php](../includes/Extensions/PressBar/PressBar.php) | The extension class — registers `nx_bar` + `nx_bar_eb` post types, defines all fields (content / design / customize / display), wires the *Build/Edit/Remove with Elementor* and *Build/Edit/Remove with Gutenberg* buttons + modals, handles save/delete lifecycle, and ultimately renders the bar via `print_bar_notice()`. |
-| [includes/Extensions/PressBar/importer.php](../includes/Extensions/PressBar/importer.php) | Elementor importer. Extends `Elementor\TemplateLibrary\Source_Local`, reads `jsons/{theme}.json`, runs Elementor's element-id replacement + on-import processors, then creates an `nx_bar` document via `Elementor\Plugin::$instance->documents->create(...)`. |
-| [includes/Core/REST.php](../includes/Core/REST.php) | Registers `/notificationx/v1/elementor/import`, `/elementor/remove`, `/gutenberg/import`, `/gutenberg/remove`. Each route is a thin wrapper that calls back into `PressBar::get_instance()`. |
-| [includes/Extensions/PressBar/jsons/](../includes/Extensions/PressBar/jsons/) | Five Elementor template seeds: `theme-one.json` … `theme-five.json`. Each is an exported Elementor document (`{version, title, type, content[]}`) used as the import payload. |
-| [includes/Extensions/PressBar/jsons-gb/](../includes/Extensions/PressBar/jsons-gb/) | Seven Gutenberg block-pattern seeds (`__file: wp_block`, `title`, `content` containing Gutenberg block markup). |
+| [includes/Extensions/PressBar/PressBar.php](../../../includes/Extensions/PressBar/PressBar.php) | The extension class — registers `nx_bar` + `nx_bar_eb` post types, defines all fields (content / design / customize / display), wires the *Build/Edit/Remove with Elementor* and *Build/Edit/Remove with Gutenberg* buttons + modals, handles save/delete lifecycle, and ultimately renders the bar via `print_bar_notice()`. |
+| [includes/Extensions/PressBar/importer.php](../../../includes/Extensions/PressBar/importer.php) | Elementor importer. Extends `Elementor\TemplateLibrary\Source_Local`, reads `jsons/{theme}.json`, runs Elementor's element-id replacement + on-import processors, then creates an `nx_bar` document via `Elementor\Plugin::$instance->documents->create(...)`. |
+| [includes/Core/REST.php](../../../includes/Core/REST.php) | Registers `/notificationx/v1/elementor/import`, `/elementor/remove`, `/gutenberg/import`, `/gutenberg/remove`. Each route is a thin wrapper that calls back into `PressBar::get_instance()`. |
+| [includes/Extensions/PressBar/jsons/](../../../includes/Extensions/PressBar/jsons/) | Five Elementor template seeds: `theme-one.json` … `theme-five.json`. Each is an exported Elementor document (`{version, title, type, content[]}`) used as the import payload. |
+| [includes/Extensions/PressBar/jsons-gb/](../../../includes/Extensions/PressBar/jsons-gb/) | Seven Gutenberg block-pattern seeds (`__file: wp_block`, `title`, `content` containing Gutenberg block markup). |
 
 ### Frontend
 
@@ -31,7 +31,7 @@ The bar runtime itself isn't React-based; once a notification is fetched, `print
 
 ## 2. Two custom post types
 
-`register_post_type()` ([PressBar.php:1549](../includes/Extensions/PressBar/PressBar.php#L1549)) declares **both** CPTs:
+`register_post_type()` ([PressBar.php:1549](../../../includes/Extensions/PressBar/PressBar.php#L1549)) declares **both** CPTs:
 
 | Post type | Used by | Notes |
 |---|---|---|
@@ -46,7 +46,7 @@ There's also a `get_edit_post_link` filter (constructor, line 55) that rewrites 
 
 ## 3. State machine: which renderer runs?
 
-Every NotificationX post that has `source = press_bar` carries these hidden fields (defined in `design_tab_fields()` around [line 934-1117](../includes/Extensions/PressBar/PressBar.php#L934-L1117)):
+Every NotificationX post that has `source = press_bar` carries these hidden fields (defined in `design_tab_fields()` around [line 934-1117](../../../includes/Extensions/PressBar/PressBar.php#L934-L1117)):
 
 | Field | Type | Default | Meaning |
 |---|---|---|---|
@@ -61,7 +61,7 @@ Every NotificationX post that has `source = press_bar` carries these hidden fiel
 | `is_confirmed` | hidden bool | `false` | One-shot flag inside the Elementor "Choose theme" modal: starts false; the Next button flips it; controls modal step visibility |
 | `is_gb_confirmed` | hidden bool | `false` | Same one-shot flag for the Gutenberg modal |
 
-Render-time selection happens in `print_bar_notice()` ([line 2070-2088](../includes/Extensions/PressBar/PressBar.php#L2070-L2088)):
+Render-time selection happens in `print_bar_notice()` ([line 2070-2088](../../../includes/Extensions/PressBar/PressBar.php#L2070-L2088)):
 
 ```php
 if ($elementor_post_id && get_post_status($elementor_post_id) === 'publish' && class_exists('\Elementor\Plugin')) {
@@ -106,11 +106,11 @@ themes.fields.nx_bar_import_design        (rules: source = press_bar)
 └── is_gb_confirmed             (hidden)
 ```
 
-Two sibling stub sections (`nxbar_with_elementor`, `nxbar_with_gutenberg`) sit alongside `nx_bar_import_design`; they're declared at [line 718-738](../includes/Extensions/PressBar/PressBar.php#L718-L738) and currently exist to scope additional builder-state-aware visibility rules (their `fields:[]` is left empty so they act as gated containers).
+Two sibling stub sections (`nxbar_with_elementor`, `nxbar_with_gutenberg`) sit alongside `nx_bar_import_design`; they're declared at [line 718-738](../../../includes/Extensions/PressBar/PressBar.php#L718-L738) and currently exist to scope additional builder-state-aware visibility rules (their `fields:[]` is left empty so they act as gated containers).
 
 ### The "Build With X" modal
 
-QuickBuilder's `type: 'modal'` field is the central trick. See [line 799-893](../includes/Extensions/PressBar/PressBar.php#L799-L893) for Elementor, [line 1006-1100](../includes/Extensions/PressBar/PressBar.php#L1006-L1100) for Gutenberg. Structure:
+QuickBuilder's `type: 'modal'` field is the central trick. See [line 799-893](../../../includes/Extensions/PressBar/PressBar.php#L799-L893) for Elementor, [line 1006-1100](../../../includes/Extensions/PressBar/PressBar.php#L1006-L1100) for Gutenberg. Structure:
 
 ```php
 [
@@ -160,20 +160,20 @@ The interesting flow detail: the import button's `ajax.trigger` is `'@is_confirm
 
 Two theme registries feed the radio-cards:
 
-- `$this->bar_themes` ([line 198-235](../includes/Extensions/PressBar/PressBar.php#L198-L235)) — 5 Elementor themes; each has `{label, value, icon, column, title, enable_coupon?}`. `icon` points at `assets/admin/images/extensions/themes/bar-elementor/theme-N.jpg`.
-- `$this->block_themes` ([line 236-296](../includes/Extensions/PressBar/PressBar.php#L236-L296)) — 7 Gutenberg themes. Some entries (`theme-five..seven`) carry `popup` payloads — see [§7](#7-essential-blocks-dependency-gate) below.
+- `$this->bar_themes` ([line 198-235](../../../includes/Extensions/PressBar/PressBar.php#L198-L235)) — 5 Elementor themes; each has `{label, value, icon, column, title, enable_coupon?}`. `icon` points at `assets/admin/images/extensions/themes/bar-elementor/theme-N.jpg`.
+- `$this->block_themes` ([line 236-296](../../../includes/Extensions/PressBar/PressBar.php#L236-L296)) — 7 Gutenberg themes. Some entries (`theme-five..seven`) carry `popup` payloads — see [§7](#7-essential-blocks-dependency-gate) below.
 
 ### The Edit / Remove buttons
 
-`elementor_edit_link` ([line 753-767](../includes/Extensions/PressBar/PressBar.php#L753-L767)) renders as a `type: 'button'` with `href: -1` — QuickBuilder reads the *current* form value of `elementor_edit_link` (which the importer populated in its response `context`) and uses it as the anchor href. Same trick for `gutenberg_edit_link`.
+`elementor_edit_link` ([line 753-767](../../../includes/Extensions/PressBar/PressBar.php#L753-L767)) renders as a `type: 'button'` with `href: -1` — QuickBuilder reads the *current* form value of `elementor_edit_link` (which the importer populated in its response `context`) and uses it as the anchor href. Same trick for `gutenberg_edit_link`.
 
-`nx-bar_with_elementor-remove` ([line 768-797](../includes/Extensions/PressBar/PressBar.php#L768-L797)) fires `POST /elementor/remove`, then runs a client-side `setFieldValue` trigger to wipe `elementor_id`, `elementor_edit_link`, `is_confirmed`, and reset the built-in `themes` back to `press_bar_theme-one`. So after a Remove, the campaign falls back to the built-in theme renderer.
+`nx-bar_with_elementor-remove` ([line 768-797](../../../includes/Extensions/PressBar/PressBar.php#L768-L797)) fires `POST /elementor/remove`, then runs a client-side `setFieldValue` trigger to wipe `elementor_id`, `elementor_edit_link`, `is_confirmed`, and reset the built-in `themes` back to `press_bar_theme-one`. So after a Remove, the campaign falls back to the built-in theme renderer.
 
 ---
 
 ## 5. The Elementor import path (deep dive)
 
-**Endpoint**: `POST /notificationx/v1/elementor/import` → `REST::elementor_import` → `PressBar::create_bar_of_type_bar_with_elementor($params)` ([line 1644-1673](../includes/Extensions/PressBar/PressBar.php#L1644-L1673)).
+**Endpoint**: `POST /notificationx/v1/elementor/import` → `REST::elementor_import` → `PressBar::create_bar_of_type_bar_with_elementor($params)` ([line 1644-1673](../../../includes/Extensions/PressBar/PressBar.php#L1644-L1673)).
 
 ```php
 public function create_bar_of_type_bar_with_elementor($params) {
@@ -203,7 +203,7 @@ The `context` payload is what QuickBuilder merges back into the form state — t
 
 The `_wp_page_template = 'elementor_canvas'` post meta is critical: it tells Elementor to render the bar with no theme header/footer chrome, since the resulting HTML will be inlined into the host site's page (`get_builder_content_for_display` returns just the document's HTML + style/script registration).
 
-`Importer::create_nx()` ([importer.php:44](../includes/Extensions/PressBar/importer.php#L44)) does:
+`Importer::create_nx()` ([importer.php:44](../../../includes/Extensions/PressBar/importer.php#L44)) does:
 
 1. `get_template_content` — `json_decode(file_get_contents("/jsons/$theme.json"))`.
 2. `get_data` — runs `replace_elements_ids` (so element IDs in the doc are fresh per-import) and `process_export_import_content(..., 'on_import')` (Elementor's standard import hook, handles URL/media re-mapping, dynamic tags, etc.).
@@ -212,11 +212,11 @@ The `_wp_page_template = 'elementor_canvas'` post meta is critical: it tells Ele
 
 ### When the bar title is renamed
 
-The campaign's QuickBuilder save also calls `PressBar::saved_post()` ([line 355-364](../includes/Extensions/PressBar/PressBar.php#L355-L364)) which updates the linked `nx_bar` post's `post_title` to `"NxBar: <campaign title>"` so the two stay in sync from the WP admin side.
+The campaign's QuickBuilder save also calls `PressBar::saved_post()` ([line 355-364](../../../includes/Extensions/PressBar/PressBar.php#L355-L364)) which updates the linked `nx_bar` post's `post_title` to `"NxBar: <campaign title>"` so the two stay in sync from the WP admin side.
 
 ### Editing reverse-fills `elementor_bar_theme`
 
-`nx_get_post()` ([line 2102-2127](../includes/Extensions/PressBar/PressBar.php#L2102-L2127)) is hooked to `nx_get_post` (priority 9). On load it:
+`nx_get_post()` ([line 2102-2127](../../../includes/Extensions/PressBar/PressBar.php#L2102-L2127)) is hooked to `nx_get_post` (priority 9). On load it:
 
 - Reads `elementor_id` from the saved post.
 - Resolves the live Elementor document, refreshes `elementor_edit_link`, and (by string-matching the document's `post_title` against `bar_themes[*]['title']`) re-derives `elementor_bar_theme` so the admin UI knows which seed theme this campaign started from.
@@ -224,13 +224,13 @@ The campaign's QuickBuilder save also calls `PressBar::saved_post()` ([line 355-
 
 ### Deletion / WPML
 
-`nx_delete_post` ([line 1520-1526](../includes/Extensions/PressBar/PressBar.php#L1520-L1526)) → `delete_elementor_post()` walks every active WPML language, resolves the translated `nx_bar` IDs via `apply_filters('wpml_object_id', ...)`, and `wp_delete_post`s each one. Same for `gutenberg_remove()` against `wp_block` translations.
+`nx_delete_post` ([line 1520-1526](../../../includes/Extensions/PressBar/PressBar.php#L1520-L1526)) → `delete_elementor_post()` walks every active WPML language, resolves the translated `nx_bar` IDs via `apply_filters('wpml_object_id', ...)`, and `wp_delete_post`s each one. Same for `gutenberg_remove()` against `wp_block` translations.
 
 ---
 
 ## 6. The Gutenberg import path
 
-**Endpoint**: `POST /notificationx/v1/gutenberg/import` → `REST::gutenberg_import` → `PressBar::gutenberg_import($params)` ([line 2129-2174](../includes/Extensions/PressBar/PressBar.php#L2129-L2174)).
+**Endpoint**: `POST /notificationx/v1/gutenberg/import` → `REST::gutenberg_import` → `PressBar::gutenberg_import($params)` ([line 2129-2174](../../../includes/Extensions/PressBar/PressBar.php#L2129-L2174)).
 
 This one is *much* simpler than the Elementor side because Gutenberg's block markup is just HTML-with-comments stored as `post_content`; nothing needs decoding or element-id rewriting.
 
@@ -259,23 +259,23 @@ public function gutenberg_import($params) {
 }
 ```
 
-The seed JSON files in [`jsons-gb/`](../includes/Extensions/PressBar/jsons-gb/) carry three keys: `__file: wp_block`, `title`, `content` (Gutenberg block markup string with HTML comments like `<!-- wp:columns ... -->`), and optionally `syncStatus`. `wp_pattern_sync_status` is what tells the editor whether the pattern is synced — relevant if the same `nx_bar_eb` post is later surfaced as a reusable block.
+The seed JSON files in [`jsons-gb/`](../../../includes/Extensions/PressBar/jsons-gb/) carry three keys: `__file: wp_block`, `title`, `content` (Gutenberg block markup string with HTML comments like `<!-- wp:columns ... -->`), and optionally `syncStatus`. `wp_pattern_sync_status` is what tells the editor whether the pattern is synced — relevant if the same `nx_bar_eb` post is later surfaced as a reusable block.
 
 ### Frontend render
 
 In `print_bar_notice()` the Gutenberg branch runs `do_blocks($post->post_content)` — that's all. The block editor's frontend asset pipeline registers any required scripts/styles when the post type is recognised, so no extra enqueue work is needed in this extension.
 
-`add_scripts()` ([line 2090-2095](../includes/Extensions/PressBar/PressBar.php#L2090-L2095)) tacks on a `gutenberg_url` field (the post's permalink) into the campaign settings before they're handed to the frontend / preview — useful for "open this in the editor" links on the preview side.
+`add_scripts()` ([line 2090-2095](../../../includes/Extensions/PressBar/PressBar.php#L2090-L2095)) tacks on a `gutenberg_url` field (the post's permalink) into the campaign settings before they're handed to the frontend / preview — useful for "open this in the editor" links on the preview side.
 
 ### Templately export support
 
-`templately_cloud_push_post_type` filter ([line 2192-2198](../includes/Extensions/PressBar/PressBar.php#L2192-L2198)) renames the `nx_bar_eb` post type to a friendly `NX Bar` label when Templately exports the post to the cloud. Carry this over for Exit Intent if we want the same Templately integration.
+`templately_cloud_push_post_type` filter ([line 2192-2198](../../../includes/Extensions/PressBar/PressBar.php#L2192-L2198)) renames the `nx_bar_eb` post type to a friendly `NX Bar` label when Templately exports the post to the cloud. Carry this over for Exit Intent if we want the same Templately integration.
 
 ---
 
 ## 7. Essential Blocks dependency gate
 
-`load_plugin_dependencies()` ([line 2236-2261](../includes/Extensions/PressBar/PressBar.php#L2236-L2261)) is hooked on `init` (priority -1). If **Essential Blocks** is not active, it populates `$this->popup` with a SweetAlert payload (`forced: true`, "You are missing a dependency", install button). That payload is then attached to `block_themes[theme-five|six|seven]['popup']` ([line 273-294](../includes/Extensions/PressBar/PressBar.php#L273-L294)) so QuickBuilder's radio-card renderer pops the dependency warning the moment the user picks one of those themes.
+`load_plugin_dependencies()` ([line 2236-2261](../../../includes/Extensions/PressBar/PressBar.php#L2236-L2261)) is hooked on `init` (priority -1). If **Essential Blocks** is not active, it populates `$this->popup` with a SweetAlert payload (`forced: true`, "You are missing a dependency", install button). That payload is then attached to `block_themes[theme-five|six|seven]['popup']` ([line 273-294](../../../includes/Extensions/PressBar/PressBar.php#L273-L294)) so QuickBuilder's radio-card renderer pops the dependency warning the moment the user picks one of those themes.
 
 Themes one–four don't have this gate — they use only core blocks. For Exit Intent, the equivalent question is *which seed designs require Essential Blocks (or any other block plugin)*; gate those entries the same way.
 
@@ -283,9 +283,9 @@ Themes one–four don't have this gate — they use only core blocks. For Exit I
 
 ## 8. Caches, integrations, miscellaneous
 
-- **WP Rocket RUCSS safelist** — `rocket_rucss_safelist()` ([line 2214-2229](../includes/Extensions/PressBar/PressBar.php#L2214-L2229)) iterates all active PressBar posts, and for any with an `elementor_id` it calls `\Elementor\Core\Files\CSS\Post::create($id)->get_url()` and adds that file to the Remove-Unused-CSS exclusion list. Without this, RUCSS strips Elementor-built bar styles. Mirror this for the Exit Intent Elementor path.
-- **`bar_reappearance` + `bar_cache_duration_for_dont_show`** ([line 1126-1153](../includes/Extensions/PressBar/PressBar.php#L1126-L1153)) — these are PressBar's analogue of Exit Intent's `exit_intent_cookie_days`. Not relevant to porting builder support, but worth knowing they live in the Display tab via `display_fields()`.
-- **Behaviour / content rule suppression when a builder is used** — see [line 1364-1370](../includes/Extensions/PressBar/PressBar.php#L1364-L1370) and [line 2058-2063](../includes/Extensions/PressBar/PressBar.php#L2058-L2063): once `elementor_id` or `gutenberg_id` is a number, the entire `behaviour` and most of the `content` sections are hidden — there's no `press_content`, no random order, no last/from/loop controls to apply, because the builder owns all of that. We'll want the same suppression for Exit Intent (no point showing `exit_intent_title` etc. when the user is editing the popup in Elementor).
+- **WP Rocket RUCSS safelist** — `rocket_rucss_safelist()` ([line 2214-2229](../../../includes/Extensions/PressBar/PressBar.php#L2214-L2229)) iterates all active PressBar posts, and for any with an `elementor_id` it calls `\Elementor\Core\Files\CSS\Post::create($id)->get_url()` and adds that file to the Remove-Unused-CSS exclusion list. Without this, RUCSS strips Elementor-built bar styles. Mirror this for the Exit Intent Elementor path.
+- **`bar_reappearance` + `bar_cache_duration_for_dont_show`** ([line 1126-1153](../../../includes/Extensions/PressBar/PressBar.php#L1126-L1153)) — these are PressBar's analogue of Exit Intent's `exit_intent_cookie_days`. Not relevant to porting builder support, but worth knowing they live in the Display tab via `display_fields()`.
+- **Behaviour / content rule suppression when a builder is used** — see [line 1364-1370](../../../includes/Extensions/PressBar/PressBar.php#L1364-L1370) and [line 2058-2063](../../../includes/Extensions/PressBar/PressBar.php#L2058-L2063): once `elementor_id` or `gutenberg_id` is a number, the entire `behaviour` and most of the `content` sections are hidden — there's no `press_content`, no random order, no last/from/loop controls to apply, because the builder owns all of that. We'll want the same suppression for Exit Intent (no point showing `exit_intent_title` etc. when the user is editing the popup in Elementor).
 
 ---
 
@@ -335,7 +335,7 @@ When we move on to actually implementing Elementor + Gutenberg support inside `E
 - [ ] **REST endpoints** — either add `/exit-intent/elementor-import` + `/exit-intent/gutenberg-import` siblings in `Core/REST.php`, *or* generalise the existing `/elementor/import` to accept a `source` param. Generalising is the lower-duplication path but requires touching the existing PressBar callers; greenfield endpoints are safer for shipping incrementally.
 - [ ] **`design_tab_fields()` / `customize_fields()`** — add the same Import-Design section with `Build / Edit / Remove with Elementor` and `Build / Edit / Remove with Gutenberg`, gated by `source = exit_intent` and the corresponding ID fields.
 - [ ] **Suppress built-in fields when a builder is active** — wrap the existing per-theme content sections + `customize_fields` defaults with `Rules::isOfType('elementor_id', 'number', true, …)` / `Rules::isOfType('gutenberg_id', 'number', true, …)`, mirroring lines 1364-1370 / 2058-2063 of PressBar.
-- [ ] **Render branch in the frontend** — Exit Intent today goes through the React `ExitIntentPopup` component (see [exit-intent-popup.md](./exit-intent-popup.md)). For builder-backed exit intents we need to: (a) flag the campaign payload with `mode: 'elementor' | 'gutenberg' | 'built_in'`, (b) on the PHP side pre-render the Elementor / Gutenberg HTML into the REST payload (so the React runtime can drop it into a popup shell + overlay), and (c) skip all the per-theme branches in `ExitIntentPopup.tsx` when `mode !== 'built_in'`, rendering only the overlay + close button + injected HTML. The PressBar pattern of "render server-side and inject" cleanly extends here — what's new is that Exit Intent's chrome (overlay, dismiss handling, sensitivity, cookie/session persistence) still needs to wrap the builder output.
+- [ ] **Render branch in the frontend** — Exit Intent today goes through the React `ExitIntentPopup` component (see [exit-intent-popup.md](../exit-intent/00-overview.md)). For builder-backed exit intents we need to: (a) flag the campaign payload with `mode: 'elementor' | 'gutenberg' | 'built_in'`, (b) on the PHP side pre-render the Elementor / Gutenberg HTML into the REST payload (so the React runtime can drop it into a popup shell + overlay), and (c) skip all the per-theme branches in `ExitIntentPopup.tsx` when `mode !== 'built_in'`, rendering only the overlay + close button + injected HTML. The PressBar pattern of "render server-side and inject" cleanly extends here — what's new is that Exit Intent's chrome (overlay, dismiss handling, sensitivity, cookie/session persistence) still needs to wrap the builder output.
 - [ ] **Lifecycle hooks** — `before_delete_post` / `nx_delete_post` to garbage-collect the linked `nx_exit_intent` / `nx_exit_intent_eb` post (including WPML translations), and `saved_post` to keep titles in sync.
 - [ ] **RUCSS safelist** — extend `rocket_rucss_safelist` to also iterate Exit Intent posts.
 - [ ] **Templately push label** — extend `templately_cloud_push_post_type` to relabel `nx_exit_intent_eb`.

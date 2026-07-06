@@ -74,7 +74,7 @@ to fan built entries out to enabled `nx_id` posts using this source.
    entries for the selected form (via `wpforms()->entry->get_entries()`) into the
    entries table in bulk, using `Extension::update_notifications()`.
 7. From there the standard FrontEnd → REST → React pipeline
-   (see [new-notification-type.md](../new-notification-type.md)) renders the
+   (see [new-notification-type.md](../development/adding-a-notification-type.md)) renders the
    entry using the `form` Type's themes/templates.
 
 ## Fields & settings
@@ -147,4 +147,4 @@ to fan built entries out to enabled `nx_id` posts using this source.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)

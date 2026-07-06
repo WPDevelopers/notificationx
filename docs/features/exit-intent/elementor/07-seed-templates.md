@@ -2,7 +2,7 @@
 
 ## Why
 
-The "Choose your theme" modal needs at least one importable seed. PressBar ships five at [`PressBar/jsons/theme-{one..five}.json`](../../../includes/Extensions/PressBar/jsons/). Exit Intent's [`jsons/`](../../../includes/Extensions/ExitIntent/jsons/) folder exists but is empty.
+The "Choose your theme" modal needs at least one importable seed. PressBar ships five at [`PressBar/jsons/theme-{one..five}.json`](../../../../includes/Extensions/PressBar/jsons/). Exit Intent's [`jsons/`](../../../../includes/Extensions/ExitIntent/jsons/) folder exists but is empty.
 
 ## What
 

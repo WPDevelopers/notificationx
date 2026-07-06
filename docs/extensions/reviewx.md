@@ -151,6 +151,6 @@ Real events that drive data (all inherited from `WooReviews::init()`):
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type docs under [../types/](../types/) (Reviews type —
   `_TODO: verify_` exact filename once written)

@@ -95,6 +95,6 @@ None required for core functionality — core WordPress only. The **Cookie Scann
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [docs/types/exit_intent.md](exit_intent.md) — sibling type doc with the same `Types::$module` gating caveat
 - [docs/types/_TEMPLATE.md](_TEMPLATE.md) — template this doc was generated from

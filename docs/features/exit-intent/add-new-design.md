@@ -1,6 +1,6 @@
 # Adding a New Design (Theme) to the Exit Intent Popup
 
-This guide is a **companion to** [exit-intent-popup.md](exit-intent-popup.md), which documents the existing feature (data flow, trigger mechanism, and existing themes `theme-one` … `theme-seven`). Read that first.
+This guide is a **companion to** [exit-intent-popup.md](00-overview.md), which documents the existing feature (data flow, trigger mechanism, and existing themes `theme-one` … `theme-seven`). Read that first.
 
 This document is a step-by-step **how-to** for adding the next design (e.g. `theme-eight`) — what to touch, in what order, and what to leave alone. The examples below use `theme-eight` placeholders for readability; the same shape applies to any subsequent theme — just bump the slug, prefix (`t8_*`), and PNG filename.
 
@@ -10,21 +10,21 @@ This document is a step-by-step **how-to** for adding the next design (e.g. `the
 
 | # | Concern | File |
 |---|---------|------|
-| 1 | Theme registry, content fields, design fields, customize fields | [includes/Extensions/ExitIntent/ExitIntentNotification.php](../includes/Extensions/ExitIntent/ExitIntentNotification.php) |
-| 2 | Notification type registration (no change usually needed) | [includes/Types/ExitIntent.php](../includes/Types/ExitIntent.php) |
-| 3 | REST serializer (no change needed — generic) | [includes/FrontEnd/FrontEnd.php](../includes/FrontEnd/FrontEnd.php) |
-| 4 | React renderer — add a branch for the new theme | [nxdev/notificationx/frontend/core/ExitIntentPopup.tsx](../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx) |
-| 5 | Frontend stylesheet — add a per-theme block | [nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss](../nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss) |
-| 6 | Admin theme picker preview PNG | [assets/admin/images/extensions/themes/exit-intent/](../assets/admin/images/extensions/themes/exit-intent/) |
+| 1 | Theme registry, content fields, design fields, customize fields | [includes/Extensions/ExitIntent/ExitIntentNotification.php](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php) |
+| 2 | Notification type registration (no change usually needed) | [includes/Types/ExitIntent.php](../../../includes/Types/ExitIntent.php) |
+| 3 | REST serializer (no change needed — generic) | [includes/FrontEnd/FrontEnd.php](../../../includes/FrontEnd/FrontEnd.php) |
+| 4 | React renderer — add a branch for the new theme | [nxdev/notificationx/frontend/core/ExitIntentPopup.tsx](../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx) |
+| 5 | Frontend stylesheet — add a per-theme block | [nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss](../../../nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss) |
+| 6 | Admin theme picker preview PNG | [assets/admin/images/extensions/themes/exit-intent/](../../../assets/admin/images/extensions/themes/exit-intent/) |
 | 7 | Photo/image assets used by the theme (optional) | Hosted under `https://notificationx.com/wp-content/uploads/.../exit-intend-*.png` and referenced from the `defaults` array; bundled assets in `assets/common/exit-intend-popup/` are also supported |
 
-The factory wiring at [includes/Types/TypesFactory.php](../includes/Types/TypesFactory.php) and [includes/Extensions/ExtensionFactory.php](../includes/Extensions/ExtensionFactory.php) is already in place. **Do not modify** these for a new theme.
+The factory wiring at [includes/Types/TypesFactory.php](../../../includes/Types/TypesFactory.php) and [includes/Extensions/ExtensionFactory.php](../../../includes/Extensions/ExtensionFactory.php) is already in place. **Do not modify** these for a new theme.
 
 ---
 
 ## 2. Naming Conventions
 
-Match what existing themes do (see [exit-intent-popup.md](exit-intent-popup.md) for full field tables):
+Match what existing themes do (see [exit-intent-popup.md](00-overview.md) for full field tables):
 
 - **Theme key:** `theme-eight` (used in the React `theme === '...'` check and in field rules)
 - **Theme rules selector:** `Rules::is('themes', 'exit_intent_custom_theme-eight')`
@@ -40,10 +40,10 @@ Match what existing themes do (see [exit-intent-popup.md](exit-intent-popup.md) 
 
 ### Step 1 — Register the new theme in the extension
 
-**File:** [includes/Extensions/ExitIntent/ExitIntentNotification.php](../includes/Extensions/ExitIntent/ExitIntentNotification.php)
+**File:** [includes/Extensions/ExitIntent/ExitIntentNotification.php](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php)
 **Method:** `init_extension()` — locate the `$this->themes` array.
 
-Add a new entry. The order of entries in `$this->themes` determines the order of cards in the admin theme picker (it is currently *not* in slug order — see [exit-intent-popup.md](exit-intent-popup.md#exit-intent-popup) for the current ordering).
+Add a new entry. The order of entries in `$this->themes` determines the order of cards in the admin theme picker (it is currently *not* in slug order — see [exit-intent-popup.md](00-overview.md#exit-intent-popup) for the current ordering).
 
 ```php
 'theme-eight' => [
@@ -127,7 +127,7 @@ The `$merge` closure handles three things automatically:
 
 **Conditionally-shown design fields.** When a theme has an optional sub-system (theme-five's & theme-six's countdown timer), attach a per-field `'rules' => Rules::is( 'exit_intent_t8_show_timer', true )` to each conditional design field. The `$merge` closure preserves field-level `rules` and ANDs them with the theme rule.
 
-Use existing shared keys where possible. Pseudo-state styling (`:hover`, `:focus`, `::placeholder`) is **not supported** — inline styles can't apply pseudo-selectors, so registering a `*_hover_bg` / `*_focus_color` field would be dead. If you need pseudo-state styling, render a scoped `<style>` block from React. Full list of existing fields per theme is in [exit-intent-popup.md § Advanced Design](exit-intent-popup.md#advanced-design-design-tab).
+Use existing shared keys where possible. Pseudo-state styling (`:hover`, `:focus`, `::placeholder`) is **not supported** — inline styles can't apply pseudo-selectors, so registering a `*_hover_bg` / `*_focus_color` field would be dead. If you need pseudo-state styling, render a scoped `<style>` block from React. Full list of existing fields per theme is in [exit-intent-popup.md § Advanced Design](00-overview.md#advanced-design-design-tab).
 
 ### Step 4 — Customize tab settings
 
@@ -135,7 +135,7 @@ Use existing shared keys where possible. Pseudo-state styling (`:hover`, `:focus
 
 ### Step 5 — Render the new theme in React
 
-**File:** [nxdev/notificationx/frontend/core/ExitIntentPopup.tsx](../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx)
+**File:** [nxdev/notificationx/frontend/core/ExitIntentPopup.tsx](../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx)
 
 The component reads `settings = nxExitIntent.config` and dispatches by `theme`. Each theme branch builds inline `React.CSSProperties` objects gated by the shared `adv = !!settings.advance_edit` flag and attaches them to the matching elements. Add a new branch following that pattern:
 
@@ -182,11 +182,11 @@ if (theme === 'theme-eight') {
 - `videoPlaying` state — theme-four only; safe to ignore unless you're embedding video.
 - `submitting` / `submitted` state — reused by theme-one and theme-seven for `popup-submit` form flows.
 
-The session-storage dismissal key (`notificationx_exit_intent_{nx_id}`) and the one-shot-per-page-load `triggered` Set are handled in [useNotificationX.ts](../nxdev/notificationx/frontend/core/useNotificationX.ts) and need no changes.
+The session-storage dismissal key (`notificationx_exit_intent_{nx_id}`) and the one-shot-per-page-load `triggered` Set are handled in [useNotificationX.ts](../../../nxdev/notificationx/frontend/core/useNotificationX.ts) and need no changes.
 
 ### Step 6 — Add the stylesheet
 
-**File:** [nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss](../nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss)
+**File:** [nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss](../../../nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss)
 
 Append a new block after the existing per-theme blocks (theme-one … theme-seven are all defined there already — append after theme-seven's block):
 
@@ -228,7 +228,7 @@ cd /Users/shakib/Documents/wordpress/notificationx/wp-content/plugins/notificati
 npm run build      # or `npm run start` for watch mode while developing
 ```
 
-Compiled output lands in `nxbuild/public/js/frontend.js` and `nxbuild/public/css/frontend.css` (see [exit-intent-popup.md § Compiled Assets](exit-intent-popup.md#compiled-assets)).
+Compiled output lands in `nxbuild/public/js/frontend.js` and `nxbuild/public/css/frontend.css` (see [exit-intent-popup.md § Compiled Assets](00-overview.md#compiled-assets)).
 
 ---
 
@@ -250,7 +250,7 @@ Compiled output lands in `nxbuild/public/js/frontend.js` and `nxbuild/public/css
 
 ## 5. What NOT to Touch
 
-- **[includes/Types/ExitIntent.php](../includes/Types/ExitIntent.php)** — type ID is already registered; new themes are added via the extension, not the type.
+- **[includes/Types/ExitIntent.php](../../../includes/Types/ExitIntent.php)** — type ID is already registered; new themes are added via the extension, not the type.
 - **`TypesFactory.php` / `ExtensionFactory.php`** — already wired.
 - **`FrontEnd.php` `get_notifications_data()`** — generic serializer; new fields flow through automatically.
 - **`useNotificationX.ts` mouseleave handler / `triggered` Set / sessionStorage key** — global to all Exit Intent themes.
@@ -275,4 +275,4 @@ defaults (init_extension)
    npm run build
 ```
 
-Following this 5-touchpoint pattern (theme registry → fields → React → SCSS → SVG) keeps the new design fully integrated with the admin builder, the live preview, and the frontend trigger/dismiss machinery already documented in [exit-intent-popup.md](exit-intent-popup.md).
+Following this 5-touchpoint pattern (theme registry → fields → React → SCSS → SVG) keeps the new design fully integrated with the admin builder, the live preview, and the frontend trigger/dismiss machinery already documented in [exit-intent-popup.md](00-overview.md).

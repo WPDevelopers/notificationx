@@ -2,7 +2,7 @@
 
 ## Why
 
-Each "Build With Elementor" import needs to (a) read a packaged Elementor template JSON, (b) freshen its element IDs, (c) run Elementor's `on_import` content processors (so dynamic tags / media URLs are remapped), and (d) create a brand-new `nx_exit_intent` Elementor document populated with the result. PressBar does this with [`PressBar/importer.php`](../../../includes/Extensions/PressBar/importer.php).
+Each "Build With Elementor" import needs to (a) read a packaged Elementor template JSON, (b) freshen its element IDs, (c) run Elementor's `on_import` content processors (so dynamic tags / media URLs are remapped), and (d) create a brand-new `nx_exit_intent` Elementor document populated with the result. PressBar does this with [`PressBar/importer.php`](../../../../includes/Extensions/PressBar/importer.php).
 
 ## What
 
@@ -20,7 +20,7 @@ Add `includes/Extensions/ExitIntent/importer.php` that mirrors PressBar's `Impor
 
 ## Files touched
 
-- New: [`includes/Extensions/ExitIntent/importer.php`](../../../includes/Extensions/ExitIntent/importer.php)
+- New: [`includes/Extensions/ExitIntent/importer.php`](../../../../includes/Extensions/ExitIntent/importer.php)
 
 ## Depends on
 

@@ -81,11 +81,11 @@ Google Analytics (via the `google` / `Google_Analytics` extension) is the **only
 - `default_theme` / `default_res_theme` are never set on this Type (both remain `''`, inherited from `Types`) — `_TODO: verify_` how the admin UI picks an initial theme for a brand-new Page Analytics notification (may default to the first key in `$themes`, or may be a UI-side fallback).
 - Note the third-param tag name mismatch between the two templates: `pa_template_new` uses `ga_title`, `pa_template_current_page_view` uses `tag_ga_page_title` — a naming inconsistency worth being aware of if extending either template.
 - `ShortcodeInline.php:127` explicitly special-cases (excludes) `page_analytics` from its generic title-linking logic — if adding link behavior to this type, that exclusion may need revisiting.
-- No dedicated deep-dive doc exists for this type's theme/design system (unlike Exit Intent or Sales Notification) — if adding a new `pa-theme-*`, follow the general pattern in [../new-notification-type.md](../new-notification-type.md) and cross-check the sibling free `Conversions` design-doc ([../sales-notification-add-new-design.md](../sales-notification-add-new-design.md)) for the PHP-registry + `GetTemplate.ts` + SCSS checklist shape, adapting to this type's own template ids.
+- No dedicated deep-dive doc exists for this type's theme/design system (unlike Exit Intent or Sales Notification) — if adding a new `pa-theme-*`, follow the general pattern in [../development/adding-a-notification-type.md](../development/adding-a-notification-type.md) and cross-check the sibling free `Conversions` design-doc ([../features/sales-notification/add-new-design.md](../features/sales-notification/add-new-design.md)) for the PHP-registry + `GetTemplate.ts` + SCSS checklist shape, adapting to this type's own template ids.
 - No tests found under `tests/` referencing `page_analytics` or `PageAnalytics` in this pass — `_TODO: verify_`.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [conversions.md](conversions.md) — sibling type doc with the same `Types::$module`-is-not-authoritative caveat, explained in more depth
 - [docs/types/_TEMPLATE.md](_TEMPLATE.md) — template this doc was generated from

@@ -61,7 +61,7 @@ LearnDash). State "none — core WordPress only" if it has no external dependenc
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - _links to sibling type/extension docs_
 
 ---

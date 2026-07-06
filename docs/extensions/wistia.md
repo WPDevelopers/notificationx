@@ -120,4 +120,4 @@ fallback-to-Type behavior).
   Type and its module gate
 - [Vimeo Extension](vimeo.md) — identical stub pattern _(doc not yet written; see
   `includes/Extensions/Vimeo/Vimeo.php`)_
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)

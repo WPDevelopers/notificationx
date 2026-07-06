@@ -162,7 +162,7 @@ Entries admin screen (`/feedback-entries` REST routes in the same
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [Contact Form 7 Extension](cf7.md) — sibling `form`-Type integration with a
   fully-implemented `get_data()`-free, hook-based capture pattern to compare
   against once `From`'s real capture logic is located.

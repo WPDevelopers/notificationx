@@ -137,4 +137,4 @@ notice prompting install if the GiveWP plugin class doesn't exist.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)

@@ -170,6 +170,6 @@ source; every entry originates from one of the extensions above.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [Comments Notification Type](comments.md) — sibling type with a similar generic
   `active`-bucket data flow and no dedicated frontend component

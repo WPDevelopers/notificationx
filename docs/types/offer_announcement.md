@@ -47,7 +47,7 @@ Trace one Discount Alert notification end-to-end:
 
 ## Fields & settings schema
 
-`OfferAnnouncement::init_fields()` just calls `parent::init_fields()` — no type-specific field registration. `Announcements` extension does **not** override `init_fields()` either (no `content_fields()`/`design_fields()`/`customize_fields()` filters are hooked from this class), unlike the `ExitIntentNotification` pattern shown in [docs/new-notification-type.md](../new-notification-type.md). The generic builder fields consumed by this type are:
+`OfferAnnouncement::init_fields()` just calls `parent::init_fields()` — no type-specific field registration. `Announcements` extension does **not** override `init_fields()` either (no `content_fields()`/`design_fields()`/`customize_fields()` filters are hooked from this class), unlike the `ExitIntentNotification` pattern shown in [docs/new-notification-type.md](../development/adding-a-notification-type.md). The generic builder fields consumed by this type are:
 
 - **Template tag pickers** — `first_param`/`custom_first_param`, `third_param`/`custom_third_param`, `fourth_param`/`custom_fourth_param` (and unused `fifth_param`/`custom_fifth_param`) declared centrally in `GlobalFields.php` ([GlobalFields.php:668-743](../../includes/Extensions/GlobalFields.php#L668-L743)), same mechanism as `conversions`.
 - **Design tab (Advanced Design)** — `GlobalFields.php` gates two colour fields specifically to this type and its first two themes: `discount_text_color` and `discount_background`, both ruled on `Rules::is('type', 'offer_announcement')` + `Rules::includes('themes', ['announcements_theme-1', 'announcements_theme-2'], false)` ([GlobalFields.php:517-535](../../includes/Extensions/GlobalFields.php#L517-L535)).
@@ -90,7 +90,7 @@ None required for core WordPress — this is a manually-authored content type (n
 
 ## Testing notes & gotchas
 
-- `Announcements::get_data()` is a stub (`return 'Hello From Custom Notification';`) and no `$cron_schedule` is set, so the normal Extension → Cron → `get_data()` → Entries pipeline documented in [docs/new-notification-type.md](../new-notification-type.md) does not appear to be how this type's real content reaches the Entries table in production. Don't assume `get_data()` is a reliable reference for the real data shape — verify against `notificationx-pro` before relying on it. `_TODO: verify_`
+- `Announcements::get_data()` is a stub (`return 'Hello From Custom Notification';`) and no `$cron_schedule` is set, so the normal Extension → Cron → `get_data()` → Entries pipeline documented in [docs/new-notification-type.md](../development/adding-a-notification-type.md) does not appear to be how this type's real content reaches the Entries table in production. Don't assume `get_data()` is a reliable reference for the real data shape — verify against `notificationx-pro` before relying on it. `_TODO: verify_`
 - The Type's `$default_theme` (`announcements_theme-one`) does not match any real theme key (`theme-1`, not `theme-one`) — a new install or reset-to-default could select a non-existent theme. `_TODO: verify_` what actually happens in the builder UI in that case.
 - `$link_type` and `link_types()` are both effectively dead code (declaration/hook commented out) — don't assume `comment_url` is an available Link Type option for this notification; it inherits the base `'none'`.
 - The CTA button (`link`, `announcement_link_button_text`) is rendered from `config` (post settings) while the title/description/discount are rendered from per-entry `data` — if you add a new theme, make sure new dynamic text goes through the correct one of the two paths (see Data flow steps 5 & 7).
@@ -98,6 +98,6 @@ None required for core WordPress — this is a manually-authored content type (n
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [Sales Notification Type (`conversions`)](conversions.md) — the type this one's tag-template mechanism (`first_param`/`third_param`/`fourth_param`) most closely follows
 - [docs/types/_TEMPLATE.md](_TEMPLATE.md) — template this doc was generated from

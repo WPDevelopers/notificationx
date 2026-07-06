@@ -2,7 +2,7 @@
 
 This folder is the per-Type reference for NotificationX's notification **Types** — one Markdown doc per Type, tracing its class, themes/templates, data flow, and compatible data-source extensions for developer/AI onboarding.
 
-**Type ↔ Extension model.** A **Type** (e.g. `conversions`, `comments`, `gdpr`) defines a notification category: its admin metadata, theme catalogue, fields, and any dedicated `FrontEnd.php` routing. Each Type is fed by one or more **Extensions** — the data-source adapters (e.g. WooCommerce, EDD, MailChimp, GiveWP) that implement `get_data()` to supply the actual entries. One Type can have many Extensions; an Extension declares which Type it belongs to. See [../new-notification-type.md](../new-notification-type.md) for the authoring walkthrough and the plugin-wide [../../CLAUDE.md](../../CLAUDE.md) for architecture context.
+**Type ↔ Extension model.** A **Type** (e.g. `conversions`, `comments`, `gdpr`) defines a notification category: its admin metadata, theme catalogue, fields, and any dedicated `FrontEnd.php` routing. Each Type is fed by one or more **Extensions** — the data-source adapters (e.g. WooCommerce, EDD, MailChimp, GiveWP) that implement `get_data()` to supply the actual entries. One Type can have many Extensions; an Extension declares which Type it belongs to. See [../development/adding-a-notification-type.md](../development/adding-a-notification-type.md) for the authoring walkthrough and the plugin-wide [../../CLAUDE.md](../../CLAUDE.md) for architecture context.
 
 ## Types
 

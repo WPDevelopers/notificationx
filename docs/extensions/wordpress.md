@@ -143,4 +143,4 @@ both `WPOrgReview` and `WPOrgStats`.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)

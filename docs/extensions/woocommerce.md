@@ -188,7 +188,7 @@ Real events that drive data:
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type docs under [../types/](../types/) (`_TODO: verify_` exact filenames
   once written — see `includes/Types/Conversions.php`, `includes/Types/Reviews.php`,
   `includes/Types/Inline.php`, `includes/Types/WooCommerceSales.php` in the meantime)

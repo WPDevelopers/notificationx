@@ -164,7 +164,7 @@ to the free plugin's `includes/Extensions/Zapier/`):
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [IFTTT Extension](ifttt.md) — closest sibling integration (same stub-in-free /
   real-logic-in-pro webhook pattern)
 - Related Type docs under [../types/](../types/) (none yet exist for

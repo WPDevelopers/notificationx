@@ -19,7 +19,7 @@
 | **Module gate (`$module`)** | Declares `['modules_edd', 'modules_custom_notification', 'modules_zapier', 'modules_bitintegration', 'modules_freemius', 'modules_envato']` on the Type object. **Verified:** `TypeFactory::register_types()` ([includes/Types/TypesFactory.php](../../includes/Types/TypesFactory.php)) does not read this property at all — it is not what gates loading. What actually gates each *extension* is the extension's own `$module` string checked in `ExtensionFactory::register_extensions()` via `Modules::get_instance()->is_enabled($obj->module)` ([includes/Extensions/ExtensionFactory.php](../../includes/Extensions/ExtensionFactory.php)). See "Compatible extensions" below for the real per-extension module keys. _TODO: verify_ what (if anything) reads `Types::$module` elsewhere (e.g. admin JS/REST serialization). |
 | **Compatible extensions** | Extensions whose `$types === 'conversions'` — see table below. |
 
-Note a naming split documented in [../sales-notification-add-new-design.md](../sales-notification-add-new-design.md): the **WooCommerce** source is actually handled by a *separate* Type class, [`WooCommerceSales`](../../includes/Types/WooCommerceSales.php) (type id `woocommerce_sales`), which duplicates its own `$themes` / `$res_themes` / `$templates` in lockstep with `Conversions.php`. The `WooCommerce` *extension* class itself (`includes/Extensions/WooCommerce/WooCommerce.php`) still declares `$types = 'conversions'`, so it is registered under this Conversions type too — its `nx_can_entry` filter is wired to `Conversions::get_type()->nx_can_entry` (see below). `_TODO: verify_` the exact runtime relationship between the `WooCommerce` extension (type `conversions`) and the `WooCommerceSales` type — both appear live in source.
+Note a naming split documented in [../features/sales-notification/add-new-design.md](../features/sales-notification/add-new-design.md): the **WooCommerce** source is actually handled by a *separate* Type class, [`WooCommerceSales`](../../includes/Types/WooCommerceSales.php) (type id `woocommerce_sales`), which duplicates its own `$themes` / `$res_themes` / `$templates` in lockstep with `Conversions.php`. The `WooCommerce` *extension* class itself (`includes/Extensions/WooCommerce/WooCommerce.php`) still declares `$types = 'conversions'`, so it is registered under this Conversions type too — its `nx_can_entry` filter is wired to `Conversions::get_type()->nx_can_entry` (see below). `_TODO: verify_` the exact runtime relationship between the `WooCommerce` extension (type `conversions`) and the `WooCommerceSales` type — both appear live in source.
 
 ## What it does
 
@@ -75,7 +75,7 @@ Distinctive settings this type relies on (consumed by `_excludes_product` / `_sh
 `$conversions_count` (public property) lists the fully-qualified theme names (`conversions_conv-theme-seven`, `woocommerce_sales_conv-theme-seven`, etc.) that belong to the sales-count family — consumed by `CustomNotification::get_themes_for_type('conversions_count')` ([includes/Extensions/CustomNotification/CustomNotification.php](../../includes/Extensions/CustomNotification/CustomNotification.php)) to separate sales-count themes from regular ones when building the Custom Notification theme picker.
 
 For the full mechanics of how a theme's content rows are rendered (React) and the naming conventions for adding a new theme, see the dedicated doc:
-**[docs/sales-notification-add-new-design.md](../sales-notification-add-new-design.md)**.
+**[docs/sales-notification-add-new-design.md](../features/sales-notification/add-new-design.md)**.
 
 ## Key files
 
@@ -87,7 +87,7 @@ For the full mechanics of how a theme's content rows are rendered (React) and th
 | Base class | [includes/Types/Types.php](../../includes/Types/Types.php) |
 | Extensions | `includes/Extensions/{WooCommerce,SureCart,EDD,Envato,Freemius,BitIntegrations,Zapier,CustomNotification,FluentCart}/...` — see table below |
 | PHP frontend routing | [includes/FrontEnd/FrontEnd.php](../../includes/FrontEnd/FrontEnd.php) |
-| Frontend runtime (rendering mechanics) | see [docs/sales-notification-add-new-design.md](../sales-notification-add-new-design.md) §1/§3 for the exact `nxdev/notificationx/frontend/...` files |
+| Frontend runtime (rendering mechanics) | see [docs/sales-notification-add-new-design.md](../features/sales-notification/add-new-design.md) §1/§3 for the exact `nxdev/notificationx/frontend/...` files |
 
 ### Compatible extensions (`$types === 'conversions'`)
 
@@ -113,7 +113,7 @@ Depends on whichever data-source extension is active: WooCommerce, Easy Digital 
 
 ## Testing notes & gotchas
 
-- Adding/editing a theme here almost always requires a mirrored edit in [`WooCommerceSales.php`](../../includes/Types/WooCommerceSales.php) — see [../sales-notification-add-new-design.md](../sales-notification-add-new-design.md) for the full checklist (PHP registry + `GetTemplate.ts` + SCSS + preview image).
+- Adding/editing a theme here almost always requires a mirrored edit in [`WooCommerceSales.php`](../../includes/Types/WooCommerceSales.php) — see [../features/sales-notification/add-new-design.md](../features/sales-notification/add-new-design.md) for the full checklist (PHP registry + `GetTemplate.ts` + SCSS + preview image).
 - The `Types::$module` array on this class does not appear to gate anything by itself (see "At a glance" above) — don't rely on editing it to enable/disable the type; the real gate is each extension's own `$module` key plus the `modules_*` settings toggle.
 - `_excludes_product`/`_show_purchaseof` special-case EDD (`source == 'edd' || 'edd_inline'`) to read `download_category` terms instead of `product_cat` — a new source extension with its own custom taxonomy would need the same special-casing or a filter added.
 - The trait's `excludes_product`/`show_purchaseof` duplicate similar logic to the class's `_excludes_product`/`_show_purchaseof` with different `array_diff` argument ordering; no call site was found for the trait methods in this pass — `_TODO: verify_` before assuming they're dead code.
@@ -121,6 +121,6 @@ Depends on whichever data-source extension is active: WooCommerce, Easy Digital 
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
-- [Adding a New Design (Theme) to the Sales Notification](../sales-notification-add-new-design.md) — the authoritative deep-dive for this type's theme system
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
+- [Adding a New Design (Theme) to the Sales Notification](../features/sales-notification/add-new-design.md) — the authoritative deep-dive for this type's theme system
 - [docs/types/_TEMPLATE.md](_TEMPLATE.md) — template this doc was generated from

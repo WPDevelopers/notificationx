@@ -153,5 +153,5 @@ source-event → `get_data()` → `Entries` table pipeline here. Instead:
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type docs under [../types/](../types/) (Custom Notification / Sales-Conversions type docs, if present)

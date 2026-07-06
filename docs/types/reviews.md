@@ -56,7 +56,7 @@ get in [`FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php):
 4. `link_url()` then resolves the `review_page` link type to build the click-through URL.
 5. On the React side, entries reach the runtime through the standard `normalize()` shape
    (`{ post, entries: [...] }`) — not `normalizePressBar` — same as other multi-entry
-   types (see [`docs/new-notification-type.md`](../new-notification-type.md) for the
+   types (see [`docs/new-notification-type.md`](../development/adding-a-notification-type.md) for the
    `normalize` vs `normalizePressBar` distinction).
 
 ## Fields & settings schema
@@ -161,4 +161,4 @@ or BitIntegrations — gated by their own `modules_*` settings key.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)

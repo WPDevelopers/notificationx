@@ -140,5 +140,5 @@ whole pipeline lives in `notificationx-pro` and is out of scope for this doc.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type: [`includes/Types/EmailSubscription.php`](../../includes/Types/EmailSubscription.php) (no dedicated Type doc under `docs/types/` was found — _TODO: verify_)

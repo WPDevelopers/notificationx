@@ -59,7 +59,7 @@ like the other "inline/single-value" sources rather than a growing entries feed.
 Beyond that exemption, `video`/`youtube` was not found to have a dedicated bucket in
 `FrontEnd::get_notifications_ids()` / `get_notifications_data()` the way `exit_intent`
 or `popup` do (per the pattern documented in
-[`../new-notification-type.md`](../new-notification-type.md)); it appears to flow
+[`../development/adding-a-notification-type.md`](../development/adding-a-notification-type.md)); it appears to flow
 through the standard `active`/`global` notification pipeline like other non-popup
 types. _TODO: verify_ against the React runtime (`nxdev/notificationx/frontend/`) for
 the exact rendering component used for `video`/`youtube` themes — not located in this
@@ -158,4 +158,4 @@ another WP plugin. `vimeo` and `wistia` extensions exist but are non-functional 
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)

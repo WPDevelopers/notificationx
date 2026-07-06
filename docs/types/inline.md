@@ -106,5 +106,5 @@ None at the Type level — dependency is entirely per-Extension: **WooCommerce**
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [WooCommerce Sales Notification Type](woocommerce_sales.md) — covers the confusingly-named sibling `woocommerce_sales_inline` extension

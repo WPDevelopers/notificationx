@@ -86,7 +86,7 @@ If Elementor is missing or the doc unpublished, `mode` falls back to `'built_in'
 ## Fields & settings
 
 Distinctive fields registered via `init_fields()` (see
-[docs/exit-intent-popup.md](../exit-intent-popup.md) for the full, per-theme field
+[docs/exit-intent-popup.md](../features/exit-intent/00-overview.md) for the full, per-theme field
 tables — not duplicated here):
 
 - **Themes tab** — rebuilt into Default (7 React themes, the global `themes`
@@ -167,12 +167,12 @@ tables — not duplicated here):
 - `exit_intent_custom` shares the `popup-submit` REST pipeline and Feedback Entries
   listing with `popup_notification` (`Popup::form_sources()`) — a regression there
   can affect both sources.
-- See [docs/exit-intent-popup.md](../exit-intent-popup.md) for the full per-theme
-  field tables, and [docs/exit-intent-add-new-design.md](../exit-intent-add-new-design.md)
+- See [docs/exit-intent-popup.md](../features/exit-intent/00-overview.md) for the full per-theme
+  field tables, and [docs/exit-intent-add-new-design.md](../features/exit-intent/add-new-design.md)
   for the process of adding a new theme.
 
 ## Related docs
 
-- [docs/exit-intent-popup.md](../exit-intent-popup.md) — full per-theme content/design field reference, trigger mechanism, data flow
-- [docs/exit-intent-add-new-design.md](../exit-intent-add-new-design.md) — adding a new Exit Intent theme
-- [Adding a New Notification Type](../new-notification-type.md) — uses Exit Intent as its worked example
+- [docs/exit-intent-popup.md](../features/exit-intent/00-overview.md) — full per-theme content/design field reference, trigger mechanism, data flow
+- [docs/exit-intent-add-new-design.md](../features/exit-intent/add-new-design.md) — adding a new Exit Intent theme
+- [Adding a New Notification Type](../development/adding-a-notification-type.md) — uses Exit Intent as its worked example

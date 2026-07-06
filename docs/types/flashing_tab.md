@@ -82,6 +82,6 @@ None required for the notification mechanism itself (pure browser `document.titl
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [docs/types/notification_bar.md](notification_bar.md) — another Pro-adjacent, single-extension Type documented at similar depth, useful for comparing the `$link_type = '-1'` pattern
 - [docs/types/_TEMPLATE.md](_TEMPLATE.md) — template this doc was generated from

@@ -143,5 +143,5 @@ There is no source-event → `get_data()` step for PressBar. Instead:
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type docs under [../types/](../types/) (`notification_bar` Type — see the `NotificationBar` Type class under `includes/Types/`, not yet doc'd; _TODO: verify_ link once that doc exists)

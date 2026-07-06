@@ -4,7 +4,7 @@
 
 QuickBuilder is a fully form-state-driven UI. The visibility of every Build/Edit/Remove control flows from a small set of hidden fields that must exist with the right defaults.
 
-PressBar's set lives at [`PressBar.php:934-1117`](../../../includes/Extensions/PressBar/PressBar.php#L934-L1117).
+PressBar's set lives at [`PressBar.php:934-1117`](../../../../includes/Extensions/PressBar/PressBar.php#L934-L1117).
 
 ## What
 
@@ -26,7 +26,7 @@ Add these hidden fields to the Exit Intent design schema (all rules-gated to `so
 
 ## Files touched
 
-- [`includes/Extensions/ExitIntent/ExitIntentNotification.php`](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php).
+- [`includes/Extensions/ExitIntent/ExitIntentNotification.php`](../../../../includes/Extensions/ExitIntent/ExitIntentNotification.php).
 
 ## Depends on
 

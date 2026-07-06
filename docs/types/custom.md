@@ -153,7 +153,7 @@ plugin/service dependency; it is gated purely by `is_pro` and the
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [CustomNotification Extension](../extensions/customnotification.md) — the deep-dive
   for the actual data/field/preview pipeline behind this type
 - [Announcement / Popup Notification Type](popup.md) — another Pro-leaning,

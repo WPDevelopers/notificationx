@@ -135,6 +135,6 @@ given the registration gap noted above.
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type docs under [../types/](../types/) (none yet exist for
   `email_subscription` at time of writing — `_TODO: verify_`)

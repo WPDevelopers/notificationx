@@ -62,7 +62,7 @@ account connection, API keys). Reference `GlobalFields` where it reuses shared f
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - Related Type docs under [../types/](../types/)
 
 ---

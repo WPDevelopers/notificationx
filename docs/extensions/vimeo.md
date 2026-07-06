@@ -108,7 +108,7 @@ class and there is no Vimeo-specific entry there (confirmed by grep).
 
 ## Related docs
 
-- [Adding a New Notification Type](../new-notification-type.md)
+- [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [Google Extension](google.md) — same free-stub pattern for `YouTube` (the functional
   sibling under the `video` Type), with more detail on how Pro is expected to fill in real
   API calls

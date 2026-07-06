@@ -4,7 +4,7 @@
 
 Once `elementor_id` is a number, every per-theme content/design field in the built-in path (titles, subtitles, CTA URL, countdown labels, advanced design colors, …) becomes meaningless — Elementor owns all of that. Showing them would let users edit values that have no visible effect.
 
-PressBar achieves this with a `Rules::isOfType('elementor_id', 'number', true, $field)` wrap, e.g. [`PressBar.php:1364-1370`](../../../includes/Extensions/PressBar/PressBar.php#L1364-L1370) and [`PressBar.php:2058-2063`](../../../includes/Extensions/PressBar/PressBar.php#L2058-L2063).
+PressBar achieves this with a `Rules::isOfType('elementor_id', 'number', true, $field)` wrap, e.g. [`PressBar.php:1364-1370`](../../../../includes/Extensions/PressBar/PressBar.php#L1364-L1370) and [`PressBar.php:2058-2063`](../../../../includes/Extensions/PressBar/PressBar.php#L2058-L2063).
 
 ## What
 
@@ -24,7 +24,7 @@ Wrap (don't rewrite) every existing Exit Intent content section, per-theme conte
 
 ## Files touched
 
-- [`includes/Extensions/ExitIntent/ExitIntentNotification.php`](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php).
+- [`includes/Extensions/ExitIntent/ExitIntentNotification.php`](../../../../includes/Extensions/ExitIntent/ExitIntentNotification.php).
 
 ## Depends on
 
