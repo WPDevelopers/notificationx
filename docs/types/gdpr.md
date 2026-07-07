@@ -14,9 +14,9 @@
 | **Trait** | none — no `includes/Types/Traits/GDPR.php` exists |
 | **Priority** | `10` (`$priority`) |
 | **Default source** | `gdpr_notification` (`$default_source`) |
-| **Default theme** | _not set_ — `$default_theme` is inherited from `Types` and left at `''` (`_TODO: verify_` how the admin UI picks an initial theme without this) |
+| **Default theme** | _not set_ — `$default_theme` is inherited from `Types` at `''`, and the `GDPR_Notification` extension does not set one either. `Extension::__source_trigger()` ([includes/Extensions/Extension.php:217-224](../../includes/Extensions/Extension.php#L217-L224)) only emits a `@themes:<id>` pre-fill trigger when a non-empty `default_theme` resolves, so this source seeds **no** initial theme server-side — the `themes` field starts unseeded until the user picks a card in the Themes tab. |
 | **Module gate (`$module`)** | `['modules_gdpr']` declared on the Type object. As documented for the sibling `conversions`/`exit_intent` types, `Types::$module` is **not** itself read by the factory that loads Types — the real per-extension gate is `Extension::$module`, checked via `Modules::get_instance()->is_enabled($obj->module)` in [`ExtensionFactory.php:103`](../../includes/Extensions/ExtensionFactory.php#L103). For this type, `GDPR_Notification::$module = 'modules_gdpr'` ([includes/Extensions/GDPR/GDPR_Notification.php:31](../../includes/Extensions/GDPR/GDPR_Notification.php#L31)), so the same key gates both in practice. |
-| **Compatible extensions** | `GDPR_Notification` (`$types = 'gdpr'`, `$id = 'gdpr_notification'`) — the active data source/UI provider. `CCPA_Notification` (`$types = 'gdpr'`, `$id = 'ccpa_notification'`) also targets this type but sets `$show_on_module = false` / `$show_on_type = false` and registers no fields — `_TODO: verify_` its current purpose/activation path. |
+| **Compatible extensions** | `GDPR_Notification` (`$types = 'gdpr'`, `$id = 'gdpr_notification'`) — the active data source/UI provider. `CCPA_Notification` (`$types = 'gdpr'`, `$id = 'ccpa_notification'`, [includes/Extensions/CCPA/CCPA_Notification.php](../../includes/Extensions/CCPA/CCPA_Notification.php)) also targets this type but sets `$show_on_module = false` / `$show_on_type = false`, its `init_extension()` only sets `$this->title = 'CCPA'`, and it registers no fields and no `get_data()` — i.e. it is a dormant/registered-but-hidden placeholder (not surfaced in the module/source pickers, no builder UI of its own). |
 
 ## What it does
 
@@ -27,7 +27,7 @@
 
 Every theme entry carries a `template` block (comment fields `first_param`…`fourth_param` reused from the generic comment-template shape — labelled e.g. `tag_name` / "commented on" / `tag_post_title`/`tag_post_comment` / `tag_time`) and a `rules` entry gating it to `Rules::is('gdpr_theme', false)` (light themes) or `Rules::is('gdpr_theme', true)` (dark themes) — i.e. visibility in the admin theme picker is filtered by the "Select Theme" Light/Dark toggle (`gdpr_theme` field, registered globally — see below), not per-type UI.
 
-`_TODO: verify_` — the `template` values here (`tag_post_title`, `tag_post_comment`, "commented on") look copy-pasted from a comments-style type and appear unused for the actual cookie-banner content, which is driven instead by the dedicated `gdpr_title`/`gdpr_message`/etc. fields below.
+The `template` values here (`tag_post_title`, `tag_post_comment`, "commented on") are leftover boilerplate copied from a comments-style type and are **not** consumed by the frontend: `GDPR.tsx` renders the banner from the dedicated `gdpr_title`/`gdpr_message`/etc. settings, not from these template params.
 
 ## Data flow
 
@@ -36,7 +36,7 @@ Every theme entry carries a `template` block (comment fields `first_param`…`fo
 3. `FrontEnd::get_notifications_data()` reads the `gdpr` param bucket ([includes/FrontEnd/FrontEnd.php:417-431](../../includes/FrontEnd/FrontEnd.php#L417-L431)): for each notification it applies `apply_filters('nx_filtered_post', $settings, $params)` and places the **raw settings** under `$result['gdpr'][$nx_id]['post']`, with `content` hardcoded to an empty string (`""`) — unlike bar/popup types, there is no server-rendered HTML `content` string for this type; the React runtime renders the banner entirely from the `post` settings object.
 4. `FrontEnd::generate_custom_css()` special-cases `source == 'gdpr_notification'` the same way as `press_bar` when combining per-notification custom CSS ([includes/FrontEnd/FrontEnd.php:196-198](../../includes/FrontEnd/FrontEnd.php#L196-L198)).
 5. `Preview.php` also special-cases `source === 'gdpr_notification'` when building preview args ([includes/FrontEnd/Preview.php:93-94](../../includes/FrontEnd/Preview.php#L93-L94)).
-6. React runtime consumes `result.gdpr[...]` — `_TODO: verify_` the exact component name/file under `nxdev/notificationx/frontend/` that renders the cookie banner (not located in this pass).
+6. React runtime consumes `result.gdpr[...]`: [`useNotificationX.ts`](../../nxdev/notificationx/frontend/core/useNotificationX.ts) reads `response.gdpr` into `gdprNotices` state, and [`NotificationContainer.tsx`](../../nxdev/notificationx/frontend/core/NotificationContainer.tsx) routes `config.type == 'gdpr'` to [`nxdev/notificationx/frontend/core/GDPR.tsx`](../../nxdev/notificationx/frontend/core/GDPR.tsx), which renders the banner from the `post` settings (`config`) plus the cookie helpers under `nxdev/notificationx/frontend/gdpr/`.
 
 ## Fields & settings schema
 
@@ -54,7 +54,7 @@ Unlike most types, the bulk of this type's fields are **global** (registered in 
 
 - `nx_content_gdpr` → `add_content_fields()`: adds the Content-tab fields `gdpr_title`, `gdpr_message`, `gdpr_accept_btn`, `gdpr_reject_btn`, `gdpr_customize_btn`, `gdpr_cookies_policy_toggle` (+ link text/URL fields), `gdpr_custom_logo` (media, `is_pro: true`, rules limited to specific theme slugs).
 - `nx_content_fields` → `__add_content_fields()`: adds two more sections — **Preference Center** (`preference_title`, `preference_overview`, `preference_google` toggle + its message/link fields, `preference_btn`/`preference_more_btn`/`preference_less_btn`) and **Cookies List** (`cookie_list_show_banner` toggle, `cookie_list_active_label`, `cookie_list_no_cookies_label`) — both gated `Rules::is('type', 'gdpr')`.
-- `nx_customize_fields` → `customize_fields()`: adds a "Visibility" section (`cookie_visibility_show_on` select — currently only `default`/"Show Everywhere"; `cookie_visibility_display_for` select — currently only `default`/"Everyone"; `cookie_visibility_delay_before` text, default `5` seconds). `_TODO: verify_` whether more `Show On`/`Display For` options exist in the pro plugin.
+- `nx_customize_fields` → `customize_fields()`: adds a "Visibility" section (`cookie_visibility_show_on` select — currently only `default`/"Show Everywhere"; `cookie_visibility_display_for` select — currently only `default`/"Everyone"; `cookie_visibility_delay_before` text, default `5` seconds). **Verified (Pro):** no extra `Show On`/`Display For` options are added by NotificationX Pro — the entire GDPR/cookie feature is free-plugin-only; the `notificationx-pro` plugin contains **no** GDPR/cookie code at all (a repo-wide `grep -rin "gdpr\|cookie_visibility"` over `notificationx-pro` returns nothing, and there is no `Types/GDPR.php` or `Extensions/GDPR/` mirror there). Both selects therefore only ever offer their single hard-coded `default` option ("Show Everywhere" / "Everyone") defined here in the free `GDPR::customize_fields()`.
 
 `GDPR_Notification::design_fields()` (the Extension) adds the Advanced Design sub-sections: `gdpr_design` (background/footer background/title/description colors + font sizes, close button color/size gated to specific themes), `gdpr_accept_btn`, `gdpr_reject_btn` (gated to specific theme slugs), `gdpr_customize_btn` — all under `Rules::is('advance_edit', true)`.
 
@@ -78,7 +78,7 @@ Unlike most types, the bulk of this type's fields are **global** (registered in 
 | Cookie scanner REST endpoints | [includes/Admin/Scanner/Scanner.php](../../includes/Admin/Scanner/Scanner.php) |
 | PHP frontend routing | [includes/FrontEnd/FrontEnd.php](../../includes/FrontEnd/FrontEnd.php) (`get_notifications_ids()`, `get_notifications_data()`, `generate_custom_css()`) |
 | Preview | [includes/FrontEnd/Preview.php](../../includes/FrontEnd/Preview.php) |
-| Frontend runtime (React/TS) | `_TODO: verify_` — not located in this pass under `nxdev/notificationx/frontend/` |
+| Frontend runtime (React/TS) | [`nxdev/notificationx/frontend/core/GDPR.tsx`](../../nxdev/notificationx/frontend/core/GDPR.tsx) (banner component; routed by `NotificationContainer.tsx` for `type == 'gdpr'`, state in `useNotificationX.ts`), plus helpers under `nxdev/notificationx/frontend/gdpr/` (`utils/GdprActions`, `utils/GdprFooter`, `utils/helper`) |
 
 ## Dependencies
 
@@ -87,11 +87,11 @@ None required for core functionality — core WordPress only. The **Cookie Scann
 ## Testing notes & gotchas
 
 - `$result['gdpr'][$nx_id]['content']` is always `""` — this type has no server-rendered HTML content string; don't expect `get_bar_content()`-style output like `notification_bar`/`popup` types have. Verify frontend rendering purely from the `post` settings payload.
-- The 14 Type-level `themes` entries' `template` fields (`tag_post_title`/`tag_post_comment`/"commented on") look like leftover boilerplate copied from a comments-style type and don't obviously map to any rendered cookie-banner copy, which instead comes from `gdpr_title`/`gdpr_message`/etc. `_TODO: verify_` whether `template` is read at all for this type's frontend rendering.
-- `CCPA_Notification` also declares `$types = 'gdpr'` but sets `show_on_module = false` and `show_on_type = false` and defines no fields — `_TODO: verify_` its current role (dormant/WIP vs. silently active).
+- The 14 Type-level `themes` entries' `template` fields (`tag_post_title`/`tag_post_comment`/"commented on") are leftover boilerplate copied from a comments-style type: `GDPR.tsx` renders the banner from the `post` settings object (`gdpr_title`/`gdpr_message`/etc.), not from these `{{tag}}` template params, so the `template` block is inert for this type's frontend rendering.
+- `CCPA_Notification` also declares `$types = 'gdpr'` but sets `show_on_module = false` and `show_on_type = false` and defines no fields/`get_data()` (its `init_extension()` only sets the title) — confirmed dormant/registered-but-hidden, not silently active.
 - Cookie category tabs (Necessary/Functional/Analytics/Performance/Advertisement/Uncategorized) each use an independent `better-repeater` — check `Helper::default_cookie_list()` for the seeded default rows (at minimum a `wordpress_logged_in` entry under Necessary) when testing a fresh notification.
 - `gdpr_cookie_removal` / `Helper::delete_server_cookies()` hardcodes a domain-cookie allow/deny heuristic (skips `moove_gdpr_popup`, WooCommerce/`wordpress` cookies; treats `language`/`currency` and Google Analytics/Facebook Pixel cookie name patterns specially) — verify this logic if changing cookie-removal behaviour.
-- `_TODO: verify_` whether any PHPUnit tests under `tests/` cover this type — none were found by name in this pass.
+- No PHPUnit tests under `tests/` cover this type — confirmed: `grep -rli "gdpr" tests/` returns no hits (the factory tests use `popup` as their representative fixture).
 
 ## Related docs
 

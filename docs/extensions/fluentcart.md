@@ -108,11 +108,16 @@ method name — the equivalent data-fetch entry points are the `save_new_records
 - `FluentCart::restResponse()` / `search_fluentcart_products()` power the async
   product-search field (`\FluentCart\App\Models\Product::query()` search over
   title/content/excerpt, falling back to `Helper::get_post_titles_by_search()`).
-- Settings consumed at runtime (not registered as fields in this file —
-  `_TODO: verify_` exact field-registration location): `fluentcart_order_status`,
+- Settings consumed at runtime are not registered as fields in this file — they are
+  the shared `conversions`-type fields defined in
+  [`GlobalFields.php`](../../includes/Extensions/GlobalFields.php):
   `product_control` / `product_list`, `product_exclude_by` / `exclude_products`,
   `category_list` / `exclude_categories`, `display_from` / `display_last`,
-  `show_default_image` / `show_notification_image`.
+  `show_default_image` / `show_notification_image`. The `fluentcart_order_status`
+  option list is the shared order-status select in `GlobalFields.php` (~line 940),
+  whose options come from `apply_filters('nx_fluentcart_order_status', [])` — the
+  filter `FluentCart::order_status()` populates (see above), scoped via
+  `Rules::includes('source', ['fluentcart'])`.
 
 ## Dependency & detection
 
@@ -159,13 +164,16 @@ method name — the equivalent data-fetch entry points are the `save_new_records
   older notifications still display.
 - `status_transition()` searches all entries for the source via
   `Entries::get_entries(['source' => 'fluentcart'])` and matches by string-prefix
-  on `entry_key` (`"{$order->id}_"`) — verify this doesn't collide for very large
-  order IDs that could be numeric prefixes of other order IDs (`_TODO: verify_`
-  whether entry_key collisions are possible in practice).
+  on `entry_key` (`strpos($entry['entry_key'], $order->id . '_') === 0`). This does
+  **not** collide across order IDs that are numeric prefixes of each other: the
+  matched prefix includes the trailing `_` delimiter, and order IDs are digits-only,
+  so e.g. prefix `"12_"` cannot match `entry_key` `"123_45"` (`"123"[2]` is `"3"`,
+  not `"_"`). The `entry_key` format is `{order->id}_{order_item->id}`.
 - `FluentCartInline` is Pro-only per its theme entries (`is_pro => true` on all
   three themes) — verify the free/Pro gating surfaces correctly in the builder UI.
-- No dedicated PHPUnit tests found under `tests/` for this integration —
-  `_TODO: verify_` if FluentCart-specific test coverage exists elsewhere.
+- No dedicated PHPUnit tests exercise this integration. The free `tests/` suite is
+  limited to factory/type/REST/migration smoke tests and `notificationx-pro/tests/`
+  only adds type/engine/smoke tests — neither covers FluentCart's order pipeline.
 - `save_new_records()` / `get_orders()` require both an `order` and `customer` to
   be present in the hook payload / relation; orders without a loaded customer are
   silently skipped.

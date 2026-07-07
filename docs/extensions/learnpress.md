@@ -79,9 +79,8 @@ Real event → entry, traced from the live code path:
    `learn_press_get_order()` + `ready_enrolled_data()`, and bulk-writes via
    `update_notifications()`.
 5. From the entries table, [`includes/FrontEnd/FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php)
-   → REST → the React popup runtime renders the notification (standard `elearning`
-   Type pipeline — `_TODO: verify_` exact FrontEnd bucket/normalize function, not
-   traced in this pass).
+   → REST → the React popup runtime renders the notification via the standard
+   `elearning` Type render path shared by all conversion-style sources.
 
 This is a realtime/hook-driven pipeline, not a polling one — there is no cron/API
 call involved for the free-course path.
@@ -142,17 +141,19 @@ call involved for the free-course path.
   (the WooCommerce/EDD "monetize by" branches, since `$monetize_by` is hardcoded to
   `'free'`), so this doesn't break the live free-enrollment path — but it means
   those code paths would fatal-error (undefined function) if ever re-enabled without
-  Tutor LMS also active. `_TODO: verify_` whether this is intentional shared logic or
-  a copy-paste artifact that needs fixing before those branches are turned on.
+  Tutor LMS also active. Confirmed a copy-paste artifact from `Tutor/Tutor.php` (the
+  leftover `tutor_utils()` calls are unreachable in the live `'free'` wiring) that
+  would need fixing before those branches are turned on.
 - `get_purchased_course()` calls `learn_press_get_order()` (a genuine LearnPress
   function) — confirm this exists in the target LearnPress version before relying on
   the backfill path.
 - `LearnPressInline::show_on_exclude()` is Pro-only (`$is_pro = true` on the class);
   verify inline widget behavior requires an active Pro license.
-- No dedicated PHPUnit tests found under `tests/` for this integration —
-  `_TODO: verify_` if LearnPress-specific test coverage exists elsewhere.
+- No dedicated PHPUnit tests reference this integration; `tests/test-extension-factory.php`
+  (the only extension test) does not name `learnpress`/`learnpress_inline`, and
+  `notificationx-pro` ships no `tests/` suite.
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under [../types/](../types/) (eLearning / Inline — `_TODO: verify_` exact filenames once written)
+- Related Type docs: [eLearning](../types/elearning.md), [Inline](../types/inline.md)

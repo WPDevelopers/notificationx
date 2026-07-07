@@ -132,9 +132,12 @@ field registry (`normalize_fields()` used throughout for select options).
 - The `convert_to_exit_intent` toggle changes how the same post is displayed
   (exit-intent trigger vs. normal schedule) without changing its `source` — verify
   both paths after editing `customize_fields()`.
-- _TODO: verify_ — whether/where `theme-five`/`theme-six`/`theme-seven` (`is_pro`
-  themes) are actually gated in the free plugin at render time, versus just marked
-  `is_pro` in the theme registry.
+- `theme-five`/`theme-six`/`theme-seven` are marked `is_pro => true` in
+  `init_extension()`'s theme registry; render-time gating is applied by the base
+  `Extension` class, which emits each theme with
+  `'is_pro' => $theme['is_pro'] && ! NotificationX::is_pro()` — so on a free install
+  (no `notificationx-pro`) they surface the upgrade/lock prompt rather than being
+  freely usable. This is the same gating mechanism used for all Pro themes.
 
 ## Related docs
 

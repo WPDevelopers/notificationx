@@ -32,9 +32,11 @@ There are three distinct pieces in this directory, wired up separately:
 2. **`CountdownWidget`** — a self-contained Elementor widget (`Widget_Base`)
    rendering a due-date or evergreen/recurring countdown timer. It does not
    read from or write to any NotificationX campaign, entry, or Type — it is a
-   standalone content widget that happens to reuse NX's countdown JS/CSS.
-   _TODO: verify_ exact rendering/markup (only the `register_controls()` /
-   settings portion of the ~1000-line file was inspected in depth here).
+   standalone content widget that happens to reuse NX's countdown JS/CSS. It is a
+   standard Elementor `Widget_Base` (`get_name()`, `register_controls()`,
+   `render()` at line 782) that enqueues the `nx-countdown` script/style via
+   `get_script_depends()`/`get_style_depends()` and references no NX campaign,
+   entry, or Type.
 3. **`FormWidget`** — a Name/Email/Message Elementor widget that must be bound
    (via its `nx_campaign_id` control) to an *existing* NotificationX campaign
    whose `source` is `popup_notification` or `exit_intent_custom`
@@ -53,17 +55,18 @@ There are three distinct pieces in this directory, wired up separately:
    inspected source, `From` only supplies `init_extension()` (title/popup copy),
    `source_error_message()` (admin notice when Elementor Pro is missing), and
    `doc()` — it does **not** override `get_data()`, `init()`, `save_post`, or
-   any submission hook in this free-plugin class. _TODO: verify_ where the
-   actual submission capture (presumably hooking an Elementor Pro forms action
-   analogous to CF7's `wpcf7_mail_sent`) is implemented — likely in
-   `notificationx-pro` since `$is_pro = true`, which is out of scope for this
-   repo per `CLAUDE.md`.
+   any submission hook in this free-plugin class. The actual submission capture is
+   implemented in `notificationx-pro/includes/Extensions/Elementor/From.php`: its
+   `public_actions()` hooks `elementor_pro/forms/new_record` → `new_record()`
+   (analogous to CF7's `wpcf7_mail_sent`), plus a one-time backfill via
+   `saved_post()` → `get_notification_ready()` that reads Elementor Pro's submissions
+   `Query`. Out of scope for this repo per `CLAUDE.md`.
 
 ## Extension classes & pairings
 
 | Class | Pairs with Type | `$id` | `$module` | Data source (`get_data()`) |
 |---|---|---|---|---|
-| [`From.php`](../../includes/Extensions/Elementor/From.php) | `form` | `elementor_form` | `elementor_form` | No `get_data()` in this file. `$class = 'ElementorPro\Modules\Forms\Submissions\Database\Repositories\Form_Snapshot_Repository'` is used only for the `is_active()`/`class_exists()` presence check; the free-plugin class defines no submission hook or data method. _TODO: verify_ actual capture logic (likely `notificationx-pro`). |
+| [`From.php`](../../includes/Extensions/Elementor/From.php) | `form` | `elementor_form` | `elementor_form` | No `get_data()` in this file. `$class = 'ElementorPro\Modules\Forms\Submissions\Database\Repositories\Form_Snapshot_Repository'` is used only for the `is_active()`/`class_exists()` presence check; the free-plugin class defines no submission hook or data method. Actual capture is in the pro subclass via `elementor_pro/forms/new_record` → `new_record()` (see Data flow). |
 
 `CountdownWidget.php` and `FormWidget.php` do not extend `Extension`, have no
 `$types` / `$id` / `$module`, and are not registered through
@@ -80,7 +83,7 @@ Source event → capture (not present in this free-plugin class; presumed
 `update_notification()` plumbing, per `Extension.php`) → FrontEnd → REST →
 React, same as other `form`-Type sources (see
 [`docs/extensions/cf7.md`](cf7.md) for the shape of this pipeline on a sibling
-integration). _TODO: verify_ the concrete hook/event for Elementor Pro.
+integration). The concrete Elementor Pro event is `elementor_pro/forms/new_record` (handled by the pro subclass's `new_record()`).
 
 **`FormWidget` (Elementor page → NX Popup/Exit-Intent entries):** visitor
 submits the widget's form → JS POSTs to `notificationx/v1/popup-submit`
@@ -146,8 +149,9 @@ Entries admin screen (`/feedback-entries` REST routes in the same
 - Because `From` defines no visible `get_data()`/submission hook in this
   repo, verifying the `elementor_form` source end-to-end requires
   `notificationx-pro` to be present and active — this free-plugin class alone
-  will register the module/error-messaging but will not populate entries.
-  _TODO: verify_ against `notificationx-pro` source if/when available.
+  will register the module/error-messaging but will not populate entries
+  (confirmed against `notificationx-pro/includes/Extensions/Elementor/From.php`, whose
+  `new_record()` on `elementor_pro/forms/new_record` performs the capture).
 - `FormWidget` and `CountdownWidget` are easy to confuse with `From` because
   they live in the same directory and both mention "form" — but they operate
   on completely different pipelines (`popup-submit` REST route vs. the
@@ -165,4 +169,4 @@ Entries admin screen (`/feedback-entries` REST routes in the same
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [Contact Form 7 Extension](cf7.md) — sibling `form`-Type integration with a
   fully-implemented `get_data()`-free, hook-based capture pattern to compare
-  against once `From`'s real capture logic is located.
+  against; `From`'s real capture logic is the pro subclass's `elementor_pro/forms/new_record` handler.

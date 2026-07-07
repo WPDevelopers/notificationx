@@ -72,10 +72,15 @@ trait (`notificationx-pro/includes/Extensions/Freemius/Freemius.php`):
   swap the registered `freemius_conversions`/`freemius_reviews`/`freemius_stats` classes
   for these Pro ones is **commented out**
   (`notificationx-pro/includes/Extensions/ExtensionFactory.php`), and its
-  `extension_classes()` callback body is empty. No other reference to the Pro Freemius
-  classes was found anywhere in the Pro plugin outside their own directory. _TODO: verify_
-  whether some other, unfound mechanism activates the Pro classes in production, or
-  whether this is in-progress/incomplete wiring (same open question as Envato).
+  `extension_classes()` callback body is empty — so that path is inactive. The actual
+  override happens through the shared `GetInstance` trait
+  ([`includes/GetInstance.php`](../../includes/GetInstance.php)): `get_instance()`
+  `str_replace`s `NotificationX\` → `NotificationXPro\` and instantiates the Pro
+  subclass when it exists. Because `ExtensionFactory` registers each extension via
+  `$extension::get_instance()`, the free `Freemius*` classes are transparently replaced
+  by `NotificationXPro\Extensions\Freemius\{FreemiusConversions,FreemiusReviews,FreemiusStats}`
+  when `notificationx-pro` is active (same live mechanism as Envato — the commented-out
+  `nx_extension_classes` filter is a separate, unused path).
 
 ## Extension classes & pairings
 
@@ -154,12 +159,13 @@ defined in the Pro trait's `content_fields()` and `api_integration_settings()`, 
 - All three classes are `$is_pro = true` UI stubs with no `get_data()` — do not assume any
   real Freemius sales/review/stats data flows through the free plugin. Confirm with a
   maintainer before relying on or "fixing" anything here; the real logic lives in Pro.
-- The Pro `ExtensionFactory`'s `nx_extension_classes` filter for swapping in the real
-  Freemius classes is present but commented out and empty — exactly the same
-  not-obviously-wired pattern documented for Envato. If Freemius notifications are
-  expected to show real data even with Pro active, check whether this wiring was
-  intentionally disabled or is a regression, and how the Pro classes actually get
-  instantiated in production (not found in this review).
+- The Pro override is **not** wired through the Pro `ExtensionFactory`'s
+  `nx_extension_classes` filter (commented out and empty) — same as Envato. The Pro
+  classes are instantiated via the `GetInstance` trait's namespace swap in
+  `get_instance()` (see
+  [Pro implementation](#pro-implementation-context-not-part-of-this-docs-scope));
+  don't assume Freemius is broken under Pro just because the factory filter is
+  disabled.
 - `Migration.php`'s three `freemius` cases only run during the legacy post-migration flow
   (reading `_nx_meta_freemius_content`); they are not a substitute for the ongoing
   cron-based fetch (`nx_freemius_interval` / `nx_cron_update_data_{id}`), which is

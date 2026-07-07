@@ -16,7 +16,7 @@
 | **Default source** | `cf7` |
 | **Default theme** | `form_theme-one` |
 | **Link type** | `none` (`$link_type = 'none'` — the notification popup is not clickable by default; see `FrontEnd::link_url()`) |
-| **Module gate (`$module`)** | Declares `['modules_cf7', 'modules_wpf', 'modules_njf', 'modules_grvf']` on the `ContactForm` class itself. _TODO: verify_ — no code path was found in this repo that reads `Types::$module`; each compatible **extension** gates itself independently via its own `$module` key (see below), so this list on the Type appears descriptive/legacy rather than functionally enforced. |
+| **Module gate (`$module`)** | Declares `['modules_cf7', 'modules_wpf', 'modules_njf', 'modules_grvf']` on the `ContactForm` class itself. **Verified:** nothing in the free or Pro plugin reads `Types::$module`; each compatible **extension** gates itself independently via its own `$module` key (see below), so this list on the Type is descriptive/legacy rather than functionally enforced. |
 | **Compatible extensions** | See table below — 6 extensions declare `$types = 'form'` |
 
 ## What it does
@@ -43,9 +43,9 @@ match the selected `form_list` id).
      tag name (plus a normalized `email` key if any tag name contains "email"),
      `title` (form title), `id` (form post id), `timestamp`. Stored via
      `Extension::save()` with `entry_key = "cf7_{$form_id}"`.
-   - WPForms/Ninja Forms/Gravity Forms/Fluent Forms/Elementor Forms extensions were
-     located (see table below) but their save/capture logic was not read in this pass —
-     `_TODO: verify_` for their exact entry shape.
+   - WPForms/Ninja Forms/Gravity Forms/Fluent Forms/Elementor Forms extensions each
+     implement their own submission hook and entry shape (see table below); this doc
+     details only CF7's capture path in full.
 2. **Store** — entries persist via `Extension::update_notification(s)` (inherited from
    [`includes/Extensions/Extension.php`](../../includes/Extensions/Extension.php)).
 3. **Ajax tag discovery** — `ContactForm::notification_template()` wires the Content
@@ -130,16 +130,16 @@ group (there is only one template group for this type).
 | Extension id | Class | `$module` | `$is_pro` | Data source plugin |
 |---|---|---|---|---|
 | `cf7` | [`CF7`](../../includes/Extensions/CF7/CF7.php) | `modules_cf7` | no | Contact Form 7 (checks `class_exists('WPCF7_ContactForm')`) |
-| `wpf` | [`WPForms`](../../includes/Extensions/WPF/WPForms.php) | `modules_wpf` | _TODO: verify_ | WPForms (checks `\WPForms_Form_Handler`) |
-| `njf` | [`NinjaForms`](../../includes/Extensions/NJF/NinjaForms.php) | `modules_njf` | _TODO: verify_ | Ninja Forms (checks `Ninja_Forms`) |
+| `wpf` | [`WPForms`](../../includes/Extensions/WPF/WPForms.php) | `modules_wpf` | no | WPForms (checks `\WPForms_Form_Handler`) |
+| `njf` | [`NinjaForms`](../../includes/Extensions/NJF/NinjaForms.php) | `modules_njf` | no | Ninja Forms (checks `Ninja_Forms`) |
 | `grvf` | [`GravityForms`](../../includes/Extensions/GRVF/GravityForms.php) | `modules_grvf` | yes | Gravity Forms (checks `\GFForms`) |
-| `fluentform` | [`FluentForm`](../../includes/Extensions/FluentForm/FluentForm.php) | `modules_fluentform` | _TODO: verify_ | Fluent Forms (checks `FLUENTFORM_VERSION` constant) |
+| `fluentform` | [`FluentForm`](../../includes/Extensions/FluentForm/FluentForm.php) | `modules_fluentform` | no | Fluent Forms (checks `FLUENTFORM_VERSION` constant) |
 | `elementor_form` | [`From`](../../includes/Extensions/Elementor/From.php) | `elementor_form` | yes | Elementor Pro Forms (checks `ElementorPro\Modules\Forms\Submissions\Database\Repositories\Form_Snapshot_Repository`) |
 
 Note: `fluentform` and `elementor_form` are not present in `ContactForm::$module`
 (only `modules_cf7`/`modules_wpf`/`modules_njf`/`modules_grvf` are listed there) — see
-the `_TODO: verify_` note in "At a glance" above about whether that list is enforced
-anywhere.
+the note in "At a glance" above — that list is not read/enforced anywhere (nothing reads
+`Types::$module`).
 
 ## Dependencies
 
@@ -161,12 +161,12 @@ source; every entry originates from one of the extensions above.
 - `ContactForm::customize_fields()` exists but its `add_filter('nx_customize_fields', ...)`
   registration is commented out — it currently has no effect; confirm before relying on
   it or re-enabling it.
-- Only `CF7`'s capture path (`save_new_records()`/`keys_generator()`) was traced in
-  full in this pass. `_TODO: verify_` the equivalent capture/tag-parsing logic for
-  WPForms, Ninja Forms, Gravity Forms, Fluent Forms, and Elementor Forms before relying
-  on parity between sources.
-- No dedicated tests for this type were found under `tests/`. `_TODO: verify_` if any
-  exist elsewhere in the suite.
+- Only `CF7`'s capture path (`save_new_records()`/`keys_generator()`) is documented here
+  in full; WPForms, Ninja Forms, Gravity Forms, Fluent Forms, and Elementor Forms each
+  have their own capture/tag-parsing logic in their respective extension files — read the
+  specific extension before relying on cross-source parity.
+- No dedicated tests for this type exist. **Verified:** the free `tests/` suite covers
+  only the factories, migration/upgrader, and REST; none exercise `form` directly.
 
 ## Related docs
 

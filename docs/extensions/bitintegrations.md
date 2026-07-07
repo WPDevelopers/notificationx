@@ -42,19 +42,21 @@ returns a hardcoded placeholder string (`'Hello From Bit Integrations'` /
 
 ## Data flow
 
-_TODO: verify_ — Unlike most Extensions in this codebase, none of the three
-BitIntegrations classes override `init_fields()`, implement `save_post()`, hook
-into `nx_api_response_success_{id}`/`nx_api_response_success` (the generic
-webhook actions fired from [`includes/Core/Rest/Integration.php`](../../includes/Core/Rest/Integration.php)'s
+Unlike most Extensions in this codebase, none of the three BitIntegrations classes
+override `init_fields()`, implement `save_post()`, hook into
+`nx_api_response_success_{id}`/`nx_api_response_success` (the generic webhook actions
+fired from [`includes/Core/Rest/Integration.php`](../../includes/Core/Rest/Integration.php)'s
 `save_response()`), or implement a `connect()` method used by
-`Integration::api_connect()`. `get_data()` on all three simply returns a
-hardcoded placeholder string rather than fetching or storing entries via
-`Extension::update_notification()` / `save()`. This mirrors the same stub
-pattern found in the sibling `Zapier` extensions
-([`includes/Extensions/Zapier/`](../../includes/Extensions/Zapier/)). Whether
-real ingestion happens elsewhere (e.g. inside the Bit Integrations plugin
-itself, or in `notificationx-pro`, which was not present in this checkout) is
-unverified from this codebase alone.
+`Integration::api_connect()`. `get_data()` on all three simply returns a hardcoded
+placeholder string rather than fetching or storing entries via
+`Extension::update_notification()` / `save()`. This mirrors the same stub pattern
+found in the sibling `Zapier` extensions
+([`includes/Extensions/Zapier/`](../../includes/Extensions/Zapier/)). The sibling
+`notificationx-pro` plugin **is** present in this checkout but ships **no**
+`BitIntegrations` directory, so no Pro subclass supplies the real ingestion either —
+these three classes are pure source/UI registrations with no verified data path in
+either plugin. (Any real data push would have to come from the Bit Integrations
+plugin posting into the generic webhook route, which nothing in these classes wires up.)
 
 ## Fields & settings
 
@@ -84,12 +86,12 @@ returned no matches). Each class only wires the shared behaviour inherited from
 
 ## Testing notes & gotchas
 
-- **Module key mismatch**: `BitIntegrationsConversions` and `BitIntegrtionsReviews` both use `$module = 'modules_bitintegrations'` (plural), while `BitIntegrationsEmailSubscription` uses `$module = 'modules_bitintegration'` (singular). Separately, `Types\Conversions::$module` (the list of module keys the Conversions Type advertises) lists `'modules_bitintegration'` (singular) — not the plural key that `BitIntegrationsConversions` actually registers/checks via `Modules::is_enabled()`. `Types::$module` did not turn up any functional read site in `includes/Types/` or `includes/Core/` beyond the declaration, so the practical impact of this mismatch is `_TODO: verify_`.
+- **Module key mismatch**: `BitIntegrationsConversions` and `BitIntegrtionsReviews` both use `$module = 'modules_bitintegrations'` (plural), while `BitIntegrationsEmailSubscription` uses `$module = 'modules_bitintegration'` (singular). Separately, `Types\Conversions::$module` (the list of module keys the Conversions Type advertises) lists `'modules_bitintegration'` (singular) — not the plural key that `BitIntegrationsConversions` actually registers/checks via `Modules::is_enabled()`. `Types::$module` has no functional read site in `includes/Types/` or `includes/Core/` beyond the declaration (confirmed by grep), so the mismatch is cosmetic: module gating is driven by each Extension's own `$module` via `Modules::is_enabled()`, not by the Type's advertised `$module` list — the Conversions Type's stale singular key has no runtime effect.
 - **Class name typo**: the Reviews class is named `BitIntegrtionsReviews` (missing the second "a") in `BitIntegrationsReviews.php`; `ExtensionFactory.php` references it with the same typo, so this is internally consistent, just easy to mistype when grepping.
 - **`get_data()` is a placeholder** on all three classes — do not assume it returns usable notification data; verify the true data path before relying on it (see [Data flow](#data-flow)).
-- No tests under `tests/` reference BitIntegrations (`_TODO: verify_` if this changes).
+- No tests under `tests/` reference BitIntegrations specifically; the three ids are registered, so they are exercised generically by [`tests/test-extension-factory.php`](../../tests/test-extension-factory.php).
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under [../types/](../types/) (none yet exist for `conversions` / `email_subscription` / `reviews` at time of writing — `_TODO: verify_`)
+- Type docs for the Types this Extension feeds: [Sales/Conversions](../types/conversions.md), [Email Subscription](../types/email_subscription.md), [Reviews](../types/reviews.md)

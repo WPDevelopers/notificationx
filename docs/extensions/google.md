@@ -57,10 +57,11 @@ None of the three classes implement a working fetch-and-store path in the free p
 - `GoogleReviews` has no cron hook, no `save_post`/`saved_post` override, and its only
   data-adjacent method is the inherited `restResponse()` stub reached via
   `REST.php`'s `type=reviews&source=google_reviews` branch.
-- `Google_Analytics`'s `get_data()` returns a hardcoded string and is not called from
-  `Extension`/`ExtensionFactory` internals (`ExtensionFactory::getExtension()` would call
-  it, but nothing in this directory invokes `getExtension()` for `google`). _TODO: verify_
-  whether any other caller in the codebase invokes it.
+- `Google_Analytics`'s `get_data()` returns a hardcoded string and is never invoked in
+  the free plugin: `ExtensionFactory::getExtension()` (the only method that would call
+  `get_data()` for this source) has **no callers anywhere** in the codebase (confirmed by
+  grep), and `REST.php`'s `page_analytics`/`google` branch falls through to the default
+  case, which calls `restResponse()`, not `get_data()`. So nothing reaches this stub.
 - `YouTube` sets `$cron_schedule = 'nx_youtube_interval'`, which the base
   `Extension::add_cron_job()` hooks onto `nx_saved_post_{$this->id}` — so a cron event is
   scheduled when a YouTube notification post is saved — but no handler for
@@ -78,10 +79,11 @@ plus their own cron intervals (e.g. `$cron_schedule = 'nx_google_review_cache_du
 `ExtensionFactory::extension_classes()` filter callback (meant to swap these into
 `nx_extension_classes`) is present but its body just returns the array unchanged and the
 `add_filter` call registering it is commented out — mirroring the same pattern documented
-for [Envato](envato.md). _TODO: verify_ the actual mechanism by which the Pro subclasses
-end up active (their own direct `::get_instance()` calls from cron/updater code use late
-static binding and so resolve to the Pro subclass when that code path runs, independent of
-the factory swap).
+for [Envato](envato.md). The mechanism that actually makes the Pro subclasses active is the
+free→pro swap in [`GetInstance::get_instance()`](../../includes/GetInstance.php) (confirmed
+in source: it rewrites the `NotificationX\` prefix to `NotificationXPro\` and instantiates
+that subclass when it exists and `is_subclass_of` the free class) — the same mechanism
+documented for [Zapier](zapier.md), independent of the commented-out factory filter.
 
 ## Fields & settings
 
@@ -93,8 +95,9 @@ is `"youtube"` in the shared **show-notification-image** field's source-dependen
 `GoogleReviews.doc()` and `YouTube.doc()` both point at
 `admin_url('admin.php?page=nx-settings&tab=tab-api-integrations#google_..._settings_section')`
 for API-key configuration, but the actual settings-field definitions for those sections
-were not found in this directory or in `GlobalFields.php` — they are built by the
-React admin app (`nxdev/`) and/or by `notificationx-pro`. _TODO: verify_.
+are not in this directory or in `GlobalFields.php` — they are defined in
+`notificationx-pro` (its `includes/Admin/Settings.php` and the Pro Google extension
+classes, confirmed by grep) and/or the React admin app (`nxdev/`).
 
 ## Dependency & detection
 

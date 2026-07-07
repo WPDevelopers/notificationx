@@ -14,7 +14,7 @@
 | **Module key(s) (`$module`)** | None — `$module` is left at the base-class default (`''`) and `$show_on_module = false`, so `register_module()` never registers a toggle for it (see [Dependency & detection](#dependency--detection)) |
 | **Feeds Types** | `video` ([`Types\Video`](../../includes/Types/Video.php)) |
 | **Extension classes** | `Wistia.php` → `$id = 'wistia'`, `$types = 'video'` |
-| **Depends on** | No third-party plugin/service check in code. Wistia video embeds/URLs are presumably entered manually by the admin; nothing in this class calls a Wistia API. `_TODO: verify_` whether `notificationx-pro` or the React admin (`nxdev/`) does anything Wistia-specific beyond showing this icon |
+| **Depends on** | No third-party plugin/service check in code. Wistia video embeds/URLs are entered manually by the admin; nothing in this class calls a Wistia API. Confirmed: `grep` across `notificationx-pro` found **no** Wistia references, so Pro adds nothing Wistia-specific beyond this icon |
 
 ## What it does
 
@@ -37,15 +37,15 @@ the `video` Type that `YouTube` actually drives.
 
 `$doc_link` is set to
 `https://notificationx.com/docs/google-reviews-with-notificationx/` — this is the same
-URL used by `Vimeo`, and it points at the Google Reviews doc, not anything Wistia- or
-video-related. `_TODO: verify_` — looks like a copy-paste artifact rather than an
-intentional link.
+URL used by `Vimeo` (confirmed identical in both source files), and it points at the
+Google Reviews doc, not anything Wistia- or video-related — a copy-paste artifact
+rather than an intentional link.
 
 ## Extension classes & pairings
 
 | Class | Pairs with Type | `$id` | `$module` | Data source (`get_data()`) |
 |---|---|---|---|---|
-| [`Wistia.php`](../../includes/Extensions/Wistia/Wistia.php) | `video` | `wistia` | _(none — `$show_on_module = false`, no module registered)_ | No `get_data()` defined in this class or in the base `Extension`/`GlobalFields`. `_TODO: verify_` whether `notificationx-pro` adds one |
+| [`Wistia.php`](../../includes/Extensions/Wistia/Wistia.php) | `video` | `wistia` | _(none — `$show_on_module = false`, no module registered)_ | No `get_data()` defined in this class or in the base `Extension`/`GlobalFields`, and none in `notificationx-pro` (no Wistia code exists there) |
 
 ## Data flow
 
@@ -104,8 +104,8 @@ fallback-to-Type behavior).
 ## Testing notes & gotchas
 
 - Do not expect any Wistia API calls, cron jobs, or stored video stats from this class —
-  it is icon/label registration only, in both this free plugin and (as far as this repo
-  shows) unverified in `notificationx-pro`. `_TODO: verify_` Pro.
+  it is icon/label registration only, in both this free plugin and in
+  `notificationx-pro` (confirmed: no Wistia code exists in the Pro checkout).
 - The `video` Type's own module gate is `modules_google_youtube` (see
   [`Types\Video`](../../includes/Types/Video.php)) — disabling the YouTube module hides
   the whole `video` Type, including the Wistia and Vimeo source options, even though

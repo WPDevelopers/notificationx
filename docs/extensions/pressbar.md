@@ -138,10 +138,12 @@ There is no source-event → `get_data()` step for PressBar. Instead:
 - `bottom_left` position is silently remapped to `top` in
   `get_notifications_data()` — don't be surprised if a bar saved as `bottom_left`
   renders at the top.
-- _TODO: verify_ whether there are dedicated automated tests under `tests/` for
-  PressBar; none were found during this pass.
+- No dedicated PressBar tests exist under `tests/`; `press_bar` registration and
+  type-resolution are exercised generically by
+  [`tests/test-extension-factory.php`](../../tests/test-extension-factory.php),
+  which iterates every registered extension.
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under [../types/](../types/) (`notification_bar` Type — see the `NotificationBar` Type class under `includes/Types/`, not yet doc'd; _TODO: verify_ link once that doc exists)
+- [Notification Bar Type](../types/notification_bar.md) — the `notification_bar` Type this Extension feeds (`NotificationBar` Type class under `includes/Types/`)

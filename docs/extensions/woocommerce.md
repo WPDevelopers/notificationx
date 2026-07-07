@@ -39,7 +39,8 @@ available, split across two Types:
   `WooInline`, reuses the inline sales-count/stock themes), and
   `WooCommerceSalesReviews` (extends `WooReviews`, reuses the review pipeline). See
   `includes/Types/WooCommerceSales.php` for the Type that groups these three
-  (`_TODO: verify_` — full Type-level detail is out of scope for this Extension doc).
+  (documented in [`../types/woocommerce_sales.md`](../types/woocommerce_sales.md);
+  full Type-level detail is out of scope for this Extension doc).
 
 Real events that drive data:
 - `woocommerce_order_status_changed` action (hooked in `WooCommerce::init()`) —
@@ -125,12 +126,16 @@ Real events that drive data:
   "Product Page" option to the shared Link Type field, scoped with
   `Rules::is('source', 'woocommerce')`.
 - `combine_multiorder` / `combine_multiorder_text` settings (consumed in
-  `multiorder_combine()`) — not defined in this directory; presumably registered
-  elsewhere in the settings/fields UI (`_TODO: verify_` exact field-registration
-  location).
+  `multiorder_combine()`) — not defined in this directory. The `combine_multiorder`
+  checkbox is registered in [`GlobalFields.php`](../../includes/Extensions/GlobalFields.php)
+  (in the shared `content` section, ~line 957, scoped via `Rules::includes('source', ['woocommerce','edd','woocommerce_sales'])`);
+  the `combine_multiorder_text` field is Pro-only and registered in
+  `notificationx-pro/includes/Extensions/GlobalFields.php` (gated by the
+  `nx_combine_multiorder_text_dependency` filter, to which the Pro
+  `WooCommerce`/`EDD` classes add their source ids).
 - `wpml_included = ['sales_count', 'donation_count']` on `WooCommerce` and
-  `WooCommerceSales` — `_TODO: verify_` how this list is consumed (not read within
-  this directory).
+  `WooCommerceSales` — declared but not read anywhere in the free or Pro plugin (no
+  consumer found); it appears to be an unused/reserved property.
 - `WooInline` / `WooCommerceSalesInline` define their own `$themes` / `$templates`
   arrays (inline sales-count and stock-count widgets) rather than pulling from
   `GlobalFields`.
@@ -182,13 +187,17 @@ Real events that drive data:
   show as locked/upsell in the free plugin per the standard
   `is_pro && !NotificationX::is_pro()` pattern in `Extension::__nx_sources()` /
   `register_module()`.
-- No dedicated PHPUnit tests found under `tests/` for this integration —
-  `_TODO: verify_` if WooCommerce-specific test coverage exists elsewhere (e.g. in
-  `notificationx-pro`).
+- No dedicated PHPUnit tests exercise this integration's data pipeline. The free
+  `tests/` suite is limited to factory/type/REST/migration smoke tests
+  (`test-extension-factory.php`, `test-types-factory.php`, `test-rest.php`,
+  `test-migration-upgrader.php`), and `notificationx-pro/tests/` only adds
+  type/engine/smoke tests (`test-pro-types.php` references the `WooCommerceSales`
+  Type name but does not test the WooCommerce data flow). No `ordered_product()` /
+  `get_orders()` unit coverage exists in either plugin.
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under [../types/](../types/) (`_TODO: verify_` exact filenames
-  once written — see `includes/Types/Conversions.php`, `includes/Types/Reviews.php`,
-  `includes/Types/Inline.php`, `includes/Types/WooCommerceSales.php` in the meantime)
+- Related Type docs: [Sales / Conversions](../types/conversions.md),
+  [Reviews](../types/reviews.md), [Inline](../types/inline.md), and
+  [Growth Alert (WooCommerce Sales)](../types/woocommerce_sales.md)

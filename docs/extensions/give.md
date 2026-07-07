@@ -71,9 +71,12 @@ Real events that drive data:
 - `give_forms_control` / `give_form_list` — settings consumed by
   `Give::limit_by_selected_form()` to restrict notifications to specific Give
   forms; also referenced in `Core/PostType.php`, `Core/Migration.php`, and
-  `FrontEnd/FrontEnd.php`. The field UI definitions were not found in
-  `GlobalFields.php` in this repo — `_TODO: verify_` exact field-registration
-  location (may live in a metabox/JSON config or `notificationx-pro`).
+  `FrontEnd/FrontEnd.php`. The field UI is **Pro-only**: both `give_forms_control`
+  (radio: "All Forms" / "Selected Forms") and `give_form_list` (form picker) are
+  registered in `notificationx-pro/includes/Extensions/Give/Give::content_fields()`
+  (hooked on `nx_content_fields`; `give_form_list` is gated by
+  `Rules::is('give_forms_control', 'give_form')`). They are not defined in the free
+  plugin, so `limit_by_selected_form()` is effectively a no-op unless Pro is active.
 - `Types\Donations` (the `donation` Type) supplies the shared theme/template
   scaffolding (`donation_template_new`, `donation_template_sales_count`) and its
   `first_param` uses `GlobalFields::get_instance()->common_name_fields()`; `Give`
@@ -122,12 +125,11 @@ Real events that drive data:
 - Entry key is `"{payment ID}-{form_id}"`, matching between the real-time and
   backfill paths, so re-saving a notification after a live donation shouldn't
   duplicate entries.
-- No dedicated PHPUnit tests found under `tests/` for this integration —
-  `_TODO: verify_` if GiveWP-specific test coverage exists elsewhere (e.g. in
-  `notificationx-pro`).
+- No dedicated PHPUnit tests exercise this integration. The free `tests/` suite is
+  limited to factory/type/REST/migration smoke tests and `notificationx-pro/tests/`
+  only adds type/engine/smoke tests — neither covers `Give`'s donation pipeline.
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under [../types/](../types/) (Donation type —
-  `_TODO: verify_` exact filename once written)
+- [Donation type](../types/donation.md)

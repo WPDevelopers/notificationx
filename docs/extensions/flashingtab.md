@@ -42,10 +42,11 @@ data-driven extensions such as WooCommerce). The builder saves the chosen theme 
 its field values (icon URLs, messages) onto the `nx_bar` post as usual via
 `Extension::init()` (`save_post`/`saved_post` filters, inherited, not overridden
 here). At runtime the frontend popup/bar runtime reads that config and flashes the
-document title/favicon on the browser `visibilitychange`/`blur` event —
-_TODO: verify_ the exact frontend runtime file (`nxdev/notificationx/frontend/`)
-that implements the tab-flash/title-swap behavior, as this doc's source review was
-scoped to the PHP `Extensions/FlashingTab/` directory.
+document title/favicon. The frontend runtime that implements this is
+[`nxdev/notificationx/frontend/flashing-tab.ts`](../../nxdev/notificationx/frontend/flashing-tab.ts),
+which reads its config from `window.nx_flashing_tab` and imports
+`flashing/favloader.ts` (favicon swap) and `flashing/webWorker.ts` (the rotate
+interval).
 
 `init_fields()` adds a `nx_metabox_tabs` filter (`nx_tabs()`) that gates the
 `display_tab` and `customize_tab` builder tabs to only show when
@@ -100,12 +101,14 @@ the notification's source is Flashing Tab.
   confirm PRO-gating behavior (locked vs. functional) in both places if changing
   either class — a change to one without the other can desync the upgrade-prompt
   logic.
-- `_TODO: verify_` — the actual browser-tab-flashing JS implementation
-  (favicon/title swap, `visibilitychange` handling) lives in the frontend bundle
-  (`nxdev/notificationx/frontend/`), which was out of scope for this PHP-focused
-  review; check there before assuming runtime behavior.
-- No dedicated tests for Flashing Tab were found under `tests/` during this
-  review — `_TODO: verify_` if any exist elsewhere.
+- The browser-tab-flashing JS implementation (favicon/title swap, rotate interval)
+  lives in the frontend bundle:
+  [`nxdev/notificationx/frontend/flashing-tab.ts`](../../nxdev/notificationx/frontend/flashing-tab.ts)
+  plus `flashing/favloader.ts` and `flashing/webWorker.ts` — check there before
+  assuming runtime behavior.
+- No dedicated tests for Flashing Tab exist under `tests/`; the `flashing_tab` source
+  is exercised generically by
+  [`tests/test-extension-factory.php`](../../tests/test-extension-factory.php).
 
 ## Related docs
 

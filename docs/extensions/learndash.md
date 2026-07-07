@@ -43,17 +43,17 @@ what `Extension` provides). Both classes only:
 
 The real event wiring and data pulling happens in the Pro plugin's
 `NotificationXPro\Extensions\LearnDash\LearnDash` class (extends this free
-`LearnDash` class), which hooks `learndash_update_course_access` and implements the
-enrollment-fetch logic via a `_LearnDash` trait — out of scope for this free-plugin
-directory; see `_TODO: verify_` in `notificationx-pro/includes/Extensions/LearnDash/`
-for those details.
+`LearnDash` class), which hooks `learndash_update_course_access` →
+`save_new_enrollment($user_id, $course_id)` and implements the enrollment-fetch logic
+via the `_LearnDash` trait (`notificationx-pro/includes/Extensions/LearnDash/_LearnDash.php`)
+— out of scope for this free-plugin directory.
 
 ## Extension classes & pairings
 
 | Class | Pairs with Type | `$id` | Data source (`get_data()`) |
 |---|---|---|---|
 | [`LearnDash.php`](../../includes/Extensions/LearnDash/LearnDash.php) (class `LearnDash`) | `elearning` | `learndash` | No `get_data()` (or any data-fetch method) in the free plugin. `init_extension()` only sets `$this->title`, `$this->module_title`, and `$this->popup` (upsell popup copy/links). `source_error_message()` adds an admin error when LearnDash isn't installed; `doc()` returns instructional HTML for the field/help panel. Real enrollment-data logic lives in the Pro override of this class. |
-| [`LearnDashInline.php`](../../includes/Extensions/LearnDash/LearnDashInline.php) (class `LearnDashInline`, extends `LearnDash`) | `inline` | `learndash_inline` | Also no `get_data()`. `init_extension()` defines `$this->themes` (`conv-theme-seven` — Pro, `image_shape: rounded`, `inline_location: ['learndash_content']`, template mapping sales-count/course-title/day-window tags) and `$this->templates` (`learndash_inline_template_sales_count` — first/third/fourth template param options, scoped via `_themes` to `learndash_inline_conv-theme-seven`). Also defines `show_on_exclude()` (checks `settings['type'] === 'inline' && settings['source'] === $this->id`, diffs against a `tutor_course/loop/after_title` hook list — `_TODO: verify_`, this looks copy-pasted from a Tutor/EDD sibling and may not be fully wired for LearnDash's own hook). Overrides `get_instance()` to prefer a `NotificationXPro\...` class if it exists. |
+| [`LearnDashInline.php`](../../includes/Extensions/LearnDash/LearnDashInline.php) (class `LearnDashInline`, extends `LearnDash`) | `inline` | `learndash_inline` | Also no `get_data()`. `init_extension()` defines `$this->themes` (`conv-theme-seven` — Pro, `image_shape: rounded`, `inline_location: ['learndash_content']`, template mapping sales-count/course-title/day-window tags) and `$this->templates` (`learndash_inline_template_sales_count` — first/third/fourth template param options, scoped via `_themes` to `learndash_inline_conv-theme-seven`). Also defines `show_on_exclude()` (checks `settings['type'] === 'inline' && settings['source'] === $this->id`, diffs against a `[ 'tutor_course/loop/after_title' ]` hook list — confirmed a copy-paste artifact from the Tutor inline sibling: the theme's own `inline_location` is `learndash_content`, not that Tutor hook, so this diff never matches LearnDash's actual location). Overrides `get_instance()` to prefer a `NotificationXPro\...` class if it exists. |
 
 ## Data flow
 
@@ -69,9 +69,13 @@ only — not part of this doc's scope):
   / `Entries::insert_entry()` pipeline (inherited, per plugin architecture) into the
   custom entries table, then FrontEnd → REST → the React popup runtime.
 
-`_TODO: verify_` the exact enrollment-fetch method name/shape and any batching or
-backfill behavior — that logic lives in `notificationx-pro/includes/Extensions/LearnDash/_LearnDash.php`,
-outside this repo's documented scope.
+The exact enrollment-fetch logic lives in the Pro `_LearnDash` trait
+(`notificationx-pro/includes/Extensions/LearnDash/_LearnDash.php`): backfill runs
+through `get_notification_ready()` → `get_course_enrollments()`, which queries the
+`{$wpdb->prefix}learndash_user_activity` table (JOINed to `posts`,
+`activity_type = "access"`, `LIMIT 50`); live capture runs through
+`save_new_enrollment()`, merging `get_enrolled_course()` + `get_enrolled_user()`.
+Outside this repo's documented scope.
 
 ## Fields & settings
 
@@ -121,7 +125,7 @@ outside this repo's documented scope.
 | Base class | [`includes/Extensions/Extension.php`](../../includes/Extensions/Extension.php) |
 | Shared fields | [`includes/Extensions/GlobalFields.php`](../../includes/Extensions/GlobalFields.php) |
 | Paired Type | [`includes/Types/ELearning.php`](../../includes/Types/ELearning.php) (`elearning`), [`includes/Types/Inline.php`](../../includes/Types/Inline.php) (`inline`) |
-| Pro override (data logic, out of scope) | `notificationx-pro/includes/Extensions/LearnDash/LearnDash.php`, `_LearnDash.php` — sibling plugin, `_TODO: verify_` for full behavior |
+| Pro override (data logic, out of scope) | `notificationx-pro/includes/Extensions/LearnDash/LearnDash.php` (+ `LearnDashInline.php`), `_LearnDash.php` trait — sibling plugin |
 
 ## Testing notes & gotchas
 
@@ -129,17 +133,17 @@ outside this repo's documented scope.
   free plugin alone there is no working enrollment-data pipeline to test — verifying
   behavior requires `notificationx-pro` active.
 - `LearnDashInline::show_on_exclude()` diffs against a `tutor_course/loop/after_title`
-  hook list rather than a LearnDash-specific hook — `_TODO: verify_` whether this is
-  intentional (shared inline-exclude logic) or a copy-paste artifact from the
-  Tutor/EDD inline classes.
+  hook list rather than a LearnDash-specific hook — confirmed a copy-paste artifact
+  from the Tutor inline class (the theme's `inline_location` is `learndash_content`,
+  which never appears in that Tutor hook list).
 - `LearnDashInline::get_instance()` swaps in a `NotificationXPro\...` class if it
   exists (`class_exists($pro_class)`) — when debugging, confirm which class
   (`NotificationX\...` vs `NotificationXPro\...`) is actually instantiated.
-- No dedicated PHPUnit tests found under `tests/` for this integration —
-  `_TODO: verify_` if LearnDash-specific test coverage exists elsewhere (e.g. in
-  `notificationx-pro`).
+- No dedicated PHPUnit tests reference this integration; the only extension test,
+  `tests/test-extension-factory.php`, does not name `learndash`/`learndash_inline`.
+  (`notificationx-pro` ships no `tests/` suite of its own.)
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under [../types/](../types/) (eLearning / Inline — `_TODO: verify_` exact filenames once written)
+- Related Type docs: [eLearning](../types/elearning.md), [Inline](../types/inline.md)

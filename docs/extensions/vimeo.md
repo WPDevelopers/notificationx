@@ -57,8 +57,9 @@ There is no working data flow to trace: no code path fetches Vimeo data, stores 
 or serves it via REST for this source. The class exists solely so `vimeo` is a legal
 `value` in the `nx_sources` list and the `video`-Type source dropdown; selecting it as an
 active source produces no notification content unless something else populates entries
-tagged `source = 'vimeo'`. _TODO: verify_ whether `notificationx-pro` (checked in this
-session — no `Vimeo` references found) or a future release fills this in.
+tagged `source = 'vimeo'`. Confirmed: `grep` across `notificationx-pro` found **no**
+`Vimeo` references, so the Pro plugin does not fill this in either — the class is
+free-only with no implementation anywhere in this checkout.
 
 ## Fields & settings
 
@@ -103,8 +104,13 @@ class and there is no Vimeo-specific entry there (confirmed by grep).
   registering the `video` Type via `TypeFactory::register_types()`. If that extension's
   module were ever disabled/removed without another `video`-type extension taking over
   registration, the `video` Type itself might not register even though `Vimeo` still
-  contributes a (non-functional) source entry. _TODO: verify_ this interaction directly.
-- No tests under `tests/` reference Vimeo. _TODO: verify_ if any are added later.
+  contributes a (non-functional) source entry. (Confirmed in source: `Vimeo.php` sets
+  `$show_on_type = false`, so it never calls `TypeFactory::register_types('video')`;
+  only `YouTube` — `$show_on_type = true` — registers the Type.)
+- No tests under `tests/` reference Vimeo beyond an exempt-list comment in
+  [`tests/test-extension-factory.php`](../../tests/test-extension-factory.php); that
+  generic suite still exercises its registration/type-resolution since `vimeo` is a
+  registered extension.
 
 ## Related docs
 

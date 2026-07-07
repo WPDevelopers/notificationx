@@ -31,11 +31,11 @@ buttons) plus visibility gating for shared sections like `appearance`,
 `queue_management`, `timing`, `behaviour`, and `utm_options`/`content`.
 
 Because there is nothing to fetch, `GDPR_Notification` defines **no `get_data()`
-method** — `_TODO: verify_` whether any other hook (e.g. `save_post`) moves the
-authored fields into an entry; no such method exists on this class either, so
-rendering appears to read directly from the notification post's fields rather
-than the `Entries`/analytics table used by data-pulling extensions like
-WooCommerce or EDD.
+method** — and no `save_post()`/`saved_post()`/cron hook either. Its constructor
+only registers three field-filter hooks (`nx_design_tab_fields`,
+`nx_content_fields`, `nx_customize_fields`), so no entry is ever written to the
+`Entries`/analytics table used by data-pulling extensions like WooCommerce or EDD;
+rendering reads directly from the notification post's own fields.
 
 ## Extension classes & pairings
 
@@ -50,10 +50,10 @@ class).
 
 ## Data flow
 
-There is no source-event → `get_data()` → entries pipeline here (`_TODO: verify_`
-the exact render path — likely: builder saves the post's meta/content fields →
-`Types\GDPR` + `FrontEnd` render the banner directly from those fields on page
-load, with no `Entries`/`Database` row created per "notification"). This differs
+There is no source-event → `get_data()` → entries pipeline here. The builder saves
+the post's meta/content fields → `Types\GDPR` + `FrontEnd` render the banner
+directly from those fields on page load, with no `Entries`/`Database` row created
+per "notification" (confirmed: the extension class writes nothing). This differs
 from event-driven extensions (Sales, Reviews, etc.) where `get_data()` writes
 rows that are then polled/streamed to the frontend.
 
@@ -62,12 +62,12 @@ rows that are then polled/streamed to the frontend.
 - **Content fields** (on the Type, [`includes/Types/GDPR.php`](../../includes/Types/GDPR.php)): `gdpr_title`, `gdpr_message`, `gdpr_accept_btn`, `gdpr_reject_btn`, `gdpr_customize_btn`, `gdpr_cookies_policy_toggle` + link text/URL, `gdpr_custom_logo` (pro), plus the `preference_center` section (`preference_title`, `preference_overview`, `preference_google*`, `preference_btn`, `preference_more_btn`, `preference_less_btn`) and `cookies_list` section (`cookie_list_show_banner`, `cookie_list_active_label`, `cookie_list_no_cookies_label`).
 - **Design fields** (on the Extension, `GDPR_Notification::design_fields()`): `gdpr_design` section (background/footer/title/description colors & font sizes, close-button color/size), `gdpr_accept_btn`, `gdpr_reject_btn`, `gdpr_customize_btn` sections (each with background/border/text color + font size). Several are gated by `Rules::is('themes', ...)` to specific GDPR theme slugs (e.g. `gdpr_theme-banner-light-one`, `gdpr_theme-dark-two`, …).
 - **Customize fields**: `GDPR_Notification::customize_fields()` restricts the shared `appearance`, `queue_management`, `timing`, `behaviour`, `sound_section` fields to `Rules::is('source', 'gdpr_notification', true, ...)`. The Type itself (`Types\GDPR::customize_fields()`) additionally adds a `visibility` section (`cookie_visibility_show_on`, `cookie_visibility_display_for`, `cookie_visibility_delay_before`).
-- The class imports `NotificationX\Extensions\GlobalFields` but does not call it anywhere in this file — `_TODO: verify_` whether it's dead code left from a template.
+- The class imports `NotificationX\Extensions\GlobalFields` (line 12) but never references it in the file body — confirmed an unused import (dead code left from a template).
 
 ## Dependency & detection
 
 - **No third-party plugin/service dependency.** `GDPR_Notification` leaves the base `Extension` properties `$class`, `$function`, and `$constant` unset, so `Extension::is_active()` never fails a `class_exists()`/`function_exists()`/`defined()` check for this extension — it is considered active whenever the `modules_gdpr` module is enabled and a `gdpr`-type notification exists (`PostType::get_active_items()`).
-- The `doc()` method recommends installing the **WP Consent API** plugin (`https://wordpress.org/plugins/wp-consent-api/`) in its help copy, but this is editorial guidance only — the code never checks for it (`_TODO: verify_` if any other part of the plugin does).
+- The `doc()` method recommends installing the **WP Consent API** plugin (`https://wordpress.org/plugins/wp-consent-api/`) in its help copy. This extension class never checks for it, but the plugin does elsewhere: [`includes/FrontEnd/FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php) (line 112) sets `is_enabled_wp_consent_api => is_plugin_active('wp-consent-api/wp-consent-api.php')`, exposing that flag to the frontend runtime.
 
 ## Key files
 
@@ -84,11 +84,9 @@ rows that are then polled/streamed to the frontend.
 - Because this extension has no `get_data()`/entries pipeline, don't expect rows in the analytics/entries table for GDPR notifications — verify content instead via the builder-saved post fields and the rendered frontend banner.
 - The `gdpr` Type ships many theme slugs (`gdpr_theme-light-one` … `gdpr_theme-banner-dark-two`); several design fields (close-button, reject-button) are conditionally shown only for specific theme slugs — check `Rules::is('themes', ...)` conditions when adding/renaming a theme.
 - The stray `@package`/class doc-comment ("Wistia Extension") at the top of `GDPR_Notification.php` is misleading copy-paste; don't use it as a signal of the class's actual purpose.
-- No existing tests under `tests/` were found referencing GDPR (`_TODO: verify_` with a repo-wide search if this changes).
+- No tests reference GDPR; `tests/test-extension-factory.php` does not name `gdpr`/`gdpr_notification`.
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under [../types/](../types/) (`_TODO: verify_` — no `types/gdpr.md` found at doc-writing time)
-
----
+- Related Type doc: [GDPR / Cookie Notice](../types/gdpr.md)

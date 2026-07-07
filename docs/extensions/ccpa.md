@@ -104,11 +104,13 @@ center, cookies list, design colors) are added by `GDPR_Notification`
 - If you are asked to build out real CCPA functionality, use
   `GDPR_Notification.php` as the template (field filters, `doc()`, design
   fields) rather than assuming `CCPA_Notification.php` already has parity.
-- No tests under `tests/` reference CCPA or `ccpa_notification`. `_TODO: verify_
-  if this changes.
+- No tests reference CCPA or `ccpa_notification`; `tests/test-extension-factory.php`
+  does not name it (confirmed: `CCPA`/`ccpa_notification` appears only in
+  `ExtensionFactory.php` and `CCPA_Notification.php` across `includes/` and `nxdev/`,
+  and nowhere in `notificationx-pro`).
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under [../types/](../types/) (none yet exist for `gdpr`; see
-  [`includes/Types/GDPR.php`](../../includes/Types/GDPR.php) directly)
+- Related Type doc: [GDPR / Cookie Notice](../types/gdpr.md) (the `gdpr` Type this
+  extension pairs with; see also [`includes/Types/GDPR.php`](../../includes/Types/GDPR.php))

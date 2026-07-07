@@ -33,9 +33,12 @@ extending the base [`Extension`](../../includes/Extensions/Extension.php). It is
   video tutorial, and the integrations page.
 - `get_data( $args = [] )` — **does not fetch any real data**; it returns the literal
   string `'Hello From Custom Notification'` (a placeholder left over from a copy/paste of
-  another extension). `get_data()` is not called anywhere in the base `Extension` class or
-  `ExtensionFactory`, so this method currently appears to be dead/unused code in the free
-  plugin. _TODO: verify_ whether any other caller invokes `Envato::get_data()`.
+  another extension). The only reference to an extension's `get_data()` is the static
+  wrapper `ExtensionFactory::getExtension()` (`return $extension->get_data($args);`),
+  but `getExtension()` is itself never called anywhere in the free or Pro plugin
+  (the only `getExtension` matches in the codebase are an unrelated method in the
+  bundled phpseclib X509 library). So `Envato::get_data()` is confirmed dead/unused
+  code in the free plugin.
 
 The class does **not** override `init_fields()`, `init_settings_fields()`, or
 `admin_actions()`/`public_actions()` beyond the base no-ops, and does not reference
@@ -53,10 +56,16 @@ calls `https://api.envato.com/v3/market/author/sales` with a Bearer token, a
 (`notificationx-pro/includes/Extensions/ExtensionFactory.php`) has an
 `add_filter('nx_extension_classes', ...)` call that would swap the registered `envato`
 class for this Pro one, but that line is currently **commented out** and its
-`extension_classes()` filter callback body is empty — so as of this reading, the Pro
-class is not wired to override the free stub via that mechanism. _TODO: verify_ whether
-some other, unfound mechanism activates the Pro class in production, or whether this is
-in-progress/incomplete work.
+`extension_classes()` filter callback body is empty — so that particular mechanism is
+inactive. The actual override happens elsewhere: the shared `GetInstance` trait
+([`includes/GetInstance.php`](../../includes/GetInstance.php)) implements a namespace
+swap in `get_instance()` — it `str_replace`s `NotificationX\` → `NotificationXPro\`
+and, if that subclass exists and is a subclass of the free class, instantiates the Pro
+class instead. Since `ExtensionFactory` registers extensions via
+`$extension::get_instance()`, calling `NotificationX\Extensions\Envato\Envato::get_instance()`
+transparently returns the Pro `NotificationXPro\Extensions\Envato\Envato` when
+`notificationx-pro` is active. The commented-out `nx_extension_classes` filter is a
+separate, currently-unused path — not the live wiring.
 
 ## Extension classes & pairings
 
@@ -122,10 +131,12 @@ not in this directory.
   assume it reflects real Envato sales data; confirm with a maintainer before relying on
   it or "fixing" it without checking whether Pro's `get_sales()`/`update_data()` is the
   actual intended path.
-- The Pro `ExtensionFactory`'s `nx_extension_classes` filter for swapping in the real
-  Envato class is present but commented out and empty — if Envato notifications are
-  expected to show real sales even with Pro active, check whether this wiring was
-  intentionally disabled or is a regression.
+- The Pro override is **not** wired through the Pro `ExtensionFactory`'s
+  `nx_extension_classes` filter (that call is commented out and empty). The live
+  mechanism is the `GetInstance` trait's namespace swap in `get_instance()` (see
+  [Pro implementation](#pro-implementation-context-not-part-of-this-docs-scope)) —
+  don't assume Envato is broken under Pro just because the factory filter is disabled;
+  the real Pro class is instantiated via `get_instance()`.
 - `Migration.php`'s `envato` case only runs during the legacy post-migration flow (reading
   `_nx_meta_envato_content`); it is not a substitute for the ongoing cron-based fetch.
 - Per this repo's `CLAUDE.md`, Pro-only logic lives in the sibling `notificationx-pro`

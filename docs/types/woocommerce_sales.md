@@ -40,9 +40,9 @@ Product filtering (which products are eligible to appear) is implemented **on th
 - `_excludes_product( $product, $settings )` — honors `product_exclude_by` (`none` / `product_category` / `manual_selection`) to drop excluded categories/products.
 - `_show_purchaseof( $product, $settings )` — honors `product_control` (`none` / `product_category` / `manual_selection`) to restrict to an allow-list.
 - `nx_can_entry( $return, $entry, $settings )` — combines both checks for a single entry. Marked `@todo remove in the future` in the source. It is wired up by the **Extension**, not this Type: `WooCommerce::__construct()` does `add_filter("nx_can_entry_{$this->id}", array($this->get_type(), 'nx_can_entry'), 10, 3)` (`includes/Extensions/WooCommerce/WooCommerce.php:111`), where `get_type()` resolves back to this `WooCommerceSales` Type instance.
-- `show_exclude_product( $data, $settings )` — the same per-product filtering applied to an array of products. `_TODO: verify_` — no caller of this method was found inside this plugin; it may be dead code here or consumed only from `notificationx-pro`.
+- `show_exclude_product( $data, $settings )` — the same per-product filtering applied to an array of products. **Verified:** it has no caller in the free plugin, but it *is* consumed from `notificationx-pro`, where the Pro WooCommerce/WooCommerceSales/EDD extensions wire it up via `add_filter("nx_filtered_data_{$this->id}", array($this->get_type(), 'show_exclude_product'), 11, 2)`.
 
-The `Conversions` trait ([`includes/Types/Traits/Conversions.php`](../../includes/Types/Traits/Conversions.php)) declares near-duplicate `excludes_product()` / `show_purchaseof()` methods (operating over an array), but nothing in `WooCommerceSales.php` calls the trait versions — the class's own `_excludes_product` / `_show_purchaseof` (single-entry) are what's actually wired up via `nx_can_entry`. `_TODO: verify_` whether the trait methods are called from elsewhere (e.g. Pro).
+The `Conversions` trait ([`includes/Types/Traits/Conversions.php`](../../includes/Types/Traits/Conversions.php)) declares near-duplicate `excludes_product()` / `show_purchaseof()` methods (operating over an array), but nothing in `WooCommerceSales.php` calls the trait versions — the class's own `_excludes_product` / `_show_purchaseof` (single-entry) are what's actually wired up via `nx_can_entry`. **Verified:** the trait's `excludes_product` / `show_purchaseof` have no call sites in either the free or the Pro plugin — legacy/BC dead code.
 
 The `Reviews` trait ([`includes/Types/Traits/Reviews.php`](../../includes/Types/Traits/Reviews.php)) supplies:
 - `review_templates()` — adds a `review_fourth_param` field (default `"About"`) to the notification template, hooked to `nx_notification_template` in `init_fields()`.
@@ -107,7 +107,7 @@ For **how a theme actually renders** (container classes, the generic 3-row/2-row
 - `nx_can_entry()` on this Type is only invoked because the `WooCommerceSales` **Extension** wires it up via `get_type()` — if you're tracing "why doesn't my product exclusion work," check both files.
 - Three separate `modules_*` settings gate this one Type (`modules_woocommerce`, `modules_woocommerce_sales_reviews`, `modules_woocommerce_sales_inline`) — turning off one module disables only that source family (e.g. reviews), not the whole Type.
 - `woocommerce_sales_inline` is treated specially in `FrontEnd.php` as an inline/shortcode-only notification — don't assume all three sources render through the same floating-popup path.
-- No PHPUnit tests specific to this Type were found under `tests/`. `_TODO: verify_` if coverage exists elsewhere.
+- No PHPUnit tests specific to this Type exist. **Verified:** the free `tests/` suite covers only the factories, migration/upgrader, and REST (`test-types-factory.php`, `test-extension-factory.php`, `test-migration-upgrader.php`, `test-rest.php`); the Pro `tests/` suite is likewise generic (`test-pro-types.php`, `test-pro-engine.php`, `test-pro-extension-factory.php`, `test-smoke.php`) — none exercise this Type in isolation.
 
 ## Related docs
 

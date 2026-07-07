@@ -145,12 +145,12 @@ Real events that drive data (all inherited from `WooReviews::init()`):
   looking for the canonical "fetch data" entry point per the general Extension
   pattern, use `add()` / `get_comments()` / `get_notification_ready()` instead for
   this integration.
-- No dedicated PHPUnit tests found under `tests/` referencing ReviewX —
-  `_TODO: verify_` if ReviewX-specific test coverage exists elsewhere (e.g. in
-  `notificationx-pro`).
+- No dedicated PHPUnit tests exercise this integration. The free `tests/` suite is
+  limited to factory/type/REST/migration smoke tests and `notificationx-pro/tests/`
+  only adds type/engine/smoke tests — neither references ReviewX (ReviewX has no Pro
+  class either).
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under [../types/](../types/) (Reviews type —
-  `_TODO: verify_` exact filename once written)
+- [Reviews type](../types/reviews.md)

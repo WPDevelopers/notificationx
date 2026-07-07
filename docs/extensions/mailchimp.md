@@ -59,14 +59,14 @@ and `MailChimp.php` defines no `save_post`/`saved_post`/cron hooks, so
 `nx_saved_post_mailchimp`, `add_cron_job`) never attaches extra behavior beyond
 the base class defaults.
 
-_TODO: verify_ — the pro subclass sets `$cron_schedule = 'nx_mailchimp_interval'`
+The pro subclass sets `$cron_schedule = 'nx_mailchimp_interval'`
 and `$meta_key = 'mailchimp_content'`, hooks `saved_post()` → `update_data()` (runs
 immediately after the builder is saved) and `nx_cron_update_data_mailchimp` →
-`update_data()` (runs on the recurring cron). `update_data()` calls
-`get_members()` (which validates `mailchimp_list`, `display_last`, the
-`nxpro_mailchimp_lists` option, and `$this->api_key` before calling
-`Helper::get_members($api_key, $list_id, $limit)`), deletes old entries for the
-post, and re-inserts fresh ones via `Extension::update_notifications()` into the
+`update_data()` (runs on the recurring cron; registered in the pro `init()`).
+`update_data()` calls `get_members($data)` (which validates `mailchimp_list`,
+`display_last`, the `nxpro_mailchimp_lists` option, and `$this->api_key` before
+calling `Helper::get_members($api_key, $list_id, $limit)`), deletes old entries for
+the post, and re-inserts fresh ones via `Extension::update_notifications()` into the
 Entries table. From there the standard pipeline (Entries table → `FrontEnd.php`
 → REST → React `useNotificationX.ts`/`utils.ts` `normalize()`) applies. That
 whole pipeline lives in `notificationx-pro` and is out of scope for this doc.
@@ -105,9 +105,9 @@ whole pipeline lives in `notificationx-pro` and is out of scope for this doc.
   `Modules::is_enabled()` in the base `Extension::__construct()`) and `$is_pro`
   (hides/locks the source in the UI on the free plugin, per
   `NotificationX::is_pro()` checks in `Extension::__nx_sources()`).
-- _TODO: verify_ — in the pro subclass, `source_error_message()` shows an admin
-  error ("You have to setup your API Key for MailChimp") when
-  `settings.mailchimp_api_key` is empty, and `get_members()` silently returns no
+- In the pro subclass, `source_error_message()` shows an admin error ("You have to
+  setup your API Key for MailChimp") when `$this->api_key`
+  (`settings.mailchimp_api_key`) is empty, and `get_members()` silently returns no
   members if the list ID, the `nxpro_mailchimp_lists` option, or the API key are
   missing/empty. That is the plugin's only real "presence" check, and it lives
   outside this repo's tree.
@@ -128,17 +128,18 @@ whole pipeline lives in `notificationx-pro` and is out of scope for this doc.
 - Because `get_data()` is a stub in this plugin, testing real MailChimp data
   flow requires the `notificationx-pro` plugin active; the free plugin alone
   cannot fetch or display real subscribers.
-- `EmailSubscription` (the paired Type) lists four modules
-  (`modules_mailchimp`, `modules_convertkit`, `modules_mailchimp`,
-  `modules_zapier` — `modules_mailchimp` appears twice in the array,
-  _TODO: verify_ whether that duplicate is intentional) and is itself
+- `EmailSubscription` (the paired Type) lists four modules in its `$modules`
+  array (`EmailSubscription.php` lines 29-32): `modules_mailchimp`,
+  `modules_convertkit`, `modules_mailchimp`, `modules_zapier` — `modules_mailchimp`
+  is duplicated (indexes 0 and 2), confirmed an accidental redundant entry in
+  source (harmless; the second occurrence is a no-op). The Type is itself
   `$is_pro = true`, and its `$default_source = 'mailchimp'` — so MailChimp is
   the default Email Subscription source, and the whole Type is pro-gated
   independent of the MailChimp module.
-- No dedicated tests for this extension were found under `tests/`.
-  _TODO: verify_ if pro-side tests exist in `notificationx-pro`.
+- No dedicated tests reference this extension: `tests/test-extension-factory.php`
+  does not name `mailchimp`, and `notificationx-pro` ships no `tests/` suite.
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type: [`includes/Types/EmailSubscription.php`](../../includes/Types/EmailSubscription.php) (no dedicated Type doc under `docs/types/` was found — _TODO: verify_)
+- Related Type: [Email Subscription](../types/email_subscription.md) ([`includes/Types/EmailSubscription.php`](../../includes/Types/EmailSubscription.php))

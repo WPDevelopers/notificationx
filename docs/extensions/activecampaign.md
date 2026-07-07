@@ -36,8 +36,11 @@ implemented in `NotificationXPro\Extensions\ActiveCampaign\ActiveCampaign`
 outside this plugin's directory), which extends the free class shown here and overrides
 `init()`, `admin_actions()`, `public_actions()`, and adds `source_error_message()`,
 reading `settings.activecampaign_api_key` / `settings.activecampaign_api_url` from
-`Settings`. _TODO: verify_ the pro class's `get_data()`/`update_data()` behaviour in
-detail if documenting the pro side — out of scope for this (free-plugin) doc.
+`Settings`. The pro override drives entries through `update_data()` (hooked from
+`saved_post()` and the `nx_cron_update_data_ActiveCampaign` cron) rather than
+`get_data()`; `update_data()` → `get_member()` → `get_members()` calls the
+ActiveCampaign REST API (`/api/3/contacts?listid=…`). Full pro behaviour is out of
+scope for this (free-plugin) doc.
 
 ## Extension classes & pairings
 
@@ -62,9 +65,9 @@ none of the corresponding hooks in `Extension::init()` / `public_actions()` are 
 here. The Type/Extension registration flow (source event → `get_data()` → entries/storage
 → FrontEnd → REST → React) described in
 [docs/new-notification-type.md](../development/adding-a-notification-type.md) applies once the pro
-override supplies real data; `_TODO: verify_` in the `notificationx-pro` codebase if
-tracing the live pipeline (cron schedule constant referenced there:
-`$cron_schedule = 'nx_activecampaign_interval'`).
+override supplies real data (confirmed: the pro subclass sets
+`$cron_schedule = 'nx_activecampaign_interval'` and `$meta_key = 'activecampaign_content'`,
+and refreshes entries via `update_data()` on save + cron).
 
 ## Fields & settings
 
@@ -76,11 +79,14 @@ the `email_subscription` Type's shared themes/templates via `Extension::get_them
 [`GlobalFields.php`](../../includes/Extensions/GlobalFields.php) (see the `Rules::includes('source', [...])`
 list that includes `'ActiveCampaign'` alongside the other email-subscription/conversions
 sources), and `activecampaign_form` is listed as an allowed Quick Builder field name in
-[`includes/Core/QuickBuild.php`](../../includes/Core/QuickBuild.php). `_TODO: verify_`
-exactly which builder screen renders `activecampaign_form` and where the API URL/key
-settings fields themselves are declared (they were not found under this plugin's
-`includes/Extensions/ActiveCampaign/` — likely declared in `notificationx-pro`'s
-Settings/GlobalFields, out of scope here).
+[`includes/Core/QuickBuild.php`](../../includes/Core/QuickBuild.php). The
+`activecampaign_form` select is rendered on the builder's **Content** tab by the pro
+subclass's `content_fields()` (a `nx_content_fields` filter; options come from the
+`nxpro_activecampaign_forms` option). The API URL/key settings fields are declared in
+the pro subclass's `api_integration_settings()` — an `activecampaign_settings_section`
+(`activecampaign_api_key`, `activecampaign_api_url`, cache duration, Connect button)
+on the **API Integrations** settings tab. Both live in `notificationx-pro`, out of
+scope here.
 
 ## Dependency & detection
 
@@ -100,8 +106,10 @@ Settings/GlobalFields, out of scope here).
   API key is set. The pro-plugin override adds a `source_error_message()` method that
   shows an admin-facing error ("You have to setup your API Key for ActiveCampaign …")
   when `settings.activecampaign_api_key` is empty — that gating happens outside this
-  plugin's directory. `_TODO: verify_` whether the free-plugin stub's `get_data()` is
-  ever invoked in a real notification flow before the pro override replaces it.
+  plugin's directory. The free-plugin stub's `get_data()` is never invoked in a real
+  notification flow: with Pro active, `GetInstance` substitutes the pro subclass
+  (which populates entries via `update_data()`, never calling `get_data()`); with Pro
+  inactive, the `$is_pro` source is locked in the UI, so no flow reaches it.
 
 ## Key files
 
@@ -123,10 +131,10 @@ Settings/GlobalFields, out of scope here).
   `extends` it (`NotificationXPro\Extensions\ActiveCampaign\ActiveCampaign extends
   NotificationX\Extensions\ActiveCampaign\ActiveCampaign`) — changing method
   signatures or removing `init_extension()`/`doc()` here will affect the pro subclass.
-- No PHPUnit tests were found under `tests/` for this extension. _TODO: verify_ if pro
-  has its own test coverage.
+- No PHPUnit tests reference this extension; `tests/test-extension-factory.php` does
+  not name `ActiveCampaign`, and `notificationx-pro` ships no `tests/` suite.
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under `../types/` (none yet exist for `email_subscription` — _TODO: verify_/create)
+- Related Type doc: [Email Subscription](../types/email_subscription.md)

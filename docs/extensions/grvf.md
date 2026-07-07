@@ -47,8 +47,7 @@ in `get_notification_ready()`, and populating the "Select a Form" dropdown via
 ## Data flow
 
 Not implemented in the free plugin. Per the Pro-plugin class (context only,
-`_TODO: verify_` against the actual notificationx-pro codebase used in
-production):
+confirmed against `notificationx-pro/includes/Extensions/GRVF/GravityForms.php`):
 
 1. `gform_after_submission` fires on a real Gravity Forms submission → `save_new_records($entry, $form)` maps field inputs/labels into a flat `data` array (email detection by label substring match) and calls the base `Extension::save()`, which writes one entry per active `nx_id` post via `Entries::insert_entry()`.
 2. On first activation / re-save of the notification post, `saved_post()` calls `get_notification_ready()`, which backfills existing entries for the selected form (`form_list` setting) using `\GFAPI::get_entries()`.
@@ -83,7 +82,7 @@ production):
 
 - Because the entire data pipeline lives in the Pro plugin, testing "does Gravity Forms actually create a notification" requires `notificationx-pro` active with a real Gravity Forms install — the free plugin alone cannot produce entries for this source.
 - If Gravity Forms is deactivated after being configured, `is_active()` will start returning `false` and the extension's actions stop registering; existing stored entries are not automatically cleaned up by this class.
-- `_TODO: verify_` — no automated tests under `tests/` reference `grvf` or `GravityForms`; behaviour above for the Pro class is based on reading `notificationx-pro/includes/Extensions/GRVF/GravityForms.php` directly, not on running it.
+- No automated tests reference `grvf` or `GravityForms` (`tests/test-extension-factory.php` does not name them, and `notificationx-pro` ships no `tests/` suite); the Pro-class behaviour above is from reading `notificationx-pro/includes/Extensions/GRVF/GravityForms.php` directly, not from running it.
 
 ## Related docs
 

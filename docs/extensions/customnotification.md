@@ -60,12 +60,13 @@ source-event → `get_data()` → `Entries` table pipeline here. Instead:
    in [`includes/Core/QuickBuild.php`](../../includes/Core/QuickBuild.php)) whenever
    `source` is `custom_notification` or `custom_notification_conversions`.
 2. The admin's typed rows are saved as-is under the `custom_contents` setting key on
-   the notification post — `_TODO: verify_` exact field schema (name/first_name/
-   last_name/message/image keys); the field definition itself was **not found** in
-   this free-plugin repo (it is referenced by key only in `GlobalFields.php` /
-   `QuickBuild.php` / `Migration.php` / `FrontEnd.php`), so it likely lives in the
-   Pro plugin (`notificationx-pro`) — consistent with `$is_pro = true` on both
-   extension classes.
+   the notification post. The field definition itself is **not** in this free-plugin
+   repo (it is referenced by key only in `GlobalFields.php` / `QuickBuild.php` /
+   `Migration.php` / `FrontEnd.php`); it lives in `notificationx-pro`'s
+   `CustomNotification::init_fields()` (`custom_contents` repeater with keys including
+   `first_name`, `last_name`, `email`, `title`, `image`, `link`, `sales_count`,
+   `username`, `post_title`, `post_comment`) — consistent with `$is_pro = true` on
+   both extension classes.
 3. On the frontend and in the builder preview,
    [`includes/FrontEnd/Preview.php`](../../includes/FrontEnd/Preview.php) reads
    `$settings['custom_contents'][0]` directly (merging `first_name`/`last_name` into
@@ -84,7 +85,8 @@ source-event → `get_data()` → `Entries` table pipeline here. Instead:
 
 - `custom_contents` — the repeater of manually-authored entries; gates the whole
   Content-tab section to `source` in `['custom_notification', 'custom_notification_conversions']`
-  (`QuickBuild.php`). Field schema itself: `_TODO: verify_` (not defined in this repo).
+  (`QuickBuild.php`). Field schema is defined in `notificationx-pro`'s
+  `CustomNotification::init_fields()` (see [Data flow](#data-flow)), not in this repo.
 - `show_notification_image` (in [`GlobalFields.php`](../../includes/Extensions/GlobalFields.php))
   includes `custom_notification` / `custom_notification_conversions` in its `source`
   rules, with `featured_image` and `gravatar` as selectable image options and a
@@ -94,8 +96,10 @@ source-event → `get_data()` → `Entries` table pipeline here. Instead:
   (`custom_notification_import_limit`, default `100`) in
   [`includes/Admin/Settings.php`](../../includes/Admin/Settings.php), surfaced to the
   builder as `cus_imp_limit` (`GlobalFields.php`, `Settings.php`). This suggests a
-  CSV/bulk-import feature for custom entries; the import code path itself was not
-  located in this pass — `_TODO: verify_`.
+  CSV/bulk-import feature for custom entries; only the setting definition exists —
+  no server-side import handler was found in either the free plugin or
+  `notificationx-pro` (the limit is surfaced to the React admin app as `cus_imp_limit`
+  and applied there).
 - No dedicated GlobalFields section keyed to `custom_notification*` beyond the
   `source`-rule inclusions above; this integration does not add its own builder tab,
   it reuses the standard Content tab's `custom_contents` field.
@@ -139,17 +143,18 @@ source-event → `get_data()` → `Entries` table pipeline here. Instead:
   `update_notification()` / `Entries` are not exercised by this integration in the
   way they are for data-pulling sources — don't expect rows in the analytics/entries
   table for custom-authored notifications.
-- The `custom_contents` field definition/schema lives outside this repo
-  (`_TODO: verify_` — likely `notificationx-pro`); changes to its shape must be kept
-  in sync with `Preview.php`'s expected keys (`first_name`, `last_name`, `name`,
-  plus whatever message/image keys Pro defines).
+- The `custom_contents` field definition/schema lives in `notificationx-pro`'s
+  `CustomNotification::init_fields()` (verified in the sibling checkout), not in this
+  repo; changes to its shape must be kept in sync with `Preview.php`'s expected keys
+  (`first_name`, `last_name`, `name`, plus the message/image keys Pro defines).
 - `CustomNotification::supported_themes()` pulls in themes from several other Types
   (`conversions`, `comments`, `reviews`, `download_stats`, `email_subscription`) — a
   theme added to one of those types may unexpectedly become selectable/unselectable
   for the `custom` type via this indirection; check `get_themes_for_type()` if theme
   options look wrong.
-- No dedicated tests for this integration were found under `tests/` —
-  `_TODO: verify_`.
+- No dedicated tests for this integration exist under `tests/`; the
+  `custom_notification` / `custom_notification_conversions` sources are exercised
+  generically by [`tests/test-extension-factory.php`](../../tests/test-extension-factory.php).
 
 ## Related docs
 

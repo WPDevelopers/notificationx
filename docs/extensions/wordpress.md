@@ -105,8 +105,11 @@ both `WPOrgReview` and `WPOrgStats`.
   to `api.wordpress.org/stats/...`. If the remote call fails or the slug is invalid,
   `get_plugins_data()`/`get_theme_stats()` return incomplete/empty arrays (e.g.
   `is_wp_error($this->theme_information)` short-circuits to `$new_data = []`) rather
-  than throwing — no explicit "module hidden" behavior was found; this is
-  `_TODO: verify_` for user-facing error messaging.
+  than throwing. Confirmed: there is **no user-facing error messaging** on a failed
+  remote call or invalid slug — no `source_error_message()` is defined on these
+  classes (they set no `$class`/`$function`/`$constant`, so the base
+  `source_error_message` path never fires), and no admin notice is surfaced. A bad
+  slug simply yields an empty notification with no diagnostic to the user.
 
 ## Key files
 
@@ -138,8 +141,10 @@ both `WPOrgReview` and `WPOrgStats`.
   comment" path (`comment_post`) and the "manually approved from Pending" path
   (`transition_comment_status`) since they use different entry points
   (`post_comment()` vs re-adding via `post_comment($comment_ID, 1)`).
-- No dedicated tests for this integration were found under `tests/`;
-  `_TODO: verify_` if coverage exists elsewhere.
+- No dedicated tests exercise this integration. The free `tests/` suite is limited to
+  factory/type/REST/migration smoke tests and `notificationx-pro/tests/` only adds
+  type/engine/smoke tests — neither covers `WPComments` / `WPOrgReview` / `WPOrgStats`
+  (WordPress has no Pro class either).
 
 ## Related docs
 

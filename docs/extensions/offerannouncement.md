@@ -21,7 +21,7 @@
 There is no external plugin to install or connect. The user creates a notification
 under the **Discount Alert** Type, and the builder's Content tab exposes manual
 fields — `offer_title`, `offer_description`, `offer_discount`, `image`,
-`expire_time`, and an `announcement_entries` repeater (field names seen in the Quick
+`expire_time`, and an `announcement_entries` section wrapper (field names seen in the Quick
 Builder whitelist, [`includes/Core/QuickBuild.php`](../../includes/Core/QuickBuild.php)
 lines ~231-236) — that the admin fills in by hand. `Announcements::get_data()` does
 not fetch or return any of this content; it is a stub. There is no live event source
@@ -59,13 +59,23 @@ Unlike data-pulling integrations, there is no source-event → `get_data()` →
 1. The builder's Content tab exposes the manual fields listed above
    (`offer_title`, `offer_description`, `offer_discount`, `image`, `expire_time`,
    `announcement_entries`) — these are in the Quick Builder's allowed-field
-   whitelist (`QuickBuild.php`) but their actual field *definitions* (type, default,
-   validation) were **not found** in this free-plugin repo — `_TODO: verify_`
-   (consistent with `$is_pro = true`, they likely live in `notificationx-pro`).
+   whitelist (`QuickBuild.php`); their actual field *definitions* (type, default,
+   validation) live in `notificationx-pro`'s `Announcements::content_fields()`
+   (hooked on `nx_content_fields`, in
+   `notificationx-pro/includes/Extensions/OfferAnnouncement/Announcements.php`).
+   Despite the plural name, `announcement_entries` is **not** a multi-offer
+   repeater — it is a `type => 'section'` wrapper holding the flat, theme-gated
+   fields `offer_title`, `offer_discount`, `offer_description`, `image`,
+   `expire_time`, and `announcement_link_button_text` — consistent with
+   `$is_pro = true`.
 2. The admin's entered values are saved on the notification post's settings.
-   Exactly how they reach the frontend/preview render (i.e. whether `Preview.php` /
-   `FrontEnd.php` read them directly the way `custom_contents` is read for
-   `CustomNotification`) was **not traced** in this pass — `_TODO: verify_`.
+   The Pro `Announcements` subclass does **not** override `get_data()`; instead it
+   hooks `nx_frontend_get_entries` and builds **one synthetic entry per
+   notification** directly from those flat post settings, and adds `preview_entry()`
+   / `preview_settings()` (via `nx_preview_settings_{$id}`) for the builder preview.
+   A companion `nx_filtered_data_{$id}` filter (`exclude_announcements()`) drops the
+   entry once `expire_time` has passed (except themes `announcements_theme-13` /
+   `-15`, which have no expiry).
 3. Theme/template wiring (which placeholder shows `tag_offer_title` /
    `tag_offer_description` / `tag_time` for a given theme) is handled entirely by
    the base `Extension` class's `__nx_themes` / `__themes_trigger` /
@@ -77,7 +87,8 @@ Unlike data-pulling integrations, there is no source-event → `get_data()` →
 - `offer_title`, `offer_description`, `offer_discount`, `image`, `expire_time`,
   `announcement_entries` — field names referenced in the Quick Builder's field
   whitelist ([`includes/Core/QuickBuild.php`](../../includes/Core/QuickBuild.php));
-  full field schema not defined in this repo — `_TODO: verify_`.
+  full field schema is defined in `notificationx-pro`'s `Announcements::content_fields()`
+  (the `announcement_entries` `section` wrapper — see [Data flow](#data-flow)).
 - `announcement_link_button_text` and `link` — set as theme `defaults` inside
   `Announcements::init_extension()` (not a `GlobalFields` entry); used as fallback
   values for the CTA button/link per theme.
@@ -125,12 +136,14 @@ Unlike data-pulling integrations, there is no source-event → `get_data()` →
   does not populate the analytics/entries table the way data-pulling extensions do
   — don't expect rows there for Discount Alert notifications.
 - The actual field schema for `offer_title`, `offer_description`, `offer_discount`,
-  `image`, `expire_time`, and `announcement_entries` lives outside this free-plugin
-  repo — `_TODO: verify_` (check `notificationx-pro` if available).
+  `image`, `expire_time`, and `announcement_entries` lives in `notificationx-pro`'s
+  `Announcements::init_fields()`, not in this free-plugin repo (verified in the
+  sibling checkout).
 - Both unused imports (`GlobalFields`, `Types\Conversions`) are worth confirming are
   still unused before relying on them as documentation of intended reuse.
-- No dedicated tests for this integration were found under `tests/` —
-  `_TODO: verify_`.
+- No dedicated tests for this integration exist under `tests/`; the `announcements`
+  source is exercised generically by
+  [`tests/test-extension-factory.php`](../../tests/test-extension-factory.php).
 
 ## Related docs
 

@@ -13,7 +13,7 @@
 | **Trait** | none — `Video` has no matching file under `includes/Types/Traits/` |
 | **Priority** | `60` |
 | **Default source** | `youtube` |
-| **Default theme** | _TODO: verify_ — `Video::$default_theme` is left unset (commented out) in [`Video.php`](../../includes/Types/Video.php); the `youtube` extension itself sets `$default_theme = 'youtube_channel-1'` (see [`YouTube.php`](../../includes/Extensions/Google/YouTube.php)) |
+| **Default theme** | **Verified:** `Video::$default_theme` is left unset (commented out at [`Video.php:35`](../../includes/Types/Video.php#L35)); the effective default comes from the `youtube` extension, which sets `$default_theme = 'youtube_channel-1'` (see [`YouTube.php`](../../includes/Extensions/Google/YouTube.php)) |
 | **Module gate (`$module`)** | `modules_google_youtube` |
 | **Compatible extensions** | `youtube` ([`includes/Extensions/Google/YouTube.php`](../../includes/Extensions/Google/YouTube.php)) — fully implemented, `is_pro = true`. `vimeo` ([`includes/Extensions/Vimeo/Vimeo.php`](../../includes/Extensions/Vimeo/Vimeo.php)) and `wistia` ([`includes/Extensions/Wistia/Wistia.php`](../../includes/Extensions/Wistia/Wistia.php)) also declare `$types = 'video'` but are stubs (`show_on_module = false`, `show_on_type = false`, only set a `$title` — no themes, fields, or data fetching) |
 
@@ -37,18 +37,19 @@ which declares:
   themes) per-theme via `defaults.link_type`.
 - A cron schedule key `nx_youtube_interval` (`$cron_schedule`) — presumably used to
   periodically refresh channel/video stats from the YouTube Data API
-  (`$api_base = 'https://youtube.googleapis.com/youtube/v3/'`). _TODO: verify_ — the
-  actual API-fetch / cron-registration code (`get_data()` equivalent) was not found
-  in this repo; it is likely implemented in the sibling `notificationx-pro` plugin
-  since both the Type and Extension are `is_pro = true`.
+  (`$api_base = 'https://youtube.googleapis.com/youtube/v3/'`). **Verified:** the actual
+  API-fetch / cron-registration code lives in the sibling `notificationx-pro` plugin (its
+  `includes/Admin/Cron.php` and Pro `Youtube` extension) — both the Type and Extension are
+  `is_pro = true`, so the free class only carries the theme/field declarations.
 - `fallback_data()` maps saved meta (`_yt_views`, `_yt_subscribers`, `_yt_videos`,
   `_yt_likes`, `_yt_comments`, `_yt_favorites`) through `Helper::nice_number()` into the
   `data` array consumed by templates.
 
 `vimeo` and `wistia` extensions exist and register `$types = 'video'` but are inert
 stubs — no themes, no fields, no data fetching, and explicitly hidden from the module
-list and type picker (`show_on_module = false`, `show_on_type = false`). _TODO: verify_
-whether they are reserved for a future release or dead code.
+list and type picker (`show_on_module = false`, `show_on_type = false`). **Verified:** they
+remain inert stubs in `notificationx-pro` too (no themes/fields/data logic in either
+plugin) — effectively reserved placeholders, not user-selectable sources today.
 
 ## Data flow
 
@@ -61,9 +62,10 @@ Beyond that exemption, `video`/`youtube` was not found to have a dedicated bucke
 or `popup` do (per the pattern documented in
 [`../development/adding-a-notification-type.md`](../development/adding-a-notification-type.md)); it appears to flow
 through the standard `active`/`global` notification pipeline like other non-popup
-types. _TODO: verify_ against the React runtime (`nxdev/notificationx/frontend/`) for
-the exact rendering component used for `video`/`youtube` themes — not located in this
-pass.
+types. **Verified:** on the React side it renders through the generic
+[`nxdev/notificationx/frontend/themes/Theme.tsx`](../../nxdev/notificationx/frontend/themes/Theme.tsx)
+renderer — there is no `video`/`youtube`-specific component (only `announcements/` has
+per-theme `.tsx` files).
 
 The Growth Alert / inline text renderer in
 [`includes/Features/Inline.php`](../../includes/Features/Inline.php) has explicit
@@ -96,8 +98,9 @@ notification looks like.
   lists `video` in `types_title` (label "Video") and includes `youtube_channel_id` /
   `youtube_video_id` in its visible-field `show` list — i.e. the source-specific ID
   inputs the user supplies to identify which channel/video to pull stats for.
-  _TODO: verify_ the full field definitions for `youtube_channel_id` /
-  `youtube_video_id` (not located under `includes/`, likely Pro).
+  **Verified:** the full field definitions for `youtube_channel_id` / `youtube_video_id`
+  live in the Pro `Youtube` extension (`notificationx-pro/includes/Extensions/Google/Youtube.php`),
+  not in the free plugin.
 
 ## Themes / templates
 
@@ -128,7 +131,7 @@ sourced from the Extension, not the Type.
 | Inline/Growth Alert rendering | [`includes/Features/Inline.php`](../../includes/Features/Inline.php) (`youtube_channel-*` / `youtube_video-*` cases) |
 | Admin Quick Builder | [`includes/Core/QuickBuild.php`](../../includes/Core/QuickBuild.php) (`types_title['video']`, `youtube_channel_id`, `youtube_video_id`) |
 | PHP frontend | [`includes/FrontEnd/FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php) (`youtube` excluded from `display_last` slicing in `filtered_data()`) |
-| Frontend runtime | _TODO: verify_ — not located in this pass under `nxdev/notificationx/frontend/` |
+| Frontend runtime | [`nxdev/notificationx/frontend/themes/Theme.tsx`](../../nxdev/notificationx/frontend/themes/Theme.tsx) — the generic renderer; no `video`/`youtube`-specific React component |
 
 ## Dependencies
 
@@ -153,8 +156,8 @@ another WP plugin. `vimeo` and `wistia` extensions exist but are non-functional 
 - The actual YouTube API fetch / cron job wiring (`cron_schedule = 'nx_youtube_interval'`)
   was not found in the free plugin — verify in `notificationx-pro` before assuming
   behaviour.
-- No PHPUnit tests specific to `Video` or `youtube` were located under `tests/` in this
-  pass. _TODO: verify_.
+- No PHPUnit tests specific to `Video` or `youtube` exist. **Verified:** the free `tests/`
+  suite covers only the factories, migration/upgrader, and REST; none exercise this type.
 
 ## Related docs
 

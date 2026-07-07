@@ -117,8 +117,13 @@ this source.
   non-standard tag name containing "email" for something else.
 - `can_entry()` only filters by `form_list`; if that setting is empty, entries
   from **all** CF7 forms pass through to that notification.
-- _TODO: verify_ whether `notificationx-pro` adds any CF7-specific extensions/fields
-  on top of this free-plugin class (out of scope for this repo per CLAUDE.md).
+- `notificationx-pro` adds **no dedicated CF7 extension class** (there is no
+  `notificationx-pro/includes/Extensions/CF7/` directory) and no CF7-specific field
+  registry. The only Pro references to `cf7` are: its Google Maps feature
+  (`notificationx-pro/includes/Features/Maps.php`) listing `cf7` among sources
+  eligible for the shared map field, and a **commented-out** `modules_cf7` rule in
+  Pro `Admin/Settings.php`. So the free-plugin class above is the whole CF7
+  integration.
 
 ## Related docs
 

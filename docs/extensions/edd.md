@@ -63,7 +63,7 @@ described above._
 ## Fields & settings
 
 - `EDD::link_types()` (hooked on `nx_link_types`) adds a `product_image` → "Product Page" option to the shared Link Type field, via `GlobalFields::get_instance()->normalize_fields()` scoped with `Rules::is('source', 'edd')` — i.e. only shown/applies when the `edd` source is selected.
-- `combine_multiorder` / `combine_multiorder_text` settings (consumed in `multiorder_combine()`) — not defined in this file; presumably registered elsewhere in the settings/fields UI (`_TODO: verify_` exact field-registration location).
+- `combine_multiorder` / `combine_multiorder_text` settings (consumed in `multiorder_combine()`) — not defined in this file. The `combine_multiorder` checkbox is registered in [`GlobalFields.php`](../../includes/Extensions/GlobalFields.php) (shared `content` section, ~line 957, scoped to sources `woocommerce`/`edd`/`woocommerce_sales`); the `combine_multiorder_text` field is Pro-only, registered in `notificationx-pro/includes/Extensions/GlobalFields.php` (gated by the `nx_combine_multiorder_text_dependency` filter, to which the Pro `EDD`/`WooCommerce` classes add their source ids).
 - `EDDInline` defines its own `$themes` / `$templates` arrays (see table above) rather than pulling from `GlobalFields`.
 
 ## Dependency & detection
@@ -80,16 +80,16 @@ described above._
 | Registration | [`includes/Extensions/ExtensionFactory.php`](../../includes/Extensions/ExtensionFactory.php) (`edd`, `edd_inline` entries in `$extension_classes`) |
 | Base class | [`includes/Extensions/Extension.php`](../../includes/Extensions/Extension.php) |
 | Shared fields | [`includes/Extensions/GlobalFields.php`](../../includes/Extensions/GlobalFields.php) |
-| Bundled theme presets (not read by these classes at runtime — `_TODO: verify_` consumer) | `includes/Extensions/EDD/theme-1.json`, `theme-2.json`, `theme-3.json` |
+| Bundled theme presets (design/reference assets — no runtime consumer found in the free or Pro plugin; not read by any PHP) | `includes/Extensions/EDD/theme-1.json`, `theme-2.json`, `theme-3.json` |
 
 ## Testing notes & gotchas
 
 - `EDD::single_order()` instantiates `\EDD_Payment` directly and reads `EDD_VERSION` to branch GMT-offset handling for EDD < 3.x vs 3.x+ — verify against the installed EDD major version when debugging timestamp drift.
 - Tutor LMS interop: if `tutor_utils()` exists, download line items that are also Tutor courses are silently excluded from EDD sale notifications (to avoid double-counting with the Tutor extension) — easy to mistake for a data bug.
 - `EDDInline` is Pro-only (`$is_pro = true`); it will show as locked/upsell in the free plugin per the standard `is_pro && !NotificationX::is_pro()` pattern in `Extension::__nx_sources()` / `register_module()`.
-- No dedicated PHPUnit tests found under `tests/` for this integration — `_TODO: verify_` if EDD-specific test coverage exists elsewhere (e.g. in `notificationx-pro`).
+- No dedicated PHPUnit tests exercise this integration. The free `tests/` suite only has factory/type/REST/migration smoke tests, and `notificationx-pro/tests/` only adds type/engine/smoke tests — none cover `EDD::get_orders()` / `single_order()`.
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under [../types/](../types/) (Sales/Conversions type — `_TODO: verify_` exact filename once written)
+- [Sales / Conversions type](../types/conversions.md)

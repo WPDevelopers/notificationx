@@ -71,9 +71,10 @@ registration:
 
 - `nx_content_trim_length_dependency` → `content_trim_length_dependency()` appends
   `comments_theme-six-free`, `comments_theme-seven-free`, `comments_theme-eight-free`
-  to the dependency list. _TODO: verify_ — no `apply_filters('nx_content_trim_length_dependency', ...)`
-  call was found in this repo (free plugin); the consumer may live in the paid
-  `notificationx-pro` plugin.
+  to the dependency list. **Verified:** the `apply_filters('nx_content_trim_length_dependency', ...)`
+  consumer is not in the free plugin — it lives in `notificationx-pro`
+  (`notificationx-pro/includes/Extensions/GlobalFields.php`, where the trim-length field
+  uses `Rules::includes('themes', apply_filters('nx_content_trim_length_dependency', []))`).
 - `Comments::link_types()` (hooked to `nx_link_types` in the constructor) adds the
   `comment_url` option (via `GlobalFields::normalize_fields()`) to the Content tab's
   Link Type field.
@@ -138,12 +139,13 @@ data; no wordpress.org account is required for this specific source.
 - `comments_theme-seven-free`/`-eight-free`/`-six-free` depend on `post_comment` being
   present in the entry — verify `conversion_data()`'s trim logic (100/80 chars) still
   matches whatever `nx_content_trim_length` filter/field ends up controlling trim length
-  in the admin UI (see the `_TODO: verify_` note above under Fields & settings schema).
+  in the admin UI (see the verified note above under Fields & settings schema — the
+  trim-length dependency consumer lives in `notificationx-pro`).
 - Anonymous (non-logged-in) commenters get their `name`/`first_name`/`last_name` parsed
   by splitting `get_comment_author()` on spaces — verify this holds for single-word or
   non-Latin names if debugging odd name display.
-- No dedicated tests for this type were found under `tests/`. _TODO: verify_ if any
-  exist elsewhere in the suite.
+- No dedicated tests for this type exist. **Verified:** the free `tests/` suite covers
+  only the factories, migration/upgrader, and REST; none exercise `comments` directly.
 
 ## Related docs
 

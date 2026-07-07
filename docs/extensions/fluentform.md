@@ -118,9 +118,12 @@ Two extra filters restrict entries to the form chosen in the builder:
   `Extension::register_module()` → `Modules::add()`; if this module is toggled off in
   NotificationX settings the extension isn't loaded at all. Note the **Type**-level
   `ContactForm::$module` list (`modules_cf7`, `modules_wpf`, `modules_njf`,
-  `modules_grvf`) does not itself include `modules_fluentform` — `_TODO: verify_
-  whether this is intentional or an oversight; it does not appear to block the
-  extension's own module gate from working.`
+  `modules_grvf`) does not itself include `modules_fluentform`. This does not block the
+  FluentForm integration: the extension registers its own `modules_fluentform`
+  module independently via `Extension::register_module()` → `Modules::add()`, and
+  its gating runs off that module's enabled state — not off the Type's `$module`
+  array. The omission looks like an oversight in the Type list but has no functional
+  effect on FluentForm's own module gate.
 
 ## Key files
 
@@ -147,11 +150,12 @@ Two extra filters restrict entries to the form chosen in the builder:
   prefixing (`_first_name`/`_last_name` in entry data, `tag__first_name` in merge tags)
   in more than one place (`save_new_records`, `get_notification_ready`,
   `extractVisibleFields`) — keep these in sync if changing field-name handling.
-- `_TODO: verify_` whether any tests under `tests/` cover this extension —
-  none were found referencing `FluentForm` during this pass.
+- No dedicated tests cover this extension. The free `tests/` suite is limited to
+  factory/type/REST/migration smoke tests and `notificationx-pro/tests/` only adds
+  type/engine/smoke tests — neither references `FluentForm` (Fluent Forms has no Pro
+  class either).
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under [../types/](../types/) (`_TODO: verify_` — no dedicated
-  `form`/ContactForm type doc found under `docs/types/` at time of writing)
+- [Contact Form (`form`) type](../types/form.md)

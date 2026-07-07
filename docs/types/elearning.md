@@ -110,11 +110,11 @@ Templates (`$templates`):
 - `elearning_template_sales_count` — same `first_param`/`third_param`, `fourth_param`
   commented out (no time tag). Used by `conv-theme-seven/eight/nine`.
 
-`_TODO: verify_` — `maps_template_new`, referenced by two res-themes above, is not
-defined in `ELearning::$templates`; it appears (identically named) in several other
-Types (`WooCommerceSales`, `Comments`, `EmailSubscription`, `Donations`,
-`Conversions`) so it may be resolved elsewhere in the admin/template pipeline, but
-this was not traced further.
+**Verified:** `maps_template_new`, referenced by two res-themes above, is not defined in
+`ELearning::$templates`; it is registered once, by the Pro Maps feature
+(`notificationx-pro/includes/Features/Maps.php`) — the single place `maps_template_new` is
+defined as a template key — and shared across all the Types that reference it
+(`WooCommerceSales`, `Comments`, `EmailSubscription`, `Donations`, `Conversions`, etc.).
 
 ## Key files
 
@@ -126,7 +126,7 @@ this was not traced further.
 | Extensions | [`includes/Extensions/Tutor/Tutor.php`](../../includes/Extensions/Tutor/Tutor.php), [`includes/Extensions/LearnDash/LearnDash.php`](../../includes/Extensions/LearnDash/LearnDash.php), [`includes/Extensions/LearnDash/LearnDashInline.php`](../../includes/Extensions/LearnDash/LearnDashInline.php), [`includes/Extensions/LearnPress/LearnPress.php`](../../includes/Extensions/LearnPress/LearnPress.php) |
 | Extension base | [`includes/Extensions/Extension.php`](../../includes/Extensions/Extension.php) — `register_module()` / `register_types()` is what actually gates Type registration on the module setting, per-Extension (see gotcha below) |
 | PHP frontend | [`includes/FrontEnd/FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php) — generic `active` bucket, no eLearning-specific branch |
-| Frontend runtime | Generic `<Notification>` component in `nxdev/notificationx/frontend/` — `_TODO: verify_` exact component name; no eLearning-specific React component was found |
+| Frontend runtime | Generic renderer [`nxdev/notificationx/frontend/themes/Theme.tsx`](../../nxdev/notificationx/frontend/themes/Theme.tsx) — no eLearning-specific React component (only `announcements/` has per-theme `.tsx` files) |
 
 ## Dependencies
 
@@ -145,8 +145,9 @@ order-completion hooks instead of the plugin's own free-enrollment hook).
   *Extension's* `register_module()`/`register_types()` call (see
   [`Extension.php`](../../includes/Extensions/Extension.php) lines ~73-78), not by
   `Types::$module` directly, so this appears to be a documentation/declaration gap
-  on the Type class rather than a functional bug — `_TODO: verify_` if `Types::$module`
-  is read anywhere else (e.g. admin UI gating) where the missing key could matter.
+  on the Type class rather than a functional bug. **Verified:** `Types::$module` is not
+  read anywhere in the free or Pro plugin (only *Extension* `->module` is read for gating),
+  so the missing key has no runtime effect.
 - `ld_product_control` / `ld_course_list` field names are LearnDash-flavored
   (`ld_*`) but are shared across all three sources (Tutor, LearnDash, LearnPress) —
   don't assume they're LearnDash-only when reading the field list.

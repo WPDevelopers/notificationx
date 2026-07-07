@@ -15,9 +15,9 @@
 | **Priority** | `65` |
 | **Type-level `is_pro`** | `true` (see [`EmailSubscription.php:27`](../../includes/Types/EmailSubscription.php#L27)) |
 | **Default source** | `mailchimp` |
-| **Default theme** | not set (`$default_theme` is inherited from `Types` base and left at its default `''`) — _TODO: verify_ what the admin UI falls back to |
+| **Default theme** | not set on the free class (`$default_theme` inherits the `Types` base default `''`). **Verified:** the Pro `EmailSubscription` (`notificationx-pro/includes/Types/EmailSubscription.php`) extends this class and sets `$default_theme = 'email_subscription_theme-one'` |
 | **Link type** | not overridden — inherits `Types::$link_type = 'none'` |
-| **Module gate (`$module`)** | `['modules_mailchimp', 'modules_convertkit', 'modules_mailchimp', 'modules_zapier']` (note: `modules_mailchimp` is listed twice; `modules_activecampaign`, `modules_ifttt`, `modules_bitintegration` are **not** in this array even though their extensions declare `$types = 'email_subscription'` — as with `Reviews::$module` (see [`docs/types/reviews.md`](reviews.md)), no call site was found that reads `Types::$module` directly for gating, so treat this list as documentation rather than confirmed enforced logic. _TODO: verify_) |
+| **Module gate (`$module`)** | `['modules_mailchimp', 'modules_convertkit', 'modules_mailchimp', 'modules_zapier']` (note: `modules_mailchimp` is listed twice; `modules_activecampaign`, `modules_ifttt`, `modules_bitintegration` are **not** in this array even though their extensions declare `$types = 'email_subscription'` — as with `Reviews::$module` (see [`docs/types/reviews.md`](reviews.md)), **verified** that no call site reads `Types::$module` directly for gating in the free or Pro plugin — treat this list as documentation rather than enforced logic) |
 | **Compatible extensions** | See table below (data sources) |
 
 ## What it does
@@ -59,9 +59,8 @@ Reviews, Conversions) — there is no dedicated bucket like `exit_intent` or `po
    documented in [`docs/types/comments.md`](comments.md) and [`docs/types/reviews.md`](reviews.md)).
 3. The filter chain `nx_filtered_entry_email_subscription` → `nx_filtered_entry_{$source}` →
    `nx_filtered_entry` runs per entry ([`FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php)
-   ~line 338). No `nx_filtered_entry_email_subscription` hook was found registered by
-   `EmailSubscription` itself in this repo — _TODO: verify_ whether it exists in
-   `notificationx-pro`.
+   ~line 338). **Verified:** no `nx_filtered_entry_email_subscription` hook is registered
+   by `EmailSubscription` — the hook exists in neither the free nor the Pro plugin.
 4. On the React side, entries would reach the runtime through the standard `normalize()`
    shape (`{ post, entries: [...] }`), not `normalizePressBar` — same as other multi-entry
    types (see [`docs/new-notification-type.md`](../development/adding-a-notification-type.md)).
@@ -77,8 +76,9 @@ key inputs, list selection, etc.) would be registered by each Extension's own
 `ActiveCampaign`, `ZapierEmailSubscription`, `BitIntegrationsEmailSubscription`, `IFTTT`)
 only implements `init_extension()` (title/module_title) and a stub `get_data()`; none of
 them register `nx_content_fields`/`nx_design_tab_fields`/`nx_customize_fields` filters in
-this free-plugin repo. _TODO: verify_ — the real per-source settings fields likely live in
-`notificationx-pro`.
+this free-plugin repo. **Verified:** the real per-source settings fields live in
+`notificationx-pro` (e.g. its `MailChimp` extension registers content fields and passes
+`'modules' => $this->module`).
 
 ## Themes / templates
 
@@ -110,8 +110,9 @@ all `is_pro: true`:
   = `tag_time` ("Definite Time") / `tag_sometime` ("Some time ago"). Its `_themes` array
   references `email_subscription_theme-one`, `-two`, `-three`, and `-maps_theme`.
   A `maps_template_new` template (used by `subscriptions-res-theme-four`) is **not**
-  defined in this file — _TODO: verify_, it may be a shared/global template registered
-  elsewhere (e.g. by `CustomNotification` or a Pro-side class).
+  defined in this file. **Verified:** it is registered by the Pro Maps feature
+  (`notificationx-pro/includes/Features/Maps.php`), the single place `maps_template_new`
+  is defined as a template key.
 
 ## Key files
 
@@ -122,7 +123,7 @@ all `is_pro: true`:
 | Trait | none |
 | Extensions (data sources) | see table below |
 | Factory registration | [`includes/Types/TypesFactory.php`](../../includes/Types/TypesFactory.php) (`'email_subscription' => 'NotificationX\Types\EmailSubscription'`), [`includes/Extensions/ExtensionFactory.php`](../../includes/Extensions/ExtensionFactory.php) |
-| Frontend runtime | `nxdev/notificationx/frontend/...` — _TODO: verify_ exact component; not inspected in this pass |
+| Frontend runtime | [`nxdev/notificationx/frontend/themes/Theme.tsx`](../../nxdev/notificationx/frontend/themes/Theme.tsx) — the generic `normalize()`-shaped renderer; no `email_subscription`-specific React component |
 | PHP frontend | [`includes/FrontEnd/FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php) — generic entries pipeline (no dedicated bucket) |
 
 ### Compatible extensions (data sources, `$types === 'email_subscription'`)
@@ -134,7 +135,7 @@ all `is_pro: true`:
 | ActiveCampaign | `ActiveCampaign` | `modules_activecampaign` | `true` | [`includes/Extensions/ActiveCampaign/ActiveCampaign.php`](../../includes/Extensions/ActiveCampaign/ActiveCampaign.php) |
 | Zapier | `zapier_email_subscription` | `modules_zapier` | `true` | [`includes/Extensions/Zapier/ZapierEmailSubscription.php`](../../includes/Extensions/Zapier/ZapierEmailSubscription.php) — uses the shared `Zapier` trait |
 | BitIntegrations | `bitintegrations_email_subscription` | `modules_bitintegration` | not set on the class (defaults to `false` on `Extension`, but functionally gated by `$class = 'BitApps\Integrations\Config'` existence check) | [`includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php`](../../includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php) |
-| IFTTT | `ifttt` | `modules_ifttt` | `true` | [`includes/Extensions/IFTTT/IFTTT.php`](../../includes/Extensions/IFTTT/IFTTT.php) — **not registered** in `ExtensionFactory::$extension_classes` in this repo; the class exists but appears dead/unwired in the free plugin. _TODO: verify_ whether it's registered via the `nx_extension_classes` filter from `notificationx-pro`. |
+| IFTTT | `ifttt` | `modules_ifttt` | `true` | [`includes/Extensions/IFTTT/IFTTT.php`](../../includes/Extensions/IFTTT/IFTTT.php) — **not registered** in `ExtensionFactory::$extension_classes`. **Verified:** it is *not* wired up via `nx_extension_classes` from `notificationx-pro` either — that filter is commented out/inert in Pro's `ExtensionFactory`, so this class is unreachable/dead in both plugins. |
 
 Every `get_data()` above is a one-line stub (e.g. `return 'Hello From MailChimp';`) in this
 free-plugin repo — none perform real API calls here.
@@ -165,8 +166,9 @@ handling/config fields are not present in this free-plugin repo — see `notific
 - `maps_theme` / `subscriptions-res-theme-four` reference a `maps_template_new` template
   that isn't defined in `EmailSubscription.php` itself — verify where it's actually
   registered before changing/removing it.
-- No dedicated PHPUnit tests for this type were found under `tests/` in this pass.
-  _TODO: verify_.
+- No dedicated PHPUnit tests for this type exist. **Verified:** the free `tests/` suite
+  covers only the factories, migration/upgrader, and REST; none exercise
+  `email_subscription` directly.
 
 ## Related docs
 

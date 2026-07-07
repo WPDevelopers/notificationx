@@ -137,9 +137,12 @@ to fan built entries out to enabled `nx_id` posts using this source.
   **all** Ninja Forms forms pass through to that notification.
 - `keys_generator()` depends on the raw serialized `formContentData` post meta shape;
   changes to how Ninja Forms stores form structure could break tag extraction.
-- _TODO: verify_ whether `notificationx-pro` adds any Ninja Forms-specific
-  extensions/fields on top of this free-plugin class (out of scope for this repo per
-  CLAUDE.md).
+- `notificationx-pro` adds **no dedicated Ninja Forms extension class** (there is no
+  `notificationx-pro/includes/Extensions/NJF/` directory) and no NJF-specific field
+  registry. The only Pro reference to `njf` is its Google Maps feature
+  (`notificationx-pro/includes/Features/Maps.php`) listing `njf` among sources
+  eligible for the shared map field. So the free-plugin class above is the whole
+  Ninja Forms integration.
 
 ## Related docs
 

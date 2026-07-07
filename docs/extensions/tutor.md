@@ -16,9 +16,11 @@
 | **Extension classes** | `Tutor.php` (class `Tutor`) → id `tutor`, type `elearning`; `TutorInline.php` (class `TutorInline`, extends `Tutor`) → id `tutor_inline`, type `inline`, `$is_pro = true` |
 | **Depends on** | Tutor LMS plugin — detected via `function_exists('tutor_lms')` (`$function = 'tutor_lms'`, checked by the inherited `Extension::class_exists()`) |
 
-There is also an empty, unused file `includes/Extensions/Tutor/__Tutor.php` (0
-bytes) in this directory — `_TODO: verify_` why it exists / whether it is dead
-weight safe to remove.
+There is also an empty file `includes/Extensions/Tutor/__Tutor.php` (0 bytes) in
+this directory — it contains no class, is unreferenced by `ExtensionFactory.php`,
+and is never loaded (Composer classmap autoloading indexes classes, not empty
+files), so it is dead weight and safe to remove. It is not the Pro plugin's real
+`_Tutor.php` trait (single underscore, in `notificationx-pro`).
 
 ## What it does
 
@@ -78,11 +80,13 @@ cross-check that the purchased product actually maps to a course via
 - No `init_fields()` override / custom `nx_content_fields` / `nx_design_tab_fields`
   filters found in `Tutor.php` — this extension does not appear to register its
   own settings-tab fields beyond what `Extension`'s defaults and the `elearning`
-  Type provide. `_TODO: verify_` whether course-selection or other elearning-type
-  fields (e.g. `nx_elearning_course_list`, defined in
-  [`includes/Types/ELearning.php`](../../includes/Types/ELearning.php)) are
-  populated by Tutor elsewhere, since `Tutor.php` does not hook that filter
-  itself.
+  Type provide. Course selection is supplied by the **Pro** side: the `_Tutor`
+  trait (`notificationx-pro/includes/Extensions/Tutor/_Tutor.php`) implements
+  `restResponse()`, an async search over the `courses` post type feeding the
+  `ld_course_list` field's REST picker — Tutor does **not** hook the static
+  `nx_elearning_course_list` filter (defined in
+  [`includes/Types/ELearning.php`](../../includes/Types/ELearning.php)) the way
+  LearnDash does.
 - `TutorInline` defines its own `$themes` / `$templates` arrays (see table above)
   rather than pulling shared field definitions from `GlobalFields`.
 - `Tutor::notification_image()` (hooked on `nx_notification_image_tutor`) swaps in
@@ -136,10 +140,11 @@ cross-check that the purchased product actually maps to a course via
   (`WC_Order`, `WC_Order_Item_Product`, `WC_Countries`) are available — these run
   only inside the `class_exists('WooCommerce')`-gated branch, but confirm no
   fatal occurs if WooCommerce is deactivated mid-request.
-- The empty `__Tutor.php` file in this directory is unreferenced by
-  `ExtensionFactory.php` — `_TODO: verify_` its purpose before deleting.
-- No dedicated tests for this integration were found under `tests/` —
-  `_TODO: verify_`.
+- The empty `__Tutor.php` file (0 bytes, no class, unreferenced by
+  `ExtensionFactory.php` and not autoloaded) is dead weight — safe to delete.
+- No dedicated tests reference this integration; `tests/test-extension-factory.php`
+  (the only extension test) does not name `tutor`/`tutor_inline`, and
+  `notificationx-pro` ships no `tests/` suite.
 
 ## Related docs
 

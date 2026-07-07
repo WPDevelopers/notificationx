@@ -33,9 +33,11 @@ donation form/page.
 
 Optionally, entries can be restricted to specific GiveWP forms via
 `give_forms_control` / `give_form_list` settings, enforced in
-`Give::limit_by_selected_form()` (hooked to `nx_can_entry_give`). _TODO: verify_ exactly
-where the `give_forms_control` UI field is declared (not found in PHP `content_fields`;
-likely defined in the QuickBuilder JSON/React config under `nxdev/`).
+`Give::limit_by_selected_form()` (hooked to `nx_can_entry_give`). **Verified:** the
+`give_forms_control` UI field is declared in the **Pro** Give extension
+(`notificationx-pro/includes/Extensions/Give/Give.php`, `content_fields()`) as a `select`
+whose dependent `give_form_list` is gated by `Rules::is('give_forms_control', 'give_form')`
+— it is not defined in the free Give extension.
 
 ## Data flow
 
@@ -51,8 +53,9 @@ through the standard "active" (or "global", if `global_queue` is set) bucket in
   pushed into `$result['active'][$nx_id]['entries'][]` (shape: `{ post, entries: [...] }`),
   the same shape used by Sales/Reviews/Comments — i.e. this type uses `normalize()` (not
   `normalizePressBar()`) on the React side per `docs/new-notification-type.md`'s
-  "Choosing `normalize` vs `normalizePressBar`" table. _TODO: verify_ the exact React-side
-  file/line since it wasn't traced in this pass — see `nxdev/notificationx/frontend/core/utils.ts`.
+  "Choosing `normalize` vs `normalizePressBar`" table. **Verified:** the React-side entry
+  point is `normalize()` at [`nxdev/notificationx/frontend/core/utils.ts:66`](../../nxdev/notificationx/frontend/core/utils.ts#L66)
+  (as opposed to `normalizePressBar()` at line 99, used only for pressbar/gdpr/popup/exit_intent).
 - No `donation`-specific string appears anywhere in `FrontEnd.php` — it is handled entirely
   by the generic/default code paths shared with other "standard" notification types.
 
@@ -111,7 +114,7 @@ map to `_template: donation_template_new`; `res-theme-seven` maps to `maps_templ
 | Type class | [`includes/Types/Donations.php`](../../includes/Types/Donations.php) |
 | Trait | none |
 | Extensions | [`includes/Extensions/Give/Give.php`](../../includes/Extensions/Give/Give.php) |
-| Frontend runtime | `nxdev/notificationx/frontend/...` — _TODO: verify_ exact component (not traced in this pass; likely shares the generic `Notification`/normalize path with other standard types rather than a dedicated component) |
+| Frontend runtime | [`nxdev/notificationx/frontend/themes/Theme.tsx`](../../nxdev/notificationx/frontend/themes/Theme.tsx) — the generic `normalize()`-shaped renderer shared with other standard types; no `donation`-specific React component |
 | PHP frontend | [`includes/FrontEnd/FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php) — generic `active`/`global` bucket routing, no donation-specific branches |
 
 ## Dependencies
@@ -132,8 +135,8 @@ notice prompting install if the GiveWP plugin class doesn't exist.
 - Because this type shares the generic "active"/"global" pipeline with Sales/Reviews/etc.
   (no dedicated branches in `FrontEnd.php`), regressions here are more likely to come from
   shared code (e.g. `get_entries()`, `apply_defaults()`) than from donation-specific logic.
-- _TODO: verify_ whether any PHPUnit tests under `tests/` cover `Donations`/`Give` — none
-  were located by name in this pass.
+- No PHPUnit tests cover `Donations`/`Give`. **Verified:** the free `tests/` suite covers
+  only the factories, migration/upgrader, and REST; none exercise this type directly.
 
 ## Related docs
 

@@ -25,8 +25,8 @@ Type. `init_extension()` only sets `$this->title` / `$this->module_title` to
 `"IFTTT"`. `get_data()` is a stub — it returns the literal string
 `'Hello From IFTTT'` and does not fetch or store any real entries.
 
-**Important — not currently registered**: `_TODO: verify_` at runtime, but from
-static inspection, `ifttt` does **not** appear as a key in
+**Important — not currently registered**: confirmed by `grep` across both plugins,
+`ifttt` does **not** appear as a key in
 `ExtensionFactory::$extension_classes` in either
 [`includes/Extensions/ExtensionFactory.php`](../../includes/Extensions/ExtensionFactory.php)
 (free) or `notificationx-pro/includes/Extensions/ExtensionFactory.php` (which
@@ -78,8 +78,12 @@ context since this doc scopes to the free plugin's `includes/Extensions/IFTTT/`)
   builder, listing the API Key (`md5(home_url())`), Notification Id (post ID),
   and Site URL the user must configure in their IFTTT applet.
 
-`_TODO: verify_` whether this pro-side wiring actually takes effect at runtime
-given the registration gap noted above.
+This pro-side wiring does **not** take effect given the registration gap noted
+above: because neither factory lists `ifttt`, `ExtensionFactory::register_extensions()`
+never instantiates the class, so `public_actions()` (and its
+`nx_api_response_success` hook) is never wired up through the normal path. The Pro
+`IFTTT` subclass file exists in `notificationx-pro/includes/Extensions/IFTTT/IFTTT.php`
+but is left unregistered.
 
 ## Fields & settings
 
@@ -131,10 +135,13 @@ given the registration gap noted above.
   the generic `nx_api_response_success` action, not a per-`$id` suffixed one —
   double-check this doesn't fire for unrelated sources' webhook payloads that
   also happen to include an `actionFields` key.
-- No tests under `tests/` reference `ifttt` (`_TODO: verify_` if this changes).
+- No tests under `tests/` reference `ifttt`; and because it is unregistered, it is
+  **not** covered by the generic
+  [`tests/test-extension-factory.php`](../../tests/test-extension-factory.php) suite
+  either (that suite only iterates registered extensions).
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type docs under [../types/](../types/) (none yet exist for
-  `email_subscription` at time of writing — `_TODO: verify_`)
+- [Email Subscription Type](../types/email_subscription.md) — the Type this Extension
+  nominally pairs with

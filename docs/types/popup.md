@@ -14,7 +14,7 @@
 | **Trait** | none — no `includes/Types/Traits/Popup.php` exists; `Popup` only uses the generic `GetInstance` trait |
 | **Priority** | `16` (comment in source: "After NotificationBar (15) but before Reviews (20)") |
 | **Default source** | `popup_notification` |
-| **Default theme** | `popup_theme-one` — _TODO: verify_ this is never actually used: the only compatible extension's full theme ids are prefixed `popup_notification_theme-*` (extension id, not type id), and that extension does not set its own `$default_theme`, so `Extension::__source_trigger()`'s fallback (`$type->default_theme`) resolves to `popup_theme-one`, which does not match any real registered theme id. Confirm whether this is dead/vestigial or intentional. |
+| **Default theme** | `popup_theme-one` — vestigial. The only compatible extension's full theme ids are prefixed `popup_notification_theme-*` (extension id, not type id), and `PopupNotification` does not set its own `$default_theme` (confirmed), so `Extension::__source_trigger()`'s fallback (`$type->default_theme`, [Extension.php:218-224](../../includes/Extensions/Extension.php#L218-L224)) resolves to `popup_theme-one` and emits `@themes:popup_theme-one` — a pre-fill value that matches no registered theme id. The real theme is only set once the user picks a card in the Themes tab; nothing in this repo relies on this bogus fallback matching. |
 | **Module gate (`$module`)** | `modules_popup` (set on the `PopupNotification` extension, not on the `Popup` type class itself — `Popup::$module` is `[]`) |
 | **Compatible extensions** | [`PopupNotification`](../../includes/Extensions/PopupNotification/PopupNotification.php) (`$id = 'popup_notification'`, `$types = 'popup'`) — the only extension found declaring `$types = 'popup'` |
 
@@ -182,8 +182,7 @@ button text/url, form field toggles).
   when `is_pro` is true client-side; `theme-five`/`theme-six`/`theme-seven` are
   `is_pro: true` themes. Verify free-plugin behavior degrades sensibly (message field
   and button remain functional without name/email capture).
-- No dedicated tests for this type were found under `tests/`. _TODO: verify_ if any
-  exist elsewhere in the suite.
+- This type **is** exercised by the PHPUnit suite: [`tests/test-types-factory.php`](../../tests/test-types-factory.php#L111-L115) uses `popup` as its representative fixture for `register_types()`/`get_all()`, and [`tests/test-rest.php`](../../tests/test-rest.php#L116) asserts the `/notificationx/v1/popup-submit` route (this type's form-submission endpoint) is registered. There is no broader behavioural coverage beyond that.
 
 ## Related docs
 

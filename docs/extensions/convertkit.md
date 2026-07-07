@@ -57,12 +57,12 @@ and `ConvertKit.php` defines no `save_post`/`saved_post`/cron hooks, so
 `nx_saved_post_convertkit`, `add_cron_job`) never attaches extra behavior beyond
 the base class defaults.
 
-_TODO: verify_ — the pro subclass adds a `cron_schedule = 'nx_convertkit_interval'`,
-an `admin_actions()` hook (`nx_cron_update_data_{$this->id}` → `update_data()`),
-and a `saved_post()` hook that calls `update_data()` immediately on save. That
-pipeline (API call → `update_notifications()` → `Entries` table → `FrontEnd.php` →
-REST → React) lives entirely in `notificationx-pro` and is out of scope for this
-doc.
+The pro subclass sets `$cron_schedule = 'nx_convertkit_interval'` and
+`$meta_key = 'convertkit_content'`, registers an `admin_actions()` hook
+(`nx_cron_update_data_convertkit` → `update_data()`), and a `saved_post()` hook that
+calls `update_data()` immediately on save. That pipeline (API call →
+`update_notifications()` → `Entries` table → `FrontEnd.php` → REST → React) lives
+entirely in `notificationx-pro` and is out of scope for this doc.
 
 ## Fields & settings
 
@@ -96,12 +96,12 @@ doc.
   `Modules::is_enabled()` in the base `Extension::__construct()`) and `$is_pro`
   (hides/locks the source in the UI on the free plugin, per
   `NotificationX::is_pro()` checks in `Extension::__nx_sources()`).
-- _TODO: verify_ — in the pro subclass, `source_error_message()` shows an admin
-  error ("You have to setup your API Key for ConvertKit") when
-  `settings.convertkit_api_key` / `settings.convertkit_api_secret` are empty, and
-  `get_member()` silently returns no members if the API secret, form, or form
-  list option (`nxpro_convertkit_forms`) are missing. That is the plugin's only
-  real "presence" check, and it lives outside this repo's tree.
+- In the pro subclass, `source_error_message()` shows an admin error ("You have to
+  setup your API Key for ConvertKit") when `settings.convertkit_api_key` /
+  `settings.convertkit_api_secret` are empty, and `get_member()` silently returns no
+  members if the API secret, the `convertkit_form`, or the form list option
+  (`nxpro_convertkit_forms`) are missing. That is the plugin's only real "presence"
+  check, and it lives outside this repo's tree.
 
 ## Key files
 
@@ -119,15 +119,16 @@ doc.
 - Because `get_data()` is a stub in this plugin, testing real ConvertKit data
   flow requires the `notificationx-pro` plugin active; the free plugin alone
   cannot fetch or display real subscribers.
-- `EmailSubscription` (the paired Type) lists three modules
-  (`modules_mailchimp`, `modules_convertkit`, `modules_zapier` — `modules_mailchimp`
-  appears twice in the array, _TODO: verify_ whether that duplicate is
-  intentional) and is itself `$is_pro = true`, so the whole Email Subscription
-  Type is pro-gated independent of the ConvertKit module.
-- No dedicated tests for this extension were found under `tests/`.
-  _TODO: verify_ if pro-side tests exist in `notificationx-pro`.
+- `EmailSubscription` (the paired Type) lists four entries in its `$modules` array
+  (`EmailSubscription.php` lines 29-32): `modules_mailchimp`, `modules_convertkit`,
+  `modules_mailchimp`, `modules_zapier` — `modules_mailchimp` is duplicated (an
+  accidental redundant entry in source; harmless). The Type is itself
+  `$is_pro = true`, so the whole Email Subscription Type is pro-gated independent of
+  the ConvertKit module.
+- No dedicated tests reference this extension; `tests/test-extension-factory.php`
+  does not name `convertkit`, and `notificationx-pro` ships no `tests/` suite.
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
-- Related Type: [`includes/Types/EmailSubscription.php`](../../includes/Types/EmailSubscription.php) (no dedicated Type doc under `docs/types/` was found — _TODO: verify_)
+- Related Type: [Email Subscription](../types/email_subscription.md) ([`includes/Types/EmailSubscription.php`](../../includes/Types/EmailSubscription.php))

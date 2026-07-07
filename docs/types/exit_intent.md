@@ -15,7 +15,7 @@
 | **Default source** | `exit_intent_custom` (`$default_source`) |
 | **Default theme** | `exit_intent_theme-one` (`$default_theme`) |
 | **Link type** | `none` (`$link_type`) |
-| **Module gate (`$module`)** | `['modules_exit_intent']` declared on the Type object. As documented for the sibling `conversions` type ([docs/types/conversions.md](conversions.md)), `Types::$module` is **not** itself read by `TypesFactory` to gate loading — the real per-extension gate is the extension's own `$module` string checked by `ExtensionFactory`. For this type the only compatible extension, `ExitIntentNotification`, also declares `$module = 'modules_exit_intent'`, so in practice the same key gates both. `_TODO: verify_` whether anything else reads `Types::$module` directly. |
+| **Module gate (`$module`)** | `['modules_exit_intent']` declared on the Type object. As documented for the sibling `conversions` type ([docs/types/conversions.md](conversions.md)), `Types::$module` is **not** itself read by `TypesFactory` to gate loading — the real per-extension gate is the extension's own `$module` string checked by `ExtensionFactory`. For this type the only compatible extension, `ExitIntentNotification`, also declares `$module = 'modules_exit_intent'`, so in practice the same key gates both. Confirmed `TypesFactory` never reads `Types::$module` — `grep -n "module" includes/Types/TypesFactory.php` returns nothing. |
 | **Compatible extensions** | `ExitIntentNotification` (`$types = 'exit_intent'`) — see table below. |
 
 ## What it does
@@ -47,7 +47,7 @@ See [docs/exit-intent-popup.md](../features/exit-intent/00-overview.md) for the 
 - Distinctive settings keys: `elementor_id`, `elementor_edit_link`, `is_elementor`, `elementor_exit_theme`, plus each theme's own `exit_intent_<theme>_*` keys (see the extension source for the full per-theme list).
 - `exit_intent_cookie_days` — per [docs/exit-intent-popup.md](../features/exit-intent/00-overview.md), when > 0 a dismissal cookie is written in addition to the `sessionStorage` key.
 
-The Type-level template registered in `ExitIntent.php` (`exit_intent_template_default`) uses `GlobalFields::get_instance()->common_name_fields()` for its `first_param`; `_TODO: verify_` the exact field set this returns.
+The Type-level template registered in `ExitIntent.php` (`exit_intent_template_default`) uses `GlobalFields::get_instance()->common_name_fields()` for its `first_param`; that method ([`includes/Extensions/GlobalFields.php:2304-2313`](../../includes/Extensions/GlobalFields.php#L2304-L2313)) returns `tag_name` (Full Name), `tag_first_name` (First Name) and `tag_last_name` (Last Name), plus `tag_display_name` (Display Name) when called with `$display_name = true`.
 
 ## Themes / templates
 
@@ -78,7 +78,7 @@ None required for the built-in themes (core WordPress only). Elementor (`element
 - Elementor-linked campaigns hide the entire Content wizard tab and every per-theme content section (`suppress_when_elementor()`); a theme switch back to a built-in design (via the "Remove" button) resets `elementor_id`, `elementor_edit_link`, `elementor_exit_theme`, and `themes` fields together — verify all four are reset if touching that flow.
 - Popup width/height for Elementor designs falls back to the design's own container width (`resolve_design_width()`) when no explicit Layout-panel Width is set — not a fixed 540px default; only top-level elements are inspected.
 - `FrontEnd.php` treats `exit_intent_custom` as a hardcoded source string in `get_notifications_ids()` ([FrontEnd.php:577](../../includes/FrontEnd/FrontEnd.php#L577)) — a new/alternate Exit Intent extension with a different `$id` would not be routed into the `exit_intent` bucket without a matching code change there.
-- `_TODO: verify_` whether any PHPUnit tests under `tests/` cover this type — none were found by name in this pass.
+- No PHPUnit tests under `tests/` cover this type — confirmed: `grep -rli "exit_intent" tests/` returns no hits (the factory tests use `popup` as their representative fixture).
 
 ## Related docs
 

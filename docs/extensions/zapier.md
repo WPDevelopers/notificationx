@@ -59,7 +59,9 @@ to the free plugin's `includes/Extensions/Zapier/`):
   and `is_subclass_of` the free class, and if so instantiates the **pro** class
   instead. So with `notificationx-pro` active, `ExtensionFactory::register_extensions()`
   ends up holding pro-subclass instances even though its own map only names the
-  free classes. `_TODO: verify_` this at runtime (e.g. `get_class(ExtensionFactory::get_instance()->get('zapier_conversions'))`).
+  free classes. Confirmed in [`GetInstance::get_instance()`](../../includes/GetInstance.php)
+  source: it rewrites the `NotificationX\` prefix to `NotificationXPro\` and, when that
+  subclass exists and `is_subclass_of` the free class, instantiates the Pro subclass.
 - The pro `Zapier` trait's constructor adds
   `add_action("nx_api_response_success_{$this->id}", [$this, 'get_response'])` —
   a per-source-suffixed action fired by
@@ -99,10 +101,11 @@ to the free plugin's `includes/Extensions/Zapier/`):
   registration). [`GlobalFields.php`](../../includes/Extensions/GlobalFields.php)
   only references Zapier inside shared `Rules::includes('source', [...])`
   lists — e.g. the `show_notification_image` select field defaults to
-  `gravatar` for the bare string `"zapier"` (not the actual
-  `zapier_conversions`/`zapier_reviews`/`zapier_email_subscription` ids —
-  `_TODO: verify_` whether this rule ever actually matches given the real ids
-  differ), and the `hour_minutes_section` display-window field's source list
+  `gravatar` for the bare string `"zapier"` (GlobalFields.php ~line 202) — which does
+  **not** match the actual `zapier_conversions`/`zapier_reviews`/`zapier_email_subscription`
+  source ids, so this default is effectively dead for current sources (it only matched
+  the pre-split legacy `source == 'zapier'`), and the `hour_minutes_section`
+  display-window field's source list
   does correctly include all three real ids (`zapier_conversions`,
   `zapier_reviews`, `zapier_email_subscription`).
 - The pro `Zapier` trait adds a `zapier_settings_section` (`API Integration`
@@ -160,13 +163,15 @@ to the free plugin's `includes/Extensions/Zapier/`):
   which one you're hooking into if extending this further.
 - Legacy data: any notification still carrying `source == 'zapier'` (pre-Type-split)
   is remapped by `Migration.php`, not by the extension classes themselves.
-- No tests under `tests/` reference `zapier` (`_TODO: verify_` if this changes).
+- No tests under `tests/` reference `zapier` specifically; the three ids are
+  registered, so they are exercised generically by
+  [`tests/test-extension-factory.php`](../../tests/test-extension-factory.php).
 
 ## Related docs
 
 - [Adding a New Notification Type](../development/adding-a-notification-type.md)
 - [IFTTT Extension](ifttt.md) — closest sibling integration (same stub-in-free /
   real-logic-in-pro webhook pattern)
-- Related Type docs under [../types/](../types/) (none yet exist for
-  `conversions` / `reviews` / `email_subscription` at time of writing —
-  `_TODO: verify_`)
+- Type docs for the Types this Extension feeds:
+  [Sales/Conversions](../types/conversions.md), [Reviews](../types/reviews.md),
+  [Email Subscription](../types/email_subscription.md)

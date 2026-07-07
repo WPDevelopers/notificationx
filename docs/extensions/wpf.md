@@ -141,9 +141,10 @@ to fan built entries out to enabled `nx_id` posts using this source.
 - `keys_generator()` assumes `post_content` decodes to JSON with a `fields` key
   (WPForms' native form-builder schema); forms with malformed/missing content
   will yield no tag options.
-- _TODO: verify_ whether `notificationx-pro` adds any WPForms-specific
-  extensions/fields on top of this free-plugin class (out of scope for this repo
-  per CLAUDE.md).
+- `notificationx-pro` has **no** WPForms/WPF extension directory or subclass — the
+  integration is entirely free-plugin. Pro only references the `wpf` source string in
+  its Maps feature (`includes/Features/Maps.php`), which adds a "Map Image" option to
+  `form`-type (and other) notifications; it adds no WPForms-specific data fields.
 
 ## Related docs
 

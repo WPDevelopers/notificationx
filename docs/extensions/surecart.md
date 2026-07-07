@@ -124,14 +124,21 @@ equivalent data-producing methods are `save_new_records()` (checkout webhook),
   the checkout flow, or entries were deleted), it falls back to fetching the order fresh
   from `\SureCart\Models\Order::where(['order_ids' => [...]])`. Verify both paths after
   changing entry storage.
-- `get_orders()` filters by `created_at` compared against `strtotime($dateFrom)` /
-  `$dateTo` — `_TODO: verify_` whether `created_at` is already a timestamp or a string,
-  since the comparison mixes `$createdAt` (raw) with `strtotime($createdAt)`.
+- `get_orders()` filters by `created_at`: `$order['created_at']` is a **Unix
+  timestamp (integer)** from SureCart's `Order` model — confirmed by the lower-bound
+  term `$createdAt >= strtotime($dateFrom)`, which is a timestamp-vs-timestamp
+  comparison. The upper-bound term in the same `if` (`strtotime($createdAt) <= $dateTo`)
+  is inconsistent: it runs `strtotime()` on the already-numeric timestamp and compares
+  the result to `$dateTo`, which is a `'Y-m-d'` **string** (not a timestamp). That
+  half of the condition is a latent bug (it rarely bites because the lower-bound term
+  already bounds the window), so treat the upper bound as effectively non-functional.
 - `_excludes_product()` / `_show_purchaseof()` implement product/category
   include-exclude logic — check both `product_exclude_by` and `product_control`
   settings combinations when testing product filtering.
-- No dedicated tests for this extension were found under `tests/`; `_TODO: verify_` if
-  any exist elsewhere.
+- No dedicated tests exercise this extension. The free `tests/` suite is limited to
+  factory/type/REST/migration smoke tests and `notificationx-pro/tests/` only adds
+  type/engine/smoke tests — neither references SureCart (SureCart has no Pro class
+  either).
 
 ## Related docs
 

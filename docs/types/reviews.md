@@ -16,7 +16,7 @@
 | **Default source** | `wp_reviews` |
 | **Default theme** | `reviews_total-rated` |
 | **Link type** | `review_page` (added via the `Reviews` trait's `link_types()`, filtering `nx_link_types`) |
-| **Module gate (`$module`)** | Declares `['modules_wordpress', 'modules_woocommerce', 'modules_reviewx', 'modules_zapier', 'modules_freemius']` on the Type class. _TODO: verify_ — in the code read for this doc, actual type registration gating (`TypeFactory::register_types()`) is triggered from each **Extension**'s own `$module` check in [`Extension.php`](../../includes/Extensions/Extension.php) (`__construct`), not from this array directly; no call site reading `Types::$module` was found. Treat this list as documentation of "which modules commonly bring in this type" rather than confirmed enforced gating logic. |
+| **Module gate (`$module`)** | Declares `['modules_wordpress', 'modules_woocommerce', 'modules_reviewx', 'modules_zapier', 'modules_freemius']` on the Type class. **Verified:** this array is *not* the gating mechanism — nothing in the free or Pro plugin reads `Types::$module`. Type/extension gating is driven by each **Extension**'s own `$module` check in [`Extension.php`](../../includes/Extensions/Extension.php) / `ExtensionFactory::register_extensions()` (`Modules::is_enabled($obj->module)`). Treat this list as documentation of "which modules commonly bring in this type" rather than enforced gating logic. |
 | **Compatible extensions** | See table below (data sources) |
 
 ## What it does
@@ -76,8 +76,8 @@ get in [`FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php):
   ("Product Page") to the Content tab's Link Type field via the `nx_link_types` filter.
 - Everything else (source selection, design/customize tabs, global fields) comes from
   `Types::init_fields()` / `GlobalFields` and each Extension's own field registration —
-  not specific to this Type class. _TODO: verify_ extension-specific field details by
-  reading each Extension file individually if deeper accuracy is needed.
+  not specific to this Type class. (Extension-specific field details live in each
+  Extension file listed in the "Compatible extensions" table below.)
 
 ## Themes / templates
 
@@ -115,7 +115,7 @@ static "just reviewed"/"people rated" text, plugin name or rating).
 | Trait | [`includes/Types/Traits/Reviews.php`](../../includes/Types/Traits/Reviews.php) |
 | Base class | [`includes/Types/Types.php`](../../includes/Types/Types.php) |
 | Extensions (data sources) | see table below |
-| Frontend runtime | `nxdev/notificationx/frontend/...` _TODO: verify_ exact component (not inspected in this pass) |
+| Frontend runtime | [`nxdev/notificationx/frontend/themes/Theme.tsx`](../../nxdev/notificationx/frontend/themes/Theme.tsx) — the generic `normalize()`-shaped renderer; no `reviews`-specific React component |
 | PHP frontend | [`includes/FrontEnd/FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php) — generic entries pipeline (`get_notifications_data()`, `nx_filtered_entry_reviews`, `link_url()`) |
 
 ### Compatible extensions (data sources, `$types === 'reviews'`)
@@ -132,8 +132,8 @@ static "just reviewed"/"people rated" text, plugin name or rating).
 
 Note: `modules_google_reviews` and `modules_bitintegrations` are **not** listed in
 `Reviews::$module` on the Type class even though their extensions declare
-`$types = 'reviews'` — consistent with the finding above that the Type's `$module`
-array does not appear to be the actual gating mechanism. _TODO: verify_.
+`$types = 'reviews'` — consistent with the verified finding above that the Type's
+`$module` array is not the actual gating mechanism (nothing reads `Types::$module`).
 
 ## Dependencies
 
@@ -147,17 +147,18 @@ or BitIntegrations — gated by their own `modules_*` settings key.
 - `Traits\Reviews::conversion_data()` mutates `content`/`plugin_review`/`title` — if you
   add a new review-comment-style theme, remember to add its id(s) to
   `content_trim_length_dependency()` and check the trim-length special-case (80 chars for
-  `review-comment-3`) if you want consistent behavior; note the existing check compares
-  `$settings['themes'] == 'reviews_review-comment-3'` twice (looks like a possible
-  copy-paste bug — verify against `WOOReviews`/`ReviewX` for a parallel `-2` check).
-  _TODO: verify_ whether this is intentional.
+  `review-comment-3`) if you want consistent behavior. **Verified:** the trim-length
+  check in `Traits\Reviews::conversion_data()` does compare
+  `$settings['themes'] == 'reviews_review-comment-3'` twice (both clauses of the `||` are
+  identical) — a genuine copy-paste bug: only `reviews_review-comment-3` gets the 80-char
+  trim, and no `-2` theme is covered by that branch.
 - `review_fourth_param` only appears for the `review_saying` theme (`Rules::includes`) —
   test that dependency when adding new params to other review themes.
 - Since Reviews uses the generic `active`/`global` entry pipeline (not a special bucket),
   changes to `FrontEnd.php`'s generic entries loop can affect this type as a side effect —
   test against Comments/Conversions too when touching that shared code path.
-- No dedicated PHPUnit tests for this type were found under `tests/` in this pass.
-  _TODO: verify_.
+- No dedicated PHPUnit tests for this type exist. **Verified:** the free `tests/` suite
+  covers only the factories, migration/upgrader, and REST; none exercise `reviews` directly.
 
 ## Related docs
 

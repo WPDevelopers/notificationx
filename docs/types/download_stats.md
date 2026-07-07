@@ -56,8 +56,10 @@ For the `wp_stats` source specifically:
 
 `FreemiusStats` (`includes/Extensions/Freemius/FreemiusStats.php`) only sets
 `init_extension()` (title + an upsell `popup` shown to non-Pro users); its actual
-data-fetching logic is `_TODO: verify_` (not present in the free-plugin file — likely
-lives in `notificationx-pro`).
+data-fetching logic lives in `notificationx-pro`. **Verified:** Pro's `FreemiusStats`
+(`notificationx-pro/includes/Extensions/Freemius/FreemiusStats.php`) extends this free
+class, adds `$cron_schedule = 'nx_freemius_interval'`, and fetches via
+`$this->freemius()->Api("/plugins/$item_id/installs.json")` and `.../plugins.json`.
 
 ## Fields & settings schema
 
@@ -115,7 +117,7 @@ lives in `notificationx-pro`).
 | Type class | [`includes/Types/DownloadStats.php`](../../includes/Types/DownloadStats.php) |
 | Trait | none |
 | Extensions | [`includes/Extensions/WordPress/WPOrgStats.php`](../../includes/Extensions/WordPress/WPOrgStats.php), [`includes/Extensions/Freemius/FreemiusStats.php`](../../includes/Extensions/Freemius/FreemiusStats.php) |
-| Frontend runtime | `_TODO: verify_` — no `download_stats`-specific React component was found under `nxdev/notificationx/frontend/`; it likely renders through the generic notification component used for `normalize()`-shaped types |
+| Frontend runtime | [`nxdev/notificationx/frontend/themes/Theme.tsx`](../../nxdev/notificationx/frontend/themes/Theme.tsx) — the generic notification renderer used for `normalize()`-shaped types; there is no `download_stats`-specific React component (only `announcements/` has per-theme `.tsx` files) |
 | PHP frontend | [`includes/FrontEnd/FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php) (generic `active` bucket routing; no type-specific branch) |
 | Factory registration | [`includes/Types/TypesFactory.php`](../../includes/Types/TypesFactory.php) (`'download_stats' => 'NotificationX\Types\DownloadStats'`), [`includes/Extensions/ExtensionFactory.php`](../../includes/Extensions/ExtensionFactory.php) (`'wp_stats' => ...WPOrgStats`, `'freemius_stats' => ...FreemiusStats`) |
 
@@ -123,8 +125,9 @@ lives in `notificationx-pro`).
 
 - **WP.Org Stats (`wp_stats`)** — none; core WordPress only. Fetches public data from
   `api.wordpress.org` for the configured plugin/theme slug.
-- **Freemius (`freemius_stats`)** — Pro-only (`$is_pro = true`); actual data source
-  integration is `_TODO: verify_` (not implemented in this free-plugin codebase).
+- **Freemius (`freemius_stats`)** — Pro-only (`$is_pro = true`); the actual data-source
+  integration lives in `notificationx-pro` (see the Data flow section above — Pro's
+  `FreemiusStats` calls the Freemius API and runs on the `nx_freemius_interval` cron).
 
 `CustomNotification` (`includes/Extensions/CustomNotification/CustomNotification.php`)
 also references `download_stats` — but only to look up its theme list
@@ -143,7 +146,8 @@ not a data-source Extension for this type.
 - `preview_entry()` always swaps in the NotificationX plugin icon for the builder
   preview — don't mistake this for a bug when the real product's icon doesn't show in
   the admin preview.
-- No PHP tests specific to this type were found under `tests/`. `_TODO: verify_`.
+- No PHP tests specific to this type exist. **Verified:** the free `tests/` suite covers
+  only the factories, migration/upgrader, and REST; none exercise `download_stats` directly.
 
 ## Related docs
 
