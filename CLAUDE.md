@@ -41,7 +41,7 @@ A NotificationX notification is a (Type, Extension) pair:
 - **Types** ([includes/Types/](includes/Types/)) describe *what kind of notification* it is — Sales (`Conversions`), `Reviews`, `Comments`, `EmailSubscription`, `NotificationBar`, `Popup`, `ExitIntent`, `FlashingTab`, etc. Registered via `TypesFactory`. Each type extends `Types` and declares its display templates and field schema.
 - **Extensions** ([includes/Extensions/](includes/Extensions/)) are *data sources / integrations* for a Type — e.g. `WooCommerce`, `EDD`, `Freemius`, `MailChimp`, `Zapier`, `BitIntegrations`, `CF7`, `FluentForm`. Registered via `ExtensionFactory`. Each extends [Extensions/Extension.php](includes/Extensions/Extension.php) and declares which `$types` (Type IDs) and `$module` (settings key) it belongs to.
 
-When adding a new integration: pick the matching Type, create a class under `includes/Extensions/<Name>/<Name><Type>.php` extending `Extension`, set `$types`, `$module`, `$id`, implement `init_extension()` (UI/popup config) and `get_data()` (data fetching). Module activation is gated by the settings key in `$module` — disabled modules are not loaded. See existing extensions like [includes/Extensions/WooCommerce/](includes/Extensions/WooCommerce/) for the canonical pattern; [docs/new-notification-type.md](docs/new-notification-type.md) walks through adding a brand-new Type.
+When adding a new integration: pick the matching Type, create a class under `includes/Extensions/<Name>/<Name><Type>.php` extending `Extension`, set `$types`, `$module`, `$id`, implement `init_extension()` (UI/popup config) and `get_data()` (data fetching). Module activation is gated by the settings key in `$module` — disabled modules are not loaded. See existing extensions like [includes/Extensions/WooCommerce/](includes/Extensions/WooCommerce/) for the canonical pattern; [docs/development/adding-a-notification-type.md](docs/development/adding-a-notification-type.md) walks through adding a brand-new Type.
 
 `GlobalFields` ([includes/Extensions/GlobalFields.php](includes/Extensions/GlobalFields.php)) holds the cross-extension form field registry that the QuickBuilder UI consumes.
 
@@ -67,6 +67,6 @@ There are two frontend builds in this repo (admin + frontend webpack configs) an
 - WPML strings are declared in [wpml-config.xml](wpml-config.xml).
 
 ## Reference docs in-repo
-- [docs/new-notification-type.md](docs/new-notification-type.md) — adding a new Type end-to-end.
-- [docs/exit-intent-popup.md](docs/exit-intent-popup.md), [docs/exit-intent-add-new-design.md](docs/exit-intent-add-new-design.md) — Exit Intent specifics.
+- [docs/development/adding-a-notification-type.md](docs/development/adding-a-notification-type.md) — adding a new Type end-to-end.
+- [docs/features/exit-intent/00-overview.md](docs/features/exit-intent/00-overview.md), [docs/features/exit-intent/add-new-design.md](docs/features/exit-intent/add-new-design.md) — Exit Intent specifics.
 - [@todo.md](@todo.md) — author's running TODO; not authoritative roadmap.

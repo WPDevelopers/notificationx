@@ -10,7 +10,7 @@ use Elementor\Plugin as ElementorPlugin;
  *
  * Mirrors NotificationX\Extensions\PressBar\Importer but writes to the
  * `nx_exit_intent` post type and reads from this extension's own jsons/
- * folder. See docs/tasks/exit-intent-popup-elementor/02-importer.md.
+ * folder. See docs/features/exit-intent/elementor/02-importer.md.
  */
 class Importer extends Source_Local {
 
