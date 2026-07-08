@@ -28,6 +28,17 @@ class Integration {
     public $rest_base;
 
     /**
+     * Grace window during which the legacy md5(home_url()) key is still accepted
+     * after upgrade, so existing Zapier zaps keep firing while customers rotate.
+     */
+    const LEGACY_KEY_GRACE_DAYS = 14;
+
+    const OPT_API_KEY                = 'nx_integration_api_key';
+    const OPT_GRACE_STARTED_AT       = 'nx_integration_api_key_grace_started_at';
+    const OPT_LEGACY_KEY_LAST_USED   = 'nx_integration_legacy_key_last_used_at';
+    const OPT_SEEDED_VERSION         = 'nx_integration_key_seeded_version';
+
+    /**
      * Constructor.
      *
      * @since 4.7.0
@@ -38,6 +49,11 @@ class Integration {
         $this->namespace = 'notificationx/v1';
         $this->rest_base = 'notification';
         add_action('rest_api_init', [$this, 'register_routes']);
+        add_action('admin_notices', [$this, 'legacy_api_key_notice']);
+        // Runs once per install/upgrade to seed the API key and, only when
+        // needed, open the legacy-key grace window. Gated by a version marker
+        // so it never retriggers on the same version.
+        add_action('plugins_loaded', [__CLASS__, 'maybe_seed_from_upgrade'], 20);
     }
 
     /**
@@ -139,12 +155,137 @@ class Integration {
         );
     }
 
+    /**
+     * Returns the site's integration API key, generating and persisting one if it doesn't exist yet.
+     * Key generation has no side effects on the legacy-key grace window — that is opened only by
+     * {@see self::maybe_seed_from_upgrade()} at plugin bootstrap, so an unauthenticated attacker
+     * probing the endpoint can never lazy-open a grace window.
+     */
+    public static function get_api_key() {
+        $key = get_option( self::OPT_API_KEY );
+        if ( empty( $key ) ) {
+            $key = wp_generate_password( 32, false );
+            update_option( self::OPT_API_KEY, $key, false );
+        }
+        return $key;
+    }
+
+    /**
+     * Runs once per plugin version at bootstrap. Ensures the API key exists and opens the
+     * legacy-key grace window ONLY when the site actually had legacy integrations configured
+     * before the upgrade — never on a fresh install and never on customer sites that never
+     * used Zapier/IFTTT. Gated by a version marker so it does not retrigger.
+     */
+    public static function maybe_seed_from_upgrade() {
+        $seeded = get_option( self::OPT_SEEDED_VERSION );
+        if ( $seeded === NOTIFICATIONX_VERSION ) {
+            return;
+        }
+        update_option( self::OPT_SEEDED_VERSION, NOTIFICATIONX_VERSION, false );
+
+        // Ensure the new key exists (idempotent — no grace side effect).
+        self::get_api_key();
+
+        // Open the grace window only for sites that had legacy integrations.
+        if ( ! get_option( self::OPT_GRACE_STARTED_AT ) && self::has_legacy_integrations() ) {
+            update_option( self::OPT_GRACE_STARTED_AT, time(), false );
+        }
+    }
+
+    /**
+     * Detects whether the site has (or had) legacy Zapier/IFTTT integrations that would have
+     * been configured with the legacy md5(home_url()) key. Used to decide whether the upgrade
+     * seeder should open a grace window.
+     */
+    protected static function has_legacy_integrations(): bool {
+        global $wpdb;
+        $table = $wpdb->prefix . 'nx_posts';
+        $count = $wpdb->get_var(
+            "SELECT COUNT(*) FROM {$table}
+             WHERE source LIKE 'zapier%%'
+                OR source LIKE 'ifttt%%'"
+        );
+        return (int) $count > 0;
+    }
+
+    /**
+     * Unix timestamp at which the legacy md5(home_url()) key stops being accepted.
+     */
+    public static function legacy_key_grace_ends_at(): int {
+        $started = (int) get_option( self::OPT_GRACE_STARTED_AT );
+        if ( ! $started ) {
+            return 0;
+        }
+        return $started + ( self::LEGACY_KEY_GRACE_DAYS * DAY_IN_SECONDS );
+    }
+
+    /**
+     * Validates an incoming API key.
+     * The new random key is always accepted. The legacy md5(home_url()) key is accepted only
+     * during the post-upgrade grace window; we record every accepted legacy use so the admin
+     * notice can prompt the customer to rotate. After the grace window closes, the legacy key
+     * is rejected. Wrong keys never write to the DB — so a probing attacker can never open a
+     * grace window or flip the admin notice on.
+     */
+    public static function is_valid_api_key( string $api_key ): bool {
+        $stored = (string) get_option( self::OPT_API_KEY );
+        if ( $stored !== '' && hash_equals( $stored, $api_key ) ) {
+            return true;
+        }
+        $is_legacy = hash_equals( md5( home_url( '', 'http' ) ), $api_key )
+            || hash_equals( md5( home_url( '', 'https' ) ), $api_key );
+        if ( ! $is_legacy ) {
+            return false;
+        }
+        $grace_ends_at = self::legacy_key_grace_ends_at();
+        if ( $grace_ends_at === 0 || time() >= $grace_ends_at ) {
+            return false;
+        }
+        update_option( self::OPT_LEGACY_KEY_LAST_USED, time(), false );
+        return true;
+    }
+
+    /**
+     * Persistent dashboard notice — surfaced whenever the legacy key has been used recently
+     * so the customer can rotate before (or after) the grace window closes.
+     */
+    public function legacy_api_key_notice() {
+        if ( ! current_user_can( 'edit_notificationx_settings' ) ) {
+            return;
+        }
+        $last_used = (int) get_option( self::OPT_LEGACY_KEY_LAST_USED );
+        if ( ! $last_used ) {
+            return;
+        }
+        $grace_ends_at = self::legacy_key_grace_ends_at();
+        $settings_url  = admin_url( 'admin.php?page=nx-settings' );
+        if ( $grace_ends_at > 0 && time() < $grace_ends_at ) {
+            $deadline = wp_date( get_option( 'date_format' ), $grace_ends_at );
+            $message  = sprintf(
+                /* translators: %s: rotation deadline date. */
+                __( 'A Zapier (or other webhook) integration is still calling NotificationX with the legacy API key. Rotate it to the new key before %s — after that, requests using the old key will be rejected.', 'notificationx' ),
+                '<strong>' . esc_html( $deadline ) . '</strong>'
+            );
+            $class = 'notice notice-warning';
+        } else {
+            $message = __( 'A Zapier (or other webhook) integration is still calling NotificationX with the legacy API key. Those calls are now being rejected — update the integration with the new key to restore it.', 'notificationx' );
+            $class   = 'notice notice-error';
+        }
+        printf(
+            '<div class="%1$s"><p>%2$s <a href="%3$s">%4$s</a></p></div>',
+            esc_attr( $class ),
+            wp_kses_post( $message ),
+            esc_url( $settings_url ),
+            esc_html__( 'Get the new key', 'notificationx' )
+        );
+    }
+
     public function get_response( \WP_REST_Request $request ){
         $id        = $request['id'];
 		$api_key   = $request['api_key'];
         $error     = [];
 
-		if( $api_key === md5( home_url( '', 'http' ) ) || $api_key === md5( home_url( '', 'https' ) ) ) {
+		if( self::is_valid_api_key( (string) $api_key ) ) {
             $notificationx = PostType::get_instance()->get_post( $id );
             if( $notificationx ) {
                 return wp_send_json( true );
@@ -172,7 +313,7 @@ class Integration {
         if ( ! isset( $request['api_key'] ) ) {
             $response_data['error'] = __('Error: You should provide an API key.', 'notificationx');
         } else {
-            if( md5( home_url( '', 'http' ) ) != $request['api_key'] && md5( home_url( '', 'https' ) ) != $request['api_key'] ) {
+            if ( ! self::is_valid_api_key( (string) $request['api_key'] ) ) {
                 $response_data['error'] = __('Error: Invalid API key.', 'notificationx');
             }
         }
@@ -182,6 +323,9 @@ class Integration {
             if ( isset( $response_data['data']['api_key'] ) ) {
                 unset( $response_data['data']['api_key'] );
             }
+            array_walk_recursive( $response_data['data'], function( &$val ) {
+                $val = sanitize_text_field( (string) $val );
+            } );
             if (isset($response_data['data']['id'])){
                 $post = PostType::get_instance()->get_post($response_data['data']['id']);
                 if($post['source']){

@@ -44,7 +44,14 @@ const Theme = (props) => {
         while ((match = regex.exec(_row))) {
             let key = match?.[1]?.replace("tag_", "")?.replace("product_", "");
             let val = entry?.[key] || "";
-            val = 'string' === typeof val ? escapeHTML(val) : val;
+            // Escape EVERY value, not just string-typed ones. A value supplied
+            // as a one-element array (e.g. name => ["<img src=x onerror=…>"])
+            // would otherwise skip escapeHTML, then get coerced back to its raw
+            // string by row.replace() below and injected via
+            // dangerouslySetInnerHTML — a stored XSS (Patchstack, NX Pro
+            // <= 3.1.3). String(val) collapses arrays/objects/numbers to a
+            // string first so nothing bypasses the escape.
+            val = escapeHTML(String(val));
 
             if (key === "time") {
                 const suffix = ['announcements'].includes(post.source);
