@@ -1,4 +1,10 @@
-.nxbar_build_with_ai {
+// The Build With AI section wrapper takes its class from the section field's
+// `name` (quickbuilder Section.tsx). Notification Bar uses `nxbar_build_with_ai`,
+// Exit Intent uses `exit_intent_ai_tab` — both render the same BuildWithAI /
+// ProAlertForBuildWithAI component, so both must get this styling (otherwise the
+// Exit Intent free-user upsell renders unstyled/full-width instead of the card).
+.nxbar_build_with_ai,
+.exit_intent_ai_tab {
     position: relative;
 
     .build-with-ai__presets-list {
@@ -23,7 +29,8 @@
                 background-image: url('/assets/images/build-ai-bg.png');
                 padding: 100px 0;
                 background-position: center;
-                background-size: contain;
+                background-repeat: no-repeat;
+                background-size: 100%;
                 border-radius: 0 0 10px 10px;
             }
 
@@ -88,15 +95,26 @@
             }
               .nx-bar_build_with_ai-version-compare {
                 display: flex;
+                flex-direction: column;
+                justify-content: center;
                 align-items: center;
-                gap: 8px;
-                background: #FEEEDC;
-                border-radius: 4px;
-                padding: 12px;
+                text-align: center;
+                gap: 16px;
+                background: #FFF;
+                border-radius: 8px;
+                padding: 24px;
+                width: 470px;
+                max-width: 90%;
+                margin: 0 auto;
+                box-shadow: 0px 3px 14px 4px #06041B1F;
+                svg {
+                    flex-shrink: 0;
+                }
                 p {
-                    font-size: 14px;
+                    font-size: 16px;
                     line-height: 140%;
                     margin: 0;
+                    max-width: 336px;
                     color: #535D77;
                 }
             }

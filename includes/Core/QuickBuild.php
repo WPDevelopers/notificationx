@@ -263,6 +263,8 @@ class QuickBuild {
                 'elementor_exit_theme',
                 'import_elementor_theme',
                 'import_elementor_theme_next',
+                'exit_intent_ai_tab',
+                'exit-intent-build_with_ai',
             ],
             'types_title' => apply_filters( 'nx_source_types_title', array(
                 'notification_bar' => __('Notification Bar', 'notificationx'),
