@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: '20.x'
       - name: Running NPM Install
-        run: npm install
+        run: npm ci
       - name: Delete WordPress Compose node_modules
         run: rm -rf ./node_modules/@wordpress/compose/node_modules
       - name: Delete WordPress Scripts node_modules
