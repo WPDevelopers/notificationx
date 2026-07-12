@@ -26,10 +26,18 @@ const WrapperWithLoader: React.FC<{ isLoading?: boolean, classes?: string, div?:
                     builderContext.setFieldValue( "is_mobile_responsive", nx_type !== "custom" );
                 }
                 if( nx_type == 'exit_intent' ) {
+                    // Exit Intent hides the global for_desktop default, so on load we
+                    // must activate one of its own sub-tabs. Honour the saved themes_tab
+                    // (e.g. exit_intent_ai_tab when a Build With AI design was picked, or
+                    // exit_intent_custom_tab) so a reload keeps the user's tab — only fall
+                    // back to Default for fresh campaigns / legacy hidden values.
+                    const exitIntentTabs = ['exit_intent_default_tab', 'exit_intent_custom_tab', 'exit_intent_ai_tab'];
+                    const savedTab = builderValues?.themes_tab;
+                    const targetKey = exitIntentTabs.includes(savedTab) ? savedTab : 'exit_intent_default_tab';
                     setTimeout(() => {
-                        const target = document.querySelector('[data-key="exit_intent_default_tab"]');
+                        const target = document.querySelector('[data-key="' + targetKey + '"]');
                         target?.classList.add('wprf-active-nav');
-                        // @ts-ignore 
+                        // @ts-ignore
                         target?.click();
                     }, 100);
                 }
