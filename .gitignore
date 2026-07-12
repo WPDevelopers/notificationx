@@ -12,7 +12,6 @@ node_modules/
 src/wp-react-form
 src/form-builder
 assets/public/local/
-package-lock.json
 yarn.lock
 nxbuild
 **/*.map
