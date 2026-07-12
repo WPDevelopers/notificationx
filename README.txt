@@ -209,7 +209,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.2.11 - 09/07/2026 =
+= 3.2.11 - 12/07/2026 =
 Improved: Security enhancement.
 Few minor bug fixes and improvements
 
