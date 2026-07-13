@@ -218,7 +218,6 @@ class WooCommerce extends Extension {
     }
 
     public function status_transition($id, $from, $to, $order) {
-        $has_course = false;
         $from       = "wc-$from";
         $to         = "wc-$to";
         $items      = $order->get_items();
@@ -235,10 +234,7 @@ class WooCommerce extends Extension {
 
                 foreach ($items as $item) {
                     $key      = $id . '-' . $item->get_id();
-                    if (function_exists('tutor_utils')) {
-                        $has_course = tutor_utils()->product_belongs_with_course($item->get_product_id());
-                    }
-                    if ($has_course) {
+                    if ($this->is_excluded_course_item($item, $order)) {
                         continue;
                     }
 
@@ -271,8 +267,7 @@ class WooCommerce extends Extension {
         $order = wc_get_order($order_id);
         $items = $order->get_items();
         foreach( $items as $item ) {
-            $tutor_product = metadata_exists('post', $item->get_product_id(), "_tutor_product");
-            if($tutor_product ) {
+            if ($this->is_excluded_course_item($item, $order)) {
                 continue;
             }
             $order_item = $this->ordered_product($item->get_id(), $item, $order);
@@ -284,6 +279,41 @@ class WooCommerce extends Extension {
                 ], false);
             }
         }
+    }
+
+    /**
+     * Determine whether a Tutor LMS course-linked order item should be excluded
+     * from WooCommerce sales notifications.
+     *
+     * These items used to be dropped unconditionally, which silently hid every
+     * order for a course-linked product on stores that sell courses through
+     * WooCommerce. Exclusion is now opt-in and OFF by default. Re-enable it with:
+     *
+     *     add_filter('nx_woocommerce_exclude_tutor_course_products', '__return_true');
+     *
+     * Both Tutor detectors used across this class are honoured so the behaviour
+     * is consistent everywhere: product_belongs_with_course() and the
+     * _tutor_product product meta.
+     *
+     * @param \WC_Order_Item_Product $item  The order line item.
+     * @param mixed                  $order The order (WC_Order or order id) for filter context.
+     * @return bool True when the item should be skipped.
+     */
+    protected function is_excluded_course_item($item, $order = null) {
+        $exclude = apply_filters('nx_woocommerce_exclude_tutor_course_products', false, $item, $order);
+        if (!$exclude) {
+            return false;
+        }
+        if (!$item instanceof \WC_Order_Item_Product) {
+            return false;
+        }
+        $product_id = $item->get_product_id();
+        if (empty($product_id)) {
+            return false;
+        }
+        $belongs_to_course = function_exists('tutor_utils') && tutor_utils()->product_belongs_with_course($product_id);
+        $is_tutor_product  = metadata_exists('post', $product_id, '_tutor_product');
+        return $belongs_to_course || $is_tutor_product;
     }
 
     /**
@@ -302,11 +332,7 @@ class WooCommerce extends Extension {
         if( empty( $product ) ) {
             return false;
         }
-        $if_has_course = false;
-        if (function_exists('tutor_utils')) {
-            $if_has_course = tutor_utils()->product_belongs_with_course($item->get_product_id());
-        }
-        if ($if_has_course) {
+        if ($this->is_excluded_course_item($item, $order_id)) {
             return false;
         }
         $new_order = [];
@@ -439,11 +465,13 @@ class WooCommerce extends Extension {
         foreach ($wc_orders as $order) {
             $items = $order->get_items();
             foreach ($items as $item) {
-                $tutor_product = metadata_exists('post', $item->get_product_id(), "_tutor_product");
-                if ($tutor_product) {
+                if ($this->is_excluded_course_item($item, $order)) {
                     continue;
                 }
-                $orders[$order->get_id() . '-' . $item->get_id()] = $this->ordered_product($item->get_id(), $item, $order);
+                $entry = $this->ordered_product($item->get_id(), $item, $order);
+                if (!empty($entry) && is_array($entry)) {
+                    $orders[$order->get_id() . '-' . $item->get_id()] = $entry;
+                }
             }
         }
         return $orders;
@@ -458,7 +486,7 @@ class WooCommerce extends Extension {
      */
     public function check_order_status($return, $entry, $settings){
         $done     = !empty($settings['order_status']) ? $settings['order_status'] : ['wc-completed', 'wc-processing'];
-        if(!in_array($entry['data']['status'], $done)){
+        if (empty($entry['data']) || !is_array($entry['data']) || !in_array($entry['data']['status'] ?? '', $done, true)) {
             return false;
         }
 
