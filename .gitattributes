@@ -16,6 +16,8 @@
 docs         export-ignore
 CLAUDE.md         export-ignore
 CLAUDE.local.md         export-ignore
+AGENTS.md         export-ignore
+.githooks         export-ignore
 Thumbs.db           export-ignore
 behat.yml           export-ignore
 bitbucket-pipelines.yml         export-ignore

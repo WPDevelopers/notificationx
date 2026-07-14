@@ -36,6 +36,12 @@ jobs:
       plugin_repo: ${{ github.event.inputs.plugin_repo || 'WPDevelopers/notificationx' }}
       plugin_branch: ${{ github.event.inputs.plugin_branch || 'master' }}
 
+  phpunit-test:
+    uses: ./.github/workflows/phpunit.yml
+    with:
+      plugin_repo: ${{ github.event.inputs.plugin_repo || 'WPDevelopers/notificationx' }}
+      plugin_branch: ${{ github.event.inputs.plugin_branch || 'master' }}
+
   pcp-plugin-check:
     needs: build
     uses: ./.github/workflows/pcp-plugin-check.yml

@@ -1,0 +1,27 @@
+#!/bin/sh
+# Pre-commit hook: run `php -l` on staged PHP files.
+# Skips vendor/, node_modules/ and nxbuild/. Exits non-zero on any syntax error.
+
+staged=$(git diff --cached --name-only --diff-filter=ACM -- '*.php')
+
+[ -z "$staged" ] && exit 0
+
+errors=0
+for file in $staged; do
+    case "$file" in
+        vendor/*|node_modules/*|nxbuild/*) continue ;;
+    esac
+    [ -f "$file" ] || continue
+    output=$(php -l "$file" 2>&1)
+    if [ $? -ne 0 ]; then
+        echo "$output" >&2
+        errors=$((errors + 1))
+    fi
+done
+
+if [ "$errors" -gt 0 ]; then
+    echo "pre-commit: PHP syntax errors in $errors staged file(s). Commit aborted." >&2
+    exit 1
+fi
+
+exit 0

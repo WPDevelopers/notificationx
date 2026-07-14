@@ -5,7 +5,17 @@ on:
     tags:
       - '*'
 jobs:
+  phpunit:
+    uses: ./.github/workflows/phpunit.yml
+
+  syntax:
+    uses: ./.github/workflows/php-syntax-check.yml
+    with:
+      plugin_repo: ${{ github.repository }}
+      plugin_branch: ${{ github.ref_name }}
+
   deploy:
+    needs: [phpunit, syntax]
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2

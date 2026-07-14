@@ -18,7 +18,8 @@
     "cd-watch": "wp-scripts start --config webpack.countdown.config.js",
     "release": "npm run build && npm run bb && npm run cd && npm run pot",
     "zip": "npm run release && wp dist-archive .",
-    "packages-update": "wp-scripts packages-update"
+    "packages-update": "wp-scripts packages-update",
+    "prepare": "git config core.hooksPath .githooks"
   },
   "plugins": [
     "@babel/plugin-transform-runtime",

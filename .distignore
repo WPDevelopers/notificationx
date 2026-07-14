@@ -18,6 +18,8 @@
 docs
 CLAUDE.md
 CLAUDE.local.md
+AGENTS.md
+.githooks
 .wordpress-org
 Thumbs.db
 behat.yml

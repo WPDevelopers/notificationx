@@ -1,0 +1,91 @@
+name: QA - PHPUnit
+
+permissions: read-all
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      plugin_repo:
+        required: false
+        type: string
+        default: ''
+      plugin_branch:
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  phpunit:
+    name: PHPUnit / PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.1', '8.3']
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout NotificationX plugin
+        uses: actions/checkout@v4
+        with:
+          # Empty values fall back to the calling workflow's repository/ref
+          # (e.g. the pushed tag when called from deploy.yml).
+          repository: ${{ inputs.plugin_repo }}
+          ref: ${{ inputs.plugin_branch }}
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mysqli, mbstring, xml, curl, zip, intl, gd
+          coverage: none
+          tools: composer
+
+      - name: Install PHPUnit and PHPUnit Polyfills
+        run: |
+          composer global require "phpunit/phpunit:^9.6" "yoast/phpunit-polyfills:^2.0" --no-interaction --no-progress
+          GLOBAL_VENDOR=$(composer global config vendor-dir --absolute --quiet)
+          GLOBAL_BIN=$(composer global config bin-dir --absolute --quiet)
+          # The WP core test harness requires the Yoast polyfills (>= 1.1).
+          echo "WP_TESTS_PHPUNIT_POLYFILLS_PATH=$GLOBAL_VENDOR/yoast/phpunit-polyfills" >> "$GITHUB_ENV"
+          echo "$GLOBAL_BIN" >> "$GITHUB_PATH"
+
+      - name: Wait for MySQL to be ready
+        run: |
+          echo "⏳ Waiting for MySQL to be ready..."
+          for i in {1..30}; do
+            if mysqladmin ping -h"127.0.0.1" -P"3306" -u"root" -p"root" --silent; then
+              echo "✅ MySQL is ready!"
+              break
+            fi
+            echo "Waiting for MySQL... ($i/30)"
+            sleep 2
+          done
+
+      - name: Ensure Subversion is available
+        run: |
+          if ! command -v svn >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y subversion
+          fi
+
+      - name: Install WordPress test suite
+        run: |
+          # The mysql service already created the wordpress_test database
+          # (MYSQL_DATABASE), so pass skip-database-creation=true — otherwise
+          # the script's interactive "recreate db?" prompt would hang/fail in CI.
+          bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1 latest true
+
+      - name: Run PHPUnit
+        run: phpunit --configuration phpunit.xml.dist
