@@ -1,11 +1,7 @@
 <?php
 namespace NotificationX\Admin\Scanner;
 
-use NotificationX\Admin\Entries;
-use NotificationX\Core\Database;
 use NotificationX\Core\Helper;
-use NotificationX\Core\Limiter;
-use NotificationX\Core\PostType;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
 use WP_REST_Server;
@@ -52,16 +48,28 @@ class Scanner
         register_rest_route($namespace, '/scan', array(
             'methods'   => WP_REST_Server::CREATABLE,
             'callback'  => array($this, 'initiate_scan'),
-            'permission_callback' => '__return_true',
+            'permission_callback' => array($this, 'edit_permission'),
         ));
 
         // Register the scan status endpoint
         register_rest_route($namespace, '/scan/status', array(
             'methods'   => WP_REST_Server::EDITABLE,
             'callback'  => array($this, 'check_scan_status'),
-            'permission_callback' => '__return_true',
+            'permission_callback' => array($this, 'edit_permission'),
         ));
 
+    }
+
+    /**
+     * Permission check for the scanner routes.
+     * The cookie scanner is only used from the notification builder,
+     * which requires the edit_notificationx capability.
+     *
+     * @return bool
+     */
+    public function edit_permission()
+    {
+        return current_user_can('edit_notificationx');
     }
 
     /**
@@ -102,7 +110,6 @@ class Scanner
     public function check_scan_status(WP_REST_Request $request)
     {
         $scanId = $request->get_param('scan_id');
-        $nx_id = $request->get_param('nx_id');
 
         // Retrieve the scan status from the database (implement this function as needed)
         $status = $this->get_scan_status($scanId);
@@ -129,66 +136,7 @@ class Scanner
             $categorized   = $cookieData['categorized'];
             $data          = [ 'last_scan_date' => Helper::nx_get_current_datetime(), 'status' => 'completed', 'stats' => $stats, 'cookies' => $cookies, 'category_count' => $categoryCount, 'categorized' => $categorized ];
             return new WP_REST_Response(['data' => $data], 200);
-
-            // Prepare stats entry with the category count
-            if (!empty($stats) && is_array($stats)) {
-                $stats['category_count'] = $categoryCount;
-            }
-            if (!empty($stats) && is_array($stats)) {
-                $stats['categorized'] = $categorized;
-            }
-            if( empty( $nx_id ) ) {
-                return new WP_REST_Response(['data' => $status], 200);
-            }
-            
-            // If cookies or stats exist, prepare them for database insertion
-            if ((!empty($cookies) && is_array($cookies)) || (!empty($stats) && is_array($stats))) {
-                $entriesToInsert = [];
-
-                // Prepare cookies entry
-                if (!empty($cookies) && is_array($cookies)) {
-                    $entriesToInsert[] = [
-                        'nx_id'      => $nx_id,
-                        'source'     => 'gdpr_notification',
-                        'entry_key'  => $scanId . '_cookies',
-                        'data'       => $cookies,
-                        'created_at' => date('Y-m-d H:i:s'),
-                    ];
-                }
-
-                // Prepare stats entry
-                if (!empty($stats) && is_array($stats)) {
-                    $entriesToInsert[] = [
-                        'nx_id'      => $nx_id,
-                        'source'     => 'gdpr_notification',
-                        'entry_key'  => $scanId . '_stats',
-                        'data'       => $stats,
-                        'created_at' => date('Y-m-d H:i:s'),
-                    ];
-                }
-
-                // Insert data into the database
-                foreach ($entriesToInsert as $entry) {
-                    // Check if an entry already exists
-                    $isExists = Database::get_instance()->get_posts(
-                        Database::$table_entries, 'count(*)', [
-                            'nx_id'     => $nx_id,
-                            'source'    => 'gdpr_notification',
-                            'entry_key' => $entry['entry_key'],
-                        ]
-                    );
-
-                    if (empty($isExists[0]['count(*)'])) {
-                        $post = PostType::get_instance()->get_post($nx_id);
-                        $canEntry = apply_filters("nx_can_entry_gdpr_notification", true, $entry, $post);
-                        if ($canEntry) {
-                            Limiter::get_instance()->remove($nx_id, 1);
-                            Entries::get_instance()->insert_entry($entry);
-                        }
-                    }
-                }
-            }
-        }        
+        }
 
         return new WP_REST_Response(['data' => $status], 200);
     }
