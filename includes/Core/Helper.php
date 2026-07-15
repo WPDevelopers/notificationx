@@ -340,13 +340,13 @@ class Helper {
         }
         $new_data = array();
         $timestamp = current_time('timestamp');
-        $date = date('Y-m-d', $timestamp);
-        $date_7_days_back = date('Y-m-d', strtotime($date . ' -8 days'));
+        $date = gmdate('Y-m-d', $timestamp);
+        $date_7_days_back = gmdate('Y-m-d', strtotime($date . ' -8 days'));
         $counter_7days = 0;
         $counter_todays = 0;
         foreach ($data as $single_install) {
-            date('Y-m-d', strtotime($single_install->created)) > $date_7_days_back ? $counter_7days++ : $counter_7days;
-            date('Y-m-d', strtotime($single_install->created)) == $date ? $counter_todays++ : $counter_todays;
+            gmdate('Y-m-d', strtotime($single_install->created)) > $date_7_days_back ? $counter_7days++ : $counter_7days;
+            gmdate('Y-m-d', strtotime($single_install->created)) == $date ? $counter_todays++ : $counter_todays;
         }
         return array(
             'last_week' => $counter_7days,

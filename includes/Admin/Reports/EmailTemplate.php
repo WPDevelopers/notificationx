@@ -122,8 +122,8 @@ NXTEMFOOTER;
     public function body_header( $args = array(), $frequency = '' ){
         $args = current( $args );
         $logo = esc_url( NOTIFICATIONX_PUBLIC_URL . 'image/reports/logo.png' );
-        $from_date = isset( $args['from_date'] ) ? date( 'M j, Y', strtotime( $args['from_date'] ) ) : '';
-        $to_date = isset( $args['to_date'] ) ? date( 'M j, Y', strtotime( $args['to_date'] ) ) : '';
+        $from_date = isset( $args['from_date'] ) ? gmdate( 'M j, Y', strtotime( $args['from_date'] ) ) : '';
+        $to_date = isset( $args['to_date'] ) ? gmdate( 'M j, Y', strtotime( $args['to_date'] ) ) : '';
 
         if( empty( $from_date ) || empty( $to_date ) ) {
             return '';
@@ -291,7 +291,7 @@ NXPROMO;
                 break;
             case 'nx_monthly' :
                 $initial_timestamp = strtotime('first day of last month', current_time('timestamp'));
-                $days_in_last_month = cal_days_in_month(CAL_GREGORIAN, date( 'm', $initial_timestamp ), date( 'Y', $initial_timestamp ));
+                $days_in_last_month = cal_days_in_month(CAL_GREGORIAN, gmdate( 'm', $initial_timestamp ), gmdate( 'Y', $initial_timestamp ));
                 $days_ago = $days_in_last_month . ' days ago';
                 break;
         }

@@ -164,6 +164,7 @@ class WooCommerceSalesInline extends WooInline {
     }
 
     public function doc(){
+        /* translators: %1$s: WooCommerce installed & activated link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Best FOMO and Social Proof Plugin link URL, %5$s: boost WooCommerce Sales link URL */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a href="%3$s" target="_blank">Watch video tutorial</a> to learn quickly</p>
 		<p>⭐ NotificationX Integration with WooCommerce</p>

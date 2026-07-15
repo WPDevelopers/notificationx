@@ -277,8 +277,8 @@ class FluentForm extends Extension {
             if( !empty( $form_list[1] ) ) {
                 $form = wpFluent()->table('fluentform_forms')->where('id', $form_list[1])->first();
                 // $valueFrom = date('Y-m-d',strtotime('-'.$data['display_from'].' days',time()));
-                $valueFrom = date('Y-m-d H:i:s', Helper::generate_time_string($data));
-                $valueTo = date('Y-m-d',strtotime('1 days',time()));
+                $valueFrom = gmdate('Y-m-d H:i:s', Helper::generate_time_string($data));
+                $valueTo = gmdate('Y-m-d',strtotime('1 days',time()));
                 $query = wpFluent()->table('fluentform_submissions')
                 ->where('form_id', $form->id);
                 // define('FLUENTFORM_VERSION', '5.0.6')
@@ -401,6 +401,7 @@ class FluentForm extends Extension {
 
 
     public function doc() {
+        /* translators: %1$s: Fluent Forms installed and configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Display Fluent Forms Submission Alert link URL */
         return sprintf(__('
         <p>To use the campaign & form subscription data, make sure that you have <a target="_blank" href="%1$s">Fluent Forms installed and configured</a> on your website. For detailed guidelines, follow this <a target="_blank" href="%2$s">documentation</a>.</p>
 

@@ -55,6 +55,7 @@ class ActiveCampaign extends Extension {
     }
 
     public function doc(){
+        /* translators: %1$s: URL, %2$s: documentation link URL, %3$s: Integration with ActiveCampaign link URL, %4$s: ActiveCampaign Email Subscription Alerts link URL */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">signed in & retrieved API URL & API key from ActiveCampaign account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>👉 NotificationX <a target="_blank" href="%3$s">Integration with ActiveCampaign</a></p>
 		<p><strong>Recommended Blogs:</strong></p>

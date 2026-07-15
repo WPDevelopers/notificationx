@@ -82,7 +82,7 @@ class ReportEmail {
     }
 
     public function create_date($count = '-7days'){
-        return date('Y-m-d', strtotime($count, self::timestamps()));
+        return gmdate('Y-m-d', strtotime($count, self::timestamps()));
     }
 
     public function get_stats( $start_date, $end_date = null ){
@@ -260,6 +260,7 @@ class ReportEmail {
      */
     public function email_subject() {
         $site_name = get_bloginfo( 'name' );
+        /* translators: %s: site name */
         $subject = sprintf( __( 'Weekly Engagement Summary of “%s”', 'notificationx' ), $site_name );
         if( isset( $this->settings['reporting_subject'] ) && ! empty( $this->settings['reporting_subject'] ) ) {
             $subject = stripcslashes( $this->settings['reporting_subject'] );

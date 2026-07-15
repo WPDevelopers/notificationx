@@ -62,6 +62,7 @@ class Google_Analytics extends Extension {
     }
 
     public function doc(){
+        /* translators: %1$s: signed in to Google Analytics site link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Google Analytics link URL */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">signed in to Google Analytics site</a>, to use its campaign & page analytics data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
 		<p>👉NotificationX <a target="_blank" href="%4$s">Integration with Google Analytics</a></p>', 'notificationx'),

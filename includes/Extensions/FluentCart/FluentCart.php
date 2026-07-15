@@ -478,8 +478,8 @@ class FluentCart extends Extension {
             return;
         }
 
-        $dateFrom = !empty( $post['display_from'] ) ? date('Y-m-d',strtotime('-'.$post['display_from'].' days',time())) : '';
-        $dateTo = date('Y-m-d',strtotime('1 days',time()));
+        $dateFrom = !empty( $post['display_from'] ) ? gmdate('Y-m-d',strtotime('-'.$post['display_from'].' days',time())) : '';
+        $dateTo = gmdate('Y-m-d',strtotime('1 days',time()));
         $amount = !empty( $post['display_last'] ) ? $post['display_last'] : 10;
 
         $get_orders = \FluentCart\App\Models\Order::with(['customer', 'order_items', 'billing_address', 'shipping_address'])
@@ -761,6 +761,7 @@ class FluentCart extends Extension {
     }
 
     public function doc(){
+        /* translators: %1$s: FluentCart WordPress plugin installed & configured link URL, %2$s: documentation link URL, %3$s: 👉 NotificationX Integration with FluentCart link URL */
         return sprintf(__('<p>Make sure that you have the <a target="_blank" href="%1$s">FluentCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target="_blank" href="%2$s">documentation</a>.</p>
         <a target="_blank" href="%3$s">👉 NotificationX Integration with FluentCart</a>', 'notificationx'),
         'https://wordpress.org/plugins/fluent-cart/',

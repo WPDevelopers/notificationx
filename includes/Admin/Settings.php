@@ -360,6 +360,7 @@ class Settings extends UsabilityDynamicsSettings {
                                     'name'     => 'entries_mail_subject',
                                     'type'     => 'text',
                                     'label'    => __( 'Email Subject', 'notificationx' ),
+                                    /* translators: %s: site name */
                                     'default'  => sprintf( __( 'New Entry Received on "%s"', 'notificationx' ), $site_name ),
                                     'priority' => 2,
                                     'rules'    => Rules::is( 'enable_entries_mail', true ),
@@ -460,6 +461,7 @@ class Settings extends UsabilityDynamicsSettings {
                                     'name'     => 'reporting_subject',
                                     'type'     => 'text',
                                     'label'    => __( 'Reporting Email Subject', 'notificationx' ),
+                                    /* translators: %s: site name */
                                     'default'  => sprintf( __( 'Weekly Engagement Summary of “%s”', 'notificationx' ), $site_name ),
                                     'priority' => 4,
                                     'disable'  => true,

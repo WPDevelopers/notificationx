@@ -96,6 +96,7 @@ class FormWidget extends Widget_Base {
                 if ( ! in_array( $post['source'], [ 'popup_notification', 'exit_intent_custom' ], true ) ) {
                     continue;
                 }
+                /* translators: %d: notification ID */
                 $label = $post['title'] ?: sprintf( __( '#%d', 'notificationx' ), $post['nx_id'] );
                 $options[ (string) $post['nx_id'] ] = sprintf(
                     '%s (%s)',

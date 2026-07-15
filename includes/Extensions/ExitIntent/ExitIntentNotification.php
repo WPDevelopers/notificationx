@@ -2270,6 +2270,7 @@ JS;
     }
 
     public function doc() {
+        /* translators: %1$s: documentation link URL */
         return sprintf(__('
         <p>Show a targeted message at the exact moment someone is about to close your tab & bring them back into the funnel. Need help? Check out our <a target="_blank" href="%1$s">documentation</a>.</p>', 
         'notificationx'),

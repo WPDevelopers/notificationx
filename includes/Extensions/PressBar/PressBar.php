@@ -348,7 +348,7 @@ class PressBar extends Extension {
         unset($post['data']['is_gb_confirmed']);
         $post['data']['countdown_start_date'] = !empty( $data['countdown_start_date'] ) ? Helper::mysql_time($data['countdown_start_date']) : '';
         $post['data']['countdown_end_date'] = !empty( $data['countdown_end_date'] ) ? Helper::mysql_time($data['countdown_end_date']) : '';
-        $post['data']['countdown_rand'] = rand();
+        $post['data']['countdown_rand'] = wp_rand();
         return $post;
     }
 
@@ -1991,7 +1991,7 @@ class PressBar extends Extension {
                     'label' => __('End Date', 'notificationx'),
                     'type'  => 'date',
                     // @todo Something
-                    'default' => date('Y-m-d H:i:s', time() + 7 * 24 * 60 * 60),
+                    'default' => gmdate('Y-m-d H:i:s', time() + 7 * 24 * 60 * 60),
                     'rules' => ["and", ['is', 'evergreen_timer', false], ['is', 'enable_countdown', true]],
                 ),
                 'time_randomize'         => array(
@@ -2261,6 +2261,7 @@ class PressBar extends Extension {
     }
 
     public function doc() {
+        /* translators: %1$s: Elementor documentation URL, %2$s: Gutenberg documentation URL, %3$s: documentation URL, %4$s: blog post URL, %5$s: blog post URL */
         return sprintf(__('<p>Supercharge your WordPress site with an <strong>AI-powered Notification Bar</strong> that help you create and launches instant popup campaigns — smarter and faster than ever. Let AI generate compelling bar content for you in seconds. Need help getting started? Explore our step-by-step guides to set up your AI-enhanced notification bars using both <a target="_blank" href="%1$s">Elementor</a> and <a target="_blank" href="%2$s">Gutenberg</a>.</p>
 		<p>🎦 Check the <a target = "_blank" href = "%3$s">documentation</a> for a quick guide.</p>
 		<p><strong>Recommended Blog                     : </strong></p>

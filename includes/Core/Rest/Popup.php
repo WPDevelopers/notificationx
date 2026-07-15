@@ -429,13 +429,14 @@ class Popup {
         $csv_data = $this->generate_csv_data($entries);
 
         // Generate filename
-        $filename = 'notificationx-feedback-entries-' . date('Y-m-d-H-i-s') . '.csv';
+        $filename = 'notificationx-feedback-entries-' . gmdate('Y-m-d-H-i-s') . '.csv';
 
         return new \WP_REST_Response([
             'success' => true,
             'csv_content' => $csv_data,
             'filename' => $filename,
             'total_entries' => count($entries),
+            /* translators: %d: number of entries prepared for export */
             'message' => sprintf(__('Successfully prepared %d entries for export', 'notificationx'), count($entries))
         ], 200);
     }
@@ -475,6 +476,7 @@ class Popup {
             $row = [
                 $counter++,
                 $date->format('F j, Y'),
+                /* translators: %d: notification ID */
                 $entry['notification_name'] ?: sprintf(__('Notification #%d', 'notificationx'), $entry['nx_id']),
             ];
 

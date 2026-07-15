@@ -149,6 +149,7 @@ class EntriesMailReceiver {
         $subject = Settings::get_instance()->get( 'settings.entries_mail_subject', '' );
         if ( empty( $subject ) ) {
             $site_name = get_bloginfo( 'name' );
+            /* translators: %s: site name */
             $subject   = sprintf( __( 'New Entry Received on "%s"', 'notificationx' ), $site_name );
         }
         return stripcslashes( $subject );

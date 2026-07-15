@@ -276,6 +276,7 @@ class ReviewX extends WooReviews {
     }
 
     public function doc(){
+        /* translators: %1$s: WooCommerce link URL, %2$s: ReviewX link URL, %3$s: documentation link URL, %4$s: boost WooCommerce Sales link URL */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce</a> & <a target="_blank" href="%2$s">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%3$s">documentation</a>.</p>
 		<p><strong>Recommended Blog:</strong></p>
 		<p>🚀 How to <a target="_blank" href="%4$s">boost WooCommerce Sales</a> Using NotificationX</p>', 'notificationx'),

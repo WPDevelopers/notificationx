@@ -500,7 +500,7 @@ class Tutor extends Extension {
         }
         $orders   = array();
         // $from     = date(get_option('date_format'), strtotime('-' . intval($data['display_from']) . ' days'));
-        $from     = date('Y-m-d H:i:s', Helper::generate_time_string($data));
+        $from     = gmdate('Y-m-d H:i:s', Helper::generate_time_string($data));
         $enrolled = get_posts(
             array(
                 'post_type'      => 'tutor_enrolled',
@@ -537,6 +537,7 @@ class Tutor extends Extension {
     }
 
     public function doc(){
+        /* translators: %1$s: Tutor LMS installed & configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Integration with Tutor LMS link URL */
         return sprintf(__('<p>Make sure that you have <a href="%1$s" target="_blank">Tutor LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 Watch <a target="_blank" href="%3$s">video tutorial</a> to learn quickly</p>
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with Tutor LMS</a></p>', 'notificationx'),

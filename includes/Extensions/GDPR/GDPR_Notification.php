@@ -299,6 +299,7 @@ class GDPR_Notification extends Extension {
     }
 
     public function doc(){
+        /* translators: %1$s: step-by-step guides link URL, %2$s: tutorial link URL, %3$s: How to Display WordPress Cookie Notice Using NotificationX? link URL, %4$s: WP Consent API link URL */
         return sprintf(__('<p>You can showcase Cookie Notice effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our <a href="%1$s" target="_blank">step-by-step guides</a> for creating a Cookie Notice on the WordPress website.</p>
         <p>🎦 Watch the video <a target="_blank" href="%2$s">tutorial</a> for a quick guide.</p>
         <p><strong>Recommended Blogs:</strong></p>

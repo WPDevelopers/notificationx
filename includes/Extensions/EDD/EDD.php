@@ -159,8 +159,8 @@ class EDD extends Extension {
                 $products_more_title = sprintf('%d %s', $item, $more_product_text);
             }
 
-            // translators: %1$s: title, %2$s: combined more products text.
             $items[$key]['title'] = sprintf(
+                /* translators: %1$s: product title, %2$s: combined "and N more products" text */
                 __('%1$s & %2$s', 'notificationx'),
                 $items[$key]['title'],
                 $products_more_title
@@ -253,7 +253,7 @@ class EDD extends Extension {
     public function get_payments( $days, $amount ) {
         // $date       = '-' . intval( $days ) . ' days';
         // $start_date = strtotime( $date );
-        $from   = date('Y-m-d H:i:s', $days);
+        $from   = gmdate('Y-m-d H:i:s', $days);
 
         $amount = $amount > 0 ? $amount : -1;
 
@@ -395,6 +395,7 @@ class EDD extends Extension {
     /* #endregion */
 
     public function doc(){
+        /* translators: %1$s: Easy Digital Downloads installed & activated link URL, %2$s: documentation link URL, %3$s: Integration with Easy Digital Downloads link URL, %4$s: NotificationX Increase Sales on WordPress link URL */
         return sprintf(__('<p>Make sure that you have <a href="%1$s" target="_blank">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>👉 NotificationX <a target="_blank" href="%3$s">Integration with Easy Digital Downloads</a></p>
 		<p><strong>Recommended Blog:</strong></p>

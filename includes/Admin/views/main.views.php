@@ -1,3 +1,8 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+?>
 <style>
 .notificationx-disabled-javascript-notice {
     font-size: 20px;

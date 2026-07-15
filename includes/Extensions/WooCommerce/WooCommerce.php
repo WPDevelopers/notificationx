@@ -429,7 +429,7 @@ class WooCommerce extends Extension {
         if (empty($data) || !function_exists('wc_get_orders')) return null;
         $orders = [];
         $time   = Helper::generate_time_string($data);
-        $from   = strtotime(date('Y-m-d h:i', $time));
+        $from   = strtotime(gmdate('Y-m-d h:i', $time));
         $status = !empty($data['order_status']) ? $data['order_status'] : ['wc-completed', 'wc-processing'];
         $wc_orders = \wc_get_orders([
             'status'       => $status,
@@ -541,8 +541,8 @@ class WooCommerce extends Extension {
                 $products_more_title = sprintf('%d %s', $item, $more_product_text);
             }
 
-            // translators: %1$s: title, %2$s: combined more products text.
             $items[$key]['title'] = sprintf(
+                /* translators: %1$s: product title, %2$s: combined "and N more products" text */
                 __('%1$s & %2$s', 'notificationx'),
                 $items[$key]['title'],
                 $products_more_title
@@ -603,6 +603,7 @@ class WooCommerce extends Extension {
     }
 
     public function doc(){
+        /* translators: %1$s: WooCommerce installed & activated link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Best FOMO and Social Proof Plugin link URL, %5$s: boost WooCommerce Sales link URL */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 		<p>🎦 <a href="%3$s" target="_blank">Watch video tutorial</a> to learn quickly</p>
 		<p>⭐ NotificationX Integration with WooCommerce</p>

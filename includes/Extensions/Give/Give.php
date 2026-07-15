@@ -208,7 +208,7 @@ class Give extends Extension {
             return null;
         }
         $donations = [];
-        $from = date(get_option('date_format'), strtotime('-' . intval($data['display_from']) . ' days'));
+        $from = gmdate(get_option('date_format'), strtotime('-' . intval($data['display_from']) . ' days'));
         $args = array(
             'number' => -1,
             'date_query' => array(
@@ -294,6 +294,7 @@ class Give extends Extension {
     }
 
     public function doc() {
+        /* translators: %1$s: GiveWP installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with GiveWP link URL, %5$s: NotificationX Increase Sales on WordPress link URL */
         return sprintf(__('<p>Make sure that you have <a target="_blank" href="%1$s">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href="%2$s">documentation</a>.</p>
 		<p>🎦 <a target="_blank" href="%3$s">Watch video tutorial</a> to learn quickly</p>
 		<p>👉 NotificationX <a target="_blank" href="%4$s">Integration with GiveWP</a></p>

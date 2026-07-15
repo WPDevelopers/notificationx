@@ -1250,7 +1250,7 @@ class Migration {
                             'nx_id'      => $nx_id,
                             'clicks'     => !empty($value['clicks']) ? $value['clicks'] : 0,
                             'views'      => !empty($value['impressions']) ? $value['impressions'] : 0,
-                            'created_at' => date(Analytics::$date_format, strtotime($date)),
+                            'created_at' => gmdate(Analytics::$date_format, strtotime($date)),
                         ];
                         $stats[] = $data;
                     }

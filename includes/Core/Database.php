@@ -234,10 +234,10 @@ class Database {
         }
         // created_at and updated_at if not empty convert to mysql date
         if ( ! empty( $post['created_at'] ) ) {
-            $post['created_at'] = date( 'Y-m-d H:i:s', strtotime( $post['created_at'] ) );
+            $post['created_at'] = gmdate( 'Y-m-d H:i:s', strtotime( $post['created_at'] ) );
         }
         if ( ! empty( $post['updated_at'] ) ) {
-            $post['updated_at'] = date( 'Y-m-d H:i:s', strtotime( $post['updated_at'] ) );
+            $post['updated_at'] = gmdate( 'Y-m-d H:i:s', strtotime( $post['updated_at'] ) );
         }
         return $post;
     }

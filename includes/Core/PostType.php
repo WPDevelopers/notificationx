@@ -130,6 +130,7 @@ class PostType {
         $tabs['nx_feedback_shared']           = get_option('nx_feedback_shared',false);
         $tabs['scan_data']                    = [ 
             'nx_scan_count' => get_option('nx_scan_count',0),
+            /* translators: %1$s: number of scans already used, %2$s: total free scans available */
             'scans_used'    => __('%1$s of %2$s free scans used', 'notificationx'),
             'scan_date'     => get_option('nx_scan_date'),
         ];

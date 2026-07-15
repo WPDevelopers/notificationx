@@ -290,6 +290,7 @@ class Integration {
             if( $notificationx ) {
                 return wp_send_json( true );
             }
+            /* translators: %s: notification ID */
             $error['message'] = sprintf( __( 'There is no notification created with this id: %s', 'notificationx' ), $id );
             return wp_send_json_error( $error, 401 );
 		} else {

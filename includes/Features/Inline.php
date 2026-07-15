@@ -272,12 +272,12 @@ class Inline {
             if ($cookieValue !== null) {
                 $randomNumber = $cookieValue;
             } else {
-                $randomNumber = rand($min, $max);
+                $randomNumber = wp_rand($min, $max);
     
                 // If cookieValue existed, ensure new number is within the allowed range
                 if ($cookieValue !== null) {
                     while (abs($randomNumber - $cookieValue) > $range) {
-                        $randomNumber = rand($min, $max);
+                        $randomNumber = wp_rand($min, $max);
                     }
                 }
     

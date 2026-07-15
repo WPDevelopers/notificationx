@@ -259,7 +259,7 @@ class Notice {
      * @return integer
      */
     public function makeTime( $current, $time ) {
-        return intval( strtotime( date( 'r', $current ) . " +$time" ) );
+        return intval( strtotime( gmdate( 'r', $current ) . " +$time" ) );
     }
     /**
      * Automatice Maybe Later.

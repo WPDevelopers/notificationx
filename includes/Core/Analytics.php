@@ -51,8 +51,8 @@ class Analytics {
         $where = [];
         $args  = wp_parse_args( $args, [] );
         if ( ! empty( $args['startDate'] ) && ! empty( $args['endDate'] ) ) {
-            $start_date          = date( self::$date_format, strtotime( $args['startDate'] ) );
-            $end_date            = date( self::$date_format, strtotime( $args['endDate'] ) );
+            $start_date          = gmdate( self::$date_format, strtotime( $args['startDate'] ) );
+            $end_date            = gmdate( self::$date_format, strtotime( $args['endDate'] ) );
             $where['created_at'] = [ 'BETWEEN', $start_date, $end_date ];
         }
         $stats = Database::get_instance()->get_posts( Database::$table_stats, '*', $where );
@@ -71,7 +71,7 @@ class Analytics {
         $format = 'Y-m-d';
         $stats  = $this->stats_exists([
             'nx_id'      => $nx_id,
-            'created_at' => date( self::$date_format, time() ),
+            'created_at' => gmdate( self::$date_format, time() ),
         ]
         );
         if ( empty( $stats ) ) {
@@ -82,7 +82,7 @@ class Analytics {
             ];
             $this->_insert_analytics( $data, time() );
         } else {
-            $this->increment_count( $type, $nx_id, date( self::$date_format, time() ) );
+            $this->increment_count( $type, $nx_id, gmdate( self::$date_format, time() ) );
         }
     }
 
@@ -95,18 +95,18 @@ class Analytics {
             $nx_id = $_data['nx_id'];
             $stats = $this->stats_exists([
                 'nx_id'      => $nx_id,
-                'created_at' => date( self::$date_format, $time ),
+                'created_at' => gmdate( self::$date_format, $time ),
             ]
             );
             if ( ! empty( $stats ) ) {
                 unset( $_data['nx_id'] );
                 foreach ( $_data as $_type => $_s_data ) {
-                    $this->increment_count( $_type, $nx_id, date( self::$date_format, $time ), $_s_data );
+                    $this->increment_count( $_type, $nx_id, gmdate( self::$date_format, $time ), $_s_data );
                 }
                 return;
             }
         }
-        $data['created_at'] = date( self::$date_format, $time );
+        $data['created_at'] = gmdate( self::$date_format, $time );
         Database::get_instance()->insert_post( Database::$table_stats, $data );
     }
 

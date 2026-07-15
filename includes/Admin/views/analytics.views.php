@@ -1,3 +1,8 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+?>
 <div class="nx-analytics-header-counter-wrapper <?php echo esc_attr( $class ); ?>">
     <div class="nx-header-analytics-counter-wrapper">
         <div>
