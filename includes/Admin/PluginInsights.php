@@ -999,7 +999,15 @@ class PluginInsights {
                     var url = document.getElementById("wpinsights-goodbye-link-<?php echo esc_attr( $this->plugin_name ); ?>");
                     $('body').toggleClass('wpinsights-form-active-<?php echo esc_attr( $this->plugin_name ); ?>');
                     $(".wpinsights-goodbye-form-wrapper-<?php echo esc_attr( $this->plugin_name ); ?> #wpinsights-goodbye-form").fadeIn();
-                    $(".wpinsights-goodbye-form-wrapper-<?php echo esc_attr( $this->plugin_name ); ?> #wpinsights-goodbye-form").html( '<?php echo $html; ?>' + '<div class="wpinsights-goodbye-form-footer"><div class="wpinsights-goodbye-form-buttons"><a id="wpinsights-submit-form-<?php echo esc_attr( $this->plugin_name ); ?>" class="wpinsights-submit-btn" href="#"><?php esc_html_e( 'Submit and Deactivate', 'notificationx' ); ?></a>&nbsp;<a class="wpsp-put-deactivate-btn" href="'+url+'"><?php esc_html_e( 'Just Deactivate', 'notificationx' ); ?></a></div></div>');
+                    <?php
+                    /*
+                     * $html is assembled above with esc_html()/esc_attr() applied to every
+                     * interpolated value. It holds the radio/textarea controls of the
+                     * deactivation form, which wp_kses_post() and nx_allowed_html() would
+                     * both strip, breaking the form.
+                     */
+                    ?>
+                    $(".wpinsights-goodbye-form-wrapper-<?php echo esc_attr( $this->plugin_name ); ?> #wpinsights-goodbye-form").html( '<?php echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>' + '<div class="wpinsights-goodbye-form-footer"><div class="wpinsights-goodbye-form-buttons"><a id="wpinsights-submit-form-<?php echo esc_attr( $this->plugin_name ); ?>" class="wpinsights-submit-btn" href="#"><?php esc_html_e( 'Submit and Deactivate', 'notificationx' ); ?></a>&nbsp;<a class="wpsp-put-deactivate-btn" href="'+url+'"><?php esc_html_e( 'Just Deactivate', 'notificationx' ); ?></a></div></div>');
                     $('#wpinsights-submit-form-<?php echo esc_attr( $this->plugin_name ); ?>').on('click', function(e){
                         // As soon as we click, the body of the form should disappear
                         $("#wpinsights-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .wpinsights-goodbye-form-body").fadeOut();
@@ -1025,7 +1033,7 @@ class PluginInsights {
                             'action': 'deactivation_form_<?php echo esc_attr( $this->plugin_name ); ?>',
                             'values': checkedInputVal,
                             'details': details,
-                            'security': "<?php echo wp_create_nonce( 'wpins_deactivation_nonce' ); ?>",
+                            'security': "<?php echo esc_js( wp_create_nonce( 'wpins_deactivation_nonce' ) ); ?>",
                             'dataType': "json"
                         }
 

@@ -83,7 +83,7 @@ function nx_free_compatibility_notice() {
             <p>
             <?php
             /* translators: %s: URL of the wp-admin plugins page */
-            echo sprintf( __( "<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>.", 'notificationx' ), esc_url( admin_url( 'plugins.php' ) ) ); ?></p>
+            echo wp_kses_post( sprintf( __( "<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>.", 'notificationx' ), esc_url( admin_url( 'plugins.php' ) ) ) ); ?></p>
         </div>
     <?php
 }

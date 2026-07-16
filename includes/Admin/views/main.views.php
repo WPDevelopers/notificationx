@@ -18,9 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
         <noscript>
             <p class="notificationx-disabled-javascript-notice">
                 <?php
-                    echo
+                    echo wp_kses_post(
                         // translators: html tags
-                        __( 'To work <strong><em>NotificationX</em></strong> properly you need to <strong>Enable JavaScript</strong> in your browser or make sure you have installed updated browser in your device.', 'notificationx' );
+                        __( 'To work <strong><em>NotificationX</em></strong> properly you need to <strong>Enable JavaScript</strong> in your browser or make sure you have installed updated browser in your device.', 'notificationx' )
+                    );
                 ?>
             </p>
         </noscript>

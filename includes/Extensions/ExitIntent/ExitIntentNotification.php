@@ -75,7 +75,7 @@ class ExitIntentNotification extends Extension {
         }
         echo "<style id='nx-exit-intent-section-constraint'>\n";
         if ( '' !== $vars ) {
-            echo "body.single-nx_exit_intent{" . $vars . "}\n";
+            echo "body.single-nx_exit_intent{" . esc_html( $vars ) . "}\n";
         }
         echo ".nx-exit-intent-section{width:100%!important;max-width:var(--nx-exit-width,540px)!important;margin-left:auto!important;margin-right:auto!important;}\n";
         if ( is_singular( 'nx_exit_intent' ) ) {
