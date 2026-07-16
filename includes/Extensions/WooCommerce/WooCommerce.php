@@ -526,16 +526,19 @@ class WooCommerce extends Extension {
                 );
             } else {
                 $singular = !empty($settings['combine_multiorder_text'])
-                    ? __($settings['combine_multiorder_text'], 'notificationx')
+                    ? $settings['combine_multiorder_text']
                     : __('more product', 'notificationx');
 
                 $plural = !empty($settings['combine_multiorder_text_plural'])
-                    ? __($settings['combine_multiorder_text_plural'], 'notificationx')
+                    ? $settings['combine_multiorder_text_plural']
                     : __('more products', 'notificationx');
 
-                // Proper plural handling
+                // Both forms are already resolved here - either a user-entered
+                // override or an already-translated default - so they are never
+                // catalogue msgids. _n() would find no entry and fall back to
+                // exactly this choice, so make it explicit.
                 $more_product_text = sprintf(
-                    _n($singular, $plural, $item, 'notificationx'),
+                    1 == $item ? $singular : $plural,
                     $item
                 );
                 $products_more_title = sprintf('%d %s', $item, $more_product_text);

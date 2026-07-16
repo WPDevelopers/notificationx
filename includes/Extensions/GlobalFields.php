@@ -1076,7 +1076,7 @@ class GlobalFields {
                                     'name'    => "gdpr_force_reload",
                                     'type'    => "better-toggle",
                                     'default' => false,
-                                    'toggle_label'     => ['toggle_label_1' => __('Enable Force Reload', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
+                                    'toggle_label'     => ['toggle_label_1' => __('Enable Force Reload', 'notificationx'), 'toggle_label_2' => ''],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
@@ -1087,7 +1087,7 @@ class GlobalFields {
                                     'name'    => "gdpr_cookie_removal",
                                     'type'    => "better-toggle",
                                     'default' => false,
-                                    'toggle_label'     => ['toggle_label_1' => __('Enable Cookie Removal', 'notificationx'), 'toggle_label_2' => __('', 'notificationx')],
+                                    'toggle_label'     => ['toggle_label_1' => __('Enable Cookie Removal', 'notificationx'), 'toggle_label_2' => ''],
                                     'rules'   => Rules::logicalRule([
                                         Rules::is( 'type', 'gdpr' ),
                                     ]),
@@ -1169,7 +1169,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => ' ',
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1192,7 +1192,7 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'necessary_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx'),
+                                                    'label'    => '',
                                                     'name'     => 'necessary_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
@@ -1224,7 +1224,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => ' ',
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1247,7 +1247,7 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'functional_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx'),
+                                                    'label'    => '',
                                                     'name'     => 'functional_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
@@ -1278,7 +1278,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => ' ',
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1301,7 +1301,7 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'analytics_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx'),
+                                                    'label'    => '',
                                                     'name'     => 'analytics_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
@@ -1332,7 +1332,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => ' ',
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1355,7 +1355,7 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'performance_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx'),
+                                                    'label'    => '',
                                                     'name'     => 'performance_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
@@ -1386,7 +1386,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => ' ',
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1409,7 +1409,7 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'advertising_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx'),
+                                                    'label'    => '',
                                                     'name'     => 'advertising_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,
@@ -1440,7 +1440,7 @@ class GlobalFields {
                                                     'close_on_body' => true,
                                                     'button' => [
                                                         'name' => 'tab_info_edit',
-                                                        'text' => __(' ', 'notificationx'),
+                                                        'text' => ' ',
                                                         'icon'  => [
                                                             'type' => 'tabs',
                                                             'name' => 'edit_modal'
@@ -1463,7 +1463,7 @@ class GlobalFields {
                                                     ],
                                                 ],
                                                 'uncategorized_cookie_lists'    => [
-                                                    'label'    => __('', 'notificationx'),
+                                                    'label'    => '',
                                                     'name'     => 'uncategorized_cookie_lists',
                                                     'type'     => 'better-repeater',
                                                     'priority' => 10,

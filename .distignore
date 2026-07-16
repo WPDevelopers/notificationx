@@ -25,7 +25,6 @@ bitbucket-pipelines.yml
 bin
 .nvmrc
 .circleci/config.yml
-composer.json
 composer.lock
 dependencies.yml
 Gruntfile.js

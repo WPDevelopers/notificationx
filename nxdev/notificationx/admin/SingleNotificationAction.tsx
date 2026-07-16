@@ -155,10 +155,10 @@ const SingleNotificationAction = ({
                     cancelButtonText: __("Cancel", "notificationx"),
                     cancelButtonColor: "#d14529",
                     html: `<div class="swal-shortcode-wrapper">
-                        <label><img src="${nxContext.assets.admin}images/copy icon.svg"/>Copy Regular Shortcode: <code id="regulat-shortcode" title="click to copy">[notificationx id=${id}]</code>
+                        <label><img src="${nxContext.assets.admin}images/copy-icon.svg"/>Copy Regular Shortcode: <code id="regulat-shortcode" title="click to copy">[notificationx id=${id}]</code>
                             <span>Note: Regular Shortcode will copy the notification content & its styles.</span>
                         </label>
-                        <label><img src="${nxContext.assets.admin}images/copy icon.svg"/>Copy Inline Shortcode: <code id="inline-shortcode" title="click to copy">[notificationx_inline id=${id}]</code>
+                        <label><img src="${nxContext.assets.admin}images/copy-icon.svg"/>Copy Inline Shortcode: <code id="inline-shortcode" title="click to copy">[notificationx_inline id=${id}]</code>
                             <span>Note: Inline Shortcode will only copy the notification content which you can insert anywhere on your page.</span>
                         </label>
                     </div>`,
