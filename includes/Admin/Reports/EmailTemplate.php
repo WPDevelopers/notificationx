@@ -6,6 +6,7 @@ use NotificationX\Core\Helper as NotificationX_Helper;
 class EmailTemplate {
 
     public function header(){
+        // phpcs:disable WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet -- HTML email body; wp_enqueue_style() has no effect in a mail. Audited 2026-07-16.
         // phpcs:ignore PluginCheck.CodeAnalysis.Heredoc.NotAllowed -- False positive for this context: these are HTML email bodies and remote documentation/tutorial links in admin help text, not offloaded plugin assets. Audited 2026-07-16.
         $output = <<<NXTEMHEADER
 <!DOCTYPE html>
@@ -81,6 +82,7 @@ class EmailTemplate {
                         <table class="nx-email-body" cellpadding="35" cellspacing="0" border="0" width="600" align="center" bgcolor="#FFF">
                             <tbody>
 NXTEMHEADER;
+        // phpcs:enable WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
         return $output;
     }
 
