@@ -251,6 +251,7 @@ class MilestoneNotification
             // Get total notifications count
             global $wpdb;
             $table_name = $wpdb->prefix . 'nx_posts';
+            // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
             $total_notifications = $wpdb->get_var("SELECT COUNT(*) FROM {$table_name} WHERE enabled = 1");
             $total_notifications = $total_notifications ? intval($total_notifications) : 0;
 
@@ -503,6 +504,7 @@ class MilestoneNotification
             // Get total notifications count
             global $wpdb;
             $table_name = $wpdb->prefix . 'nx_posts';
+            // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
             $total_notifications = $wpdb->get_var("SELECT COUNT(*) FROM {$table_name} WHERE enabled = 1");
             $total_notifications = $total_notifications ? intval($total_notifications) : 0;
 

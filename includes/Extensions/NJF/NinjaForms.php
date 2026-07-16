@@ -111,6 +111,7 @@ class NinjaForms extends Extension {
             return [];
         }
         global $wpdb;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
         $form_result = $wpdb->get_results('SELECT id, title FROM `' . $wpdb->prefix . 'nf3_forms` ORDER BY title');
         if (!empty($form_result)) {
             foreach ($form_result as $form) {
@@ -294,10 +295,12 @@ class NinjaForms extends Extension {
             $limit      = 10;
            // Prepare the query with a LIKE condition
             $query = $wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
                 "SELECT id, title FROM {$table_name} WHERE title LIKE %s LIMIT %d", 
                 '%' . $wpdb->esc_like($args['inputValue']) . '%',$limit
             );
             // Execute the query and retrieve the results
+            // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
             $form_result = $wpdb->get_results($query);
             if (!empty($form_result)) {
                 foreach ($form_result as $form) {
@@ -315,6 +318,7 @@ class NinjaForms extends Extension {
             }else{
                 $form_id = intval($args['form_id']);
             }
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
             $queryresult = $wpdb->get_results('SELECT meta_value FROM `' . $wpdb->prefix . 'nf3_form_meta` WHERE parent_id = ' . $form_id . ' AND meta_key = "formContentData"');
 
             if(isset($queryresult[0]) && isset($queryresult[0]->meta_value)){

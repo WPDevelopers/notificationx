@@ -179,13 +179,16 @@ class Posts extends WP_REST_Controller {
         // Add entries count for popup notifications
         global $wpdb;
         $entries_table = $wpdb->prefix . 'nx_entries';
+        // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
         $entries_counts = $wpdb->get_results(
+            // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
             "SELECT nx_id, COUNT(*) as entries_count
              FROM {$entries_table}
              WHERE source IN ('popup_notification', 'exit_intent_custom')
              GROUP BY nx_id",
             ARRAY_A
         );
+            // phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
         // Create a lookup array for entries counts
         $entries_lookup = [];

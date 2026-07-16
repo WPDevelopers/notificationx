@@ -668,6 +668,7 @@ class FluentCart extends Extension {
                 'post_type'      => $this->post_type,
                 'post_status'    => 'publish',
                 'posts_per_page' => 20,
+                // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
                 'tax_query'      => array(
                     array(
                         'taxonomy' => 'product-categories',

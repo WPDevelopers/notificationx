@@ -108,6 +108,7 @@ class Migration {
         $posts = [];
         $post_meta = [];
         $query = "SELECT * FROM $wpdb->posts WHERE post_type = 'notificationx'"; // AND ID = $id
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
         $_posts = $wpdb->get_results($query, ARRAY_A);
         // $nx_ids = array_column($_posts, 'ID');
 

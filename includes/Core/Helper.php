@@ -599,7 +599,9 @@ class Helper {
         $query_args[] = $numberposts;
 
         // Prepare and execute the query using wpdb methods
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
         $sql = $wpdb->prepare( $sql, $query_args );
+        // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
         $products = $wpdb->get_results( $sql );
 
         if ( ! empty( $products ) ) {

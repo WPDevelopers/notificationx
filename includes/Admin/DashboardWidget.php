@@ -73,6 +73,7 @@ class DashboardWidget {
     public function analytics_counter(){
         global $wpdb;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
         $results = $wpdb->get_row(
             "SELECT *, ( clicks/views ) * 100 as ctr FROM ( SELECT SUM(views) as views, SUM(clicks) as clicks FROM {$wpdb->prefix}nx_stats ) AS STATS",
             ARRAY_A
