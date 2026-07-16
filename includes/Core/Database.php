@@ -132,7 +132,24 @@ class Database {
             $values        = array();
             $place_holders = array();
             $_column       = array_keys( $posts[0] );
-            $columns       = implode( ', ', $_column );
+            /*
+             * Column names are interpolated into the statement, so prepare() below
+             * cannot protect them - it only binds the values. Callers such as the
+             * /import REST route take these keys straight from a user-supplied JSON
+             * payload, so accept identifiers only and quote them.
+             */
+            $_column = array_values(
+                array_filter(
+                    $_column,
+                    function ( $col ) {
+                        return is_string( $col ) && preg_match( '/^[A-Za-z0-9_]+$/', $col );
+                    }
+                )
+            );
+            if ( empty( $_column ) ) {
+                return;
+            }
+            $columns       = '`' . implode( '`, `', $_column ) . '`';
             $query         = "INSERT INTO $table_name ($columns) VALUES ";
             foreach ( $posts as $key => $entry ) {
                 $entry = $this->serialize_data( $entry );
