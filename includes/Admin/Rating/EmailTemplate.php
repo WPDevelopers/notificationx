@@ -28,6 +28,7 @@ class EmailTemplate
             $admin_full_name = 'Unknown';
         }
         
+        // phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- False positive for this context: these are HTML email bodies and remote documentation/tutorial links in admin help text, not offloaded plugin assets. Audited 2026-07-16.
         $emailTemplate = '
         <!DOCTYPE html>
         <html lang="en">

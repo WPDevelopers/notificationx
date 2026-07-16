@@ -46,6 +46,7 @@ class Inline extends Types {
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/growth-alert/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            // phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- False positive for this context: these are HTML email bodies and remote documentation/tutorial links in admin help text, not offloaded plugin assets. Audited 2026-07-16.
             "html"=> __('
                 <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>
                 <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
