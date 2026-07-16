@@ -153,7 +153,7 @@ final class StyleHandler {
                 if ( ! empty( $css = $this->build_css( $finalCSSArray ) ) ) {
                     $upload_dir = wp_upload_dir()['basedir'] . '/nx-style/';
                     if ( ! file_exists( $upload_dir ) ) {
-                        mkdir( $upload_dir );
+                        wp_mkdir_p( $upload_dir );
                     }
 
                     file_put_contents( $editSiteCssPath, $css );
@@ -162,7 +162,7 @@ final class StyleHandler {
                 if ( ! empty( $css = $this->build_css( $block_styles ) ) ) {
                     $upload_dir = wp_upload_dir()['basedir'] . '/nx-style/';
                     if ( ! file_exists( $upload_dir ) ) {
-                        mkdir( $upload_dir );
+                        wp_mkdir_p( $upload_dir );
                     }
 
                     file_put_contents( $editSiteCssPath, $css );
@@ -172,7 +172,7 @@ final class StyleHandler {
             if ( ! empty( $css = $this->build_css( $block_styles ) ) ) {
                 $upload_dir = wp_upload_dir()['basedir'] . '/nx-style/';
                 if ( ! file_exists( $upload_dir ) ) {
-                    mkdir( $upload_dir );
+                    wp_mkdir_p( $upload_dir );
                 }
                 $style_id = isset( $_POST['id'] ) ? absint( wp_unslash( $_POST['id'] ) ) : 0;
                 file_put_contents( $upload_dir . 'nx-style-' . $style_id . '.min.css', $css );

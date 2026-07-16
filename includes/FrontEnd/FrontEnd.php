@@ -333,7 +333,7 @@ class FrontEnd {
                 $entry               = $this->apply_defaults($entry, $defaults);
                 $entry['image_data'] = $this->get_image_url($entry, $settings);
                 if (!empty($entry['title'])) {
-                    $entry['title'] = strip_tags(html_entity_decode($entry['title']));
+                    $entry['title'] = wp_strip_all_tags(html_entity_decode($entry['title']));
                 }
 
                 $entry = apply_filters("nx_filtered_entry_$type", $entry, $settings);
@@ -984,7 +984,7 @@ class FrontEnd {
 
         // checking if content is empty
         $_bar_content = str_replace(array("\r\n", "\n", "\r"), '', $bar_content);
-        $_bar_content = trim(strip_tags($_bar_content));
+        $_bar_content = trim(wp_strip_all_tags($_bar_content));
         if (empty($_bar_content) && !empty($settings['enable_countdown'])) {
             $bar_content = '&nbsp;';
         }

@@ -256,6 +256,7 @@ class MilestoneNotification
 
         } catch (\Exception $e) {
             // Fallback to default values if there's an error
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- deliberate failure logging, not debug output.
             error_log('NotificationX Milestone: Error fetching analytics data - ' . $e->getMessage());
         }
 
@@ -506,6 +507,7 @@ class MilestoneNotification
             $total_notifications = $total_notifications ? intval($total_notifications) : 0;
 
         } catch (\Exception $e) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- deliberate failure logging, not debug output.
             error_log('NotificationX Milestone: Error fetching analytics data - ' . $e->getMessage());
             return false;
         }

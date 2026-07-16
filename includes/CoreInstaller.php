@@ -124,8 +124,12 @@ class CoreInstaller {
     public function raise_limits() {
         wp_raise_memory_limit('admin');
         if (wp_is_ini_value_changeable('max_execution_time')) {
+            // Downloading and unpacking the free plugin can exceed the default limit.
+            // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
             ini_set('max_execution_time', 0);
         }
+        // Downloading and unpacking the free plugin can exceed the default limit.
+        // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
         @set_time_limit(0);
     }
 }

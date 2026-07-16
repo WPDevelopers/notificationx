@@ -1209,6 +1209,7 @@ class Migration {
                         $ext->update_notification($_entry);
                     }
                 } else {
+                    // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- deliberate failure logging, not debug output.
                     error_log("$source not found");
                 }
             }

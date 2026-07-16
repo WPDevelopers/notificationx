@@ -19,6 +19,9 @@ class GetData extends \ArrayObject {
         if ($this->offsetExists($name)) {
             return $this->offsetGet($name);
         }
+        // Mirrors PHP's own undefined-property notice for this ArrayAccess wrapper;
+        // dropping it would make a mistyped property silently read as null.
+        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
         trigger_error( esc_html( 'Undefined property: ' . $name ) );
     }
 

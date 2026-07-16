@@ -354,7 +354,7 @@ class WooCommerce extends Extension {
                 $new_order['var_product_id'] = $item->get_variation_id();
             }
             $new_order['product_id'] = $item->get_product_id();
-            $new_order['title']      = strip_tags($product_data['title']);
+            $new_order['title']      = wp_strip_all_tags($product_data['title']);
             $new_order['link']       = $product_data['link'];
         }
         if($date && method_exists($date, 'getTimestamp')){

@@ -157,6 +157,8 @@ class ImportExport{
     }
 
     public function import($request){
+        // Importing/exporting many notifications can exceed the default limit.
+        // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
         @set_time_limit(0);
         $params = $request->get_params();
         $status = 'error';
@@ -238,6 +240,8 @@ class ImportExport{
     }
 
     public function export($request){
+        // Importing/exporting many notifications can exceed the default limit.
+        // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
         @set_time_limit(0);
         $params = $request->get_params();
         $export = [];

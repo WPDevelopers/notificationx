@@ -787,9 +787,11 @@ abstract class Extension {
         return $arr;
     }
 
+    /**
+     * Base REST response for extensions that do not implement one.
+     * Dispatched from REST::rest_response() via method_exists().
+     */
     public function restResponse( $params ){
-        error_log('FROM Extenson');
-        error_log( $params );
     }
 
     public function nx_instructions($instructions){

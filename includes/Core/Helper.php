@@ -296,11 +296,17 @@ class Helper {
         return ($is_neg ? '-' : '') . $number . $suffix;
     }
 
+    /**
+     * Developer log helper. Writes only when WP_DEBUG is on, and is used by the
+     * Pro plugin's Google/YouTube integrations to report API failures.
+     */
     public static function write_log($log) {
         if (true === WP_DEBUG) {
             if (is_array($log) || is_object($log)) {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r, WordPress.PHP.DevelopmentFunctions.error_log_error_log
                 error_log(print_r($log, true));
             } else {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                 error_log($log);
             }
         }
