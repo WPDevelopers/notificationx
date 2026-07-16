@@ -48,13 +48,14 @@ class OfferAnnouncement extends Types {
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/docs/configure-discount-alert/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
-            // phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- False positive for this context: these are HTML email bodies and remote documentation/tutorial links in admin help text, not offloaded plugin assets. Audited 2026-07-16.
+            // phpcs:disable PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- False positive for this context: these are HTML email bodies and remote documentation/tutorial links in admin help text, not offloaded plugin assets. Audited 2026-07-16.
             "html"=> __('
                 <span>Discount Alert by NotificationX will allow you to display offers/discounts of your products/services on your website interactively & easily.</span>
                 <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
                     <source src="https://notificationx.com/wp-content/uploads/2024/01/NX-Discount-Alert-1.mp4" type="video/mp4">
                 </video>
             ', 'notificationx')
+            // phpcs:enable PluginCheck.CodeAnalysis.Offloading.OffloadedContent
         ];
     }
 

@@ -28,7 +28,7 @@ class EmailTemplate
             $admin_full_name = 'Unknown';
         }
         
-        // phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- False positive for this context: these are HTML email bodies and remote documentation/tutorial links in admin help text, not offloaded plugin assets. Audited 2026-07-16.
+        // phpcs:disable PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- False positive for this context: these are HTML email bodies and remote documentation/tutorial links in admin help text, not offloaded plugin assets. Audited 2026-07-16.
         // phpcs:disable WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet -- HTML email body; wp_enqueue_style() has no effect in a mail. Audited 2026-07-16.
         $emailTemplate = '
         <!DOCTYPE html>
@@ -142,6 +142,7 @@ class EmailTemplate
         </body>
         </html>';
         // phpcs:enable WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
+        // phpcs:enable PluginCheck.CodeAnalysis.Offloading.OffloadedContent
         
         return $emailTemplate;
     }

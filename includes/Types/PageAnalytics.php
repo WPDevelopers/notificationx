@@ -46,13 +46,14 @@ class PageAnalytics extends Types {
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/docs/google-analytics/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
-            // phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- False positive for this context: these are HTML email bodies and remote documentation/tutorial links in admin help text, not offloaded plugin assets. Audited 2026-07-16.
+            // phpcs:disable PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- False positive for this context: these are HTML email bodies and remote documentation/tutorial links in admin help text, not offloaded plugin assets. Audited 2026-07-16.
             "html"=> __('
                 <span>Connect Google Analytics to display the total number of real-time site visitors</span>
                 <video id="pro_alert_video_popup" type="text/html" allowfullscreen width="450" height="235" autoplay loop muted>
                     <source src="https://notificationx.com/wp-content/uploads/2024/01/Google-Analytics-Integration-With-NotificationX-How-To-Show-Active-Users-Traffic-in-WordPress.mp4" type="video/mp4">
                 </video>
             ', 'notificationx')
+            // phpcs:enable PluginCheck.CodeAnalysis.Offloading.OffloadedContent
         ];
         $this->themes = [
             'pa-theme-one'   => [
