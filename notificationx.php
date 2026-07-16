@@ -48,8 +48,8 @@ define( 'NOTIFICATIONX_COMMON_URL', NOTIFICATIONX_ASSETS . 'common/' );
  */
 if ( ! class_exists( '\NotificationX\NotificationX' ) ) {
     require_once NOTIFICATIONX_PATH . 'vendor/autoload.php';
-    if ( nx_is_plugin_active( 'notificationx-pro/notificationx-pro.php' ) ) {
-        add_action( 'admin_notices', 'nx_free_compatibility_notice' );
+    if ( notificationx_is_plugin_active( 'notificationx-pro/notificationx-pro.php' ) ) {
+        add_action( 'admin_notices', 'notificationx_free_compatibility_notice' );
         if ( file_exists( dirname( NOTIFICATIONX_PATH ) . '/notificationx-pro/notificationx-pro.php' ) ) {
             require_once dirname( NOTIFICATIONX_PATH ) . '/notificationx-pro/notificationx-pro.php';
         } else {
@@ -60,17 +60,17 @@ if ( ! class_exists( '\NotificationX\NotificationX' ) ) {
         }
     }
 
-    function activate_notificationx() {
+    function notificationx_activate() {
         \NotificationX\NotificationX::get_instance()->activator();
     }
     /**
      * Plugin Activator
      */
-    register_activation_hook( NOTIFICATIONX_FILE, 'activate_notificationx' );
+    register_activation_hook( NOTIFICATIONX_FILE, 'notificationx_activate' );
     \NotificationX\NotificationX::get_instance();
 }
 
-function nx_free_compatibility_notice() {
+function notificationx_free_compatibility_notice() {
     if ( ! function_exists( 'get_plugins' ) ) {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
@@ -89,11 +89,11 @@ function nx_free_compatibility_notice() {
 }
 
 
-function nx_is_plugin_active( $plugin ) {
-    return in_array( $plugin, (array) get_option( 'active_plugins', array() ), true ) || nx_is_plugin_active_for_network( $plugin );
+function notificationx_is_plugin_active( $plugin ) {
+    return in_array( $plugin, (array) get_option( 'active_plugins', array() ), true ) || notificationx_is_plugin_active_for_network( $plugin );
 }
 
-function nx_is_plugin_active_for_network( $plugin ) {
+function notificationx_is_plugin_active_for_network( $plugin ) {
     if ( ! is_multisite() ) {
         return false;
     }

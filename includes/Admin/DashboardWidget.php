@@ -51,7 +51,7 @@ class DashboardWidget {
         add_action('admin_enqueue_scripts', [ $this, 'enqueue'] );
     }
     public function enqueue( $hook ){
-        wp_register_style( 'nx-analytics-dashboard-widget', self::ASSET_URL . 'css/analytics-dashboard-widget.css', array(), false, 'all' );
+        wp_register_style( 'nx-analytics-dashboard-widget', self::ASSET_URL . 'css/analytics-dashboard-widget.css', array(), NOTIFICATIONX_VERSION, 'all' );
     }
     /**
      * Admin Action callback

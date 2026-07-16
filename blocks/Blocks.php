@@ -80,7 +80,8 @@ class Blocks {
             'notificationx-block-editor',
             plugins_url( $index_js, __FILE__ ),
             array_merge($asset_file['dependencies'], ['notificationx-block-controls']),
-            $asset_file['version']
+            $asset_file['version'],
+            false // Editor script: must load in the head, which is the existing default.
         );
 
         $editor_css = 'notificationx/editor.css';
@@ -158,7 +159,8 @@ class Blocks {
             'notificationx-countdown-editor',
             plugins_url( 'countdown/index.js', __FILE__ ),
             array_merge( $countdown_asset['dependencies'], [ 'notificationx-block-controls' ] ),
-            $countdown_asset['version']
+            $countdown_asset['version'],
+            false // Editor script: must load in the head, which is the existing default.
         );
         wp_set_script_translations( 'notificationx-countdown-editor', 'notificationx' );
 
