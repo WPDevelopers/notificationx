@@ -10,7 +10,7 @@ How NotificationX boots, activates, and upgrades.
 2. Defines path/URL constants — `NOTIFICATIONX_FILE`, `NOTIFICATIONX_VERSION` (currently `3.2.10`), `NOTIFICATIONX_PATH`, `NOTIFICATIONX_URL`, `NOTIFICATIONX_BASENAME`, `NOTIFICATIONX_ASSETS` (`assets/`), `NOTIFICATIONX_DEV_ASSETS` (`nxbuild/`), `NOTIFICATIONX_INCLUDES`, and the admin/public/common URL constants.
 3. Loads `vendor/autoload.php` (Composer classmap — see [folder-reference.md](folder-reference.md)).
 4. If `notificationx-pro` is active, prints a compatibility notice and, when present, requires the Pro entry file.
-5. Registers the activation hook (`register_activation_hook( NOTIFICATIONX_FILE, 'activate_notificationx' )`).
+5. Registers the activation hook (`register_activation_hook( NOTIFICATIONX_FILE, 'notificationx_activate' )`).
 6. Instantiates the root singleton: `\NotificationX\NotificationX::get_instance()`.
 
 The root singleton constructor ([../../includes/NotificationX.php](../../includes/NotificationX.php)) wires up the rest, in order:
@@ -34,7 +34,7 @@ The trait also implements the free↔Pro swap: when resolving `NotificationX\Foo
 
 ## Activation / deactivation / uninstall
 
-- **Activation** — `activate_notificationx()` → `NotificationX::get_instance()->activator()`:
+- **Activation** — `notificationx_activate()` → `NotificationX::get_instance()->activator()`:
   - `Database::get_instance()->Create_DB()` creates the three custom tables via `dbDelta` (see [data-storage.md](data-storage.md)).
   - Sets the `nx_activated` transient (30 s) for users who can `delete_users` (skipped under WP-CLI).
   - `Upgrader::get_instance()->clear_transient()` clears the cached builder fields.
