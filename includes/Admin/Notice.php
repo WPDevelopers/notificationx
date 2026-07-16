@@ -282,18 +282,18 @@ class Notice {
      */
     public function clicked() {
         if ( isset( $_GET['plugin'] ) ) {
-            $plugin = sanitize_text_field( $_GET['plugin'] );
+            $plugin = sanitize_text_field( wp_unslash( $_GET['plugin'] ) );
             if ( $plugin === $this->plugin_name ) {
                 $options_data = $this->get_options_data();
                 $clicked_from = current( $this->next_notice() );
                 if ( isset( $_GET['plugin_action'] ) ) {
-                    $plugin_action = sanitize_text_field( $_GET['plugin_action'] );
+                    $plugin_action = sanitize_text_field( wp_unslash( $_GET['plugin_action'] ) );
                 }
                 if ( isset( $_GET['dismiss'] ) ) {
-                    $dismiss = sanitize_text_field( $_GET['dismiss'] );
+                    $dismiss = sanitize_text_field( wp_unslash( $_GET['dismiss'] ) );
                 }
                 if ( isset( $_GET['later'] ) ) {
-                    $later = sanitize_text_field( $_GET['later'] );
+                    $later = sanitize_text_field( wp_unslash( $_GET['later'] ) );
                 }
 
                 $later_time = '';
@@ -343,8 +343,9 @@ class Notice {
      * @return void
      */
     private function redirect_to() {
-        $request_uri  = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
-        $query_string = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_QUERY );
+        $current_uri  = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+        $request_uri  = wp_parse_url( $current_uri, PHP_URL_PATH );
+        $query_string = wp_parse_url( $current_uri, PHP_URL_QUERY );
         parse_str( $query_string, $current_url );
 
         $unset_array = array( 'dismiss', 'plugin', '_wpnonce', 'later', 'plugin_action', 'marketing_optin' );
@@ -810,8 +811,8 @@ class Notice {
             return;
         }
 
-        $dismiss = isset( $_POST['dismiss'] ) ? sanitize_text_field( $_POST['dismiss'] ) : false;
-        $notice  = isset( $_POST['notice'] ) ? sanitize_text_field( $_POST['notice'] ) : false;
+        $dismiss = isset( $_POST['dismiss'] ) ? sanitize_text_field( wp_unslash( $_POST['dismiss'] ) ) : false;
+        $notice  = isset( $_POST['notice'] ) ? sanitize_text_field( wp_unslash( $_POST['notice'] ) ) : false;
         if ( $dismiss ) {
             update_user_meta( get_current_user_id(), $this->plugin_name . '_' . $notice, true );
             $this->update( $notice );
@@ -836,7 +837,7 @@ class Notice {
             return;
         }
 
-        $dismiss = isset( $_POST['dismiss'] ) ? sanitize_text_field( $_POST['dismiss'] ) : false;
+        $dismiss = isset( $_POST['dismiss'] ) ? sanitize_text_field( wp_unslash( $_POST['dismiss'] ) ) : false;
         if ( $dismiss ) {
             $this->update( 'upsale' );
             echo 'success';

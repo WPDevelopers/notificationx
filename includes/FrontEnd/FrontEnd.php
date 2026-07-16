@@ -114,7 +114,8 @@ class FrontEnd {
         );
 
         $exit = false;
-        if(isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'wp-admin/widgets.php') !== false){
+        $referer = isset($_SERVER['HTTP_REFERER']) ? esc_url_raw(wp_unslash($_SERVER['HTTP_REFERER'])) : '';
+        if($referer && strpos($referer, 'wp-admin/widgets.php') !== false){
             $exit = ['total' => 0];
         }
 

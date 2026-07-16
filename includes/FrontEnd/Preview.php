@@ -349,7 +349,7 @@ class Preview {
             return array();
         }
 
-        $settings = base64_decode( wp_unslash($_POST['nx-preview']), true );
+        $settings = base64_decode( sanitize_text_field( wp_unslash( $_POST['nx-preview'] ) ), true );
         $settings = json_decode( $settings, true );
 
         if ( ! is_array($settings) ) {

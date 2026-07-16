@@ -72,7 +72,10 @@ class NotificationBar extends Types {
                 isset($_COOKIE[$cookie_name]) &&
                 $_COOKIE[$cookie_name] === 'shown' &&
                 !empty($_SERVER['HTTP_REFERER']) &&
-                strpos($_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST']) !== false) {
+                strpos(
+                    esc_url_raw(wp_unslash($_SERVER['HTTP_REFERER'])),
+                    isset($_SERVER['HTTP_HOST']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])) : ''
+                ) !== false) {
                 return true;
             }
         }

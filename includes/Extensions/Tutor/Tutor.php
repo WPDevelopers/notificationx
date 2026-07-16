@@ -208,7 +208,7 @@ class Tutor extends Extension {
         $userdata = get_userdata($user_id);
         $data     = array();
         if (isset($_SERVER['REMOTE_ADDR'])) {
-            $user_ip    = $_SERVER['REMOTE_ADDR'];
+            $user_ip    = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
             $data['ip'] = $user_ip;
         }
         $data['first_name'] = $userdata->first_name;

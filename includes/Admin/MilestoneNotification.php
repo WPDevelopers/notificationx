@@ -576,7 +576,7 @@ class MilestoneNotification
     public function ajax_mark_milestone_seen()
     {
         // Verify nonce
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'notificationx_milestone_nonce')) {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'notificationx_milestone_nonce')) {
             wp_send_json_error('Invalid nonce');
             return;
         }

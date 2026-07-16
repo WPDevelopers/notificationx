@@ -69,8 +69,8 @@ class CoreInstaller {
 
         $this->raise_limits();
 
-        $plugin_slug = (isset($_POST['slug'])) ? sanitize_text_field( $_POST['slug'] ) : '';
-        $plugin_file = (isset($_POST['file'])) ? sanitize_file_name( $_POST['file'] ) : '';
+        $plugin_slug = (isset($_POST['slug'])) ? sanitize_text_field( wp_unslash( $_POST['slug'] ) ) : '';
+        $plugin_file = (isset($_POST['file'])) ? sanitize_file_name( wp_unslash( $_POST['file'] ) ) : '';
 
         if (empty($plugin_file) || empty($plugin_slug)) {
             wp_send_json_error(__('You don\'t have set any slug and file name to install the plugins', 'notificationx'));
