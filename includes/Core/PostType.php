@@ -137,6 +137,10 @@ class PostType {
             'admin'  => NOTIFICATIONX_ADMIN_URL,
             'public' => NOTIFICATIONX_PUBLIC_URL,
             'common' => NOTIFICATIONX_COMMON_URL,
+            // Used by the PressBar "Custom" design preview to render the actual
+            // Elementor-built bar in an iframe (see PressBar::render_elementor_bar_preview()).
+            'home'              => home_url( '/' ),
+            'bar_preview_nonce' => wp_create_nonce( 'nx_bar_preview' ),
         ];
 
         $tabs = apply_filters( 'nx_builder_configs', $tabs );

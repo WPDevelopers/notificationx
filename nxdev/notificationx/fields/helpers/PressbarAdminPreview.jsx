@@ -228,9 +228,11 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
     const previewUrl = useMemo(() => {
         if (!settings) return '';
 
-        // Elementor Path
-        if (settings.is_elementor && settings.elementor_id && settings.elementor_bar_theme) {
-            return `${basePath}/bar-elementor/${settings.elementor_bar_theme}.jpg`;
+        // Elementor: render a LIVE preview of the actual Elementor-built bar
+        // (see PressBar::render_elementor_bar_preview()) instead of a static
+        // theme thumbnail, so the preview always matches the real design.
+        if (settings.is_elementor && settings.elementor_id) {
+            return `${assets.home}?nx_bar_preview=${settings.elementor_id}&_wpnonce=${assets.bar_preview_nonce || ''}`;
         }
 
         // Gutenberg Path
@@ -248,8 +250,10 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
 
         // Fallback
         return settings.preview_url || '';
-    }, [settings, basePath]);
+    }, [settings, basePath, assets]);
     const isBuildWithBuilder = (settings?.is_elementor || settings?.is_gutenberg) && (settings?.elementor_id || settings?.gutenberg_id );
+    // Elementor previews render in an iframe (live design); everything else is an <img>.
+    const isElementorPreview = settings?.is_elementor && settings?.elementor_id;
 
     return (
         <Fragment>
@@ -275,8 +279,23 @@ const PressbarAdminPreview = ({ position, nxBar, dispatch }) => {
                     </button>
                 </div>
             </div>
-            { isBuildWithBuilder ? 
-                <img src={previewUrl} alt="" /> : 
+            { isBuildWithBuilder ?
+                ( isElementorPreview ?
+                    <iframe
+                        className="nx-bar-elementor-preview-frame"
+                        src={previewUrl}
+                        scrolling="no"
+                        style={{
+                            width: previewType === 'phone' ? '375px' : previewType === 'tablet' ? '768px' : '100%',
+                            maxWidth: '100%',
+                            margin: '0 auto',
+                            border: 0,
+                            display: 'block',
+                            minHeight: '60px',
+                        }}
+                    /> :
+                    <img src={previewUrl} alt="" />
+                ) :
                 <div
                 id={`nx-bar-${settings.nx_id}`}
                 className={classNames(

@@ -52,6 +52,9 @@ class PressBar extends Extension {
         parent::__construct();
         add_action('init', [$this, 'register_post_type']);
         add_action('init', [$this, 'load_plugin_dependencies'], -1);
+        // Renders the Elementor-built bar standalone so the admin Design preview
+        // can show the real design instead of a static theme thumbnail.
+        add_action('template_redirect', [$this, 'render_elementor_bar_preview']);
 		add_filter( 'get_edit_post_link', function($link, $id){
             $post = get_post( $id );
             if ( $post && 'nx_bar' === $post->post_type && class_exists('\Elementor\Plugin') ) {
@@ -2092,6 +2095,134 @@ class PressBar extends Extension {
             $settings['gutenberg_url'] = get_permalink($settings['gutenberg_id']);
         }
         return $settings;
+    }
+
+    /**
+     * Renders the Elementor-built bar in a clean, standalone page so the admin
+     * Design preview can show the ACTUAL Elementor design in an iframe instead of
+     * a static theme thumbnail.
+     *
+     * Triggered on the frontend via `?nx_bar_preview={elementor_id}&_wpnonce=...`.
+     * It renders the same content as the live bar (get_builder_content_for_display)
+     * but prints ONLY Elementor's own stylesheets and no scripts / no
+     * wp_head()/wp_footer() — so the preview shows the bar and nothing else (no
+     * admin toolbar, no chat widgets, no other notifications).
+     *
+     * @hooked template_redirect
+     * @return void
+     */
+    public function render_elementor_bar_preview() {
+        if ( ! isset( $_GET['nx_bar_preview'] ) ) {
+            return;
+        }
+
+        $elementor_id = absint( $_GET['nx_bar_preview'] );
+        $nonce        = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+
+        // Only logged-in users who can manage NotificationX may render the preview.
+        if ( ! $elementor_id || ! wp_verify_nonce( $nonce, 'nx_bar_preview' ) || ! current_user_can( 'edit_notificationx' ) ) {
+            status_header( 403 );
+            exit;
+        }
+
+        if ( ! class_exists( '\Elementor\Plugin' ) ) {
+            status_header( 404 );
+            exit;
+        }
+
+        $post = get_post( $elementor_id );
+        if ( ! $post || 'nx_bar' !== $post->post_type || 'publish' !== get_post_status( $elementor_id ) ) {
+            status_header( 404 );
+            exit;
+        }
+
+        $frontend = \Elementor\Plugin::$instance->frontend;
+
+        // Populate the style queue like the live frontend does, WITHOUT firing every
+        // plugin's wp_enqueue_scripts (which would pull in chat widgets, other
+        // popups, etc.). We render only Elementor's own assets.
+        $frontend->register_styles();
+        $frontend->enqueue_styles();
+
+        // Same render used on the live site by print_bar_notice(); `true` inlines
+        // the document's generated CSS so the design styling always travels with it.
+        // This also enqueues the per-widget (image/heading/button) stylesheets.
+        $content = $frontend->get_builder_content_for_display( $elementor_id, true );
+
+        nocache_headers();
+
+        // Print ONLY Elementor-related stylesheets (base framework, global kit,
+        // per-widget CSS, Google Fonts). No third-party CSS, no scripts at all,
+        // and no wp_head()/wp_footer().
+        $print_elementor_styles = function () {
+            $styles = wp_styles();
+            if ( ! $styles ) {
+                return;
+            }
+            $styles->all_deps( $styles->queue );
+            foreach ( $styles->to_do as $handle ) {
+                $reg = isset( $styles->registered[ $handle ] ) ? $styles->registered[ $handle ] : null;
+                $src = ( $reg && $reg->src ) ? strtolower( (string) $reg->src ) : '';
+                $h   = strtolower( $handle );
+                $allow = ( strpos( $h, 'elementor' ) === 0 )
+                    || ( strpos( $h, 'e-' ) === 0 )
+                    || ( strpos( $h, 'eael' ) === 0 )
+                    || ( strpos( $h, 'font-awesome' ) === 0 || strpos( $h, 'fontawesome' ) === 0 )
+                    || ( strpos( $h, 'google-font' ) === 0 )
+                    || ( $src && strpos( $src, '/elementor/' ) !== false )
+                    || ( $src && strpos( $src, 'uploads/elementor' ) !== false )
+                    || ( $src && strpos( $src, 'essential-addons' ) !== false )
+                    || ( $src && ( strpos( $src, 'fonts.googleapis' ) !== false || strpos( $src, 'fonts.gstatic' ) !== false ) );
+                if ( $allow ) {
+                    $styles->do_item( $handle );
+                }
+            }
+        };
+        ?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php $print_elementor_styles(); ?>
+    <style>
+        html, body { margin: 0 !important; padding: 0; background: transparent; }
+        body { overflow-x: hidden; }
+    </style>
+</head>
+<body class="nx-bar-elementor-preview elementor-page elementor-page-<?php echo esc_attr( $elementor_id ); ?>">
+    <?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+    <script>
+        /* Fit the iframe height to the bar. Runs inside the (same-origin) iframe,
+           re-measuring after images load and whenever the parent resizes the
+           frame for the desktop/tablet/phone tabs. */
+        (function () {
+            function nxFit() {
+                var fe = window.frameElement;
+                if ( ! fe || ! document.body ) { return; }
+                // Collapse first so the document reports its TRUE content height —
+                // otherwise scrollHeight stays inflated from the previous (taller)
+                // device view and leaves blank space when switching back.
+                fe.style.height = '0px';
+                var h = Math.max( document.body.scrollHeight, document.body.offsetHeight );
+                fe.style.height = h + 'px';
+            }
+            window.addEventListener( 'load', nxFit );
+            window.addEventListener( 'resize', nxFit );
+            if ( window.ResizeObserver && document.body ) {
+                try { new ResizeObserver( nxFit ).observe( document.body ); } catch ( e ) {}
+            }
+            var imgs = document.images || [];
+            for ( var i = 0; i < imgs.length; i++ ) { imgs[ i ].addEventListener( 'load', nxFit ); }
+            nxFit();
+            setTimeout( nxFit, 200 );
+            setTimeout( nxFit, 800 );
+        })();
+    </script>
+</body>
+</html>
+        <?php
+        exit;
     }
 
     public function hide_image_field($fields) {

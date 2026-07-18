@@ -9,12 +9,16 @@ const NxBarPresets = () => {
 
     const basePath = `${assets.admin}/images/extensions/themes`;
 
+    // Elementor previews render the live design in an iframe (see
+    // PressBar::render_elementor_bar_preview()); everything else stays an <img>.
+    const isElementorPreview = values?.is_elementor && values?.elementor_id;
+
     const previewUrl = useMemo(() => {
         if (!values) return '';
 
-        // Elementor Path
-        if (values.is_elementor && values.elementor_id && values.elementor_bar_theme) {
-            return `${basePath}/bar-elementor/${values.elementor_bar_theme}.jpg`;
+        // Elementor: live preview of the actual Elementor-built bar.
+        if (values.is_elementor && values.elementor_id) {
+            return `${assets.home}?nx_bar_preview=${values.elementor_id}&_wpnonce=${assets.bar_preview_nonce || ''}`;
         }
 
         // Gutenberg Path
@@ -32,7 +36,7 @@ const NxBarPresets = () => {
 
         // Fallback
         return values.preview_url || '';
-    }, [values, basePath]);
+    }, [values, basePath, assets]);
 
     const showEmptyState =
         values?.is_gutenberg &&
@@ -48,8 +52,20 @@ const NxBarPresets = () => {
                 </div>
             ) : (
                 <div className="nxbar-selected-presets">
-                    <div className="nxbar-selected-presets-gutenberg">
-                        <img src={previewUrl} alt="" />
+                    <div
+                        className="nxbar-selected-presets-gutenberg"
+                        style={isElementorPreview ? { display: 'block', width: '100%', padding: '12px' } : undefined}
+                    >
+                        {isElementorPreview ? (
+                            <iframe
+                                className="nx-bar-elementor-preview-frame"
+                                src={previewUrl}
+                                scrolling="no"
+                                style={{ width: '100%', border: 0, display: 'block', minHeight: '60px' }}
+                            />
+                        ) : (
+                            <img src={previewUrl} alt="" />
+                        )}
                     </div>
                 </div>
             )}
