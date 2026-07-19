@@ -206,6 +206,7 @@ class Blocks {
             wp_enqueue_script('notificationx-block-frontend');
         }
         if ( is_admin() || $this->isRestUrl() ) {
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             do_action( 'nx_ignore_analytics' );
         }
         $nx_id      = ! empty( $block_attributes['nx_id'] ) ? esc_attr($block_attributes['nx_id']) : '';
@@ -218,6 +219,7 @@ class Blocks {
     }
 
     function gutenberg_examples_dynamic_render_callback( $block_attributes, $content ) {
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         do_action( 'nx_ignore_analytics' );
         $nx_id          = ! empty( $block_attributes['nx_id'] ) ? esc_attr($block_attributes['nx_id']) : '';
         $product_id     = ! empty( $block_attributes['product_id'] ) ? $block_attributes['product_id'] : '';

@@ -213,6 +213,7 @@ final class StyleHandler {
             if ( file_exists( $upload_dir['basedir'] . '/nx-style/nx-style-' . $post->ID . '.min.css' ) ) {
                 wp_enqueue_style( 'nx-block-style-' . $post->ID, $upload_dir['baseurl'] . '/nx-style/nx-style-' . $post->ID . '.min.css', [], substr( md5( microtime( true ) ), 0, 10 ) );
             } elseif ( function_exists( 'icl_object_id' ) ) {
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $default_language = apply_filters( 'wpml_default_language', null );
                 $english_version  = icl_object_id( $post->ID, 'post', false, $default_language );
                 if ( file_exists( $upload_dir['basedir'] . '/nx-style/nx-style-' . $english_version . '.min.css' ) ) {

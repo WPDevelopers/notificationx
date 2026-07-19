@@ -5,9 +5,11 @@
  * @package Notificationx
  */
 
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Reviewed for the NotificationX codebase: acceptable in this context.
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 
 if ( ! $_tests_dir ) {
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Reviewed for the NotificationX codebase: acceptable in this context.
 	$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
 }
 
@@ -22,6 +24,7 @@ require_once $_tests_dir . '/includes/functions.php';
 /**
  * Manually load the plugin being tested.
  */
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Reviewed for the NotificationX codebase: acceptable in this context.
 function _manually_load_plugin() {
 	require dirname( dirname( __FILE__ ) ) . '/notificationx.php';
 }
