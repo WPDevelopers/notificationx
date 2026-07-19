@@ -228,6 +228,7 @@ class ContactForm extends Types {
             'type'    => 'select-async',
             'name'    => 'form_list',
             'label'   => __('Select a Form', 'notificationx'),
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             'options' => apply_filters('nx_form_list', [
                 [
                     'label'    => "Type for more result...",

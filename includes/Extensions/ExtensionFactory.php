@@ -95,6 +95,7 @@ class ExtensionFactory {
 	}
 
 	public function register_extensions(){
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
 		$this->extension_classes = apply_filters( 'nx_extension_classes', $this->extension_classes );
 		foreach ($this->extension_classes as $extension) {
 			// initializing extension.

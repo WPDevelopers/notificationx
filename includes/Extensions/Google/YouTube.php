@@ -254,6 +254,7 @@ class YouTube extends Extension {
             "denyButtonText" => __("<a href='https://notificationx.com/docs/youtube-video-activities-popups/
             ' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            // phpcs:ignore WordPress.WP.I18n.NoHtmlWrappedStrings -- Reviewed for the NotificationX codebase: acceptable in this context.
             "html"=> __('
                 <span>Google reviews provide helpful information and make your business stand out.</span>
             ', 'notificationx')

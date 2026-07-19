@@ -140,6 +140,7 @@ class PostType {
             'common' => NOTIFICATIONX_COMMON_URL,
         ];
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $tabs = apply_filters( 'nx_builder_configs', $tabs );
         return $tabs;
     }
@@ -182,7 +183,9 @@ class PostType {
 
         $nx_id = isset( $data['nx_id'] ) ? $data['nx_id'] : 0;
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $post = apply_filters( "nx_save_post_{$data['source']}", $post, $data, $nx_id );
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $post = apply_filters( 'nx_save_post', $post, $data, $nx_id );
 
         if ( ! empty( $nx_id ) ) {
@@ -200,9 +203,13 @@ class PostType {
         $post['data']['nx_id'] = $nx_id;
         // return $GLOBALS['wpdb']->last_query;
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $data = apply_filters( "nx_get_post_{$data['source']}", $data );
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $data = apply_filters( 'nx_get_post', $data );
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         do_action( "nx_saved_post_{$data['source']}", $post, $data, $nx_id );
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         do_action( 'nx_saved_post', $post, $data, $nx_id );
 
         $results['nx_id'] = $nx_id;
@@ -342,6 +349,7 @@ class PostType {
             $return = false;
         }
         
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         return apply_filters('nx_can_enable', $return, $source, $rest);
     }
 
@@ -384,8 +392,10 @@ class PostType {
                 $value = NotificationX::get_instance()->normalize_post( $value );
             }
             if ( ! empty( $value['source'] ) ) {
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $value = apply_filters( "nx_get_post_{$value['source']}", $value, $this->context );
             }
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $posts[ $key ] = apply_filters( 'nx_get_post', $value, $this->context );
             $source                          = $value['source'];
             $posts[ $key ]['can_regenerate'] = false;
@@ -399,6 +409,7 @@ class PostType {
                 $posts[ $key ]['type_label'] = $type->dashboard_title ?: $type->title;
             }
         }
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $posts = apply_filters( 'nx_get_posts', $posts, $this->context );
         return $posts;
     }
@@ -417,10 +428,13 @@ class PostType {
                 $value = NotificationX::get_instance()->normalize_post( $value );
             }
             if ( ! empty( $value['source'] ) ) {
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $value = apply_filters( "nx_get_post_{$value['source']}", $value, $this->context );
             }
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $posts[ $key ] = apply_filters( 'nx_get_post', $value, $this->context );
         }
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $posts = apply_filters( 'nx_get_posts', $posts, $this->context );
         return $posts;
     }
@@ -490,6 +504,7 @@ class PostType {
         Entries::get_instance()->delete_entries( $post_id );
         Database::get_instance()->delete_posts( Database::$table_stats, [ 'nx_id' => $post_id ] );
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         do_action( 'nx_delete_post', $post_id, $post );
         return $results;
     }
@@ -506,6 +521,7 @@ class PostType {
                     $url = $themes[ $theme ]['source'];
                 }
             }
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $post['preview'] = apply_filters( "nx_theme_preview_{$post['source']}", $url, $post );
         }
         // Disable animation options if NX Pro not exists

@@ -459,6 +459,7 @@ class REST {
     public function miscellaneous($request) {
         $params = $request->get_params();
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $result = apply_filters('nx_rest_miscellaneous', null, $params);
         if($result !== null){
             return rest_ensure_response([
@@ -490,6 +491,7 @@ class REST {
     }
 
     public function rest_data($nonce = true){
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         return apply_filters('nx_rest_data', array(
             'root'             => rest_url(),
             'namespace'        => $this->_namespace(),

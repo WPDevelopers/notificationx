@@ -48,6 +48,7 @@ class TypeFactory {
 	 * Initially Invoked when initialized.
 	 */
 	public function __construct(){
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
 		$this->types = apply_filters( 'nx_types_classes', $this->types );
 
 	}

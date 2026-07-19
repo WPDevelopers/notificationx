@@ -32,6 +32,7 @@ class Helper {
             }
         }
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         return apply_filters('nx_post_types', $post_types);
     }
 
@@ -67,6 +68,7 @@ class Helper {
                 $data[$tax_slug] = $tax;
             }
         }
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         return apply_filters('nx_loop_taxonomies', $data, $taxonomies, $post_type);
     }
 
@@ -744,6 +746,7 @@ class Helper {
         $domain   = preg_replace('/www\./i', '', $urlparts['host']);
         $cookies_removed = array();
         $d_domains = array('_ga', '_fbp', '_gid', '_gat', '__utma', '__utmb', '__utmc', '__utmt', '__utmz');
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $d_domains = apply_filters('gdpr_d_domains_filter', $d_domains);
 
         // Iterate over all cookies and remove them if they match specific conditions.

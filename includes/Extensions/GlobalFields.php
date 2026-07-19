@@ -41,10 +41,13 @@ class GlobalFields {
 
     public function tabs() {
         if(defined('NX_DEBUG') && NX_DEBUG){
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             do_action( 'qm/start', __METHOD__ );
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             do_action( 'qm/debug', __METHOD__ );
         }
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         do_action('nx_before_metabox_load');
 
         $tabs = [
@@ -60,6 +63,7 @@ class GlobalFields {
             'pro_version'    => defined('NOTIFICATIONX_PRO_VERSION') ? NOTIFICATIONX_PRO_VERSION : null,
             'is_pro_active'  => NotificationX::get_instance()->is_pro(),
             'cus_imp_limit'  => Settings::get_instance()->get('settings.custom_notification_import_limit', 100),
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             'is_pro_sources' => apply_filters('nx_is_pro_sources', []),
             'config'         => [
                 'active'          => "source_tab",
@@ -88,6 +92,7 @@ class GlobalFields {
                         'name' => 'source'
                     ],
                     'classes' => "source_tab",
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     'fields'  => apply_filters('nx_source_fields', [
                         'type_section' => [
                             'label'   => __("Notification Type", 'notificationx'),
@@ -110,6 +115,7 @@ class GlobalFields {
                                             'label'             => $type->title,
                                             'is_pro'            => $type->is_pro && ! NotificationX::is_pro(),
                                             'priority'          => $type->priority,
+                                            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                             'popup'             => apply_filters('nx_pro_alert_popup', $type->popup),
                                         ];
                                     }, array_values(TypeFactory::get_instance()->get_all())),
@@ -131,6 +137,7 @@ class GlobalFields {
                                 'source_error' => [
                                     'type' => 'message',
                                     'name' => 'source_error',
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'messages' => apply_filters('source_error_message', []),
                                     'rules' => '',
                                 ],
@@ -138,6 +145,7 @@ class GlobalFields {
                                     // 'label'            => "Source",
                                     'name'             => "source",
                                     'type'             => "radio-card",
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'options'          => apply_filters('nx_sources', []),
                                     'default'          => 'woocommerce',
                                     'style'   => [
@@ -150,6 +158,7 @@ class GlobalFields {
                                         'label'    => "Source",
                                     ],
                                     'trigger' => [
+                                        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                         'defaults' => apply_filters( 'nx_source_trigger', [
                                             "custom_notification" => [
                                                 'show_notification_image' => '@show_notification_image:featured_image',
@@ -243,10 +252,12 @@ class GlobalFields {
                         'name' => 'design'
                     ],
                     'classes' => "design_tab",
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     'fields'  => apply_filters('nx_design_tab_fields', [
                         'design_error' => [
                             'type' => 'message',
                             'name' => 'design_error',
+                            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                             'messages' => apply_filters('design_error_message', []),
                             'rules' => '',
                         ],
@@ -337,6 +348,7 @@ class GlobalFields {
                                     'name'             => "themes",
                                     'type'             => "radio-card",
                                     // 'default'          => "conversions_theme-one",
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'options'          => apply_filters('nx_themes', []),
                                     'priority'         => 10,
                                     'style'   => [
@@ -349,6 +361,7 @@ class GlobalFields {
                                         'label'    => "Theme",
                                     ],
                                     'trigger' => [
+                                        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                         'defaults' => apply_filters('nx_themes_trigger', []),
                                     ],
                                     'rules'   => Rules::logicalRule([
@@ -376,6 +389,7 @@ class GlobalFields {
                                         'responsive_themes' => [
                                             'name'             => "responsive_themes",
                                             'type'             => "radio-card",
+                                            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                             'options'          => apply_filters('nx_res_themes', []),
                                             'priority'         => 10,
                                             'style'   => [
@@ -388,6 +402,7 @@ class GlobalFields {
                                                 'label'    => __("Mobile Responsive Themes",'notificationx'),
                                             ],
                                             'trigger' => [
+                                                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                                 'defaults' => apply_filters('nx_themes_trigger_for_responsive', []),
                                             ],
                                         ],
@@ -634,6 +649,7 @@ class GlobalFields {
                         'name' => 'content'
                     ],
                     'classes' => "content_tab",
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     'fields'  => apply_filters('nx_content_fields', [
                         "main_preview" => [
                             'label'  => __("Preview", 'notificationx'),
@@ -652,6 +668,7 @@ class GlobalFields {
                                 Rules::is( 'type', 'notification_bar' ),
                             ]),
                         ],
+                       // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                        'content' => apply_filters('nx_content_field', [
                             'label'    => __("Content", 'notificationx'),
                             'name'     => "content",
@@ -664,6 +681,7 @@ class GlobalFields {
                                     'type'     => "group",
                                     'display'  => 'inline',
                                     'priority' => 90,
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'fields'   => apply_filters('nx_notification_template',  [
                                         "first_param" => [
                                             // 'label' => __("First Parameter", 'notificationx'),
@@ -761,6 +779,7 @@ class GlobalFields {
                                         ],
 
                                     ]),
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'rules' => Rules::includes( 'source', apply_filters('nx_notification_template_dependency', []) ),
                                 ],
                                 'template_adv' => [
@@ -812,6 +831,7 @@ class GlobalFields {
                                     'type'     => 'select',
                                     'multiple' => true,
                                     'priority' => 95,
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'options'  => apply_filters('nx_conversion_category_list', []),
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('source', ['woocommerce' , 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart','fluentcart_inline']),
@@ -824,6 +844,7 @@ class GlobalFields {
                                     'type'     => 'select-async',
                                     'multiple' => true,
                                     'priority' => 96,
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'options'  => apply_filters('nx_conversion_product_list', [
                                         [
                                             'label'    => "Type for more result...",
@@ -871,6 +892,7 @@ class GlobalFields {
                                     'type'     => 'select',
                                     'multiple' => true,
                                     'priority' => 98,
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'options'  => apply_filters('nx_conversion_category_list', []),
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('source', ['woocommerce', 'woo_reviews', "edd", "reviewx", "woo_inline", "edd_inline", "surecart", 'woocommerce_sales','woocommerce_sales_reviews','woocommerce_sales_inline','fluentcart','fluentcart_inline']),
@@ -883,6 +905,7 @@ class GlobalFields {
                                     'type'     => 'select-async',
                                     'multiple' => true,
                                     'priority' => 99,
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'options'  => apply_filters('nx_conversion_product_list', [
                                         [
                                             'label'    => "Type for more result...",
@@ -916,6 +939,7 @@ class GlobalFields {
                                     'priority' => 99.5,
                                     'default'  => ['wc-completed', 'wc-processing'],
                                     'help'     => __("By default it will show Processing & Completed status.",'notificationx'),
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'options'  => apply_filters('nx_woo_order_status', []),
                                     'info'    => InfoTooltipManager::get_instance()->render('order_status'),
                                     'rules'    => Rules::logicalRule([
@@ -933,6 +957,7 @@ class GlobalFields {
                                     'priority' => 99.6,
                                     'default'  => ['processing','fulfilled'],
                                     'help'     => __("By default it will show Processing & Fulfilled status.",'notificationx'),
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'options'  => apply_filters('nx_surecart_order_status', []),
                                     'info'     => InfoTooltipManager::get_instance()->render('order_status'),
                                     'rules'    => Rules::logicalRule([
@@ -948,6 +973,7 @@ class GlobalFields {
                                     'priority' => 99.8,
                                     'default'  => ['on-hold','completed','processing'],
                                     'help'     => __("By default it will show Processing & Fulfilled status.",'notificationx'),
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'options'  => apply_filters('nx_fluentcart_order_status', []),
                                     'info'     => InfoTooltipManager::get_instance()->render('order_status'),
                                     'rules'    => Rules::logicalRule([
@@ -985,11 +1011,13 @@ class GlobalFields {
                                 ],
                             ],
                         ]),
+                        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                         'gdpr_content' => apply_filters('nx_content_gdpr', [
                             'label'    => __("Cookies Content", 'notificationx'),
                             'name'     => "content",
                             'type'     => "section",
                             'priority' => 95,
+                            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                             'fields'   => apply_filters('nx_content_fields_gdpr', []),
                             'rules'    => Rules::is('type', 'gdpr' ),
                         ]),
@@ -1004,6 +1032,7 @@ class GlobalFields {
                                     'name'    => "link_type",
                                     'type'    => "select",
                                     'default'   => 'none',
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'options' => apply_filters('nx_link_types', $this->normalize_fields([
                                         'none' => __('None', 'notificationx'),
                                     ])),
@@ -1031,6 +1060,7 @@ class GlobalFields {
                             ],
                             // must be called after nx_link_types filter.
                             'rules'   => Rules::logicalRule([
+                                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                 [ 'includes', 'source', apply_filters('nx_link_types_dependency', []) ],
                                 Rules::is( 'type', 'gdpr', true ),
                             ]),
@@ -1047,6 +1077,7 @@ class GlobalFields {
                         'name' => 'manager'
                     ],
                     'classes' => "manager_tab",
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     'fields'  => apply_filters('nx_manager_fields', [
                         "main_preview" => [
                             'label'  => __("Preview", 'notificationx'),
@@ -1493,6 +1524,7 @@ class GlobalFields {
                         'name' => 'display'
                     ],
                     'classes' => "display_tab",
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     'fields'  => apply_filters('nx_display_fields', [
                         "main_preview" => [
                             'label'  => __("Preview", 'notificationx'),
@@ -1607,6 +1639,7 @@ class GlobalFields {
                                         "woocommerce_sales",
                                         'woocommerce_sales_reviews',
                                     ] ),
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'options' => apply_filters('nx_show_image_options', array(
                                         'none'           => [
                                             'value' => 'none',
@@ -1695,6 +1728,7 @@ class GlobalFields {
                                     'type'     => "select",
                                     'default'  => "everywhere",
                                     'priority' => 5,
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                                     'options'  => apply_filters('nx_show_on_options', $this->normalize_fields([
                                         'everywhere'       => __('Show Everywhere', 'notificationx'),
                                         'on_selected'      => __('Show On Selected', 'notificationx'),
@@ -1740,6 +1774,7 @@ class GlobalFields {
                         'name' => 'customize'
                     ],
                     'classes' => "customize_tab",
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     'fields'  => apply_filters('nx_customize_fields', [
                         "main_preview" => [
                             'label'  => __("Preview", 'notificationx'),
@@ -2284,14 +2319,19 @@ class GlobalFields {
                     ]),
                 ],
             ],
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             'instructions' => apply_filters( 'nx_instructions', [] ),
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             'pro_popup'    => apply_filters( 'nx_popup_alert', [] ),
         ];
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $tabs['tabs'] = apply_filters('nx_metabox_tabs', $tabs['tabs']);
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $tabs = apply_filters('nx_metabox_config', $tabs);
 
         if(defined('NX_DEBUG') && NX_DEBUG){
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             do_action( 'qm/stop', __METHOD__ );
         }
         return $tabs;

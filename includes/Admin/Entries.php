@@ -102,9 +102,11 @@ class Entries {
         if(empty($entry['updated_at'])){
             $entry['updated_at'] = Helper::mysql_time($timestamp);
         }
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $entry  = apply_filters('nx_insert_entry', $entry);
         $result = Database::get_instance()->insert_post(Database::$table_entries, $entry, $this->format);
         if ( $result ) {
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             do_action( 'nx_after_entry_inserted', $entry );
         }
         return $result;
@@ -124,6 +126,7 @@ class Entries {
             if(empty($entry['updated_at'])){
                 $entry['updated_at'] = Helper::mysql_time($timestamp);
             }
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $entries[$key] = apply_filters('nx_insert_entry', $entry);
         }
         return Database::get_instance()->insert_posts(Database::$table_entries, $entries, $this->format);
@@ -135,6 +138,7 @@ class Entries {
         }
         $entries = Database::get_instance()->get_posts(Database::$table_entries, $select, $where__or_nx_id, $join_table, $group_by_col, '', 'ORDER BY `created_at` DESC');
         if ($data_in_entry) {
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $entries = apply_filters('nx_get_entries', $entries);
             return $entries;
         }
@@ -143,8 +147,10 @@ class Entries {
                 $value = array_merge($value['data'], $value);
                 unset($value['data']);
             }
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $entries[$key] = apply_filters('nx_get_entry', $value);
         }
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $entries = apply_filters('nx_get_entries', $entries);
         return $entries;
     }

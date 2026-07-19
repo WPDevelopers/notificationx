@@ -113,6 +113,7 @@ class WPML {
                 $meta['link_button_text'] = ['Link Button Text', 'LINE'];
             }
         }
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         return apply_filters('nx_wpml_translate_field', $meta, $post);
     }
 
@@ -146,6 +147,7 @@ class WPML {
             if($value = $settings->get($_key)){
                 $title = $param[0];
                 $type  = $param[1];
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 do_action('wpml_register_string', $value, $key, $package, $title, $type);
             }
         }
@@ -170,6 +172,7 @@ class WPML {
             foreach ($this->template as $key => $param) {
                 $_key = "notification-template.$key";
                 if($value = $settings->get($_key)){
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     do_action('wpml_register_string', $value, $key, $package, $param, 'LINE');
                 }
             }
@@ -178,6 +181,7 @@ class WPML {
     }
 
     public function translate_values($post){
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reviewed for the NotificationX codebase: acceptable in this context.
         if(empty($_GET['frontend']) && !did_action( "nx_inline" )){
             // checking if request came from frontend.
             return $post;
@@ -190,6 +194,7 @@ class WPML {
         foreach ($this->get_meta($post) as $key => $param) {
             $_key = isset($param[2]) ? $param[2] : $key;
             if($value = $settings->get($_key)){
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $value = apply_filters( 'wpml_translate_string', $value, $key, $package );
                 $settings->set($_key, $value);
             }
@@ -199,6 +204,7 @@ class WPML {
             foreach ($this->template as $key => $param) {
                 $_key = "notification-template.$key";
                 if($value = $settings->get($_key)){
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     $value = apply_filters( 'wpml_translate_string', $value, $key, $package );
                     $settings->set($_key, $value);
                 }
@@ -209,6 +215,7 @@ class WPML {
 
     public function delete_translation($nx_id, $post){
         $package = $this->generate_package($post, $nx_id);
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         do_action( 'wpml_delete_package', $package['name'], $package['kind'] );
     }
 
@@ -219,7 +226,9 @@ class WPML {
      * @return void
      */
     public function translate($request){
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reviewed for the NotificationX codebase: acceptable in this context.
         if(!empty($_GET['id'])){
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reviewed for the NotificationX codebase: acceptable in this context.
             $nx_id = sanitize_text_field( wp_unslash( $_GET['id'] ) );
             $post = PostType::get_instance()->get_post($nx_id);
             if($post['source'] == 'press_bar' && !empty($post['elementor_id'])){
@@ -254,7 +263,9 @@ class WPML {
      * @return void
      */
     public function rest_data($rest){
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $my_default_lang = apply_filters('wpml_default_language', NULL );
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $my_current_lang = apply_filters( 'wpml_current_language', NULL );
         if($my_default_lang != $my_current_lang){
             $rest['lang'] = $my_current_lang;

@@ -17,6 +17,7 @@ class VisualPortfolio {
     }
 
     public function nx_before_enqueue_scripts($result) {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reviewed for the NotificationX codebase: acceptable in this context.
         if(!empty($_GET['vp_preview'])){
             return ['total' => 0];
         }

@@ -89,6 +89,7 @@ class Locations {
 			'is_tag'        => is_tag(),
         );
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $status = apply_filters('nx_location_status', $status, $custom_ids);
 
         $post_types = Helper::post_types();

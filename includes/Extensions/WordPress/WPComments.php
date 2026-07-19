@@ -275,6 +275,7 @@ class WPComments extends Extension {
             if ($settings['themes'] == 'comments_theme-seven-free' || $settings['themes'] == 'comments_theme-eight-free') {
                 $trim_length = 80;
             }
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $nx_trimmed_length = apply_filters('nx_text_trim_length', $trim_length, $settings);
             $comment = $saved_data['post_comment'];
             if (strlen($comment) > $nx_trimmed_length) {

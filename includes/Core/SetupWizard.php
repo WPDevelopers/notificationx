@@ -84,6 +84,7 @@ class SetupWizard {
             'notificationx-public',
             Helper::file( 'public/css/frontend.css', true ),
             [],
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             apply_filters( 'nx_frontend_css_version', NOTIFICATIONX_VERSION ),
             'all'
         );

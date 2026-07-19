@@ -428,6 +428,7 @@ class PluginInsights {
          * @param array         $body Collected tracking data.
          * @param PluginInsights $this Current insights instance.
          */
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $body = apply_filters( 'nx_plugin_usage_tracker_data', $body, $this );
 
         return $body;
@@ -801,6 +802,7 @@ class PluginInsights {
                 'type'        => 'textarea',
             ],
         );
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         return apply_filters( 'wpins_form_text_' . $this->plugin_name, $form );
     }
     /**

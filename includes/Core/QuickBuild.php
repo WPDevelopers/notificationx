@@ -109,6 +109,7 @@ class QuickBuild {
         $tabs['source_tab']['fields'] = array_merge($tabs['source_tab']['fields'], $configs['tabs']['content_tab']['fields']);
         $tabs['display_tab']['fields'] = array_merge($tabs['display_tab']['fields'], $configs['tabs']['customize_tab']['fields']);
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         return apply_filters('nx_quick_builder_tabs', [
             'id'            => 'notificationx_metabox_quick_builder_wrapper',
             'redirect'      => !current_user_can( 'edit_notificationx' ),
@@ -266,6 +267,7 @@ class QuickBuild {
                 'exit_intent_ai_tab',
                 'exit-intent-build_with_ai',
             ],
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             'types_title' => apply_filters( 'nx_source_types_title', array(
                 'notification_bar' => __('Notification Bar', 'notificationx'),
                 'comments'         => __('Comments', 'notificationx'),

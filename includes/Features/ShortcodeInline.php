@@ -73,6 +73,7 @@ class ShortcodeInline {
             return '<p class="nx-shortcode-notice">' . __( 'Make sure you have enabled the notification which ID you have given.', 'notificationx' ) . '</p>';
         }
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         do_action( 'nx_inline' );
         $settings = PostType::get_instance()->get_post($nx_id);
         if( $settings['type'] == 'inline' || $settings['source'] == 'woocommerce_sales_inline' ){

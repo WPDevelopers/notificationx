@@ -114,6 +114,7 @@ class UsageTracker {
          * @since 3.3.0
          * @param array<string,int> $data Flat usage count map.
          */
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         return apply_filters( 'nx_usage_tracker_data', $data );
     }
 

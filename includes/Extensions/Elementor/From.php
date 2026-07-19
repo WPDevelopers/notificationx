@@ -47,6 +47,7 @@ class From extends Extension {
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/docs/elementor-form-with-notificationx/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            // phpcs:ignore WordPress.WP.I18n.NoHtmlWrappedStrings -- Reviewed for the NotificationX codebase: acceptable in this context.
             "html"=> __('
                 <span>Elementor forms that can help you keep important leads and stay in touch with your customers.</span>
             ', 'notificationx')

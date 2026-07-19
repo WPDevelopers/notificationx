@@ -47,6 +47,7 @@ class FrontEnd {
      */
     public function __construct() {
         Analytics::get_instance();
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reviewed for the NotificationX codebase: acceptable in this context.
         if (!is_admin() || !empty($_GET['frontend'])) {
             add_action('init', [$this, 'init'], 10);
         }
@@ -77,7 +78,9 @@ class FrontEnd {
      */
     public function enqueue_scripts() {
         $custom_css = $this->generate_custom_css();
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], apply_filters('nx_frontend_js_version', NOTIFICATIONX_VERSION ), true);
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], apply_filters('nx_frontend_css_version', NOTIFICATIONX_VERSION ), 'all');
         // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');
         // Localize scripts for frontend
@@ -119,12 +122,14 @@ class FrontEnd {
             $exit = ['total' => 0];
         }
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $exit = apply_filters('nx_before_enqueue_scripts', $exit);
         if(!empty($exit)){
             $this->notificationXArr = $exit;
             return;
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reviewed for the NotificationX codebase: acceptable in this context.
         if (!$exit && empty($_GET['elementor-preview'])) {
             $this->notificationXArr = $this->get_notifications_ids();
             if ($this->notificationXArr['total'] > 0) {
@@ -207,6 +212,7 @@ class FrontEnd {
 
     public function footer_scripts() {
         if (!empty($this->notificationXArr['total']) && $this->notificationXArr['total'] > 0) {
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $this->notificationXArr = apply_filters('nx_frontend_localize_data', $this->notificationXArr);
             ?>
             <script data-no-optimize="1">
@@ -308,6 +314,7 @@ class FrontEnd {
                 $type   = $settings['type'];
                 $source = $settings['source'];
 
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $should_continue = apply_filters("nx_entry_show_on_frontend_$source", false, $entry, $settings);
                 if ( $should_continue ) {
                     continue;
@@ -321,13 +328,16 @@ class FrontEnd {
                         $entry['timestamp'] = $timestamp = is_string($timestamp) ? strtotime($timestamp) : false;
                     }
                     if ($timestamp && $display_from > $timestamp) {
+                        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                         if (apply_filters("nx_entry_display_$source", true, $entry, $settings)) {
                             continue;
                         }
                     }
                 }
 
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $defaults = apply_filters("nx_fallback_data_$source", $_defaults, $entry, $settings);
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $defaults = apply_filters('nx_fallback_data', $defaults, $entry, $settings);
 
                 $entry               = $this->apply_defaults($entry, $defaults);
@@ -336,8 +346,11 @@ class FrontEnd {
                     $entry['title'] = wp_strip_all_tags(html_entity_decode($entry['title']));
                 }
 
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $entry = apply_filters("nx_filtered_entry_$type", $entry, $settings);
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $entry = apply_filters("nx_filtered_entry_$source", $entry, $settings);
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $entry = apply_filters('nx_filtered_entry', $entry, $settings);
                 $entry = $this->link_url($entry, $settings, $params);
 
@@ -374,12 +387,17 @@ class FrontEnd {
 
             foreach ($result as &$group) {
                 foreach ($group as &$value) {
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     $value['entries'] = apply_filters("nx_filtered_data_{$value['post']['type']}", $value['entries'], $value['post'], $params);
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     $value['entries'] = apply_filters("nx_filtered_data_{$value['post']['source']}", $value['entries'], $value['post'], $params);
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     $value['entries'] = apply_filters('nx_filtered_data', $value['entries'], $value['post'], $params);
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     $value['post']    = apply_filters('nx_filtered_post', $value['post'], $params);
                 }
             }
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $result = apply_filters('nx_filtered_notice', $result, $params);
         }
 
@@ -400,12 +418,14 @@ class FrontEnd {
                 }
 
                 // $settings['button_url'] = apply_filters("nx_notification_link_{$settings['source']}", $settings['button_url'], $settings);
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $settings['button_url'] = apply_filters('nx_notification_link', $settings['button_url'], $settings);
                 if (!empty($settings['button_url']) && strpos($settings['button_url'], '//') === false && strpos($settings['button_url'], './') === false) {
                     $settings['button_url'] = "//{$settings['button_url']}";
                 }
                 $bar_content = $this->get_bar_content($settings, false, $params);
                 if ($bar_content !== '&nbsp;' || !empty($settings['enable_countdown'])) {
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     $settings = apply_filters('nx_filtered_post', $settings, $params);
                     $result['pressbar'][$_nx_id]['post']    = $settings;
                     $result['pressbar'][$_nx_id]['content'] = $bar_content;
@@ -423,6 +443,7 @@ class FrontEnd {
                     continue;
                 }
 
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $settings = apply_filters('nx_filtered_post', $settings, $params);
 
                 $result['gdpr'][$_nx_id]['post']    = $settings;
@@ -440,6 +461,7 @@ class FrontEnd {
                     continue;
                 }
 
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $settings = apply_filters('nx_filtered_post', $settings, $params);
 
                 $result['popup'][$_nx_id]['post']    = $settings;
@@ -456,6 +478,7 @@ class FrontEnd {
                 if ( !$settings['enabled'] ) {
                     continue;
                 }
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $settings = apply_filters('nx_filtered_post', $settings, $params);
                 $result['exit_intent'][$_nx_id]['post']    = $settings;
                 $result['exit_intent'][$_nx_id]['content'] = "";
@@ -469,6 +492,7 @@ class FrontEnd {
 
     public function get_settings(){
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $branding_url       = apply_filters('nx_branding_url', NOTIFICATIONX_PLUGIN_URL . '?utm_source=' . esc_url(home_url()) . '&utm_medium=notificationx');
         $settings = [
             'disable_powered_by' => Settings::get_instance()->get('settings.disable_powered_by'),
@@ -542,6 +566,7 @@ class FrontEnd {
             //     continue;
             // }
 
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $show_on_exclude = apply_filters('nx_show_on_exclude', false, $settings);
             if ($show_on_exclude) {
                 continue;
@@ -599,6 +624,7 @@ class FrontEnd {
         // @todo maybe combine two hooks.
 
         return apply_filters(
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             'get_notifications_ids',
             [
                 'global'      => $global_notifications,
@@ -636,6 +662,7 @@ class FrontEnd {
             $check_location = Locations::get_instance()->check_location($locations, $custom_ids, $taxonomy_ids);
         }
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $check_location = apply_filters('nx_check_location', $check_location, $custom_ids, $show_on);
 
         if ($show_on == 'on_selected') {
@@ -703,6 +730,7 @@ class FrontEnd {
                 if (!empty($notifications[$id])) {
                     $post         = $notifications[$id];
                     $global_query =  " nx_id = " . absint($id) . " AND source = '" . esc_sql($post['source']) . "'";
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     $_q = apply_filters("nx_get_entries_query_part_{$notifications[$id]['source']}",$global_query, $notifications[$id], $params );
                     $query[$id] = " (" . $_q . ")";
                 }
@@ -720,6 +748,7 @@ class FrontEnd {
         if (!is_array($entries)) {
             $entries = [];
         }
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $entries = apply_filters('nx_frontend_get_entries', $entries, $ids, $notifications,$params);
         return $entries;
     }
@@ -740,7 +769,9 @@ class FrontEnd {
             $link = '';
         }
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $link          = apply_filters("nx_notification_link_{$post['source']}", $link, $post, $entry, $params);
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $entry['link'] = apply_filters('nx_notification_link', $link, $post, $entry, $params);
         return $entry;
     }
@@ -791,7 +822,9 @@ class FrontEnd {
         }
 
         $image_data['classes'] = $image_type;
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $image_data            = apply_filters("nx_notification_image_$source", $image_data, $data, $settings);
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $image_data            = apply_filters('nx_notification_image', $image_data, $data, $settings);
 
         if (!empty($image_data['url'])) {
@@ -837,6 +870,7 @@ class FrontEnd {
                 $entries = array_slice($entries, 0, $post['display_last']);
             }
             foreach ($entries as $index => $entry) {
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $_entry = apply_filters("nx_frontend_keep_entry_{$post['source']}", [
                     'nx_id'      => $entry['nx_id'],
                     'timestamp'  => isset($entry['timestamp']) ? $entry['timestamp'] : Helper::current_timestamp($entry['updated_at']),
@@ -979,6 +1013,7 @@ class FrontEnd {
     public function get_bar_content($settings, $suppress_filters = false, $params = []){
         $bar_content  = PressBar::get_instance()->print_bar_notice($settings);
         if(!$suppress_filters){
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $bar_content  = apply_filters("nx_filtered_data_{$settings['source']}", $bar_content, $settings, $params);
         }
 

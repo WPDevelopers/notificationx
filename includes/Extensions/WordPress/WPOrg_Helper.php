@@ -144,6 +144,7 @@ class WPOrg_Helper {
         $finder        = new \DomXPath( $dom );
         $nodes         = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' review ')]");
 		
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
 		$conditioned_filter = apply_filters( 'nx_wp_reviews_rating_condition', 3 );
 		
         foreach ( $nodes as $node ) {

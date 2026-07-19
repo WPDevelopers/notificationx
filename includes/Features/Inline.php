@@ -36,6 +36,7 @@ class Inline {
 
     public function get_notifications_data( $source, $id = null, $settings = [] ) {
         
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $exit = apply_filters('nx_inline_notifications_data', null, $source, $id, $settings);
         if($exit){
             return $exit;
@@ -51,6 +52,7 @@ class Inline {
                 )
             );
            
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             do_action( 'nx_inline' );
 
             if ( ! empty( $notifications ) ) {

@@ -99,6 +99,7 @@ class Cron {
             'display'    => sprintf(__('Every %s minutes', 'notificationx'), $reviews_cache_duration)
         );
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $schedules = apply_filters('nx_cron_schedules', $schedules);
 
         return $schedules;
@@ -111,6 +112,7 @@ class Cron {
         $post = PostType::get_instance()->get_post($post_id);
 
         if(!empty($post['source']) && !empty($post['enabled'])){
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             do_action("{$this->hook}_{$post['source']}", $post_id, $post);
         }
         else{

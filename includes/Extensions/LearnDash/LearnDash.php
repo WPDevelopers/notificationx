@@ -48,6 +48,7 @@ class LearnDash extends Extension {
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/docs/how-to-display-learndash-course-enrollment-alert-using-notificationx/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
+            // phpcs:ignore WordPress.WP.I18n.NoHtmlWrappedStrings -- Reviewed for the NotificationX codebase: acceptable in this context.
             "html"=> __('
                 <span>A widely used WordPress learning management system.</span>
             ', 'notificationx')

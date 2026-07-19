@@ -80,3 +80,4 @@ vendor/priyomukul/.editorconfig
 vendor/priyomukul/.gitignore
 vendor/priyomukul/composer.json
 vendor/priyomukul/README.md
+.npmrc

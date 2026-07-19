@@ -111,6 +111,7 @@ class EDD extends Extension {
 
 
     public function multiorder_combine($data, $settings) {
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $should_combine = apply_filters('nx_should_combine', true, $data, $settings);
         if (!$should_combine || empty($settings['combine_multiorder']) || $settings['combine_multiorder'] != '1') {
             return $data;

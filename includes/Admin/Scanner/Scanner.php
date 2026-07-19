@@ -180,6 +180,7 @@ class Scanner
 
                     if (empty($isExists[0]['count(*)'])) {
                         $post = PostType::get_instance()->get_post($nx_id);
+                        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                         $canEntry = apply_filters("nx_can_entry_gdpr_notification", true, $entry, $post);
                         if ($canEntry) {
                             Limiter::get_instance()->remove($nx_id, 1);

@@ -48,7 +48,7 @@ class XSS {
                     'readOnly'     => true,
                     /* translators: %s: Cross Domain Notice link URL */
                     'help'         => sprintf( __( 'Show your Notification Alerts in another website using <a target="_blank" href="%s">Cross Domain Notice</a>.', 'notificationx' ), 'https://notificationx.com/docs/notificationx-cross-domain-notice/' ),
-                    // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- Default value of a setting shown to the user to copy, not output by the plugin.
+                    // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Default value of a setting shown to the user to copy, not output by the plugin; nx_ is this plugin's established hook prefix.
                     'default'      => apply_filters( 'nx_settings_xss_code_default', "<div id='notificationx-frontend'></div>\n<script>....</script>\n<script src='....../crossSite.js'></script>" ),
                     'priority'     => 1,
                 ),

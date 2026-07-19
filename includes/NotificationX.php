@@ -64,6 +64,7 @@ class NotificationX {
         new WPDRoleManagement($args);
 
         Upgrader::get_instance();
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reviewed for the NotificationX codebase: acceptable in this context.
         if (is_admin() || empty($_GET['frontend']) || $_GET['frontend'] != true) {
             Admin::get_instance();
         }

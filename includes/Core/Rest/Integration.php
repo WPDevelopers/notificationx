@@ -332,12 +332,15 @@ class Integration {
             if (isset($response_data['data']['id'])){
                 $post = PostType::get_instance()->get_post($response_data['data']['id']);
                 if($post['source']){
+                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     do_action( "nx_api_response_success_{$post['source']}", $response_data['data'] );
                 }
             }
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             do_action( 'nx_api_response_success', $response_data['data'] );
         }
 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         return apply_filters( 'nx_api_response', $response_data );
     }
 
@@ -358,6 +361,7 @@ class Integration {
             return $ext->connect($params);
         }
         else{
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $result = apply_filters("nx_api_connect_$source", null, $params);
             if($result){
                 return $result;

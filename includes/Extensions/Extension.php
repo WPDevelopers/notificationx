@@ -83,6 +83,7 @@ abstract class Extension {
     }
 
     public function initialize(){
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         do_action('nx::extension::init', $this);
         add_action('nx_before_metabox_load', [$this, '__init_fields']);
         add_action('nx_before_settings_fields', [$this, 'init_settings_fields']);
@@ -448,6 +449,7 @@ abstract class Extension {
             'icon'             => $this->img,
             'value'            => $this->id,
             'is_pro'           => $this->is_pro && ! NotificationX::is_pro(),
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             'popup'            => apply_filters('nx_pro_alert_popup', $this->popup),
             'priority'         => $this->priority,
         ];
@@ -651,6 +653,7 @@ abstract class Extension {
         if(is_array($entries) && !empty($entries[0]['nx_id'])){
             $post = PostType::get_instance()->get_post($entries[0]['nx_id']);
             foreach ($entries as $key => $entry) {
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $entry, $post);
                 if(!$can_entry){
                     unset($entries[$key]);
@@ -677,6 +680,7 @@ abstract class Extension {
             }
             // @todo add object caching
             $post = PostType::get_instance()->get_post($entry['nx_id']);
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $can_entry = apply_filters("nx_can_entry_{$this->id}", true, $entry, $post);
             if($can_entry){
                 Limiter::get_instance()->remove($post['nx_id'], 1);

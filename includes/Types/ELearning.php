@@ -249,6 +249,7 @@ class ELearning extends Types {
             'type'     => 'select-async',
             'multiple' => true,
             'priority' => 201,
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             'options'  => apply_filters('nx_elearning_course_list', [
                 [
                     'label'    => "Type for more result...",

@@ -164,6 +164,7 @@ class NinjaForms extends Extension {
     public function get_submissions( $form_id, $data ) {
         $subs               = Ninja_Forms()->form( $form_id )->get_subs( array(), FALSE );
         $fields             = Ninja_Forms()->form( $form_id )->get_fields();
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $hidden_field_types = apply_filters( 'nf_sub_hidden_field_types', array() );
         $display_from = !empty( $data['display_from'] ) ? intval( $data['display_from'] ) : 30;        
         $cutoff_timestamp = strtotime("-{$display_from} days");
@@ -231,8 +232,11 @@ class NinjaForms extends Extension {
 
                   $field_value = maybe_unserialize( $sub->get_field_value( $field_id ) );
 
+                  // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                   $field_value = apply_filters('nf_subs_export_pre_value', $field_value, $field_id);
+                  // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                   $field_value = apply_filters('ninja_forms_subs_export_pre_value', $field_value, $field_id, $form_id);
+                  // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                   $field_value = apply_filters( 'ninja_forms_subs_export_field_value_' . $field->get_setting( 'type' ), $field_value, $field );
 
                   if ( is_array($field_value ) ) {

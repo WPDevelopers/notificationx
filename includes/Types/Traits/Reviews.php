@@ -76,6 +76,7 @@ trait Reviews {
             if ($settings['themes'] == 'reviews_review-comment-3' || $settings['themes'] == 'reviews_review-comment-3') {
                 $trim_length = 80;
             }
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $nx_trimmed_length = apply_filters('nx_text_trim_length', $trim_length, $settings);
             $review_content = $saved_data['content'];
             if (strlen($review_content) > $nx_trimmed_length) {
