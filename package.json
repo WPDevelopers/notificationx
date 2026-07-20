@@ -1,6 +1,6 @@
 {
   "name": "notificationx",
-  "version": "3.2.11",
+  "version": "3.2.12",
   "main": "nxdev/index.js",
   "author": "WPDeveloper",
   "scripts": {

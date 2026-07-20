@@ -90,7 +90,7 @@ class Locations {
         );
 
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
-        $status = apply_filters('nx_location_status', $status, $custom_ids);
+        $status = apply_filters('nx_location_status', $status, $custom_ids, $taxonomy_ids);
 
         $post_types = Helper::post_types();
         $taxonomies = Helper::taxonomies();
@@ -114,13 +114,21 @@ class Locations {
                 $status[ 'is_tax-' . $slug ] = is_tax( $slug );
             }
         }
-         // Check for specific taxonomy ID
-        if ( in_array( 'is_taxonomy', $locations ) && ! empty($taxonomy_ids ) ) {
+        /**
+         * Check for specific taxonomy ID.
+         *
+         * `is_taxonomy` is a Pro-only location, and Pro resolves it through the
+         * `nx_location_status` filter above (taxonomy-aware, with a `has_term()`
+         * fallback for singular pages). This block is only a fallback for sites
+         * running an older Pro that does not set the key yet — without the
+         * `isset()` guard it would run *after* the filter and clobber Pro's value.
+         */
+        if ( ! isset( $status['is_taxonomy'] ) && in_array( 'is_taxonomy', $locations ) && ! empty( $taxonomy_ids ) ) {
             $current_term_id = get_queried_object_id();
             $ids_array = explode(',',$taxonomy_ids );
             foreach ($ids_array as $id) {
-                if ( $current_term_id == $id ) {
-                    $status['is_taxonomy'] = ( $current_term_id == $id );
+                if ( $current_term_id == trim( $id ) ) {
+                    $status['is_taxonomy'] = true;
                     break;
                 }
             }
