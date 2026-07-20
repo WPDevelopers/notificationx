@@ -65,7 +65,10 @@ const CookieScanner = () => {
       setIsReadyToScanModalOpen(false);
       const response = await fetch(apiUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-WP-Nonce': nxContext?.rest?.nonce,
+        },
         body: JSON.stringify({ url: currentDomain }),
       });
 
@@ -110,7 +113,10 @@ const CookieScanner = () => {
             const statusUrl = `${nxContext?.rest?.root + nxContext?.rest?.namespace }/scan/status`;
             const response = await fetch(statusUrl, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': nxContext?.rest?.nonce,
+              },
               body: JSON.stringify({ scan_id: scanId, nx_id : nx_id  }),
             });
             const res = await response.json();
