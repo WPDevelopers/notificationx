@@ -24,6 +24,15 @@ class Inline {
     public $notifications_data = [];
 
     /**
+     * Request-level cache of notifications data, keyed by source.
+     * Inline hooks fire once per product in shop/archive loops; the
+     * result only varies by $source, so compute it once per request.
+     *
+     * @var array
+     */
+    protected $notifications_cache = [];
+
+    /**
      * __construct__ is for revoke first time to get ready
      *
      * @return void
@@ -35,33 +44,37 @@ class Inline {
 
 
     public function get_notifications_data( $source, $id = null, $settings = [] ) {
-        
+
         $exit = apply_filters('nx_inline_notifications_data', null, $source, $id, $settings);
         if($exit){
             return $exit;
         }
 
-        // if ( empty( $this->notifications_data ) ) {
-            $this->notifications_data = array( 'shortcode' => array() );
-            $notifications            = PostType::get_instance()->get_posts(
+        if ( ! isset( $this->notifications_cache[ $source ] ) ) {
+            $data          = array( 'shortcode' => array() );
+            $notifications = PostType::get_instance()->get_posts(
                 array(
                     'source'    => $source,
                     'enabled'   => true,
                     'is_inline' => true,
                 )
             );
-           
+
             do_action( 'nx_inline' );
 
             if ( ! empty( $notifications ) ) {
-                $this->notifications_data = FrontEnd::get_instance()->get_notifications_data(
+                $data = FrontEnd::get_instance()->get_notifications_data(
                     array(
                         'shortcode'        => array_column( $notifications, 'nx_id' ),
                         'inline_shortcode' => true,
                     )
                 );
             }
-        // }
+
+            $this->notifications_cache[ $source ] = $data;
+        }
+
+        $this->notifications_data = $this->notifications_cache[ $source ];
         return $this->notifications_data;
     }
 
