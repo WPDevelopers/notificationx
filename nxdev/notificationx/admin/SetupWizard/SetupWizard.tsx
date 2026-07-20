@@ -249,6 +249,20 @@ const recommendFor = (goalIds: string[]): Campaign[] => {
 const SetupWizard = (props) => {
     const builder = useNotificationXContext();
     const [active, setActive] = useState(0);
+
+    /**
+     * Keep the full-screen body class in sync with the component lifecycle.
+     * PHP adds `nx-setup-wizard-active` via `admin_body_class` only on a full
+     * page load — but Route.tsx intercepts NX submenu clicks and navigates
+     * client-side (history.push), so reaching the wizard from another NX page
+     * would otherwise leave the WP sidebar/admin bar visible.
+     */
+    useEffect(() => {
+        document.body.classList.add("nx-setup-wizard-active");
+        return () => {
+            document.body.classList.remove("nx-setup-wizard-active");
+        };
+    }, []);
     const [busy, setBusy] = useState(false);
     const [businessType, setBusinessType] = useState<string>(DEFAULT_BUSINESS);
     const [goals, setGoals] = useState<string[]>(
