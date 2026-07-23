@@ -28,7 +28,7 @@ class Announcements extends Extension {
     public $priority        = 10;
     public $id              = 'announcements';
     // public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/custom.png';
-    // public $doc_link        = 'https://notificationx.com/docs/custom-notification';
+    public $doc_link        = 'https://notificationx.com/docs/configure-discount-alert/';
     public $types           = 'offer_announcement';
     public $module          = 'modules_announcements';
     public $module_priority = 18;

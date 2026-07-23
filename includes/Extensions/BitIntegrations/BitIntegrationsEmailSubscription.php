@@ -27,9 +27,9 @@ class BitIntegrationsEmailSubscription extends Extension {
     public $priority        = 15;
     public $id              = 'bitintegrations_email_subscription';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/bit-integrations.png';
-    // public $doc_link        = 'https://notificationx.com/docs/bitintegration-notification-alert/';
+    public $doc_link        = 'https://notificationx.com/docs/bit-integrations-notification-alert/';
     public $types           = 'email_subscription';
-    public $module          = 'modules_bitintegration';
+    public $module          = 'modules_bitintegrations';
     public $module_priority = 16;
     public $class           = 'BitApps\Integrations\Config';
 
@@ -42,8 +42,8 @@ class BitIntegrationsEmailSubscription extends Extension {
 
     public function init_extension()
     {
-        $this->title = __('BitIntegrations', 'notificationx');
-        $this->module_title = __('BitIntegrations', 'notificationx');
+        $this->title = __('Bit Integrations', 'notificationx');
+        $this->module_title = __('Bit Integrations', 'notificationx');
     }
 
     /**

@@ -34,7 +34,7 @@ class Conversions extends Types {
         'modules_edd',
         'modules_custom_notification',
         'modules_zapier',
-        'modules_bitintegration',
+        'modules_bitintegrations',
         'modules_freemius',
         'modules_envato',
     ];
