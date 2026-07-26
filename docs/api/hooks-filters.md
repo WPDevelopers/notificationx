@@ -25,6 +25,7 @@ Everything below is defined in `includes/`. Naming conventions to keep in mind:
 | `nx_api_response_success` / `nx_api_response_success_{source}` | A remote API integration call succeeds ([Rest/Integration.php:188-191](../../includes/Core/Rest/Integration.php#L188)). | `$data` |
 | `nx_inline` | An inline (shortcode/block) notification renders ([Inline.php:54](../../includes/Features/Inline.php#L54), [ShortcodeInline.php:76](../../includes/Features/ShortcodeInline.php#L76)). | — |
 | `{$hook}_{$source}` (dynamic cron) | A scheduled data-sync fires for a source ([Cron.php:114](../../includes/Admin/Cron.php#L114)). Extensions register the matching handler. | `$post_id`, `$post` |
+| `nx_latepoint_reconcile` | Daily WP-Cron event that drops LatePoint entries whose booking is gone or no longer eligible ([LatePointConversions.php](../../includes/Extensions/LatePoint/LatePointConversions.php)). Required because deleting a LatePoint customer cascades to their bookings with no hooks, and its abilities/MCP-AI layer fires none either. | — |
 
 > The `wpdeveloper_*_notice_for_notificationx` actions in [Notice.php](../../includes/Admin/Notice.php) belong to the shared `wp-notice` library, not to NotificationX's public API — treat them as internal.
 
@@ -70,6 +71,7 @@ These are how a plugin (Pro or third-party) adds new Types, Extensions, sources,
 | --- | --- | --- |
 | `nx_can_entry_{source}` | Gate whether a fetched entry is stored — return `false` to drop it (used for GDPR, dedup, etc.) ([Extension.php:654](../../includes/Extensions/Extension.php#L654), [:680](../../includes/Extensions/Extension.php#L680)). | `true`, `$entry`, `$post` |
 | `nx_can_entry_gdpr_notification` | Same gate, applied by the GDPR scanner ([Scanner.php:183](../../includes/Admin/Scanner/Scanner.php#L183)). | `true`, `$entry`, `$post` |
+| `nx_latepoint_booking_status` | Options for the LatePoint Booking Status multi-select in the builder ([LatePointConversions.php](../../includes/Extensions/LatePoint/LatePointConversions.php)). Admin-only — registered in `init_fields()`. | `$options` |
 | `nx_insert_entry` | Entry row just before insert ([Entries.php:72](../../includes/Admin/Entries.php#L72), [:93](../../includes/Admin/Entries.php#L93)). | `$entry` |
 | `nx_get_entry` / `nx_get_entries` | Entries read back from the table ([Entries.php:104-114](../../includes/Admin/Entries.php#L104)). | `$entry` / `$entries` |
 
