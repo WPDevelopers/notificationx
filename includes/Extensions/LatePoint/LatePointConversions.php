@@ -12,6 +12,7 @@ use NotificationX\Extensions\Extension;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\Core\PostType;
+use NotificationX\Core\Modules;
 use NotificationX\Admin\Entries;
 
 /**
@@ -50,6 +51,19 @@ class LatePointConversions extends Extension {
 
     public function __construct() {
         parent::__construct();
+
+        // initialize() only calls init()/admin_actions()/public_actions() when
+        // is_active(false) is true, which requires class_exists('LatePoint') —
+        // so once LatePoint is deactivated nothing would ever (re)hook
+        // nx_latepoint_reconcile, and its recurring cron event would linger in
+        // the cron option forever. Registering here instead mirrors
+        // initialize()'s OWN gate (Modules::is_enabled), which does not depend
+        // on LatePoint being active, so reconcile() keeps firing — and its
+        // ! class_exists() guard stays reachable to unschedule itself — for as
+        // long as the module is turned on, active LatePoint or not.
+        if ( Modules::get_instance()->is_enabled( $this->module ) ) {
+            $this->schedule_reconciliation();
+        }
     }
 
     public function init_extension() {
@@ -257,17 +271,14 @@ class LatePointConversions extends Extension {
     public function admin_actions() {
         parent::admin_actions();
         add_filter( "nx_can_entry_{$this->id}", [ $this, 'check_booking_eligibility' ], 10, 3 );
-        $this->schedule_reconciliation();
-    }
-
-    public function public_actions() {
-        parent::public_actions();
-        add_action( 'nx_latepoint_reconcile', [ $this, 'reconcile' ] );
-        $this->schedule_reconciliation();
     }
 
     /**
-     * Ensure the daily reconciliation event exists.
+     * Ensure the daily reconciliation event — and its handler — exist.
+     *
+     * Called once, unconditionally, from __construct() (see the module-enabled
+     * gate there); WordPress dedupes identical hook+callback+priority
+     * registrations, so this is safe to call more than once.
      */
     public function schedule_reconciliation() {
         add_action( 'nx_latepoint_reconcile', [ $this, 'reconcile' ] );
@@ -280,10 +291,18 @@ class LatePointConversions extends Extension {
      * Drop entries whose booking is gone or no longer eligible.
      *
      * Required, not defensive polish. It is the only thing covering:
-     *  - customer deletion, which cascades to bookings with NO hooks at all
-     *    (the GDPR erasure path)
-     *  - order deletion, which never fires latepoint_booking_deleted
-     *  - the entire abilities/MCP-AI layer, which fires no hooks whatsoever
+     *  - customer deletion, which cascades to the customer's bookings with NO
+     *    hooks at all (the GDPR erasure path — lib/models/customer_model.php)
+     *  - the abilities/MCP-AI layer, which deletes bookings and changes their
+     *    status directly with no hooks at all (e.g.
+     *    lib/abilities/bookings/delete-booking.php calls $booking->delete())
+     *  - a general backstop for any booking whose status drifted out of the
+     *    allowlist without a hook firing
+     *
+     * Order deletion is NOT one of these gaps: it fires
+     * latepoint_booking_will_be_deleted for every booking on the order
+     * (lib/models/order_model.php), and init() already hooks exactly that via
+     * handle_booking_deleted() — that path is covered in realtime.
      */
     public function reconcile() {
         if ( ! $this->class_exists() ) {
