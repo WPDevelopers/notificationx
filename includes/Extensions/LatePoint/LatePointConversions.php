@@ -259,6 +259,7 @@ class LatePointConversions extends Extension {
     public function init_fields() {
         parent::init_fields();
         add_filter( 'nx_latepoint_booking_status', [ $this, 'booking_status_options' ], 11 );
+        add_filter( 'nx_link_types', [ $this, 'link_types' ] );
     }
 
     /**
@@ -334,14 +335,32 @@ class LatePointConversions extends Extension {
     }
 
     /**
+     * Adds an option to the Link Type field in the Content tab.
+     *
+     * Without this the dropdown offers only "None" for this source, so the
+     * campaign can never opt in to the booking-page link below.
+     *
+     * @param array $options
+     * @return array
+     */
+    public function link_types( $options ) {
+        return GlobalFields::get_instance()->normalize_fields([
+            'booking_page' => __( 'Booking Page', 'notificationx' ),
+        ], 'source', $this->id, $options );
+    }
+
+    /**
      * Notification link.
      *
      * LatePoint stores services in custom tables rather than as posts, so there
      * is no per-service permalink. The site owner supplies the page hosting the
-     * booking form.
+     * booking form. Only applied when the campaign actually selected the
+     * Booking Page link type — FrontEnd::link_url() blanks the link for
+     * link_type 'none' immediately before firing this filter, and restoring it
+     * unconditionally overrode the setting.
      */
     public function booking_link( $link, $post, $entry ) {
-        if ( ! empty( $post['latepoint_booking_page_url'] ) ) {
+        if ( ! empty( $post['latepoint_booking_page_url'] ) && ! empty( $post['link_type'] ) && 'booking_page' === $post['link_type'] ) {
             return esc_url_raw( $post['latepoint_booking_page_url'] );
         }
         return $link;
