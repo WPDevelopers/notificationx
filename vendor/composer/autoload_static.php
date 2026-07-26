@@ -115,6 +115,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\Google\\YouTube' => __DIR__ . '/../..' . '/includes/Extensions/Google/YouTube.php',
         'NotificationX\\Extensions\\Google_Analytics\\Google_Analytics' => __DIR__ . '/../..' . '/includes/Extensions/Google/Google_Analytics.php',
         'NotificationX\\Extensions\\IFTTT\\IFTTT' => __DIR__ . '/../..' . '/includes/Extensions/IFTTT/IFTTT.php',
+        'NotificationX\\Extensions\\LatePoint\\LatePointConversions' => __DIR__ . '/../..' . '/includes/Extensions/LatePoint/LatePointConversions.php',
         'NotificationX\\Extensions\\LearnDash\\LearnDash' => __DIR__ . '/../..' . '/includes/Extensions/LearnDash/LearnDash.php',
         'NotificationX\\Extensions\\LearnDash\\LearnDashInline' => __DIR__ . '/../..' . '/includes/Extensions/LearnDash/LearnDashInline.php',
         'NotificationX\\Extensions\\LearnPress\\LearnPress' => __DIR__ . '/../..' . '/includes/Extensions/LearnPress/LearnPress.php',

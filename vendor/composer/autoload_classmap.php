@@ -92,6 +92,7 @@ return array(
     'NotificationX\\Extensions\\Google\\YouTube' => $baseDir . '/includes/Extensions/Google/YouTube.php',
     'NotificationX\\Extensions\\Google_Analytics\\Google_Analytics' => $baseDir . '/includes/Extensions/Google/Google_Analytics.php',
     'NotificationX\\Extensions\\IFTTT\\IFTTT' => $baseDir . '/includes/Extensions/IFTTT/IFTTT.php',
+    'NotificationX\\Extensions\\LatePoint\\LatePointConversions' => $baseDir . '/includes/Extensions/LatePoint/LatePointConversions.php',
     'NotificationX\\Extensions\\LearnDash\\LearnDash' => $baseDir . '/includes/Extensions/LearnDash/LearnDash.php',
     'NotificationX\\Extensions\\LearnDash\\LearnDashInline' => $baseDir . '/includes/Extensions/LearnDash/LearnDashInline.php',
     'NotificationX\\Extensions\\LearnPress\\LearnPress' => $baseDir . '/includes/Extensions/LearnPress/LearnPress.php',

@@ -78,6 +78,7 @@ class ExtensionFactory {
 			'ActiveCampaign'                     => 'NotificationX\Extensions\ActiveCampaign\ActiveCampaign',
 			'popup_notification'                 => 'NotificationX\Extensions\Popup\PopupNotification',
 			'fluentcart'                         => 'NotificationX\Extensions\FluentCart\FluentCart',
+			'latepoint'                          => 'NotificationX\Extensions\LatePoint\LatePointConversions',
 			'fluentcart_inline'                  => 'NotificationX\Extensions\FluentCart\FluentCartInline',
 			'gdpr_notification'                  => 'NotificationX\Extensions\GDPR\GDPR_Notification',
 			'ccpa_notification'                  => 'NotificationX\Extensions\CCPA\CCPA_Notification',
