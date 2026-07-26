@@ -267,7 +267,7 @@ class LatePointConversions extends Extension {
         parent::init_fields();
         add_filter( 'nx_latepoint_booking_status', [ $this, 'booking_status_options' ], 11 );
         add_filter( "nx_notification_link_{$this->id}", [ $this, 'booking_link' ], 10, 3 );
-        add_filter( "nx_filtered_entry_{$this->id}", [ $this, 'mask_service_name' ], 10, 3 );
+        add_filter( "nx_filtered_entry_{$this->id}", [ $this, 'mask_service_name' ], 10, 2 );
     }
 
     /**
@@ -277,9 +277,8 @@ class LatePointConversions extends Extension {
      * shared by every campaign using this source, so two campaigns with different
      * toggle settings must both be served from the same stored entry.
      */
-    public function mask_service_name( $entry, $post, $settings = [] ) {
-        $config = ! empty( $settings ) ? $settings : $post;
-        if ( ! empty( $config['latepoint_hide_service_name'] ) ) {
+    public function mask_service_name( $entry, $settings ) {
+        if ( ! empty( $settings['latepoint_hide_service_name'] ) ) {
             $entry['title'] = __( 'an appointment', 'notificationx' );
         }
         return $entry;
@@ -289,9 +288,15 @@ class LatePointConversions extends Extension {
      * Notification thumbnail.
      *
      * Order: service image, then the customer avatar ONLY when it is a real
-     * upload. get_avatar_url() never returns empty — it falls back to LatePoint's
-     * bundled default-avatar.jpg, so an unguarded call would give every popup the
-     * same grey silhouette, which reads as fake.
+     * upload. The DTO carries no customer id, so the customer is re-derived from
+     * $data['booking_id'] via \OsBookingModel — mirroring reconcile()'s own
+     * ->customer lookup below. OsCustomerModel::get_avatar_url() (which delegates
+     * to OsCustomerHelper::get_avatar_url()) never returns empty — absent a real
+     * upload it falls back to LatePoint's own bundled
+     * public/images/default-avatar.jpg (LATEPOINT_DEFAULT_AVATAR_URL), so an
+     * unguarded call would give every popup the same grey silhouette, which
+     * reads as fake. If neither tier qualifies, fall through so
+     * FrontEnd::get_image_url()'s own default→gravatar chain still runs.
      */
     public function notification_image( $image_data, $data, $settings ) {
         if ( ! empty( $data['service_id'] ) ) {
@@ -303,6 +308,22 @@ class LatePointConversions extends Extension {
                 }
             }
         }
+
+        if ( ! empty( $data['booking_id'] ) ) {
+            $booking = new \OsBookingModel( (int) $data['booking_id'] );
+            // LatePoint returns an EMPTY MODEL, never null, when the related row
+            // is missing — check a property, not the object (see build_entry_data()).
+            if ( ! empty( $booking->id ) ) {
+                $customer = $booking->customer;
+                if ( ! empty( $customer ) && ! empty( $customer->id ) && method_exists( $customer, 'get_avatar_url' ) ) {
+                    $url = $customer->get_avatar_url();
+                    if ( ! empty( $url ) && false === strpos( $url, 'default-avatar.jpg' ) ) {
+                        return [ 'url' => $url, 'id' => 0 ];
+                    }
+                }
+            }
+        }
+
         return $image_data;
     }
 
