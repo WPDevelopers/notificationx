@@ -61,6 +61,12 @@ class LatePointConversions extends Extension {
         // 15 (analytics). Let the booking row settle first.
         add_action( 'latepoint_booking_created', [ $this, 'buffer_booking' ], 20, 1 );
         add_action( 'latepoint_order_created', [ $this, 'flush_order' ], 20, 1 );
+        // Editing an EXISTING order routes through latepoint_order_updated instead
+        // of latepoint_order_created (see lib/controllers/orders_controller.php) —
+        // without this, a booking added to an existing order is buffered and never
+        // flushed. flush_order( $order = null ) already tolerates the 2-arg signature
+        // of this hook because only 1 arg is requested here.
+        add_action( 'latepoint_order_updated', [ $this, 'flush_order' ], 20, 1 );
         add_action( 'latepoint_booking_updated', [ $this, 'handle_booking_updated' ], 20, 2 );
         add_action( 'latepoint_booking_will_be_deleted', [ $this, 'handle_booking_deleted' ], 20, 1 );
     }
@@ -95,20 +101,28 @@ class LatePointConversions extends Extension {
 
         // Announce the first ELIGIBLE booking, not simply the first — the earliest
         // one may be on a hidden service, or have no usable customer name.
-        $data = false;
+        // booking_count must only reflect ELIGIBLE bookings: a rejected booking
+        // (hidden service, blank name, unparseable timestamp) was never shown, so
+        // counting it would both misreport the number and leak, in aggregate, that
+        // a deliberately hidden service was booked.
+        $data           = false;
+        $eligible_count = 0;
         foreach ( $bookings as $booking ) {
-            $data = $this->build_entry_data( $booking );
-            if ( false !== $data ) {
-                break;
+            $entry = $this->build_entry_data( $booking );
+            if ( false === $entry ) {
+                continue;
+            }
+            $eligible_count++;
+            if ( false === $data ) {
+                $data = $entry;
             }
         }
         if ( false === $data ) {
             return;
         }
 
-        $count = count( $bookings );
-        if ( $count > 1 ) {
-            $data['booking_count'] = $count;
+        if ( $eligible_count > 1 ) {
+            $data['booking_count'] = $eligible_count;
         }
 
         $this->store_entry( $data );
