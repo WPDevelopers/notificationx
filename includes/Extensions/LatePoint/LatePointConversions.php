@@ -422,6 +422,71 @@ class LatePointConversions extends Extension {
         }
     }
 
+    public function saved_post( $post, $data, $nx_id ) {
+        $this->delete_notification( null, $nx_id );
+        $this->get_notification_ready( $data );
+    }
+
+    public function get_notification_ready( $post = [] ) {
+        $bookings = $this->get_bookings( $post );
+        if ( empty( $bookings ) ) {
+            return;
+        }
+        $entries = [];
+        foreach ( $bookings as $booking ) {
+            $data = $this->build_entry_data( $booking );
+            if ( false === $data ) {
+                continue;
+            }
+            $entries[] = [
+                'nx_id'     => $post['nx_id'],
+                'source'    => $this->id,
+                'entry_key' => 'latepoint_' . $data['booking_id'],
+                'data'      => $data,
+            ];
+        }
+        if ( ! empty( $entries ) ) {
+            $this->update_notifications( $entries );
+        }
+    }
+
+    /**
+     * Recent bookings for backfill.
+     *
+     * Bounded by display_last, following SureCart and FluentCart — NOT Tutor's
+     * unbounded -1, which pulls every row only for Limiter to truncate it
+     * non-deterministically at cache_limit.
+     *
+     * Uses OsModel's query-builder API (verified against
+     * lib/models/model.php): where() merges conditions by key, so an array
+     * value (e.g. 'status' => [...]) is rendered as an escaped IN (...) list
+     * and a ' >' operator suffix on the key (e.g. 'created_at >') is parsed
+     * into a parameterized comparison — both used below. OsModel has no
+     * limit() method though; only set_limit() exists, so that is used in
+     * place of the assumed limit().
+     */
+    protected function get_bookings( $post = [] ) {
+        if ( ! $this->class_exists() ) {
+            return [];
+        }
+        $limit   = ! empty( $post['display_last'] ) ? (int) $post['display_last'] : 10;
+        $allowed = ! empty( $post['latepoint_booking_status'] )
+            ? (array) $post['latepoint_booking_status']
+            : [ 'approved', 'completed' ];
+
+        $model = new \OsBookingModel();
+        $model->where( [ 'status' => $allowed ] );
+        if ( ! empty( $post['display_from'] ) ) {
+            $from = gmdate( 'Y-m-d H:i:s', strtotime( '-' . (int) $post['display_from'] . ' days' ) );
+            $model->where( [ 'created_at >' => $from ] );
+        }
+        $model->order_by( 'created_at desc' );
+        $model->set_limit( $limit );
+
+        $results = $model->get_results_as_models();
+        return is_array( $results ) ? $results : [];
+    }
+
     public function booking_status_options( $options ) {
         $statuses = [
             'approved'        => __( 'Approved', 'notificationx' ),
