@@ -34,20 +34,19 @@ class LatePointConversions extends Extension {
     public $class           = 'LatePoint';
 
     /**
+     * Booking statuses captured when a campaign has not chosen its own.
+     *
+     * Mirrored by the 'default' of the latepoint_booking_status field in
+     * GlobalFields — keep the two in sync.
+     */
+    const DEFAULT_STATUSES = [ 'approved', 'completed' ];
+
+    /**
      * Booking IDs captured during this request, awaiting flush.
      *
      * @var array<int, \OsBookingModel>
      */
     protected $buffer = [];
-
-    /**
-     * Entry keys already written this request — guards LatePoint's duplicate
-     * hook fires (booking_updated double-fires when routed through
-     * OsBookingHelper::change_booking_status()).
-     *
-     * @var array<string, bool>
-     */
-    protected $written = [];
 
     public function __construct() {
         parent::__construct();
@@ -446,7 +445,7 @@ class LatePointConversions extends Extension {
 
             $allowed = ! empty( $post['latepoint_booking_status'] )
                 ? (array) $post['latepoint_booking_status']
-                : [ 'approved', 'completed' ];
+                : self::DEFAULT_STATUSES;
 
             foreach ( $entries as $entry ) {
                 if ( empty( $entry['booking_id'] ) ) {
@@ -534,7 +533,7 @@ class LatePointConversions extends Extension {
         $limit   = ! empty( $post['display_last'] ) ? (int) $post['display_last'] : 10;
         $allowed = ! empty( $post['latepoint_booking_status'] )
             ? (array) $post['latepoint_booking_status']
-            : [ 'approved', 'completed' ];
+            : self::DEFAULT_STATUSES;
 
         $model = new \OsBookingModel();
         $model->where( [ 'status' => $allowed ] );
@@ -580,7 +579,7 @@ class LatePointConversions extends Extension {
         // a denylist.
         $allowed = ! empty( $settings['latepoint_booking_status'] )
             ? (array) $settings['latepoint_booking_status']
-            : [ 'approved', 'completed' ];
+            : self::DEFAULT_STATUSES;
         if ( empty( $data['status'] ) || ! in_array( $data['status'], $allowed, true ) ) {
             return false;
         }
@@ -711,35 +710,5 @@ class LatePointConversions extends Extension {
             return false;
         }
         return $dt->getTimestamp();
-    }
-
-    /**
-     * Identity of the appointment itself, independent of its booking row id.
-     *
-     * The payment-gateway return and the provider webhook race on the same order
-     * intent and can each produce a DISTINCT booking row for the same
-     * appointment, so deduping on booking id alone is not sufficient.
-     *
-     * @param \OsBookingModel $booking
-     * @return string
-     */
-    protected function dedupe_hash( $booking ) {
-        $start = '';
-        if ( method_exists( $booking, 'get_start_datetime' ) ) {
-            $dt = $booking->get_start_datetime( 'UTC' );
-            if ( $dt instanceof \DateTimeInterface ) {
-                $start = $dt->format( 'Y-m-d H:i:s' );
-            }
-        }
-        // Fall back to the raw columns. start_datetime_utc is NULL for midnight
-        // bookings, because start_time is minutes-from-midnight and empty(0) is true.
-        if ( '' === $start ) {
-            $start = (string) $booking->start_date . '|' . (string) $booking->start_time;
-        }
-        return md5( implode( '|', [
-            (string) $booking->customer_id,
-            (string) $booking->service_id,
-            $start,
-        ] ) );
     }
 }

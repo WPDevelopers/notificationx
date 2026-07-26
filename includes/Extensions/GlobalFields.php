@@ -986,6 +986,8 @@ class GlobalFields {
                                     'type'     => 'select',
                                     'multiple' => true,
                                     'priority' => 99.9,
+                                    // Mirrors LatePointConversions::DEFAULT_STATUSES,
+                                    // which applies the same fallback on the PHP side.
                                     'default'  => [ 'approved', 'completed' ],
                                     'help'     => __( 'Only bookings in the selected statuses are captured. Changing this affects new bookings only — use Regenerate to rebuild past ones.', 'notificationx' ),
                                     // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
