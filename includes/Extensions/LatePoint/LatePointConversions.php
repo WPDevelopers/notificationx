@@ -266,6 +266,23 @@ class LatePointConversions extends Extension {
     public function init_fields() {
         parent::init_fields();
         add_filter( 'nx_latepoint_booking_status', [ $this, 'booking_status_options' ], 11 );
+    }
+
+    /**
+     * Display-time filters.
+     *
+     * nx_before_metabox_load (where init_fields() is hooked, see initialize())
+     * is fired solely by GlobalFields::tabs() while building the admin
+     * builder's field schema — it never fires on the public site. Registering
+     * booking_link() and mask_service_name() there left them dead on the
+     * frontend: a booking's real service name still leaked through the
+     * "Hide Service Name" toggle, and the configured booking-page link was
+     * never applied. public_actions() runs on every request once the module
+     * is active (see Extension::initialize()), admin or not, so it is the
+     * correct place for filters that affect display output.
+     */
+    public function public_actions() {
+        parent::public_actions();
         add_filter( "nx_notification_link_{$this->id}", [ $this, 'booking_link' ], 10, 3 );
         add_filter( "nx_filtered_entry_{$this->id}", [ $this, 'mask_service_name' ], 10, 2 );
     }
