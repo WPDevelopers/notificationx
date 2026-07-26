@@ -380,10 +380,16 @@ class LatePointConversions extends Extension {
      * Called once, unconditionally, from __construct() (see the module-enabled
      * gate there); WordPress dedupes identical hook+callback+priority
      * registrations, so this is safe to call more than once.
+     *
+     * The handler is registered unconditionally but the event is only (re)created
+     * while LatePoint is actually present. Doing both unconditionally made
+     * reconcile()'s wp_clear_scheduled_hook() pointless: with LatePoint
+     * uninstalled the cron fired, cleared itself, and the very next pageload
+     * scheduled it again, forever.
      */
     public function schedule_reconciliation() {
         add_action( 'nx_latepoint_reconcile', [ $this, 'reconcile' ] );
-        if ( ! wp_next_scheduled( 'nx_latepoint_reconcile' ) ) {
+        if ( $this->class_exists() && ! wp_next_scheduled( 'nx_latepoint_reconcile' ) ) {
             wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'nx_latepoint_reconcile' );
         }
     }
@@ -454,6 +460,16 @@ class LatePointConversions extends Extension {
                 // Customer erased while the booking row survives.
                 $customer = $booking->customer;
                 if ( empty( $customer ) || empty( $customer->id ) ) {
+                    $this->delete_notification( 'latepoint_' . $booking_id, $post['nx_id'] );
+                    continue;
+                }
+                // Service deleted, or hidden since capture. Mirrors the
+                // capture-time rejection in build_entry_data(): an admin who
+                // hides a service to stop advertising it must also stop the
+                // popups that are already advertising it.
+                $service = $booking->service;
+                if ( empty( $service ) || empty( $service->id )
+                    || ( method_exists( $service, 'is_hidden' ) && $service->is_hidden() ) ) {
                     $this->delete_notification( 'latepoint_' . $booking_id, $post['nx_id'] );
                 }
             }
