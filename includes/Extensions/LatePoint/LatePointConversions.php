@@ -12,6 +12,7 @@ use NotificationX\Extensions\Extension;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\Core\PostType;
+use NotificationX\Admin\Entries;
 
 /**
  * LatePoint Extension Class
@@ -256,6 +257,87 @@ class LatePointConversions extends Extension {
     public function admin_actions() {
         parent::admin_actions();
         add_filter( "nx_can_entry_{$this->id}", [ $this, 'check_booking_eligibility' ], 10, 3 );
+        $this->schedule_reconciliation();
+    }
+
+    public function public_actions() {
+        parent::public_actions();
+        add_action( 'nx_latepoint_reconcile', [ $this, 'reconcile' ] );
+        $this->schedule_reconciliation();
+    }
+
+    /**
+     * Ensure the daily reconciliation event exists.
+     */
+    public function schedule_reconciliation() {
+        add_action( 'nx_latepoint_reconcile', [ $this, 'reconcile' ] );
+        if ( ! wp_next_scheduled( 'nx_latepoint_reconcile' ) ) {
+            wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'nx_latepoint_reconcile' );
+        }
+    }
+
+    /**
+     * Drop entries whose booking is gone or no longer eligible.
+     *
+     * Required, not defensive polish. It is the only thing covering:
+     *  - customer deletion, which cascades to bookings with NO hooks at all
+     *    (the GDPR erasure path)
+     *  - order deletion, which never fires latepoint_booking_deleted
+     *  - the entire abilities/MCP-AI layer, which fires no hooks whatsoever
+     */
+    public function reconcile() {
+        if ( ! $this->class_exists() ) {
+            // No per-module-disable cron cleanup pattern exists elsewhere in
+            // includes/ to follow, so this stops an uninstalled LatePoint
+            // from rescheduling itself.
+            wp_clear_scheduled_hook( 'nx_latepoint_reconcile' );
+            return;
+        }
+        $posts = PostType::get_instance()->get_posts([ 'source' => $this->id ]);
+        if ( empty( $posts ) ) {
+            return;
+        }
+
+        foreach ( $posts as $post ) {
+            if ( empty( $post['nx_id'] ) ) {
+                continue;
+            }
+            $entries = Entries::get_instance()->get_entries([
+                'nx_id'  => $post['nx_id'],
+                'source' => $this->id,
+            ]);
+            if ( empty( $entries ) ) {
+                continue;
+            }
+
+            $allowed = ! empty( $post['latepoint_booking_status'] )
+                ? (array) $post['latepoint_booking_status']
+                : [ 'approved', 'completed' ];
+
+            foreach ( $entries as $entry ) {
+                if ( empty( $entry['booking_id'] ) ) {
+                    continue;
+                }
+                $booking_id = (int) $entry['booking_id'];
+                $booking    = new \OsBookingModel( $booking_id );
+
+                // Gone entirely — deleted booking, deleted order, or erased customer.
+                if ( empty( $booking->id ) ) {
+                    $this->delete_notification( 'latepoint_' . $booking_id, $post['nx_id'] );
+                    continue;
+                }
+                // Still present but no longer displayable.
+                if ( empty( $booking->status ) || ! in_array( $booking->status, $allowed, true ) ) {
+                    $this->delete_notification( 'latepoint_' . $booking_id, $post['nx_id'] );
+                    continue;
+                }
+                // Customer erased while the booking row survives.
+                $customer = $booking->customer;
+                if ( empty( $customer ) || empty( $customer->id ) ) {
+                    $this->delete_notification( 'latepoint_' . $booking_id, $post['nx_id'] );
+                }
+            }
+        }
     }
 
     public function booking_status_options( $options ) {
