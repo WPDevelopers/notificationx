@@ -85,6 +85,14 @@ class LatePointConversions extends Extension {
         add_action( 'latepoint_order_updated', [ $this, 'flush_order' ], 20, 1 );
         add_action( 'latepoint_booking_updated', [ $this, 'handle_booking_updated' ], 20, 2 );
         add_action( 'latepoint_booking_will_be_deleted', [ $this, 'handle_booking_deleted' ], 20, 1 );
+        // Last-resort flush. Bundle scheduling fires latepoint_booking_created
+        // from steps_helper::prepare_step_confirmation() inside a branch that
+        // returns before convert_to_order() is ever reached, so no order hook
+        // fires and the buffer would otherwise be filled and thrown away. The
+        // empty-buffer guard in flush_order() keeps this a no-op on every
+        // normal request, and flush_order() empties the buffer before writing,
+        // so it cannot double-write after an order flush has already run.
+        add_action( 'shutdown', [ $this, 'flush_order' ], 20 );
     }
 
     /**
@@ -116,32 +124,18 @@ class LatePointConversions extends Extension {
         $this->buffer = [];
 
         // Announce the first ELIGIBLE booking, not simply the first — the earliest
-        // one may be on a hidden service, or have no usable customer name.
-        // booking_count must only reflect ELIGIBLE bookings: a rejected booking
-        // (hidden service, blank name, unparseable timestamp) was never shown, so
-        // counting it would both misreport the number and leak, in aggregate, that
-        // a deliberately hidden service was booked.
-        $data           = false;
-        $eligible_count = 0;
+        // one may be on a hidden service, or have no usable customer name. Stop at
+        // that one: build_entry_data() costs ~3 queries per booking and nothing
+        // downstream can render a count of the rest (FrontEnd::filtered_data()
+        // only forwards keys named by the campaign's notification template).
         foreach ( $bookings as $booking ) {
-            $entry = $this->build_entry_data( $booking );
-            if ( false === $entry ) {
+            $data = $this->build_entry_data( $booking );
+            if ( false === $data ) {
                 continue;
             }
-            $eligible_count++;
-            if ( false === $data ) {
-                $data = $entry;
-            }
-        }
-        if ( false === $data ) {
+            $this->store_entry( $data );
             return;
         }
-
-        if ( $eligible_count > 1 ) {
-            $data['booking_count'] = $eligible_count;
-        }
-
-        $this->store_entry( $data );
     }
 
     /**
@@ -163,17 +157,14 @@ class LatePointConversions extends Extension {
             return;
         }
 
-        // NotificationX has no upsert: writes are INSERT-only and there is no
-        // unique constraint, so re-saving would duplicate. Delete first, then
-        // re-insert — the pattern SureCart and FluentCart use.
-        $this->retract_booking( (int) $booking->id );
-
         $data = $this->build_entry_data( $booking );
         if ( false === $data ) {
+            // No longer representable at all — drop whatever is on screen.
+            $this->retract_booking( (int) $booking->id );
             return;
         }
-        // nx_can_entry_latepoint decides whether the new status is displayable;
-        // if not, the retraction above already removed the stale entry.
+        // store_entry() retracts before writing, so if nx_can_entry_latepoint
+        // rejects the new status the stale entry is still removed.
         $this->store_entry( $data );
     }
 
@@ -215,22 +206,24 @@ class LatePointConversions extends Extension {
             }
             $this->delete_notification( $key, $post['nx_id'] );
         }
-        unset( $this->written[ $key ] );
     }
 
     /**
-     * Write one entry, guarding against same-request duplicates.
+     * Write one entry, replacing any existing entry for the same booking.
+     *
+     * NotificationX has no upsert: writes are INSERT-only and there is no unique
+     * constraint, so re-saving would duplicate. Delete first, then re-insert —
+     * the pattern SureCart and FluentCart use. This makes the write idempotent,
+     * which is what keeps a booking that is both buffered and status-changed in
+     * one request from producing two rows.
      */
     protected function store_entry( array $data ) {
-        $key = 'latepoint_' . $data['booking_id'];
-        if ( isset( $this->written[ $key ] ) ) {
-            return;
-        }
-        $this->written[ $key ] = true;
+        $booking_id = (int) $data['booking_id'];
+        $this->retract_booking( $booking_id );
 
         $this->save([
             'source'    => $this->id,
-            'entry_key' => $key,
+            'entry_key' => 'latepoint_' . $booking_id,
             'data'      => $data,
         ], true );
     }
