@@ -980,6 +980,43 @@ class GlobalFields {
                                         Rules::includes('source', ["fluentcart"]),
                                     ]),
                                 ),
+                                'latepoint_booking_status'  => array(
+                                    'label'    => __( 'Booking Status', 'notificationx' ),
+                                    'name'     => 'latepoint_booking_status',
+                                    'type'     => 'select',
+                                    'multiple' => true,
+                                    'priority' => 99.9,
+                                    'default'  => [ 'approved', 'completed' ],
+                                    'help'     => __( 'Only bookings in the selected statuses are captured. Changing this affects new bookings only — use Regenerate to rebuild past ones.', 'notificationx' ),
+                                    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+                                    'options'  => apply_filters( 'nx_latepoint_booking_status', [] ),
+                                    'rules'    => Rules::logicalRule([
+                                        Rules::includes( 'source', [ 'latepoint' ] ),
+                                    ]),
+                                ),
+                                'latepoint_hide_service_name'  => array(
+                                    'label'    => __( 'Hide Service Name', 'notificationx' ),
+                                    'name'     => 'latepoint_hide_service_name',
+                                    'type'     => 'toggle',
+                                    'priority' => 99.91,
+                                    'default'  => false,
+                                    'help'     => __( 'Show "booked an appointment" instead of the service name. Recommended for clinics, legal, counselling, and any sensitive service.', 'notificationx' ),
+                                    'rules'    => Rules::logicalRule([
+                                        Rules::includes( 'source', [ 'latepoint' ] ),
+                                    ]),
+                                ),
+                                'latepoint_booking_page_url'  => array(
+                                    'label'       => __( 'Booking Page URL', 'notificationx' ),
+                                    'name'        => 'latepoint_booking_page_url',
+                                    'type'        => 'text',
+                                    'priority'    => 99.92,
+                                    'default'     => '',
+                                    'placeholder' => __( 'https://example.com/book-now/', 'notificationx' ),
+                                    'help'        => __( 'Where the notification links to — the page containing your LatePoint booking form. LatePoint services are not WordPress posts, so they have no individual permalinks. Leave empty for no link.', 'notificationx' ),
+                                    'rules'       => Rules::logicalRule([
+                                        Rules::includes( 'source', [ 'latepoint' ] ),
+                                    ]),
+                                ),
                                 'combine_multiorder' => [
                                     'label'       => __('Combine Multi Order', 'notificationx'),
                                     'name'        => 'combine_multiorder',

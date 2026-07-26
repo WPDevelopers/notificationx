@@ -10,6 +10,7 @@ namespace NotificationX\Extensions\LatePoint;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 use NotificationX\Core\Rules;
+use NotificationX\Extensions\GlobalFields;
 
 /**
  * LatePoint Extension Class
@@ -64,5 +65,63 @@ class LatePointConversions extends Extension {
             'https://wordpress.org/plugins/latepoint/',
             'https://notificationx.com/docs/'
         );
+    }
+
+    public function init_fields() {
+        parent::init_fields();
+        add_filter( 'nx_latepoint_booking_status', [ $this, 'booking_status_options' ], 11 );
+    }
+
+    public function admin_actions() {
+        parent::admin_actions();
+        add_filter( "nx_can_entry_{$this->id}", [ $this, 'check_booking_eligibility' ], 10, 3 );
+    }
+
+    public function booking_status_options( $options ) {
+        $statuses = [
+            'approved'        => __( 'Approved', 'notificationx' ),
+            'completed'       => __( 'Completed', 'notificationx' ),
+            'pending'         => __( 'Pending', 'notificationx' ),
+            'payment_pending' => __( 'Payment Pending', 'notificationx' ),
+            'cancelled'       => __( 'Cancelled', 'notificationx' ),
+            'no_show'         => __( 'No Show', 'notificationx' ),
+        ];
+        return GlobalFields::get_instance()->normalize_fields( $statuses, 'source', $this->id, $options );
+    }
+
+    /**
+     * Capture-time allowlist. Runs on the write path via nx_can_entry_latepoint,
+     * so a rejected booking is never stored.
+     */
+    public function check_booking_eligibility( $return, $entry, $settings ) {
+        $data = ! empty( $entry['data'] ) ? $entry['data'] : [];
+
+        // Status must be explicitly allowed. LatePoint's status set is NOT a closed
+        // enum — admins can define custom statuses — so this is an allowlist, never
+        // a denylist.
+        $allowed = ! empty( $settings['latepoint_booking_status'] )
+            ? (array) $settings['latepoint_booking_status']
+            : [ 'approved', 'completed' ];
+        if ( empty( $data['status'] ) || ! in_array( $data['status'], $allowed, true ) ) {
+            return false;
+        }
+
+        // A blank name renders as " just booked ". Names are optional in LatePoint —
+        // validation is settings-driven and guests are supported.
+        if ( empty( $data['name'] ) || '' === trim( $data['name'] ) ) {
+            return false;
+        }
+
+        // Timestamp sanity. LatePoint silently substitutes "now" for unparseable
+        // created_at values, which would otherwise pin a popup to "just booked"
+        // permanently.
+        if ( empty( $data['timestamp'] ) || ! is_numeric( $data['timestamp'] ) ) {
+            return false;
+        }
+        if ( (int) $data['timestamp'] > ( time() + MINUTE_IN_SECONDS ) ) {
+            return false;
+        }
+
+        return $return;
     }
 }
