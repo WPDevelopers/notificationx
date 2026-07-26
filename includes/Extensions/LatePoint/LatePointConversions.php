@@ -30,6 +30,22 @@ class LatePointConversions extends Extension {
     // during init, so it is not a safe presence probe.
     public $class           = 'LatePoint';
 
+    /**
+     * Booking IDs captured during this request, awaiting flush.
+     *
+     * @var array<int, \OsBookingModel>
+     */
+    protected $buffer = [];
+
+    /**
+     * Entry keys already written this request — guards LatePoint's duplicate
+     * hook fires (booking_updated double-fires when routed through
+     * OsBookingHelper::change_booking_status()).
+     *
+     * @var array<string, bool>
+     */
+    protected $written = [];
+
     public function __construct() {
         parent::__construct();
     }
@@ -37,6 +53,82 @@ class LatePointConversions extends Extension {
     public function init_extension() {
         $this->title        = __( 'LatePoint', 'notificationx' );
         $this->module_title = __( 'LatePoint', 'notificationx' );
+    }
+
+    public function init() {
+        parent::init();
+        // Priority 20: core registers at 10 (activities), 12 (process jobs) and
+        // 15 (analytics). Let the booking row settle first.
+        add_action( 'latepoint_booking_created', [ $this, 'buffer_booking' ], 20, 1 );
+        add_action( 'latepoint_order_created', [ $this, 'flush_order' ], 20, 1 );
+        add_action( 'latepoint_booking_updated', [ $this, 'handle_booking_updated' ], 20, 2 );
+        add_action( 'latepoint_booking_will_be_deleted', [ $this, 'handle_booking_deleted' ], 20, 1 );
+    }
+
+    /**
+     * Buffer rather than write.
+     *
+     * One recurring or cart checkout fires latepoint_booking_created N times
+     * synchronously with no cap — a weekly-for-a-year recurrence is ~52 events in
+     * a single request. Writing here would emit 52 popups.
+     */
+    public function buffer_booking( $booking ) {
+        if ( empty( $booking ) || empty( $booking->id ) ) {
+            return;
+        }
+        $this->buffer[ (int) $booking->id ] = $booking;
+    }
+
+    /**
+     * Flush the request buffer as ONE notification.
+     *
+     * latepoint_order_created fires exactly once per checkout, always after every
+     * booking_created for that order. It also fires for orders containing zero
+     * bookings, hence the empty guard.
+     */
+    public function flush_order( $order = null ) {
+        if ( empty( $this->buffer ) ) {
+            return;
+        }
+        $bookings     = $this->buffer;
+        $this->buffer = [];
+
+        // Announce the first ELIGIBLE booking, not simply the first — the earliest
+        // one may be on a hidden service, or have no usable customer name.
+        $data = false;
+        foreach ( $bookings as $booking ) {
+            $data = $this->build_entry_data( $booking );
+            if ( false !== $data ) {
+                break;
+            }
+        }
+        if ( false === $data ) {
+            return;
+        }
+
+        $count = count( $bookings );
+        if ( $count > 1 ) {
+            $data['booking_count'] = $count;
+        }
+
+        $this->store_entry( $data );
+    }
+
+    /**
+     * Write one entry, guarding against same-request duplicates.
+     */
+    protected function store_entry( array $data ) {
+        $key = 'latepoint_' . $data['booking_id'];
+        if ( isset( $this->written[ $key ] ) ) {
+            return;
+        }
+        $this->written[ $key ] = true;
+
+        $this->save([
+            'source'    => $this->id,
+            'entry_key' => $key,
+            'data'      => $data,
+        ], true );
     }
 
     public function source_error_message( $messages ) {
