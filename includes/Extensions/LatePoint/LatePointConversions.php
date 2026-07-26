@@ -266,6 +266,69 @@ class LatePointConversions extends Extension {
     public function init_fields() {
         parent::init_fields();
         add_filter( 'nx_latepoint_booking_status', [ $this, 'booking_status_options' ], 11 );
+        add_filter( "nx_notification_link_{$this->id}", [ $this, 'booking_link' ], 10, 3 );
+        add_filter( "nx_filtered_entry_{$this->id}", [ $this, 'mask_service_name' ], 10, 3 );
+    }
+
+    /**
+     * Apply the per-campaign "Hide Service Name" toggle at display time.
+     *
+     * This cannot happen at capture time: Extension::save() writes one payload
+     * shared by every campaign using this source, so two campaigns with different
+     * toggle settings must both be served from the same stored entry.
+     */
+    public function mask_service_name( $entry, $post, $settings = [] ) {
+        $config = ! empty( $settings ) ? $settings : $post;
+        if ( ! empty( $config['latepoint_hide_service_name'] ) ) {
+            $entry['title'] = __( 'an appointment', 'notificationx' );
+        }
+        return $entry;
+    }
+
+    /**
+     * Notification thumbnail.
+     *
+     * Order: service image, then the customer avatar ONLY when it is a real
+     * upload. get_avatar_url() never returns empty — it falls back to LatePoint's
+     * bundled default-avatar.jpg, so an unguarded call would give every popup the
+     * same grey silhouette, which reads as fake.
+     */
+    public function notification_image( $image_data, $data, $settings ) {
+        if ( ! empty( $data['service_id'] ) ) {
+            $service = new \OsServiceModel( (int) $data['service_id'] );
+            if ( ! empty( $service->id ) && method_exists( $service, 'get_selection_image_url' ) ) {
+                $url = $service->get_selection_image_url();
+                if ( ! empty( $url ) && false === strpos( $url, 'service-image.png' ) ) {
+                    return [ 'url' => $url, 'id' => 0 ];
+                }
+            }
+        }
+        return $image_data;
+    }
+
+    /**
+     * Notification link.
+     *
+     * LatePoint stores services in custom tables rather than as posts, so there
+     * is no per-service permalink. The site owner supplies the page hosting the
+     * booking form.
+     */
+    public function booking_link( $link, $post, $entry ) {
+        if ( ! empty( $post['latepoint_booking_page_url'] ) ) {
+            return esc_url_raw( $post['latepoint_booking_page_url'] );
+        }
+        return $link;
+    }
+
+    public function fallback_data( $data, $entry ) {
+        $data['name']            = __( 'Someone', 'notificationx' );
+        $data['first_name']      = __( 'Someone', 'notificationx' );
+        $data['last_name']       = '';
+        $data['anonymous_title'] = __( 'an appointment', 'notificationx' );
+        if ( empty( $data['title'] ) ) {
+            $data['title'] = __( 'an appointment', 'notificationx' );
+        }
+        return $data;
     }
 
     public function admin_actions() {
