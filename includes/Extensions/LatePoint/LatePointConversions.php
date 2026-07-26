@@ -297,41 +297,37 @@ class LatePointConversions extends Extension {
     /**
      * Notification thumbnail.
      *
-     * Order: service image, then the customer avatar ONLY when it is a real
-     * upload. The DTO carries no customer id, so the customer is re-derived from
-     * $data['booking_id'] via \OsBookingModel — mirroring reconcile()'s own
-     * ->customer lookup below. OsCustomerModel::get_avatar_url() (which delegates
-     * to OsCustomerHelper::get_avatar_url()) never returns empty — absent a real
-     * upload it falls back to LatePoint's own bundled
-     * public/images/default-avatar.jpg (LATEPOINT_DEFAULT_AVATAR_URL), so an
-     * unguarded call would give every popup the same grey silhouette, which
-     * reads as fake. If neither tier qualifies, fall through so
-     * FrontEnd::get_image_url()'s own default→gravatar chain still runs.
+     * Both candidate URLs are resolved once at capture time by
+     * build_entry_data(), never here: this filter runs per entry over up to
+     * cache_limit (100) rows on every frontend pageview, BEFORE display_last
+     * slicing, and LatePoint's models are uncached — re-deriving the service and
+     * customer here cost hundreds of queries per pageview. SureCart and
+     * FluentCart store the URL on the entry for the same reason.
+     *
+     * Order: service image, then the customer avatar. Mutates and returns
+     * $image_data rather than replacing it, so FrontEnd::get_image_url()'s
+     * already-populated 'alt' (the customer name) and 'classes' survive —
+     * returning a fresh array dropped the alt attribute from the rendered <img>.
+     * If neither tier qualifies, fall through so that method's own
+     * default→gravatar chain still runs.
      */
     public function notification_image( $image_data, $data, $settings ) {
-        if ( ! empty( $data['service_id'] ) ) {
-            $service = new \OsServiceModel( (int) $data['service_id'] );
-            if ( ! empty( $service->id ) && method_exists( $service, 'get_selection_image_url' ) ) {
-                $url = $service->get_selection_image_url();
-                if ( ! empty( $url ) && false === strpos( $url, 'service-image.png' ) ) {
-                    return [ 'url' => $url, 'id' => 0 ];
-                }
-            }
+        // "Show Default Image" means the site owner picked one image for every
+        // popup and get_image_url() has already resolved it. Peers never
+        // override that choice.
+        if ( ! empty( $settings['show_default_image'] ) ) {
+            return $image_data;
         }
 
-        if ( ! empty( $data['booking_id'] ) ) {
-            $booking = new \OsBookingModel( (int) $data['booking_id'] );
-            // LatePoint returns an EMPTY MODEL, never null, when the related row
-            // is missing — check a property, not the object (see build_entry_data()).
-            if ( ! empty( $booking->id ) ) {
-                $customer = $booking->customer;
-                if ( ! empty( $customer ) && ! empty( $customer->id ) && method_exists( $customer, 'get_avatar_url' ) ) {
-                    $url = $customer->get_avatar_url();
-                    if ( ! empty( $url ) && false === strpos( $url, 'default-avatar.jpg' ) ) {
-                        return [ 'url' => $url, 'id' => 0 ];
-                    }
-                }
-            }
+        // "Hide Service Name" is a privacy toggle, not a text tweak: publishing
+        // the service's own artwork identifies it just as plainly as its name
+        // would. Fall back to the customer avatar instead.
+        $hide_service = ! empty( $settings['latepoint_hide_service_name'] );
+
+        if ( ! $hide_service && ! empty( $data['service_image'] ) ) {
+            $image_data['url'] = $data['service_image'];
+        } elseif ( ! empty( $data['customer_avatar'] ) ) {
+            $image_data['url'] = $data['customer_avatar'];
         }
 
         return $image_data;
@@ -637,27 +633,38 @@ class LatePointConversions extends Extension {
         }
 
         $data = [
-            'name'        => trim( $first_name . ' ' . ( '' !== $last_name ? mb_substr( $last_name, 0, 1 ) . '.' : '' ) ),
-            'first_name'  => $first_name,
-            'last_name'   => $last_name,
-            'email'       => ! empty( $customer->email ) ? $customer->email : '',
+            'name'       => trim( $first_name . ' ' . ( '' !== $last_name ? mb_substr( $last_name, 0, 1 ) . '.' : '' ) ),
+            'first_name' => $first_name,
+            'last_name'  => $last_name,
+            'email'      => ! empty( $customer->email ) ? $customer->email : '',
             // Always the real service name. Masking is per-campaign, so it happens
-            // at display time (Task 7), not here.
-            'title'       => ! empty( $service->name ) ? $service->name : __( 'an appointment', 'notificationx' ),
-            'service_id'  => (int) $service->id,
-            'booking_id'  => (int) $booking->id,
-            'status'      => ! empty( $booking->status ) ? $booking->status : '',
-            'timestamp'   => $timestamp,
-            'attendees'   => ! empty( $booking->total_attendees ) ? (int) $booking->total_attendees : 1,
-            'dedupe_hash' => $this->dedupe_hash( $booking ),
+            // at display time in mask_service_name(), not here.
+            'title'      => ! empty( $service->name ) ? $service->name : __( 'an appointment', 'notificationx' ),
+            'service_id' => (int) $service->id,
+            'booking_id' => (int) $booking->id,
+            'status'     => ! empty( $booking->status ) ? $booking->status : '',
+            'timestamp'  => $timestamp,
         ];
 
-        // LATEPOINT_ANY_AGENT makes get_agent_full_name() return the literal
-        // string "Any Available Agent", which reads as broken in a popup.
-        if ( ! empty( $booking->agent_id ) && ( ! defined( 'LATEPOINT_ANY_AGENT' ) || LATEPOINT_ANY_AGENT !== $booking->agent_id ) ) {
-            $agent_name = $booking->get_agent_full_name();
-            if ( ! empty( $agent_name ) ) {
-                $data['agent_name'] = $agent_name;
+        // Resolve the thumbnail candidates HERE, once per booking, because both
+        // models are already loaded — notification_image() then reads them off
+        // the entry instead of re-querying LatePoint for every cached row on
+        // every frontend pageview. See notification_image().
+        if ( method_exists( $service, 'get_selection_image_url' ) ) {
+            $service_image = $service->get_selection_image_url();
+            // get_selection_image_url() falls back to LatePoint's own bundled
+            // images/service-image.png placeholder, which reads as broken art.
+            if ( ! empty( $service_image ) && false === strpos( $service_image, 'service-image.png' ) ) {
+                $data['service_image'] = $service_image;
+            }
+        }
+        if ( method_exists( $customer, 'get_avatar_url' ) ) {
+            $avatar = $customer->get_avatar_url();
+            // Same story: OsCustomerHelper::get_avatar_url() never returns empty,
+            // it returns images/default-avatar.jpg — the same grey silhouette on
+            // every popup, which reads as fake.
+            if ( ! empty( $avatar ) && false === strpos( $avatar, 'default-avatar.jpg' ) ) {
+                $data['customer_avatar'] = $avatar;
             }
         }
 
