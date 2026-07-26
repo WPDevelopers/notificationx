@@ -11,6 +11,7 @@ use NotificationX\GetInstance;
 use NotificationX\Extensions\Extension;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\GlobalFields;
+use NotificationX\Core\PostType;
 
 /**
  * LatePoint Extension Class
@@ -126,6 +127,80 @@ class LatePointConversions extends Extension {
         }
 
         $this->store_entry( $data );
+    }
+
+    /**
+     * React to a status change.
+     *
+     * Signature is defensive: latepoint_booking_updated is fired with 2 args at
+     * every call site, but activities_helper registers its own listener with 3,
+     * so a third may appear.
+     *
+     * @param \OsBookingModel      $booking
+     * @param \OsBookingModel|null $old_booking
+     */
+    public function handle_booking_updated( $booking, $old_booking = null, $initiated_by = '' ) {
+        if ( empty( $booking ) || empty( $booking->id ) ) {
+            return;
+        }
+        $old_status = ( ! empty( $old_booking ) && ! empty( $old_booking->status ) ) ? $old_booking->status : null;
+        if ( null !== $old_status && $old_status === $booking->status ) {
+            return;
+        }
+
+        // NotificationX has no upsert: writes are INSERT-only and there is no
+        // unique constraint, so re-saving would duplicate. Delete first, then
+        // re-insert — the pattern SureCart and FluentCart use.
+        $this->retract_booking( (int) $booking->id );
+
+        $data = $this->build_entry_data( $booking );
+        if ( false === $data ) {
+            return;
+        }
+        // nx_can_entry_latepoint decides whether the new status is displayable;
+        // if not, the retraction above already removed the stale entry.
+        $this->store_entry( $data );
+    }
+
+    /**
+     * Remove a booking's notifications.
+     *
+     * Hooked to latepoint_booking_will_be_deleted rather than
+     * latepoint_booking_deleted: deleting an ORDER fires will_be_deleted for each
+     * of its bookings but never fires deleted, so listening only to the latter
+     * leaves orphaned popups advertising bookings that no longer exist.
+     *
+     * @param int $booking_id
+     */
+    public function handle_booking_deleted( $booking_id ) {
+        $this->retract_booking( (int) $booking_id );
+    }
+
+    /**
+     * Delete every entry for one booking, across all campaigns using this source.
+     *
+     * delete_notification() is always called with BOTH arguments because its
+     * source predicate is commented out upstream (see issue #142) — passing an
+     * entry_key alone would delete matching keys belonging to other sources.
+     *
+     * @param int $booking_id
+     */
+    protected function retract_booking( $booking_id ) {
+        if ( empty( $booking_id ) ) {
+            return;
+        }
+        $key   = 'latepoint_' . (int) $booking_id;
+        $posts = PostType::get_instance()->get_posts([ 'source' => $this->id ]);
+        if ( empty( $posts ) ) {
+            return;
+        }
+        foreach ( $posts as $post ) {
+            if ( empty( $post['nx_id'] ) ) {
+                continue;
+            }
+            $this->delete_notification( $key, $post['nx_id'] );
+        }
+        unset( $this->written[ $key ] );
     }
 
     /**
