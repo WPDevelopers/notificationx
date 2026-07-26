@@ -538,7 +538,14 @@ class LatePointConversions extends Extension {
         $model->set_limit( $limit );
 
         $results = $model->get_results_as_models();
-        return is_array( $results ) ? $results : [];
+        // get_results_as_models() UN-ARRAYS its own return when the limit is 1
+        // (lib/models/model.php: `if ( $this->limit == 1 && isset( $models[0] ) )
+        // { $models = $models[0]; }`), so a bare is_array() test discarded the
+        // single row and made display_last = 1 backfill nothing at all.
+        if ( is_array( $results ) ) {
+            return $results;
+        }
+        return $results ? [ $results ] : [];
     }
 
     public function booking_status_options( $options ) {
