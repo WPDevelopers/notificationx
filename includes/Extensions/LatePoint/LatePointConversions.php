@@ -29,8 +29,9 @@ class LatePointConversions extends Extension {
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/latepoint.png';
     public $module          = 'modules_latepoint';
     public $module_priority = 40;
-    // 'LatePoint' is declared at file load. LATEPOINT_VERSION is only defined
-    // during init, so it is not a safe presence probe.
+    // Presence probe. 'LatePoint' is the plugin's main class, declared at file
+    // load in latepoint.php, and class_exists() is the convention every other
+    // extension in this directory uses.
     public $class           = 'LatePoint';
 
     /**
@@ -140,14 +141,15 @@ class LatePointConversions extends Extension {
     /**
      * React to a status change.
      *
-     * Signature is defensive: latepoint_booking_updated is fired with 2 args at
-     * every call site, but activities_helper registers its own listener with 3,
-     * so a third may appear.
+     * All five latepoint_booking_updated fire sites pass exactly 2 args, and
+     * add_action()'s $accepted_args is per-callback — activities_helper asking
+     * for 3 does not change what this listener receives — so 2 is the whole
+     * signature.
      *
      * @param \OsBookingModel      $booking
      * @param \OsBookingModel|null $old_booking
      */
-    public function handle_booking_updated( $booking, $old_booking = null, $initiated_by = '' ) {
+    public function handle_booking_updated( $booking, $old_booking = null ) {
         if ( empty( $booking ) || empty( $booking->id ) ) {
             return;
         }
@@ -590,9 +592,11 @@ class LatePointConversions extends Extension {
             return false;
         }
 
-        // Timestamp sanity. LatePoint silently substitutes "now" for unparseable
-        // created_at values, which would otherwise pin a popup to "just booked"
-        // permanently.
+        // Timestamp sanity. The first test rejects entries stored before this
+        // field existed, or whose created_at parse failed. The second rejects
+        // future-dated rows — a clock-skewed or hand-edited created_at would
+        // otherwise render as "in 3 hours". One minute of slack absorbs ordinary
+        // server/DB clock drift.
         if ( empty( $data['timestamp'] ) || ! is_numeric( $data['timestamp'] ) ) {
             return false;
         }
@@ -694,9 +698,12 @@ class LatePointConversions extends Extension {
      *
      * Uses the raw created_at column, which OsModel writes via
      * now_datetime_in_format() with the timezone hard-forced to UTC.
-     * Deliberately avoids get_nice_created_at(), which fatals on PHP 8 when
-     * created_at is null, and format_created_datetime_rfc3339(), which silently
-     * substitutes "now" for bad data.
+     * Deliberately avoids LatePoint's own accessors: get_nice_created_at() calls
+     * setTimezone() on the return of date_create_from_format() without checking
+     * it, so a null or malformed created_at is a fatal, and
+     * format_created_datetime_rfc3339() routes through OsTimeHelper::date_from_db(),
+     * which silently substitutes "now" for anything it cannot parse. Returning
+     * false instead is what lets build_entry_data() reject the row outright.
      *
      * @param \OsBookingModel $booking
      * @return int|false
