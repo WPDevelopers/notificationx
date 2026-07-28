@@ -127,7 +127,75 @@ class PopupNotification extends Extension {
                 ],
                 'column'   => "5",
             ],
-            
+            // Coupon Popup card (light) — headline + description + copyable
+            // coupon code + "Get Coupon" CTA + dismiss link.
+            'theme-eight' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-eight.png',
+                'defaults' => [
+                    'popup_title'        => __('35% OFF NOW', 'notificationx'),
+                    'popup_content'      => __('Get an extra 35% off on all products!', 'notificationx'),
+                    'popup_coupon_code'  => __('GET35OFF', 'notificationx'),
+                    'popup_button_text'  => __('Get Coupon', 'notificationx'),
+                    'popup_button_url'   => '#',
+                    'position'           => 'center',
+                ],
+                'column'  => "5",
+            ],
+            // Festive/seasonal coupon popup — doodle-textured colored header
+            // with a wavy divider, big discount headline, an eyebrow tagline,
+            // a headline + copyable coupon code + soft dismiss link (no CTA).
+            'theme-eleven' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-eleven.png?v=2',
+                'defaults' => [
+                    'popup_subtitle'     => __('Back to School Deal', 'notificationx'),
+                    'popup_title'        => __('25% OFF!', 'notificationx'),
+                    'popup_content'      => __('Get a ready-to-go healthy lunchbox kit', 'notificationx'),
+                    'popup_coupon_code'  => __('BTS2025', 'notificationx'),
+                    'position'           => 'center',
+                ],
+                'column'  => "5",
+            ],
+            // High-impact electronics flash-sale coupon popup — bold yellow
+            // card, a rotated "%OFF" sticker badge (subtitle = the big number),
+            // headline + subtext + copyable coupon code (no CTA / dismiss).
+            'theme-twelve' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-twelve.png',
+                'defaults' => [
+                    'popup_subtitle'     => __('64%', 'notificationx'),
+                    'popup_title'        => __('Enjoy 64% Electronics Sale', 'notificationx'),
+                    'popup_content'      => __('Upgrade your gadgets at unbeatable prices.', 'notificationx'),
+                    'popup_coupon_code'  => __('ELEC 4512658', 'notificationx'),
+                    'position'           => 'center',
+                ],
+                'column'  => "5",
+            ],
+            // Multi-tier discount popup — gift hero, two-tone heading, a list of
+            // coupon "tickets" (percent + code + validity) and a "Claim Now" CTA.
+            'theme-thirteen' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-thirteen.png',
+                'defaults' => [
+                    'popup_title'        => __('Buy Upto $500', 'notificationx'),
+                    'popup_subtitle'     => __('And Get Discount Now', 'notificationx'),
+                    'popup_content'      => __('Take discount in your next order', 'notificationx'),
+                    'popup_button_text'  => __('Claim Now', 'notificationx'),
+                    'popup_button_url'   => '#',
+                    'popup_coupon_repeater' => [
+                        [
+                            'coupon_percent'  => __('20%', 'notificationx'),
+                            'coupon_code'     => __('#SAVE20', 'notificationx'),
+                            'coupon_validity' => __('Valid for 7 Days', 'notificationx'),
+                        ],
+                        [
+                            'coupon_percent'  => __('40%', 'notificationx'),
+                            'coupon_code'     => __('#SAVE40', 'notificationx'),
+                            'coupon_validity' => __('Valid for 3 Days', 'notificationx'),
+                        ],
+                    ],
+                    'position'           => 'center',
+                ],
+                'column'  => "5",
+            ],
+
         ];
     }
 
@@ -585,7 +653,12 @@ class PopupNotification extends Extension {
                     'type'     => 'text',
                     'priority' => 12,
                     'default'  => __('Would like to get the latest news & updates instantly?', 'notificationx'),
-                    'rules'    => Rules::is('themes', 'popup_notification_theme-seven'),
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-seven'),
+                        Rules::is('themes', 'popup_notification_theme-eleven'),
+                        Rules::is('themes', 'popup_notification_theme-twelve'),
+                        Rules::is('themes', 'popup_notification_theme-thirteen'),
+                    ], 'or'),
                 ],
                 [
                     'label'       => __('Popup Icon', 'notificationx'),
@@ -612,7 +685,71 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-one'),
                         Rules::is('themes', 'popup_notification_theme-two'),
                         Rules::is('themes', 'popup_notification_theme-seven'),
+                        Rules::is('themes', 'popup_notification_theme-eight'),
+                        Rules::is('themes', 'popup_notification_theme-eleven'),
+                        Rules::is('themes', 'popup_notification_theme-twelve'),
+                        Rules::is('themes', 'popup_notification_theme-thirteen'),
                     ], 'or'),
+                ],
+                // Coupon code (with copy-to-clipboard) for the coupon-popup card
+                // themes (theme-eight / -eleven / -twelve).
+                [
+                    'label'       => __('Coupon Code', 'notificationx'),
+                    'name'        => 'popup_coupon_code',
+                    'type'        => 'text',
+                    'priority'    => 22,
+                    'default'     => __('GET35OFF', 'notificationx'),
+                    'placeholder' => __('GET35OFF', 'notificationx'),
+                    'rules'       => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-eight'),
+                        Rules::is('themes', 'popup_notification_theme-eleven'),
+                        Rules::is('themes', 'popup_notification_theme-twelve'),
+                    ], 'or'),
+                ],
+                // Multi-tier coupon "tickets" (percent + code + validity) for the
+                // multi-tier discount popup (theme-thirteen).
+                [
+                    'label'    => __('Coupon Tickets', 'notificationx'),
+                    'name'     => 'popup_coupon_repeater',
+                    'type'     => 'repeater',
+                    'priority' => 23,
+                    'rules'    => Rules::is('themes', 'popup_notification_theme-thirteen'),
+                    'button'   => [
+                        'label' => __('Add Coupon', 'notificationx'),
+                    ],
+                    'fields'   => [
+                        [
+                            'label'   => __('Discount', 'notificationx'),
+                            'name'    => 'coupon_percent',
+                            'type'    => 'text',
+                            'default' => __('20%', 'notificationx'),
+                            'help'    => __('Big discount value shown on the left (e.g. "20%").', 'notificationx'),
+                        ],
+                        [
+                            'label'   => __('Coupon Code', 'notificationx'),
+                            'name'    => 'coupon_code',
+                            'type'    => 'text',
+                            'default' => __('#SAVE20', 'notificationx'),
+                        ],
+                        [
+                            'label'   => __('Validity', 'notificationx'),
+                            'name'    => 'coupon_validity',
+                            'type'    => 'text',
+                            'default' => __('Valid for 7 Days', 'notificationx'),
+                        ],
+                    ],
+                    'default'  => [
+                        [
+                            'coupon_percent'  => __('20%', 'notificationx'),
+                            'coupon_code'     => __('#SAVE20', 'notificationx'),
+                            'coupon_validity' => __('Valid for 7 Days', 'notificationx'),
+                        ],
+                        [
+                            'coupon_percent'  => __('40%', 'notificationx'),
+                            'coupon_code'     => __('#SAVE40', 'notificationx'),
+                            'coupon_validity' => __('Valid for 3 Days', 'notificationx'),
+                        ],
+                    ],
                 ],
                 // Form Field Toggles - only for form submission themes (4-7)
                 [
@@ -706,13 +843,18 @@ class PopupNotification extends Extension {
                     ]),
                 ],
 
-                // Common Button Text field for all themes
+                // Common Button Text field for all themes (theme-eleven and
+                // theme-twelve have no CTA — the copyable coupon code is the CTA).
                 [
                     'label'    => __('Button Text', 'notificationx'),
                     'name'     => 'popup_button_text',
                     'type'     => 'text',
                     'priority' => 55,
                     'default'  => __('Get Offer', 'notificationx'),
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-eleven', true),
+                        Rules::is('themes', 'popup_notification_theme-twelve', true),
+                    ], 'and'),
                 ],
                 // Button URL field - only for themes 1-3 (promotional themes with external links)
                 [
@@ -725,6 +867,8 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-one'),
                         Rules::is('themes', 'popup_notification_theme-two'),
                         Rules::is('themes', 'popup_notification_theme-three'),
+                        Rules::is('themes', 'popup_notification_theme-eight'),
+                        Rules::is('themes', 'popup_notification_theme-thirteen'),
                     ], 'or'),
                 ],
 
@@ -769,6 +913,8 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-one'),
                         Rules::is('themes', 'popup_notification_theme-two'),
                         Rules::is('themes', 'popup_notification_theme-three'),
+                        Rules::is('themes', 'popup_notification_theme-eight'),
+                        Rules::is('themes', 'popup_notification_theme-thirteen'),
                     ], 'or'),
                 ],
                 // Repeater fields - only for theme-three
