@@ -28,7 +28,11 @@ class Popup extends Types {
     public $module = [];
     public $default_source = 'popup_notification';
     public $id = 'popup';
-    public $default_theme = 'popup_theme-one';
+    // Theme keys are prefixed with the source id ('popup_notification_'), so the
+    // default theme must be the fully-prefixed key. 'popup_theme-one' matched no
+    // registered theme, leaving the initial theme invalid and breaking default
+    // application for rules-gated fields (subtitle / coupon code).
+    public $default_theme = 'popup_notification_theme-one';
     public $link_type = 'popup_url';
 
     /**

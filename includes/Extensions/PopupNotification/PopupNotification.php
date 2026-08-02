@@ -652,7 +652,11 @@ class PopupNotification extends Extension {
                     'name'     => 'popup_subtitle',
                     'type'     => 'text',
                     'priority' => 12,
-                    'default'  => __('Would like to get the latest news & updates instantly?', 'notificationx'),
+                    // No global field-level default: a hardcoded value here pre-fills the
+                    // field and blocks each theme's own `defaults` (subtitle) from applying
+                    // on selection, so coupon themes (eleven/twelve/thirteen) inherited the
+                    // wrong subtitle. Leave empty so the selected theme's default fills it.
+                    'default'  => '',
                     'rules'    => Rules::logicalRule([
                         Rules::is('themes', 'popup_notification_theme-seven'),
                         Rules::is('themes', 'popup_notification_theme-eleven'),
@@ -698,7 +702,10 @@ class PopupNotification extends Extension {
                     'name'        => 'popup_coupon_code',
                     'type'        => 'text',
                     'priority'    => 22,
-                    'default'     => __('GET35OFF', 'notificationx'),
+                    // No global field-level default: it pre-filled the field with theme-eight's
+                    // code and blocked theme-eleven/-twelve's own coupon-code defaults from
+                    // applying on selection. Leave empty so the selected theme's default fills it.
+                    'default'     => '',
                     'placeholder' => __('GET35OFF', 'notificationx'),
                     'rules'       => Rules::logicalRule([
                         Rules::is('themes', 'popup_notification_theme-eight'),
@@ -970,6 +977,98 @@ class PopupNotification extends Extension {
         ];
 
         return $fields;
+    }
+
+    /**
+     * Fill EMPTY theme-specific fields from the selected theme's `defaults`.
+     *
+     * Why this is needed: the builder applies a theme's `defaults` on selection, but
+     * fields that are rules-gated OUT of the initial theme (e.g. popup_subtitle,
+     * popup_coupon_code, popup_coupon_repeater) get re-initialized to their own
+     * field-level default when they mount, clobbering the theme default. As a result
+     * the coupon themes (eleven/twelve/thirteen) ended up with the wrong/empty
+     * subtitle, coupon code and coupon tickets on a default (untouched) publish — so
+     * both the live Preview and the front end didn't match the design.
+     *
+     * This safety net fills only EMPTY values, so anything the user actually typed is
+     * preserved. A repeater row that holds only framework metadata (index/chosen/
+     * selected) with no real content counts as empty.
+     *
+     * @param array  $data       Flat settings array (content fields at top level).
+     * @param string $theme_full Selected theme key, e.g. "popup_notification_theme-twelve".
+     * @return array
+     */
+    private function fill_theme_defaults( $data, $theme_full ) {
+        if ( empty( $theme_full ) || empty( $this->themes ) || ! is_array( $data ) ) {
+            return $data;
+        }
+        // Strip the source-id prefix ("popup_notification_") to get the raw theme key.
+        $prefix    = $this->id . '_';
+        $theme_key = ( strpos( $theme_full, $prefix ) === 0 ) ? substr( $theme_full, strlen( $prefix ) ) : $theme_full;
+
+        if ( empty( $this->themes[ $theme_key ]['defaults'] ) || ! is_array( $this->themes[ $theme_key ]['defaults'] ) ) {
+            return $data;
+        }
+        // Keys the repeater/field framework injects into each row that carry no
+        // user content — a row made up only of these is effectively empty.
+        $meta_keys = array( 'index', 'chosen', 'selected' );
+        foreach ( $this->themes[ $theme_key ]['defaults'] as $key => $value ) {
+            $current  = isset( $data[ $key ] ) ? $data[ $key ] : null;
+            $is_empty = ( null === $current || '' === $current );
+            if ( is_array( $current ) ) {
+                // Empty array, or an array whose rows only hold framework metadata
+                // (e.g. a clobbered repeater like [{index, chosen, selected}]).
+                $has_real = false;
+                foreach ( $current as $item ) {
+                    if ( is_array( $item ) ) {
+                        foreach ( $item as $ik => $iv ) {
+                            if ( ! in_array( $ik, $meta_keys, true ) && '' !== $iv && null !== $iv ) {
+                                $has_real = true;
+                                break 2;
+                            }
+                        }
+                    } elseif ( '' !== $item && null !== $item ) {
+                        $has_real = true;
+                        break;
+                    }
+                }
+                $is_empty = ! $has_real;
+            }
+            if ( $is_empty ) {
+                $data[ $key ] = $value;
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Apply theme defaults to empty fields at save time (persisted + front end).
+     * Hooked automatically via nx_save_post_{$this->id} (see Extension::init()).
+     *
+     * @param array $post  Post row about to be persisted; settings live in $post['data'].
+     * @param array $data  Full submitted settings.
+     * @param int   $nx_id Notification id (0 on create).
+     * @return array
+     */
+    public function save_post( $post, $data, $nx_id ) {
+        if ( isset( $post['data'] ) && is_array( $post['data'] ) ) {
+            $theme_full   = ! empty( $data['themes'] ) ? $data['themes'] : ( ! empty( $post['theme'] ) ? $post['theme'] : '' );
+            $post['data'] = $this->fill_theme_defaults( $post['data'], $theme_full );
+        }
+        return $post;
+    }
+
+    /**
+     * Apply theme defaults to empty fields for the live builder Preview, so the
+     * preview matches the design even before anything is saved.
+     * Hooked automatically via nx_preview_settings_{$this->id} (see Extension::init()).
+     *
+     * @param array $settings Flat preview settings.
+     * @return array
+     */
+    public function preview_settings( $settings ) {
+        $theme_full = ! empty( $settings['themes'] ) ? $settings['themes'] : ( ! empty( $settings['theme'] ) ? $settings['theme'] : '' );
+        return $this->fill_theme_defaults( $settings, $theme_full );
     }
 
     /**
