@@ -75,6 +75,9 @@ blocks/notificationx/index.jsx
 webpack.blocks.config.js
 webpack.cs.config.js
 webpack.frontend.config.js
+webpack.countdown.config.js
+composer.json
+gruntfile.js
 vendor/priyomukul/vendor
 vendor/priyomukul/.editorconfig
 vendor/priyomukul/.gitignore
