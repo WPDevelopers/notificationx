@@ -1107,6 +1107,10 @@ class Helper {
     }
 
     public static function nx_get_visitor_country_code() {
+        // Request-level memo: country targeting now applies to ALL types, so a single
+        // page load may evaluate several country-targeted notifications — resolve once.
+        static $memo = [];
+
         $ip = '';
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = sanitize_text_field(wp_unslash($_SERVER['HTTP_CLIENT_IP']));
@@ -1115,21 +1119,63 @@ class Helper {
         } else {
             $ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
         }
-        
+        $ip = trim($ip);
+
         // Prevent localhost IP from erroring
         if ($ip === '127.0.0.1' || $ip === '::1') {
             return 'all'; // default fallback for local testing
         }
 
-        $response = wp_remote_get("http://ip-api.com/json/{$ip}?fields=countryCode");
-
-        if (is_wp_error($response)) {
-            return null;
+        $memo_key = $ip !== '' ? $ip : 'unknown';
+        if (isset($memo[$memo_key])) {
+            return $memo[$memo_key];
         }
 
-        $data = json_decode(wp_remote_retrieve_body($response), true);
+        // Let a host/CDN or custom resolver short-circuit the external lookup entirely.
+        // e.g. Cloudflare sends CF-IPCountry; many hosts expose GEOIP_COUNTRY_CODE.
+        $header_country = '';
+        foreach (['HTTP_CF_IPCOUNTRY', 'GEOIP_COUNTRY_CODE', 'HTTP_X_COUNTRY_CODE'] as $h) {
+            if (!empty($_SERVER[$h])) {
+                $header_country = strtoupper(sanitize_text_field(wp_unslash($_SERVER[$h])));
+                break;
+            }
+        }
+        // 'XX'/'T1' are Cloudflare's "unknown"/Tor placeholders — ignore them.
+        if ($header_country !== '' && !in_array($header_country, ['XX', 'T1'], true)) {
+            $memo[$memo_key] = $header_country;
+            return apply_filters('nx_visitor_country_code', $header_country, $ip);
+        }
 
-        return isset($data['countryCode']) ? $data['countryCode'] : null;
+        // Per-IP transient cache so we don't hit the external API on every page load
+        // (ip-api free tier is ~45 req/min keyed by the SERVER IP — shared across all
+        // visitors — so an uncached call would rate-limit and wrongly hide notifications).
+        $cache_key = $ip !== '' ? 'nx_geo_' . md5($ip) : '';
+        if ($cache_key !== '') {
+            $cached = get_transient($cache_key);
+            if ($cached !== false) {
+                $memo[$memo_key] = $cached;
+                return apply_filters('nx_visitor_country_code', $cached, $ip);
+            }
+        }
+
+        $country      = null;
+        $cache_ttl    = (int) apply_filters('nx_visitor_country_cache_ttl', 12 * HOUR_IN_SECONDS);
+        $api_endpoint = apply_filters('nx_visitor_country_api', "http://ip-api.com/json/{$ip}?fields=countryCode", $ip);
+        $response     = wp_remote_get($api_endpoint, ['timeout' => 3]);
+
+        if (!is_wp_error($response) && (int) wp_remote_retrieve_response_code($response) === 200) {
+            $data = json_decode(wp_remote_retrieve_body($response), true);
+            if (isset($data['countryCode']) && $data['countryCode'] !== '') {
+                $country = $data['countryCode'];
+                // Cache only successful lookups; failures/rate-limits retry next load.
+                if ($cache_key !== '' && $cache_ttl > 0) {
+                    set_transient($cache_key, $country, $cache_ttl);
+                }
+            }
+        }
+
+        $memo[$memo_key] = $country;
+        return apply_filters('nx_visitor_country_code', $country, $ip);
     }
 
     public static function nx_get_all_country($search = '') {
