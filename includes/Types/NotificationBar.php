@@ -168,52 +168,8 @@ class NotificationBar extends Types {
             }
         }
 
-        // 3. Country Targeting
-        if ( !empty($settings['country_targeting']) && is_array($settings['country_targeting']) && !in_array('all', $settings['country_targeting'])) {
-            $visitor_country = Helper::nx_get_visitor_country_code();
-            // If we couldn't determine the country or it's not in the target list
-           $countryValues       = array_column( $settings['country_targeting'], 'value' );
-           $normalizedCountries = array_map('strtoupper', $countryValues);
-           $visitor_country     = strtoupper($visitor_country);
-            if (empty($visitor_country)) {
-                return true;
-            }
-            // Only apply country filtering if 'ALL' is not in the list
-            if (!in_array('ALL', $normalizedCountries)) {
-                if (empty($visitor_country) || !in_array($visitor_country, $normalizedCountries)) {
-                    return true;
-                }
-            }
-        }
-
-        // 4. User Role Targeting
-        if (!empty($settings['targeting_user_roles']) &&
-            !in_array('all_users', $settings['targeting_user_roles'])) {
-
-            // For logged out users
-            if (!is_user_logged_in() && !in_array('guest', $settings['targeting_user_roles'])) {
-                return true;
-            }
-
-            // For logged in users
-            if (is_user_logged_in()) {
-                $user = wp_get_current_user();
-                $user_roles = (array) $user->roles;
-
-                // Check if any of the user's roles match the targeted roles
-                $has_targeted_role = false;
-                foreach ($user_roles as $role) {
-                    if (in_array($role, $settings['targeting_user_roles'])) {
-                        $has_targeted_role = true;
-                        break;
-                    }
-                }
-
-                if (!$has_targeted_role) {
-                    return true;
-                }
-            }
-        }
+        // Country & user-role targeting are enforced globally for every type in
+        // NotificationX\Core\Targeting (also hooked on nx_show_on_exclude).
 
         // If we've made it here, don't exclude the notification
         return $exclude;

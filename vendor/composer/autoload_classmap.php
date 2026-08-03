@@ -52,6 +52,7 @@ return array(
     'NotificationX\\Core\\Rules' => $baseDir . '/includes/Core/Rules.php',
     'NotificationX\\Core\\SetupWizard' => $baseDir . '/includes/Core/SetupWizard.php',
     'NotificationX\\Core\\ShortcodeInline' => $baseDir . '/includes/Features/ShortcodeInline.php',
+    'NotificationX\\Core\\Targeting' => $baseDir . '/includes/Core/Targeting.php',
     'NotificationX\\Core\\Upgrader' => $baseDir . '/includes/Core/Upgrader.php',
     'NotificationX\\Core\\UsageTracker' => $baseDir . '/includes/Core/UsageTracker.php',
     'NotificationX\\Core\\WPDRoleManagement' => $baseDir . '/includes/Core/WPDRoleManagement.php',

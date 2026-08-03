@@ -398,6 +398,12 @@ class REST {
             return $this->error( 'type' );
         }
 
+        // Country targeting search is available for every notification type,
+        // so route it by field regardless of the type/source.
+        if ( ! empty( $params['field'] ) && $params['field'] === 'country_targeting' ) {
+            return Targeting::restResponse( $request->get_json_params() );
+        }
+
         switch( $params['type'] ) {
             case 'ContactForm' :
                 return ContactForm::restResponse( $request->get_json_params() );

@@ -1177,8 +1177,6 @@ class PressBar extends Extension {
      * @return mixed
      */
     public function customize_fields($fields) {
-        $wp_roles  = $this->get_roles();
-
         $fields['queue_management'] = Rules::is('source', $this->id, true, $fields['queue_management']);
         $_fields             = &$fields["appearance"]['fields'];
         $conversion_position = &$_fields['position']['options'];
@@ -1309,59 +1307,8 @@ class PressBar extends Extension {
             ]),
         ];
 
-        $fields['targeting'] = [
-            'label'    => __('Targeting', 'notificationx'),
-            'type'     => 'section',
-            'id'       => 'targeting',
-            'classes'  => 'nx-targeting',
-            'priority' => 100,
-            'info'     => InfoTooltipManager::get_instance()->render('button'),
-            'fields'   => []
-        ];
-
-        // Country Targeting
-        $fields['targeting']['fields']['country_targeting'] = [
-            'label'    => __('Country Targeting', 'notificationx'),
-            'name'     => 'country_targeting',
-            'type'     => 'better-select',
-            'priority' => 10,
-            'is_pro'   => true,
-            'multiple' => true,
-            'values'  => [  'label' => "All Country", 'value' => 'all' ],
-            'option'  => GlobalFields::get_instance()->normalize_fields(Helper::nx_get_all_country()),
-            'ajax'   => [
-                'api'  => "/notificationx/v1/get-data",
-                'data' => [
-                    'type'   => "@type",
-                    'source' => "@source",
-                    // 'field'  => "country_targeting",
-                ],
-            ],
-            'rules'    => Rules::is('source', $this->id),
-            'info'     => InfoTooltipManager::get_instance()->render('targeting'),
-        ];
-
-        // User Role Targeting
-        $wp_roles_with_default = [];
-        if( is_array( $wp_roles ) ) {
-            $wp_roles_with_default = array_merge(
-                [ 'all_users' => __('Show for All Users', 'notificationx') ],
-                $wp_roles
-            );
-        }
-        $fields['targeting']['fields']['targeting_user_roles'] = [
-            'label'    => __('Set Target Audience', 'notificationx'),
-            'name'     => 'targeting_user_roles',
-            'type'     => 'select',
-            'priority' => 20,
-            'is_pro'   => true,
-            'default'  => ['all_users'],
-            'options'  => GlobalFields::get_instance()->normalize_fields($wp_roles_with_default),
-            'multiple' => true,
-            'info'     => InfoTooltipManager::get_instance()->render('targeting'),
-            'rules'    => Rules::is('source', $this->id),
-        ];
-
+        // Country / user-role targeting fields now live in NotificationX\Core\Targeting
+        // and are injected for ALL notification types, not just the bar. See that class.
 
         $fields["behaviour"]['fields']['display_last'] = Rules::is('source', $this->id, true, $fields["behaviour"]['fields']['display_last']);
         $fields["behaviour"]['fields']['display_from'] = Rules::is('source', $this->id, true, $fields["behaviour"]['fields']['display_from']);
