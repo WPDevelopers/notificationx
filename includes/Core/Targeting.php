@@ -80,7 +80,7 @@ class Targeting {
             'id'       => 'targeting',
             'classes'  => 'nx-targeting',
             'priority' => 100,
-            'info'     => InfoTooltipManager::get_instance()->render('button'),
+            'info'     => InfoTooltipManager::get_instance()->render('targeting'),
             'rules'    => $targeting_rules,
             'fields'   => [],
         ];
@@ -106,14 +106,16 @@ class Targeting {
             'info'     => InfoTooltipManager::get_instance()->render('targeting'),
         ];
 
-        // User Role Targeting
-        $wp_roles_with_default = [];
-        if (is_array($wp_roles)) {
-            $wp_roles_with_default = array_merge(
-                ['all_users' => __('Show for All Users', 'notificationx')],
-                $wp_roles
-            );
-        }
+        // User Role Targeting. Includes a "guest" option so logged-out visitors
+        // can be TARGETED (not just excluded) — the enforcement in
+        // show_on_exclude() already honors 'guest', it was just never selectable.
+        $wp_roles_with_default = array_merge(
+            [
+                'all_users' => __('Show for All Users', 'notificationx'),
+                'guest'     => __('Logged-out Visitors (Guests)', 'notificationx'),
+            ],
+            is_array($wp_roles) ? $wp_roles : []
+        );
         $fields['targeting']['fields']['targeting_user_roles'] = [
             'label'    => __('Set Target Audience', 'notificationx'),
             'name'     => 'targeting_user_roles',
