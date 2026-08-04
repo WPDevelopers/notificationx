@@ -149,18 +149,26 @@ class Targeting {
         }
 
         // 1. Country Targeting
-        if (!empty($settings['country_targeting']) && is_array($settings['country_targeting']) && !in_array('all', $settings['country_targeting'])) {
-            $visitor_country     = Helper::nx_get_visitor_country_code();
-            $countryValues       = array_column($settings['country_targeting'], 'value');
-            $normalizedCountries = array_map('strtoupper', $countryValues);
-            $visitor_country     = strtoupper($visitor_country);
-
-            if (empty($visitor_country)) {
-                return true;
+        if (!empty($settings['country_targeting']) && is_array($settings['country_targeting'])) {
+            // The better-select stores each selection as a {value,label} object;
+            // fall back to plain strings for legacy/imported settings.
+            $countryValues = array_column($settings['country_targeting'], 'value');
+            if (empty($countryValues)) {
+                $countryValues = array_filter($settings['country_targeting'], 'is_string');
             }
-            // Only apply country filtering if 'ALL' is not in the list.
-            if (!in_array('ALL', $normalizedCountries)) {
-                if (empty($visitor_country) || !in_array($visitor_country, $normalizedCountries)) {
+            $normalizedCountries = array_map('strtoupper', $countryValues);
+
+            // Only enforce when a specific country list is set — 'ALL' means every
+            // country, so there is nothing to filter.
+            if (!in_array('ALL', $normalizedCountries, true)) {
+                $visitor_country = strtoupper((string) Helper::nx_get_visitor_country_code());
+
+                // Fail open: if the visitor's country can't be resolved (geo lookup
+                // failed/rate-limited, CLI, or local testing) do NOT hide the
+                // notification. Silently hiding a country-targeted notification for
+                // everyone during an API outage is worse than showing it slightly
+                // wider, so an unknown country simply skips country filtering.
+                if ('' !== $visitor_country && !in_array($visitor_country, $normalizedCountries, true)) {
                     return true;
                 }
             }
