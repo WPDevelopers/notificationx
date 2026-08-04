@@ -1107,8 +1107,12 @@ class Helper {
     }
 
     public static function nx_get_visitor_country_code() {
-        // Request-level memo: country targeting now applies to ALL types, so a single
-        // page load may evaluate several country-targeted notifications — resolve once.
+        // Country targeting now applies to ALL notification types, so a single page
+        // load can evaluate several country-targeted notifications. Resolve the
+        // visitor's country once per request and reuse it. We key the memo on the IP
+        // and read it with array_key_exists (not isset) so an empty/failed result is
+        // remembered too and never re-triggers the header/API lookups below within the
+        // same request. An unknown country is always represented as an empty string.
         static $memo = [];
 
         $ip = '';
@@ -1121,14 +1125,18 @@ class Helper {
         }
         $ip = trim($ip);
 
-        // Prevent localhost IP from erroring
-        if ($ip === '127.0.0.1' || $ip === '::1') {
-            return 'all'; // default fallback for local testing
+        // No usable IP (CLI/cron) or localhost: return an empty code. Callers treat an
+        // unknown country as "don't filter" (fail-open), so country-targeted
+        // notifications still show during local testing instead of silently
+        // disappearing. Bailing here also avoids requesting
+        // http://ip-api.com/json/?fields=countryCode with an empty IP, which would
+        // resolve to the SERVER's country and cache nothing.
+        if ($ip === '' || $ip === '127.0.0.1' || $ip === '::1') {
+            return apply_filters('nx_visitor_country_code', '', $ip);
         }
 
-        $memo_key = $ip !== '' ? $ip : 'unknown';
-        if (isset($memo[$memo_key])) {
-            return $memo[$memo_key];
+        if (array_key_exists($ip, $memo)) {
+            return apply_filters('nx_visitor_country_code', $memo[$ip], $ip);
         }
 
         // Let a host/CDN or custom resolver short-circuit the external lookup entirely.
@@ -1142,24 +1150,26 @@ class Helper {
         }
         // 'XX'/'T1' are Cloudflare's "unknown"/Tor placeholders — ignore them.
         if ($header_country !== '' && !in_array($header_country, ['XX', 'T1'], true)) {
-            $memo[$memo_key] = $header_country;
+            $memo[$ip] = $header_country;
             return apply_filters('nx_visitor_country_code', $header_country, $ip);
         }
 
-        // Per-IP transient cache so we don't hit the external API on every page load
-        // (ip-api free tier is ~45 req/min keyed by the SERVER IP — shared across all
-        // visitors — so an uncached call would rate-limit and wrongly hide notifications).
-        $cache_key = $ip !== '' ? 'nx_geo_' . md5($ip) : '';
-        if ($cache_key !== '') {
-            $cached = get_transient($cache_key);
-            if ($cached !== false) {
-                $memo[$memo_key] = $cached;
-                return apply_filters('nx_visitor_country_code', $cached, $ip);
-            }
+        // Per-IP cache in the object-cache group so we don't hit the external API on
+        // every page load. This uses the object cache rather than a transient on
+        // purpose: on sites with a persistent backend (Redis/Memcached) it caches
+        // across requests with zero wp_options rows; without one it is request-scoped
+        // (the memo above still prevents duplicate calls in a single request). A
+        // cached empty string is a remembered "lookup failed" marker, distinct from a
+        // cache miss (false).
+        $cache_group = 'notificationx_geo';
+        $cache_key   = 'cc_' . md5($ip);
+        $cached      = wp_cache_get($cache_key, $cache_group);
+        if ($cached !== false) {
+            $memo[$ip] = $cached;
+            return apply_filters('nx_visitor_country_code', $cached, $ip);
         }
 
-        $country      = null;
-        $cache_ttl    = (int) apply_filters('nx_visitor_country_cache_ttl', 12 * HOUR_IN_SECONDS);
+        $country      = '';
         $api_endpoint = apply_filters('nx_visitor_country_api', "http://ip-api.com/json/{$ip}?fields=countryCode", $ip);
         $response     = wp_remote_get($api_endpoint, ['timeout' => 3]);
 
@@ -1167,14 +1177,21 @@ class Helper {
             $data = json_decode(wp_remote_retrieve_body($response), true);
             if (isset($data['countryCode']) && $data['countryCode'] !== '') {
                 $country = $data['countryCode'];
-                // Cache only successful lookups; failures/rate-limits retry next load.
-                if ($cache_key !== '' && $cache_ttl > 0) {
-                    set_transient($cache_key, $country, $cache_ttl);
-                }
             }
         }
 
-        $memo[$memo_key] = $country;
+        // Cache successes for the full TTL; negative-cache failures for a short window
+        // so a rate-limit/timeout (ip-api's free tier is ~45 req/min keyed by the
+        // SERVER IP, shared across all visitors) doesn't re-hit the API on every
+        // subsequent page load while it recovers.
+        $ttl = '' !== $country
+            ? (int) apply_filters('nx_visitor_country_cache_ttl', 12 * HOUR_IN_SECONDS)
+            : (int) apply_filters('nx_visitor_country_failed_cache_ttl', 5 * MINUTE_IN_SECONDS);
+        if ($ttl > 0) {
+            wp_cache_set($cache_key, $country, $cache_group, $ttl);
+        }
+
+        $memo[$ip] = $country;
         return apply_filters('nx_visitor_country_code', $country, $ip);
     }
 
