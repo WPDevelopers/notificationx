@@ -1154,17 +1154,16 @@ class Helper {
             return apply_filters('nx_visitor_country_code', $header_country, $ip);
         }
 
-        // Per-IP cache in the object-cache group so we don't hit the external API on
-        // every page load. This uses the object cache rather than a transient on
-        // purpose: on sites with a persistent backend (Redis/Memcached) it caches
-        // across requests with zero wp_options rows; without one it is request-scoped
-        // (the memo above still prevents duplicate calls in a single request). A
-        // cached empty string is a remembered "lookup failed" marker, distinct from a
-        // cache miss (false).
-        $cache_group = 'notificationx_geo';
-        $cache_key   = 'cc_' . md5($ip);
-        $cached      = wp_cache_get($cache_key, $cache_group);
-        if ($cached !== false) {
+        // Per-IP cache so we don't hit the external API on every page load. A
+        // transient is used deliberately: WordPress serves transients from a
+        // persistent object cache (Redis/Memcached) when one is available — so those
+        // sites add zero wp_options rows — and transparently falls back to the options
+        // table otherwise, so the country stays cached across requests on plain sites
+        // too (which is what keeps us under ip-api's 45 req/min limit). A cached empty
+        // string is a remembered "lookup failed" marker, distinct from a miss (false).
+        $cache_key = 'nx_geo_' . md5($ip);
+        $cached    = get_transient($cache_key);
+        if (false !== $cached) {
             $memo[$ip] = $cached;
             return apply_filters('nx_visitor_country_code', $cached, $ip);
         }
@@ -1188,7 +1187,7 @@ class Helper {
             ? (int) apply_filters('nx_visitor_country_cache_ttl', 12 * HOUR_IN_SECONDS)
             : (int) apply_filters('nx_visitor_country_failed_cache_ttl', 5 * MINUTE_IN_SECONDS);
         if ($ttl > 0) {
-            wp_cache_set($cache_key, $country, $cache_group, $ttl);
+            set_transient($cache_key, $country, $ttl);
         }
 
         $memo[$ip] = $country;
