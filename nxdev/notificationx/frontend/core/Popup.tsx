@@ -93,7 +93,12 @@ const Popup = (props: any) => {
     const isLabeledCouponTheme = isFestiveCouponTheme || isElectronicsCouponTheme;
     // Multi-tier discount popup (gift hero + list of coupon tickets + Claim CTA).
     const isMultiCouponTheme = settings?.themes?.includes("popup_notification_theme-thirteen");
-    const couponTickets = Array.isArray(settings?.popup_coupon_repeater) ? settings.popup_coupon_repeater : [];
+    // Only keep tickets that carry real content. A freshly "Add"ed repeater row is
+    // committed with just framework metadata (index) until its inputs are edited, so
+    // without this filter an untouched extra coupon would render as a broken blank
+    // ticket (plus a stray "OFF").
+    const couponTickets = (Array.isArray(settings?.popup_coupon_repeater) ? settings.popup_coupon_repeater : [])
+        .filter((ticket: any) => ticket && (ticket.coupon_percent || ticket.coupon_code || ticket.coupon_validity));
 
     // Form state
     const [formData, setFormData] = useState({
@@ -625,9 +630,11 @@ const Popup = (props: any) => {
                                     <div className="nx-popup-ticket" key={index}>
                                         <div className="nx-popup-ticket-left">
                                             {ticket?.coupon_percent && (
-                                                <span className="nx-popup-ticket-percent">{ticket.coupon_percent}</span>
+                                                <>
+                                                    <span className="nx-popup-ticket-percent">{ticket.coupon_percent}</span>
+                                                    <span className="nx-popup-ticket-off">{__('OFF', 'notificationx')}</span>
+                                                </>
                                             )}
-                                            <span className="nx-popup-ticket-off">{__('OFF', 'notificationx')}</span>
                                         </div>
                                         <div className="nx-popup-ticket-right">
                                             {ticket?.coupon_code && (
