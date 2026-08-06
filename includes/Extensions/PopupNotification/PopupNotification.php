@@ -185,11 +185,6 @@ class PopupNotification extends Extension {
                             'coupon_code'     => __('#SAVE20', 'notificationx'),
                             'coupon_validity' => __('Valid for 7 Days', 'notificationx'),
                         ],
-                        [
-                            'coupon_percent'  => __('40%', 'notificationx'),
-                            'coupon_code'     => __('#SAVE40', 'notificationx'),
-                            'coupon_validity' => __('Valid for 3 Days', 'notificationx'),
-                        ],
                     ],
                     'position'           => 'center',
                 ],
@@ -726,35 +721,34 @@ class PopupNotification extends Extension {
                     ],
                     'fields'   => [
                         [
-                            'label'   => __('Discount', 'notificationx'),
-                            'name'    => 'coupon_percent',
-                            'type'    => 'text',
-                            'default' => __('20%', 'notificationx'),
-                            'help'    => __('Big discount value shown on the left (e.g. "20%").', 'notificationx'),
+                            'label'       => __('Discount', 'notificationx'),
+                            'name'        => 'coupon_percent',
+                            'type'        => 'text',
+                            'placeholder' => __('e.g. 20%', 'notificationx'),
+                            'help'        => __('Big discount value shown on the left (e.g. "20%").', 'notificationx'),
                         ],
                         [
-                            'label'   => __('Coupon Code', 'notificationx'),
-                            'name'    => 'coupon_code',
-                            'type'    => 'text',
-                            'default' => __('#SAVE20', 'notificationx'),
+                            'label'       => __('Coupon Code', 'notificationx'),
+                            'name'        => 'coupon_code',
+                            'type'        => 'text',
+                            'placeholder' => __('e.g. #SAVE20', 'notificationx'),
                         ],
                         [
-                            'label'   => __('Validity', 'notificationx'),
-                            'name'    => 'coupon_validity',
-                            'type'    => 'text',
-                            'default' => __('Valid for 7 Days', 'notificationx'),
+                            'label'       => __('Validity', 'notificationx'),
+                            'name'        => 'coupon_validity',
+                            'type'        => 'text',
+                            'placeholder' => __('e.g. Valid for 7 Days', 'notificationx'),
                         ],
                     ],
+                    // One starter coupon by default. The QuickBuilder repeater always
+                    // renders a single row for an unsaved field, so a one-row default
+                    // keeps the editor, the saved data and the front end consistent
+                    // (all show one coupon); users add more with the Add Coupon button.
                     'default'  => [
                         [
                             'coupon_percent'  => __('20%', 'notificationx'),
                             'coupon_code'     => __('#SAVE20', 'notificationx'),
                             'coupon_validity' => __('Valid for 7 Days', 'notificationx'),
-                        ],
-                        [
-                            'coupon_percent'  => __('40%', 'notificationx'),
-                            'coupon_code'     => __('#SAVE40', 'notificationx'),
-                            'coupon_validity' => __('Valid for 3 Days', 'notificationx'),
                         ],
                     ],
                 ],
