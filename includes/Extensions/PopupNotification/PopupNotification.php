@@ -1054,8 +1054,42 @@ class PopupNotification extends Extension {
         if ( isset( $post['data'] ) && is_array( $post['data'] ) ) {
             $theme_full   = ! empty( $data['themes'] ) ? $data['themes'] : ( ! empty( $post['theme'] ) ? $post['theme'] : '' );
             $post['data'] = $this->fill_theme_defaults( $post['data'], $theme_full );
+            $post['data'] = $this->strip_empty_repeater_rows( $post['data'] );
         }
         return $post;
+    }
+
+    /**
+     * Drop repeater rows that hold only framework metadata (index/chosen/selected)
+     * and no real content. The QuickBuilder repeater commits a freshly "Add"ed row
+     * with just an "index" until its inputs are edited, so an untouched extra coupon
+     * would otherwise persist as an empty ticket that renders as a broken blank
+     * ticket on the front end. Only the known coupon repeater is cleaned, so no other
+     * data is affected.
+     *
+     * @param array $data Flat settings array.
+     * @return array
+     */
+    private function strip_empty_repeater_rows( $data ) {
+        $meta_keys       = array( 'index', 'chosen', 'selected' );
+        $repeater_fields = array( 'popup_coupon_repeater' );
+        foreach ( $repeater_fields as $field ) {
+            if ( empty( $data[ $field ] ) || ! is_array( $data[ $field ] ) ) {
+                continue;
+            }
+            $data[ $field ] = array_values( array_filter( $data[ $field ], function ( $row ) use ( $meta_keys ) {
+                if ( ! is_array( $row ) ) {
+                    return '' !== $row && null !== $row;
+                }
+                foreach ( $row as $k => $v ) {
+                    if ( ! in_array( $k, $meta_keys, true ) && '' !== $v && null !== $v ) {
+                        return true;
+                    }
+                }
+                return false;
+            } ) );
+        }
+        return $data;
     }
 
     /**
