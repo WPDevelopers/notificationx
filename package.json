@@ -68,7 +68,7 @@
     "favloader": "^0.4.4",
     "html-react-parser": "^3.0.16",
     "html-to-draftjs": "^1.5.0",
-    "immutable": "^4.3.4",
+    "immutable": "^4.3.9",
     "js-base64": "^3.7.5",
     "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
