@@ -3,15 +3,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NotificationX 3.2.13\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nx-wt-release\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-06T09:10:48+00:00\n"
+"POT-Creation-Date: 2026-08-10T12:05:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
 
 #. Plugin Name of the plugin
@@ -104,6 +104,7 @@ msgstr ""
 #. translators: %s: no of minutes
 #: includes/Admin/Cron.php:93
 #: includes/Admin/Cron.php:99
+#, php-format
 msgid "Every %s minutes"
 msgstr ""
 
@@ -127,6 +128,7 @@ msgstr ""
 #. translators: %s: site name
 #: includes/Admin/EntriesMailReceiver.php:153
 #: includes/Admin/Settings.php:371
+#, php-format
 msgid "New Entry Received on \"%s\""
 msgstr ""
 
@@ -481,6 +483,7 @@ msgstr ""
 #. translators: %s: site name
 #: includes/Admin/Reports/ReportEmail.php:265
 #: includes/Admin/Settings.php:472
+#, php-format
 msgid "Weekly Engagement Summary of “%s”"
 msgstr ""
 
@@ -835,6 +838,7 @@ msgstr ""
 
 #. translators: %s: Cross Domain Notice link URL
 #: includes/Admin/XSS.php:50
+#, php-format
 msgid "Show your Notification Alerts in another website using <a target=\"_blank\" href=\"%s\">Cross Domain Notice</a>."
 msgstr ""
 
@@ -1729,16 +1733,19 @@ msgstr ""
 
 #. translators: %s: Post Type label
 #: includes/Core/Locations.php:53
+#, php-format
 msgid "All %s posts"
 msgstr ""
 
 #. translators: %s: Post Type label
 #: includes/Core/Locations.php:57
+#, php-format
 msgid "All %s archives"
 msgstr ""
 
 #. translators: %s: Taxonomy label
 #: includes/Core/Locations.php:63
+#, php-format
 msgid "All %s taxonomy archives"
 msgstr ""
 
@@ -1852,6 +1859,7 @@ msgstr ""
 
 #. translators: %1$s: number of scans already used, %2$s: total free scans available
 #: includes/Core/PostType.php:134
+#, php-format
 msgid "%1$s of %2$s free scans used"
 msgstr ""
 
@@ -1999,6 +2007,7 @@ msgstr ""
 
 #. translators: %s: rotation deadline date.
 #: includes/Core/Rest/Integration.php:268
+#, php-format
 msgid "A Zapier (or other webhook) integration is still calling NotificationX with the legacy API key. Rotate it to the new key before %s — after that, requests using the old key will be rejected."
 msgstr ""
 
@@ -2012,6 +2021,7 @@ msgstr ""
 
 #. translators: %s: notification ID
 #: includes/Core/Rest/Integration.php:296
+#, php-format
 msgid "There is no notification created with this id: %s"
 msgstr ""
 
@@ -2049,6 +2059,7 @@ msgstr ""
 
 #. translators: %d: Number of entries deleted
 #: includes/Core/Rest/Popup.php:376
+#, php-format
 msgid "%d entry deleted successfully"
 msgid_plural "%d entries deleted successfully"
 msgstr[0] ""
@@ -2060,6 +2071,7 @@ msgstr ""
 
 #. translators: %d: number of entries prepared for export
 #: includes/Core/Rest/Popup.php:453
+#, php-format
 msgid "Successfully prepared %d entries for export"
 msgstr ""
 
@@ -2097,6 +2109,7 @@ msgstr ""
 
 #. translators: %d: notification ID
 #: includes/Core/Rest/Popup.php:493
+#, php-format
 msgid "Notification #%d"
 msgstr ""
 
@@ -2149,6 +2162,7 @@ msgstr ""
 
 #. translators: %1$s: URL, %2$s: documentation link URL, %3$s: Integration with ActiveCampaign link URL, %4$s: ActiveCampaign Email Subscription Alerts link URL
 #: includes/Extensions/ActiveCampaign/ActiveCampaign.php:59
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API URL & API key from ActiveCampaign account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with ActiveCampaign</a></p>\n"
@@ -2419,6 +2433,7 @@ msgstr ""
 
 #. translators: links
 #: includes/Extensions/CF7/CF7.php:278
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2434,6 +2449,7 @@ msgstr ""
 
 #. translators: %1$s: signed in & retrieved your API key from ConvertKit account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with ConvertKit link URL, %5$s: NotificationX With ConvertKit link URL
 #: includes/Extensions/ConvertKit/ConvertKit.php:59
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved your API key from ConvertKit account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2453,6 +2469,7 @@ msgstr ""
 #. translators: %1$s: documentation link URL, %2$s: video tutorial link URL, %3$s: Display Custom Notification Alerts link URL
 #: includes/Extensions/CustomNotification/CustomNotification.php:92
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:69
+#, php-format
 msgid ""
 "<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%2$s\">video tutorial</a> to learn quickly</p>\n"
@@ -2498,6 +2515,7 @@ msgstr ""
 #. translators: %1$s: product title, %2$s: combined "and N more products" text
 #: includes/Extensions/EDD/EDD.php:168
 #: includes/Extensions/WooCommerce/WooCommerce.php:551
+#, php-format
 msgid "%1$s & %2$s"
 msgstr ""
 
@@ -2524,6 +2542,7 @@ msgstr ""
 
 #. translators: %1$s: Easy Digital Downloads installed & activated link URL, %2$s: documentation link URL, %3$s: Integration with Easy Digital Downloads link URL, %4$s: NotificationX Increase Sales on WordPress link URL
 #: includes/Extensions/EDD/EDD.php:403
+#, php-format
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Easy Digital Downloads</a></p>\n"
@@ -3172,6 +3191,7 @@ msgstr ""
 
 #. translators: %d: notification ID
 #: includes/Extensions/Elementor/FormWidget.php:100
+#, php-format
 msgid "#%d"
 msgstr ""
 
@@ -3407,6 +3427,7 @@ msgstr ""
 
 #. translators: links
 #: includes/Extensions/Elementor/From.php:77
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Elementor Pro installed & configured</a> to use its form submission data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -3434,6 +3455,7 @@ msgstr ""
 
 #. translators: %1$s: created & signed in to Envato account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Envato link URL
 #: includes/Extensions/Envato/Envato.php:70
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -4527,6 +4549,7 @@ msgstr ""
 
 #. translators: %1$s: documentation link URL
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2277
+#, php-format
 msgid ""
 "\n"
 "        <p>Show a targeted message at the exact moment someone is about to close your tab & bring them back into the funnel. Need help? Check out our <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>"
@@ -4560,6 +4583,7 @@ msgstr ""
 
 #. translators: links
 #: includes/Extensions/FlashingTab/FlashingTab.php:136
+#, php-format
 msgid ""
 "\n"
 "        <p>Make sure that you have NotificationX PRO installed and activated on your website to use Flashing Tab. For further assistance, follow the step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
@@ -4664,6 +4688,7 @@ msgstr ""
 #. translators: %1$s: FluentCart WordPress plugin installed & configured link URL, %2$s: documentation link URL, %3$s: 👉 NotificationX Integration with FluentCart link URL
 #: includes/Extensions/FluentCart/FluentCart.php:766
 #: includes/Extensions/FluentCart/FluentCartInline.php:160
+#, php-format
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">FluentCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "        <a target=\"_blank\" href=\"%3$s\">👉 NotificationX Integration with FluentCart</a>"
@@ -4740,6 +4765,7 @@ msgstr ""
 
 #. translators: %1$s: Fluent Forms installed and configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Display Fluent Forms Submission Alert link URL
 #: includes/Extensions/FluentForm/FluentForm.php:409
+#, php-format
 msgid ""
 "\n"
 "        <p>To use the campaign & form subscription data, make sure that you have <a target=\"_blank\" href=\"%1$s\">Fluent Forms installed and configured</a> on your website. For detailed guidelines, follow this <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
@@ -4755,6 +4781,7 @@ msgstr ""
 
 #. translators: %1$s: created & signed in to Freemius account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Freemius link URL
 #: includes/Extensions/Freemius/Freemius.php:20
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Freemius account</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -4853,6 +4880,7 @@ msgstr ""
 
 #. translators: %1$s: step-by-step guides link URL, %2$s: tutorial link URL, %3$s: How to Display WordPress Cookie Notice Using NotificationX? link URL, %4$s: WP Consent API link URL
 #: includes/Extensions/GDPR/GDPR_Notification.php:303
+#, php-format
 msgid ""
 "<p>You can showcase Cookie Notice effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> for creating a Cookie Notice on the WordPress website.</p>\n"
 "        <p>🎦 Watch the video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for a quick guide.</p>\n"
@@ -4954,6 +4982,7 @@ msgstr ""
 
 #. translators: %1$s: GiveWP installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with GiveWP link URL, %5$s: NotificationX Increase Sales on WordPress link URL
 #: includes/Extensions/Give/Give.php:298
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -5836,6 +5865,7 @@ msgstr ""
 
 #. translators: %1$s: Google Reviews API link URL, %2$s: documentation link URL, %3$s: Integration with Google Reviews link URL
 #: includes/Extensions/Google/GoogleReviews.php:187
+#, php-format
 msgid ""
 "<p>Make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">Google Reviews API</a> key, to showcase your reviews. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
@@ -5849,6 +5879,7 @@ msgstr ""
 
 #. translators: %1$s: signed in to Google Analytics site link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Google Analytics link URL
 #: includes/Extensions/Google/Google_Analytics.php:66
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in to Google Analytics site</a>, to use its campaign & page analytics data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -5948,6 +5979,7 @@ msgstr ""
 
 #. translators: %1$s: YouTube API link URL, %2$s: documentation link URL, %3$s: Integration with Youtube link URL
 #: includes/Extensions/Google/YouTube.php:286
+#, php-format
 msgid ""
 "<p>To create YouTube notification popups, make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">YouTube API</a> key, Check out our step-by-step documentation for further assistance. <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
@@ -5976,6 +6008,7 @@ msgstr ""
 
 #. translators: %1$s: Gravity Forms installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Ninja Forms link URL, %5$s: WordPress Contact Forms Submission Rate link URL
 #: includes/Extensions/GRVF/GravityForms.php:80
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Gravity Forms installed & configured</a>, to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6011,6 +6044,7 @@ msgstr ""
 
 #. translators: %1$s: LearnDash installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with LearnDash link URL, %5$s: LearnDash Course Enrollment Rates link URL
 #: includes/Extensions/LearnDash/LearnDash.php:72
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">LearnDash installed & configured</a> to use its campaign & course selling data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6043,6 +6077,7 @@ msgstr ""
 
 #. translators: %1$s: LearnPress LMS installed & configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Integration with LearnPress LMS link URL
 #: includes/Extensions/LearnPress/LearnPress.php:546
+#, php-format
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">LearnPress LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -6056,6 +6091,7 @@ msgstr ""
 
 #. translators: %1$s: signed in & retrieved API key from MailChimp account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with MailChimp link URL, %5$s: Email Marketing Strategy link URL, %6$s: Email Subscription List link URL
 #: includes/Extensions/MailChimp/MailChimp.php:59
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API key from MailChimp account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6073,6 +6109,7 @@ msgstr ""
 
 #. translators: %1$s: Ninja Forms installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Ninja Forms link URL, %5$s: WordPress Contact Forms Submission Rate link URL
 #: includes/Extensions/NJF/NinjaForms.php:413
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6159,6 +6196,7 @@ msgstr ""
 
 #. translators: %1$s: documentation link URL, %2$s: Guide To Notify Customers About On-Sale Products link URL
 #: includes/Extensions/OfferAnnouncement/Announcements.php:270
+#, php-format
 msgid ""
 "<p>You can showcase the discount alert popup on your WordPress website to make visitors take purchasing action immediately. For further assistance, check out our step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -6768,6 +6806,7 @@ msgstr ""
 
 #. translators: %1$s: step-by-step guides link URL, %2$s: tutorial link URL, %3$s: URL
 #: includes/Extensions/PopupNotification/PopupNotification.php:1320
+#, php-format
 msgid ""
 "<p>Create compelling Announcements that capture visitor interest and help you generate more leads on your WordPress site. Need help? Check out our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> to build impactful Announcements.</p>\n"
 "        <p>🎦 Watch the quick video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for an easy walk-through.</p>\n"
@@ -7182,6 +7221,7 @@ msgstr ""
 
 #. translators: %1$s: Elementor documentation URL, %2$s: Gutenberg documentation URL, %3$s: documentation URL, %4$s: blog post URL, %5$s: blog post URL
 #: includes/Extensions/PressBar/PressBar.php:2223
+#, php-format
 msgid ""
 "<p>Supercharge your WordPress site with an <strong>AI-powered Notification Bar</strong> that help you create and launches instant popup campaigns — smarter and faster than ever. Let AI generate compelling bar content for you in seconds. Need help getting started? Explore our step-by-step guides to set up your AI-enhanced notification bars using both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
 "\t\t<p>🎦 Check the <a target = \"_blank\" href = \"%3$s\">documentation</a> for a quick guide.</p>\n"
@@ -7244,6 +7284,7 @@ msgstr ""
 
 #. translators: %1$s: WooCommerce link URL, %2$s: ReviewX link URL, %3$s: documentation link URL, %4$s: boost WooCommerce Sales link URL
 #: includes/Extensions/ReviewX/ReviewX.php:280
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce</a> & <a target=\"_blank\" href=\"%2$s\">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%3$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -7274,6 +7315,7 @@ msgstr ""
 
 #. translators: %1$s: SureCart WordPress plugin installed & configured link URL, %2$s: documentation link URL, %3$s: 👉 NotificationX Integration with SureCart link URL
 #: includes/Extensions/SureCart/SureCart.php:468
+#, php-format
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">SureCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "        <a target=\"_blank\" href=\"%3$s\">👉 NotificationX Integration with SureCart</a>"
@@ -7290,6 +7332,7 @@ msgstr ""
 
 #. translators: %1$s: Tutor LMS installed & configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Integration with Tutor LMS link URL
 #: includes/Extensions/Tutor/Tutor.php:541
+#, php-format
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Tutor LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -7323,6 +7366,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerce.php:612
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:204
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:168
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a href=\"%3$s\" target=\"_blank\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -7350,6 +7394,7 @@ msgstr ""
 #. translators: %1$s: WooCommerce installed & activated link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: boost WooCommerce Sales link URL
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:252
 #: includes/Extensions/WooCommerce/WOOReviews.php:494
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -7377,6 +7422,7 @@ msgstr ""
 
 #. translators: %1$s: wordpress.org link URL, %2$s: comments popup link URL, %3$s: plugin reviews link URL, %4$s: downloads stats link URL, %5$s: blog comments link URL, %6$s: reviews link URL, %7$s: Get More Comments on Your WordPress Blog link URL, %8$s: WordPress Plugin Download Rates & Increase Sales link URL
 #: includes/Extensions/WordPress/Wordpress.php:13
+#, php-format
 msgid ""
 "<p>Make sure that you have a <a target=\"_blank\" href=\"%1$s\">wordpress.org</a> account to use its campaign on blog comments, reviews and download stats data. For further assistance, check out our step by step documentation on <a target=\"_blank\" href=\"%2$s\">comments popup</a>, <a target=\"_blank\" href=\"%3$s\">plugin reviews</a> & <a target=\"_blank\" href=\"%4$s\">downloads stats</a>.</p>\n"
 "\t\t<p>🎦 Watch video tutorial on <a target=\"_blank\" href=\"%5$s\">blog comments</a>, <a target=\"_blank\" href=\"%6$s\">reviews</a> & <a target=\"_blank\" href=\"%6$s\">downloads stats</a> to learn quickly</p>\n"
@@ -7477,6 +7523,7 @@ msgstr ""
 
 #. translators: %s: number of downloads today.
 #: includes/Extensions/WordPress/WPOrgStats.php:197
+#, php-format
 msgid "%s times today"
 msgstr ""
 
@@ -7484,11 +7531,13 @@ msgstr ""
 #. translators: %s: number of downloads of all time.
 #: includes/Extensions/WordPress/WPOrgStats.php:199
 #: includes/Extensions/WordPress/WPOrgStats.php:203
+#, php-format
 msgid "%s times"
 msgstr ""
 
 #. translators: %s: number of downloads in last 7 days.
 #: includes/Extensions/WordPress/WPOrgStats.php:201
+#, php-format
 msgid "%s times in last 7 days"
 msgstr ""
 
@@ -7503,6 +7552,7 @@ msgstr ""
 
 #. translators: %1$s: WPForms installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with WPForms link URL, %5$s: WordPress Contact Forms Submission Rate link URL
 #: includes/Extensions/WPF/WPForms.php:343
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -7545,6 +7595,7 @@ msgstr ""
 
 #. translators: time
 #: includes/Features/ShortcodeInline.php:145
+#, php-format
 msgctxt "Inline Shortcode"
 msgid "%s ago"
 msgstr ""
@@ -8150,6 +8201,7 @@ msgstr ""
 
 #. translators: %s: URL of the wp-admin plugins page
 #: notificationx.php:86
+#, php-format
 msgid "<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>."
 msgstr ""
 
@@ -8184,6 +8236,7 @@ msgid "\"not\" can have only one comparison rule, multiple rules given"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "Invalid comparison rule %s."
 msgstr ""
 
@@ -8265,6 +8318,7 @@ msgid "Text Goes Here: text"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
@@ -8358,6 +8412,7 @@ msgid "Notification Alert has been Disabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
@@ -8366,6 +8421,7 @@ msgid "Disabled"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
 msgstr ""
 
@@ -8529,6 +8585,7 @@ msgid "Cross Domain Notice code has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use <a target='_blank' href='%s' style='color:red'>Cross Domain Notice</a> feature."
 msgstr ""
 
@@ -8566,14 +8623,17 @@ msgid "Delete"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "%s clicks"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "%s views"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "%s entries"
 msgstr ""
 
@@ -8610,34 +8670,41 @@ msgid "NotificationX Fetch Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "All (%d)"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "Enabled (%d)"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "Disabled (%d)"
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Regenerated.
 #: assets/admin/js/admin.js:3
+#, js-format
 msgid "%d Notification Alerts have been Regenerated."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Reset.
 #: assets/admin/js/admin.js:5
+#, js-format
 msgid "%d Notification Alerts have been Reset."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Enabled.
 #: assets/admin/js/admin.js:7
+#, js-format
 msgid "%d Notification Alerts have been Enabled."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Disabled.
 #: assets/admin/js/admin.js:9
+#, js-format
 msgid "%d Notification Alerts have been Disabled."
 msgstr ""
 
@@ -8646,6 +8713,7 @@ msgid "Unable to complete bulk action."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
+#, js-format
 msgid "You're about to delete %s notification alert,<br />"
 msgid_plural "You're about to delete %s notification alerts,<br />"
 msgstr[0] ""
@@ -8657,6 +8725,7 @@ msgstr ""
 
 #. translators: %d: Number of Notification Alerts deleted.
 #: assets/admin/js/admin.js:11
+#, js-format
 msgid ""
 "%d notification Alerts have been\n"
 "                Deleted."
@@ -8683,6 +8752,7 @@ msgid "Seems like you haven’t created any notification alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+#, js-format
 msgid "Hit on %1$s\"Add New\"%2$s button to get started"
 msgstr ""
 
@@ -8695,6 +8765,7 @@ msgid "There’s no enabled Notification Alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+#, js-format
 msgid "Simply use the toggle switch to turn your notifications from %1$s\"All NotificationX\"%2$s page."
 msgstr ""
 
@@ -8923,6 +8994,7 @@ msgid "Please select entries to delete"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+#, js-format
 msgid "You're about to delete %s feedback entry,<br />"
 msgid_plural "You're about to delete %s feedback entries,<br />"
 msgstr[0] ""
@@ -8930,6 +9002,7 @@ msgstr[1] ""
 
 #. translators: %d: Number of feedback entries deleted.
 #: assets/admin/js/admin.js:13
+#, js-format
 msgid "%d feedback entry has been deleted."
 msgid_plural "%d feedback entries have been deleted."
 msgstr[0] ""
@@ -9542,6 +9615,7 @@ msgstr ""
 
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
 #: assets/admin/js/admin.js:16
+#, js-format
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
 msgstr ""
 
@@ -9555,6 +9629,7 @@ msgstr ""
 
 #. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
 #: assets/admin/js/admin.js:18
+#, js-format
 msgid "NotificationX - %1$s - %2$s"
 msgstr ""
 
@@ -9664,6 +9739,7 @@ msgid "Are you sure you want to delete this Cookie?"
 msgstr ""
 
 #: assets/admin/js/admin.js:20
+#, js-format
 msgid "The cookie <strong>%s</strong> will be permanently deleted. This cookie will no longer be displayed on your cookie list nor be blocked prior to receiving user consent."
 msgstr ""
 
