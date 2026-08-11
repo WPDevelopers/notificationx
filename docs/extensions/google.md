@@ -1,6 +1,6 @@
 # Google Extension (`modules_google_reviews` / `modules_google_analytics` / `modules_google_youtube`)
 
-> Bundles three unrelated Google integrations under one directory: **Google Reviews**
+> Bundles three Google integrations under one directory: **Google Reviews**
 > (place ratings/reviews → `reviews` Type), **Google Analytics** (site traffic →
 > `page_analytics` Type), and **YouTube** (channel/video stats → `video` Type). All three
 > are `$is_pro = true` — in this free plugin they register as sources/modules and provide
@@ -98,6 +98,17 @@ for API-key configuration, but the actual settings-field definitions for those s
 are not in this directory or in `GlobalFields.php` — they are defined in
 `notificationx-pro` (its `includes/Admin/Settings.php` and the Pro Google extension
 classes, confirmed by grep) and/or the React admin app (`nxdev/`).
+
+## Realtime viewers helper (Pro)
+
+The `modules_google_analytics` module also powers the WooCommerce Growth Alert
+**`live-viewers`** design, which is a theme on the `woo_inline` extension rather than a
+source of its own. The Google directory owns only the data side: Pro's
+`NotificationXPro\Extensions\Google_Analytics\RealtimeViewers` resolves "how many people
+are viewing this product right now" and `WooInline` calls `RealtimeViewers::get_viewers()`.
+Free registers the theme (gated on the module being enabled) and its
+`source_error_message()` entry; see [woocommerce.md](woocommerce.md) and the Pro doc for
+the GA4 realtime constraint that shapes it.
 
 ## Dependency & detection
 

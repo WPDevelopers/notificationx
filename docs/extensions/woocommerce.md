@@ -140,6 +140,56 @@ Real events that drive data:
   arrays (inline sales-count and stock-count widgets) rather than pulling from
   `GlobalFields`.
 
+## The `live-viewers` design (Google Analytics)
+
+`WooInline` carries a fourth Growth Alert design, **`live-viewers`**, rendering
+"N people are viewing this product right now" from **realtime Google Analytics**
+rather than from orders:
+
+- **Registered conditionally.** `init_extension()` only adds the theme (and its
+  `woo_live_viewers_template` tag group) when `Modules::is_enabled('modules_google_analytics')`
+  — the number comes from a connected GA4 property, so without that module the design could
+  never render anything.
+- **Writes no entries.** `nx_can_entry_woo_inline` returns `false` for it, exactly as for
+  the low-stock designs, and `nx_filtered_notice` injects a placeholder so the campaign
+  still reaches the render loop. The count is resolved in `before_add_to_cart_form()`.
+- **Its own error message.** `source_error_message()` adds a second entry keyed
+  `woo_inline_ga`, scoped with `Rules::includes('themes', ['woo_inline_live-viewers'])`, so
+  the "connect Google Analytics" / "needs a GA4 property" notices appear only when this
+  design is selected — never for merchants using the sales-count or stock designs.
+- **Threshold.** Pro adds a `ga_min_viewers` field (default `2`, same theme scoping). The
+  default is deliberately 2: the copy has no singular form, so a value of 1 would render
+  "1 people are viewing".
+
+- **It colours itself.** `Core\Inline::get_template()` only wraps params in `<span>` while
+  previewing, so on the frontend a Growth Alert is one flat text run with nothing to style —
+  which is why the other designs render uncoloured on a live page even though their
+  thumbnails and builder previews show green/red. `before_add_to_cart_form()` therefore
+  applies its own highlighting (`.nx-live-viewers-count`, `.nx-live-viewers-tail`) and emits
+  the matching CSS inline. Colours (`#5D9733`, `#E5554D`) are sampled from the artwork, and
+  the inline CSS is the single source of truth — there is deliberately no duplicate rule in
+  `Preview.php`.
+
+  The artwork highlights the count **and** the noun after it ("3 people"), but those sit in
+  two different params (`first_param` / `second_param`). So the leading word of
+  `second_param` is marked with `GA_HL_*` placeholders **before** `get_template()` composes
+  the string, and the placeholders are swapped for real spans afterwards. Doing it
+  pre-composition is what makes the frontend and the preview identical: in preview the
+  markers simply end up nested inside the preview's own param spans. All of it is gated on
+  `is_ga_theme()`, so no other design's markup changes.
+
+- **Trimmed template row.** The fourth slot is a fixed trailing phrase, so the only option
+  its `fourth_param` select can offer is the generic "Custom" — a one-choice dropdown in
+  front of the text box the merchant actually types into. Pro's `ga_notification_template()`
+  (on `nx_notification_template`) hides that select for this design via a negated
+  `Rules::includes('themes', …, $_not = true)`, which AND-s onto the field's existing rule
+  so every other theme is unaffected, and OR-s the theme onto `custom_fourth_param` so the
+  text box shows regardless of the hidden select's value.
+
+The Google API side lives in the Google directory, not here — Pro's
+`Google_Analytics\RealtimeViewers::get_viewers()` is the only entry point `WooInline`
+touches. See [google.md](google.md).
+
 ## Dependency & detection
 
 - Required plugin: **WooCommerce**. Every concrete class in this directory sets
