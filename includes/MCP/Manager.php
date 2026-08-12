@@ -804,6 +804,13 @@ class Manager {
             .nx-mcp-badge-off{background:#e2e4e7;color:#50575e}
             .nx-mcp-badge-active{background:#e5f6ea;color:#1a7f37}
             .nx-mcp-badge-setup{background:#fcf3e3;color:#996800}
+            /* Enable toggle: keep label + switch on one row (no fixed 200px label
+               column gap) and let the help text span full-width, left-aligned. */
+            .wprf-name-enable_mcp{display:flex;flex-wrap:wrap;align-items:center}
+            .wprf-name-enable_mcp .wprf-control-label{width:auto!important;flex:0 0 auto!important;margin:0 12px 0 0!important}
+            .wprf-name-enable_mcp .wprf-control-field{display:contents}
+            .wprf-name-enable_mcp .wprf-toggle-wrap{order:2}
+            .wprf-name-enable_mcp .wprf-help{order:3;flex-basis:100%;width:100%;margin:8px 0 0!important}
             .nx-mcp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
             @media(max-width:782px){.nx-mcp-grid{grid-template-columns:1fr}}
             .nx-mcp-card{border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px;background:#fff}
