@@ -189,9 +189,14 @@ class PluginInsights {
         $this->do_tracking( true );
     }
     /**
-     * Programmatically opt the site into tracking and (optionally) send the
-     * data to the insights API immediately. Used by the onboarding Setup Wizard
-     * when the user proceeds past the Welcome step (which is the consent point).
+     * Record the user's explicit opt-in and (optionally) send the data to the
+     * insights API immediately. Used by the onboarding Setup Wizard when the
+     * user proceeds past the Welcome step (which is the consent point).
+     *
+     * Collection itself no longer depends on this call — see
+     * {@see self::is_tracking_allowed()}; this only stores the consent state
+     * (which suppresses the opt-in notice and enables the feedback form) and
+     * triggers an immediate send.
      *
      * @param bool $send Send the collected data right away.
      * @return bool|\WP_Error
@@ -241,23 +246,49 @@ class PluginInsights {
         return $this->send_data( $body );
     }
     /**
-     * Is tracking allowed?
+     * Is data collection allowed?
+     *
+     * Since 3.3.0 collection is no longer gated behind the opt-in notice or
+     * the Setup Wizard: it is enabled from the backend for every install, so
+     * the payload is collected whether the user accepts, rejects, ignores or
+     * never opens the consent/onboarding flow. The only remaining hard stop is
+     * the programmatic opt-out exposed through the `options` constructor
+     * argument (see {@see self::has_user_opted_out()}).
+     *
+     * The deactivation feedback form follows this same gate, so it is
+     * available as soon as the plugin is activated. The user's explicit
+     * consent state is still recorded separately and is readable through
+     * {@see self::has_user_consented()}, but nothing is gated on it.
      *
      * @since 1.0.0
      */
     private function is_tracking_allowed() {
-        // First, check if the user has changed their mind and opted out of tracking
+        // A programmatic opt-out (an option flagged via the `options` arg) is
+        // still honoured and clears any recorded consent.
         if ( $this->has_user_opted_out() ) {
             $this->set_is_tracking_allowed( false, $this->plugin_name );
             return false;
         }
-        // The wpins_allow_tracking option is an array of plugins that are being tracked
-        $allow_tracking = get_option( 'wpins_allow_tracking' );
-        // If this plugin is in the array, then tracking is allowed
-        if ( isset( $allow_tracking[ $this->plugin_name ] ) ) {
-            return true;
+        return true;
+    }
+    /**
+     * Has the user explicitly consented to tracking?
+     *
+     * This is the legacy `wpins_allow_tracking` state, set when the user
+     * accepts the opt-in notice or proceeds past the Setup Wizard welcome
+     * step. It is recorded for reporting only: neither data collection nor the
+     * deactivation feedback form is gated on it any more.
+     *
+     * @since 3.3.0
+     * @return bool
+     */
+    public function has_user_consented() {
+        if ( $this->has_user_opted_out() ) {
+            return false;
         }
-        return false;
+        // The wpins_allow_tracking option is an array of plugins the user has opted in for.
+        $allow_tracking = get_option( 'wpins_allow_tracking' );
+        return is_array( $allow_tracking ) && isset( $allow_tracking[ $this->plugin_name ] );
     }
     /**
      * Set a flag in DB If tracking is allowed.
@@ -763,7 +794,10 @@ class PluginInsights {
      */
     public function deactivate_action_links( $links ) {
         /**
-         * Check is tracking allowed or not.
+         * The feedback form follows data collection, not the opt-in choice:
+         * collection is enabled from the backend on activation, so the form is
+         * available from that moment too. The programmatic opt-out is still a
+         * hard stop, because it turns collection off entirely.
          */
         if ( ! $this->is_tracking_allowed() ) {
             return $links;
