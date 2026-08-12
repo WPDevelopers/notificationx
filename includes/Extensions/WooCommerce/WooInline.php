@@ -136,7 +136,14 @@ class WooInline extends WooCommerce {
                     'second_param'        => __( 'people are viewing', 'notificationx' ),
                     'third_param'         => 'tag_product_title',
                     'custom_third_param'  => ' ',
-                    'fourth_param'        => 'tag_custom',
+                    // A real tag rather than `tag_custom`: `custom_fourth_param`
+                    // is one text field shared by every design, so seeding it is
+                    // not reliable — switching in from the sales-count design can
+                    // leave its "in last {{day:7}}" text behind. The tag renders
+                    // from `fallback_data()` and cannot go stale; merchants who
+                    // want their own wording pick "Custom" in the select, which
+                    // seeds from `custom_fourth_param` below.
+                    'fourth_param'        => 'tag_right_now',
                     'custom_fourth_param' => __( 'right now', 'notificationx' ),
                 ],
             );
@@ -185,6 +192,9 @@ class WooInline extends WooCommerce {
                 ],
                 'third_param' => [
                     'tag_product_title' => __( 'Product Title', 'notificationx' ),
+                ],
+                'fourth_param' => [
+                    'tag_right_now' => __( 'right now', 'notificationx' ),
                 ],
                 '_themes'     => [
                     "{$this->id}_live-viewers",

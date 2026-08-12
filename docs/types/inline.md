@@ -56,7 +56,8 @@ whose number is resolved at render time and never stored: the low-stock themes
 same way — `nx_can_entry_woo_inline` returns `false` so no rows are written, and
 `nx_filtered_notice` injects a placeholder purely so the campaign reaches the render loop,
 where the live value is computed and substituted. `live-viewers` is registered only when
-the `modules_google_analytics` module is enabled; see
+the `modules_google_analytics` module is enabled, and the sibling `woocommerce_sales_inline`
+source (a different Type) registers its own copy of the same design; see
 [extensions/woocommerce.md](../extensions/woocommerce.md).
 
 **Important naming trap:** [`WooCommerceSalesInline`](../../includes/Extensions/WooCommerce/WooCommerceSalesInline.php) (`$id = 'woocommerce_sales_inline'`) *extends* `WooInline` and reuses the same `inline_location` mechanics, but overrides `$types = 'woocommerce_sales'` — it belongs to the **`woocommerce_sales` Type**, not this one. See [woocommerce_sales.md](woocommerce_sales.md) for that extension. Don't confuse the two "inline" families.

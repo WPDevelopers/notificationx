@@ -102,10 +102,12 @@ classes, confirmed by grep) and/or the React admin app (`nxdev/`).
 ## Realtime viewers helper (Pro)
 
 The `modules_google_analytics` module also powers the WooCommerce Growth Alert
-**`live-viewers`** design, which is a theme on the `woo_inline` extension rather than a
-source of its own. The Google directory owns only the data side: Pro's
+**`live-viewers`** design, which is a theme on the `woo_inline` and
+`woocommerce_sales_inline` extensions rather than a source of its own. The Google directory
+owns only the data side: Pro's
 `NotificationXPro\Extensions\Google_Analytics\RealtimeViewers` resolves "how many people
-are viewing this product right now" and `WooInline` calls `RealtimeViewers::get_viewers()`.
+are viewing this product right now" and both WooCommerce inline classes call
+`RealtimeViewers::get_viewers()`.
 Free registers the theme (gated on the module being enabled) and its
 `source_error_message()` entry; see [woocommerce.md](woocommerce.md) and the Pro doc for
 the GA4 realtime constraint that shapes it.
