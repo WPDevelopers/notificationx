@@ -69,6 +69,8 @@ class Registrar {
             new Read\ListSources(),
             new Read\GetAnalytics(),
             new Read\GetSettings(),
+            new Read\ListEntries(),
+            new Read\ExportEntries(),
             // Manage (write).
             new Manage\ToggleNotification(),
             new Manage\UpdateNotification(),
