@@ -17,7 +17,7 @@
 | **Default source** | `google` (`$default_source`) — matches `Google_Analytics::$id` |
 | **Default theme** | Not seeded — `$default_theme` / `$default_res_theme` are inherited from `Types` (`''`) and never set in `PageAnalytics::init()`, and the `Google_Analytics` extension does not set them either. Since `Extension::__source_trigger()` ([includes/Extensions/Extension.php:217-224](../../includes/Extensions/Extension.php#L217-L224)) only emits a `@themes:<id>` pre-fill when `default_theme` is non-empty, this source seeds no initial theme server-side. |
 | **Module gate (`$module`)** | Declares `['modules_google_analytics']` on the Type object, but — same as documented for `conversions` in [conversions.md](conversions.md) — `TypeFactory::register_types()` ([includes/Types/TypesFactory.php](../../includes/Types/TypesFactory.php)) never reads `Types::$module`. What actually gates loading is the `Google_Analytics` extension's own `$module = 'modules_google_analytics'`, checked via `Modules::get_instance()->is_enabled($obj->module)` in `ExtensionFactory::register_extensions()` ([includes/Extensions/ExtensionFactory.php](../../includes/Extensions/ExtensionFactory.php)). |
-| **Compatible extensions** | Only one: [`Google_Analytics`](../../includes/Extensions/Google/Google_Analytics.php) (`$id = 'google'`, `$types = 'page_analytics'`) |
+| **Compatible extensions** | Only one: [`Google_Analytics`](../../includes/Extensions/Google/Google_Analytics.php) (`$id = 'google'`, `$types = 'page_analytics'`). For realtime viewers of a single WooCommerce product see the `live-viewers` Growth Alert design on the `woo_inline` extension instead ([inline](inline.md), [extensions/woocommerce.md](../extensions/woocommerce.md)). |
 
 ## What it does
 
