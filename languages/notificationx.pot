@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.2.13\n"
+"Project-Id-Version: NotificationX 3.2.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-17T04:54:13+00:00\n"
+"POT-Creation-Date: 2026-08-17T05:01:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
@@ -89,11 +89,11 @@ msgstr ""
 msgid "Grab The Offer"
 msgstr ""
 
-#: includes/Admin/Admin.php:429
+#: includes/Admin/Admin.php:432
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:430
+#: includes/Admin/Admin.php:433
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -381,67 +381,67 @@ msgstr ""
 msgid "Installed"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:397
+#: includes/Admin/PluginInsights.php:428
 msgid "We can't detect any plugin information. This is most probably because you have not included the code in the plugin main file."
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:679
+#: includes/Admin/PluginInsights.php:710
 msgid "What we collect."
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:680
+#: includes/Admin/PluginInsights.php:711
 msgid "Sure, I'd like to help"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:681
+#: includes/Admin/PluginInsights.php:712
 msgid "No Thanks."
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:788
+#: includes/Admin/PluginInsights.php:822
 msgid "Sorry to see you go"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:789
+#: includes/Admin/PluginInsights.php:823
 msgid "Before you deactivate the plugin, would you quickly give us your reason for doing so?"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:792
+#: includes/Admin/PluginInsights.php:826
 msgid "I no longer need the plugin"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:794
+#: includes/Admin/PluginInsights.php:828
 msgid "I found a better plugin"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:795
+#: includes/Admin/PluginInsights.php:829
 msgid "Please share which plugin"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:797
+#: includes/Admin/PluginInsights.php:831
 msgid "I couldn't get the plugin to work"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:798
+#: includes/Admin/PluginInsights.php:832
 msgid "It's a temporary deactivation"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:800
+#: includes/Admin/PluginInsights.php:834
 msgid "Other"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:801
+#: includes/Admin/PluginInsights.php:835
 msgid "Please share the reason"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:994
+#: includes/Admin/PluginInsights.php:1028
 msgid "Submitting form"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:1012
+#: includes/Admin/PluginInsights.php:1046
 msgid "Submit and Deactivate"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:1012
+#: includes/Admin/PluginInsights.php:1046
 msgid "Just Deactivate"
 msgstr ""
 
@@ -7668,16 +7668,16 @@ msgstr ""
 msgid "Talk to Support"
 msgstr ""
 
-#: includes/NotificationX.php:161
+#: includes/NotificationX.php:205
 msgid "Opps! This is PRO Feature."
 msgstr ""
 
-#: includes/NotificationX.php:187
+#: includes/NotificationX.php:231
 #: assets/admin/js/admin.js:11
 msgid "Settings"
 msgstr ""
 
-#: includes/NotificationX.php:192
+#: includes/NotificationX.php:236
 msgid "Go Pro"
 msgstr ""
 
