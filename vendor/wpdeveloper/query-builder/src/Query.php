@@ -264,9 +264,9 @@ class Query {
 		//if contains $prefix
 		$contain_join = preg_replace( '/^(\s?AND ?|\s?OR ?)|\s$/i', '', $param2 );
 
-		$param2 = is_array( $param2 ) ? ( '("' . implode( '","', $param2 ) . '")' ) : ( $param2 === null
+		$param2 = is_array( $param2 ) ? ( '(' . implode( ',', array_map( [ $this, 'bind_value' ], $param2 ) ) . ')' ) : ( $param2 === null
 			? 'null'
-			: ( strpos( $param2, '.' ) !== false || strpos( $param2, $wpdb->prefix ) !== false ? $param2 : $wpdb->prepare( is_numeric( $param2 ) ? '%d' : '%s', $param2 ) )
+			: ( $this->is_column_reference( $param2 ) ? $param2 : $this->bind_value( $param2 ) )
 		);
 
 		$this->where[] = [
@@ -509,10 +509,10 @@ class Query {
 			$operator = '=';
 		}
 
-		$referenceKey = is_array( $referenceKey ) ? ( '(\'' . implode( '\',\'', $referenceKey ) . '\')' )
+		$referenceKey = is_array( $referenceKey ) ? ( '(' . implode( ',', array_map( [ $this, 'bind_value' ], $referenceKey ) ) . ')' )
 			: ( $referenceKey === null
 				? 'null'
-				: ( strpos( $referenceKey, '.' ) !== false || strpos( $referenceKey, $wpdb->prefix ) !== false ? $referenceKey : $wpdb->prepare( is_numeric( $referenceKey ) ? '%d' : '%s', $referenceKey ) )
+				: ( $this->is_column_reference( $referenceKey ) ? $referenceKey : $this->bind_value( $referenceKey ) )
 			);
 
 		$join['on'][] = [
@@ -1355,6 +1355,64 @@ class Query {
 				? preg_replace( '/\s[aA][sS][\s\S]+.*?/', '', $this->from )
 				: ''
 			) );
+	}
+
+	/**
+	 * Decide whether a right-hand operand is a column reference rather than a value.
+	 *
+	 * `where()` and `join()` accept either on the right: `join('nx_stats b', 'b.nx_id',
+	 * '=', 'a.nx_id')` compares two columns, while `where('title', 'LIKE', $search)`
+	 * compares a column to a value. Only a value may be bound, so the two have to be
+	 * told apart -- and the test used to be "does it contain a dot, or the table
+	 * prefix?". That is true of `a.nx_id`, but it is also true of any search term
+	 * carrying a dot, so `?s=.%27%20UNION%20SELECT...` was emitted into the statement
+	 * verbatim and the LIKE became an injection point.
+	 *
+	 * The test is now the shape of a *qualified* identifier -- `table.column`, each half
+	 * optionally backquoted -- so a real column reference still passes through unbound
+	 * while anything carrying a quote, space, comment marker or wildcard falls through
+	 * to {@see self::bind_value()}.
+	 *
+	 * The qualifier is required on purpose. A bare `published` is far more likely to be
+	 * a value than a column, and it was always bound under the old test too, so treating
+	 * unqualified names as columns here would silently turn `where('status',
+	 * 'published')` into a comparison against a non-existent column.
+	 *
+	 * @param mixed $value Right-hand operand.
+	 *
+	 * @return bool
+	 */
+	private function is_column_reference( $value ) {
+		if ( ! is_string( $value ) || '' === $value ) {
+			return false;
+		}
+
+		return (bool) preg_match( '/^`?[A-Za-z_][A-Za-z0-9_]*`?\.`?[A-Za-z_][A-Za-z0-9_]*`?$/', $value );
+	}
+
+	/**
+	 * Bind a value into the statement through $wpdb->prepare().
+	 *
+	 * @param mixed $value Value to bind.
+	 *
+	 * @return string Quoted, escaped SQL literal.
+	 */
+	private function bind_value( $value ) {
+		global $wpdb;
+
+		if ( null === $value ) {
+			return 'null';
+		}
+		if ( is_bool( $value ) ) {
+			return $wpdb->prepare( '%d', $value ? 1 : 0 );
+		}
+		if ( ! is_numeric( $value ) ) {
+			return $wpdb->prepare( '%s', $value );
+		}
+
+		// %d on a float silently truncates it, so anything with a decimal point or an
+		// exponent takes %f. Integer strings -- '007' included -- keep %d as before.
+		return $wpdb->prepare( ( is_float( $value ) || false !== strpbrk( (string) $value, '.eE' ) ) ? '%f' : '%d', $value );
 	}
 
 	/**
