@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-10T12:05:21+00:00\n"
+"POT-Creation-Date: 2026-08-17T04:54:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
@@ -1936,8 +1936,8 @@ msgid "Contact Form"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:281
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:66
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:67
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:68
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:69
 #: includes/Types/Inline.php:45
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:13
@@ -2371,7 +2371,7 @@ msgstr ""
 #: includes/Extensions/Google/YouTube.php:256
 #: includes/Extensions/GRVF/GravityForms.php:50
 #: includes/Extensions/LearnDash/LearnDash.php:50
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:156
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:203
 #: includes/Extensions/Zapier/ZapierConversions.php:48
 #: includes/Extensions/Zapier/ZapierReviews.php:48
 #: includes/Types/EmailSubscription.php:54
@@ -2552,8 +2552,8 @@ msgstr ""
 
 #: includes/Extensions/EDD/EDInline.php:46
 #: includes/Extensions/FluentCart/FluentCartInline.php:80
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:77
-#: includes/Extensions/WooCommerce/WooInline.php:81
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:79
+#: includes/Extensions/WooCommerce/WooInline.php:83
 msgid "people purchased"
 msgstr ""
 
@@ -2564,8 +2564,8 @@ msgstr ""
 #: includes/Extensions/LearnPress/LearnPressInline.php:62
 #: includes/Extensions/Tutor/TutorInline.php:48
 #: includes/Extensions/Tutor/TutorInline.php:62
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:81
-#: includes/Extensions/WooCommerce/WooInline.php:85
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:83
+#: includes/Extensions/WooCommerce/WooInline.php:87
 msgid "in last {{day:7}}"
 msgstr ""
 
@@ -2574,17 +2574,19 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:57
 #: includes/Extensions/LearnPress/LearnPressInline.php:69
 #: includes/Extensions/Tutor/TutorInline.php:69
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:122
-#: includes/Extensions/WooCommerce/WooInline.php:126
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:151
+#: includes/Extensions/WooCommerce/WooInline.php:155
 msgid "Sales Count"
 msgstr ""
 
 #: includes/Extensions/EDD/EDInline.php:60
 #: includes/Extensions/FluentCart/FluentCartInline.php:128
 #: includes/Extensions/ReviewX/ReviewX.php:157
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:125
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:154
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:190
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:151
-#: includes/Extensions/WooCommerce/WooInline.php:129
+#: includes/Extensions/WooCommerce/WooInline.php:158
+#: includes/Extensions/WooCommerce/WooInline.php:194
 #: includes/Extensions/WooCommerce/WOOReviews.php:140
 #: includes/Extensions/WooCommerce/WOOReviews.php:165
 #: includes/Types/Conversions.php:276
@@ -2599,8 +2601,8 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:63
 #: includes/Extensions/LearnPress/LearnPressInline.php:75
 #: includes/Extensions/Tutor/TutorInline.php:75
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:128
-#: includes/Extensions/WooCommerce/WooInline.php:132
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:157
+#: includes/Extensions/WooCommerce/WooInline.php:161
 #: includes/FrontEnd/Preview.php:304
 msgid "In last 1 day"
 msgstr ""
@@ -2610,8 +2612,8 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:64
 #: includes/Extensions/LearnPress/LearnPressInline.php:76
 #: includes/Extensions/Tutor/TutorInline.php:76
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:129
-#: includes/Extensions/WooCommerce/WooInline.php:133
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:158
+#: includes/Extensions/WooCommerce/WooInline.php:162
 #: includes/FrontEnd/Preview.php:305
 #: includes/Types/DownloadStats.php:136
 #: includes/Types/DownloadStats.php:156
@@ -2623,8 +2625,8 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:65
 #: includes/Extensions/LearnPress/LearnPressInline.php:77
 #: includes/Extensions/Tutor/TutorInline.php:77
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:130
-#: includes/Extensions/WooCommerce/WooInline.php:134
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:159
+#: includes/Extensions/WooCommerce/WooInline.php:163
 #: includes/FrontEnd/Preview.php:306
 msgid "In last 30 days"
 msgstr ""
@@ -4695,65 +4697,65 @@ msgid ""
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:79
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:76
-#: includes/Extensions/WooCommerce/WooInline.php:80
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:78
+#: includes/Extensions/WooCommerce/WooInline.php:82
 msgid "99"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:95
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:92
-#: includes/Extensions/WooCommerce/WooInline.php:96
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:94
+#: includes/Extensions/WooCommerce/WooInline.php:98
 msgid "Only"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:99
 #: includes/Extensions/FluentCart/FluentCartInline.php:144
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:96
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:141
-#: includes/Extensions/WooCommerce/WooInline.php:100
-#: includes/Extensions/WooCommerce/WooInline.php:145
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:98
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:170
+#: includes/Extensions/WooCommerce/WooInline.php:102
+#: includes/Extensions/WooCommerce/WooInline.php:174
 msgid "left in stock"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:101
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:98
-#: includes/Extensions/WooCommerce/WooInline.php:102
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:100
+#: includes/Extensions/WooCommerce/WooInline.php:104
 msgid "- order soon."
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:112
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:109
-#: includes/Extensions/WooCommerce/WooInline.php:113
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:111
+#: includes/Extensions/WooCommerce/WooInline.php:115
 msgid "In high demand - only"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:116
 #: includes/Extensions/FluentCart/FluentCartInline.php:145
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:113
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:142
-#: includes/Extensions/WooCommerce/WooInline.php:117
-#: includes/Extensions/WooCommerce/WooInline.php:146
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:115
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:171
+#: includes/Extensions/WooCommerce/WooInline.php:119
+#: includes/Extensions/WooCommerce/WooInline.php:175
 msgid "left"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:118
 #: includes/Extensions/FluentCart/FluentCartInline.php:149
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:115
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:146
-#: includes/Extensions/WooCommerce/WooInline.php:119
-#: includes/Extensions/WooCommerce/WooInline.php:150
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:117
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:175
+#: includes/Extensions/WooCommerce/WooInline.php:121
+#: includes/Extensions/WooCommerce/WooInline.php:179
 msgid "on our site!"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:141
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:138
-#: includes/Extensions/WooCommerce/WooInline.php:142
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:167
+#: includes/Extensions/WooCommerce/WooInline.php:171
 msgid "Stock Count"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:148
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:145
-#: includes/Extensions/WooCommerce/WooInline.php:149
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:174
+#: includes/Extensions/WooCommerce/WooInline.php:178
 msgid "order soon."
 msgstr ""
 
@@ -7365,7 +7367,7 @@ msgstr ""
 #. translators: %1$s: WooCommerce installed & activated link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Best FOMO and Social Proof Plugin link URL, %5$s: boost WooCommerce Sales link URL
 #: includes/Extensions/WooCommerce/WooCommerce.php:612
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:204
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:168
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:215
 #, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
@@ -7376,12 +7378,30 @@ msgid ""
 "\t\t<p>🚀 How to <a target=\"_blank\" href=\"%5$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:155
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:132
+#: includes/Extensions/WooCommerce/WooInline.php:136
+msgid "people are viewing"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:143
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:193
+#: includes/Extensions/WooCommerce/WooInline.php:147
+#: includes/Extensions/WooCommerce/WooInline.php:197
+#: includes/Types/PageAnalytics.php:102
+msgid "right now"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:187
+#: includes/Extensions/WooCommerce/WooInline.php:191
+msgid "Live Product Viewers"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:202
 #: includes/Types/Inline.php:47
 msgid "<a href='https://notificationx.com/growth-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:157
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:204
 msgid ""
 "\n"
 "                <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>\n"
@@ -7400,6 +7420,26 @@ msgid ""
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
 "\t\t<p>🚀 How to <a target=\"_blank\" href=\"%4$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooInline.php:225
+msgid "This design needs live traffic data. Connect your"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooInline.php:227
+msgid "Google Analytics Account"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooInline.php:228
+msgid "first"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooInline.php:235
+msgid "This design needs a Google Analytics 4 property. Select one in"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooInline.php:237
+msgid "API Integrations"
 msgstr ""
 
 #: includes/Extensions/WooCommerce/WOOReviews.php:213
@@ -8123,10 +8163,6 @@ msgstr ""
 
 #: includes/Types/PageAnalytics.php:101
 msgid "this deal"
-msgstr ""
-
-#: includes/Types/PageAnalytics.php:102
-msgid "right now"
 msgstr ""
 
 #: includes/Types/PageAnalytics.php:118
