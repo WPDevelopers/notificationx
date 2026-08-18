@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-17T05:01:26+00:00\n"
+"POT-Creation-Date: 2026-08-18T06:25:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
@@ -2117,8 +2117,8 @@ msgstr ""
 msgid "Whether to bypass Trash and force deletion."
 msgstr ""
 
-#: includes/Core/Rest/Posts.php:245
-#: includes/Core/Rest/Posts.php:265
+#: includes/Core/Rest/Posts.php:250
+#: includes/Core/Rest/Posts.php:270
 msgid "Cannot create existing post."
 msgstr ""
 
@@ -2380,6 +2380,7 @@ msgstr ""
 #: includes/Types/OfferAnnouncement.php:50
 #: includes/Types/PageAnalytics.php:48
 #: includes/Types/Video.php:53
+#: includes/Types/WooCommerceCartPeek.php:170
 msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
 msgstr ""
 
@@ -2591,6 +2592,8 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:165
 #: includes/Types/Conversions.php:276
 #: includes/Types/Conversions.php:307
+#: includes/Types/WooCommerceCartPeek.php:147
+#: includes/Types/WooCommerceCartPeek.php:156
 #: includes/Types/WooCommerceSales.php:269
 #: includes/Types/WooCommerceSales.php:290
 msgid "Product Title"
@@ -5749,6 +5752,8 @@ msgstr ""
 #: includes/Types/ELearning.php:188
 #: includes/Types/EmailSubscription.php:129
 #: includes/Types/Reviews.php:209
+#: includes/Types/WooCommerceCartPeek.php:148
+#: includes/Types/WooCommerceCartPeek.php:157
 #: includes/Types/WooCommerceSales.php:272
 msgid "Definite Time"
 msgstr ""
@@ -7352,6 +7357,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerce.php:54
 #: includes/Extensions/WooCommerce/WooCommerce.php:55
 #: includes/Extensions/WooCommerce/WooCommerce.php:133
+#: includes/Extensions/WooCommerce/WooCommerceCartPeek.php:71
 #: includes/Extensions/WooCommerce/WOOReviews.php:55
 #: includes/Extensions/WooCommerce/WOOReviews.php:56
 #: includes/Extensions/WooCommerce/WOOReviews.php:233
@@ -7378,6 +7384,19 @@ msgid ""
 "\t\t<p>🚀 How to <a target=\"_blank\" href=\"%5$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
 msgstr ""
 
+#: includes/Extensions/WooCommerce/WooCommerceCartPeek.php:72
+#: includes/Types/WooCommerceCartPeek.php:56
+msgid "Cart Peek"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooCommerceCartPeek.php:78
+#, php-format
+msgid ""
+"<p>Show shoppers how many others have this product in their cart right now — a live social-proof signal that fires at the highest-value hesitation moment on the PDP.</p>\n"
+"            <p>Requires an active NotificationX Pro licence and <a target=\"_blank\" href=\"%1$s\">WooCommerce installed &amp; activated</a>.</p>\n"
+"            <p>📚 <a target=\"_blank\" href=\"%2$s\">Documentation</a></p>"
+msgstr ""
+
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:132
 #: includes/Extensions/WooCommerce/WooInline.php:136
 msgid "people are viewing"
@@ -7388,6 +7407,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooInline.php:147
 #: includes/Extensions/WooCommerce/WooInline.php:197
 #: includes/Types/PageAnalytics.php:102
+#: includes/Types/WooCommerceCartPeek.php:69
 msgid "right now"
 msgstr ""
 
@@ -8233,6 +8253,93 @@ msgid ""
 "                    <source src=\"https://notificationx.com/wp-content/uploads/2024/01/How-To-Show-YouTube-Activities-Popup-With-NotificationX.mp4\" type=\"video/mp4\">\n"
 "                </video>\n"
 "            "
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:55
+msgid "Cart Peek 🛒"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:64
+msgid "A few shoppers have this in their cart"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:67
+msgid "this product"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:88
+#: includes/Types/WooCommerceCartPeek.php:97
+#: includes/Types/WooCommerceCartPeek.php:121
+msgid "View product"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:146
+#: includes/Types/WooCommerceCartPeek.php:155
+msgid "Cart Count"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:169
+msgid "<a href='https://notificationx.com/docs/cart-peek/' target='_blank'>More Info</a>"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:172
+msgid ""
+"\n"
+"                <span>Show the live count of shoppers who currently have a product in their cart to spark urgency and boost conversions.</span>\n"
+"            "
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:201
+#: includes/Types/WooCommerceCartPeek.php:208
+msgid "Cart Confirmation Popup"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:213
+msgid "Show the shopper a \"Continue shopping / Go to checkout\" popup right after they add a product to the cart."
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:216
+msgid "Popup Heading"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:219
+msgid "Leaving so soon?"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:223
+msgid "Continue Shopping Button"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:226
+msgid "Continue shopping"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:230
+msgid "Checkout Button"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:233
+msgid "Go to checkout"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:237
+msgid "Multiple Products Display"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:241
+msgid "How to show the message when the cart has more than one product."
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:243
+msgid "Show count — e.g. \"Product A and 2 more products\""
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:244
+msgid "List product names — e.g. \"Product A, Product B, Product C\""
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:245
+msgid "Show total items — e.g. \"3 items\""
 msgstr ""
 
 #. translators: %s: URL of the wp-admin plugins page
