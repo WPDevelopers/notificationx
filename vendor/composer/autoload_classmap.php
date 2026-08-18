@@ -29,6 +29,7 @@ return array(
     'NotificationX\\CoreInstaller' => $baseDir . '/includes/CoreInstaller.php',
     'NotificationX\\Core\\Ajax' => $baseDir . '/includes/Core/Ajax.php',
     'NotificationX\\Core\\Analytics' => $baseDir . '/includes/Core/Analytics.php',
+    'NotificationX\\Core\\AudienceToken' => $baseDir . '/includes/Core/AudienceToken.php',
     'NotificationX\\Core\\Dashboard' => $baseDir . '/includes/Core/Dashboard.php',
     'NotificationX\\Core\\Database' => $baseDir . '/includes/Core/Database.php',
     'NotificationX\\Core\\GetData' => $baseDir . '/includes/Core/GetData.php',

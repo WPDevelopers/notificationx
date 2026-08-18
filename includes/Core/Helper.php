@@ -314,6 +314,25 @@ class Helper {
         }
     }
 
+    /**
+     * Whether outbound requests must verify the remote host's certificate.
+     *
+     * Always yes in production. These requests carry stored API keys, client
+     * secrets and bearer tokens, and with verification off anyone able to answer
+     * for the remote host collects them and decides what comes back -- no valid
+     * certificate needed. It was off by default here, which meant every
+     * integration built on this helper inherited that.
+     *
+     * The one way out is for local development against self-signed
+     * certificates. It is a constant, and nothing in the plugin defines it, so
+     * it has to be added to wp-config.php deliberately and cannot ship enabled.
+     *
+     * @return bool
+     */
+    public static function ssl_verify() {
+        return ! ( defined( 'NOTIFICATIONX_DISABLE_SSL_VERIFY' ) && NOTIFICATIONX_DISABLE_SSL_VERIFY );
+    }
+
     public static function get_theme_or_plugin_list($api_data = null) {
         $data = array();
         $new_data = array();
@@ -486,7 +505,7 @@ class Helper {
             'httpversion' => '1.1',
             'user-agent'  => 'NotificationX/' . NOTIFICATIONX_VERSION . '; ' . home_url(),
             'body'        => null,
-            'sslverify'   => false,
+            'sslverify'   => self::ssl_verify(),
             'stream'      => false,
             'filename'    => null
         );
@@ -494,6 +513,14 @@ class Helper {
         $response = wp_remote_get($url, $args);
 
         if (is_wp_error($response)) {
+            // Certificate failures arrive here now that verification is on, and
+            // a bare `false` makes one indistinguishable from "the API returned
+            // nothing" -- the integration simply stops with nothing to look at.
+            // Host only, never the URL: some integrations put their credentials
+            // in the query string, and a debug log is not the place for them.
+            self::write_log(
+                'NotificationX request to ' . wp_parse_url( $url, PHP_URL_HOST ) . ' failed: ' . $response->get_error_message()
+            );
             return false;
         }
         if($raw){

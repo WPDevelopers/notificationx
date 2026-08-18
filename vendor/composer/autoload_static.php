@@ -7,22 +7,22 @@ namespace Composer\Autoload;
 class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 {
     public static $prefixLengthsPsr4 = array (
-        'W' => 
+        'W' =>
         array (
             'WPDeveloper\\QueryBuilder\\' => 25,
         ),
-        'P' => 
+        'P' =>
         array (
             'PriyoMukul\\WPNotice\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'WPDeveloper\\QueryBuilder\\' => 
+        'WPDeveloper\\QueryBuilder\\' =>
         array (
             0 => __DIR__ . '/..' . '/wpdeveloper/query-builder/src',
         ),
-        'PriyoMukul\\WPNotice\\' => 
+        'PriyoMukul\\WPNotice\\' =>
         array (
             0 => __DIR__ . '/..' . '/priyomukul/wp-notice/src',
         ),
@@ -52,6 +52,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\CoreInstaller' => __DIR__ . '/../..' . '/includes/CoreInstaller.php',
         'NotificationX\\Core\\Ajax' => __DIR__ . '/../..' . '/includes/Core/Ajax.php',
         'NotificationX\\Core\\Analytics' => __DIR__ . '/../..' . '/includes/Core/Analytics.php',
+        'NotificationX\\Core\\AudienceToken' => __DIR__ . '/../..' . '/includes/Core/AudienceToken.php',
         'NotificationX\\Core\\Dashboard' => __DIR__ . '/../..' . '/includes/Core/Dashboard.php',
         'NotificationX\\Core\\Database' => __DIR__ . '/../..' . '/includes/Core/Database.php',
         'NotificationX\\Core\\GetData' => __DIR__ . '/../..' . '/includes/Core/GetData.php',
