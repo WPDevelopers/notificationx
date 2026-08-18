@@ -13,6 +13,7 @@ How-to guides for extending NotificationX. For the underlying architecture see [
 | [adding-a-settings-tab.md](adding-a-settings-tab.md) | Add a tab/section to the admin settings. |
 | [building-assets.md](building-assets.md) | The wp-scripts build/watch commands and what they emit. |
 | [documentation-conventions.md](documentation-conventions.md) | House style for these docs — read before adding one. |
+| [facebook-reviews-implementation-plan.md](facebook-reviews-implementation-plan.md) | In-progress plan for the Facebook Recommendations source (Apify-backed, freemium). |
 
 ## Reference material
 - Per-Type reference: [../types/](../types/) (`_TEMPLATE.md` for new type docs).

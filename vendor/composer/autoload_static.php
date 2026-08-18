@@ -7,22 +7,22 @@ namespace Composer\Autoload;
 class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 {
     public static $prefixLengthsPsr4 = array (
-        'W' => 
+        'W' =>
         array (
             'WPDeveloper\\QueryBuilder\\' => 25,
         ),
-        'P' => 
+        'P' =>
         array (
             'PriyoMukul\\WPNotice\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'WPDeveloper\\QueryBuilder\\' => 
+        'WPDeveloper\\QueryBuilder\\' =>
         array (
             0 => __DIR__ . '/..' . '/wpdeveloper/query-builder/src',
         ),
-        'PriyoMukul\\WPNotice\\' => 
+        'PriyoMukul\\WPNotice\\' =>
         array (
             0 => __DIR__ . '/..' . '/priyomukul/wp-notice/src',
         ),
@@ -100,6 +100,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\ExitIntent\\Importer' => __DIR__ . '/../..' . '/includes/Extensions/ExitIntent/importer.php',
         'NotificationX\\Extensions\\Extension' => __DIR__ . '/../..' . '/includes/Extensions/Extension.php',
         'NotificationX\\Extensions\\ExtensionFactory' => __DIR__ . '/../..' . '/includes/Extensions/ExtensionFactory.php',
+        'NotificationX\\Extensions\\Facebook\\FacebookReviews' => __DIR__ . '/../..' . '/includes/Extensions/Facebook/FacebookReviews.php',
         'NotificationX\\Extensions\\FlashingTab\\FlashingTab' => __DIR__ . '/../..' . '/includes/Extensions/FlashingTab/FlashingTab.php',
         'NotificationX\\Extensions\\FluentCart\\FluentCart' => __DIR__ . '/../..' . '/includes/Extensions/FluentCart/FluentCart.php',
         'NotificationX\\Extensions\\FluentCart\\FluentCartInline' => __DIR__ . '/../..' . '/includes/Extensions/FluentCart/FluentCartInline.php',

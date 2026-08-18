@@ -510,6 +510,45 @@ class Helper {
     }
 
     /**
+     * POST counterpart of remote_get().
+     *
+     * @param string  $url     Endpoint.
+     * @param array   $body    Payload; arrays are sent as a JSON body.
+     * @param array   $args    wp_remote_post() args, merged over the defaults.
+     * @param boolean $raw     true returns the untouched wp_remote_post() response.
+     * @param boolean $assoc   json_decode() associative flag.
+     * @return mixed false on transport error, decoded body otherwise.
+     */
+    public static function remote_post($url, $body = array(), $args = array(), $raw = false, $assoc = null) {
+        $defaults = array(
+            'timeout'     => 30,
+            'redirection' => 5,
+            'httpversion' => '1.1',
+            'user-agent'  => 'NotificationX/' . NOTIFICATIONX_VERSION . '; ' . home_url(),
+            'sslverify'   => false,
+            'headers'     => array(
+                'Content-Type' => 'application/json',
+            ),
+        );
+        $args = wp_parse_args($args, $defaults);
+
+        if (!isset($args['body']) && !empty($body)) {
+            $args['body'] = is_scalar($body) ? $body : wp_json_encode($body);
+        }
+
+        $response = wp_remote_post($url, $args);
+
+        if (is_wp_error($response)) {
+            return false;
+        }
+        if ($raw) {
+            return $response;
+        }
+
+        return json_decode(wp_remote_retrieve_body($response), $assoc);
+    }
+
+    /**
      * Get File Modification Time or URL
      *
      * @param string $file  File relative path for Admin

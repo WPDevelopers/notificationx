@@ -3,15 +3,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NotificationX 3.2.13\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nx-wt-release\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-06T09:10:48+00:00\n"
+"POT-Creation-Date: 2026-08-18T09:16:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
 
 #. Plugin Name of the plugin
@@ -104,6 +104,7 @@ msgstr ""
 #. translators: %s: no of minutes
 #: includes/Admin/Cron.php:93
 #: includes/Admin/Cron.php:99
+#, php-format
 msgid "Every %s minutes"
 msgstr ""
 
@@ -127,6 +128,7 @@ msgstr ""
 #. translators: %s: site name
 #: includes/Admin/EntriesMailReceiver.php:153
 #: includes/Admin/Settings.php:371
+#, php-format
 msgid "New Entry Received on \"%s\""
 msgstr ""
 
@@ -481,6 +483,7 @@ msgstr ""
 #. translators: %s: site name
 #: includes/Admin/Reports/ReportEmail.php:265
 #: includes/Admin/Settings.php:472
+#, php-format
 msgid "Weekly Engagement Summary of “%s”"
 msgstr ""
 
@@ -835,6 +838,7 @@ msgstr ""
 
 #. translators: %s: Cross Domain Notice link URL
 #: includes/Admin/XSS.php:50
+#, php-format
 msgid "Show your Notification Alerts in another website using <a target=\"_blank\" href=\"%s\">Cross Domain Notice</a>."
 msgstr ""
 
@@ -842,32 +846,32 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: includes/Core/Helper.php:649
+#: includes/Core/Helper.php:688
 #: includes/Types/GDPR.php:385
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Enabled"
 msgstr ""
 
-#: includes/Core/Helper.php:655
+#: includes/Core/Helper.php:694
 #: assets/admin/js/admin.js:20
 msgid "Discovered"
 msgstr ""
 
-#: includes/Core/Helper.php:661
+#: includes/Core/Helper.php:700
 msgid "Cookie ID"
 msgstr ""
 
-#: includes/Core/Helper.php:667
+#: includes/Core/Helper.php:706
 msgid "Domain"
 msgstr ""
 
-#: includes/Core/Helper.php:673
+#: includes/Core/Helper.php:712
 msgid "Duration"
 msgstr ""
 
-#: includes/Core/Helper.php:698
-#: includes/Core/Helper.php:812
+#: includes/Core/Helper.php:737
+#: includes/Core/Helper.php:851
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1400
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1560
 #: assets/public/js/crossSite.js:1
@@ -875,811 +879,811 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: includes/Core/Helper.php:704
+#: includes/Core/Helper.php:743
 msgid "Add Script"
 msgstr ""
 
-#: includes/Core/Helper.php:708
+#: includes/Core/Helper.php:747
 msgid "Add Script on"
 msgstr ""
 
-#: includes/Core/Helper.php:714
+#: includes/Core/Helper.php:753
 msgid "Header"
 msgstr ""
 
-#: includes/Core/Helper.php:715
+#: includes/Core/Helper.php:754
 msgid "Body"
 msgstr ""
 
-#: includes/Core/Helper.php:716
+#: includes/Core/Helper.php:755
 msgid "Footer"
 msgstr ""
 
-#: includes/Core/Helper.php:722
+#: includes/Core/Helper.php:761
 msgid "Script"
 msgstr ""
 
-#: includes/Core/Helper.php:800
+#: includes/Core/Helper.php:839
 #: includes/Core/Rest/Popup.php:475
 #: includes/Extensions/Elementor/FormWidget.php:177
 #: assets/admin/js/admin.js:13
 msgid "Name"
 msgstr ""
 
-#: includes/Core/Helper.php:826
+#: includes/Core/Helper.php:865
 msgid "Indicates when a user is logged in and who they are, for most interface use."
 msgstr ""
 
-#: includes/Core/Helper.php:835
+#: includes/Core/Helper.php:874
 msgid "Used for security purposes for logged-in users."
 msgstr ""
 
-#: includes/Core/Helper.php:844
+#: includes/Core/Helper.php:883
 msgid "Used to persist a user's WordPress admin settings."
 msgstr ""
 
-#: includes/Core/Helper.php:853
-#: includes/Core/Helper.php:862
+#: includes/Core/Helper.php:892
+#: includes/Core/Helper.php:901
 msgid "Records the time that wp-settings-{user_id} was set."
 msgstr ""
 
-#: includes/Core/Helper.php:870
+#: includes/Core/Helper.php:909
 msgid "Manages the cookies on the site, ensuring user consent for GDPR compliance."
 msgstr ""
 
-#: includes/Core/Helper.php:1199
+#: includes/Core/Helper.php:1238
 msgid "All Countries"
 msgstr ""
 
-#: includes/Core/Helper.php:1200
+#: includes/Core/Helper.php:1239
 msgid "Afghanistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1201
+#: includes/Core/Helper.php:1240
 msgid "Albania"
 msgstr ""
 
-#: includes/Core/Helper.php:1202
+#: includes/Core/Helper.php:1241
 msgid "Algeria"
 msgstr ""
 
-#: includes/Core/Helper.php:1203
+#: includes/Core/Helper.php:1242
 msgid "American Samoa"
 msgstr ""
 
-#: includes/Core/Helper.php:1204
+#: includes/Core/Helper.php:1243
 msgid "Andorra"
 msgstr ""
 
-#: includes/Core/Helper.php:1205
+#: includes/Core/Helper.php:1244
 msgid "Angola"
 msgstr ""
 
-#: includes/Core/Helper.php:1206
+#: includes/Core/Helper.php:1245
 msgid "Anguilla"
 msgstr ""
 
-#: includes/Core/Helper.php:1207
+#: includes/Core/Helper.php:1246
 msgid "Antarctica"
 msgstr ""
 
-#: includes/Core/Helper.php:1208
+#: includes/Core/Helper.php:1247
 msgid "Antigua and Barbuda"
 msgstr ""
 
-#: includes/Core/Helper.php:1209
+#: includes/Core/Helper.php:1248
 msgid "Argentina"
 msgstr ""
 
-#: includes/Core/Helper.php:1210
+#: includes/Core/Helper.php:1249
 msgid "Armenia"
 msgstr ""
 
-#: includes/Core/Helper.php:1211
+#: includes/Core/Helper.php:1250
 msgid "Aruba"
 msgstr ""
 
-#: includes/Core/Helper.php:1212
+#: includes/Core/Helper.php:1251
 msgid "Australia"
 msgstr ""
 
-#: includes/Core/Helper.php:1213
+#: includes/Core/Helper.php:1252
 msgid "Austria"
 msgstr ""
 
-#: includes/Core/Helper.php:1214
+#: includes/Core/Helper.php:1253
 msgid "Azerbaijan"
 msgstr ""
 
-#: includes/Core/Helper.php:1215
+#: includes/Core/Helper.php:1254
 msgid "Bahamas"
 msgstr ""
 
-#: includes/Core/Helper.php:1216
+#: includes/Core/Helper.php:1255
 msgid "Bahrain"
 msgstr ""
 
-#: includes/Core/Helper.php:1217
+#: includes/Core/Helper.php:1256
 msgid "Bangladesh"
 msgstr ""
 
-#: includes/Core/Helper.php:1218
+#: includes/Core/Helper.php:1257
 msgid "Barbados"
 msgstr ""
 
-#: includes/Core/Helper.php:1219
+#: includes/Core/Helper.php:1258
 msgid "Belarus"
 msgstr ""
 
-#: includes/Core/Helper.php:1220
+#: includes/Core/Helper.php:1259
 msgid "Belgium"
 msgstr ""
 
-#: includes/Core/Helper.php:1221
+#: includes/Core/Helper.php:1260
 msgid "Belize"
 msgstr ""
 
-#: includes/Core/Helper.php:1222
+#: includes/Core/Helper.php:1261
 msgid "Benin"
 msgstr ""
 
-#: includes/Core/Helper.php:1223
+#: includes/Core/Helper.php:1262
 msgid "Bermuda"
 msgstr ""
 
-#: includes/Core/Helper.php:1224
+#: includes/Core/Helper.php:1263
 msgid "Bhutan"
 msgstr ""
 
-#: includes/Core/Helper.php:1225
+#: includes/Core/Helper.php:1264
 msgid "Bolivia"
 msgstr ""
 
-#: includes/Core/Helper.php:1226
+#: includes/Core/Helper.php:1265
 msgid "Bosnia and Herzegovina"
 msgstr ""
 
-#: includes/Core/Helper.php:1227
+#: includes/Core/Helper.php:1266
 msgid "Botswana"
 msgstr ""
 
-#: includes/Core/Helper.php:1228
+#: includes/Core/Helper.php:1267
 msgid "Brazil"
 msgstr ""
 
-#: includes/Core/Helper.php:1229
+#: includes/Core/Helper.php:1268
 msgid "Brunei"
 msgstr ""
 
-#: includes/Core/Helper.php:1230
+#: includes/Core/Helper.php:1269
 msgid "Bulgaria"
 msgstr ""
 
-#: includes/Core/Helper.php:1231
+#: includes/Core/Helper.php:1270
 msgid "Burkina Faso"
 msgstr ""
 
-#: includes/Core/Helper.php:1232
+#: includes/Core/Helper.php:1271
 msgid "Burundi"
 msgstr ""
 
-#: includes/Core/Helper.php:1233
+#: includes/Core/Helper.php:1272
 msgid "Cambodia"
 msgstr ""
 
-#: includes/Core/Helper.php:1234
+#: includes/Core/Helper.php:1273
 msgid "Cameroon"
 msgstr ""
 
-#: includes/Core/Helper.php:1235
+#: includes/Core/Helper.php:1274
 msgid "Canada"
 msgstr ""
 
-#: includes/Core/Helper.php:1236
+#: includes/Core/Helper.php:1275
 msgid "Cape Verde"
 msgstr ""
 
-#: includes/Core/Helper.php:1237
+#: includes/Core/Helper.php:1276
 msgid "Central African Republic"
 msgstr ""
 
-#: includes/Core/Helper.php:1238
+#: includes/Core/Helper.php:1277
 msgid "Chad"
 msgstr ""
 
-#: includes/Core/Helper.php:1239
+#: includes/Core/Helper.php:1278
 msgid "Chile"
 msgstr ""
 
-#: includes/Core/Helper.php:1240
+#: includes/Core/Helper.php:1279
 msgid "China"
 msgstr ""
 
-#: includes/Core/Helper.php:1241
+#: includes/Core/Helper.php:1280
 msgid "Colombia"
 msgstr ""
 
-#: includes/Core/Helper.php:1242
+#: includes/Core/Helper.php:1281
 msgid "Comoros"
 msgstr ""
 
-#: includes/Core/Helper.php:1243
+#: includes/Core/Helper.php:1282
 msgid "Congo (Brazzaville)"
 msgstr ""
 
-#: includes/Core/Helper.php:1244
+#: includes/Core/Helper.php:1283
 msgid "Congo (Kinshasa)"
 msgstr ""
 
-#: includes/Core/Helper.php:1245
+#: includes/Core/Helper.php:1284
 msgid "Costa Rica"
 msgstr ""
 
-#: includes/Core/Helper.php:1246
+#: includes/Core/Helper.php:1285
 msgid "Croatia"
 msgstr ""
 
-#: includes/Core/Helper.php:1247
+#: includes/Core/Helper.php:1286
 msgid "Cuba"
 msgstr ""
 
-#: includes/Core/Helper.php:1248
+#: includes/Core/Helper.php:1287
 msgid "Cyprus"
 msgstr ""
 
-#: includes/Core/Helper.php:1249
+#: includes/Core/Helper.php:1288
 msgid "Czech Republic"
 msgstr ""
 
-#: includes/Core/Helper.php:1250
+#: includes/Core/Helper.php:1289
 msgid "Denmark"
 msgstr ""
 
-#: includes/Core/Helper.php:1251
+#: includes/Core/Helper.php:1290
 msgid "Djibouti"
 msgstr ""
 
-#: includes/Core/Helper.php:1252
+#: includes/Core/Helper.php:1291
 msgid "Dominica"
 msgstr ""
 
-#: includes/Core/Helper.php:1253
+#: includes/Core/Helper.php:1292
 msgid "Dominican Republic"
 msgstr ""
 
-#: includes/Core/Helper.php:1254
+#: includes/Core/Helper.php:1293
 msgid "Ecuador"
 msgstr ""
 
-#: includes/Core/Helper.php:1255
+#: includes/Core/Helper.php:1294
 msgid "Egypt"
 msgstr ""
 
-#: includes/Core/Helper.php:1256
+#: includes/Core/Helper.php:1295
 msgid "El Salvador"
 msgstr ""
 
-#: includes/Core/Helper.php:1257
+#: includes/Core/Helper.php:1296
 msgid "Equatorial Guinea"
 msgstr ""
 
-#: includes/Core/Helper.php:1258
+#: includes/Core/Helper.php:1297
 msgid "Eritrea"
 msgstr ""
 
-#: includes/Core/Helper.php:1259
+#: includes/Core/Helper.php:1298
 msgid "Estonia"
 msgstr ""
 
-#: includes/Core/Helper.php:1260
+#: includes/Core/Helper.php:1299
 msgid "Ethiopia"
 msgstr ""
 
-#: includes/Core/Helper.php:1261
+#: includes/Core/Helper.php:1300
 msgid "Fiji"
 msgstr ""
 
-#: includes/Core/Helper.php:1262
+#: includes/Core/Helper.php:1301
 msgid "Finland"
 msgstr ""
 
-#: includes/Core/Helper.php:1263
+#: includes/Core/Helper.php:1302
 msgid "France"
 msgstr ""
 
-#: includes/Core/Helper.php:1264
+#: includes/Core/Helper.php:1303
 msgid "Gabon"
 msgstr ""
 
-#: includes/Core/Helper.php:1265
+#: includes/Core/Helper.php:1304
 msgid "Gambia"
 msgstr ""
 
-#: includes/Core/Helper.php:1266
+#: includes/Core/Helper.php:1305
 msgid "Georgia"
 msgstr ""
 
-#: includes/Core/Helper.php:1267
+#: includes/Core/Helper.php:1306
 msgid "Germany"
 msgstr ""
 
-#: includes/Core/Helper.php:1268
+#: includes/Core/Helper.php:1307
 msgid "Ghana"
 msgstr ""
 
-#: includes/Core/Helper.php:1269
+#: includes/Core/Helper.php:1308
 msgid "Greece"
 msgstr ""
 
-#: includes/Core/Helper.php:1270
+#: includes/Core/Helper.php:1309
 msgid "Grenada"
 msgstr ""
 
-#: includes/Core/Helper.php:1271
+#: includes/Core/Helper.php:1310
 msgid "Guatemala"
 msgstr ""
 
-#: includes/Core/Helper.php:1272
+#: includes/Core/Helper.php:1311
 msgid "Guinea"
 msgstr ""
 
-#: includes/Core/Helper.php:1273
+#: includes/Core/Helper.php:1312
 msgid "Guinea-Bissau"
 msgstr ""
 
-#: includes/Core/Helper.php:1274
+#: includes/Core/Helper.php:1313
 msgid "Guyana"
 msgstr ""
 
-#: includes/Core/Helper.php:1275
+#: includes/Core/Helper.php:1314
 msgid "Haiti"
 msgstr ""
 
-#: includes/Core/Helper.php:1276
+#: includes/Core/Helper.php:1315
 msgid "Honduras"
 msgstr ""
 
-#: includes/Core/Helper.php:1277
+#: includes/Core/Helper.php:1316
 msgid "Hong Kong"
 msgstr ""
 
-#: includes/Core/Helper.php:1278
+#: includes/Core/Helper.php:1317
 msgid "Hungary"
 msgstr ""
 
-#: includes/Core/Helper.php:1279
+#: includes/Core/Helper.php:1318
 msgid "Iceland"
 msgstr ""
 
-#: includes/Core/Helper.php:1280
+#: includes/Core/Helper.php:1319
 msgid "India"
 msgstr ""
 
-#: includes/Core/Helper.php:1281
+#: includes/Core/Helper.php:1320
 msgid "Indonesia"
 msgstr ""
 
-#: includes/Core/Helper.php:1282
+#: includes/Core/Helper.php:1321
 msgid "Iran"
 msgstr ""
 
-#: includes/Core/Helper.php:1283
+#: includes/Core/Helper.php:1322
 msgid "Iraq"
 msgstr ""
 
-#: includes/Core/Helper.php:1284
+#: includes/Core/Helper.php:1323
 msgid "Ireland"
 msgstr ""
 
-#: includes/Core/Helper.php:1285
+#: includes/Core/Helper.php:1324
 msgid "Israel"
 msgstr ""
 
-#: includes/Core/Helper.php:1286
+#: includes/Core/Helper.php:1325
 msgid "Italy"
 msgstr ""
 
-#: includes/Core/Helper.php:1287
+#: includes/Core/Helper.php:1326
 msgid "Jamaica"
 msgstr ""
 
-#: includes/Core/Helper.php:1288
+#: includes/Core/Helper.php:1327
 msgid "Japan"
 msgstr ""
 
-#: includes/Core/Helper.php:1289
+#: includes/Core/Helper.php:1328
 msgid "Jordan"
 msgstr ""
 
-#: includes/Core/Helper.php:1290
+#: includes/Core/Helper.php:1329
 msgid "Kazakhstan"
 msgstr ""
 
-#: includes/Core/Helper.php:1291
+#: includes/Core/Helper.php:1330
 msgid "Kenya"
 msgstr ""
 
-#: includes/Core/Helper.php:1292
+#: includes/Core/Helper.php:1331
 msgid "Kiribati"
 msgstr ""
 
-#: includes/Core/Helper.php:1293
+#: includes/Core/Helper.php:1332
 msgid "Korea, South"
 msgstr ""
 
-#: includes/Core/Helper.php:1294
+#: includes/Core/Helper.php:1333
 msgid "Kuwait"
 msgstr ""
 
-#: includes/Core/Helper.php:1295
+#: includes/Core/Helper.php:1334
 msgid "Kyrgyzstan"
 msgstr ""
 
-#: includes/Core/Helper.php:1296
+#: includes/Core/Helper.php:1335
 msgid "Laos"
 msgstr ""
 
-#: includes/Core/Helper.php:1297
+#: includes/Core/Helper.php:1336
 msgid "Latvia"
 msgstr ""
 
-#: includes/Core/Helper.php:1298
+#: includes/Core/Helper.php:1337
 msgid "Lebanon"
 msgstr ""
 
-#: includes/Core/Helper.php:1299
+#: includes/Core/Helper.php:1338
 msgid "Lesotho"
 msgstr ""
 
-#: includes/Core/Helper.php:1300
+#: includes/Core/Helper.php:1339
 msgid "Liberia"
 msgstr ""
 
-#: includes/Core/Helper.php:1301
+#: includes/Core/Helper.php:1340
 msgid "Libya"
 msgstr ""
 
-#: includes/Core/Helper.php:1302
+#: includes/Core/Helper.php:1341
 msgid "Liechtenstein"
 msgstr ""
 
-#: includes/Core/Helper.php:1303
+#: includes/Core/Helper.php:1342
 msgid "Lithuania"
 msgstr ""
 
-#: includes/Core/Helper.php:1304
+#: includes/Core/Helper.php:1343
 msgid "Luxembourg"
 msgstr ""
 
-#: includes/Core/Helper.php:1305
+#: includes/Core/Helper.php:1344
 msgid "Madagascar"
 msgstr ""
 
-#: includes/Core/Helper.php:1306
+#: includes/Core/Helper.php:1345
 msgid "Malawi"
 msgstr ""
 
-#: includes/Core/Helper.php:1307
+#: includes/Core/Helper.php:1346
 msgid "Malaysia"
 msgstr ""
 
-#: includes/Core/Helper.php:1308
+#: includes/Core/Helper.php:1347
 msgid "Maldives"
 msgstr ""
 
-#: includes/Core/Helper.php:1309
+#: includes/Core/Helper.php:1348
 msgid "Mali"
 msgstr ""
 
-#: includes/Core/Helper.php:1310
+#: includes/Core/Helper.php:1349
 msgid "Malta"
 msgstr ""
 
-#: includes/Core/Helper.php:1311
+#: includes/Core/Helper.php:1350
 msgid "Marshall Islands"
 msgstr ""
 
-#: includes/Core/Helper.php:1312
+#: includes/Core/Helper.php:1351
 msgid "Mauritania"
 msgstr ""
 
-#: includes/Core/Helper.php:1313
+#: includes/Core/Helper.php:1352
 msgid "Mauritius"
 msgstr ""
 
-#: includes/Core/Helper.php:1314
+#: includes/Core/Helper.php:1353
 msgid "Mexico"
 msgstr ""
 
-#: includes/Core/Helper.php:1315
+#: includes/Core/Helper.php:1354
 msgid "Micronesia"
 msgstr ""
 
-#: includes/Core/Helper.php:1316
+#: includes/Core/Helper.php:1355
 msgid "Moldova"
 msgstr ""
 
-#: includes/Core/Helper.php:1317
+#: includes/Core/Helper.php:1356
 msgid "Monaco"
 msgstr ""
 
-#: includes/Core/Helper.php:1318
+#: includes/Core/Helper.php:1357
 msgid "Mongolia"
 msgstr ""
 
-#: includes/Core/Helper.php:1319
+#: includes/Core/Helper.php:1358
 msgid "Montenegro"
 msgstr ""
 
-#: includes/Core/Helper.php:1320
+#: includes/Core/Helper.php:1359
 msgid "Morocco"
 msgstr ""
 
-#: includes/Core/Helper.php:1321
+#: includes/Core/Helper.php:1360
 msgid "Mozambique"
 msgstr ""
 
-#: includes/Core/Helper.php:1322
+#: includes/Core/Helper.php:1361
 msgid "Myanmar (Burma)"
 msgstr ""
 
-#: includes/Core/Helper.php:1323
+#: includes/Core/Helper.php:1362
 msgid "Namibia"
 msgstr ""
 
-#: includes/Core/Helper.php:1324
+#: includes/Core/Helper.php:1363
 msgid "Nauru"
 msgstr ""
 
-#: includes/Core/Helper.php:1325
+#: includes/Core/Helper.php:1364
 msgid "Nepal"
 msgstr ""
 
-#: includes/Core/Helper.php:1326
+#: includes/Core/Helper.php:1365
 msgid "Netherlands"
 msgstr ""
 
-#: includes/Core/Helper.php:1327
+#: includes/Core/Helper.php:1366
 msgid "New Zealand"
 msgstr ""
 
-#: includes/Core/Helper.php:1328
+#: includes/Core/Helper.php:1367
 msgid "Nicaragua"
 msgstr ""
 
-#: includes/Core/Helper.php:1329
+#: includes/Core/Helper.php:1368
 msgid "Niger"
 msgstr ""
 
-#: includes/Core/Helper.php:1330
+#: includes/Core/Helper.php:1369
 msgid "Nigeria"
 msgstr ""
 
-#: includes/Core/Helper.php:1331
+#: includes/Core/Helper.php:1370
 msgid "North Macedonia"
 msgstr ""
 
-#: includes/Core/Helper.php:1332
+#: includes/Core/Helper.php:1371
 msgid "Norway"
 msgstr ""
 
-#: includes/Core/Helper.php:1333
+#: includes/Core/Helper.php:1372
 msgid "Oman"
 msgstr ""
 
-#: includes/Core/Helper.php:1334
+#: includes/Core/Helper.php:1373
 msgid "Pakistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1335
+#: includes/Core/Helper.php:1374
 msgid "Palau"
 msgstr ""
 
-#: includes/Core/Helper.php:1336
+#: includes/Core/Helper.php:1375
 msgid "Panama"
 msgstr ""
 
-#: includes/Core/Helper.php:1337
+#: includes/Core/Helper.php:1376
 msgid "Papua New Guinea"
 msgstr ""
 
-#: includes/Core/Helper.php:1338
+#: includes/Core/Helper.php:1377
 msgid "Paraguay"
 msgstr ""
 
-#: includes/Core/Helper.php:1339
+#: includes/Core/Helper.php:1378
 msgid "Peru"
 msgstr ""
 
-#: includes/Core/Helper.php:1340
+#: includes/Core/Helper.php:1379
 msgid "Philippines"
 msgstr ""
 
-#: includes/Core/Helper.php:1341
+#: includes/Core/Helper.php:1380
 msgid "Poland"
 msgstr ""
 
-#: includes/Core/Helper.php:1342
+#: includes/Core/Helper.php:1381
 msgid "Portugal"
 msgstr ""
 
-#: includes/Core/Helper.php:1343
+#: includes/Core/Helper.php:1382
 msgid "Qatar"
 msgstr ""
 
-#: includes/Core/Helper.php:1344
+#: includes/Core/Helper.php:1383
 msgid "Romania"
 msgstr ""
 
-#: includes/Core/Helper.php:1345
+#: includes/Core/Helper.php:1384
 msgid "Russia"
 msgstr ""
 
-#: includes/Core/Helper.php:1346
+#: includes/Core/Helper.php:1385
 msgid "Rwanda"
 msgstr ""
 
-#: includes/Core/Helper.php:1347
+#: includes/Core/Helper.php:1386
 msgid "Saudi Arabia"
 msgstr ""
 
-#: includes/Core/Helper.php:1348
+#: includes/Core/Helper.php:1387
 msgid "Senegal"
 msgstr ""
 
-#: includes/Core/Helper.php:1349
+#: includes/Core/Helper.php:1388
 msgid "Serbia"
 msgstr ""
 
-#: includes/Core/Helper.php:1350
+#: includes/Core/Helper.php:1389
 msgid "Seychelles"
 msgstr ""
 
-#: includes/Core/Helper.php:1351
+#: includes/Core/Helper.php:1390
 msgid "Sierra Leone"
 msgstr ""
 
-#: includes/Core/Helper.php:1352
+#: includes/Core/Helper.php:1391
 msgid "Singapore"
 msgstr ""
 
-#: includes/Core/Helper.php:1353
+#: includes/Core/Helper.php:1392
 msgid "Slovakia"
 msgstr ""
 
-#: includes/Core/Helper.php:1354
+#: includes/Core/Helper.php:1393
 msgid "Slovenia"
 msgstr ""
 
-#: includes/Core/Helper.php:1355
+#: includes/Core/Helper.php:1394
 msgid "Solomon Islands"
 msgstr ""
 
-#: includes/Core/Helper.php:1356
+#: includes/Core/Helper.php:1395
 msgid "Somalia"
 msgstr ""
 
-#: includes/Core/Helper.php:1357
+#: includes/Core/Helper.php:1396
 msgid "South Africa"
 msgstr ""
 
-#: includes/Core/Helper.php:1358
+#: includes/Core/Helper.php:1397
 msgid "Spain"
 msgstr ""
 
-#: includes/Core/Helper.php:1359
+#: includes/Core/Helper.php:1398
 msgid "Sri Lanka"
 msgstr ""
 
-#: includes/Core/Helper.php:1360
+#: includes/Core/Helper.php:1399
 msgid "Sudan"
 msgstr ""
 
-#: includes/Core/Helper.php:1361
+#: includes/Core/Helper.php:1400
 msgid "Suriname"
 msgstr ""
 
-#: includes/Core/Helper.php:1362
+#: includes/Core/Helper.php:1401
 msgid "Sweden"
 msgstr ""
 
-#: includes/Core/Helper.php:1363
+#: includes/Core/Helper.php:1402
 msgid "Switzerland"
 msgstr ""
 
-#: includes/Core/Helper.php:1364
+#: includes/Core/Helper.php:1403
 msgid "Syria"
 msgstr ""
 
-#: includes/Core/Helper.php:1365
+#: includes/Core/Helper.php:1404
 msgid "Taiwan"
 msgstr ""
 
-#: includes/Core/Helper.php:1366
+#: includes/Core/Helper.php:1405
 msgid "Tajikistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1367
+#: includes/Core/Helper.php:1406
 msgid "Tanzania"
 msgstr ""
 
-#: includes/Core/Helper.php:1368
+#: includes/Core/Helper.php:1407
 msgid "Thailand"
 msgstr ""
 
-#: includes/Core/Helper.php:1369
+#: includes/Core/Helper.php:1408
 msgid "Togo"
 msgstr ""
 
-#: includes/Core/Helper.php:1370
+#: includes/Core/Helper.php:1409
 msgid "Tonga"
 msgstr ""
 
-#: includes/Core/Helper.php:1371
+#: includes/Core/Helper.php:1410
 msgid "Trinidad and Tobago"
 msgstr ""
 
-#: includes/Core/Helper.php:1372
+#: includes/Core/Helper.php:1411
 msgid "Tunisia"
 msgstr ""
 
-#: includes/Core/Helper.php:1373
+#: includes/Core/Helper.php:1412
 msgid "Turkey"
 msgstr ""
 
-#: includes/Core/Helper.php:1374
+#: includes/Core/Helper.php:1413
 msgid "Turkmenistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1375
+#: includes/Core/Helper.php:1414
 msgid "Uganda"
 msgstr ""
 
-#: includes/Core/Helper.php:1376
+#: includes/Core/Helper.php:1415
 msgid "Ukraine"
 msgstr ""
 
-#: includes/Core/Helper.php:1377
+#: includes/Core/Helper.php:1416
 msgid "United Arab Emirates"
 msgstr ""
 
-#: includes/Core/Helper.php:1378
+#: includes/Core/Helper.php:1417
 msgid "United Kingdom"
 msgstr ""
 
-#: includes/Core/Helper.php:1379
+#: includes/Core/Helper.php:1418
 msgid "United States"
 msgstr ""
 
-#: includes/Core/Helper.php:1380
+#: includes/Core/Helper.php:1419
 msgid "Uruguay"
 msgstr ""
 
-#: includes/Core/Helper.php:1381
+#: includes/Core/Helper.php:1420
 msgid "Uzbekistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1382
+#: includes/Core/Helper.php:1421
 msgid "Vanuatu"
 msgstr ""
 
-#: includes/Core/Helper.php:1383
+#: includes/Core/Helper.php:1422
 msgid "Venezuela"
 msgstr ""
 
-#: includes/Core/Helper.php:1384
+#: includes/Core/Helper.php:1423
 msgid "Vietnam"
 msgstr ""
 
-#: includes/Core/Helper.php:1385
+#: includes/Core/Helper.php:1424
 msgid "Yemen"
 msgstr ""
 
-#: includes/Core/Helper.php:1386
+#: includes/Core/Helper.php:1425
 msgid "Zambia"
 msgstr ""
 
-#: includes/Core/Helper.php:1387
+#: includes/Core/Helper.php:1426
 msgid "Zimbabwe"
 msgstr ""
 
@@ -1729,21 +1733,28 @@ msgstr ""
 
 #. translators: %s: Post Type label
 #: includes/Core/Locations.php:53
+#, php-format
 msgid "All %s posts"
 msgstr ""
 
 #. translators: %s: Post Type label
 #: includes/Core/Locations.php:57
+#, php-format
 msgid "All %s archives"
 msgstr ""
 
 #. translators: %s: Taxonomy label
 #: includes/Core/Locations.php:63
+#, php-format
 msgid "All %s taxonomy archives"
 msgstr ""
 
 #: includes/Core/Migration.php:393
 #: includes/Extensions/EDD/EDInline.php:45
+#: includes/Extensions/Facebook/FacebookReviews.php:100
+#: includes/Extensions/Facebook/FacebookReviews.php:114
+#: includes/Extensions/Facebook/FacebookReviews.php:128
+#: includes/Extensions/Facebook/FacebookReviews.php:142
 #: includes/Extensions/FluentCart/FluentCart.php:736
 #: includes/Extensions/FluentCart/FluentCart.php:737
 #: includes/Extensions/FluentCart/FluentCart.php:738
@@ -1852,6 +1863,7 @@ msgstr ""
 
 #. translators: %1$s: number of scans already used, %2$s: total free scans available
 #: includes/Core/PostType.php:134
+#, php-format
 msgid "%1$s of %2$s free scans used"
 msgstr ""
 
@@ -1999,6 +2011,7 @@ msgstr ""
 
 #. translators: %s: rotation deadline date.
 #: includes/Core/Rest/Integration.php:268
+#, php-format
 msgid "A Zapier (or other webhook) integration is still calling NotificationX with the legacy API key. Rotate it to the new key before %s — after that, requests using the old key will be rejected."
 msgstr ""
 
@@ -2012,6 +2025,7 @@ msgstr ""
 
 #. translators: %s: notification ID
 #: includes/Core/Rest/Integration.php:296
+#, php-format
 msgid "There is no notification created with this id: %s"
 msgstr ""
 
@@ -2049,6 +2063,7 @@ msgstr ""
 
 #. translators: %d: Number of entries deleted
 #: includes/Core/Rest/Popup.php:376
+#, php-format
 msgid "%d entry deleted successfully"
 msgid_plural "%d entries deleted successfully"
 msgstr[0] ""
@@ -2060,6 +2075,7 @@ msgstr ""
 
 #. translators: %d: number of entries prepared for export
 #: includes/Core/Rest/Popup.php:453
+#, php-format
 msgid "Successfully prepared %d entries for export"
 msgstr ""
 
@@ -2097,6 +2113,7 @@ msgstr ""
 
 #. translators: %d: notification ID
 #: includes/Core/Rest/Popup.php:493
+#, php-format
 msgid "Notification #%d"
 msgstr ""
 
@@ -2149,6 +2166,7 @@ msgstr ""
 
 #. translators: %1$s: URL, %2$s: documentation link URL, %3$s: Integration with ActiveCampaign link URL, %4$s: ActiveCampaign Email Subscription Alerts link URL
 #: includes/Extensions/ActiveCampaign/ActiveCampaign.php:59
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API URL & API key from ActiveCampaign account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with ActiveCampaign</a></p>\n"
@@ -2419,6 +2437,7 @@ msgstr ""
 
 #. translators: links
 #: includes/Extensions/CF7/CF7.php:278
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2434,6 +2453,7 @@ msgstr ""
 
 #. translators: %1$s: signed in & retrieved your API key from ConvertKit account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with ConvertKit link URL, %5$s: NotificationX With ConvertKit link URL
 #: includes/Extensions/ConvertKit/ConvertKit.php:59
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved your API key from ConvertKit account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2453,6 +2473,7 @@ msgstr ""
 #. translators: %1$s: documentation link URL, %2$s: video tutorial link URL, %3$s: Display Custom Notification Alerts link URL
 #: includes/Extensions/CustomNotification/CustomNotification.php:92
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:69
+#, php-format
 msgid ""
 "<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%2$s\">video tutorial</a> to learn quickly</p>\n"
@@ -2498,6 +2519,7 @@ msgstr ""
 #. translators: %1$s: product title, %2$s: combined "and N more products" text
 #: includes/Extensions/EDD/EDD.php:168
 #: includes/Extensions/WooCommerce/WooCommerce.php:551
+#, php-format
 msgid "%1$s & %2$s"
 msgstr ""
 
@@ -2524,6 +2546,7 @@ msgstr ""
 
 #. translators: %1$s: Easy Digital Downloads installed & activated link URL, %2$s: documentation link URL, %3$s: Integration with Easy Digital Downloads link URL, %4$s: NotificationX Increase Sales on WordPress link URL
 #: includes/Extensions/EDD/EDD.php:403
+#, php-format
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Easy Digital Downloads</a></p>\n"
@@ -3172,6 +3195,7 @@ msgstr ""
 
 #. translators: %d: notification ID
 #: includes/Extensions/Elementor/FormWidget.php:100
+#, php-format
 msgid "#%d"
 msgstr ""
 
@@ -3407,6 +3431,7 @@ msgstr ""
 
 #. translators: links
 #: includes/Extensions/Elementor/From.php:77
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Elementor Pro installed & configured</a> to use its form submission data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -3434,6 +3459,7 @@ msgstr ""
 
 #. translators: %1$s: created & signed in to Envato account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Envato link URL
 #: includes/Extensions/Envato/Envato.php:70
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -4527,9 +4553,351 @@ msgstr ""
 
 #. translators: %1$s: documentation link URL
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2277
+#, php-format
 msgid ""
 "\n"
 "        <p>Show a targeted message at the exact moment someone is about to close your tab & bring them back into the funnel. Need help? Check out our <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:82
+#: includes/Extensions/Facebook/FacebookReviews.php:83
+msgid "Facebook Reviews"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:101
+#: includes/Extensions/Facebook/FacebookReviews.php:115
+#: includes/Extensions/Facebook/FacebookReviews.php:129
+#: includes/Extensions/Facebook/FacebookReviews.php:143
+#: includes/Extensions/Google/GoogleReviews.php:70
+#: includes/Extensions/Google/GoogleReviews.php:84
+#: includes/Extensions/Google/GoogleReviews.php:98
+#: includes/Extensions/Google/GoogleReviews.php:112
+#: includes/Extensions/ReviewX/ReviewX.php:93
+#: includes/Extensions/ReviewX/ReviewX.php:120
+#: includes/Extensions/ReviewX/ReviewX.php:131
+#: includes/Extensions/ReviewX/ReviewX.php:143
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:86
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:113
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:124
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:136
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:202
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:212
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:222
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:232
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:242
+#: includes/Extensions/WooCommerce/WOOReviews.php:76
+#: includes/Extensions/WooCommerce/WOOReviews.php:103
+#: includes/Extensions/WooCommerce/WOOReviews.php:114
+#: includes/Extensions/WooCommerce/WOOReviews.php:126
+#: includes/Types/Reviews.php:76
+#: includes/Types/Reviews.php:103
+#: includes/Types/Reviews.php:114
+#: includes/Types/Reviews.php:126
+#: includes/Types/Reviews.php:149
+#: includes/Types/Reviews.php:159
+#: includes/Types/Reviews.php:169
+#: includes/Types/Reviews.php:179
+#: includes/Types/Reviews.php:189
+msgid "just reviewed"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:103
+#: includes/Extensions/Facebook/FacebookReviews.php:117
+#: includes/Extensions/Facebook/FacebookReviews.php:131
+#: includes/Extensions/Facebook/FacebookReviews.php:145
+msgid "Anonymous Page"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:105
+#: includes/Extensions/Facebook/FacebookReviews.php:133
+#: includes/Extensions/Facebook/FacebookReviews.php:147
+#: includes/Extensions/Give/Give.php:86
+#: includes/Extensions/GlobalFields.php:726
+#: includes/Extensions/GlobalFields.php:744
+#: includes/Extensions/GlobalFields.php:2375
+#: includes/Extensions/Google/GoogleReviews.php:60
+#: includes/Extensions/Google/GoogleReviews.php:74
+#: includes/Extensions/Google/GoogleReviews.php:88
+#: includes/Extensions/Google/GoogleReviews.php:116
+#: includes/Extensions/Google/GoogleReviews.php:131
+#: includes/Extensions/OfferAnnouncement/Announcements.php:59
+#: includes/Extensions/OfferAnnouncement/Announcements.php:79
+#: includes/Extensions/OfferAnnouncement/Announcements.php:100
+#: includes/Extensions/OfferAnnouncement/Announcements.php:135
+#: includes/Extensions/OfferAnnouncement/Announcements.php:183
+#: includes/Extensions/OfferAnnouncement/Announcements.php:197
+#: includes/Extensions/OfferAnnouncement/Announcements.php:212
+#: includes/Extensions/OfferAnnouncement/Announcements.php:239
+#: includes/Extensions/ReviewX/ReviewX.php:84
+#: includes/Extensions/ReviewX/ReviewX.php:96
+#: includes/Extensions/ReviewX/ReviewX.php:123
+#: includes/Extensions/ReviewX/ReviewX.php:134
+#: includes/Extensions/ReviewX/ReviewX.php:146
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:77
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:89
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:116
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:127
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:139
+#: includes/Extensions/WooCommerce/WOOReviews.php:67
+#: includes/Extensions/WooCommerce/WOOReviews.php:79
+#: includes/Extensions/WooCommerce/WOOReviews.php:106
+#: includes/Extensions/WooCommerce/WOOReviews.php:117
+#: includes/Extensions/WooCommerce/WOOReviews.php:129
+#: includes/Extensions/WordPress/WPComments.php:266
+#: includes/FrontEnd/FrontEnd.php:291
+#: includes/Types/Comments.php:59
+#: includes/Types/Comments.php:72
+#: includes/Types/Comments.php:85
+#: includes/Types/Comments.php:98
+#: includes/Types/Comments.php:111
+#: includes/Types/Comments.php:124
+#: includes/Types/Comments.php:138
+#: includes/Types/Comments.php:152
+#: includes/Types/ContactForm.php:65
+#: includes/Types/ContactForm.php:78
+#: includes/Types/ContactForm.php:91
+#: includes/Types/Conversions.php:71
+#: includes/Types/Donations.php:56
+#: includes/Types/ELearning.php:63
+#: includes/Types/ELearning.php:76
+#: includes/Types/ELearning.php:89
+#: includes/Types/EmailSubscription.php:72
+#: includes/Types/EmailSubscription.php:130
+#: includes/Types/GDPR.php:63
+#: includes/Types/GDPR.php:77
+#: includes/Types/GDPR.php:91
+#: includes/Types/GDPR.php:105
+#: includes/Types/GDPR.php:119
+#: includes/Types/GDPR.php:133
+#: includes/Types/GDPR.php:147
+#: includes/Types/GDPR.php:161
+#: includes/Types/GDPR.php:175
+#: includes/Types/GDPR.php:189
+#: includes/Types/GDPR.php:203
+#: includes/Types/GDPR.php:217
+#: includes/Types/Reviews.php:67
+#: includes/Types/Reviews.php:79
+#: includes/Types/Reviews.php:106
+#: includes/Types/Reviews.php:117
+#: includes/Types/Reviews.php:129
+#: includes/Types/WooCommerceSales.php:68
+msgid "Some time ago"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:155
+#: includes/Extensions/Google/GoogleReviews.php:139
+#: includes/Extensions/ReviewX/ReviewX.php:153
+#: includes/Extensions/ReviewX/ReviewX.php:175
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:147
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:169
+#: includes/Extensions/WooCommerce/WOOReviews.php:136
+#: includes/Extensions/WooCommerce/WOOReviews.php:158
+#: includes/Types/Reviews.php:199
+#: includes/Types/Reviews.php:221
+msgid "Username"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:158
+msgid "Page Name"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:159
+#: includes/Extensions/Google/GoogleReviews.php:144
+#: includes/Extensions/ReviewX/ReviewX.php:158
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:152
+#: includes/Extensions/WooCommerce/WOOReviews.php:141
+#: includes/Types/Reviews.php:204
+msgid "Review"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:162
+msgid "Recommendation"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:163
+#: includes/Extensions/Google/GoogleReviews.php:147
+#: includes/Extensions/ReviewX/ReviewX.php:162
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:156
+#: includes/Extensions/WooCommerce/WOOReviews.php:145
+#: includes/Types/Reviews.php:208
+msgid "Rating"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:164
+#: includes/Extensions/GlobalFields.php:2374
+#: includes/Extensions/Google/GoogleReviews.php:148
+#: includes/Extensions/OfferAnnouncement/Announcements.php:238
+#: includes/Extensions/ReviewX/ReviewX.php:163
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:157
+#: includes/Extensions/WooCommerce/WOOReviews.php:146
+#: includes/Types/Comments.php:218
+#: includes/Types/Comments.php:235
+#: includes/Types/ContactForm.php:145
+#: includes/Types/Conversions.php:279
+#: includes/Types/Donations.php:177
+#: includes/Types/ELearning.php:188
+#: includes/Types/EmailSubscription.php:129
+#: includes/Types/Reviews.php:209
+#: includes/Types/WooCommerceSales.php:272
+msgid "Definite Time"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:244
+msgid "Facebook Page Reviews URL"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:249
+msgid "The reviews tab of the Facebook Page you represent, e.g. https://www.facebook.com/yourpage/reviews"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:256
+msgid "Page Display Name"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:260
+msgid "Optional. Shown by the Page Name tag. Leave empty to use the page slug Facebook returns."
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:265
+msgid "Sort By"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:271
+msgid "Newest First"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:272
+msgid "Oldest First"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:273
+msgid "Most Liked"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:275
+msgid "Applied after collection — Facebook returns recommendations unsorted."
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:280
+msgid "Number of Reviews"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:288
+msgid "How many recommendations to collect per refresh. Apify bills per scraped review, so this multiplies your cost."
+msgstr ""
+
+#. translators: %d: maximum number of reviews on the free plan
+#: includes/Extensions/Facebook/FacebookReviews.php:290
+#, php-format
+msgid "How many recommendations to collect per refresh. Limited to %d on the free plan."
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:319
+msgid "API Integrations"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:341
+msgid "Facebook Reviews Settings"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:349
+#: includes/Extensions/Facebook/FacebookReviews.php:350
+msgid "Apify API Token"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:352
+msgid "Facebook no longer exposes page recommendations through its own API, so they are collected through Apify. To get a token, check out"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:354
+msgid "this doc"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:360
+msgid "Cache Duration"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:365
+msgid "Minutes between refreshes. Apify bills per scraped review (about $1.40 per 1,000), so a shorter interval costs more: roughly (43200 ÷ minutes) × review count × $0.0014 per month."
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:366
+msgid "Minutes between refreshes. Fixed at 12 hours on the free plan to keep collection inside Apify's free monthly allowance. Upgrade to PRO to refresh more often."
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:373
+msgid "Validate"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:374
+msgid "Refresh"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:375
+msgid "Validating..."
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:416
+msgid "You have to setup your Apify API Token for"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:418
+msgid " Facebook Reviews"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:444
+msgid "Please insert a valid Apify API token."
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:455
+msgid "Could not reach Apify with that token. Please double-check the token and try again."
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:486
+msgctxt "Facebook Review"
+msgid "Avatar"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:491
+msgctxt "Facebook Review"
+msgid "Icon"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:498
+msgid "Facebook Icon"
+msgstr ""
+
+#. translators: %d: number of minutes
+#: includes/Extensions/Facebook/FacebookReviews.php:531
+#, php-format
+msgid "Every %d minute"
+msgid_plural "Every %d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: Apify run status
+#: includes/Extensions/Facebook/FacebookReviews.php:716
+#, php-format
+msgid "The Apify run ended with status %s."
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:786
+#: includes/Extensions/Facebook/FacebookReviews.php:840
+msgid "Recommends"
+msgstr ""
+
+#: includes/Extensions/Facebook/FacebookReviews.php:787
+#: includes/Extensions/Facebook/FacebookReviews.php:841
+msgid "Doesn't recommend"
+msgstr ""
+
+#. translators: %1$s: NotificationX API integrations settings URL, %2$s: Apify token documentation URL, %3$s: Facebook Reviews integration documentation URL
+#: includes/Extensions/Facebook/FacebookReviews.php:915
+#, php-format
+msgid ""
+"<p>Make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">Apify API token</a>, to showcase your Facebook recommendations. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
+"\n"
+"\t\t<p>👉NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Facebook Reviews</a>.</p>"
 msgstr ""
 
 #: includes/Extensions/FlashingTab/FlashingTab.php:52
@@ -4560,6 +4928,7 @@ msgstr ""
 
 #. translators: links
 #: includes/Extensions/FlashingTab/FlashingTab.php:136
+#, php-format
 msgid ""
 "\n"
 "        <p>Make sure that you have NotificationX PRO installed and activated on your website to use Flashing Tab. For further assistance, follow the step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
@@ -4664,6 +5033,7 @@ msgstr ""
 #. translators: %1$s: FluentCart WordPress plugin installed & configured link URL, %2$s: documentation link URL, %3$s: 👉 NotificationX Integration with FluentCart link URL
 #: includes/Extensions/FluentCart/FluentCart.php:766
 #: includes/Extensions/FluentCart/FluentCartInline.php:160
+#, php-format
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">FluentCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "        <a target=\"_blank\" href=\"%3$s\">👉 NotificationX Integration with FluentCart</a>"
@@ -4740,6 +5110,7 @@ msgstr ""
 
 #. translators: %1$s: Fluent Forms installed and configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Display Fluent Forms Submission Alert link URL
 #: includes/Extensions/FluentForm/FluentForm.php:409
+#, php-format
 msgid ""
 "\n"
 "        <p>To use the campaign & form subscription data, make sure that you have <a target=\"_blank\" href=\"%1$s\">Fluent Forms installed and configured</a> on your website. For detailed guidelines, follow this <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
@@ -4755,6 +5126,7 @@ msgstr ""
 
 #. translators: %1$s: created & signed in to Freemius account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Freemius link URL
 #: includes/Extensions/Freemius/Freemius.php:20
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Freemius account</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -4853,6 +5225,7 @@ msgstr ""
 
 #. translators: %1$s: step-by-step guides link URL, %2$s: tutorial link URL, %3$s: How to Display WordPress Cookie Notice Using NotificationX? link URL, %4$s: WP Consent API link URL
 #: includes/Extensions/GDPR/GDPR_Notification.php:303
+#, php-format
 msgid ""
 "<p>You can showcase Cookie Notice effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> for creating a Cookie Notice on the WordPress website.</p>\n"
 "        <p>🎦 Watch the video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for a quick guide.</p>\n"
@@ -4870,79 +5243,6 @@ msgstr ""
 msgid "GiveWP"
 msgstr ""
 
-#: includes/Extensions/Give/Give.php:86
-#: includes/Extensions/GlobalFields.php:726
-#: includes/Extensions/GlobalFields.php:744
-#: includes/Extensions/GlobalFields.php:2375
-#: includes/Extensions/Google/GoogleReviews.php:60
-#: includes/Extensions/Google/GoogleReviews.php:74
-#: includes/Extensions/Google/GoogleReviews.php:88
-#: includes/Extensions/Google/GoogleReviews.php:116
-#: includes/Extensions/Google/GoogleReviews.php:131
-#: includes/Extensions/OfferAnnouncement/Announcements.php:59
-#: includes/Extensions/OfferAnnouncement/Announcements.php:79
-#: includes/Extensions/OfferAnnouncement/Announcements.php:100
-#: includes/Extensions/OfferAnnouncement/Announcements.php:135
-#: includes/Extensions/OfferAnnouncement/Announcements.php:183
-#: includes/Extensions/OfferAnnouncement/Announcements.php:197
-#: includes/Extensions/OfferAnnouncement/Announcements.php:212
-#: includes/Extensions/OfferAnnouncement/Announcements.php:239
-#: includes/Extensions/ReviewX/ReviewX.php:84
-#: includes/Extensions/ReviewX/ReviewX.php:96
-#: includes/Extensions/ReviewX/ReviewX.php:123
-#: includes/Extensions/ReviewX/ReviewX.php:134
-#: includes/Extensions/ReviewX/ReviewX.php:146
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:77
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:89
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:116
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:127
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:139
-#: includes/Extensions/WooCommerce/WOOReviews.php:67
-#: includes/Extensions/WooCommerce/WOOReviews.php:79
-#: includes/Extensions/WooCommerce/WOOReviews.php:106
-#: includes/Extensions/WooCommerce/WOOReviews.php:117
-#: includes/Extensions/WooCommerce/WOOReviews.php:129
-#: includes/Extensions/WordPress/WPComments.php:266
-#: includes/FrontEnd/FrontEnd.php:291
-#: includes/Types/Comments.php:59
-#: includes/Types/Comments.php:72
-#: includes/Types/Comments.php:85
-#: includes/Types/Comments.php:98
-#: includes/Types/Comments.php:111
-#: includes/Types/Comments.php:124
-#: includes/Types/Comments.php:138
-#: includes/Types/Comments.php:152
-#: includes/Types/ContactForm.php:65
-#: includes/Types/ContactForm.php:78
-#: includes/Types/ContactForm.php:91
-#: includes/Types/Conversions.php:71
-#: includes/Types/Donations.php:56
-#: includes/Types/ELearning.php:63
-#: includes/Types/ELearning.php:76
-#: includes/Types/ELearning.php:89
-#: includes/Types/EmailSubscription.php:72
-#: includes/Types/EmailSubscription.php:130
-#: includes/Types/GDPR.php:63
-#: includes/Types/GDPR.php:77
-#: includes/Types/GDPR.php:91
-#: includes/Types/GDPR.php:105
-#: includes/Types/GDPR.php:119
-#: includes/Types/GDPR.php:133
-#: includes/Types/GDPR.php:147
-#: includes/Types/GDPR.php:161
-#: includes/Types/GDPR.php:175
-#: includes/Types/GDPR.php:189
-#: includes/Types/GDPR.php:203
-#: includes/Types/GDPR.php:217
-#: includes/Types/Reviews.php:67
-#: includes/Types/Reviews.php:79
-#: includes/Types/Reviews.php:106
-#: includes/Types/Reviews.php:117
-#: includes/Types/Reviews.php:129
-#: includes/Types/WooCommerceSales.php:68
-msgid "Some time ago"
-msgstr ""
-
 #: includes/Extensions/Give/Give.php:105
 msgid "GiveWP Donation"
 msgstr ""
@@ -4954,6 +5254,7 @@ msgstr ""
 
 #. translators: %1$s: GiveWP installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with GiveWP link URL, %5$s: NotificationX Increase Sales on WordPress link URL
 #: includes/Extensions/Give/Give.php:298
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -5704,24 +6005,6 @@ msgstr ""
 msgid "Display Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2374
-#: includes/Extensions/Google/GoogleReviews.php:148
-#: includes/Extensions/OfferAnnouncement/Announcements.php:238
-#: includes/Extensions/ReviewX/ReviewX.php:163
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:157
-#: includes/Extensions/WooCommerce/WOOReviews.php:146
-#: includes/Types/Comments.php:218
-#: includes/Types/Comments.php:235
-#: includes/Types/ContactForm.php:145
-#: includes/Types/Conversions.php:279
-#: includes/Types/Donations.php:177
-#: includes/Types/ELearning.php:188
-#: includes/Types/EmailSubscription.php:129
-#: includes/Types/Reviews.php:209
-#: includes/Types/WooCommerceSales.php:272
-msgid "Definite Time"
-msgstr ""
-
 #: includes/Extensions/Google/GoogleReviews.php:46
 #: includes/Extensions/Google/GoogleReviews.php:47
 msgid "Google Reviews"
@@ -5747,51 +6030,6 @@ msgstr ""
 msgid "Anonymous Place"
 msgstr ""
 
-#: includes/Extensions/Google/GoogleReviews.php:70
-#: includes/Extensions/Google/GoogleReviews.php:84
-#: includes/Extensions/Google/GoogleReviews.php:98
-#: includes/Extensions/Google/GoogleReviews.php:112
-#: includes/Extensions/ReviewX/ReviewX.php:93
-#: includes/Extensions/ReviewX/ReviewX.php:120
-#: includes/Extensions/ReviewX/ReviewX.php:131
-#: includes/Extensions/ReviewX/ReviewX.php:143
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:86
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:113
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:124
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:136
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:202
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:212
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:222
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:232
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:242
-#: includes/Extensions/WooCommerce/WOOReviews.php:76
-#: includes/Extensions/WooCommerce/WOOReviews.php:103
-#: includes/Extensions/WooCommerce/WOOReviews.php:114
-#: includes/Extensions/WooCommerce/WOOReviews.php:126
-#: includes/Types/Reviews.php:76
-#: includes/Types/Reviews.php:103
-#: includes/Types/Reviews.php:114
-#: includes/Types/Reviews.php:126
-#: includes/Types/Reviews.php:149
-#: includes/Types/Reviews.php:159
-#: includes/Types/Reviews.php:169
-#: includes/Types/Reviews.php:179
-#: includes/Types/Reviews.php:189
-msgid "just reviewed"
-msgstr ""
-
-#: includes/Extensions/Google/GoogleReviews.php:139
-#: includes/Extensions/ReviewX/ReviewX.php:153
-#: includes/Extensions/ReviewX/ReviewX.php:175
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:147
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:169
-#: includes/Extensions/WooCommerce/WOOReviews.php:136
-#: includes/Extensions/WooCommerce/WOOReviews.php:158
-#: includes/Types/Reviews.php:199
-#: includes/Types/Reviews.php:221
-msgid "Username"
-msgstr ""
-
 #: includes/Extensions/Google/GoogleReviews.php:140
 #: includes/Extensions/ReviewX/ReviewX.php:154
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:148
@@ -5802,22 +6040,6 @@ msgstr ""
 
 #: includes/Extensions/Google/GoogleReviews.php:143
 msgid "Place Name"
-msgstr ""
-
-#: includes/Extensions/Google/GoogleReviews.php:144
-#: includes/Extensions/ReviewX/ReviewX.php:158
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:152
-#: includes/Extensions/WooCommerce/WOOReviews.php:141
-#: includes/Types/Reviews.php:204
-msgid "Review"
-msgstr ""
-
-#: includes/Extensions/Google/GoogleReviews.php:147
-#: includes/Extensions/ReviewX/ReviewX.php:162
-#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:156
-#: includes/Extensions/WooCommerce/WOOReviews.php:145
-#: includes/Types/Reviews.php:208
-msgid "Rating"
 msgstr ""
 
 #: includes/Extensions/Google/GoogleReviews.php:161
@@ -5836,6 +6058,7 @@ msgstr ""
 
 #. translators: %1$s: Google Reviews API link URL, %2$s: documentation link URL, %3$s: Integration with Google Reviews link URL
 #: includes/Extensions/Google/GoogleReviews.php:187
+#, php-format
 msgid ""
 "<p>Make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">Google Reviews API</a> key, to showcase your reviews. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
@@ -5849,6 +6072,7 @@ msgstr ""
 
 #. translators: %1$s: signed in to Google Analytics site link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Google Analytics link URL
 #: includes/Extensions/Google/Google_Analytics.php:66
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in to Google Analytics site</a>, to use its campaign & page analytics data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -5948,6 +6172,7 @@ msgstr ""
 
 #. translators: %1$s: YouTube API link URL, %2$s: documentation link URL, %3$s: Integration with Youtube link URL
 #: includes/Extensions/Google/YouTube.php:286
+#, php-format
 msgid ""
 "<p>To create YouTube notification popups, make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">YouTube API</a> key, Check out our step-by-step documentation for further assistance. <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
@@ -5976,6 +6201,7 @@ msgstr ""
 
 #. translators: %1$s: Gravity Forms installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Ninja Forms link URL, %5$s: WordPress Contact Forms Submission Rate link URL
 #: includes/Extensions/GRVF/GravityForms.php:80
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Gravity Forms installed & configured</a>, to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6011,6 +6237,7 @@ msgstr ""
 
 #. translators: %1$s: LearnDash installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with LearnDash link URL, %5$s: LearnDash Course Enrollment Rates link URL
 #: includes/Extensions/LearnDash/LearnDash.php:72
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">LearnDash installed & configured</a> to use its campaign & course selling data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6043,6 +6270,7 @@ msgstr ""
 
 #. translators: %1$s: LearnPress LMS installed & configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Integration with LearnPress LMS link URL
 #: includes/Extensions/LearnPress/LearnPress.php:546
+#, php-format
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">LearnPress LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -6056,6 +6284,7 @@ msgstr ""
 
 #. translators: %1$s: signed in & retrieved API key from MailChimp account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with MailChimp link URL, %5$s: Email Marketing Strategy link URL, %6$s: Email Subscription List link URL
 #: includes/Extensions/MailChimp/MailChimp.php:59
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API key from MailChimp account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6073,6 +6302,7 @@ msgstr ""
 
 #. translators: %1$s: Ninja Forms installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Ninja Forms link URL, %5$s: WordPress Contact Forms Submission Rate link URL
 #: includes/Extensions/NJF/NinjaForms.php:413
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6159,6 +6389,7 @@ msgstr ""
 
 #. translators: %1$s: documentation link URL, %2$s: Guide To Notify Customers About On-Sale Products link URL
 #: includes/Extensions/OfferAnnouncement/Announcements.php:270
+#, php-format
 msgid ""
 "<p>You can showcase the discount alert popup on your WordPress website to make visitors take purchasing action immediately. For further assistance, check out our step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -6768,6 +6999,7 @@ msgstr ""
 
 #. translators: %1$s: step-by-step guides link URL, %2$s: tutorial link URL, %3$s: URL
 #: includes/Extensions/PopupNotification/PopupNotification.php:1320
+#, php-format
 msgid ""
 "<p>Create compelling Announcements that capture visitor interest and help you generate more leads on your WordPress site. Need help? Check out our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> to build impactful Announcements.</p>\n"
 "        <p>🎦 Watch the quick video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for an easy walk-through.</p>\n"
@@ -7182,6 +7414,7 @@ msgstr ""
 
 #. translators: %1$s: Elementor documentation URL, %2$s: Gutenberg documentation URL, %3$s: documentation URL, %4$s: blog post URL, %5$s: blog post URL
 #: includes/Extensions/PressBar/PressBar.php:2223
+#, php-format
 msgid ""
 "<p>Supercharge your WordPress site with an <strong>AI-powered Notification Bar</strong> that help you create and launches instant popup campaigns — smarter and faster than ever. Let AI generate compelling bar content for you in seconds. Need help getting started? Explore our step-by-step guides to set up your AI-enhanced notification bars using both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
 "\t\t<p>🎦 Check the <a target = \"_blank\" href = \"%3$s\">documentation</a> for a quick guide.</p>\n"
@@ -7244,6 +7477,7 @@ msgstr ""
 
 #. translators: %1$s: WooCommerce link URL, %2$s: ReviewX link URL, %3$s: documentation link URL, %4$s: boost WooCommerce Sales link URL
 #: includes/Extensions/ReviewX/ReviewX.php:280
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce</a> & <a target=\"_blank\" href=\"%2$s\">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%3$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -7274,6 +7508,7 @@ msgstr ""
 
 #. translators: %1$s: SureCart WordPress plugin installed & configured link URL, %2$s: documentation link URL, %3$s: 👉 NotificationX Integration with SureCart link URL
 #: includes/Extensions/SureCart/SureCart.php:468
+#, php-format
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">SureCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "        <a target=\"_blank\" href=\"%3$s\">👉 NotificationX Integration with SureCart</a>"
@@ -7290,6 +7525,7 @@ msgstr ""
 
 #. translators: %1$s: Tutor LMS installed & configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Integration with Tutor LMS link URL
 #: includes/Extensions/Tutor/Tutor.php:541
+#, php-format
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Tutor LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -7323,6 +7559,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerce.php:612
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:204
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:168
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a href=\"%3$s\" target=\"_blank\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -7350,6 +7587,7 @@ msgstr ""
 #. translators: %1$s: WooCommerce installed & activated link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: boost WooCommerce Sales link URL
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:252
 #: includes/Extensions/WooCommerce/WOOReviews.php:494
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -7377,6 +7615,7 @@ msgstr ""
 
 #. translators: %1$s: wordpress.org link URL, %2$s: comments popup link URL, %3$s: plugin reviews link URL, %4$s: downloads stats link URL, %5$s: blog comments link URL, %6$s: reviews link URL, %7$s: Get More Comments on Your WordPress Blog link URL, %8$s: WordPress Plugin Download Rates & Increase Sales link URL
 #: includes/Extensions/WordPress/Wordpress.php:13
+#, php-format
 msgid ""
 "<p>Make sure that you have a <a target=\"_blank\" href=\"%1$s\">wordpress.org</a> account to use its campaign on blog comments, reviews and download stats data. For further assistance, check out our step by step documentation on <a target=\"_blank\" href=\"%2$s\">comments popup</a>, <a target=\"_blank\" href=\"%3$s\">plugin reviews</a> & <a target=\"_blank\" href=\"%4$s\">downloads stats</a>.</p>\n"
 "\t\t<p>🎦 Watch video tutorial on <a target=\"_blank\" href=\"%5$s\">blog comments</a>, <a target=\"_blank\" href=\"%6$s\">reviews</a> & <a target=\"_blank\" href=\"%6$s\">downloads stats</a> to learn quickly</p>\n"
@@ -7477,6 +7716,7 @@ msgstr ""
 
 #. translators: %s: number of downloads today.
 #: includes/Extensions/WordPress/WPOrgStats.php:197
+#, php-format
 msgid "%s times today"
 msgstr ""
 
@@ -7484,11 +7724,13 @@ msgstr ""
 #. translators: %s: number of downloads of all time.
 #: includes/Extensions/WordPress/WPOrgStats.php:199
 #: includes/Extensions/WordPress/WPOrgStats.php:203
+#, php-format
 msgid "%s times"
 msgstr ""
 
 #. translators: %s: number of downloads in last 7 days.
 #: includes/Extensions/WordPress/WPOrgStats.php:201
+#, php-format
 msgid "%s times in last 7 days"
 msgstr ""
 
@@ -7503,6 +7745,7 @@ msgstr ""
 
 #. translators: %1$s: WPForms installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with WPForms link URL, %5$s: WordPress Contact Forms Submission Rate link URL
 #: includes/Extensions/WPF/WPForms.php:343
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -7545,6 +7788,7 @@ msgstr ""
 
 #. translators: time
 #: includes/Features/ShortcodeInline.php:145
+#, php-format
 msgctxt "Inline Shortcode"
 msgid "%s ago"
 msgstr ""
@@ -8150,6 +8394,7 @@ msgstr ""
 
 #. translators: %s: URL of the wp-admin plugins page
 #: notificationx.php:86
+#, php-format
 msgid "<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>."
 msgstr ""
 
@@ -8184,6 +8429,7 @@ msgid "\"not\" can have only one comparison rule, multiple rules given"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "Invalid comparison rule %s."
 msgstr ""
 
@@ -8265,6 +8511,7 @@ msgid "Text Goes Here: text"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
@@ -8358,6 +8605,7 @@ msgid "Notification Alert has been Disabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
@@ -8366,6 +8614,7 @@ msgid "Disabled"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
 msgstr ""
 
@@ -8529,6 +8778,7 @@ msgid "Cross Domain Notice code has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use <a target='_blank' href='%s' style='color:red'>Cross Domain Notice</a> feature."
 msgstr ""
 
@@ -8566,14 +8816,17 @@ msgid "Delete"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "%s clicks"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "%s views"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "%s entries"
 msgstr ""
 
@@ -8610,34 +8863,41 @@ msgid "NotificationX Fetch Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "All (%d)"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "Enabled (%d)"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "Disabled (%d)"
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Regenerated.
 #: assets/admin/js/admin.js:3
+#, js-format
 msgid "%d Notification Alerts have been Regenerated."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Reset.
 #: assets/admin/js/admin.js:5
+#, js-format
 msgid "%d Notification Alerts have been Reset."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Enabled.
 #: assets/admin/js/admin.js:7
+#, js-format
 msgid "%d Notification Alerts have been Enabled."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Disabled.
 #: assets/admin/js/admin.js:9
+#, js-format
 msgid "%d Notification Alerts have been Disabled."
 msgstr ""
 
@@ -8646,6 +8906,7 @@ msgid "Unable to complete bulk action."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
+#, js-format
 msgid "You're about to delete %s notification alert,<br />"
 msgid_plural "You're about to delete %s notification alerts,<br />"
 msgstr[0] ""
@@ -8657,6 +8918,7 @@ msgstr ""
 
 #. translators: %d: Number of Notification Alerts deleted.
 #: assets/admin/js/admin.js:11
+#, js-format
 msgid ""
 "%d notification Alerts have been\n"
 "                Deleted."
@@ -8683,6 +8945,7 @@ msgid "Seems like you haven’t created any notification alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+#, js-format
 msgid "Hit on %1$s\"Add New\"%2$s button to get started"
 msgstr ""
 
@@ -8695,6 +8958,7 @@ msgid "There’s no enabled Notification Alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+#, js-format
 msgid "Simply use the toggle switch to turn your notifications from %1$s\"All NotificationX\"%2$s page."
 msgstr ""
 
@@ -8923,6 +9187,7 @@ msgid "Please select entries to delete"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+#, js-format
 msgid "You're about to delete %s feedback entry,<br />"
 msgid_plural "You're about to delete %s feedback entries,<br />"
 msgstr[0] ""
@@ -8930,6 +9195,7 @@ msgstr[1] ""
 
 #. translators: %d: Number of feedback entries deleted.
 #: assets/admin/js/admin.js:13
+#, js-format
 msgid "%d feedback entry has been deleted."
 msgid_plural "%d feedback entries have been deleted."
 msgstr[0] ""
@@ -9542,6 +9808,7 @@ msgstr ""
 
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
 #: assets/admin/js/admin.js:16
+#, js-format
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
 msgstr ""
 
@@ -9555,6 +9822,7 @@ msgstr ""
 
 #. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
 #: assets/admin/js/admin.js:18
+#, js-format
 msgid "NotificationX - %1$s - %2$s"
 msgstr ""
 
@@ -9664,6 +9932,7 @@ msgid "Are you sure you want to delete this Cookie?"
 msgstr ""
 
 #: assets/admin/js/admin.js:20
+#, js-format
 msgid "The cookie <strong>%s</strong> will be permanently deleted. This cookie will no longer be displayed on your cookie list nor be blocked prior to receiving user consent."
 msgstr ""
 

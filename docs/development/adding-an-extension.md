@@ -59,6 +59,14 @@ Key properties (all declared on [`Extension`](../../includes/Extensions/Extensio
 | `$is_pro` | `true` locks the source behind Pro; the actual data logic then lives in `notificationx-pro`. |
 | `$priority` / `$module_priority` | Ordering in the source dropdown / Modules grid. |
 | `$cron_schedule` | If set, saving a campaign schedules a recurring refresh (see step 4). |
+| `$default_theme` | Theme pre-selected for this source. **Must be the first entry of your `$themes` array** (prefixed with `$id`) — see the warning below. |
+
+> **`$default_theme` must be your first theme.** The builder picks the first rendered
+> option when the `themes` value is not yet stored, while `Extension::__source_trigger()`
+> separately applies `$default_theme`. If the two disagree they overwrite each other on
+> every render and the Design tab's theme cards plus parts of the Content tab flicker
+> endlessly (thousands of DOM mutations per second). Reorder `$themes` rather than
+> changing `$default_theme` if you want a specific default.
 
 The base constructor registers the module, and — only if the module is enabled — registers the Type and calls `initialize()`, which hooks `init_extension()`, `init_fields()`, and (when the source is actually in use) `init()`, `admin_actions()`, `public_actions()`.
 

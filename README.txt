@@ -163,7 +163,15 @@ NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 6 
 
 == External services ==
 
-This plugin relies on one third-party service, and only for the optional **Country Targeting** feature:
+This plugin relies on third-party services, each only for a specific optional feature:
+
+**Apify (Facebook Reviews)** — Facebook no longer provides page reviews through its own API, so the optional **Facebook Reviews** source collects a Page's recommendations through the Apify actor `apify/facebook-reviews-scraper`. This happens only when you enable the Facebook Reviews module, enter your own Apify API token under NotificationX → Settings → API Integrations, and create a notification pointing at a Facebook Page reviews URL. Nothing is sent to Apify otherwise. Requests are made from your server on a schedule (12 hours by default), never from your visitors' browsers.
+
+- Data sent: your Apify API token, the Facebook Page reviews URL you entered, and the number of reviews to collect.
+- Data received: public recommendations from that Page — reviewer name and profile picture, review text, date, recommend/not-recommend, tags, and like/comment counts. This is stored in your site's database and shown in notifications, so review your own privacy policy before enabling it.
+- When: on a schedule while a Facebook Reviews notification is active, and when such a notification is saved. Validating your token calls Apify's account endpoint only.
+- You are responsible for your own Apify account and its usage costs, and for only collecting reviews from a Page you own or represent.
+- Service provided by Apify. Terms of use: https://apify.com/terms-of-use — Privacy policy: https://apify.com/privacy-policy
 
 **ip-api.com (IP geolocation)** — When a notification is configured to target one or more specific countries, NotificationX needs to know the visitor's country. To resolve it, the visitor's IP address is sent to ip-api.com, which returns the corresponding country code. This request is made only when Country Targeting with a specific country is enabled for a notification; notifications without country targeting (or set to "All Countries") never trigger it. If your host or CDN already provides a geolocation header (for example Cloudflare's `CF-IPCountry`), that value is used and no request is sent to ip-api.com. The provider can also be changed or disabled entirely via the `nx_visitor_country_api` filter.
 
