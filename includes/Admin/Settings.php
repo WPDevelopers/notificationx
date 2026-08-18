@@ -681,6 +681,8 @@ class Settings extends UsabilityDynamicsSettings {
                 unset( $settings[ $key ] );
             }
         }
+        $settings = $this->preserve_protected_settings( $settings );
+
         // need this to ensure saved value don't return empty array instead of object.
         if ( ! empty( $settings['delete_settings'] ) ) {
             $settings = [ 'empty' => true ];
@@ -691,6 +693,49 @@ class Settings extends UsabilityDynamicsSettings {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         do_action( 'nx_settings_saved', $settings );
         return true;
+    }
+
+    /**
+     * Force server-owned settings back to their stored values.
+     *
+     * `save_settings()` replaces the whole blob with the posted one, so every key
+     * the admin app is holding wins -- right for fields a merchant edits, wrong
+     * for state only the server writes. OAuth tokens are the case that bites:
+     * they live inside `settings`, so they are handed to the admin app on page
+     * load and posted straight back. Disconnecting an account and then saving
+     * from a tab opened *before* the disconnect wrote the revoked token back and
+     * the integration silently kept working -- with Google Analytics that showed
+     * up as live viewer counts on a supposedly disconnected site.
+     *
+     * Keys listed here can only be changed by the code that owns them.
+     *
+     * @param array $settings Incoming settings.
+     * @return array
+     */
+    protected function preserve_protected_settings( $settings ) {
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        $protected = apply_filters( 'nx_protected_settings', [
+            'nx_pa_settings', // Google Analytics OAuth token.
+        ] );
+
+        // `get()` returns false for a missing key, and false is also what a
+        // disconnect stores -- so only a sentinel separates "stored as false"
+        // from "never stored", and the two need different handling.
+        $missing = new \stdClass();
+
+        foreach ( (array) $protected as $key ) {
+            if ( ! is_string( $key ) || '' === $key ) {
+                continue;
+            }
+            $stored = $this->get( "settings.{$key}", $missing );
+            if ( $missing === $stored ) {
+                unset( $settings[ $key ] );
+                continue;
+            }
+            $settings[ $key ] = $stored;
+        }
+
+        return $settings;
     }
 
     public function get_role_map( $settings = [] ) {

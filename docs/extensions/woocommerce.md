@@ -140,6 +140,78 @@ Real events that drive data:
   arrays (inline sales-count and stock-count widgets) rather than pulling from
   `GlobalFields`.
 
+## The `live-viewers` design (Google Analytics)
+
+`WooInline` **and** `WooCommerceSalesInline` each carry a fourth Growth Alert design,
+**`live-viewers`**, rendering "N people are viewing this product right now" from
+**realtime Google Analytics** rather than from orders. The two are separate registrations
+of the same design — one per Type (`inline` and `woocommerce_sales` respectively) — because
+`WooCommerceSalesInline` overrides `init_extension()` wholesale rather than extending its
+parent's arrays, and Pro's `WooCommerceSalesInline` extends the *Free* `WooInline` chain,
+not Pro's `WooInline`. Everything below is implemented identically in both, with
+`{$this->id}` resolving to `woo_inline` or `woocommerce_sales_inline`:
+
+- **Registered conditionally.** `init_extension()` only adds the theme (and its
+  `woo_live_viewers_template` tag group) when `Modules::is_enabled('modules_google_analytics')`
+  — the number comes from a connected GA4 property, so without that module the design could
+  never render anything.
+- **Writes no entries.** `nx_can_entry_woo_inline` returns `false` for it, exactly as for
+  the low-stock designs, and `nx_filtered_notice` injects a placeholder so the campaign
+  still reaches the render loop. The count is resolved in `before_add_to_cart_form()`.
+- **Its own error message.** `source_error_message()` adds a second entry keyed
+  `{$this->id}_ga`, scoped with `Rules::includes('themes', ["{$this->id}_live-viewers"])`, so
+  the "connect Google Analytics" / "needs a GA4 property" notices appear only when this
+  design is selected — never for merchants using the sales-count or stock designs.
+  `WooCommerceSalesInline` inherits this method unchanged; `$this->id` does the rest.
+- **Threshold.** Pro adds a `ga_min_viewers` field (default `2`, same theme scoping). The
+  default is deliberately 2: the copy has no singular form, so a value of 1 would render
+  "1 people are viewing". Both extensions register **the same field key** into the one
+  schema `nx_content_fields` builds, so each `ga_content_fields()` *extends* whichever
+  definition landed first rather than replacing it — passing the existing field back through
+  `Rules::includes('themes', ...)` merges the second theme id into the existing rule
+  (`Rule::can_add()` only merges `includes`, never `!includes`). Registration order is
+  therefore irrelevant.
+
+- **It colours itself.** `Core\Inline::get_template()` only wraps params in `<span>` while
+  previewing, so on the frontend a Growth Alert is one flat text run with nothing to style —
+  which is why the other designs render uncoloured on a live page even though their
+  thumbnails and builder previews show green/red. `before_add_to_cart_form()` therefore
+  applies its own highlighting (`.nx-live-viewers-count`, `.nx-live-viewers-tail`) and emits
+  the matching CSS inline. Colours (`#5D9733`, `#E5554D`) are sampled from the artwork, and
+  the inline CSS is the single source of truth — there is deliberately no duplicate rule in
+  `Preview.php`.
+
+  The artwork highlights the count **and** the noun after it ("3 people"), but those sit in
+  two different params (`first_param` / `second_param`). So the leading word of
+  `second_param` is marked with `GA_HL_*` placeholders **before** `get_template()` composes
+  the string, and the placeholders are swapped for real spans afterwards. Doing it
+  pre-composition is what makes the frontend and the preview identical: in preview the
+  markers simply end up nested inside the preview's own param spans. The trailing phrase is
+  marked the other way round — `{{right_now}}` is wrapped in `GA_TAIL_*` *after* composition,
+  since it is a placeholder rather than merchant copy; the pre-composition marking of
+  `custom_fourth_param` remains for merchants who switched the select to "Custom". All of it
+  is gated on `is_ga_theme()`, so no other design's markup changes.
+
+- **The trailing phrase is a tag, not custom text.** `fourth_param` is `tag_right_now`
+  (declared in the `woo_live_viewers_template` group and therefore scoped to these two
+  themes), and the word itself comes from `fallback_data()['right_now']` — the same
+  arrangement the low-stock designs use for "left in stock" / "order soon".
+
+  This is deliberate and worth not undoing: `custom_fourth_param` is **one text field shared
+  by every design in the builder**. An earlier version set `fourth_param => 'tag_custom'` and
+  seeded `custom_fourth_param => 'right now'`, hiding the (then one-choice) select so the
+  merchant typed directly into the box. But Quickbuilder's `useDefaults` writes
+  `savedValue || triggerValue`, and a field flipping hidden→visible also writes its existing
+  form value back — so switching in from `conv-theme-seven` could leave that design's
+  "in last {{day:7}}" text sitting in the box. A tag cannot go stale. The select now carries
+  two real options ("right now" + "Custom"), so merchants who want their own wording pick
+  Custom and get the text box; the theme still seeds `custom_fourth_param` with "right now"
+  for that path.
+
+The Google API side lives in the Google directory, not here — Pro's
+`Google_Analytics\RealtimeViewers::get_viewers()` is the only entry point `WooInline`
+touches. See [google.md](google.md).
+
 ## Dependency & detection
 
 - Required plugin: **WooCommerce**. Every concrete class in this directory sets

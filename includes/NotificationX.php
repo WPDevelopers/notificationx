@@ -40,6 +40,16 @@ class NotificationX {
      */
     use GetInstance;
     /**
+     * Option flag recording that NotificationX has already gone through its
+     * initial (first-ever) activation on this site.
+     *
+     * Set on the first activation and seeded for pre-existing installs by
+     * Upgrader, so a re-activation is never mistaken for a first run.
+     *
+     * @since 3.3.0
+     */
+    const FIRST_ACTIVATION_OPTION = 'nx_first_activation';
+    /**
      * Settings
      * @var Settings
      */
@@ -105,10 +115,40 @@ class NotificationX {
     public function activator(){
         // nx_activated
         Database::get_instance()->Create_DB();
+
+        // A first-ever activation is the only moment the onboarding wizard may
+        // be auto-launched; an abandoned wizard still counts as "already
+        // activated", so re-activations never force it again.
+        $is_first_activation = ! self::has_activated_before();
+        if ( $is_first_activation ) {
+            update_option( self::FIRST_ACTIVATION_OPTION, time(), 'no' );
+        }
+
 		if( ! static::$WP_CLI && current_user_can( 'delete_users' ) ) {
-			set_transient( 'nx_activated', true, 30 );
+			set_transient( 'nx_activated', $is_first_activation ? 'first' : 'again', 30 );
 		}
+
+        // Usage insights are normally wired up on `init`, which WordPress has
+        // already fired by the time it activates a plugin — so the
+        // register_activation_hook() callback registered inside the insights
+        // constructor never runs and the tracking event is left unscheduled.
+        // Build the instance and run its activation routine explicitly here so
+        // data collection is live from activation onwards.
+        Admin::get_instance()->plugin_usage_insights()->activate_this_plugin();
+
         Upgrader::get_instance()->clear_transient();
+    }
+
+    /**
+     * Whether NotificationX has already gone through its initial activation on
+     * this site — i.e. it has been activated before, regardless of whether the
+     * Setup Wizard was ever opened or completed.
+     *
+     * @since 3.3.0
+     * @return bool
+     */
+    public static function has_activated_before() {
+        return (bool) get_option( self::FIRST_ACTIVATION_OPTION, false );
     }
 
     public function maybe_redirect(){
@@ -116,17 +156,21 @@ class NotificationX {
             return;
         }
         // Bail if no activation transient is set.
-        if ( ! get_transient( 'nx_activated' ) ) {
+        $activation = get_transient( 'nx_activated' );
+        if ( ! $activation ) {
             return;
         }
         // Delete the activation transient.
         delete_transient( 'nx_activated' );
 
         if ( ! is_multisite() ) {
-            // First activation: launch the onboarding Setup Wizard, otherwise
-            // fall back to the dashboard. The wizard marks itself completed on
-            // finish/skip so this only fires once.
-            $page = \NotificationX\Core\SetupWizard::is_completed() ? 'nx-dashboard' : 'nx-setup-wizard';
+            // Only a genuine first-ever activation may launch the onboarding
+            // Setup Wizard (and only while it has not been completed/skipped).
+            // Every returning activation lands on the dashboard, as before.
+            // Transients written by an older version hold `true`, which is
+            // treated as a returning activation.
+            $is_first_activation = ( 'first' === $activation );
+            $page                = ( $is_first_activation && ! \NotificationX\Core\SetupWizard::is_completed() ) ? 'nx-setup-wizard' : 'nx-dashboard';
             wp_safe_redirect( add_query_arg( array(
                 'page'		=> $page
             ), admin_url( 'admin.php' ) ) );

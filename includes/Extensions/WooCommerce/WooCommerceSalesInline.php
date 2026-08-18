@@ -7,6 +7,8 @@
 
 namespace NotificationX\Extensions\WooCommerce;
 
+use NotificationX\Core\Modules;
+
   /**
  * WooCommerce Extension Class
  * @method static WooCommerce get_instance($args = null)
@@ -116,6 +118,33 @@ class WooCommerceSalesInline extends WooInline {
                 ],
             ),
         ];
+        // Google Analytics live-viewer design. Only offered when the Google
+        // Analytics module is switched on — the number comes from a connected
+        // GA4 property, so without it the design could never render anything.
+        if ( Modules::get_instance()->is_enabled( 'modules_google_analytics' ) ) {
+            $this->themes['live-viewers'] = array(
+                'is_pro'          => true,
+                'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/ga-live-viewers.jpg',
+                'image_shape'     => 'rounded',
+                'inline_location' => [ 'woocommerce_before_add_to_cart_form' ],
+                'template'        => [
+                    'first_param'         => 'tag_live_viewers',
+                    'second_param'        => __( 'people are viewing', 'notificationx' ),
+                    'third_param'         => 'tag_product_title',
+                    'custom_third_param'  => ' ',
+                    // A real tag rather than `tag_custom`: `custom_fourth_param`
+                    // is one text field shared by every design, so seeding it is
+                    // not reliable — switching in from the sales-count design can
+                    // leave its "in last {{day:7}}" text behind. The tag renders
+                    // from `fallback_data()` and cannot go stale; merchants who
+                    // want their own wording pick "Custom" in the select, which
+                    // seeds from `custom_fourth_param` below.
+                    'fourth_param'        => 'tag_right_now',
+                    'custom_fourth_param' => __( 'right now', 'notificationx' ),
+                ],
+            );
+        }
+
         $this->templates = [
             'woo_template_sales_count' => [
                 'first_param'  => [
@@ -151,6 +180,24 @@ class WooCommerceSalesInline extends WooInline {
                 ],
             ],
         ];
+
+        if ( Modules::get_instance()->is_enabled( 'modules_google_analytics' ) ) {
+            $this->templates['woo_live_viewers_template'] = [
+                'first_param' => [
+                    'tag_live_viewers' => __( 'Live Product Viewers', 'notificationx' ),
+                ],
+                'third_param' => [
+                    'tag_product_title' => __( 'Product Title', 'notificationx' ),
+                ],
+                'fourth_param' => [
+                    'tag_right_now' => __( 'right now', 'notificationx' ),
+                ],
+                '_themes'     => [
+                    "{$this->id}_live-viewers",
+                ],
+            ];
+        }
+
         $this->popup = [
             "denyButtonText" => __("<a href='https://notificationx.com/growth-alert/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),

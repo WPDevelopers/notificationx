@@ -1,6 +1,6 @@
 {
   "name": "notificationx",
-  "version": "3.2.13",
+  "version": "3.2.14",
   "main": "nxdev/index.js",
   "author": "WPDeveloper",
   "scripts": {
@@ -11,7 +11,7 @@
     "start": "npm run admin-watch & npm run frontend-watch",
     "build": "npm run admin && npm run frontend",
     "up": "npm install github:WPDevelopers/quickbuilder#notificationx",
-    "pot": "wp i18n make-pot . languages/notificationx.pot --exclude='nxbuild'",
+    "pot": "php -d memory_limit=2G \"$(command -v wp)\" i18n make-pot . languages/notificationx.pot --exclude='nxbuild'",
     "bb": "wp-scripts build --config webpack.blocks.config.js",
     "blocks": "wp-scripts start --config webpack.blocks.config.js",
     "cd": "wp-scripts build --config webpack.countdown.config.js",
@@ -39,6 +39,10 @@
     "ts-loader": "^9.5.1",
     "typescript": "^4.9.5",
     "url-loader": "^4.1.1"
+  },
+  "overrides": {
+    "@types/react": "$@types/react",
+    "@types/react-dom": "17.0.26"
   },
   "dependencies": {
     "@emoji-mart/data": "^1.1.2",

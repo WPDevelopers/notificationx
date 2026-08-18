@@ -32,6 +32,15 @@ class Upgrader {
         $nx_free_version = $this->database->get_option('nx_free_version');
         $nx_db_version   = $this->database->get_option('nx_db_version');
 
+        // Backward compatibility: installs that already ran NotificationX
+        // before the first-activation flag existed must not be treated as a
+        // first-ever activation when they are re-activated, or they would be
+        // pushed into the Setup Wizard again. A stored free version proves the
+        // plugin has run here before, so seed the flag once.
+        if ( $nx_free_version && ! NotificationX::has_activated_before() ) {
+            update_option( NotificationX::FIRST_ACTIVATION_OPTION, time(), 'no' );
+        }
+
         // Show milestone notification only for 3.1.10
         $force_milstone = get_option('notificationx_force_milestone', '');
         if ( version_compare( NOTIFICATIONX_VERSION, '3.1.10', '==' ) && empty($force_milstone) ) {

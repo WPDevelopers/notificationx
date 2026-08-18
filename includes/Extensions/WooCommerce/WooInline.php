@@ -7,6 +7,8 @@
 
 namespace NotificationX\Extensions\WooCommerce;
 
+use NotificationX\Admin\Settings;
+use NotificationX\Core\Modules;
 use NotificationX\Core\PostType;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
@@ -120,6 +122,33 @@ class WooInline extends WooCommerce {
                 ],
             ),
         ];
+        // Google Analytics live-viewer design. Only offered when the Google
+        // Analytics module is switched on — the number comes from a connected
+        // GA4 property, so without it the design could never render anything.
+        if ( Modules::get_instance()->is_enabled( 'modules_google_analytics' ) ) {
+            $this->themes['live-viewers'] = array(
+                'is_pro'          => true,
+                'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/ga-live-viewers.jpg',
+                'image_shape'     => 'rounded',
+                'inline_location' => [ 'woocommerce_before_add_to_cart_form' ],
+                'template'        => [
+                    'first_param'         => 'tag_live_viewers',
+                    'second_param'        => __( 'people are viewing', 'notificationx' ),
+                    'third_param'         => 'tag_product_title',
+                    'custom_third_param'  => ' ',
+                    // A real tag rather than `tag_custom`: `custom_fourth_param`
+                    // is one text field shared by every design, so seeding it is
+                    // not reliable — switching in from the sales-count design can
+                    // leave its "in last {{day:7}}" text behind. The tag renders
+                    // from `fallback_data()` and cannot go stale; merchants who
+                    // want their own wording pick "Custom" in the select, which
+                    // seeds from `custom_fourth_param` below.
+                    'fourth_param'        => 'tag_right_now',
+                    'custom_fourth_param' => __( 'right now', 'notificationx' ),
+                ],
+            );
+        }
+
         $this->templates = [
             'woo_template_sales_count' => [
                 'first_param'  => [
@@ -155,6 +184,70 @@ class WooInline extends WooCommerce {
                 ],
             ],
         ];
+
+        if ( Modules::get_instance()->is_enabled( 'modules_google_analytics' ) ) {
+            $this->templates['woo_live_viewers_template'] = [
+                'first_param' => [
+                    'tag_live_viewers' => __( 'Live Product Viewers', 'notificationx' ),
+                ],
+                'third_param' => [
+                    'tag_product_title' => __( 'Product Title', 'notificationx' ),
+                ],
+                'fourth_param' => [
+                    'tag_right_now' => __( 'right now', 'notificationx' ),
+                ],
+                '_themes'     => [
+                    "{$this->id}_live-viewers",
+                ],
+            ];
+        }
+    }
+
+    /**
+     * The live-viewer design needs a connected GA4 property on top of
+     * WooCommerce, so it gets its own message keyed separately from the
+     * parent's "install WooCommerce" one and scoped to that theme.
+     *
+     * @param array $messages
+     * @return array
+     */
+    public function source_error_message( $messages ) {
+        $messages = parent::source_error_message( $messages );
+
+        $url         = admin_url( 'admin.php?page=nx-settings&tab=tab-api-integrations#google_analytics_settings_section' );
+        $pa_settings = Settings::get_instance()->get( 'settings.nx_pa_settings' );
+        $profile     = Settings::get_instance()->get( 'settings.ga_profile' );
+        $message     = '';
+
+        if ( empty( $pa_settings ) ) {
+            /* translators: %1$s: leading sentence, %2$s: settings URL, %3$s: link text, %4$s: trailing word. */
+            $message = sprintf( '%1$s <a href="%2$s" target="_blank">%3$s</a> %4$s.',
+                __( 'This design needs live traffic data. Connect your', 'notificationx' ),
+                $url,
+                __( 'Google Analytics Account', 'notificationx' ),
+                __( 'first', 'notificationx' )
+            );
+        } elseif ( empty( $profile ) || strpos( $profile, 'properties/' ) !== 0 ) {
+            // Realtime per-page data only exists on GA4 properties; legacy
+            // Universal Analytics views cannot serve this design.
+            /* translators: %1$s: leading sentence, %2$s: settings URL, %3$s: link text. */
+            $message = sprintf( '%1$s <a href="%2$s" target="_blank">%3$s</a>.',
+                __( 'This design needs a Google Analytics 4 property. Select one in', 'notificationx' ),
+                $url,
+                __( 'API Integrations', 'notificationx' )
+            );
+        }
+
+        if ( $message ) {
+            $messages[ "{$this->id}_ga" ] = [
+                'message' => $message,
+                'html'    => true,
+                'type'    => 'error',
+                'rules'   => Rules::includes( 'themes', [ "{$this->id}_live-viewers" ] ),
+            ];
+        }
+
+        return $messages;
     }
 
     /**
