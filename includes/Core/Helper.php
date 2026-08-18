@@ -1107,6 +1107,14 @@ class Helper {
     }
 
     public static function nx_get_visitor_country_code() {
+        // Country targeting now applies to ALL notification types, so a single page
+        // load can evaluate several country-targeted notifications. Resolve the
+        // visitor's country once per request and reuse it. We key the memo on the IP
+        // and read it with array_key_exists (not isset) so an empty/failed result is
+        // remembered too and never re-triggers the header/API lookups below within the
+        // same request. An unknown country is always represented as an empty string.
+        static $memo = [];
+
         $ip = '';
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = sanitize_text_field(wp_unslash($_SERVER['HTTP_CLIENT_IP']));
@@ -1115,21 +1123,75 @@ class Helper {
         } else {
             $ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
         }
-        
-        // Prevent localhost IP from erroring
-        if ($ip === '127.0.0.1' || $ip === '::1') {
-            return 'all'; // default fallback for local testing
+        $ip = trim($ip);
+
+        // No usable IP (CLI/cron) or localhost: return an empty code. Callers treat an
+        // unknown country as "don't filter" (fail-open), so country-targeted
+        // notifications still show during local testing instead of silently
+        // disappearing. Bailing here also avoids requesting
+        // http://ip-api.com/json/?fields=countryCode with an empty IP, which would
+        // resolve to the SERVER's country and cache nothing.
+        if ($ip === '' || $ip === '127.0.0.1' || $ip === '::1') {
+            return apply_filters('nx_visitor_country_code', '', $ip);
         }
 
-        $response = wp_remote_get("http://ip-api.com/json/{$ip}?fields=countryCode");
-
-        if (is_wp_error($response)) {
-            return null;
+        if (array_key_exists($ip, $memo)) {
+            return apply_filters('nx_visitor_country_code', $memo[$ip], $ip);
         }
 
-        $data = json_decode(wp_remote_retrieve_body($response), true);
+        // Let a host/CDN or custom resolver short-circuit the external lookup entirely.
+        // e.g. Cloudflare sends CF-IPCountry; many hosts expose GEOIP_COUNTRY_CODE.
+        $header_country = '';
+        foreach (['HTTP_CF_IPCOUNTRY', 'GEOIP_COUNTRY_CODE', 'HTTP_X_COUNTRY_CODE'] as $h) {
+            if (!empty($_SERVER[$h])) {
+                $header_country = strtoupper(sanitize_text_field(wp_unslash($_SERVER[$h])));
+                break;
+            }
+        }
+        // 'XX'/'T1' are Cloudflare's "unknown"/Tor placeholders — ignore them.
+        if ($header_country !== '' && !in_array($header_country, ['XX', 'T1'], true)) {
+            $memo[$ip] = $header_country;
+            return apply_filters('nx_visitor_country_code', $header_country, $ip);
+        }
 
-        return isset($data['countryCode']) ? $data['countryCode'] : null;
+        // Per-IP cache so we don't hit the external API on every page load. A
+        // transient is used deliberately: WordPress serves transients from a
+        // persistent object cache (Redis/Memcached) when one is available — so those
+        // sites add zero wp_options rows — and transparently falls back to the options
+        // table otherwise, so the country stays cached across requests on plain sites
+        // too (which is what keeps us under ip-api's 45 req/min limit). A cached empty
+        // string is a remembered "lookup failed" marker, distinct from a miss (false).
+        $cache_key = 'nx_geo_' . md5($ip);
+        $cached    = get_transient($cache_key);
+        if (false !== $cached) {
+            $memo[$ip] = $cached;
+            return apply_filters('nx_visitor_country_code', $cached, $ip);
+        }
+
+        $country      = '';
+        $api_endpoint = apply_filters('nx_visitor_country_api', "http://ip-api.com/json/{$ip}?fields=countryCode", $ip);
+        $response     = wp_remote_get($api_endpoint, ['timeout' => 3]);
+
+        if (!is_wp_error($response) && (int) wp_remote_retrieve_response_code($response) === 200) {
+            $data = json_decode(wp_remote_retrieve_body($response), true);
+            if (isset($data['countryCode']) && $data['countryCode'] !== '') {
+                $country = $data['countryCode'];
+            }
+        }
+
+        // Cache successes for the full TTL; negative-cache failures for a short window
+        // so a rate-limit/timeout (ip-api's free tier is ~45 req/min keyed by the
+        // SERVER IP, shared across all visitors) doesn't re-hit the API on every
+        // subsequent page load while it recovers.
+        $ttl = '' !== $country
+            ? (int) apply_filters('nx_visitor_country_cache_ttl', 12 * HOUR_IN_SECONDS)
+            : (int) apply_filters('nx_visitor_country_failed_cache_ttl', 5 * MINUTE_IN_SECONDS);
+        if ($ttl > 0) {
+            set_transient($cache_key, $country, $ttl);
+        }
+
+        $memo[$ip] = $country;
+        return apply_filters('nx_visitor_country_code', $country, $ip);
     }
 
     public static function nx_get_all_country($search = '') {

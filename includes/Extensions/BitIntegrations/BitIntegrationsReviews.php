@@ -27,7 +27,7 @@ class BitIntegrtionsReviews extends Extension {
     public $priority        = 16;
     public $id              = 'bitintegrations_reviews';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/bit-integrations.png';
-    // public $doc_link        = 'https://notificationx.com/docs/bitintegration-notification-alert/';
+    public $doc_link        = 'https://notificationx.com/docs/bit-integrations-notification-alert/';
     public $types           = 'reviews';
     public $module          = 'modules_bitintegrations';
     public $module_priority = 16;
@@ -45,7 +45,7 @@ class BitIntegrtionsReviews extends Extension {
         $this->title = __('Bit Integrations', 'notificationx');
         $this->module_title = __('Bit Integrations', 'notificationx');
         $this->popup = [
-            "denyButtonText" => __("<a href='https://notificationx.com/docs/bitintegrations-notification-alert/' target='_blank'>More Info</a>", "notificationx"),
+            "denyButtonText" => __("<a href='https://notificationx.com/docs/bit-integrations-notification-alert/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             "html"=> __('
                 <span>Display review alerts from popular social media networks & encourage visitors to place trust in your business.</span>

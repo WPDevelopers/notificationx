@@ -497,12 +497,11 @@
                 margin-top: 20px;
             }
         }
-        .wprf-tab-content-wrapper #customize_tab .wprf-control-section.nx-targeting {
-            display: none;
-        }
-        .wprf-tab-content-wrapper.press_bar #customize_tab .wprf-control-section.nx-targeting {
-            display:block;
-        }
+        // Targeting is decoupled from the bar (NotificationX\Core\Targeting) and now
+        // applies to ALL notification types. Visibility is controlled by the section's
+        // own PHP rule (shown for every source except GDPR / Exit Intent), so we must
+        // NOT hard-hide it here and re-show it only for .press_bar (that legacy rule
+        // was why targeting appeared on the bar only).
     }
     .wprf-tab-content-wrapper.popup_notification .wprf-name-themes{
         .wprf-option-has-image:hover .wprf-label-image{

@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.2.12\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
+"Project-Id-Version: NotificationX 3.2.13\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nx-wt-release\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-20T12:02:22+00:00\n"
+"POT-Creation-Date: 2026-08-06T09:10:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -694,32 +694,32 @@ msgid "Select Reporting Day"
 msgstr ""
 
 #: includes/Admin/Settings.php:444
-#: includes/Extensions/PressBar/PressBar.php:1445
+#: includes/Extensions/PressBar/PressBar.php:1392
 msgid "Sunday"
 msgstr ""
 
 #: includes/Admin/Settings.php:445
-#: includes/Extensions/PressBar/PressBar.php:1439
+#: includes/Extensions/PressBar/PressBar.php:1386
 msgid "Monday"
 msgstr ""
 
 #: includes/Admin/Settings.php:446
-#: includes/Extensions/PressBar/PressBar.php:1440
+#: includes/Extensions/PressBar/PressBar.php:1387
 msgid "Tuesday"
 msgstr ""
 
 #: includes/Admin/Settings.php:447
-#: includes/Extensions/PressBar/PressBar.php:1441
+#: includes/Extensions/PressBar/PressBar.php:1388
 msgid "Wednesday"
 msgstr ""
 
 #: includes/Admin/Settings.php:448
-#: includes/Extensions/PressBar/PressBar.php:1442
+#: includes/Extensions/PressBar/PressBar.php:1389
 msgid "Thursday"
 msgstr ""
 
 #: includes/Admin/Settings.php:449
-#: includes/Extensions/PressBar/PressBar.php:1443
+#: includes/Extensions/PressBar/PressBar.php:1390
 msgid "Friday"
 msgstr ""
 
@@ -927,759 +927,759 @@ msgstr ""
 msgid "Manages the cookies on the site, ensuring user consent for GDPR compliance."
 msgstr ""
 
-#: includes/Core/Helper.php:1137
+#: includes/Core/Helper.php:1199
 msgid "All Countries"
 msgstr ""
 
-#: includes/Core/Helper.php:1138
+#: includes/Core/Helper.php:1200
 msgid "Afghanistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1139
+#: includes/Core/Helper.php:1201
 msgid "Albania"
 msgstr ""
 
-#: includes/Core/Helper.php:1140
+#: includes/Core/Helper.php:1202
 msgid "Algeria"
 msgstr ""
 
-#: includes/Core/Helper.php:1141
+#: includes/Core/Helper.php:1203
 msgid "American Samoa"
 msgstr ""
 
-#: includes/Core/Helper.php:1142
+#: includes/Core/Helper.php:1204
 msgid "Andorra"
 msgstr ""
 
-#: includes/Core/Helper.php:1143
+#: includes/Core/Helper.php:1205
 msgid "Angola"
 msgstr ""
 
-#: includes/Core/Helper.php:1144
+#: includes/Core/Helper.php:1206
 msgid "Anguilla"
 msgstr ""
 
-#: includes/Core/Helper.php:1145
+#: includes/Core/Helper.php:1207
 msgid "Antarctica"
 msgstr ""
 
-#: includes/Core/Helper.php:1146
+#: includes/Core/Helper.php:1208
 msgid "Antigua and Barbuda"
 msgstr ""
 
-#: includes/Core/Helper.php:1147
+#: includes/Core/Helper.php:1209
 msgid "Argentina"
 msgstr ""
 
-#: includes/Core/Helper.php:1148
+#: includes/Core/Helper.php:1210
 msgid "Armenia"
 msgstr ""
 
-#: includes/Core/Helper.php:1149
+#: includes/Core/Helper.php:1211
 msgid "Aruba"
 msgstr ""
 
-#: includes/Core/Helper.php:1150
+#: includes/Core/Helper.php:1212
 msgid "Australia"
 msgstr ""
 
-#: includes/Core/Helper.php:1151
+#: includes/Core/Helper.php:1213
 msgid "Austria"
 msgstr ""
 
-#: includes/Core/Helper.php:1152
+#: includes/Core/Helper.php:1214
 msgid "Azerbaijan"
 msgstr ""
 
-#: includes/Core/Helper.php:1153
+#: includes/Core/Helper.php:1215
 msgid "Bahamas"
 msgstr ""
 
-#: includes/Core/Helper.php:1154
+#: includes/Core/Helper.php:1216
 msgid "Bahrain"
 msgstr ""
 
-#: includes/Core/Helper.php:1155
+#: includes/Core/Helper.php:1217
 msgid "Bangladesh"
 msgstr ""
 
-#: includes/Core/Helper.php:1156
+#: includes/Core/Helper.php:1218
 msgid "Barbados"
 msgstr ""
 
-#: includes/Core/Helper.php:1157
+#: includes/Core/Helper.php:1219
 msgid "Belarus"
 msgstr ""
 
-#: includes/Core/Helper.php:1158
+#: includes/Core/Helper.php:1220
 msgid "Belgium"
 msgstr ""
 
-#: includes/Core/Helper.php:1159
+#: includes/Core/Helper.php:1221
 msgid "Belize"
 msgstr ""
 
-#: includes/Core/Helper.php:1160
+#: includes/Core/Helper.php:1222
 msgid "Benin"
 msgstr ""
 
-#: includes/Core/Helper.php:1161
+#: includes/Core/Helper.php:1223
 msgid "Bermuda"
 msgstr ""
 
-#: includes/Core/Helper.php:1162
+#: includes/Core/Helper.php:1224
 msgid "Bhutan"
 msgstr ""
 
-#: includes/Core/Helper.php:1163
+#: includes/Core/Helper.php:1225
 msgid "Bolivia"
 msgstr ""
 
-#: includes/Core/Helper.php:1164
+#: includes/Core/Helper.php:1226
 msgid "Bosnia and Herzegovina"
 msgstr ""
 
-#: includes/Core/Helper.php:1165
+#: includes/Core/Helper.php:1227
 msgid "Botswana"
 msgstr ""
 
-#: includes/Core/Helper.php:1166
+#: includes/Core/Helper.php:1228
 msgid "Brazil"
 msgstr ""
 
-#: includes/Core/Helper.php:1167
+#: includes/Core/Helper.php:1229
 msgid "Brunei"
 msgstr ""
 
-#: includes/Core/Helper.php:1168
+#: includes/Core/Helper.php:1230
 msgid "Bulgaria"
 msgstr ""
 
-#: includes/Core/Helper.php:1169
+#: includes/Core/Helper.php:1231
 msgid "Burkina Faso"
 msgstr ""
 
-#: includes/Core/Helper.php:1170
+#: includes/Core/Helper.php:1232
 msgid "Burundi"
 msgstr ""
 
-#: includes/Core/Helper.php:1171
+#: includes/Core/Helper.php:1233
 msgid "Cambodia"
 msgstr ""
 
-#: includes/Core/Helper.php:1172
+#: includes/Core/Helper.php:1234
 msgid "Cameroon"
 msgstr ""
 
-#: includes/Core/Helper.php:1173
+#: includes/Core/Helper.php:1235
 msgid "Canada"
 msgstr ""
 
-#: includes/Core/Helper.php:1174
+#: includes/Core/Helper.php:1236
 msgid "Cape Verde"
 msgstr ""
 
-#: includes/Core/Helper.php:1175
+#: includes/Core/Helper.php:1237
 msgid "Central African Republic"
 msgstr ""
 
-#: includes/Core/Helper.php:1176
+#: includes/Core/Helper.php:1238
 msgid "Chad"
 msgstr ""
 
-#: includes/Core/Helper.php:1177
+#: includes/Core/Helper.php:1239
 msgid "Chile"
 msgstr ""
 
-#: includes/Core/Helper.php:1178
+#: includes/Core/Helper.php:1240
 msgid "China"
 msgstr ""
 
-#: includes/Core/Helper.php:1179
+#: includes/Core/Helper.php:1241
 msgid "Colombia"
 msgstr ""
 
-#: includes/Core/Helper.php:1180
+#: includes/Core/Helper.php:1242
 msgid "Comoros"
 msgstr ""
 
-#: includes/Core/Helper.php:1181
+#: includes/Core/Helper.php:1243
 msgid "Congo (Brazzaville)"
 msgstr ""
 
-#: includes/Core/Helper.php:1182
+#: includes/Core/Helper.php:1244
 msgid "Congo (Kinshasa)"
 msgstr ""
 
-#: includes/Core/Helper.php:1183
+#: includes/Core/Helper.php:1245
 msgid "Costa Rica"
 msgstr ""
 
-#: includes/Core/Helper.php:1184
+#: includes/Core/Helper.php:1246
 msgid "Croatia"
 msgstr ""
 
-#: includes/Core/Helper.php:1185
+#: includes/Core/Helper.php:1247
 msgid "Cuba"
 msgstr ""
 
-#: includes/Core/Helper.php:1186
+#: includes/Core/Helper.php:1248
 msgid "Cyprus"
 msgstr ""
 
-#: includes/Core/Helper.php:1187
+#: includes/Core/Helper.php:1249
 msgid "Czech Republic"
 msgstr ""
 
-#: includes/Core/Helper.php:1188
+#: includes/Core/Helper.php:1250
 msgid "Denmark"
 msgstr ""
 
-#: includes/Core/Helper.php:1189
+#: includes/Core/Helper.php:1251
 msgid "Djibouti"
 msgstr ""
 
-#: includes/Core/Helper.php:1190
+#: includes/Core/Helper.php:1252
 msgid "Dominica"
 msgstr ""
 
-#: includes/Core/Helper.php:1191
+#: includes/Core/Helper.php:1253
 msgid "Dominican Republic"
 msgstr ""
 
-#: includes/Core/Helper.php:1192
+#: includes/Core/Helper.php:1254
 msgid "Ecuador"
 msgstr ""
 
-#: includes/Core/Helper.php:1193
+#: includes/Core/Helper.php:1255
 msgid "Egypt"
 msgstr ""
 
-#: includes/Core/Helper.php:1194
+#: includes/Core/Helper.php:1256
 msgid "El Salvador"
 msgstr ""
 
-#: includes/Core/Helper.php:1195
+#: includes/Core/Helper.php:1257
 msgid "Equatorial Guinea"
 msgstr ""
 
-#: includes/Core/Helper.php:1196
+#: includes/Core/Helper.php:1258
 msgid "Eritrea"
 msgstr ""
 
-#: includes/Core/Helper.php:1197
+#: includes/Core/Helper.php:1259
 msgid "Estonia"
 msgstr ""
 
-#: includes/Core/Helper.php:1198
+#: includes/Core/Helper.php:1260
 msgid "Ethiopia"
 msgstr ""
 
-#: includes/Core/Helper.php:1199
+#: includes/Core/Helper.php:1261
 msgid "Fiji"
 msgstr ""
 
-#: includes/Core/Helper.php:1200
+#: includes/Core/Helper.php:1262
 msgid "Finland"
 msgstr ""
 
-#: includes/Core/Helper.php:1201
+#: includes/Core/Helper.php:1263
 msgid "France"
 msgstr ""
 
-#: includes/Core/Helper.php:1202
+#: includes/Core/Helper.php:1264
 msgid "Gabon"
 msgstr ""
 
-#: includes/Core/Helper.php:1203
+#: includes/Core/Helper.php:1265
 msgid "Gambia"
 msgstr ""
 
-#: includes/Core/Helper.php:1204
+#: includes/Core/Helper.php:1266
 msgid "Georgia"
 msgstr ""
 
-#: includes/Core/Helper.php:1205
+#: includes/Core/Helper.php:1267
 msgid "Germany"
 msgstr ""
 
-#: includes/Core/Helper.php:1206
+#: includes/Core/Helper.php:1268
 msgid "Ghana"
 msgstr ""
 
-#: includes/Core/Helper.php:1207
+#: includes/Core/Helper.php:1269
 msgid "Greece"
 msgstr ""
 
-#: includes/Core/Helper.php:1208
+#: includes/Core/Helper.php:1270
 msgid "Grenada"
 msgstr ""
 
-#: includes/Core/Helper.php:1209
+#: includes/Core/Helper.php:1271
 msgid "Guatemala"
 msgstr ""
 
-#: includes/Core/Helper.php:1210
+#: includes/Core/Helper.php:1272
 msgid "Guinea"
 msgstr ""
 
-#: includes/Core/Helper.php:1211
+#: includes/Core/Helper.php:1273
 msgid "Guinea-Bissau"
 msgstr ""
 
-#: includes/Core/Helper.php:1212
+#: includes/Core/Helper.php:1274
 msgid "Guyana"
 msgstr ""
 
-#: includes/Core/Helper.php:1213
+#: includes/Core/Helper.php:1275
 msgid "Haiti"
 msgstr ""
 
-#: includes/Core/Helper.php:1214
+#: includes/Core/Helper.php:1276
 msgid "Honduras"
 msgstr ""
 
-#: includes/Core/Helper.php:1215
+#: includes/Core/Helper.php:1277
 msgid "Hong Kong"
 msgstr ""
 
-#: includes/Core/Helper.php:1216
+#: includes/Core/Helper.php:1278
 msgid "Hungary"
 msgstr ""
 
-#: includes/Core/Helper.php:1217
+#: includes/Core/Helper.php:1279
 msgid "Iceland"
 msgstr ""
 
-#: includes/Core/Helper.php:1218
+#: includes/Core/Helper.php:1280
 msgid "India"
 msgstr ""
 
-#: includes/Core/Helper.php:1219
+#: includes/Core/Helper.php:1281
 msgid "Indonesia"
 msgstr ""
 
-#: includes/Core/Helper.php:1220
+#: includes/Core/Helper.php:1282
 msgid "Iran"
 msgstr ""
 
-#: includes/Core/Helper.php:1221
+#: includes/Core/Helper.php:1283
 msgid "Iraq"
 msgstr ""
 
-#: includes/Core/Helper.php:1222
+#: includes/Core/Helper.php:1284
 msgid "Ireland"
 msgstr ""
 
-#: includes/Core/Helper.php:1223
+#: includes/Core/Helper.php:1285
 msgid "Israel"
 msgstr ""
 
-#: includes/Core/Helper.php:1224
+#: includes/Core/Helper.php:1286
 msgid "Italy"
 msgstr ""
 
-#: includes/Core/Helper.php:1225
+#: includes/Core/Helper.php:1287
 msgid "Jamaica"
 msgstr ""
 
-#: includes/Core/Helper.php:1226
+#: includes/Core/Helper.php:1288
 msgid "Japan"
 msgstr ""
 
-#: includes/Core/Helper.php:1227
+#: includes/Core/Helper.php:1289
 msgid "Jordan"
 msgstr ""
 
-#: includes/Core/Helper.php:1228
+#: includes/Core/Helper.php:1290
 msgid "Kazakhstan"
 msgstr ""
 
-#: includes/Core/Helper.php:1229
+#: includes/Core/Helper.php:1291
 msgid "Kenya"
 msgstr ""
 
-#: includes/Core/Helper.php:1230
+#: includes/Core/Helper.php:1292
 msgid "Kiribati"
 msgstr ""
 
-#: includes/Core/Helper.php:1231
+#: includes/Core/Helper.php:1293
 msgid "Korea, South"
 msgstr ""
 
-#: includes/Core/Helper.php:1232
+#: includes/Core/Helper.php:1294
 msgid "Kuwait"
 msgstr ""
 
-#: includes/Core/Helper.php:1233
+#: includes/Core/Helper.php:1295
 msgid "Kyrgyzstan"
 msgstr ""
 
-#: includes/Core/Helper.php:1234
+#: includes/Core/Helper.php:1296
 msgid "Laos"
 msgstr ""
 
-#: includes/Core/Helper.php:1235
+#: includes/Core/Helper.php:1297
 msgid "Latvia"
 msgstr ""
 
-#: includes/Core/Helper.php:1236
+#: includes/Core/Helper.php:1298
 msgid "Lebanon"
 msgstr ""
 
-#: includes/Core/Helper.php:1237
+#: includes/Core/Helper.php:1299
 msgid "Lesotho"
 msgstr ""
 
-#: includes/Core/Helper.php:1238
+#: includes/Core/Helper.php:1300
 msgid "Liberia"
 msgstr ""
 
-#: includes/Core/Helper.php:1239
+#: includes/Core/Helper.php:1301
 msgid "Libya"
 msgstr ""
 
-#: includes/Core/Helper.php:1240
+#: includes/Core/Helper.php:1302
 msgid "Liechtenstein"
 msgstr ""
 
-#: includes/Core/Helper.php:1241
+#: includes/Core/Helper.php:1303
 msgid "Lithuania"
 msgstr ""
 
-#: includes/Core/Helper.php:1242
+#: includes/Core/Helper.php:1304
 msgid "Luxembourg"
 msgstr ""
 
-#: includes/Core/Helper.php:1243
+#: includes/Core/Helper.php:1305
 msgid "Madagascar"
 msgstr ""
 
-#: includes/Core/Helper.php:1244
+#: includes/Core/Helper.php:1306
 msgid "Malawi"
 msgstr ""
 
-#: includes/Core/Helper.php:1245
+#: includes/Core/Helper.php:1307
 msgid "Malaysia"
 msgstr ""
 
-#: includes/Core/Helper.php:1246
+#: includes/Core/Helper.php:1308
 msgid "Maldives"
 msgstr ""
 
-#: includes/Core/Helper.php:1247
+#: includes/Core/Helper.php:1309
 msgid "Mali"
 msgstr ""
 
-#: includes/Core/Helper.php:1248
+#: includes/Core/Helper.php:1310
 msgid "Malta"
 msgstr ""
 
-#: includes/Core/Helper.php:1249
+#: includes/Core/Helper.php:1311
 msgid "Marshall Islands"
 msgstr ""
 
-#: includes/Core/Helper.php:1250
+#: includes/Core/Helper.php:1312
 msgid "Mauritania"
 msgstr ""
 
-#: includes/Core/Helper.php:1251
+#: includes/Core/Helper.php:1313
 msgid "Mauritius"
 msgstr ""
 
-#: includes/Core/Helper.php:1252
+#: includes/Core/Helper.php:1314
 msgid "Mexico"
 msgstr ""
 
-#: includes/Core/Helper.php:1253
+#: includes/Core/Helper.php:1315
 msgid "Micronesia"
 msgstr ""
 
-#: includes/Core/Helper.php:1254
+#: includes/Core/Helper.php:1316
 msgid "Moldova"
 msgstr ""
 
-#: includes/Core/Helper.php:1255
+#: includes/Core/Helper.php:1317
 msgid "Monaco"
 msgstr ""
 
-#: includes/Core/Helper.php:1256
+#: includes/Core/Helper.php:1318
 msgid "Mongolia"
 msgstr ""
 
-#: includes/Core/Helper.php:1257
+#: includes/Core/Helper.php:1319
 msgid "Montenegro"
 msgstr ""
 
-#: includes/Core/Helper.php:1258
+#: includes/Core/Helper.php:1320
 msgid "Morocco"
 msgstr ""
 
-#: includes/Core/Helper.php:1259
+#: includes/Core/Helper.php:1321
 msgid "Mozambique"
 msgstr ""
 
-#: includes/Core/Helper.php:1260
+#: includes/Core/Helper.php:1322
 msgid "Myanmar (Burma)"
 msgstr ""
 
-#: includes/Core/Helper.php:1261
+#: includes/Core/Helper.php:1323
 msgid "Namibia"
 msgstr ""
 
-#: includes/Core/Helper.php:1262
+#: includes/Core/Helper.php:1324
 msgid "Nauru"
 msgstr ""
 
-#: includes/Core/Helper.php:1263
+#: includes/Core/Helper.php:1325
 msgid "Nepal"
 msgstr ""
 
-#: includes/Core/Helper.php:1264
+#: includes/Core/Helper.php:1326
 msgid "Netherlands"
 msgstr ""
 
-#: includes/Core/Helper.php:1265
+#: includes/Core/Helper.php:1327
 msgid "New Zealand"
 msgstr ""
 
-#: includes/Core/Helper.php:1266
+#: includes/Core/Helper.php:1328
 msgid "Nicaragua"
 msgstr ""
 
-#: includes/Core/Helper.php:1267
+#: includes/Core/Helper.php:1329
 msgid "Niger"
 msgstr ""
 
-#: includes/Core/Helper.php:1268
+#: includes/Core/Helper.php:1330
 msgid "Nigeria"
 msgstr ""
 
-#: includes/Core/Helper.php:1269
+#: includes/Core/Helper.php:1331
 msgid "North Macedonia"
 msgstr ""
 
-#: includes/Core/Helper.php:1270
+#: includes/Core/Helper.php:1332
 msgid "Norway"
 msgstr ""
 
-#: includes/Core/Helper.php:1271
+#: includes/Core/Helper.php:1333
 msgid "Oman"
 msgstr ""
 
-#: includes/Core/Helper.php:1272
+#: includes/Core/Helper.php:1334
 msgid "Pakistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1273
+#: includes/Core/Helper.php:1335
 msgid "Palau"
 msgstr ""
 
-#: includes/Core/Helper.php:1274
+#: includes/Core/Helper.php:1336
 msgid "Panama"
 msgstr ""
 
-#: includes/Core/Helper.php:1275
+#: includes/Core/Helper.php:1337
 msgid "Papua New Guinea"
 msgstr ""
 
-#: includes/Core/Helper.php:1276
+#: includes/Core/Helper.php:1338
 msgid "Paraguay"
 msgstr ""
 
-#: includes/Core/Helper.php:1277
+#: includes/Core/Helper.php:1339
 msgid "Peru"
 msgstr ""
 
-#: includes/Core/Helper.php:1278
+#: includes/Core/Helper.php:1340
 msgid "Philippines"
 msgstr ""
 
-#: includes/Core/Helper.php:1279
+#: includes/Core/Helper.php:1341
 msgid "Poland"
 msgstr ""
 
-#: includes/Core/Helper.php:1280
+#: includes/Core/Helper.php:1342
 msgid "Portugal"
 msgstr ""
 
-#: includes/Core/Helper.php:1281
+#: includes/Core/Helper.php:1343
 msgid "Qatar"
 msgstr ""
 
-#: includes/Core/Helper.php:1282
+#: includes/Core/Helper.php:1344
 msgid "Romania"
 msgstr ""
 
-#: includes/Core/Helper.php:1283
+#: includes/Core/Helper.php:1345
 msgid "Russia"
 msgstr ""
 
-#: includes/Core/Helper.php:1284
+#: includes/Core/Helper.php:1346
 msgid "Rwanda"
 msgstr ""
 
-#: includes/Core/Helper.php:1285
+#: includes/Core/Helper.php:1347
 msgid "Saudi Arabia"
 msgstr ""
 
-#: includes/Core/Helper.php:1286
+#: includes/Core/Helper.php:1348
 msgid "Senegal"
 msgstr ""
 
-#: includes/Core/Helper.php:1287
+#: includes/Core/Helper.php:1349
 msgid "Serbia"
 msgstr ""
 
-#: includes/Core/Helper.php:1288
+#: includes/Core/Helper.php:1350
 msgid "Seychelles"
 msgstr ""
 
-#: includes/Core/Helper.php:1289
+#: includes/Core/Helper.php:1351
 msgid "Sierra Leone"
 msgstr ""
 
-#: includes/Core/Helper.php:1290
+#: includes/Core/Helper.php:1352
 msgid "Singapore"
 msgstr ""
 
-#: includes/Core/Helper.php:1291
+#: includes/Core/Helper.php:1353
 msgid "Slovakia"
 msgstr ""
 
-#: includes/Core/Helper.php:1292
+#: includes/Core/Helper.php:1354
 msgid "Slovenia"
 msgstr ""
 
-#: includes/Core/Helper.php:1293
+#: includes/Core/Helper.php:1355
 msgid "Solomon Islands"
 msgstr ""
 
-#: includes/Core/Helper.php:1294
+#: includes/Core/Helper.php:1356
 msgid "Somalia"
 msgstr ""
 
-#: includes/Core/Helper.php:1295
+#: includes/Core/Helper.php:1357
 msgid "South Africa"
 msgstr ""
 
-#: includes/Core/Helper.php:1296
+#: includes/Core/Helper.php:1358
 msgid "Spain"
 msgstr ""
 
-#: includes/Core/Helper.php:1297
+#: includes/Core/Helper.php:1359
 msgid "Sri Lanka"
 msgstr ""
 
-#: includes/Core/Helper.php:1298
+#: includes/Core/Helper.php:1360
 msgid "Sudan"
 msgstr ""
 
-#: includes/Core/Helper.php:1299
+#: includes/Core/Helper.php:1361
 msgid "Suriname"
 msgstr ""
 
-#: includes/Core/Helper.php:1300
+#: includes/Core/Helper.php:1362
 msgid "Sweden"
 msgstr ""
 
-#: includes/Core/Helper.php:1301
+#: includes/Core/Helper.php:1363
 msgid "Switzerland"
 msgstr ""
 
-#: includes/Core/Helper.php:1302
+#: includes/Core/Helper.php:1364
 msgid "Syria"
 msgstr ""
 
-#: includes/Core/Helper.php:1303
+#: includes/Core/Helper.php:1365
 msgid "Taiwan"
 msgstr ""
 
-#: includes/Core/Helper.php:1304
+#: includes/Core/Helper.php:1366
 msgid "Tajikistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1305
+#: includes/Core/Helper.php:1367
 msgid "Tanzania"
 msgstr ""
 
-#: includes/Core/Helper.php:1306
+#: includes/Core/Helper.php:1368
 msgid "Thailand"
 msgstr ""
 
-#: includes/Core/Helper.php:1307
+#: includes/Core/Helper.php:1369
 msgid "Togo"
 msgstr ""
 
-#: includes/Core/Helper.php:1308
+#: includes/Core/Helper.php:1370
 msgid "Tonga"
 msgstr ""
 
-#: includes/Core/Helper.php:1309
+#: includes/Core/Helper.php:1371
 msgid "Trinidad and Tobago"
 msgstr ""
 
-#: includes/Core/Helper.php:1310
+#: includes/Core/Helper.php:1372
 msgid "Tunisia"
 msgstr ""
 
-#: includes/Core/Helper.php:1311
+#: includes/Core/Helper.php:1373
 msgid "Turkey"
 msgstr ""
 
-#: includes/Core/Helper.php:1312
+#: includes/Core/Helper.php:1374
 msgid "Turkmenistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1313
+#: includes/Core/Helper.php:1375
 msgid "Uganda"
 msgstr ""
 
-#: includes/Core/Helper.php:1314
+#: includes/Core/Helper.php:1376
 msgid "Ukraine"
 msgstr ""
 
-#: includes/Core/Helper.php:1315
+#: includes/Core/Helper.php:1377
 msgid "United Arab Emirates"
 msgstr ""
 
-#: includes/Core/Helper.php:1316
+#: includes/Core/Helper.php:1378
 msgid "United Kingdom"
 msgstr ""
 
-#: includes/Core/Helper.php:1317
+#: includes/Core/Helper.php:1379
 msgid "United States"
 msgstr ""
 
-#: includes/Core/Helper.php:1318
+#: includes/Core/Helper.php:1380
 msgid "Uruguay"
 msgstr ""
 
-#: includes/Core/Helper.php:1319
+#: includes/Core/Helper.php:1381
 msgid "Uzbekistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1320
+#: includes/Core/Helper.php:1382
 msgid "Vanuatu"
 msgstr ""
 
-#: includes/Core/Helper.php:1321
+#: includes/Core/Helper.php:1383
 msgid "Venezuela"
 msgstr ""
 
-#: includes/Core/Helper.php:1322
+#: includes/Core/Helper.php:1384
 msgid "Vietnam"
 msgstr ""
 
-#: includes/Core/Helper.php:1323
+#: includes/Core/Helper.php:1385
 msgid "Yemen"
 msgstr ""
 
-#: includes/Core/Helper.php:1324
+#: includes/Core/Helper.php:1386
 msgid "Zambia"
 msgstr ""
 
-#: includes/Core/Helper.php:1325
+#: includes/Core/Helper.php:1387
 msgid "Zimbabwe"
 msgstr ""
 
@@ -1842,8 +1842,8 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:1395
 #: includes/Extensions/GlobalFields.php:1449
 #: includes/Extensions/GlobalFields.php:1503
-#: includes/Extensions/PopupNotification/PopupNotification.php:782
-#: includes/Extensions/PressBar/PressBar.php:1736
+#: includes/Extensions/PopupNotification/PopupNotification.php:929
+#: includes/Extensions/PressBar/PressBar.php:1683
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 #: assets/admin/js/admin.js:20
@@ -1863,14 +1863,14 @@ msgstr ""
 #: includes/Core/QuickBuild.php:92
 #: includes/Extensions/GlobalFields.php:644
 #: includes/Extensions/GlobalFields.php:673
-#: includes/Extensions/PopupNotification/PopupNotification.php:606
-#: includes/Extensions/PressBar/PressBar.php:1701
+#: includes/Extensions/PopupNotification/PopupNotification.php:678
+#: includes/Extensions/PressBar/PressBar.php:1648
 msgid "Content"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:272
 #: includes/Extensions/PressBar/PressBar.php:67
-#: includes/Types/NotificationBar.php:237
+#: includes/Types/NotificationBar.php:193
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:13
 #: assets/public/js/crossSite.js:1
@@ -1947,15 +1947,15 @@ msgstr ""
 msgid "Cookie Notice"
 msgstr ""
 
-#: includes/Core/REST.php:526
+#: includes/Core/REST.php:532
 msgid "Unauthorized Access: You have to logged in first."
 msgstr ""
 
-#: includes/Core/REST.php:529
+#: includes/Core/REST.php:535
 msgid "Invalid Type: You have to give a type."
 msgstr ""
 
-#: includes/Core/REST.php:532
+#: includes/Core/REST.php:538
 msgid "400 Bad Request."
 msgstr ""
 
@@ -2114,6 +2114,26 @@ msgstr ""
 msgid "Setup Wizard"
 msgstr ""
 
+#: includes/Core/Targeting.php:77
+msgid "Targeting"
+msgstr ""
+
+#: includes/Core/Targeting.php:90
+msgid "Country Targeting"
+msgstr ""
+
+#: includes/Core/Targeting.php:114
+msgid "Show for All Users"
+msgstr ""
+
+#: includes/Core/Targeting.php:115
+msgid "Logged-out Visitors (Guests)"
+msgstr ""
+
+#: includes/Core/Targeting.php:120
+msgid "Set Target Audience"
+msgstr ""
+
 #: includes/CoreInstaller.php:67
 msgid "You don't have permission to install the plugins"
 msgstr ""
@@ -2139,6 +2159,8 @@ msgstr ""
 #: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:44
 #: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:45
 #: includes/Extensions/BitIntegrations/BitIntegrationsConversions.php:72
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:45
+#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:46
 #: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:73
 #: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:45
 #: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:46
@@ -2298,11 +2320,6 @@ msgstr ""
 msgid "City,Country:"
 msgstr ""
 
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:45
-#: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:46
-msgid "BitIntegrations"
-msgstr ""
-
 #: includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php:91
 #: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:96
 #: includes/Extensions/Zapier/ZapierEmailSubscription.php:65
@@ -2326,7 +2343,7 @@ msgid "Some time ago:"
 msgstr ""
 
 #: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:48
-msgid "<a href='https://notificationx.com/docs/bitintegrations-notification-alert/' target='_blank'>More Info</a>"
+msgid "<a href='https://notificationx.com/docs/bit-integrations-notification-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Extensions/BitIntegrations/BitIntegrationsReviews.php:49
@@ -2622,7 +2639,7 @@ msgid "Default (Due Date)"
 msgstr ""
 
 #: includes/Extensions/Elementor/CountdownWidget.php:74
-#: includes/Extensions/PressBar/PressBar.php:1959
+#: includes/Extensions/PressBar/PressBar.php:1906
 #: blocks/countdown/components/constants.js:14
 #: blocks/countdown/index.js:1
 msgid "Evergreen Timer"
@@ -2767,7 +2784,7 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2206
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2237
 #: includes/Extensions/GlobalFields.php:427
-#: includes/Extensions/PopupNotification/PopupNotification.php:947
+#: includes/Extensions/PopupNotification/PopupNotification.php:1220
 #: blocks/countdown/components/constants.js:34
 #: blocks/countdown/index.js:1
 msgid "Center"
@@ -2804,7 +2821,7 @@ msgstr ""
 #: includes/Extensions/Elementor/CountdownWidget.php:649
 #: includes/Extensions/GlobalFields.php:1132
 #: includes/Extensions/GlobalFields.php:2008
-#: includes/Extensions/PopupNotification/PopupNotification.php:975
+#: includes/Extensions/PopupNotification/PopupNotification.php:1248
 #: includes/Extensions/PressBar/PressBar.php:1153
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
@@ -3006,7 +3023,7 @@ msgstr ""
 #: includes/Extensions/Elementor/CountdownWidget.php:571
 #: includes/Extensions/Elementor/FormWidget.php:430
 #: includes/Extensions/Elementor/FormWidget.php:518
-#: includes/Extensions/PopupNotification/PopupNotification.php:375
+#: includes/Extensions/PopupNotification/PopupNotification.php:438
 #: blocks/countdown/components/inspector.js:321
 #: blocks/countdown/index.js:1
 msgid "Padding"
@@ -3027,8 +3044,8 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2034
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2093
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2151
-#: includes/Extensions/PopupNotification/PopupNotification.php:194
-#: includes/Extensions/PopupNotification/PopupNotification.php:368
+#: includes/Extensions/PopupNotification/PopupNotification.php:257
+#: includes/Extensions/PopupNotification/PopupNotification.php:431
 #: includes/Extensions/PressBar/PressBar.php:487
 msgid "Border Radius"
 msgstr ""
@@ -3060,8 +3077,8 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:201
 #: includes/Extensions/GDPR/GDPR_Notification.php:239
 #: includes/Extensions/GlobalFields.php:489
-#: includes/Extensions/PopupNotification/PopupNotification.php:176
-#: includes/Extensions/PopupNotification/PopupNotification.php:311
+#: includes/Extensions/PopupNotification/PopupNotification.php:239
+#: includes/Extensions/PopupNotification/PopupNotification.php:374
 #: includes/Extensions/PressBar/PressBar.php:554
 #: blocks/countdown/components/inspector.js:341
 #: blocks/countdown/components/inspector.js:396
@@ -3103,7 +3120,7 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:207
 #: includes/Extensions/GDPR/GDPR_Notification.php:245
 #: includes/Extensions/GlobalFields.php:526
-#: includes/Extensions/PopupNotification/PopupNotification.php:333
+#: includes/Extensions/PopupNotification/PopupNotification.php:396
 #: blocks/countdown/components/inspector.js:399
 #: blocks/countdown/index.js:1
 msgid "Border Color"
@@ -3123,7 +3140,7 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2041
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2104
 #: includes/Extensions/GDPR/GDPR_Notification.php:87
-#: includes/Extensions/PopupNotification/PopupNotification.php:232
+#: includes/Extensions/PopupNotification/PopupNotification.php:295
 #: blocks/countdown/components/inspector.js:416
 #: blocks/countdown/index.js:1
 msgid "Title Color"
@@ -3136,7 +3153,7 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:213
 #: includes/Extensions/GDPR/GDPR_Notification.php:251
 #: includes/Extensions/GlobalFields.php:495
-#: includes/Extensions/PopupNotification/PopupNotification.php:322
+#: includes/Extensions/PopupNotification/PopupNotification.php:385
 #: includes/Extensions/PressBar/PressBar.php:566
 #: blocks/countdown/components/inspector.js:417
 #: blocks/countdown/index.js:1
@@ -3277,9 +3294,9 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1574
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1612
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1790
-#: includes/Extensions/PopupNotification/PopupNotification.php:711
-#: includes/Extensions/PressBar/PressBar.php:1781
-#: includes/Extensions/PressBar/PressBar.php:1871
+#: includes/Extensions/PopupNotification/PopupNotification.php:850
+#: includes/Extensions/PressBar/PressBar.php:1728
+#: includes/Extensions/PressBar/PressBar.php:1818
 #: includes/Types/GDPR.php:424
 #: includes/Types/GDPR.php:432
 #: includes/Types/GDPR.php:440
@@ -3313,7 +3330,7 @@ msgstr ""
 #: includes/Extensions/Elementor/FormWidget.php:371
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1892
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2183
-#: includes/Extensions/PopupNotification/PopupNotification.php:423
+#: includes/Extensions/PopupNotification/PopupNotification.php:486
 msgid "Input Text Color"
 msgstr ""
 
@@ -3475,7 +3492,7 @@ msgstr ""
 #: includes/Extensions/PressBar/PressBar.php:504
 #: includes/Extensions/PressBar/PressBar.php:635
 #: includes/Extensions/PressBar/PressBar.php:657
-#: includes/Extensions/PressBar/PressBar.php:1195
+#: includes/Extensions/PressBar/PressBar.php:1193
 msgid "Top"
 msgstr ""
 
@@ -3486,7 +3503,7 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:405
 #: includes/Extensions/GlobalFields.php:441
 #: includes/Extensions/PressBar/PressBar.php:511
-#: includes/Extensions/PressBar/PressBar.php:1200
+#: includes/Extensions/PressBar/PressBar.php:1198
 msgid "Bottom"
 msgstr ""
 
@@ -3518,7 +3535,7 @@ msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:594
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:595
-#: includes/Extensions/PopupNotification/PopupNotification.php:953
+#: includes/Extensions/PopupNotification/PopupNotification.php:1226
 #: includes/Types/ExitIntent.php:34
 #: includes/Types/ExitIntent.php:35
 #: assets/admin/js/admin.js:13
@@ -3655,7 +3672,7 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:689
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1188
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1397
-#: includes/Extensions/PopupNotification/PopupNotification.php:812
+#: includes/Extensions/PopupNotification/PopupNotification.php:959
 msgid "50% OFF"
 msgstr ""
 
@@ -3695,7 +3712,7 @@ msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:677
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1571
-#: includes/Extensions/PopupNotification/PopupNotification.php:667
+#: includes/Extensions/PopupNotification/PopupNotification.php:805
 msgid "Enter your email"
 msgstr ""
 
@@ -3738,7 +3755,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:770
 #: includes/Extensions/PressBar/PressBar.php:423
 #: includes/Extensions/PressBar/PressBar.php:431
-#: includes/Extensions/PressBar/PressBar.php:1407
+#: includes/Extensions/PressBar/PressBar.php:1354
 msgid "Custom"
 msgstr ""
 
@@ -3840,8 +3857,8 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1286
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1414
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1619
-#: includes/Extensions/PopupNotification/PopupNotification.php:719
-#: includes/Extensions/PressBar/PressBar.php:1792
+#: includes/Extensions/PopupNotification/PopupNotification.php:862
+#: includes/Extensions/PressBar/PressBar.php:1739
 msgid "Button URL"
 msgstr ""
 
@@ -3884,8 +3901,8 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1258
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1346
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1731
-#: includes/Extensions/PopupNotification/PopupNotification.php:583
-#: includes/Extensions/PopupNotification/PopupNotification.php:799
+#: includes/Extensions/PopupNotification/PopupNotification.php:646
+#: includes/Extensions/PopupNotification/PopupNotification.php:946
 msgid "Subtitle"
 msgstr ""
 
@@ -3919,8 +3936,8 @@ msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1386
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1724
-#: includes/Extensions/PopupNotification/PopupNotification.php:576
-#: includes/Extensions/PopupNotification/PopupNotification.php:793
+#: includes/Extensions/PopupNotification/PopupNotification.php:639
+#: includes/Extensions/PopupNotification/PopupNotification.php:940
 #: includes/Types/GDPR.php:294
 #: includes/Types/GDPR.php:297
 #: includes/Types/GDPR.php:404
@@ -4001,7 +4018,7 @@ msgid "We'd love to understand what's holding you back"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1739
-#: includes/Extensions/PopupNotification/PopupNotification.php:619
+#: includes/Extensions/PopupNotification/PopupNotification.php:757
 msgid "Show Name Field"
 msgstr ""
 
@@ -4010,12 +4027,12 @@ msgid "Name Placeholder"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1756
-#: includes/Extensions/PopupNotification/PopupNotification.php:649
+#: includes/Extensions/PopupNotification/PopupNotification.php:787
 msgid "Show Email Field"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1773
-#: includes/Extensions/PopupNotification/PopupNotification.php:679
+#: includes/Extensions/PopupNotification/PopupNotification.php:817
 msgid "Show Message Field"
 msgstr ""
 
@@ -4024,35 +4041,35 @@ msgid "Message Placeholder"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1857
-#: includes/Extensions/PopupNotification/PopupNotification.php:249
-#: includes/Extensions/PopupNotification/PopupNotification.php:361
-#: includes/Extensions/PopupNotification/PopupNotification.php:517
+#: includes/Extensions/PopupNotification/PopupNotification.php:312
+#: includes/Extensions/PopupNotification/PopupNotification.php:424
+#: includes/Extensions/PopupNotification/PopupNotification.php:580
 msgid "Normal (400)"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1858
-#: includes/Extensions/PopupNotification/PopupNotification.php:250
-#: includes/Extensions/PopupNotification/PopupNotification.php:362
-#: includes/Extensions/PopupNotification/PopupNotification.php:518
+#: includes/Extensions/PopupNotification/PopupNotification.php:313
+#: includes/Extensions/PopupNotification/PopupNotification.php:425
+#: includes/Extensions/PopupNotification/PopupNotification.php:581
 msgid "Medium (500)"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1859
-#: includes/Extensions/PopupNotification/PopupNotification.php:251
-#: includes/Extensions/PopupNotification/PopupNotification.php:363
-#: includes/Extensions/PopupNotification/PopupNotification.php:519
+#: includes/Extensions/PopupNotification/PopupNotification.php:314
+#: includes/Extensions/PopupNotification/PopupNotification.php:426
+#: includes/Extensions/PopupNotification/PopupNotification.php:582
 msgid "Semi Bold (600)"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1860
-#: includes/Extensions/PopupNotification/PopupNotification.php:252
-#: includes/Extensions/PopupNotification/PopupNotification.php:364
-#: includes/Extensions/PopupNotification/PopupNotification.php:520
+#: includes/Extensions/PopupNotification/PopupNotification.php:315
+#: includes/Extensions/PopupNotification/PopupNotification.php:427
+#: includes/Extensions/PopupNotification/PopupNotification.php:583
 msgid "Bold (700)"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1861
-#: includes/Extensions/PopupNotification/PopupNotification.php:253
+#: includes/Extensions/PopupNotification/PopupNotification.php:316
 msgid "Extra Bold (800)"
 msgstr ""
 
@@ -4073,7 +4090,7 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2036
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2099
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2156
-#: includes/Extensions/PopupNotification/PopupNotification.php:181
+#: includes/Extensions/PopupNotification/PopupNotification.php:244
 msgid "Overlay Background Color"
 msgstr ""
 
@@ -4095,7 +4112,7 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2042
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2105
 #: includes/Extensions/GDPR/GDPR_Notification.php:93
-#: includes/Extensions/PopupNotification/PopupNotification.php:237
+#: includes/Extensions/PopupNotification/PopupNotification.php:300
 msgid "Title Font Size"
 msgstr ""
 
@@ -4104,39 +4121,39 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2014
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2043
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2106
-#: includes/Extensions/PopupNotification/PopupNotification.php:244
+#: includes/Extensions/PopupNotification/PopupNotification.php:307
 msgid "Title Font Weight"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1885
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1966
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2018
-#: includes/Extensions/PopupNotification/PopupNotification.php:257
+#: includes/Extensions/PopupNotification/PopupNotification.php:320
 msgid "Subtitle Color"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1886
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1967
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2019
-#: includes/Extensions/PopupNotification/PopupNotification.php:263
+#: includes/Extensions/PopupNotification/PopupNotification.php:326
 msgid "Subtitle Font Size"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1889
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2180
-#: includes/Extensions/PopupNotification/PopupNotification.php:418
+#: includes/Extensions/PopupNotification/PopupNotification.php:481
 msgid "Input Background Color"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1890
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2181
-#: includes/Extensions/PopupNotification/PopupNotification.php:428
+#: includes/Extensions/PopupNotification/PopupNotification.php:491
 msgid "Input Border Color"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1891
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2182
-#: includes/Extensions/PopupNotification/PopupNotification.php:456
+#: includes/Extensions/PopupNotification/PopupNotification.php:519
 msgid "Input Border Radius"
 msgstr ""
 
@@ -4188,7 +4205,7 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2100
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2157
 #: includes/Extensions/GDPR/GDPR_Notification.php:115
-#: includes/Extensions/PopupNotification/PopupNotification.php:207
+#: includes/Extensions/PopupNotification/PopupNotification.php:270
 #: includes/Extensions/PressBar/PressBar.php:591
 msgid "Close Button Color"
 msgstr ""
@@ -4201,7 +4218,7 @@ msgstr ""
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2101
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2158
 #: includes/Extensions/GDPR/GDPR_Notification.php:129
-#: includes/Extensions/PopupNotification/PopupNotification.php:212
+#: includes/Extensions/PopupNotification/PopupNotification.php:275
 #: includes/Extensions/PressBar/PressBar.php:596
 msgid "Close Button Size"
 msgstr ""
@@ -4295,7 +4312,7 @@ msgid "Coupon Block Background"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:1977
-#: includes/Extensions/PressBar/PressBar.php:1921
+#: includes/Extensions/PressBar/PressBar.php:1868
 msgid "Coupon Text Color"
 msgstr ""
 
@@ -4448,7 +4465,7 @@ msgid "Exit Intent Settings"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2226
-#: includes/Extensions/PopupNotification/PopupNotification.php:1015
+#: includes/Extensions/PopupNotification/PopupNotification.php:1288
 msgid "Show Close Button"
 msgstr ""
 
@@ -4456,7 +4473,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:425
 #: includes/Extensions/GlobalFields.php:1809
 #: includes/Extensions/GlobalFields.php:1894
-#: includes/Extensions/PopupNotification/PopupNotification.php:1035
+#: includes/Extensions/PopupNotification/PopupNotification.php:1308
 msgid "Bottom Left"
 msgstr ""
 
@@ -4464,7 +4481,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:426
 #: includes/Extensions/GlobalFields.php:1813
 #: includes/Extensions/GlobalFields.php:1898
-#: includes/Extensions/PopupNotification/PopupNotification.php:1034
+#: includes/Extensions/PopupNotification/PopupNotification.php:1307
 msgid "Bottom Right"
 msgstr ""
 
@@ -4820,7 +4837,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:561
 #: includes/Extensions/GlobalFields.php:569
 #: includes/Extensions/GlobalFields.php:577
-#: includes/Extensions/PopupNotification/PopupNotification.php:350
+#: includes/Extensions/PopupNotification/PopupNotification.php:413
 #: includes/Extensions/PressBar/PressBar.php:693
 msgid "Font Size"
 msgstr ""
@@ -5056,7 +5073,7 @@ msgid "Discount Background"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:554
-#: includes/Extensions/PopupNotification/PopupNotification.php:222
+#: includes/Extensions/PopupNotification/PopupNotification.php:285
 #: includes/Extensions/PressBar/PressBar.php:686
 #: blocks/notificationx/components/inspector.js:254
 #: blocks/notificationx/index.js:1
@@ -5417,12 +5434,12 @@ msgid "Close Icon Position"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1826
-#: includes/Extensions/PopupNotification/PopupNotification.php:1032
+#: includes/Extensions/PopupNotification/PopupNotification.php:1305
 msgid "Top Right"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1830
-#: includes/Extensions/PopupNotification/PopupNotification.php:1033
+#: includes/Extensions/PopupNotification/PopupNotification.php:1306
 msgid "Top Left"
 msgstr ""
 
@@ -5625,8 +5642,8 @@ msgid "Delay Before First Notification"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:2226
-#: includes/Extensions/PressBar/PressBar.php:1299
-#: includes/Extensions/PressBar/PressBar.php:1304
+#: includes/Extensions/PressBar/PressBar.php:1297
+#: includes/Extensions/PressBar/PressBar.php:1302
 #: includes/Types/GDPR.php:276
 msgid "Initial Delay"
 msgstr ""
@@ -5634,8 +5651,8 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:2227
 #: includes/Extensions/GlobalFields.php:2234
 #: includes/Extensions/GlobalFields.php:2243
-#: includes/Extensions/PressBar/PressBar.php:1246
-#: includes/Extensions/PressBar/PressBar.php:1305
+#: includes/Extensions/PressBar/PressBar.php:1244
+#: includes/Extensions/PressBar/PressBar.php:1303
 msgid "seconds"
 msgstr ""
 
@@ -6136,6 +6153,7 @@ msgid "Offer Description"
 msgstr ""
 
 #: includes/Extensions/OfferAnnouncement/Announcements.php:242
+#: includes/Extensions/PopupNotification/PopupNotification.php:724
 msgid "Discount"
 msgstr ""
 
@@ -6149,8 +6167,8 @@ msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:49
 #: includes/Extensions/PopupNotification/PopupNotification.php:50
-#: includes/Types/Popup.php:48
-#: includes/Types/Popup.php:49
+#: includes/Types/Popup.php:52
+#: includes/Types/Popup.php:53
 #: assets/admin/js/admin.js:13
 msgid "Announcement"
 msgstr ""
@@ -6236,410 +6254,520 @@ msgstr ""
 msgid "Latest Offers"
 msgstr ""
 
+#: includes/Extensions/PopupNotification/PopupNotification.php:135
+msgid "35% OFF NOW"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:136
+msgid "Get an extra 35% off on all products!"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:137
+#: includes/Extensions/PopupNotification/PopupNotification.php:704
+msgid "GET35OFF"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:138
+msgid "Get Coupon"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:150
+msgid "Back to School Deal"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:151
+msgid "25% OFF!"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:152
+msgid "Get a ready-to-go healthy lunchbox kit"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:153
+msgid "BTS2025"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:164
+msgid "64%"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:165
+msgid "Enjoy 64% Electronics Sale"
+msgstr ""
+
 #: includes/Extensions/PopupNotification/PopupNotification.php:166
-msgid "Popup Design"
+msgid "Upgrade your gadgets at unbeatable prices."
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:167
+msgid "ELEC 4512658"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:177
+msgid "Buy Upto $500"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:178
+msgid "And Get Discount Now"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:179
+msgid "Take discount in your next order"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:180
+msgid "Claim Now"
 msgstr ""
 
 #: includes/Extensions/PopupNotification/PopupNotification.php:184
+#: includes/Extensions/PopupNotification/PopupNotification.php:749
+msgid "20%"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:185
+#: includes/Extensions/PopupNotification/PopupNotification.php:750
+msgid "#SAVE20"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:186
+#: includes/Extensions/PopupNotification/PopupNotification.php:751
+msgid "Valid for 7 Days"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:229
+msgid "Popup Design"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:247
 msgid "Background color of the overlay behind the popup"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:187
+#: includes/Extensions/PopupNotification/PopupNotification.php:250
 msgid "Popup Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:191
+#: includes/Extensions/PopupNotification/PopupNotification.php:254
 msgid "Maximum width of the popup container"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:198
+#: includes/Extensions/PopupNotification/PopupNotification.php:261
 msgid "Rounded corners for the popup container"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:201
+#: includes/Extensions/PopupNotification/PopupNotification.php:264
 msgid "Popup Padding"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:204
+#: includes/Extensions/PopupNotification/PopupNotification.php:267
 msgid "Internal spacing of popup content (e.g., 30px or 20px 30px)"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:241
+#: includes/Extensions/PopupNotification/PopupNotification.php:304
 msgid "Font size for the popup title"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:248
-#: includes/Extensions/PopupNotification/PopupNotification.php:360
+#: includes/Extensions/PopupNotification/PopupNotification.php:311
+#: includes/Extensions/PopupNotification/PopupNotification.php:423
 msgid "Light (300)"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:267
+#: includes/Extensions/PopupNotification/PopupNotification.php:330
 msgid "Font size for the popup subtitle"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:271
+#: includes/Extensions/PopupNotification/PopupNotification.php:334
 msgid "Content/Message Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:283
+#: includes/Extensions/PopupNotification/PopupNotification.php:346
 msgid "Content/Message Font Size"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:287
+#: includes/Extensions/PopupNotification/PopupNotification.php:350
 msgid "Font size for the popup content/message text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:301
+#: includes/Extensions/PopupNotification/PopupNotification.php:364
 msgid "Button Design"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:316
+#: includes/Extensions/PopupNotification/PopupNotification.php:379
 msgid "Hover Background Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:319
+#: includes/Extensions/PopupNotification/PopupNotification.php:382
 msgid "Background color when button is hovered"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:327
+#: includes/Extensions/PopupNotification/PopupNotification.php:390
 msgid "Hover Text Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:330
+#: includes/Extensions/PopupNotification/PopupNotification.php:393
 msgid "Text color when button is hovered"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:338
+#: includes/Extensions/PopupNotification/PopupNotification.php:401
 msgid "Hover Border Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:343
+#: includes/Extensions/PopupNotification/PopupNotification.php:406
 msgid "Border Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:347
+#: includes/Extensions/PopupNotification/PopupNotification.php:410
 msgid "Width of the button border"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:356
+#: includes/Extensions/PopupNotification/PopupNotification.php:419
 msgid "Font Weight"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:372
+#: includes/Extensions/PopupNotification/PopupNotification.php:435
 msgid "Rounded corners for the button"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:378
+#: includes/Extensions/PopupNotification/PopupNotification.php:441
 msgid "Button spacing in CSS format (e.g., 12px 24px)"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:381
+#: includes/Extensions/PopupNotification/PopupNotification.php:444
 msgid "Button Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:386
+#: includes/Extensions/PopupNotification/PopupNotification.php:449
 msgid "Auto Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:387
+#: includes/Extensions/PopupNotification/PopupNotification.php:450
 msgid "Full Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:388
+#: includes/Extensions/PopupNotification/PopupNotification.php:451
 msgid "Custom Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:392
+#: includes/Extensions/PopupNotification/PopupNotification.php:455
 msgid "Custom Button Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:403
+#: includes/Extensions/PopupNotification/PopupNotification.php:466
 msgid "Email Input Design"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:433
+#: includes/Extensions/PopupNotification/PopupNotification.php:496
 msgid "Input Focus Border Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:436
+#: includes/Extensions/PopupNotification/PopupNotification.php:499
 msgid "Border color when input is focused"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:439
+#: includes/Extensions/PopupNotification/PopupNotification.php:502
 msgid "Placeholder Text Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:444
+#: includes/Extensions/PopupNotification/PopupNotification.php:507
 msgid "Input Font Size"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:450
+#: includes/Extensions/PopupNotification/PopupNotification.php:513
 msgid "Input Border Width"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:462
+#: includes/Extensions/PopupNotification/PopupNotification.php:525
 msgid "Input Padding"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:465
+#: includes/Extensions/PopupNotification/PopupNotification.php:528
 msgid "Input field spacing in CSS format (e.g., 12px 16px)"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:468
+#: includes/Extensions/PopupNotification/PopupNotification.php:531
 msgid "Input Height"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:472
+#: includes/Extensions/PopupNotification/PopupNotification.php:535
 msgid "Height of the email input field"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:479
+#: includes/Extensions/PopupNotification/PopupNotification.php:542
 msgid "Content Items Design"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:490
+#: includes/Extensions/PopupNotification/PopupNotification.php:553
 msgid "Item Background Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:493
+#: includes/Extensions/PopupNotification/PopupNotification.php:556
 msgid "Background color for each content item"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:496
+#: includes/Extensions/PopupNotification/PopupNotification.php:559
 msgid "Highlight Text Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:499
+#: includes/Extensions/PopupNotification/PopupNotification.php:562
 msgid "Color for the highlight text (e.g., \"30% OFF\")"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:502
+#: includes/Extensions/PopupNotification/PopupNotification.php:565
 msgid "Item Title Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:507
+#: includes/Extensions/PopupNotification/PopupNotification.php:570
 msgid "Item Title Font Size"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:513
+#: includes/Extensions/PopupNotification/PopupNotification.php:576
 msgid "Item Title Font Weight"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:524
+#: includes/Extensions/PopupNotification/PopupNotification.php:587
 msgid "Item Subtitle Color"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:529
+#: includes/Extensions/PopupNotification/PopupNotification.php:592
 msgid "Item Subtitle Font Size"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:535
+#: includes/Extensions/PopupNotification/PopupNotification.php:598
 msgid "Item Border Radius"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:539
+#: includes/Extensions/PopupNotification/PopupNotification.php:602
 msgid "Rounded corners for each content item"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:542
+#: includes/Extensions/PopupNotification/PopupNotification.php:605
 msgid "Item Padding"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:545
+#: includes/Extensions/PopupNotification/PopupNotification.php:608
 msgid "Internal spacing for each content item (e.g., 16px)"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:548
+#: includes/Extensions/PopupNotification/PopupNotification.php:611
 msgid "Item Spacing"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:552
+#: includes/Extensions/PopupNotification/PopupNotification.php:615
 msgid "Space between content items"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:569
+#: includes/Extensions/PopupNotification/PopupNotification.php:632
 msgid "Popup Content"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:580
+#: includes/Extensions/PopupNotification/PopupNotification.php:643
 msgid "Special Offer!"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:587
-msgid "Would like to get the latest news & updates instantly?"
-msgstr ""
-
-#: includes/Extensions/PopupNotification/PopupNotification.php:591
+#: includes/Extensions/PopupNotification/PopupNotification.php:663
 msgid "Popup Icon"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:601
-#: includes/Extensions/PopupNotification/PopupNotification.php:742
+#: includes/Extensions/PopupNotification/PopupNotification.php:673
+#: includes/Extensions/PopupNotification/PopupNotification.php:887
 msgid "Mail Icon"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:610
+#: includes/Extensions/PopupNotification/PopupNotification.php:682
 msgid "Don't miss out on this amazing deal!"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:633
+#: includes/Extensions/PopupNotification/PopupNotification.php:696
+#: includes/Extensions/PopupNotification/PopupNotification.php:731
+#: includes/Extensions/PressBar/PressBar.php:1828
+msgid "Coupon Code"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:714
+msgid "Coupon Tickets"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:720
+msgid "Add Coupon"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:727
+msgid "e.g. 20%"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:728
+msgid "Big discount value shown on the left (e.g. \"20%\")."
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:734
+msgid "e.g. #SAVE20"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:737
+msgid "Validity"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:740
+msgid "e.g. Valid for 7 Days"
+msgstr ""
+
+#: includes/Extensions/PopupNotification/PopupNotification.php:771
 msgid "Name Field Text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:637
+#: includes/Extensions/PopupNotification/PopupNotification.php:775
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Enter your name"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:663
+#: includes/Extensions/PopupNotification/PopupNotification.php:801
 msgid "Email Field Text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:693
+#: includes/Extensions/PopupNotification/PopupNotification.php:831
 msgid "Message Field Text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:697
+#: includes/Extensions/PopupNotification/PopupNotification.php:835
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Enter your message..."
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:715
+#: includes/Extensions/PopupNotification/PopupNotification.php:854
 #: includes/Extensions/PressBar/PressBar.php:100
-#: includes/Extensions/PressBar/PressBar.php:1783
+#: includes/Extensions/PressBar/PressBar.php:1730
 #: assets/admin/js/admin.js:13
 msgid "Get Offer"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:733
-#: includes/Extensions/PressBar/PressBar.php:1803
+#: includes/Extensions/PopupNotification/PopupNotification.php:878
+#: includes/Extensions/PressBar/PressBar.php:1750
 msgid "Button Icon"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:746
+#: includes/Extensions/PopupNotification/PopupNotification.php:891
 msgid "Latest OFfer"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:750
+#: includes/Extensions/PopupNotification/PopupNotification.php:895
 #: includes/Extensions/PressBar/PressBar.php:176
 #: includes/Extensions/PressBar/PressBar.php:194
-#: includes/Extensions/PressBar/PressBar.php:1809
+#: includes/Extensions/PressBar/PressBar.php:1756
 msgid "Shop Now"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:754
+#: includes/Extensions/PopupNotification/PopupNotification.php:899
 msgid "Shop Now White"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:757
+#: includes/Extensions/PopupNotification/PopupNotification.php:902
 msgid "Select an icon to display with the button text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:764
+#: includes/Extensions/PopupNotification/PopupNotification.php:909
 msgid "Open URL in New Tab"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:776
+#: includes/Extensions/PopupNotification/PopupNotification.php:923
 msgid "Content Items"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:786
+#: includes/Extensions/PopupNotification/PopupNotification.php:933
 msgid "Highlight Text"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:789
-#: includes/Extensions/PopupNotification/PopupNotification.php:807
+#: includes/Extensions/PopupNotification/PopupNotification.php:936
+#: includes/Extensions/PopupNotification/PopupNotification.php:954
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "30% OFF"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:790
+#: includes/Extensions/PopupNotification/PopupNotification.php:937
 msgid "Text that will be highlighted in a different color (e.g., \"30% OFF\")"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:796
+#: includes/Extensions/PopupNotification/PopupNotification.php:943
 msgid "Feature Title"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:802
+#: includes/Extensions/PopupNotification/PopupNotification.php:949
 msgid "Feature description"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:808
+#: includes/Extensions/PopupNotification/PopupNotification.php:955
 msgid "Boost Sales"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:809
+#: includes/Extensions/PopupNotification/PopupNotification.php:956
 msgid "Increase conversions with social proof"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:813
+#: includes/Extensions/PopupNotification/PopupNotification.php:960
 msgid "Build Trust"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:814
+#: includes/Extensions/PopupNotification/PopupNotification.php:961
 msgid "Show real customer activity"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:817
+#: includes/Extensions/PopupNotification/PopupNotification.php:964
 msgid "LIMITED"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:818
+#: includes/Extensions/PopupNotification/PopupNotification.php:965
 msgid "Drive Action"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:819
+#: includes/Extensions/PopupNotification/PopupNotification.php:966
 msgid "Create urgency and FOMO"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:854
+#: includes/Extensions/PopupNotification/PopupNotification.php:1127
 msgid "Notification not found"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:860
+#: includes/Extensions/PopupNotification/PopupNotification.php:1133
 msgid "Popup Submission"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:902
+#: includes/Extensions/PopupNotification/PopupNotification.php:1175
 msgid "Submission saved successfully"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:960
+#: includes/Extensions/PopupNotification/PopupNotification.php:1233
 msgid "Convert to Exit Intent Popup"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:965
+#: includes/Extensions/PopupNotification/PopupNotification.php:1238
 msgid "Show this Announcement as a centered popup when the visitor is about to leave the page."
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:968
+#: includes/Extensions/PopupNotification/PopupNotification.php:1241
 msgid "Cookie Duration"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:976
+#: includes/Extensions/PopupNotification/PopupNotification.php:1249
 msgid "Suppress the popup for this many days after it has been shown to a visitor."
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:1008
+#: includes/Extensions/PopupNotification/PopupNotification.php:1281
 msgid "Popup Settings"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:1021
+#: includes/Extensions/PopupNotification/PopupNotification.php:1294
 msgid "Close on Button Click"
 msgstr ""
 
-#: includes/Extensions/PopupNotification/PopupNotification.php:1027
+#: includes/Extensions/PopupNotification/PopupNotification.php:1300
 #: includes/Extensions/PressBar/PressBar.php:615
 #: includes/Extensions/PressBar/PressBar.php:624
 msgid "Close Button Position"
 msgstr ""
 
 #. translators: %1$s: step-by-step guides link URL, %2$s: tutorial link URL, %3$s: URL
-#: includes/Extensions/PopupNotification/PopupNotification.php:1047
+#: includes/Extensions/PopupNotification/PopupNotification.php:1320
 msgid ""
 "<p>Create compelling Announcements that capture visitor interest and help you generate more leads on your WordPress site. Need help? Check out our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> to build impactful Announcements.</p>\n"
 "        <p>🎦 Watch the quick video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for an easy walk-through.</p>\n"
@@ -6763,317 +6891,297 @@ msgstr ""
 msgid "Show the Bar when the user refreshes/goes to another page"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1206
+#: includes/Extensions/PressBar/PressBar.php:1204
 msgid "Sticky Bar?"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1211
+#: includes/Extensions/PressBar/PressBar.php:1209
 msgid "If checked, this will fixed Notification Bar at top or bottom."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1216
+#: includes/Extensions/PressBar/PressBar.php:1214
 msgid "Display Overlapping"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1221
+#: includes/Extensions/PressBar/PressBar.php:1219
 msgid "Show Notification Bar overlapping content instead of pushing."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1231
+#: includes/Extensions/PressBar/PressBar.php:1229
 msgid "Auto Hide"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1236
+#: includes/Extensions/PressBar/PressBar.php:1234
 msgid "If checked, notification bar will be hidden after the time set below."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1241
+#: includes/Extensions/PressBar/PressBar.php:1239
 msgid "Hide After"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1247
+#: includes/Extensions/PressBar/PressBar.php:1245
 msgid "Hide after 60 seconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1252
+#: includes/Extensions/PressBar/PressBar.php:1250
 msgid "Notification Bar will Appear"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1261
+#: includes/Extensions/PressBar/PressBar.php:1259
 msgid "After a few seconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1265
+#: includes/Extensions/PressBar/PressBar.php:1263
 msgid "On Scroll"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1273
+#: includes/Extensions/PressBar/PressBar.php:1271
 msgid "Scroll Offset"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1288
+#: includes/Extensions/PressBar/PressBar.php:1286
 msgid "PX"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1289
+#: includes/Extensions/PressBar/PressBar.php:1287
 msgid "VH"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1290
+#: includes/Extensions/PressBar/PressBar.php:1288
 msgid "%"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1313
-msgid "Targeting"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:1324
-msgid "Country Targeting"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:1348
-msgid "Show for All Users"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:1353
-msgid "Set Target Audience"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:1381
+#: includes/Extensions/PressBar/PressBar.php:1328
 #: assets/admin/js/admin.js:1
 msgid "Schedule"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1389
+#: includes/Extensions/PressBar/PressBar.php:1336
 msgid "Schedule Type"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1397
+#: includes/Extensions/PressBar/PressBar.php:1344
 msgid "Daily"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1402
+#: includes/Extensions/PressBar/PressBar.php:1349
 msgid "Weekly"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1416
-#: includes/Extensions/PressBar/PressBar.php:1453
-#: includes/Extensions/PressBar/PressBar.php:1481
+#: includes/Extensions/PressBar/PressBar.php:1363
+#: includes/Extensions/PressBar/PressBar.php:1400
+#: includes/Extensions/PressBar/PressBar.php:1428
 #: assets/admin/js/admin.js:20
 msgid "From"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1425
-#: includes/Extensions/PressBar/PressBar.php:1462
-#: includes/Extensions/PressBar/PressBar.php:1490
+#: includes/Extensions/PressBar/PressBar.php:1372
+#: includes/Extensions/PressBar/PressBar.php:1409
+#: includes/Extensions/PressBar/PressBar.php:1437
 #: assets/admin/js/admin.js:20
 msgid "To"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1434
+#: includes/Extensions/PressBar/PressBar.php:1381
 msgid "Select Days"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1444
+#: includes/Extensions/PressBar/PressBar.php:1391
 msgid "Saturday"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1471
+#: includes/Extensions/PressBar/PressBar.php:1418
 msgid "Custom Schedule"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1559
+#: includes/Extensions/PressBar/PressBar.php:1506
 msgid "NotificationX Bar"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1593
+#: includes/Extensions/PressBar/PressBar.php:1540
 msgid "NotificationX Bar (Gutenberg)"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1693
+#: includes/Extensions/PressBar/PressBar.php:1640
 msgid "Text Content"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1707
-#: includes/Extensions/PressBar/PressBar.php:1722
+#: includes/Extensions/PressBar/PressBar.php:1654
+#: includes/Extensions/PressBar/PressBar.php:1669
 msgid "Static Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1712
+#: includes/Extensions/PressBar/PressBar.php:1659
 msgid "Slide Multiple Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1723
+#: includes/Extensions/PressBar/PressBar.php:1670
 msgid "Write something here..."
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1733
+#: includes/Extensions/PressBar/PressBar.php:1680
 msgid "Sliding Text Items"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1740
+#: includes/Extensions/PressBar/PressBar.php:1687
 msgid "🚀 Supercharge Your Marketing Forever!"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1743
+#: includes/Extensions/PressBar/PressBar.php:1690
 msgid "Get <strong>Lifetime Access to NotificationX</strong> for just <strong>$299</strong>"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1750
+#: includes/Extensions/PressBar/PressBar.php:1697
 msgid "Slide Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1762
+#: includes/Extensions/PressBar/PressBar.php:1709
 msgid "Sliding Interval"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1766
+#: includes/Extensions/PressBar/PressBar.php:1713
 msgid "Time interval between slides in milliseconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1813
+#: includes/Extensions/PressBar/PressBar.php:1760
 msgid "Shop Now White "
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1816
+#: includes/Extensions/PressBar/PressBar.php:1763
 msgid "Select an icon to display before the button text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1823
+#: includes/Extensions/PressBar/PressBar.php:1770
 msgid "Transition Speed"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1829
+#: includes/Extensions/PressBar/PressBar.php:1776
 msgid "Transition speed in milliseconds"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1836
+#: includes/Extensions/PressBar/PressBar.php:1783
 msgid "Transition Style"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1842
+#: includes/Extensions/PressBar/PressBar.php:1789
 msgid "Slide in Right"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1843
+#: includes/Extensions/PressBar/PressBar.php:1790
 msgid "Slide in Left"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1853
+#: includes/Extensions/PressBar/PressBar.php:1800
 msgid "Coupon"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1865
+#: includes/Extensions/PressBar/PressBar.php:1812
 msgid "Enable Coupon"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1873
-#: includes/Extensions/PressBar/PressBar.php:1883
+#: includes/Extensions/PressBar/PressBar.php:1820
+#: includes/Extensions/PressBar/PressBar.php:1830
 msgid "SAVE20"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1881
-msgid "Coupon Code"
-msgstr ""
-
-#: includes/Extensions/PressBar/PressBar.php:1891
+#: includes/Extensions/PressBar/PressBar.php:1838
 msgid "Coupon Copied Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1893
+#: includes/Extensions/PressBar/PressBar.php:1840
 msgid "Copied!"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1901
+#: includes/Extensions/PressBar/PressBar.php:1848
 msgid "Coupon Tooltip"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1903
+#: includes/Extensions/PressBar/PressBar.php:1850
 msgid "Use this coupon code to get 20% off"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1911
+#: includes/Extensions/PressBar/PressBar.php:1858
 msgid "Coupon Background Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1931
+#: includes/Extensions/PressBar/PressBar.php:1878
 msgid "Coupon Border Color"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1947
+#: includes/Extensions/PressBar/PressBar.php:1894
 msgid "Countdown Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1953
+#: includes/Extensions/PressBar/PressBar.php:1900
 msgid "Enable Countdown"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1963
+#: includes/Extensions/PressBar/PressBar.php:1910
 msgid "To configure Evergreen Timer"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1968
+#: includes/Extensions/PressBar/PressBar.php:1915
 msgid "Countdown Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1970
+#: includes/Extensions/PressBar/PressBar.php:1917
 msgid "Ending in"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1979
+#: includes/Extensions/PressBar/PressBar.php:1926
 msgid "Expired Text"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1981
+#: includes/Extensions/PressBar/PressBar.php:1928
 msgid "Expired"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1991
+#: includes/Extensions/PressBar/PressBar.php:1938
 msgid "Start Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1998
+#: includes/Extensions/PressBar/PressBar.php:1945
 msgid "End Date"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2006
+#: includes/Extensions/PressBar/PressBar.php:1953
 msgid "Randomize"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2012
+#: includes/Extensions/PressBar/PressBar.php:1959
 msgid "Time Between"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2018
+#: includes/Extensions/PressBar/PressBar.php:1965
 msgid "Start Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2025
+#: includes/Extensions/PressBar/PressBar.php:1972
 msgid "End Time"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2034
+#: includes/Extensions/PressBar/PressBar.php:1981
 msgid "Time Rotation"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2042
+#: includes/Extensions/PressBar/PressBar.php:1989
 msgid "Daily Time Reset"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2048
+#: includes/Extensions/PressBar/PressBar.php:1995
 msgid "Permanent Close"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2053
+#: includes/Extensions/PressBar/PressBar.php:2000
 msgid "Close After Expire"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2265
+#: includes/Extensions/PressBar/PressBar.php:2212
 msgid "Install Essential Blocks"
 msgstr ""
 
 #. translators: %1$s: Elementor documentation URL, %2$s: Gutenberg documentation URL, %3$s: documentation URL, %4$s: blog post URL, %5$s: blog post URL
-#: includes/Extensions/PressBar/PressBar.php:2276
+#: includes/Extensions/PressBar/PressBar.php:2223
 msgid ""
 "<p>Supercharge your WordPress site with an <strong>AI-powered Notification Bar</strong> that help you create and launches instant popup campaigns — smarter and faster than ever. Let AI generate compelling bar content for you in seconds. Need help getting started? Explore our step-by-step guides to set up your AI-enhanced notification bars using both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
 "\t\t<p>🎦 Check the <a target = \"_blank\" href = \"%3$s\">documentation</a> for a quick guide.</p>\n"
@@ -7469,16 +7577,16 @@ msgstr ""
 msgid "Talk to Support"
 msgstr ""
 
-#: includes/NotificationX.php:158
+#: includes/NotificationX.php:161
 msgid "Opps! This is PRO Feature."
 msgstr ""
 
-#: includes/NotificationX.php:184
+#: includes/NotificationX.php:187
 #: assets/admin/js/admin.js:11
 msgid "Settings"
 msgstr ""
 
-#: includes/NotificationX.php:189
+#: includes/NotificationX.php:192
 msgid "Go Pro"
 msgstr ""
 
@@ -8058,6 +8166,8 @@ msgstr ""
 #: assets/public/5223.js:1
 #: assets/public/6435.js:1
 #: assets/public/8736.js:1
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "OFF"
 msgstr ""
 
@@ -9754,6 +9864,21 @@ msgstr ""
 
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
+msgid "Copy coupon code"
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Click to copy"
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "YOUR EXCLUSIVE COUPON CODE"
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
 msgid "Limited time offer - don't miss out!"
 msgstr ""
 
@@ -9765,6 +9890,16 @@ msgstr ""
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
 msgid "Submitted!"
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "No thanks, I'll skip the savings"
+msgstr ""
+
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "No, I don't want to save money!"
 msgstr ""
 
 #: assets/public/js/crossSite.js:1

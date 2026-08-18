@@ -58,6 +58,47 @@ const Popup = (props: any) => {
     const is_pro = frontEndContext?.state?.is_pro ?? false;
     const [isButtonHovered, setIsButtonHovered] = useState(false);
     const [focusedField, setFocusedField] = useState<string | null>(null);
+    const [couponCopied, setCouponCopied] = useState(false);
+
+    // Copy the coupon code to the clipboard (coupon-popup card themes).
+    const copyCoupon = async () => {
+        const code = settings?.popup_coupon_code || '';
+        if (!code) return;
+        try {
+            if (navigator?.clipboard?.writeText) {
+                await navigator.clipboard.writeText(code);
+            } else {
+                const ta = document.createElement('textarea');
+                ta.value = code;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+            setCouponCopied(true);
+            setTimeout(() => setCouponCopied(false), 2000);
+        } catch (e) {
+            // Clipboard unavailable — the code stays visible for manual copy.
+        }
+    };
+    const isCouponTheme = ["popup_notification_theme-eight", "popup_notification_theme-eleven", "popup_notification_theme-twelve"]
+        .some(theme => settings?.themes?.includes(theme));
+    // Festive/seasonal coupon popup (doodle header + wavy divider, no CTA button).
+    const isFestiveCouponTheme = settings?.themes?.includes("popup_notification_theme-eleven");
+    // Electronics flash-sale coupon popup (rotated "%OFF" badge, no CTA/dismiss).
+    const isElectronicsCouponTheme = settings?.themes?.includes("popup_notification_theme-twelve");
+    // Coupon themes that show the "YOUR EXCLUSIVE COUPON CODE" label.
+    const isLabeledCouponTheme = isFestiveCouponTheme || isElectronicsCouponTheme;
+    // Multi-tier discount popup (gift hero + list of coupon tickets + Claim CTA).
+    const isMultiCouponTheme = settings?.themes?.includes("popup_notification_theme-thirteen");
+    // Only keep tickets that carry real content. A freshly "Add"ed repeater row is
+    // committed with just framework metadata (index) until its inputs are edited, so
+    // without this filter an untouched extra coupon would render as a broken blank
+    // ticket (plus a stray "OFF").
+    const couponTickets = (Array.isArray(settings?.popup_coupon_repeater) ? settings.popup_coupon_repeater : [])
+        .filter((ticket: any) => ticket && (ticket.coupon_percent || ticket.coupon_code || ticket.coupon_validity));
 
     // Form state
     const [formData, setFormData] = useState({
@@ -512,6 +553,21 @@ const Popup = (props: any) => {
                         </button>
                     )}
 
+                    {/* High-impact "%OFF" sticker badge (electronics flash-sale theme) */}
+                    {isElectronicsCouponTheme && (
+                        <div className="nx-popup-sale-badge" aria-hidden="true">
+                            <span className="nx-popup-sale-line nx-line-1" />
+                            <span className="nx-popup-sale-line nx-line-2" />
+                            <span className="nx-popup-sale-line nx-line-3" />
+                            <span className="nx-popup-sale-line nx-line-4" />
+                            <span className="nx-popup-sale-ticket" />
+                            <div className="nx-popup-sale-stack">
+                                <span className="nx-popup-sale-percent">{settings?.popup_subtitle || '64%'}</span>
+                                <span className="nx-popup-sale-off">{__('OFF', 'notificationx')}</span>
+                            </div>
+                        </div>
+                    )}
+
                     {/* Header Section */}
                     {!["popup_notification_theme-two"].some(theme => settings.themes.includes(theme)) && (
                         <PopupHeader
@@ -534,6 +590,62 @@ const Popup = (props: any) => {
                                 {content && !settings?.popup_content && (
                                     <div dangerouslySetInnerHTML={{ __html: content }} />
                                 )}
+                            </div>
+                        )}
+
+                        {/* Coupon code (copy-to-clipboard) for coupon-popup card themes */}
+                        {isCouponTheme && settings?.popup_coupon_code && (
+                            <div
+                                className={`nx-popup-coupon${couponCopied ? ' is-copied' : ''}`}
+                                role="button"
+                                tabIndex={0}
+                                aria-label={__('Copy coupon code', 'notificationx')}
+                                title={__('Click to copy', 'notificationx')}
+                                onClick={copyCoupon}
+                                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && copyCoupon()}
+                            >
+                                {isLabeledCouponTheme && (
+                                    <span className="nx-popup-coupon-label">{__('YOUR EXCLUSIVE COUPON CODE', 'notificationx')}</span>
+                                )}
+                                <span className="nx-popup-coupon-code">{settings.popup_coupon_code}</span>
+                                <span className="nx-popup-coupon-copy" aria-hidden="true">
+                                    {couponCopied ? (
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    ) : (
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" strokeWidth="2" />
+                                            <path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                        </svg>
+                                    )}
+                                </span>
+                            </div>
+                        )}
+
+                        {/* Multi-tier coupon "tickets" (theme-thirteen) */}
+                        {isMultiCouponTheme && couponTickets.length > 0 && (
+                            <div className="nx-popup-tickets">
+                                {couponTickets.map((ticket: any, index: number) => (
+                                    <div className="nx-popup-ticket" key={index}>
+                                        <div className="nx-popup-ticket-left">
+                                            {ticket?.coupon_percent && (
+                                                <>
+                                                    <span className="nx-popup-ticket-percent">{ticket.coupon_percent}</span>
+                                                    <span className="nx-popup-ticket-off">{__('OFF', 'notificationx')}</span>
+                                                </>
+                                            )}
+                                        </div>
+                                        <div className="nx-popup-ticket-right">
+                                            {ticket?.coupon_code && (
+                                                <span className="nx-popup-ticket-code">{ticket.coupon_code}</span>
+                                            )}
+                                            {ticket?.coupon_validity && (
+                                                <span className="nx-popup-ticket-valid">{ticket.coupon_validity}</span>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         )}
 
@@ -706,8 +818,9 @@ const Popup = (props: any) => {
                                     )}
                                 </div>
                         ) }
-                        {/* Action Buttons - Show for all themes as originally designed */}
-                        {(settings?.popup_button_text) && (
+                        {/* Action Buttons - Show for all themes as originally designed
+                            (theme-eleven/-twelve rely on the copyable coupon code instead). */}
+                        {(settings?.popup_button_text) && !isFestiveCouponTheme && !isElectronicsCouponTheme && (
                             <div className="nx-popup-actions">
                                 {/* Check if this is a form theme */}
                                 {(["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
@@ -739,6 +852,20 @@ const Popup = (props: any) => {
                                     </button>
                                 )}
                             </div>
+                        )}
+
+                        {/* Soft dismiss link for coupon-popup card themes
+                            (theme-twelve intentionally omits it, per its design). */}
+                        {isCouponTheme && !isElectronicsCouponTheme && (
+                            <button
+                                type="button"
+                                className="nx-popup-dismiss"
+                                onClick={handleClose}
+                            >
+                                { isFestiveCouponTheme
+                                    ? __("No thanks, I'll skip the savings", 'notificationx')
+                                    : __("No, I don't want to save money!", 'notificationx') }
+                            </button>
                         )}
 
                     </div>

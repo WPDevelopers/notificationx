@@ -26,7 +26,7 @@ class BitIntegrationsConversions extends Extension {
     public $priority        = 12;
     public $id              = 'bitintegrations_conversions';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/bit-integrations.png';
-    // public $doc_link        = 'https://notificationx.com/docs/bitintegrations-notification-alert/';
+    public $doc_link        = 'https://notificationx.com/docs/bit-integrations-notification-alert/';
     public $types           = 'conversions';
     public $module          = 'modules_bitintegrations';
     public $module_priority = 16;

@@ -127,7 +127,70 @@ class PopupNotification extends Extension {
                 ],
                 'column'   => "5",
             ],
-            
+            // Coupon Popup card (light) — headline + description + copyable
+            // coupon code + "Get Coupon" CTA + dismiss link.
+            'theme-eight' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-eight.png',
+                'defaults' => [
+                    'popup_title'        => __('35% OFF NOW', 'notificationx'),
+                    'popup_content'      => __('Get an extra 35% off on all products!', 'notificationx'),
+                    'popup_coupon_code'  => __('GET35OFF', 'notificationx'),
+                    'popup_button_text'  => __('Get Coupon', 'notificationx'),
+                    'popup_button_url'   => '#',
+                    'position'           => 'center',
+                ],
+                'column'  => "5",
+            ],
+            // Festive/seasonal coupon popup — doodle-textured colored header
+            // with a wavy divider, big discount headline, an eyebrow tagline,
+            // a headline + copyable coupon code + soft dismiss link (no CTA).
+            'theme-eleven' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-eleven.png?v=2',
+                'defaults' => [
+                    'popup_subtitle'     => __('Back to School Deal', 'notificationx'),
+                    'popup_title'        => __('25% OFF!', 'notificationx'),
+                    'popup_content'      => __('Get a ready-to-go healthy lunchbox kit', 'notificationx'),
+                    'popup_coupon_code'  => __('BTS2025', 'notificationx'),
+                    'position'           => 'center',
+                ],
+                'column'  => "5",
+            ],
+            // High-impact electronics flash-sale coupon popup — bold yellow
+            // card, a rotated "%OFF" sticker badge (subtitle = the big number),
+            // headline + subtext + copyable coupon code (no CTA / dismiss).
+            'theme-twelve' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-twelve.png',
+                'defaults' => [
+                    'popup_subtitle'     => __('64%', 'notificationx'),
+                    'popup_title'        => __('Enjoy 64% Electronics Sale', 'notificationx'),
+                    'popup_content'      => __('Upgrade your gadgets at unbeatable prices.', 'notificationx'),
+                    'popup_coupon_code'  => __('ELEC 4512658', 'notificationx'),
+                    'position'           => 'center',
+                ],
+                'column'  => "5",
+            ],
+            // Multi-tier discount popup — gift hero, two-tone heading, a list of
+            // coupon "tickets" (percent + code + validity) and a "Claim Now" CTA.
+            'theme-thirteen' => [
+                'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/popup/popup-theme-thirteen.png',
+                'defaults' => [
+                    'popup_title'        => __('Buy Upto $500', 'notificationx'),
+                    'popup_subtitle'     => __('And Get Discount Now', 'notificationx'),
+                    'popup_content'      => __('Take discount in your next order', 'notificationx'),
+                    'popup_button_text'  => __('Claim Now', 'notificationx'),
+                    'popup_button_url'   => '#',
+                    'popup_coupon_repeater' => [
+                        [
+                            'coupon_percent'  => __('20%', 'notificationx'),
+                            'coupon_code'     => __('#SAVE20', 'notificationx'),
+                            'coupon_validity' => __('Valid for 7 Days', 'notificationx'),
+                        ],
+                    ],
+                    'position'           => 'center',
+                ],
+                'column'  => "5",
+            ],
+
         ];
     }
 
@@ -584,8 +647,17 @@ class PopupNotification extends Extension {
                     'name'     => 'popup_subtitle',
                     'type'     => 'text',
                     'priority' => 12,
-                    'default'  => __('Would like to get the latest news & updates instantly?', 'notificationx'),
-                    'rules'    => Rules::is('themes', 'popup_notification_theme-seven'),
+                    // No global field-level default: a hardcoded value here pre-fills the
+                    // field and blocks each theme's own `defaults` (subtitle) from applying
+                    // on selection, so coupon themes (eleven/twelve/thirteen) inherited the
+                    // wrong subtitle. Leave empty so the selected theme's default fills it.
+                    'default'  => '',
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-seven'),
+                        Rules::is('themes', 'popup_notification_theme-eleven'),
+                        Rules::is('themes', 'popup_notification_theme-twelve'),
+                        Rules::is('themes', 'popup_notification_theme-thirteen'),
+                    ], 'or'),
                 ],
                 [
                     'label'       => __('Popup Icon', 'notificationx'),
@@ -612,7 +684,73 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-one'),
                         Rules::is('themes', 'popup_notification_theme-two'),
                         Rules::is('themes', 'popup_notification_theme-seven'),
+                        Rules::is('themes', 'popup_notification_theme-eight'),
+                        Rules::is('themes', 'popup_notification_theme-eleven'),
+                        Rules::is('themes', 'popup_notification_theme-twelve'),
+                        Rules::is('themes', 'popup_notification_theme-thirteen'),
                     ], 'or'),
+                ],
+                // Coupon code (with copy-to-clipboard) for the coupon-popup card
+                // themes (theme-eight / -eleven / -twelve).
+                [
+                    'label'       => __('Coupon Code', 'notificationx'),
+                    'name'        => 'popup_coupon_code',
+                    'type'        => 'text',
+                    'priority'    => 22,
+                    // No global field-level default: it pre-filled the field with theme-eight's
+                    // code and blocked theme-eleven/-twelve's own coupon-code defaults from
+                    // applying on selection. Leave empty so the selected theme's default fills it.
+                    'default'     => '',
+                    'placeholder' => __('GET35OFF', 'notificationx'),
+                    'rules'       => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-eight'),
+                        Rules::is('themes', 'popup_notification_theme-eleven'),
+                        Rules::is('themes', 'popup_notification_theme-twelve'),
+                    ], 'or'),
+                ],
+                // Multi-tier coupon "tickets" (percent + code + validity) for the
+                // multi-tier discount popup (theme-thirteen).
+                [
+                    'label'    => __('Coupon Tickets', 'notificationx'),
+                    'name'     => 'popup_coupon_repeater',
+                    'type'     => 'repeater',
+                    'priority' => 23,
+                    'rules'    => Rules::is('themes', 'popup_notification_theme-thirteen'),
+                    'button'   => [
+                        'label' => __('Add Coupon', 'notificationx'),
+                    ],
+                    'fields'   => [
+                        [
+                            'label'       => __('Discount', 'notificationx'),
+                            'name'        => 'coupon_percent',
+                            'type'        => 'text',
+                            'placeholder' => __('e.g. 20%', 'notificationx'),
+                            'help'        => __('Big discount value shown on the left (e.g. "20%").', 'notificationx'),
+                        ],
+                        [
+                            'label'       => __('Coupon Code', 'notificationx'),
+                            'name'        => 'coupon_code',
+                            'type'        => 'text',
+                            'placeholder' => __('e.g. #SAVE20', 'notificationx'),
+                        ],
+                        [
+                            'label'       => __('Validity', 'notificationx'),
+                            'name'        => 'coupon_validity',
+                            'type'        => 'text',
+                            'placeholder' => __('e.g. Valid for 7 Days', 'notificationx'),
+                        ],
+                    ],
+                    // One starter coupon by default. The QuickBuilder repeater always
+                    // renders a single row for an unsaved field, so a one-row default
+                    // keeps the editor, the saved data and the front end consistent
+                    // (all show one coupon); users add more with the Add Coupon button.
+                    'default'  => [
+                        [
+                            'coupon_percent'  => __('20%', 'notificationx'),
+                            'coupon_code'     => __('#SAVE20', 'notificationx'),
+                            'coupon_validity' => __('Valid for 7 Days', 'notificationx'),
+                        ],
+                    ],
                 ],
                 // Form Field Toggles - only for form submission themes (4-7)
                 [
@@ -706,13 +844,18 @@ class PopupNotification extends Extension {
                     ]),
                 ],
 
-                // Common Button Text field for all themes
+                // Common Button Text field for all themes (theme-eleven and
+                // theme-twelve have no CTA — the copyable coupon code is the CTA).
                 [
                     'label'    => __('Button Text', 'notificationx'),
                     'name'     => 'popup_button_text',
                     'type'     => 'text',
                     'priority' => 55,
                     'default'  => __('Get Offer', 'notificationx'),
+                    'rules'    => Rules::logicalRule([
+                        Rules::is('themes', 'popup_notification_theme-eleven', true),
+                        Rules::is('themes', 'popup_notification_theme-twelve', true),
+                    ], 'and'),
                 ],
                 // Button URL field - only for themes 1-3 (promotional themes with external links)
                 [
@@ -725,6 +868,8 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-one'),
                         Rules::is('themes', 'popup_notification_theme-two'),
                         Rules::is('themes', 'popup_notification_theme-three'),
+                        Rules::is('themes', 'popup_notification_theme-eight'),
+                        Rules::is('themes', 'popup_notification_theme-thirteen'),
                     ], 'or'),
                 ],
 
@@ -769,6 +914,8 @@ class PopupNotification extends Extension {
                         Rules::is('themes', 'popup_notification_theme-one'),
                         Rules::is('themes', 'popup_notification_theme-two'),
                         Rules::is('themes', 'popup_notification_theme-three'),
+                        Rules::is('themes', 'popup_notification_theme-eight'),
+                        Rules::is('themes', 'popup_notification_theme-thirteen'),
                     ], 'or'),
                 ],
                 // Repeater fields - only for theme-three
@@ -824,6 +971,132 @@ class PopupNotification extends Extension {
         ];
 
         return $fields;
+    }
+
+    /**
+     * Fill EMPTY theme-specific fields from the selected theme's `defaults`.
+     *
+     * Why this is needed: the builder applies a theme's `defaults` on selection, but
+     * fields that are rules-gated OUT of the initial theme (e.g. popup_subtitle,
+     * popup_coupon_code, popup_coupon_repeater) get re-initialized to their own
+     * field-level default when they mount, clobbering the theme default. As a result
+     * the coupon themes (eleven/twelve/thirteen) ended up with the wrong/empty
+     * subtitle, coupon code and coupon tickets on a default (untouched) publish — so
+     * both the live Preview and the front end didn't match the design.
+     *
+     * This safety net fills only EMPTY values, so anything the user actually typed is
+     * preserved. A repeater row that holds only framework metadata (index/chosen/
+     * selected) with no real content counts as empty.
+     *
+     * @param array  $data       Flat settings array (content fields at top level).
+     * @param string $theme_full Selected theme key, e.g. "popup_notification_theme-twelve".
+     * @return array
+     */
+    private function fill_theme_defaults( $data, $theme_full ) {
+        if ( empty( $theme_full ) || empty( $this->themes ) || ! is_array( $data ) ) {
+            return $data;
+        }
+        // Strip the source-id prefix ("popup_notification_") to get the raw theme key.
+        $prefix    = $this->id . '_';
+        $theme_key = ( strpos( $theme_full, $prefix ) === 0 ) ? substr( $theme_full, strlen( $prefix ) ) : $theme_full;
+
+        if ( empty( $this->themes[ $theme_key ]['defaults'] ) || ! is_array( $this->themes[ $theme_key ]['defaults'] ) ) {
+            return $data;
+        }
+        // Keys the repeater/field framework injects into each row that carry no
+        // user content — a row made up only of these is effectively empty.
+        $meta_keys = array( 'index', 'chosen', 'selected' );
+        foreach ( $this->themes[ $theme_key ]['defaults'] as $key => $value ) {
+            $current  = isset( $data[ $key ] ) ? $data[ $key ] : null;
+            $is_empty = ( null === $current || '' === $current );
+            if ( is_array( $current ) ) {
+                // Empty array, or an array whose rows only hold framework metadata
+                // (e.g. a clobbered repeater like [{index, chosen, selected}]).
+                $has_real = false;
+                foreach ( $current as $item ) {
+                    if ( is_array( $item ) ) {
+                        foreach ( $item as $ik => $iv ) {
+                            if ( ! in_array( $ik, $meta_keys, true ) && '' !== $iv && null !== $iv ) {
+                                $has_real = true;
+                                break 2;
+                            }
+                        }
+                    } elseif ( '' !== $item && null !== $item ) {
+                        $has_real = true;
+                        break;
+                    }
+                }
+                $is_empty = ! $has_real;
+            }
+            if ( $is_empty ) {
+                $data[ $key ] = $value;
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Apply theme defaults to empty fields at save time (persisted + front end).
+     * Hooked automatically via nx_save_post_{$this->id} (see Extension::init()).
+     *
+     * @param array $post  Post row about to be persisted; settings live in $post['data'].
+     * @param array $data  Full submitted settings.
+     * @param int   $nx_id Notification id (0 on create).
+     * @return array
+     */
+    public function save_post( $post, $data, $nx_id ) {
+        if ( isset( $post['data'] ) && is_array( $post['data'] ) ) {
+            $theme_full   = ! empty( $data['themes'] ) ? $data['themes'] : ( ! empty( $post['theme'] ) ? $post['theme'] : '' );
+            $post['data'] = $this->fill_theme_defaults( $post['data'], $theme_full );
+            $post['data'] = $this->strip_empty_repeater_rows( $post['data'] );
+        }
+        return $post;
+    }
+
+    /**
+     * Drop repeater rows that hold only framework metadata (index/chosen/selected)
+     * and no real content. The QuickBuilder repeater commits a freshly "Add"ed row
+     * with just an "index" until its inputs are edited, so an untouched extra coupon
+     * would otherwise persist as an empty ticket that renders as a broken blank
+     * ticket on the front end. Only the known coupon repeater is cleaned, so no other
+     * data is affected.
+     *
+     * @param array $data Flat settings array.
+     * @return array
+     */
+    private function strip_empty_repeater_rows( $data ) {
+        $meta_keys       = array( 'index', 'chosen', 'selected' );
+        $repeater_fields = array( 'popup_coupon_repeater' );
+        foreach ( $repeater_fields as $field ) {
+            if ( empty( $data[ $field ] ) || ! is_array( $data[ $field ] ) ) {
+                continue;
+            }
+            $data[ $field ] = array_values( array_filter( $data[ $field ], function ( $row ) use ( $meta_keys ) {
+                if ( ! is_array( $row ) ) {
+                    return '' !== $row && null !== $row;
+                }
+                foreach ( $row as $k => $v ) {
+                    if ( ! in_array( $k, $meta_keys, true ) && '' !== $v && null !== $v ) {
+                        return true;
+                    }
+                }
+                return false;
+            } ) );
+        }
+        return $data;
+    }
+
+    /**
+     * Apply theme defaults to empty fields for the live builder Preview, so the
+     * preview matches the design even before anything is saved.
+     * Hooked automatically via nx_preview_settings_{$this->id} (see Extension::init()).
+     *
+     * @param array $settings Flat preview settings.
+     * @return array
+     */
+    public function preview_settings( $settings ) {
+        $theme_full = ! empty( $settings['themes'] ) ? $settings['themes'] : ( ! empty( $settings['theme'] ) ? $settings['theme'] : '' );
+        return $this->fill_theme_defaults( $settings, $theme_full );
     }
 
     /**

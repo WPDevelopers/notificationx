@@ -518,6 +518,699 @@
                 }
             }
         }
+
+        // Coupon Popup card themes (light: theme-eight, dark: theme-nine).
+        // Headline + description + copyable coupon code + CTA + dismiss link.
+        &.popup_notification_theme-eight {
+            border-radius: 16px;
+            min-width: 320px;
+            .nx-popup-container {
+                max-width: 340px;
+                margin: 0 auto;
+                text-align: center;
+                padding: 8px;
+                .nx-popup-header {
+                    padding: 28px 20px 8px;
+                    h3.nx-popup-title {
+                        font-size: 24px;
+                        line-height: 120%;
+                        font-weight: 800;
+                        margin: 0;
+                    }
+                }
+                .nx-popup-content {
+                    padding: 0 20px 20px;
+                    .nx-popup-description {
+                        font-size: 14px;
+                        line-height: 150%;
+                        margin: 8px 0 18px;
+                    }
+                    .nx-popup-coupon {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 10px;
+                        border: 1.5px dashed;
+                        border-radius: 8px;
+                        padding: 12px 16px;
+                        margin: 0 0 16px;
+                        cursor: pointer;
+                        font-weight: 700;
+                        letter-spacing: 1px;
+                        transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+                        .nx-popup-coupon-code {
+                            font-size: 18px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                        .nx-popup-coupon-copy {
+                            display: inline-flex;
+                            align-items: center;
+                            flex: 0 0 auto;
+                        }
+                    }
+                    .nx-popup-actions button.nx-popup-primary-button {
+                        width: 100%;
+                        border: none;
+                        border-radius: 8px;
+                        font-size: 15px;
+                        font-weight: 700;
+                        padding: 13px 16px;
+                        margin: 0;
+                    }
+                    .nx-popup-dismiss {
+                        display: inline-block;
+                        background: none;
+                        border: none;
+                        padding: 0;
+                        margin: 12px 0 4px;
+                        font-size: 12px;
+                        line-height: 1.4;
+                        text-decoration: underline;
+                        cursor: pointer;
+                        opacity: 0.7;
+                        &:hover { opacity: 1; }
+                    }
+                }
+                .nx-popup-footer .nx-popup-branding {
+                    justify-content: center;
+                }
+            }
+        }
+
+        // Light coupon card.
+        &.popup_notification_theme-eight {
+            background: #ffffff;
+            border: 1px solid #eaeef2;
+            box-shadow: 0 12px 34px rgba(16, 24, 40, 0.12);
+            .nx-popup-container {
+                .nx-popup-header h3.nx-popup-title { color: #101828; }
+                .nx-popup-content {
+                    .nx-popup-description { color: #667085; }
+                    .nx-popup-coupon {
+                        border-color: #d0d5dd;
+                        background: #f9fafb;
+                        color: #101828;
+                        &:hover { border-color: #98a2b3; }
+                        &.is-copied {
+                            border-color: #12b76a;
+                            color: #12b76a;
+                            background: rgba(18, 183, 106, 0.08);
+                        }
+                    }
+                    .nx-popup-actions button.nx-popup-primary-button {
+                        background: #111827;
+                        color: #ffffff;
+                        &:hover { background: #000000 !important; }
+                    }
+                    .nx-popup-dismiss { color: #667085; }
+                }
+            }
+        }
+
+        // Festive/seasonal coupon popup — doodle-textured coral header with a
+        // wavy white divider, big discount headline, eyebrow tagline, a bold
+        // headline, a labelled + copyable coupon code and a soft dismiss link.
+        &.popup_notification_theme-eleven {
+            background: #ffffff;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            min-width: 360px;
+            max-width: 440px;
+
+            .nx-popup-container {
+                max-width: none;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                overflow: hidden;
+
+                // Close button sits on the coral band — keep it above the art
+                // and INSIDE the card (the card clips overflow, so the default
+                // outside position would be hidden).
+                button.nx-popup-close {
+                    z-index: 3;
+                    &.top-right { right: 14px; top: 14px; }
+                    &.top-left { left: 14px; top: 14px; }
+                    &.bottom-right { right: 14px; bottom: 14px; }
+                    &.bottom-left { left: 14px; bottom: 14px; }
+                }
+
+                // Coloured, doodle-textured header band.
+                .nx-popup-header {
+                    position: relative;
+                    margin: 0;
+                    padding: 34px 28px 58px;
+                    background-color: #f9635f;
+                    background-image:
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.18' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='20' cy='24' r='7'/%3E%3Cpath d='M62 16 l0 16 M54 24 l16 0'/%3E%3Cpath d='M78 60 l9 9 M87 60 l-9 9'/%3E%3Ccircle cx='30' cy='74' r='5'/%3E%3Cpath d='M8 52 q8 -9 16 0 q8 9 16 0'/%3E%3Cpath d='M58 84 l6 -11 l6 11 z'/%3E%3C/g%3E%3C/svg%3E"),
+                        linear-gradient(135deg, #ff6f6f 0%, #f6555f 100%);
+                    background-repeat: repeat, no-repeat;
+                    background-size: 116px 116px, cover;
+
+                    // Wavy white divider blending into the white content area.
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: -1px;
+                        height: 42px;
+                        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 42' preserveAspectRatio='none'%3E%3Cpath fill='%23ffffff' d='M0,24 C80,4 155,4 235,21 C312,37 385,42 500,18 L500,42 L0,42 Z'/%3E%3C/svg%3E") no-repeat;
+                        background-size: 100% 100%;
+                    }
+
+                    .nx-popup-header-wrapper,
+                    .nx-popup-header-content { position: relative; z-index: 1; }
+
+                    .nx-popup-eyebrow {
+                        display: block;
+                        color: #ffffff;
+                        font-size: 15px;
+                        font-weight: 600;
+                        letter-spacing: 0.4px;
+                        margin-bottom: 2px;
+                        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+                    }
+
+                    h3.nx-popup-title {
+                        margin: 0;
+                        color: #e2ff00;
+                        font-size: 54px;
+                        line-height: 1;
+                        font-weight: 800;
+                        font-style: italic;
+                        letter-spacing: -1.5px;
+                        text-shadow: 0 3px 1px rgba(0, 0, 0, 0.12);
+                    }
+                }
+
+                .nx-popup-content {
+                    padding: 6px 32px 34px;
+
+                    // Main headline (uses the description slot).
+                    .nx-popup-description {
+                        color: #1f2937;
+                        font-size: 24px;
+                        line-height: 1.25;
+                        font-weight: 800;
+                        margin: 18px 0 24px;
+                    }
+
+                    .nx-popup-coupon {
+                        position: relative;
+                        display: block;
+                        border: 2px dashed #fca5a5;
+                        background: #fef7f7;
+                        border-radius: 10px;
+                        padding: 20px 18px;
+                        margin: 0 0 4px;
+                        cursor: pointer;
+                        transition: border-color 0.2s ease, background-color 0.2s ease;
+
+                        .nx-popup-coupon-label {
+                            display: block;
+                            color: #6b7280;
+                            font-size: 12px;
+                            font-weight: 600;
+                            letter-spacing: 1.4px;
+                            text-transform: uppercase;
+                            margin-bottom: 6px;
+                        }
+                        .nx-popup-coupon-code {
+                            display: block;
+                            color: #ff6b6b;
+                            font-size: 32px;
+                            line-height: 1.1;
+                            font-weight: 700;
+                            letter-spacing: 1px;
+                        }
+                        .nx-popup-coupon-copy {
+                            position: absolute;
+                            top: 12px;
+                            right: 14px;
+                            display: inline-flex;
+                            align-items: center;
+                            color: #fca5a5;
+                        }
+                        &:hover { border-color: #f87171; }
+                        &.is-copied {
+                            border-color: #12b76a;
+                            background: rgba(18, 183, 106, 0.08);
+                            .nx-popup-coupon-code { color: #12b76a; }
+                            .nx-popup-coupon-copy { color: #12b76a; }
+                        }
+                    }
+
+                    .nx-popup-dismiss {
+                        display: inline-block;
+                        background: none;
+                        border: none;
+                        padding: 0;
+                        margin: 20px 0 2px;
+                        color: #9ca3af;
+                        font-size: 12px;
+                        font-weight: 700;
+                        letter-spacing: 1.2px;
+                        text-transform: uppercase;
+                        cursor: pointer;
+                        transition: color 0.2s ease;
+                        &:hover { color: #6b7280; }
+                    }
+                }
+
+                .nx-popup-footer {
+                    background: transparent;
+                    padding-bottom: 16px;
+                    .nx-popup-branding { justify-content: center; }
+                }
+            }
+
+            @media only screen and (max-width: 480px) {
+                min-width: unset;
+                .nx-popup-container {
+                    .nx-popup-header {
+                        padding: 28px 22px 50px;
+                        h3.nx-popup-title { font-size: 44px; }
+                    }
+                    .nx-popup-content {
+                        padding: 4px 22px 28px;
+                        .nx-popup-description { font-size: 21px; }
+                        .nx-popup-coupon .nx-popup-coupon-code { font-size: 28px; }
+                    }
+                }
+            }
+        }
+
+        // High-impact electronics flash-sale coupon popup — bold yellow card
+        // with a rotated black "%OFF" sticker badge, speed lines, a floating
+        // ticket, a black headline + subtext and a dashed copyable coupon code.
+        &.popup_notification_theme-twelve {
+            background: #ffcc00;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            min-width: 360px;
+            max-width: 448px;
+
+            .nx-popup-container {
+                max-width: none;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+
+                // Translucent circular close button on the yellow field, kept
+                // INSIDE the card (the card clips overflow).
+                button.nx-popup-close {
+                    background: rgba(255, 255, 255, 0.25);
+                    color: #111111;
+                    box-shadow: none;
+                    z-index: 3;
+                    &.top-right { right: 16px; top: 16px; }
+                    &.top-left { left: 16px; top: 16px; }
+                    &.bottom-right { right: 16px; bottom: 16px; }
+                    &.bottom-left { left: 16px; bottom: 16px; }
+                    svg path { stroke: #111111; }
+                }
+
+                // --- Sticker badge graphic ---
+                .nx-popup-sale-badge {
+                    position: relative;
+                    height: 178px;
+                    margin: 0 auto;
+                    overflow: hidden;
+
+                    .nx-popup-sale-line {
+                        position: absolute;
+                        height: 3px;
+                        border-radius: 3px;
+                        background: #ffffff;
+                        opacity: 0.6;
+                    }
+                    .nx-line-1 { top: 30px;  left: 28px;  width: 104px; transform: rotate(-10deg); }
+                    .nx-line-2 { top: 118px; right: 32px; width: 128px; transform: rotate(-12deg); }
+                    .nx-line-3 { top: 92px;  right: 24px; width: 78px;  transform: rotate(-5deg); }
+                    .nx-line-4 { top: 58px;  left: 22px;  width: 66px;  transform: rotate(15deg); }
+
+                    // Floating white ticket/accent near the top.
+                    .nx-popup-sale-ticket {
+                        position: absolute;
+                        top: 26px;
+                        right: 40px;
+                        width: 78px;
+                        height: 38px;
+                        background: #ffffff;
+                        border-radius: 4px;
+                        transform: skewX(-16deg) rotate(14deg);
+                        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+                    }
+
+                    .nx-popup-sale-stack {
+                        position: absolute;
+                        left: 50%;
+                        top: 66px;
+                        transform: translateX(-50%);
+                        white-space: nowrap;
+                    }
+                    .nx-popup-sale-percent {
+                        display: inline-block;
+                        position: relative;
+                        z-index: 1;
+                        background: #111111;
+                        color: #ffcc00;
+                        font-size: 52px;
+                        line-height: 1;
+                        font-weight: 900;
+                        letter-spacing: -2px;
+                        padding: 10px 18px;
+                        transform: rotate(-6deg);
+                        box-shadow: 0 16px 20px -6px rgba(0, 0, 0, 0.2);
+                    }
+                    .nx-popup-sale-off {
+                        display: block;
+                        position: relative;
+                        z-index: 2;
+                        width: fit-content;
+                        margin: -18px 0 0 66px;
+                        background: #ffffff;
+                        color: #111111;
+                        font-size: 38px;
+                        line-height: 1;
+                        font-weight: 900;
+                        letter-spacing: -1px;
+                        padding: 6px 24px;
+                        transform: rotate(2deg);
+                        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+                    }
+                }
+
+                .nx-popup-header {
+                    padding: 2px 30px 0;
+                    margin: 0;
+                    h3.nx-popup-title {
+                        margin: 0;
+                        color: #111111;
+                        font-size: 23px;
+                        line-height: 1.2;
+                        font-weight: 900;
+                        text-transform: uppercase;
+                        letter-spacing: -0.5px;
+                    }
+                }
+
+                .nx-popup-content {
+                    padding: 6px 30px 24px;
+
+                    .nx-popup-description {
+                        color: rgba(0, 0, 0, 0.8);
+                        font-size: 15px;
+                        line-height: 1.45;
+                        font-weight: 500;
+                        margin: 6px 0 16px;
+                    }
+
+                    .nx-popup-coupon {
+                        position: relative;
+                        display: block;
+                        border: 2px dashed rgba(0, 0, 0, 0.3);
+                        background: rgba(0, 0, 0, 0.05);
+                        border-radius: 12px;
+                        padding: 16px 16px;
+                        margin: 0;
+                        cursor: pointer;
+                        transition: border-color 0.2s ease, background-color 0.2s ease;
+
+                        .nx-popup-coupon-label {
+                            display: block;
+                            color: rgba(0, 0, 0, 0.6);
+                            font-size: 12px;
+                            font-weight: 700;
+                            letter-spacing: 1.4px;
+                            text-transform: uppercase;
+                            margin-bottom: 4px;
+                        }
+                        .nx-popup-coupon-code {
+                            display: block;
+                            color: #111111;
+                            font-size: 26px;
+                            line-height: 1.1;
+                            font-weight: 900;
+                            letter-spacing: -0.5px;
+                        }
+                        .nx-popup-coupon-copy {
+                            position: absolute;
+                            top: 10px;
+                            right: 12px;
+                            display: inline-flex;
+                            align-items: center;
+                            color: rgba(0, 0, 0, 0.45);
+                        }
+                        &:hover { border-color: rgba(0, 0, 0, 0.5); }
+                        &.is-copied {
+                            border-color: #0f7b4f;
+                            background: rgba(15, 123, 79, 0.1);
+                            .nx-popup-coupon-code,
+                            .nx-popup-coupon-copy { color: #0f7b4f; }
+                        }
+                    }
+                }
+
+                .nx-popup-footer {
+                    background: transparent;
+                    padding-bottom: 12px;
+                    .nx-popup-branding {
+                        justify-content: center;
+                        color: rgba(0, 0, 0, 0.55);
+                    }
+                }
+            }
+
+            @media only screen and (max-width: 480px) {
+                min-width: unset;
+                .nx-popup-container {
+                    .nx-popup-sale-badge { height: 158px; }
+                    .nx-popup-sale-percent { font-size: 44px; }
+                    .nx-popup-sale-off { font-size: 34px; margin-left: 54px; }
+                    .nx-popup-header h3.nx-popup-title { font-size: 21px; }
+                    .nx-popup-content {
+                        padding: 4px 22px 20px;
+                        .nx-popup-coupon .nx-popup-coupon-code { font-size: 23px; }
+                    }
+                }
+            }
+        }
+
+        // Multi-tier discount popup — gift hero, two-tone heading, a list of
+        // coupon "tickets" (percent block + code + validity) and a Claim CTA.
+        &.popup_notification_theme-thirteen {
+            background: #ffffff;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            min-width: 360px;
+            max-width: 448px;
+
+            .nx-popup-container {
+                max-width: none;
+                margin: 0;
+                padding: 26px 32px 22px;
+                text-align: center;
+
+                // Keep the close button INSIDE the card (the card clips overflow).
+                button.nx-popup-close {
+                    z-index: 4;
+                    &.top-right { right: 16px; top: 16px; }
+                    &.top-left { left: 16px; top: 16px; }
+                    &.bottom-right { right: 16px; bottom: 16px; }
+                    &.bottom-left { left: 16px; bottom: 16px; }
+                }
+
+                .nx-popup-header {
+                    margin: 0 0 4px;
+                    padding: 0;
+
+                    // Gift hero with a soft purple radial glow behind it.
+                    .nx-popup-gift {
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-bottom: 6px;
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 190px;
+                            height: 130px;
+                            transform: translate(-50%, -50%);
+                            background: radial-gradient(ellipse at center, rgba(235, 215, 255, 0.85) 0%, rgba(235, 215, 255, 0) 70%);
+                            z-index: 0;
+                            pointer-events: none;
+                        }
+                        .nx-popup-gift-emoji {
+                            position: relative;
+                            z-index: 1;
+                            font-size: 42px;
+                            line-height: 1;
+                            filter: drop-shadow(0 6px 10px rgba(124, 58, 205, 0.25));
+                        }
+                    }
+
+                    h3.nx-popup-title {
+                        margin: 0;
+                        color: #2d0c4e;
+                        font-size: 24px;
+                        line-height: 1.18;
+                        font-weight: 800;
+                        letter-spacing: -0.5px;
+                        text-transform: uppercase;
+                    }
+                    .nx-popup-title-accent {
+                        display: block;
+                        margin-top: 1px;
+                        color: #4f8aff;
+                        font-size: 24px;
+                        line-height: 1.18;
+                        font-weight: 800;
+                        letter-spacing: -0.5px;
+                        text-transform: uppercase;
+                    }
+                }
+
+                .nx-popup-content {
+                    padding: 0;
+
+                    .nx-popup-description {
+                        color: #6b7280;
+                        font-size: 15px;
+                        line-height: 1.4;
+                        font-weight: 500;
+                        margin: 6px 0 18px;
+                    }
+
+                    // --- Coupon tickets ---
+                    .nx-popup-tickets {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 12px;
+                        margin: 0 0 18px;
+                    }
+                    .nx-popup-ticket {
+                        position: relative;
+                        display: flex;
+                        min-height: 74px;
+                        border-radius: 14px;
+                        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+                        // End "bites" that give the ticket its cut-out look.
+                        &::before,
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            top: 50%;
+                            width: 18px;
+                            height: 18px;
+                            border-radius: 50%;
+                            background: #ffffff;
+                            transform: translateY(-50%);
+                            z-index: 2;
+                        }
+                        &::before { left: -9px; }
+                        &::after { right: -9px; }
+
+                        .nx-popup-ticket-left {
+                            flex: 0 0 100px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 1px;
+                            padding: 6px;
+                            border-radius: 14px 0 0 14px;
+                            background: linear-gradient(135deg, #d681ff 0%, #b45cff 100%);
+                            color: #ffffff;
+                            .nx-popup-ticket-percent {
+                                font-size: 21px;
+                                line-height: 1.1;
+                                font-weight: 900;
+                            }
+                            .nx-popup-ticket-off {
+                                font-size: 15px;
+                                line-height: 1;
+                                font-weight: 900;
+                            }
+                        }
+                        .nx-popup-ticket-right {
+                            flex: 1;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            justify-content: center;
+                            padding: 0 20px 0 22px;
+                            text-align: left;
+                            border-radius: 0 14px 14px 0;
+                            background: #f5e6ff;
+                            border-left: 2px dashed rgba(255, 255, 255, 0.8);
+                            .nx-popup-ticket-code {
+                                color: #6c2b9d;
+                                font-size: 21px;
+                                line-height: 1.2;
+                                font-weight: 900;
+                            }
+                            .nx-popup-ticket-valid {
+                                margin-top: 2px;
+                                color: rgba(108, 43, 157, 0.7);
+                                font-size: 13px;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+
+                    .nx-popup-actions {
+                        margin: 0;
+                        button.nx-popup-primary-button {
+                            width: 100%;
+                            border: none;
+                            border-radius: 14px;
+                            padding: 14px 16px;
+                            font-size: 17px;
+                            font-weight: 700;
+                            background: #4f8aff;
+                            color: #ffffff;
+                            box-shadow: 0 8px 14px -4px rgba(191, 219, 254, 0.9);
+                            &:hover { background: #3f78f0 !important; }
+                        }
+                    }
+                }
+
+                .nx-popup-footer {
+                    background: transparent;
+                    padding-top: 12px;
+                    .nx-popup-branding { justify-content: center; }
+                }
+            }
+
+            @media only screen and (max-width: 480px) {
+                min-width: unset;
+                .nx-popup-container {
+                    padding: 22px 20px 18px;
+                    .nx-popup-header {
+                        h3.nx-popup-title,
+                        .nx-popup-title-accent { font-size: 21px; }
+                    }
+                    .nx-popup-content {
+                        .nx-popup-description { font-size: 14px; }
+                        .nx-popup-ticket-left { flex-basis: 88px; }
+                        .nx-popup-ticket-right .nx-popup-ticket-code { font-size: 19px; }
+                        .nx-popup-actions button.nx-popup-primary-button { font-size: 16px; }
+                    }
+                }
+            }
+        }
+
         .nx-popup-container {
             button.nx-popup-close {
                 position: absolute;
