@@ -30,6 +30,16 @@ class Integration {
     const OPT_API_KEY = 'nx_integration_api_key';
 
     /**
+     * Bounds on an incoming webhook payload. A Zap or applet sends a flat object
+     * with a handful of fields; these sit far above anything real so they never
+     * meet legitimate traffic, while keeping a key holder from handing the site
+     * an arbitrarily wide, deep or long structure to walk and store.
+     */
+    const MAX_PAYLOAD_FIELDS = 200;
+    const MAX_PAYLOAD_DEPTH  = 10;
+    const MAX_FIELD_LENGTH   = 5000;
+
+    /**
      * Constructor.
      *
      * @since 4.7.0
@@ -225,12 +235,11 @@ class Integration {
             if ( isset( $response_data['data']['api_key'] ) ) {
                 unset( $response_data['data']['api_key'] );
             }
-            array_walk_recursive( $response_data['data'], function( &$val ) {
-                $val = sanitize_text_field( (string) $val );
-            } );
+            $budget = self::MAX_PAYLOAD_FIELDS;
+            $response_data['data'] = $this->sanitize_payload( $response_data['data'], $budget );
             if (isset($response_data['data']['id'])){
                 $post = PostType::get_instance()->get_post($response_data['data']['id']);
-                if($post['source']){
+                if(!empty($post['source'])){
                     // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     do_action( "nx_api_response_success_{$post['source']}", $response_data['data'] );
                 }
@@ -241,6 +250,46 @@ class Integration {
 
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         return apply_filters( 'nx_api_response', $response_data );
+    }
+
+    /**
+     * Sanitise a webhook payload, bounded in width, depth and length.
+     *
+     * This replaced a plain `array_walk_recursive()`, which sanitised every leaf
+     * but agreed to walk whatever arrived -- so a key holder could hand over an
+     * arbitrarily wide or deeply nested structure and have the site traverse and
+     * store all of it. The limits are the point; sanitising is the same as it
+     * was.
+     *
+     * Keys are deliberately left as sent. They are what the integration named
+     * its fields, and rewriting them would change the data every downstream
+     * source reads.
+     *
+     * @param mixed $value  Payload or fragment of one.
+     * @param int   $budget Remaining leaf values, by reference across the walk.
+     * @param int   $depth  Current nesting depth.
+     * @return mixed
+     */
+    protected function sanitize_payload( $value, &$budget, $depth = 0 ) {
+        if ( is_array( $value ) ) {
+            if ( $depth >= self::MAX_PAYLOAD_DEPTH ) {
+                return [];
+            }
+
+            $clean = [];
+            foreach ( $value as $key => $item ) {
+                if ( $budget <= 0 ) {
+                    break;
+                }
+                $clean[ $key ] = $this->sanitize_payload( $item, $budget, $depth + 1 );
+            }
+
+            return $clean;
+        }
+
+        --$budget;
+
+        return substr( sanitize_text_field( (string) $value ), 0, self::MAX_FIELD_LENGTH );
     }
 
     /**

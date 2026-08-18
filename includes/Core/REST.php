@@ -267,6 +267,19 @@ class REST {
             'methods'   => WP_REST_Server::EDITABLE,
             'callback'  => array( ImportExport::get_instance(), 'import' ),
             'permission_callback' => array($this, 'edit_permission'),
+            // Declared so a missing or non-string payload is refused by the
+            // schema instead of reaching a handler that would quietly do
+            // nothing. Deliberately not length-capped: the route is
+            // administrator-gated, and a real export of a site's notifications
+            // and Elementor templates is legitimately large -- a cap here would
+            // block real imports long before it stopped anything.
+            'args'      => array(
+                'import' => array(
+                    'required'    => true,
+                    'type'        => 'string',
+                    'description' => __( 'Export file contents as JSON.', 'notificationx' ),
+                ),
+            ),
         ));
         register_rest_route( $namespace, '/export', array(
             'methods'   => WP_REST_Server::EDITABLE,

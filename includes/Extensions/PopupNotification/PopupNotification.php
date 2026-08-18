@@ -10,6 +10,7 @@ namespace NotificationX\Extensions\Popup;
 
 use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\Core\AudienceToken;
+use NotificationX\Core\Helper;
 use NotificationX\NotificationX;
 use NotificationX\Core\PostType;
 use NotificationX\GetInstance;
@@ -1305,13 +1306,11 @@ class PopupNotification extends Extension {
     }
 
     private function get_user_ip() {
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            return sanitize_text_field(wp_unslash($_SERVER['HTTP_CLIENT_IP']));
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            return sanitize_text_field(wp_unslash($_SERVER['HTTP_X_FORWARDED_FOR']));
-        } else {
-            return isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
-        }
+        // Was reading the forwarded headers directly, which meant the address
+        // stored against a feedback entry was whatever the submitter chose to
+        // send. Helper::client_ip() ignores those headers unless the site has
+        // said it sits behind a proxy.
+        return Helper::client_ip();
     }
 
 

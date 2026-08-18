@@ -80,6 +80,9 @@ class Settings extends UsabilityDynamicsSettings {
         $data     = NotificationX::get_instance()->normalize( $this->settings_form() );
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $settings = apply_filters('nx_settings_page_settings', $this->get( 'settings', [] ));
+        // Applied after the filter, not through it, so no amount of filtering can
+        // put a live credential back on the page.
+        $settings = $this->mask_credentials( $settings );
 
         $data['current_page'] = 'settings';
         $data['rest']         = REST::get_instance()->rest_data();
@@ -681,6 +684,7 @@ class Settings extends UsabilityDynamicsSettings {
                 unset( $settings[ $key ] );
             }
         }
+        $settings = $this->restore_masked_credentials( $settings );
         $settings = $this->preserve_protected_settings( $settings );
 
         // need this to ensure saved value don't return empty array instead of object.
@@ -693,6 +697,133 @@ class Settings extends UsabilityDynamicsSettings {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         do_action( 'nx_settings_saved', $settings );
         return true;
+    }
+
+    /**
+     * What stands in for a stored credential on the settings screen.
+     *
+     * Bullets rather than an empty field: the merchant needs to see that
+     * something is saved, and an empty box invites retyping a key that is
+     * already correct. No real credential is eight bullet characters, so a
+     * posted value that still looks like this can be read as "left alone".
+     */
+    const SECRET_MASK = '••••••••';
+
+    /**
+     * Settings keys holding integration credentials rather than configuration.
+     *
+     * These live in the same `settings` blob as ordinary options, so anything
+     * handing that blob out hands these out too -- the settings screen, exports,
+     * anything reading the option. Kept here because Settings owns the blob;
+     * ImportExport reads the same list so redaction and masking can never drift
+     * apart.
+     *
+     * A list and not a pattern, because the two cannot be told apart by name:
+     * `openai_max_tokens` and `enable_rest_api` read like credentials and are
+     * not, while `nx_pa_settings` is a token payload and does not read like one.
+     * New credential settings must be added here; the filter is for Pro and
+     * third-party integrations to register their own.
+     *
+     * @return array
+     */
+    public function credential_setting_keys() {
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        return (array) apply_filters( 'nx_credential_settings', [
+            'nx_pa_settings',          // Google Analytics OAuth token payload.
+            'token_info',
+            'ga_client_id',
+            'ga_client_secret',
+            'yt_client_id',
+            'yt_client_secret',
+            'activecampaign_api_key',
+            'convertkit_api_key',
+            'convertkit_api_secret',
+            'envato_token',
+            'gmap_token',
+            'google_review_api_key',
+            'google_youtube_api_key',
+            'mailchimp_api_key',
+            'openai_access_token',
+            'ifttt_api_key',
+            'zapier_api_key',
+        ] );
+    }
+
+    /**
+     * Replace stored credentials with a placeholder before the blob reaches the
+     * admin app.
+     *
+     * The settings screen used to receive every API key, client secret and OAuth
+     * token in clear text and post them all back on save. That put live
+     * credentials into browser memory, the browser cache, devtools, any HAR a
+     * merchant sends to support, and any admin-side script running on the page --
+     * none of which need them, because the server already has them.
+     *
+     * Values that are not strings are dropped outright rather than masked. The
+     * only one today is `nx_pa_settings`, whose shape the admin app would have to
+     * understand to mask; it never needs it, and preserve_protected_settings()
+     * restores it from storage on save whether it was posted or not.
+     *
+     * @param array $settings Stored settings.
+     * @return array
+     */
+    public function mask_credentials( $settings ) {
+        if ( ! is_array( $settings ) ) {
+            return $settings;
+        }
+
+        foreach ( $this->credential_setting_keys() as $key ) {
+            if ( ! isset( $settings[ $key ] ) || '' === $settings[ $key ] ) {
+                continue;
+            }
+            if ( is_string( $settings[ $key ] ) ) {
+                $settings[ $key ] = self::SECRET_MASK;
+            } else {
+                unset( $settings[ $key ] );
+            }
+        }
+
+        return $settings;
+    }
+
+    /**
+     * Undo mask_credentials() on the way back in.
+     *
+     * Three cases, and the difference between them is what lets a merchant both
+     * keep and clear a credential:
+     *
+     * - still the placeholder -> untouched on screen, so keep what is stored
+     * - absent -> not part of this submission, so keep what is stored
+     * - anything else, empty string included -> the merchant typed it, so take it
+     *
+     * @param array $settings Incoming settings.
+     * @return array
+     */
+    protected function restore_masked_credentials( $settings ) {
+        if ( ! is_array( $settings ) ) {
+            return $settings;
+        }
+
+        // `get()` returns false for a missing key and false is also a legitimate
+        // stored value, so only a sentinel separates the two.
+        $missing = new \stdClass();
+
+        foreach ( $this->credential_setting_keys() as $key ) {
+            $posted = array_key_exists( $key, $settings ) ? $settings[ $key ] : $missing;
+
+            if ( $missing !== $posted && self::SECRET_MASK !== $posted ) {
+                continue;
+            }
+
+            $stored = $this->get( "settings.{$key}", $missing );
+            if ( $missing === $stored ) {
+                unset( $settings[ $key ] );
+            } else {
+                $settings[ $key ] = $stored;
+            }
+        }
+
+        return $settings;
     }
 
     /**

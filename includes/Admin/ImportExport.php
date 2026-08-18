@@ -322,41 +322,15 @@ class ImportExport{
     }
 
     /**
-     * Settings keys holding integration credentials rather than configuration.
+     * Settings keys holding integration credentials.
      *
-     * These live in the same `settings` blob as ordinary options, so anything
-     * that hands the blob out wholesale hands these out too. They are kept out
-     * of exports and restored from storage on import.
-     *
-     * This is a list and not a pattern because the two cannot be told apart by
-     * name: `openai_max_tokens` and `enable_rest_api` read like credentials and
-     * are not, while `nx_pa_settings` is a token payload and does not read like
-     * one. A new credential setting must be added here; the filter is there so
-     * Pro and third-party integrations can register their own.
+     * Deferred to Settings, which owns the blob these live in, so export
+     * redaction and the settings screen's masking can never drift apart.
      *
      * @return array
      */
     public function credential_setting_keys() {
-        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
-        return (array) apply_filters( 'nx_credential_settings', [
-            'nx_pa_settings',          // Google Analytics OAuth token payload.
-            'token_info',
-            'ga_client_id',
-            'ga_client_secret',
-            'yt_client_id',
-            'yt_client_secret',
-            'activecampaign_api_key',
-            'convertkit_api_key',
-            'convertkit_api_secret',
-            'envato_token',
-            'gmap_token',
-            'google_review_api_key',
-            'google_youtube_api_key',
-            'mailchimp_api_key',
-            'openai_access_token',
-            'ifttt_api_key',
-            'zapier_api_key',
-        ] );
+        return Settings::get_instance()->credential_setting_keys();
     }
 
     /**

@@ -583,12 +583,23 @@ class FrontEnd {
             return $params;
         }
 
+        // A request cannot legitimately name more notifications than the token
+        // vouches for -- every id the page sends came out of that same list. So
+        // the signed count is the true upper bound, and cutting each group to it
+        // before the work below means an oversized array costs what this page
+        // granted rather than what the caller chose to send. No tuned constant
+        // to get wrong: a real request never reaches the limit.
+        $limit = count($allowed);
+
         foreach (AudienceToken::GROUPS as $group) {
             if (empty($params[$group]) || !is_array($params[$group])) {
                 continue;
             }
+
+            $requested = array_slice($params[$group], 0, $limit);
+
             $params[$group] = array_values(
-                array_intersect(array_map('absint', $params[$group]), $allowed)
+                array_intersect(array_map('absint', $requested), $allowed)
             );
         }
 

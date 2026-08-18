@@ -1133,6 +1133,62 @@ class Helper {
         }
     }
 
+    /**
+     * The address to treat as this request's client.
+     *
+     * `X-Forwarded-For` and `Client-IP` are request headers. Unless something in
+     * front of the site overwrites them, they are whatever the caller typed --
+     * so believing them by default hands every visitor a free choice of
+     * identity. That matters more than it sounds: this address decides the
+     * visitor's country, and country targeting is one of the rules that decides which
+     * notifications a page is allowed to show. Trusting a header there lets a
+     * visitor ask to be treated as being anywhere.
+     *
+     * So the direct peer wins by default, and a site that genuinely sits behind
+     * a CDN or load balancer opts back in:
+     *
+     *     add_filter( 'nx_trust_forwarded_for', function ( $trust, $remote ) {
+     *         return in_array( $remote, [ '10.0.0.4' ], true ); // your proxy
+     *     }, 10, 2 );
+     *
+     * Checking `$remote` against the proxy's own address is what makes the
+     * headers meaningful -- a bare `true` trusts them on every request,
+     * including ones that never went through the proxy.
+     *
+     * @return string Client address, or '' when there is none (CLI, cron).
+     */
+    public static function client_ip() {
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitised on assignment.
+        $remote = isset($_SERVER['REMOTE_ADDR'])
+            ? trim(sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])))
+            : '';
+
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        if (!apply_filters('nx_trust_forwarded_for', false, $remote)) {
+            return $remote;
+        }
+
+        // `X-Forwarded-For` first: it is the header real proxies set, where
+        // `Client-IP` is mostly set by callers hoping something reads it. The
+        // leftmost entry is the original client.
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $chain     = explode(',', sanitize_text_field(wp_unslash($_SERVER['HTTP_X_FORWARDED_FOR'])));
+            $candidate = trim($chain[0]);
+            if ('' !== $candidate) {
+                return $candidate;
+            }
+        }
+
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $candidate = trim(sanitize_text_field(wp_unslash($_SERVER['HTTP_CLIENT_IP'])));
+            if ('' !== $candidate) {
+                return $candidate;
+            }
+        }
+
+        return $remote;
+    }
+
     public static function nx_get_visitor_country_code() {
         // Country targeting now applies to ALL notification types, so a single page
         // load can evaluate several country-targeted notifications. Resolve the
@@ -1142,15 +1198,7 @@ class Helper {
         // same request. An unknown country is always represented as an empty string.
         static $memo = [];
 
-        $ip = '';
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = sanitize_text_field(wp_unslash($_SERVER['HTTP_CLIENT_IP']));
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = explode(',', sanitize_text_field(wp_unslash($_SERVER['HTTP_X_FORWARDED_FOR'])))[0];
-        } else {
-            $ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
-        }
-        $ip = trim($ip);
+        $ip = self::client_ip();
 
         // No usable IP (CLI/cron) or localhost: return an empty code. Callers treat an
         // unknown country as "don't filter" (fail-open), so country-targeted
