@@ -62,16 +62,24 @@ class Popup {
                     'type'              => 'integer',
                     'sanitize_callback' => 'absint',
                 ],
+                // Lengths are capped here rather than in the handler so an
+                // oversized body is rejected by the schema before anything is
+                // stored. Nothing legitimate approaches these; the endpoint is
+                // public, so an uncapped string field is a free way to fill the
+                // entries table.
                 'email' => [
                     'type'              => 'string',
+                    'maxLength'         => 254,
                     'sanitize_callback' => 'sanitize_email',
                 ],
                 'message' => [
                     'type'              => 'string',
+                    'maxLength'         => 2000,
                     'sanitize_callback' => 'sanitize_textarea_field',
                 ],
                 'name' => [
                     'type'              => 'string',
+                    'maxLength'         => 200,
                     'sanitize_callback' => 'sanitize_textarea_field',
                 ],
                 // `title` and `theme` are persisted into the entry data and later
@@ -79,10 +87,12 @@ class Popup {
                 // sanitize them on the way in instead of storing raw input.
                 'title' => [
                     'type'              => 'string',
+                    'maxLength'         => 200,
                     'sanitize_callback' => 'sanitize_text_field',
                 ],
                 'theme' => [
                     'type'              => 'string',
+                    'maxLength'         => 100,
                     'sanitize_callback' => 'sanitize_text_field',
                 ],
                 'timestamp' => [
@@ -506,11 +516,43 @@ class Popup {
         // Convert array to CSV string
         $csv_content = '';
         foreach ($csv_data as $row) {
-            $csv_content .= '"' . implode('","', array_map(function($field) {
-                return str_replace('"', '""', $field); // Escape quotes
-            }, $row)) . '"' . "\n";
+            $csv_content .= '"' . implode('","', array_map([ $this, 'escape_csv_field' ], $row)) . '"' . "\n";
         }
 
         return $csv_content;
+    }
+
+    /**
+     * Neutralise spreadsheet formulas before a value is written to CSV.
+     *
+     * Feedback rows carry values submitted through the public /popup-submit
+     * endpoint. `sanitize_textarea_field()` strips markup but leaves the formula
+     * markers Excel and LibreOffice Calc act on, so a submitted `=HYPERLINK(..)`
+     * stays a live formula that runs in the spreadsheet of whoever opens the
+     * export -- the submitter never needs an account to get code running there.
+     * An apostrophe prefix makes the client treat the cell as a literal string;
+     * it is not part of the value and is not displayed.
+     *
+     * Leading whitespace is looked past because spreadsheet clients discard it
+     * before deciding whether a cell is a formula, and a leading tab or carriage
+     * return is itself a marker, so both are checked.
+     *
+     * @param mixed $field Cell value.
+     * @return string Quote-escaped, formula-safe cell value.
+     */
+    private function escape_csv_field( $field ) {
+        $field = (string) $field;
+
+        // What the client sees first, ignoring the padding it throws away.
+        $trimmed   = ltrim( $field, " \t\r\n" );
+        $first     = '' !== $trimmed ? $trimmed[0] : '';
+        $first_raw = '' !== $field ? $field[0] : '';
+
+        if ( in_array( $first, [ '=', '+', '-', '@' ], true )
+            || in_array( $first_raw, [ "\t", "\r" ], true ) ) {
+            $field = "'" . $field;
+        }
+
+        return str_replace( '"', '""', $field );
     }
 }

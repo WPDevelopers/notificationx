@@ -9,6 +9,8 @@
 namespace NotificationX\Extensions\Popup;
 
 use NotificationX\Admin\InfoTooltipManager;
+use NotificationX\Core\AudienceToken;
+use NotificationX\NotificationX;
 use NotificationX\Core\PostType;
 use NotificationX\GetInstance;
 use NotificationX\Core\Rules;
@@ -26,6 +28,15 @@ class PopupNotification extends Extension {
      * @var Popup
      */
     use GetInstance;
+
+    /**
+     * The sources whose forms post to /popup-submit. The endpoint is shared by
+     * announcements and exit-intent popups; nothing else may be submitted to.
+     */
+    const SUBMITTABLE_SOURCES = [ 'popup_notification', 'exit_intent_custom' ];
+
+    /** Accepted submissions per notification, per client address, per hour. */
+    const SUBMISSION_RATE_LIMIT = 10;
 
     public $priority        = 15;
     public $id              = 'popup_notification';
@@ -1119,13 +1130,54 @@ class PopupNotification extends Extension {
     public function handle_popup_submission($request) {
         $params = $request->get_params();
 
-        $id = $params['nx_id'];
+        $id = absint( $params['nx_id'] );
         $notificationx = PostType::get_instance()->get_post( $id );
         if( !$notificationx ) {
             return new \WP_REST_Response([
                 'success' => false,
                 'message' => __('Notification not found', 'notificationx'),
             ], 404);
+        }
+
+        // This endpoint is public because the form on the popup is, but "public"
+        // only ever meant "the form on this popup". It used to accept any
+        // notification id that existed and then file the entry under *that*
+        // post's source -- so a submission could be written against a
+        // WooCommerce or Zapier notification, appear in its frontend rotation as
+        // social proof, and once the per-notification cache limit was reached,
+        // push a real entry out to make room. Existence is not the question;
+        // whether this notification takes submissions is.
+        $source = ! empty( $notificationx['source'] ) ? $notificationx['source'] : $this->id;
+        if ( ! in_array( $source, self::SUBMITTABLE_SOURCES, true ) || empty( $notificationx['enabled'] ) ) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('This notification does not accept submissions', 'notificationx'),
+            ], 403);
+        }
+
+        if ( ! $this->has_submittable_form( $notificationx, $source ) ) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('This notification has no submission form', 'notificationx'),
+            ], 403);
+        }
+
+        // And it has to be a popup this visitor was actually shown. The signed
+        // list comes from the page render, so this also settles targeting: a
+        // popup restricted to certain pages, countries or logged-in users cannot
+        // be submitted to from outside those conditions.
+        if ( ! AudienceToken::permits( $request->get_param( 'nx_token' ), $id ) ) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('This notification was not served to this request.', 'notificationx'),
+            ], 403);
+        }
+
+        if ( ! $this->within_submission_rate_limit( $id ) ) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('Too many submissions. Please try again later.', 'notificationx'),
+            ], 429);
         }
 
         // Prepare entry data
@@ -1156,12 +1208,12 @@ class PopupNotification extends Extension {
         // Add IP address
         $data['ip'] = $this->get_user_ip();
 
-        // Use the post's own source so exit-intent submissions aren't mis-tagged as
-        // popup_notification (the same /popup-submit endpoint serves both types).
-        $source    = ! empty( $notificationx['source'] ) ? $notificationx['source'] : $this->id;
-        $entry_key = $source . '_' . $params['nx_id'];
+        // $source was resolved and allow-listed above, so it can only be one of
+        // the two sources that own this endpoint -- it is no longer whatever the
+        // targeted post happened to be.
+        $entry_key = $source . '_' . $id;
         $entry = [
-            'nx_id'     => $params['nx_id'],
+            'nx_id'     => $id,
             'source'    => $source,
             'entry_key' => $entry_key,
             'data'      => $data,
@@ -1182,6 +1234,76 @@ class PopupNotification extends Extension {
      *
      * @return string
      */
+    /**
+     * Whether a notification actually renders a form to submit.
+     *
+     * A popup with no fields turned on is an announcement, not a form, and has
+     * nothing to receive. The two sources express this differently, so each is
+     * asked on its own terms rather than through one guessed flag: an
+     * announcement popup shows a field only when its flag is set, while an
+     * exit-intent popup shows name and email unless they are explicitly turned
+     * off -- which is why the checks below are not symmetrical.
+     *
+     * @param array  $settings Notification settings.
+     * @param string $source   Resolved, allow-listed source.
+     * @return bool
+     */
+    private function has_submittable_form( $settings, $source ) {
+        // Name and email are Pro-only fields in both renderers, so on Free they
+        // are not on the form no matter what the settings say.
+        $is_pro = NotificationX::is_pro();
+
+        if ( 'exit_intent_custom' === $source ) {
+            return ( $is_pro && ( ! isset( $settings['exit_intent_show_name'] ) || false !== $settings['exit_intent_show_name'] ) )
+                || ( $is_pro && ( ! isset( $settings['exit_intent_show_email'] ) || false !== $settings['exit_intent_show_email'] ) )
+                || ! empty( $settings['exit_intent_show_message'] );
+        }
+
+        return ( $is_pro && ! empty( $settings['popup_show_name_field'] ) )
+            || ( $is_pro && ! empty( $settings['popup_show_email_field'] ) )
+            || ! empty( $settings['popup_show_message_field'] );
+    }
+
+    /**
+     * Cheap flood control for a public write.
+     *
+     * Every accepted submission both stores an entry and, once the notification
+     * is at its cache limit, deletes the oldest one to make room -- so a loop
+     * against this endpoint does not just add noise, it erases real entries.
+     * A human fills a popup form once; ten an hour leaves ordinary use alone
+     * while making that loop expensive.
+     *
+     * Keyed on REMOTE_ADDR rather than get_user_ip(), which prefers
+     * X-Forwarded-For and Client-IP -- headers the client sets, so a limit keyed
+     * on them is bypassed by varying a header.
+     *
+     * @param int $nx_id Notification id.
+     * @return bool True when the submission may proceed.
+     */
+    private function within_submission_rate_limit( $nx_id ) {
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- hashed below, never stored or echoed.
+        $address = isset( $_SERVER['REMOTE_ADDR'] ) ? (string) $_SERVER['REMOTE_ADDR'] : '';
+        if ( '' === $address ) {
+            return true;
+        }
+
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        $limit = (int) apply_filters( 'nx_popup_submission_rate_limit', self::SUBMISSION_RATE_LIMIT, $nx_id );
+        if ( $limit <= 0 ) {
+            return true;
+        }
+
+        $key   = 'nx_popup_rate_' . md5( $address . '|' . $nx_id );
+        $count = (int) get_transient( $key );
+        if ( $count >= $limit ) {
+            return false;
+        }
+
+        set_transient( $key, $count + 1, HOUR_IN_SECONDS );
+
+        return true;
+    }
+
     private function get_user_ip() {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             return sanitize_text_field(wp_unslash($_SERVER['HTTP_CLIENT_IP']));

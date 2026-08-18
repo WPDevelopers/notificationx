@@ -148,6 +148,14 @@ export function calculateAnimationStartTime(userInput, animationType) {
 class NotificationXHelpers {
     getPath = (rest, path, query = {}) => {
         query = {...query, frontend: 'true'}
+        // Signed list of the notifications this page render allows. /notice,
+        // /analytics and /popup-submit all check it, and every frontend request
+        // is built here, so it rides along from one place instead of each call
+        // site having to remember it. Not a secret: every id it covers is
+        // already in this page's markup.
+        if (rest?.nx_token) {
+            query = {...query, nx_token: rest.nx_token};
+        }
         const url = new URL(`${rest.root}${rest.namespace}/${path}`);
         for (var key in query) {
             if (!query.hasOwnProperty(key)) continue;

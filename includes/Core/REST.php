@@ -487,8 +487,20 @@ class REST {
      */
     public function notice($request) {
         $params = $request->get_params();
-        return FrontEnd::get_instance()->get_notifications_data( $params );
 
+        // Vet the ids here rather than inside get_notifications_data(): this is
+        // the public entry point, while the shortcode and inline renderers call
+        // that method straight from PHP with ids they picked themselves and have
+        // no request to be signed.
+        //
+        // `all_active` is left alone because get_notifications_data() answers it
+        // by replacing the parameters with a server-derived list -- there is
+        // nothing caller-supplied left to vet.
+        if ( empty( $params['all_active'] ) ) {
+            $params = FrontEnd::get_instance()->restrict_to_signed_ids( $params );
+        }
+
+        return FrontEnd::get_instance()->get_notifications_data( $params );
     }
 
     public function delete_cookies($request)

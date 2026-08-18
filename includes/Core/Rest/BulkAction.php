@@ -66,7 +66,11 @@ class BulkAction {
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array( $this, 'regenerate' ),
-                'permission_callback' => [ $this, 'read_permission' ],
+                // Regenerating deletes every stored entry for a notification and
+                // refetches from the source integration, so it belongs with the
+                // other mutations here -- not with the read routes. The
+                // single-item peer in Rest\Entries has always required this.
+                'permission_callback' => [ $this, 'edit_permission' ],
                 'args'                => array(
                     'ids' => array(
                         'description' => __( 'Array of nx_id.', 'notificationx' ),
@@ -127,7 +131,7 @@ class BulkAction {
         $count  = [];
         $params = $request->get_params();
         if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
-            foreach ( $params['ids'] as $key => $nx_id ) {
+            foreach ( array_map( 'absint', $params['ids'] ) as $nx_id ) {
                 $count[ $nx_id ] = PostType::get_instance()->delete_post( $nx_id );
             }
         }
@@ -141,7 +145,7 @@ class BulkAction {
         $count  = 0;
         $params = $request->get_params();
         if ( ! empty( $params['ids'] ) && is_array( $params['ids'] ) ) {
-            foreach ( $params['ids'] as $key => $nx_id ) {
+            foreach ( array_map( 'absint', $params['ids'] ) as $nx_id ) {
                 $count += Admin::get_instance()->regenerate_notifications( [ 'nx_id' => $nx_id ] );
             }
         }

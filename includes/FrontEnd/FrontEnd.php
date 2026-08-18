@@ -11,6 +11,7 @@ namespace NotificationX\FrontEnd;
 use NotificationX\Admin\Entries;
 use NotificationX\Admin\Settings;
 use NotificationX\Core\Analytics;
+use NotificationX\Core\AudienceToken;
 use NotificationX\Core\Database;
 use NotificationX\Core\GetData;
 use NotificationX\NotificationX;
@@ -52,6 +53,8 @@ class FrontEnd {
             add_action('init', [$this, 'init'], 10);
         }
         add_filter('nx_frontend_localize_data', [$this, 'get_localize_data']);
+        // Last, so every id another feature contributes is inside the signature.
+        add_filter('nx_frontend_localize_data', [$this, 'sign_localize_data'], PHP_INT_MAX);
         Preview::get_instance();
     }
 
@@ -244,6 +247,40 @@ class FrontEnd {
             'pid'         => !empty($GLOBALS['post']->ID) ? $GLOBALS['post']->ID : 0,
         ];
         $data['localeData'] = load_script_textdomain('notificationx-public', 'notificationx');
+        return $data;
+    }
+
+    /**
+     * Sign the notification ids being handed to the page.
+     *
+     * The ids in $data were chosen using this page's context -- template
+     * conditionals, the session, geo. The REST requests the page then makes have
+     * none of that, so the set is signed here and those endpoints trust the
+     * signature instead of the caller. Core\AudienceToken explains why the
+     * decision is carried rather than recomputed.
+     *
+     * Runs at the lowest possible priority on `nx_frontend_localize_data`
+     * because other features add ids through the same filter -- Pro contributes
+     * `shortcode` there -- and anything signed before them would leave those
+     * notifications out of the token and unable to load.
+     *
+     * The `all_active` payload is the cross-site snippet, which carries no ids
+     * of its own because /notice derives them server-side. Analytics and popup
+     * submissions from that page still need something to present, so it is
+     * signed against what the server would pick now.
+     *
+     * @param array $data Localized frontend payload.
+     * @return array
+     */
+    public function sign_localize_data($data) {
+        if (!is_array($data) || empty($data['rest']) || !is_array($data['rest'])) {
+            return $data;
+        }
+
+        $data['rest']['nx_token'] = AudienceToken::create(
+            empty($data['all_active']) ? $data : $this->get_notifications_ids()
+        );
+
         return $data;
     }
 
@@ -507,6 +544,55 @@ class FrontEnd {
             'analytics_nonce'    => wp_create_nonce('analytics_nonce'),
         ];
         return $settings;
+    }
+
+    /**
+     * Reduce caller-supplied notification ids to the ones this visitor's page
+     * render actually granted.
+     *
+     * /notice is public by design -- it is how the frontend fetches what it was
+     * told to display. What it was missing is any link between the ids in the
+     * request and the ids the server picked: a caller could name an id whose
+     * audience, page, country or source targeting excludes them and be served
+     * its entries anyway. The signature closes that without re-running the
+     * targeting rules, which a REST request does not have the context to do
+     * correctly (see Core\AudienceToken).
+     *
+     * @param array $params Request parameters.
+     * @return array
+     */
+    public function restrict_to_signed_ids($params) {
+        $allowed = AudienceToken::allowed_ids( isset($params['nx_token']) ? $params['nx_token'] : '' );
+
+        if (null === $allowed) {
+            // No usable signature -- a page cached from before this shipped, or
+            // a caller that assembled the request itself. Fall back to what the
+            // server would grant this request on its own rather than to what it
+            // asked for. Notifications targeted at specific pages drop out until
+            // the cache turns over; everything else still shows, and nothing
+            // unearned is served either way.
+            //
+            // Every group is assigned, including ones get_notifications_ids()
+            // does not return -- `shortcode` is contributed by a filter, so
+            // merging would have left the caller's copy of it standing.
+            $derived = $this->get_notifications_ids();
+            foreach (AudienceToken::GROUPS as $group) {
+                $params[$group] = isset($derived[$group]) && is_array($derived[$group]) ? $derived[$group] : [];
+            }
+
+            return $params;
+        }
+
+        foreach (AudienceToken::GROUPS as $group) {
+            if (empty($params[$group]) || !is_array($params[$group])) {
+                continue;
+            }
+            $params[$group] = array_values(
+                array_intersect(array_map('absint', $params[$group]), $allowed)
+            );
+        }
+
+        return $params;
     }
 
     public function get_notifications_ids($return_posts = false, $args = []) {
