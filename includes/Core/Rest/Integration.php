@@ -271,6 +271,14 @@ class Integration {
      * @return mixed
      */
     protected function sanitize_payload( $value, &$budget, $depth = 0 ) {
+        // Every node spends from the budget, containers included. Counting only
+        // leaves left a hole: a flat array of half a million empty arrays has no
+        // leaves, so the budget never tripped and the whole thing was walked.
+        // The field count is really a node count, and that is the DoS bound.
+        if ( --$budget < 0 ) {
+            return null;
+        }
+
         if ( is_array( $value ) ) {
             if ( $depth >= self::MAX_PAYLOAD_DEPTH ) {
                 return [];
@@ -286,8 +294,6 @@ class Integration {
 
             return $clean;
         }
-
-        --$budget;
 
         return substr( sanitize_text_field( (string) $value ), 0, self::MAX_FIELD_LENGTH );
     }
