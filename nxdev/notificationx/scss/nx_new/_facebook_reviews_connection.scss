@@ -1,0 +1,91 @@
+// Facebook Reviews → NotificationX API connection row (Settings → API Integrations).
+// Lives inside a standard .wprf-control-wrapper, so label column, spacing and the
+// .wprf-btn button all come from the existing settings styles; only the status
+// badge and the monospace chips are ours.
+.wprf-type-facebook-reviews-connection {
+    .nx-fbr-connection {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        &__status,
+        &__meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        &__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.5;
+            white-space: nowrap;
+
+            &.is-on {
+                background: #e4f6ea;
+                color: #1f8a4c;
+                .nx-fbr-connection__dot { background: #1f8a4c; }
+            }
+            &.is-off {
+                background: #fdeeee;
+                color: #c8403e;
+                .nx-fbr-connection__dot { background: #c8403e; }
+            }
+        }
+
+        &__dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        &__text,
+        &__label {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #778095;
+        }
+
+        &__code {
+            padding: 5px 10px;
+            border: 1px solid #e7e9f5;
+            border-radius: 6px;
+            background: #fff;
+            color: #092161;
+            font-size: 13px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        &__actions {
+            margin-top: 4px;
+        }
+
+        &__btn {
+            &:disabled {
+                opacity: 0.65;
+                cursor: default;
+            }
+            &.is-secondary {
+                background: #fff;
+                color: #6a4bff;
+                border: 1px solid #d9dcf0;
+                &:hover:not(:disabled) {
+                    background: #fff;
+                    color: #6a4bff;
+                    border-color: #6a4bff;
+                }
+            }
+        }
+    }
+}
+
+.nx-fbr-connection__warning {
+    color: #b45309;
+}

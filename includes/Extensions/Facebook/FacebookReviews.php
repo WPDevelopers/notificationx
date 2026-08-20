@@ -10,7 +10,6 @@ namespace NotificationX\Extensions\Facebook;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
 use NotificationX\Admin\Settings;
-use NotificationX\Core\Helper;
 use NotificationX\Core\PostType;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\Extension;
@@ -36,7 +35,7 @@ class FacebookReviews extends Extension {
 
     public $priority        = 6;
     public $id              = 'facebook_reviews';
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/facebook-reviews.png';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/Facebook_Logo.webp';
     public $doc_link        = 'https://notificationx.com/docs/facebook-reviews-with-notificationx/';
     public $types           = 'reviews';
     public $module          = 'modules_facebook_reviews';
@@ -44,27 +43,23 @@ class FacebookReviews extends Extension {
     public $default_theme   = 'facebook_reviews_review-comment';
     public $is_pro          = false;
     public $link_type       = 'review_page';
-    public $api_base        = 'https://api.apify.com/v2/';
     public $cron_schedule   = 'nx_facebook_reviews_interval';
 
     /**
-     * Apify runs are asynchronous and take seconds to minutes, while the campaign
-     * refresh interval is measured in hours. This own-hook single event is what
-     * polls a run to completion shortly after it starts, instead of making the
-     * merchant wait for the next slow cron tick.
+     * Collection runs on the NotificationX API proxy (see FacebookReviewsManaged)
+     * and takes seconds to minutes, while the campaign refresh interval is
+     * measured in hours. This own-hook single event is what polls a job to
+     * completion shortly after it starts, instead of making the merchant wait
+     * for the next slow cron tick.
      */
     const POLL_HOOK = 'nx_facebook_reviews_poll';
     const MAX_POLLS = 20;
 
     /**
-     * Apify actor that scrapes Facebook page recommendations.
-     */
-    const ACTOR = 'apify~facebook-reviews-scraper';
-
-    /**
-     * Refresh floor, in minutes. The actor bills per scraped review
-     * (~$1.40/1000), so free installs are pinned to a 12-hour refresh, which
-     * keeps a 10-review campaign inside Apify's free monthly allowance.
+     * Refresh floor, in minutes. The proxy bills per scraped review, so free
+     * installs are pinned to a 12-hour refresh; the proxy enforces the same
+     * floor server-side, so a shorter local value would only be served from
+     * its cache anyway.
      */
     const FREE_CACHE_DURATION = 720;
     const PRO_MIN_CACHE_DURATION = 60;
@@ -230,7 +225,7 @@ class FacebookReviews extends Extension {
     }
 
     /**
-     * The two inputs the Apify actor takes. Sorting, language and filtering land here
+     * The two inputs the collector takes. Sorting, language and filtering land here
      * in later phases.
      *
      * @param array $fields
@@ -285,13 +280,102 @@ class FacebookReviews extends Extension {
             'min'         => 1,
             'max'         => $is_pro ? self::PRO_RESULTS_LIMIT : self::FREE_RESULTS_LIMIT,
             'description' => $is_pro
-                ? __('How many recommendations to collect per refresh. Apify bills per scraped review, so this multiplies your cost.', 'notificationx')
+                ? __('How many recommendations to collect per refresh.', 'notificationx')
                 /* translators: %d: maximum number of reviews on the free plan */
                 : sprintf(__('How many recommendations to collect per refresh. Limited to %d on the free plan.', 'notificationx'), self::FREE_RESULTS_LIMIT),
             'rules'       => Rules::is('source', $this->id),
         ];
 
+        if (! $is_pro) {
+            $content_fields = $this->pro_preview_fields($content_fields);
+        }
+
         return $fields;
+    }
+
+    /**
+     * Pro-only controls, shown locked in the free plugin.
+     *
+     * Same keys, labels and defaults as NotificationXPro's FacebookReviews::content_fields_pro()
+     * so the builder looks identical on both plans — the only difference is the
+     * crown badge and that the value can't be changed. `is_pro` makes quickbuilder
+     * render the badge and short-circuit every change with the upgrade popup, and
+     * the free collector never reads these keys, so even a value injected through
+     * the REST API has no effect. When Pro is active it re-registers these keys at
+     * a later filter priority and replaces the stubs wholesale.
+     *
+     * @param array $content_fields
+     * @return array
+     */
+    protected function pro_preview_fields($content_fields) {
+        $content_fields['facebook_reviews_lang'] = [
+            'label'    => __('Review Language', 'notificationx'),
+            'name'     => 'facebook_reviews_lang',
+            'type'     => 'select',
+            'priority' => 40,
+            'default'  => 'no_translation',
+            'is_pro'   => true,
+            'options'  => GlobalFields::get_instance()->normalize_fields([
+                'no_translation'  => __('No Translation (Original)', 'notificationx'),
+                'site_language'   => __('Site Language', 'notificationx'),
+                'custom_language' => __('Custom Language', 'notificationx'),
+            ]),
+            'description' => __('Facebook returns recommendations in the reviewer\'s own language. Translation happens once when reviews are collected, so it costs nothing to display.', 'notificationx'),
+            'rules'       => Rules::is('source', $this->id),
+        ];
+
+        $content_fields['facebook_reviews_custom_language'] = [
+            'label'       => __('Translate To', 'notificationx'),
+            'name'        => 'facebook_reviews_custom_language',
+            'type'        => 'text',
+            'priority'    => 41,
+            'is_pro'      => true,
+            'placeholder' => __('e.g. Bengali, Spanish, German', 'notificationx'),
+            'rules'       => Rules::logicalRule([
+                Rules::is('source', $this->id),
+                Rules::is('facebook_reviews_lang', 'custom_language'),
+            ]),
+        ];
+
+        $content_fields['facebook_reviews_recommendation_filter'] = [
+            'label'    => __('Show Recommendations', 'notificationx'),
+            'name'     => 'facebook_reviews_recommendation_filter',
+            'type'     => 'select',
+            'priority' => 50,
+            'default'  => 'all',
+            'is_pro'   => true,
+            'options'  => GlobalFields::get_instance()->normalize_fields([
+                'all'                  => __('All', 'notificationx'),
+                'recommended_only'     => __('Recommended Only', 'notificationx'),
+                'not_recommended_only' => __('Not Recommended Only', 'notificationx'),
+            ]),
+            'rules'    => Rules::is('source', $this->id),
+        ];
+
+        $content_fields['facebook_reviews_tags'] = [
+            'label'       => __('Filter By Tags', 'notificationx'),
+            'name'        => 'facebook_reviews_tags',
+            'type'        => 'text',
+            'priority'    => 51,
+            'is_pro'      => true,
+            'placeholder' => __('e.g. Fast delivery, Cosy atmosphere', 'notificationx'),
+            'description' => __('Comma separated. Keeps only recommendations carrying at least one of these Facebook tags.', 'notificationx'),
+            'rules'       => Rules::is('source', $this->id),
+        ];
+
+        $content_fields['facebook_reviews_min_length'] = [
+            'label'       => __('Minimum Review Length', 'notificationx'),
+            'name'        => 'facebook_reviews_min_length',
+            'type'        => 'number',
+            'priority'    => 52,
+            'default'     => 0,
+            'min'         => 0,
+            'is_pro'      => true,
+            'description' => __('Skip recommendations shorter than this many characters. 0 keeps them all.', 'notificationx'),
+            'rules'       => Rules::is('source', $this->id),
+        ];
+
+        return $content_fields;
     }
 
     public function init_settings_fields() {
@@ -327,13 +411,31 @@ class FacebookReviews extends Extension {
     }
 
     /**
-     * Apify credentials + refresh interval.
+     * Connection to the NotificationX API + refresh interval.
+     *
+     * There is nothing for the merchant to paste: "Connect" registers this site
+     * with the proxy (site URL, admin email, install fingerprint) and stores the
+     * per-site token it returns. What is about to be sent is spelled out next to
+     * the button rather than hidden behind it.
      *
      * @param array $sections
      * @return array
      */
     public function api_integration_settings($sections) {
         $is_pro = NotificationX::get_instance()->is_pro();
+
+        $fields = [
+            // Rendered by nxdev/notificationx/fields/FacebookReviewsConnection.tsx.
+            // It drives /notificationx/v1/api-connect (connect()) below and swaps
+            // to whatever `status` that returns, so no page reload is needed.
+            'facebook_reviews_managed_connection' => [
+                'name'   => 'facebook_reviews_managed_connection',
+                'type'   => 'facebook-reviews-connection',
+                'label'  => __('NotificationX API', 'notificationx'),
+                'source' => $this->id,
+                'status' => $this->connection_status(),
+            ],
+        ];
 
         $sections['facebook_reviews_settings_section'] = array(
             'name'     => 'facebook_reviews_settings_section',
@@ -342,18 +444,7 @@ class FacebookReviews extends Extension {
             'modules'  => $this->module,
             'priority' => 81,
             'rules'    => Rules::is('modules.' . $this->module, true),
-            'fields'   => [
-                'facebook_reviews_apify_token' => array(
-                    'name'        => 'facebook_reviews_apify_token',
-                    'type'        => 'text',
-                    'text'        => __('Apify API Token', 'notificationx'),
-                    'label'       => __('Apify API Token', 'notificationx'),
-                    'description' => sprintf('%s <a href="%s" target="_blank">%s</a>.',
-                        __('Facebook no longer exposes page recommendations through its own API, so they are collected through Apify. To get a token, check out', 'notificationx'),
-                        'https://notificationx.com/docs/collect-api-token-from-apify',
-                        __('this doc', 'notificationx')
-                    ),
-                ),
+            'fields'   => $fields + [
                 'facebook_reviews_cache_duration' => [
                     'name'        => 'facebook_reviews_cache_duration',
                     'type'        => 'number',
@@ -361,33 +452,44 @@ class FacebookReviews extends Extension {
                     'default'     => $is_pro ? 360 : self::FREE_CACHE_DURATION,
                     'min'         => $is_pro ? self::PRO_MIN_CACHE_DURATION : self::FREE_CACHE_DURATION,
                     'disabled'    => ! $is_pro,
+                    'is_pro'      => ! $is_pro,
                     'description' => $is_pro
-                        ? __('Minutes between refreshes. Apify bills per scraped review (about $1.40 per 1,000), so a shorter interval costs more: roughly (43200 ÷ minutes) × review count × $0.0014 per month.', 'notificationx')
-                        : __('Minutes between refreshes. Fixed at 12 hours on the free plan to keep collection inside Apify\'s free monthly allowance. Upgrade to PRO to refresh more often.', 'notificationx'),
-                ],
-                [
-                    'name'    => 'facebook_review_connect',
-                    'type'    => 'button',
-                    'default' => false,
-                    'text'    => [
-                        'normal'  => __('Validate', 'notificationx'),
-                        'saved'   => __('Refresh', 'notificationx'),
-                        'loading' => __('Validating...', 'notificationx'),
-                    ],
-                    'ajax' => [
-                        'on'   => 'click',
-                        'api'  => '/notificationx/v1/api-connect',
-                        'data' => [
-                            'source'                          => $this->id,
-                            'facebook_reviews_apify_token'    => '@facebook_reviews_apify_token',
-                            'facebook_reviews_cache_duration' => '@facebook_reviews_cache_duration',
-                        ],
-                    ],
+                        ? __('Minutes between refreshes. The NotificationX API serves cached recommendations for up to an hour, so values below 60 make no difference.', 'notificationx')
+                        : __('Minutes between refreshes. Fixed at 12 hours on the free plan. Upgrade to PRO to refresh more often.', 'notificationx'),
                 ],
             ],
         );
 
         return $sections;
+    }
+
+    /**
+     * Connection state for the settings card. Never includes the token; the
+     * site ID is masked the same way the card displays it.
+     *
+     * @return array
+     */
+    public function connection_status() {
+        $status  = FacebookReviewsManaged::status();
+        $site_id = (string) $status['site_id'];
+        $masked  = strlen($site_id) > 12
+            ? substr($site_id, 0, 6) . str_repeat('*', 12) . substr($site_id, -6)
+            : $site_id;
+
+        return [
+            'connected'      => (bool) $status['connected'],
+            'site_id_masked' => $masked,
+            // What the proxy granted, not what the plugin would like. Pro without a
+            // verified licence is connected as free and license_status says why.
+            'tier'           => $status['tier'] ? $status['tier'] : (NotificationX::get_instance()->is_pro() ? 'pro' : 'free'),
+            'license_status' => $status['license_status'],
+            'is_pro_plugin'  => NotificationX::get_instance()->is_pro(),
+            'connected_at'   => $status['connected_at']
+                ? wp_date(get_option('date_format'), $status['connected_at'])
+                : '',
+            'home_url'       => home_url(),
+            'admin_email'    => (string) get_option('admin_email'),
+        ];
     }
 
     /**
@@ -408,14 +510,15 @@ class FacebookReviews extends Extension {
     }
 
     public function source_error_message($messages) {
-        $token = Settings::get_instance()->get('settings.facebook_reviews_apify_token');
-        if (empty($token)) {
+        // Nothing is sent to the NotificationX API until an admin clicks Connect;
+        // after that, ensure_connected() only repairs a stale binding.
+        if (!FacebookReviewsManaged::is_connected() && !FacebookReviewsManaged::ensure_connected()) {
             $url = admin_url('admin.php?page=nx-settings&tab=tab-api-integrations#facebook_reviews_settings_section');
             $messages[$this->id] = [
                 'message' => sprintf('%s <a href="%s" target="_blank">%s</a>.',
-                    __('You have to setup your Apify API Token for', 'notificationx'),
+                    __('Facebook Reviews is not connected to the NotificationX API. Connect it under', 'notificationx'),
                     $url,
-                    __(' Facebook Reviews', 'notificationx')
+                    __('Settings → API Integrations', 'notificationx')
                 ),
                 'html'  => true,
                 'type'  => 'error',
@@ -426,45 +529,45 @@ class FacebookReviews extends Extension {
     }
 
     /**
-     * Validates the token against Apify's own account endpoint.
+     * Settings-page button handler (`/notificationx/v1/api-connect`).
      *
-     * This deliberately does not start an actor run: a run bills per scraped
-     * review, so validating that way would charge the merchant for pressing a
-     * button. /users/me is free and proves the token is usable.
+     * `action=connect` runs the handshake with the NotificationX API and stores
+     * the per-site token; `action=disconnect` revokes it. Neither starts a
+     * collection, so pressing the button never costs anything.
      *
      * @param array $params
      * @return array
      */
     public function connect($params) {
-        $token = isset($params['facebook_reviews_apify_token']) ? trim(sanitize_text_field($params['facebook_reviews_apify_token'])) : '';
+        $action = isset($params['action']) ? sanitize_key($params['action']) : 'connect';
 
-        if (empty($token)) {
+        if ('disconnect' === $action) {
+            FacebookReviewsManaged::disconnect();
             return array(
-                'status'  => 'error',
-                'message' => __('Please insert a valid Apify API token.', 'notificationx'),
+                'status'     => 'success',
+                'message'    => __('Disconnected from the NotificationX API.', 'notificationx'),
+                'connection' => $this->connection_status(),
             );
         }
 
-        $duration = $this->get_cache_duration(isset($params['facebook_reviews_cache_duration']) ? $params['facebook_reviews_cache_duration'] : null);
-
-        $response = Helper::remote_get($this->api_base . 'users/me?token=' . rawurlencode($token));
-
-        if (empty($response) || empty($response->data)) {
-            $message = ! empty($response->error->message)
-                ? $response->error->message
-                : __('Could not reach Apify with that token. Please double-check the token and try again.', 'notificationx');
-
+        $result = FacebookReviewsManaged::connect();
+        if (empty($result['ok'])) {
             return array(
                 'status'  => 'error',
-                'message' => $message,
+                'message' => !empty($result['message'])
+                    ? $result['message']
+                    : __('Could not connect to the NotificationX API. Please try again.', 'notificationx'),
             );
         }
 
-        Settings::get_instance()->set('settings.facebook_reviews_apify_token', $token);
-        Settings::get_instance()->set('settings.facebook_reviews_cache_duration', $duration);
+        if (isset($params['facebook_reviews_cache_duration'])) {
+            Settings::get_instance()->set('settings.facebook_reviews_cache_duration', $this->get_cache_duration($params['facebook_reviews_cache_duration']));
+        }
 
         return array(
-            'status' => 'success',
+            'status'     => 'success',
+            'message'    => __('Connected to the NotificationX API.', 'notificationx'),
+            'connection' => $this->connection_status(),
         );
     }
 
@@ -610,7 +713,7 @@ class FacebookReviews extends Extension {
     }
 
     /**
-     * Drives one step of the Apify run: start it, poll it, or store its results.
+     * Drives one step of the collection job: start it, poll it, or store its results.
      *
      * Each call does at most one thing and returns; the poll event brings us back.
      *
@@ -626,8 +729,7 @@ class FacebookReviews extends Extension {
             $settings = PostType::get_instance()->get_post($nx_id);
         }
 
-        $token = Settings::get_instance()->get('settings.facebook_reviews_apify_token');
-        if (empty($token)) {
+        if (!FacebookReviewsManaged::ensure_connected()) {
             return;
         }
 
@@ -642,7 +744,7 @@ class FacebookReviews extends Extension {
 
         if (!empty($state['run_id'])) {
             if (isset($state['signature']) && $state['signature'] === $signature) {
-                $this->poll_run($nx_id, $state, $token, $settings);
+                $this->poll_run($nx_id, $state, $settings);
                 return;
             }
             // The page or the count changed — abandon the stale run and start over.
@@ -658,50 +760,69 @@ class FacebookReviews extends Extension {
             return;
         }
 
-        $this->start_run($nx_id, $page_url, $limit, $signature, $token, $state);
+        $this->start_run($nx_id, $page_url, $limit, $signature, $state, $settings);
     }
 
-    protected function start_run($nx_id, $page_url, $limit, $signature, $token, $state = []) {
-        $response = Helper::remote_post(
-            $this->api_base . 'acts/' . self::ACTOR . '/runs?token=' . rawurlencode($token),
-            [
-                'startUrls'    => [['url' => $page_url]],
-                'resultsLimit' => $limit,
-            ]
-        );
+    /**
+     * Asks the NotificationX API to collect the page. A fresh proxy cache comes
+     * back inline and is stored at once; otherwise we keep the job id and poll.
+     */
+    protected function start_run($nx_id, $page_url, $limit, $signature, $state = [], $settings = []) {
+        $response = FacebookReviewsManaged::request('POST', '/enqueue.php', [
+            'page_url' => $page_url,
+            'max'      => $limit,
+        ]);
 
-        if (empty($response->data->id)) {
-            $this->log_error($nx_id, !empty($response->error->message) ? $response->error->message : 'Could not start the Apify run.', $state);
+        if (empty($response['ok'])) {
+            // Budget / capacity replies are temporary: keep state, the next cron tick retries.
+            $this->log_error($nx_id, $response['message'], $state, empty($response['retry']));
             return;
         }
 
-        $state['run_id']     = $response->data->id;
-        $state['dataset_id'] = isset($response->data->defaultDatasetId) ? $response->data->defaultDatasetId : '';
-        $state['started_at'] = time();
-        $state['polls']      = 0;
+        $body   = $response['body'];
+        $status = isset($body['status']) ? $body['status'] : '';
         $state['signature']  = $signature;
         $state['last_error'] = '';
+
+        if ('done' === $status) {
+            $this->store_results($nx_id, $state, isset($body['reviews']) ? $body['reviews'] : [], $settings);
+            return;
+        }
+
+        if ('queued' !== $status || empty($body['job_id'])) {
+            $this->log_error($nx_id, 'Unexpected response from the NotificationX API.', $state);
+            return;
+        }
+
+        $state['run_id']     = (string) $body['job_id'];
+        $state['started_at'] = time();
+        $state['polls']      = 0;
 
         $this->set_run_state($nx_id, $state);
         $this->schedule_poll($nx_id, 0);
     }
 
-    protected function poll_run($nx_id, $state, $token, $settings = []) {
-        $response = Helper::remote_get($this->api_base . 'actor-runs/' . rawurlencode($state['run_id']) . '?token=' . rawurlencode($token));
-        $status   = isset($response->data->status) ? $response->data->status : '';
+    protected function poll_run($nx_id, $state, $settings = []) {
+        $response = FacebookReviewsManaged::request('GET', '/status.php?' . http_build_query(['job_id' => $state['run_id']]));
 
-        if ('SUCCEEDED' === $status) {
-            if (empty($state['dataset_id']) && !empty($response->data->defaultDatasetId)) {
-                $state['dataset_id'] = $response->data->defaultDatasetId;
-            }
-            $this->store_results($nx_id, $state, $token, $settings);
+        if (empty($response['ok'])) {
+            // A 404 means the proxy forgot the job (restart, cleanup); start over next tick.
+            $this->log_error($nx_id, $response['message'], $state, 404 === $response['code']);
             return;
         }
 
-        if (in_array($status, ['READY', 'RUNNING'], true)) {
+        $body   = $response['body'];
+        $status = isset($body['status']) ? $body['status'] : '';
+
+        if ('done' === $status) {
+            $this->store_results($nx_id, $state, isset($body['reviews']) ? $body['reviews'] : [], $settings);
+            return;
+        }
+
+        if ('running' === $status) {
             $polls = (int) $state['polls'] + 1;
             if ($polls >= self::MAX_POLLS) {
-                $this->log_error($nx_id, 'The Apify run did not finish in time.', $state, true);
+                $this->log_error($nx_id, 'The review collection did not finish in time.', $state, true);
                 return;
             }
             $state['polls'] = $polls;
@@ -710,30 +831,22 @@ class FacebookReviews extends Extension {
             return;
         }
 
-        $message = !empty($response->error->message)
-            ? $response->error->message
-            /* translators: %s: Apify run status */
-            : sprintf(__('The Apify run ended with status %s.', 'notificationx'), $status ? $status : 'UNKNOWN');
+        $message = !empty($body['message'])
+            ? $body['message']
+            : __('The review collection failed.', 'notificationx');
         $this->log_error($nx_id, $message, $state, true);
     }
 
-    protected function store_results($nx_id, $state, $token, $settings = []) {
-        $items = Helper::remote_get(
-            $this->api_base . 'datasets/' . rawurlencode($state['dataset_id']) . '/items?clean=true&format=json&token=' . rawurlencode($token),
-            [],
-            false,
-            true
-        );
-
+    protected function store_results($nx_id, $state, $items, $settings = []) {
         if (!is_array($items) || empty($items)) {
             // Keep whatever is already showing rather than emptying the popup.
-            $this->log_error($nx_id, 'The Apify run returned no recommendations.', $state, true);
+            $this->log_error($nx_id, 'The collection returned no recommendations.', $state, true);
             return;
         }
 
         $entries = $this->prepare_entries($nx_id, $items, $settings);
         if (empty($entries)) {
-            $this->log_error($nx_id, 'No usable recommendations in the Apify results.', $state, true);
+            $this->log_error($nx_id, 'No usable recommendations in the collected results.', $state, true);
             return;
         }
 
@@ -746,7 +859,8 @@ class FacebookReviews extends Extension {
     }
 
     /**
-     * Maps Apify dataset items onto review entries.
+     * Maps collected items (the proxy keeps the scraper's field names) onto
+     * review entries.
      *
      * @param int   $nx_id
      * @param array $items
@@ -774,21 +888,22 @@ class FacebookReviews extends Extension {
                 'nx_id'     => $nx_id,
                 'source'    => $this->id,
                 'entry_key' => md5((isset($item['facebookId']) ? $item['facebookId'] : '') . $id),
+                // Sanitised at ingest so the stored entry is safe whatever template renders it.
                 'data'      => [
-                    'username'          => isset($user['name']) ? $user['name'] : '',
-                    'profile_photo_url' => isset($user['profilePic']) ? $user['profilePic'] : '',
-                    'place_name'        => isset($item['pageName']) ? $item['pageName'] : '',
-                    'place_review'      => isset($item['text']) ? $item['text'] : '',
+                    'username'          => isset($user['name']) ? sanitize_text_field((string) $user['name']) : '',
+                    'profile_photo_url' => isset($user['profilePic']) ? esc_url_raw((string) $user['profilePic'], ['http', 'https']) : '',
+                    'place_name'        => isset($item['pageName']) ? sanitize_text_field((string) $item['pageName']) : '',
+                    'place_review'      => isset($item['text']) ? sanitize_textarea_field((string) $item['text']) : '',
                     // Facebook has no stars; synthesise one so star themes still render.
                     'rating'            => $recommended ? 5 : 1,
                     'is_recommended'    => $recommended,
                     'recommendation'    => $recommended
                         ? __('Recommends', 'notificationx')
                         : __('Doesn\'t recommend', 'notificationx'),
-                    'tags'              => isset($item['tags']) && is_array($item['tags']) ? $item['tags'] : [],
+                    'tags'              => isset($item['tags']) && is_array($item['tags']) ? array_values(array_filter(array_map('sanitize_text_field', array_filter($item['tags'], 'is_string')))) : [],
                     'likes'             => isset($item['likesCount']) ? (int) $item['likesCount'] : 0,
                     'comments'          => isset($item['commentsCount']) ? (int) $item['commentsCount'] : 0,
-                    'url'               => isset($item['url']) ? $item['url'] : (isset($item['facebookUrl']) ? $item['facebookUrl'] : ''),
+                    'url'               => esc_url_raw((string) (isset($item['url']) ? $item['url'] : (isset($item['facebookUrl']) ? $item['facebookUrl'] : '')), ['http', 'https']),
                     'timestamp'         => $timestamp ? $timestamp : time(),
                 ],
             ];
@@ -870,7 +985,7 @@ class FacebookReviews extends Extension {
 
     /**
      * Records a failure on the campaign's run state. Only the message is logged —
-     * never the request URL, which carries the Apify token.
+     * never request headers, which carry the connection token.
      */
     protected function log_error($nx_id, $message, $state = [], $clear = false) {
         if ($clear) {
@@ -911,12 +1026,11 @@ class FacebookReviews extends Extension {
 
     public function doc() {
         $url = admin_url('admin.php?page=nx-settings&tab=tab-api-integrations#facebook_reviews_settings_section');
-        /* translators: %1$s: NotificationX API integrations settings URL, %2$s: Apify token documentation URL, %3$s: Facebook Reviews integration documentation URL */
-        return sprintf(__('<p>Make sure that you have configured your <a target="_blank" href="%1$s">Apify API token</a>, to showcase your Facebook recommendations. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
+        /* translators: %1$s: NotificationX API integrations settings URL, %2$s: Facebook Reviews integration documentation URL */
+        return sprintf(__('<p>Facebook recommendations are collected through the NotificationX API — no token to set up. You can review or manage the <a target="_blank" href="%1$s">connection</a> at any time. For further assistance, check out our step by step <a target="_blank" href="%2$s">documentation</a>.</p>
 
-		<p>👉NotificationX <a target="_blank" href="%3$s">Integration with Facebook Reviews</a>.</p>', 'notificationx'),
+		<p>👉NotificationX <a target="_blank" href="%2$s">Integration with Facebook Reviews</a>.</p>', 'notificationx'),
         $url,
-        'https://notificationx.com/docs/collect-api-token-from-apify',
         'https://notificationx.com/docs/facebook-reviews-with-notificationx/'
         );
     }

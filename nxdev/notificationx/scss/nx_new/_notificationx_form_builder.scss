@@ -257,6 +257,35 @@
             }
         }
     }
+    // Locked (Pro) text / number inputs: the other control types float the
+    // label's crown over the field with a fixed negative offset, which only works
+    // because those fields have a fixed width. Text and number inputs don't, so
+    // instead the crown is painted inside the input itself and the label copy is
+    // hidden. The whole row is still the click target for the upgrade popup.
+    &.wprf-type-text,
+    &.wprf-type-number {
+        .wprf-badge-wrapper.pro-deactivated {
+            .wprf-control-label .wprf-badge {
+                display: none;
+            }
+            .wprf-control-field {
+                input[type="text"],
+                input[type="number"] {
+                    background-image: url('../icons/crown.svg');
+                    background-repeat: no-repeat;
+                    background-size: 20px 20px;
+                    background-position: right 12px center;
+                    padding-right: 42px;
+                    cursor: not-allowed;
+                }
+                input[type="number"] {
+                    // leave room for the spinner buttons
+                    background-position: right 28px center;
+                    padding-right: 54px;
+                }
+            }
+        }
+    }
     &.wprf-type-advanced-codeviewer {
         .wprf-control-label {
             .wprf-badge {
