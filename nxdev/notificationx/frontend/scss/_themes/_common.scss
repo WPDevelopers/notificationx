@@ -287,3 +287,28 @@
 }
 
 @import "./customizable";
+// Facebook Reviews — recommendation badge rendered from the `recommends::1|0` marker
+.notificationx-inner .nx-recommendation,
+.nx-recommendation {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 0.85em;
+    font-weight: 600;
+    line-height: 1.6;
+    vertical-align: middle;
+    background: #e7f3ff;
+    color: #1877f2;
+
+    &.is-negative {
+        background: #fdecea;
+        color: #c2410c;
+    }
+
+    &__icon {
+        font-size: 1em;
+        line-height: 1;
+    }
+}

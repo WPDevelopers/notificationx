@@ -1,4 +1,5 @@
 import React from "react";
+import { __ } from "@wordpress/i18n";
 import { Branding as NXSvg, ThemeFiveShape } from ".";
 import Star from "../../../icons/Star";
 import Button from "./Button";
@@ -52,6 +53,23 @@ const Content = (props) => {
                         dangerouslySetInnerHTML={{ __html: _row[1] }}
                     />
                 );
+        }
+
+        // Facebook recommendation marker (set by the Facebook Reviews source):
+        // "recommends::1" → thumbs-up "Recommends", "recommends::0" → thumbs-down.
+        const recommends = /recommends::([01])/.exec(row);
+        if (!advTmplRatingRow && recommends) {
+            const positive = recommends[1] === "1";
+            const _row = row.replace(/(<([^>]+)>)/gi, "").split(`recommends::${recommends[1]}`);
+            advTmplRatingRow = [];
+            if (_row[0]) advTmplRatingRow.push(<span key="rb" dangerouslySetInnerHTML={{ __html: _row[0] }}></span>);
+            advTmplRatingRow.push(
+                <span key="rec" className={`nx-recommendation ${positive ? "is-positive" : "is-negative"}`}>
+                    <span className="nx-recommendation__icon" aria-hidden="true">{positive ? "\uD83D\uDC4D" : "\uD83D\uDC4E"}</span>
+                    {positive ? __("Recommends", "notificationx") : __("Doesn't recommend", "notificationx")}
+                </span>
+            );
+            if (_row[1]) advTmplRatingRow.push(<span key="ra" dangerouslySetInnerHTML={{ __html: _row[1] }} />);
         }
 
         return (

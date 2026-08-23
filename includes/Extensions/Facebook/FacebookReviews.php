@@ -53,7 +53,7 @@ class FacebookReviews extends Extension {
         $this->title        = __('Facebook Reviews', 'notificationx');
         $this->module_title = __('Facebook Reviews', 'notificationx');
         $this->themes = [
-            'total-rated' => [
+            'total-rated'      => [
                 'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
                 'image_shape'             => 'square',
                 'show_notification_image' => 'fbreview_icon',
@@ -67,22 +67,70 @@ class FacebookReviews extends Extension {
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
             ],
+            'reviewed'         => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/reviewed.png',
+                'image_shape'             => 'circle',
+                'show_notification_image' => 'fbreview_picture',
+                'template'                => [
+                    'first_param'         => 'tag_reviewer',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('recommends', 'notificationx'),
+                    'third_param'         => 'tag_page_name',
+                    'custom_third_param'  => __('Anonymous Page', 'notificationx'),
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ],
+            ],
+            'review-comment'   => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment.jpg',
+                'image_shape'             => 'rounded',
+                'show_notification_image' => 'fbreview_picture',
+                'template'                => [
+                    'first_param'         => 'tag_reviewer',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('reviewed', 'notificationx'),
+                    'third_param'         => 'tag_review_content',
+                    'custom_third_param'  => __('Anonymous Page', 'notificationx'),
+                    'fourth_param'        => 'tag_recommendation',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ],
+            ],
+            'review-comment-2' => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-2.jpg',
+                'image_shape'             => 'circle',
+                'show_notification_image' => 'fbreview_picture',
+                'template'                => [
+                    'first_param'         => 'tag_reviewer',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('recommends', 'notificationx'),
+                    'third_param'         => 'tag_review_content',
+                    'custom_third_param'  => __('Anonymous Page', 'notificationx'),
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => '',
+                ],
+            ],
         ];
 
         $this->templates = [
             "{$this->id}_template_new" => [
                 'first_param'  => [
-                    'tag_rated' => __('Rated', 'notificationx'),
+                    'tag_reviewer' => __('Reviewer (anonymous)', 'notificationx'),
+                    'tag_rated'    => __('Rated', 'notificationx'),
                 ],
                 'third_param'  => [
-                    'tag_page_name' => __('Page Name', 'notificationx'),
+                    'tag_page_name'      => __('Page Name', 'notificationx'),
+                    'tag_review_content' => __('Review', 'notificationx'),
                 ],
                 'fourth_param' => [
-                    'tag_rating' => __('Rating', 'notificationx'),
-                    'tag_time'   => __('Definite Time', 'notificationx'),
+                    'tag_rating'         => __('Rating', 'notificationx'),
+                    'tag_recommendation' => __('Recommendation', 'notificationx'),
+                    'tag_time'           => __('Definite Time', 'notificationx'),
                 ],
                 '_themes'      => [
                     "{$this->id}_total-rated",
+                    "{$this->id}_reviewed",
+                    "{$this->id}_review-comment",
+                    "{$this->id}_review-comment-2",
                 ],
             ],
         ];
@@ -92,12 +140,20 @@ class FacebookReviews extends Extension {
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             // phpcs:ignore WordPress.WP.I18n.NoHtmlWrappedStrings -- Reviewed for the NotificationX codebase: acceptable in this context.
             "html"              => __('
-                <span>Showcase your Facebook Page rating to build trust with your visitors.</span>
+                <span>Showcase your Facebook Page rating and recommendations to build trust with your visitors.</span>
             ', 'notificationx'),
         ];
     }
 
     public function preview_entry($entry, $settings) {
+        $entry = array_merge($entry, [
+            'reviewer'       => __('Someone', 'notificationx'),
+            'page_name'      => __('Example Page', 'notificationx'),
+            'review_content' => __('Excellent service, highly recommended!', 'notificationx'),
+            'recommendation' => 'recommends::1',
+            'rated'          => 128,
+            'rating'         => 4.8,
+        ]);
         if (isset($settings['show_notification_image']) && $settings['show_notification_image'] === 'fbreview_icon') {
             $entry = array_merge($entry, [
                 'image_data' => [

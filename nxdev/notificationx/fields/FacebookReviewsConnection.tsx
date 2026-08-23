@@ -15,6 +15,10 @@ type Page = {
     connected_at?: string;
     last_synced_at?: string;
     last_error?: string;
+    reviews_enabled?: boolean;
+    reviews_count?: number | null;
+    reviews_synced_at?: string;
+    reviews_error?: string;
 };
 
 type State = {
@@ -38,6 +42,8 @@ const ERROR_TEXT: Record<string, string> = {
     facebook_rate_limited: __('Facebook is rate limiting requests. Please try again later.', 'notificationx'),
     facebook_no_pages: __('Facebook returned no Pages. Make sure your account manages a Page and you granted access during login.', 'notificationx'),
     facebook_not_configured: __('Save your Meta App ID and App Secret first.', 'notificationx'),
+    facebook_reviews_scope_missing: __('Reconnect with Facebook to grant the permission needed to read reviews.', 'notificationx'),
+    facebook_reviews_unavailable: __('Facebook does not provide individual reviews for this Page.', 'notificationx'),
     insecure_site: __('Facebook requires an HTTPS site. Please enable HTTPS and try again.', 'notificationx'),
     invalid_state: __('The Facebook login session expired. Please try again.', 'notificationx'),
 };
@@ -200,6 +206,14 @@ const FacebookReviewsConnection = (props) => {
                             : page.last_synced_at
                                 ? __('No public rating yet', 'notificationx')
                                 : __('Not refreshed yet', 'notificationx')}
+                        {' · '}
+                        {!page.reviews_enabled
+                            ? __('Reviews: reconnect to enable', 'notificationx')
+                            : page.reviews_error
+                                ? ERROR_TEXT[page.reviews_error] || __('Reviews: last refresh failed', 'notificationx')
+                                : page.reviews_count !== null && page.reviews_count !== undefined
+                                    ? sprintf(/* translators: %s: number of reviews */ __('%s reviews synced', 'notificationx'), page.reviews_count)
+                                    : __('Reviews: ready', 'notificationx')}
                     </span>
                 </div>
                 {mode === 'settings' && (
@@ -261,7 +275,7 @@ const FacebookReviewsConnection = (props) => {
             </div>
             {mode === 'settings' && (
                 <p className="nx-fbr-hint">
-                    {__('Logging in grants access to every Page you choose in the Facebook dialog. Page access tokens are stored encrypted on this site; Facebook does not provide individual reviews, only the overall rating and count.', 'notificationx')}
+                    {__('Logging in grants access to every Page you choose in the Facebook dialog. Page access tokens are stored encrypted on this site. Facebook provides the review text, whether the Page was recommended and the date — reviewer names and photos are not shared by Facebook, so reviews appear as "Someone".', 'notificationx')}
                 </p>
             )}
         </div>
