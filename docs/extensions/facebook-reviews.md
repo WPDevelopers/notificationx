@@ -64,7 +64,7 @@ Settings (React: facebook-reviews-connection, mode=settings)
       → 302 return_url?nx_fb_status=ok
   GET  /notificationx/v1/facebook-reviews/pages        → {configured, https, redirect_uri, pages[]}
   POST /notificationx/v1/facebook-reviews/refresh      {page_id?} → sync_page()
-  POST /notificationx/v1/facebook-reviews/disconnect   {page_id?} → TokenStore::remove / remove_all (+ /me/permissions revoke)
+  POST /notificationx/v1/facebook-reviews/disconnect   {page_id?} → TokenStore::remove / remove_all
 
 Campaign save  → saved_post → update_data(nx_id, settings)
 WP-Cron        → nx_cron_update_data_facebook_reviews → update_data
