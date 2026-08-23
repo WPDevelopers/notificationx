@@ -77,6 +77,7 @@ return array(
     'NotificationX\\Extensions\\ExitIntent\\Importer' => $baseDir . '/includes/Extensions/ExitIntent/importer.php',
     'NotificationX\\Extensions\\Extension' => $baseDir . '/includes/Extensions/Extension.php',
     'NotificationX\\Extensions\\ExtensionFactory' => $baseDir . '/includes/Extensions/ExtensionFactory.php',
+    'NotificationX\\Extensions\\Facebook\\FacebookReviews' => $baseDir . '/includes/Extensions/Facebook/FacebookReviews.php',
     'NotificationX\\Extensions\\FlashingTab\\FlashingTab' => $baseDir . '/includes/Extensions/FlashingTab/FlashingTab.php',
     'NotificationX\\Extensions\\FluentCart\\FluentCart' => $baseDir . '/includes/Extensions/FluentCart/FluentCart.php',
     'NotificationX\\Extensions\\FluentCart\\FluentCartInline' => $baseDir . '/includes/Extensions/FluentCart/FluentCartInline.php',

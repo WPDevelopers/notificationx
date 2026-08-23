@@ -13,6 +13,7 @@ import BetterRepeater from './BetterRepeater';
 import BetterToggle from './BetterToggle';
 import BetterText from './BetterText';
 import CookieScanner from './CookieScanner';
+import FacebookReviewsConnection from './FacebookReviewsConnection';
 import Preview from './Preview';
 import TimePicker from './TimePicker';
 import DateRange from './DateRange';
@@ -53,6 +54,8 @@ const Field = (ret, type, props) => {
             return <BetterText {...props} />;
         case "cookie-scanner":
             return <CookieScanner {...props} />;
+        case "facebook-reviews-connection":
+            return <FacebookReviewsConnection {...props} />;
         case "preview":
             return <Preview {...props} />;
         case "timepicker":

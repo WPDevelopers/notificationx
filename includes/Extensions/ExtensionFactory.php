@@ -48,6 +48,7 @@ class ExtensionFactory {
 			'give'                               => 'NotificationX\Extensions\Give\Give',
 			'google'                             => 'NotificationX\Extensions\Google_Analytics\Google_Analytics',
 			'google_reviews'                     => 'NotificationX\Extensions\Google\GoogleReviews',
+			'facebook_reviews'                   => 'NotificationX\Extensions\Facebook\FacebookReviews',
 			'learndash'                          => 'NotificationX\Extensions\LearnDash\LearnDash',
 			'learnpress'                         => 'NotificationX\Extensions\LearnPress\LearnPress',
 			'mailchimp'                          => 'NotificationX\Extensions\MailChimp\MailChimp',
