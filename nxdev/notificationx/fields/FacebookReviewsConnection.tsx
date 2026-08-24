@@ -19,6 +19,7 @@ type Page = {
     reviews_count?: number | null;
     reviews_synced_at?: string;
     reviews_error?: string;
+    recommendation_count?: number | null;
 };
 
 type State = {
@@ -203,9 +204,11 @@ const FacebookReviewsConnection = (props) => {
                     <span className="nx-fbr-page__meta">
                         {page.rating_count
                             ? sprintf(/* translators: 1: rating, 2: count */ __('%1$s ★ · %2$s ratings', 'notificationx'), page.rating_overall ?? '–', page.rating_count)
-                            : page.last_synced_at
-                                ? __('No public rating yet', 'notificationx')
-                                : __('Not refreshed yet', 'notificationx')}
+                            : page.recommendation_count
+                                ? sprintf(/* translators: 1: rating, 2: count */ __('%1$s ★ · %2$s recommendations', 'notificationx'), page.rating_overall ?? '–', page.recommendation_count)
+                                : page.last_synced_at
+                                    ? __('No public rating yet', 'notificationx')
+                                    : __('Not refreshed yet', 'notificationx')}
                         {' · '}
                         {!page.reviews_enabled
                             ? __('Reviews: reconnect to enable', 'notificationx')

@@ -21,10 +21,11 @@
 
 | Question | Answer |
 |---|---|
+| Is the reviewer's name/photo obtainable? | **No — ruled out empirically (2026-08-24).** `reviewer{id,name,picture}` is silently omitted from every row; bare `fields=reviewer` returns `{"data":[]}` (rows collapse because the field is empty); `open_graph_story{id,from{...}}` returns rows with `from` absent; `/{page}/visitor_posts` is unavailable on New Pages. The docs still list `reviewer` (User) on the Recommendation node, but since the v3.0 (Apr 2018) platform lockdown a User node resolves only for people who authorized *this* app — reviewers never did. No permission or App Review changes this, so reviews are attributed to "Someone". |
 | Can individual Page reviews/recommendations be read? | **Yes, in practice.** The v22.0 changelog says `GET /{page-id}/ratings` is deprecated (error 12), but a Page token that carries **`pages_read_user_content`** still returns data on v26.0 (verified in the Graph API Explorer with a real Page). Without that scope Meta answers `#283`. Treat this as at-risk: `GraphClient` maps a future error 12 to `facebook_reviews_unavailable` and the UI degrades to the rating-only theme. |
 | What does a review contain? | `review_text` (may be empty — `has_review:false`), `recommendation_type` (`positive` / `negative`), `created_time`, `open_graph_story.id` (used as the stable id). |
 | What is **not** available? | The **reviewer** (name, picture) — Meta only returns it for users who authorized the app themselves; **star rating** (`has_rating:false` since Facebook moved to recommendations in 2018); a per-review **permalink** (`permalink_url` does not exist on the story). |
-| Aggregate data | Page fields `overall_star_rating` (1–5, omitted for few ratings) and `rating_count`. |
+| Aggregate data | Page fields `overall_star_rating` (1–5, omitted for few ratings) and `rating_count`. **Pages that migrated to recommendations report `rating_count: 0`** even with recommendations present, and the edge supports neither `summary=total_count` (times out) nor `summary=true` (no `summary` key), so `GraphClient::count_ratings()` pages through `/ratings` (100 per request, max 10 pages) and the result is stored as `recommendation_count`. The `total-rated` theme uses `rating_count` when non-zero, otherwise `recommendation_count`; when both are 0 no entry is written (a `0` would render as an empty string anyway). |
 | Permissions | `pages_show_list`, `pages_read_engagement`, `pages_read_user_content`. |
 | App Review | **Not required** for the site owner's own app in development mode (they are its admin). Publishing an app for third parties would need App Review for all three permissions. |
 | Tokens | short-lived user token → `fb_exchange_token` (~60 days) → `GET /me/accounts` → Page tokens without expiry (invalidated on password change, role removal, permission revocation). Granted permissions are recorded per Page (`scopes`); Pages connected before `pages_read_user_content` was requested show "reconnect to enable reviews". |
@@ -42,12 +43,18 @@
 3. In a campaign (**Source: Facebook Reviews**) the user picks one connected
    Page and a theme. On save, and then every *Cache Duration* minutes via
    WP-Cron, `update_data()` runs:
-   - **`total-rated`** theme → Page summary → one entry `fb_page_{id}`.
+   - **`total-rated`** theme → Page summary (+ recommendation count when
+     `rating_count` is 0) → one entry `fb_page_{id}`, replaced on every run
+     because the count and rating change.
    - **`reviewed` / `review-comment` / `review-comment-2`** → newest N
      recommendations (`facebook_reviews_limit`, default 25) filtered by
      `facebook_reviews_filter` (recommended only / all / not recommended) and
      `facebook_reviews_require_text` → one entry per review `fb_review_{story_id}`
      with `reviewer = "Someone"`, `review_content`, `recommendation`, `timestamp = created_time`.
+     Entry reconciliation is **idempotent** (`sync_entries()`: delete what is no
+     longer wanted, insert only what is missing) — review text never changes, and
+     a plain delete-then-insert let a cron run racing a campaign save duplicate
+     every notification.
 
 ## Extension classes & pairings
 
@@ -130,6 +137,9 @@ sets a 1-hour back-off transient (`nx_facebook_reviews_backoff`).
 - A token that stops working marks the Page `expired` / `permission_denied` /
   `page_unavailable`; campaigns keep their last entry but are no longer
   refreshed until the user reconnects from settings.
+- `/{page}/visitor_posts`, and probably `/feed` + `/tagged`, answer `#200`
+  subcode `2069033` "Unavailable Feature On New Page Experience" — that edge is
+  gone for New Pages, so recommendations cannot be read through it either.
 - Old recommendations (2017/2018) are common; `display_from` / `display_last`
   are hidden for this source so they are not filtered out by age.
 - `tests/test-pro-facebook-reviews.php` mocks every HTTP call through
