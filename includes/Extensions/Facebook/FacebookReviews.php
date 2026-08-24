@@ -54,7 +54,7 @@ class FacebookReviews extends Extension {
         $this->module_title = __('Facebook Reviews', 'notificationx');
         $this->themes = [
             'total-rated'      => [
-                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/total-rated.png',
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/facebook/total-rated.png',
                 'image_shape'             => 'square',
                 'show_notification_image' => 'fbreview_icon',
                 'template'                => [
@@ -68,7 +68,7 @@ class FacebookReviews extends Extension {
                 ],
             ],
             'reviewed'         => [
-                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/reviewed.png',
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/facebook/reviewed.png',
                 'image_shape'             => 'circle',
                 'show_notification_image' => 'fbreview_picture',
                 'template'                => [
@@ -82,7 +82,7 @@ class FacebookReviews extends Extension {
                 ],
             ],
             'review-comment'   => [
-                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment.jpg',
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/facebook/review-comment.png',
                 'image_shape'             => 'rounded',
                 'show_notification_image' => 'fbreview_picture',
                 'template'                => [
@@ -96,7 +96,7 @@ class FacebookReviews extends Extension {
                 ],
             ],
             'review-comment-2' => [
-                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/wporg/review-with-comment-2.jpg',
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/facebook/review-comment-2.png',
                 'image_shape'             => 'circle',
                 'show_notification_image' => 'fbreview_picture',
                 'template'                => [
