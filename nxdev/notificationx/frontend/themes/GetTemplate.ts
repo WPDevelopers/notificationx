@@ -197,6 +197,29 @@ const GetTemplate = (settings) => {
         }
     }
 
+    // Cart Peek borrows the Sales themes' compiled CSS (Pro remaps its theme
+    // keys to woocommerce_sales_*), but each Cart Peek design stacks its own rows:
+    // row 1 = shopper count (first_param), row 2 = product (third_param), and —
+    // for every design EXCEPT conv-theme-fourteen / conv-theme-sixteen — row 3 =
+    // time (fourth_param). No design shows the Sales "action" link, so it is
+    // hidden via CSS. This override keeps the Sales visual but the Cart Peek layout.
+    if (settings.source === 'woocommerce_cart_peek') {
+        switch (themeName) {
+            case 'conv-theme-fourteen':
+            case 'conv-theme-sixteen':
+                return [
+                    `${params?.first_param}`,
+                    `${params?.third_param}`,
+                ];
+            default:
+                return [
+                    `${params?.first_param}`,
+                    `${params?.third_param}`,
+                    `${params?.fourth_param}`,
+                ];
+        }
+    }
+
     switch (themeName) {
         case "theme-one":
         case "theme-two":

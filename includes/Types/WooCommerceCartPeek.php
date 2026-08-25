@@ -55,6 +55,30 @@ class WooCommerceCartPeek extends Types {
         $this->title           = __('Cart Peek 🛒', 'notificationx');
         $this->dashboard_title = __('Cart Peek', 'notificationx');
 
+        // Cart Peek's message reads "N shoppers have this in their cart" — it has
+        // no purchase verb. The second text slot reuses the shared content field
+        // whose field-level default ("recently purchased") re-fills the emptied
+        // value in the builder, which then renders on the front end and looks
+        // wrong. Keep that slot blank by default (only when it is still the
+        // inherited sales verb; a verb the merchant typed themselves is kept),
+        // enforced on both save and the builder preview.
+        add_filter( "nx_save_post_{$this->default_source}", [ $this, 'blank_default_verb_post' ], 20, 1 );
+        add_filter( "nx_preview_settings_{$this->default_source}", [ $this, 'blank_default_verb_settings' ], 20, 1 );
+        // On read: an existing notification saved without the field (Cart Peek
+        // does not expose it) has no second_param at all, so the front end falls
+        // back to the remapped Sales design's "just purchased" default. Pin it to
+        // empty whenever a Cart Peek record is read so the front end renders no
+        // verb.
+        add_filter( "nx_get_post_{$this->default_source}", [ $this, 'blank_default_verb_settings' ], 20, 1 );
+        // At front-end render (after the theme is remapped to the Sales design).
+        add_filter( 'nx_filtered_post', [ $this, 'blank_default_verb_filtered_post' ], 20, 1 );
+
+        // Hide the free-text "verb" (second_param) field from the Content tab for
+        // Cart Peek ONLY. Cart Peek's message is count / product / time — it has no
+        // verb slot in its template, so anything typed there never renders and only
+        // confuses. Every other notification type still shows the field.
+        add_filter( 'nx_notification_template', [ $this, 'hide_verb_field' ], 20, 1 );
+
         // Default param selection for each theme's text rows.
         //   row 1 (first_param)  = tag_cart_peek_count -> "N shoppers have this in their cart"
         //   row 2 (third_param)  = tag_product_title   -> the product name
@@ -174,6 +198,126 @@ class WooCommerceCartPeek extends Types {
             ', 'notificationx')
             // phpcs:enable PluginCheck.CodeAnalysis.Offloading.OffloadedContent
         ];
+    }
+
+    /**
+     * The inherited sales verbs that do not belong on a Cart Peek message.
+     * Anything else in the slot is treated as merchant-authored and kept.
+     *
+     * @param string $value
+     * @return bool
+     */
+    protected function is_inherited_verb( $value ) {
+        return in_array(
+            trim( (string) $value ),
+            [ '', __( 'recently purchased', 'notificationx' ), __( 'just purchased', 'notificationx' ) ],
+            true
+        );
+    }
+
+    /**
+     * True when the first row still holds an inherited Sales default rather than
+     * Cart Peek's own headline. Every Cart Peek theme uses `tag_cart_peek_count`
+     * for row 1 ("N shoppers have this in their cart") — the builder offers no
+     * other option — so a `tag_name` (or empty) value can only be a default that
+     * leaked in from the Sales schema and must be normalised back to the count.
+     *
+     * @param string $value
+     * @return bool
+     */
+    protected function is_inherited_first_param( $value ) {
+        return in_array( trim( (string) $value ), [ '', 'tag_name' ], true );
+    }
+
+    /**
+     * Blank the "verb" slot when it still holds the inherited Sales default
+     * (or is unset). Covers BOTH the flat `second_param` and the nested
+     * `notification-template.second_param` — the front end composes the message
+     * from the nested copy, so both must be cleared. Merchant-authored text is
+     * kept.
+     *
+     * @param array $arr
+     * @return array
+     */
+    protected function blank_verb( $arr ) {
+        if ( ! is_array( $arr ) ) {
+            return $arr;
+        }
+        if ( ! isset( $arr['second_param'] ) || $this->is_inherited_verb( $arr['second_param'] ) ) {
+            $arr['second_param'] = '';
+        }
+        if ( isset( $arr['notification-template'] ) && is_array( $arr['notification-template'] )
+            && ( ! isset( $arr['notification-template']['second_param'] ) || $this->is_inherited_verb( $arr['notification-template']['second_param'] ) ) ) {
+            $arr['notification-template']['second_param'] = '';
+        }
+        // Force row 1 back to the live-count headline when it still carries a
+        // leaked Sales default (`tag_name`/empty). The default Cart Peek theme
+        // (conv-theme-fourteen) can otherwise save `first_param => tag_name`,
+        // which renders "Someone <product>" instead of the shopper count. Covers
+        // both the flat and the nested (front-end-composed) copies.
+        if ( ! isset( $arr['first_param'] ) || $this->is_inherited_first_param( $arr['first_param'] ) ) {
+            $arr['first_param'] = 'tag_cart_peek_count';
+        }
+        if ( isset( $arr['notification-template'] ) && is_array( $arr['notification-template'] )
+            && ( ! isset( $arr['notification-template']['first_param'] ) || $this->is_inherited_first_param( $arr['notification-template']['first_param'] ) ) ) {
+            $arr['notification-template']['first_param'] = 'tag_cart_peek_count';
+        }
+        return $arr;
+    }
+
+    /**
+     * On save. Wired to nx_save_post_{source}; the params live in $post['data'].
+     *
+     * @param array $post
+     * @return array
+     */
+    public function blank_default_verb_post( $post ) {
+        if ( isset( $post['data'] ) && is_array( $post['data'] ) ) {
+            $post['data'] = $this->blank_verb( $post['data'] );
+        }
+        return $post;
+    }
+
+    /**
+     * Builder preview + every read of a Cart Peek record
+     * (nx_preview_settings_{source} / nx_get_post_{source}).
+     *
+     * @param array $settings
+     * @return array
+     */
+    public function blank_default_verb_settings( $settings ) {
+        return $this->blank_verb( $settings );
+    }
+
+    /**
+     * Front-end render filter (nx_filtered_post fires for every source, so gate
+     * on this one). This is the path the live popup reads.
+     *
+     * @param array $post
+     * @return array
+     */
+    public function blank_default_verb_filtered_post( $post ) {
+        if ( isset( $post['source'] ) && $this->default_source === $post['source'] ) {
+            $post = $this->blank_verb( $post );
+        }
+        return $post;
+    }
+
+    /**
+     * Hooked to nx_notification_template. Hides the shared free-text `second_param`
+     * ("verb") field for Cart Peek only, via a source rule the builder evaluates
+     * client-side — every other source keeps the field. Cart Peek's template does
+     * not render second_param, so leaving it editable only invited confusion.
+     *
+     * @param array $fields notification-template group sub-fields.
+     * @return array
+     */
+    public function hide_verb_field( $fields ) {
+        if ( isset( $fields['second_param'] ) ) {
+            // Show only when the source is NOT Cart Peek (i.e. hide for Cart Peek).
+            $fields['second_param']['rules'] = Rules::is( 'source', $this->default_source, true );
+        }
+        return $fields;
     }
 
     /**
