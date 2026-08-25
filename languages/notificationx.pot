@@ -9,14 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-18T06:25:19+00:00\n"
+"POT-Creation-Date: 2026-08-25T10:54:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
 
 #. Plugin Name of the plugin
 #: notificationx.php
-#: includes/Admin/Settings.php:112
+#: includes/Admin/Settings.php:124
 #: includes/Core/QuickBuild.php:116
 #: includes/Extensions/Elementor/ElementorManager.php:48
 #: includes/Extensions/GlobalFields.php:55
@@ -117,7 +117,7 @@ msgid "Please provide a valid email address."
 msgstr ""
 
 #: includes/Admin/EntriesMailReceiver.php:92
-#: includes/Admin/Settings.php:390
+#: includes/Admin/Settings.php:402
 msgid "Test email sent successfully."
 msgstr ""
 
@@ -127,7 +127,7 @@ msgstr ""
 
 #. translators: %s: site name
 #: includes/Admin/EntriesMailReceiver.php:153
-#: includes/Admin/Settings.php:371
+#: includes/Admin/Settings.php:383
 #, php-format
 msgid "New Entry Received on \"%s\""
 msgstr ""
@@ -140,17 +140,17 @@ msgstr ""
 msgid "No entry data available."
 msgstr ""
 
-#: includes/Admin/ImportExport.php:50
+#: includes/Admin/ImportExport.php:68
 msgid "Import/Export"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:56
+#: includes/Admin/ImportExport.php:74
 msgid "Export Notifications"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:63
-#: includes/Admin/Settings.php:300
-#: includes/Admin/Settings.php:517
+#: includes/Admin/ImportExport.php:81
+#: includes/Admin/Settings.php:312
+#: includes/Admin/Settings.php:529
 #: includes/Core/Analytics.php:46
 #: includes/Extensions/GlobalFields.php:1296
 #: includes/FrontEnd/FrontEnd.php:100
@@ -158,41 +158,41 @@ msgstr ""
 msgid "Analytics"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:72
+#: includes/Admin/ImportExport.php:90
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 msgid "Status"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:85
+#: includes/Admin/ImportExport.php:103
 msgid "Export Settings"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:93
-#: includes/Admin/ImportExport.php:94
+#: includes/Admin/ImportExport.php:111
+#: includes/Admin/ImportExport.php:112
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 msgid "Export"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:95
+#: includes/Admin/ImportExport.php:113
 msgid "Exporting..."
 msgstr ""
 
-#: includes/Admin/ImportExport.php:114
+#: includes/Admin/ImportExport.php:132
 msgid "Export completed successfully."
 msgstr ""
 
-#: includes/Admin/ImportExport.php:124
+#: includes/Admin/ImportExport.php:142
 msgid "Import (*.json)"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:125
+#: includes/Admin/ImportExport.php:143
 msgid "Change"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:133
-#: includes/Admin/ImportExport.php:134
+#: includes/Admin/ImportExport.php:151
+#: includes/Admin/ImportExport.php:152
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:997
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:998
 #: includes/Extensions/PressBar/PressBar.php:829
@@ -202,15 +202,28 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:135
+#: includes/Admin/ImportExport.php:153
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:999
 #: includes/Extensions/PressBar/PressBar.php:831
 #: includes/Extensions/PressBar/PressBar.php:1038
 msgid "Importing..."
 msgstr ""
 
-#: includes/Admin/ImportExport.php:147
+#: includes/Admin/ImportExport.php:165
 msgid "Import completed successfully."
+msgstr ""
+
+#: includes/Admin/ImportExport.php:199
+msgid "You are not allowed to import NotificationX settings."
+msgstr ""
+
+#: includes/Admin/ImportExport.php:278
+msgid "You are not allowed to export NotificationX settings."
+msgstr ""
+
+#: includes/Admin/ImportExport.php:382
+#: includes/Extensions/PressBar/PressBar.php:1506
+msgid "NotificationX Bar"
 msgstr ""
 
 #: includes/Admin/MilestoneNotification.php:177
@@ -466,23 +479,23 @@ msgid "You have to enable Reporting first."
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:221
-#: includes/Admin/Settings.php:422
+#: includes/Admin/Settings.php:434
 msgid "Once Weekly"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:225
-#: includes/Admin/Settings.php:421
+#: includes/Admin/Settings.php:433
 msgid "Once Daily"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:229
-#: includes/Admin/Settings.php:423
+#: includes/Admin/Settings.php:435
 msgid "Once Monthly"
 msgstr ""
 
 #. translators: %s: site name
 #: includes/Admin/Reports/ReportEmail.php:265
-#: includes/Admin/Settings.php:472
+#: includes/Admin/Settings.php:484
 #, php-format
 msgid "Weekly Engagement Summary of “%s”"
 msgstr ""
@@ -503,306 +516,306 @@ msgstr ""
 msgid "Invalid scan ID"
 msgstr ""
 
-#: includes/Admin/Settings.php:129
+#: includes/Admin/Settings.php:141
 msgid "Save Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:137
-#: includes/Admin/Settings.php:174
+#: includes/Admin/Settings.php:149
+#: includes/Admin/Settings.php:186
 #: blocks/countdown/components/inspector.js:112
 #: blocks/countdown/index.js:1
 msgid "General"
 msgstr ""
 
-#: includes/Admin/Settings.php:142
+#: includes/Admin/Settings.php:154
 msgid "Modules"
 msgstr ""
 
-#: includes/Admin/Settings.php:167
+#: includes/Admin/Settings.php:179
 msgid "Advanced Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:180
+#: includes/Admin/Settings.php:192
 msgid "Enable REST API"
 msgstr ""
 
-#: includes/Admin/Settings.php:183
+#: includes/Admin/Settings.php:195
 msgid "Forcefully enable anonymous REST API for NotificationX."
 msgstr ""
 
-#: includes/Admin/Settings.php:188
+#: includes/Admin/Settings.php:200
 msgid "Exclude Credentials"
 msgstr ""
 
-#: includes/Admin/Settings.php:191
+#: includes/Admin/Settings.php:203
 msgid "Enabling it will remove cookies, HTTP authentication entries, and TLS client certificates from API calls on the frontend."
 msgstr ""
 
-#: includes/Admin/Settings.php:192
+#: includes/Admin/Settings.php:204
 msgid "Note: Recommended if you use any caching plugins."
 msgstr ""
 
-#: includes/Admin/Settings.php:197
+#: includes/Admin/Settings.php:209
 msgid "Image Size"
 msgstr ""
 
-#: includes/Admin/Settings.php:200
+#: includes/Admin/Settings.php:212
 msgid "100 x 100 px"
 msgstr ""
 
-#: includes/Admin/Settings.php:201
+#: includes/Admin/Settings.php:213
 msgid "200 x 200 px"
 msgstr ""
 
-#: includes/Admin/Settings.php:202
+#: includes/Admin/Settings.php:214
 msgid "300 x 300 px"
 msgstr ""
 
-#: includes/Admin/Settings.php:203
+#: includes/Admin/Settings.php:215
 msgid "400 x 400 px"
 msgstr ""
 
-#: includes/Admin/Settings.php:204
+#: includes/Admin/Settings.php:216
 msgid "500 x 500 px"
 msgstr ""
 
-#: includes/Admin/Settings.php:207
+#: includes/Admin/Settings.php:219
 msgid "Select the size for your notification image."
 msgstr ""
 
-#: includes/Admin/Settings.php:212
+#: includes/Admin/Settings.php:224
 msgid "Custom Notification Import Limit"
 msgstr ""
 
-#: includes/Admin/Settings.php:220
+#: includes/Admin/Settings.php:232
 msgid "Powered By"
 msgstr ""
 
-#: includes/Admin/Settings.php:226
+#: includes/Admin/Settings.php:238
 msgid "Disable Powered By"
 msgstr ""
 
-#: includes/Admin/Settings.php:230
+#: includes/Admin/Settings.php:242
 msgid "Click, if you want to disable powered by text from notification"
 msgstr ""
 
-#: includes/Admin/Settings.php:237
+#: includes/Admin/Settings.php:249
 msgid "Role Management"
 msgstr ""
 
-#: includes/Admin/Settings.php:243
+#: includes/Admin/Settings.php:255
 msgid "Who Can View Notification?"
 msgstr ""
 
-#: includes/Admin/Settings.php:254
+#: includes/Admin/Settings.php:266
 msgid "Who Can Create Notification?"
 msgstr ""
 
-#: includes/Admin/Settings.php:265
+#: includes/Admin/Settings.php:277
 msgid "Who Can Edit Settings?"
 msgstr ""
 
-#: includes/Admin/Settings.php:276
+#: includes/Admin/Settings.php:288
 msgid "Who Can Check Analytics?"
 msgstr ""
 
-#: includes/Admin/Settings.php:291
+#: includes/Admin/Settings.php:303
 msgid "Analytics & Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:305
+#: includes/Admin/Settings.php:317
 msgid "Enable Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:312
+#: includes/Admin/Settings.php:324
 msgid "Disable Dashboard Widget"
 msgstr ""
 
-#: includes/Admin/Settings.php:315
+#: includes/Admin/Settings.php:327
 msgid "Click, if you want to disable dashboard widget of analytics only."
 msgstr ""
 
-#: includes/Admin/Settings.php:321
+#: includes/Admin/Settings.php:333
 msgid "Analytics From"
 msgstr ""
 
-#: includes/Admin/Settings.php:323
+#: includes/Admin/Settings.php:335
 #: includes/Extensions/GlobalFields.php:1758
 #: includes/Types/GDPR.php:264
 msgid "Everyone"
 msgstr ""
 
-#: includes/Admin/Settings.php:324
+#: includes/Admin/Settings.php:336
 msgid "Guests Only"
 msgstr ""
 
-#: includes/Admin/Settings.php:325
+#: includes/Admin/Settings.php:337
 msgid "Registered Users Only"
 msgstr ""
 
-#: includes/Admin/Settings.php:335
+#: includes/Admin/Settings.php:347
 msgid "Exclude Bot Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:338
+#: includes/Admin/Settings.php:350
 msgid "Select if you want to exclude bot analytics."
 msgstr ""
 
-#: includes/Admin/Settings.php:348
+#: includes/Admin/Settings.php:360
 msgid "Entries Mail Receiver"
 msgstr ""
 
-#: includes/Admin/Settings.php:353
+#: includes/Admin/Settings.php:365
 msgid "Enable Entries Mail Receiver"
 msgstr ""
 
-#: includes/Admin/Settings.php:356
+#: includes/Admin/Settings.php:368
 msgid "Send an email notification whenever a new entry is received."
 msgstr ""
 
-#: includes/Admin/Settings.php:361
+#: includes/Admin/Settings.php:373
 msgid "Entry Recipient Email"
 msgstr ""
 
-#: includes/Admin/Settings.php:369
+#: includes/Admin/Settings.php:381
 msgid "Email Subject"
 msgstr ""
 
-#: includes/Admin/Settings.php:377
+#: includes/Admin/Settings.php:389
 msgid "Test Mail"
 msgstr ""
 
-#: includes/Admin/Settings.php:378
+#: includes/Admin/Settings.php:390
 msgid "Send Test Email"
 msgstr ""
 
-#: includes/Admin/Settings.php:402
+#: includes/Admin/Settings.php:414
 msgid "Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:407
+#: includes/Admin/Settings.php:419
 msgid "Disable Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:415
+#: includes/Admin/Settings.php:427
 msgid "Reporting Frequency"
 msgstr ""
 
-#: includes/Admin/Settings.php:434
+#: includes/Admin/Settings.php:446
 msgid "It will be triggered on the first day of next month."
 msgstr ""
 
-#: includes/Admin/Settings.php:440
+#: includes/Admin/Settings.php:452
 msgid "Select Reporting Day"
 msgstr ""
 
-#: includes/Admin/Settings.php:444
+#: includes/Admin/Settings.php:456
 #: includes/Extensions/PressBar/PressBar.php:1392
 msgid "Sunday"
 msgstr ""
 
-#: includes/Admin/Settings.php:445
+#: includes/Admin/Settings.php:457
 #: includes/Extensions/PressBar/PressBar.php:1386
 msgid "Monday"
 msgstr ""
 
-#: includes/Admin/Settings.php:446
+#: includes/Admin/Settings.php:458
 #: includes/Extensions/PressBar/PressBar.php:1387
 msgid "Tuesday"
 msgstr ""
 
-#: includes/Admin/Settings.php:447
+#: includes/Admin/Settings.php:459
 #: includes/Extensions/PressBar/PressBar.php:1388
 msgid "Wednesday"
 msgstr ""
 
-#: includes/Admin/Settings.php:448
+#: includes/Admin/Settings.php:460
 #: includes/Extensions/PressBar/PressBar.php:1389
 msgid "Thursday"
 msgstr ""
 
-#: includes/Admin/Settings.php:449
+#: includes/Admin/Settings.php:461
 #: includes/Extensions/PressBar/PressBar.php:1390
 msgid "Friday"
 msgstr ""
 
-#: includes/Admin/Settings.php:452
+#: includes/Admin/Settings.php:464
 msgid "Select a day for email report."
 msgstr ""
 
-#: includes/Admin/Settings.php:462
+#: includes/Admin/Settings.php:474
 msgid "Reporting Email"
 msgstr ""
 
-#: includes/Admin/Settings.php:470
+#: includes/Admin/Settings.php:482
 msgid "Reporting Email Subject"
 msgstr ""
 
-#: includes/Admin/Settings.php:479
+#: includes/Admin/Settings.php:491
 msgid "Reporting Test"
 msgstr ""
 
-#: includes/Admin/Settings.php:480
+#: includes/Admin/Settings.php:492
 msgid "Test Report"
 msgstr ""
 
-#: includes/Admin/Settings.php:495
+#: includes/Admin/Settings.php:507
 msgid "Successfully Sent a Test Report in Your Email."
 msgstr ""
 
-#: includes/Admin/Settings.php:508
+#: includes/Admin/Settings.php:520
 msgid "Entries"
 msgstr ""
 
-#: includes/Admin/Settings.php:525
-#: includes/Admin/Settings.php:531
+#: includes/Admin/Settings.php:537
+#: includes/Admin/Settings.php:543
 msgid "Cache Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:537
+#: includes/Admin/Settings.php:549
 msgid "Cache Limit"
 msgstr ""
 
-#: includes/Admin/Settings.php:538
+#: includes/Admin/Settings.php:550
 msgid "Number of Notification Data to be saved in Database."
 msgstr ""
 
-#: includes/Admin/Settings.php:545
+#: includes/Admin/Settings.php:557
 msgid "Download Stats Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:546
-#: includes/Admin/Settings.php:554
+#: includes/Admin/Settings.php:558
+#: includes/Admin/Settings.php:566
 msgid "Minutes (Schedule Duration to fetch new data)."
 msgstr ""
 
-#: includes/Admin/Settings.php:553
+#: includes/Admin/Settings.php:565
 msgid "Reviews Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:566
+#: includes/Admin/Settings.php:578
 msgid "Miscellaneous"
 msgstr ""
 
-#: includes/Admin/Settings.php:580
+#: includes/Admin/Settings.php:592
 msgid "Danger Zone"
 msgstr ""
 
-#: includes/Admin/Settings.php:585
-#: includes/Admin/Settings.php:586
+#: includes/Admin/Settings.php:597
+#: includes/Admin/Settings.php:598
 msgid "Delete Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:597
+#: includes/Admin/Settings.php:609
 msgid "Successfully deleted Settings."
 msgstr ""
 
-#: includes/Admin/Settings.php:605
-#: includes/Admin/Settings.php:606
+#: includes/Admin/Settings.php:617
+#: includes/Admin/Settings.php:618
 msgid "Delete Transient"
 msgstr ""
 
-#: includes/Admin/Settings.php:617
+#: includes/Admin/Settings.php:629
 msgid "Successfully deleted Transient."
 msgstr ""
 
@@ -2380,7 +2393,7 @@ msgstr ""
 #: includes/Types/OfferAnnouncement.php:50
 #: includes/Types/PageAnalytics.php:48
 #: includes/Types/Video.php:53
-#: includes/Types/WooCommerceCartPeek.php:170
+#: includes/Types/WooCommerceCartPeek.php:194
 msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
 msgstr ""
 
@@ -2592,8 +2605,8 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:165
 #: includes/Types/Conversions.php:276
 #: includes/Types/Conversions.php:307
-#: includes/Types/WooCommerceCartPeek.php:147
-#: includes/Types/WooCommerceCartPeek.php:156
+#: includes/Types/WooCommerceCartPeek.php:171
+#: includes/Types/WooCommerceCartPeek.php:180
 #: includes/Types/WooCommerceSales.php:269
 #: includes/Types/WooCommerceSales.php:290
 msgid "Product Title"
@@ -5164,6 +5177,7 @@ msgid "Notification Template"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:709
+#: includes/Types/WooCommerceCartPeek.php:213
 msgid "recently purchased"
 msgstr ""
 
@@ -5752,8 +5766,8 @@ msgstr ""
 #: includes/Types/ELearning.php:188
 #: includes/Types/EmailSubscription.php:129
 #: includes/Types/Reviews.php:209
-#: includes/Types/WooCommerceCartPeek.php:148
-#: includes/Types/WooCommerceCartPeek.php:157
+#: includes/Types/WooCommerceCartPeek.php:172
+#: includes/Types/WooCommerceCartPeek.php:181
 #: includes/Types/WooCommerceSales.php:272
 msgid "Definite Time"
 msgstr ""
@@ -7040,10 +7054,6 @@ msgstr ""
 msgid "Custom Schedule"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1506
-msgid "NotificationX Bar"
-msgstr ""
-
 #: includes/Extensions/PressBar/PressBar.php:1540
 msgid "NotificationX Bar (Gutenberg)"
 msgstr ""
@@ -7407,7 +7417,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooInline.php:147
 #: includes/Extensions/WooCommerce/WooInline.php:197
 #: includes/Types/PageAnalytics.php:102
-#: includes/Types/WooCommerceCartPeek.php:69
+#: includes/Types/WooCommerceCartPeek.php:93
 msgid "right now"
 msgstr ""
 
@@ -7760,6 +7770,7 @@ msgid "Select a Form"
 msgstr ""
 
 #: includes/Types/Conversions.php:67
+#: includes/Types/WooCommerceCartPeek.php:213
 #: includes/Types/WooCommerceSales.php:64
 msgid "just purchased"
 msgstr ""
@@ -8259,86 +8270,86 @@ msgstr ""
 msgid "Cart Peek 🛒"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:64
+#: includes/Types/WooCommerceCartPeek.php:88
 msgid "A few shoppers have this in their cart"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:67
+#: includes/Types/WooCommerceCartPeek.php:91
 msgid "this product"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:88
-#: includes/Types/WooCommerceCartPeek.php:97
+#: includes/Types/WooCommerceCartPeek.php:112
 #: includes/Types/WooCommerceCartPeek.php:121
+#: includes/Types/WooCommerceCartPeek.php:145
 msgid "View product"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:146
-#: includes/Types/WooCommerceCartPeek.php:155
+#: includes/Types/WooCommerceCartPeek.php:170
+#: includes/Types/WooCommerceCartPeek.php:179
 msgid "Cart Count"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:169
+#: includes/Types/WooCommerceCartPeek.php:193
 msgid "<a href='https://notificationx.com/docs/cart-peek/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:172
+#: includes/Types/WooCommerceCartPeek.php:196
 msgid ""
 "\n"
 "                <span>Show the live count of shoppers who currently have a product in their cart to spark urgency and boost conversions.</span>\n"
 "            "
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:201
-#: includes/Types/WooCommerceCartPeek.php:208
+#: includes/Types/WooCommerceCartPeek.php:345
+#: includes/Types/WooCommerceCartPeek.php:352
 msgid "Cart Confirmation Popup"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:213
+#: includes/Types/WooCommerceCartPeek.php:357
 msgid "Show the shopper a \"Continue shopping / Go to checkout\" popup right after they add a product to the cart."
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:216
+#: includes/Types/WooCommerceCartPeek.php:360
 msgid "Popup Heading"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:219
+#: includes/Types/WooCommerceCartPeek.php:363
 msgid "Leaving so soon?"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:223
+#: includes/Types/WooCommerceCartPeek.php:367
 msgid "Continue Shopping Button"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:226
+#: includes/Types/WooCommerceCartPeek.php:370
 msgid "Continue shopping"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:230
+#: includes/Types/WooCommerceCartPeek.php:374
 msgid "Checkout Button"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:233
+#: includes/Types/WooCommerceCartPeek.php:377
 msgid "Go to checkout"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:237
+#: includes/Types/WooCommerceCartPeek.php:381
 msgid "Multiple Products Display"
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:241
+#: includes/Types/WooCommerceCartPeek.php:385
 msgid "How to show the message when the cart has more than one product."
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:243
+#: includes/Types/WooCommerceCartPeek.php:387
 msgid "Show count — e.g. \"Product A and 2 more products\""
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:244
+#: includes/Types/WooCommerceCartPeek.php:388
 msgid "List product names — e.g. \"Product A, Product B, Product C\""
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:245
+#: includes/Types/WooCommerceCartPeek.php:389
 msgid "Show total items — e.g. \"3 items\""
 msgstr ""
 
