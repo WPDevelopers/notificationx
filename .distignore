@@ -33,6 +33,7 @@ package-lock.json
 yarn.lock
 phpunit.xml
 phpunit.xml.dist
+.phpunit.result.cache
 multisite.xml
 multisite.xml.dist
 .phpcs.xml

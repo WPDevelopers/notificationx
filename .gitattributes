@@ -31,6 +31,7 @@ stats.json            export-ignore
 package-lock.json           export-ignore
 phpunit.xml         export-ignore
 phpunit.xml.dist            export-ignore
+.phpunit.result.cache       export-ignore
 multisite.xml           export-ignore
 multisite.xml.dist          export-ignore
 .phpcs.xml          export-ignore
