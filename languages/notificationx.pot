@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-25T10:54:05+00:00\n"
+"POT-Creation-Date: 2026-08-27T07:47:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
@@ -102,8 +102,8 @@ msgid ""
 msgstr ""
 
 #. translators: %s: no of minutes
-#: includes/Admin/Cron.php:93
-#: includes/Admin/Cron.php:99
+#: includes/Admin/Cron.php:111
+#: includes/Admin/Cron.php:117
 #, php-format
 msgid "Every %s minutes"
 msgstr ""
@@ -1762,7 +1762,7 @@ msgstr ""
 msgid "All %s taxonomy archives"
 msgstr ""
 
-#: includes/Core/Migration.php:393
+#: includes/Core/Migration.php:399
 #: includes/Extensions/EDD/EDInline.php:45
 #: includes/Extensions/FluentCart/FluentCart.php:736
 #: includes/Extensions/FluentCart/FluentCart.php:737
@@ -8290,7 +8290,7 @@ msgid "Cart Count"
 msgstr ""
 
 #: includes/Types/WooCommerceCartPeek.php:193
-msgid "<a href='https://notificationx.com/docs/cart-peek/' target='_blank'>More Info</a>"
+msgid "<a href='https://notificationx.com/docs/how-to-create-a-cart-peek-notification/' target='_blank'>More Info</a>"
 msgstr ""
 
 #: includes/Types/WooCommerceCartPeek.php:196

@@ -3,7 +3,7 @@ Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, s
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, notification bar
 Requires at least: 5.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 5.6
 Stable tag: 3.2.14
 License: GPL-3.0-or-later
@@ -219,7 +219,9 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.2.14 - 13/08/2026 =
+= 3.2.14 - 27/08/2026 =
+Added: WordPress 7.1 Compatibility.
+Improved: Security enhancement.
 Few minor bug fixes and improvements.
 
 = 3.2.13 - 06/08/2026 =
