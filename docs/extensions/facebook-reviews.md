@@ -31,20 +31,67 @@ Data reaching the site:
   save and on the `nx_facebook_reviews_interval` cron; stored as one entry per
   campaign (`entry_key = summary_{page_id}`, data: `place_name, rated, rating, url`).
   Rendered by the `total-rated` theme (`tag_rated` / `tag_place_name` / `tag_rating`).
-* **Individual reviews** — pushed by the API to
-  `POST /wp-json/notificationx/v1/social-review` (see below) and stored with
+* **Individual reviews** — stored with
   `entry_key = md5('facebook_reviews|page_id|review_id')`, so the same review is never
   inserted twice. Rendered by the `review-comment*` / `reviewed` themes.
+
+A campaign shows **one or the other, never both**. `wants_summary()` decides from
+the template: `first_param = tag_rated` means the campaign is the aggregate kind.
+Mixing them would drop a nameless, wordless summary entry into a per-review
+rotation, where it renders as "  just reviewed Example Business".
+
+### Two delivery paths
+
+Individual reviews arrive two ways, and both produce identical entries because
+both run through `FacebookReviews::map_review()`:
+
+* **Push** — the API POSTs each review to
+  `/wp-json/notificationx/v1/social-review` as it is collected. Fast, and the
+  normal path.
+* **Pull** — `sync_reviews()` reads `GET reviews.php` on the same cron that
+  refreshes the page rating. This is not merely a fallback: a large share of
+  installs are simply not reachable from the public internet (local and staging
+  sites, anything behind basic auth, an IP allowlist or a firewall) and for those
+  push can never arrive. It also repairs what push cannot — a restored backup, a
+  migrated install, or a campaign created after the reviews were already
+  collected. Responses are ETagged, so the usual "nothing new" answer costs one
+  conditional request; it walks newest-first and stops as soon as a page adds
+  nothing new, so the steady-state cost is one request.
+
+"Sync now" (`POST /notificationx/v1/facebook-reviews/sync`) asks the API to
+collect the Page again *and* pulls whatever it already holds, so the button does
+something visible immediately even though collection is asynchronous.
+
+### Handling ragged data
+
+Facebook reviews are ragged by nature, and none of these are errors:
+
+| Missing | What renders |
+|---|---|
+| Reviewer name (withheld by their privacy settings) | "A Facebook user" |
+| Reviewer photo (ditto), or the aggregate entry | the Facebook mark — an imageless card in an avatar layout reads as broken |
+| Review text (a bare thumbs-up) | the Page name, so the sentence stays true |
+| Star rating (every current review — Facebook uses Recommends / Doesn't recommend) | `tag_recommendation`, not an invented five stars |
+| Permalink | the Page's reviews tab |
+| An exact date (most reviews — Facebook renders "2 weeks ago") | the source's own label via `time_label`, rather than a computed relative time claiming precision we do not have |
+| Any date at all | the collection time, never "now" — a years-old review must not read as "a few seconds ago" |
+
+Reviews are also exempt from the age-based display controls (`display_from` /
+`display_last` are hidden for this source, as they are for Google Reviews). A Page
+may collect a handful of reviews a year, so a "last N days" window would routinely
+render nothing.
 
 ### Meta limitation (verified 2026-08-23)
 
 Meta deprecated the Page Recommendations API in Graph API v22.0: individual Page
-reviews cannot be read through any supported endpoint. The API's Facebook provider
-therefore only supplies the page summary and reports `individual_reviews: false`
-(shown in the builder as "Individual reviews: not provided by Facebook"). Individual
-reviews start flowing automatically once the API gains a provider that can deliver
-them — nothing changes on the WordPress side. Sources: Meta Graph API changelog
-v22.0, Page object reference (`overall_star_rating`, `rating_count`).
+reviews cannot be read through any supported endpoint. Identity, ownership and
+the aggregate rating still come from Graph; the individual reviews come from a
+**collector** on the API side, which is configured per deployment and off by
+default. The builder reflects whatever the API reports in
+`capabilities.individual_reviews`, so it tells the truth for the deployment the
+site is actually talking to. Nothing on the WordPress side changes when the
+collection strategy changes. Sources: Meta Graph API changelog v22.0, Page object
+reference (`overall_star_rating`, `rating_count`).
 
 ### Site identity
 
@@ -63,15 +110,33 @@ connected Pages and can disconnect a Page or the whole site.
 HMAC: `X-NX-Signature: sha256=HEX(HMAC_SHA256(site_token, "{X-NX-Timestamp}.{X-NX-Delivery-Id}.{raw_body}"))`,
 timestamp within ±300 s. Replays (same delivery id within 24 h) answer **409**,
 bad/expired signatures **401**, malformed payloads **422**. The payload is
-`{event: social_review.created, connection_id, review_id, page_id, page_name, reviewer{name,avatar}, rating, recommendation_type, content, review_url, created_at}`.
+`{event, connection_id, review_id, page_id, page_name, page_rating{overall,count},
+reviewer{name,avatar,url}, rating, recommendation_type, content, review_url,
+created_at, updated_at, meta{}}`. `meta` is an open bag of source-specific
+extras (tags, photos, engagement counts, the Page's own reply, provenance,
+`relative_time`, `date_is_approximate`); unknown keys are ignored, so the API can
+add one without needing a plugin release.
 Entries are created in every campaign whose `facebook_reviews_connection.connection_id`
 matches; Pro filters run through `nx_can_entry_facebook_reviews`.
 
 ## Pro
 
-* `facebook_reviews_min_rating` (1/4/5), `facebook_reviews_text_only`, `facebook_reviews_min_length` — applied to webhook reviews, never to the summary entry.
+* `facebook_reviews_recommendation` (all / only "Recommends") — the filter that
+  applies to current Facebook data, which is binary rather than starred.
+* `facebook_reviews_min_rating` (1/4/5) — only bites on the older star-rated
+  reviews some Pages still carry. A recommendation has no stars, and treating its
+  absent rating as a zero would silently hide every current review the moment
+  someone set a minimum.
+* `facebook_reviews_text_only`, `facebook_reviews_min_length` — applied to
+  individual reviews, never to the summary entry.
 * `settings.facebook_reviews_refresh_interval` (minutes, min 30; free fixed at 720).
 * Sends the licence key via the `nx_facebook_reviews_license_key` filter so the API can grant Pro limits.
+
+## Tests
+
+[`tests/test-facebook-reviews.php`](../../tests/test-facebook-reviews.php) covers
+the mapping (including every ragged case above), hostile input, entry-key
+stability, the aggregate/individual split and webhook signature verification.
 
 ## Local development
 

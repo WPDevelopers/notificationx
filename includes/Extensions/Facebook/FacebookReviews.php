@@ -128,7 +128,11 @@ class FacebookReviews extends Extension {
                     'second_param'        => __('just reviewed', 'notificationx'),
                     'third_param'         => 'tag_place_name',
                     'custom_third_param'  => __('Anonymous Page', 'notificationx'),
-                    'fourth_param'        => 'tag_rating',
+                    // Not tag_rating: today's Facebook reviews are Recommends /
+                    // Doesn't recommend and carry no stars, so a star tag would
+                    // render blank on most Pages. The star tag is still offered
+                    // for the older reviews that do have one.
+                    'fourth_param'        => 'tag_recommendation',
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
             ],
@@ -143,11 +147,13 @@ class FacebookReviews extends Extension {
                 'third_param'  => [
                     'tag_place_name'   => __('Page Name', 'notificationx'),
                     'tag_place_review' => __('Review', 'notificationx'),
+                    'tag_owner_reply'  => __('Page Reply', 'notificationx'),
                 ],
                 'fourth_param' => [
-                    'tag_rating'         => __('Rating', 'notificationx'),
                     'tag_recommendation' => __('Recommendation', 'notificationx'),
+                    'tag_rating'         => __('Rating', 'notificationx'),
                     'tag_time'           => __('Definite Time', 'notificationx'),
+                    'tag_tags'           => __('Review Tags', 'notificationx'),
                 ],
                 '_themes' => [
                     "{$this->id}_total-rated",
@@ -174,10 +180,18 @@ class FacebookReviews extends Extension {
         parent::public_actions();
         add_filter("nx_notification_link_{$this->id}", [$this, 'product_link'], 10, 3);
         add_filter("nx_filtered_entry_{$this->id}", [$this, 'conversion_data'], 11, 2);
+        // Never window reviews out by age. The "display from the last N days"
+        // rule suits a sales feed, where an old event is genuinely stale; a
+        // review is not. Most Pages collect a handful a year, so applying the
+        // window here would routinely render nothing at all — which is why the
+        // Google Reviews source does the same. The controls are hidden from the
+        // builder too (see customize_fields) so the setting cannot mislead.
+        add_filter("nx_entry_display_{$this->id}", '__return_false');
     }
 
     public function init_fields() {
         parent::init_fields();
+        add_filter('nx_customize_fields', [$this, 'customize_fields']);
         add_filter('nx_display_fields', [$this, 'display_fields']);
         add_filter('nx_content_fields', [$this, 'content_fields'], 20);
         add_filter('nx_content_trim_length_dependency', [$this, 'content_trim_length_dependency']);
@@ -239,8 +253,25 @@ class FacebookReviews extends Extension {
      */
     public static function pro_filter_fields($source, $locked) {
         return [
+            // Recommendation comes first because it is the filter that applies
+            // to today's Facebook reviews; the star filter below only bites on
+            // the older star-rated ones that some Pages still carry.
+            'facebook_reviews_recommendation' => [
+                'label'    => __('Recommendation', 'notificationx'),
+                'name'     => 'facebook_reviews_recommendation',
+                'type'     => 'select',
+                'priority' => 39,
+                'default'  => 'all',
+                'is_pro'   => $locked,
+                'options'  => GlobalFields::get_instance()->normalize_fields([
+                    'all'         => __('Show all reviews', 'notificationx'),
+                    'recommended' => __('Only "Recommends"', 'notificationx'),
+                ]),
+                'description' => __('Facebook reviews are Recommends or Doesn\'t recommend rather than star ratings.', 'notificationx'),
+                'rules'    => Rules::is('source', $source),
+            ],
             'facebook_reviews_min_rating' => [
-                'label'    => __('Minimum Rating', 'notificationx'),
+                'label'    => __('Minimum Star Rating', 'notificationx'),
                 'name'     => 'facebook_reviews_min_rating',
                 'type'     => 'select',
                 'priority' => 40,
@@ -251,7 +282,7 @@ class FacebookReviews extends Extension {
                     '4' => __('4 stars and up', 'notificationx'),
                     '5' => __('5 stars only', 'notificationx'),
                 ]),
-                'description' => __('Applied to individual reviews delivered by the NotificationX API.', 'notificationx'),
+                'description' => __('Only applies to older reviews that carry a star rating. Recommendations have no stars and are filtered above.', 'notificationx'),
                 'rules'    => Rules::is('source', $source),
             ],
             'facebook_reviews_text_only' => [
@@ -382,6 +413,24 @@ class FacebookReviews extends Extension {
         return ['status' => 'success', 'message' => __('Connected to the NotificationX API.', 'notificationx'), 'site' => FacebookReviewsManaged::site_status()];
     }
 
+    /**
+     * Hide the age-based display controls for this source.
+     *
+     * "Display from the last N days" and "Display last N" describe a stream of
+     * recent events. Reviews are not that: a Page may collect a few a year, and
+     * the good ones stay worth showing for as long as they stand. Leaving the
+     * controls visible would offer a setting that silently empties the
+     * notification — so they are removed here, exactly as Google Reviews does.
+     */
+    public function customize_fields($fields) {
+        foreach (['display_from', 'display_last'] as $field) {
+            if (isset($fields['behaviour']['fields'][$field])) {
+                $fields['behaviour']['fields'][$field] = Rules::is('source', $this->id, true, $fields['behaviour']['fields'][$field]);
+            }
+        }
+        return $fields;
+    }
+
     public function display_fields($fields) {
         $show_image = &$fields['image-section']['fields']['show_notification_image'];
         $show_image = Rules::includes('source', $this->id, false, $show_image);
@@ -404,6 +453,26 @@ class FacebookReviews extends Extension {
             $entry['image_data'] = ['url' => NOTIFICATIONX_PUBLIC_URL . 'image/icons/facebook-f-icon.svg', 'alt' => '', 'classes' => 'fbreview_icon'];
         }
         return $entry;
+    }
+
+    /**
+     * True when this campaign is the aggregate-rating kind.
+     *
+     * Decided by the template rather than the theme name, because the theme only
+     * sets the initial template and the user is free to change the tags
+     * afterwards — `tag_rated` is what actually needs the aggregate entry to
+     * exist, and nothing else does.
+     */
+    public static function wants_summary($settings) {
+        $template = isset($settings['notification-template']) && is_array($settings['notification-template'])
+            ? $settings['notification-template']
+            : [];
+        if (isset($template['first_param'])) {
+            return 'tag_rated' === $template['first_param'];
+        }
+        // No template yet (a campaign being created): fall back to the theme it
+        // was started from.
+        return isset($settings['themes']) && 'facebook_reviews_total-rated' === $settings['themes'];
     }
 
     /** @return array{connection_id:string,page_id:string,page_name:string} */
@@ -455,7 +524,23 @@ class FacebookReviews extends Extension {
             return;
         }
 
+        // A campaign shows EITHER the Page's aggregate rating OR its individual
+        // reviews — never both. They are different notifications: the aggregate
+        // is one aggregate card ("128 people rated Example Business"), while the
+        // review themes put a person's name and words in the sentence. Mixing
+        // them puts a nameless, wordless summary into a per-review rotation,
+        // where it renders as "  just reviewed Example Business".
         $entry_key = 'summary_' . $connection['page_id'];
+        if (!self::wants_summary($settings)) {
+            // Individual reviews. The webhook delivers these the moment the API
+            // collects them, but only to sites it can reach; pulling here is what
+            // makes the source work on local, staging and firewalled installs, and
+            // what repairs a campaign created after collection already happened.
+            $this->sync_reviews($nx_id, $connection['connection_id']);
+            $this->delete_notification($entry_key, $nx_id);
+            return;
+        }
+
         $this->delete_notification($entry_key, $nx_id);
         if (isset($remote['rating_count']) && null !== $remote['rating_count']) {
             $this->update_notifications([[
@@ -476,53 +561,241 @@ class FacebookReviews extends Extension {
     }
 
     /**
-     * Stores one individual review (from the webhook) into every campaign bound to
-     * its connection. Idempotent: entry_key is derived from the review identity.
+     * Stores one individual review (from the webhook) into every campaign bound
+     * to its connection. Idempotent: the entry key is derived from the review's
+     * identity, so a redelivery updates nothing and creates nothing.
      *
      * @param array $review normalized payload from the API
      * @return int number of campaigns updated
      */
     public function ingest_review($review) {
-        $connection_id = isset($review['connection_id']) ? sanitize_text_field((string) $review['connection_id']) : '';
-        $review_id     = isset($review['review_id']) ? sanitize_text_field((string) $review['review_id']) : '';
-        $page_id       = isset($review['page_id']) ? sanitize_text_field((string) $review['page_id']) : '';
-        if ('' === $connection_id || '' === $review_id || '' === $page_id) {
+        $data = self::map_review($review);
+        if (empty($data)) {
             return 0;
         }
-        $reviewer  = isset($review['reviewer']) && is_array($review['reviewer']) ? $review['reviewer'] : [];
-        $rating    = isset($review['rating']) && null !== $review['rating'] ? max(1, min(5, (int) $review['rating'])) : 0;
-        $type      = isset($review['recommendation_type']) ? sanitize_key((string) $review['recommendation_type']) : '';
-        $timestamp = !empty($review['created_at']) ? strtotime((string) $review['created_at']) : 0;
-        $data      = [
-            'username'          => isset($reviewer['name']) ? sanitize_text_field((string) $reviewer['name']) : __('A Facebook user', 'notificationx'),
-            'profile_photo_url' => !empty($reviewer['avatar']) ? esc_url_raw((string) $reviewer['avatar'], ['http', 'https']) : '',
-            'place_name'        => isset($review['page_name']) ? sanitize_text_field((string) $review['page_name']) : '',
-            'page_id'           => $page_id,
-            'place_review'      => isset($review['content']) ? sanitize_textarea_field((string) $review['content']) : '',
-            'rating'            => $rating ?: ('negative' === $type ? 1 : 5),
-            'is_recommended'    => 'negative' !== $type,
-            'review_id'         => $review_id,
-            'source_provider'   => isset($review['source']) ? sanitize_key((string) $review['source']) : 'facebook',
-            'url'               => !empty($review['review_url']) ? esc_url_raw((string) $review['review_url'], ['http', 'https']) : '',
-            'timestamp'         => $timestamp ? $timestamp : time(),
-        ];
+        $connection_id = sanitize_text_field((string) (isset($review['connection_id']) ? $review['connection_id'] : ''));
+        if ('' === $connection_id) {
+            return 0;
+        }
 
         $count = 0;
         foreach ($this->campaigns_for_connection($connection_id) as $post) {
-            $entry = [
-                'nx_id'     => $post['nx_id'],
-                'source'    => $this->id,
-                'entry_key' => md5($this->id . '|' . $page_id . '|' . $review_id),
-                'data'      => $data,
-            ];
-            if (false !== $this->update_notification($entry, false)) {
+            // Aggregate campaigns show one rating card; an individual review has
+            // no place in them.
+            if (self::wants_summary($post)) {
+                continue;
+            }
+            if (false !== $this->store_review_entry($post['nx_id'], $data)) {
                 $count++;
             }
         }
         return $count;
     }
 
-    /** @return array campaigns (any enabled state) bound to a connection id */
+    /**
+     * Write one mapped review into one campaign, unless it is already there.
+     *
+     * `update_notification(..., false)` is the existence-checked path: the same
+     * review arriving twice — once pushed, once pulled — must not produce two
+     * notifications, and a visitor must not be shown a review they have already
+     * been shown because a cron ran twice.
+     */
+    protected function store_review_entry($nx_id, array $data) {
+        return $this->update_notification([
+            'nx_id'     => $nx_id,
+            'source'    => $this->id,
+            'entry_key' => self::entry_key($data['page_id'], $data['review_id']),
+            'data'      => $data,
+        ], false);
+    }
+
+    /** Stable per-review key within a campaign. */
+    public static function entry_key($page_id, $review_id) {
+        return md5('facebook_reviews|' . $page_id . '|' . $review_id);
+    }
+
+    /**
+     * Normalized API review → the flat data bag a NotificationX theme renders.
+     *
+     * Both delivery paths run through here, so a pushed review and a pulled one
+     * produce byte-identical entries — otherwise the same review could render
+     * differently depending on how it happened to arrive.
+     *
+     * Everything optional is allowed to be missing. Facebook reviews are ragged
+     * by nature: recommendations carry no star rating, a reviewer's photo
+     * depends on their own privacy settings, a recommendation can be a bare
+     * thumbs-up with no words, and most dates are only ever "2 weeks ago". The
+     * rule here is to record what we were given and never to invent the rest —
+     * the renderer decides what to show when a field is absent.
+     *
+     * @param array $review
+     * @return array empty when the payload is unusable
+     */
+    public static function map_review($review) {
+        if (!is_array($review)) {
+            return [];
+        }
+        $review_id = sanitize_text_field((string) (isset($review['review_id']) ? $review['review_id'] : ''));
+        $page_id   = sanitize_text_field((string) (isset($review['page_id']) ? $review['page_id'] : ''));
+        if ('' === $review_id || '' === $page_id) {
+            return [];
+        }
+
+        $reviewer = isset($review['reviewer']) && is_array($review['reviewer']) ? $review['reviewer'] : [];
+        $meta     = isset($review['meta']) && is_array($review['meta']) ? $review['meta'] : [];
+        $type     = isset($review['recommendation_type']) ? sanitize_key((string) $review['recommendation_type']) : '';
+
+        // A Facebook recommendation is NOT a five-star review, so no star is
+        // fabricated for one. Inventing 5s would corrupt any average shown
+        // beside it and would put stars on a notification for a review that
+        // never had them. `is_recommended` carries the signal instead, and the
+        // themes render it as "Recommends" — which is what Facebook shows too.
+        $rating = isset($review['rating']) && null !== $review['rating'] ? (int) $review['rating'] : 0;
+        $rating = ($rating >= 1 && $rating <= 5) ? $rating : 0;
+
+        $data = [
+            'review_id'         => $review_id,
+            'page_id'           => $page_id,
+            'username'          => isset($reviewer['name']) ? sanitize_text_field((string) $reviewer['name']) : '',
+            'profile_photo_url' => self::safe_url(isset($reviewer['avatar']) ? $reviewer['avatar'] : ''),
+            'reviewer_url'      => self::safe_url(isset($reviewer['url']) ? $reviewer['url'] : ''),
+            'place_name'        => isset($review['page_name']) ? sanitize_text_field((string) $review['page_name']) : '',
+            'place_review'      => isset($review['content']) ? sanitize_textarea_field((string) $review['content']) : '',
+            'rating'            => $rating,
+            'source_provider'   => isset($review['source']) ? sanitize_key((string) $review['source']) : 'facebook',
+            'url'               => self::safe_url(isset($review['review_url']) ? $review['review_url'] : ''),
+        ];
+
+        if ('' === $data['username']) {
+            // Facebook withholds the reviewer's name when their privacy settings
+            // say so. The review is still worth showing; it just needs a subject.
+            $data['username'] = __('A Facebook user', 'notificationx');
+        }
+        if ('' === $data['url']) {
+            // No permalink for this particular recommendation — send visitors to
+            // the Page's reviews tab, which is where it lives.
+            $data['url'] = 'https://www.facebook.com/' . rawurlencode($page_id) . '/reviews';
+        }
+        if ('positive' === $type || 'negative' === $type) {
+            $data['is_recommended'] = ('positive' === $type);
+        }
+
+        // Timestamps. An absent date must not become "a few seconds ago": that
+        // would present a years-old review as breaking news. Fall back to when
+        // we collected it, and keep Facebook's own label so a theme can show
+        // "2 weeks ago" rather than a precision we do not have.
+        $timestamp = !empty($review['created_at']) ? strtotime((string) $review['created_at']) : false;
+        if (false === $timestamp && !empty($meta['collected_at'])) {
+            $timestamp = strtotime((string) $meta['collected_at']);
+        }
+        $data['timestamp'] = $timestamp ? (int) $timestamp : time();
+        if (!empty($meta['relative_time'])) {
+            $data['time_label'] = sanitize_text_field((string) $meta['relative_time']);
+        }
+        if (!empty($meta['date_is_approximate'])) {
+            $data['date_is_approximate'] = true;
+        }
+
+        // Page-level context, so a theme can show "4.6 from 128 recommendations"
+        // next to an individual review without a second lookup.
+        $page_rating = isset($review['page_rating']) && is_array($review['page_rating']) ? $review['page_rating'] : [];
+        if (isset($page_rating['count']) && null !== $page_rating['count']) {
+            $data['rated'] = (int) $page_rating['count'];
+        }
+        if (isset($page_rating['overall']) && null !== $page_rating['overall']) {
+            $data['page_rating'] = (float) $page_rating['overall'];
+        }
+
+        // Optional extras. Present only when the source actually had them, so a
+        // theme can test with isset() rather than for emptiness.
+        if (!empty($meta['tags']) && is_array($meta['tags'])) {
+            $data['tags'] = implode(', ', array_map('sanitize_text_field', array_slice($meta['tags'], 0, 5)));
+        }
+        if (!empty($meta['photos'][0])) {
+            $data['review_photo'] = self::safe_url($meta['photos'][0]);
+        }
+        if (!empty($meta['engagement']['reactions'])) {
+            $data['likes'] = (int) $meta['engagement']['reactions'];
+        }
+        if (!empty($meta['engagement']['comments'])) {
+            $data['comments'] = (int) $meta['engagement']['comments'];
+        }
+        if (!empty($meta['owner_reply']['text'])) {
+            $data['owner_reply'] = sanitize_textarea_field((string) $meta['owner_reply']['text']);
+        }
+
+        return $data;
+    }
+
+    /** http(s) URLs only; anything else becomes '' rather than reaching a template. */
+    protected static function safe_url($url) {
+        $url = esc_url_raw((string) $url, ['http', 'https']);
+        return is_string($url) ? $url : '';
+    }
+
+    /**
+     * Pull individual reviews for a campaign and store any we do not have.
+     *
+     * Walks newest-first and stops as soon as a page adds nothing new, which
+     * makes the steady-state cost one request. The page budget bounds a first
+     * run (or a restored backup) so a campaign bound to a Page with hundreds of
+     * reviews cannot turn one cron tick into a long crawl.
+     *
+     * @return int reviews newly stored
+     */
+    public function sync_reviews($nx_id, $connection_id, $fresh = false) {
+        if (empty($nx_id) || '' === $connection_id) {
+            return 0;
+        }
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        $max_pages = (int) apply_filters('nx_facebook_reviews_sync_pages', 4, $nx_id);
+        $stored    = 0;
+        $after     = 0;
+
+        for ($page = 0; $page < max(1, $max_pages); $page++) {
+            $result = FacebookReviewsManaged::reviews($connection_id, ['limit' => 50, 'after' => $after, 'fresh' => $fresh && 0 === $page]);
+            if (empty($result['ok'])) {
+                $this->log($nx_id, isset($result['error']) ? $result['error'] : 'reviews_failed');
+                break;
+            }
+            $reviews = isset($result['body']['reviews']) && is_array($result['body']['reviews']) ? $result['body']['reviews'] : [];
+            if ([] === $reviews) {
+                break;
+            }
+
+            $new = 0;
+            foreach ($reviews as $review) {
+                $data = self::map_review($review);
+                if (empty($data)) {
+                    continue;
+                }
+                if (false !== $this->store_review_entry($nx_id, $data)) {
+                    $new++;
+                }
+            }
+            $stored += $new;
+
+            $next = isset($result['body']['next_cursor']) ? (int) $result['body']['next_cursor'] : 0;
+            // Nothing new on this page means everything older is already stored
+            // too, because the API returns them newest-first.
+            if (0 === $new || $next <= 0) {
+                break;
+            }
+            $after = $next;
+        }
+
+        return $stored;
+    }
+
+    /**
+     * Campaigns bound to a connection, whatever their enabled state.
+     *
+     * Disabled campaigns are included on purpose: a review that arrives while a
+     * campaign is paused should still be stored, so switching it back on shows
+     * the reviews collected in the meantime rather than a gap.
+     *
+     * @return array
+     */
     public function campaigns_for_connection($connection_id) {
         $matches = [];
         foreach (PostType::get_instance()->get_posts(['source' => $this->id]) as $post) {
@@ -535,9 +808,28 @@ class FacebookReviews extends Extension {
     }
 
     public function conversion_data($saved_data, $settings) {
+        // Built at render time rather than stored, so the label follows the
+        // site's language instead of whichever language was active when the
+        // review happened to be collected.
         if (isset($saved_data['is_recommended'])) {
-            $saved_data['recommendation'] = $saved_data['is_recommended'] ? __('Recommends', 'notificationx') : __('Doesn\'t recommend', 'notificationx');
+            $saved_data['recommendation'] = $saved_data['is_recommended']
+                ? __('Recommends', 'notificationx')
+                : __('Doesn\'t recommend', 'notificationx');
+        } elseif (!empty($saved_data['rating'])) {
+            /* translators: %s: star rating out of five */
+            $saved_data['recommendation'] = sprintf(__('Rated %s out of 5', 'notificationx'), number_format_i18n((float) $saved_data['rating'], 1));
+        } else {
+            $saved_data['recommendation'] = '';
         }
+
+        // A recommendation with no words is a normal Facebook review, and the
+        // review-comment themes put the text in the middle of the sentence — so
+        // an empty one would render "Sam just reviewed ." Fall back to the Page
+        // name, which keeps the sentence true and readable.
+        if (empty($saved_data['place_review']) && !empty($saved_data['place_name'])) {
+            $saved_data['place_review'] = $saved_data['place_name'];
+        }
+
         if (!empty($saved_data['place_review'])) {
             $theme       = isset($settings['themes']) ? $settings['themes'] : '';
             $trim_length = "{$this->id}_review-comment-2" === $theme || "{$this->id}_review-comment-3" === $theme ? 80 : 100;
@@ -564,13 +856,23 @@ class FacebookReviews extends Extension {
 
     public function notification_image($image_data, $data, $settings) {
         if (empty($settings['show_default_image'])) {
+            $icon      = NOTIFICATIONX_PUBLIC_URL . 'image/icons/facebook-f-icon.svg';
             $image_url = '';
-            switch ($settings['show_notification_image']) {
+            switch (isset($settings['show_notification_image']) ? $settings['show_notification_image'] : '') {
                 case 'fbreview_avatar':
                     $image_url = isset($data['profile_photo_url']) ? $data['profile_photo_url'] : '';
+                    // Reviewer photos are frequently absent: Facebook withholds
+                    // them according to the reviewer's own privacy settings, and
+                    // the aggregate summary entry has no reviewer at all. Falling
+                    // back to the Facebook mark keeps the notification's shape —
+                    // an imageless card in a layout designed around an avatar
+                    // reads as broken, not as minimal.
+                    if ('' === $image_url) {
+                        $image_url = $icon;
+                    }
                     break;
                 case 'fbreview_icon':
-                    $image_url = NOTIFICATIONX_PUBLIC_URL . 'image/icons/facebook-f-icon.svg';
+                    $image_url = $icon;
                     break;
             }
             $image_data['url'] = $image_url;

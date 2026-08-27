@@ -28,6 +28,10 @@ class FacebookReviewsManaged {
     const OPT_AUTH = 'nx_facebook_reviews_managed_auth';
     /** Cached connection list from status.php (transient). */
     const CACHE_STATUS = 'nx_facebook_reviews_managed_status';
+    /** Cached review page + its ETag, per connection (transient prefix). */
+    const CACHE_REVIEWS = 'nx_facebook_reviews_page_';
+    /** How long a fetched review page is reused before we ask the API again. */
+    const REVIEWS_CACHE_TTL = 300;
     /** Accepted clock skew for webhook timestamps, seconds. */
     const WEBHOOK_SKEW = 300;
 
@@ -173,25 +177,34 @@ class FacebookReviewsManaged {
     /**
      * Authenticated JSON request to the API.
      *
-     * @return array ['ok' => bool, 'code' => int, 'body' => array, 'error' => string, 'message' => string]
+     * @param array $extra_headers merged over the standard auth headers
+     * @return array ['ok' => bool, 'code' => int, 'body' => array, 'headers' => array, 'error' => string, 'message' => string]
      */
-    public static function request($method, $path, $body = null) {
+    public static function request($method, $path, $body = null, $extra_headers = []) {
         $args = [
             'method'  => $method,
             'timeout' => 'POST' === $method ? 25 : 15,
-            'headers' => self::headers(),
+            'headers' => array_merge(self::headers(), is_array($extra_headers) ? $extra_headers : []),
         ];
         if (null !== $body) {
             $args['body'] = wp_json_encode($body);
         }
         $response = wp_remote_request(self::endpoint() . $path, $args);
         if (is_wp_error($response)) {
-            return ['ok' => false, 'code' => 0, 'body' => [], 'error' => 'network', 'message' => $response->get_error_message()];
+            return ['ok' => false, 'code' => 0, 'body' => [], 'headers' => [], 'error' => 'network', 'message' => $response->get_error_message()];
         }
-        $code  = (int) wp_remote_retrieve_response_code($response);
-        $data  = json_decode((string) wp_remote_retrieve_body($response), true);
-        $data  = is_array($data) ? $data : [];
-        $error = isset($data['error']) ? sanitize_key((string) $data['error']) : '';
+        $code    = (int) wp_remote_retrieve_response_code($response);
+        $data    = json_decode((string) wp_remote_retrieve_body($response), true);
+        $data    = is_array($data) ? $data : [];
+        $error   = isset($data['error']) ? sanitize_key((string) $data['error']) : '';
+        $headers = [
+            'etag' => (string) wp_remote_retrieve_header($response, 'etag'),
+        ];
+
+        // 304 is a success with no payload: the caller keeps what it already had.
+        if (304 === $code) {
+            return ['ok' => true, 'code' => 304, 'body' => [], 'headers' => $headers, 'error' => '', 'message' => ''];
+        }
 
         if (401 === $code || 403 === $code) {
             // A stale binding (URL moved, salts rotated, API forgot us) is fixed by reconnecting.
@@ -199,16 +212,93 @@ class FacebookReviewsManaged {
                 delete_option(self::OPT_AUTH);
                 delete_transient(self::CACHE_STATUS);
             }
-            return ['ok' => false, 'code' => $code, 'body' => $data, 'error' => $error ?: 'unauthorized', 'message' => __('This site is no longer connected to the NotificationX API. Please connect again.', 'notificationx')];
+            return ['ok' => false, 'code' => $code, 'body' => $data, 'headers' => $headers, 'error' => $error ?: 'unauthorized', 'message' => __('This site is no longer connected to the NotificationX API. Please connect again.', 'notificationx')];
         }
         if ($code < 200 || $code >= 300) {
             $message = !empty($data['message'])
                 ? (string) $data['message']
                 /* translators: %d: HTTP status code */
                 : sprintf(__('The NotificationX API returned HTTP %d.', 'notificationx'), $code);
-            return ['ok' => false, 'code' => $code, 'body' => $data, 'error' => $error ?: 'http_' . $code, 'message' => $message];
+            return ['ok' => false, 'code' => $code, 'body' => $data, 'headers' => $headers, 'error' => $error ?: 'http_' . $code, 'message' => $message];
         }
-        return ['ok' => true, 'code' => $code, 'body' => $data, 'error' => '', 'message' => ''];
+        return ['ok' => true, 'code' => $code, 'body' => $data, 'headers' => $headers, 'error' => '', 'message' => ''];
+    }
+
+    /**
+     * Pull already-collected reviews for a connection.
+     *
+     * The API pushes each new review to /wp-json/notificationx/v1/social-review
+     * as it is collected, and that remains the fast path. This is the pull
+     * complement, and it is not merely a fallback: a large share of installs are
+     * simply not reachable from the public internet — local and staging sites,
+     * anything behind basic auth, an IP allowlist or a firewall — and for those
+     * the webhook can never arrive. They get their reviews here instead, on the
+     * same cron that refreshes the page rating.
+     *
+     * It also repairs the cases push cannot: a restored backup, a migrated
+     * install, or a campaign created after the reviews were already collected.
+     *
+     * Responses are ETagged, so the common "nothing new" answer costs one
+     * conditional request and no payload.
+     *
+     * @param string $connection_id
+     * @param array  $args  ['limit' => int, 'after' => int, 'fresh' => bool]
+     * @return array request() shape; body has reviews, total, next_cursor
+     */
+    public static function reviews($connection_id, $args = []) {
+        $connection_id = sanitize_text_field((string) $connection_id);
+        if ('' === $connection_id) {
+            return ['ok' => false, 'code' => 0, 'body' => [], 'headers' => [], 'error' => 'missing_connection', 'message' => __('No Facebook Page is connected.', 'notificationx')];
+        }
+        $query = [
+            'connection_id' => $connection_id,
+            'limit'         => max(1, min(200, (int) (isset($args['limit']) ? $args['limit'] : 50))),
+        ];
+        if (!empty($args['after'])) {
+            $query['after'] = (int) $args['after'];
+        }
+
+        // Only the first page is worth caching: it is the one the cron re-reads
+        // every time, and deeper pages are walked once during a backfill.
+        $cacheable = empty($query['after']);
+        $cache_key = self::CACHE_REVIEWS . md5($connection_id . '|' . $query['limit']);
+        $cached    = $cacheable && empty($args['fresh']) ? get_transient($cache_key) : false;
+        $headers   = [];
+        if (is_array($cached) && !empty($cached['etag'])) {
+            $headers['If-None-Match'] = $cached['etag'];
+        }
+
+        $result = self::request('GET', '/reviews.php?' . http_build_query($query), null, $headers);
+
+        if (!empty($result['ok']) && 304 === $result['code'] && is_array($cached)) {
+            return ['ok' => true, 'code' => 200, 'body' => $cached['body'], 'headers' => $result['headers'], 'error' => '', 'message' => ''];
+        }
+        if (!empty($result['ok']) && $cacheable) {
+            set_transient($cache_key, ['etag' => (string) $result['headers']['etag'], 'body' => $result['body']], self::REVIEWS_CACHE_TTL);
+        }
+        return $result;
+    }
+
+    /**
+     * Ask the API to collect this Page again now, ahead of its schedule.
+     *
+     * Rate limited on the API side per connection, so a user leaning on a
+     * Refresh button costs a 429 rather than the deployment's whole collection
+     * budget. Collection is asynchronous: a successful call means the work was
+     * accepted, not that new reviews already exist.
+     */
+    public static function refresh($connection_id) {
+        $result = self::request('POST', '/refresh.php', ['connection_id' => sanitize_text_field((string) $connection_id)]);
+        delete_transient(self::CACHE_STATUS);
+        self::forget_review_cache($connection_id);
+        return $result;
+    }
+
+    /** Drop the cached first page so the next pull is served fresh. */
+    public static function forget_review_cache($connection_id) {
+        foreach ([25, 50, 100, 200] as $limit) {
+            delete_transient(self::CACHE_REVIEWS . md5(sanitize_text_field((string) $connection_id) . '|' . $limit));
+        }
     }
 
     /** Starts the Facebook login; returns the URL to send the admin's browser to. */

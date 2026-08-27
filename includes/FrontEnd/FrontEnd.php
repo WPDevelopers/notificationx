@@ -866,7 +866,11 @@ class FrontEnd {
      */
     public function filtered_data($entries, $post, $params) {
         if (is_array($entries) && (!defined('NX_DEBUG') || !NX_DEBUG)) {
-            if (!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'google_reviews', 'youtube','woocommerce_sales_inline','fluentcart_inline'])) {
+            // Sources listed here manage their own result set. Review sources in
+            // particular must not be truncated by "display last N": their entries
+            // are historical rather than a recent stream, so the slice would drop
+            // the reviews a Page has instead of the noise it does not have.
+            if (!empty($post['display_last']) && !in_array($post['source'], ['google', 'woo_inline', 'edd_inline', 'tutor_inline', 'learndash_inline', 'google_reviews', 'facebook_reviews', 'youtube','woocommerce_sales_inline','fluentcart_inline'])) {
                 $entries = array_slice($entries, 0, $post['display_last']);
             }
             foreach ($entries as $index => $entry) {
@@ -883,6 +887,12 @@ class FrontEnd {
                     // raw parts here so the frontend can compose "City, Country".
                     'city'       => $entry['city'] ?? '',
                     'country'    => $entry['country'] ?? '',
+                    // Same reason: the {{time}} tag renders a relative time computed
+                    // from updated_at, but a source whose dates are only ever
+                    // approximate (Facebook gives "2 weeks ago", never a timestamp)
+                    // supplies its own label. It is read by the tag rather than being
+                    // a tag itself, so the template loop below would never keep it.
+                    'time_label' => $entry['time_label'] ?? '',
                 ], $entry, $post, $params);
                 if (!empty($params['inline_shortcode']) && isset($entry['product_id'])) {
                     $_entry['product_id'] = $entry['product_id'];

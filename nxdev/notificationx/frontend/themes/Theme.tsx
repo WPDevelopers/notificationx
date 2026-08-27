@@ -54,13 +54,30 @@ const Theme = (props) => {
             val = escapeHTML(String(val));
 
             if (key === "time") {
-                const suffix = ['announcements'].includes(post.source);
-                val =
-                    entry?.updated_at &&
-                    frontendContext.getTime(entry?.updated_at).fromNow(suffix);
-                val += suffix ? _x(" remaining", "Announcements: 5 days remaining", 'notificationx') : "";
+                // Some sources never give us a real timestamp. Facebook renders
+                // "2 weeks ago" and nothing more, so the date we store for those
+                // reviews is reconstructed and accurate to about a day. When a
+                // source supplies its own label we show that instead of our
+                // computed relative time, which would otherwise claim a
+                // precision we do not have — and, for a review with no date at
+                // all, would announce a years-old review as "a few seconds ago".
+                if (entry?.time_label) {
+                    val = escapeHTML(String(entry.time_label));
+                } else {
+                    const suffix = ['announcements'].includes(post.source);
+                    val =
+                        entry?.updated_at &&
+                        frontendContext.getTime(entry?.updated_at).fromNow(suffix);
+                    val += suffix ? _x(" remaining", "Announcements: 5 days remaining", 'notificationx') : "";
+                }
             } else if (key == "rating") {
-                val = `rating::${val}`;
+                // Only mark it as a rating when there actually is one. The
+                // renderer's pattern needs digits to match, so a source with no
+                // star rating — a Facebook recommendation, or a review whose
+                // stars were never captured — would otherwise leave the literal
+                // text "rating::" visible in the notification.
+                const stars = Number(val);
+                val = val !== "" && Number.isFinite(stars) && stars > 0 ? `rating::${val}` : "";
             } else if (key === "city_country") {
                 // Join city + country with a comma only when both exist, so an
                 // order missing one (or both) never renders a stray ", ". Prefer a

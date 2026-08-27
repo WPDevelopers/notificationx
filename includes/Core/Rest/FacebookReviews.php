@@ -24,6 +24,7 @@ use WP_REST_Server;
  *   POST facebook-reviews/pages-connect   {session_id, page_id}   → {connection}
  *   GET  facebook-reviews/connections     [?fresh=1]              → {site, connections, providers}
  *   POST facebook-reviews/disconnect-page {connection_id}         → {ok}
+ *   POST facebook-reviews/sync            {connection_id, nx_id?}  → {queued, stored}
  *
  * Inbound webhook from the API (HMAC-SHA256 signed with the site token):
  *
@@ -52,6 +53,7 @@ class FacebookReviews {
         register_rest_route($this->namespace, '/facebook-reviews/pages-connect', $admin + ['methods' => WP_REST_Server::CREATABLE, 'callback' => [$this, 'pages_connect']]);
         register_rest_route($this->namespace, '/facebook-reviews/connections', $admin + ['methods' => WP_REST_Server::READABLE, 'callback' => [$this, 'connections']]);
         register_rest_route($this->namespace, '/facebook-reviews/disconnect-page', $admin + ['methods' => WP_REST_Server::CREATABLE, 'callback' => [$this, 'disconnect_page']]);
+        register_rest_route($this->namespace, '/facebook-reviews/sync', $admin + ['methods' => WP_REST_Server::CREATABLE, 'callback' => [$this, 'sync']]);
 
         register_rest_route($this->namespace, '/' . self::WEBHOOK_ROUTE, [
             'methods'             => WP_REST_Server::CREATABLE,
@@ -143,6 +145,51 @@ class FacebookReviews {
             return $this->api_error($result);
         }
         return rest_ensure_response(['ok' => true]);
+    }
+
+    /**
+     * "Sync now": ask the API to collect this Page again, and pull whatever it
+     * already holds into the campaign right away.
+     *
+     * The two halves are deliberately separate. Collection is asynchronous —
+     * asking for it returns before any new review exists — so pulling in the
+     * same call is what makes the button do something visible immediately:
+     * anything already collected (by an earlier run, or for another site
+     * showing the same Page) lands now, and the fresh collection follows on its
+     * own. Reporting both counts keeps that honest rather than implying the
+     * refresh finished.
+     */
+    public function sync(WP_REST_Request $request) {
+        $connection_id = sanitize_text_field((string) $request->get_param('connection_id'));
+        if ('' === $connection_id) {
+            return $this->error('missing_params', __('Missing connection.', 'notificationx'), 400);
+        }
+
+        $refresh = FacebookReviewsManaged::refresh($connection_id);
+        // A 429 here is expected and harmless — the API is protecting its
+        // collection budget. The pull below still runs, so the user is not left
+        // with nothing.
+        $queued = !empty($refresh['ok']);
+        if (!$queued && !in_array((string) ($refresh['error'] ?? ''), ['rate_limited', 'network'], true)) {
+            return $this->api_error($refresh);
+        }
+
+        $extension = FacebookReviewsExtension::get_instance();
+        $stored    = 0;
+        $nx_id     = absint($request->get_param('nx_id'));
+        $campaigns = $nx_id > 0 ? [['nx_id' => $nx_id]] : $extension->campaigns_for_connection($connection_id);
+        foreach ($campaigns as $campaign) {
+            $stored += (int) $extension->sync_reviews($campaign['nx_id'], $connection_id, true);
+        }
+
+        return rest_ensure_response([
+            'queued'     => $queued,
+            'stored'     => $stored,
+            'campaigns'  => count($campaigns),
+            'message'    => $queued
+                ? __('Refresh requested. New reviews appear as the NotificationX API collects them.', 'notificationx')
+                : __('A refresh was requested recently. Any reviews already collected have been imported.', 'notificationx'),
+        ]);
     }
 
     /**
