@@ -13,7 +13,36 @@ in the free plugin; Pro adds review filters and a configurable refresh interval.
 | **Builder field** | [`nxdev/notificationx/fields/FacebookReviewsConnection.tsx`](../../nxdev/notificationx/fields/FacebookReviewsConnection.tsx) (`type: facebook-reviews-connection`, `mode: builder|settings`) |
 | **Depends on** | Nothing on the site. The NotificationX API owns the Meta app and every Facebook token. |
 
-## How it works
+## Connecting a Page
+
+Two ways. Which are offered comes from the API (`connect_modes` on
+`facebook-reviews/connections`), not from an assumption here — a deployment
+whose API has no Meta app would otherwise advertise a login that 404s.
+
+* **`oauth`** — the Facebook login, below. Meta asserts the person manages the
+  Page. Strongest, but needs a Meta app with App Review and Business
+  Verification behind it.
+* **`attested`** — the admin pastes the Page address and proves control of it:
+  either the Page already lists this site as its website, or they add a one-time
+  `nx-verify-…` code to it. No Meta app, works immediately.
+
+```
+POST /notificationx/v1/facebook-reviews/attest-start  {page_url} → {page, token, methods}
+     (the UI tries verify straight away — a Page that already lists this site
+      needs nothing from the admin, and instructions they do not need are their
+      own kind of failure)
+POST /notificationx/v1/facebook-reviews/attest-verify {page_url} → {connection}
+```
+
+An attested connection comes back with `connect_mode: attested` and behaves
+identically from here on: same entries, same themes, same webhook, same pull.
+The API holds no Facebook token for it, because there is none.
+
+The API's rejection message is passed through verbatim — it names the code to
+add or the domain to set, so replacing it with something generic would leave the
+admin with no way forward.
+
+## How it works (OAuth)
 
 ```
 Builder "Connect Facebook Page"

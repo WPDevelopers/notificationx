@@ -15,6 +15,13 @@ type Connection = {
     individual_reviews: boolean;
     last_synced_at?: string | null;
     last_sync_error?: string | null;
+    connect_mode?: string;
+};
+
+type Attestation = {
+    page: { handle: string; url: string };
+    token: string;
+    methods: { id: string; label: string; description: string; value?: string }[];
 };
 
 type FieldValue = { connection_id: string; page_id: string; page_name: string } | null;
@@ -77,6 +84,10 @@ const FacebookReviewsConnection = (props) => {
     const [pages, setPages] = useState<{ id: string; name: string }[] | null>(null);
     const [sessionId, setSessionId] = useState('');
     const [selectedPage, setSelectedPage] = useState('');
+    const [modes, setModes] = useState<string[]>(['oauth']);
+    const [pageUrl, setPageUrl] = useState('');
+    const [attestation, setAttestation] = useState<Attestation | null>(null);
+    const [attestError, setAttestError] = useState('');
 
     const value: FieldValue = useMemo(() => {
         const v = mode === 'builder' ? builderContext?.values?.[fieldName] : null;
@@ -95,6 +106,9 @@ const FacebookReviewsConnection = (props) => {
         setLoading(true);
         try {
             const res: any = await nxHelper.get(`facebook-reviews/connections${fresh ? '?fresh=1' : ''}`);
+            if (Array.isArray(res?.connect_modes) && res.connect_modes.length) {
+                setModes(res.connect_modes);
+            }
             setConnections(Array.isArray(res?.connections) ? res.connections : []);
             setSite(res?.site || {});
         } catch (err) {
@@ -170,6 +184,56 @@ const FacebookReviewsConnection = (props) => {
         } finally {
             setBusy('');
         }
+    };
+
+    /**
+     * Owner-attested connect, for an API with no Meta app behind it.
+     *
+     * Two steps on purpose. The first asks the API for a challenge and shows the
+     * customer what to do; the second checks the Page. Collapsing them into one
+     * button would mean the first click always fails for anyone who has not
+     * already set their Page's website, which reads as broken rather than as
+     * "here is what to do next".
+     */
+    const startAttestation = async () => {
+        if (!pageUrl.trim()) return;
+        setBusy('attest-start');
+        setAttestError('');
+        try {
+            const res: any = await nxHelper.post('facebook-reviews/attest-start', { page_url: pageUrl.trim() }, { get_error: true });
+            if (res?.token) {
+                setAttestation(res);
+                // Try straight away: a Page that already lists this site needs
+                // nothing from the customer, and making them read instructions
+                // they do not need is its own kind of failure.
+                await runAttestation(pageUrl.trim(), true);
+            } else {
+                setAttestError(errorMessage(res));
+            }
+        } catch (err: any) {
+            setAttestError(errorMessage(err));
+        }
+        setBusy('');
+    };
+
+    const runAttestation = async (url: string, quiet = false) => {
+        if (!quiet) setBusy('attest-verify');
+        try {
+            const res: any = await nxHelper.post('facebook-reviews/attest-verify', { page_url: url }, { get_error: true });
+            if (res?.connection?.connection_id) {
+                nxToast.connected(sprintf(/* translators: %s: page name */ __('%s connected.', 'notificationx'), res.connection.page_name || res.connection.page_id));
+                if (mode === 'builder') setValue(res.connection);
+                setAttestation(null);
+                setPageUrl('');
+                setAttestError('');
+                await load(true);
+            } else if (!quiet) {
+                setAttestError(errorMessage(res));
+            }
+        } catch (err: any) {
+            if (!quiet) setAttestError(errorMessage(err));
+        }
+        if (!quiet) setBusy('');
     };
 
     const disconnectPage = async (conn: Connection) => {
@@ -269,6 +333,33 @@ const FacebookReviewsConnection = (props) => {
                 </div>
             )}
 
+            {attestation && (
+                <div className="nx-fbr-attest">
+                    <p className="nx-fbr-picker__title">
+                        {sprintf(/* translators: %s: facebook page handle */ __('Confirm you manage "%s"', 'notificationx'), attestation.page.handle)}
+                    </p>
+                    <p className="nx-fbr-hint">
+                        {__('Do either of these on your Facebook Page, then verify. Facebook can take a minute to publish the change.', 'notificationx')}
+                    </p>
+                    <ol className="nx-fbr-attest__methods">
+                        {attestation.methods.map((m) => (
+                            <li key={m.id}>
+                                <strong>{m.label}</strong>
+                                <span>{m.description}</span>
+                                {m.value ? <code className="nx-fbr-attest__code">{m.value}</code> : null}
+                            </li>
+                        ))}
+                    </ol>
+                    {attestError ? <p className="nx-fbr-hint nx-fbr-hint--warning">{attestError}</p> : null}
+                    <button type="button" className="wprf-btn nx-fbr-btn" disabled={!!busy} onClick={() => runAttestation(pageUrl.trim())}>
+                        {busy === 'attest-verify' ? __('Checking your Page…', 'notificationx') : __('Verify and connect', 'notificationx')}
+                    </button>
+                    <button type="button" className="wprf-btn nx-fbr-btn is-link" disabled={!!busy} onClick={() => { setAttestation(null); setAttestError(''); }}>
+                        {__('Cancel', 'notificationx')}
+                    </button>
+                </div>
+            )}
+
             {loading ? (
                 <p className="nx-fbr-hint">{__('Loading connections…', 'notificationx')}</p>
             ) : connections.length > 0 ? (
@@ -283,10 +374,39 @@ const FacebookReviewsConnection = (props) => {
                 </p>
             )}
 
+            {modes.includes('attested') && !attestation && !pages && (
+                <div className="nx-fbr-attest__start">
+                    <label className="nx-fbr-attest__label" htmlFor={`nx-fbr-url-${mode}`}>
+                        {modes.includes('oauth')
+                            ? __('…or connect by Page address', 'notificationx')
+                            : __('Connect your Facebook Page', 'notificationx')}
+                    </label>
+                    <div className="nx-fbr-attest__row">
+                        <input
+                            id={`nx-fbr-url-${mode}`}
+                            type="text"
+                            value={pageUrl}
+                            placeholder="https://www.facebook.com/yourpage"
+                            onChange={(e) => { setPageUrl(e.target.value); setAttestError(''); }}
+                            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); startAttestation(); } }}
+                        />
+                        <button type="button" className="wprf-btn nx-fbr-btn" disabled={!pageUrl.trim() || !!busy} onClick={startAttestation}>
+                            {busy === 'attest-start' ? __('Checking…', 'notificationx') : __('Continue', 'notificationx')}
+                        </button>
+                    </div>
+                    {attestError ? <p className="nx-fbr-hint nx-fbr-hint--warning">{attestError}</p> : null}
+                    <p className="nx-fbr-hint">
+                        {__('You will be asked to confirm you manage the Page — either it already lists this site as its website, or you add a short code to it.', 'notificationx')}
+                    </p>
+                </div>
+            )}
+
             <div className="nx-fbr-actions">
-                <button type="button" className="wprf-btn nx-fbr-btn nx-fbr-btn--facebook" disabled={!!busy} onClick={startLogin}>
-                    {busy === 'login' ? __('Redirecting to Facebook...', 'notificationx') : __('Connect Facebook Page', 'notificationx')}
-                </button>
+                {modes.includes('oauth') && (
+                    <button type="button" className="wprf-btn nx-fbr-btn nx-fbr-btn--facebook" disabled={!!busy} onClick={startLogin}>
+                        {busy === 'login' ? __('Redirecting to Facebook...', 'notificationx') : __('Connect Facebook Page', 'notificationx')}
+                    </button>
+                )}
                 {mode === 'settings' && site?.connected && (
                     <button type="button" className="wprf-btn nx-fbr-btn is-link" disabled={!!busy} onClick={disconnectSite}>
                         {busy === 'site' ? __('Disconnecting...', 'notificationx') : __('Disconnect from NotificationX API', 'notificationx')}
@@ -297,7 +417,7 @@ const FacebookReviewsConnection = (props) => {
                 <p className="nx-fbr-hint">
                     {site?.connected
                         ? sprintf(/* translators: %s: site id */ __('Site registered with the NotificationX API (ID %s). Facebook tokens are stored on the API, never on this site.', 'notificationx'), site.site_id)
-                        : __('Clicking "Connect Facebook Page" registers this site with the NotificationX API (site URL + an anonymous install fingerprint), then opens the Facebook login.', 'notificationx')}
+                        : __('Connecting registers this site with the NotificationX API (site URL + an anonymous install fingerprint).', 'notificationx')}
                 </p>
             )}
         </div>

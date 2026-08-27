@@ -25,6 +25,8 @@ use WP_REST_Server;
  *   GET  facebook-reviews/connections     [?fresh=1]              → {site, connections, providers}
  *   POST facebook-reviews/disconnect-page {connection_id}         → {ok}
  *   POST facebook-reviews/sync            {connection_id, nx_id?}  → {queued, stored}
+ *   POST facebook-reviews/attest-start    {page_url}               → {page, token, methods}
+ *   POST facebook-reviews/attest-verify   {page_url}               → {connection, method}
  *
  * Inbound webhook from the API (HMAC-SHA256 signed with the site token):
  *
@@ -54,6 +56,8 @@ class FacebookReviews {
         register_rest_route($this->namespace, '/facebook-reviews/connections', $admin + ['methods' => WP_REST_Server::READABLE, 'callback' => [$this, 'connections']]);
         register_rest_route($this->namespace, '/facebook-reviews/disconnect-page', $admin + ['methods' => WP_REST_Server::CREATABLE, 'callback' => [$this, 'disconnect_page']]);
         register_rest_route($this->namespace, '/facebook-reviews/sync', $admin + ['methods' => WP_REST_Server::CREATABLE, 'callback' => [$this, 'sync']]);
+        register_rest_route($this->namespace, '/facebook-reviews/attest-start', $admin + ['methods' => WP_REST_Server::CREATABLE, 'callback' => [$this, 'attest_start']]);
+        register_rest_route($this->namespace, '/facebook-reviews/attest-verify', $admin + ['methods' => WP_REST_Server::CREATABLE, 'callback' => [$this, 'attest_verify']]);
 
         register_rest_route($this->namespace, '/' . self::WEBHOOK_ROUTE, [
             'methods'             => WP_REST_Server::CREATABLE,
@@ -125,14 +129,27 @@ class FacebookReviews {
     public function connections(WP_REST_Request $request) {
         $site = FacebookReviewsManaged::site_status();
         if (empty($site['connected'])) {
-            return rest_ensure_response(['site' => $site, 'connections' => [], 'providers' => []]);
+            // Not registered yet, so we cannot ask the API what it offers.
+            // Advertise both and let the chosen one report if it is unavailable —
+            // hiding a working option would be worse than showing a dead one.
+            return rest_ensure_response(['site' => $site, 'connections' => [], 'providers' => [], 'connect_modes' => ['oauth', 'attested']]);
         }
         $result = FacebookReviewsManaged::connections('', (bool) $request->get_param('fresh'));
         if (empty($result['ok'])) {
             return $this->api_error($result);
         }
         $connections = array_map([$this, 'public_connection'], array_values(array_filter((array) ($result['body']['connections'] ?? []), 'is_array')));
-        return rest_ensure_response(['site' => FacebookReviewsManaged::site_status(), 'connections' => $connections, 'providers' => (array) ($result['body']['providers'] ?? [])]);
+        $modes = array_values(array_intersect(
+            array_map('sanitize_key', (array) ($result['body']['connect_modes'] ?? [])),
+            ['oauth', 'attested']
+        ));
+        return rest_ensure_response([
+            'site'          => FacebookReviewsManaged::site_status(),
+            'connections'   => $connections,
+            'providers'     => (array) ($result['body']['providers'] ?? []),
+            // An API too old to report this only ever supported the login.
+            'connect_modes' => $modes ?: ['oauth'],
+        ]);
     }
 
     public function disconnect_page(WP_REST_Request $request) {
@@ -145,6 +162,65 @@ class FacebookReviews {
             return $this->api_error($result);
         }
         return rest_ensure_response(['ok' => true]);
+    }
+
+    /**
+     * Begin owner-attested connect for a pasted Page address.
+     *
+     * Registers the site with the API on first use, exactly as the Facebook
+     * login does — this click is the consent.
+     */
+    public function attest_start(WP_REST_Request $request) {
+        $ensured = FacebookReviewsManaged::ensure_connected();
+        if (empty($ensured['ok'])) {
+            return $this->error('api_unreachable', $ensured['message'], 502);
+        }
+        $page_url = trim((string) $request->get_param('page_url'));
+        if ('' === $page_url) {
+            return $this->error('missing_page_url', __('Enter the address of your Facebook Page.', 'notificationx'), 400);
+        }
+
+        $result = FacebookReviewsManaged::attest_start($page_url);
+        if (empty($result['ok'])) {
+            return $this->api_error($result);
+        }
+        $body = $result['body'];
+        return rest_ensure_response([
+            'page'       => [
+                'handle' => sanitize_text_field((string) ($body['page']['handle'] ?? '')),
+                'url'    => esc_url_raw((string) ($body['page']['url'] ?? ''), ['https']),
+            ],
+            'token'      => sanitize_text_field((string) ($body['token'] ?? '')),
+            'expires_at' => (int) ($body['expires_at'] ?? 0),
+            'methods'    => array_map(static function ($method) {
+                return [
+                    'id'          => sanitize_key((string) ($method['id'] ?? '')),
+                    'label'       => sanitize_text_field((string) ($method['label'] ?? '')),
+                    'description' => sanitize_text_field((string) ($method['description'] ?? '')),
+                    'value'       => sanitize_text_field((string) ($method['value'] ?? '')),
+                ];
+            }, array_values(array_filter((array) ($body['methods'] ?? []), 'is_array'))),
+        ]);
+    }
+
+    /** Ask the API to look for the proof and connect the Page if it is there. */
+    public function attest_verify(WP_REST_Request $request) {
+        $page_url = trim((string) $request->get_param('page_url'));
+        if ('' === $page_url) {
+            return $this->error('missing_page_url', __('Enter the address of your Facebook Page.', 'notificationx'), 400);
+        }
+
+        $result = FacebookReviewsManaged::attest_verify($page_url);
+        if (empty($result['ok']) || empty($result['body']['connection'])) {
+            // The API's message here is the instruction the customer needs —
+            // which code to add, or which domain to set — so it is passed
+            // through verbatim rather than replaced with something generic.
+            return $this->api_error($result);
+        }
+        return rest_ensure_response([
+            'connection' => $this->public_connection($result['body']['connection']),
+            'method'     => sanitize_key((string) ($result['body']['method'] ?? '')),
+        ]);
     }
 
     /**
@@ -235,6 +311,7 @@ class FacebookReviews {
             'rating_overall'   => isset($connection['rating_overall']) && null !== $connection['rating_overall'] ? (float) $connection['rating_overall'] : null,
             'rating_count'     => isset($connection['rating_count']) && null !== $connection['rating_count'] ? (int) $connection['rating_count'] : null,
             'individual_reviews' => !empty($connection['capabilities']['individual_reviews']),
+            'connect_mode'     => sanitize_key((string) ($connection['connect_mode'] ?? 'oauth')),
             'last_synced_at'   => isset($connection['last_synced_at']) ? sanitize_text_field((string) $connection['last_synced_at']) : null,
             'last_sync_error'  => isset($connection['last_sync_error']) ? sanitize_key((string) $connection['last_sync_error']) : null,
         ];

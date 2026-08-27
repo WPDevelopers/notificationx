@@ -146,3 +146,72 @@
         }
     }
 }
+
+// Owner-attested connect — the path for an API with no Meta app behind it.
+.nx-fbr {
+    &-attest {
+        margin: 12px 0;
+        padding: 14px 16px;
+        border: 1px solid #d7dbe3;
+        border-radius: 6px;
+        background: #fbfcfe;
+
+        &__methods {
+            margin: 10px 0 14px;
+            padding-left: 18px;
+
+            li {
+                margin-bottom: 10px;
+                line-height: 1.5;
+            }
+
+            strong {
+                display: block;
+            }
+
+            span {
+                display: block;
+                color: #5b6474;
+                font-size: 12px;
+            }
+        }
+
+        // The verification code is the one thing on this panel the customer has
+        // to copy exactly, so it is selectable, monospaced and hard to misread.
+        &__code {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: #eef1f6;
+            color: #1d2939;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 12px;
+            user-select: all;
+            word-break: break-all;
+        }
+
+        &__start {
+            margin-top: 14px;
+        }
+
+        &__label {
+            display: block;
+            margin-bottom: 6px;
+            color: #5b6474;
+            font-size: 12px;
+        }
+
+        &__row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+
+            input[type='text'] {
+                flex: 1 1 260px;
+                min-width: 0;
+                padding: 6px 10px;
+            }
+        }
+    }
+}

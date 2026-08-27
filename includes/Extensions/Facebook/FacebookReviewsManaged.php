@@ -321,6 +321,48 @@ class FacebookReviewsManaged {
         return self::request('POST', '/oauth-start.php', ['provider' => 'facebook', 'return_url' => $return_url]);
     }
 
+    /**
+     * Begin owner-attested connect: ask the API for this Page's challenge.
+     *
+     * The path for deployments whose API has no Meta app — App Review and
+     * Business Verification take weeks and can be refused, and a product cannot
+     * wait on that. Instead of Meta asserting that this person manages the Page,
+     * the customer demonstrates control of it directly.
+     *
+     * Issuing a challenge connects nothing. attest_verify() does that, and only
+     * after the API has actually found the proof on the Page.
+     */
+    public static function attest_start($page_url) {
+        return self::request('POST', '/attest-start.php', ['page_url' => (string) $page_url]);
+    }
+
+    /** Check the Page for the proof and, if it is there, connect it. */
+    public static function attest_verify($page_url) {
+        $result = self::request('POST', '/attest-verify.php', ['page_url' => (string) $page_url]);
+        if (!empty($result['ok'])) {
+            delete_transient(self::CACHE_STATUS);
+        }
+        return $result;
+    }
+
+    /**
+     * Which ways this API lets a site connect a Page — `oauth`, `attested`, or
+     * both. Reported by the API rather than assumed, so the UI offers what the
+     * deployment can actually do instead of advertising a login that 404s.
+     *
+     * Falls back to OAuth for an API too old to report at all.
+     *
+     * @return string[]
+     */
+    public static function connect_modes() {
+        $status = self::connections();
+        $modes  = !empty($status['ok']) && !empty($status['body']['connect_modes'])
+            ? (array) $status['body']['connect_modes']
+            : [];
+        $modes = array_values(array_intersect(array_map('sanitize_key', $modes), ['oauth', 'attested']));
+        return $modes ?: ['oauth'];
+    }
+
     /** Pages the logged-in Facebook user can connect (no tokens). */
     public static function pages($session_id) {
         return self::request('GET', '/pages.php?' . http_build_query(['session_id' => $session_id]));

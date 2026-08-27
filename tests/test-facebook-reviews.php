@@ -282,6 +282,74 @@ class Test_Facebook_Reviews extends WP_UnitTestCase {
 		$this->assertSame( 'not_connected', FacebookReviewsManaged::verify_webhook( '{}', (string) time(), 'd1', 'sha256=x' ) );
 	}
 
+	// --------------------------------------------------------------- attestation
+
+	/**
+	 * Owner-attested connect exists so a deployment whose API has no Meta app
+	 * can still ship — App Review and Business Verification take weeks and can
+	 * be refused. The plugin's job is to ask the API which modes it offers and
+	 * show those, rather than advertising a login that will 404.
+	 */
+	public function test_connect_modes_come_from_the_api() {
+		update_option( FacebookReviewsManaged::OPT_AUTH, [ 'token' => 't', 'site_id' => 's' ], false );
+		delete_transient( FacebookReviewsManaged::CACHE_STATUS );
+		$this->stub_api( [ 'connect_modes' => [ 'attested' ] ] );
+
+		$this->assertSame( [ 'attested' ], FacebookReviewsManaged::connect_modes() );
+	}
+
+	/** An API too old to report its modes only ever supported the Facebook login. */
+	public function test_connect_modes_fall_back_to_oauth_for_an_older_api() {
+		update_option( FacebookReviewsManaged::OPT_AUTH, [ 'token' => 't', 'site_id' => 's' ], false );
+		delete_transient( FacebookReviewsManaged::CACHE_STATUS );
+		$this->stub_api( [ 'connections' => [] ] );
+
+		$this->assertSame( [ 'oauth' ], FacebookReviewsManaged::connect_modes() );
+	}
+
+	public function test_unknown_connect_modes_are_discarded() {
+		update_option( FacebookReviewsManaged::OPT_AUTH, [ 'token' => 't', 'site_id' => 's' ], false );
+		delete_transient( FacebookReviewsManaged::CACHE_STATUS );
+		$this->stub_api( [ 'connect_modes' => [ 'attested', 'telepathy', '<script>' ] ] );
+
+		$this->assertSame( [ 'attested' ], FacebookReviewsManaged::connect_modes() );
+	}
+
+	/**
+	 * The API's rejection message IS the instruction — which code to add, or
+	 * which domain to set. Replacing it with something generic would leave the
+	 * customer with no way forward.
+	 */
+	public function test_a_failed_attestation_passes_the_apis_instructions_through() {
+		update_option( FacebookReviewsManaged::OPT_AUTH, [ 'token' => 't', 'site_id' => 's' ], false );
+		$this->stub_api(
+			[ 'error' => 'attestation_failed', 'message' => 'Add the code nx-verify-abc anywhere public on the Page.' ],
+			422
+		);
+
+		$result = FacebookReviewsManaged::attest_verify( 'https://www.facebook.com/x' );
+
+		$this->assertFalse( $result['ok'] );
+		$this->assertSame( 'attestation_failed', $result['error'] );
+		$this->assertStringContainsString( 'nx-verify-abc', $result['message'] );
+	}
+
+	/** Canned API response for the next outbound request. */
+	private function stub_api( $body, $status = 200 ) {
+		add_filter(
+			'pre_http_request',
+			static function () use ( $body, $status ) {
+				return [
+					'headers'  => [],
+					'response' => [ 'code' => $status, 'message' => 'OK' ],
+					'body'     => wp_json_encode( $body ),
+				];
+			},
+			10,
+			3
+		);
+	}
+
 	// ------------------------------------------------------------------ endpoint
 
 	/** The Bearer token rides every request, so plain http is only for local dev. */
