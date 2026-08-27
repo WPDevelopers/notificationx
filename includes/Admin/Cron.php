@@ -32,6 +32,16 @@ class Cron {
 
     /**
      * Schedule cron jobs.
+     *
+     * Callers that run before `init` (migrations and upgrade routines hooked to
+     * `plugins_loaded`, for instance) are deferred rather than refused:
+     * wp_schedule_event() -> wp_get_schedules() fires the `cron_schedules`
+     * filter, and its callbacks -- ours, NX Pro's, WooCommerce's -- translate
+     * their interval labels, which before `init` trips WordPress'
+     * _load_textdomain_just_in_time "called too early" notice (WP 6.7+).
+     * Guarding here rather than at each call site keeps the whole class of bug
+     * closed, whatever hooks a future caller happens to run on.
+     *
      * @param int $post_id
      * @param string $cache_key
      */
@@ -39,6 +49,14 @@ class Cron {
         if (!$post_id || empty($post_id)) {
             return;
         }
+
+        if (!did_action('init')) {
+            add_action('init', function () use ($post_id, $cache_key) {
+                $this->set_cron($post_id, $cache_key);
+            }, 20);
+            return;
+        }
+
         // First clear previously scheduled cron hook.
         $this->clear_schedule((int) $post_id);
 
