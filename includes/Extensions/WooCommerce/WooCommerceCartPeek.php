@@ -26,7 +26,7 @@ class WooCommerceCartPeek extends WooCommerce {
     public $priority        = 6;
     public $id              = 'woocommerce_cart_peek';
     public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/woocommerce.png';
-    public $doc_link        = 'https://notificationx.com/docs/how-to-configure-cart-peek-in-notificationx/';
+    public $doc_link        = 'https://notificationx.com/docs/how-to-create-a-cart-peek-notification/';
     public $types           = 'woocommerce_cart_peek';
     public $module          = 'modules_woocommerce';
     public $module_priority = 3;
@@ -79,7 +79,7 @@ class WooCommerceCartPeek extends WooCommerce {
             <p>Requires an active NotificationX Pro licence and <a target="_blank" href="%1$s">WooCommerce installed &amp; activated</a>.</p>
             <p>📚 <a target="_blank" href="%2$s">Documentation</a></p>', 'notificationx' ),
             'https://wordpress.org/plugins/woocommerce/',
-            'https://notificationx.com/docs/how-to-configure-cart-peek-in-notificationx/'
+            'https://notificationx.com/docs/how-to-create-a-cart-peek-notification/'
         );
     }
 }
