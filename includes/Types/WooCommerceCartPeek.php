@@ -190,7 +190,7 @@ class WooCommerceCartPeek extends Types {
         ];
 
         $this->popup = [
-            "denyButtonText"    => __("<a href='https://notificationx.com/docs/cart-peek/' target='_blank'>More Info</a>", "notificationx"),
+            "denyButtonText"    => __("<a href='https://notificationx.com/docs/how-to-configure-cart-peek-in-notificationx/' target='_blank'>More Info</a>", "notificationx"),
             "confirmButtonText" => __("<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", "notificationx"),
             // phpcs:disable PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- False positive for this context: remote documentation/pricing links in admin help text, not offloaded plugin assets.
             "html"              => __('
