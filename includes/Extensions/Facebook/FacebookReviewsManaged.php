@@ -215,10 +215,25 @@ class FacebookReviewsManaged {
             return ['ok' => false, 'code' => $code, 'body' => $data, 'headers' => $headers, 'error' => $error ?: 'unauthorized', 'message' => __('This site is no longer connected to the NotificationX API. Please connect again.', 'notificationx')];
         }
         if ($code < 200 || $code >= 300) {
-            $message = !empty($data['message'])
-                ? (string) $data['message']
+            if (!empty($data['message'])) {
+                // The API answered in its own shape — it has a real reason, so say it.
+                $message = (string) $data['message'];
+            } elseif (404 === $code) {
+                // A 404 with no JSON body is the web server's, not the API's:
+                // there is no service at this address. Saying "HTTP 404" sends
+                // the admin looking for a missing Page; the endpoint is what is
+                // missing. This is what a mistyped or not-yet-deployed
+                // `nx_facebook_reviews_managed_endpoint` looks like.
+                /* translators: %s: API endpoint URL */
+                $message = sprintf(
+                    __('The NotificationX API is not available at %s. If this site points at a custom endpoint, check the nx_facebook_reviews_managed_endpoint filter.', 'notificationx'),
+                    self::endpoint()
+                );
+                $error = $error ?: 'endpoint_not_found';
+            } else {
                 /* translators: %d: HTTP status code */
-                : sprintf(__('The NotificationX API returned HTTP %d.', 'notificationx'), $code);
+                $message = sprintf(__('The NotificationX API returned HTTP %d.', 'notificationx'), $code);
+            }
             return ['ok' => false, 'code' => $code, 'body' => $data, 'headers' => $headers, 'error' => $error ?: 'http_' . $code, 'message' => $message];
         }
         return ['ok' => true, 'code' => $code, 'body' => $data, 'headers' => $headers, 'error' => '', 'message' => ''];
