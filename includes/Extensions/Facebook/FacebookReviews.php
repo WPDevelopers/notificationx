@@ -824,10 +824,18 @@ class FacebookReviews extends Extension {
 
         // A recommendation with no words is a normal Facebook review, and the
         // review-comment themes put the text in the middle of the sentence — so
-        // an empty one would render "Sam just reviewed ." Fall back to the Page
-        // name, which keeps the sentence true and readable.
-        if (empty($saved_data['place_review']) && !empty($saved_data['place_name'])) {
-            $saved_data['place_review'] = $saved_data['place_name'];
+        // an empty one would render "Sam just reviewed ."
+        //
+        // Prefer the reviewer's own tags when there are any: Facebook offers
+        // chips like "5 stars" or "Food" and plenty of people use only those, so
+        // the tags ARE what that person said. Falling straight to the Page name
+        // would throw away the one thing they actually chose.
+        if (empty($saved_data['place_review'])) {
+            if (!empty($saved_data['tags'])) {
+                $saved_data['place_review'] = $saved_data['tags'];
+            } elseif (!empty($saved_data['place_name'])) {
+                $saved_data['place_review'] = $saved_data['place_name'];
+            }
         }
 
         if (!empty($saved_data['place_review'])) {
