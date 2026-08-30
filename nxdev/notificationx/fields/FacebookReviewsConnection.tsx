@@ -65,12 +65,52 @@ const statusLabel = (status: string) => {
     }
 };
 
+/** One-line summary of what we actually hold for a Page. */
+const connectionMeta = (conn: Connection) => {
+    const rating =
+        conn.rating_count !== null
+            ? sprintf(/* translators: 1: rating, 2: count */ __('%1$s ★ · %2$s ratings', 'notificationx'), conn.rating_overall ?? '–', conn.rating_count)
+            : __('No public rating yet', 'notificationx');
+
+    // What we actually hold, not merely what is possible. "Connected but
+    // nothing appears" is the hardest state to diagnose from the outside, and a
+    // Page with no recommendations looks identical to a broken one unless the
+    // count is shown.
+    const reviews = !conn.individual_reviews
+        ? __('Individual reviews: not provided by Facebook', 'notificationx')
+        : conn.review_count
+        ? sprintf(
+              /* translators: %s: number of reviews collected */
+              _n('%s review collected', '%s reviews collected', conn.review_count, 'notificationx'),
+              String(conn.review_count)
+          )
+        : conn.last_synced_at
+        ? __('No reviews found on this Page yet', 'notificationx')
+        : __('Collecting reviews…', 'notificationx');
+
+    return `${rating} · ${reviews}`;
+};
+
+/** Settings → API Integrations, where Pages are connected and disconnected. */
+const apiIntegrationsUrl = () => {
+    const url = new URL(window.location.href);
+    url.hash = '';
+    url.search = '';
+    url.searchParams.set('page', 'nx-settings');
+    url.searchParams.set('tab', 'tab-api-integrations');
+    return url.toString();
+};
+
 /**
  * Facebook Page connection.
  *
- * mode="builder"  — Content step: pick (or connect) the Page for this campaign.
- *                   Stores {connection_id, page_id, page_name} as the field value.
- * mode="settings" — API Integrations tab: manage every connected Page.
+ * mode="builder"  — Content step: nothing but a dropdown of the Pages already
+ *                   connected. Stores {connection_id, page_id, page_name} as
+ *                   the field value. Connecting a Page is deliberately absent
+ *                   here: the OAuth round trip navigates away from the builder
+ *                   and would discard an unsaved campaign, so it lives in one
+ *                   place — Settings → API Integrations.
+ * mode="settings" — API Integrations tab: connect, disconnect, manage.
  *
  * The Facebook login runs on the NotificationX API: we ask our own REST route
  * for an authorize URL, send the browser there, and come back with
@@ -114,7 +154,7 @@ const FacebookReviewsConnection = (props) => {
             const res: any = await nxHelper.get(`facebook-reviews/connections${fresh ? '?fresh=1' : ''}`);
             if (Array.isArray(res?.connect_modes) && res.connect_modes.length) {
                 setModes(res.connect_modes);
-                if (res.connect_modes.includes('open')) {
+                if (mode === 'settings' && res.connect_modes.includes('open')) {
                     // Look for a Page the site already advertises, so the common
                     // case is a button to press rather than a field to fill.
                     nxHelper.get('facebook-reviews/discover')
@@ -129,14 +169,16 @@ const FacebookReviewsConnection = (props) => {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [mode]);
 
     // Returning from Facebook?
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         const session = params.get('nx_fb_session');
         const status = params.get('nx_fb_status');
-        if (session && status) {
+        // The login only ever starts from the settings tab, so the builder just
+        // clears any leftover parameters and carries on.
+        if (session && status && mode === 'settings') {
             window.history.replaceState({}, '', currentUrlWithout(RETURN_PARAMS));
             if (status === 'ok') {
                 setSessionId(session);
@@ -155,15 +197,14 @@ const FacebookReviewsConnection = (props) => {
             } else {
                 nxToast.error(ERROR_TEXT[params.get('nx_fb_error') || ''] || __('Facebook login failed. Please try again.', 'notificationx'));
             }
+        } else if (session || status) {
+            window.history.replaceState({}, '', currentUrlWithout(RETURN_PARAMS));
         }
         load();
     }, []);
 
     const startLogin = async () => {
         if (busy) return;
-        if (mode === 'builder' && !window.confirm(__('You will be sent to Facebook to log in. Unsaved changes in this campaign will be lost — continue?', 'notificationx'))) {
-            return;
-        }
         setBusy('login');
         try {
             const res: any = await nxHelper.post('facebook-reviews/oauth-start', { return_url: currentUrlWithout(RETURN_PARAMS) }, { get_error: true });
@@ -332,57 +373,78 @@ const FacebookReviewsConnection = (props) => {
         }
     };
 
-    const renderConnection = (conn: Connection) => {
-        const selected = value?.connection_id === conn.connection_id;
-        const isActive = conn.status === 'active';
-        return (
-            <li key={conn.connection_id} className={`nx-fbr-page ${selected ? 'is-selected' : ''} ${isActive ? '' : 'is-inactive'}`}>
-                {mode === 'builder' && (
-                    <input
-                        type="radio"
-                        name={`${fieldName}_pick`}
-                        checked={selected}
-                        disabled={!isActive}
-                        onChange={() => setValue(conn)}
-                    />
-                )}
-                <div className="nx-fbr-page__body">
-                    <strong className="nx-fbr-page__name">{conn.page_name || conn.page_id}</strong>
-                    <span className={`nx-fbr-page__status is-${conn.status}`}>{statusLabel(conn.status)}</span>
-                    <span className="nx-fbr-page__meta">
-                        {conn.rating_count !== null
-                            ? sprintf(/* translators: 1: rating, 2: count */ __('%1$s ★ · %2$s ratings', 'notificationx'), conn.rating_overall ?? '–', conn.rating_count)
-                            : __('No public rating yet', 'notificationx')}
-                        {' · '}
-                        {/* What we actually hold, not merely what is possible.
-                            "Connected but nothing appears" is the hardest state
-                            to diagnose from the outside, and a Page with no
-                            recommendations looks identical to a broken one
-                            unless the count is shown. */}
-                        {!conn.individual_reviews
-                            ? __('Individual reviews: not provided by Facebook', 'notificationx')
-                            : conn.review_count
-                            ? sprintf(
-                                  /* translators: %s: number of reviews collected */
-                                  _n('%s review collected', '%s reviews collected', conn.review_count, 'notificationx'),
-                                  String(conn.review_count)
-                              )
-                            : conn.last_synced_at
-                            ? __('No reviews found on this Page yet', 'notificationx')
-                            : __('Collecting reviews…', 'notificationx')}
-                    </span>
-                </div>
-                {mode === 'settings' && (
-                    <button type="button" className="wprf-btn nx-fbr-btn is-secondary" disabled={!!busy} onClick={() => disconnectPage(conn)}>
-                        {busy === 'disconnect:' + conn.connection_id ? __('Disconnecting...', 'notificationx') : __('Disconnect', 'notificationx')}
-                    </button>
-                )}
-            </li>
-        );
-    };
+    /** Settings list row: one connected Page, with its own Disconnect button. */
+    const renderConnection = (conn: Connection) => (
+        <li key={conn.connection_id} className={`nx-fbr-page ${conn.status === 'active' ? '' : 'is-inactive'}`}>
+            <div className="nx-fbr-page__body">
+                <strong className="nx-fbr-page__name">{conn.page_name || conn.page_id}</strong>
+                <span className={`nx-fbr-page__status is-${conn.status}`}>{statusLabel(conn.status)}</span>
+                <span className="nx-fbr-page__meta">{connectionMeta(conn)}</span>
+            </div>
+            <button type="button" className="wprf-btn nx-fbr-btn is-secondary" disabled={!!busy} onClick={() => disconnectPage(conn)}>
+                {busy === 'disconnect:' + conn.connection_id ? __('Disconnecting...', 'notificationx') : __('Disconnect', 'notificationx')}
+            </button>
+        </li>
+    );
 
+    /** The connection this campaign points at, if it is still connected. */
+    const selectedConnection = useMemo(
+        () => connections.find((c) => c.connection_id === value?.connection_id) || null,
+        [connections, value]
+    );
+
+    /**
+     * Content step: choose from what is already connected — nothing more.
+     *
+     * Connecting a Page navigates to Facebook and back, which throws away an
+     * unsaved campaign, so that flow lives only in Settings → API Integrations.
+     */
+    if (mode === 'builder') {
+        return (
+            <div className="nx-fbr nx-fbr--builder">
+                {loading ? (
+                    <p className="nx-fbr-hint">{__('Loading connected Pages…', 'notificationx')}</p>
+                ) : connections.length > 0 ? (
+                    <>
+                        <select
+                            className="nx-fbr-select"
+                            value={value?.connection_id || ''}
+                            onChange={(e) => setValue(connections.find((c) => c.connection_id === e.target.value) || null)}
+                        >
+                            <option value="">{__('Select a connected Page…', 'notificationx')}</option>
+                            {connections.map((conn) => (
+                                <option key={conn.connection_id} value={conn.connection_id} disabled={conn.status !== 'active'}>
+                                    {conn.status === 'active'
+                                        ? conn.page_name || conn.page_id
+                                        : `${conn.page_name || conn.page_id} — ${statusLabel(conn.status)}`}
+                                </option>
+                            ))}
+                        </select>
+                        {selectedConnection && <p className="nx-fbr-hint">{connectionMeta(selectedConnection)}</p>}
+                    </>
+                ) : (
+                    <p className="nx-fbr-hint">
+                        {__('No Facebook Page is connected yet.', 'notificationx')}{' '}
+                        <a href={apiIntegrationsUrl()}>{__('Connect one in Settings → API Integrations', 'notificationx')}</a>
+                    </p>
+                )}
+
+                {value && !selectedConnection && !loading && (
+                    <p className="nx-fbr-hint nx-fbr-hint--warning">
+                        {sprintf(
+                            /* translators: %s: page name */
+                            __('This campaign is linked to "%s", which is no longer connected. Pick another Page, or reconnect it in Settings → API Integrations.', 'notificationx'),
+                            value.page_name || value.page_id
+                        )}
+                    </p>
+                )}
+            </div>
+        );
+    }
+
+    // Settings → API Integrations: connect, disconnect, manage.
     return (
-        <div className={`nx-fbr nx-fbr--${mode}`}>
+        <div className="nx-fbr nx-fbr--settings">
             {pages && (
                 <div className="nx-fbr-picker">
                     <p className="nx-fbr-picker__title">{__('Choose the Facebook Page to connect', 'notificationx')}</p>
@@ -442,12 +504,6 @@ const FacebookReviewsConnection = (props) => {
                 <p className="nx-fbr-hint">{__('No Facebook Page connected yet.', 'notificationx')}</p>
             )}
 
-            {mode === 'builder' && value && !connections.some((c) => c.connection_id === value.connection_id) && !loading && (
-                <p className="nx-fbr-hint nx-fbr-hint--warning">
-                    {sprintf(/* translators: %s: page name */ __('This campaign is linked to "%s", which is no longer connected. Connect a Page again.', 'notificationx'), value.page_name || value.page_id)}
-                </p>
-            )}
-
             {preview && (
                 <div className="nx-fbr-preview">
                     <div className="nx-fbr-preview__body">
@@ -477,7 +533,7 @@ const FacebookReviewsConnection = (props) => {
 
             {(modes.includes('open') || modes.includes('attested')) && !attestation && !preview && !pages && (
                 <div className="nx-fbr-attest__start">
-                    <label className="nx-fbr-attest__label" htmlFor={`nx-fbr-url-${mode}`}>
+                    <label className="nx-fbr-attest__label" htmlFor="nx-fbr-url-settings">
                         {modes.includes('oauth')
                             ? __('…or enter your Facebook Page address', 'notificationx')
                             : __('Your Facebook Page address', 'notificationx')}
@@ -504,7 +560,7 @@ const FacebookReviewsConnection = (props) => {
 
                     <div className="nx-fbr-attest__row">
                         <input
-                            id={`nx-fbr-url-${mode}`}
+                            id="nx-fbr-url-settings"
                             type="text"
                             value={pageUrl}
                             placeholder="https://www.facebook.com/yourpage"
@@ -540,19 +596,17 @@ const FacebookReviewsConnection = (props) => {
                         {busy === 'login' ? __('Redirecting to Facebook...', 'notificationx') : __('Connect Facebook Page', 'notificationx')}
                     </button>
                 )}
-                {mode === 'settings' && site?.connected && (
+                {site?.connected && (
                     <button type="button" className="wprf-btn nx-fbr-btn is-link" disabled={!!busy} onClick={disconnectSite}>
                         {busy === 'site' ? __('Disconnecting...', 'notificationx') : __('Disconnect from NotificationX API', 'notificationx')}
                     </button>
                 )}
             </div>
-            {mode === 'settings' && (
-                <p className="nx-fbr-hint">
-                    {site?.connected
-                        ? sprintf(/* translators: %s: site id */ __('Site registered with the NotificationX API (ID %s). Facebook tokens are stored on the API, never on this site.', 'notificationx'), site.site_id)
-                        : __('Connecting registers this site with the NotificationX API (site URL + an anonymous install fingerprint).', 'notificationx')}
-                </p>
-            )}
+            <p className="nx-fbr-hint">
+                {site?.connected
+                    ? sprintf(/* translators: %s: site id */ __('Site registered with the NotificationX API (ID %s). Facebook tokens are stored on the API, never on this site.', 'notificationx'), site.site_id)
+                    : __('Connecting registers this site with the NotificationX API (site URL + an anonymous install fingerprint).', 'notificationx')}
+            </p>
         </div>
     );
 };

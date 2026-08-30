@@ -13,6 +13,17 @@ in the free plugin; Pro adds review filters and a configurable refresh interval.
 | **Builder field** | [`nxdev/notificationx/fields/FacebookReviewsConnection.tsx`](../../nxdev/notificationx/fields/FacebookReviewsConnection.tsx) (`type: facebook-reviews-connection`, `mode: builder|settings`) |
 | **Depends on** | Nothing on the site. The NotificationX API owns the Meta app and every Facebook token. |
 
+## Where connecting happens
+
+All of it lives in **Settings → API Integrations** (`mode: settings`). The
+Content step of a campaign (`mode: builder`) is a dropdown of the Pages already
+connected and nothing else: every connect path navigates away from the builder
+(OAuth to Facebook, or a lookup round trip) and an unsaved campaign would not
+survive it.
+
+A campaign whose stored `connection_id` is no longer connected says so, and
+points at the settings tab rather than offering to reconnect in place.
+
 ## Connecting a Page
 
 Two ways. Which are offered comes from the API (`connect_modes` on
@@ -79,12 +90,14 @@ admin with no way forward.
 ## How it works (OAuth)
 
 ```
-Builder "Connect Facebook Page"
+Settings → API Integrations, "Connect Facebook Page"
   → POST /notificationx/v1/facebook-reviews/oauth-start   (site registers with the API on first use)
   → browser → Facebook login (Meta) → API callback
   → back to the same admin URL with ?nx_fb_session=…&nx_fb_status=ok
   → GET  /notificationx/v1/facebook-reviews/pages?session_id=…   → Page picker
   → POST /notificationx/v1/facebook-reviews/pages-connect        → {connection}
+
+Builder → Content → "Facebook Page" dropdown
   → campaign stores  facebook_reviews_connection = {connection_id, page_id, page_name}
 ```
 

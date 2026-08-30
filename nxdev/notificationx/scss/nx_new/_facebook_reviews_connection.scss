@@ -14,6 +14,29 @@
         &--warning {
             color: #b45309;
         }
+
+        a {
+            color: #6c5ce7;
+        }
+    }
+
+    // Content step: the whole field is this one dropdown of connected Pages.
+    .nx-fbr-select {
+        width: 100%;
+        max-width: 100%;
+        min-height: 40px;
+        padding: 8px 12px;
+        border: 1px solid #d7dbe3;
+        border-radius: 6px;
+        background-color: #fff;
+        color: #1b2430;
+        font-size: 14px;
+        line-height: 1.4;
+
+        &:focus {
+            border-color: #6c5ce7;
+            outline: none;
+        }
     }
 
     .nx-fbr-pages {
@@ -36,16 +59,8 @@
             border-bottom: 0;
         }
 
-        &.is-selected {
-            background: #f3f6ff;
-        }
-
         &.is-inactive .nx-fbr-page__name {
             color: #8a94a6;
-        }
-
-        input[type='radio'] {
-            margin: 0;
         }
 
         &__body {

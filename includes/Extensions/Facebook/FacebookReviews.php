@@ -211,8 +211,12 @@ class FacebookReviews extends Extension {
     }
 
     /**
-     * Content step: the Facebook Page connection picker.
-     * Rendered by nxdev/notificationx/fields/FacebookReviewsConnection.tsx.
+     * Content step: pick one of the already-connected Pages.
+     *
+     * Rendered by nxdev/notificationx/fields/FacebookReviewsConnection.tsx as a
+     * plain dropdown — connecting a Page is a Settings → API Integrations job,
+     * because the Facebook round trip navigates away and would lose an unsaved
+     * campaign.
      */
     public function content_fields($fields) {
         $content_fields = &$fields['content']['fields'];
@@ -224,7 +228,7 @@ class FacebookReviews extends Extension {
             'mode'        => 'builder',
             'priority'    => 10,
             'source'      => $this->id,
-            'description' => __('Connect a Facebook Page you manage. The NotificationX API handles the Facebook login — no app setup or tokens needed on your site.', 'notificationx'),
+            'description' => __('Choose one of your connected Facebook Pages. Pages are connected under Settings → API Integrations.', 'notificationx'),
             'rules'       => Rules::is('source', $this->id),
         ];
 
@@ -250,6 +254,10 @@ class FacebookReviews extends Extension {
     /**
      * Definition of the Pro review filters. $locked renders the crown badge and
      * blocks changes in the free plugin.
+     *
+     * Priorities sit above the shared Notification Template group (90) on
+     * purpose: a campaign is set up by choosing the Page and then its template;
+     * these filters only narrow what that template renders.
      */
     public static function pro_filter_fields($source, $locked) {
         return [
@@ -260,7 +268,7 @@ class FacebookReviews extends Extension {
                 'label'    => __('Recommendation', 'notificationx'),
                 'name'     => 'facebook_reviews_recommendation',
                 'type'     => 'select',
-                'priority' => 39,
+                'priority' => 100,
                 'default'  => 'all',
                 'is_pro'   => $locked,
                 'options'  => GlobalFields::get_instance()->normalize_fields([
@@ -274,7 +282,7 @@ class FacebookReviews extends Extension {
                 'label'    => __('Minimum Star Rating', 'notificationx'),
                 'name'     => 'facebook_reviews_min_rating',
                 'type'     => 'select',
-                'priority' => 40,
+                'priority' => 101,
                 'default'  => '1',
                 'is_pro'   => $locked,
                 'options'  => GlobalFields::get_instance()->normalize_fields([
@@ -289,7 +297,7 @@ class FacebookReviews extends Extension {
                 'label'    => __('Only Reviews With Text', 'notificationx'),
                 'name'     => 'facebook_reviews_text_only',
                 'type'     => 'toggle',
-                'priority' => 41,
+                'priority' => 102,
                 'default'  => false,
                 'is_pro'   => $locked,
                 'rules'    => Rules::is('source', $source),
@@ -298,7 +306,7 @@ class FacebookReviews extends Extension {
                 'label'       => __('Minimum Review Length', 'notificationx'),
                 'name'        => 'facebook_reviews_min_length',
                 'type'        => 'number',
-                'priority'    => 42,
+                'priority'    => 103,
                 'default'     => 0,
                 'min'         => 0,
                 'is_pro'      => $locked,
@@ -387,7 +395,7 @@ class FacebookReviews extends Extension {
     public function source_error_message($messages) {
         if (!FacebookReviewsManaged::is_connected()) {
             $messages[$this->id] = [
-                'message' => __('Click "Connect Facebook Page" below to link a Facebook Page. Your site is registered with the NotificationX API on first use.', 'notificationx'),
+                'message' => __('No Facebook Page is connected yet. Go to Settings → API Integrations to connect one; your site is registered with the NotificationX API on first use.', 'notificationx'),
                 'html'    => false,
                 'type'    => 'warning',
                 'rules'   => Rules::is('source', $this->id),
