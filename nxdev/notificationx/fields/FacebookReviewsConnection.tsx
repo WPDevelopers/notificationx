@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { __, sprintf } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import { useBuilderContext, withLabel } from 'quickbuilder';
 import nxHelper from '../core/functions';
 import nxToast from '../core/ToasterMsg';
@@ -13,6 +13,7 @@ type Connection = {
     rating_overall: number | null;
     rating_count: number | null;
     individual_reviews: boolean;
+    review_count?: number;
     last_synced_at?: string | null;
     last_sync_error?: string | null;
     connect_mode?: string;
@@ -353,9 +354,22 @@ const FacebookReviewsConnection = (props) => {
                             ? sprintf(/* translators: 1: rating, 2: count */ __('%1$s ★ · %2$s ratings', 'notificationx'), conn.rating_overall ?? '–', conn.rating_count)
                             : __('No public rating yet', 'notificationx')}
                         {' · '}
-                        {conn.individual_reviews
-                            ? __('Individual reviews: available', 'notificationx')
-                            : __('Individual reviews: not provided by Facebook', 'notificationx')}
+                        {/* What we actually hold, not merely what is possible.
+                            "Connected but nothing appears" is the hardest state
+                            to diagnose from the outside, and a Page with no
+                            recommendations looks identical to a broken one
+                            unless the count is shown. */}
+                        {!conn.individual_reviews
+                            ? __('Individual reviews: not provided by Facebook', 'notificationx')
+                            : conn.review_count
+                            ? sprintf(
+                                  /* translators: %s: number of reviews collected */
+                                  _n('%s review collected', '%s reviews collected', conn.review_count, 'notificationx'),
+                                  String(conn.review_count)
+                              )
+                            : conn.last_synced_at
+                            ? __('No reviews found on this Page yet', 'notificationx')
+                            : __('Collecting reviews…', 'notificationx')}
                     </span>
                 </div>
                 {mode === 'settings' && (

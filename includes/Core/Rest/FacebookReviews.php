@@ -365,6 +365,7 @@ class FacebookReviews {
             'rating_overall'   => isset($connection['rating_overall']) && null !== $connection['rating_overall'] ? (float) $connection['rating_overall'] : null,
             'rating_count'     => isset($connection['rating_count']) && null !== $connection['rating_count'] ? (int) $connection['rating_count'] : null,
             'individual_reviews' => !empty($connection['capabilities']['individual_reviews']),
+            'review_count'     => isset($connection['review_count']) ? (int) $connection['review_count'] : 0,
             'connect_mode'     => sanitize_key((string) ($connection['connect_mode'] ?? 'oauth')),
             'last_synced_at'   => isset($connection['last_synced_at']) ? sanitize_text_field((string) $connection['last_synced_at']) : null,
             'last_sync_error'  => isset($connection['last_sync_error']) ? sanitize_key((string) $connection['last_sync_error']) : null,
