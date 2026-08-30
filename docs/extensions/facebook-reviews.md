@@ -25,6 +25,40 @@ whose API has no Meta app would otherwise advertise a login that 404s.
 * **`attested`** — the admin pastes the Page address and proves control of it:
   either the Page already lists this site as its website, or they add a one-time
   `nx-verify-…` code to it. No Meta app, works immediately.
+* **`open`** — the admin names the Page and it connects. No proof at all, the
+  same shape EmbedPress ships for Google Reviews. Lowest friction; the trade is
+  that nothing stops a site naming a Page it has nothing to do with.
+
+### `open` mode: what the admin actually does
+
+```
+[ Connect ] pressed
+      │
+      ├─ the plugin looks for a Page the site already advertises
+      │  (Yoast / Rank Math social settings → theme mods → nav menus → homepage HTML)
+      │
+      ├─ found  → "Found on your site: facebook.com/YourPage"  ← one click, no typing
+      └─ not    → paste box
+      │
+      ▼
+POST facebook-reviews/page-preview  → Anna's Bakery ⭐4.8 · 212 ratings
+      ▼
+POST facebook-reviews/page-connect  → connected
+```
+
+Best case one click, worst case one paste and one click.
+
+Discovery (`FacebookPageFinder`) is local — option reads plus at most one request
+to the site's own homepage. It is a **suggestion, never a claim**: what turns up
+may be a partner's Page, an employee's profile or a stale link, so it is always
+offered for the admin to confirm and never connected on its own. It filters out
+Facebook's own plumbing, which litters every site's markup — `sharer.php`, the
+`/tr` pixel, `/plugins/like.php`, the SDK — because otherwise "your Page" comes
+back as the share button.
+
+The preview step exists for the same reason: a pasted URL is opaque, and seeing
+the name and rating before committing is what stops a typo becoming a live
+connection that only reveals itself when the wrong reviews appear.
 
 ```
 POST /notificationx/v1/facebook-reviews/attest-start  {page_url} → {page, token, methods}

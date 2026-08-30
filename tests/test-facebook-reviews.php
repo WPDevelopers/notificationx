@@ -13,6 +13,7 @@
  */
 
 use NotificationX\Extensions\Facebook\FacebookReviews;
+use NotificationX\Extensions\Facebook\FacebookPageFinder;
 use NotificationX\Extensions\Facebook\FacebookReviewsManaged;
 
 class Test_Facebook_Reviews extends WP_UnitTestCase {
@@ -348,6 +349,58 @@ class Test_Facebook_Reviews extends WP_UnitTestCase {
 			10,
 			3
 		);
+	}
+
+	// ---------------------------------------------------------- page discovery
+
+	/**
+	 * Most sites that want their Facebook reviews shown already link to the Page.
+	 * Finding it turns the connect step from a field to fill into a button to
+	 * press, which is the whole difference in effort.
+	 */
+	public function test_finds_the_page_an_seo_plugin_already_names() {
+		update_option( 'wpseo_social', [ 'facebook_site' => 'https://www.facebook.com/annasbakery' ] );
+		FacebookPageFinder::forget();
+
+		$handles = wp_list_pluck( FacebookPageFinder::discover( true ), 'handle' );
+
+		delete_option( 'wpseo_social' );
+		FacebookPageFinder::forget();
+		$this->assertContains( 'annasbakery', $handles );
+	}
+
+	/**
+	 * A site's markup is full of Facebook's own plumbing. Without filtering,
+	 * "your Page" comes back as the share button.
+	 */
+	public function test_facebooks_own_plumbing_is_not_mistaken_for_a_page() {
+		foreach ( [
+			'https://www.facebook.com/sharer/sharer.php?u=https://example.com',
+			'https://www.facebook.com/sharer.php?u=https://example.com',
+			'https://www.facebook.com/tr?id=1&ev=PageView',
+			'https://www.facebook.com/plugins/like.php?href=x',
+			'https://connect.facebook.net/en_US/sdk.js',
+			'https://www.facebook.com/photo/?fbid=99',
+			'https://www.facebook.com/groups/somegroup',
+			'https://www.facebook.com/login/?next=%2Fx',
+			'https://www.facebook.com/l.php?u=https%3A%2F%2Fevil.test',
+		] as $noise ) {
+			$this->assertSame( '', FacebookPageFinder::handle_from( $noise ), "should have ignored: {$noise}" );
+		}
+	}
+
+	public function test_recognises_the_real_forms_of_a_page_address() {
+		$this->assertSame( 'annasbakery', FacebookPageFinder::handle_from( 'https://www.facebook.com/annasbakery' ) );
+		$this->assertSame( 'annasbakery', FacebookPageFinder::handle_from( 'https://m.facebook.com/annasbakery/reviews' ) );
+		// Facebook's form for a Page with no vanity username. Identity is the
+		// trailing id: the slug changes when the Page is renamed.
+		$this->assertSame( '100064861234567', FacebookPageFinder::handle_from( 'https://www.facebook.com/Annas-Bakery-100064861234567/' ) );
+	}
+
+	public function test_ignores_links_that_are_not_facebook_at_all() {
+		foreach ( [ 'https://example.com/facebook.com/x', 'https://facebook.com.evil.test/page', 'https://twitter.com/x', '' ] as $other ) {
+			$this->assertSame( '', FacebookPageFinder::handle_from( $other ) );
+		}
 	}
 
 	// ------------------------------------------------------------------ endpoint

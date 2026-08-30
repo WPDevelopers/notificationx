@@ -346,6 +346,27 @@ class FacebookReviewsManaged {
     }
 
     /**
+     * Look up a Page by address without connecting it.
+     *
+     * A pasted URL is opaque. Showing the admin "Anna's Bakery ⭐4.8 · 212"
+     * before they commit is what stops a personal profile, a partner's Page or a
+     * typo becoming a live connection that only reveals itself when the wrong
+     * reviews appear on the site.
+     */
+    public static function page_preview($page_url) {
+        return self::request('POST', '/page-connect.php', ['page_url' => (string) $page_url]);
+    }
+
+    /** Connect the Page at this address. */
+    public static function page_connect($page_url) {
+        $result = self::request('POST', '/page-connect.php', ['page_url' => (string) $page_url, 'confirm' => '1']);
+        if (!empty($result['ok'])) {
+            delete_transient(self::CACHE_STATUS);
+        }
+        return $result;
+    }
+
+    /**
      * Which ways this API lets a site connect a Page — `oauth`, `attested`, or
      * both. Reported by the API rather than assumed, so the UI offers what the
      * deployment can actually do instead of advertising a login that 404s.
@@ -359,7 +380,7 @@ class FacebookReviewsManaged {
         $modes  = !empty($status['ok']) && !empty($status['body']['connect_modes'])
             ? (array) $status['body']['connect_modes']
             : [];
-        $modes = array_values(array_intersect(array_map('sanitize_key', $modes), ['oauth', 'attested']));
+        $modes = array_values(array_intersect(array_map('sanitize_key', $modes), ['oauth', 'attested', 'open']));
         return $modes ?: ['oauth'];
     }
 

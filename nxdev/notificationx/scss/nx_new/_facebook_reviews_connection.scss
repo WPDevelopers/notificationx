@@ -215,3 +215,71 @@
         }
     }
 }
+
+// `open` mode: what we found before you commit to it.
+.nx-fbr {
+    &-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+        margin: 12px 0;
+        padding: 14px 16px;
+        border: 1px solid #cfd6e4;
+        border-radius: 6px;
+        background: #fff;
+
+        &__body {
+            display: flex;
+            min-width: 0;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        &__name {
+            font-size: 14px;
+            color: #1d2939;
+        }
+
+        &__meta {
+            color: #5b6474;
+            font-size: 12px;
+        }
+
+        &__link {
+            color: #6b7280;
+            font-size: 11px;
+            word-break: break-all;
+        }
+
+        &__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+    }
+
+    // Pages the site already links to — a button to press instead of a field to fill.
+    &-found {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+        margin-bottom: 8px;
+
+        &__label {
+            color: #5b6474;
+            font-size: 12px;
+        }
+
+        &__item {
+            padding: 2px 8px;
+            border: 1px solid #d7dbe3;
+            border-radius: 999px;
+            background: #f4f6fa;
+            font-size: 12px;
+        }
+    }
+}

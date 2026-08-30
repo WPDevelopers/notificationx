@@ -18,6 +18,9 @@ type Connection = {
     connect_mode?: string;
 };
 
+type Preview = { handle: string; url: string; name: string; rating_overall: number | null; rating_count: number | null };
+type Discovered = { url: string; handle: string; source: string };
+
 type Attestation = {
     page: { handle: string; url: string };
     token: string;
@@ -88,6 +91,8 @@ const FacebookReviewsConnection = (props) => {
     const [pageUrl, setPageUrl] = useState('');
     const [attestation, setAttestation] = useState<Attestation | null>(null);
     const [attestError, setAttestError] = useState('');
+    const [preview, setPreview] = useState<Preview | null>(null);
+    const [discovered, setDiscovered] = useState<Discovered[]>([]);
 
     const value: FieldValue = useMemo(() => {
         const v = mode === 'builder' ? builderContext?.values?.[fieldName] : null;
@@ -108,6 +113,13 @@ const FacebookReviewsConnection = (props) => {
             const res: any = await nxHelper.get(`facebook-reviews/connections${fresh ? '?fresh=1' : ''}`);
             if (Array.isArray(res?.connect_modes) && res.connect_modes.length) {
                 setModes(res.connect_modes);
+                if (res.connect_modes.includes('open')) {
+                    // Look for a Page the site already advertises, so the common
+                    // case is a button to press rather than a field to fill.
+                    nxHelper.get('facebook-reviews/discover')
+                        .then((d: any) => setDiscovered(Array.isArray(d?.pages) ? d.pages : []))
+                        .catch(() => undefined);
+                }
             }
             setConnections(Array.isArray(res?.connections) ? res.connections : []);
             setSite(res?.site || {});
@@ -234,6 +246,54 @@ const FacebookReviewsConnection = (props) => {
             if (!quiet) setAttestError(errorMessage(err));
         }
         if (!quiet) setBusy('');
+    };
+
+    /**
+     * `open` mode: look the Page up, show what we found, then connect on confirm.
+     *
+     * Split in two because a pasted URL is opaque — seeing the name and rating
+     * before committing is what stops a personal profile, a partner's Page or a
+     * typo becoming a live connection that only reveals itself when the wrong
+     * reviews start appearing on the site.
+     */
+    const lookUpPage = async (url?: string) => {
+        const target = (url ?? pageUrl).trim();
+        if (!target) return;
+        setPageUrl(target);
+        setBusy('preview');
+        setAttestError('');
+        setPreview(null);
+        try {
+            const res: any = await nxHelper.post('facebook-reviews/page-preview', { page_url: target }, { get_error: true });
+            if (res?.preview?.handle) {
+                setPreview(res.preview);
+            } else {
+                setAttestError(errorMessage(res));
+            }
+        } catch (err: any) {
+            setAttestError(errorMessage(err));
+        }
+        setBusy('');
+    };
+
+    const connectPreviewed = async () => {
+        if (!preview) return;
+        setBusy('page-connect');
+        try {
+            const res: any = await nxHelper.post('facebook-reviews/page-connect', { page_url: preview.url }, { get_error: true });
+            if (res?.connection?.connection_id) {
+                nxToast.connected(sprintf(/* translators: %s: page name */ __('%s connected.', 'notificationx'), res.connection.page_name || res.connection.page_id));
+                if (mode === 'builder') setValue(res.connection);
+                setPreview(null);
+                setPageUrl('');
+                await load(true);
+            } else {
+                setAttestError(errorMessage(res));
+            }
+        } catch (err: any) {
+            setAttestError(errorMessage(err));
+        }
+        setBusy('');
     };
 
     const disconnectPage = async (conn: Connection) => {
@@ -374,13 +434,60 @@ const FacebookReviewsConnection = (props) => {
                 </p>
             )}
 
-            {modes.includes('attested') && !attestation && !pages && (
+            {preview && (
+                <div className="nx-fbr-preview">
+                    <div className="nx-fbr-preview__body">
+                        <strong className="nx-fbr-preview__name">{preview.name}</strong>
+                        <span className="nx-fbr-preview__meta">
+                            {preview.rating_overall !== null
+                                ? sprintf(
+                                      /* translators: 1: star rating, 2: number of ratings */
+                                      __('%1$s out of 5 · %2$s ratings', 'notificationx'),
+                                      String(preview.rating_overall),
+                                      String(preview.rating_count ?? 0)
+                                  )
+                                : __('Facebook does not show a public rating for this Page.', 'notificationx')}
+                        </span>
+                        <a className="nx-fbr-preview__link" href={preview.url} target="_blank" rel="noreferrer noopener">{preview.url}</a>
+                    </div>
+                    <div className="nx-fbr-preview__actions">
+                        <button type="button" className="wprf-btn nx-fbr-btn" disabled={!!busy} onClick={connectPreviewed}>
+                            {busy === 'page-connect' ? __('Connecting…', 'notificationx') : __('Connect this Page', 'notificationx')}
+                        </button>
+                        <button type="button" className="wprf-btn nx-fbr-btn is-link" disabled={!!busy} onClick={() => { setPreview(null); setAttestError(''); }}>
+                            {__('Not this one', 'notificationx')}
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {(modes.includes('open') || modes.includes('attested')) && !attestation && !preview && !pages && (
                 <div className="nx-fbr-attest__start">
                     <label className="nx-fbr-attest__label" htmlFor={`nx-fbr-url-${mode}`}>
                         {modes.includes('oauth')
-                            ? __('…or connect by Page address', 'notificationx')
-                            : __('Connect your Facebook Page', 'notificationx')}
+                            ? __('…or enter your Facebook Page address', 'notificationx')
+                            : __('Your Facebook Page address', 'notificationx')}
                     </label>
+
+                    {/* A Page the site already links to. Offered, never assumed:
+                        the link might be a partner's Page or an employee's. */}
+                    {modes.includes('open') && discovered.length > 0 && (
+                        <div className="nx-fbr-found">
+                            <span className="nx-fbr-found__label">{__('Found on your site:', 'notificationx')}</span>
+                            {discovered.slice(0, 3).map((d) => (
+                                <button
+                                    key={d.handle}
+                                    type="button"
+                                    className="wprf-btn nx-fbr-btn is-link nx-fbr-found__item"
+                                    disabled={!!busy}
+                                    onClick={() => lookUpPage(d.url)}
+                                >
+                                    facebook.com/{d.handle}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
                     <div className="nx-fbr-attest__row">
                         <input
                             id={`nx-fbr-url-${mode}`}
@@ -388,15 +495,27 @@ const FacebookReviewsConnection = (props) => {
                             value={pageUrl}
                             placeholder="https://www.facebook.com/yourpage"
                             onChange={(e) => { setPageUrl(e.target.value); setAttestError(''); }}
-                            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); startAttestation(); } }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault();
+                                    modes.includes('open') ? lookUpPage() : startAttestation();
+                                }
+                            }}
                         />
-                        <button type="button" className="wprf-btn nx-fbr-btn" disabled={!pageUrl.trim() || !!busy} onClick={startAttestation}>
-                            {busy === 'attest-start' ? __('Checking…', 'notificationx') : __('Continue', 'notificationx')}
+                        <button
+                            type="button"
+                            className="wprf-btn nx-fbr-btn"
+                            disabled={!pageUrl.trim() || !!busy}
+                            onClick={() => (modes.includes('open') ? lookUpPage() : startAttestation())}
+                        >
+                            {busy === 'preview' || busy === 'attest-start' ? __('Checking…', 'notificationx') : __('Continue', 'notificationx')}
                         </button>
                     </div>
                     {attestError ? <p className="nx-fbr-hint nx-fbr-hint--warning">{attestError}</p> : null}
                     <p className="nx-fbr-hint">
-                        {__('You will be asked to confirm you manage the Page — either it already lists this site as its website, or you add a short code to it.', 'notificationx')}
+                        {modes.includes('open')
+                            ? __('Enter the address of a Facebook Page you manage. We will show you what we found before connecting it.', 'notificationx')
+                            : __('You will be asked to confirm you manage the Page — either it already lists this site as its website, or you add a short code to it.', 'notificationx')}
                     </p>
                 </div>
             )}

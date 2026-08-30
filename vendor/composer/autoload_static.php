@@ -7,22 +7,22 @@ namespace Composer\Autoload;
 class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 {
     public static $prefixLengthsPsr4 = array (
-        'W' => 
+        'W' =>
         array (
             'WPDeveloper\\QueryBuilder\\' => 25,
         ),
-        'P' => 
+        'P' =>
         array (
             'PriyoMukul\\WPNotice\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'WPDeveloper\\QueryBuilder\\' => 
+        'WPDeveloper\\QueryBuilder\\' =>
         array (
             0 => __DIR__ . '/..' . '/wpdeveloper/query-builder/src',
         ),
-        'PriyoMukul\\WPNotice\\' => 
+        'PriyoMukul\\WPNotice\\' =>
         array (
             0 => __DIR__ . '/..' . '/priyomukul/wp-notice/src',
         ),
@@ -68,9 +68,9 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Core\\Rest\\Analytics' => __DIR__ . '/../..' . '/includes/Core/Rest/Analytics.php',
         'NotificationX\\Core\\Rest\\BulkAction' => __DIR__ . '/../..' . '/includes/Core/Rest/BulkAction.php',
         'NotificationX\\Core\\Rest\\Entries' => __DIR__ . '/../..' . '/includes/Core/Rest/Entries.php',
-        'NotificationX\\Core\\Rest\\Integration' => __DIR__ . '/../..' . '/includes/Core/Rest/Integration.php',
         'NotificationX\\Core\\Rest\\FacebookReviews' => __DIR__ . '/../..' . '/includes/Core/Rest/FacebookReviews.php',
-'NotificationX\\Core\\Rest\\Popup' => __DIR__ . '/../..' . '/includes/Core/Rest/Popup.php',
+        'NotificationX\\Core\\Rest\\Integration' => __DIR__ . '/../..' . '/includes/Core/Rest/Integration.php',
+        'NotificationX\\Core\\Rest\\Popup' => __DIR__ . '/../..' . '/includes/Core/Rest/Popup.php',
         'NotificationX\\Core\\Rest\\Posts' => __DIR__ . '/../..' . '/includes/Core/Rest/Posts.php',
         'NotificationX\\Core\\Rule' => __DIR__ . '/../..' . '/includes/Core/Rule.php',
         'NotificationX\\Core\\Rules' => __DIR__ . '/../..' . '/includes/Core/Rules.php',
@@ -101,6 +101,9 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\ExitIntent\\Importer' => __DIR__ . '/../..' . '/includes/Extensions/ExitIntent/importer.php',
         'NotificationX\\Extensions\\Extension' => __DIR__ . '/../..' . '/includes/Extensions/Extension.php',
         'NotificationX\\Extensions\\ExtensionFactory' => __DIR__ . '/../..' . '/includes/Extensions/ExtensionFactory.php',
+        'NotificationX\\Extensions\\Facebook\\FacebookPageFinder' => __DIR__ . '/../..' . '/includes/Extensions/Facebook/FacebookPageFinder.php',
+        'NotificationX\\Extensions\\Facebook\\FacebookReviews' => __DIR__ . '/../..' . '/includes/Extensions/Facebook/FacebookReviews.php',
+        'NotificationX\\Extensions\\Facebook\\FacebookReviewsManaged' => __DIR__ . '/../..' . '/includes/Extensions/Facebook/FacebookReviewsManaged.php',
         'NotificationX\\Extensions\\FlashingTab\\FlashingTab' => __DIR__ . '/../..' . '/includes/Extensions/FlashingTab/FlashingTab.php',
         'NotificationX\\Extensions\\FluentCart\\FluentCart' => __DIR__ . '/../..' . '/includes/Extensions/FluentCart/FluentCart.php',
         'NotificationX\\Extensions\\FluentCart\\FluentCartInline' => __DIR__ . '/../..' . '/includes/Extensions/FluentCart/FluentCartInline.php',
@@ -113,8 +116,6 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\GRVF\\GravityForms' => __DIR__ . '/../..' . '/includes/Extensions/GRVF/GravityForms.php',
         'NotificationX\\Extensions\\Give\\Give' => __DIR__ . '/../..' . '/includes/Extensions/Give/Give.php',
         'NotificationX\\Extensions\\GlobalFields' => __DIR__ . '/../..' . '/includes/Extensions/GlobalFields.php',
-        'NotificationX\\Extensions\\Facebook\\FacebookReviews' => __DIR__ . '/../..' . '/includes/Extensions/Facebook/FacebookReviews.php',
-        'NotificationX\\Extensions\\Facebook\\FacebookReviewsManaged' => __DIR__ . '/../..' . '/includes/Extensions/Facebook/FacebookReviewsManaged.php',
         'NotificationX\\Extensions\\Google\\GoogleReviews' => __DIR__ . '/../..' . '/includes/Extensions/Google/GoogleReviews.php',
         'NotificationX\\Extensions\\Google\\YouTube' => __DIR__ . '/../..' . '/includes/Extensions/Google/YouTube.php',
         'NotificationX\\Extensions\\Google_Analytics\\Google_Analytics' => __DIR__ . '/../..' . '/includes/Extensions/Google/Google_Analytics.php',
@@ -183,6 +184,14 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Types\\Video' => __DIR__ . '/../..' . '/includes/Types/Video.php',
         'NotificationX\\Types\\WooCommerceCartPeek' => __DIR__ . '/../..' . '/includes/Types/WooCommerceCartPeek.php',
         'NotificationX\\Types\\WooCommerceSales' => __DIR__ . '/../..' . '/includes/Types/WooCommerceSales.php',
+        'PriyoMukul\\WPNotice\\Dismiss' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Dismiss.php',
+        'PriyoMukul\\WPNotice\\Notice' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Notice.php',
+        'PriyoMukul\\WPNotice\\Notices' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Notices.php',
+        'PriyoMukul\\WPNotice\\Utils\\Base' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/Base.php',
+        'PriyoMukul\\WPNotice\\Utils\\CacheBank' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/CacheBank.php',
+        'PriyoMukul\\WPNotice\\Utils\\Helper' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/Helper.php',
+        'PriyoMukul\\WPNotice\\Utils\\NoticeRemover' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/NoticeRemover.php',
+        'PriyoMukul\\WPNotice\\Utils\\Storage' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/Storage.php',
         'UsabilityDynamics\\Job' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-job.php',
         'UsabilityDynamics\\Loader' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-loader.php',
         'UsabilityDynamics\\Settings' => __DIR__ . '/..' . '/wpdeveloper/lib-settings/lib/class-settings.php',
@@ -190,6 +199,11 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'UsabilityDynamics\\Term' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-term.php',
         'UsabilityDynamics\\Utility' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-utility.php',
         'UsabilityDynamics\\Utility\\Guid_Fix' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-guid-fix.php',
+        'WPDeveloper\\QueryBuilder\\Collection' => __DIR__ . '/..' . '/wpdeveloper/query-builder/src/Collection.php',
+        'WPDeveloper\\QueryBuilder\\Interfaces\\Arrayable' => __DIR__ . '/..' . '/wpdeveloper/query-builder/src/Interfaces/Arrayable.php',
+        'WPDeveloper\\QueryBuilder\\Interfaces\\JSONable' => __DIR__ . '/..' . '/wpdeveloper/query-builder/src/Interfaces/JSONable.php',
+        'WPDeveloper\\QueryBuilder\\Interfaces\\Stringable' => __DIR__ . '/..' . '/wpdeveloper/query-builder/src/Interfaces/Stringable.php',
+        'WPDeveloper\\QueryBuilder\\Query' => __DIR__ . '/..' . '/wpdeveloper/query-builder/src/Query.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

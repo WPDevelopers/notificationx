@@ -8,6 +8,7 @@
 namespace NotificationX\Core\Rest;
 
 use NotificationX\Extensions\Facebook\FacebookReviews as FacebookReviewsExtension;
+use NotificationX\Extensions\Facebook\FacebookPageFinder;
 use NotificationX\Extensions\Facebook\FacebookReviewsManaged;
 use NotificationX\GetInstance;
 use WP_Error;
@@ -27,6 +28,9 @@ use WP_REST_Server;
  *   POST facebook-reviews/sync            {connection_id, nx_id?}  → {queued, stored}
  *   POST facebook-reviews/attest-start    {page_url}               → {page, token, methods}
  *   POST facebook-reviews/attest-verify   {page_url}               → {connection, method}
+ *   GET  facebook-reviews/discover        [?fresh=1]               → {pages:[{url,handle,source}]}
+ *   POST facebook-reviews/page-preview    {page_url}               → {preview}
+ *   POST facebook-reviews/page-connect    {page_url}               → {connection}
  *
  * Inbound webhook from the API (HMAC-SHA256 signed with the site token):
  *
@@ -58,6 +62,9 @@ class FacebookReviews {
         register_rest_route($this->namespace, '/facebook-reviews/sync', $admin + ['methods' => WP_REST_Server::CREATABLE, 'callback' => [$this, 'sync']]);
         register_rest_route($this->namespace, '/facebook-reviews/attest-start', $admin + ['methods' => WP_REST_Server::CREATABLE, 'callback' => [$this, 'attest_start']]);
         register_rest_route($this->namespace, '/facebook-reviews/attest-verify', $admin + ['methods' => WP_REST_Server::CREATABLE, 'callback' => [$this, 'attest_verify']]);
+        register_rest_route($this->namespace, '/facebook-reviews/discover', $admin + ['methods' => WP_REST_Server::READABLE, 'callback' => [$this, 'discover']]);
+        register_rest_route($this->namespace, '/facebook-reviews/page-preview', $admin + ['methods' => WP_REST_Server::CREATABLE, 'callback' => [$this, 'page_preview']]);
+        register_rest_route($this->namespace, '/facebook-reviews/page-connect', $admin + ['methods' => WP_REST_Server::CREATABLE, 'callback' => [$this, 'page_connect']]);
 
         register_rest_route($this->namespace, '/' . self::WEBHOOK_ROUTE, [
             'methods'             => WP_REST_Server::CREATABLE,
@@ -132,7 +139,7 @@ class FacebookReviews {
             // Not registered yet, so we cannot ask the API what it offers.
             // Advertise both and let the chosen one report if it is unavailable —
             // hiding a working option would be worse than showing a dead one.
-            return rest_ensure_response(['site' => $site, 'connections' => [], 'providers' => [], 'connect_modes' => ['oauth', 'attested']]);
+            return rest_ensure_response(['site' => $site, 'connections' => [], 'providers' => [], 'connect_modes' => ['oauth', 'attested', 'open']]);
         }
         $result = FacebookReviewsManaged::connections('', (bool) $request->get_param('fresh'));
         if (empty($result['ok'])) {
@@ -141,7 +148,7 @@ class FacebookReviews {
         $connections = array_map([$this, 'public_connection'], array_values(array_filter((array) ($result['body']['connections'] ?? []), 'is_array')));
         $modes = array_values(array_intersect(
             array_map('sanitize_key', (array) ($result['body']['connect_modes'] ?? [])),
-            ['oauth', 'attested']
+            ['oauth', 'attested', 'open']
         ));
         return rest_ensure_response([
             'site'          => FacebookReviewsManaged::site_status(),
@@ -162,6 +169,53 @@ class FacebookReviews {
             return $this->api_error($result);
         }
         return rest_ensure_response(['ok' => true]);
+    }
+
+    /**
+     * Facebook Pages this site already advertises, so the admin can press a
+     * button instead of filling in a field. Local only — option reads plus at
+     * most one request to the site's own homepage.
+     */
+    public function discover(WP_REST_Request $request) {
+        return rest_ensure_response(['pages' => FacebookPageFinder::discover((bool) $request->get_param('fresh'))]);
+    }
+
+    /** Look up a pasted address without connecting it. */
+    public function page_preview(WP_REST_Request $request) {
+        $ensured = FacebookReviewsManaged::ensure_connected();
+        if (empty($ensured['ok'])) {
+            return $this->error('api_unreachable', $ensured['message'], 502);
+        }
+        $page_url = trim((string) $request->get_param('page_url'));
+        if ('' === $page_url) {
+            return $this->error('missing_page_url', __('Enter the address of your Facebook Page.', 'notificationx'), 400);
+        }
+        $result = FacebookReviewsManaged::page_preview($page_url);
+        if (empty($result['ok']) || empty($result['body']['preview'])) {
+            return $this->api_error($result);
+        }
+        $preview = $result['body']['preview'];
+        return rest_ensure_response(['preview' => [
+            'handle'         => sanitize_text_field((string) ($preview['handle'] ?? '')),
+            'url'            => esc_url_raw((string) ($preview['url'] ?? ''), ['https']),
+            'name'           => sanitize_text_field((string) ($preview['name'] ?? '')),
+            'rating_overall' => isset($preview['rating_overall']) && null !== $preview['rating_overall'] ? (float) $preview['rating_overall'] : null,
+            'rating_count'   => isset($preview['rating_count']) && null !== $preview['rating_count'] ? (int) $preview['rating_count'] : null,
+        ]]);
+    }
+
+    /** Connect the Page at this address. */
+    public function page_connect(WP_REST_Request $request) {
+        $page_url = trim((string) $request->get_param('page_url'));
+        if ('' === $page_url) {
+            return $this->error('missing_page_url', __('Enter the address of your Facebook Page.', 'notificationx'), 400);
+        }
+        $result = FacebookReviewsManaged::page_connect($page_url);
+        if (empty($result['ok']) || empty($result['body']['connection'])) {
+            return $this->api_error($result);
+        }
+        FacebookPageFinder::forget();
+        return rest_ensure_response(['connection' => $this->public_connection($result['body']['connection'])]);
     }
 
     /**
