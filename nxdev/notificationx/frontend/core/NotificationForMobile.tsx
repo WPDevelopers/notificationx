@@ -2,8 +2,9 @@ import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
 import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
 import { Theme } from "../themes";
-import Analytics from "./Analytics";
+import Analytics, { resolveNotificationLink, recordAnalyticsClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
+import nxHelper from "./functions";
 // import 'animate.css';
 
 const useMediaQuery = (query) => {
@@ -161,6 +162,25 @@ const NotificationForMobile = (props) => {
 
     const themeName = getResThemeName(settings);
 
+    // Whole-card click (mobile): mirror desktop so corner popups whose CTA is
+    // hidden by the theme (e.g. Cart Peek) stay clickable and register CTR.
+    const restUrl = nxHelper.getPath(frontEndContext.rest, `analytics/`);
+    const cardLink = resolveNotificationLink(settings, props.data);
+    const handleCardClick = (e) => {
+        if (settings?.source === 'press_bar' || settings?.type === 'notification_bar') return;
+        // Let genuinely interactive children handle their own clicks (the CTA
+        // link, close button, powered-by link, subscribe widget, form fields).
+        if (e.target?.closest?.('a, button, input, textarea, select, label, .notificationx-close, .nx-close, .nx-powered-by, .g-ytsubscribe')) {
+            return;
+        }
+        if (!cardLink) return;
+        recordAnalyticsClick(restUrl, settings, frontEndContext?.rest?.omit_credentials);
+        if (settings?.link_open) {
+            window.open(cardLink, '_blank', 'noopener');
+        } else {
+            window.location.href = cardLink;
+        }
+    };
 
     const { advance_edit } = settings;
 
@@ -233,8 +253,9 @@ const NotificationForMobile = (props) => {
             // onMouseEnter={handlePauseTimer}
             // onMouseLeave={handleStartTimer}
             className={componentClasses}
-            style={componentStyle}
+            style={cardLink ? { ...componentStyle, cursor: 'pointer' } : componentStyle}
             id={`notificationx-res-${settings.nx_id}`}
+            onClick={handleCardClick}
         >
             {
                 is_pro && settings?.sound && settings?.sound != 'none' && settings.sound.length > 0 && props.assets?.pro &&
@@ -249,6 +270,7 @@ const NotificationForMobile = (props) => {
                 className="notificationx-link"
                 config={settings}
                 data={props.data}
+                dispatch={props.dispatch}
             />
         </div>
     );
