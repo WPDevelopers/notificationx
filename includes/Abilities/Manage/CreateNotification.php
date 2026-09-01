@@ -100,8 +100,12 @@ class CreateNotification extends AbilityBase {
             $config['title'] = __( 'Untitled notification', 'notificationx' );
         }
 
-        // Disabled unless the caller explicitly asks otherwise.
-        $config['enabled'] = ! empty( $input['enabled'] );
+        $want_enabled = ! empty( $input['enabled'] );
+
+        // Always insert disabled, so the new record can never bypass the
+        // free-plan single-active cap on the way in. Activation (if asked for)
+        // then goes through the same gated path ToggleNotification uses.
+        $config['enabled'] = false;
 
         $post_type = PostType::get_instance();
         $saved     = $post_type->save_post( $config );
@@ -115,8 +119,22 @@ class CreateNotification extends AbilityBase {
             );
         }
 
-        // Re-read so the caller sees the stored, normalised record (and the
-        // real enabled state after any cap/source checks in save_post).
+        // Activate only if requested AND allowed: can_enable() honours the free
+        // single-active limit (Pro lifts it via the nx_can_enable filter), and
+        // the update_status path keeps the enabled-source bookkeeping correct.
+        if ( $want_enabled && $post_type->can_enable( $config['source'] ) ) {
+            $post_type->save_post(
+                array(
+                    'update_status' => true,
+                    'nx_id'         => $new_id,
+                    'enabled'       => true,
+                    'source'        => $config['source'],
+                )
+            );
+        }
+
+        // Re-read so the caller sees the stored, normalised record and the real
+        // enabled state (may be false if the single-active cap blocked it).
         $fresh = $post_type->get_post( $new_id );
 
         return array(

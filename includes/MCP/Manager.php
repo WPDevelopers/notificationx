@@ -449,7 +449,7 @@ class Manager {
             $granted[] = $ability;
         }
 
-        $cap_label = $read_only ? __( 'Read only', 'notificationx' ) : __( 'Read &amp; write', 'notificationx' );
+        $cap_label = $read_only ? __( 'Read only', 'notificationx' ) : __( 'Read & write', 'notificationx' );
         $cap_text  = $read_only
             ? __( 'It can read your notifications, entries and analytics. It cannot create, change or delete anything.', 'notificationx' )
             : __( 'It acts as you: anything it creates, edits or deletes is recorded under your account.', 'notificationx' );

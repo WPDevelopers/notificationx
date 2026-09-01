@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'NotificationX\\Abilities\\AbilityBase' => $baseDir . '/includes/Abilities/AbilityBase.php',
+    'NotificationX\\Abilities\\Manage\\CreateNotification' => $baseDir . '/includes/Abilities/Manage/CreateNotification.php',
     'NotificationX\\Abilities\\Manage\\DeleteNotification' => $baseDir . '/includes/Abilities/Manage/DeleteNotification.php',
     'NotificationX\\Abilities\\Manage\\DuplicateNotification' => $baseDir . '/includes/Abilities/Manage/DuplicateNotification.php',
     'NotificationX\\Abilities\\Manage\\ToggleNotification' => $baseDir . '/includes/Abilities/Manage/ToggleNotification.php',

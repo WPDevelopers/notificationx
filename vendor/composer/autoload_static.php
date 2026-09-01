@@ -31,6 +31,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'NotificationX\\Abilities\\AbilityBase' => __DIR__ . '/../..' . '/includes/Abilities/AbilityBase.php',
+        'NotificationX\\Abilities\\Manage\\CreateNotification' => __DIR__ . '/../..' . '/includes/Abilities/Manage/CreateNotification.php',
         'NotificationX\\Abilities\\Manage\\DeleteNotification' => __DIR__ . '/../..' . '/includes/Abilities/Manage/DeleteNotification.php',
         'NotificationX\\Abilities\\Manage\\DuplicateNotification' => __DIR__ . '/../..' . '/includes/Abilities/Manage/DuplicateNotification.php',
         'NotificationX\\Abilities\\Manage\\ToggleNotification' => __DIR__ . '/../..' . '/includes/Abilities/Manage/ToggleNotification.php',
