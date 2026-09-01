@@ -72,6 +72,7 @@ class Registrar {
             new Read\ListEntries(),
             new Read\ExportEntries(),
             // Manage (write).
+            new Manage\CreateNotification(),
             new Manage\ToggleNotification(),
             new Manage\UpdateNotification(),
             new Manage\DuplicateNotification(),
