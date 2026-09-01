@@ -366,10 +366,12 @@ class Manager {
             wp_die( esc_html( $request->get_error_message() ) );
         }
 
+        $is_post = ( 'POST' === strtoupper( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ?? '' ) ) ) );
+
         // Deny on POST (nonce-checked): bounce back to the client with the
         // standard OAuth error so it can end the flow cleanly instead of the
         // user landing on a dead browser tab.
-        if ( 'POST' === ( $_SERVER['REQUEST_METHOD'] ?? '' ) && isset( $_POST['nx_mcp_deny'] ) ) {
+        if ( $is_post && isset( $_POST['nx_mcp_deny'] ) ) {
             check_admin_referer( 'nx_mcp_authorize' );
             $redirect = add_query_arg(
                 array(
@@ -384,7 +386,7 @@ class Manager {
         }
 
         // Approve on POST (nonce-checked).
-        if ( 'POST' === ( $_SERVER['REQUEST_METHOD'] ?? '' ) && isset( $_POST['nx_mcp_authorize'] ) ) {
+        if ( $is_post && isset( $_POST['nx_mcp_authorize'] ) ) {
             check_admin_referer( 'nx_mcp_authorize' );
             $code     = OAuth::get_instance()->issue_code( $request, get_current_user_id() );
             $redirect = add_query_arg(
