@@ -338,6 +338,37 @@ const FacebookReviewsConnection = (props) => {
         setBusy('');
     };
 
+    /**
+     * A failed Page lookup must never be the end of the road.
+     *
+     * Facebook serves anonymous readers a login wall, so "we could not read
+     * that Page" is a routine outcome that says nothing about the address the
+     * customer typed. Printing the reason and stopping there leaves them
+     * re-pasting a URL that was right the first time. Facebook Login never
+     * touches the public page, so wherever the API offers that mode we put it
+     * directly under the error as the way forward.
+     */
+    const renderFailure = (message: string) => {
+        if (!message) return null;
+        return (
+            <div className="nx-fbr-recover">
+                <p className="nx-fbr-hint nx-fbr-hint--warning">{message}</p>
+                {modes.includes('oauth') && (
+                    <button
+                        type="button"
+                        className="wprf-btn nx-fbr-btn nx-fbr-btn--facebook"
+                        disabled={!!busy}
+                        onClick={startLogin}
+                    >
+                        {busy === 'login'
+                            ? __('Redirecting to Facebook…', 'notificationx')
+                            : __('Connect with Facebook Login instead', 'notificationx')}
+                    </button>
+                )}
+            </div>
+        );
+    };
+
     const disconnectPage = async (conn: Connection) => {
         if (busy || !window.confirm(sprintf(/* translators: %s: page name */ __('Disconnect %s? Campaigns using it will stop receiving updates.', 'notificationx'), conn.page_name))) return;
         setBusy('disconnect:' + conn.connection_id);
@@ -486,7 +517,7 @@ const FacebookReviewsConnection = (props) => {
                             </li>
                         ))}
                     </ol>
-                    {attestError ? <p className="nx-fbr-hint nx-fbr-hint--warning">{attestError}</p> : null}
+                    {renderFailure(attestError)}
                     <button type="button" className="wprf-btn nx-fbr-btn" disabled={!!busy} onClick={() => runAttestation(pageUrl.trim())}>
                         {busy === 'attest-verify' ? __('Checking your Page…', 'notificationx') : __('Verify and connect', 'notificationx')}
                     </button>
@@ -528,6 +559,10 @@ const FacebookReviewsConnection = (props) => {
                             {__('Not this one', 'notificationx')}
                         </button>
                     </div>
+                    {/* Connecting a previewed Page can still fail. Without this
+                        the error was set but never rendered — the button simply
+                        stopped working, with nothing on screen to explain it. */}
+                    {renderFailure(attestError)}
                 </div>
             )}
 
@@ -581,7 +616,7 @@ const FacebookReviewsConnection = (props) => {
                             {busy === 'preview' || busy === 'attest-start' ? __('Checking…', 'notificationx') : __('Continue', 'notificationx')}
                         </button>
                     </div>
-                    {attestError ? <p className="nx-fbr-hint nx-fbr-hint--warning">{attestError}</p> : null}
+                    {renderFailure(attestError)}
                     <p className="nx-fbr-hint">
                         {modes.includes('open')
                             ? __('Enter the address of a Facebook Page you manage. We will show you what we found before connecting it.', 'notificationx')

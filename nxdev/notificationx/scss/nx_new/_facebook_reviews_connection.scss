@@ -20,6 +20,14 @@
         }
     }
 
+    // Recovery block under a failed Page lookup: the reason, then the way out.
+    .nx-fbr-recover {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
     // Content step: the whole field is this one dropdown of connected Pages.
     .nx-fbr-select {
         width: 100%;
