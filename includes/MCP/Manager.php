@@ -366,6 +366,23 @@ class Manager {
             wp_die( esc_html( $request->get_error_message() ) );
         }
 
+        // Deny on POST (nonce-checked): bounce back to the client with the
+        // standard OAuth error so it can end the flow cleanly instead of the
+        // user landing on a dead browser tab.
+        if ( 'POST' === ( $_SERVER['REQUEST_METHOD'] ?? '' ) && isset( $_POST['nx_mcp_deny'] ) ) {
+            check_admin_referer( 'nx_mcp_authorize' );
+            $redirect = add_query_arg(
+                array(
+                    'error'             => 'access_denied',
+                    'error_description' => rawurlencode( 'The user denied the authorization request.' ),
+                    'state'             => rawurlencode( $request['state'] ),
+                ),
+                $request['redirect_uri']
+            );
+            wp_redirect( $redirect ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- redirect_uri is validated against the registered client allow-list.
+            exit;
+        }
+
         // Approve on POST (nonce-checked).
         if ( 'POST' === ( $_SERVER['REQUEST_METHOD'] ?? '' ) && isset( $_POST['nx_mcp_authorize'] ) ) {
             check_admin_referer( 'nx_mcp_authorize' );
@@ -391,10 +408,55 @@ class Manager {
      * @return void
      */
     protected function render_authorize_page( $request ) {
-        $store   = get_option( OAuth::OPTION, array() );
-        $client  = isset( $store['clients'][ $request['client_id'] ] ) ? $store['clients'][ $request['client_id'] ] : array();
-        $name    = ! empty( $client['client_name'] ) ? $client['client_name'] : $request['client_id'];
-        $scope   = $request['scope'];
+        $store  = get_option( OAuth::OPTION, array() );
+        $client = isset( $store['clients'][ $request['client_id'] ] ) ? $store['clients'][ $request['client_id'] ] : array();
+        $name   = ! empty( $client['client_name'] ) ? $client['client_name'] : $request['client_id'];
+        $scope  = $request['scope'];
+
+        // What the granted scope actually permits, in plain language.
+        $read_only = OAuth::get_instance()->scope_is_read_only( $scope );
+
+        // The two ends of the connection: the client app and this site.
+        $client_host = (string) wp_parse_url( $request['redirect_uri'], PHP_URL_HOST );
+        $site_name   = get_bloginfo( 'name' );
+        $site_host   = (string) wp_parse_url( home_url(), PHP_URL_HOST );
+
+        // Who is about to approve — everything the connection does is recorded
+        // as this user.
+        $user      = wp_get_current_user();
+        $who_name  = $user->display_name ? $user->display_name : $user->user_login;
+        $roles     = (array) $user->roles;
+        $role_key  = $roles ? (string) reset( $roles ) : '';
+        $role_lbl  = '';
+        if ( $role_key ) {
+            $wp_roles = wp_roles();
+            if ( isset( $wp_roles->roles[ $role_key ]['name'] ) ) {
+                $role_lbl = translate_user_role( $wp_roles->roles[ $role_key ]['name'] );
+            }
+        }
+        $substr         = function_exists( 'mb_substr' ) ? 'mb_substr' : 'substr';
+        $who_initial    = strtoupper( $substr( $who_name, 0, 1 ) );
+        $client_initial = strtoupper( $substr( $name, 0, 1 ) );
+
+        // The exact tools this grant unlocks, straight from the ability
+        // registry so the list can never drift from what the server exposes.
+        Registrar::get_instance()->boot();
+        $granted = array();
+        foreach ( Registrar::get_instance()->get_all() as $ability ) {
+            if ( $read_only && $ability->is_write() ) {
+                continue;
+            }
+            $granted[] = $ability;
+        }
+
+        $cap_label = $read_only ? __( 'Read only', 'notificationx' ) : __( 'Read &amp; write', 'notificationx' );
+        $cap_text  = $read_only
+            ? __( 'It can read your notifications, entries and analytics. It cannot create, change or delete anything.', 'notificationx' )
+            : __( 'It acts as you: anything it creates, edits or deletes is recorded under your account.', 'notificationx' );
+
+        // NotificationX brand mark (assets/admin/images/nx-icon.svg), inlined so
+        // the consent page never depends on a second asset request.
+        $nx_mark = '<svg viewBox="0 0 387 392" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="none" fill-rule="evenodd"><g fill-rule="nonzero"><path d="m135.45 358.68h113.62c-2.05 13.15-27.83 29.91-49.81 32.3-25.34 2.75-56.03-12.6-63.81-32.3z" fill="#5614d5"/><path d="m372.31 305.79c-2.34-.2-4.71-.08-7.07-.08-5.61-.01-11.22 0-18.16 0 0-4.28 0-7.29 0-10.3-.01-46.66.17-93.32-.17-139.98-.08-10.54-1.03-21.24-3.12-31.56-17.4-85.97-103.85-140.06-188.98-118.65-67.97 17.09-116.9 79.04-116.62 149.48.17 42.42.02 84.84.01 127.26 0 3.84-.02 15.83-.04 23.74-5.18-.04-20.09-.13-25.3.18-7.73.45-12.92 6.43-12.82 14.09.1 7.46 5.04 12.77 12.63 13.45 2.11.19 4.24.15 6.36.15 115.71.04 231.43.07 347.14.09 2.12 0 4.25.03 6.36-.18 7.48-.75 12.61-6.25 12.75-13.53.13-7.37-5.42-13.51-12.97-14.16z" fill="#5614d5"/><g fill="#836eff"><circle cx="281.55" cy="255.92" r="15.49"/><path d="m295.67 140.1.24-.16c-.21-1.31-.39-2.65-.64-3.92-9.4-46.45-49.44-80.68-96.48-83.49-.06 0-.12-.01-.18-.01-2.02-.12-4.04-.2-6.08-.2-.05 0-.09 0-.14 0s-.09 0-.14 0c-2.04 0-4.07.08-6.08.2-.06 0-.12.01-.18.01-47.04 2.81-87.08 37.04-96.48 83.49-.26 1.27-.44 2.61-.64 3.92l.24.16c-.91 5.5-1.39 11.12-1.37 16.8.02 4.52.03 99.87.04 112.84l32.13 34.68c0-24.28-.01-133.85-.06-147.64-.13-32.6 22.96-62.09 54.91-70.12 2.65-.67 5.33-1.16 8.02-1.53.45-.06.89-.13 1.35-.18 1.02-.12 2.04-.21 3.05-.29 1.46-.1 2.92-.18 4.4-.19.27 0 .54-.02.81-.03.27 0 .54.02.81.03 1.48.01 2.94.09 4.4.19 1.02.08 2.04.17 3.05.29.45.05.9.12 1.35.18 2.69.37 5.37.86 8.02 1.53 31.94 8.03 55.04 37.53 54.91 70.12-.02 5.17-.03 50.29-.04 71.4l32.14-21.45c0-12.23.01-48.45.01-49.82.02-5.7-.45-11.31-1.37-16.81z"/></g></g><path d="m31.94 305.72c-6.36.13-12.74-.21-19.08.16-7.73.45-12.92 6.43-12.82 14.09.1 7.46 5.04 12.77 12.63 13.45 2.11.19 4.24.15 6.36.15 115.71.04 231.42.06 347.14.09 2.12 0 4.25.03 6.36-.18 7.48-.75 12.61-6.25 12.75-13.53.14-7.37-5.41-13.5-12.96-14.16-2.34-.2-4.71-.08-7.07-.08-5.61-.01-11.22 0-18.16 0 0-4.28 0-7.29 0-10.3-.01-40.67.11-81.34-.08-122l-215.39 143.62-78.04-84.22 33.47-30.79 51.67 55.6 204.48-136.36c-18.61-84.45-104.12-137.24-188.38-116.05-67.97 17.09-116.9 79.04-116.62 149.48.17 42.42.02 84.84.01 127.26 0 5.89.09 11.79-.05 17.67"/><path d="m346.91 155.42c.04 5.99.06 11.99.09 17.98l39.14-25.99-25.24-37.84-17.7 11.69c.19.87.42 1.72.6 2.59 2.08 10.33 3.04 21.04 3.11 31.57z" fill="#00f9ac" fill-rule="nonzero"/><path d="m87.05 202.03-33.47 30.79 78.04 84.22 215.38-143.63c-.03-5.99-.04-11.99-.09-17.98-.08-10.54-1.03-21.24-3.12-31.56-.18-.88-.4-1.73-.6-2.59l-204.47 136.35z"/><path d="m87.05 202.03-33.47 30.79 78.04 84.22 215.38-143.63c-.03-5.99-.04-11.99-.09-17.98-.08-10.54-1.03-21.24-3.12-31.56-.18-.88-.4-1.73-.6-2.59l-204.47 136.35z" fill="#21d8a3" fill-rule="nonzero" opacity=".9"/></g></svg>';
 
         nocache_headers();
         header( 'Content-Type: text/html; charset=utf-8' );
@@ -407,43 +469,134 @@ class Manager {
     <meta name="robots" content="noindex,nofollow">
     <title><?php esc_html_e( 'Authorize MCP connection', 'notificationx' ); ?></title>
     <style>
-        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#f0f0f1;margin:0;display:flex;min-height:100vh;align-items:center;justify-content:center;color:#1e1e1e}
-        .card{background:#fff;max-width:440px;width:92%;padding:32px;border-radius:12px;box-shadow:0 6px 30px rgba(0,0,0,.08)}
-        h1{font-size:20px;margin:0 0 8px}
-        p{font-size:14px;line-height:1.6;color:#3c434a}
-        .app{font-weight:600}
-        .scope{display:inline-block;background:#f0f0f1;border-radius:4px;padding:2px 8px;font-size:12px;margin:2px 4px 2px 0}
-        .actions{display:flex;gap:12px;margin-top:24px}
-        button{flex:1;padding:12px;border-radius:8px;border:0;font-size:14px;font-weight:600;cursor:pointer}
-        .approve{background:#6a4bff;color:#fff}
-        .deny{background:#f0f0f1;color:#1e1e1e}
+        :root{--nx:#6a4bff;--nx-dark:#5614d5;--ink:#1a1a2e;--muted:#5b6072;--line:#e7e7ef}
+        *{box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;color:var(--ink);background:#f4f3fb;background:radial-gradient(1200px 600px at 50% -10%,#efe9ff 0%,#f4f3fb 45%,#f4f3fb 100%)}
+        .card{background:#fff;max-width:480px;width:100%;padding:32px 32px 28px;border-radius:20px;border:1px solid var(--line);box-shadow:0 18px 50px rgba(38,20,120,.10)}
+        .apps{display:flex;align-items:flex-start;justify-content:center;gap:8px;margin:4px 0 22px}
+        .app{width:132px;text-align:center}
+        .tile{width:64px;height:64px;margin:0 auto 10px;border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(30,20,80,.10)}
+        .tile.client{background:#eef0f6;color:#3a4056;font-size:26px;font-weight:700}
+        .tile.nx{background:#fff;border:1px solid var(--line)}
+        .tile.nx svg{width:42px;height:42px;display:block}
+        .app-name{font-size:14px;font-weight:600;line-height:1.3}
+        .app-host{font-size:12px;color:var(--muted);word-break:break-word;margin-top:2px}
+        .conn{flex:0 0 auto;align-self:center;margin-top:8px;display:flex;align-items:center;gap:6px;color:#b7b9c9}
+        .conn i{display:block;width:14px;height:0;border-top:2px dotted currentColor}
+        .conn .dot{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;background:#fff}
+        h1{font-size:19px;line-height:1.45;margin:0 0 20px;text-align:center;font-weight:600}
+        h1 strong{font-weight:700}
+        .cap{border-radius:14px;padding:16px 16px 14px;border:1px solid #e4defb;background:#f6f3ff}
+        .cap.ro{border-color:#dfe6f2;background:#f2f6fc}
+        .pill{display:inline-block;font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px;background:var(--nx);color:#fff}
+        .cap.ro .pill{background:#3f6fd6}
+        .cap p{margin:11px 0 0;font-size:13px;line-height:1.55;color:#403c5c}
+        .who{display:flex;align-items:center;gap:10px;margin:16px 2px 0;font-size:13px;color:var(--muted)}
+        .avatar{width:30px;height:30px;border-radius:50%;background:#eef0f6;color:#3a4056;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+        .who b{color:var(--ink)}
+        details{margin-top:14px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+        summary{list-style:none;cursor:pointer;padding:13px 15px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:space-between}
+        summary::-webkit-details-marker{display:none}
+        summary .chev{transition:transform .15s ease;color:var(--muted)}
+        details[open] summary .chev{transform:rotate(180deg)}
+        .abilities{margin:0;padding:2px 6px 8px;list-style:none}
+        .abilities li{padding:9px 9px;border-top:1px solid var(--line)}
+        .abilities .a-name{font-size:13px;font-weight:600}
+        .abilities .a-desc{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.45}
+        .secured{display:flex;align-items:flex-start;gap:8px;margin:16px 2px 0;font-size:12px;color:var(--muted);line-height:1.5}
+        .secured svg{flex:0 0 auto;margin-top:1px}
+        .actions{display:flex;gap:12px;margin-top:22px}
+        button{flex:1;padding:13px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;border:1px solid transparent}
+        .approve{background:var(--nx);color:#fff}
+        .approve:hover{background:var(--nx-dark)}
+        .deny{background:#fff;color:var(--ink);border-color:var(--line)}
+        .deny:hover{background:#f6f6fa}
     </style>
 </head>
 <body>
     <div class="card">
-        <h1><?php esc_html_e( 'Authorize connection', 'notificationx' ); ?></h1>
-        <p>
+        <div class="apps">
+            <div class="app">
+                <div class="tile client"><?php echo esc_html( $client_initial ); ?></div>
+                <div class="app-name"><?php echo esc_html( $name ); ?></div>
+                <?php if ( $client_host ) : ?><div class="app-host"><?php echo esc_html( $client_host ); ?></div><?php endif; ?>
+            </div>
+            <div class="conn" aria-hidden="true"><i></i><span class="dot">&rarr;</span><i></i></div>
+            <div class="app">
+                <div class="tile nx"><?php echo $nx_mark; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static inline brand SVG, no dynamic data. ?></div>
+                <div class="app-name">NotificationX</div>
+                <?php if ( $site_host ) : ?><div class="app-host"><?php echo esc_html( $site_host ); ?></div><?php endif; ?>
+            </div>
+        </div>
+
+        <h1>
             <?php
             printf(
                 /* translators: %1$s: client app name, %2$s: site name. */
-                esc_html__( '%1$s wants to connect to NotificationX on %2$s and act on your behalf.', 'notificationx' ),
-                '<span class="app">' . esc_html( $name ) . '</span>',
-                esc_html( get_bloginfo( 'name' ) )
+                esc_html__( '%1$s wants to work with your notifications on %2$s.', 'notificationx' ),
+                '<strong>' . esc_html( $name ) . '</strong>',
+                '<strong>' . esc_html( $site_name ? $site_name : $site_host ) . '</strong>'
             );
             ?>
-        </p>
-        <p>
-            <?php esc_html_e( 'Requested access:', 'notificationx' ); ?><br>
-            <?php foreach ( preg_split( '/\s+/', trim( $scope ) ) as $s ) : ?>
-                <span class="scope"><?php echo esc_html( $s ); ?></span>
-            <?php endforeach; ?>
-        </p>
+        </h1>
+
+        <div class="cap <?php echo $read_only ? 'ro' : ''; ?>">
+            <span class="pill"><?php echo esc_html( $cap_label ); ?></span>
+            <p><?php echo esc_html( $cap_text ); ?></p>
+        </div>
+
+        <div class="who">
+            <span class="avatar"><?php echo esc_html( $who_initial ); ?></span>
+            <span>
+                <?php
+                printf(
+                    /* translators: %1$s: user display name, %2$s: user role. */
+                    esc_html__( 'Signed in as %1$s%2$s', 'notificationx' ),
+                    '<b>' . esc_html( $who_name ) . '</b>',
+                    $role_lbl ? ' &middot; ' . esc_html( $role_lbl ) : ''
+                );
+                ?>
+            </span>
+        </div>
+
+        <?php if ( $granted ) : ?>
+        <details>
+            <summary>
+                <span>
+                    <?php
+                    printf(
+                        /* translators: %1$s: client app name, %2$d: number of tools. */
+                        esc_html__( 'What %1$s will be able to do (%2$d)', 'notificationx' ),
+                        esc_html( $name ),
+                        count( $granted )
+                    );
+                    ?>
+                </span>
+                <span class="chev">&#9662;</span>
+            </summary>
+            <ul class="abilities">
+                <?php foreach ( $granted as $ability ) : ?>
+                <li>
+                    <div class="a-name"><?php echo esc_html( $ability->get_label() ); ?></div>
+                    <div class="a-desc"><?php echo esc_html( $ability->get_description() ); ?></div>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </details>
+        <?php endif; ?>
+
+        <div class="secured">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>
+                <?php esc_html_e( 'Secured with OAuth. You can revoke this app at any time under NotificationX → MCP.', 'notificationx' ); ?>
+            </span>
+        </div>
+
         <form method="post">
             <?php wp_nonce_field( 'nx_mcp_authorize' ); ?>
-            <input type="hidden" name="nx_mcp_authorize" value="1">
             <div class="actions">
-                <button type="button" class="deny" onclick="window.close();history.back();"><?php esc_html_e( 'Cancel', 'notificationx' ); ?></button>
-                <button type="submit" class="approve"><?php esc_html_e( 'Approve', 'notificationx' ); ?></button>
+                <button type="submit" class="deny" name="nx_mcp_deny" value="1"><?php esc_html_e( 'Deny', 'notificationx' ); ?></button>
+                <button type="submit" class="approve" name="nx_mcp_authorize" value="1"><?php esc_html_e( 'Approve', 'notificationx' ); ?></button>
             </div>
         </form>
     </div>
