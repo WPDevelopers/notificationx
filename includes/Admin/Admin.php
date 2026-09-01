@@ -420,6 +420,9 @@ class Admin {
     }
 
     public function plugin_usage_insights(){
+        if ( null !== $this->insights ) {
+            return $this->insights;
+        }
         $this->insights = PluginInsights::get_instance( NOTIFICATIONX_FILE, [
 			'opt_in'       => true,
 			'goodbye_form' => true,
@@ -433,6 +436,8 @@ class Admin {
 			popular plugins and themes. No spam, I promise.', 'notificationx' ),
 		));
 		$this->insights->init();
+
+        return $this->insights;
     }
 
     /**

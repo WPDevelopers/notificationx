@@ -36,6 +36,7 @@ class TypeFactory {
             'page_analytics'     => 'NotificationX\Types\PageAnalytics',
             'custom'             => 'NotificationX\Types\CustomNotification',
             'inline'             => 'NotificationX\Types\Inline',
+            'woocommerce_cart_peek' => 'NotificationX\Types\WooCommerceCartPeek',
             'flashing_tab'       => 'NotificationX\Types\FlashingTab',
             'video'              => 'NotificationX\Types\Video',
             'offer_announcement' => 'NotificationX\Types\OfferAnnouncement',

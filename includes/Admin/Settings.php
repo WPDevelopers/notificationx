@@ -81,6 +81,18 @@ class Settings extends UsabilityDynamicsSettings {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $settings = apply_filters('nx_settings_page_settings', $this->get( 'settings', [] ));
 
+        /*
+         * `/builder` resolves `read_notificationx` -- the lowest capability the
+         * product defines -- and this blob is handed straight to it. The
+         * `settingsRedirect` flag below only tells the admin app not to render
+         * the settings screen; it is a client-side routing hint, not a boundary.
+         * Without this, a view-only delegate received every API key, client
+         * secret and OAuth token stored on the site.
+         */
+        if ( ! current_user_can( 'edit_notificationx_settings' ) ) {
+            $settings = self::redact_secret_settings( $settings );
+        }
+
         $data['current_page'] = 'settings';
         $data['rest']         = REST::get_instance()->rest_data();
         $data['savedValues']  = $settings;
@@ -670,6 +682,11 @@ class Settings extends UsabilityDynamicsSettings {
             'empty',
         ];
 
+        // Must run before the role map is derived below, or the posted values
+        // would still reach `nx_settings_saved` and be written to the roles.
+        $settings = $this->preserve_role_settings( $settings );
+        $settings = $this->preserve_secret_settings( $settings );
+
         $roles    = $this->get_selected_roles( $settings );
         $settings = array_merge( $settings, $roles );
 
@@ -681,9 +698,15 @@ class Settings extends UsabilityDynamicsSettings {
                 unset( $settings[ $key ] );
             }
         }
+        $settings = $this->preserve_protected_settings( $settings );
+
         // need this to ensure saved value don't return empty array instead of object.
         if ( ! empty( $settings['delete_settings'] ) ) {
             $settings = [ 'empty' => true ];
+            // The reset discards everything preserved above, so re-apply the
+            // role gate: a settings administrator must not be able to rewrite
+            // role assignments by routing through a settings reset.
+            $settings = $this->preserve_role_settings( $settings );
         }
 
         $this->set( 'settings', $settings );
@@ -691,6 +714,179 @@ class Settings extends UsabilityDynamicsSettings {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         do_action( 'nx_settings_saved', $settings );
         return true;
+    }
+
+    /**
+     * Force server-owned settings back to their stored values.
+     *
+     * `save_settings()` replaces the whole blob with the posted one, so every key
+     * the admin app is holding wins -- right for fields a merchant edits, wrong
+     * for state only the server writes. OAuth tokens are the case that bites:
+     * they live inside `settings`, so they are handed to the admin app on page
+     * load and posted straight back. Disconnecting an account and then saving
+     * from a tab opened *before* the disconnect wrote the revoked token back and
+     * the integration silently kept working -- with Google Analytics that showed
+     * up as live viewer counts on a supposedly disconnected site.
+     *
+     * Keys listed here can only be changed by the code that owns them.
+     *
+     * @param array $settings Incoming settings.
+     * @return array
+     */
+    protected function preserve_protected_settings( $settings ) {
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        $protected = apply_filters( 'nx_protected_settings', [
+            'nx_pa_settings', // Google Analytics OAuth token.
+        ] );
+
+        // `get()` returns false for a missing key, and false is also what a
+        // disconnect stores -- so only a sentinel separates "stored as false"
+        // from "never stored", and the two need different handling.
+        $missing = new \stdClass();
+
+        foreach ( (array) $protected as $key ) {
+            if ( ! is_string( $key ) || '' === $key ) {
+                continue;
+            }
+            $stored = $this->get( "settings.{$key}", $missing );
+            if ( $missing === $stored ) {
+                unset( $settings[ $key ] );
+                continue;
+            }
+            $settings[ $key ] = $stored;
+        }
+
+        return $settings;
+    }
+
+    /**
+     * Settings keys holding credentials rather than configuration.
+     *
+     * These are values a site owner pastes in once and which grant access to a
+     * third-party account. They must never reach a client that is not entitled
+     * to edit settings, and must never be written into an export file.
+     *
+     * Pro registers its own integrations, so the list is filterable; keep the
+     * free baseline broad rather than minimal, because a key omitted here is a
+     * key that leaks.
+     *
+     * @return array
+     */
+    public static function get_secret_settings_keys() {
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        return (array) apply_filters( 'nx_secret_settings', [
+            'nx_pa_settings',          // Google Analytics OAuth access + refresh token.
+            'token_info',
+            'ga_client_secret',
+            'yt_client_secret',
+            'openai_access_token',
+            'mailchimp_api_key',
+            'activecampaign_api_key',
+            'convertkit_api_key',
+            'convertkit_api_secret',
+            'google_review_api_key',
+            'google_youtube_api_key',
+            'zapier_api_key',
+            'ifttt_api_key',
+            'envato_token',
+            'gmap_token',
+        ] );
+    }
+
+    /**
+     * Strip credentials out of a settings blob.
+     *
+     * Keys are removed outright rather than blanked. A blanked value is
+     * indistinguishable from "the user cleared this field" once it is posted
+     * back, which would silently destroy working integrations; an absent key is
+     * unambiguous and is restored by `preserve_secret_settings()` on save.
+     *
+     * @param array $settings
+     * @return array
+     */
+    public static function redact_secret_settings( $settings ) {
+        if ( ! is_array( $settings ) ) {
+            return $settings;
+        }
+        foreach ( self::get_secret_settings_keys() as $key ) {
+            unset( $settings[ $key ] );
+        }
+        return $settings;
+    }
+
+    /**
+     * Carry stored credentials across a save that does not carry them.
+     *
+     * Counterpart to `redact_secret_settings()`. An export has its credentials
+     * stripped, so importing one would otherwise blank every integration on the
+     * target site. Absent key means "unchanged"; a key that *is* present wins,
+     * so a settings administrator editing an API key in the UI still works, and
+     * deliberately clearing a field still clears it.
+     *
+     * Unlike `preserve_protected_settings()` these values are user-owned, so
+     * they must stay editable -- that is why this cannot simply force the
+     * stored value back.
+     *
+     * @param array $settings Incoming settings.
+     * @return array
+     */
+    protected function preserve_secret_settings( $settings ) {
+        if ( ! is_array( $settings ) ) {
+            return $settings;
+        }
+
+        $missing = new \stdClass();
+
+        foreach ( self::get_secret_settings_keys() as $key ) {
+            if ( array_key_exists( $key, $settings ) ) {
+                continue;
+            }
+            $stored = $this->get( "settings.{$key}", $missing );
+            if ( $missing !== $stored ) {
+                $settings[ $key ] = $stored;
+            }
+        }
+
+        return $settings;
+    }
+
+    /**
+     * Keep role assignments out of reach of a plain settings administrator.
+     *
+     * The role selectors grant and revoke capabilities across every role on the
+     * site, which is authority well beyond "may edit NotificationX settings".
+     * Pro hides these fields from the settings form unless the user can
+     * `delete_users` (RoleManagement::tab_advanced), but that is a filter on the
+     * form schema -- it never runs on save, so posting the keys directly to
+     * `/settings` bypassed it entirely.
+     *
+     * @param array $settings Incoming settings.
+     * @return array
+     */
+    protected function preserve_role_settings( $settings ) {
+        if ( ! is_array( $settings ) || current_user_can( 'delete_users' ) ) {
+            return $settings;
+        }
+
+        $role_keys = [
+            'notification_view_roles',
+            'notification_roles',
+            'settings_roles',
+            'analytics_roles',
+        ];
+
+        $missing = new \stdClass();
+
+        foreach ( $role_keys as $key ) {
+            $stored = $this->get( "settings.{$key}", $missing );
+            if ( $missing === $stored ) {
+                unset( $settings[ $key ] );
+                continue;
+            }
+            $settings[ $key ] = $stored;
+        }
+
+        return $settings;
     }
 
     public function get_role_map( $settings = [] ) {

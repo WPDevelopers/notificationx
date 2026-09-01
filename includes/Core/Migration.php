@@ -45,7 +45,13 @@ class Migration {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-        add_action('plugins_loaded', [$this, 'plugins_loaded']);
+        // Runs on `init`, not `plugins_loaded`: migrate_posts() re-arms each
+        // notification's cron through Cron::set_cron(), and wp_schedule_event()
+        // -> wp_get_schedules() fires the `cron_schedules` filter, whose
+        // callbacks (NX Free/Pro, WooCommerce, ...) translate their interval
+        // labels. Doing that before `init` triggers WordPress'
+        // _load_textdomain_just_in_time "called too early" notice (WP 6.7+).
+        add_action('init', [$this, 'plugins_loaded'], 1);
     }
 
     public function plugins_loaded() {

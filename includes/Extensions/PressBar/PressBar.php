@@ -1486,12 +1486,12 @@ class PressBar extends Extension {
                     // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     $elementor_post_id = apply_filters( 'wpml_object_id', $elementor_id, 'nx_bar', false, $lang);
                     if($elementor_post_id){
-                        wp_delete_post($elementor_post_id, true);
+                        Helper::delete_owned_post($elementor_post_id, 'nx_bar');
                     }
                 }
                 return;
             }
-            wp_delete_post($elementor_id, true);
+            Helper::delete_owned_post($elementor_id, 'nx_bar');
         }
     }
 
@@ -2138,12 +2138,12 @@ class PressBar extends Extension {
                     // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     $wpml_pid = apply_filters( 'wpml_object_id', $pid, 'wp_block', false, $lang);
                     if($wpml_pid){
-                        wp_delete_post($wpml_pid, true);
+                        Helper::delete_owned_post($wpml_pid, 'nx_bar_eb');
                     }
                 }
                 return;
             }
-            wp_delete_post($pid, true);
+            Helper::delete_owned_post($pid, 'nx_bar_eb');
         }
     }
 

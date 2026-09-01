@@ -4,8 +4,8 @@
  *
  * Collects anonymous NotificationX usage statistics — which notification
  * types and which data sources customers are using — and merges them into the
- * WP Insights tracking payload that is sent (once per day, after user opt-in)
- * to send.wpinsight.com via {@see \NotificationX\Admin\PluginInsights}.
+ * WP Insights tracking payload that is sent (once per day) to
+ * send.wpinsight.com via {@see \NotificationX\Admin\PluginInsights}.
  *
  * The data is attached to the payload's `optional_data` key. The wpinsights
  * app renders `optional_data` as a flat `key => value` table (nested arrays

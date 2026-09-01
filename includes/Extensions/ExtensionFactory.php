@@ -58,6 +58,7 @@ class ExtensionFactory {
 			'reviewx'                            => 'NotificationX\Extensions\ReviewX\ReviewX',
 			'woocommerce'                        => 'NotificationX\Extensions\WooCommerce\WooCommerce',
 			'woocommerce_sales'                  => 'NotificationX\Extensions\WooCommerce\WooCommerceSales',
+			'woocommerce_cart_peek'              => 'NotificationX\Extensions\WooCommerce\WooCommerceCartPeek',
 			'woocommerce_sales_reviews'          => 'NotificationX\Extensions\WooCommerce\WooCommerceSalesReviews',
 			'woocommerce_sales_inline'           => 'NotificationX\Extensions\WooCommerce\WooCommerceSalesInline',
 			'woo_reviews'                        => 'NotificationX\Extensions\WooCommerce\WooReviews',

@@ -59,9 +59,9 @@ class Maintenance {
     }
 
     /**
-     * Daily routine. Delegates to the existing usage/insights pipeline, which
-     * remains fully consent-gated (it no-ops unless the site has opted in to
-     * tracking) — this only guarantees the once-per-day sync actually fires.
+     * Daily routine. Delegates to the existing usage/insights pipeline — this
+     * only guarantees the once-per-day sync actually fires; the pipeline
+     * itself decides whether there is anything to send.
      *
      * @return void
      */
@@ -74,7 +74,8 @@ class Maintenance {
 
         if ( method_exists( $insights, 'do_tracking' ) ) {
             // force = true so the daily schedule reliably attempts the sync;
-            // do_tracking() still honors opt-in/opt-out and NX_DEBUG internally.
+            // do_tracking() still honors the programmatic opt-out and NX_DEBUG
+            // internally.
             $insights->do_tracking( true );
         }
     }

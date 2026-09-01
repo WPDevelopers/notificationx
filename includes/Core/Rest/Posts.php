@@ -153,7 +153,7 @@ class Posts extends WP_REST_Controller {
        $status         = !empty($params['status']) ? $params['status'] : "all";
        $page           = !empty($params['page']) ? intval( $params['page'] ) : 1;
        $per_page       = !empty($params['per_page']) ? intval( $params['per_page'] ) : 20;
-       $search_keyword = !empty($params['s']) ? $params['s'] : '';
+       $search_keyword = !empty($params['s']) ? sanitize_text_field($params['s']) : '';
        $start_from     = ($page - 1) * $per_page;
        $query = Database::get_instance()->query()
                 ->from('nx_posts a')
@@ -165,9 +165,14 @@ class Posts extends WP_REST_Controller {
             $query->where('enabled', $status == 'enabled' ? true : false);
         }
         if( $search_keyword ) {
-            $query->where(function($query) use ($search_keyword) {
-                $query->where('title', 'LIKE', '%' . $search_keyword . '%')
-                      ->orWhere( 'a.nx_id', 'LIKE', '%'. $search_keyword . '%' );
+            global $wpdb;
+            // esc_like() so `%` and `_` typed into the search box match themselves
+            // instead of acting as wildcards; the pattern is bound as a value by the
+            // query builder.
+            $like = '%' . $wpdb->esc_like( $search_keyword ) . '%';
+            $query->where(function($query) use ($like) {
+                $query->where('title', 'LIKE', $like)
+                      ->orWhere( 'a.nx_id', 'LIKE', $like );
             });
         }
         

@@ -2,21 +2,21 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.2.13\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nx-wt-release\n"
+"Project-Id-Version: NotificationX 3.2.14\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-06T09:10:48+00:00\n"
+"POT-Creation-Date: 2026-08-27T07:47:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
 
 #. Plugin Name of the plugin
 #: notificationx.php
-#: includes/Admin/Settings.php:112
+#: includes/Admin/Settings.php:124
 #: includes/Core/QuickBuild.php:116
 #: includes/Extensions/Elementor/ElementorManager.php:48
 #: includes/Extensions/GlobalFields.php:55
@@ -89,11 +89,11 @@ msgstr ""
 msgid "Grab The Offer"
 msgstr ""
 
-#: includes/Admin/Admin.php:429
+#: includes/Admin/Admin.php:432
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:430
+#: includes/Admin/Admin.php:433
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -102,8 +102,9 @@ msgid ""
 msgstr ""
 
 #. translators: %s: no of minutes
-#: includes/Admin/Cron.php:93
-#: includes/Admin/Cron.php:99
+#: includes/Admin/Cron.php:111
+#: includes/Admin/Cron.php:117
+#, php-format
 msgid "Every %s minutes"
 msgstr ""
 
@@ -116,7 +117,7 @@ msgid "Please provide a valid email address."
 msgstr ""
 
 #: includes/Admin/EntriesMailReceiver.php:92
-#: includes/Admin/Settings.php:390
+#: includes/Admin/Settings.php:402
 msgid "Test email sent successfully."
 msgstr ""
 
@@ -126,7 +127,8 @@ msgstr ""
 
 #. translators: %s: site name
 #: includes/Admin/EntriesMailReceiver.php:153
-#: includes/Admin/Settings.php:371
+#: includes/Admin/Settings.php:383
+#, php-format
 msgid "New Entry Received on \"%s\""
 msgstr ""
 
@@ -138,17 +140,17 @@ msgstr ""
 msgid "No entry data available."
 msgstr ""
 
-#: includes/Admin/ImportExport.php:50
+#: includes/Admin/ImportExport.php:68
 msgid "Import/Export"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:56
+#: includes/Admin/ImportExport.php:74
 msgid "Export Notifications"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:63
-#: includes/Admin/Settings.php:300
-#: includes/Admin/Settings.php:517
+#: includes/Admin/ImportExport.php:81
+#: includes/Admin/Settings.php:312
+#: includes/Admin/Settings.php:529
 #: includes/Core/Analytics.php:46
 #: includes/Extensions/GlobalFields.php:1296
 #: includes/FrontEnd/FrontEnd.php:100
@@ -156,41 +158,41 @@ msgstr ""
 msgid "Analytics"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:72
+#: includes/Admin/ImportExport.php:90
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 msgid "Status"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:85
+#: includes/Admin/ImportExport.php:103
 msgid "Export Settings"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:93
-#: includes/Admin/ImportExport.php:94
+#: includes/Admin/ImportExport.php:111
+#: includes/Admin/ImportExport.php:112
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 msgid "Export"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:95
+#: includes/Admin/ImportExport.php:113
 msgid "Exporting..."
 msgstr ""
 
-#: includes/Admin/ImportExport.php:114
+#: includes/Admin/ImportExport.php:132
 msgid "Export completed successfully."
 msgstr ""
 
-#: includes/Admin/ImportExport.php:124
+#: includes/Admin/ImportExport.php:142
 msgid "Import (*.json)"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:125
+#: includes/Admin/ImportExport.php:143
 msgid "Change"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:133
-#: includes/Admin/ImportExport.php:134
+#: includes/Admin/ImportExport.php:151
+#: includes/Admin/ImportExport.php:152
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:997
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:998
 #: includes/Extensions/PressBar/PressBar.php:829
@@ -200,15 +202,28 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: includes/Admin/ImportExport.php:135
+#: includes/Admin/ImportExport.php:153
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:999
 #: includes/Extensions/PressBar/PressBar.php:831
 #: includes/Extensions/PressBar/PressBar.php:1038
 msgid "Importing..."
 msgstr ""
 
-#: includes/Admin/ImportExport.php:147
+#: includes/Admin/ImportExport.php:165
 msgid "Import completed successfully."
+msgstr ""
+
+#: includes/Admin/ImportExport.php:199
+msgid "You are not allowed to import NotificationX settings."
+msgstr ""
+
+#: includes/Admin/ImportExport.php:278
+msgid "You are not allowed to export NotificationX settings."
+msgstr ""
+
+#: includes/Admin/ImportExport.php:382
+#: includes/Extensions/PressBar/PressBar.php:1506
+msgid "NotificationX Bar"
 msgstr ""
 
 #: includes/Admin/MilestoneNotification.php:177
@@ -379,67 +394,67 @@ msgstr ""
 msgid "Installed"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:397
+#: includes/Admin/PluginInsights.php:428
 msgid "We can't detect any plugin information. This is most probably because you have not included the code in the plugin main file."
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:679
+#: includes/Admin/PluginInsights.php:710
 msgid "What we collect."
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:680
+#: includes/Admin/PluginInsights.php:711
 msgid "Sure, I'd like to help"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:681
+#: includes/Admin/PluginInsights.php:712
 msgid "No Thanks."
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:788
+#: includes/Admin/PluginInsights.php:822
 msgid "Sorry to see you go"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:789
+#: includes/Admin/PluginInsights.php:823
 msgid "Before you deactivate the plugin, would you quickly give us your reason for doing so?"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:792
+#: includes/Admin/PluginInsights.php:826
 msgid "I no longer need the plugin"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:794
+#: includes/Admin/PluginInsights.php:828
 msgid "I found a better plugin"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:795
+#: includes/Admin/PluginInsights.php:829
 msgid "Please share which plugin"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:797
+#: includes/Admin/PluginInsights.php:831
 msgid "I couldn't get the plugin to work"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:798
+#: includes/Admin/PluginInsights.php:832
 msgid "It's a temporary deactivation"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:800
+#: includes/Admin/PluginInsights.php:834
 msgid "Other"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:801
+#: includes/Admin/PluginInsights.php:835
 msgid "Please share the reason"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:994
+#: includes/Admin/PluginInsights.php:1028
 msgid "Submitting form"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:1012
+#: includes/Admin/PluginInsights.php:1046
 msgid "Submit and Deactivate"
 msgstr ""
 
-#: includes/Admin/PluginInsights.php:1012
+#: includes/Admin/PluginInsights.php:1046
 msgid "Just Deactivate"
 msgstr ""
 
@@ -464,23 +479,24 @@ msgid "You have to enable Reporting first."
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:221
-#: includes/Admin/Settings.php:422
+#: includes/Admin/Settings.php:434
 msgid "Once Weekly"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:225
-#: includes/Admin/Settings.php:421
+#: includes/Admin/Settings.php:433
 msgid "Once Daily"
 msgstr ""
 
 #: includes/Admin/Reports/ReportEmail.php:229
-#: includes/Admin/Settings.php:423
+#: includes/Admin/Settings.php:435
 msgid "Once Monthly"
 msgstr ""
 
 #. translators: %s: site name
 #: includes/Admin/Reports/ReportEmail.php:265
-#: includes/Admin/Settings.php:472
+#: includes/Admin/Settings.php:484
+#, php-format
 msgid "Weekly Engagement Summary of “%s”"
 msgstr ""
 
@@ -500,306 +516,306 @@ msgstr ""
 msgid "Invalid scan ID"
 msgstr ""
 
-#: includes/Admin/Settings.php:129
+#: includes/Admin/Settings.php:141
 msgid "Save Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:137
-#: includes/Admin/Settings.php:174
+#: includes/Admin/Settings.php:149
+#: includes/Admin/Settings.php:186
 #: blocks/countdown/components/inspector.js:112
 #: blocks/countdown/index.js:1
 msgid "General"
 msgstr ""
 
-#: includes/Admin/Settings.php:142
+#: includes/Admin/Settings.php:154
 msgid "Modules"
 msgstr ""
 
-#: includes/Admin/Settings.php:167
+#: includes/Admin/Settings.php:179
 msgid "Advanced Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:180
+#: includes/Admin/Settings.php:192
 msgid "Enable REST API"
 msgstr ""
 
-#: includes/Admin/Settings.php:183
+#: includes/Admin/Settings.php:195
 msgid "Forcefully enable anonymous REST API for NotificationX."
 msgstr ""
 
-#: includes/Admin/Settings.php:188
+#: includes/Admin/Settings.php:200
 msgid "Exclude Credentials"
 msgstr ""
 
-#: includes/Admin/Settings.php:191
+#: includes/Admin/Settings.php:203
 msgid "Enabling it will remove cookies, HTTP authentication entries, and TLS client certificates from API calls on the frontend."
 msgstr ""
 
-#: includes/Admin/Settings.php:192
+#: includes/Admin/Settings.php:204
 msgid "Note: Recommended if you use any caching plugins."
 msgstr ""
 
-#: includes/Admin/Settings.php:197
+#: includes/Admin/Settings.php:209
 msgid "Image Size"
 msgstr ""
 
-#: includes/Admin/Settings.php:200
+#: includes/Admin/Settings.php:212
 msgid "100 x 100 px"
 msgstr ""
 
-#: includes/Admin/Settings.php:201
+#: includes/Admin/Settings.php:213
 msgid "200 x 200 px"
 msgstr ""
 
-#: includes/Admin/Settings.php:202
+#: includes/Admin/Settings.php:214
 msgid "300 x 300 px"
 msgstr ""
 
-#: includes/Admin/Settings.php:203
+#: includes/Admin/Settings.php:215
 msgid "400 x 400 px"
 msgstr ""
 
-#: includes/Admin/Settings.php:204
+#: includes/Admin/Settings.php:216
 msgid "500 x 500 px"
 msgstr ""
 
-#: includes/Admin/Settings.php:207
+#: includes/Admin/Settings.php:219
 msgid "Select the size for your notification image."
 msgstr ""
 
-#: includes/Admin/Settings.php:212
+#: includes/Admin/Settings.php:224
 msgid "Custom Notification Import Limit"
 msgstr ""
 
-#: includes/Admin/Settings.php:220
+#: includes/Admin/Settings.php:232
 msgid "Powered By"
 msgstr ""
 
-#: includes/Admin/Settings.php:226
+#: includes/Admin/Settings.php:238
 msgid "Disable Powered By"
 msgstr ""
 
-#: includes/Admin/Settings.php:230
+#: includes/Admin/Settings.php:242
 msgid "Click, if you want to disable powered by text from notification"
 msgstr ""
 
-#: includes/Admin/Settings.php:237
+#: includes/Admin/Settings.php:249
 msgid "Role Management"
 msgstr ""
 
-#: includes/Admin/Settings.php:243
+#: includes/Admin/Settings.php:255
 msgid "Who Can View Notification?"
 msgstr ""
 
-#: includes/Admin/Settings.php:254
+#: includes/Admin/Settings.php:266
 msgid "Who Can Create Notification?"
 msgstr ""
 
-#: includes/Admin/Settings.php:265
+#: includes/Admin/Settings.php:277
 msgid "Who Can Edit Settings?"
 msgstr ""
 
-#: includes/Admin/Settings.php:276
+#: includes/Admin/Settings.php:288
 msgid "Who Can Check Analytics?"
 msgstr ""
 
-#: includes/Admin/Settings.php:291
+#: includes/Admin/Settings.php:303
 msgid "Analytics & Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:305
+#: includes/Admin/Settings.php:317
 msgid "Enable Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:312
+#: includes/Admin/Settings.php:324
 msgid "Disable Dashboard Widget"
 msgstr ""
 
-#: includes/Admin/Settings.php:315
+#: includes/Admin/Settings.php:327
 msgid "Click, if you want to disable dashboard widget of analytics only."
 msgstr ""
 
-#: includes/Admin/Settings.php:321
+#: includes/Admin/Settings.php:333
 msgid "Analytics From"
 msgstr ""
 
-#: includes/Admin/Settings.php:323
+#: includes/Admin/Settings.php:335
 #: includes/Extensions/GlobalFields.php:1758
 #: includes/Types/GDPR.php:264
 msgid "Everyone"
 msgstr ""
 
-#: includes/Admin/Settings.php:324
+#: includes/Admin/Settings.php:336
 msgid "Guests Only"
 msgstr ""
 
-#: includes/Admin/Settings.php:325
+#: includes/Admin/Settings.php:337
 msgid "Registered Users Only"
 msgstr ""
 
-#: includes/Admin/Settings.php:335
+#: includes/Admin/Settings.php:347
 msgid "Exclude Bot Analytics"
 msgstr ""
 
-#: includes/Admin/Settings.php:338
+#: includes/Admin/Settings.php:350
 msgid "Select if you want to exclude bot analytics."
 msgstr ""
 
-#: includes/Admin/Settings.php:348
+#: includes/Admin/Settings.php:360
 msgid "Entries Mail Receiver"
 msgstr ""
 
-#: includes/Admin/Settings.php:353
+#: includes/Admin/Settings.php:365
 msgid "Enable Entries Mail Receiver"
 msgstr ""
 
-#: includes/Admin/Settings.php:356
+#: includes/Admin/Settings.php:368
 msgid "Send an email notification whenever a new entry is received."
 msgstr ""
 
-#: includes/Admin/Settings.php:361
+#: includes/Admin/Settings.php:373
 msgid "Entry Recipient Email"
 msgstr ""
 
-#: includes/Admin/Settings.php:369
+#: includes/Admin/Settings.php:381
 msgid "Email Subject"
 msgstr ""
 
-#: includes/Admin/Settings.php:377
+#: includes/Admin/Settings.php:389
 msgid "Test Mail"
 msgstr ""
 
-#: includes/Admin/Settings.php:378
+#: includes/Admin/Settings.php:390
 msgid "Send Test Email"
 msgstr ""
 
-#: includes/Admin/Settings.php:402
+#: includes/Admin/Settings.php:414
 msgid "Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:407
+#: includes/Admin/Settings.php:419
 msgid "Disable Reporting"
 msgstr ""
 
-#: includes/Admin/Settings.php:415
+#: includes/Admin/Settings.php:427
 msgid "Reporting Frequency"
 msgstr ""
 
-#: includes/Admin/Settings.php:434
+#: includes/Admin/Settings.php:446
 msgid "It will be triggered on the first day of next month."
 msgstr ""
 
-#: includes/Admin/Settings.php:440
+#: includes/Admin/Settings.php:452
 msgid "Select Reporting Day"
 msgstr ""
 
-#: includes/Admin/Settings.php:444
+#: includes/Admin/Settings.php:456
 #: includes/Extensions/PressBar/PressBar.php:1392
 msgid "Sunday"
 msgstr ""
 
-#: includes/Admin/Settings.php:445
+#: includes/Admin/Settings.php:457
 #: includes/Extensions/PressBar/PressBar.php:1386
 msgid "Monday"
 msgstr ""
 
-#: includes/Admin/Settings.php:446
+#: includes/Admin/Settings.php:458
 #: includes/Extensions/PressBar/PressBar.php:1387
 msgid "Tuesday"
 msgstr ""
 
-#: includes/Admin/Settings.php:447
+#: includes/Admin/Settings.php:459
 #: includes/Extensions/PressBar/PressBar.php:1388
 msgid "Wednesday"
 msgstr ""
 
-#: includes/Admin/Settings.php:448
+#: includes/Admin/Settings.php:460
 #: includes/Extensions/PressBar/PressBar.php:1389
 msgid "Thursday"
 msgstr ""
 
-#: includes/Admin/Settings.php:449
+#: includes/Admin/Settings.php:461
 #: includes/Extensions/PressBar/PressBar.php:1390
 msgid "Friday"
 msgstr ""
 
-#: includes/Admin/Settings.php:452
+#: includes/Admin/Settings.php:464
 msgid "Select a day for email report."
 msgstr ""
 
-#: includes/Admin/Settings.php:462
+#: includes/Admin/Settings.php:474
 msgid "Reporting Email"
 msgstr ""
 
-#: includes/Admin/Settings.php:470
+#: includes/Admin/Settings.php:482
 msgid "Reporting Email Subject"
 msgstr ""
 
-#: includes/Admin/Settings.php:479
+#: includes/Admin/Settings.php:491
 msgid "Reporting Test"
 msgstr ""
 
-#: includes/Admin/Settings.php:480
+#: includes/Admin/Settings.php:492
 msgid "Test Report"
 msgstr ""
 
-#: includes/Admin/Settings.php:495
+#: includes/Admin/Settings.php:507
 msgid "Successfully Sent a Test Report in Your Email."
 msgstr ""
 
-#: includes/Admin/Settings.php:508
+#: includes/Admin/Settings.php:520
 msgid "Entries"
 msgstr ""
 
-#: includes/Admin/Settings.php:525
-#: includes/Admin/Settings.php:531
+#: includes/Admin/Settings.php:537
+#: includes/Admin/Settings.php:543
 msgid "Cache Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:537
+#: includes/Admin/Settings.php:549
 msgid "Cache Limit"
 msgstr ""
 
-#: includes/Admin/Settings.php:538
+#: includes/Admin/Settings.php:550
 msgid "Number of Notification Data to be saved in Database."
 msgstr ""
 
-#: includes/Admin/Settings.php:545
+#: includes/Admin/Settings.php:557
 msgid "Download Stats Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:546
-#: includes/Admin/Settings.php:554
+#: includes/Admin/Settings.php:558
+#: includes/Admin/Settings.php:566
 msgid "Minutes (Schedule Duration to fetch new data)."
 msgstr ""
 
-#: includes/Admin/Settings.php:553
+#: includes/Admin/Settings.php:565
 msgid "Reviews Cache Duration"
 msgstr ""
 
-#: includes/Admin/Settings.php:566
+#: includes/Admin/Settings.php:578
 msgid "Miscellaneous"
 msgstr ""
 
-#: includes/Admin/Settings.php:580
+#: includes/Admin/Settings.php:592
 msgid "Danger Zone"
 msgstr ""
 
-#: includes/Admin/Settings.php:585
-#: includes/Admin/Settings.php:586
+#: includes/Admin/Settings.php:597
+#: includes/Admin/Settings.php:598
 msgid "Delete Settings"
 msgstr ""
 
-#: includes/Admin/Settings.php:597
+#: includes/Admin/Settings.php:609
 msgid "Successfully deleted Settings."
 msgstr ""
 
-#: includes/Admin/Settings.php:605
-#: includes/Admin/Settings.php:606
+#: includes/Admin/Settings.php:617
+#: includes/Admin/Settings.php:618
 msgid "Delete Transient"
 msgstr ""
 
-#: includes/Admin/Settings.php:617
+#: includes/Admin/Settings.php:629
 msgid "Successfully deleted Transient."
 msgstr ""
 
@@ -835,6 +851,7 @@ msgstr ""
 
 #. translators: %s: Cross Domain Notice link URL
 #: includes/Admin/XSS.php:50
+#, php-format
 msgid "Show your Notification Alerts in another website using <a target=\"_blank\" href=\"%s\">Cross Domain Notice</a>."
 msgstr ""
 
@@ -1729,20 +1746,23 @@ msgstr ""
 
 #. translators: %s: Post Type label
 #: includes/Core/Locations.php:53
+#, php-format
 msgid "All %s posts"
 msgstr ""
 
 #. translators: %s: Post Type label
 #: includes/Core/Locations.php:57
+#, php-format
 msgid "All %s archives"
 msgstr ""
 
 #. translators: %s: Taxonomy label
 #: includes/Core/Locations.php:63
+#, php-format
 msgid "All %s taxonomy archives"
 msgstr ""
 
-#: includes/Core/Migration.php:393
+#: includes/Core/Migration.php:399
 #: includes/Extensions/EDD/EDInline.php:45
 #: includes/Extensions/FluentCart/FluentCart.php:736
 #: includes/Extensions/FluentCart/FluentCart.php:737
@@ -1852,6 +1872,7 @@ msgstr ""
 
 #. translators: %1$s: number of scans already used, %2$s: total free scans available
 #: includes/Core/PostType.php:134
+#, php-format
 msgid "%1$s of %2$s free scans used"
 msgstr ""
 
@@ -1928,8 +1949,8 @@ msgid "Contact Form"
 msgstr ""
 
 #: includes/Core/QuickBuild.php:281
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:66
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:67
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:68
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:69
 #: includes/Types/Inline.php:45
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:13
@@ -1999,6 +2020,7 @@ msgstr ""
 
 #. translators: %s: rotation deadline date.
 #: includes/Core/Rest/Integration.php:268
+#, php-format
 msgid "A Zapier (or other webhook) integration is still calling NotificationX with the legacy API key. Rotate it to the new key before %s — after that, requests using the old key will be rejected."
 msgstr ""
 
@@ -2012,6 +2034,7 @@ msgstr ""
 
 #. translators: %s: notification ID
 #: includes/Core/Rest/Integration.php:296
+#, php-format
 msgid "There is no notification created with this id: %s"
 msgstr ""
 
@@ -2049,6 +2072,7 @@ msgstr ""
 
 #. translators: %d: Number of entries deleted
 #: includes/Core/Rest/Popup.php:376
+#, php-format
 msgid "%d entry deleted successfully"
 msgid_plural "%d entries deleted successfully"
 msgstr[0] ""
@@ -2060,6 +2084,7 @@ msgstr ""
 
 #. translators: %d: number of entries prepared for export
 #: includes/Core/Rest/Popup.php:453
+#, php-format
 msgid "Successfully prepared %d entries for export"
 msgstr ""
 
@@ -2097,6 +2122,7 @@ msgstr ""
 
 #. translators: %d: notification ID
 #: includes/Core/Rest/Popup.php:493
+#, php-format
 msgid "Notification #%d"
 msgstr ""
 
@@ -2104,8 +2130,8 @@ msgstr ""
 msgid "Whether to bypass Trash and force deletion."
 msgstr ""
 
-#: includes/Core/Rest/Posts.php:245
-#: includes/Core/Rest/Posts.php:265
+#: includes/Core/Rest/Posts.php:250
+#: includes/Core/Rest/Posts.php:270
 msgid "Cannot create existing post."
 msgstr ""
 
@@ -2149,6 +2175,7 @@ msgstr ""
 
 #. translators: %1$s: URL, %2$s: documentation link URL, %3$s: Integration with ActiveCampaign link URL, %4$s: ActiveCampaign Email Subscription Alerts link URL
 #: includes/Extensions/ActiveCampaign/ActiveCampaign.php:59
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API URL & API key from ActiveCampaign account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with ActiveCampaign</a></p>\n"
@@ -2357,7 +2384,7 @@ msgstr ""
 #: includes/Extensions/Google/YouTube.php:256
 #: includes/Extensions/GRVF/GravityForms.php:50
 #: includes/Extensions/LearnDash/LearnDash.php:50
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:156
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:203
 #: includes/Extensions/Zapier/ZapierConversions.php:48
 #: includes/Extensions/Zapier/ZapierReviews.php:48
 #: includes/Types/EmailSubscription.php:54
@@ -2366,6 +2393,7 @@ msgstr ""
 #: includes/Types/OfferAnnouncement.php:50
 #: includes/Types/PageAnalytics.php:48
 #: includes/Types/Video.php:53
+#: includes/Types/WooCommerceCartPeek.php:194
 msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
 msgstr ""
 
@@ -2419,6 +2447,7 @@ msgstr ""
 
 #. translators: links
 #: includes/Extensions/CF7/CF7.php:278
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2434,6 +2463,7 @@ msgstr ""
 
 #. translators: %1$s: signed in & retrieved your API key from ConvertKit account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with ConvertKit link URL, %5$s: NotificationX With ConvertKit link URL
 #: includes/Extensions/ConvertKit/ConvertKit.php:59
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved your API key from ConvertKit account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2453,6 +2483,7 @@ msgstr ""
 #. translators: %1$s: documentation link URL, %2$s: video tutorial link URL, %3$s: Display Custom Notification Alerts link URL
 #: includes/Extensions/CustomNotification/CustomNotification.php:92
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:69
+#, php-format
 msgid ""
 "<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%2$s\">video tutorial</a> to learn quickly</p>\n"
@@ -2498,6 +2529,7 @@ msgstr ""
 #. translators: %1$s: product title, %2$s: combined "and N more products" text
 #: includes/Extensions/EDD/EDD.php:168
 #: includes/Extensions/WooCommerce/WooCommerce.php:551
+#, php-format
 msgid "%1$s & %2$s"
 msgstr ""
 
@@ -2524,6 +2556,7 @@ msgstr ""
 
 #. translators: %1$s: Easy Digital Downloads installed & activated link URL, %2$s: documentation link URL, %3$s: Integration with Easy Digital Downloads link URL, %4$s: NotificationX Increase Sales on WordPress link URL
 #: includes/Extensions/EDD/EDD.php:403
+#, php-format
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Easy Digital Downloads</a></p>\n"
@@ -2533,8 +2566,8 @@ msgstr ""
 
 #: includes/Extensions/EDD/EDInline.php:46
 #: includes/Extensions/FluentCart/FluentCartInline.php:80
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:77
-#: includes/Extensions/WooCommerce/WooInline.php:81
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:79
+#: includes/Extensions/WooCommerce/WooInline.php:83
 msgid "people purchased"
 msgstr ""
 
@@ -2545,8 +2578,8 @@ msgstr ""
 #: includes/Extensions/LearnPress/LearnPressInline.php:62
 #: includes/Extensions/Tutor/TutorInline.php:48
 #: includes/Extensions/Tutor/TutorInline.php:62
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:81
-#: includes/Extensions/WooCommerce/WooInline.php:85
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:83
+#: includes/Extensions/WooCommerce/WooInline.php:87
 msgid "in last {{day:7}}"
 msgstr ""
 
@@ -2555,21 +2588,25 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:57
 #: includes/Extensions/LearnPress/LearnPressInline.php:69
 #: includes/Extensions/Tutor/TutorInline.php:69
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:122
-#: includes/Extensions/WooCommerce/WooInline.php:126
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:151
+#: includes/Extensions/WooCommerce/WooInline.php:155
 msgid "Sales Count"
 msgstr ""
 
 #: includes/Extensions/EDD/EDInline.php:60
 #: includes/Extensions/FluentCart/FluentCartInline.php:128
 #: includes/Extensions/ReviewX/ReviewX.php:157
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:125
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:154
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:190
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:151
-#: includes/Extensions/WooCommerce/WooInline.php:129
+#: includes/Extensions/WooCommerce/WooInline.php:158
+#: includes/Extensions/WooCommerce/WooInline.php:194
 #: includes/Extensions/WooCommerce/WOOReviews.php:140
 #: includes/Extensions/WooCommerce/WOOReviews.php:165
 #: includes/Types/Conversions.php:276
 #: includes/Types/Conversions.php:307
+#: includes/Types/WooCommerceCartPeek.php:171
+#: includes/Types/WooCommerceCartPeek.php:180
 #: includes/Types/WooCommerceSales.php:269
 #: includes/Types/WooCommerceSales.php:290
 msgid "Product Title"
@@ -2580,8 +2617,8 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:63
 #: includes/Extensions/LearnPress/LearnPressInline.php:75
 #: includes/Extensions/Tutor/TutorInline.php:75
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:128
-#: includes/Extensions/WooCommerce/WooInline.php:132
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:157
+#: includes/Extensions/WooCommerce/WooInline.php:161
 #: includes/FrontEnd/Preview.php:304
 msgid "In last 1 day"
 msgstr ""
@@ -2591,8 +2628,8 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:64
 #: includes/Extensions/LearnPress/LearnPressInline.php:76
 #: includes/Extensions/Tutor/TutorInline.php:76
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:129
-#: includes/Extensions/WooCommerce/WooInline.php:133
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:158
+#: includes/Extensions/WooCommerce/WooInline.php:162
 #: includes/FrontEnd/Preview.php:305
 #: includes/Types/DownloadStats.php:136
 #: includes/Types/DownloadStats.php:156
@@ -2604,8 +2641,8 @@ msgstr ""
 #: includes/Extensions/LearnDash/LearnDashInline.php:65
 #: includes/Extensions/LearnPress/LearnPressInline.php:77
 #: includes/Extensions/Tutor/TutorInline.php:77
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:130
-#: includes/Extensions/WooCommerce/WooInline.php:134
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:159
+#: includes/Extensions/WooCommerce/WooInline.php:163
 #: includes/FrontEnd/Preview.php:306
 msgid "In last 30 days"
 msgstr ""
@@ -3172,6 +3209,7 @@ msgstr ""
 
 #. translators: %d: notification ID
 #: includes/Extensions/Elementor/FormWidget.php:100
+#, php-format
 msgid "#%d"
 msgstr ""
 
@@ -3407,6 +3445,7 @@ msgstr ""
 
 #. translators: links
 #: includes/Extensions/Elementor/From.php:77
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Elementor Pro installed & configured</a> to use its form submission data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -3434,6 +3473,7 @@ msgstr ""
 
 #. translators: %1$s: created & signed in to Envato account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Envato link URL
 #: includes/Extensions/Envato/Envato.php:70
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -4527,6 +4567,7 @@ msgstr ""
 
 #. translators: %1$s: documentation link URL
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2277
+#, php-format
 msgid ""
 "\n"
 "        <p>Show a targeted message at the exact moment someone is about to close your tab & bring them back into the funnel. Need help? Check out our <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>"
@@ -4560,6 +4601,7 @@ msgstr ""
 
 #. translators: links
 #: includes/Extensions/FlashingTab/FlashingTab.php:136
+#, php-format
 msgid ""
 "\n"
 "        <p>Make sure that you have NotificationX PRO installed and activated on your website to use Flashing Tab. For further assistance, follow the step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
@@ -4664,71 +4706,72 @@ msgstr ""
 #. translators: %1$s: FluentCart WordPress plugin installed & configured link URL, %2$s: documentation link URL, %3$s: 👉 NotificationX Integration with FluentCart link URL
 #: includes/Extensions/FluentCart/FluentCart.php:766
 #: includes/Extensions/FluentCart/FluentCartInline.php:160
+#, php-format
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">FluentCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "        <a target=\"_blank\" href=\"%3$s\">👉 NotificationX Integration with FluentCart</a>"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:79
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:76
-#: includes/Extensions/WooCommerce/WooInline.php:80
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:78
+#: includes/Extensions/WooCommerce/WooInline.php:82
 msgid "99"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:95
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:92
-#: includes/Extensions/WooCommerce/WooInline.php:96
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:94
+#: includes/Extensions/WooCommerce/WooInline.php:98
 msgid "Only"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:99
 #: includes/Extensions/FluentCart/FluentCartInline.php:144
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:96
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:141
-#: includes/Extensions/WooCommerce/WooInline.php:100
-#: includes/Extensions/WooCommerce/WooInline.php:145
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:98
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:170
+#: includes/Extensions/WooCommerce/WooInline.php:102
+#: includes/Extensions/WooCommerce/WooInline.php:174
 msgid "left in stock"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:101
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:98
-#: includes/Extensions/WooCommerce/WooInline.php:102
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:100
+#: includes/Extensions/WooCommerce/WooInline.php:104
 msgid "- order soon."
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:112
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:109
-#: includes/Extensions/WooCommerce/WooInline.php:113
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:111
+#: includes/Extensions/WooCommerce/WooInline.php:115
 msgid "In high demand - only"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:116
 #: includes/Extensions/FluentCart/FluentCartInline.php:145
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:113
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:142
-#: includes/Extensions/WooCommerce/WooInline.php:117
-#: includes/Extensions/WooCommerce/WooInline.php:146
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:115
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:171
+#: includes/Extensions/WooCommerce/WooInline.php:119
+#: includes/Extensions/WooCommerce/WooInline.php:175
 msgid "left"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:118
 #: includes/Extensions/FluentCart/FluentCartInline.php:149
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:115
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:146
-#: includes/Extensions/WooCommerce/WooInline.php:119
-#: includes/Extensions/WooCommerce/WooInline.php:150
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:117
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:175
+#: includes/Extensions/WooCommerce/WooInline.php:121
+#: includes/Extensions/WooCommerce/WooInline.php:179
 msgid "on our site!"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:141
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:138
-#: includes/Extensions/WooCommerce/WooInline.php:142
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:167
+#: includes/Extensions/WooCommerce/WooInline.php:171
 msgid "Stock Count"
 msgstr ""
 
 #: includes/Extensions/FluentCart/FluentCartInline.php:148
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:145
-#: includes/Extensions/WooCommerce/WooInline.php:149
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:174
+#: includes/Extensions/WooCommerce/WooInline.php:178
 msgid "order soon."
 msgstr ""
 
@@ -4740,6 +4783,7 @@ msgstr ""
 
 #. translators: %1$s: Fluent Forms installed and configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Display Fluent Forms Submission Alert link URL
 #: includes/Extensions/FluentForm/FluentForm.php:409
+#, php-format
 msgid ""
 "\n"
 "        <p>To use the campaign & form subscription data, make sure that you have <a target=\"_blank\" href=\"%1$s\">Fluent Forms installed and configured</a> on your website. For detailed guidelines, follow this <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
@@ -4755,6 +4799,7 @@ msgstr ""
 
 #. translators: %1$s: created & signed in to Freemius account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Freemius link URL
 #: includes/Extensions/Freemius/Freemius.php:20
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Freemius account</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -4853,6 +4898,7 @@ msgstr ""
 
 #. translators: %1$s: step-by-step guides link URL, %2$s: tutorial link URL, %3$s: How to Display WordPress Cookie Notice Using NotificationX? link URL, %4$s: WP Consent API link URL
 #: includes/Extensions/GDPR/GDPR_Notification.php:303
+#, php-format
 msgid ""
 "<p>You can showcase Cookie Notice effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> for creating a Cookie Notice on the WordPress website.</p>\n"
 "        <p>🎦 Watch the video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for a quick guide.</p>\n"
@@ -4954,6 +5000,7 @@ msgstr ""
 
 #. translators: %1$s: GiveWP installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with GiveWP link URL, %5$s: NotificationX Increase Sales on WordPress link URL
 #: includes/Extensions/Give/Give.php:298
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -5130,6 +5177,7 @@ msgid "Notification Template"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:709
+#: includes/Types/WooCommerceCartPeek.php:213
 msgid "recently purchased"
 msgstr ""
 
@@ -5718,6 +5766,8 @@ msgstr ""
 #: includes/Types/ELearning.php:188
 #: includes/Types/EmailSubscription.php:129
 #: includes/Types/Reviews.php:209
+#: includes/Types/WooCommerceCartPeek.php:172
+#: includes/Types/WooCommerceCartPeek.php:181
 #: includes/Types/WooCommerceSales.php:272
 msgid "Definite Time"
 msgstr ""
@@ -5836,6 +5886,7 @@ msgstr ""
 
 #. translators: %1$s: Google Reviews API link URL, %2$s: documentation link URL, %3$s: Integration with Google Reviews link URL
 #: includes/Extensions/Google/GoogleReviews.php:187
+#, php-format
 msgid ""
 "<p>Make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">Google Reviews API</a> key, to showcase your reviews. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
@@ -5849,6 +5900,7 @@ msgstr ""
 
 #. translators: %1$s: signed in to Google Analytics site link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Google Analytics link URL
 #: includes/Extensions/Google/Google_Analytics.php:66
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in to Google Analytics site</a>, to use its campaign & page analytics data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -5948,6 +6000,7 @@ msgstr ""
 
 #. translators: %1$s: YouTube API link URL, %2$s: documentation link URL, %3$s: Integration with Youtube link URL
 #: includes/Extensions/Google/YouTube.php:286
+#, php-format
 msgid ""
 "<p>To create YouTube notification popups, make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">YouTube API</a> key, Check out our step-by-step documentation for further assistance. <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
@@ -5976,6 +6029,7 @@ msgstr ""
 
 #. translators: %1$s: Gravity Forms installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Ninja Forms link URL, %5$s: WordPress Contact Forms Submission Rate link URL
 #: includes/Extensions/GRVF/GravityForms.php:80
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Gravity Forms installed & configured</a>, to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6011,6 +6065,7 @@ msgstr ""
 
 #. translators: %1$s: LearnDash installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with LearnDash link URL, %5$s: LearnDash Course Enrollment Rates link URL
 #: includes/Extensions/LearnDash/LearnDash.php:72
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">LearnDash installed & configured</a> to use its campaign & course selling data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6043,6 +6098,7 @@ msgstr ""
 
 #. translators: %1$s: LearnPress LMS installed & configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Integration with LearnPress LMS link URL
 #: includes/Extensions/LearnPress/LearnPress.php:546
+#, php-format
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">LearnPress LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -6056,6 +6112,7 @@ msgstr ""
 
 #. translators: %1$s: signed in & retrieved API key from MailChimp account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with MailChimp link URL, %5$s: Email Marketing Strategy link URL, %6$s: Email Subscription List link URL
 #: includes/Extensions/MailChimp/MailChimp.php:59
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API key from MailChimp account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6073,6 +6130,7 @@ msgstr ""
 
 #. translators: %1$s: Ninja Forms installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Ninja Forms link URL, %5$s: WordPress Contact Forms Submission Rate link URL
 #: includes/Extensions/NJF/NinjaForms.php:413
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6159,6 +6217,7 @@ msgstr ""
 
 #. translators: %1$s: documentation link URL, %2$s: Guide To Notify Customers About On-Sale Products link URL
 #: includes/Extensions/OfferAnnouncement/Announcements.php:270
+#, php-format
 msgid ""
 "<p>You can showcase the discount alert popup on your WordPress website to make visitors take purchasing action immediately. For further assistance, check out our step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -6768,6 +6827,7 @@ msgstr ""
 
 #. translators: %1$s: step-by-step guides link URL, %2$s: tutorial link URL, %3$s: URL
 #: includes/Extensions/PopupNotification/PopupNotification.php:1320
+#, php-format
 msgid ""
 "<p>Create compelling Announcements that capture visitor interest and help you generate more leads on your WordPress site. Need help? Check out our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> to build impactful Announcements.</p>\n"
 "        <p>🎦 Watch the quick video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for an easy walk-through.</p>\n"
@@ -6994,10 +7054,6 @@ msgstr ""
 msgid "Custom Schedule"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:1506
-msgid "NotificationX Bar"
-msgstr ""
-
 #: includes/Extensions/PressBar/PressBar.php:1540
 msgid "NotificationX Bar (Gutenberg)"
 msgstr ""
@@ -7182,6 +7238,7 @@ msgstr ""
 
 #. translators: %1$s: Elementor documentation URL, %2$s: Gutenberg documentation URL, %3$s: documentation URL, %4$s: blog post URL, %5$s: blog post URL
 #: includes/Extensions/PressBar/PressBar.php:2223
+#, php-format
 msgid ""
 "<p>Supercharge your WordPress site with an <strong>AI-powered Notification Bar</strong> that help you create and launches instant popup campaigns — smarter and faster than ever. Let AI generate compelling bar content for you in seconds. Need help getting started? Explore our step-by-step guides to set up your AI-enhanced notification bars using both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
 "\t\t<p>🎦 Check the <a target = \"_blank\" href = \"%3$s\">documentation</a> for a quick guide.</p>\n"
@@ -7244,6 +7301,7 @@ msgstr ""
 
 #. translators: %1$s: WooCommerce link URL, %2$s: ReviewX link URL, %3$s: documentation link URL, %4$s: boost WooCommerce Sales link URL
 #: includes/Extensions/ReviewX/ReviewX.php:280
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce</a> & <a target=\"_blank\" href=\"%2$s\">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%3$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -7274,6 +7332,7 @@ msgstr ""
 
 #. translators: %1$s: SureCart WordPress plugin installed & configured link URL, %2$s: documentation link URL, %3$s: 👉 NotificationX Integration with SureCart link URL
 #: includes/Extensions/SureCart/SureCart.php:468
+#, php-format
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">SureCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "        <a target=\"_blank\" href=\"%3$s\">👉 NotificationX Integration with SureCart</a>"
@@ -7290,6 +7349,7 @@ msgstr ""
 
 #. translators: %1$s: Tutor LMS installed & configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Integration with Tutor LMS link URL
 #: includes/Extensions/Tutor/Tutor.php:541
+#, php-format
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Tutor LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -7307,6 +7367,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerce.php:54
 #: includes/Extensions/WooCommerce/WooCommerce.php:55
 #: includes/Extensions/WooCommerce/WooCommerce.php:133
+#: includes/Extensions/WooCommerce/WooCommerceCartPeek.php:71
 #: includes/Extensions/WooCommerce/WOOReviews.php:55
 #: includes/Extensions/WooCommerce/WOOReviews.php:56
 #: includes/Extensions/WooCommerce/WOOReviews.php:233
@@ -7322,7 +7383,8 @@ msgstr ""
 #. translators: %1$s: WooCommerce installed & activated link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Best FOMO and Social Proof Plugin link URL, %5$s: boost WooCommerce Sales link URL
 #: includes/Extensions/WooCommerce/WooCommerce.php:612
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:204
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:168
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:215
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a href=\"%3$s\" target=\"_blank\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -7332,12 +7394,44 @@ msgid ""
 "\t\t<p>🚀 How to <a target=\"_blank\" href=\"%5$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:155
+#: includes/Extensions/WooCommerce/WooCommerceCartPeek.php:72
+#: includes/Types/WooCommerceCartPeek.php:56
+msgid "Cart Peek"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooCommerceCartPeek.php:78
+#, php-format
+msgid ""
+"<p>Show shoppers how many others have this product in their cart right now — a live social-proof signal that fires at the highest-value hesitation moment on the PDP.</p>\n"
+"            <p>Requires an active NotificationX Pro licence and <a target=\"_blank\" href=\"%1$s\">WooCommerce installed &amp; activated</a>.</p>\n"
+"            <p>📚 <a target=\"_blank\" href=\"%2$s\">Documentation</a></p>"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:132
+#: includes/Extensions/WooCommerce/WooInline.php:136
+msgid "people are viewing"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:143
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:193
+#: includes/Extensions/WooCommerce/WooInline.php:147
+#: includes/Extensions/WooCommerce/WooInline.php:197
+#: includes/Types/PageAnalytics.php:102
+#: includes/Types/WooCommerceCartPeek.php:93
+msgid "right now"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:187
+#: includes/Extensions/WooCommerce/WooInline.php:191
+msgid "Live Product Viewers"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:202
 #: includes/Types/Inline.php:47
 msgid "<a href='https://notificationx.com/growth-alert/' target='_blank'>More Info</a>"
 msgstr ""
 
-#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:157
+#: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:204
 msgid ""
 "\n"
 "                <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>\n"
@@ -7350,11 +7444,32 @@ msgstr ""
 #. translators: %1$s: WooCommerce installed & activated link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: boost WooCommerce Sales link URL
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:252
 #: includes/Extensions/WooCommerce/WOOReviews.php:494
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
 "\t\t<p>🚀 How to <a target=\"_blank\" href=\"%4$s\">boost WooCommerce Sales</a> Using NotificationX</p>"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooInline.php:225
+msgid "This design needs live traffic data. Connect your"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooInline.php:227
+msgid "Google Analytics Account"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooInline.php:228
+msgid "first"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooInline.php:235
+msgid "This design needs a Google Analytics 4 property. Select one in"
+msgstr ""
+
+#: includes/Extensions/WooCommerce/WooInline.php:237
+msgid "API Integrations"
 msgstr ""
 
 #: includes/Extensions/WooCommerce/WOOReviews.php:213
@@ -7377,6 +7492,7 @@ msgstr ""
 
 #. translators: %1$s: wordpress.org link URL, %2$s: comments popup link URL, %3$s: plugin reviews link URL, %4$s: downloads stats link URL, %5$s: blog comments link URL, %6$s: reviews link URL, %7$s: Get More Comments on Your WordPress Blog link URL, %8$s: WordPress Plugin Download Rates & Increase Sales link URL
 #: includes/Extensions/WordPress/Wordpress.php:13
+#, php-format
 msgid ""
 "<p>Make sure that you have a <a target=\"_blank\" href=\"%1$s\">wordpress.org</a> account to use its campaign on blog comments, reviews and download stats data. For further assistance, check out our step by step documentation on <a target=\"_blank\" href=\"%2$s\">comments popup</a>, <a target=\"_blank\" href=\"%3$s\">plugin reviews</a> & <a target=\"_blank\" href=\"%4$s\">downloads stats</a>.</p>\n"
 "\t\t<p>🎦 Watch video tutorial on <a target=\"_blank\" href=\"%5$s\">blog comments</a>, <a target=\"_blank\" href=\"%6$s\">reviews</a> & <a target=\"_blank\" href=\"%6$s\">downloads stats</a> to learn quickly</p>\n"
@@ -7477,6 +7593,7 @@ msgstr ""
 
 #. translators: %s: number of downloads today.
 #: includes/Extensions/WordPress/WPOrgStats.php:197
+#, php-format
 msgid "%s times today"
 msgstr ""
 
@@ -7484,11 +7601,13 @@ msgstr ""
 #. translators: %s: number of downloads of all time.
 #: includes/Extensions/WordPress/WPOrgStats.php:199
 #: includes/Extensions/WordPress/WPOrgStats.php:203
+#, php-format
 msgid "%s times"
 msgstr ""
 
 #. translators: %s: number of downloads in last 7 days.
 #: includes/Extensions/WordPress/WPOrgStats.php:201
+#, php-format
 msgid "%s times in last 7 days"
 msgstr ""
 
@@ -7503,6 +7622,7 @@ msgstr ""
 
 #. translators: %1$s: WPForms installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with WPForms link URL, %5$s: WordPress Contact Forms Submission Rate link URL
 #: includes/Extensions/WPF/WPForms.php:343
+#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -7545,6 +7665,7 @@ msgstr ""
 
 #. translators: time
 #: includes/Features/ShortcodeInline.php:145
+#, php-format
 msgctxt "Inline Shortcode"
 msgid "%s ago"
 msgstr ""
@@ -7577,16 +7698,16 @@ msgstr ""
 msgid "Talk to Support"
 msgstr ""
 
-#: includes/NotificationX.php:161
+#: includes/NotificationX.php:205
 msgid "Opps! This is PRO Feature."
 msgstr ""
 
-#: includes/NotificationX.php:187
+#: includes/NotificationX.php:231
 #: assets/admin/js/admin.js:11
 msgid "Settings"
 msgstr ""
 
-#: includes/NotificationX.php:192
+#: includes/NotificationX.php:236
 msgid "Go Pro"
 msgstr ""
 
@@ -7649,6 +7770,7 @@ msgid "Select a Form"
 msgstr ""
 
 #: includes/Types/Conversions.php:67
+#: includes/Types/WooCommerceCartPeek.php:213
 #: includes/Types/WooCommerceSales.php:64
 msgid "just purchased"
 msgstr ""
@@ -8074,10 +8196,6 @@ msgstr ""
 msgid "this deal"
 msgstr ""
 
-#: includes/Types/PageAnalytics.php:102
-msgid "right now"
-msgstr ""
-
 #: includes/Types/PageAnalytics.php:118
 msgid "People Is Now Visiting"
 msgstr ""
@@ -8148,8 +8266,96 @@ msgid ""
 "            "
 msgstr ""
 
+#: includes/Types/WooCommerceCartPeek.php:55
+msgid "Cart Peek 🛒"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:88
+msgid "A few shoppers have this in their cart"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:91
+msgid "this product"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:112
+#: includes/Types/WooCommerceCartPeek.php:121
+#: includes/Types/WooCommerceCartPeek.php:145
+msgid "View product"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:170
+#: includes/Types/WooCommerceCartPeek.php:179
+msgid "Cart Count"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:193
+msgid "<a href='https://notificationx.com/docs/how-to-create-a-cart-peek-notification/' target='_blank'>More Info</a>"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:196
+msgid ""
+"\n"
+"                <span>Show the live count of shoppers who currently have a product in their cart to spark urgency and boost conversions.</span>\n"
+"            "
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:345
+#: includes/Types/WooCommerceCartPeek.php:352
+msgid "Cart Confirmation Popup"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:357
+msgid "Show the shopper a \"Continue shopping / Go to checkout\" popup right after they add a product to the cart."
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:360
+msgid "Popup Heading"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:363
+msgid "Leaving so soon?"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:367
+msgid "Continue Shopping Button"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:370
+msgid "Continue shopping"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:374
+msgid "Checkout Button"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:377
+msgid "Go to checkout"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:381
+msgid "Multiple Products Display"
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:385
+msgid "How to show the message when the cart has more than one product."
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:387
+msgid "Show count — e.g. \"Product A and 2 more products\""
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:388
+msgid "List product names — e.g. \"Product A, Product B, Product C\""
+msgstr ""
+
+#: includes/Types/WooCommerceCartPeek.php:389
+msgid "Show total items — e.g. \"3 items\""
+msgstr ""
+
 #. translators: %s: URL of the wp-admin plugins page
 #: notificationx.php:86
+#, php-format
 msgid "<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>."
 msgstr ""
 
@@ -8184,6 +8390,7 @@ msgid "\"not\" can have only one comparison rule, multiple rules given"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "Invalid comparison rule %s."
 msgstr ""
 
@@ -8265,6 +8472,7 @@ msgid "Text Goes Here: text"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
@@ -8358,6 +8566,7 @@ msgid "Notification Alert has been Disabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
@@ -8366,6 +8575,7 @@ msgid "Disabled"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
 msgstr ""
 
@@ -8529,6 +8739,7 @@ msgid "Cross Domain Notice code has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use <a target='_blank' href='%s' style='color:red'>Cross Domain Notice</a> feature."
 msgstr ""
 
@@ -8566,14 +8777,17 @@ msgid "Delete"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "%s clicks"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "%s views"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "%s entries"
 msgstr ""
 
@@ -8610,34 +8824,41 @@ msgid "NotificationX Fetch Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "All (%d)"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "Enabled (%d)"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
+#, js-format
 msgid "Disabled (%d)"
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Regenerated.
 #: assets/admin/js/admin.js:3
+#, js-format
 msgid "%d Notification Alerts have been Regenerated."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Reset.
 #: assets/admin/js/admin.js:5
+#, js-format
 msgid "%d Notification Alerts have been Reset."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Enabled.
 #: assets/admin/js/admin.js:7
+#, js-format
 msgid "%d Notification Alerts have been Enabled."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Disabled.
 #: assets/admin/js/admin.js:9
+#, js-format
 msgid "%d Notification Alerts have been Disabled."
 msgstr ""
 
@@ -8646,6 +8867,7 @@ msgid "Unable to complete bulk action."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
+#, js-format
 msgid "You're about to delete %s notification alert,<br />"
 msgid_plural "You're about to delete %s notification alerts,<br />"
 msgstr[0] ""
@@ -8657,6 +8879,7 @@ msgstr ""
 
 #. translators: %d: Number of Notification Alerts deleted.
 #: assets/admin/js/admin.js:11
+#, js-format
 msgid ""
 "%d notification Alerts have been\n"
 "                Deleted."
@@ -8683,6 +8906,7 @@ msgid "Seems like you haven’t created any notification alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+#, js-format
 msgid "Hit on %1$s\"Add New\"%2$s button to get started"
 msgstr ""
 
@@ -8695,6 +8919,7 @@ msgid "There’s no enabled Notification Alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+#, js-format
 msgid "Simply use the toggle switch to turn your notifications from %1$s\"All NotificationX\"%2$s page."
 msgstr ""
 
@@ -8923,6 +9148,7 @@ msgid "Please select entries to delete"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
+#, js-format
 msgid "You're about to delete %s feedback entry,<br />"
 msgid_plural "You're about to delete %s feedback entries,<br />"
 msgstr[0] ""
@@ -8930,6 +9156,7 @@ msgstr[1] ""
 
 #. translators: %d: Number of feedback entries deleted.
 #: assets/admin/js/admin.js:13
+#, js-format
 msgid "%d feedback entry has been deleted."
 msgid_plural "%d feedback entries have been deleted."
 msgstr[0] ""
@@ -9542,6 +9769,7 @@ msgstr ""
 
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
 #: assets/admin/js/admin.js:16
+#, js-format
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
 msgstr ""
 
@@ -9555,6 +9783,7 @@ msgstr ""
 
 #. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
 #: assets/admin/js/admin.js:18
+#, js-format
 msgid "NotificationX - %1$s - %2$s"
 msgstr ""
 
@@ -9664,6 +9893,7 @@ msgid "Are you sure you want to delete this Cookie?"
 msgstr ""
 
 #: assets/admin/js/admin.js:20
+#, js-format
 msgid "The cookie <strong>%s</strong> will be permanently deleted. This cookie will no longer be displayed on your cookie list nor be blocked prior to receiving user consent."
 msgstr ""
 

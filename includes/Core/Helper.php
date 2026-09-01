@@ -1396,4 +1396,41 @@ class Helper {
     }
 
 
+    /**
+     * Delete a design document that NotificationX itself owns.
+     *
+     * The ID reaching the callers of this method arrives in a REST payload, so
+     * it is attacker-controlled. Without a post-type check, any user holding
+     * `edit_notificationx` could pass an arbitrary ID and force-delete any post
+     * on the site -- pages, products, orders -- with no trash to recover from.
+     * Only documents of a post type NotificationX creates may be removed here.
+     *
+     * A `current_user_can( 'delete_post' )` check is deliberately NOT applied.
+     * These post types register with `capability_type => 'post'`, so that meta
+     * cap resolves to the primitive `delete_posts`. A custom role delegated only
+     * "Who Can Create Notification?" does not hold `delete_posts`, and gating on
+     * it would stop that role from removing its own designs -- breaking exactly
+     * the delegated workflow this boundary exists to support. Actor authority is
+     * already established by the route's `edit_notificationx` permission
+     * callback; what was missing, and what this restores, is object authority.
+     *
+     * @param int|string $post_id       Candidate post ID, untrusted.
+     * @param string     $expected_type Post type NotificationX owns.
+     * @return bool True when a post was deleted.
+     */
+    public static function delete_owned_post( $post_id, $expected_type ) {
+        $post_id = absint( $post_id );
+        if ( ! $post_id ) {
+            return false;
+        }
+
+        $post = get_post( $post_id );
+        if ( ! $post || $expected_type !== $post->post_type ) {
+            return false;
+        }
+
+        return (bool) wp_delete_post( $post_id, true );
+    }
+
+
 }

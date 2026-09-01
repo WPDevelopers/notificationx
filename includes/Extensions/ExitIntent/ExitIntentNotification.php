@@ -566,12 +566,12 @@ JS;
                 // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $translated_id = apply_filters( 'wpml_object_id', $elementor_id, 'nx_exit_intent', false, $lang );
                 if ( $translated_id ) {
-                    wp_delete_post( $translated_id, true );
+                    Helper::delete_owned_post( $translated_id, 'nx_exit_intent' );
                 }
             }
             return;
         }
-        wp_delete_post( $elementor_id, true );
+        Helper::delete_owned_post( $elementor_id, 'nx_exit_intent' );
     }
 
     /**
