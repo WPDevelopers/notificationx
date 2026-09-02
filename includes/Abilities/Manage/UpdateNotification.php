@@ -8,6 +8,7 @@
 namespace NotificationX\Abilities\Manage;
 
 use NotificationX\Abilities\AbilityBase;
+use NotificationX\Abilities\BuilderInfo;
 use NotificationX\Core\PostType;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,23 +16,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Updates the title and/or selected configuration fields of a notification.
+ * Updates the title, theme, data source and/or configuration fields of a
+ * notification.
  *
- * The notification is loaded, the requested fields are merged over its stored
+ * The notification is loaded, the requested changes are merged over its stored
  * data, and it is saved back through the normal PostType::save_post() pipeline
- * so all NotificationX filters/hooks still run. The type and source cannot be
- * changed (that would be a different notification).
+ * so all NotificationX filters/hooks still run. The data source *can* be changed
+ * (as in the admin); when it is, the notification type is realigned to the new
+ * source automatically and the theme is validated/defaulted for that source.
  */
 class UpdateNotification extends AbilityBase {
 
     protected $id            = 'notificationx/update-notification';
     protected $label         = 'Update a notification';
-    protected $description   = 'Update an existing notification: change its title, theme, or other configuration fields. Provide nx_id plus the fields to change. The notification type and data source cannot be changed.';
+    protected $description   = 'Update an existing notification: change its title, theme, data source, or other configuration fields. Provide nx_id plus what to change. Changing "source" realigns the type automatically and, if you do not also pass a valid "themes", resets the theme to that source\'s default — call describe-type for the new source to get valid theme ids and content fields. Invalid theme/source values are rejected (not silently ignored).';
     protected $is_write      = true;
     protected $is_idempotent = true;
 
     /**
-     * Fields that must never be overwritten via this ability.
+     * Fields that must never be overwritten via the free-form `fields` map.
+     * (source/type are handled explicitly as first-class inputs.)
      *
      * @var string[]
      */
@@ -50,13 +54,17 @@ class UpdateNotification extends AbilityBase {
                     'type'        => 'string',
                     'description' => 'New title for the notification.',
                 ),
+                'source' => array(
+                    'type'        => 'string',
+                    'description' => 'New data source id (from list-sources / describe-type). Changing it realigns the type and, unless a valid "themes" is also given, resets the theme to the new source default.',
+                ),
                 'themes' => array(
                     'type'        => 'string',
-                    'description' => 'New theme id for the notification (must be a theme valid for its source).',
+                    'description' => 'New theme id (must be valid for the notification\'s source; see describe-type). Rejected if invalid.',
                 ),
                 'fields' => array(
                     'type'        => 'object',
-                    'description' => 'Advanced: a map of additional configuration fields to merge into the notification (e.g. content/design settings). Use get-notification first to see the available fields.',
+                    'description' => 'Advanced: a map of additional configuration fields to merge (e.g. content/design settings). Use get-notification / describe-type first to see the available fields.',
                 ),
             ),
         );
@@ -67,6 +75,9 @@ class UpdateNotification extends AbilityBase {
             'type'       => 'object',
             'properties' => array(
                 'nx_id'        => array( 'type' => 'integer' ),
+                'applied'      => array( 'type' => 'array' ),
+                'ignored'      => array( 'type' => 'array' ),
+                'warnings'     => array( 'type' => 'array' ),
                 'notification' => array( 'type' => 'object' ),
             ),
         );
@@ -86,28 +97,105 @@ class UpdateNotification extends AbilityBase {
             );
         }
 
-        // Start from the stored config so save_post() has everything it needs.
-        $data = $existing;
+        $applied  = array();
+        $ignored  = array();
+        $warnings = array();
 
+        // Start from the stored config so save_post() has everything it needs.
+        $data          = $existing;
+        $old_source    = isset( $existing['source'] ) ? $existing['source'] : '';
+        $source        = $old_source;
+        $source_changed = false;
+
+        // --- Data source change (validated) ---------------------------------
+        if ( ! empty( $input['source'] ) && (string) $input['source'] !== $old_source ) {
+            $new_source = sanitize_text_field( $input['source'] );
+            if ( ! BuilderInfo::source_exists( $new_source ) ) {
+                return new \WP_Error(
+                    'nx_mcp_invalid_source',
+                    /* translators: %s: source id. */
+                    sprintf( __( 'Unknown data source "%s". Call list-sources for valid ids.', 'notificationx' ), $new_source ),
+                    array( 'status' => 400 )
+                );
+            }
+            if ( ! BuilderInfo::source_enabled( $new_source ) ) {
+                return new \WP_Error(
+                    'nx_mcp_source_disabled',
+                    /* translators: %s: source id. */
+                    sprintf( __( 'The module for data source "%s" is disabled; enable it before using it.', 'notificationx' ), $new_source ),
+                    array( 'status' => 409 )
+                );
+            }
+            $source         = $new_source;
+            $source_changed = true;
+            $applied[]      = 'source';
+        }
+
+        // Type always follows the source (authoritative).
+        $type = BuilderInfo::type_for_source( $source );
+        if ( '' === $type ) {
+            $type = isset( $existing['type'] ) ? $existing['type'] : $type;
+        }
+        if ( $type !== ( isset( $existing['type'] ) ? $existing['type'] : '' ) ) {
+            $applied[] = 'type';
+        }
+
+        // --- Theme (validated against the effective source) -----------------
+        if ( ! empty( $input['themes'] ) ) {
+            $theme = sanitize_text_field( $input['themes'] );
+            if ( ! BuilderInfo::is_valid_theme( $source, $theme ) ) {
+                return new \WP_Error(
+                    'nx_mcp_invalid_theme',
+                    sprintf(
+                        /* translators: 1: theme id, 2: source id, 3: comma-separated valid ids. */
+                        __( 'Theme "%1$s" is not valid for source "%2$s". Valid themes: %3$s', 'notificationx' ),
+                        $theme,
+                        $source,
+                        implode( ', ', BuilderInfo::theme_ids_for_source( $source ) )
+                    ),
+                    array( 'status' => 400 )
+                );
+            }
+            $data['themes'] = $theme;
+            $applied[]      = 'themes';
+        } elseif ( $source_changed && ! BuilderInfo::is_valid_theme( $source, isset( $data['themes'] ) ? $data['themes'] : '' ) ) {
+            // Old theme belongs to the old source; reset to the new source default.
+            $data['themes'] = BuilderInfo::effective_default_theme( $source );
+            $applied[]      = 'themes';
+            $warnings[]     = sprintf(
+                /* translators: 1: theme id, 2: source id. */
+                __( 'Theme reset to "%1$s" (the default for the new source "%2$s"). Pass a valid "themes" to choose another; see describe-type.', 'notificationx' ),
+                $data['themes'],
+                $source
+            );
+        }
+
+        if ( $source_changed ) {
+            $warnings[] = __( 'Data source changed: content fields from the previous source were kept. Set the new source\'s content via "fields" (see describe-type) so the notification renders as intended.', 'notificationx' );
+        }
+
+        // --- Title ----------------------------------------------------------
         if ( isset( $input['title'] ) ) {
             $data['title'] = sanitize_text_field( $input['title'] );
+            $applied[]     = 'title';
         }
-        if ( ! empty( $input['themes'] ) ) {
-            $data['themes'] = sanitize_text_field( $input['themes'] );
-        }
+
+        // --- Free-form fields (protected keys reported, not silently dropped) -
         if ( ! empty( $input['fields'] ) && is_array( $input['fields'] ) ) {
             foreach ( $input['fields'] as $key => $value ) {
                 if ( in_array( $key, $this->protected_keys, true ) ) {
+                    $ignored[] = $key;
                     continue;
                 }
                 $data[ $key ] = $value;
+                $applied[]    = $key;
             }
         }
 
-        // Preserve identity and mark as updated.
+        // Apply the resolved identity + source/type and mark updated.
         $data['nx_id']      = $nx_id;
-        $data['type']       = $existing['type'];
-        $data['source']     = $existing['source'];
+        $data['type']       = $type;
+        $data['source']     = $source;
         $data['updated_at'] = current_time( 'mysql' );
         unset( $data['update_status'] );
 
@@ -115,6 +203,9 @@ class UpdateNotification extends AbilityBase {
 
         return array(
             'nx_id'        => $nx_id,
+            'applied'      => array_values( array_unique( $applied ) ),
+            'ignored'      => array_values( array_unique( $ignored ) ),
+            'warnings'     => $warnings,
             'notification' => $post_type->get_post( $nx_id ),
         );
     }

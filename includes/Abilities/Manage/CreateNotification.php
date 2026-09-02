@@ -8,6 +8,7 @@
 namespace NotificationX\Abilities\Manage;
 
 use NotificationX\Abilities\AbilityBase;
+use NotificationX\Abilities\BuilderInfo;
 use NotificationX\Core\PostType;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -92,6 +93,47 @@ class CreateNotification extends AbilityBase {
                     array( 'status' => 400 )
                 );
             }
+        }
+
+        // The data source must be real and its module enabled.
+        if ( ! BuilderInfo::source_exists( $config['source'] ) ) {
+            return new \WP_Error(
+                'nx_mcp_invalid_source',
+                /* translators: %s: source id. */
+                sprintf( __( 'Unknown data source "%s". Call list-sources for valid ids.', 'notificationx' ), $config['source'] ),
+                array( 'status' => 400 )
+            );
+        }
+        if ( ! BuilderInfo::source_enabled( $config['source'] ) ) {
+            return new \WP_Error(
+                'nx_mcp_source_disabled',
+                /* translators: %s: source id. */
+                sprintf( __( 'The module for data source "%s" is disabled; enable it before creating this notification.', 'notificationx' ), $config['source'] ),
+                array( 'status' => 409 )
+            );
+        }
+
+        // The type is defined by the source — realign it so a mismatched/guessed
+        // type can never produce a broken record.
+        $resolved_type = BuilderInfo::type_for_source( $config['source'] );
+        if ( $resolved_type ) {
+            $config['type'] = $resolved_type;
+        }
+
+        // The theme must be valid for this source, else it saves but renders
+        // nothing. Reject with the valid list instead of storing junk.
+        if ( ! BuilderInfo::is_valid_theme( $config['source'], $config['themes'] ) ) {
+            return new \WP_Error(
+                'nx_mcp_invalid_theme',
+                sprintf(
+                    /* translators: 1: theme id, 2: source id, 3: comma-separated valid ids. */
+                    __( 'Theme "%1$s" is not valid for source "%2$s". Call describe-type for this type; valid themes: %3$s', 'notificationx' ),
+                    $config['themes'],
+                    $config['source'],
+                    implode( ', ', BuilderInfo::theme_ids_for_source( $config['source'] ) )
+                ),
+                array( 'status' => 400 )
+            );
         }
 
         if ( ! empty( $input['title'] ) ) {

@@ -229,8 +229,8 @@ class PostType {
         }
         if ( ( isset( $data['source'] ) && $this->can_enable( $data['source'] ) ) || ( isset( $data['enabled'] ) && $data['enabled'] == false ) ) {
             $post = [
-                'enabled' => $data['enabled'],
-                // 'updated_at' => Helper::mysql_time(),
+                'enabled'    => $data['enabled'],
+                'updated_at' => Helper::mysql_time(),
             ];
             if ( $data['enabled'] == false ) {
                 // clear cron when disabled.
