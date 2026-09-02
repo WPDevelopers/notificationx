@@ -67,6 +67,8 @@ class Registrar {
             new Read\GetNotification(),
             new Read\ListTypes(),
             new Read\ListSources(),
+            new Read\DescribeType(),
+            new Read\GetStatus(),
             new Read\GetAnalytics(),
             new Read\GetSettings(),
             new Read\ListEntries(),

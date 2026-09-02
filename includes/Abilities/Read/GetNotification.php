@@ -8,6 +8,7 @@
 namespace NotificationX\Abilities\Read;
 
 use NotificationX\Abilities\AbilityBase;
+use NotificationX\Abilities\BuilderInfo;
 use NotificationX\Core\PostType;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -40,14 +41,17 @@ class GetNotification extends AbilityBase {
         return array(
             'type'       => 'object',
             'properties' => array(
+                'enabled'      => array( 'type' => 'boolean' ),
+                'theme_valid'  => array( 'type' => 'boolean' ),
                 'notification' => array( 'type' => 'object' ),
             ),
         );
     }
 
     public function execute( $input ) {
-        $nx_id = (int) $input['nx_id'];
-        $post  = PostType::get_instance()->get_post( $nx_id );
+        $nx_id     = (int) $input['nx_id'];
+        $post_type = PostType::get_instance();
+        $post      = $post_type->get_post( $nx_id );
 
         if ( empty( $post ) ) {
             return new \WP_Error(
@@ -58,7 +62,17 @@ class GetNotification extends AbilityBase {
             );
         }
 
+        // Authoritative active state (from the enabled-source map, not the blob).
+        $enabled = (bool) $post_type->is_enabled( $nx_id );
+        // Whether the stored theme actually exists for this source (a false here
+        // is the usual reason a notification saves but renders nothing).
+        $source      = isset( $post['source'] ) ? $post['source'] : '';
+        $theme       = isset( $post['themes'] ) ? $post['themes'] : ( isset( $post['theme'] ) ? $post['theme'] : '' );
+        $theme_valid = $source && $theme ? BuilderInfo::is_valid_theme( $source, $theme ) : false;
+
         return array(
+            'enabled'      => $enabled,
+            'theme_valid'  => $theme_valid,
             'notification' => $post,
         );
     }
