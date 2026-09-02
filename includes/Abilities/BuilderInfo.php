@@ -205,16 +205,15 @@ class BuilderInfo {
             $value = is_array( $theme ) && isset( $theme['value'] ) ? (string) $theme['value'] : (string) $id;
             $match = false;
 
-            // The entry's `rules` can be a NotificationX\Core\Rule object (which
-            // is NOT array-accessible, only JSON-serialisable) or a plain array.
-            // Normalise to an array so the source rule can be read either way.
+            // The entry's `rules` can be a NotificationX\Core\Rule object, a plain
+            // array, or a nested mix (e.g. GDPR uses ["and", <Rule>, <Rule>] where
+            // the source rule is nested). JSON round-trip the WHOLE tree so every
+            // nested Rule object becomes an array and the recursive source lookup
+            // below can reach it.
             $rules = null;
             if ( is_array( $theme ) && isset( $theme['rules'] ) ) {
-                $rules = $theme['rules'];
-                if ( is_object( $rules ) ) {
-                    $decoded = json_decode( wp_json_encode( $rules ), true );
-                    $rules   = is_array( $decoded ) ? $decoded : null;
-                }
+                $decoded = json_decode( wp_json_encode( $theme['rules'] ), true );
+                $rules   = is_array( $decoded ) ? $decoded : null;
             }
 
             if ( is_array( $rules ) && ! empty( $rules ) ) {

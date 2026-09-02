@@ -121,8 +121,11 @@ class CreateNotification extends AbilityBase {
         }
 
         // The theme must be valid for this source, else it saves but renders
-        // nothing. Reject with the valid list instead of storing junk.
-        if ( ! BuilderInfo::is_valid_theme( $config['source'], $config['themes'] ) ) {
+        // nothing. Only reject when we can actually enumerate the source's
+        // themes — if the list is empty (a source whose themes cannot be
+        // introspected) accept the theme rather than block creation.
+        $valid_themes = BuilderInfo::theme_ids_for_source( $config['source'] );
+        if ( ! empty( $valid_themes ) && ! in_array( $config['themes'], $valid_themes, true ) ) {
             return new \WP_Error(
                 'nx_mcp_invalid_theme',
                 sprintf(
@@ -130,7 +133,7 @@ class CreateNotification extends AbilityBase {
                     __( 'Theme "%1$s" is not valid for source "%2$s". Call describe-type for this type; valid themes: %3$s', 'notificationx' ),
                     $config['themes'],
                     $config['source'],
-                    implode( ', ', BuilderInfo::theme_ids_for_source( $config['source'] ) )
+                    implode( ', ', $valid_themes )
                 ),
                 array( 'status' => 400 )
             );
