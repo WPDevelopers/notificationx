@@ -141,9 +141,12 @@ class UpdateNotification extends AbilityBase {
         }
 
         // --- Theme (validated against the effective source) -----------------
+        // Only reject when the source's themes can actually be enumerated; a
+        // source whose themes cannot be introspected accepts the given theme.
+        $valid_themes = BuilderInfo::theme_ids_for_source( $source );
         if ( ! empty( $input['themes'] ) ) {
             $theme = sanitize_text_field( $input['themes'] );
-            if ( ! BuilderInfo::is_valid_theme( $source, $theme ) ) {
+            if ( ! empty( $valid_themes ) && ! in_array( $theme, $valid_themes, true ) ) {
                 return new \WP_Error(
                     'nx_mcp_invalid_theme',
                     sprintf(
@@ -151,14 +154,14 @@ class UpdateNotification extends AbilityBase {
                         __( 'Theme "%1$s" is not valid for source "%2$s". Valid themes: %3$s', 'notificationx' ),
                         $theme,
                         $source,
-                        implode( ', ', BuilderInfo::theme_ids_for_source( $source ) )
+                        implode( ', ', $valid_themes )
                     ),
                     array( 'status' => 400 )
                 );
             }
             $data['themes'] = $theme;
             $applied[]      = 'themes';
-        } elseif ( $source_changed && ! BuilderInfo::is_valid_theme( $source, isset( $data['themes'] ) ? $data['themes'] : '' ) ) {
+        } elseif ( $source_changed && ! empty( $valid_themes ) && ! in_array( isset( $data['themes'] ) ? $data['themes'] : '', $valid_themes, true ) ) {
             // Old theme belongs to the old source; reset to the new source default.
             $data['themes'] = BuilderInfo::effective_default_theme( $source );
             $applied[]      = 'themes';
