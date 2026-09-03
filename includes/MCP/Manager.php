@@ -439,6 +439,8 @@ class Manager {
         $substr         = function_exists( 'mb_substr' ) ? 'mb_substr' : 'substr';
         $who_initial    = strtoupper( $substr( $who_name, 0, 1 ) );
         $client_initial = strtoupper( $substr( $name, 0, 1 ) );
+        // Show the connecting app's own mark when we recognise it; otherwise the initial.
+        $client_is_claude = ( false !== stripos( $name, 'claude' ) );
 
         // The exact tools this grant unlocks, straight from the ability
         // registry so the list can never drift from what the server exposes.
@@ -479,6 +481,8 @@ class Manager {
         .app{width:132px;text-align:center}
         .tile{width:64px;height:64px;margin:0 auto 10px;border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(30,20,80,.10)}
         .tile.client{background:#eef0f6;color:#3a4056;font-size:26px;font-weight:700}
+        .tile.client.has-mark{background:#fdf1ec}
+        .tile.client svg{width:38px;height:38px;display:block}
         .tile.nx{background:#fff;border:1px solid var(--line)}
         .tile.nx svg{width:42px;height:42px;display:block}
         .app-name{font-size:14px;font-weight:600;line-height:1.3}
@@ -519,7 +523,13 @@ class Manager {
     <div class="card">
         <div class="apps">
             <div class="app">
-                <div class="tile client"><?php echo esc_html( $client_initial ); ?></div>
+                <div class="tile client<?php echo $client_is_claude ? ' has-mark' : ''; ?>">
+                    <?php if ( $client_is_claude ) : ?>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#d97757" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="3" x2="12" y2="21"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(30 12 12)"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(60 12 12)"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(90 12 12)"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(120 12 12)"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(150 12 12)"/></svg>
+                    <?php else : ?>
+                        <?php echo esc_html( $client_initial ); ?>
+                    <?php endif; ?>
+                </div>
                 <div class="app-name"><?php echo esc_html( $name ); ?></div>
                 <?php if ( $client_host ) : ?><div class="app-host"><?php echo esc_html( $client_host ); ?></div><?php endif; ?>
             </div>
@@ -822,7 +832,7 @@ class Manager {
         ?>
         <div class="nx-mcp-clients">
             <div class="nx-mcp-client">
-                <div class="nx-mcp-client-name"><span class="nx-mcp-client-ic">&#129302;</span> <?php esc_html_e( 'Claude', 'notificationx' ); ?><span class="nx-mcp-tag"><?php esc_html_e( 'OAuth', 'notificationx' ); ?></span></div>
+                <div class="nx-mcp-client-name"><img class="nx-mcp-client-ic" width="20" height="20" alt="" src="<?php echo esc_url( NOTIFICATIONX_ADMIN_URL . 'images/mcp/claude.svg' ); ?>" /> <?php esc_html_e( 'Claude', 'notificationx' ); ?><span class="nx-mcp-tag"><?php esc_html_e( 'OAuth', 'notificationx' ); ?></span></div>
                 <ol class="nx-mcp-steps">
                     <li><?php esc_html_e( 'In Claude, add a custom connector.', 'notificationx' ); ?></li>
                     <li><?php esc_html_e( 'Paste the Connector URL above.', 'notificationx' ); ?></li>
@@ -830,7 +840,7 @@ class Manager {
                 </ol>
             </div>
             <div class="nx-mcp-client">
-                <div class="nx-mcp-client-name"><span class="nx-mcp-client-ic">&#128172;</span> <?php esc_html_e( 'ChatGPT', 'notificationx' ); ?><span class="nx-mcp-tag"><?php esc_html_e( 'Token', 'notificationx' ); ?></span></div>
+                <div class="nx-mcp-client-name"><img class="nx-mcp-client-ic" width="20" height="20" alt="" src="<?php echo esc_url( NOTIFICATIONX_ADMIN_URL . 'images/mcp/chatgpt.svg' ); ?>" /> <?php esc_html_e( 'ChatGPT', 'notificationx' ); ?><span class="nx-mcp-tag"><?php esc_html_e( 'Token', 'notificationx' ); ?></span></div>
                 <ol class="nx-mcp-steps">
                     <li><?php esc_html_e( 'Settings → Connectors → Add a custom connector.', 'notificationx' ); ?></li>
                     <li><?php /* translators: %s: connector URL */ printf( esc_html__( 'Use the URL %s.', 'notificationx' ), '<code>' . $url . '</code>' ); ?></li>
@@ -838,7 +848,7 @@ class Manager {
                 </ol>
             </div>
             <div class="nx-mcp-client">
-                <div class="nx-mcp-client-name"><span class="nx-mcp-client-ic">&#128421;</span> <?php esc_html_e( 'Cursor &amp; others', 'notificationx' ); ?><span class="nx-mcp-tag"><?php esc_html_e( 'Token', 'notificationx' ); ?></span></div>
+                <div class="nx-mcp-client-name"><img class="nx-mcp-client-ic" width="20" height="20" alt="" src="<?php echo esc_url( NOTIFICATIONX_ADMIN_URL . 'images/mcp/cursor.svg' ); ?>" /> <?php esc_html_e( 'Cursor &amp; others', 'notificationx' ); ?><span class="nx-mcp-tag"><?php esc_html_e( 'Token', 'notificationx' ); ?></span></div>
                 <ol class="nx-mcp-steps">
                     <li><?php esc_html_e( 'Add an MCP server with the Connector URL above.', 'notificationx' ); ?></li>
                     <li><?php esc_html_e( 'Set the Authorization header to: Bearer <token>.', 'notificationx' ); ?></li>
@@ -968,10 +978,15 @@ class Manager {
             .nx-mcp-hero-icon{font-size:26px;line-height:1}
             .nx-mcp-hero-title{margin:0 0 6px;font-size:18px;display:flex;align-items:center;gap:10px}
             .nx-mcp-hero-text{margin:0;color:#50575e;max-width:640px}
-            .nx-mcp-learn{display:inline-flex;align-items:center;gap:5px;margin-top:10px;color:#6a4bff;text-decoration:none;font-size:13px;font-weight:600}
-            .nx-mcp-learn-text{text-decoration:none}
+            .nx-mcp-learn{display:inline-flex;align-items:center;gap:5px;margin-top:10px;color:#6a4bff;font-size:13px;font-weight:600}
+            /* The message-field CSS (#notificationx .wprf-message p a) underlines the
+               whole anchor at rest, which draws a line under the arrow too. Override
+               it in every state (!important beats that #id rule) and underline only
+               the text span on hover. */
+            .nx-mcp-learn,.nx-mcp-learn:link,.nx-mcp-learn:visited,.nx-mcp-learn:hover,.nx-mcp-learn:focus,.nx-mcp-learn:active{text-decoration:none!important}
+            .nx-mcp-learn .nx-mcp-learn-text{text-decoration:none}
             .nx-mcp-learn:hover .nx-mcp-learn-text{text-decoration:underline}
-            .nx-mcp-learn-arrow{transition:transform .2s}
+            .nx-mcp-learn-arrow{display:inline-block;transition:transform .2s}
             .nx-mcp-learn:hover .nx-mcp-learn-arrow{transform:translateX(3px)}
             .nx-mcp-badge{font-size:11px;font-weight:600;padding:2px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.02em}
             .nx-mcp-badge-off{background:#e2e4e7;color:#50575e}
@@ -1013,7 +1028,9 @@ class Manager {
             .nx-mcp-dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
             .nx-mcp-dot-good{background:#1a7f37}
             .nx-mcp-dot-warn{background:#dba617}
-            .nx-mcp-client-ic{font-size:18px;line-height:1}
+            /* Client icons are <img> tags pointing at real SVG files: the card HTML is
+               kses-filtered, which strips <svg> and rejects data: URIs in src/style. */
+            .nx-mcp-client-ic{width:20px;height:20px;flex:none;display:inline-block;vertical-align:middle}
             .nx-mcp-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
             .nx-mcp-btn{cursor:pointer;border-radius:6px;padding:8px 16px;font-size:13px;font-weight:600;border:1px solid transparent;line-height:1.2}
             .nx-mcp-btn[disabled]{opacity:.6;cursor:default}
