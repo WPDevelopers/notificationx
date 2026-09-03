@@ -938,8 +938,17 @@ class Manager {
      * @return void
      */
     public function print_panel_assets() {
+        // The NotificationX admin is a single-page app (BrowserRouter): moving
+        // between its screens — including into Settings → MCP — is client-side, so
+        // admin_print_footer_scripts fires only on the first full page load,
+        // whatever NX screen that happened to be. Print the panel CSS/JS on every
+        // NotificationX admin page (slug prefixed "nx-"), not just nx-settings, so
+        // the styles/handlers are already on the document when the MCP tab renders
+        // after a client-side navigation. Otherwise the panel shows unstyled until
+        // a manual reload.
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only page check.
-        if ( ! is_admin() || empty( $_GET['page'] ) || 'nx-settings' !== $_GET['page'] ) {
+        $page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+        if ( ! is_admin() || 0 !== strpos( $page, 'nx-' ) ) {
             return;
         }
         $nonce = wp_create_nonce( 'wp_rest' );
