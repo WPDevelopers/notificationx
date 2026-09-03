@@ -765,8 +765,8 @@ class Manager {
                     <?php esc_html_e( 'Connect NotificationX to Claude, ChatGPT, Cursor and other AI assistants through a built-in MCP server, so you can manage notifications and read analytics in plain language. It is off by default and only administrators can use it.', 'notificationx' ); ?>
                 </p>
                 <a class="nx-mcp-learn" href="<?php echo esc_url( 'https://notificationx.com/docs/mcp-in-notificationx' ); ?>" target="_blank" rel="noopener noreferrer">
-                    <?php esc_html_e( 'Learn how it works', 'notificationx' ); ?>
-                    <span aria-hidden="true">&rarr;</span>
+                    <span class="nx-mcp-learn-text"><?php esc_html_e( 'Learn how it works', 'notificationx' ); ?></span>
+                    <span class="nx-mcp-learn-arrow" aria-hidden="true">&rarr;</span>
                 </a>
             </div>
         </div>
@@ -969,9 +969,10 @@ class Manager {
             .nx-mcp-hero-title{margin:0 0 6px;font-size:18px;display:flex;align-items:center;gap:10px}
             .nx-mcp-hero-text{margin:0;color:#50575e;max-width:640px}
             .nx-mcp-learn{display:inline-flex;align-items:center;gap:5px;margin-top:10px;color:#6a4bff;text-decoration:none;font-size:13px;font-weight:600}
-            .nx-mcp-learn:hover{text-decoration:underline}
-            .nx-mcp-learn span{transition:transform .2s}
-            .nx-mcp-learn:hover span{transform:translateX(3px)}
+            .nx-mcp-learn-text{text-decoration:none}
+            .nx-mcp-learn:hover .nx-mcp-learn-text{text-decoration:underline}
+            .nx-mcp-learn-arrow{transition:transform .2s}
+            .nx-mcp-learn:hover .nx-mcp-learn-arrow{transform:translateX(3px)}
             .nx-mcp-badge{font-size:11px;font-weight:600;padding:2px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.02em}
             .nx-mcp-badge-off{background:#e2e4e7;color:#50575e}
             .nx-mcp-badge-active{background:#e5f6ea;color:#1a7f37}
