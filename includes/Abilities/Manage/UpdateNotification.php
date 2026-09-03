@@ -143,7 +143,9 @@ class UpdateNotification extends AbilityBase {
         // --- Theme (validated against the effective source) -----------------
         // Only reject when the source's themes can actually be enumerated; a
         // source whose themes cannot be introspected accepts the given theme.
-        $valid_themes = BuilderInfo::theme_ids_for_source( $source );
+        $valid_themes  = BuilderInfo::theme_ids_for_source( $source );
+        $theme_changed = false;
+        $old_theme     = isset( $existing['themes'] ) ? $existing['themes'] : '';
         if ( ! empty( $input['themes'] ) ) {
             $theme = sanitize_text_field( $input['themes'] );
             if ( ! empty( $valid_themes ) && ! in_array( $theme, $valid_themes, true ) ) {
@@ -161,16 +163,35 @@ class UpdateNotification extends AbilityBase {
             }
             $data['themes'] = $theme;
             $applied[]      = 'themes';
+            $theme_changed  = ( $theme !== $old_theme );
         } elseif ( $source_changed && ! empty( $valid_themes ) && ! in_array( isset( $data['themes'] ) ? $data['themes'] : '', $valid_themes, true ) ) {
             // Old theme belongs to the old source; reset to the new source default.
             $data['themes'] = BuilderInfo::effective_default_theme( $source );
             $applied[]      = 'themes';
+            $theme_changed  = true;
             $warnings[]     = sprintf(
                 /* translators: 1: theme id, 2: source id. */
                 __( 'Theme reset to "%1$s" (the default for the new source "%2$s"). Pass a valid "themes" to choose another; see describe-type.', 'notificationx' ),
                 $data['themes'],
                 $source
             );
+        }
+
+        // When the theme changed and the caller didn't explicitly set a content
+        // template, re-apply the new theme's default notification-template — same
+        // as selecting a theme in the admin builder — so data-driven types don't
+        // render blank after a theme/source switch. Restricted to the cases that
+        // actually break (no existing template, or a source change that
+        // invalidates the old tags) so a same-type theme swap never clobbers a
+        // user's customised content. Static-content themes have no template here.
+        $template_supplied = ! empty( $input['fields']['notification-template'] );
+        $existing_template = isset( $existing['notification-template'] ) ? $existing['notification-template'] : array();
+        if ( $theme_changed && ! $template_supplied && ( empty( $existing_template ) || $source_changed ) ) {
+            $default_template = BuilderInfo::default_template_for_theme( $data['themes'] );
+            if ( ! empty( $default_template ) ) {
+                $data['notification-template'] = $default_template;
+                $applied[]                     = 'notification-template';
+            }
         }
 
         if ( $source_changed ) {

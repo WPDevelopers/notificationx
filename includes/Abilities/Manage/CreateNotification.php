@@ -139,6 +139,23 @@ class CreateNotification extends AbilityBase {
             );
         }
 
+        // Data-driven types (comments, download stats, reviews, sales, forms)
+        // render their text through a notification-template that maps content
+        // slots to data tags. The admin builder writes that template from the
+        // selected theme's defaults via the nx_themes_trigger system; a headless
+        // create (MCP/REST/CLI) never fires those UI triggers, so without this
+        // the record saves and lists fine but renders blank. Backfill the theme's
+        // default template when the caller didn't supply one — reconstructed from
+        // the exact same trigger data the wizard uses, so it can never diverge.
+        // Static-content types (bar, cookie notice, announcement, exit intent)
+        // carry no template here and are unaffected.
+        if ( empty( $config['notification-template'] ) ) {
+            $default_template = BuilderInfo::default_template_for_theme( $config['themes'] );
+            if ( ! empty( $default_template ) ) {
+                $config['notification-template'] = $default_template;
+            }
+        }
+
         if ( ! empty( $input['title'] ) ) {
             $config['title'] = sanitize_text_field( $input['title'] );
         } elseif ( ! isset( $config['title'] ) ) {

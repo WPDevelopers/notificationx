@@ -38,6 +38,16 @@ class BuilderInfo {
     protected static $res_themes = array();
 
     /**
+     * @var array Raw nx_themes_trigger map (theme id => trigger list).
+     */
+    protected static $triggers = array();
+
+    /**
+     * @var bool Whether the theme-trigger map has been primed this request.
+     */
+    protected static $triggers_booted = false;
+
+    /**
      * Prime the extension builder filters once (same trigger the admin metabox
      * uses), then cache the theme maps for the rest of the request.
      *
@@ -188,6 +198,62 @@ class BuilderInfo {
             return $declared;
         }
         return isset( $ids[0] ) ? $ids[0] : '';
+    }
+
+    /**
+     * The default notification-template (content-slot → data-tag map) the admin
+     * builder applies when a theme is selected.
+     *
+     * Data-driven types (comments, download stats, reviews, sales, forms) render
+     * their text entirely through this template; static-content types (bar,
+     * cookie notice, announcement, exit intent) carry their own literal content
+     * and have no template here. The builder writes it from the selected theme's
+     * `template` array via the nx_themes_trigger system (@notification-template.
+     * <param>:<tag> entries). A headless create/update (MCP, REST, WP-CLI) never
+     * fires those UI triggers, so without backfilling this the record saves and
+     * lists fine but renders blank for data-driven types. Reconstructing it from
+     * the exact same trigger data guarantees it can never diverge from the admin.
+     *
+     * @param string $theme Theme id (stored value, e.g. download_stats_today-download).
+     * @return array Param => tag/value map (first_param, custom_first_param, ...); empty when the theme has no template.
+     */
+    public static function default_template_for_theme( $theme ) {
+        if ( ! $theme ) {
+            return array();
+        }
+        if ( ! self::$triggers_booted ) {
+            self::boot(); // Ensures nx_before_metabox_load fired so extensions registered nx_themes_trigger.
+            self::$triggers_booted = true;
+            // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- consuming core NotificationX (nx_) hooks.
+            $triggers = apply_filters( 'nx_themes_trigger', array() );
+            // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+            self::$triggers = is_array( $triggers ) ? $triggers : array();
+        }
+
+        $list = isset( self::$triggers[ $theme ] ) && is_array( self::$triggers[ $theme ] ) ? self::$triggers[ $theme ] : array();
+
+        $template = array();
+        $prefix   = '@notification-template.';
+        $len      = strlen( $prefix );
+        foreach ( $list as $entry ) {
+            if ( ! is_string( $entry ) || 0 !== strpos( $entry, $prefix ) ) {
+                continue;
+            }
+            // Entry shape: "@notification-template.<param>:<value>". Split on the
+            // FIRST colon only — a value may itself contain colons (e.g. custom
+            // text like "in last {{day:7}}").
+            $rest = substr( $entry, $len );
+            $pos  = strpos( $rest, ':' );
+            if ( false === $pos ) {
+                continue;
+            }
+            $param = substr( $rest, 0, $pos );
+            $value = substr( $rest, $pos + 1 );
+            if ( '' !== $param ) {
+                $template[ $param ] = $value;
+            }
+        }
+        return $template;
     }
 
     /**
