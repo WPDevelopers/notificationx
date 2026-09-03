@@ -1,11 +1,11 @@
 === NotificationX – FOMO, Live Sales Notification, WooCommerce Sales Popup, GDPR, Social Proof, Announcement Banner & Floating Notification Bar ===
-Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, sapanmozammel, shuvo247, fuadragib
+Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, fuadragib, shahrear17
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, notification bar
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 3.2.14
+Stable tag: 3.3.0
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -218,6 +218,11 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 3.3.0 - 03/09/2026 =
+Added: Built-in MCP server to securely connect NotificationX with AI assistants.
+Fixed: Announcement notifications not displaying correctly on mobile devices.
+Few minor bug fixes and improvements.
 
 = 3.2.14 - 27/08/2026 =
 Added: WordPress 7.1 Compatibility.
