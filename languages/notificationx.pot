@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.2.14\n"
+"Project-Id-Version: NotificationX 3.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-27T07:47:31+00:00\n"
+"POT-Creation-Date: 2026-09-03T07:57:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
@@ -50,6 +50,173 @@ msgstr ""
 
 #: blocks/Blocks.php:238
 msgid "There is no data in this notification."
+msgstr ""
+
+#: includes/Abilities/AbilityBase.php:175
+msgid "You are not allowed to run this ability."
+msgstr ""
+
+#. translators: %s: parameter name.
+#: includes/Abilities/AbilityBase.php:221
+#, php-format
+msgid "Missing required parameter: %s"
+msgstr ""
+
+#. translators: %s: parameter name.
+#: includes/Abilities/AbilityBase.php:260
+#, php-format
+msgid "Invalid value for parameter: %s"
+msgstr ""
+
+#. translators: %s: config field name.
+#: includes/Abilities/Manage/CreateNotification.php:92
+#, php-format
+msgid "The config is missing a valid \"%s\". A notification needs at least type, source and themes."
+msgstr ""
+
+#. translators: %s: source id.
+#: includes/Abilities/Manage/CreateNotification.php:103
+#: includes/Abilities/Manage/UpdateNotification.php:117
+#, php-format
+msgid "Unknown data source \"%s\". Call list-sources for valid ids."
+msgstr ""
+
+#. translators: %s: source id.
+#: includes/Abilities/Manage/CreateNotification.php:111
+#, php-format
+msgid "The module for data source \"%s\" is disabled; enable it before creating this notification."
+msgstr ""
+
+#. translators: 1: theme id, 2: source id, 3: comma-separated valid ids.
+#: includes/Abilities/Manage/CreateNotification.php:133
+#, php-format
+msgid "Theme \"%1$s\" is not valid for source \"%2$s\". Call describe-type for this type; valid themes: %3$s"
+msgstr ""
+
+#: includes/Abilities/Manage/CreateNotification.php:162
+msgid "Untitled notification"
+msgstr ""
+
+#: includes/Abilities/Manage/CreateNotification.php:179
+msgid "Could not create the notification from the provided config."
+msgstr ""
+
+#: includes/Abilities/Manage/DeleteNotification.php:62
+msgid "Deletion not confirmed. Pass confirm:true to permanently delete this notification."
+msgstr ""
+
+#. translators: %d: notification id.
+#: includes/Abilities/Manage/DeleteNotification.php:74
+#: includes/Abilities/Manage/DuplicateNotification.php:63
+#: includes/Abilities/Manage/ToggleNotification.php:67
+#: includes/Abilities/Manage/UpdateNotification.php:95
+#: includes/Abilities/Read/GetAnalytics.php:63
+#: includes/Abilities/Read/GetNotification.php:60
+#, php-format
+msgid "No notification found with id %d."
+msgstr ""
+
+#. translators: %s: original notification title.
+#: includes/Abilities/Manage/DuplicateNotification.php:76
+#, php-format
+msgid "%s (copy)"
+msgstr ""
+
+#: includes/Abilities/Manage/DuplicateNotification.php:88
+msgid "Could not duplicate the notification."
+msgstr ""
+
+#: includes/Abilities/Manage/ToggleNotification.php:80
+msgid "No change; notification already in the requested state."
+msgstr ""
+
+#: includes/Abilities/Manage/ToggleNotification.php:88
+msgid "Another notification is already active. On the free plan only one notification can be active at a time — disable the active one first, or upgrade to Pro."
+msgstr ""
+
+#. translators: %s: source id.
+#: includes/Abilities/Manage/UpdateNotification.php:125
+#, php-format
+msgid "The module for data source \"%s\" is disabled; enable it before using it."
+msgstr ""
+
+#. translators: 1: theme id, 2: source id, 3: comma-separated valid ids.
+#: includes/Abilities/Manage/UpdateNotification.php:156
+#, php-format
+msgid "Theme \"%1$s\" is not valid for source \"%2$s\". Valid themes: %3$s"
+msgstr ""
+
+#. translators: 1: theme id, 2: source id.
+#: includes/Abilities/Manage/UpdateNotification.php:174
+#, php-format
+msgid "Theme reset to \"%1$s\" (the default for the new source \"%2$s\"). Pass a valid \"themes\" to choose another; see describe-type."
+msgstr ""
+
+#: includes/Abilities/Manage/UpdateNotification.php:198
+msgid "Data source changed: content fields from the previous source were kept. Set the new source's content via \"fields\" (see describe-type) so the notification renders as intended."
+msgstr ""
+
+#. translators: %s: type id.
+#: includes/Abilities/Read/DescribeType.php:77
+#, php-format
+msgid "Unknown notification type: %s. Call list-types (or describe-type with no argument) for valid ids."
+msgstr ""
+
+#. translators: %d: notification id.
+#. translators: %d: notification ID
+#: includes/Abilities/Read/EntriesReader.php:127
+#: includes/Core/Rest/Popup.php:493
+#, php-format
+msgid "Notification #%d"
+msgstr ""
+
+#: includes/Abilities/Read/ExportEntries.php:80
+msgid "No entries found to export."
+msgstr ""
+
+#: includes/Abilities/Read/ExportEntries.php:89
+#: includes/Core/Rest/Popup.php:469
+msgid "No"
+msgstr ""
+
+#: includes/Abilities/Read/ExportEntries.php:90
+#: includes/Core/Rest/Popup.php:470
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:13
+msgid "Date"
+msgstr ""
+
+#: includes/Abilities/Read/ExportEntries.php:91
+#: includes/Core/Rest/Popup.php:471
+#: assets/admin/js/admin.js:1
+#: assets/admin/js/admin.js:13
+#: assets/admin/js/admin.js:18
+msgid "NotificationX Title"
+msgstr ""
+
+#: includes/Abilities/Read/ExportEntries.php:94
+#: includes/Core/Helper.php:800
+#: includes/Core/Rest/Popup.php:475
+#: includes/Extensions/Elementor/FormWidget.php:177
+#: assets/admin/js/admin.js:13
+msgid "Name"
+msgstr ""
+
+#: includes/Abilities/Read/ExportEntries.php:95
+#: includes/Core/Rest/Popup.php:476
+#: assets/admin/js/admin.js:13
+msgid "Email Address"
+msgstr ""
+
+#: includes/Abilities/Read/ExportEntries.php:97
+#: includes/Core/Rest/Popup.php:479
+#: includes/Extensions/Elementor/FormWidget.php:267
+#: includes/Types/GDPR.php:315
+#: includes/Types/GDPR.php:318
+#: includes/Types/GDPR.php:412
+#: includes/Types/GDPR.php:417
+#: assets/admin/js/admin.js:13
+msgid "Message"
 msgstr ""
 
 #: includes/Admin/Admin.php:132
@@ -914,13 +1081,6 @@ msgstr ""
 
 #: includes/Core/Helper.php:722
 msgid "Script"
-msgstr ""
-
-#: includes/Core/Helper.php:800
-#: includes/Core/Rest/Popup.php:475
-#: includes/Extensions/Elementor/FormWidget.php:177
-#: assets/admin/js/admin.js:13
-msgid "Name"
 msgstr ""
 
 #: includes/Core/Helper.php:826
@@ -2086,44 +2246,6 @@ msgstr ""
 #: includes/Core/Rest/Popup.php:453
 #, php-format
 msgid "Successfully prepared %d entries for export"
-msgstr ""
-
-#: includes/Core/Rest/Popup.php:469
-msgid "No"
-msgstr ""
-
-#: includes/Core/Rest/Popup.php:470
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:13
-msgid "Date"
-msgstr ""
-
-#: includes/Core/Rest/Popup.php:471
-#: assets/admin/js/admin.js:1
-#: assets/admin/js/admin.js:13
-#: assets/admin/js/admin.js:18
-msgid "NotificationX Title"
-msgstr ""
-
-#: includes/Core/Rest/Popup.php:476
-#: assets/admin/js/admin.js:13
-msgid "Email Address"
-msgstr ""
-
-#: includes/Core/Rest/Popup.php:479
-#: includes/Extensions/Elementor/FormWidget.php:267
-#: includes/Types/GDPR.php:315
-#: includes/Types/GDPR.php:318
-#: includes/Types/GDPR.php:412
-#: includes/Types/GDPR.php:417
-#: assets/admin/js/admin.js:13
-msgid "Message"
-msgstr ""
-
-#. translators: %d: notification ID
-#: includes/Core/Rest/Popup.php:493
-#, php-format
-msgid "Notification #%d"
 msgstr ""
 
 #: includes/Core/Rest/Posts.php:113
@@ -3553,6 +3675,7 @@ msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:415
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:428
+#: includes/MCP/Manager.php:796
 msgid "Show"
 msgstr ""
 
@@ -7698,16 +7821,403 @@ msgstr ""
 msgid "Talk to Support"
 msgstr ""
 
-#: includes/NotificationX.php:205
+#: includes/MCP/Manager.php:151
+msgid "Nothing to revoke."
+msgstr ""
+
+#: includes/MCP/Manager.php:359
+msgid "You do not have permission to authorize an MCP connection."
+msgstr ""
+
+#: includes/MCP/Manager.php:454
+msgid "Read only"
+msgstr ""
+
+#: includes/MCP/Manager.php:454
+#: includes/MCP/Manager.php:885
+msgid "Read & write"
+msgstr ""
+
+#: includes/MCP/Manager.php:456
+msgid "It can read your notifications, entries and analytics. It cannot create, change or delete anything."
+msgstr ""
+
+#: includes/MCP/Manager.php:457
+msgid "It acts as you: anything it creates, edits or deletes is recorded under your account."
+msgstr ""
+
+#: includes/MCP/Manager.php:472
+msgid "Authorize MCP connection"
+msgstr ""
+
+#. translators: %1$s: client app name, %2$s: site name.
+#: includes/MCP/Manager.php:538
+#, php-format
+msgid "%1$s wants to work with your notifications on %2$s."
+msgstr ""
+
+#. translators: %1$s: user display name, %2$s: user role.
+#: includes/MCP/Manager.php:556
+#, php-format
+msgid "Signed in as %1$s%2$s"
+msgstr ""
+
+#. translators: %1$s: client app name, %2$d: number of tools.
+#: includes/MCP/Manager.php:571
+#, php-format
+msgid "What %1$s will be able to do (%2$d)"
+msgstr ""
+
+#: includes/MCP/Manager.php:593
+msgid "Secured with OAuth. You can revoke this app at any time under NotificationX → MCP."
+msgstr ""
+
+#: includes/MCP/Manager.php:600
+msgid "Deny"
+msgstr ""
+
+#: includes/MCP/Manager.php:601
+msgid "Approve"
+msgstr ""
+
+#: includes/MCP/Manager.php:629
+msgid "MCP"
+msgstr ""
+
+#: includes/MCP/Manager.php:651
+#: includes/MCP/Manager.php:761
+msgid "MCP Server"
+msgstr ""
+
+#: includes/MCP/Manager.php:663
+msgid "Enable MCP access"
+msgstr ""
+
+#: includes/MCP/Manager.php:664
+msgid "When enabled, approved AI assistants can connect to this site to manage notifications and read analytics."
+msgstr ""
+
+#: includes/MCP/Manager.php:672
+msgid "Connection"
+msgstr ""
+
+#: includes/MCP/Manager.php:687
+msgid "Connect a client"
+msgstr ""
+
+#: includes/MCP/Manager.php:702
+msgid "Connected apps"
+msgstr ""
+
+#: includes/MCP/Manager.php:717
+msgid "Connection health"
+msgstr ""
+
+#: includes/MCP/Manager.php:740
+#: includes/MCP/Manager.php:1075
+msgid "Off"
+msgstr ""
+
+#: includes/MCP/Manager.php:743
+#: includes/MCP/Manager.php:1075
+#: assets/admin/js/admin.js:1
+msgid "Active"
+msgstr ""
+
+#: includes/MCP/Manager.php:745
+msgid "Setup needed"
+msgstr ""
+
+#: includes/MCP/Manager.php:765
+msgid "Connect NotificationX to Claude, ChatGPT, Cursor and other AI assistants through a built-in MCP server, so you can manage notifications and read analytics in plain language. It is off by default and only administrators can use it."
+msgstr ""
+
+#: includes/MCP/Manager.php:785
+msgid "Connector URL"
+msgstr ""
+
+#: includes/MCP/Manager.php:788
+#: includes/MCP/Manager.php:797
+msgid "Copy"
+msgstr ""
+
+#: includes/MCP/Manager.php:790
+msgid "Add this URL as a custom connector in your AI client."
+msgstr ""
+
+#: includes/MCP/Manager.php:793
+msgid "Connection token"
+msgstr ""
+
+#: includes/MCP/Manager.php:799
+msgid "For token-based clients (ChatGPT, Cursor): send it as an Authorization: Bearer header. Keep it secret."
+msgstr ""
+
+#: includes/MCP/Manager.php:803
+msgid "Connection test passed — the MCP server is reachable and exposing its tools."
+msgstr ""
+
+#: includes/MCP/Manager.php:803
+msgid "Test connection"
+msgstr ""
+
+#: includes/MCP/Manager.php:804
+msgid "Reset the connection token? Existing clients will need the new token to reconnect."
+msgstr ""
+
+#: includes/MCP/Manager.php:804
+msgid "A new connection token was generated."
+msgstr ""
+
+#: includes/MCP/Manager.php:804
+msgid "Reset token"
+msgstr ""
+
+#: includes/MCP/Manager.php:821
+msgid "Claude"
+msgstr ""
+
+#: includes/MCP/Manager.php:821
+msgid "OAuth"
+msgstr ""
+
+#: includes/MCP/Manager.php:823
+msgid "In Claude, add a custom connector."
+msgstr ""
+
+#: includes/MCP/Manager.php:824
+msgid "Paste the Connector URL above."
+msgstr ""
+
+#: includes/MCP/Manager.php:825
+msgid "Approve the connection when prompted — you sign in here, no token needed."
+msgstr ""
+
+#: includes/MCP/Manager.php:829
+msgid "ChatGPT"
+msgstr ""
+
+#: includes/MCP/Manager.php:829
+#: includes/MCP/Manager.php:837
+msgid "Token"
+msgstr ""
+
+#: includes/MCP/Manager.php:831
+msgid "Settings → Connectors → Add a custom connector."
+msgstr ""
+
+#. translators: %s: connector URL
+#: includes/MCP/Manager.php:832
+#, php-format
+msgid "Use the URL %s."
+msgstr ""
+
+#. translators: %s: connector URL
+#: includes/MCP/Manager.php:833
+msgid "Provide the connection token as a Bearer credential."
+msgstr ""
+
+#: includes/MCP/Manager.php:837
+msgid "Cursor &amp; others"
+msgstr ""
+
+#: includes/MCP/Manager.php:839
+msgid "Add an MCP server with the Connector URL above."
+msgstr ""
+
+#: includes/MCP/Manager.php:840
+msgid "Set the Authorization header to: Bearer <token>."
+msgstr ""
+
+#: includes/MCP/Manager.php:841
+msgid "Confirm the install when the client asks."
+msgstr ""
+
+#: includes/MCP/Manager.php:865
+msgid "Token connection (ChatGPT / Cursor / manual)"
+msgstr ""
+
+#: includes/MCP/Manager.php:880
+msgid "No AI clients are connected yet."
+msgstr ""
+
+#: includes/MCP/Manager.php:885
+msgid "Read-only"
+msgstr ""
+
+#: includes/MCP/Manager.php:892
+msgid "Revoke"
+msgstr ""
+
+#: includes/MCP/Manager.php:914
+msgid "Secure connection (HTTPS) is on."
+msgstr ""
+
+#: includes/MCP/Manager.php:916
+msgid "This site is not served over HTTPS. Token clients work, but hosted clients like Claude require an HTTPS site to connect."
+msgstr ""
+
+#. translators: %s: protocol version
+#: includes/MCP/Manager.php:919
+#, php-format
+msgid "MCP protocol version %s."
+msgstr ""
+
+#. translators: %s: protocol version
+#: includes/MCP/Manager.php:920
+msgid "Endpoint:"
+msgstr ""
+
+#: includes/MCP/Manager.php:921
+msgid "Use “Test connection” above to verify the server end-to-end."
+msgstr ""
+
+#: includes/MCP/Manager.php:925
+msgid "Disconnect all"
+msgstr ""
+
+#: includes/MCP/Manager.php:926
+msgid "Revoke every connection and OAuth grant. All clients will need to reconnect."
+msgstr ""
+
+#: includes/MCP/Manager.php:928
+msgid "Disconnect all clients? Every connection will be revoked."
+msgstr ""
+
+#: includes/MCP/Manager.php:928
+msgid "All MCP connections have been revoked."
+msgstr ""
+
+#: includes/MCP/Manager.php:928
+msgid "Disconnect all clients"
+msgstr ""
+
+#: includes/MCP/OAuth.php:110
+msgid "At least one valid redirect_uri is required."
+msgstr ""
+
+#: includes/MCP/OAuth.php:117
+msgid "Client registration limit reached."
+msgstr ""
+
+#: includes/MCP/OAuth.php:161
+msgid "Unknown client."
+msgstr ""
+
+#: includes/MCP/OAuth.php:164
+msgid "redirect_uri mismatch."
+msgstr ""
+
+#: includes/MCP/OAuth.php:167
+msgid "Only the authorization code flow is supported."
+msgstr ""
+
+#: includes/MCP/OAuth.php:170
+msgid "PKCE with S256 is required."
+msgstr ""
+
+#: includes/MCP/OAuth.php:225
+msgid "Unsupported grant type."
+msgstr ""
+
+#: includes/MCP/OAuth.php:251
+msgid "Authorization code is invalid or expired."
+msgstr ""
+
+#: includes/MCP/OAuth.php:254
+msgid "Authorization code does not match this client."
+msgstr ""
+
+#: includes/MCP/OAuth.php:260
+msgid "PKCE verification failed."
+msgstr ""
+
+#: includes/MCP/OAuth.php:286
+msgid "Refresh token is invalid or expired."
+msgstr ""
+
+#: includes/MCP/SelfTest.php:34
+msgid "MCP is turned off."
+msgstr ""
+
+#: includes/MCP/SelfTest.php:39
+msgid "No connection token has been generated yet."
+msgstr ""
+
+#. translators: %s: error detail.
+#: includes/MCP/SelfTest.php:64
+#, php-format
+msgid "The MCP endpoint could not be reached from the server itself: %s"
+msgstr ""
+
+#: includes/MCP/SelfTest.php:71
+msgid "The endpoint rejected the connection token."
+msgstr ""
+
+#: includes/MCP/SelfTest.php:78
+msgid "The server responded but exposed no tools."
+msgstr ""
+
+#: includes/MCP/SelfTest.php:93
+msgid "The endpoint did not correctly challenge an unauthenticated request; OAuth discovery may fail for some clients."
+msgstr ""
+
+#. translators: %d: number of tools.
+#: includes/MCP/SelfTest.php:102
+#, php-format
+msgid "MCP is working. %d tool is available."
+msgid_plural "MCP is working. %d tools are available."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/MCP/Server.php:54
+msgid "Too many failed attempts. Try again later."
+msgstr ""
+
+#: includes/MCP/Server.php:67
+msgid "Authentication required."
+msgstr ""
+
+#: includes/MCP/Server.php:92
+msgid "Parse error."
+msgstr ""
+
+#: includes/MCP/Server.php:153
+msgid "Method not found."
+msgstr ""
+
+#: includes/MCP/Server.php:169
+msgid "Missing tool name."
+msgstr ""
+
+#: includes/MCP/Server.php:231
+msgid "Invalid or expired credentials."
+msgstr ""
+
+#: includes/MCP/Server.php:244
+msgid "The account behind this connection can no longer manage NotificationX."
+msgstr ""
+
+#. translators: %s: tool name.
+#: includes/MCP/Tools.php:73
+#, php-format
+msgid "Unknown tool: %s"
+msgstr ""
+
+#: includes/MCP/Tools.php:81
+msgid "This connection is read-only and cannot run write tools."
+msgstr ""
+
+#: includes/NotificationX.php:209
 msgid "Opps! This is PRO Feature."
 msgstr ""
 
-#: includes/NotificationX.php:231
+#: includes/NotificationX.php:235
 #: assets/admin/js/admin.js:11
 msgid "Settings"
 msgstr ""
 
-#: includes/NotificationX.php:236
+#: includes/NotificationX.php:240
 msgid "Go Pro"
 msgstr ""
 
@@ -8577,10 +9087,6 @@ msgstr ""
 #: assets/admin/js/admin.js:1
 #, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
-msgstr ""
-
-#: assets/admin/js/admin.js:1
-msgid "Active"
 msgstr ""
 
 #: assets/admin/js/admin.js:1

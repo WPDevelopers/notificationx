@@ -7,22 +7,22 @@ namespace Composer\Autoload;
 class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 {
     public static $prefixLengthsPsr4 = array (
-        'W' => 
+        'W' =>
         array (
             'WPDeveloper\\QueryBuilder\\' => 25,
         ),
-        'P' => 
+        'P' =>
         array (
             'PriyoMukul\\WPNotice\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'WPDeveloper\\QueryBuilder\\' => 
+        'WPDeveloper\\QueryBuilder\\' =>
         array (
             0 => __DIR__ . '/..' . '/wpdeveloper/query-builder/src',
         ),
-        'PriyoMukul\\WPNotice\\' => 
+        'PriyoMukul\\WPNotice\\' =>
         array (
             0 => __DIR__ . '/..' . '/priyomukul/wp-notice/src',
         ),
@@ -30,6 +30,25 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'NotificationX\\Abilities\\AbilityBase' => __DIR__ . '/../..' . '/includes/Abilities/AbilityBase.php',
+        'NotificationX\\Abilities\\BuilderInfo' => __DIR__ . '/../..' . '/includes/Abilities/BuilderInfo.php',
+        'NotificationX\\Abilities\\Manage\\CreateNotification' => __DIR__ . '/../..' . '/includes/Abilities/Manage/CreateNotification.php',
+        'NotificationX\\Abilities\\Manage\\DeleteNotification' => __DIR__ . '/../..' . '/includes/Abilities/Manage/DeleteNotification.php',
+        'NotificationX\\Abilities\\Manage\\DuplicateNotification' => __DIR__ . '/../..' . '/includes/Abilities/Manage/DuplicateNotification.php',
+        'NotificationX\\Abilities\\Manage\\ToggleNotification' => __DIR__ . '/../..' . '/includes/Abilities/Manage/ToggleNotification.php',
+        'NotificationX\\Abilities\\Manage\\UpdateNotification' => __DIR__ . '/../..' . '/includes/Abilities/Manage/UpdateNotification.php',
+        'NotificationX\\Abilities\\Read\\DescribeType' => __DIR__ . '/../..' . '/includes/Abilities/Read/DescribeType.php',
+        'NotificationX\\Abilities\\Read\\EntriesReader' => __DIR__ . '/../..' . '/includes/Abilities/Read/EntriesReader.php',
+        'NotificationX\\Abilities\\Read\\ExportEntries' => __DIR__ . '/../..' . '/includes/Abilities/Read/ExportEntries.php',
+        'NotificationX\\Abilities\\Read\\GetAnalytics' => __DIR__ . '/../..' . '/includes/Abilities/Read/GetAnalytics.php',
+        'NotificationX\\Abilities\\Read\\GetNotification' => __DIR__ . '/../..' . '/includes/Abilities/Read/GetNotification.php',
+        'NotificationX\\Abilities\\Read\\GetSettings' => __DIR__ . '/../..' . '/includes/Abilities/Read/GetSettings.php',
+        'NotificationX\\Abilities\\Read\\GetStatus' => __DIR__ . '/../..' . '/includes/Abilities/Read/GetStatus.php',
+        'NotificationX\\Abilities\\Read\\ListEntries' => __DIR__ . '/../..' . '/includes/Abilities/Read/ListEntries.php',
+        'NotificationX\\Abilities\\Read\\ListNotifications' => __DIR__ . '/../..' . '/includes/Abilities/Read/ListNotifications.php',
+        'NotificationX\\Abilities\\Read\\ListSources' => __DIR__ . '/../..' . '/includes/Abilities/Read/ListSources.php',
+        'NotificationX\\Abilities\\Read\\ListTypes' => __DIR__ . '/../..' . '/includes/Abilities/Read/ListTypes.php',
+        'NotificationX\\Abilities\\Registrar' => __DIR__ . '/../..' . '/includes/Abilities/Registrar.php',
         'NotificationX\\Admin\\Admin' => __DIR__ . '/../..' . '/includes/Admin/Admin.php',
         'NotificationX\\Admin\\Cron' => __DIR__ . '/../..' . '/includes/Admin/Cron.php',
         'NotificationX\\Admin\\DashboardWidget' => __DIR__ . '/../..' . '/includes/Admin/DashboardWidget.php',
@@ -153,6 +172,14 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\FrontEnd\\FrontEnd' => __DIR__ . '/../..' . '/includes/FrontEnd/FrontEnd.php',
         'NotificationX\\FrontEnd\\Preview' => __DIR__ . '/../..' . '/includes/FrontEnd/Preview.php',
         'NotificationX\\GetInstance' => __DIR__ . '/../..' . '/includes/GetInstance.php',
+        'NotificationX\\MCP\\Bootstrap' => __DIR__ . '/../..' . '/includes/MCP/Bootstrap.php',
+        'NotificationX\\MCP\\Manager' => __DIR__ . '/../..' . '/includes/MCP/Manager.php',
+        'NotificationX\\MCP\\OAuth' => __DIR__ . '/../..' . '/includes/MCP/OAuth.php',
+        'NotificationX\\MCP\\Pairing' => __DIR__ . '/../..' . '/includes/MCP/Pairing.php',
+        'NotificationX\\MCP\\RateLimiter' => __DIR__ . '/../..' . '/includes/MCP/RateLimiter.php',
+        'NotificationX\\MCP\\SelfTest' => __DIR__ . '/../..' . '/includes/MCP/SelfTest.php',
+        'NotificationX\\MCP\\Server' => __DIR__ . '/../..' . '/includes/MCP/Server.php',
+        'NotificationX\\MCP\\Tools' => __DIR__ . '/../..' . '/includes/MCP/Tools.php',
         'NotificationX\\NotificationX' => __DIR__ . '/../..' . '/includes/NotificationX.php',
         'NotificationX\\ThirdParty\\VisualPortfolio' => __DIR__ . '/../..' . '/includes/ThirdParty/VisualPortfolio.php',
         'NotificationX\\ThirdParty\\WPML' => __DIR__ . '/../..' . '/includes/ThirdParty/WPML.php',
@@ -180,6 +207,14 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Types\\Video' => __DIR__ . '/../..' . '/includes/Types/Video.php',
         'NotificationX\\Types\\WooCommerceCartPeek' => __DIR__ . '/../..' . '/includes/Types/WooCommerceCartPeek.php',
         'NotificationX\\Types\\WooCommerceSales' => __DIR__ . '/../..' . '/includes/Types/WooCommerceSales.php',
+        'PriyoMukul\\WPNotice\\Dismiss' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Dismiss.php',
+        'PriyoMukul\\WPNotice\\Notice' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Notice.php',
+        'PriyoMukul\\WPNotice\\Notices' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Notices.php',
+        'PriyoMukul\\WPNotice\\Utils\\Base' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/Base.php',
+        'PriyoMukul\\WPNotice\\Utils\\CacheBank' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/CacheBank.php',
+        'PriyoMukul\\WPNotice\\Utils\\Helper' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/Helper.php',
+        'PriyoMukul\\WPNotice\\Utils\\NoticeRemover' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/NoticeRemover.php',
+        'PriyoMukul\\WPNotice\\Utils\\Storage' => __DIR__ . '/..' . '/priyomukul/wp-notice/src/Utils/Storage.php',
         'UsabilityDynamics\\Job' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-job.php',
         'UsabilityDynamics\\Loader' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-loader.php',
         'UsabilityDynamics\\Settings' => __DIR__ . '/..' . '/wpdeveloper/lib-settings/lib/class-settings.php',
@@ -187,6 +222,11 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'UsabilityDynamics\\Term' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-term.php',
         'UsabilityDynamics\\Utility' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-utility.php',
         'UsabilityDynamics\\Utility\\Guid_Fix' => __DIR__ . '/..' . '/wpdeveloper/lib-utility/lib/class-guid-fix.php',
+        'WPDeveloper\\QueryBuilder\\Collection' => __DIR__ . '/..' . '/wpdeveloper/query-builder/src/Collection.php',
+        'WPDeveloper\\QueryBuilder\\Interfaces\\Arrayable' => __DIR__ . '/..' . '/wpdeveloper/query-builder/src/Interfaces/Arrayable.php',
+        'WPDeveloper\\QueryBuilder\\Interfaces\\JSONable' => __DIR__ . '/..' . '/wpdeveloper/query-builder/src/Interfaces/JSONable.php',
+        'WPDeveloper\\QueryBuilder\\Interfaces\\Stringable' => __DIR__ . '/..' . '/wpdeveloper/query-builder/src/Interfaces/Stringable.php',
+        'WPDeveloper\\QueryBuilder\\Query' => __DIR__ . '/..' . '/wpdeveloper/query-builder/src/Query.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

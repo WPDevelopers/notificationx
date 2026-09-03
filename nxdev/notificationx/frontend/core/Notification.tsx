@@ -2,8 +2,9 @@ import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
 import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
 import { Theme } from "../themes";
-import Analytics from "./Analytics";
+import Analytics, { resolveNotificationLink, recordAnalyticsClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
+import nxHelper from "./functions";
 // import 'animate.css';
 
 const useMediaQuery = (query) => {
@@ -161,6 +162,26 @@ const Notification = (props) => {
 
     const themeName = getThemeName(settings);
 
+    // Whole-card click: corner popups must be clickable even when the theme
+    // hides the CTA button (e.g. Cart Peek), so the click and its CTR still
+    // register. Bars / exit-intent / gdpr render through their own components.
+    const restUrl = nxHelper.getPath(frontEndContext.rest, `analytics/`);
+    const cardLink = resolveNotificationLink(settings, props.data);
+    const handleCardClick = (e) => {
+        if (settings?.source === 'press_bar' || settings?.type === 'notification_bar') return;
+        // Let genuinely interactive children handle their own clicks (the CTA
+        // link, close button, powered-by link, subscribe widget, form fields).
+        if (e.target?.closest?.('a, button, input, textarea, select, label, .notificationx-close, .nx-close, .nx-powered-by, .g-ytsubscribe')) {
+            return;
+        }
+        if (!cardLink) return;
+        recordAnalyticsClick(restUrl, settings, frontEndContext?.rest?.omit_credentials);
+        if (settings?.link_open) {
+            window.open(cardLink, '_blank', 'noopener');
+        } else {
+            window.location.href = cardLink;
+        }
+    };
 
     const { advance_edit } = settings;
     
@@ -261,8 +282,9 @@ const Notification = (props) => {
             // onMouseEnter={handlePauseTimer}
             // onMouseLeave={handleStartTimer}
             className={componentClasses}
-            style={componentStyle}
+            style={cardLink ? { ...componentStyle, cursor: 'pointer' } : componentStyle}
             id={`notificationx-${settings.nx_id}`}
+            onClick={handleCardClick}
         >
             {
                 is_pro && settings?.sound && settings?.sound != 'none' && settings.sound.length > 0 && props.assets?.pro &&
@@ -277,6 +299,7 @@ const Notification = (props) => {
                 className="notificationx-link"
                 config={settings}
                 data={props.data}
+                dispatch={props.dispatch}
             />
         </div>
     );
