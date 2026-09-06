@@ -229,6 +229,7 @@ class QuickBuild {
                 'sixth_param',
                 'custom_sixth_param',
                 'activecampaign_form',
+                'brevo_list',
                 'announcement_entries',
                 'offer_title',
                 'offer_discount',

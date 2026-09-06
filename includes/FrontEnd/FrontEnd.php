@@ -965,6 +965,8 @@ class FrontEnd {
                 'is_inline',
                 'ld_course_list',
                 'ld_product_control',
+                'activecampaign_form',
+                'brevo_list',
                 'mailchimp_list',
                 'max_stock',
                 'nx-bar_with_elementor',

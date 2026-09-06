@@ -77,6 +77,7 @@ class ExtensionFactory {
 			'wistia'                             => 'NotificationX\Extensions\Wistia\Wistia',
 			'surecart'                           => 'NotificationX\Extensions\SureCart\SureCart',
 			'ActiveCampaign'                     => 'NotificationX\Extensions\ActiveCampaign\ActiveCampaign',
+			'brevo'                              => 'NotificationX\Extensions\Brevo\Brevo',
 			'popup_notification'                 => 'NotificationX\Extensions\Popup\PopupNotification',
 			'fluentcart'                         => 'NotificationX\Extensions\FluentCart\FluentCart',
 			'fluentcart_inline'                  => 'NotificationX\Extensions\FluentCart\FluentCartInline',
