@@ -107,6 +107,10 @@ class NotificationX {
             add_action( 'elementor/loaded', [ ElementorManager::class, 'get_instance' ] );
         }
         EntriesMailReceiver::get_instance();
+
+        // MCP server (AI-assistant integration). Progressive enhancement:
+        // loads only on a capable PHP runtime and stays off until enabled.
+        \NotificationX\MCP\Bootstrap::init();
     }
     /**
      * The Plugin Activator

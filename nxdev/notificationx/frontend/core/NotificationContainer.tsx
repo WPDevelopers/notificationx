@@ -29,7 +29,15 @@ const NotificationContainer = (props: any) => {
         }
         
         const isMobileAndPro = isMobile && frontendContext?.is_pro;
+        // Sources rendered by <Notification> that opt out of the compact mobile layout.
         const noMobileDesign = ['announcements', 'custom_notification', 'inline','gdpr_notification'];
+        // Types drawn by their own component (<Popup>, <GDPR>, <ExitIntentPopup>,
+        // <Pressbar>) instead of <Notification>. They carry no `template`, which is
+        // the only thing <NotificationForMobile> knows how to render, so routing one
+        // there yields an empty box with just a close button. Most are dispatched
+        // above; this list keeps any that slip through (e.g. a bar saved with a
+        // position other than top/bottom) out of the mobile branch.
+        const ownRendererTypes = ['popup', 'exit_intent', 'gdpr', 'notification_bar'];
         
         return (
             <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
@@ -56,7 +64,47 @@ const NotificationContainer = (props: any) => {
                         return null;
                     }
 
-                    if (isMobileAndPro && notice?.config?.is_mobile_responsive && !noMobileDesign?.includes(notice?.config?.source) ) {
+                    // Dispatch the notifications that have their own component BEFORE the
+                    // mobile branch below. <NotificationForMobile> is a compact variant of
+                    // <Notification> and builds its content from `config.template`; a popup
+                    // or GDPR notice never gets one, so reaching it here used to render an
+                    // empty white box with only the close button on screens <= 574px.
+                    if (
+                        notice?.config?.type == 'gdpr' &&
+                        (position == 'cookie_notice_bottom_left' ||
+                        position == 'cookie_notice_bottom_right' ||
+                        position == 'cookie_notice_center' ||
+                        position == 'cookie_banner_bottom' ||
+                        position == 'cookie_banner_top' )
+                    ) {
+                        const gdprItem = notice;
+                        return (
+                            <GDPR
+                                key={`pressbar-${gdprItem?.config?.nx_id}`}
+                                position={position}
+                                gdpr={gdprItem}
+                                dispatch={frontendContext.dispatch} />
+                        );
+
+                    }
+
+                    if (notice?.config?.type == 'popup') {
+                        const popupItem = notice;
+                        return (
+                            <Popup
+                                key={`popup-${popupItem?.config?.nx_id}`}
+                                position={position}
+                                nxPopup={popupItem}
+                                dispatch={frontendContext.dispatch} />
+                        );
+                    }
+
+                    if (
+                        isMobileAndPro &&
+                        notice?.config?.is_mobile_responsive &&
+                        !noMobileDesign?.includes(notice?.config?.source) &&
+                        !ownRendererTypes.includes(notice?.config?.type)
+                    ) {
                         return (
                             <NotificationForMobile
                                 assets={frontendContext.assets}
@@ -65,46 +113,16 @@ const NotificationContainer = (props: any) => {
                                 {...notice}
                             />
                         );
-                    } else {
-                        if (
-                            notice?.config?.type == 'gdpr' &&
-                            (position == 'cookie_notice_bottom_left' ||
-                            position == 'cookie_notice_bottom_right' ||
-                            position == 'cookie_notice_center' ||
-                            position == 'cookie_banner_bottom' ||
-                            position == 'cookie_banner_top' )
-                        ) {
-                            const gdprItem = notice;
-                            return (
-                                <GDPR
-                                    key={`pressbar-${gdprItem?.config?.nx_id}`}
-                                    position={position}
-                                    gdpr={gdprItem}
-                                    dispatch={frontendContext.dispatch} />
-                            );
-
-                        }
-
-                        if (notice?.config?.type == 'popup') {
-                            const popupItem = notice;
-                            return (
-                                <Popup
-                                    key={`popup-${popupItem?.config?.nx_id}`}
-                                    position={position}
-                                    nxPopup={popupItem}
-                                    dispatch={frontendContext.dispatch} />
-                            );
-                        }
-
-                        return (
-                            <Notification
-                                assets={frontendContext.assets}
-                                dispatch={frontendContext.dispatch}
-                                key={notice.id}
-                                {...notice}
-                            />
-                        );
                     }
+
+                    return (
+                        <Notification
+                            assets={frontendContext.assets}
+                            dispatch={frontendContext.dispatch}
+                            key={notice.id}
+                            {...notice}
+                        />
+                    );
                 })}
             </div>
         );

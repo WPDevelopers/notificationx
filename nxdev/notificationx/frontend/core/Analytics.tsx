@@ -16,7 +16,11 @@ export const analyticsOnClick = (event, restUrl, config, dispatch, credentials =
         return;
     }
 
-    const args: {[key: string]: any} = {};
+    // `keepalive` lets the request outlive the page navigation the click
+    // triggers. A plain fetch is otherwise cancelled the moment the browser
+    // starts navigating, so the click (and therefore CTR) never reaches the
+    // server.
+    const args: {[key: string]: any} = { keepalive: true };
 
     if(!credentials){
         args.credentials = 'same-origin';
@@ -37,6 +41,42 @@ export const analyticsOnClick = (event, restUrl, config, dispatch, credentials =
         });
 
 }
+
+/**
+ * Resolve a notification's destination URL. Mirrors the CTA link logic below
+ * so a whole-card click and the (often hidden) CTA button navigate to the same
+ * place. Returns null for link types that are not a plain navigable URL.
+ */
+export const resolveNotificationLink = (config, data) => {
+    if (
+        !config?.link_type ||
+        config.link_type === 'none' ||
+        config.link_type === 'yt_channel_link' ||
+        config.link_type === 'announcements_link'
+    ) {
+        return null;
+    }
+    if (config.link_type === 'yt_video_link') {
+        return data?.yt_video_link || null;
+    }
+    return data?.link || config?.link || null;
+};
+
+/**
+ * Record a click that survives the navigation that follows it (see the
+ * `keepalive` note above). Used by the whole-card click handler so corner
+ * popups whose CTA button is hidden by the theme still register CTR.
+ */
+export const recordAnalyticsClick = (restUrl, config, omitCredentials = false) => {
+    if (!config?.enable_analytics) {
+        return Promise.resolve();
+    }
+    const args: {[key: string]: any} = { keepalive: true };
+    if (!omitCredentials) {
+        args.credentials = 'same-origin';
+    }
+    return nxHelper.post(restUrl, { nx_id: config?.nx_id }, args);
+};
 
 type AnalyticsProps = {
     config: any;
@@ -167,7 +207,7 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
                     style={styles}
                     target={config?.link_open ? "_blank" : ""}
                     aria-label={accessibleLabel}
-                    onClick={e => analyticsOnClick(e, restUrl, config, frontendContext.rest.omit_credentials)}
+                    onClick={e => analyticsOnClick(e, restUrl, config, dispatch, frontendContext.rest.omit_credentials)}
                     {...rest}
                 >
                     { config.link_button ? link_text : '' } {children}
