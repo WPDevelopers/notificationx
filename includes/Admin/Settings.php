@@ -782,6 +782,7 @@ class Settings extends UsabilityDynamicsSettings {
             'openai_access_token',
             'mailchimp_api_key',
             'activecampaign_api_key',
+            'brevo_api_key',
             'convertkit_api_key',
             'convertkit_api_secret',
             'google_review_api_key',
