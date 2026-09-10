@@ -404,6 +404,32 @@ class Manager {
     }
 
     /**
+     * The brand mark for a connecting client, matched on its registered name.
+     *
+     * Clients arrive through dynamic registration, so the name is whatever the
+     * app sent -- match loosely and fall back to the initial. The files are the
+     * same ones the Connect a client panel uses, so the consent screen and the
+     * admin panel can never show different marks for the same app.
+     *
+     * @param string $name Registered client name.
+     * @return array{file:string,tint:string}|array Empty when unrecognised.
+     */
+    protected static function client_brand( $name ) {
+        $brands = array(
+            'claude'  => array( 'file' => 'claude.svg',  'tint' => '#fdf1ec' ),
+            'chatgpt' => array( 'file' => 'chatgpt.svg', 'tint' => '#eaf6f2' ),
+            'openai'  => array( 'file' => 'chatgpt.svg', 'tint' => '#eaf6f2' ),
+            'cursor'  => array( 'file' => 'cursor.svg',  'tint' => '#eceaf6' ),
+        );
+        foreach ( $brands as $needle => $brand ) {
+            if ( false !== stripos( (string) $name, $needle ) ) {
+                return $brand;
+            }
+        }
+        return array();
+    }
+
+    /**
      * Output the consent form.
      *
      * @param array $request Validated authorize request.
@@ -440,7 +466,7 @@ class Manager {
         $who_initial    = strtoupper( $substr( $who_name, 0, 1 ) );
         $client_initial = strtoupper( $substr( $name, 0, 1 ) );
         // Show the connecting app's own mark when we recognise it; otherwise the initial.
-        $client_is_claude = ( false !== stripos( $name, 'claude' ) );
+        $client_brand = self::client_brand( $name );
 
         // The exact tools this grant unlocks, straight from the ability
         // registry so the list can never drift from what the server exposes.
@@ -481,8 +507,7 @@ class Manager {
         .app{width:132px;text-align:center}
         .tile{width:64px;height:64px;margin:0 auto 10px;border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(30,20,80,.10)}
         .tile.client{background:#eef0f6;color:#3a4056;font-size:26px;font-weight:700}
-        .tile.client.has-mark{background:#fdf1ec}
-        .tile.client svg{width:38px;height:38px;display:block}
+        .tile.client svg,.tile.client img{width:38px;height:38px;display:block}
         .tile.nx{background:#fff;border:1px solid var(--line)}
         .tile.nx svg{width:42px;height:42px;display:block}
         .app-name{font-size:14px;font-weight:600;line-height:1.3}
@@ -523,9 +548,9 @@ class Manager {
     <div class="card">
         <div class="apps">
             <div class="app">
-                <div class="tile client<?php echo $client_is_claude ? ' has-mark' : ''; ?>">
-                    <?php if ( $client_is_claude ) : ?>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#d97757" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="3" x2="12" y2="21"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(30 12 12)"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(60 12 12)"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(90 12 12)"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(120 12 12)"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(150 12 12)"/></svg>
+                <div class="tile client<?php echo $client_brand ? ' has-mark' : ''; ?>"<?php echo $client_brand ? ' style="background:' . esc_attr( $client_brand['tint'] ) . '"' : ''; ?>>
+                    <?php if ( $client_brand ) : ?>
+                        <img src="<?php echo esc_url( NOTIFICATIONX_ADMIN_URL . 'images/mcp/' . $client_brand['file'] ); ?>" alt="" width="38" height="38" />
                     <?php else : ?>
                         <?php echo esc_html( $client_initial ); ?>
                     <?php endif; ?>
