@@ -131,6 +131,40 @@ class Manager {
             'callback'            => array( $this, 'rest_revoke_app' ),
             'permission_callback' => $admin,
         ) );
+        register_rest_route( $ns, '/mcp/apps', array(
+            'methods'             => 'GET',
+            'callback'            => array( $this, 'rest_list_apps' ),
+            'permission_callback' => $admin,
+        ) );
+    }
+
+    /**
+     * List the currently connected apps as JSON, so the Connected apps panel can
+     * refresh itself without a full page reload (an app may have been approved or
+     * detached since the page was rendered).
+     *
+     * @return \WP_REST_Response
+     */
+    public function rest_list_apps() {
+        $apps = array();
+        foreach ( $this->get_connected_apps() as $app ) {
+            $apps[] = array(
+                'type'        => $app['type'],
+                'client_id'   => $app['client_id'],
+                'name'        => $app['name'],
+                'read_only'   => (bool) $app['read_only'],
+                'scope_label' => $app['read_only'] ? __( 'Read-only', 'notificationx' ) : __( 'Read & write', 'notificationx' ),
+            );
+        }
+
+        return new \WP_REST_Response(
+            array(
+                'status' => 'success',
+                'count'  => count( $apps ),
+                'apps'   => $apps,
+            ),
+            200
+        );
     }
 
     /**
@@ -865,7 +899,13 @@ class Manager {
      *
      * @return string
      */
-    protected function connected_apps_html() {
+    /**
+     * The currently connected apps (pairing token + active OAuth clients). Shared
+     * by the rendered panel and the /mcp/apps endpoint so the two cannot drift.
+     *
+     * @return array[] Each: type, client_id, name, read_only.
+     */
+    protected function get_connected_apps() {
         $apps = array();
 
         // Only list the token connection once a client has actually used it —
@@ -889,7 +929,20 @@ class Manager {
             );
         }
 
+        return $apps;
+    }
+
+    protected function connected_apps_html() {
+        $apps = $this->get_connected_apps();
+
         ob_start();
+        ?>
+        <div class="nx-mcp-apps-head">
+            <span class="nx-mcp-apps-hint"><?php esc_html_e( 'Apps you have approved. Refresh to pick up a new or detached connection.', 'notificationx' ); ?></span>
+            <button type="button" class="nx-mcp-btn nx-mcp-btn-ghost nx-mcp-btn-sm nx-mcp-refresh-apps"><?php esc_html_e( 'Refresh', 'notificationx' ); ?></button>
+        </div>
+        <div id="nx-mcp-apps-wrap">
+        <?php
         if ( empty( $apps ) ) {
             echo '<p class="nx-mcp-empty">' . esc_html__( 'No AI clients are connected yet.', 'notificationx' ) . '</p>';
         } else {
@@ -898,7 +951,7 @@ class Manager {
                 $scope_class = $app['read_only'] ? 'nx-mcp-scope-ro' : 'nx-mcp-scope-rw';
                 $scope_label = $app['read_only'] ? __( 'Read-only', 'notificationx' ) : __( 'Read & write', 'notificationx' );
                 ?>
-                <div class="nx-mcp-app">
+                <div class="nx-mcp-app" data-nx-key="<?php echo esc_attr( $app['type'] . ':' . $app['client_id'] ); ?>">
                     <div class="nx-mcp-app-info">
                         <strong><?php echo esc_html( $app['name'] ); ?></strong>
                         <span class="nx-mcp-scope <?php echo esc_attr( $scope_class ); ?>"><?php echo esc_html( $scope_label ); ?></span>
@@ -909,6 +962,9 @@ class Manager {
             }
             echo '</div>';
         }
+        ?>
+        </div>
+        <?php
         return ob_get_clean();
     }
 
@@ -971,6 +1027,23 @@ class Manager {
             'rotate'     => esc_url_raw( rest_url( 'notificationx/v1/mcp/rotate' ) ),
             'disconnect' => esc_url_raw( rest_url( 'notificationx/v1/mcp/disconnect' ) ),
             'revoke'     => esc_url_raw( rest_url( 'notificationx/v1/mcp/apps/revoke' ) ),
+            'apps'       => esc_url_raw( rest_url( 'notificationx/v1/mcp/apps' ) ),
+        );
+        $i18n = array(
+            'revoke'        => __( 'Revoke', 'notificationx' ),
+            'empty'         => __( 'No AI clients are connected yet.', 'notificationx' ),
+            'refreshFailed' => __( 'Could not refresh the connected apps.', 'notificationx' ),
+            'revokeConfirm' => __( 'Revoke this connection? The client will need to reconnect.', 'notificationx' ),
+            // Refresh outcomes: say what actually changed, not just a count.
+            'noneStill'     => __( 'No apps connected yet.', 'notificationx' ),
+            'upToDate'      => __( 'Up to date — nothing changed.', 'notificationx' ),
+            'addedOne'      => __( '1 new app connected.', 'notificationx' ),
+            /* translators: %d: number of newly connected apps. */
+            'addedMany'     => __( '%d new apps connected.', 'notificationx' ),
+            'removedOne'    => __( '1 app disconnected.', 'notificationx' ),
+            /* translators: %d: number of disconnected apps. */
+            'removedMany'   => __( '%d apps disconnected.', 'notificationx' ),
+            'changed'       => __( 'Connected apps updated.', 'notificationx' ),
         );
         ?>
         <style id="nx-mcp-panel-css">
@@ -1014,6 +1087,12 @@ class Manager {
             .nx-mcp-client-name{font-weight:600;display:flex;align-items:center;gap:8px;margin-bottom:8px}
             .nx-mcp-tag{font-size:10px;font-weight:600;background:#f0eefe;color:#6a4bff;padding:2px 8px;border-radius:999px;text-transform:uppercase}
             .nx-mcp-steps{margin:0;padding-left:18px;color:#50575e;font-size:13px;line-height:1.7}
+            .nx-mcp-apps-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+            .nx-mcp-apps-hint{color:#787c82;font-size:12px}
+            .nx-mcp-btn-sm{padding:5px 12px;font-size:12px}
+            /* Once moved into the section heading bar, sit flush right on that row. */
+            .wprf-section-title .nx-mcp-refresh-apps{margin-left:auto}
+            .nx-mcp-apps-head:empty{display:none;margin:0}
             .nx-mcp-apps{display:flex;flex-direction:column;gap:10px}
             .nx-mcp-app{display:flex;justify-content:space-between;align-items:center;border:1px solid #e0e0e0;border-radius:8px;padding:10px 14px;background:#fff}
             .nx-mcp-app-info{display:flex;align-items:center;gap:10px}
@@ -1050,7 +1129,7 @@ class Manager {
             .nx-mcp-toast-error{background:#d63638}
         </style>
         <script id="nx-mcp-panel-js">
-            window.nxMcpData = { urls: <?php echo wp_json_encode( $urls ); ?>, nonce: <?php echo wp_json_encode( $nonce ); ?> };
+            window.nxMcpData = { urls: <?php echo wp_json_encode( $urls ); ?>, nonce: <?php echo wp_json_encode( $nonce ); ?>, i18n: <?php echo wp_json_encode( $i18n ); ?> };
             window.nxMcpToast = function(type, msg){
                 var t = document.createElement('div');
                 t.className = 'nx-mcp-toast nx-mcp-toast-' + (type === 'error' ? 'error' : 'success');
@@ -1092,6 +1171,120 @@ class Manager {
                     success: 'Connection revoked.'
                 });
             };
+            // Re-read the connected apps without a full page reload, so a newly
+            // approved or detached client shows up immediately. Rows are built with
+            // textContent because a client's name comes from dynamic registration.
+            window.nxMcpRefreshApps = function(btn){
+                var wrap = document.getElementById('nx-mcp-apps-wrap');
+                if (!wrap) return;
+                var old = btn ? btn.textContent : '';
+                if (btn){ btn.disabled = true; btn.textContent = '\u2026'; }
+                fetch(window.nxMcpData.urls.apps, {
+                    method: 'GET',
+                    credentials: 'same-origin',
+                    headers: { 'X-WP-Nonce': window.nxMcpData.nonce }
+                }).then(function(r){ return r.json(); }).then(function(res){
+                    if (btn){ btn.disabled = false; btn.textContent = old; }
+                    if (!res || res.status !== 'success' || !Array.isArray(res.apps)){
+                        nxMcpToast('error', window.nxMcpData.i18n.refreshFailed); return;
+                    }
+                    // What was on screen before this refresh, so the toast can report
+                    // the actual delta rather than just restating a count.
+                    var prev = [];
+                    wrap.querySelectorAll('.nx-mcp-app').forEach(function(el){
+                        prev.push(el.getAttribute('data-nx-key') || '');
+                    });
+                    var next = res.apps.map(function(a){ return a.type + ':' + (a.client_id || ''); });
+                    var added = next.filter(function(k){ return prev.indexOf(k) === -1; }).length;
+                    var removed = prev.filter(function(k){ return next.indexOf(k) === -1; }).length;
+                    var i18n = window.nxMcpData.i18n;
+                    var toast;
+                    if (!added && !removed) {
+                        toast = next.length ? i18n.upToDate : i18n.noneStill;
+                    } else if (added && !removed) {
+                        toast = added === 1 ? i18n.addedOne : i18n.addedMany.replace('%d', added);
+                    } else if (removed && !added) {
+                        toast = removed === 1 ? i18n.removedOne : i18n.removedMany.replace('%d', removed);
+                    } else {
+                        toast = i18n.changed;
+                    }
+
+                    while (wrap.firstChild) { wrap.removeChild(wrap.firstChild); }
+                    if (!res.apps.length){
+                        var p = document.createElement('p');
+                        p.className = 'nx-mcp-empty';
+                        p.textContent = i18n.empty;
+                        wrap.appendChild(p);
+                        nxMcpToast('success', toast);
+                        return;
+                    }
+                    var list = document.createElement('div');
+                    list.className = 'nx-mcp-apps';
+                    res.apps.forEach(function(app){
+                        var row = document.createElement('div'); row.className = 'nx-mcp-app';
+                        row.setAttribute('data-nx-key', app.type + ':' + (app.client_id || ''));
+                        var info = document.createElement('div'); info.className = 'nx-mcp-app-info';
+                        var name = document.createElement('strong'); name.textContent = app.name || '';
+                        var scope = document.createElement('span');
+                        scope.className = 'nx-mcp-scope ' + (app.read_only ? 'nx-mcp-scope-ro' : 'nx-mcp-scope-rw');
+                        scope.textContent = app.scope_label || '';
+                        info.appendChild(name); info.appendChild(scope);
+                        var rev = document.createElement('button');
+                        rev.type = 'button'; rev.className = 'nx-mcp-revoke';
+                        rev.textContent = window.nxMcpData.i18n.revoke;
+                        rev.addEventListener('click', function(){ nxMcpRevoke(rev, app.type, app.client_id || ''); });
+                        row.appendChild(info); row.appendChild(rev);
+                        list.appendChild(row);
+                    });
+                    wrap.appendChild(list);
+                    nxMcpToast('success', toast);
+                }).catch(function(){
+                    if (btn){ btn.disabled = false; btn.textContent = old; }
+                    nxMcpToast('error', window.nxMcpData.i18n.refreshFailed);
+                });
+            };
+            // The section heading ("Connected apps") is rendered by the settings form,
+            // outside this message field, so the button starts inside the content box.
+            // Move it onto that heading row once it exists — flex handles the exact
+            // alignment, so no hard-coded offsets that break at the responsive padding
+            // change. If this never runs the button simply stays in the box and works.
+            window.nxMcpPlaceRefresh = function(){
+                var btns = document.querySelectorAll('.nx-mcp-refresh-apps');
+                if (!btns.length) return;
+                var fresh = null, section = null, i;
+                for (i = 0; i < btns.length; i++){
+                    var sec = btns[i].closest ? btns[i].closest('.wprf-control-section') : null;
+                    if (!sec) continue;
+                    var t = sec.querySelector('.wprf-section-title');
+                    if (!t) continue;
+                    section = sec;
+                    // A button still sitting in the content box is a freshly rendered one.
+                    if (!t.contains(btns[i])) { fresh = btns[i]; break; }
+                }
+                if (!section || !fresh) return;
+                var title = section.querySelector('.wprf-section-title');
+                if (!title) return;
+                // Drop any previously moved button first, so a re-render cannot leave two.
+                var stale = title.querySelectorAll('.nx-mcp-refresh-apps');
+                for (i = 0; i < stale.length; i++){ stale[i].parentNode.removeChild(stale[i]); }
+                title.appendChild(fresh);
+            };
+            if (window.MutationObserver){
+                new MutationObserver(function(){ nxMcpPlaceRefresh(); })
+                    .observe(document.body, { childList: true, subtree: true });
+            }
+            document.addEventListener('DOMContentLoaded', function(){ nxMcpPlaceRefresh(); });
+            nxMcpPlaceRefresh();
+
+            // Bound by delegation rather than an inline onclick, so the button keeps
+            // working even if the panel markup is passed through a sanitiser.
+            document.addEventListener('click', function(e){
+                var btn = e.target && e.target.closest ? e.target.closest('.nx-mcp-refresh-apps') : null;
+                if (!btn) return;
+                e.preventDefault();
+                nxMcpRefreshApps(btn);
+            });
+
             // Keep the status badge in sync with the enable toggle, live.
             document.addEventListener('change', function(e){
                 if (!e.target || e.target.name !== 'enable_mcp') return;
