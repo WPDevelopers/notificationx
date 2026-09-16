@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Close, Content, Image } from "./helpers";
 // @ts-ignore
 import { escapeHTML } from "@wordpress/escape-html";
+import { applyFilters } from "@wordpress/hooks";
 import { useNotificationContext } from "../core";
 import { getResThemeName, getThemeName } from "../core/functions";
 import { __, _x } from "@wordpress/i18n";
@@ -54,7 +55,15 @@ const Theme = (props) => {
             val = escapeHTML(String(val));
 
             if (key === "time") {
-                const suffix = ['announcements'].includes(post.source);
+                // A source that counts down rather than up renders "5 days
+                // remaining" instead of "5 days ago". Filterable so a source the
+                // free plugin does not ship can opt into the countdown wording.
+                const suffix = applyFilters(
+                    "nx_frontend_time_is_countdown",
+                    ['announcements'].includes(post.source),
+                    post.source,
+                    post
+                );
                 val =
                     entry?.updated_at &&
                     frontendContext.getTime(entry?.updated_at).fromNow(suffix);
@@ -151,6 +160,15 @@ const Theme = (props) => {
         if (post.link_button_text_color) announcementCSS.linkButtonTextColor = post.link_button_text_color;
     }
 
+    /**
+     * Slots for themes whose markup is not shipped by the free plugin. An add-on
+     * returns an element to fill a slot; returning null (the default) leaves the
+     * built-in markup below in charge, so a theme is never rendered twice.
+     */
+    const slotArgs = { themeName, resThemeName, announcementCSS };
+    const beforeContent = applyFilters("nx_theme_before_content", null, props, slotArgs);
+    const afterContent = applyFilters("nx_theme_after_content", null, props, slotArgs);
+
     return (
         <div
             className={componentClasses}
@@ -164,12 +182,13 @@ const Theme = (props) => {
                 isSplit={isSplit}
                 announcementCSS={announcementCSS}
             />
-            {["announcements_theme-13"].includes(props?.config?.themes) &&
+            {beforeContent ??
+                (["announcements_theme-13"].includes(props?.config?.themes) &&
                 <Button
                     {...props}
                     announcementCSS={announcementCSS}
                     icon={true}
-                />
+                />)
             }
             <Content
                 {...props}
@@ -180,11 +199,12 @@ const Theme = (props) => {
                 isSplit={isSplit}
                 announcementCSS={announcementCSS}
             />
-            {["announcements_theme-15"].includes(props?.config?.themes) &&
+            {afterContent ??
+                (["announcements_theme-15"].includes(props?.config?.themes) &&
                 <Button
                     {...props}
                     announcementCSS={announcementCSS}
-                />
+                />)
             }
             <Close {...props} />
         </div>

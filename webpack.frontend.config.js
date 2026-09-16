@@ -57,6 +57,13 @@ const config = {
         extensions: [".tsx", ".ts", ".js", ".jsx"],
     },
     externals: {
+        // The frontend bundle is built with --webpack-no-externals, so every
+        // @wordpress/* package is bundled. `hooks` must NOT be: it carries the
+        // nx_frontend_template / nx_theme_* registry that add-on plugins register
+        // on. A bundled copy would create a second, private registry that nothing
+        // outside this bundle can reach. Keep it pointed at the shared global
+        // (the `wp-hooks` script dependency in FrontEnd::enqueue_scripts()).
+        '@wordpress/hooks': 'window.wp.hooks',
         // Exclude all lodash variants from frontend bundle
         'lodash': 'window._',
         'lodash-es': 'window._',

@@ -1,4 +1,5 @@
 import { escapeHTML } from "@wordpress/escape-html";
+import { applyFilters } from "@wordpress/hooks";
 import { getResThemeName, getThemeName } from "../core/functions";
 
 // let colClasses = [
@@ -81,6 +82,29 @@ const GetTemplate = (settings) => {
                 params[param] = `<span>${params[param]}</span>`;
             }
         }
+    }
+
+    /**
+     * Extension point for themes that are not shipped by the free plugin.
+     *
+     * Runs before every built-in case so an add-on owns its own theme markup
+     * end to end. Return an array of row strings to claim the theme; return
+     * null/undefined (the default) to fall through to the cases below.
+     *
+     * @param {null}   template  Always null — the value an add-on replaces.
+     * @param {string} themeName Bare theme name, e.g. "conv-theme-seven".
+     * @param {object} params    Escaped, span-wrapped template params.
+     * @param {object} settings  The notification's settings (source, themes, …).
+     */
+    const registered = applyFilters(
+        "nx_frontend_template",
+        null,
+        themeName,
+        params,
+        settings
+    );
+    if (Array.isArray(registered)) {
+        return registered;
     }
 
     switch (settings.themes) {

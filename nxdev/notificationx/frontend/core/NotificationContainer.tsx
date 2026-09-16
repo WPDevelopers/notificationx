@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { applyFilters } from "@wordpress/hooks";
 import { useNotificationContext, Notification, Shortcode, Pressbar } from ".";
 import GDPR from "./GDPR";
 import Popup from "./Popup";
@@ -29,8 +30,13 @@ const NotificationContainer = (props: any) => {
         }
         
         const isMobileAndPro = isMobile && frontendContext?.is_pro;
-        // Sources rendered by <Notification> that opt out of the compact mobile layout.
-        const noMobileDesign = ['announcements', 'custom_notification', 'inline','gdpr_notification'];
+        // Sources rendered by <Notification> that opt out of the compact mobile
+        // layout. Filterable so a source the free plugin does not ship can opt out
+        // too.
+        const noMobileDesign = applyFilters(
+            'nx_frontend_no_mobile_design_sources',
+            ['announcements', 'custom_notification', 'inline', 'gdpr_notification']
+        ) as string[];
         // Types drawn by their own component (<Popup>, <GDPR>, <ExitIntentPopup>,
         // <Pressbar>) instead of <Notification>. They carry no `template`, which is
         // the only thing <NotificationForMobile> knows how to render, so routing one

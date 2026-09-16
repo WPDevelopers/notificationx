@@ -1,4 +1,5 @@
 import React, { CSSProperties, ReactNode, useEffect } from "react";
+import { applyFilters } from "@wordpress/hooks";
 import useNotificationContext from "./NotificationProvider";
 import nxHelper, { handleCloseNotification } from "./functions";
 import { getIconUrl } from "../../core/functions";
@@ -48,12 +49,16 @@ export const analyticsOnClick = (event, restUrl, config, dispatch, credentials =
  * place. Returns null for link types that are not a plain navigable URL.
  */
 export const resolveNotificationLink = (config, data) => {
-    if (
-        !config?.link_type ||
-        config.link_type === 'none' ||
-        config.link_type === 'yt_channel_link' ||
-        config.link_type === 'announcements_link'
-    ) {
+    // Link types whose button is not a link to the entry — they either carry no
+    // URL at all or supply their own. Filterable so a link type the free plugin
+    // does not ship can join the list.
+    const noEntryLink = applyFilters( 'nx_frontend_no_entry_link_types', [
+        'none',
+        'yt_channel_link',
+        'announcements_link',
+    ] ) as string[];
+
+    if ( ! config?.link_type || noEntryLink.includes( config.link_type ) ) {
         return null;
     }
     if (config.link_type === 'yt_video_link') {
@@ -132,6 +137,28 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
         default:
             link_text = config?.link_button_text;
             break;
+    }
+
+    /**
+     * Button label and behaviour for a link type the free plugin does not ship.
+     * Return { link_text, show_default_subscribe, link } to override; return null
+     * (the default) to keep whatever the switch above decided.
+     */
+    const customLink = applyFilters( 'nx_frontend_link_button', null, config, data ) as {
+        link_text?: string;
+        show_default_subscribe?: boolean;
+        link?: string;
+    } | null;
+    if ( customLink ) {
+        if ( customLink.link_text !== undefined ) {
+            link_text = customLink.link_text;
+        }
+        if ( customLink.show_default_subscribe !== undefined ) {
+            show_default_subscribe = customLink.show_default_subscribe;
+        }
+        if ( customLink.link !== undefined ) {
+            link = customLink.link;
+        }
     }
 
     useEffect(() => {

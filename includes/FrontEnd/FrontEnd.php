@@ -79,7 +79,10 @@ class FrontEnd {
     public function enqueue_scripts() {
         $custom_css = $this->generate_custom_css();
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
-        wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], apply_filters('nx_frontend_js_version', NOTIFICATIONX_VERSION ), true);
+        // `wp-hooks` backs the nx_frontend_template / nx_theme_* extension points
+        // the runtime exposes, and must load first so an add-on registered on it
+        // before this script runs.
+        wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), ['wp-hooks'], apply_filters('nx_frontend_js_version', NOTIFICATIONX_VERSION ), true);
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], apply_filters('nx_frontend_css_version', NOTIFICATIONX_VERSION ), 'all');
         // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');

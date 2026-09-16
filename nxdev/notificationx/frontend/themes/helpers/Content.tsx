@@ -1,4 +1,5 @@
 import React from "react";
+import { applyFilters } from "@wordpress/hooks";
 import { Branding as NXSvg, ThemeFiveShape } from ".";
 import Star from "../../../icons/Star";
 import Button from "./Button";
@@ -79,10 +80,17 @@ const Content = (props) => {
             )}
             {content}
             {/* {post.nx_id} &gt; {props?.data?.entry_id} */}
-            {["announcements_theme-14"].includes(props?.config?.themes) &&
+            {/*
+              * Slot for themes whose trailing markup is not shipped by the free
+              * plugin. An add-on returns an element to fill it; returning null
+              * (the default) leaves the built-in markup in charge, so a theme is
+              * never rendered twice.
+              */}
+            {applyFilters("nx_content_append", null, props) ??
+                (["announcements_theme-14"].includes(props?.config?.themes) &&
                 <Button
                     {...props}
-                />
+                />)
             }
         </div>
     );

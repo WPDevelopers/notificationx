@@ -27,6 +27,13 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'NOTIFICATIONX_FILE', __FILE__ );
 define( 'NOTIFICATIONX_VERSION', '3.3.1' );
+/**
+ * Lowest NotificationX Pro that ships its own copy of the features this plugin
+ * used to serve (Cart Peek, Inline, the Flashing Tab runtime). Below this, Pro
+ * still loads but those features degrade, so the admin is warned — see
+ * notificationx_free_compatibility_notice().
+ */
+define( 'NOTIFICATIONX_REQUIRED_PRO_VERSION', '3.3.0' );
 define( 'NOTIFICATIONX_URL', plugins_url( '/', __FILE__ ) );
 define( 'NOTIFICATIONX_PATH', plugin_dir_path( __FILE__ ) );
 define( 'NOTIFICATIONX_BASENAME', plugin_basename( __FILE__ ) );
@@ -75,15 +82,27 @@ function notificationx_free_compatibility_notice() {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
     $plugins = get_plugins();
-    if ( isset( $plugins['notificationx-pro/notificationx-pro.php']['Version'] ) && version_compare( $plugins['notificationx-pro/notificationx-pro.php']['Version'], '2.5.0', '>=' ) ) {
+    if ( isset( $plugins['notificationx-pro/notificationx-pro.php']['Version'] ) && version_compare( $plugins['notificationx-pro/notificationx-pro.php']['Version'], NOTIFICATIONX_REQUIRED_PRO_VERSION, '>=' ) ) {
         return;
     }
+    /**
+     * Not dismissible on purpose. From this version on, Pro features that used to
+     * be served by this plugin ship with NotificationX Pro instead, so an outdated
+     * Pro silently loses those features rather than failing loudly. The notice has
+     * to stay visible until the update is done.
+     */
     ?>
-        <div class="notice notice-warning is-dismissible">
+        <div class="notice notice-error">
             <p>
             <?php
-            /* translators: %s: URL of the wp-admin plugins page */
-            echo wp_kses_post( sprintf( __( "<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>.", 'notificationx' ), esc_url( admin_url( 'plugins.php' ) ) ) ); ?></p>
+            echo wp_kses_post(
+                sprintf(
+                    /* translators: 1: required NotificationX Pro version, 2: URL of the wp-admin plugins page */
+                    __( "<strong>Action required: </strong> Your NotificationX Pro is older than %1\$s. Everything still works today, but Pro features such as Cart Peek, Inline notifications and Flashing Tab will stop working after the next NotificationX update. Update NotificationX Pro now from <a href='%2\$s'><strong>wp-admin &rarr; Plugins</strong></a>.", 'notificationx' ),
+                    esc_html( NOTIFICATIONX_REQUIRED_PRO_VERSION ),
+                    esc_url( admin_url( 'plugins.php' ) )
+                )
+            ); ?></p>
         </div>
     <?php
 }
