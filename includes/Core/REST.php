@@ -589,6 +589,23 @@ class REST {
             '/wp-json/notificationx/v1/delete-cookies',
             '/wp-json/notificationx/v1/import',
             '/wp-json/notificationx/v1/export',
+
+            /*
+             * TRANSITIONAL — remove in the release after Pro ships its own
+             * NotificationXPro\Core\REST::jwt_whitelist() override.
+             *
+             * These four routes belong to Pro: the licensing library registers them
+             * into this namespace, and Pro now whitelists all six itself. They stay
+             * here for one release only because Free auto-updates from wp.org while
+             * Pro updates through the licensed channel, so "new Free + old Pro" is a
+             * normal state for a site, and an old Pro carries no override. Dropping
+             * them before Pro has propagated would take the entries to zero for those
+             * sites. Pro's override calls array_unique(), so the overlap is harmless.
+             */
+            '/wp-json/notificationx/v1/license/activate',
+            '/wp-json/notificationx/v1/license/deactivate',
+            '/wp-json/notificationx/v1/license/submit-otp',
+            '/wp-json/notificationx/v1/license/resend-otp',
         );
 
         return array_unique( array_merge( $endpoints, $__endpoints ) );
