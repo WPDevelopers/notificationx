@@ -589,10 +589,6 @@ class REST {
             '/wp-json/notificationx/v1/delete-cookies',
             '/wp-json/notificationx/v1/import',
             '/wp-json/notificationx/v1/export',
-            '/wp-json/notificationx/v1/license/activate',
-            '/wp-json/notificationx/v1/license/deactivate',
-            '/wp-json/notificationx/v1/license/submit-otp',
-            '/wp-json/notificationx/v1/license/resend-otp',
         );
 
         return array_unique( array_merge( $endpoints, $__endpoints ) );

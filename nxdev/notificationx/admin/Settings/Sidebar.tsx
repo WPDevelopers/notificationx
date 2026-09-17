@@ -1,6 +1,5 @@
 import React from 'react'
 import { __ } from '@wordpress/i18n';
-import { applyFilters } from '@wordpress/hooks';
 
 const Sidebar = ({ assetsUrl, is_pro_active = false }) => {
     return (
@@ -29,9 +28,6 @@ const Sidebar = ({ assetsUrl, is_pro_active = false }) => {
                                 </a>
                         }
                     </div>
-                </div>
-                <div className="nx-sidebar-block nx-license-block">
-                    {applyFilters('nx_licensing')}
                 </div>
             </div>
         </div>
