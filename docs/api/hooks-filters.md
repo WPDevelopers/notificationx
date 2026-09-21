@@ -109,6 +109,15 @@ Preview mirrors the frontend pipeline with `nx_preview_*` variants — see [Prev
 
 Populated by extensions to fill builder dropdowns: `nx_post_types`, `nx_loop_taxonomies` ([Helper.php](../../includes/Core/Helper.php)), `nx_form_list` ([ContactForm.php](../../includes/Types/ContactForm.php)), `nx_elearning_course_list` ([ELearning.php](../../includes/Types/ELearning.php)), `nx_conversion_category_list`, `nx_conversion_product_list`, `nx_woo_order_status`, `nx_surecart_order_status`, `nx_fluentcart_order_status`, `nx_text_trim_length`, `nx_wp_reviews_rating_condition` (in [GlobalFields.php](../../includes/Extensions/GlobalFields.php) and the respective Type/Extension classes).
 
+### MCP & abilities
+
+| Filter | Modifies | Args |
+| --- | --- | --- |
+| `nx_register_abilities` | The `AbilityBase` instances exposed as MCP tools and mirrored into the WordPress Abilities API ([Registrar.php:93](../../includes/Abilities/Registrar.php#L93)). **Pro and third-party add-ons register their abilities here.** | `$abilities` |
+| `nx_mcp_is_supported` | Whether the MCP module boots at all — the PHP capability gate ([Bootstrap.php:53](../../includes/MCP/Bootstrap.php#L53)). | `$supported` |
+
+The registry also *consumes* two core actions on WordPress 6.9+: `wp_abilities_api_categories_init` (registers the `notificationx` ability category) and `wp_abilities_api_init` (registers the abilities themselves). Order matters — see [../features/mcp/](../features/mcp/).
+
 ### Cron & misc
 
 `nx_cron_schedules` ([Cron.php:102](../../includes/Admin/Cron.php#L102)), `nx_rest_data` / `nx_rest_miscellaneous` ([REST.php](../../includes/Core/REST.php)), `nx_api_response` / `nx_api_connect_{source}` ([Rest/Integration.php](../../includes/Core/Rest/Integration.php)), `nx_usage_tracker_data` / `nx_plugin_usage_tracker_data`, `nx_settings_xss_code_default` ([XSS.php](../../includes/Admin/XSS.php)), `gdpr_d_domains_filter` ([Helper.php:739](../../includes/Core/Helper.php#L739)).

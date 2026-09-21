@@ -75,4 +75,5 @@ There are two frontend builds in this repo (admin + frontend webpack configs) an
 ## Reference docs in-repo
 - [docs/development/adding-a-notification-type.md](docs/development/adding-a-notification-type.md) — adding a new Type end-to-end.
 - [docs/features/exit-intent/00-overview.md](docs/features/exit-intent/00-overview.md), [docs/features/exit-intent/add-new-design.md](docs/features/exit-intent/add-new-design.md) — Exit Intent specifics.
+- [docs/features/mcp/README.md](docs/features/mcp/README.md) — MCP server: ability registration and the WordPress Abilities API bridge (register the ability category before the abilities).
 - [@todo.md](@todo.md) — author's running TODO; not authoritative roadmap.

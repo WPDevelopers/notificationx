@@ -96,8 +96,12 @@ class Registrar {
             $this->register( $ability );
         }
 
-        // Mirror into the WordPress Abilities API when it exists.
+        // Mirror into the WordPress Abilities API when it exists. The category
+        // must exist before any ability may claim it, and core fires its
+        // `wp_abilities_api_categories_init` action first, so both hooks are
+        // registered together here.
         if ( function_exists( 'wp_register_ability' ) ) {
+            add_action( 'wp_abilities_api_categories_init', array( $this, 'register_ability_category' ) );
             add_action( 'wp_abilities_api_init', array( $this, 'register_with_wp_abilities' ) );
         }
     }
@@ -149,11 +153,45 @@ class Registrar {
     }
 
     /**
+     * Register our ability category with the WordPress Abilities API.
+     *
+     * Core rejects (and emits a `_doing_it_wrong()` notice for) any ability
+     * whose category is unknown, so this must run on
+     * `wp_abilities_api_categories_init` — the only action on which
+     * `wp_register_ability_category()` accepts a registration.
+     *
+     * @return void
+     */
+    public function register_ability_category() {
+        if ( ! function_exists( 'wp_register_ability_category' ) ) {
+            return;
+        }
+        if ( function_exists( 'wp_has_ability_category' ) && wp_has_ability_category( self::CATEGORY ) ) {
+            return;
+        }
+        wp_register_ability_category(
+            self::CATEGORY,
+            array(
+                'label'       => __( 'NotificationX', 'notificationx' ),
+                'description' => __( 'Read and manage NotificationX notifications, form entries, analytics and settings.', 'notificationx' ),
+            )
+        );
+    }
+
+    /**
      * Bridge our abilities into the WordPress Abilities API when available.
+     *
+     * Bails when the category is missing — that only happens if the module
+     * booted after `wp_abilities_api_categories_init` had already fired, and
+     * registering anyway would fail per ability with a `_doing_it_wrong()`
+     * notice. NotificationX's own registry is unaffected either way.
      *
      * @return void
      */
     public function register_with_wp_abilities() {
+        if ( function_exists( 'wp_has_ability_category' ) && ! wp_has_ability_category( self::CATEGORY ) ) {
+            return;
+        }
         foreach ( $this->abilities as $ability ) {
             if ( function_exists( 'wp_has_ability' ) && wp_has_ability( $ability->get_id() ) ) {
                 continue;

@@ -10,3 +10,4 @@ Deep dives on specific NotificationX product features — the cross-cutting flow
 | [exit-intent/](exit-intent/) | Exit-intent popup — built-in themes, add-new-design flow, and the Elementor custom-design task breakdown. |
 | [notification-bar/](notification-bar/) | Notification bar (PressBar) reference. |
 | [sales-notification/](sales-notification/) | Sales/Conversions notification design authoring. |
+| [mcp/](mcp/) | MCP server — ability registration and the WordPress Abilities API bridge. |
