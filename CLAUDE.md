@@ -21,6 +21,12 @@ All JS/asset builds use `@wordpress/scripts` (wp-scripts). Node version pinned i
 - `npm run pot` — regenerate `languages/notificationx.pot` (excludes `nxbuild/`).
 - `npm run up` — reinstall the `quickbuilder` dependency from the `notificationx` branch on GitHub. The `quickbuilder` package is sourced from `github:WPDevelopers/quickbuilder#notificationx` — do not bump it from npm.
 
+The `admin` step exceeds Node's default ~2 GB heap and dies with `FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory`. Raise it:
+
+```
+NODE_OPTIONS="--max-old-space-size=8192" npm run build
+```
+
 PHP / tests:
 - `composer install` — installs PHP libs (`lib-settings`, `query-builder`, `wp-notice`) from VCS repos declared in [composer.json](composer.json).
 - `vendor/bin/phpunit` — runs the suite in [tests/](tests/) (config: [phpunit.xml.dist](phpunit.xml.dist), bootstrap: [tests/bootstrap.php](tests/bootstrap.php)). `tests/test-sample.php` is excluded.

@@ -467,18 +467,6 @@ class Helper {
 
         return false;
     }
-    public static function remove_old_notice(){
-        global $wp_filter;
-        if( isset( $wp_filter['admin_notices']->callbacks[10] ) && is_array( $wp_filter['admin_notices']->callbacks[10] ) ) {
-            foreach( $wp_filter['admin_notices']->callbacks[10] as $hash => $callbacks ) {
-                if( is_array( $callbacks['function'] ) && ! empty( $callbacks['function'][0] ) && is_object( $callbacks['function'][0] ) && $callbacks['function'][0] instanceof \NotificationX_Licensing ) {
-                    remove_action( 'admin_notices', $hash );
-                    break;
-                }
-            }
-        }
-    }
-
     public static function remote_get($url, $args = array(), $raw = false, $assoc = null) {
         $defaults = array(
             'timeout'     => 20,

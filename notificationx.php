@@ -55,7 +55,6 @@ if ( ! class_exists( '\NotificationX\NotificationX' ) ) {
         } else {
             add_action('plugins_loaded', function() {
                 remove_action( 'admin_notices', 'notificationx_install_core_notice' );
-                \NotificationX\Core\Helper::remove_old_notice();
             });
         }
     }
