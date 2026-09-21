@@ -35,6 +35,17 @@ Both hooks are added together, guarded by `function_exists( 'wp_register_ability
 
 The category id lives in one place, `Registrar::CATEGORY` ([Registrar.php:34](../../../includes/Abilities/Registrar.php#L34)); use that constant rather than the literal string.
 
+## Headless creates and theme defaults
+
+The admin builder fills several settings from the selected theme through the `nx_themes_trigger` system. A headless create (MCP, REST, WP-CLI) never fires those UI triggers, so [CreateNotification](../../../includes/Abilities/Manage/CreateNotification.php) backfills them from the same trigger data through [BuilderInfo](../../../includes/Abilities/BuilderInfo.php):
+
+| Setting | Helper | Without it |
+| --- | --- | --- |
+| `notification-template` | `BuilderInfo::default_template_for_theme()` | Data-driven types save but render blank. |
+| `inline_location` | `BuilderInfo::default_inline_location_for_theme()` | Inline (Growth Alert) notifications save but render nowhere. |
+
+A value the caller supplies always wins, but its JSON type is coerced on save and on read. For example, `custom_ids: [12, 34]` is stored as `"12,34"`, and a string `notification-template` becomes `[]`. See [architecture/data-storage.md](../../architecture/data-storage.md#field-types-in-data).
+
 ## Verifying
 
 ```bash

@@ -306,7 +306,152 @@ class NotificationX {
                 $settings[$key] = is_numeric($settings[$key]) ? $settings[$key] + 0 : 0;
             }
         }
+        return $this->normalize_field_types($settings, $fields);
+    }
+
+    /**
+     * Coerce stored values to the shape their consumers expect, without filling
+     * defaults. Runs on every read (normalize_post()) and before every save
+     * (PostType::save_post()), so MCP/REST callers that send the wrong JSON type
+     * can neither store it nor fatal the front end with it.
+     *
+     * @param array      $settings Notification settings.
+     * @param array|null $fields   Field list from get_field_names(); fetched when null.
+     * @return array
+     */
+    public function normalize_field_types($settings, $fields = null) {
+        if (!is_array($settings)) {
+            return $settings;
+        }
+        if (null === $fields) {
+            $fields = $this->get_field_names();
+        }
+        foreach ($fields as $key => $value) {
+            if (!array_key_exists($key, $settings)) {
+                continue;
+            }
+            if (!empty($value['multiple'])) {
+                $settings[$key] = $this->normalize_multiple_value($settings[$key]);
+            } elseif (isset($value['type']) && in_array($value['type'], self::STRING_FIELD_TYPES, true)) {
+                $settings[$key] = $this->normalize_string_value($settings[$key]);
+            } elseif (isset($value['type']) && in_array($value['type'], self::ROWS_FIELD_TYPES, true)) {
+                $settings[$key] = $this->normalize_rows_value($settings[$key]);
+            }
+        }
+
+        // The field list above comes from a cached builder config, so a field
+        // whose module was off when it was built is missing from it. These keys
+        // fatal the front end when they have the wrong type; always coerce them.
+        foreach (self::GUARDED_FIELDS as $key => $shape) {
+            if (!array_key_exists($key, $settings)) {
+                continue;
+            }
+            if ('string' === $shape) {
+                $settings[$key] = $this->normalize_string_value($settings[$key]);
+            } elseif ('map' === $shape) {
+                $settings[$key] = is_array($settings[$key]) ? $settings[$key] : (is_object($settings[$key]) ? (array) $settings[$key] : []);
+            } elseif ('rows' === $shape) {
+                $settings[$key] = $this->normalize_rows_value($settings[$key]);
+            }
+        }
         return $settings;
+    }
+
+    /**
+     * Field types whose value every consumer treats as a string (explode(),
+     * strtotime(), preg_match_all(), ...).
+     */
+    const STRING_FIELD_TYPES = ['text', 'textarea', 'date', 'timepicker', 'advanced-codeviewer'];
+
+    /**
+     * Field types whose value is a list of rows, each row an array.
+     */
+    const ROWS_FIELD_TYPES = ['advanced-repeater', 'repeater'];
+
+    /**
+     * Keys coerced even when they are missing from the cached field list.
+     * `notification-template` is a `group` (param => tag map); `custom_contents`
+     * is the Custom Notification repeater; `custom_ids` / `taxonomy_ids` are the
+     * Pro "comma separated IDs" text fields that Locations explode().
+     */
+    const GUARDED_FIELDS = [
+        'notification-template' => 'map',
+        'custom_contents'       => 'rows',
+        'custom_ids'            => 'string',
+        'taxonomy_ids'          => 'string',
+    ];
+
+    /**
+     * MCP and REST saves store the JSON the caller sent, so a text field can
+     * arrive as a list (e.g. custom_ids: [12, 34]). Join a list of scalars with
+     * commas, the format these fields document; anything else becomes ''.
+     *
+     * @param mixed $value Stored value.
+     * @return mixed The value unchanged when it is not an array/object.
+     */
+    public function normalize_string_value($value) {
+        if (is_object($value)) {
+            $value = (array) $value;
+        }
+        if (!is_array($value)) {
+            return $value;
+        }
+        foreach ($value as $item) {
+            if (!is_scalar($item)) {
+                return '';
+            }
+        }
+        return implode(',', $value);
+    }
+
+    /**
+     * A repeater value must be a list of rows, each row an array. Drop anything
+     * else, so row consumers (shuffle(), array_splice(), $row['key'] = ...)
+     * never meet a string.
+     *
+     * @param mixed $value Stored value.
+     * @return array
+     */
+    public function normalize_rows_value($value) {
+        if (is_object($value)) {
+            $value = (array) $value;
+        }
+        if (!is_array($value)) {
+            return [];
+        }
+        $rows = [];
+        foreach ($value as $key => $row) {
+            if (is_object($row)) {
+                $row = (array) $row;
+            }
+            if (is_array($row)) {
+                $rows[$key] = $row;
+            }
+        }
+        return $rows;
+    }
+
+    /**
+     * Multi-select fields (`'multiple' => true`) mostly declare `'default' => ''`,
+     * and MCP / Quick Builder creates store that '' as-is. Consumers pass these
+     * values to array_diff() / in_array(), which throw a TypeError on PHP 8 for a
+     * string. Always hand out an array: '' and null become [], a single scalar
+     * becomes [ scalar ].
+     *
+     * @param mixed $value Stored value.
+     * @return array
+     */
+    public function normalize_multiple_value($value) {
+        if (is_array($value)) {
+            return $value;
+        }
+        if (is_object($value)) {
+            return (array) $value;
+        }
+        if (null === $value || '' === $value || false === $value) {
+            return [];
+        }
+        return [$value];
     }
 
     public function get_tab(){

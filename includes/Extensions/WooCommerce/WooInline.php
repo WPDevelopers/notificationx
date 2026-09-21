@@ -251,20 +251,21 @@ class WooInline extends WooCommerce {
     }
 
     /**
-     * @todo Something
+     * Keep this source's notifications out of the popup loop in
+     * FrontEnd::get_notifications_ids(). They render inline at the hooks
+     * chosen in `inline_location`, never as a floating popup.
      *
-     * @param [type] $exclude
-     * @param [type] $settings
-     * @return void
+     * `inline_location` is not read here on purpose: it can be saved as ''
+     * (MCP or Quick Builder create without the field), and passing that to
+     * array_diff() is a TypeError on PHP 8 that white-screens every page.
+     *
+     * @param bool  $exclude  Whether an earlier callback already excluded it.
+     * @param array $settings Notification settings.
+     * @return bool
      */
     public function show_on_exclude( $exclude, $settings ) {
-        if ( $settings['source'] === $this->id ) {
-            $woo_location = $settings['inline_location'];
-            $hooks        = ['woocommerce_before_add_to_cart_form', 'woocommerce_after_shop_loop_item_title', 'woocommerce_after_shop_loop_item', 'woocommerce_after_cart_item_name'];
-            $diff         = array_diff( $hooks, $woo_location );
-            if ( count( $diff ) <= count( $hooks ) ) {
-                return true;
-            }
+        if ( isset( $settings['source'] ) && $this->id === $settings['source'] ) {
+            return true;
         }
         return $exclude;
     }

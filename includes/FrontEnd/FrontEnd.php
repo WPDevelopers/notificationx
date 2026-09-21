@@ -195,7 +195,8 @@ class FrontEnd {
         $posts     = Database::get_instance()->get_posts(Database::$table_posts, '*', ['enabled' => true] );
         $combine_css = "";
         foreach ($posts as $post) {
-            if( !empty( $post['data']['add_custom_css'] ) && !empty( $post['nx_id'] ) ) {
+            // Raw rows (not normalize_post()), so check the type here.
+            if( !empty( $post['data']['add_custom_css'] ) && is_string( $post['data']['add_custom_css'] ) && !empty( $post['nx_id'] ) ) {
                 $separatedCss = $this->separate_css($post['data']['add_custom_css']);
                 if( !empty( $post['data']['source'] ) && $post['data']['source'] == 'press_bar' ) {
                     $combine_css .= "{$separatedCss['normal_css']} {$separatedCss['media_css']} ";
@@ -274,6 +275,11 @@ class FrontEnd {
                 'inline_shortcode' => false,
             ]
         );
+        // These come straight from the public REST `notice` request, where
+        // `?global=1` arrives as a string; the code below needs ID lists.
+        foreach (['global', 'active', 'pressbar', 'gdpr', 'popup', 'exit_intent', 'shortcode'] as $list_key) {
+            $params[$list_key] = NotificationX::get_instance()->normalize_multiple_value($params[$list_key]);
+        }
         $global       = $params['global'];
         $active       = $params['active'];
         $pressbar     = $params['pressbar'];

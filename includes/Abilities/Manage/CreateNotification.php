@@ -156,6 +156,17 @@ class CreateNotification extends AbilityBase {
             }
         }
 
+        // Inline types (WooCommerce, EDD, LearnDash, LearnPress, Tutor inline)
+        // only render at the hooks in `inline_location`, which the builder also
+        // fills from the theme through nx_themes_trigger. Backfill it the same
+        // way; a record without it would never display.
+        if ( empty( $config['inline_location'] ) ) {
+            $default_location = BuilderInfo::default_inline_location_for_theme( $config['themes'] );
+            if ( ! empty( $default_location ) ) {
+                $config['inline_location'] = $default_location;
+            }
+        }
+
         if ( ! empty( $input['title'] ) ) {
             $config['title'] = sanitize_text_field( $input['title'] );
         } elseif ( ! isset( $config['title'] ) ) {

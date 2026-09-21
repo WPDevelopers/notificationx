@@ -164,6 +164,11 @@ class PostType {
             $data['enabled'] = $this->can_enable( $data['source'] );
         }
 
+        // MCP and REST callers send raw JSON: coerce each field to the type its
+        // consumers expect before it is stored or passed to the nx_get_post
+        // filters below.
+        $data = NotificationX::get_instance()->normalize_field_types( $data );
+
         $title = isset( $data['title'] ) ? $data['title'] : '';
         unset( $data['title'] );
 
@@ -611,8 +616,12 @@ class PostType {
                 if (isset($field_details['multiple']) && $field_details['multiple']) {
                     // Use array_map to apply a function to each element of the field value
                     $post['data'][$field_name] = array_map(function ($option) {
-                        // Use ternary operator to return the value key or an empty string
-                        return isset($option['value']) ? $option['value'] : '';
+                        // The builder sends { value, label } objects; MCP/REST
+                        // callers may send the plain IDs. Keep both working.
+                        if (is_array($option)) {
+                            return isset($option['value']) ? $option['value'] : '';
+                        }
+                        return is_scalar($option) ? $option : '';
                     }, $field_value);
                 } else {
                     // Use ternary operator to return the value key or an empty string

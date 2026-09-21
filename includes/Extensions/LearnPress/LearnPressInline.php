@@ -85,20 +85,21 @@ class LearnPressInline extends LearnPress {
     }
 
     /**
-     * @todo Something
+     * Keep this source's notifications out of the popup loop in
+     * FrontEnd::get_notifications_ids(). They render inline at the hooks
+     * chosen in `inline_location`, never as a floating popup.
      *
-     * @param [type] $exclude
-     * @param [type] $settings
-     * @return void
+     * `inline_location` is not read here on purpose: it can be saved as ''
+     * (MCP or Quick Builder create without the field), and passing that to
+     * array_diff() is a TypeError on PHP 8 that white-screens every page.
+     *
+     * @param bool  $exclude  Whether an earlier callback already excluded it.
+     * @param array $settings Notification settings.
+     * @return bool
      */
     public function show_on_exclude( $exclude, $settings ) {
-        if ( 'inline' === $settings['type'] && $settings['source'] === $this->id ) {
-            $edd_location = $settings['inline_location'];
-            $hooks        = [ 'learn-press/list-courses/layout/item/section/bottom', 'learn-press/after-course-buttons' ];
-            $diff         = array_diff( $hooks, $edd_location );
-            if ( count( $diff ) <= count( $hooks ) ) {
-                return true;
-            }
+        if ( isset( $settings['type'], $settings['source'] ) && 'inline' === $settings['type'] && $this->id === $settings['source'] ) {
+            return true;
         }
         return $exclude;
     }

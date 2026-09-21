@@ -112,6 +112,11 @@ class ShortcodeInline {
                 }
                 $entry     = end( $entries );
                 $template  = Inline::get_instance()->get_template( $settings );
+                // Freemius themes return their lines as an array (for the popup
+                // layout); the shortcode renders one string, so join them.
+                if ( is_array( $template ) ) {
+                    $template = implode( ' ', array_filter( array_map( 'trim', array_filter( $template, 'is_scalar' ) ), 'strlen' ) );
+                }
                 $_template = $template;
 
                 foreach ( $entry as $key => $val ) {

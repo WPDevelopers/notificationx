@@ -34,6 +34,17 @@ The class itself is small and only adds three behaviors on top of the `Types` ba
 
 The Type does **not** itself declare `$themes` — theme entries are declared per-Extension (e.g. `WooInline::init_extension()` sets `$this->themes` on the extension instance), which is the same pattern used by other multi-source-extension types.
 
+## Excluding inline notifications from the popup loop
+
+`FrontEnd::get_notifications_ids()` runs `apply_filters( 'nx_show_on_exclude', false, $settings )` for **every enabled notification on every front-end page load** ([`FrontEnd.php:570`](../../includes/FrontEnd/FrontEnd.php#L570)). Inline notifications must return `true` there, or they would also render as a floating popup. Two callbacks cover them:
+
+| Callback | Excludes when |
+|---|---|
+| [`Types\Inline::show_on_exclude()`](../../includes/Types/Inline.php#L79) | `type === 'inline'` and `inline_location` is non-empty |
+| `show_on_exclude()` on [`WooInline`](../../includes/Extensions/WooCommerce/WooInline.php), [`EDDInline`](../../includes/Extensions/EDD/EDInline.php), [`LearnDashInline`](../../includes/Extensions/LearnDash/LearnDashInline.php), [`LearnPressInline`](../../includes/Extensions/LearnPress/LearnPressInline.php), [`TutorInline`](../../includes/Extensions/Tutor/TutorInline.php) | `source` is the extension's own id (and, except for `WooInline`, `type === 'inline'`), whatever `inline_location` holds |
+
+Before 2026-09, the extension callbacks passed `$settings['inline_location']` to `array_diff()`. The comparison could never change the result (`count( array_diff( $hooks, $x ) ) <= count( $hooks )` is always true), and when the value was `''` PHP 8 threw a `TypeError`. That turned one enabled notification into a 500 on every page of the site. **Don't reintroduce type-sensitive array calls in any `nx_show_on_exclude` callback:** it runs for all notifications on every request, so a fatal there is site-wide.
+
 ## Compatible extensions
 
 Found via `grep -rl "'inline'" includes/Extensions` (excluding `GlobalFields.php`, which only references the `inline` type id inside a `Rules::includes('type', [...])` visibility rule, not a `$types` declaration) and confirmed by reading each hit's `$types`/`$module`:
@@ -77,6 +88,10 @@ source (a different Type) registers its own copy of the same design; see
 
 - No type-specific `init_fields()` additions beyond the `nx_show_on_exclude` filter (see [What it does](#what-it-does)) — this Type relies entirely on `GlobalFields.php` for its builder UI, plus whatever the Pro override (`notificationx-pro/includes/Types/Inline.php`) layers on top (confirmed there: a `visibility-hooks` section with the `inline_location` `select` field and a `hide_on_mobile` checkbox, added via the `nx_metabox_tabs` filter).
 - `inline_location` (array of hook-name strings) is the pivotal settings key — every compatible Extension's themes declare a default value for it (e.g. `WooInline`'s `conv-theme-seven` theme → `['woocommerce_before_add_to_cart_form']`).
+- **`inline_location` is not guaranteed to be an array in the database.** The Pro field declares `'default' => ''`, so a notification saved without the field (MCP `create-notification` with only `type`/`source`/`themes`, or a Quick Builder create) stored `''`. Three things now keep that from reaching array code:
+  - [`NotificationX::normalize_field_types()`](../../includes/NotificationX.php) turns every `'multiple' => true` field into an array: `''`/`null` become `[]` and a single scalar becomes `[ scalar ]`. It runs before `PostType::save_post()` stores a row and on every `PostType::get_posts()` read with `select = '*'`, including the front-end loop in `FrontEnd::get_notifications_ids()`. So it also fixes rows that are already stored with `''`. See [architecture/data-storage.md](../architecture/data-storage.md#field-types-in-data).
+  - The five inline extensions' `show_on_exclude()` no longer read `inline_location` at all (see [Excluding inline notifications from the popup loop](#excluding-inline-notifications-from-the-popup-loop)).
+  - MCP `create-notification` backfills the theme's default `inline_location` ([`BuilderInfo::default_inline_location_for_theme()`](../../includes/Abilities/BuilderInfo.php)). Without it, a headless-created inline notification saves fine but renders nowhere.
 - `GlobalFields.php` line 328 includes `inline` in a `Rules::includes('type', [...])` list (alongside `notification_bar`, `flashing_tab`, `sales_inline`, `offer_announcement`, `custom`) that gates the "For Mobile" responsive-themes tab — i.e. this Type does not get a separate mobile-theme tab the way popup/bar types do.
 - Themes (per-Extension `$themes`, e.g. in `WooInline::init_extension()`) declare per-theme `template` param maps (`first_param`…`fifth_param`) consumed by `Features/Inline.php::get_template()`.
 
@@ -112,7 +127,7 @@ None at the Type level — dependency is entirely per-Extension: **WooCommerce**
 - This whole Type is `$is_pro = true` — the actual DOM-injection (`add_action($hook, ...)`) logic lives in the sibling `notificationx-pro` plugin, not here. Changes to `inline_location` field behavior or hook lists require checking the Pro repo too.
 - `show_on_exclude()` deliberately routes `inline` notifications away from the normal popup "show on" visibility logic — if an inline notification is unexpectedly appearing/not appearing as a floating popup, check this filter first.
 - The `nx_can_entry()` stock-theme exclusion uses theme-id strings prefixed `woocommerce_sales_inline_*`. `$settings['themes']` for a `woo_inline` entry is normalized to the extension-id-prefixed form `woo_inline_stock-theme-one` (`Extension::get_themes()` → `array_add_prefix($this->themes, $this->id . "_")`, [`Extension.php:555`](../../includes/Extensions/Extension.php#L555)), so it never equals the `woocommerce_sales_inline_`-prefixed literals — confirmed dead/defensive code for this Type; the check only matches the sibling `woocommerce_sales_inline` source.
-- No PHPUnit tests specific to this Type exist under `tests/` — confirmed: `grep -rli "inline" tests/` returns no hits.
+- PHPUnit: [`tests/test-inline-location.php`](../../tests/test-inline-location.php) covers the five extensions' `show_on_exclude()` for every stored shape of `inline_location` (`''`, `null`, missing, a scalar string, arrays), the shared `nx_show_on_exclude` filter, `normalize_post()` array normalization of multi-select fields, and the MCP theme-location backfill.
 - Don't confuse this Type's extensions (`woo_inline`, etc.) with `WooCommerceSalesInline` (`woocommerce_sales_inline`), which belongs to the separate `woocommerce_sales` Type — see [Compatible extensions](#compatible-extensions).
 
 ## Related docs
