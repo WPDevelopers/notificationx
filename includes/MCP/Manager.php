@@ -438,26 +438,43 @@ class Manager {
     }
 
     /**
-     * The brand mark for a connecting client, matched on its registered name.
+     * The brand mark for a connecting client.
      *
-     * Clients arrive through dynamic registration, so the name is whatever the
-     * app sent -- match loosely and fall back to the initial. The files are the
-     * same ones the Connect a client panel uses, so the consent screen and the
-     * admin panel can never show different marks for the same app.
+     * Clients arrive through open dynamic registration, so the name is whatever
+     * the app sent and anyone can call themselves "Claude". A vendor mark is
+     * therefore only shown when the name matches AND the code is being sent
+     * back to a host that vendor controls; everything else (including loopback
+     * redirects used by desktop apps) falls back to the initial. The files are
+     * the same ones the Connect a client panel uses, so the consent screen and
+     * the admin panel can never show different marks for the same app.
      *
-     * @param string $name Registered client name.
+     * @param string $name         Registered client name.
+     * @param string $redirect_uri Validated redirect URI of this authorize request.
      * @return array{file:string,tint:string}|array Empty when unrecognised.
      */
-    protected static function client_brand( $name ) {
+    protected static function client_brand( $name, $redirect_uri ) {
         $brands = array(
-            'claude'  => array( 'file' => 'claude.svg',  'tint' => '#fdf1ec' ),
-            'chatgpt' => array( 'file' => 'chatgpt.svg', 'tint' => '#eaf6f2' ),
-            'openai'  => array( 'file' => 'chatgpt.svg', 'tint' => '#eaf6f2' ),
-            'cursor'  => array( 'file' => 'cursor.svg',  'tint' => '#eceaf6' ),
+            'claude'  => array( 'file' => 'claude.svg',  'tint' => '#fdf1ec', 'hosts' => array( 'claude.ai', 'claude.com', 'anthropic.com' ) ),
+            'chatgpt' => array( 'file' => 'chatgpt.svg', 'tint' => '#eaf6f2', 'hosts' => array( 'chatgpt.com', 'openai.com' ) ),
+            'openai'  => array( 'file' => 'chatgpt.svg', 'tint' => '#eaf6f2', 'hosts' => array( 'chatgpt.com', 'openai.com' ) ),
+            'cursor'  => array( 'file' => 'cursor.svg',  'tint' => '#eceaf6', 'hosts' => array( 'cursor.com', 'cursor.sh' ) ),
         );
+        $host   = strtolower( (string) wp_parse_url( (string) $redirect_uri, PHP_URL_HOST ) );
+        $scheme = strtolower( (string) wp_parse_url( (string) $redirect_uri, PHP_URL_SCHEME ) );
+        if ( '' === $host || 'https' !== $scheme ) {
+            return array();
+        }
         foreach ( $brands as $needle => $brand ) {
-            if ( false !== stripos( (string) $name, $needle ) ) {
-                return $brand;
+            if ( false === stripos( (string) $name, $needle ) ) {
+                continue;
+            }
+            foreach ( $brand['hosts'] as $vendor_host ) {
+                if ( $host === $vendor_host || substr( $host, -strlen( '.' . $vendor_host ) ) === '.' . $vendor_host ) {
+                    return array(
+                        'file' => $brand['file'],
+                        'tint' => $brand['tint'],
+                    );
+                }
             }
         }
         return array();
@@ -499,8 +516,8 @@ class Manager {
         $substr         = function_exists( 'mb_substr' ) ? 'mb_substr' : 'substr';
         $who_initial    = strtoupper( $substr( $who_name, 0, 1 ) );
         $client_initial = strtoupper( $substr( $name, 0, 1 ) );
-        // Show the connecting app's own mark when we recognise it; otherwise the initial.
-        $client_brand = self::client_brand( $name );
+        // Show the connecting app's own mark only when we can vouch for it; otherwise the initial.
+        $client_brand = self::client_brand( $name, $request['redirect_uri'] );
 
         // The exact tools this grant unlocks, straight from the ability
         // registry so the list can never drift from what the server exposes.

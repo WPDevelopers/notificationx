@@ -119,7 +119,15 @@ class Test_Abilities_Category extends WP_UnitTestCase {
 					'description' => $category->get_description(),
 				)
 			);
-			Registrar::get_instance()->register_with_wp_abilities();
+			// wp_register_ability() refuses (with _doing_it_wrong) unless
+			// `wp_abilities_api_init` is the running action, so re-register
+			// inside that action context.
+			$GLOBALS['wp_current_filter'][] = 'wp_abilities_api_init';
+			try {
+				Registrar::get_instance()->register_with_wp_abilities();
+			} finally {
+				array_pop( $GLOBALS['wp_current_filter'] );
+			}
 		}
 
 		$this->assertTrue( wp_has_ability( $id ) );

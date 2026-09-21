@@ -82,6 +82,11 @@ class ShortcodeInline {
              * @var WooInline|EDDInline
              */
             $extension = \NotificationX\Extensions\ExtensionFactory::get_instance()->get($settings['source']);
+            // The inline renderers live in NotificationX Pro; without it (or with the
+            // module disabled) the extension is a stub or missing.
+            if ( ! $extension || ! method_exists( $extension, 'show_inline_notification' ) ) {
+                return '';
+            }
             $output = $extension->show_inline_notification( $atts, $settings);
             if( !empty( $output ) ) {
                 $output = "<div id='notificationx-shortcode-inline-{$atts['id']}' class='notificationx-shortcode-inline-wrapper nx-shortcode-notice'>$output</div>";
