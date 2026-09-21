@@ -103,6 +103,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\BitIntegrations\\BitIntegrationsConversions' => __DIR__ . '/../..' . '/includes/Extensions/BitIntegrations/BitIntegrationsConversions.php',
         'NotificationX\\Extensions\\BitIntegrations\\BitIntegrationsEmailSubscription' => __DIR__ . '/../..' . '/includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php',
         'NotificationX\\Extensions\\BitIntegrations\\BitIntegrtionsReviews' => __DIR__ . '/../..' . '/includes/Extensions/BitIntegrations/BitIntegrationsReviews.php',
+        'NotificationX\\Extensions\\Brevo\\Brevo' => __DIR__ . '/../..' . '/includes/Extensions/Brevo/Brevo.php',
         'NotificationX\\Extensions\\CCPA\\CCPA_Notification' => __DIR__ . '/../..' . '/includes/Extensions/CCPA/CCPA_Notification.php',
         'NotificationX\\Extensions\\CF7\\CF7' => __DIR__ . '/../..' . '/includes/Extensions/CF7/CF7.php',
         'NotificationX\\Extensions\\ConvertKit\\ConvertKit' => __DIR__ . '/../..' . '/includes/Extensions/ConvertKit/ConvertKit.php',

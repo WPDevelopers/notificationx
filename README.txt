@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, notification ba
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -87,7 +87,7 @@ https://youtu.be/zZPF5nJD4mo?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 
 - **Contact Form Notifications:** Display your favourite contact form popup notifications on websites and create urgency among your site visitors to get engaged with you. [Source: Contact Form 7, Ninja Forms, WPForms, Gravity Forms (PRO)]
 
-- **Email Subscriptions [PRO]:** MailChimp notification lets you showcase the users who have subscribed to your MailChimp list as a popup on your website. [Source: MailChimp, ConvertKit, ActiveCampaign]
+- **Email Subscriptions [PRO]:** MailChimp notification lets you showcase the users who have subscribed to your MailChimp list as a popup on your website. [Source: MailChimp, ConvertKit, ActiveCampaign, Brevo]
 
 - **CUSTOM NOTIFICATIONS [PRO]:** You can create advanced and customized notifications just the way you want using these options.
 
@@ -110,6 +110,8 @@ https://youtu.be/AGaq1wtdd00?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK
 - **[MailChimp [PRO]](https://notificationx.com/integrations/mailchimp/):** Create urgency among your visitors to signup for your email list to get updates and increase your overall engagement rates.
 
 - **[ConvertKit [PRO]](https://notificationx.com/integrations/convertkit/):** Enhance your email marketing strategy by showcasing real-time signup activities from ConvertKit and boost site engagement rate instantly.
+
+- **[Brevo [PRO]](https://notificationx.com/integrations/brevo/):** Turn your Brevo (formerly Sendinblue) contact lists into live subscription alerts and show visitors that people are signing up right now.
 
 - **[LearnDash [PRO]](https://notificationx.com/integrations/learndash/):** Showcase your course enrollment activities to gain credibility and influence others to signup for your next online course.
 
@@ -218,6 +220,10 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 3.3.1 - 14/09/2026 =
+Improved: Connected apps in MCP settings can now be refreshed without reloading the page.
+Few minor bug fixes and improvements.
 
 = 3.3.0 - 03/09/2026 =
 Added: Built-in MCP server to securely connect NotificationX with AI assistants.

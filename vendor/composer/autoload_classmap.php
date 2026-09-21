@@ -80,6 +80,7 @@ return array(
     'NotificationX\\Extensions\\BitIntegrations\\BitIntegrationsConversions' => $baseDir . '/includes/Extensions/BitIntegrations/BitIntegrationsConversions.php',
     'NotificationX\\Extensions\\BitIntegrations\\BitIntegrationsEmailSubscription' => $baseDir . '/includes/Extensions/BitIntegrations/BitIntegrationsEmailSubscription.php',
     'NotificationX\\Extensions\\BitIntegrations\\BitIntegrtionsReviews' => $baseDir . '/includes/Extensions/BitIntegrations/BitIntegrationsReviews.php',
+    'NotificationX\\Extensions\\Brevo\\Brevo' => $baseDir . '/includes/Extensions/Brevo/Brevo.php',
     'NotificationX\\Extensions\\CCPA\\CCPA_Notification' => $baseDir . '/includes/Extensions/CCPA/CCPA_Notification.php',
     'NotificationX\\Extensions\\CF7\\CF7' => $baseDir . '/includes/Extensions/CF7/CF7.php',
     'NotificationX\\Extensions\\ConvertKit\\ConvertKit' => $baseDir . '/includes/Extensions/ConvertKit/ConvertKit.php',
