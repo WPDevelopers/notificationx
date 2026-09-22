@@ -1,11 +1,10 @@
 import React, { useState, Fragment } from 'react';
 import ReactModal from "react-modal";
-import { modalStyle } from '../../../core/constants';
+import { modalStyle } from '../../../shared/helpers';
 import { __ } from '@wordpress/i18n';
 import Customization from '../Customization';
 import CloseIcon from '../../../icons/Close';
-import { handleConsentAPI, loadScripts, setDynamicCookie } from './helper';
-import nxHelper from '../../../core/functions';
+import { handleConsentAPI, loadScripts, requestCookieDeletion, setDynamicCookie } from './helper';
 
 const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
     const themesWithCloseBtn = [
@@ -98,7 +97,7 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
 
     const deleteCookies = async () => {
         try {
-            await nxHelper.get(`index.php?rest_route=/notificationx/v1/delete-cookies/`);
+            await requestCookieDeletion();
         } catch (err) {
             console.error("Error deleting cookies: ", err);
         }

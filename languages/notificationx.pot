@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-21T07:08:15+00:00\n"
+"POT-Creation-Date: 2026-09-22T09:51:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
@@ -94,11 +94,11 @@ msgstr ""
 msgid "Theme \"%1$s\" is not valid for source \"%2$s\". Call describe-type for this type; valid themes: %3$s"
 msgstr ""
 
-#: includes/Abilities/Manage/CreateNotification.php:162
+#: includes/Abilities/Manage/CreateNotification.php:173
 msgid "Untitled notification"
 msgstr ""
 
-#: includes/Abilities/Manage/CreateNotification.php:179
+#: includes/Abilities/Manage/CreateNotification.php:190
 msgid "Could not create the notification from the provided config."
 msgstr ""
 
@@ -1976,10 +1976,10 @@ msgstr ""
 #: includes/Extensions/WordPress/WPComments.php:262
 #: includes/Extensions/WordPress/WPComments.php:263
 #: includes/Extensions/WordPress/WPComments.php:264
-#: includes/FrontEnd/FrontEnd.php:287
-#: includes/FrontEnd/FrontEnd.php:288
-#: includes/FrontEnd/FrontEnd.php:289
-#: includes/FrontEnd/FrontEnd.php:850
+#: includes/FrontEnd/FrontEnd.php:293
+#: includes/FrontEnd/FrontEnd.php:294
+#: includes/FrontEnd/FrontEnd.php:295
+#: includes/FrontEnd/FrontEnd.php:856
 #: includes/Types/Comments.php:54
 #: includes/Types/Comments.php:67
 #: includes/Types/Comments.php:80
@@ -2059,8 +2059,6 @@ msgstr ""
 #: includes/Types/NotificationBar.php:193
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:13
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Notification Bar"
 msgstr ""
 
@@ -2077,8 +2075,6 @@ msgstr ""
 #: includes/Types/Conversions.php:62
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:13
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Sales Notification"
 msgstr ""
 
@@ -2119,8 +2115,6 @@ msgstr ""
 #: includes/Types/Inline.php:45
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:13
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Growth Alert"
 msgstr ""
 
@@ -2128,8 +2122,6 @@ msgstr ""
 #: includes/Extensions/GDPR/GDPR_Notification.php:47
 #: includes/Types/GDPR.php:50
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Cookie Notice"
 msgstr ""
 
@@ -5093,7 +5085,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:117
 #: includes/Extensions/WooCommerce/WOOReviews.php:129
 #: includes/Extensions/WordPress/WPComments.php:266
-#: includes/FrontEnd/FrontEnd.php:291
+#: includes/FrontEnd/FrontEnd.php:297
 #: includes/Types/Comments.php:59
 #: includes/Types/Comments.php:72
 #: includes/Types/Comments.php:85
@@ -5612,7 +5604,7 @@ msgstr ""
 #: includes/Types/GDPR.php:441
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:141
+#: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:140
 msgid "Customize"
 msgstr ""
 
@@ -6069,7 +6061,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:173
 #: includes/Extensions/WooCommerce/WOOReviews.php:142
 #: includes/Extensions/WooCommerce/WOOReviews.php:162
-#: includes/FrontEnd/FrontEnd.php:290
+#: includes/FrontEnd/FrontEnd.php:296
 #: includes/Types/Donations.php:54
 #: includes/Types/EmailSubscription.php:70
 #: includes/Types/Reviews.php:205
@@ -7808,7 +7800,7 @@ msgid "Make sure you have enabled the notification which ID you have given."
 msgstr ""
 
 #. translators: time
-#: includes/Features/ShortcodeInline.php:150
+#: includes/Features/ShortcodeInline.php:155
 #, php-format
 msgctxt "Inline Shortcode"
 msgid "%s ago"
@@ -8658,7 +8650,7 @@ msgstr ""
 #: includes/Types/GDPR.php:425
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:133
+#: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:132
 msgid "Accept All"
 msgstr ""
 
@@ -8669,7 +8661,7 @@ msgstr ""
 #: includes/Types/GDPR.php:433
 #: assets/public/js/crossSite.js:1
 #: assets/public/js/frontend.js:1
-#: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:152
+#: nxdev/notificationx/frontend/gdpr/utils/GdprActions.jsx:151
 msgid "Reject All"
 msgstr ""
 
@@ -9524,197 +9516,133 @@ msgid "Upgrade to Pro"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Display Social Proof Alerts With NotificationX"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Accelerate website engagement & conversions by creating dynamic notifications, sales banners, and more. Follow this guide to explore all advanced NotificationX's features & quickly get started.  "
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "NO NOTIFICATIONS ARE FOUND."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "It seems like you haven't created any notification alerts.Hit on \"Add New\" button to get started"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "How To Configure 'WooCommerce Sales Alerts' In NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "How to Configure Cookies Policy for Website Using NotificationX’s Cookie Notice?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "How to Use Notification Bar in NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Display WooCommerce Growth Alerts With NotificationX"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "How To Create Custom Notification With NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "How To Configure NotificationX Cross Domain Notice?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "How To Configure Google Reviews With NotificationX?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Create Now"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Display your latest sales to boost credibility and drive more conversions."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Inform users and stay privacy compliant quickly and effortlessly."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Display latest sales, discounts, or announcements to boost sales."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Display sales count, low stock notification to influence viewer to make instant purchases."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Flashing Tabs"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Encourage visitors or potential customers to take action & turn browsing into buying."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Cross - Domain Notice"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Copy & Explore"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Display single, multiple, or all live alerts on multiple WordPress websites or others."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Show Your Love"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "We love having you in the NotificationX family. We are making it more awesome every day. Please take two minutes to review the plugin and spread the love to encourage us to keep it going."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:13
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 #: nxdev/notificationx/admin/Dashboard/HelpReviewSection.jsx:31
 msgid "Leave a Review"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Explore Our Knowledge Base"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Get started by spending some time with the documentation to familiarize yourself with NotificationX and boost your website conversions immediately."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Documentation"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
 #: assets/admin/js/admin.js:20
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Join Our Community"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Join the Facebook community to discuss with fellow developers, connect with others, and stay updated."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Need Any Help?"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "If you encounter issues or need assistance, we're here to help or report specific problems on our GitHub issues page."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
 msgid "Report a Bug"
 msgstr ""
 

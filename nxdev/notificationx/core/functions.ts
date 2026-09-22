@@ -453,33 +453,9 @@ export const updateGeneratedCSS = (cssTargetSelector) => {
     }
 };
 
-// Helper function to get the complete icon URL
-export const getIconUrl = (iconValue, iconPrefix = '') => {
-    if (!iconValue) return '';
-
-    // Check if it's already a complete URL (starts with http/https or data:)
-    if (/^(https?:\/\/|data:)/.test(iconValue)) {
-        return iconValue;
-    }
-
-    // Convert admin URL to public URL if needed
-    let prefix = iconPrefix;
-    if (prefix && prefix.includes('/wp-admin/')) {
-        // Convert admin URL to public URL
-        prefix = prefix.replace('/wp-admin/', '/wp-content/plugins/notificationx/assets/admin/');
-        prefix = prefix.replace('/images/icons/', 'images/icons/');
-    }
-
-    // Default to NotificationX public icons directory if no prefix
-    if (!prefix) {
-        const baseUrl = (typeof window !== 'undefined' && window.location)
-            ? window.location.origin
-            : '';
-        prefix = baseUrl + '/wp-content/plugins/notificationx/assets/admin/images/icons/';
-    }
-
-    return prefix + iconValue;
-};
+// Defined in shared/helpers.ts so the frontend bundle can use them without
+// importing this admin module. Re-exported here for existing admin imports.
+export { getIconUrl, themes_has_bg } from "../shared/helpers";
 
 export const compareVersions = (v1, v2) => {
     if( v1 == null || v2 == null ) return 0;
@@ -498,8 +474,5 @@ export const compareVersions = (v1, v2) => {
 
     return 0;
 };
-
-export const themes_has_bg = ['press_bar_theme-four','press_bar_theme-five'];
-
 
 export default nxHelper;

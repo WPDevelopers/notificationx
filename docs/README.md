@@ -13,6 +13,7 @@ New here? Start with [architecture/overview.md](architecture/overview.md) for th
 | [development/](development/) | How-to guides for extending the plugin — adding a Type, adding an Extension, blocks, Elementor widgets, settings tabs, asset builds, doc conventions. |
 | [features/](features/) | Per-feature deep dives — Setup Wizard, Exit Intent, Notification Bar, Sales Notification designs. |
 | [types/](types/) | Per-**Type** reference (one doc per notification category — 19 types). |
+| [qa/](qa/) | Manual QA checklists for changes automated tests can't fully cover. |
 | [extensions/](extensions/) | Per-**Extension** reference (one doc per data-source integration — 35 integrations). |
 
 ## The core abstraction

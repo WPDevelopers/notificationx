@@ -11,3 +11,4 @@ Deep dives on specific NotificationX product features — the cross-cutting flow
 | [notification-bar/](notification-bar/) | Notification bar (PressBar) reference. |
 | [sales-notification/](sales-notification/) | Sales/Conversions notification design authoring. |
 | [mcp/](mcp/) | MCP server — ability registration and the WordPress Abilities API bridge. |
+| [frontend-performance/](frontend-performance/) | Public bundle size: the xSpeed report, root causes, what changed in B1, guardrails, and the B2/B3 roadmap. Also optimizer (Delay JS) compatibility. |

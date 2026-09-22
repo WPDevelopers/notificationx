@@ -11,7 +11,7 @@ import useNotificationContext from "./NotificationProvider";
 import nxHelper, { addParentSelectorToCSS } from "./functions";
 import { loadAssets } from "./LoadAssets";
 import BarCoupon from './helper/BarCoupon';
-import { themes_has_bg } from "../../core/functions";
+import { themes_has_bg } from "../../shared/helpers";
 
 /**
  * @example

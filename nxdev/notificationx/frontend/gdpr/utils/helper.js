@@ -1,3 +1,5 @@
+import apiFetch from "@wordpress/api-fetch";
+
 export const thirdPartyAnalytics = [
     {
         name: 'Google Analytics',
@@ -93,6 +95,24 @@ export const getDynamicCookie = (type) => {
     return cookieManager[type] ?? null; // Return the value of the specified type or null if not found
 };
 
+
+/**
+ * Asks the server to clear the site's cookies (REST `delete-cookies`).
+ *
+ * Same request the admin helper `nxHelper.get()` in core/functions.ts used to
+ * send: apiFetch with path "/notificationx/v1/<endpoint>", method GET, errors
+ * swallowed. Kept here so the frontend bundle does not import the admin
+ * module; do not change the URL shape without testing on sub-directory
+ * installs (see docs/features/frontend-performance/02-b1-changes.md).
+ */
+export const requestCookieDeletion = () => {
+    return apiFetch({
+        path: "/notificationx/v1/index.php?rest_route=/notificationx/v1/delete-cookies/",
+        method: "GET",
+    })
+        .then((res) => res)
+        .catch(() => {});
+};
 
 export const loadScripts = (cookieList) => {
     if (!cookieList || cookieList.length < 0) return;

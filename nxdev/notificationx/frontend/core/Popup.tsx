@@ -5,7 +5,7 @@ import CloseIcon from '../../icons/Close';
 import useNotificationContext from "./NotificationProvider";
 import 'animate.css';
 import { isObject, handleCloseNotification } from "../core/functions";
-import { getIconUrl } from "../../core/functions";
+import { getIconUrl } from "../../shared/helpers";
 
 import { __ } from '@wordpress/i18n';
 import nxHelper from './functions';
