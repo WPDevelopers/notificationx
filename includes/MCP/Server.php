@@ -323,7 +323,13 @@ class Server {
      * @return \WP_REST_Response
      */
     protected function with_challenge( $resp ) {
-        $metadata_url = home_url( '/.well-known/oauth-protected-resource' );
+        // Our own REST namespace, not `/.well-known/`: that path is shared by the
+        // whole site, so a plugin hooking `parse_request` earlier than us -- or a
+        // host that serves `/.well-known/` itself for ACME -- would hand our
+        // clients another resource's metadata, and RFC 9728 requires an exact
+        // match. This route is ours alone. The well-known paths keep working for
+        // clients that construct them directly.
+        $metadata_url = rest_url( 'notificationx/v1/mcp/oauth/protected-resource' );
         $resp->header( 'WWW-Authenticate', sprintf( 'Bearer resource_metadata="%s"', $metadata_url ) );
         return $resp;
     }

@@ -97,6 +97,23 @@ class Manager {
         ) );
 
         // OAuth: dynamic client registration + token endpoint (public).
+        // Discovery over REST as well as `/.well-known/`. The well-known path is
+        // a single namespace the whole site shares: another plugin that hooks
+        // `parse_request` earlier, or a host that answers `/.well-known/` itself
+        // (ACME), takes it and our clients then read someone else's metadata.
+        // A route inside our own REST namespace cannot be taken, so that is what
+        // Server::with_challenge() advertises. Public, like the documents
+        // themselves.
+        register_rest_route( $ns, '/mcp/oauth/protected-resource', array(
+            'methods'             => 'GET',
+            'callback'            => array( $this, 'rest_protected_resource' ),
+            'permission_callback' => '__return_true',
+        ) );
+        register_rest_route( $ns, '/mcp/oauth/authorization-server', array(
+            'methods'             => 'GET',
+            'callback'            => array( $this, 'rest_authorization_server' ),
+            'permission_callback' => '__return_true',
+        ) );
         register_rest_route( $ns, '/mcp/oauth/register', array(
             'methods'             => 'POST',
             'callback'            => array( $this, 'rest_oauth_register' ),
@@ -1359,6 +1376,47 @@ class Manager {
     /* --------------------------------------------------------------------- */
     /* Helpers                                                               */
     /* --------------------------------------------------------------------- */
+
+    /**
+     * RFC 9728 protected-resource metadata, served from our own REST namespace.
+     *
+     * @return \WP_REST_Response
+     */
+    public function rest_protected_resource() {
+        if ( ! $this->is_enabled() ) {
+            return $this->discovery_disabled();
+        }
+
+        return new \WP_REST_Response( OAuth::get_instance()->protected_resource_metadata(), 200 );
+    }
+
+    /**
+     * RFC 8414 authorization-server metadata, served from our own REST namespace.
+     *
+     * @return \WP_REST_Response
+     */
+    public function rest_authorization_server() {
+        if ( ! $this->is_enabled() ) {
+            return $this->discovery_disabled();
+        }
+
+        return new \WP_REST_Response( OAuth::get_instance()->authorization_server_metadata(), 200 );
+    }
+
+    /**
+     * The response for a discovery request made while MCP is switched off.
+     * A 404 keeps us indistinguishable from a site that never shipped MCP, so
+     * a client cannot read our settings state from the discovery surface.
+     *
+     * @return \WP_Error
+     */
+    protected function discovery_disabled() {
+        return new \WP_Error(
+            'rest_no_route',
+            __( 'No route was found matching the URL and request method.', 'notificationx' ),
+            array( 'status' => 404 )
+        );
+    }
 
     /**
      * Whether an OAuth discovery path belongs to this plugin.
