@@ -27,6 +27,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Manager {
 
+    /**
+     * Path of the pretty MCP endpoint, relative to home.
+     *
+     * Also the suffix of the RFC 9728 discovery URLs we answer for.
+     *
+     * @var string
+     */
+    const ENDPOINT_PATH = 'notificationx/mcp';
+
     use GetInstance;
 
     /**
@@ -333,16 +342,23 @@ class Manager {
             return;
         }
 
-        // OAuth discovery (also accept the path-suffixed RFC form).
-        if ( 0 === strpos( $path, '.well-known/oauth-authorization-server' ) ) {
-            $this->emit_json( OAuth::get_instance()->authorization_server_metadata() );
-        }
-        if ( 0 === strpos( $path, '.well-known/oauth-protected-resource' ) ) {
-            $this->emit_json( OAuth::get_instance()->protected_resource_metadata() );
+        // OAuth discovery (also accept the path-suffixed RFC form). Only our
+        // own documents are served, and only while MCP is switched on: another
+        // MCP plugin on the same site owns `.well-known/...`/<its-endpoint>,
+        // and answering that with our metadata would point its clients at our
+        // authorization server. With MCP off we own no resource to describe, so
+        // the request falls through to WordPress instead.
+        if ( $this->is_enabled() ) {
+            if ( $this->owns_discovery_path( $path, 'oauth-authorization-server' ) ) {
+                $this->emit_json( OAuth::get_instance()->authorization_server_metadata() );
+            }
+            if ( $this->owns_discovery_path( $path, 'oauth-protected-resource' ) ) {
+                $this->emit_json( OAuth::get_instance()->protected_resource_metadata() );
+            }
         }
 
         // Pretty MCP endpoint.
-        if ( 'notificationx/mcp' === $path ) {
+        if ( self::ENDPOINT_PATH === $path ) {
             $this->handle_pretty_mcp();
         }
 
@@ -1343,6 +1359,37 @@ class Manager {
     /* --------------------------------------------------------------------- */
     /* Helpers                                                               */
     /* --------------------------------------------------------------------- */
+
+    /**
+     * Whether an OAuth discovery path belongs to this plugin.
+     *
+     * The handler runs on `parse_request` at priority 0 and `emit_json()`
+     * exits, so whatever it answers is final -- nothing later in the request
+     * gets a say. A prefix match would therefore serve our metadata for
+     * *any* suffix, including another MCP plugin's
+     * `.well-known/oauth-protected-resource/<their-plugin>/mcp`, sending
+     * their clients to our authorization server (RFC 9728 requires the
+     * resource to match exactly, so their handshake then fails).
+     *
+     * Two forms are ours, and only those two:
+     *
+     * - the bare document, which our own `WWW-Authenticate` challenge
+     *   advertises (see Server::with_challenge());
+     * - the RFC 9728 path-suffixed form for our endpoint.
+     *
+     * Anything else is declined by returning false, so the request falls
+     * through to whichever plugin does own it -- deliberately not a 404,
+     * which would break that neighbour just as effectively.
+     *
+     * @param string $path Request path, relative to home and unslashed.
+     * @param string $doc  Discovery document name.
+     * @return bool
+     */
+    protected function owns_discovery_path( $path, $doc ) {
+        $base = '.well-known/' . $doc;
+
+        return $path === $base || $path === $base . '/' . self::ENDPOINT_PATH;
+    }
 
     /**
      * The request path relative to the WordPress home path, without query string.
