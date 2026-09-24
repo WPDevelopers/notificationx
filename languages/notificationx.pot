@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.3.1\n"
+"Project-Id-Version: NotificationX 3.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-21T07:08:15+00:00\n"
+"POT-Creation-Date: 2026-09-24T04:32:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
@@ -94,11 +94,11 @@ msgstr ""
 msgid "Theme \"%1$s\" is not valid for source \"%2$s\". Call describe-type for this type; valid themes: %3$s"
 msgstr ""
 
-#: includes/Abilities/Manage/CreateNotification.php:162
+#: includes/Abilities/Manage/CreateNotification.php:173
 msgid "Untitled notification"
 msgstr ""
 
-#: includes/Abilities/Manage/CreateNotification.php:179
+#: includes/Abilities/Manage/CreateNotification.php:190
 msgid "Could not create the notification from the provided config."
 msgstr ""
 
@@ -1976,10 +1976,10 @@ msgstr ""
 #: includes/Extensions/WordPress/WPComments.php:262
 #: includes/Extensions/WordPress/WPComments.php:263
 #: includes/Extensions/WordPress/WPComments.php:264
-#: includes/FrontEnd/FrontEnd.php:287
-#: includes/FrontEnd/FrontEnd.php:288
-#: includes/FrontEnd/FrontEnd.php:289
-#: includes/FrontEnd/FrontEnd.php:850
+#: includes/FrontEnd/FrontEnd.php:293
+#: includes/FrontEnd/FrontEnd.php:294
+#: includes/FrontEnd/FrontEnd.php:295
+#: includes/FrontEnd/FrontEnd.php:856
 #: includes/Types/Comments.php:54
 #: includes/Types/Comments.php:67
 #: includes/Types/Comments.php:80
@@ -3696,7 +3696,7 @@ msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:415
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:428
-#: includes/MCP/Manager.php:886
+#: includes/MCP/Manager.php:919
 msgid "Show"
 msgstr ""
 
@@ -5093,7 +5093,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:117
 #: includes/Extensions/WooCommerce/WOOReviews.php:129
 #: includes/Extensions/WordPress/WPComments.php:266
-#: includes/FrontEnd/FrontEnd.php:291
+#: includes/FrontEnd/FrontEnd.php:297
 #: includes/Types/Comments.php:59
 #: includes/Types/Comments.php:72
 #: includes/Types/Comments.php:85
@@ -6069,7 +6069,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:173
 #: includes/Extensions/WooCommerce/WOOReviews.php:142
 #: includes/Extensions/WooCommerce/WOOReviews.php:162
-#: includes/FrontEnd/FrontEnd.php:290
+#: includes/FrontEnd/FrontEnd.php:296
 #: includes/Types/Donations.php:54
 #: includes/Types/EmailSubscription.php:70
 #: includes/Types/Reviews.php:205
@@ -7808,7 +7808,7 @@ msgid "Make sure you have enabled the notification which ID you have given."
 msgstr ""
 
 #. translators: time
-#: includes/Features/ShortcodeInline.php:150
+#: includes/Features/ShortcodeInline.php:155
 #, php-format
 msgctxt "Inline Shortcode"
 msgid "%s ago"
@@ -7842,331 +7842,335 @@ msgstr ""
 msgid "Talk to Support"
 msgstr ""
 
-#: includes/MCP/Manager.php:156
-#: includes/MCP/Manager.php:994
+#: includes/MCP/Manager.php:182
+#: includes/MCP/Manager.php:1027
 msgid "Read-only"
 msgstr ""
 
-#: includes/MCP/Manager.php:156
-#: includes/MCP/Manager.php:533
-#: includes/MCP/Manager.php:994
+#: includes/MCP/Manager.php:182
+#: includes/MCP/Manager.php:566
+#: includes/MCP/Manager.php:1027
 msgid "Read & write"
 msgstr ""
 
-#: includes/MCP/Manager.php:185
+#: includes/MCP/Manager.php:211
 msgid "Nothing to revoke."
 msgstr ""
 
-#: includes/MCP/Manager.php:393
+#: includes/MCP/Manager.php:426
 msgid "You do not have permission to authorize an MCP connection."
 msgstr ""
 
-#: includes/MCP/Manager.php:533
+#: includes/MCP/Manager.php:566
 msgid "Read only"
 msgstr ""
 
-#: includes/MCP/Manager.php:535
+#: includes/MCP/Manager.php:568
 msgid "It can read your notifications, entries and analytics. It cannot create, change or delete anything."
 msgstr ""
 
-#: includes/MCP/Manager.php:536
+#: includes/MCP/Manager.php:569
 msgid "It acts as you: anything it creates, edits or deletes is recorded under your account."
 msgstr ""
 
-#: includes/MCP/Manager.php:551
+#: includes/MCP/Manager.php:584
 msgid "Authorize MCP connection"
 msgstr ""
 
 #. translators: %1$s: client app name, %2$s: site name.
-#: includes/MCP/Manager.php:624
+#: includes/MCP/Manager.php:657
 #, php-format
 msgid "%1$s wants to work with your notifications on %2$s."
 msgstr ""
 
 #. translators: %1$s: user display name, %2$s: user role.
-#: includes/MCP/Manager.php:642
+#: includes/MCP/Manager.php:675
 #, php-format
 msgid "Signed in as %1$s%2$s"
 msgstr ""
 
 #. translators: %1$s: client app name, %2$d: number of tools.
-#: includes/MCP/Manager.php:657
+#: includes/MCP/Manager.php:690
 #, php-format
 msgid "What %1$s will be able to do (%2$d)"
 msgstr ""
 
-#: includes/MCP/Manager.php:679
+#: includes/MCP/Manager.php:712
 msgid "Secured with OAuth. You can revoke this app at any time under NotificationX → MCP."
 msgstr ""
 
-#: includes/MCP/Manager.php:686
+#: includes/MCP/Manager.php:719
 msgid "Deny"
 msgstr ""
 
-#: includes/MCP/Manager.php:687
+#: includes/MCP/Manager.php:720
 msgid "Approve"
 msgstr ""
 
-#: includes/MCP/Manager.php:715
+#: includes/MCP/Manager.php:748
 msgid "MCP"
 msgstr ""
 
-#: includes/MCP/Manager.php:737
-#: includes/MCP/Manager.php:847
+#: includes/MCP/Manager.php:770
+#: includes/MCP/Manager.php:880
 msgid "MCP Server"
 msgstr ""
 
-#: includes/MCP/Manager.php:749
+#: includes/MCP/Manager.php:782
 msgid "Enable MCP access"
 msgstr ""
 
-#: includes/MCP/Manager.php:750
+#: includes/MCP/Manager.php:783
 msgid "When enabled and saved, approved AI assistants can connect to this site to manage notifications and read analytics."
 msgstr ""
 
-#: includes/MCP/Manager.php:758
+#: includes/MCP/Manager.php:791
 msgid "Connection"
 msgstr ""
 
-#: includes/MCP/Manager.php:773
+#: includes/MCP/Manager.php:806
 msgid "Connect a client"
 msgstr ""
 
-#: includes/MCP/Manager.php:788
+#: includes/MCP/Manager.php:821
 msgid "Connected apps"
 msgstr ""
 
-#: includes/MCP/Manager.php:803
+#: includes/MCP/Manager.php:836
 msgid "Connection health"
 msgstr ""
 
-#: includes/MCP/Manager.php:826
-#: includes/MCP/Manager.php:1336
+#: includes/MCP/Manager.php:859
+#: includes/MCP/Manager.php:1369
 msgid "Off"
 msgstr ""
 
-#: includes/MCP/Manager.php:829
-#: includes/MCP/Manager.php:1336
+#: includes/MCP/Manager.php:862
+#: includes/MCP/Manager.php:1369
 #: assets/admin/js/admin.js:1
 msgid "Active"
 msgstr ""
 
-#: includes/MCP/Manager.php:831
+#: includes/MCP/Manager.php:864
 msgid "Setup needed"
 msgstr ""
 
-#: includes/MCP/Manager.php:851
+#: includes/MCP/Manager.php:884
 msgid "Connect NotificationX to Claude, ChatGPT, Cursor and other AI assistants through a built-in MCP server, so you can manage notifications and read analytics in plain language. It is off by default and only administrators can use it."
 msgstr ""
 
-#: includes/MCP/Manager.php:854
+#: includes/MCP/Manager.php:887
 msgid "Learn how it works"
 msgstr ""
 
-#: includes/MCP/Manager.php:875
+#: includes/MCP/Manager.php:908
 msgid "Connector URL"
 msgstr ""
 
-#: includes/MCP/Manager.php:878
-#: includes/MCP/Manager.php:887
+#: includes/MCP/Manager.php:911
+#: includes/MCP/Manager.php:920
 msgid "Copy"
 msgstr ""
 
-#: includes/MCP/Manager.php:880
+#: includes/MCP/Manager.php:913
 msgid "Add this URL as a custom connector in your AI client."
 msgstr ""
 
-#: includes/MCP/Manager.php:883
+#: includes/MCP/Manager.php:916
 msgid "Connection token"
 msgstr ""
 
-#: includes/MCP/Manager.php:889
+#: includes/MCP/Manager.php:922
 msgid "For token-based clients (ChatGPT, Cursor): send it as an Authorization: Bearer header. Keep it secret."
 msgstr ""
 
-#: includes/MCP/Manager.php:893
+#: includes/MCP/Manager.php:926
 msgid "Connection test passed — the MCP server is reachable and exposing its tools."
 msgstr ""
 
-#: includes/MCP/Manager.php:893
+#: includes/MCP/Manager.php:926
 msgid "Test connection"
 msgstr ""
 
-#: includes/MCP/Manager.php:894
+#: includes/MCP/Manager.php:927
 msgid "Reset the connection token? Existing clients will need the new token to reconnect."
 msgstr ""
 
-#: includes/MCP/Manager.php:894
+#: includes/MCP/Manager.php:927
 msgid "A new connection token was generated."
 msgstr ""
 
-#: includes/MCP/Manager.php:894
+#: includes/MCP/Manager.php:927
 msgid "Reset token"
 msgstr ""
 
-#: includes/MCP/Manager.php:911
+#: includes/MCP/Manager.php:944
 msgid "Claude"
 msgstr ""
 
-#: includes/MCP/Manager.php:911
+#: includes/MCP/Manager.php:944
 msgid "OAuth"
 msgstr ""
 
-#: includes/MCP/Manager.php:913
+#: includes/MCP/Manager.php:946
 msgid "In Claude, add a custom connector."
 msgstr ""
 
-#: includes/MCP/Manager.php:914
+#: includes/MCP/Manager.php:947
 msgid "Paste the Connector URL above."
 msgstr ""
 
-#: includes/MCP/Manager.php:915
+#: includes/MCP/Manager.php:948
 msgid "Approve the connection when prompted — you sign in here, no token needed."
 msgstr ""
 
-#: includes/MCP/Manager.php:919
+#: includes/MCP/Manager.php:952
 msgid "ChatGPT"
 msgstr ""
 
-#: includes/MCP/Manager.php:919
-#: includes/MCP/Manager.php:927
+#: includes/MCP/Manager.php:952
+#: includes/MCP/Manager.php:960
 msgid "Token"
 msgstr ""
 
-#: includes/MCP/Manager.php:921
+#: includes/MCP/Manager.php:954
 msgid "Settings → Connectors → Add a custom connector."
 msgstr ""
 
 #. translators: %s: connector URL
-#: includes/MCP/Manager.php:922
+#: includes/MCP/Manager.php:955
 #, php-format
 msgid "Use the URL %s."
 msgstr ""
 
 #. translators: %s: connector URL
-#: includes/MCP/Manager.php:923
+#: includes/MCP/Manager.php:956
 msgid "Provide the connection token as a Bearer credential."
 msgstr ""
 
-#: includes/MCP/Manager.php:927
+#: includes/MCP/Manager.php:960
 msgid "Cursor &amp; others"
 msgstr ""
 
-#: includes/MCP/Manager.php:929
+#: includes/MCP/Manager.php:962
 msgid "Add an MCP server with the Connector URL above."
 msgstr ""
 
-#: includes/MCP/Manager.php:930
+#: includes/MCP/Manager.php:963
 msgid "Set the Authorization header to: Bearer <token>."
 msgstr ""
 
-#: includes/MCP/Manager.php:931
+#: includes/MCP/Manager.php:964
 msgid "Confirm the install when the client asks."
 msgstr ""
 
-#: includes/MCP/Manager.php:961
+#: includes/MCP/Manager.php:994
 msgid "Token connection (ChatGPT / Cursor / manual)"
 msgstr ""
 
-#: includes/MCP/Manager.php:983
+#: includes/MCP/Manager.php:1016
 msgid "Apps you have approved. Refresh to pick up a new or detached connection."
 msgstr ""
 
-#: includes/MCP/Manager.php:984
+#: includes/MCP/Manager.php:1017
 msgid "Refresh"
 msgstr ""
 
-#: includes/MCP/Manager.php:989
-#: includes/MCP/Manager.php:1076
+#: includes/MCP/Manager.php:1022
+#: includes/MCP/Manager.php:1109
 msgid "No AI clients are connected yet."
 msgstr ""
 
-#: includes/MCP/Manager.php:1001
-#: includes/MCP/Manager.php:1075
+#: includes/MCP/Manager.php:1034
+#: includes/MCP/Manager.php:1108
 msgid "Revoke"
 msgstr ""
 
-#: includes/MCP/Manager.php:1026
+#: includes/MCP/Manager.php:1059
 msgid "Secure connection (HTTPS) is on."
 msgstr ""
 
-#: includes/MCP/Manager.php:1028
+#: includes/MCP/Manager.php:1061
 msgid "This site is not served over HTTPS. Token clients work, but hosted clients like Claude require an HTTPS site to connect."
 msgstr ""
 
 #. translators: %s: protocol version
-#: includes/MCP/Manager.php:1031
+#: includes/MCP/Manager.php:1064
 #, php-format
 msgid "MCP protocol version %s."
 msgstr ""
 
 #. translators: %s: protocol version
-#: includes/MCP/Manager.php:1032
+#: includes/MCP/Manager.php:1065
 msgid "Endpoint:"
 msgstr ""
 
-#: includes/MCP/Manager.php:1033
+#: includes/MCP/Manager.php:1066
 msgid "Use “Test connection” above to verify the server end-to-end."
 msgstr ""
 
-#: includes/MCP/Manager.php:1037
+#: includes/MCP/Manager.php:1070
 msgid "Disconnect all"
 msgstr ""
 
-#: includes/MCP/Manager.php:1038
+#: includes/MCP/Manager.php:1071
 msgid "Revoke every connection and OAuth grant. All clients will need to reconnect."
 msgstr ""
 
-#: includes/MCP/Manager.php:1040
+#: includes/MCP/Manager.php:1073
 msgid "Disconnect all clients? Every connection will be revoked."
 msgstr ""
 
-#: includes/MCP/Manager.php:1040
+#: includes/MCP/Manager.php:1073
 msgid "All MCP connections have been revoked."
 msgstr ""
 
-#: includes/MCP/Manager.php:1040
+#: includes/MCP/Manager.php:1073
 msgid "Disconnect all clients"
 msgstr ""
 
-#: includes/MCP/Manager.php:1077
+#: includes/MCP/Manager.php:1110
 msgid "Could not refresh the connected apps."
 msgstr ""
 
-#: includes/MCP/Manager.php:1078
+#: includes/MCP/Manager.php:1111
 msgid "Revoke this connection? The client will need to reconnect."
 msgstr ""
 
-#: includes/MCP/Manager.php:1080
+#: includes/MCP/Manager.php:1113
 msgid "No apps connected yet."
 msgstr ""
 
-#: includes/MCP/Manager.php:1081
+#: includes/MCP/Manager.php:1114
 msgid "Up to date — nothing changed."
 msgstr ""
 
-#: includes/MCP/Manager.php:1082
+#: includes/MCP/Manager.php:1115
 msgid "1 new app connected."
 msgstr ""
 
 #. translators: %d: number of newly connected apps.
-#: includes/MCP/Manager.php:1084
+#: includes/MCP/Manager.php:1117
 #, php-format
 msgid "%d new apps connected."
 msgstr ""
 
-#: includes/MCP/Manager.php:1085
+#: includes/MCP/Manager.php:1118
 msgid "1 app disconnected."
 msgstr ""
 
 #. translators: %d: number of disconnected apps.
-#: includes/MCP/Manager.php:1087
+#: includes/MCP/Manager.php:1120
 #, php-format
 msgid "%d apps disconnected."
 msgstr ""
 
-#: includes/MCP/Manager.php:1088
+#: includes/MCP/Manager.php:1121
 msgid "Connected apps updated."
+msgstr ""
+
+#: includes/MCP/Manager.php:1416
+msgid "No route was found matching the URL and request method."
 msgstr ""
 
 #: includes/MCP/OAuth.php:110
