@@ -102,7 +102,7 @@ These handle popup **and** exit-intent form submissions (`source IN ('popup_noti
 
 **Nonces & localized data.** The admin SPA authenticates with a standard `wp_rest` nonce. `REST::rest_data()` supplies the client with `root` (REST URL), `namespace`, `nonce` (`wp_create_nonce('wp_rest')`), and `omit_credentials`, filtered through `nx_rest_data`.
 
-**Optional REST hardening.** When the `enable_rest_api` setting is on, `REST` hooks `rest_authentication_errors` (999) to still allow the public `/notice`, `/analytics`, and `/delete-cookies` routes through even if the site otherwise restricts REST access, and excludes those (plus `/send-rating`) from bbPress restriction. A `jwt_auth_whitelist` filter lists the plugin's routes for the JWT Auth plugin, including some `license/*` routes served by the Pro plugin.
+**Optional REST hardening.** When the `enable_rest_api` setting is on, `REST` hooks `rest_authentication_errors` (999) to still allow the public `/notice`, `/analytics`, and `/delete-cookies` routes through even if the site otherwise restricts REST access, and excludes those (plus `/send-rating`) from bbPress restriction. A `jwt_auth_whitelist` filter lists the plugin's own routes for the JWT Auth plugin, plus four `license/*` routes that are **transitional**. Those routes are registered by Pro (into this namespace) and Pro now whitelists all six itself in `NotificationXPro\Core\REST::jwt_whitelist()`. Free keeps its four for one release only, because Free auto-updates from wp.org while Pro updates through the licensed channel — so a site normally runs new Free against old Pro, which has no override. Remove them from here once that Pro release has propagated.
 
 ## Source
 - [../../includes/Core/REST.php](../../includes/Core/REST.php)

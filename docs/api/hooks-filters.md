@@ -93,7 +93,7 @@ Fired, roughly in order, as [FrontEnd.php](../../includes/FrontEnd/FrontEnd.php)
 | `nx_notification_link` / `nx_notification_link_{source}` | The click-through URL of an entry ([:742-743](../../includes/FrontEnd/FrontEnd.php#L742)). | `$link`, `$post`, `$entry`, `$params` |
 | `nx_notification_image` / `nx_notification_image_{source}` | Resolved image data for an entry ([:793-794](../../includes/FrontEnd/FrontEnd.php#L793)). | `$image_data`, `$data`, `$settings` |
 | `nx_should_combine` | Whether like entries are merged into one "X people…" notice ([WooCommerce.php:493](../../includes/Extensions/WooCommerce/WooCommerce.php#L493), [EDD.php:114](../../includes/Extensions/EDD/EDD.php#L114)). | `true`, `$data`, `$settings` |
-| `nx_show_on_exclude` / `nx_check_location` / `nx_location_status` | Page-targeting / display-location logic ([:544](../../includes/FrontEnd/FrontEnd.php#L544), [:638](../../includes/FrontEnd/FrontEnd.php#L638), [Locations.php:92](../../includes/Core/Locations.php#L92)). | varies |
+| `nx_show_on_exclude` / `nx_check_location` / `nx_location_status` | Page-targeting / display-location logic ([:570](../../includes/FrontEnd/FrontEnd.php#L570), [:666](../../includes/FrontEnd/FrontEnd.php#L666), [Locations.php:92](../../includes/Core/Locations.php#L92)). `nx_show_on_exclude` runs for every enabled notification on every front-end request, so a callback that throws takes the whole site down. Don't assume a setting's type there; see [types/inline.md](../types/inline.md#excluding-inline-notifications-from-the-popup-loop). | varies |
 | `nx_branding_url` | The "powered by NotificationX" branding link ([:471](../../includes/FrontEnd/FrontEnd.php#L471)). | `$url` |
 | `nx_frontend_js_version` / `nx_frontend_css_version` | Asset cache-bust version ([:80-81](../../includes/FrontEnd/FrontEnd.php#L80)). | `NOTIFICATIONX_VERSION` |
 
@@ -108,6 +108,15 @@ Preview mirrors the frontend pipeline with `nx_preview_*` variants — see [Prev
 ### Data-source option lists
 
 Populated by extensions to fill builder dropdowns: `nx_post_types`, `nx_loop_taxonomies` ([Helper.php](../../includes/Core/Helper.php)), `nx_form_list` ([ContactForm.php](../../includes/Types/ContactForm.php)), `nx_elearning_course_list` ([ELearning.php](../../includes/Types/ELearning.php)), `nx_conversion_category_list`, `nx_conversion_product_list`, `nx_woo_order_status`, `nx_surecart_order_status`, `nx_fluentcart_order_status`, `nx_text_trim_length`, `nx_wp_reviews_rating_condition` (in [GlobalFields.php](../../includes/Extensions/GlobalFields.php) and the respective Type/Extension classes).
+
+### MCP & abilities
+
+| Filter | Modifies | Args |
+| --- | --- | --- |
+| `nx_register_abilities` | The `AbilityBase` instances exposed as MCP tools and mirrored into the WordPress Abilities API ([Registrar.php:93](../../includes/Abilities/Registrar.php#L93)). **Pro and third-party add-ons register their abilities here.** | `$abilities` |
+| `nx_mcp_is_supported` | Whether the MCP module boots at all — the PHP capability gate ([Bootstrap.php:53](../../includes/MCP/Bootstrap.php#L53)). | `$supported` |
+
+The registry also *consumes* two core actions on WordPress 6.9+: `wp_abilities_api_categories_init` (registers the `notificationx` ability category) and `wp_abilities_api_init` (registers the abilities themselves). Order matters — see [../features/mcp/](../features/mcp/).
 
 ### Cron & misc
 

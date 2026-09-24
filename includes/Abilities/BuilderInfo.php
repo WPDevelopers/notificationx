@@ -218,19 +218,7 @@ class BuilderInfo {
      * @return array Param => tag/value map (first_param, custom_first_param, ...); empty when the theme has no template.
      */
     public static function default_template_for_theme( $theme ) {
-        if ( ! $theme ) {
-            return array();
-        }
-        if ( ! self::$triggers_booted ) {
-            self::boot(); // Ensures nx_before_metabox_load fired so extensions registered nx_themes_trigger.
-            self::$triggers_booted = true;
-            // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- consuming core NotificationX (nx_) hooks.
-            $triggers = apply_filters( 'nx_themes_trigger', array() );
-            // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-            self::$triggers = is_array( $triggers ) ? $triggers : array();
-        }
-
-        $list = isset( self::$triggers[ $theme ] ) && is_array( self::$triggers[ $theme ] ) ? self::$triggers[ $theme ] : array();
+        $list = self::theme_triggers( $theme );
 
         $template = array();
         $prefix   = '@notification-template.';
@@ -254,6 +242,47 @@ class BuilderInfo {
             }
         }
         return $template;
+    }
+
+    /**
+     * The default inline display locations (hook names) the admin builder
+     * applies when an inline theme is selected.
+     *
+     * Inline themes declare `inline_location` in their theme config; the
+     * builder copies it into the notification through the nx_themes_trigger
+     * system. A headless create never fires that trigger, so without this the
+     * record stores no location and the notification renders nowhere.
+     *
+     * @param string $theme Theme id (stored value, e.g. woo_inline_conv-theme-seven).
+     * @return array Hook names; empty when the theme declares none.
+     */
+    public static function default_inline_location_for_theme( $theme ) {
+        $list = self::theme_triggers( $theme );
+        if ( empty( $list['inline_location'] ) ) {
+            return array();
+        }
+        return array_values( array_filter( (array) $list['inline_location'], 'is_string' ) );
+    }
+
+    /**
+     * The nx_themes_trigger entries for one theme, booting the trigger map once.
+     *
+     * @param string $theme Theme id.
+     * @return array
+     */
+    protected static function theme_triggers( $theme ) {
+        if ( ! $theme || ! is_string( $theme ) ) {
+            return array();
+        }
+        if ( ! self::$triggers_booted ) {
+            self::boot(); // Ensures nx_before_metabox_load fired so extensions registered nx_themes_trigger.
+            self::$triggers_booted = true;
+            // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- consuming core NotificationX (nx_) hooks.
+            $triggers = apply_filters( 'nx_themes_trigger', array() );
+            // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+            self::$triggers = is_array( $triggers ) ? $triggers : array();
+        }
+        return isset( self::$triggers[ $theme ] ) && is_array( self::$triggers[ $theme ] ) ? self::$triggers[ $theme ] : array();
     }
 
     /**

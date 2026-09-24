@@ -368,7 +368,7 @@ class WooCommerceSales extends Types {
                 $term = 'download_category';
             }
             $product_categories = get_the_terms( $product_id, $term );
-            if( ! is_wp_error( $product_categories ) ) {
+            if( is_array( $product_categories ) ) {
                 foreach( $product_categories as $category ) {
                     $product_category_list[] = $category->slug;
                 }

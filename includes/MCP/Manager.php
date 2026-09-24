@@ -27,6 +27,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Manager {
 
+    /**
+     * Path of the pretty MCP endpoint, relative to home.
+     *
+     * Also the suffix of the RFC 9728 discovery URLs we answer for.
+     *
+     * @var string
+     */
+    const ENDPOINT_PATH = 'notificationx/mcp';
+
     use GetInstance;
 
     /**
@@ -88,6 +97,23 @@ class Manager {
         ) );
 
         // OAuth: dynamic client registration + token endpoint (public).
+        // Discovery over REST as well as `/.well-known/`. The well-known path is
+        // a single namespace the whole site shares: another plugin that hooks
+        // `parse_request` earlier, or a host that answers `/.well-known/` itself
+        // (ACME), takes it and our clients then read someone else's metadata.
+        // A route inside our own REST namespace cannot be taken, so that is what
+        // Server::with_challenge() advertises. Public, like the documents
+        // themselves.
+        register_rest_route( $ns, '/mcp/oauth/protected-resource', array(
+            'methods'             => 'GET',
+            'callback'            => array( $this, 'rest_protected_resource' ),
+            'permission_callback' => '__return_true',
+        ) );
+        register_rest_route( $ns, '/mcp/oauth/authorization-server', array(
+            'methods'             => 'GET',
+            'callback'            => array( $this, 'rest_authorization_server' ),
+            'permission_callback' => '__return_true',
+        ) );
         register_rest_route( $ns, '/mcp/oauth/register', array(
             'methods'             => 'POST',
             'callback'            => array( $this, 'rest_oauth_register' ),
@@ -333,16 +359,23 @@ class Manager {
             return;
         }
 
-        // OAuth discovery (also accept the path-suffixed RFC form).
-        if ( 0 === strpos( $path, '.well-known/oauth-authorization-server' ) ) {
-            $this->emit_json( OAuth::get_instance()->authorization_server_metadata() );
-        }
-        if ( 0 === strpos( $path, '.well-known/oauth-protected-resource' ) ) {
-            $this->emit_json( OAuth::get_instance()->protected_resource_metadata() );
+        // OAuth discovery (also accept the path-suffixed RFC form). Only our
+        // own documents are served, and only while MCP is switched on: another
+        // MCP plugin on the same site owns `.well-known/...`/<its-endpoint>,
+        // and answering that with our metadata would point its clients at our
+        // authorization server. With MCP off we own no resource to describe, so
+        // the request falls through to WordPress instead.
+        if ( $this->is_enabled() ) {
+            if ( $this->owns_discovery_path( $path, 'oauth-authorization-server' ) ) {
+                $this->emit_json( OAuth::get_instance()->authorization_server_metadata() );
+            }
+            if ( $this->owns_discovery_path( $path, 'oauth-protected-resource' ) ) {
+                $this->emit_json( OAuth::get_instance()->protected_resource_metadata() );
+            }
         }
 
         // Pretty MCP endpoint.
-        if ( 'notificationx/mcp' === $path ) {
+        if ( self::ENDPOINT_PATH === $path ) {
             $this->handle_pretty_mcp();
         }
 
@@ -438,6 +471,49 @@ class Manager {
     }
 
     /**
+     * The brand mark for a connecting client.
+     *
+     * Clients arrive through open dynamic registration, so the name is whatever
+     * the app sent and anyone can call themselves "Claude". A vendor mark is
+     * therefore only shown when the name matches AND the code is being sent
+     * back to a host that vendor controls; everything else (including loopback
+     * redirects used by desktop apps) falls back to the initial. The files are
+     * the same ones the Connect a client panel uses, so the consent screen and
+     * the admin panel can never show different marks for the same app.
+     *
+     * @param string $name         Registered client name.
+     * @param string $redirect_uri Validated redirect URI of this authorize request.
+     * @return array{file:string,tint:string}|array Empty when unrecognised.
+     */
+    protected static function client_brand( $name, $redirect_uri ) {
+        $brands = array(
+            'claude'  => array( 'file' => 'claude.svg',  'tint' => '#fdf1ec', 'hosts' => array( 'claude.ai', 'claude.com', 'anthropic.com' ) ),
+            'chatgpt' => array( 'file' => 'chatgpt.svg', 'tint' => '#eaf6f2', 'hosts' => array( 'chatgpt.com', 'openai.com' ) ),
+            'openai'  => array( 'file' => 'chatgpt.svg', 'tint' => '#eaf6f2', 'hosts' => array( 'chatgpt.com', 'openai.com' ) ),
+            'cursor'  => array( 'file' => 'cursor.svg',  'tint' => '#eceaf6', 'hosts' => array( 'cursor.com', 'cursor.sh' ) ),
+        );
+        $host   = strtolower( (string) wp_parse_url( (string) $redirect_uri, PHP_URL_HOST ) );
+        $scheme = strtolower( (string) wp_parse_url( (string) $redirect_uri, PHP_URL_SCHEME ) );
+        if ( '' === $host || 'https' !== $scheme ) {
+            return array();
+        }
+        foreach ( $brands as $needle => $brand ) {
+            if ( false === stripos( (string) $name, $needle ) ) {
+                continue;
+            }
+            foreach ( $brand['hosts'] as $vendor_host ) {
+                if ( $host === $vendor_host || substr( $host, -strlen( '.' . $vendor_host ) ) === '.' . $vendor_host ) {
+                    return array(
+                        'file' => $brand['file'],
+                        'tint' => $brand['tint'],
+                    );
+                }
+            }
+        }
+        return array();
+    }
+
+    /**
      * Output the consent form.
      *
      * @param array $request Validated authorize request.
@@ -473,8 +549,8 @@ class Manager {
         $substr         = function_exists( 'mb_substr' ) ? 'mb_substr' : 'substr';
         $who_initial    = strtoupper( $substr( $who_name, 0, 1 ) );
         $client_initial = strtoupper( $substr( $name, 0, 1 ) );
-        // Show the connecting app's own mark when we recognise it; otherwise the initial.
-        $client_is_claude = ( false !== stripos( $name, 'claude' ) );
+        // Show the connecting app's own mark only when we can vouch for it; otherwise the initial.
+        $client_brand = self::client_brand( $name, $request['redirect_uri'] );
 
         // The exact tools this grant unlocks, straight from the ability
         // registry so the list can never drift from what the server exposes.
@@ -515,8 +591,7 @@ class Manager {
         .app{width:132px;text-align:center}
         .tile{width:64px;height:64px;margin:0 auto 10px;border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(30,20,80,.10)}
         .tile.client{background:#eef0f6;color:#3a4056;font-size:26px;font-weight:700}
-        .tile.client.has-mark{background:#fdf1ec}
-        .tile.client svg{width:38px;height:38px;display:block}
+        .tile.client svg,.tile.client img{width:38px;height:38px;display:block}
         .tile.nx{background:#fff;border:1px solid var(--line)}
         .tile.nx svg{width:42px;height:42px;display:block}
         .app-name{font-size:14px;font-weight:600;line-height:1.3}
@@ -557,9 +632,9 @@ class Manager {
     <div class="card">
         <div class="apps">
             <div class="app">
-                <div class="tile client<?php echo $client_is_claude ? ' has-mark' : ''; ?>">
-                    <?php if ( $client_is_claude ) : ?>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#d97757" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="3" x2="12" y2="21"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(30 12 12)"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(60 12 12)"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(90 12 12)"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(120 12 12)"/><line x1="12" y1="3" x2="12" y2="21" transform="rotate(150 12 12)"/></svg>
+                <div class="tile client<?php echo $client_brand ? ' has-mark' : ''; ?>"<?php echo $client_brand ? ' style="background:' . esc_attr( $client_brand['tint'] ) . '"' : ''; ?>>
+                    <?php if ( $client_brand ) : ?>
+                        <img src="<?php echo esc_url( NOTIFICATIONX_ADMIN_URL . 'images/mcp/' . $client_brand['file'] ); ?>" alt="" width="38" height="38" />
                     <?php else : ?>
                         <?php echo esc_html( $client_initial ); ?>
                     <?php endif; ?>
@@ -1301,6 +1376,78 @@ class Manager {
     /* --------------------------------------------------------------------- */
     /* Helpers                                                               */
     /* --------------------------------------------------------------------- */
+
+    /**
+     * RFC 9728 protected-resource metadata, served from our own REST namespace.
+     *
+     * @return \WP_REST_Response
+     */
+    public function rest_protected_resource() {
+        if ( ! $this->is_enabled() ) {
+            return $this->discovery_disabled();
+        }
+
+        return new \WP_REST_Response( OAuth::get_instance()->protected_resource_metadata(), 200 );
+    }
+
+    /**
+     * RFC 8414 authorization-server metadata, served from our own REST namespace.
+     *
+     * @return \WP_REST_Response
+     */
+    public function rest_authorization_server() {
+        if ( ! $this->is_enabled() ) {
+            return $this->discovery_disabled();
+        }
+
+        return new \WP_REST_Response( OAuth::get_instance()->authorization_server_metadata(), 200 );
+    }
+
+    /**
+     * The response for a discovery request made while MCP is switched off.
+     * A 404 keeps us indistinguishable from a site that never shipped MCP, so
+     * a client cannot read our settings state from the discovery surface.
+     *
+     * @return \WP_Error
+     */
+    protected function discovery_disabled() {
+        return new \WP_Error(
+            'rest_no_route',
+            __( 'No route was found matching the URL and request method.', 'notificationx' ),
+            array( 'status' => 404 )
+        );
+    }
+
+    /**
+     * Whether an OAuth discovery path belongs to this plugin.
+     *
+     * The handler runs on `parse_request` at priority 0 and `emit_json()`
+     * exits, so whatever it answers is final -- nothing later in the request
+     * gets a say. A prefix match would therefore serve our metadata for
+     * *any* suffix, including another MCP plugin's
+     * `.well-known/oauth-protected-resource/<their-plugin>/mcp`, sending
+     * their clients to our authorization server (RFC 9728 requires the
+     * resource to match exactly, so their handshake then fails).
+     *
+     * Two forms are ours, and only those two:
+     *
+     * - the bare document, which our own `WWW-Authenticate` challenge
+     *   advertises (see Server::with_challenge());
+     * - the RFC 9728 path-suffixed form for our endpoint.
+     *
+     * Anything else is declined by returning false, so the request falls
+     * through to whichever plugin does own it -- deliberately not a 404,
+     * which would break that neighbour just as effectively.
+     *
+     * @param string $path Request path, relative to home and unslashed.
+     * @param string $doc  Discovery document name.
+     * @return bool
+     */
+    protected function owns_discovery_path( $path, $doc ) {
+        $base = '.well-known/' . $doc;
+
+        return $path === $base || $path === $base . '/' . self::ENDPOINT_PATH;
+    }
 
     /**
      * The request path relative to the WordPress home path, without query string.

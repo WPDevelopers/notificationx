@@ -710,7 +710,9 @@ class Settings extends UsabilityDynamicsSettings {
         }
 
         $this->set( 'settings', $settings );
-        delete_transient( 'nx_get_field_names' );
+        // Module toggles change which builder fields exist, and
+        // NotificationX::normalize_post() coerces field types from this cache.
+        delete_transient( 'nx_builder_fields' );
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         do_action( 'nx_settings_saved', $settings );
         return true;

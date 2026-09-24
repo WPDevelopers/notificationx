@@ -25,6 +25,28 @@ One row per notification. Read/written through `PostType` ([../../includes/Core/
 
 The column-format map (used on insert/update) is `PostType::$format`.
 
+#### Field types in `data`
+
+`data` holds whatever JSON the caller sent. The admin builder always sends the right shapes, but MCP `create-notification` / `update-notification` and the REST save pass caller JSON straight through, and many list fields declare `'default' => ''`. Front-end code then passes these values to `explode()`, `array_diff()`, `array_map()`, `shuffle()` and similar, which throw a `TypeError` on PHP 8. Because `FrontEnd::get_notifications_ids()` loops over every enabled notification on every page, one bad row returned a 500 for the whole site.
+
+[`NotificationX::normalize_field_types()`](../../includes/NotificationX.php) coerces each field to the shape its consumers expect. It runs in two places:
+
+- **On save:** in `PostType::save_post()`, before the row is stored and before the `nx_get_post` filters that `save_post()` fires.
+- **On read:** in `normalize_post()`, which every `PostType::get_posts()` call with `select = '*'` uses. This also repairs rows stored before the fix.
+
+| Field | Coerced to | Rule |
+| --- | --- | --- |
+| `'multiple' => true` (`select`, `select-async`, `better-select`) | array | `''`/`null`/`false` becomes `[]`; a scalar becomes `[ scalar ]` |
+| `text`, `textarea`, `date`, `timepicker`, `advanced-codeviewer` | string | A list of scalars is joined with `,`; any other array becomes `''` |
+| `repeater`, `advanced-repeater` | list of array rows | Non-array rows are dropped; a non-array value becomes `[]` |
+| `notification-template` | array | A non-array value becomes `[]` |
+| `custom_contents` | list of array rows | As for repeaters |
+| `custom_ids`, `taxonomy_ids` | string | As for text fields |
+
+The field types come from the cached builder config (`nx_builder_fields` transient, cleared on settings save and on upgrade). The last four keys are in `NotificationX::GUARDED_FIELDS` and are coerced even when a module that declares them was off when the cache was built.
+
+Tests: [tests/test-field-type-normalization.php](../../tests/test-field-type-normalization.php), [tests/test-inline-location.php](../../tests/test-inline-location.php).
+
 ### `{prefix}nx_entries` — per-item data
 
 The individual items a notification cycles through — each sale, review, comment, form submission, or popup/exit-intent form entry.

@@ -114,7 +114,7 @@ class Inline {
         if ( ! empty( $settings['custom_type'] ) ) {
             $theme_name = str_replace( $settings['custom_type'] . '_', '', $theme_name );
         }
-        $params = wp_parse_args( $settings['notification-template'], $defaults );
+        $params = wp_parse_args( isset( $settings['notification-template'] ) && is_array( $settings['notification-template'] ) ? $settings['notification-template'] : array(), $defaults );
 
         foreach ( $params as $param => $element ) {
             if ( $element == 'tag_custom' && isset( $params[ 'custom_' . $param ] ) ) {
