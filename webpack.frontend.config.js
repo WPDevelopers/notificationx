@@ -29,6 +29,10 @@ const config = {
             __dirname,
             "nxdev/notificationx/frontend/flashing-tab.ts"
         ),
+        "gdpr-modal": path.resolve(
+            __dirname,
+            "nxdev/notificationx/frontend/gdpr-modal.ts"
+        ),
     },
     module: {
         ...defaultConfig.module,
@@ -85,6 +89,10 @@ const config = {
                 "public/css/crossSite.css.map",
                 "public/js/crossSite.js",
                 "public/js/crossSite.js.map",
+                "public/css/gdpr-modal.css",
+                "public/css/gdpr-modal.css.map",
+                "public/js/gdpr-modal.js",
+                "public/js/gdpr-modal.js.map",
             ],
         }),
         new MiniCSSExtractPlugin({

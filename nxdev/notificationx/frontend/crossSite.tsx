@@ -12,3 +12,6 @@ import { __ } from '@wordpress/i18n';
 
 
 import './index';
+// Cross-domain embeds can't rely on the PHP enqueue of gdpr-modal.css, so the
+// GDPR modal styles stay bundled into crossSite.css.
+import './scss/gdpr-modal.scss';
