@@ -1258,6 +1258,15 @@ class Manager {
             .nx-mcp-revoke{cursor:pointer;border:1px solid #d63638;background:#fff;color:#d63638;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600}
             .nx-mcp-revoke:hover{background:#d63638;color:#fff}
             .nx-mcp-empty{color:#787c82;font-style:italic}
+            /* Nothing on this tab is submitted by the settings form: the enable
+               toggle saves itself and everything else is an ajax button or
+               read-only text, so a Save button here only invites a click that
+               does nothing. The control is a single shared quickbuilder
+               component every other tab still needs, so it is hidden for this
+               tab rather than removed. Selector mirrors the Entries tab, which
+               already hides it the same way, and has to out-specify
+               `#notificationx .wp-react-form... .wprf-submit{display:flex}`. */
+            #notificationx .nx-admin-wrapper .nx-settings-form-wrapper.tab-mcp .wprf-submit.wprf-control{display:none}
             .nx-mcp-health{display:flex;flex-direction:column;gap:8px}
             .nx-mcp-health-row{display:flex;align-items:center;gap:8px;color:#2c3338;font-size:13px}
             .nx-mcp-dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
