@@ -152,6 +152,22 @@ class Manager {
             'callback'            => array( $this, 'rest_self_test' ),
             'permission_callback' => $admin,
         ) );
+        // The enable toggle persists through here rather than the settings form.
+        // The settings endpoint replaces the whole settings blob with whatever the
+        // admin app posts (see Admin\Settings::save_settings()), so a request
+        // carrying only `enable_mcp` would wipe every other setting. This writes
+        // the one key and leaves the rest alone.
+        register_rest_route( $ns, '/mcp/enable', array(
+            'methods'             => 'POST',
+            'callback'            => array( $this, 'rest_set_enabled' ),
+            'permission_callback' => $admin,
+            'args'                => array(
+                'enabled' => array(
+                    'required' => true,
+                    'type'     => 'boolean',
+                ),
+            ),
+        ) );
         register_rest_route( $ns, '/mcp/apps/revoke', array(
             'methods'             => 'POST',
             'callback'            => array( $this, 'rest_revoke_app' ),
@@ -282,6 +298,11 @@ class Manager {
      * @return \WP_REST_Response
      */
     public function rest_connection() {
+        // Whatever switched MCP on -- the toggle, or the settings form's Save --
+        // the panel asks here for the state to display, so make sure there is a
+        // token to hand back rather than reporting an empty one until a reload.
+        $this->ensure_paired();
+
         return new \WP_REST_Response( $this->connection_state(), 200 );
     }
 
@@ -322,8 +343,61 @@ class Manager {
      * @return \WP_REST_Response
      */
     public function rest_self_test() {
+        // A token is normally minted while the settings tab is built, which only
+        // happens on a server-rendered request. Saving from the admin app never
+        // rebuilds it, so a test run straight after switching MCP on used to
+        // report "no connection token has been generated yet" until the page was
+        // reloaded. Mint here too, so the test reflects the saved state.
+        $this->ensure_paired();
+
         $result = SelfTest::get_instance()->run();
         return new \WP_REST_Response( array( 'status' => $result['ok'] ? 'success' : 'error', 'message' => $result['message'] ) + $result, 200 );
+    }
+
+    /**
+     * Turn MCP access on or off.
+     *
+     * Writes only `settings.enable_mcp`: the settings endpoint replaces the whole
+     * blob with the posted one, so persisting the toggle through there would
+     * require the admin app to post every other setting alongside it.
+     *
+     * @param \WP_REST_Request $request Incoming request.
+     * @return \WP_REST_Response
+     */
+    public function rest_set_enabled( $request ) {
+        $enabled = (bool) $request->get_param( 'enabled' );
+
+        $settings = Settings::get_instance()->get( 'settings' );
+        if ( ! is_array( $settings ) ) {
+            $settings = array();
+        }
+        $settings['enable_mcp'] = $enabled;
+        Settings::get_instance()->set( 'settings', $settings );
+
+        // Same courtesy the settings tab does: switching on should leave the UI
+        // with a token to show and a connection that can actually be tested.
+        $this->ensure_paired();
+
+        return new \WP_REST_Response(
+            array( 'status' => 'success' ) + $this->connection_state(),
+            200
+        );
+    }
+
+    /**
+     * Mint a pairing token if MCP is on and none exists yet. Idempotent, and a
+     * no-op while MCP is off so turning it off never creates credentials.
+     *
+     * @return void
+     */
+    protected function ensure_paired() {
+        if ( ! $this->is_enabled() ) {
+            return;
+        }
+        $pairing = Pairing::get_instance();
+        if ( ! $pairing->is_connected() ) {
+            $pairing->connect();
+        }
     }
 
     /**
@@ -917,7 +991,8 @@ class Manager {
                 <div class="nx-mcp-copyrow">
                     <code class="nx-mcp-value nx-mcp-token" data-token="<?php echo esc_attr( $token ); ?>">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</code>
                     <button type="button" class="nx-mcp-copy" onclick="nxMcpReveal(this)"><?php esc_html_e( 'Show', 'notificationx' ); ?></button>
-                    <button type="button" class="nx-mcp-copy" onclick="nxMcpCopy(this,'<?php echo esc_js( $token ); ?>')"><?php esc_html_e( 'Copy', 'notificationx' ); ?></button>
+                    <?php // Reads the token from the element rather than a value baked in at render time: the panel is built before MCP is switched on, so a literal here would stay empty until a reload. ?>
+                    <button type="button" class="nx-mcp-copy" onclick="nxMcpCopyToken(this)"><?php esc_html_e( 'Copy', 'notificationx' ); ?></button>
                 </div>
                 <p class="nx-mcp-hint"><?php esc_html_e( 'For token-based clients (ChatGPT, Cursor): send it as an Authorization: Bearer header. Keep it secret.', 'notificationx' ); ?></p>
             </div>
@@ -1099,6 +1174,8 @@ class Manager {
         $nonce = wp_create_nonce( 'wp_rest' );
         $urls  = array(
             'test'       => esc_url_raw( rest_url( 'notificationx/v1/mcp/self-test' ) ),
+            'enable'     => esc_url_raw( rest_url( 'notificationx/v1/mcp/enable' ) ),
+            'connection' => esc_url_raw( rest_url( 'notificationx/v1/mcp/connection' ) ),
             'rotate'     => esc_url_raw( rest_url( 'notificationx/v1/mcp/rotate' ) ),
             'disconnect' => esc_url_raw( rest_url( 'notificationx/v1/mcp/disconnect' ) ),
             'revoke'     => esc_url_raw( rest_url( 'notificationx/v1/mcp/apps/revoke' ) ),
@@ -1109,6 +1186,10 @@ class Manager {
             'empty'         => __( 'No AI clients are connected yet.', 'notificationx' ),
             'refreshFailed' => __( 'Could not refresh the connected apps.', 'notificationx' ),
             'revokeConfirm' => __( 'Revoke this connection? The client will need to reconnect.', 'notificationx' ),
+            // Enable toggle outcomes.
+            'enabled'       => __( 'MCP access enabled.', 'notificationx' ),
+            'disabled'      => __( 'MCP access disabled.', 'notificationx' ),
+            'enableFailed'  => __( 'Could not save the MCP setting.', 'notificationx' ),
             // Refresh outcomes: say what actually changed, not just a count.
             'noneStill'     => __( 'No apps connected yet.', 'notificationx' ),
             'upToDate'      => __( 'Up to date — nothing changed.', 'notificationx' ),
@@ -1220,8 +1301,26 @@ class Manager {
             };
             window.nxMcpReveal = function(btn){
                 var code = btn.parentNode.querySelector('.nx-mcp-token'); if(!code) return;
-                if (code.dataset.shown === '1'){ code.textContent = '••••••••••••'; code.dataset.shown='0'; btn.textContent='Show'; }
-                else { code.textContent = code.dataset.token || ''; code.dataset.shown='1'; btn.textContent='Hide'; }
+                if (code.dataset.shown === '1'){ code.textContent = '••••••••••••'; code.dataset.shown='0'; btn.textContent='<?php echo esc_js( __( 'Show', 'notificationx' ) ); ?>'; return; }
+                // The panel may have been rendered before MCP was switched on, in
+                // which case there was no token to print into it. Fetch it rather
+                // than revealing an empty box.
+                nxMcpWithToken(function(token){
+                    code.textContent = token || ''; code.dataset.shown='1';
+                    btn.textContent='<?php echo esc_js( __( 'Hide', 'notificationx' ) ); ?>';
+                });
+            };
+            window.nxMcpCopyToken = function(btn){
+                var code = btn.parentNode.querySelector('.nx-mcp-token'); if(!code) return;
+                nxMcpWithToken(function(token){ nxMcpCopy(btn, token || ''); });
+            };
+            // Hand the caller the token, fetching it once if the panel does not
+            // have one yet.
+            window.nxMcpWithToken = function(done){
+                var code = document.querySelector('.nx-mcp-token');
+                var have = code && code.dataset.token;
+                if (have) { done(code.dataset.token); return; }
+                nxMcpSyncConnection(function(state){ done(state && state.token ? state.token : ''); });
             };
             window.nxMcpAction = function(btn, action, opts){
                 opts = opts || {};
@@ -1360,14 +1459,89 @@ class Manager {
                 nxMcpRefreshApps(btn);
             });
 
-            // Keep the status badge in sync with the enable toggle, live.
-            document.addEventListener('change', function(e){
-                if (!e.target || e.target.name !== 'enable_mcp') return;
+            // Paint the badge for a given state.
+            window.nxMcpPaintBadge = function(on){
                 var badge = document.querySelector('.nx-mcp-badge');
                 if (!badge) return;
-                var on = !!e.target.checked;
                 badge.textContent = on ? '<?php echo esc_js( __( 'Active', 'notificationx' ) ); ?>' : '<?php echo esc_js( __( 'Off', 'notificationx' ) ); ?>';
                 badge.className = 'nx-mcp-badge nx-mcp-badge-' + (on ? 'active' : 'off');
+            };
+
+            // The enable toggle saves itself. The settings form's own Save still
+            // works, but the toggle gates every panel below it, so leaving it
+            // unsaved meant the connector URL, token and connection test all
+            // described a state the server was not in.
+            var nxMcpEnableInFlight = false;
+            document.addEventListener('change', function(e){
+                if (!e.target || e.target.name !== 'enable_mcp') return;
+                var input = e.target;
+                var on    = !!input.checked;
+
+                // Show the intent straight away, then reconcile with the server.
+                nxMcpPaintBadge(on);
+
+                if (nxMcpEnableInFlight) return;
+                nxMcpEnableInFlight = true;
+                input.disabled = true;
+
+                fetch(window.nxMcpData.urls.enable, {
+                    method: 'POST',
+                    headers: { 'Content-Type':'application/json', 'X-WP-Nonce': window.nxMcpData.nonce },
+                    body: JSON.stringify({ enabled: on })
+                }).then(function(r){
+                    return r.json().catch(function(){ return {}; }).then(function(j){
+                        if (!r.ok) { throw new Error((j && j.message) || 'http'); }
+                        return j;
+                    });
+                }).then(function(res){
+                    nxMcpEnableInFlight = false; input.disabled = false;
+                    // Server is the truth: repaint from what it reports.
+                    var saved = !!res.enabled;
+                    input.checked = saved;
+                    nxMcpPaintBadge(saved);
+                    if (res.token) { nxMcpSetToken(res.token); }
+                    nxMcpToast('success', saved ? window.nxMcpData.i18n.enabled : window.nxMcpData.i18n.disabled);
+                }).catch(function(){
+                    nxMcpEnableInFlight = false; input.disabled = false;
+                    // Put the control back where it was so it cannot claim a
+                    // state that was never stored.
+                    input.checked = !on;
+                    nxMcpPaintBadge(!on);
+                    nxMcpToast('error', window.nxMcpData.i18n.enableFailed);
+                });
+            });
+
+            // Fill in the token the panel was rendered without, so Show/Copy and
+            // the connection test work without a reload.
+            window.nxMcpSetToken = function(token){
+                var code = document.querySelector('.nx-mcp-token');
+                if (!code) return;
+                code.dataset.token = token;
+                if (code.dataset.shown === '1') { code.textContent = token; }
+            };
+
+            // Re-read the connection from the server and repaint the panel.
+            // The panel is server-rendered once; anything that switches MCP on
+            // afterwards -- the toggle, or the settings form's own Save -- leaves
+            // the markup describing the old state until this runs.
+            window.nxMcpSyncConnection = function(done){
+                fetch(window.nxMcpData.urls.connection, {
+                    headers: { 'X-WP-Nonce': window.nxMcpData.nonce }
+                }).then(function(r){ return r.json(); }).then(function(state){
+                    if (state && typeof state.enabled !== 'undefined') { nxMcpPaintBadge(!!state.enabled); }
+                    if (state && state.token) { nxMcpSetToken(state.token); }
+                    if (done) { done(state); }
+                }).catch(function(){ if (done) { done(null); } });
+            };
+
+            // The settings form's Save can switch MCP on without going through
+            // the toggle handler (a value restored by the browser, or a save
+            // triggered from another tab). Pick the new state up either way.
+            document.addEventListener('click', function(e){
+                var btn = e.target && e.target.closest ? e.target.closest('.wprf-submit-button') : null;
+                if (!btn) return;
+                if (!document.querySelector('.nx-mcp-token')) return;
+                setTimeout(function(){ nxMcpSyncConnection(); }, 1200);
             });
         </script>
         <?php
