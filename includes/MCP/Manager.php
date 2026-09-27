@@ -854,7 +854,7 @@ class Manager {
                         'type'    => 'toggle',
                         'default' => false,
                         'label'   => __( 'Enable MCP access', 'notificationx' ),
-                        'help'    => __( 'When enabled and saved, approved AI assistants can connect to this site to manage notifications and read analytics.', 'notificationx' ),
+                        'help'    => __( 'When enabled, approved AI assistants can connect to this site to manage notifications and read analytics.', 'notificationx' ),
                     ),
                 ),
             ),

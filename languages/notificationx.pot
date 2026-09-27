@@ -7921,7 +7921,7 @@ msgid "Enable MCP access"
 msgstr ""
 
 #: includes/MCP/Manager.php:783
-msgid "When enabled and saved, approved AI assistants can connect to this site to manage notifications and read analytics."
+msgid "When enabled, approved AI assistants can connect to this site to manage notifications and read analytics."
 msgstr ""
 
 #: includes/MCP/Manager.php:791
