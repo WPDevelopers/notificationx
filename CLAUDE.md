@@ -31,6 +31,7 @@ PHP / tests:
 - `composer install` — installs PHP libs (`lib-settings`, `query-builder`, `wp-notice`) from VCS repos declared in [composer.json](composer.json).
 - `vendor/bin/phpunit` — runs the suite in [tests/](tests/) (config: [phpunit.xml.dist](phpunit.xml.dist), bootstrap: [tests/bootstrap.php](tests/bootstrap.php)). `tests/test-sample.php` is excluded.
 - `vendor/bin/phpcs --standard=phpcs.xml` — coding standards ([phpcs.xml](phpcs.xml), stricter dist version: [.phpcs.xml.dist](.phpcs.xml.dist)).
+- `npm run test:js` — Jest unit tests for the frontend runtime in [tests/js/](tests/js/).
 
 Build outputs land in `nxbuild/` (referenced via the `NOTIFICATIONX_DEV_ASSETS` constant defined in [notificationx.php](notificationx.php)). `assets/` is committed source/static assets, not the build target.
 
@@ -71,6 +72,7 @@ There are two frontend builds in this repo (admin + frontend webpack configs) an
 - The constant `NOTIFICATIONX_DEV_ASSETS` points at `nxbuild/` — when wiring up new bundles, register handles against this path, not `assets/`.
 - Distribution exclusions live in [.distignore](.distignore); `.gitattributes` controls `git archive`. Update both if you add top-level dev-only files.
 - WPML strings are declared in [wpml-config.xml](wpml-config.xml).
+- Frontend runtime filters go through `nxApplyFilters()` in [nxdev/notificationx/frontend/core/hooks.ts](nxdev/notificationx/frontend/core/hooks.ts). Never import `@wordpress/hooks` in the frontend runtime and never add it to the frontend webpack `externals`. See [docs/api/frontend-js-hooks.md](docs/api/frontend-js-hooks.md).
 
 ## Reference docs in-repo
 - [docs/development/adding-a-notification-type.md](docs/development/adding-a-notification-type.md) — adding a new Type end-to-end.

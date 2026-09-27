@@ -14,6 +14,7 @@ New here? Start with [architecture/overview.md](architecture/overview.md) for th
 | [features/](features/) | Per-feature deep dives — Setup Wizard, Exit Intent, Notification Bar, Sales Notification designs. |
 | [types/](types/) | Per-**Type** reference (one doc per notification category — 19 types). |
 | [extensions/](extensions/) | Per-**Extension** reference (one doc per data-source integration — 35 integrations). |
+| [qa-guide/](qa-guide/) | Manual QA test plans for releases — setup, numbered cases and expected results for the tester. |
 
 ## The core abstraction
 

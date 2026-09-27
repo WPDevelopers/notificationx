@@ -3,6 +3,11 @@ import ReactDOM from "react-dom";
 import domReady from '@wordpress/dom-ready';
 import { setLocaleData } from "@wordpress/i18n";
 import { NotificationXFrontEnd } from "./core";
+import { exposeFrontendRuntime } from "./core/runtime";
+
+// Must run before domReady renders anything: add-on scripts that load after
+// this bundle read window.nxFrontendRuntime when their modules evaluate.
+exposeFrontendRuntime();
 
 function notificationXWrapper(notificationX, id) {
     if (!notificationX?.rest)

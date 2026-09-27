@@ -72,6 +72,30 @@ class FrontEnd {
     }
 
     /**
+     * Script dependencies of the `notificationx-public` runtime.
+     *
+     * `wp-hooks` provides `window.wp.hooks`, the registry the runtime reads its
+     * frontend filters from (see nxdev/notificationx/frontend/core/hooks.ts and
+     * docs/api/frontend-js-hooks.md). It is always kept, even if a filter drops
+     * it, because without it every add-on filter silently stops firing.
+     *
+     * @since 3.4.0
+     * @return string[]
+     */
+    public function get_script_dependencies() {
+        /**
+         * Filters the script dependencies of the `notificationx-public` runtime.
+         *
+         * @since 3.4.0
+         * @param string[] $deps Script handles.
+         */
+        $deps = apply_filters( 'nx_frontend_script_deps', [ 'wp-hooks' ] );
+        $deps = is_array( $deps ) ? array_filter( $deps, 'is_string' ) : [];
+        array_unshift( $deps, 'wp-hooks' );
+        return array_values( array_unique( $deps ) );
+    }
+
+    /**
      * This method is responsible for enqueueing scripts for public use.
      *
      * @return void
@@ -79,7 +103,7 @@ class FrontEnd {
     public function enqueue_scripts() {
         $custom_css = $this->generate_custom_css();
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
-        wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], apply_filters('nx_frontend_js_version', NOTIFICATIONX_VERSION ), true);
+        wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), $this->get_script_dependencies(), apply_filters('nx_frontend_js_version', NOTIFICATIONX_VERSION ), true);
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], apply_filters('nx_frontend_css_version', NOTIFICATIONX_VERSION ), 'all');
         // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');

@@ -10,6 +10,7 @@
     "frontend-watch": "wp-scripts start --config webpack.frontend.config.js --webpack-no-externals",
     "start": "npm run admin-watch & npm run frontend-watch",
     "build": "npm run admin && npm run frontend",
+    "test:js": "wp-scripts test-unit-js --config tests/js/jest.config.js",
     "up": "npm install github:WPDevelopers/quickbuilder#notificationx",
     "pot": "php -d memory_limit=2G \"$(command -v wp)\" i18n make-pot . languages/notificationx.pot --exclude='nxbuild'",
     "bb": "wp-scripts build --config webpack.blocks.config.js",
