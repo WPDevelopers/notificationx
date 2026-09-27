@@ -82,6 +82,10 @@ class FrontEnd {
         wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], apply_filters('nx_frontend_js_version', NOTIFICATIONX_VERSION ), true);
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], apply_filters('nx_frontend_css_version', NOTIFICATIONX_VERSION ), 'all');
+        // GDPR cookie-customisation modal styles, split out of frontend.css
+        // (~460 KB) so only pages with an active GDPR notice load them.
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        wp_register_style('notificationx-gdpr-modal', Helper::file('public/css/gdpr-modal.css', true), ['notificationx-public'], apply_filters('nx_frontend_css_version', NOTIFICATIONX_VERSION ), 'all');
         // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');
         // Localize scripts for frontend
         wp_localize_script(
@@ -151,6 +155,9 @@ class FrontEnd {
                 }
 
                 wp_enqueue_style('notificationx-public');
+                if ( ! empty( $this->notificationXArr['gdpr'] ) ) {
+                    wp_enqueue_style('notificationx-gdpr-modal');
+                }
                 wp_enqueue_script('notificationx-public');
                 wp_enqueue_style('dashicons');
                 do_action('notificationx_scripts', $this->notificationXArr);

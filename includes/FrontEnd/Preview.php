@@ -128,6 +128,7 @@ class Preview {
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $this->notificationXArr = apply_filters('get_notifications_ids', $args);
             wp_enqueue_style('notificationx-public');
+            wp_enqueue_style('notificationx-gdpr-modal');
             wp_enqueue_script('notificationx-public');
             do_action('notificationx_scripts', $this->notificationXArr);
 
