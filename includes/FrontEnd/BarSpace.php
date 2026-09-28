@@ -17,14 +17,21 @@ use WP_REST_Server;
  * viewport width (`report_height`), and later page loads print it as body
  * padding in <head> (`print_reserve`), so the page starts at its final position.
  *
+ * A report can be wrong (measured before the bar's block styles or fonts
+ * arrived, zoomed text, a spoofed request), so each width bucket keeps the last
+ * few samples and reserves their median once there are enough of them.
+ *
  * @method static BarSpace get_instance($args = null)
  */
 class BarSpace {
     use GetInstance;
 
-    const OPTION     = 'notificationx_bar_heights';
-    const MAX_HEIGHT = 400;
-    const THROTTLE   = 10 * MINUTE_IN_SECONDS;
+    // v2: per-bucket samples + median (v1 stored the last report only).
+    const OPTION      = 'notificationx_bar_heights_v2';
+    const MAX_HEIGHT  = 400;
+    const THROTTLE    = MINUTE_IN_SECONDS;
+    const SAMPLES     = 5;
+    const MIN_SAMPLES = 3;
 
     /**
      * Viewport buckets as [ key => max width (exclusive) ]. Text wrapping
@@ -96,6 +103,17 @@ class BarSpace {
         return 'xl';
     }
 
+    /**
+     * Lower median, so an even window leans towards the smaller height.
+     *
+     * @param int[] $values
+     * @return int
+     */
+    public static function median( array $values ) {
+        sort( $values );
+        return (int) $values[ ( count( $values ) - 1 ) >> 1 ];
+    }
+
     public function report_height( WP_REST_Request $request ) {
         $nx_id  = absint( $request['nx_id'] );
         $bucket = self::bucket( (int) $request['width'] );
@@ -116,14 +134,21 @@ class BarSpace {
         $heights = get_option( self::OPTION, [] );
         $entry   = isset( $heights[ $nx_id ] ) && is_array( $heights[ $nx_id ] ) && ( $heights[ $nx_id ]['v'] ?? '' ) === $version
             ? $heights[ $nx_id ]
-            : [ 'v' => $version, 'h' => [] ];
+            : [ 'v' => $version, 's' => [], 'h' => [] ];
 
-        if ( isset( $entry['h'][ $bucket ] ) && abs( $entry['h'][ $bucket ] - $height ) < 2 ) {
+        $samples = isset( $entry['s'][ $bucket ] ) && is_array( $entry['s'][ $bucket ] ) ? $entry['s'][ $bucket ] : [];
+        // Settled: a full window already agrees with this report.
+        if ( count( $samples ) >= self::SAMPLES && isset( $entry['h'][ $bucket ] ) && abs( $entry['h'][ $bucket ] - $height ) < 2 ) {
             return new WP_REST_Response( [ 'saved' => false ], 200 );
         }
 
-        $entry['h'][ $bucket ] = $height;
-        $heights[ $nx_id ]     = $entry;
+        $samples[]               = $height;
+        $samples                 = array_slice( $samples, -self::SAMPLES );
+        $entry['s'][ $bucket ]   = $samples;
+        if ( count( $samples ) >= self::MIN_SAMPLES ) {
+            $entry['h'][ $bucket ] = self::median( $samples );
+        }
+        $heights[ $nx_id ] = $entry;
         update_option( self::OPTION, $heights, false );
         set_transient( $throttle_key, 1, self::THROTTLE );
 
