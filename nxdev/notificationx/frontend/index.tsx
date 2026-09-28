@@ -4,7 +4,7 @@ import domReady from '@wordpress/dom-ready';
 import { setLocaleData } from "@wordpress/i18n";
 import { NotificationXFrontEnd } from "./core";
 import { exposeFrontendRuntime } from "./core/runtime";
-import { loadExternalStyles } from "./core/external-styles";
+import { loadExternalStyles, whenStyled } from "./core/external-styles";
 
 // Must run before domReady renders anything: add-on scripts that load after
 // this bundle read window.nxFrontendRuntime when their modules evaluate.
@@ -45,10 +45,12 @@ function notificationXWrapper(notificationX, id) {
 
     document.body.appendChild(xDiv);
 
-    ReactDOM.render(
-        <NotificationXFrontEnd config={notificationX} />,
-        document.getElementById("notificationx-frontend" + id)
-    );
+    whenStyled('notificationx-public-css').then(() => {
+        ReactDOM.render(
+            <NotificationXFrontEnd config={notificationX} />,
+            xDiv
+        );
+    });
     // @ts-ignore
 }
 

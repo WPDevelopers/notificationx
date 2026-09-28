@@ -15,6 +15,33 @@ export const DEFAULT_EXTERNAL_STYLES: Record<string, string> = {
 };
 
 /**
+ * Resolve once the stylesheet with this id applies to the page.
+ *
+ * PHP prints `notificationx-public` as `media="print"` and flips it to `all`
+ * on load, so it does not block the first paint (see
+ * FrontEnd::non_blocking_style_tag()). Rendering before that would show
+ * notifications unstyled for a moment. A sheet that is missing (cross-domain
+ * embeds, an optimizer that renamed it) or fails to load does not hold the
+ * render back.
+ *
+ * @param id Element id of the <link>, e.g. `notificationx-public-css`.
+ */
+export const whenStyled = (id: string): Promise<void> => new Promise((resolve) => {
+    const link = document.getElementById(id) as HTMLLinkElement | null;
+    if (!link || link.tagName !== 'LINK' || link.media !== 'print') {
+        resolve();
+        return;
+    }
+    const done = () => resolve();
+    link.addEventListener('load', done, { once: true });
+    link.addEventListener('error', done, { once: true });
+    // The sheet may have finished between parsing and this call.
+    if (link.sheet) {
+        resolve();
+    }
+});
+
+/**
  * Add a <link> for each style handle => URL that is not on the page yet.
  *
  * The ids match what WordPress prints (`{handle}-css`), so a stylesheet that is
