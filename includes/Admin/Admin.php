@@ -252,7 +252,7 @@ class Admin {
         }
         $message = sprintf(
             /* translators: 1: installed NotificationX Pro version, 2: required NotificationX Pro version. */
-            __( 'You are using NotificationX Pro %1$s. Please update NotificationX Pro to version %2$s or later. Upcoming NotificationX releases move Flashing Tab, Cart Peek, Inline and Discount Alert notifications fully into NotificationX Pro, and older Pro versions will stop showing them.', 'notificationx' ),
+            __( 'You are using NotificationX Pro %1$s. Please update NotificationX Pro to version %2$s or later. Upcoming NotificationX releases move Flashing Tab, Cart Peek and Inline notifications fully into NotificationX Pro, and older Pro versions will stop showing them.', 'notificationx' ),
             '<strong>' . esc_html( NOTIFICATIONX_PRO_VERSION ) . '</strong>',
             '<strong>' . esc_html( self::MIN_PRO_VERSION ) . '</strong>'
         );

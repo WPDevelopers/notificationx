@@ -232,7 +232,15 @@ class Posts extends WP_REST_Controller {
      */
     public function get_item($request) {
         PostType::get_instance()->set_context( 'edit' );
-        return PostType::get_instance()->get_post( absint( $request['id'] ) );
+        $post = PostType::get_instance()->get_post( absint( $request['id'] ) );
+        if ( empty( $post ) ) {
+            return new WP_Error(
+                'rest_post_invalid_id',
+                __( 'Invalid notification ID.', 'notificationx' ),
+                array( 'status' => 404 )
+            );
+        }
+        return $post;
     }
 
     /**
