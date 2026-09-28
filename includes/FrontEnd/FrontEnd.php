@@ -71,24 +71,87 @@ class FrontEnd {
         // After wp_enqueue_scripts (wp_head priority 1) has collected the page's bars.
         add_action('wp_head', [$this, 'print_bar_reserve'], 3);
         add_filter('body_class', [ $this, 'nx_add_body_class' ] );
-        add_filter('style_loader_tag', [$this, 'gdpr_modal_style_tag'], 10, 2);
+        add_filter('style_loader_tag', [$this, 'non_blocking_style_tag'], 10, 2);
 
     }
 
     /**
-     * Load the GDPR modal styles without blocking the first paint.
+     * Third-party stylesheets used by the notification themes, keyed by style
+     * handle.
      *
-     * They style only the cookie-preferences modal, which opens on a click, so
-     * the page does not need to wait for them. The stylesheet is requested as
-     * `print` and switched to `all` once it has loaded; the <noscript> copy
-     * keeps it for visitors without JavaScript.
+     * They used to be CSS `@import`s at the top of frontend.css, which the
+     * browser only discovers once frontend.css has downloaded: a serial,
+     * render-blocking chain to two more origins on every page. They are now
+     * enqueued next to `notificationx-public` and loaded without blocking the
+     * first paint (see non_blocking_style_tag()).
+     *
+     * @since 3.4.0
+     * @return array<string, string> Style handle => URL.
+     */
+    public function get_external_styles() {
+        $styles = [];
+        /**
+         * Filters whether NotificationX loads Open Sans from Google Fonts.
+         *
+         * Return false if the site already loads Open Sans or must not
+         * contact Google Fonts; the themes then fall back to sans-serif.
+         *
+         * @since 3.4.0
+         * @param bool $load Default true.
+         */
+        if (apply_filters('notificationx_load_open_sans', true)) {
+            $styles['notificationx-open-sans'] = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap';
+        }
+        /**
+         * Filters whether NotificationX loads FontAwesome 4.7 from cdnjs.
+         *
+         * The icons are drawn in pseudo-elements of a few themes only. Return
+         * false if the site already loads FontAwesome 4.
+         *
+         * @since 3.4.0
+         * @param bool $load Default true.
+         */
+        if (apply_filters('notificationx_load_fontawesome', true)) {
+            $styles['notificationx-fontawesome-4'] = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
+        }
+        return $styles;
+    }
+
+    /**
+     * Enqueue the third-party font and icon stylesheets (get_external_styles()).
+     *
+     * Call this wherever `notificationx-public` (or a stylesheet that bundles
+     * the frontend themes) is enqueued.
+     *
+     * @since 3.4.0
+     * @return void
+     */
+    public function enqueue_external_styles() {
+        foreach ($this->get_external_styles() as $handle => $src) {
+            // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Third-party URL; a ?ver= query would only split the CDN cache.
+            wp_enqueue_style($handle, $src, [], null);
+        }
+    }
+
+    /**
+     * Load some stylesheets without blocking the first paint.
+     *
+     * - `notificationx-gdpr-modal` styles only the cookie-preferences modal,
+     *   which opens on a click.
+     * - The font and icon stylesheets from get_external_styles(): the fonts
+     *   swap in, and the FontAwesome glyphs are drawn only in pseudo-elements
+     *   of notifications the runtime renders after the page has loaded.
+     *
+     * The stylesheet is requested as `print` and switched to `all` once it has
+     * loaded; the <noscript> copy keeps it for visitors without JavaScript.
      *
      * @param string $tag    The link tag.
      * @param string $handle Style handle.
      * @return string
      */
-    public function gdpr_modal_style_tag($tag, $handle) {
-        if ('notificationx-gdpr-modal' !== $handle || false !== strpos($tag, 'onload=')) {
+    public function non_blocking_style_tag($tag, $handle) {
+        $handles = ['notificationx-gdpr-modal', 'notificationx-open-sans', 'notificationx-fontawesome-4'];
+        if (!in_array($handle, $handles, true) || false !== strpos($tag, 'onload=')) {
             return $tag;
         }
         $deferred = preg_replace('/\smedia=([\'"])all\1/', ' media=$1print$1 onload="this.media=\'all\'"', $tag, 1, $count);
@@ -206,6 +269,7 @@ class FrontEnd {
                 }
 
                 wp_enqueue_style('notificationx-public');
+                $this->enqueue_external_styles();
                 if ( ! empty( $this->notificationXArr['gdpr'] ) ) {
                     wp_enqueue_style('notificationx-gdpr-modal');
                 }
@@ -319,6 +383,10 @@ class FrontEnd {
             'pid'         => !empty($GLOBALS['post']->ID) ? $GLOBALS['post']->ID : 0,
         ];
         $data['localeData'] = load_script_textdomain('notificationx-public', 'notificationx');
+        if (!empty($data['cross'])) {
+            // Cross-domain embeds have no WordPress enqueue: the runtime adds these.
+            $data['external_styles'] = $this->get_external_styles();
+        }
         return $data;
     }
 

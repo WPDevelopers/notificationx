@@ -4,6 +4,7 @@ import domReady from '@wordpress/dom-ready';
 import { setLocaleData } from "@wordpress/i18n";
 import { NotificationXFrontEnd } from "./core";
 import { exposeFrontendRuntime } from "./core/runtime";
+import { loadExternalStyles } from "./core/external-styles";
 
 // Must run before domReady renders anything: add-on scripts that load after
 // this bundle read window.nxFrontendRuntime when their modules evaluate.
@@ -12,6 +13,10 @@ exposeFrontendRuntime();
 function notificationXWrapper(notificationX, id) {
     if (!notificationX?.rest)
         return;
+
+    if (notificationX.cross) {
+        loadExternalStyles(notificationX.external_styles);
+    }
 
     if(notificationX.localeData){
         const localeData = JSON.parse(notificationX.localeData)?.locale_data;
