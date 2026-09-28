@@ -298,19 +298,24 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const direction = settings?.bar_transition_style == 'slide_right' ? 'right' : 'left';    
     const slideInterval = settings?.sliding_interval || 3000; // default 3s
     const transitionSpeed = settings?.bar_transition_speed || 500; // default 500ms
-    const [deviceClass, setDeviceClass] = useState('desktop');
+    const getDeviceClass = () => {
+        const width = window.innerWidth;
+        if (width <= 520) {
+            return 'mobile';
+        } else if (width <= 768) {
+            return 'tablet';
+        }
+        return 'desktop';
+    };
+    // Start from the real device, not 'desktop': the first render is what
+    // calcHeight() measures, and a phone laid out as desktop is taller, so the
+    // page was pushed down and then back up once the mobile class applied.
+    const [deviceClass, setDeviceClass] = useState(getDeviceClass);
 
 
     useEffect(() => {
         const updateDeviceClass = () => {
-            const width = window.innerWidth;
-            if (width <= 520) {
-                setDeviceClass('mobile');
-            } else if (width <= 768) {
-                setDeviceClass('tablet');
-            } else {
-                setDeviceClass('desktop');
-            }
+            setDeviceClass(getDeviceClass());
         };
 
         updateDeviceClass(); // set on mount
