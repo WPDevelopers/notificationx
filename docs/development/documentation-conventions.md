@@ -25,3 +25,4 @@ House style for the `docs/` tree. Read this before adding or restructuring a doc
 | Product-feature deep dives | [../features/](../features/) |
 | One notification category | [../types/](../types/) |
 | One data-source integration | [../extensions/](../extensions/) |
+| Manual QA test plan for a release | [../qa-guide/](../qa-guide/) |

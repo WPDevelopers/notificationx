@@ -55,6 +55,10 @@ From the plugin root (see [../../CLAUDE.md](../../CLAUDE.md) for details):
 
 - `composer install` — installs PHP libraries (`lib-settings`, `query-builder`, `wp-notice`) from the VCS repos declared in [../../composer.json](../../composer.json). Run `composer dump-autoload` after adding new classes so the classmap picks them up.
 - `vendor/bin/phpunit` — runs the test suite (config [../../phpunit.xml.dist](../../phpunit.xml.dist), bootstrap `tests/bootstrap.php`).
+
+## JS tests
+
+- `npm run test:js` runs the Jest unit tests in `tests/js/` (config [../../tests/js/jest.config.js](../../tests/js/jest.config.js), through `wp-scripts test-unit-js`). Tests start without `window.wp`. Call `installHooks()` from `tests/js/helpers.js` to simulate the `wp-hooks` registry.
 - `vendor/bin/phpcs --standard=phpcs.xml` — coding-standards check ([../../phpcs.xml](../../phpcs.xml)).
 
 > `composer.json` has no `require-dev`, so `vendor/bin/phpunit` is not installed by `composer install`. See [../features/frontend-performance/03-guardrails.md#running-the-tests](../features/frontend-performance/03-guardrails.md#running-the-tests) for a working setup. The old-vs-new bundle E2E comparison is in [../../tests/e2e/](../../tests/e2e/).

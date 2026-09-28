@@ -8,6 +8,7 @@ The programmatic surface of NotificationX — REST endpoints consumed by the adm
 | --- | --- |
 | [rest-endpoints.md](rest-endpoints.md) | REST namespace, routes, request/response shapes. |
 | [hooks-filters.md](hooks-filters.md) | Public actions & filters (e.g. `nx_pro_alert_popup`) and how Pro hooks in. |
+| [frontend-js-hooks.md](frontend-js-hooks.md) | JavaScript filters in the frontend runtime (`window.wp.hooks`) and the `window.nxFrontendRuntime` object add-ons render with. |
 
 ## Where REST is registered
 

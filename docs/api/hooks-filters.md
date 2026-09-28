@@ -80,6 +80,7 @@ Fired, roughly in order, as [FrontEnd.php](../../includes/FrontEnd/FrontEnd.php)
 
 | Filter | Modifies | Args |
 | --- | --- | --- |
+| `nx_frontend_script_deps` | Script dependencies of `notificationx-public` ([:85](../../includes/FrontEnd/FrontEnd.php#L85)). `wp-hooks` is always kept. See [frontend-js-hooks.md](frontend-js-hooks.md). | `['wp-hooks']` |
 | `nx_before_enqueue_scripts` | Short-circuit: return truthy to skip enqueuing entirely ([:121](../../includes/FrontEnd/FrontEnd.php#L121)). | `$exit` |
 | `nx_frontend_localize_data` | The whole localized data array before it's handed to JS ([:209](../../includes/FrontEnd/FrontEnd.php#L209)). | `$notificationXArr` |
 | `nx_frontend_get_entries` | Entries pulled for the active notifications ([:722](../../includes/FrontEnd/FrontEnd.php#L722)). | `$entries`, `$ids`, `$notifications`, `$params` |
@@ -133,6 +134,7 @@ Pro features live in the **separate `notificationx-pro` plugin** and integrate t
 2. **Boot per-extension** — Pro attaches to the `nx::extension::init` action to wire up instance-level behavior.
 3. **Gate the free UI** — free-plugin fields that represent Pro features wrap their config in `nx_pro_alert_popup` (and `nx_is_pro_sources` / `nx_popup_alert`), so the builder shows an upgrade overlay until Pro is active. `NotificationX::is_pro()` flips these off once Pro is installed.
 4. **Extend data & render** — Pro extensions produce entries (`get_data()` → stored via `Entries`) and adjust the frontend through the `nx_filtered_*`, `nx_fallback_data*`, `nx_notification_link*`, and `nx_notification_image*` filters, the same way free extensions do.
+5. **Render in the browser**: Pro claims the templates, theme parts and link buttons of its own notifications through the JavaScript filters in [frontend-js-hooks.md](frontend-js-hooks.md), and renders with `window.nxFrontendRuntime.React`.
 
 **Do not add Pro-only logic to this repo.** If Pro needs a new seam, add a `do_action` / `apply_filters` here and consume it from `notificationx-pro`.
 

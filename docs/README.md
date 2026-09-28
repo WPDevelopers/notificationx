@@ -15,6 +15,7 @@ New here? Start with [architecture/overview.md](architecture/overview.md) for th
 | [types/](types/) | Per-**Type** reference (one doc per notification category — 19 types). |
 | [qa/](qa/) | Manual QA checklists for changes automated tests can't fully cover. |
 | [extensions/](extensions/) | Per-**Extension** reference (one doc per data-source integration — 35 integrations). |
+| [qa-guide/](qa-guide/) | Manual QA test plans for releases — setup, numbered cases and expected results for the tester. |
 
 ## The core abstraction
 

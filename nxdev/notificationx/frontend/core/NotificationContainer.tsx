@@ -4,6 +4,7 @@ import GDPR from "./GDPR";
 import Popup from "./Popup";
 import ExitIntentPopup from "./ExitIntentPopup";
 import NotificationForMobile from "./NotificationForMobile";
+import { nxApplyListFilter } from "./hooks";
 const NotificationContainer = (props: any) => {
     const frontendContext = useNotificationContext();
     const [isMobile, setIsMobile] = useState(false);
@@ -30,7 +31,11 @@ const NotificationContainer = (props: any) => {
         
         const isMobileAndPro = isMobile && frontendContext?.is_pro;
         // Sources rendered by <Notification> that opt out of the compact mobile layout.
-        const noMobileDesign = ['announcements', 'custom_notification', 'inline','gdpr_notification'];
+        // Add-ons append the sources they render (Pro: announcements).
+        const noMobileDesign = nxApplyListFilter(
+            'nx_frontend_no_mobile_design_sources',
+            ['announcements', 'custom_notification', 'inline','gdpr_notification']
+        );
         // Types drawn by their own component (<Popup>, <GDPR>, <ExitIntentPopup>,
         // <Pressbar>) instead of <Notification>. They carry no `template`, which is
         // the only thing <NotificationForMobile> knows how to render, so routing one

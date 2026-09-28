@@ -2,6 +2,7 @@ import React, { CSSProperties, ReactNode, useEffect } from "react";
 import useNotificationContext from "./NotificationProvider";
 import nxHelper, { handleCloseNotification } from "./functions";
 import { getIconUrl } from "../../shared/helpers";
+import { nxApplyFilters, nxApplyListFilter } from "./hooks";
 
 export const analyticsOnClick = (event, restUrl, config, dispatch, credentials = true) => {
     const nx_id = config?.nx_id;
@@ -48,12 +49,18 @@ export const analyticsOnClick = (event, restUrl, config, dispatch, credentials =
  * place. Returns null for link types that are not a plain navigable URL.
  */
 export const resolveNotificationLink = (config, data) => {
-    if (
-        !config?.link_type ||
-        config.link_type === 'none' ||
-        config.link_type === 'yt_channel_link' ||
-        config.link_type === 'announcements_link'
-    ) {
+    if (!config?.link_type) {
+        return null;
+    }
+    // Link types whose target is not a plain URL on the entry (a YouTube
+    // subscribe widget, an announcement CTA button). Add-ons append their own.
+    const noEntryLinkTypes = nxApplyListFilter(
+        'nx_frontend_no_entry_link_types',
+        ['none', 'yt_channel_link', 'announcements_link'],
+        config,
+        data
+    );
+    if (noEntryLinkTypes.includes(config.link_type)) {
         return null;
     }
     if (config.link_type === 'yt_video_link') {
@@ -112,7 +119,19 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
     let link_text;
     let show_default_subscribe = false;
 
-    switch (config.link_type) {
+    // Add-ons supply the button text for link types they own (Pro:
+    // announcements_link) as { link_text, show_default_subscribe }.
+    const filteredLinkButton = nxApplyFilters<{ link_text?: string; show_default_subscribe?: boolean } | undefined>(
+        'nx_frontend_link_button',
+        undefined,
+        config,
+        data
+    );
+
+    if (filteredLinkButton && typeof filteredLinkButton === 'object') {
+        link_text = filteredLinkButton.link_text;
+        show_default_subscribe = !!filteredLinkButton.show_default_subscribe;
+    } else switch (config.link_type) {
         case 'yt_video_link':
             link = data?.yt_video_link;
             if( config?.link_button_text ) {

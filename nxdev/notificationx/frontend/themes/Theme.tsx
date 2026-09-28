@@ -7,6 +7,7 @@ import { useNotificationContext } from "../core";
 import { getResThemeName, getThemeName } from "../core/functions";
 import { __, _x } from "@wordpress/i18n";
 import Button from "./helpers/Button";
+import { nxApplyFilters } from "../core/hooks";
 import Cookies from 'js-cookie';
 
 const Theme = (props) => {
@@ -54,7 +55,14 @@ const Theme = (props) => {
             val = escapeHTML(String(val));
 
             if (key === "time") {
-                const suffix = ['announcements'].includes(post.source);
+                // true = the entry time is a deadline ("5 days remaining"),
+                // not an event in the past.
+                const suffix = !!nxApplyFilters<boolean>(
+                    "nx_frontend_time_is_countdown",
+                    ['announcements'].includes(post.source),
+                    post,
+                    entry
+                );
                 val =
                     entry?.updated_at &&
                     frontendContext.getTime(entry?.updated_at).fromNow(suffix);
@@ -164,12 +172,18 @@ const Theme = (props) => {
                 isSplit={isSplit}
                 announcementCSS={announcementCSS}
             />
-            {["announcements_theme-13"].includes(props?.config?.themes) &&
-                <Button
-                    {...props}
-                    announcementCSS={announcementCSS}
-                    icon={true}
-                />
+            {nxApplyFilters<React.ReactNode>(
+                "nx_theme_before_content",
+                undefined,
+                { ...props, announcementCSS }
+            ) ??
+                (["announcements_theme-13"].includes(props?.config?.themes) &&
+                    <Button
+                        {...props}
+                        announcementCSS={announcementCSS}
+                        icon={true}
+                    />
+                )
             }
             <Content
                 {...props}
@@ -180,11 +194,17 @@ const Theme = (props) => {
                 isSplit={isSplit}
                 announcementCSS={announcementCSS}
             />
-            {["announcements_theme-15"].includes(props?.config?.themes) &&
-                <Button
-                    {...props}
-                    announcementCSS={announcementCSS}
-                />
+            {nxApplyFilters<React.ReactNode>(
+                "nx_theme_after_content",
+                undefined,
+                { ...props, announcementCSS }
+            ) ??
+                (["announcements_theme-15"].includes(props?.config?.themes) &&
+                    <Button
+                        {...props}
+                        announcementCSS={announcementCSS}
+                    />
+                )
             }
             <Close {...props} />
         </div>
