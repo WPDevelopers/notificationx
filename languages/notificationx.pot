@@ -3,13 +3,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NotificationX 3.3.2\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nx-mcp-redesign\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-24T04:32:23+00:00\n"
+"POT-Creation-Date: 2026-09-28T04:52:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
@@ -59,38 +59,32 @@ msgstr ""
 
 #. translators: %s: parameter name.
 #: includes/Abilities/AbilityBase.php:221
-#, php-format
 msgid "Missing required parameter: %s"
 msgstr ""
 
 #. translators: %s: parameter name.
 #: includes/Abilities/AbilityBase.php:260
-#, php-format
 msgid "Invalid value for parameter: %s"
 msgstr ""
 
 #. translators: %s: config field name.
 #: includes/Abilities/Manage/CreateNotification.php:92
-#, php-format
 msgid "The config is missing a valid \"%s\". A notification needs at least type, source and themes."
 msgstr ""
 
 #. translators: %s: source id.
 #: includes/Abilities/Manage/CreateNotification.php:103
 #: includes/Abilities/Manage/UpdateNotification.php:117
-#, php-format
 msgid "Unknown data source \"%s\". Call list-sources for valid ids."
 msgstr ""
 
 #. translators: %s: source id.
 #: includes/Abilities/Manage/CreateNotification.php:111
-#, php-format
 msgid "The module for data source \"%s\" is disabled; enable it before creating this notification."
 msgstr ""
 
 #. translators: 1: theme id, 2: source id, 3: comma-separated valid ids.
 #: includes/Abilities/Manage/CreateNotification.php:133
-#, php-format
 msgid "Theme \"%1$s\" is not valid for source \"%2$s\". Call describe-type for this type; valid themes: %3$s"
 msgstr ""
 
@@ -113,13 +107,11 @@ msgstr ""
 #: includes/Abilities/Manage/UpdateNotification.php:95
 #: includes/Abilities/Read/GetAnalytics.php:63
 #: includes/Abilities/Read/GetNotification.php:60
-#, php-format
 msgid "No notification found with id %d."
 msgstr ""
 
 #. translators: %s: original notification title.
 #: includes/Abilities/Manage/DuplicateNotification.php:76
-#, php-format
 msgid "%s (copy)"
 msgstr ""
 
@@ -137,19 +129,16 @@ msgstr ""
 
 #. translators: %s: source id.
 #: includes/Abilities/Manage/UpdateNotification.php:125
-#, php-format
 msgid "The module for data source \"%s\" is disabled; enable it before using it."
 msgstr ""
 
 #. translators: 1: theme id, 2: source id, 3: comma-separated valid ids.
 #: includes/Abilities/Manage/UpdateNotification.php:156
-#, php-format
 msgid "Theme \"%1$s\" is not valid for source \"%2$s\". Valid themes: %3$s"
 msgstr ""
 
 #. translators: 1: theme id, 2: source id.
 #: includes/Abilities/Manage/UpdateNotification.php:174
-#, php-format
 msgid "Theme reset to \"%1$s\" (the default for the new source \"%2$s\"). Pass a valid \"themes\" to choose another; see describe-type."
 msgstr ""
 
@@ -159,7 +148,6 @@ msgstr ""
 
 #. translators: %s: type id.
 #: includes/Abilities/Read/DescribeType.php:77
-#, php-format
 msgid "Unknown notification type: %s. Call list-types (or describe-type with no argument) for valid ids."
 msgstr ""
 
@@ -167,7 +155,6 @@ msgstr ""
 #. translators: %d: notification ID
 #: includes/Abilities/Read/EntriesReader.php:127
 #: includes/Core/Rest/Popup.php:493
-#, php-format
 msgid "Notification #%d"
 msgstr ""
 
@@ -276,7 +263,6 @@ msgstr ""
 #. translators: %s: no of minutes
 #: includes/Admin/Cron.php:111
 #: includes/Admin/Cron.php:117
-#, php-format
 msgid "Every %s minutes"
 msgstr ""
 
@@ -300,7 +286,6 @@ msgstr ""
 #. translators: %s: site name
 #: includes/Admin/EntriesMailReceiver.php:153
 #: includes/Admin/Settings.php:383
-#, php-format
 msgid "New Entry Received on \"%s\""
 msgstr ""
 
@@ -668,7 +653,6 @@ msgstr ""
 #. translators: %s: site name
 #: includes/Admin/Reports/ReportEmail.php:265
 #: includes/Admin/Settings.php:484
-#, php-format
 msgid "Weekly Engagement Summary of “%s”"
 msgstr ""
 
@@ -1023,7 +1007,6 @@ msgstr ""
 
 #. translators: %s: Cross Domain Notice link URL
 #: includes/Admin/XSS.php:50
-#, php-format
 msgid "Show your Notification Alerts in another website using <a target=\"_blank\" href=\"%s\">Cross Domain Notice</a>."
 msgstr ""
 
@@ -1911,19 +1894,16 @@ msgstr ""
 
 #. translators: %s: Post Type label
 #: includes/Core/Locations.php:53
-#, php-format
 msgid "All %s posts"
 msgstr ""
 
 #. translators: %s: Post Type label
 #: includes/Core/Locations.php:57
-#, php-format
 msgid "All %s archives"
 msgstr ""
 
 #. translators: %s: Taxonomy label
 #: includes/Core/Locations.php:63
-#, php-format
 msgid "All %s taxonomy archives"
 msgstr ""
 
@@ -2037,7 +2017,6 @@ msgstr ""
 
 #. translators: %1$s: number of scans already used, %2$s: total free scans available
 #: includes/Core/PostType.php:134
-#, php-format
 msgid "%1$s of %2$s free scans used"
 msgstr ""
 
@@ -2185,7 +2164,6 @@ msgstr ""
 
 #. translators: %s: rotation deadline date.
 #: includes/Core/Rest/Integration.php:268
-#, php-format
 msgid "A Zapier (or other webhook) integration is still calling NotificationX with the legacy API key. Rotate it to the new key before %s — after that, requests using the old key will be rejected."
 msgstr ""
 
@@ -2199,7 +2177,6 @@ msgstr ""
 
 #. translators: %s: notification ID
 #: includes/Core/Rest/Integration.php:296
-#, php-format
 msgid "There is no notification created with this id: %s"
 msgstr ""
 
@@ -2237,7 +2214,6 @@ msgstr ""
 
 #. translators: %d: Number of entries deleted
 #: includes/Core/Rest/Popup.php:376
-#, php-format
 msgid "%d entry deleted successfully"
 msgid_plural "%d entries deleted successfully"
 msgstr[0] ""
@@ -2249,7 +2225,6 @@ msgstr ""
 
 #. translators: %d: number of entries prepared for export
 #: includes/Core/Rest/Popup.php:453
-#, php-format
 msgid "Successfully prepared %d entries for export"
 msgstr ""
 
@@ -2302,7 +2277,6 @@ msgstr ""
 
 #. translators: %1$s: URL, %2$s: documentation link URL, %3$s: Integration with ActiveCampaign link URL, %4$s: ActiveCampaign Email Subscription Alerts link URL
 #: includes/Extensions/ActiveCampaign/ActiveCampaign.php:59
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API URL & API key from ActiveCampaign account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with ActiveCampaign</a></p>\n"
@@ -2569,7 +2543,6 @@ msgstr ""
 
 #. translators: %1$s: signed in & retrieved API key from Brevo account link URL, %2$s: documentation link URL, %3$s: Integration with Brevo link URL, %4$s: Email Marketing Strategy link URL, %5$s: Email Subscription List link URL
 #: includes/Extensions/Brevo/Brevo.php:124
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved an API key from your Brevo account</a> to use its contact list & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Brevo</a></p>\n"
@@ -2590,7 +2563,6 @@ msgstr ""
 
 #. translators: links
 #: includes/Extensions/CF7/CF7.php:278
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Contact Form 7 installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2606,7 +2578,6 @@ msgstr ""
 
 #. translators: %1$s: signed in & retrieved your API key from ConvertKit account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with ConvertKit link URL, %5$s: NotificationX With ConvertKit link URL
 #: includes/Extensions/ConvertKit/ConvertKit.php:59
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved your API key from ConvertKit account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -2626,7 +2597,6 @@ msgstr ""
 #. translators: %1$s: documentation link URL, %2$s: video tutorial link URL, %3$s: Display Custom Notification Alerts link URL
 #: includes/Extensions/CustomNotification/CustomNotification.php:92
 #: includes/Extensions/CustomNotification/CustomNotificationConversions.php:69
-#, php-format
 msgid ""
 "<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%2$s\">video tutorial</a> to learn quickly</p>\n"
@@ -2672,7 +2642,6 @@ msgstr ""
 #. translators: %1$s: product title, %2$s: combined "and N more products" text
 #: includes/Extensions/EDD/EDD.php:168
 #: includes/Extensions/WooCommerce/WooCommerce.php:551
-#, php-format
 msgid "%1$s & %2$s"
 msgstr ""
 
@@ -2699,7 +2668,6 @@ msgstr ""
 
 #. translators: %1$s: Easy Digital Downloads installed & activated link URL, %2$s: documentation link URL, %3$s: Integration with Easy Digital Downloads link URL, %4$s: NotificationX Increase Sales on WordPress link URL
 #: includes/Extensions/EDD/EDD.php:403
-#, php-format
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Easy Digital Downloads installed & activated</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>👉 NotificationX <a target=\"_blank\" href=\"%3$s\">Integration with Easy Digital Downloads</a></p>\n"
@@ -3352,7 +3320,6 @@ msgstr ""
 
 #. translators: %d: notification ID
 #: includes/Extensions/Elementor/FormWidget.php:100
-#, php-format
 msgid "#%d"
 msgstr ""
 
@@ -3588,7 +3555,6 @@ msgstr ""
 
 #. translators: links
 #: includes/Extensions/Elementor/From.php:77
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Elementor Pro installed & configured</a> to use its form submission data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -3616,7 +3582,6 @@ msgstr ""
 
 #. translators: %1$s: created & signed in to Envato account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Envato link URL
 #: includes/Extensions/Envato/Envato.php:70
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Envato account</a> to use its campaign & product sales data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -3696,12 +3661,14 @@ msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:415
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:428
-#: includes/MCP/Manager.php:919
+#: includes/MCP/Manager.php:1206
+#: includes/MCP/Manager.php:1653
 msgid "Show"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:416
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:429
+#: includes/MCP/Manager.php:1659
 msgid "Hide"
 msgstr ""
 
@@ -4711,7 +4678,6 @@ msgstr ""
 
 #. translators: %1$s: documentation link URL
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:2277
-#, php-format
 msgid ""
 "\n"
 "        <p>Show a targeted message at the exact moment someone is about to close your tab & bring them back into the funnel. Need help? Check out our <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>"
@@ -4745,7 +4711,6 @@ msgstr ""
 
 #. translators: links
 #: includes/Extensions/FlashingTab/FlashingTab.php:136
-#, php-format
 msgid ""
 "\n"
 "        <p>Make sure that you have NotificationX PRO installed and activated on your website to use Flashing Tab. For further assistance, follow the step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
@@ -4850,7 +4815,6 @@ msgstr ""
 #. translators: %1$s: FluentCart WordPress plugin installed & configured link URL, %2$s: documentation link URL, %3$s: 👉 NotificationX Integration with FluentCart link URL
 #: includes/Extensions/FluentCart/FluentCart.php:766
 #: includes/Extensions/FluentCart/FluentCartInline.php:160
-#, php-format
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">FluentCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "        <a target=\"_blank\" href=\"%3$s\">👉 NotificationX Integration with FluentCart</a>"
@@ -4927,7 +4891,6 @@ msgstr ""
 
 #. translators: %1$s: Fluent Forms installed and configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Display Fluent Forms Submission Alert link URL
 #: includes/Extensions/FluentForm/FluentForm.php:409
-#, php-format
 msgid ""
 "\n"
 "        <p>To use the campaign & form subscription data, make sure that you have <a target=\"_blank\" href=\"%1$s\">Fluent Forms installed and configured</a> on your website. For detailed guidelines, follow this <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
@@ -4943,7 +4906,6 @@ msgstr ""
 
 #. translators: %1$s: created & signed in to Freemius account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Freemius link URL
 #: includes/Extensions/Freemius/Freemius.php:20
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">created & signed in to Freemius account</a> to use its campaign & product sales data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -5042,7 +5004,6 @@ msgstr ""
 
 #. translators: %1$s: step-by-step guides link URL, %2$s: tutorial link URL, %3$s: How to Display WordPress Cookie Notice Using NotificationX? link URL, %4$s: WP Consent API link URL
 #: includes/Extensions/GDPR/GDPR_Notification.php:303
-#, php-format
 msgid ""
 "<p>You can showcase Cookie Notice effortlessly on your WordPress site to ensure compliance with visitors. Need help? Follow our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> for creating a Cookie Notice on the WordPress website.</p>\n"
 "        <p>🎦 Watch the video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for a quick guide.</p>\n"
@@ -5144,7 +5105,6 @@ msgstr ""
 
 #. translators: %1$s: GiveWP installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with GiveWP link URL, %5$s: NotificationX Increase Sales on WordPress link URL
 #: includes/Extensions/Give/Give.php:298
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">GiveWP installed & configured</a> to use its campaign & donars data. For further assistance, check out our step by step <a href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6030,7 +5990,6 @@ msgstr ""
 
 #. translators: %1$s: Google Reviews API link URL, %2$s: documentation link URL, %3$s: Integration with Google Reviews link URL
 #: includes/Extensions/Google/GoogleReviews.php:187
-#, php-format
 msgid ""
 "<p>Make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">Google Reviews API</a> key, to showcase your reviews. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
@@ -6044,7 +6003,6 @@ msgstr ""
 
 #. translators: %1$s: signed in to Google Analytics site link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Google Analytics link URL
 #: includes/Extensions/Google/Google_Analytics.php:66
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in to Google Analytics site</a>, to use its campaign & page analytics data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6144,7 +6102,6 @@ msgstr ""
 
 #. translators: %1$s: YouTube API link URL, %2$s: documentation link URL, %3$s: Integration with Youtube link URL
 #: includes/Extensions/Google/YouTube.php:286
-#, php-format
 msgid ""
 "<p>To create YouTube notification popups, make sure that you have configured your <a target=\"_blank\" href=\"%1$s\">YouTube API</a> key, Check out our step-by-step documentation for further assistance. <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\n"
@@ -6173,7 +6130,6 @@ msgstr ""
 
 #. translators: %1$s: Gravity Forms installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Ninja Forms link URL, %5$s: WordPress Contact Forms Submission Rate link URL
 #: includes/Extensions/GRVF/GravityForms.php:80
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Gravity Forms installed & configured</a>, to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6209,7 +6165,6 @@ msgstr ""
 
 #. translators: %1$s: LearnDash installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with LearnDash link URL, %5$s: LearnDash Course Enrollment Rates link URL
 #: includes/Extensions/LearnDash/LearnDash.php:72
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">LearnDash installed & configured</a> to use its campaign & course selling data.  For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6242,7 +6197,6 @@ msgstr ""
 
 #. translators: %1$s: LearnPress LMS installed & configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Integration with LearnPress LMS link URL
 #: includes/Extensions/LearnPress/LearnPress.php:546
-#, php-format
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">LearnPress LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -6256,7 +6210,6 @@ msgstr ""
 
 #. translators: %1$s: signed in & retrieved API key from MailChimp account link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with MailChimp link URL, %5$s: Email Marketing Strategy link URL, %6$s: Email Subscription List link URL
 #: includes/Extensions/MailChimp/MailChimp.php:59
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">signed in & retrieved API key from MailChimp account</a> to use its campaign & email subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6274,7 +6227,6 @@ msgstr ""
 
 #. translators: %1$s: Ninja Forms installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with Ninja Forms link URL, %5$s: WordPress Contact Forms Submission Rate link URL
 #: includes/Extensions/NJF/NinjaForms.php:413
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">Ninja Forms installed & configured</a> to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -6361,7 +6313,6 @@ msgstr ""
 
 #. translators: %1$s: documentation link URL, %2$s: Guide To Notify Customers About On-Sale Products link URL
 #: includes/Extensions/OfferAnnouncement/Announcements.php:270
-#, php-format
 msgid ""
 "<p>You can showcase the discount alert popup on your WordPress website to make visitors take purchasing action immediately. For further assistance, check out our step-by-step <a target=\"_blank\" href=\"%1$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -6971,7 +6922,6 @@ msgstr ""
 
 #. translators: %1$s: step-by-step guides link URL, %2$s: tutorial link URL, %3$s: URL
 #: includes/Extensions/PopupNotification/PopupNotification.php:1320
-#, php-format
 msgid ""
 "<p>Create compelling Announcements that capture visitor interest and help you generate more leads on your WordPress site. Need help? Check out our <a href=\"%1$s\" target=\"_blank\">step-by-step guides</a> to build impactful Announcements.</p>\n"
 "        <p>🎦 Watch the quick video <a target=\"_blank\" href=\"%2$s\">tutorial</a> for an easy walk-through.</p>\n"
@@ -7382,7 +7332,6 @@ msgstr ""
 
 #. translators: %1$s: Elementor documentation URL, %2$s: Gutenberg documentation URL, %3$s: documentation URL, %4$s: blog post URL, %5$s: blog post URL
 #: includes/Extensions/PressBar/PressBar.php:2223
-#, php-format
 msgid ""
 "<p>Supercharge your WordPress site with an <strong>AI-powered Notification Bar</strong> that help you create and launches instant popup campaigns — smarter and faster than ever. Let AI generate compelling bar content for you in seconds. Need help getting started? Explore our step-by-step guides to set up your AI-enhanced notification bars using both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
 "\t\t<p>🎦 Check the <a target = \"_blank\" href = \"%3$s\">documentation</a> for a quick guide.</p>\n"
@@ -7445,7 +7394,6 @@ msgstr ""
 
 #. translators: %1$s: WooCommerce link URL, %2$s: ReviewX link URL, %3$s: documentation link URL, %4$s: boost WooCommerce Sales link URL
 #: includes/Extensions/ReviewX/ReviewX.php:280
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce</a> & <a target=\"_blank\" href=\"%2$s\">ReviewX</a> installed & activated to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%3$s\">documentation</a>.</p>\n"
 "\t\t<p><strong>Recommended Blog:</strong></p>\n"
@@ -7476,7 +7424,6 @@ msgstr ""
 
 #. translators: %1$s: SureCart WordPress plugin installed & configured link URL, %2$s: documentation link URL, %3$s: 👉 NotificationX Integration with SureCart link URL
 #: includes/Extensions/SureCart/SureCart.php:468
-#, php-format
 msgid ""
 "<p>Make sure that you have the <a target=\"_blank\" href=\"%1$s\">SureCart WordPress plugin installed & configured</a> to use its campaign and selling data. For detailed guidelines, check out the step-by-step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "        <a target=\"_blank\" href=\"%3$s\">👉 NotificationX Integration with SureCart</a>"
@@ -7493,7 +7440,6 @@ msgstr ""
 
 #. translators: %1$s: Tutor LMS installed & configured link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: Integration with Tutor LMS link URL
 #: includes/Extensions/Tutor/Tutor.php:541
-#, php-format
 msgid ""
 "<p>Make sure that you have <a href=\"%1$s\" target=\"_blank\">Tutor LMS installed & configured</a> to use its campaign & course selling data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -7528,7 +7474,6 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerce.php:612
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:204
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:215
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a href=\"%3$s\" target=\"_blank\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -7544,7 +7489,6 @@ msgid "Cart Peek"
 msgstr ""
 
 #: includes/Extensions/WooCommerce/WooCommerceCartPeek.php:78
-#, php-format
 msgid ""
 "<p>Show shoppers how many others have this product in their cart right now — a live social-proof signal that fires at the highest-value hesitation moment on the PDP.</p>\n"
 "            <p>Requires an active NotificationX Pro licence and <a target=\"_blank\" href=\"%1$s\">WooCommerce installed &amp; activated</a>.</p>\n"
@@ -7588,7 +7532,6 @@ msgstr ""
 #. translators: %1$s: WooCommerce installed & activated link URL, %2$s: documentation link URL, %3$s: video tutorial link URL, %4$s: boost WooCommerce Sales link URL
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:252
 #: includes/Extensions/WooCommerce/WOOReviews.php:494
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WooCommerce installed & activated</a> to use this campaign. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 Watch <a target=\"_blank\" href=\"%3$s\">video tutorial</a> to learn quickly</p>\n"
@@ -7636,7 +7579,6 @@ msgstr ""
 
 #. translators: %1$s: wordpress.org link URL, %2$s: comments popup link URL, %3$s: plugin reviews link URL, %4$s: downloads stats link URL, %5$s: blog comments link URL, %6$s: reviews link URL, %7$s: Get More Comments on Your WordPress Blog link URL, %8$s: WordPress Plugin Download Rates & Increase Sales link URL
 #: includes/Extensions/WordPress/Wordpress.php:13
-#, php-format
 msgid ""
 "<p>Make sure that you have a <a target=\"_blank\" href=\"%1$s\">wordpress.org</a> account to use its campaign on blog comments, reviews and download stats data. For further assistance, check out our step by step documentation on <a target=\"_blank\" href=\"%2$s\">comments popup</a>, <a target=\"_blank\" href=\"%3$s\">plugin reviews</a> & <a target=\"_blank\" href=\"%4$s\">downloads stats</a>.</p>\n"
 "\t\t<p>🎦 Watch video tutorial on <a target=\"_blank\" href=\"%5$s\">blog comments</a>, <a target=\"_blank\" href=\"%6$s\">reviews</a> & <a target=\"_blank\" href=\"%6$s\">downloads stats</a> to learn quickly</p>\n"
@@ -7737,7 +7679,6 @@ msgstr ""
 
 #. translators: %s: number of downloads today.
 #: includes/Extensions/WordPress/WPOrgStats.php:197
-#, php-format
 msgid "%s times today"
 msgstr ""
 
@@ -7745,13 +7686,11 @@ msgstr ""
 #. translators: %s: number of downloads of all time.
 #: includes/Extensions/WordPress/WPOrgStats.php:199
 #: includes/Extensions/WordPress/WPOrgStats.php:203
-#, php-format
 msgid "%s times"
 msgstr ""
 
 #. translators: %s: number of downloads in last 7 days.
 #: includes/Extensions/WordPress/WPOrgStats.php:201
-#, php-format
 msgid "%s times in last 7 days"
 msgstr ""
 
@@ -7766,7 +7705,6 @@ msgstr ""
 
 #. translators: %1$s: WPForms installed & configured link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Integration with WPForms link URL, %5$s: WordPress Contact Forms Submission Rate link URL
 #: includes/Extensions/WPF/WPForms.php:343
-#, php-format
 msgid ""
 "<p>Make sure that you have <a target=\"_blank\" href=\"%1$s\">WPForms installed & configured</a>  to use its campaign & form subscriptions data. For further assistance, check out our step by step <a target=\"_blank\" href=\"%2$s\">documentation</a>.</p>\n"
 "\t\t<p>🎦 <a target=\"_blank\" href=\"%3$s\">Watch video tutorial</a> to learn quickly</p>\n"
@@ -7809,7 +7747,6 @@ msgstr ""
 
 #. translators: time
 #: includes/Features/ShortcodeInline.php:155
-#, php-format
 msgctxt "Inline Shortcode"
 msgid "%s ago"
 msgstr ""
@@ -7842,334 +7779,427 @@ msgstr ""
 msgid "Talk to Support"
 msgstr ""
 
-#: includes/MCP/Manager.php:182
-#: includes/MCP/Manager.php:1027
+#: includes/MCP/Manager.php:198
+#: includes/MCP/Manager.php:1332
 msgid "Read-only"
 msgstr ""
 
-#: includes/MCP/Manager.php:182
-#: includes/MCP/Manager.php:566
-#: includes/MCP/Manager.php:1027
+#: includes/MCP/Manager.php:198
+#: includes/MCP/Manager.php:640
+#: includes/MCP/Manager.php:1332
 msgid "Read & write"
 msgstr ""
 
-#: includes/MCP/Manager.php:211
+#: includes/MCP/Manager.php:227
 msgid "Nothing to revoke."
 msgstr ""
 
-#: includes/MCP/Manager.php:426
+#: includes/MCP/Manager.php:500
 msgid "You do not have permission to authorize an MCP connection."
 msgstr ""
 
-#: includes/MCP/Manager.php:566
+#: includes/MCP/Manager.php:640
 msgid "Read only"
 msgstr ""
 
-#: includes/MCP/Manager.php:568
+#: includes/MCP/Manager.php:642
 msgid "It can read your notifications, entries and analytics. It cannot create, change or delete anything."
 msgstr ""
 
-#: includes/MCP/Manager.php:569
+#: includes/MCP/Manager.php:643
 msgid "It acts as you: anything it creates, edits or deletes is recorded under your account."
 msgstr ""
 
-#: includes/MCP/Manager.php:584
+#: includes/MCP/Manager.php:658
 msgid "Authorize MCP connection"
 msgstr ""
 
 #. translators: %1$s: client app name, %2$s: site name.
-#: includes/MCP/Manager.php:657
-#, php-format
+#: includes/MCP/Manager.php:731
 msgid "%1$s wants to work with your notifications on %2$s."
 msgstr ""
 
 #. translators: %1$s: user display name, %2$s: user role.
-#: includes/MCP/Manager.php:675
-#, php-format
+#: includes/MCP/Manager.php:749
 msgid "Signed in as %1$s%2$s"
 msgstr ""
 
 #. translators: %1$s: client app name, %2$d: number of tools.
-#: includes/MCP/Manager.php:690
-#, php-format
+#: includes/MCP/Manager.php:764
 msgid "What %1$s will be able to do (%2$d)"
 msgstr ""
 
-#: includes/MCP/Manager.php:712
+#: includes/MCP/Manager.php:786
 msgid "Secured with OAuth. You can revoke this app at any time under NotificationX → MCP."
 msgstr ""
 
-#: includes/MCP/Manager.php:719
+#: includes/MCP/Manager.php:793
 msgid "Deny"
 msgstr ""
 
-#: includes/MCP/Manager.php:720
+#: includes/MCP/Manager.php:794
 msgid "Approve"
 msgstr ""
 
-#: includes/MCP/Manager.php:748
+#: includes/MCP/Manager.php:822
 msgid "MCP"
 msgstr ""
 
-#: includes/MCP/Manager.php:770
-#: includes/MCP/Manager.php:880
+#: includes/MCP/Manager.php:852
 msgid "MCP Server"
 msgstr ""
 
-#: includes/MCP/Manager.php:782
+#: includes/MCP/Manager.php:865
 msgid "Enable MCP access"
 msgstr ""
 
-#: includes/MCP/Manager.php:783
+#: includes/MCP/Manager.php:866
 msgid "When enabled, approved AI assistants can connect to this site to manage notifications and read analytics."
 msgstr ""
 
-#: includes/MCP/Manager.php:791
+#: includes/MCP/Manager.php:882
 msgid "Connection"
 msgstr ""
 
-#: includes/MCP/Manager.php:806
+#: includes/MCP/Manager.php:898
 msgid "Connect a client"
 msgstr ""
 
-#: includes/MCP/Manager.php:821
+#: includes/MCP/Manager.php:914
+#: includes/MCP/Manager.php:1138
 msgid "Connected apps"
 msgstr ""
 
-#: includes/MCP/Manager.php:836
+#: includes/MCP/Manager.php:930
 msgid "Connection health"
 msgstr ""
 
-#: includes/MCP/Manager.php:859
-#: includes/MCP/Manager.php:1369
+#: includes/MCP/Manager.php:954
+#: includes/MCP/Manager.php:1434
 msgid "Off"
 msgstr ""
 
-#: includes/MCP/Manager.php:862
-#: includes/MCP/Manager.php:1369
+#: includes/MCP/Manager.php:957
+#: includes/MCP/Manager.php:1433
 #: assets/admin/js/admin.js:1
 msgid "Active"
 msgstr ""
 
-#: includes/MCP/Manager.php:864
+#: includes/MCP/Manager.php:959
 msgid "Setup needed"
 msgstr ""
 
-#: includes/MCP/Manager.php:884
-msgid "Connect NotificationX to Claude, ChatGPT, Cursor and other AI assistants through a built-in MCP server, so you can manage notifications and read analytics in plain language. It is off by default and only administrators can use it."
+#: includes/MCP/Manager.php:1005
+msgid "Turn MCP on"
 msgstr ""
 
-#: includes/MCP/Manager.php:887
-msgid "Learn how it works"
+#: includes/MCP/Manager.php:1006
+msgid "Flip the switch below."
 msgstr ""
 
-#: includes/MCP/Manager.php:908
-msgid "Connector URL"
+#: includes/MCP/Manager.php:1010
+msgid "Copy your connector"
 msgstr ""
 
-#: includes/MCP/Manager.php:911
-#: includes/MCP/Manager.php:920
-msgid "Copy"
+#: includes/MCP/Manager.php:1011
+msgid "One URL, and a token for clients that need one."
 msgstr ""
 
-#: includes/MCP/Manager.php:913
-msgid "Add this URL as a custom connector in your AI client."
-msgstr ""
-
-#: includes/MCP/Manager.php:916
-msgid "Connection token"
-msgstr ""
-
-#: includes/MCP/Manager.php:922
-msgid "For token-based clients (ChatGPT, Cursor): send it as an Authorization: Bearer header. Keep it secret."
-msgstr ""
-
-#: includes/MCP/Manager.php:926
-msgid "Connection test passed — the MCP server is reachable and exposing its tools."
-msgstr ""
-
-#: includes/MCP/Manager.php:926
-msgid "Test connection"
-msgstr ""
-
-#: includes/MCP/Manager.php:927
-msgid "Reset the connection token? Existing clients will need the new token to reconnect."
-msgstr ""
-
-#: includes/MCP/Manager.php:927
-msgid "A new connection token was generated."
-msgstr ""
-
-#: includes/MCP/Manager.php:927
-msgid "Reset token"
-msgstr ""
-
-#: includes/MCP/Manager.php:944
-msgid "Claude"
-msgstr ""
-
-#: includes/MCP/Manager.php:944
-msgid "OAuth"
-msgstr ""
-
-#: includes/MCP/Manager.php:946
-msgid "In Claude, add a custom connector."
-msgstr ""
-
-#: includes/MCP/Manager.php:947
-msgid "Paste the Connector URL above."
-msgstr ""
-
-#: includes/MCP/Manager.php:948
-msgid "Approve the connection when prompted — you sign in here, no token needed."
-msgstr ""
-
-#: includes/MCP/Manager.php:952
-msgid "ChatGPT"
-msgstr ""
-
-#: includes/MCP/Manager.php:952
-#: includes/MCP/Manager.php:960
-msgid "Token"
-msgstr ""
-
-#: includes/MCP/Manager.php:954
-msgid "Settings → Connectors → Add a custom connector."
-msgstr ""
-
-#. translators: %s: connector URL
-#: includes/MCP/Manager.php:955
-#, php-format
-msgid "Use the URL %s."
-msgstr ""
-
-#. translators: %s: connector URL
-#: includes/MCP/Manager.php:956
-msgid "Provide the connection token as a Bearer credential."
-msgstr ""
-
-#: includes/MCP/Manager.php:960
-msgid "Cursor &amp; others"
-msgstr ""
-
-#: includes/MCP/Manager.php:962
-msgid "Add an MCP server with the Connector URL above."
-msgstr ""
-
-#: includes/MCP/Manager.php:963
-msgid "Set the Authorization header to: Bearer <token>."
-msgstr ""
-
-#: includes/MCP/Manager.php:964
-msgid "Confirm the install when the client asks."
-msgstr ""
-
-#: includes/MCP/Manager.php:994
-msgid "Token connection (ChatGPT / Cursor / manual)"
+#: includes/MCP/Manager.php:1015
+msgid "Approve the client"
 msgstr ""
 
 #: includes/MCP/Manager.php:1016
+msgid "Add it in Claude, ChatGPT or Cursor and confirm."
+msgstr ""
+
+#: includes/MCP/Manager.php:1053
+msgid "Run NotificationX from your AI assistant"
+msgstr ""
+
+#: includes/MCP/Manager.php:1060
+msgid "A built-in MCP server lets Claude, ChatGPT, Cursor and other assistants build campaigns, flip notifications on or off and read your analytics — in plain language, without leaving the chat. It stays off until you switch it on, and only administrators can connect."
+msgstr ""
+
+#: includes/MCP/Manager.php:1063
+msgid "Learn how it works"
+msgstr ""
+
+#: includes/MCP/Manager.php:1118
+msgid "Server status"
+msgstr ""
+
+#. translators: %s: the date the connection was established.
+#: includes/MCP/Manager.php:1123
+msgid "since %s"
+msgstr ""
+
+#: includes/MCP/Manager.php:1128
+msgid "Tools exposed"
+msgstr ""
+
+#. translators: %s: number of Pro-only tools.
+#: includes/MCP/Manager.php:1133
+msgid "%s from Pro"
+msgid_plural "%s from Pro"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/MCP/Manager.php:1134
+msgid "more with Pro"
+msgstr ""
+
+#: includes/MCP/Manager.php:1141
+msgid "none yet"
+msgstr ""
+
+#: includes/MCP/Manager.php:1145
+msgid "Last activity"
+msgstr ""
+
+#. translators: %s: human-readable time difference, e.g. "5 mins".
+#: includes/MCP/Manager.php:1148
+msgid "%s ago"
+msgstr ""
+
+#: includes/MCP/Manager.php:1149
+msgid "Never"
+msgstr ""
+
+#: includes/MCP/Manager.php:1195
+msgid "Connector URL"
+msgstr ""
+
+#: includes/MCP/Manager.php:1198
+#: includes/MCP/Manager.php:1208
+msgid "Copy"
+msgstr ""
+
+#: includes/MCP/Manager.php:1200
+msgid "Add this URL as a custom connector in your AI client."
+msgstr ""
+
+#: includes/MCP/Manager.php:1203
+msgid "Connection token"
+msgstr ""
+
+#: includes/MCP/Manager.php:1210
+msgid "For token-based clients (ChatGPT, Cursor): send it as an Authorization: Bearer header. Keep it secret."
+msgstr ""
+
+#: includes/MCP/Manager.php:1214
+msgid "Connection test passed — the MCP server is reachable and exposing its tools."
+msgstr ""
+
+#: includes/MCP/Manager.php:1214
+msgid "Test connection"
+msgstr ""
+
+#: includes/MCP/Manager.php:1215
+msgid "Reset the connection token? Existing clients will need the new token to reconnect."
+msgstr ""
+
+#: includes/MCP/Manager.php:1215
+msgid "A new connection token was generated."
+msgstr ""
+
+#: includes/MCP/Manager.php:1215
+msgid "Reset token"
+msgstr ""
+
+#: includes/MCP/Manager.php:1241
+msgid "Claude"
+msgstr ""
+
+#: includes/MCP/Manager.php:1242
+msgid "OAuth"
+msgstr ""
+
+#: includes/MCP/Manager.php:1245
+msgid "In Claude, add a custom connector."
+msgstr ""
+
+#: includes/MCP/Manager.php:1246
+msgid "Paste the Connector URL above."
+msgstr ""
+
+#: includes/MCP/Manager.php:1247
+msgid "Approve the connection when prompted — you sign in here, no token needed."
+msgstr ""
+
+#: includes/MCP/Manager.php:1249
+#: includes/MCP/Manager.php:1262
+msgid "Copy connector URL"
+msgstr ""
+
+#: includes/MCP/Manager.php:1254
+msgid "ChatGPT"
+msgstr ""
+
+#: includes/MCP/Manager.php:1255
+#: includes/MCP/Manager.php:1268
+msgid "Token"
+msgstr ""
+
+#: includes/MCP/Manager.php:1258
+msgid "Settings → Connectors → Add a custom connector."
+msgstr ""
+
+#: includes/MCP/Manager.php:1259
+msgid "Use the Connector URL above."
+msgstr ""
+
+#: includes/MCP/Manager.php:1260
+msgid "Provide the connection token as a Bearer credential."
+msgstr ""
+
+#: includes/MCP/Manager.php:1267
+msgid "Cursor &amp; others"
+msgstr ""
+
+#: includes/MCP/Manager.php:1271
+msgid "Open the client’s MCP configuration file."
+msgstr ""
+
+#: includes/MCP/Manager.php:1272
+msgid "Paste the server block below into mcpServers."
+msgstr ""
+
+#: includes/MCP/Manager.php:1273
+msgid "Confirm the install when the client asks."
+msgstr ""
+
+#: includes/MCP/Manager.php:1275
+msgid "Copy JSON config"
+msgstr ""
+
+#: includes/MCP/Manager.php:1299
+msgid "Token connection (ChatGPT / Cursor / manual)"
+msgstr ""
+
+#: includes/MCP/Manager.php:1321
 msgid "Apps you have approved. Refresh to pick up a new or detached connection."
 msgstr ""
 
-#: includes/MCP/Manager.php:1017
+#: includes/MCP/Manager.php:1322
 msgid "Refresh"
 msgstr ""
 
-#: includes/MCP/Manager.php:1022
-#: includes/MCP/Manager.php:1109
+#: includes/MCP/Manager.php:1327
+#: includes/MCP/Manager.php:1416
 msgid "No AI clients are connected yet."
 msgstr ""
 
-#: includes/MCP/Manager.php:1034
-#: includes/MCP/Manager.php:1108
+#: includes/MCP/Manager.php:1339
+#: includes/MCP/Manager.php:1415
 msgid "Revoke"
 msgstr ""
 
-#: includes/MCP/Manager.php:1059
+#: includes/MCP/Manager.php:1364
 msgid "Secure connection (HTTPS) is on."
 msgstr ""
 
-#: includes/MCP/Manager.php:1061
+#: includes/MCP/Manager.php:1366
 msgid "This site is not served over HTTPS. Token clients work, but hosted clients like Claude require an HTTPS site to connect."
 msgstr ""
 
 #. translators: %s: protocol version
-#: includes/MCP/Manager.php:1064
-#, php-format
+#: includes/MCP/Manager.php:1369
 msgid "MCP protocol version %s."
 msgstr ""
 
 #. translators: %s: protocol version
-#: includes/MCP/Manager.php:1065
+#: includes/MCP/Manager.php:1370
 msgid "Endpoint:"
 msgstr ""
 
-#: includes/MCP/Manager.php:1066
+#: includes/MCP/Manager.php:1371
 msgid "Use “Test connection” above to verify the server end-to-end."
 msgstr ""
 
-#: includes/MCP/Manager.php:1070
+#: includes/MCP/Manager.php:1375
 msgid "Disconnect all"
 msgstr ""
 
-#: includes/MCP/Manager.php:1071
+#: includes/MCP/Manager.php:1376
 msgid "Revoke every connection and OAuth grant. All clients will need to reconnect."
 msgstr ""
 
-#: includes/MCP/Manager.php:1073
+#: includes/MCP/Manager.php:1378
 msgid "Disconnect all clients? Every connection will be revoked."
 msgstr ""
 
-#: includes/MCP/Manager.php:1073
+#: includes/MCP/Manager.php:1378
 msgid "All MCP connections have been revoked."
 msgstr ""
 
-#: includes/MCP/Manager.php:1073
+#: includes/MCP/Manager.php:1378
 msgid "Disconnect all clients"
 msgstr ""
 
-#: includes/MCP/Manager.php:1110
+#: includes/MCP/Manager.php:1417
 msgid "Could not refresh the connected apps."
 msgstr ""
 
-#: includes/MCP/Manager.php:1111
+#: includes/MCP/Manager.php:1418
 msgid "Revoke this connection? The client will need to reconnect."
 msgstr ""
 
-#: includes/MCP/Manager.php:1113
+#: includes/MCP/Manager.php:1420
+msgid "MCP access enabled."
+msgstr ""
+
+#: includes/MCP/Manager.php:1421
+msgid "MCP access disabled."
+msgstr ""
+
+#: includes/MCP/Manager.php:1422
+msgid "Could not save the MCP setting."
+msgstr ""
+
+#: includes/MCP/Manager.php:1424
 msgid "No apps connected yet."
 msgstr ""
 
-#: includes/MCP/Manager.php:1114
+#: includes/MCP/Manager.php:1425
 msgid "Up to date — nothing changed."
 msgstr ""
 
-#: includes/MCP/Manager.php:1115
+#: includes/MCP/Manager.php:1426
 msgid "1 new app connected."
 msgstr ""
 
 #. translators: %d: number of newly connected apps.
-#: includes/MCP/Manager.php:1117
-#, php-format
+#: includes/MCP/Manager.php:1428
 msgid "%d new apps connected."
 msgstr ""
 
-#: includes/MCP/Manager.php:1118
+#: includes/MCP/Manager.php:1429
 msgid "1 app disconnected."
 msgstr ""
 
 #. translators: %d: number of disconnected apps.
-#: includes/MCP/Manager.php:1120
-#, php-format
+#: includes/MCP/Manager.php:1431
 msgid "%d apps disconnected."
 msgstr ""
 
-#: includes/MCP/Manager.php:1121
+#: includes/MCP/Manager.php:1432
 msgid "Connected apps updated."
 msgstr ""
 
-#: includes/MCP/Manager.php:1416
+#: includes/MCP/Manager.php:1435
+msgid "Copied"
+msgstr ""
+
+#: includes/MCP/Manager.php:1436
+msgid "The token is not on screen yet. Reload the page and try again."
+msgstr ""
+
+#: includes/MCP/Manager.php:1437
+msgid "Server block copied. Paste it into your client’s MCP config."
+msgstr ""
+
+#: includes/MCP/Manager.php:1985
 msgid "No route was found matching the URL and request method."
 msgstr ""
 
@@ -8227,7 +8257,6 @@ msgstr ""
 
 #. translators: %s: error detail.
 #: includes/MCP/SelfTest.php:64
-#, php-format
 msgid "The MCP endpoint could not be reached from the server itself: %s"
 msgstr ""
 
@@ -8245,7 +8274,6 @@ msgstr ""
 
 #. translators: %d: number of tools.
 #: includes/MCP/SelfTest.php:102
-#, php-format
 msgid "MCP is working. %d tool is available."
 msgid_plural "MCP is working. %d tools are available."
 msgstr[0] ""
@@ -8281,7 +8309,6 @@ msgstr ""
 
 #. translators: %s: tool name.
 #: includes/MCP/Tools.php:73
-#, php-format
 msgid "Unknown tool: %s"
 msgstr ""
 
@@ -8946,7 +8973,6 @@ msgstr ""
 
 #. translators: %s: URL of the wp-admin plugins page
 #: notificationx.php:85
-#, php-format
 msgid "<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>."
 msgstr ""
 
@@ -8981,7 +9007,6 @@ msgid "\"not\" can have only one comparison rule, multiple rules given"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#, js-format
 msgid "Invalid comparison rule %s."
 msgstr ""
 
@@ -9063,7 +9088,6 @@ msgid "Text Goes Here: text"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#, js-format
 msgid "You need to upgrade to the <strong><a href='%s' target='_blank'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
@@ -9157,7 +9181,6 @@ msgid "Notification Alert has been Disabled."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use this feature."
 msgstr ""
 
@@ -9166,7 +9189,6 @@ msgid "Disabled"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use multiple notification."
 msgstr ""
 
@@ -9326,7 +9348,6 @@ msgid "Cross Domain Notice code has been copied to Clipboard."
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#, js-format
 msgid "You need to upgrade to the <strong><a target='_blank' href='%s' style='color:red'>Premium Version</a></strong> to use <a target='_blank' href='%s' style='color:red'>Cross Domain Notice</a> feature."
 msgstr ""
 
@@ -9364,17 +9385,14 @@ msgid "Delete"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#, js-format
 msgid "%s clicks"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#, js-format
 msgid "%s views"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#, js-format
 msgid "%s entries"
 msgstr ""
 
@@ -9411,41 +9429,34 @@ msgid "NotificationX Fetch Error: "
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#, js-format
 msgid "All (%d)"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#, js-format
 msgid "Enabled (%d)"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
-#, js-format
 msgid "Disabled (%d)"
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Regenerated.
 #: assets/admin/js/admin.js:3
-#, js-format
 msgid "%d Notification Alerts have been Regenerated."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Reset.
 #: assets/admin/js/admin.js:5
-#, js-format
 msgid "%d Notification Alerts have been Reset."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Enabled.
 #: assets/admin/js/admin.js:7
-#, js-format
 msgid "%d Notification Alerts have been Enabled."
 msgstr ""
 
 #. translators: %d: Number of Notification Alerts Disabled.
 #: assets/admin/js/admin.js:9
-#, js-format
 msgid "%d Notification Alerts have been Disabled."
 msgstr ""
 
@@ -9454,7 +9465,6 @@ msgid "Unable to complete bulk action."
 msgstr ""
 
 #: assets/admin/js/admin.js:9
-#, js-format
 msgid "You're about to delete %s notification alert,<br />"
 msgid_plural "You're about to delete %s notification alerts,<br />"
 msgstr[0] ""
@@ -9466,7 +9476,6 @@ msgstr ""
 
 #. translators: %d: Number of Notification Alerts deleted.
 #: assets/admin/js/admin.js:11
-#, js-format
 msgid ""
 "%d notification Alerts have been\n"
 "                Deleted."
@@ -9493,7 +9502,6 @@ msgid "Seems like you haven’t created any notification alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#, js-format
 msgid "Hit on %1$s\"Add New\"%2$s button to get started"
 msgstr ""
 
@@ -9506,7 +9514,6 @@ msgid "There’s no enabled Notification Alerts."
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#, js-format
 msgid "Simply use the toggle switch to turn your notifications from %1$s\"All NotificationX\"%2$s page."
 msgstr ""
 
@@ -9735,7 +9742,6 @@ msgid "Please select entries to delete"
 msgstr ""
 
 #: assets/admin/js/admin.js:11
-#, js-format
 msgid "You're about to delete %s feedback entry,<br />"
 msgid_plural "You're about to delete %s feedback entries,<br />"
 msgstr[0] ""
@@ -9743,7 +9749,6 @@ msgstr[1] ""
 
 #. translators: %d: Number of feedback entries deleted.
 #: assets/admin/js/admin.js:13
-#, js-format
 msgid "%d feedback entry has been deleted."
 msgid_plural "%d feedback entries have been deleted."
 msgstr[0] ""
@@ -10356,7 +10361,6 @@ msgstr ""
 
 #. translators: %1$s: title, %2$s: link to the All NotificationX page.
 #: assets/admin/js/admin.js:16
-#, js-format
 msgid "You are about to publish %1$s. You can rename this and edit everything whenever you want from %2$s Page."
 msgstr ""
 
@@ -10370,7 +10374,6 @@ msgstr ""
 
 #. translators: Title of the new Notification Alert. %1$s: title, %2$s: current date.
 #: assets/admin/js/admin.js:18
-#, js-format
 msgid "NotificationX - %1$s - %2$s"
 msgstr ""
 
@@ -10480,7 +10483,6 @@ msgid "Are you sure you want to delete this Cookie?"
 msgstr ""
 
 #: assets/admin/js/admin.js:20
-#, js-format
 msgid "The cookie <strong>%s</strong> will be permanently deleted. This cookie will no longer be displayed on your cookie list nor be blocked prior to receiving user consent."
 msgstr ""
 
