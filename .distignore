@@ -85,3 +85,6 @@ vendor/priyomukul/.gitignore
 vendor/priyomukul/composer.json
 vendor/priyomukul/README.md
 .npmrc
+
+# CSS-only webpack entry (gdpr-modal.ts) also emits an empty JS file; never loaded.
+assets/public/js/gdpr-modal.js
