@@ -29,6 +29,7 @@ class BarSpace {
     // v2: per-bucket samples + median (v1 stored the last report only).
     const OPTION      = 'notificationx_bar_heights_v2';
     const MAX_HEIGHT  = 400;
+    // One report per visitor IP, bar and width bucket in this window.
     const THROTTLE    = MINUTE_IN_SECONDS;
     const SAMPLES     = 5;
     const MIN_SAMPLES = 3;
@@ -125,34 +126,61 @@ class BarSpace {
             return new WP_REST_Response( [ 'saved' => false ], 200 );
         }
 
-        $throttle_key = "nx_bar_height_{$nx_id}_{$bucket}";
+        // The endpoint is public, so a single client must not be able to set the
+        // gap every visitor sees. Throttle per IP (not per bar, which would also
+        // block real browsers from correcting a bad value); the median below
+        // takes at most one sample per IP.
+        $ip           = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+        $throttle_key = 'nx_bar_height_' . md5( "{$ip}|{$nx_id}|{$bucket}" );
         if ( get_transient( $throttle_key ) ) {
             return new WP_REST_Response( [ 'saved' => false ], 200 );
         }
+        set_transient( $throttle_key, 1, self::THROTTLE );
 
         $version = (string) ( $settings['updated_at'] ?? '' );
         $heights = get_option( self::OPTION, [] );
-        $entry   = isset( $heights[ $nx_id ] ) && is_array( $heights[ $nx_id ] ) && ( $heights[ $nx_id ]['v'] ?? '' ) === $version
+        if ( ! is_array( $heights ) ) {
+            $heights = [];
+        }
+        $entry = isset( $heights[ $nx_id ] ) && is_array( $heights[ $nx_id ] ) && ( $heights[ $nx_id ]['v'] ?? '' ) === $version
             ? $heights[ $nx_id ]
             : [ 'v' => $version, 's' => [], 'h' => [] ];
 
-        $samples = isset( $entry['s'][ $bucket ] ) && is_array( $entry['s'][ $bucket ] ) ? $entry['s'][ $bucket ] : [];
+        $samples = isset( $entry['s'][ $bucket ] ) && is_array( $entry['s'][ $bucket ] ) ? array_values( $entry['s'][ $bucket ] ) : [];
+        $sources = isset( $entry['i'][ $bucket ] ) && is_array( $entry['i'][ $bucket ] ) ? array_values( $entry['i'][ $bucket ] ) : [];
+        if ( count( $sources ) !== count( $samples ) ) {
+            $sources = array_fill( 0, count( $samples ), '' );
+        }
         // Settled: a full window already agrees with this report.
         if ( count( $samples ) >= self::SAMPLES && isset( $entry['h'][ $bucket ] ) && abs( $entry['h'][ $bucket ] - $height ) < 2 ) {
             return new WP_REST_Response( [ 'saved' => false ], 200 );
         }
 
-        $samples[]               = $height;
-        $samples                 = array_slice( $samples, -self::SAMPLES );
-        $entry['s'][ $bucket ]   = $samples;
+        // One sample per source IP in the window, so a single client cannot
+        // supply the majority of samples and pick the median.
+        $source = substr( md5( $ip ), 0, 8 );
+        $index  = array_search( $source, $sources, true );
+        if ( false !== $index ) {
+            array_splice( $samples, $index, 1 );
+            array_splice( $sources, $index, 1 );
+        }
+        $samples[] = $height;
+        $sources[] = $source;
+        $samples   = array_slice( $samples, -self::SAMPLES );
+        $sources   = array_slice( $sources, -self::SAMPLES );
+
+        $entry['s'][ $bucket ] = $samples;
+        $entry['i'][ $bucket ] = $sources;
+        $saved                 = false;
         if ( count( $samples ) >= self::MIN_SAMPLES ) {
             $entry['h'][ $bucket ] = self::median( $samples );
+            $saved                 = true;
         }
         $heights[ $nx_id ] = $entry;
-        update_option( self::OPTION, $heights, false );
-        set_transient( $throttle_key, 1, self::THROTTLE );
+        // Autoloaded: print_reserve() reads it on every front-end page with a bar.
+        update_option( self::OPTION, $heights, true );
 
-        return new WP_REST_Response( [ 'saved' => true ], 200 );
+        return new WP_REST_Response( [ 'saved' => $saved ], 200 );
     }
 
     /**
@@ -207,6 +235,15 @@ class BarSpace {
                     esc_attr( $nx_id ),
                     esc_attr( wp_json_encode( $entry['h'] ) ),
                     implode( '', $rules ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built from integers above.
+                );
+                // A page cache serves this reservation to visitors who closed the
+                // bar too; for them the bar never mounts and the page would jump
+                // up once the frontend releases it. Check the close cookie before
+                // first paint. Tagged so optimizers do not delay it.
+                $cookie = 'notificationx_' . $nx_id . ( ! empty( $settings['countdown_rand'] ) ? '-' . $settings['countdown_rand'] : '' );
+                printf(
+                    "<script data-no-optimize=\"1\" data-cfasync=\"false\" data-no-defer=\"1\" nowprocket>(function(n){try{if(document.cookie.split('; ').some(function(c){var i=c.indexOf('=');return c.slice(0,i)===n&&c.slice(i+1)!==''&&c.slice(i+1)!=='false';}))document.documentElement.classList.add('nx-bar-reserve-off');}catch(e){}})(%s);</script>\n",
+                    wp_json_encode( $cookie ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-encoded string literal.
                 );
             }
             // Only one top bar sets the body padding.

@@ -202,8 +202,13 @@ class FrontEnd {
      * @return void
      */
     public function print_bar_reserve() {
-        if (!empty($this->notificationXArr['pressbar'])) {
-            BarSpace::get_instance()->print_reserve($this->notificationXArr['pressbar']);
+        // The builder preview passes preview data here, not bar IDs.
+        if (!empty($this->notificationXArr['nxPreview']) || empty($this->notificationXArr['pressbar']) || !is_array($this->notificationXArr['pressbar'])) {
+            return;
+        }
+        $ids = array_filter($this->notificationXArr['pressbar'], 'is_numeric');
+        if ($ids) {
+            BarSpace::get_instance()->print_reserve($ids);
         }
     }
 
