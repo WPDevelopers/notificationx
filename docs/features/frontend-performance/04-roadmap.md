@@ -18,14 +18,16 @@ Run the E2E comparison ([tests/e2e/](../../../tests/e2e/)) before and after ever
 
 ### B2.2 FontAwesome: load conditionally, don't delete it
 
-- `font-family: "FontAwesome"` draws icons in `_theme-seven.scss`, `_theme-eight.scss`, `_customizable.scss` and `_res-woocommerce-theme.scss`. It's imported from cdnjs in `_common.scss` and `_customizable.scss`.
-- Remove the `@import`s. Enqueue FontAwesome as its own stylesheet only when an active notification uses one of those themes; PHP knows through `get_notifications_ids( true )`.
+- `font-family: "FontAwesome"` draws icons in `_theme-seven.scss`, `_theme-eight.scss`, `_customizable.scss` and `_res-woocommerce-theme.scss`. It was imported from cdnjs in `_common.scss` and `_customizable.scss`.
+- ~~Remove the `@import`s.~~ Done: FontAwesome is its own style handle, `notificationx-fontawesome-4`, enqueued next to `notificationx-public` and loaded without blocking the first paint (`media="print"` swapped to `all` on load, `<noscript>` fallback). Sites can turn it off with the `notificationx_load_fontawesome` filter. Cross-domain embeds get it from the runtime (`frontend/core/external-styles.ts`).
+- Next: enqueue it only when an active notification uses one of those themes; PHP knows through `get_notifications_ids( true )`.
 - Later: replace those glyphs with inline SVG.
 
 ### B2.3 Open Sans and DM Sans: self-host
 
-- Open Sans is `@import`ed from Google Fonts in `_container.scss` and `_notification-bar-common.scss`. Pro's `_announcements.scss` imports DM Sans the same way.
-- Serve the same files from the plugin with `font-display: swap`. There's no visual change, and it stops sending visitor IPs to Google, which German courts have ruled a GDPR violation.
+- Open Sans was `@import`ed from Google Fonts in `_container.scss` and `_notification-bar-common.scss`. Pro's `_announcements.scss` imported DM Sans the same way.
+- ~~Remove the `@import`s.~~ Done: they are style handles `notificationx-open-sans` (free) and `notificationx-pro-dm-sans` (Pro), loaded the same non-blocking way as FontAwesome. Opt-out filters: `notificationx_load_open_sans`, `notificationx_pro_load_dm_sans`.
+- Next: serve the same files from the plugin with `font-display: swap`. There's no visual change, and it stops sending visitor IPs to Google, which German courts have ruled a GDPR violation.
 
 ### B2.4 Pressbar CLS: measure first
 

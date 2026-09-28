@@ -104,6 +104,9 @@ class PostType {
         );
         wp_localize_script( 'notificationx-admin', 'notificationxTabs', $tabs );
         wp_enqueue_style( 'notificationx-admin', Helper::file( 'admin/css/admin.css', true ), [], $d['version'], 'all' );
+        // admin.css bundles the frontend themes for the builder preview; their
+        // fonts and icons are no longer @imported by the CSS.
+        FrontEnd::get_instance()->enqueue_external_styles();
         wp_set_script_translations( 'notificationx-admin', 'notificationx' );
         do_action( 'notificationx_admin_scripts' );
 
