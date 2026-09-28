@@ -48,8 +48,78 @@ class BarSpace {
         'xl' => [ 'max' => 0, 'device' => 'desktop' ],
     ];
 
+    // A report more than this many times the current reservation (plus a small
+    // allowance) is ignored: it can only open a gap that is not there.
+    const OUTLIER_RATIO = 2;
+    const OUTLIER_SLACK = 16;
+
     public function __construct() {
         add_action( 'rest_api_init', [ $this, 'register_routes' ] );
+        // Any save can change the bar's height (text, font size, layout), and a
+        // builder save resubmits the loaded `updated_at`, so the version check
+        // alone does not notice an edit.
+        add_action( 'nx_saved_post', [ $this, 'forget_heights' ], 10, 3 );
+    }
+
+    /**
+     * Drop the stored heights of a notification that was just saved, so its old
+     * height is not reserved while visitors report the new one.
+     *
+     * @param array $post  Saved post row.
+     * @param array $data  Submitted data.
+     * @param int   $nx_id Notification ID.
+     */
+    public function forget_heights( $post, $data, $nx_id ) {
+        $nx_id   = absint( $nx_id );
+        $heights = get_option( self::OPTION, [] );
+        if ( $nx_id && is_array( $heights ) && isset( $heights[ $nx_id ] ) ) {
+            unset( $heights[ $nx_id ] );
+            update_option( self::OPTION, $heights, true );
+        }
+    }
+
+    /**
+     * The address a height report came from, used to throttle it and to count
+     * each visitor once.
+     *
+     * `REMOTE_ADDR` is the only value a client cannot set. When it is a private
+     * or loopback address the request reached PHP through a reverse proxy on the
+     * site's own network, and every visitor would share it — the median would
+     * never get enough samples. In that case the address the proxy appended to
+     * `X-Forwarded-For` (its last entry), or `X-Real-IP`, identifies the
+     * visitor. A public `REMOTE_ADDR` is used as is: forwarded headers from the
+     * open internet are not trusted.
+     *
+     * @return string
+     */
+    public static function client_ip() {
+        // phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotValidated -- isset-checked, validated with filter_var below.
+        $ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+        if ( $ip && ! filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) ) {
+            $forwarded = '';
+            if ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+                $hops      = array_map( 'trim', explode( ',', sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) ) );
+                $forwarded = (string) end( $hops );
+            } elseif ( ! empty( $_SERVER['HTTP_X_REAL_IP'] ) ) {
+                $forwarded = trim( sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_REAL_IP'] ) ) );
+            }
+            if ( filter_var( $forwarded, FILTER_VALIDATE_IP ) ) {
+                $ip = $forwarded;
+            }
+        }
+        // phpcs:enable
+
+        /**
+         * Filters the visitor address used to throttle and count bar-height reports.
+         *
+         * Sites behind a CDN whose edge addresses are public (so the default above
+         * keeps them) can return the visitor's address from the CDN's header here.
+         *
+         * @since 3.3.3
+         *
+         * @param string $ip Detected address.
+         */
+        return (string) apply_filters( 'nx_bar_height_client_ip', $ip ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- nx_ is this plugin's hook prefix.
     }
 
     public function register_routes() {
@@ -105,6 +175,19 @@ class BarSpace {
     }
 
     /**
+     * Transient name that throttles one visitor's reports for one bar and width
+     * bucket. Salted, so the stored name does not reveal the address.
+     *
+     * @param string $ip     Visitor address.
+     * @param int    $nx_id  Notification ID.
+     * @param string $bucket Width bucket.
+     * @return string
+     */
+    public static function throttle_key( $ip, $nx_id, $bucket ) {
+        return 'nx_bar_height_' . md5( wp_hash( "{$ip}|{$nx_id}|{$bucket}" ) );
+    }
+
+    /**
      * Lower median, so an even window leans towards the smaller height.
      *
      * @param int[] $values
@@ -130,8 +213,8 @@ class BarSpace {
         // gap every visitor sees. Throttle per IP (not per bar, which would also
         // block real browsers from correcting a bad value); the median below
         // takes at most one sample per IP.
-        $ip           = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
-        $throttle_key = 'nx_bar_height_' . md5( "{$ip}|{$nx_id}|{$bucket}" );
+        $ip           = self::client_ip();
+        $throttle_key = self::throttle_key( $ip, $nx_id, $bucket );
         if ( get_transient( $throttle_key ) ) {
             return new WP_REST_Response( [ 'saved' => false ], 200 );
         }
@@ -155,10 +238,17 @@ class BarSpace {
         if ( count( $samples ) >= self::SAMPLES && isset( $entry['h'][ $bucket ] ) && abs( $entry['h'][ $bucket ] - $height ) < 2 ) {
             return new WP_REST_Response( [ 'saved' => false ], 200 );
         }
+        // Once a height is reserved, a report far above it is not the bar (an
+        // edit clears the window, see forget_heights()) — it would only open a
+        // gap above the page, so it never gets a vote.
+        if ( isset( $entry['h'][ $bucket ] ) && $height > $entry['h'][ $bucket ] * self::OUTLIER_RATIO + self::OUTLIER_SLACK ) {
+            return new WP_REST_Response( [ 'saved' => false ], 200 );
+        }
 
         // One sample per source IP in the window, so a single client cannot
-        // supply the majority of samples and pick the median.
-        $source = substr( md5( $ip ), 0, 8 );
+        // supply the majority of samples and pick the median. Stored as a salted
+        // hash, never the address.
+        $source = substr( wp_hash( $ip ), 0, 8 );
         $index  = array_search( $source, $sources, true );
         if ( false !== $index ) {
             array_splice( $samples, $index, 1 );
@@ -179,6 +269,8 @@ class BarSpace {
         $heights[ $nx_id ] = $entry;
         // Autoloaded: print_reserve() reads it on every front-end page with a bar.
         update_option( self::OPTION, $heights, true );
+        // v1 storage (single value per bucket) is no longer read.
+        delete_option( 'notificationx_bar_heights' );
 
         return new WP_REST_Response( [ 'saved' => $saved ], 200 );
     }
@@ -216,7 +308,10 @@ class BarSpace {
                 // Respect per-device visibility (`hide_on_*` set means "show").
                 $visible = ! empty( $settings[ 'mobile' === $bucket['device'] ? 'hide_on_mobile' : ( 'tablet' === $bucket['device'] ? 'hide_on_tab' : 'hide_on_desktop' ) ] );
                 if ( $height && $visible ) {
-                    $query = [];
+                    // Only while scripts run: without JavaScript the bar never
+                    // mounts and nothing would release the space. Browsers that
+                    // do not know `scripting` skip the rule (no reservation).
+                    $query = [ '(scripting:enabled)' ];
                     if ( $min ) {
                         $query[] = "(min-width:{$min}px)";
                     }
@@ -224,7 +319,7 @@ class BarSpace {
                         $query[] = '(max-width:' . ( $bucket['max'] - 0.02 ) . 'px)';
                     }
                     $rule    = "html:not(.nx-bar-reserve-off) body{padding-top:{$height}px}";
-                    $rules[] = $query ? '@media ' . implode( ' and ', $query ) . "{{$rule}}" : $rule;
+                    $rules[] = '@media ' . implode( ' and ', $query ) . "{{$rule}}";
                 }
                 $min = $bucket['max'];
             }
