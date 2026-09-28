@@ -152,6 +152,22 @@ class Manager {
             'callback'            => array( $this, 'rest_self_test' ),
             'permission_callback' => $admin,
         ) );
+        // The enable toggle persists through here rather than the settings form.
+        // The settings endpoint replaces the whole settings blob with whatever the
+        // admin app posts (see Admin\Settings::save_settings()), so a request
+        // carrying only `enable_mcp` would wipe every other setting. This writes
+        // the one key and leaves the rest alone.
+        register_rest_route( $ns, '/mcp/enable', array(
+            'methods'             => 'POST',
+            'callback'            => array( $this, 'rest_set_enabled' ),
+            'permission_callback' => $admin,
+            'args'                => array(
+                'enabled' => array(
+                    'required' => true,
+                    'type'     => 'boolean',
+                ),
+            ),
+        ) );
         register_rest_route( $ns, '/mcp/apps/revoke', array(
             'methods'             => 'POST',
             'callback'            => array( $this, 'rest_revoke_app' ),
@@ -282,6 +298,11 @@ class Manager {
      * @return \WP_REST_Response
      */
     public function rest_connection() {
+        // Whatever switched MCP on -- the toggle, or the settings form's Save --
+        // the panel asks here for the state to display, so make sure there is a
+        // token to hand back rather than reporting an empty one until a reload.
+        $this->ensure_paired();
+
         return new \WP_REST_Response( $this->connection_state(), 200 );
     }
 
@@ -322,8 +343,61 @@ class Manager {
      * @return \WP_REST_Response
      */
     public function rest_self_test() {
+        // A token is normally minted while the settings tab is built, which only
+        // happens on a server-rendered request. Saving from the admin app never
+        // rebuilds it, so a test run straight after switching MCP on used to
+        // report "no connection token has been generated yet" until the page was
+        // reloaded. Mint here too, so the test reflects the saved state.
+        $this->ensure_paired();
+
         $result = SelfTest::get_instance()->run();
         return new \WP_REST_Response( array( 'status' => $result['ok'] ? 'success' : 'error', 'message' => $result['message'] ) + $result, 200 );
+    }
+
+    /**
+     * Turn MCP access on or off.
+     *
+     * Writes only `settings.enable_mcp`: the settings endpoint replaces the whole
+     * blob with the posted one, so persisting the toggle through there would
+     * require the admin app to post every other setting alongside it.
+     *
+     * @param \WP_REST_Request $request Incoming request.
+     * @return \WP_REST_Response
+     */
+    public function rest_set_enabled( $request ) {
+        $enabled = (bool) $request->get_param( 'enabled' );
+
+        $settings = Settings::get_instance()->get( 'settings' );
+        if ( ! is_array( $settings ) ) {
+            $settings = array();
+        }
+        $settings['enable_mcp'] = $enabled;
+        Settings::get_instance()->set( 'settings', $settings );
+
+        // Same courtesy the settings tab does: switching on should leave the UI
+        // with a token to show and a connection that can actually be tested.
+        $this->ensure_paired();
+
+        return new \WP_REST_Response(
+            array( 'status' => 'success' ) + $this->connection_state(),
+            200
+        );
+    }
+
+    /**
+     * Mint a pairing token if MCP is on and none exists yet. Idempotent, and a
+     * no-op while MCP is off so turning it off never creates credentials.
+     *
+     * @return void
+     */
+    protected function ensure_paired() {
+        if ( ! $this->is_enabled() ) {
+            return;
+        }
+        $pairing = Pairing::get_instance();
+        if ( ! $pairing->is_connected() ) {
+            $pairing->connect();
+        }
     }
 
     /**
@@ -756,7 +830,15 @@ class Manager {
     /**
      * Build the MCP settings field schema. The rich panels are server-rendered
      * HTML delivered through quickbuilder `message` fields (html => true); the
-     * action buttons use quickbuilder `button` fields for the ajax + toast.
+     * action buttons are plain buttons wired to the globals printed by
+     * {@see print_panel_assets()}.
+     *
+     * Section order follows the reading order of someone who has never used the
+     * feature: what it is (hero), what it would give them (capabilities), and
+     * only then the plumbing. The capability section deliberately carries no
+     * `rules`, so the one screen that answers "why would I turn this on?" is
+     * also visible while the feature is still off — the rest stays hidden until
+     * it has something real to show.
      *
      * @return array
      */
@@ -773,6 +855,7 @@ class Manager {
                         'name'    => 'mcp_hero',
                         'type'    => 'message',
                         'html'    => true,
+                        'classes' => 'nx-mcp-field nx-mcp-field-flush',
                         'message' => $this->hero_html(),
                     ),
                     'enable_mcp' => array(
@@ -780,7 +863,15 @@ class Manager {
                         'type'    => 'toggle',
                         'default' => false,
                         'label'   => __( 'Enable MCP access', 'notificationx' ),
-                        'help'    => __( 'When enabled and saved, approved AI assistants can connect to this site to manage notifications and read analytics.', 'notificationx' ),
+                        'help'    => __( 'When enabled, approved AI assistants can connect to this site to manage notifications and read analytics.', 'notificationx' ),
+                    ),
+                    'mcp_stats' => array(
+                        'name'    => 'mcp_stats',
+                        'type'    => 'message',
+                        'html'    => true,
+                        'classes' => 'nx-mcp-field',
+                        'rules'   => $enabled_rule,
+                        'message' => $this->stats_html(),
                     ),
                 ),
             ),
@@ -795,6 +886,7 @@ class Manager {
                         'name'    => 'mcp_connection_html',
                         'type'    => 'message',
                         'html'    => true,
+                        'classes' => 'nx-mcp-field',
                         'message' => $this->connection_html(),
                     ),
                 ),
@@ -810,6 +902,7 @@ class Manager {
                         'name'    => 'mcp_clients_html',
                         'type'    => 'message',
                         'html'    => true,
+                        'classes' => 'nx-mcp-field',
                         'message' => $this->clients_html(),
                     ),
                 ),
@@ -825,6 +918,7 @@ class Manager {
                         'name'    => 'mcp_apps_html',
                         'type'    => 'message',
                         'html'    => true,
+                        'classes' => 'nx-mcp-field',
                         'message' => $this->connected_apps_html(),
                     ),
                 ),
@@ -840,6 +934,7 @@ class Manager {
                         'name'    => 'mcp_health_html',
                         'type'    => 'message',
                         'html'    => true,
+                        'classes' => 'nx-mcp-field',
                         'message' => $this->health_html(),
                     ),
                 ),
@@ -865,29 +960,217 @@ class Manager {
     }
 
     /**
-     * Hero header with the status badge.
+     * The abilities currently registered, split the way the panel reads them.
+     *
+     * Read straight from the registry rather than a hand-kept list, so the tab
+     * can never claim a tool the server does not actually expose — and so Pro's
+     * abilities appear the moment Pro adds them through `nx_register_abilities`
+     * with no change here. `boot()` is idempotent, and calling it is what makes
+     * this safe to render on a request where nothing else has touched the
+     * registry yet.
+     *
+     * @return array { read: array[], write: array[] } each row: label, tool, pro.
+     */
+    protected function ability_rows() {
+        $registrar = Registrar::get_instance();
+        $registrar->boot();
+
+        $rows = array(
+            'read'  => array(),
+            'write' => array(),
+        );
+
+        foreach ( $registrar->get_all() as $id => $ability ) {
+            $row = array(
+                'label' => $ability->get_label(),
+                'tool'  => $ability->tool_name(),
+                'pro'   => ( 0 === strpos( (string) $id, 'notificationx-pro/' ) ),
+            );
+
+            $rows[ $ability->is_write() ? 'write' : 'read' ][] = $row;
+        }
+
+        return $rows;
+    }
+
+    /**
+     * The three setup steps shown as a static how-to in the hero.
+     *
+     * @return array[] Each: icon, label, hint.
+     */
+    protected function setup_steps() {
+        return array(
+            array(
+                'icon'  => 'icon-step-power',
+                'label' => __( 'Turn MCP on', 'notificationx' ),
+                'hint'  => __( 'Flip the switch below.', 'notificationx' ),
+            ),
+            array(
+                'icon'  => 'icon-step-copy',
+                'label' => __( 'Copy your connector', 'notificationx' ),
+                'hint'  => __( 'One URL, and a token for clients that need one.', 'notificationx' ),
+            ),
+            array(
+                'icon'  => 'icon-step-approve',
+                'label' => __( 'Approve the client', 'notificationx' ),
+                'hint'  => __( 'Add it in Claude, ChatGPT or Cursor and confirm.', 'notificationx' ),
+            ),
+        );
+    }
+
+    /**
+     * Path to one of the tab's own icon files.
+     *
+     * The panel HTML is rendered into the settings app through a `message`
+     * field, where an inline `<svg>` does not survive: icons are therefore real
+     * files referenced with `<img>`, never markup and never a `data:` URI.
+     *
+     * @param string $name File name, without extension.
+     * @return string
+     */
+    protected function icon_url( $name ) {
+        return NOTIFICATIONX_ADMIN_URL . 'images/mcp/' . $name . '.svg';
+    }
+
+    /**
+     * Hero header: what the feature is, where the site currently stands, and
+     * the three steps between here and a working connection.
      *
      * @return string
      */
     protected function hero_html() {
         list( $state, $label ) = $this->status();
+        $steps = $this->setup_steps();
         ob_start();
         ?>
-        <div class="nx-mcp-hero">
-            <div class="nx-mcp-hero-icon">&#128268;</div>
-            <div class="nx-mcp-hero-body">
-                <h3 class="nx-mcp-hero-title">
-                    <?php esc_html_e( 'MCP Server', 'notificationx' ); ?>
-                    <span class="nx-mcp-badge nx-mcp-badge-<?php echo esc_attr( $state ); ?>"><?php echo esc_html( $label ); ?></span>
-                </h3>
-                <p class="nx-mcp-hero-text">
-                    <?php esc_html_e( 'Connect NotificationX to Claude, ChatGPT, Cursor and other AI assistants through a built-in MCP server, so you can manage notifications and read analytics in plain language. It is off by default and only administrators can use it.', 'notificationx' ); ?>
-                </p>
-                <a class="nx-mcp-learn" href="<?php echo esc_url( 'https://notificationx.com/docs/mcp-in-notificationx' ); ?>" target="_blank" rel="noopener noreferrer">
-                    <span class="nx-mcp-learn-text"><?php esc_html_e( 'Learn how it works', 'notificationx' ); ?></span>
-                    <span class="nx-mcp-learn-arrow" aria-hidden="true">&rarr;</span>
-                </a>
+        <div class="nx-mcp-hero nx-mcp-hero-<?php echo esc_attr( $state ); ?>">
+            <div class="nx-mcp-hero-main">
+                <span class="nx-mcp-hero-tile">
+                    <img class="nx-mcp-hero-tile-ic" width="24" height="24" alt="" src="<?php echo esc_url( $this->icon_url( 'icon-mcp' ) ); ?>" />
+                </span>
+                <div class="nx-mcp-hero-body">
+                    <h3 class="nx-mcp-hero-title">
+                        <?php esc_html_e( 'Run NotificationX from your AI assistant', 'notificationx' ); ?>
+                        <span class="nx-mcp-badge nx-mcp-badge-<?php echo esc_attr( $state ); ?>">
+                            <span class="nx-mcp-badge-dot" aria-hidden="true"></span>
+                            <span class="nx-mcp-badge-text"><?php echo esc_html( $label ); ?></span>
+                        </span>
+                    </h3>
+                    <p class="nx-mcp-hero-text">
+                        <?php esc_html_e( 'A built-in MCP server lets Claude, ChatGPT, Cursor and other assistants build campaigns, flip notifications on or off and read your analytics — in plain language, without leaving the chat. It stays off until you switch it on, and only administrators can connect.', 'notificationx' ); ?>
+                    </p>
+                    <a class="nx-mcp-learn" href="<?php echo esc_url( 'https://notificationx.com/docs/mcp-in-notificationx' ); ?>" target="_blank" rel="noopener noreferrer">
+                        <span class="nx-mcp-learn-text"><?php esc_html_e( 'Learn how it works', 'notificationx' ); ?></span>
+                        <span class="nx-mcp-learn-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
+                </div>
             </div>
+            <ol class="nx-mcp-rail">
+                <?php foreach ( $steps as $step ) : ?>
+                    <li class="nx-mcp-rail-step">
+                        <span class="nx-mcp-rail-mark" aria-hidden="true">
+                            <img class="nx-mcp-rail-ic" width="16" height="16" alt="" src="<?php echo esc_url( $this->icon_url( $step['icon'] ) ); ?>" />
+                        </span>
+                        <span class="nx-mcp-rail-body">
+                            <strong class="nx-mcp-rail-label"><?php echo esc_html( $step['label'] ); ?></strong>
+                            <span class="nx-mcp-rail-hint"><?php echo esc_html( $step['hint'] ); ?></span>
+                        </span>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    /**
+     * The four headline numbers, each one read from state the page already has.
+     *
+     * There is deliberately no trend line or delta anywhere on this row: the
+     * server keeps a single `last_used` stamp and no history at all, so a trend
+     * here could only be invented.
+     *
+     * @return string
+     */
+    protected function stats_html() {
+        list( $state, $status_label ) = $this->status();
+
+        $pairing      = Pairing::get_instance();
+        $pstate       = $pairing->state();
+        $connected_at = ! empty( $pstate['connected_at'] ) ? (int) $pstate['connected_at'] : 0;
+        $last_used    = ! empty( $pstate['last_used'] ) ? (int) $pstate['last_used'] : 0;
+
+        $rows       = $this->ability_rows();
+        $tool_count = count( $rows['read'] ) + count( $rows['write'] );
+        $pro_count  = 0;
+        foreach ( array_merge( $rows['read'], $rows['write'] ) as $row ) {
+            if ( $row['pro'] ) {
+                ++$pro_count;
+            }
+        }
+
+        $apps = count( $this->get_connected_apps() );
+
+        $tiles = array(
+            array(
+                'key'   => 'status',
+                'icon'  => 'icon-status',
+                'label' => __( 'Server status', 'notificationx' ),
+                'value' => $status_label,
+                'small' => true,
+                'note'  => $connected_at
+                    /* translators: %s: the date the connection was established. */
+                    ? sprintf( __( 'since %s', 'notificationx' ), date_i18n( get_option( 'date_format' ), $connected_at ) )
+                    : '',
+            ),
+            array(
+                'icon'  => 'icon-tools',
+                'label' => __( 'Tools exposed', 'notificationx' ),
+                'value' => number_format_i18n( $tool_count ),
+                'small' => false,
+                'note'  => $pro_count
+                    /* translators: %s: number of Pro-only tools. */
+                    ? sprintf( _n( '%s from Pro', '%s from Pro', $pro_count, 'notificationx' ), number_format_i18n( $pro_count ) )
+                    : __( 'more with Pro', 'notificationx' ),
+            ),
+            array(
+                'icon'  => 'icon-apps',
+                'label' => __( 'Connected apps', 'notificationx' ),
+                'value' => number_format_i18n( $apps ),
+                'small' => false,
+                'note'  => $apps ? '' : __( 'none yet', 'notificationx' ),
+            ),
+            array(
+                'icon'  => 'icon-activity',
+                'label' => __( 'Last activity', 'notificationx' ),
+                'value' => $last_used
+                    /* translators: %s: human-readable time difference, e.g. "5 mins". */
+                    ? sprintf( __( '%s ago', 'notificationx' ), human_time_diff( $last_used ) )
+                    : __( 'Never', 'notificationx' ),
+                'small' => true,
+                'note'  => '',
+            ),
+        );
+
+        ob_start();
+        ?>
+        <div class="nx-mcp-stats nx-mcp-stats-<?php echo esc_attr( $state ); ?>">
+            <?php foreach ( $tiles as $tile ) : ?>
+                <div class="nx-mcp-stat">
+                    <div class="nx-mcp-stat-top">
+                        <span class="nx-mcp-stat-label"><?php echo esc_html( $tile['label'] ); ?></span>
+                        <span class="nx-mcp-stat-ic">
+                            <img width="16" height="16" alt="" src="<?php echo esc_url( $this->icon_url( $tile['icon'] ) ); ?>" />
+                        </span>
+                    </div>
+                    <div class="nx-mcp-stat-row">
+                        <span class="nx-mcp-stat-value<?php echo $tile['small'] ? ' is-sm' : ''; ?><?php echo isset( $tile['key'] ) ? ' nx-mcp-stat-' . esc_attr( $tile['key'] ) : ''; ?>"><?php echo esc_html( $tile['value'] ); ?></span>
+                        <?php if ( $tile['note'] ) : ?>
+                            <span class="nx-mcp-stat-note"><?php echo esc_html( $tile['note'] ); ?></span>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
         <?php
         return ob_get_clean();
@@ -895,6 +1178,10 @@ class Manager {
 
     /**
      * Connector URL + token cards with copy/reveal controls.
+     *
+     * Always rendered, even while MCP is off: the enable toggle saves itself and
+     * hands back the token, which nxMcpSetToken() writes into these cards, so
+     * the panel works without a reload.
      *
      * @return string
      */
@@ -917,15 +1204,17 @@ class Manager {
                 <div class="nx-mcp-copyrow">
                     <code class="nx-mcp-value nx-mcp-token" data-token="<?php echo esc_attr( $token ); ?>">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</code>
                     <button type="button" class="nx-mcp-copy" onclick="nxMcpReveal(this)"><?php esc_html_e( 'Show', 'notificationx' ); ?></button>
-                    <button type="button" class="nx-mcp-copy" onclick="nxMcpCopy(this,'<?php echo esc_js( $token ); ?>')"><?php esc_html_e( 'Copy', 'notificationx' ); ?></button>
+                    <?php // Reads the token from the element rather than a value baked in at render time: the panel is built before MCP is switched on, so a literal here would stay empty until a reload. ?>
+                    <button type="button" class="nx-mcp-copy" onclick="nxMcpCopyToken(this)"><?php esc_html_e( 'Copy', 'notificationx' ); ?></button>
                 </div>
                 <p class="nx-mcp-hint"><?php esc_html_e( 'For token-based clients (ChatGPT, Cursor): send it as an Authorization: Bearer header. Keep it secret.', 'notificationx' ); ?></p>
             </div>
         </div>
         <div class="nx-mcp-actions">
-            <button type="button" class="nx-mcp-btn nx-mcp-btn-secondary" onclick="nxMcpAction(this,'test',{success:'<?php echo esc_js( __( 'Connection test passed — the MCP server is reachable and exposing its tools.', 'notificationx' ) ); ?>'})"><?php esc_html_e( 'Test connection', 'notificationx' ); ?></button>
+            <button type="button" class="nx-mcp-btn nx-mcp-btn-primary" onclick="nxMcpAction(this,'test',{result:'nx-mcp-testresult',success:'<?php echo esc_js( __( 'Connection test passed — the MCP server is reachable and exposing its tools.', 'notificationx' ) ); ?>'})"><?php esc_html_e( 'Test connection', 'notificationx' ); ?></button>
             <button type="button" class="nx-mcp-btn nx-mcp-btn-ghost" onclick="nxMcpAction(this,'rotate',{confirm:'<?php echo esc_js( __( 'Reset the connection token? Existing clients will need the new token to reconnect.', 'notificationx' ) ); ?>',reload:true,success:'<?php echo esc_js( __( 'A new connection token was generated.', 'notificationx' ) ); ?>'})"><?php esc_html_e( 'Reset token', 'notificationx' ); ?></button>
         </div>
+        <div class="nx-mcp-result" id="nx-mcp-testresult"></div>
         <?php
         return ob_get_clean();
     }
@@ -933,47 +1222,63 @@ class Manager {
     /**
      * Per-client setup cards.
      *
+     * Each card ends in a copy control that hands over exactly what that client
+     * asks for — a URL for the two that take one, and a ready-made server block
+     * for the config-file clients. The token is never baked into these strings:
+     * the handler reads it from the token field already on the page, so this
+     * panel adds no second copy of the secret to the document.
+     *
      * @return string
      */
     protected function clients_html() {
-        $url = esc_html( $this->connector_url() );
+        $url = $this->connector_url();
         ob_start();
         ?>
         <div class="nx-mcp-clients">
             <div class="nx-mcp-client">
-                <div class="nx-mcp-client-name"><img class="nx-mcp-client-ic" width="20" height="20" alt="" src="<?php echo esc_url( NOTIFICATIONX_ADMIN_URL . 'images/mcp/claude.svg' ); ?>" /> <?php esc_html_e( 'Claude', 'notificationx' ); ?><span class="nx-mcp-tag"><?php esc_html_e( 'OAuth', 'notificationx' ); ?></span></div>
+                <div class="nx-mcp-client-name">
+                    <img class="nx-mcp-client-ic" width="20" height="20" alt="" src="<?php echo esc_url( NOTIFICATIONX_ADMIN_URL . 'images/mcp/claude.svg' ); ?>" />
+                    <span class="nx-mcp-client-title"><?php esc_html_e( 'Claude', 'notificationx' ); ?></span>
+                    <span class="nx-mcp-pill nx-mcp-pill-oauth"><?php esc_html_e( 'OAuth', 'notificationx' ); ?></span>
+                </div>
                 <ol class="nx-mcp-steps">
                     <li><?php esc_html_e( 'In Claude, add a custom connector.', 'notificationx' ); ?></li>
                     <li><?php esc_html_e( 'Paste the Connector URL above.', 'notificationx' ); ?></li>
                     <li><?php esc_html_e( 'Approve the connection when prompted — you sign in here, no token needed.', 'notificationx' ); ?></li>
                 </ol>
+                <button type="button" class="nx-mcp-copy nx-mcp-copy-wide" onclick="nxMcpCopy(this,'<?php echo esc_js( $url ); ?>')"><?php esc_html_e( 'Copy connector URL', 'notificationx' ); ?></button>
             </div>
             <div class="nx-mcp-client">
-                <div class="nx-mcp-client-name"><img class="nx-mcp-client-ic" width="20" height="20" alt="" src="<?php echo esc_url( NOTIFICATIONX_ADMIN_URL . 'images/mcp/chatgpt.svg' ); ?>" /> <?php esc_html_e( 'ChatGPT', 'notificationx' ); ?><span class="nx-mcp-tag"><?php esc_html_e( 'Token', 'notificationx' ); ?></span></div>
+                <div class="nx-mcp-client-name">
+                    <img class="nx-mcp-client-ic" width="20" height="20" alt="" src="<?php echo esc_url( NOTIFICATIONX_ADMIN_URL . 'images/mcp/chatgpt.svg' ); ?>" />
+                    <span class="nx-mcp-client-title"><?php esc_html_e( 'ChatGPT', 'notificationx' ); ?></span>
+                    <span class="nx-mcp-pill nx-mcp-pill-token"><?php esc_html_e( 'Token', 'notificationx' ); ?></span>
+                </div>
                 <ol class="nx-mcp-steps">
                     <li><?php esc_html_e( 'Settings → Connectors → Add a custom connector.', 'notificationx' ); ?></li>
-                    <li><?php /* translators: %s: connector URL */ printf( esc_html__( 'Use the URL %s.', 'notificationx' ), '<code>' . $url . '</code>' ); ?></li>
+                    <li><?php esc_html_e( 'Use the Connector URL above.', 'notificationx' ); ?></li>
                     <li><?php esc_html_e( 'Provide the connection token as a Bearer credential.', 'notificationx' ); ?></li>
                 </ol>
+                <button type="button" class="nx-mcp-copy nx-mcp-copy-wide" onclick="nxMcpCopy(this,'<?php echo esc_js( $url ); ?>')"><?php esc_html_e( 'Copy connector URL', 'notificationx' ); ?></button>
             </div>
             <div class="nx-mcp-client">
-                <div class="nx-mcp-client-name"><img class="nx-mcp-client-ic" width="20" height="20" alt="" src="<?php echo esc_url( NOTIFICATIONX_ADMIN_URL . 'images/mcp/cursor.svg' ); ?>" /> <?php esc_html_e( 'Cursor &amp; others', 'notificationx' ); ?><span class="nx-mcp-tag"><?php esc_html_e( 'Token', 'notificationx' ); ?></span></div>
+                <div class="nx-mcp-client-name">
+                    <img class="nx-mcp-client-ic" width="20" height="20" alt="" src="<?php echo esc_url( NOTIFICATIONX_ADMIN_URL . 'images/mcp/cursor.svg' ); ?>" />
+                    <span class="nx-mcp-client-title"><?php esc_html_e( 'Cursor &amp; others', 'notificationx' ); ?></span>
+                    <span class="nx-mcp-pill nx-mcp-pill-token"><?php esc_html_e( 'Token', 'notificationx' ); ?></span>
+                </div>
                 <ol class="nx-mcp-steps">
-                    <li><?php esc_html_e( 'Add an MCP server with the Connector URL above.', 'notificationx' ); ?></li>
-                    <li><?php esc_html_e( 'Set the Authorization header to: Bearer <token>.', 'notificationx' ); ?></li>
+                    <li><?php esc_html_e( 'Open the client’s MCP configuration file.', 'notificationx' ); ?></li>
+                    <li><?php esc_html_e( 'Paste the server block below into mcpServers.', 'notificationx' ); ?></li>
                     <li><?php esc_html_e( 'Confirm the install when the client asks.', 'notificationx' ); ?></li>
                 </ol>
+                <button type="button" class="nx-mcp-copy nx-mcp-copy-wide nx-mcp-copy-config" data-url="<?php echo esc_attr( $url ); ?>"><?php esc_html_e( 'Copy JSON config', 'notificationx' ); ?></button>
             </div>
         </div>
         <?php
         return ob_get_clean();
     }
 
-    /**
-     * The list of currently connected AI apps (pairing token + OAuth clients).
-     *
-     * @return string
-     */
     /**
      * The currently connected apps (pairing token + active OAuth clients). Shared
      * by the rendered panel and the /mcp/apps endpoint so the two cannot drift.
@@ -1099,6 +1404,8 @@ class Manager {
         $nonce = wp_create_nonce( 'wp_rest' );
         $urls  = array(
             'test'       => esc_url_raw( rest_url( 'notificationx/v1/mcp/self-test' ) ),
+            'enable'     => esc_url_raw( rest_url( 'notificationx/v1/mcp/enable' ) ),
+            'connection' => esc_url_raw( rest_url( 'notificationx/v1/mcp/connection' ) ),
             'rotate'     => esc_url_raw( rest_url( 'notificationx/v1/mcp/rotate' ) ),
             'disconnect' => esc_url_raw( rest_url( 'notificationx/v1/mcp/disconnect' ) ),
             'revoke'     => esc_url_raw( rest_url( 'notificationx/v1/mcp/apps/revoke' ) ),
@@ -1109,6 +1416,10 @@ class Manager {
             'empty'         => __( 'No AI clients are connected yet.', 'notificationx' ),
             'refreshFailed' => __( 'Could not refresh the connected apps.', 'notificationx' ),
             'revokeConfirm' => __( 'Revoke this connection? The client will need to reconnect.', 'notificationx' ),
+            // Enable toggle outcomes.
+            'enabled'       => __( 'MCP access enabled.', 'notificationx' ),
+            'disabled'      => __( 'MCP access disabled.', 'notificationx' ),
+            'enableFailed'  => __( 'Could not save the MCP setting.', 'notificationx' ),
             // Refresh outcomes: say what actually changed, not just a count.
             'noneStill'     => __( 'No apps connected yet.', 'notificationx' ),
             'upToDate'      => __( 'Up to date — nothing changed.', 'notificationx' ),
@@ -1119,88 +1430,207 @@ class Manager {
             /* translators: %d: number of disconnected apps. */
             'removedMany'   => __( '%d apps disconnected.', 'notificationx' ),
             'changed'       => __( 'Connected apps updated.', 'notificationx' ),
+            'statusActive'  => __( 'Active', 'notificationx' ),
+            'statusOff'     => __( 'Off', 'notificationx' ),
+            'copied'        => __( 'Copied', 'notificationx' ),
+            'tokenMissing'  => __( 'The token is not on screen yet. Reload the page and try again.', 'notificationx' ),
+            'configCopied'  => __( 'Server block copied. Paste it into your client’s MCP config.', 'notificationx' ),
         );
         ?>
         <style id="nx-mcp-panel-css">
-            .nx-mcp-hero{display:flex;gap:14px;align-items:flex-start}
-            .nx-mcp-hero-icon{font-size:26px;line-height:1}
-            .nx-mcp-hero-title{margin:0 0 6px;font-size:18px;display:flex;align-items:center;gap:10px}
-            .nx-mcp-hero-text{margin:0;color:#50575e;max-width:640px}
-            .nx-mcp-learn{display:inline-flex;align-items:center;gap:5px;margin-top:10px;color:#6a4bff;font-size:13px;font-weight:600}
+            /* The settings form renders a message field's HTML inside a <p>, which
+               carries the form's own paragraph spacing: reset it on our own fields
+               so the panels control their own rhythm. */
+            .nx-mcp-field p{margin:0}
+            .nx-mcp-field-flush > p{margin:0}
+
+            /* NotificationX's own `#notificationx .wprf-message p {font-size:16px}`
+               outranks a bare class, so every paragraph and list item inside a panel
+               would silently come back at the form's body size — which is what made
+               the old hint text read as body copy. These carry the same id plus the
+               class, so the panel keeps the type scale it was designed at without
+               reaching for !important. The unprefixed rules further down stay as the
+               fallback for anywhere the `#notificationx` root is absent. */
+            #notificationx .wprf-message p.nx-mcp-hero-text{font-size:13.5px;line-height:1.65}
+            #notificationx .wprf-message p.nx-mcp-hint{font-size:12px;line-height:1.55}
+            #notificationx .wprf-message p.nx-mcp-empty{font-size:13px}
+            #notificationx .wprf-message ol.nx-mcp-steps,#notificationx .wprf-message ol.nx-mcp-steps li{font-size:12.5px;line-height:1.75}
+            #notificationx .wprf-message ol.nx-mcp-rail,#notificationx .wprf-message ol.nx-mcp-rail li{font-size:12.5px}
+
+            /* ---- Hero -------------------------------------------------------- */
+            .nx-mcp-hero{border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#f6f3ff 0%,#fbfaff 55%,#ffffff 100%);color:#1d2327;border:1px solid #e4ddff;box-shadow:0 6px 20px rgba(106,75,255,.08)}
+            .nx-mcp-hero-main{display:flex;gap:16px;align-items:flex-start;padding:22px 24px 20px}
+            .nx-mcp-hero-tile{width:44px;height:44px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6a4bff,#8b6bff);border:0;box-shadow:0 4px 12px rgba(106,75,255,.28)}
+            .nx-mcp-hero-tile-ic{width:24px;height:24px;display:block}
+            .nx-mcp-hero-body{min-width:0}
+            .nx-mcp-hero-title{margin:0 0 8px;font-size:19px;line-height:1.3;font-weight:700;color:#1d2327;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+            .nx-mcp-hero-text{margin:0;color:#50575e;font-size:13.5px;line-height:1.65;max-width:720px}
+            .nx-mcp-learn{display:inline-flex;align-items:center;gap:5px;margin-top:12px;color:#5a3ee6;font-size:13px;font-weight:600}
             /* The message-field CSS (#notificationx .wprf-message p a) underlines the
                whole anchor at rest, which draws a line under the arrow too. Override
                it in every state (!important beats that #id rule) and underline only
                the text span on hover. */
-            .nx-mcp-learn,.nx-mcp-learn:link,.nx-mcp-learn:visited,.nx-mcp-learn:hover,.nx-mcp-learn:focus,.nx-mcp-learn:active{text-decoration:none!important}
+            .nx-mcp-learn,.nx-mcp-learn:link,.nx-mcp-learn:visited,.nx-mcp-learn:hover,.nx-mcp-learn:focus,.nx-mcp-learn:active{text-decoration:none!important;color:#5a3ee6!important}
             .nx-mcp-learn .nx-mcp-learn-text{text-decoration:none}
             .nx-mcp-learn:hover .nx-mcp-learn-text{text-decoration:underline}
             .nx-mcp-learn-arrow{display:inline-block;transition:transform .2s}
             .nx-mcp-learn:hover .nx-mcp-learn-arrow{transform:translateX(3px)}
-            .nx-mcp-badge{font-size:11px;font-weight:600;padding:2px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.02em}
-            .nx-mcp-badge-off{background:#e2e4e7;color:#50575e}
-            .nx-mcp-badge-active{background:#e5f6ea;color:#1a7f37}
-            .nx-mcp-badge-setup{background:#fcf3e3;color:#996800}
-            /* Enable toggle: keep label + switch on one row (no fixed 200px label
-               column gap) and let the help text span full-width, left-aligned. */
+            /* The glyph is a literal right arrow: mirror it, and the nudge, in RTL. */
+            [dir="rtl"] .nx-mcp-learn-arrow{transform:scaleX(-1)}
+            [dir="rtl"] .nx-mcp-learn:hover .nx-mcp-learn-arrow{transform:scaleX(-1) translateX(3px)}
+
+            /* ---- Status badge ------------------------------------------------ */
+            .nx-mcp-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3px 11px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+            .nx-mcp-badge-dot{width:7px;height:7px;border-radius:50%;flex:none;background:currentColor}
+            .nx-mcp-badge-off{background:#eef0f3;color:#50575e}
+            .nx-mcp-badge-active{background:#d8f7e2;color:#127a35}
+            .nx-mcp-badge-setup{background:#ffeccc;color:#8a5a00}
+            .nx-mcp-badge-active .nx-mcp-badge-dot{animation:nx-mcp-pulse 1.8s ease-in-out infinite}
+            @keyframes nx-mcp-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.72)}}
+            @media(prefers-reduced-motion:reduce){.nx-mcp-badge-active .nx-mcp-badge-dot{animation:none}}
+
+            /* ---- Setup rail -------------------------------------------------- */
+            .nx-mcp-rail{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0;padding:0;list-style:none;background:transparent;border-top:1px solid #ece8ff}
+            .nx-mcp-rail-step{display:flex;gap:12px;align-items:center;padding:14px 20px;margin:0;position:relative}
+            .nx-mcp-rail-step + .nx-mcp-rail-step{border-inline-start:1px solid #ece8ff}
+            .nx-mcp-rail-mark{width:32px;height:32px;flex:none;border-radius:9px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6a4bff 0%,#8b6bff 100%);box-shadow:0 3px 8px rgba(106,75,255,.25)}
+            .nx-mcp-rail-ic{width:16px;height:16px;display:block}
+            .nx-mcp-rail-body{display:flex;flex-direction:column;gap:2px;min-width:0}
+            .nx-mcp-rail-label{font-size:12.5px;font-weight:700;color:#1d2327}
+            .nx-mcp-rail-hint{font-size:11.5px;line-height:1.5;color:#646970}
+            @media(max-width:782px){.nx-mcp-rail{grid-template-columns:1fr}.nx-mcp-rail-step + .nx-mcp-rail-step{border-inline-start:0;border-top:1px solid #ece8ff}}
+
+            /* ---- Enable toggle row ------------------------------------------- */
+            /* Keep label + switch on one row (no fixed 200px label column gap) and
+               let the help text span full-width, left-aligned. */
             .wprf-name-enable_mcp{display:flex;flex-wrap:wrap;align-items:center}
             .wprf-name-enable_mcp .wprf-control-label{width:auto!important;flex:0 0 auto!important;margin:0 12px 0 0!important}
             .wprf-name-enable_mcp .wprf-control-field{display:contents}
             .wprf-name-enable_mcp .wprf-toggle-wrap{order:2}
             .wprf-name-enable_mcp .wprf-help{order:3;flex-basis:100%;width:100%;margin:8px 0 0!important}
+
+            /* ---- Stat tiles -------------------------------------------------- */
+            .nx-mcp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+            @media(max-width:960px){.nx-mcp-stats{grid-template-columns:repeat(2,1fr)}}
+            @media(max-width:600px){.nx-mcp-stats{grid-template-columns:1fr}}
+            .nx-mcp-stat{border:1px solid #e6e6ec;border-radius:12px;padding:13px 15px;background:#fff;position:relative;overflow:hidden}
+            .nx-mcp-stat:before{content:"";position:absolute;top:0;bottom:0;inset-inline-start:0;width:3px;background:#6a4bff;opacity:.85}
+            .nx-mcp-stat-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+            .nx-mcp-stat-label{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#6b7280}
+            .nx-mcp-stat-ic{width:26px;height:26px;border-radius:8px;background:#f4f2ff;display:flex;align-items:center;justify-content:center;flex:none}
+            .nx-mcp-stat-ic img{width:16px;height:16px;display:block}
+            .nx-mcp-stat-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+            .nx-mcp-stat-value{font-size:26px;line-height:1.1;font-weight:700;color:#1f2330}
+            .nx-mcp-stat-value.is-sm{font-size:16px;line-height:1.4}
+            .nx-mcp-stat-note{font-size:11.5px;color:#8a8f9c}
+
+
+            /* ---- Pills ------------------------------------------------------- */
+            .nx-mcp-pill{font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+            .nx-mcp-pill-pro{background:#fff1d6;color:#9a6400}
+            .nx-mcp-pill-oauth{background:#f0eefe;color:#6a4bff}
+            .nx-mcp-pill-token{background:#e7f1ff;color:#1d4ed8}
+
+
+            /* ---- Connection cards -------------------------------------------- */
             .nx-mcp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
             @media(max-width:782px){.nx-mcp-grid{grid-template-columns:1fr}}
-            .nx-mcp-card{border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px;background:#fff}
-            .nx-mcp-card-label{display:block;font-weight:600;font-size:12px;color:#50575e;text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px}
+            .nx-mcp-card{border:1px solid #e6e6ec;border-radius:12px;padding:14px 16px;background:#fff}
+            .nx-mcp-card-label{display:block;font-weight:700;font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
             .nx-mcp-copyrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-            .nx-mcp-value{background:#f6f7f7;border:1px solid #e0e0e0;border-radius:6px;padding:6px 10px;font-size:12px;flex:1;min-width:0;overflow:auto;white-space:nowrap}
-            .nx-mcp-copy{cursor:pointer;border:1px solid #c3c4c7;background:#f6f7f7;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;color:#2c3338}
-            .nx-mcp-copy:hover{background:#eef0f1}
-            .nx-mcp-hint{margin:8px 0 0;color:#787c82;font-size:12px}
+            .nx-mcp-value{background:#f6f7f9;border:1px solid #e6e6ec;border-radius:8px;padding:7px 10px;font-size:12px;flex:1;min-width:0;overflow:auto;white-space:nowrap}
+            .nx-mcp-copy{cursor:pointer;border:1px solid #d3d4da;background:#fff;border-radius:8px;padding:7px 13px;font-size:12px;font-weight:600;color:#2c3338;transition:background .15s,border-color .15s}
+            .nx-mcp-copy:hover{background:#f4f2ff;border-color:#c3b8ff;color:#4c31d6}
+            .nx-mcp-copy-wide{display:block;width:100%;margin-top:12px;text-align:center}
+            .nx-mcp-hint{margin:8px 0 0;color:#8a8f9c;font-size:12px}
+
+            /* ---- Pending (enabled but unsaved) ------------------------------- */
+
+            /* ---- Client cards ------------------------------------------------ */
             .nx-mcp-clients{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
             @media(max-width:960px){.nx-mcp-clients{grid-template-columns:1fr}}
-            .nx-mcp-client{border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px;background:#fff}
-            .nx-mcp-client-name{font-weight:600;display:flex;align-items:center;gap:8px;margin-bottom:8px}
-            .nx-mcp-tag{font-size:10px;font-weight:600;background:#f0eefe;color:#6a4bff;padding:2px 8px;border-radius:999px;text-transform:uppercase}
-            .nx-mcp-steps{margin:0;padding-left:18px;color:#50575e;font-size:13px;line-height:1.7}
-            .nx-mcp-apps-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap}
-            .nx-mcp-apps-hint{color:#787c82;font-size:12px}
-            .nx-mcp-btn-sm{padding:5px 12px;font-size:12px}
-            /* Once moved into the section heading bar, sit flush right on that row. */
-            .wprf-section-title .nx-mcp-refresh-apps{margin-left:auto}
-            .nx-mcp-apps-head:empty{display:none;margin:0}
-            .nx-mcp-apps{display:flex;flex-direction:column;gap:10px}
-            .nx-mcp-app{display:flex;justify-content:space-between;align-items:center;border:1px solid #e0e0e0;border-radius:8px;padding:10px 14px;background:#fff}
-            .nx-mcp-app-info{display:flex;align-items:center;gap:10px}
-            .nx-mcp-scope{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px}
-            .nx-mcp-scope-ro{background:#eef0f1;color:#50575e}
-            .nx-mcp-scope-rw{background:#e5f6ea;color:#1a7f37}
-            .nx-mcp-revoke{cursor:pointer;border:1px solid #d63638;background:#fff;color:#d63638;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600}
-            .nx-mcp-revoke:hover{background:#d63638;color:#fff}
-            .nx-mcp-empty{color:#787c82;font-style:italic}
-            .nx-mcp-health{display:flex;flex-direction:column;gap:8px}
-            .nx-mcp-health-row{display:flex;align-items:center;gap:8px;color:#2c3338;font-size:13px}
-            .nx-mcp-dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
-            .nx-mcp-dot-good{background:#1a7f37}
-            .nx-mcp-dot-warn{background:#dba617}
+            .nx-mcp-client{border:1px solid #e6e6ec;border-radius:12px;padding:14px 16px;background:#fff;display:flex;flex-direction:column;transition:border-color .15s,box-shadow .15s}
+            .nx-mcp-client:hover{border-color:#c3b8ff;box-shadow:0 6px 18px rgba(106,75,255,.08)}
+            .nx-mcp-client-name{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+            .nx-mcp-client-title{font-weight:700;font-size:13.5px;color:#1f2330}
+            /* Nothing on this tab is submitted by the settings form: the enable
+               toggle saves itself and everything else is an ajax button or
+               read-only text, so a Save button here only invites a click that
+               does nothing. The control is a single shared quickbuilder
+               component every other tab still needs, so it is hidden for this
+               tab rather than removed. Selector mirrors the Entries tab, which
+               already hides it the same way, and has to out-specify
+               `#notificationx .wp-react-form... .wprf-submit{display:flex}`. */
+            #notificationx .nx-admin-wrapper .nx-settings-form-wrapper.tab-mcp .wprf-submit.wprf-control{display:none}
             /* Client icons are <img> tags pointing at real SVG files: the card HTML is
                kses-filtered, which strips <svg> and rejects data: URIs in src/style. */
             .nx-mcp-client-ic{width:20px;height:20px;flex:none;display:inline-block;vertical-align:middle}
-            .nx-mcp-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-            .nx-mcp-btn{cursor:pointer;border-radius:6px;padding:8px 16px;font-size:13px;font-weight:600;border:1px solid transparent;line-height:1.2}
-            .nx-mcp-btn[disabled]{opacity:.6;cursor:default}
-            .nx-mcp-btn-secondary{background:#6a4bff;color:#fff}
-            .nx-mcp-btn-secondary:hover{background:#583fd6}
-            .nx-mcp-btn-ghost{background:#fff;color:#2c3338;border-color:#c3c4c7}
-            .nx-mcp-btn-ghost:hover{background:#f6f7f7}
-            .nx-mcp-btn-danger{background:#d63638;color:#fff;border-color:#d63638}
-            .nx-mcp-btn-danger:hover{background:#b32d2e}
-            .nx-mcp-danger{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:16px;padding:14px 16px;border:1px solid #f0c4c4;background:#fcf0f0;border-radius:10px;flex-wrap:wrap}
+            .nx-mcp-steps{margin:0;padding-inline-start:18px;color:#50575e;font-size:12.5px;line-height:1.75;flex:1}
+
+            /* ---- Connected apps ---------------------------------------------- */
+            .nx-mcp-apps-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+            .nx-mcp-apps-hint{color:#8a8f9c;font-size:12px}
+            .nx-mcp-btn-sm{padding:5px 12px;font-size:12px}
+            /* Once moved into the section heading bar, sit flush right on that row. */
+            .wprf-section-title .nx-mcp-refresh-apps{margin-inline-start:auto}
+            .nx-mcp-apps-head:empty{display:none;margin:0}
+            .nx-mcp-apps{display:flex;flex-direction:column;gap:10px}
+            .nx-mcp-app{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid #e6e6ec;border-radius:10px;padding:11px 14px;background:#fff}
+            .nx-mcp-app-info{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0}
+            .nx-mcp-scope{font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px}
+            .nx-mcp-scope-ro{background:#eef0f3;color:#50575e}
+            .nx-mcp-scope-rw{background:#d8f7e2;color:#127a35}
+            .nx-mcp-revoke{cursor:pointer;border:1px solid #e2b5b6;background:#fff;color:#d63638;border-radius:8px;padding:6px 13px;font-size:12px;font-weight:600;flex:none;transition:background .15s,color .15s,border-color .15s}
+            .nx-mcp-revoke:hover{background:#d63638;color:#fff;border-color:#d63638}
+            .nx-mcp-empty{color:#8a8f9c;font-style:italic}
+
+            /* ---- Health + danger --------------------------------------------- */
+            .nx-mcp-health{display:flex;flex-direction:column;gap:9px}
+            .nx-mcp-health-row{display:flex;align-items:center;gap:9px;color:#2c3338;font-size:13px}
+            .nx-mcp-dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+            .nx-mcp-dot-good{background:#16a34a}
+            .nx-mcp-dot-warn{background:#dba617}
+            .nx-mcp-danger{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:16px;padding:14px 16px;border:1px solid #f0c4c4;background:#fdf4f4;border-radius:12px;flex-wrap:wrap}
             .nx-mcp-danger-text{display:flex;flex-direction:column;gap:2px}
             .nx-mcp-danger-text strong{color:#8a1f21}
             .nx-mcp-danger-text span{color:#a15b5b;font-size:12px}
-            .nx-mcp-toast{position:fixed;bottom:28px;right:28px;z-index:100001;padding:12px 18px;border-radius:8px;color:#fff;font-size:13px;font-weight:600;box-shadow:0 8px 28px rgba(0,0,0,.2);opacity:0;transform:translateY(12px);transition:opacity .28s,transform .28s;max-width:380px}
+
+            /* ---- Buttons ----------------------------------------------------- */
+            .nx-mcp-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center}
+            .nx-mcp-btn{cursor:pointer;border-radius:8px;padding:9px 17px;font-size:13px;font-weight:600;border:1px solid transparent;line-height:1.2;text-decoration:none!important;display:inline-flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s,box-shadow .15s}
+            .nx-mcp-btn[disabled]{opacity:.6;cursor:default}
+            .nx-mcp-btn-primary{background:#6a4bff;color:#fff!important;box-shadow:0 4px 12px rgba(106,75,255,.25)}
+            .nx-mcp-btn-primary:hover{background:#583fd6}
+            /* Kept as an alias: earlier markup used -secondary for the same control. */
+            .nx-mcp-btn-secondary{background:#6a4bff;color:#fff}
+            .nx-mcp-btn-secondary:hover{background:#583fd6}
+            .nx-mcp-btn-ghost{background:#fff;color:#2c3338;border-color:#d3d4da}
+            .nx-mcp-btn-ghost:hover{background:#f6f7f9;border-color:#c3c4c7}
+            .nx-mcp-btn-danger{background:#d63638;color:#fff;border-color:#d63638}
+            .nx-mcp-btn-danger:hover{background:#b32d2e}
+
+            /* ---- Focus ------------------------------------------------------- */
+            /* WP admin sets `a:focus{outline:2px solid transparent}` and leans on a
+               box-shadow that never lands here, so the hero link had no visible focus
+               state at all. Every control in the panel gets an explicit brand-colour
+               ring. Keyboard only —
+               :focus-visible keeps mouse clicks from drawing it. */
+            .nx-mcp-copy:focus-visible,.nx-mcp-btn:focus-visible,.nx-mcp-revoke:focus-visible{outline:2px solid #4c31d6;outline-offset:2px;border-radius:8px}
+            .nx-mcp-learn:focus-visible{outline:2px solid #4c31d6;outline-offset:3px;border-radius:4px}
+            /* The controls that are anchors, not buttons — the hero link — is additionally zeroed by NotificationX's own
+               `#notificationx a:focus{outline:0}`, which carries an id and outranks a
+               class. Same id here so the ring survives; everything else in the panel
+               is a <button> and never meets that rule. */
+            #notificationx a.nx-mcp-learn:focus-visible{outline:2px solid #4c31d6;outline-offset:3px;border-radius:4px}
+
+            /* ---- Inline result + toast --------------------------------------- */
+            .nx-mcp-result{display:none;margin-top:12px;padding:11px 14px;border-radius:10px;font-size:12.5px;line-height:1.6;border:1px solid transparent}
+            .nx-mcp-result.is-shown{display:block}
+            .nx-mcp-result.is-ok{background:#eefaf1;border-color:#bfe6cb;color:#12652c}
+            .nx-mcp-result.is-err{background:#fdf1f1;border-color:#f0c4c4;color:#8a1f21}
+            .nx-mcp-toast{position:fixed;bottom:28px;inset-inline-end:28px;z-index:100001;padding:12px 18px;border-radius:10px;color:#fff;font-size:13px;font-weight:600;box-shadow:0 8px 28px rgba(0,0,0,.2);opacity:0;transform:translateY(12px);transition:opacity .28s,transform .28s;max-width:380px}
             .nx-mcp-toast-in{opacity:1;transform:translateY(0)}
-            .nx-mcp-toast-success{background:#1a7f37}
+            .nx-mcp-toast-success{background:#16a34a}
             .nx-mcp-toast-error{background:#d63638}
         </style>
         <script id="nx-mcp-panel-js">
@@ -1214,14 +1644,62 @@ class Manager {
                 setTimeout(function(){ t.classList.remove('nx-mcp-toast-in'); setTimeout(function(){ t.remove(); }, 320); }, 3600);
             };
             window.nxMcpCopy = function(btn, text){
-                var done = function(){ var o = btn.textContent; btn.textContent = '✓'; setTimeout(function(){ btn.textContent = o; }, 1200); };
+                var done = function(){ var o = btn.textContent; btn.textContent = '✓ ' + window.nxMcpData.i18n.copied; setTimeout(function(){ btn.textContent = o; }, 1400); };
                 if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, done); }
                 else { var t=document.createElement('textarea'); t.value=text; document.body.appendChild(t); t.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(t); done(); }
             };
             window.nxMcpReveal = function(btn){
                 var code = btn.parentNode.querySelector('.nx-mcp-token'); if(!code) return;
-                if (code.dataset.shown === '1'){ code.textContent = '••••••••••••'; code.dataset.shown='0'; btn.textContent='Show'; }
-                else { code.textContent = code.dataset.token || ''; code.dataset.shown='1'; btn.textContent='Hide'; }
+                if (code.dataset.shown === '1'){ code.textContent = '••••••••••••'; code.dataset.shown='0'; btn.textContent='<?php echo esc_js( __( 'Show', 'notificationx' ) ); ?>'; return; }
+                // The panel may have been rendered before MCP was switched on, in
+                // which case there was no token to print into it. Fetch it rather
+                // than revealing an empty box.
+                nxMcpWithToken(function(token){
+                    code.textContent = token || ''; code.dataset.shown='1';
+                    btn.textContent='<?php echo esc_js( __( 'Hide', 'notificationx' ) ); ?>';
+                });
+            };
+            window.nxMcpCopyToken = function(btn){
+                var code = btn.parentNode.querySelector('.nx-mcp-token'); if(!code) return;
+                nxMcpWithToken(function(token){ nxMcpCopy(btn, token || ''); });
+            };
+            // Hand the caller the token, fetching it once if the panel does not
+            // have one yet.
+            window.nxMcpWithToken = function(done){
+                var code = document.querySelector('.nx-mcp-token');
+                var have = code && code.dataset.token;
+                if (have) { done(code.dataset.token); return; }
+                nxMcpSyncConnection(function(state){ done(state && state.token ? state.token : ''); });
+            };
+            // The config-file clients want a server block, not a bare URL. It is
+            // assembled here from the token already rendered into the connection
+            // card, so the page never carries a second copy of the secret.
+            window.nxMcpCopyConfig = function(btn){
+                // Same source as the token card's Copy: fetched once if the panel
+                // was rendered before MCP was switched on.
+                nxMcpWithToken(function(token){
+                    if (!token){ nxMcpToast('error', window.nxMcpData.i18n.tokenMissing); return; }
+                    var config = {
+                        mcpServers: {
+                            notificationx: {
+                                url: btn.getAttribute('data-url') || '',
+                                headers: { Authorization: 'Bearer ' + token }
+                            }
+                        }
+                    };
+                    nxMcpCopy(btn, JSON.stringify(config, null, 2));
+                    nxMcpToast('success', window.nxMcpData.i18n.configCopied);
+                });
+            };
+            // Write an action's outcome into the panel next to the button that ran
+            // it. The toast still fires: it covers the case where the button has
+            // been scrolled out of view, and this covers the case where the reader
+            // looks back at the panel after the toast has gone.
+            window.nxMcpShowResult = function(id, ok, message){
+                var box = document.getElementById(id);
+                if (!box) return;
+                box.textContent = message || '';
+                box.className = 'nx-mcp-result is-shown ' + (ok ? 'is-ok' : 'is-err');
             };
             window.nxMcpAction = function(btn, action, opts){
                 opts = opts || {};
@@ -1233,14 +1711,23 @@ class Manager {
                     body: JSON.stringify(opts.body || {})
                 }).then(function(r){ return r.json().catch(function(){ return {}; }); }).then(function(res){
                     btn.disabled = false; btn.textContent = old;
-                    if (res && res.status === 'error'){ nxMcpToast('error', res.message || 'Something went wrong.'); return; }
-                    nxMcpToast('success', opts.success || (res && res.message) || 'Done.');
+                    if (res && res.status === 'error'){
+                        if (opts.result) nxMcpShowResult(opts.result, false, res.message || 'Something went wrong.');
+                        nxMcpToast('error', res.message || 'Something went wrong.'); return;
+                    }
+                    var msg = opts.success || (res && res.message) || 'Done.';
+                    if (opts.result) nxMcpShowResult(opts.result, true, (res && res.message) || msg);
+                    nxMcpToast('success', msg);
                     if (opts.reload){ setTimeout(function(){ window.location.reload(); }, 900); }
-                }).catch(function(){ btn.disabled = false; btn.textContent = old; nxMcpToast('error', 'Request failed.'); });
+                }).catch(function(){
+                    btn.disabled = false; btn.textContent = old;
+                    if (opts.result) nxMcpShowResult(opts.result, false, 'Request failed.');
+                    nxMcpToast('error', 'Request failed.');
+                });
             };
             window.nxMcpRevoke = function(btn, type, clientId){
                 nxMcpAction(btn, 'revoke', {
-                    confirm: 'Revoke this connection? The client will need to reconnect.',
+                    confirm: window.nxMcpData.i18n.revokeConfirm,
                     body: { type: type, client_id: clientId },
                     reload: true,
                     success: 'Connection revoked.'
@@ -1253,7 +1740,7 @@ class Manager {
                 var wrap = document.getElementById('nx-mcp-apps-wrap');
                 if (!wrap) return;
                 var old = btn ? btn.textContent : '';
-                if (btn){ btn.disabled = true; btn.textContent = '\u2026'; }
+                if (btn){ btn.disabled = true; btn.textContent = '…'; }
                 fetch(window.nxMcpData.urls.apps, {
                     method: 'GET',
                     credentials: 'same-origin',
@@ -1351,23 +1838,105 @@ class Manager {
             document.addEventListener('DOMContentLoaded', function(){ nxMcpPlaceRefresh(); });
             nxMcpPlaceRefresh();
 
-            // Bound by delegation rather than an inline onclick, so the button keeps
+            // Bound by delegation rather than an inline onclick, so the buttons keep
             // working even if the panel markup is passed through a sanitiser.
             document.addEventListener('click', function(e){
-                var btn = e.target && e.target.closest ? e.target.closest('.nx-mcp-refresh-apps') : null;
-                if (!btn) return;
-                e.preventDefault();
-                nxMcpRefreshApps(btn);
+                if (!e.target || !e.target.closest) return;
+                var refresh = e.target.closest('.nx-mcp-refresh-apps');
+                if (refresh){ e.preventDefault(); nxMcpRefreshApps(refresh); return; }
+                var config = e.target.closest('.nx-mcp-copy-config');
+                if (config){ e.preventDefault(); nxMcpCopyConfig(config); }
             });
 
-            // Keep the status badge in sync with the enable toggle, live.
-            document.addEventListener('change', function(e){
-                if (!e.target || e.target.name !== 'enable_mcp') return;
+            // Paint the badge for a given state.
+            // Only the label changes, so the status dot inside the badge survives.
+            window.nxMcpPaintBadge = function(on){
                 var badge = document.querySelector('.nx-mcp-badge');
                 if (!badge) return;
-                var on = !!e.target.checked;
-                badge.textContent = on ? '<?php echo esc_js( __( 'Active', 'notificationx' ) ); ?>' : '<?php echo esc_js( __( 'Off', 'notificationx' ) ); ?>';
+                var text  = badge.querySelector('.nx-mcp-badge-text');
+                var label = on ? window.nxMcpData.i18n.statusActive : window.nxMcpData.i18n.statusOff;
+                if (text) { text.textContent = label; } else { badge.textContent = label; }
                 badge.className = 'nx-mcp-badge nx-mcp-badge-' + (on ? 'active' : 'off');
+                // The stats row is revealed by the toggle too; keep its status tile in step.
+                var tile = document.querySelector('.nx-mcp-stat-status');
+                if (tile) { tile.textContent = label; }
+            };
+
+            // The enable toggle saves itself. The settings form's own Save still
+            // works, but the toggle gates every panel below it, so leaving it
+            // unsaved meant the connector URL, token and connection test all
+            // described a state the server was not in.
+            var nxMcpEnableInFlight = false;
+            document.addEventListener('change', function(e){
+                if (!e.target || e.target.name !== 'enable_mcp') return;
+                var input = e.target;
+                var on    = !!input.checked;
+
+                // Show the intent straight away, then reconcile with the server.
+                nxMcpPaintBadge(on);
+
+                if (nxMcpEnableInFlight) return;
+                nxMcpEnableInFlight = true;
+                input.disabled = true;
+
+                fetch(window.nxMcpData.urls.enable, {
+                    method: 'POST',
+                    headers: { 'Content-Type':'application/json', 'X-WP-Nonce': window.nxMcpData.nonce },
+                    body: JSON.stringify({ enabled: on })
+                }).then(function(r){
+                    return r.json().catch(function(){ return {}; }).then(function(j){
+                        if (!r.ok) { throw new Error((j && j.message) || 'http'); }
+                        return j;
+                    });
+                }).then(function(res){
+                    nxMcpEnableInFlight = false; input.disabled = false;
+                    // Server is the truth: repaint from what it reports.
+                    var saved = !!res.enabled;
+                    input.checked = saved;
+                    nxMcpPaintBadge(saved);
+                    if (res.token) { nxMcpSetToken(res.token); }
+                    nxMcpToast('success', saved ? window.nxMcpData.i18n.enabled : window.nxMcpData.i18n.disabled);
+                }).catch(function(){
+                    nxMcpEnableInFlight = false; input.disabled = false;
+                    // Put the control back where it was so it cannot claim a
+                    // state that was never stored.
+                    input.checked = !on;
+                    nxMcpPaintBadge(!on);
+                    nxMcpToast('error', window.nxMcpData.i18n.enableFailed);
+                });
+            });
+
+            // Fill in the token the panel was rendered without, so Show/Copy and
+            // the connection test work without a reload.
+            window.nxMcpSetToken = function(token){
+                var code = document.querySelector('.nx-mcp-token');
+                if (!code) return;
+                code.dataset.token = token;
+                if (code.dataset.shown === '1') { code.textContent = token; }
+            };
+
+            // Re-read the connection from the server and repaint the panel.
+            // The panel is server-rendered once; anything that switches MCP on
+            // afterwards -- the toggle, or the settings form's own Save -- leaves
+            // the markup describing the old state until this runs.
+            window.nxMcpSyncConnection = function(done){
+                fetch(window.nxMcpData.urls.connection, {
+                    headers: { 'X-WP-Nonce': window.nxMcpData.nonce }
+                }).then(function(r){ return r.json(); }).then(function(state){
+                    if (state && typeof state.enabled !== 'undefined') { nxMcpPaintBadge(!!state.enabled); }
+                    if (state && state.token) { nxMcpSetToken(state.token); }
+                    if (done) { done(state); }
+                }).catch(function(){ if (done) { done(null); } });
+            };
+
+            // The settings form's Save can switch MCP on without going through
+            // the toggle handler (a value restored by the browser, or a save
+            // triggered from another tab). Pick the new state up either way.
+            document.addEventListener('click', function(e){
+                var btn = e.target && e.target.closest ? e.target.closest('.wprf-submit-button') : null;
+                if (!btn) return;
+                if (!document.querySelector('.nx-mcp-token')) return;
+                setTimeout(function(){ nxMcpSyncConnection(); }, 1200);
             });
         </script>
         <?php
