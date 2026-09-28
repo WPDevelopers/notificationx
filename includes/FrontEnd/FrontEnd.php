@@ -42,6 +42,14 @@ class FrontEnd {
     protected $notificationXArr = [];
 
     /**
+     * Block-editor bars whose block assets are already on this page, keyed by
+     * the bar's `gutenberg_id` (see enqueue_gutenberg_bar_assets()).
+     *
+     * @var array<int, true>
+     */
+    protected $gutenberg_bar_assets = [];
+
+    /**
      * Initially Invoked
      * when its initialized.
      */
@@ -307,7 +315,46 @@ class FrontEnd {
 
     public function nx_add_body_class($classes) {
         $classes[] = 'has-notificationx';
+        // Tells the runtime it need not fetch these bars' pages for their assets.
+        foreach (array_keys($this->gutenberg_bar_assets) as $gutenberg_id) {
+            $classes[] = 'nx-bar-assets-' . $gutenberg_id;
+        }
         return $classes;
+    }
+
+    /**
+     * Put a block-editor bar's block assets on the current page.
+     *
+     * The bar's HTML arrives over REST after load, where anything its blocks
+     * enqueue is discarded. The runtime used to recover those assets by
+     * fetching the bar's own permalink — a full themed page (~300 KB on
+     * essential-blocks.com) — and loading each stylesheet and script it had
+     * that this page did not, one after another, before the bar could settle.
+     * Rendering the blocks here, while this page's assets are still being
+     * collected, lets each block enqueue what it needs (e.g. a countdown's
+     * frontend script) exactly as it would in post content; the output is
+     * discarded. Mirrors the Elementor branch above.
+     *
+     * Runs for page loads only: REST and admin requests have no page to add
+     * assets to.
+     *
+     * @param int|string $gutenberg_id The bar's block post ID.
+     * @return void
+     */
+    protected function enqueue_gutenberg_bar_assets($gutenberg_id) {
+        $gutenberg_id = absint($gutenberg_id);
+        if (!$gutenberg_id || isset($this->gutenberg_bar_assets[$gutenberg_id]) || !doing_action('wp_enqueue_scripts')) {
+            return;
+        }
+        // Same lookup as PressBar::print_bar_notice(), which renders the HTML the runtime shows.
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        $post_id = apply_filters('wpml_object_id', $gutenberg_id, 'wp_block', true);
+        $post    = $post_id ? get_post($post_id) : null;
+        if (!$post || '' === trim((string) $post->post_content)) {
+            return;
+        }
+        do_blocks($post->post_content);
+        $this->gutenberg_bar_assets[$gutenberg_id] = true;
     }
 
     private function separate_css($css) {
@@ -748,6 +795,8 @@ class FrontEnd {
                 if (!empty($settings['elementor_id']) && class_exists('\Elementor\Plugin')) {
                     // @todo Find a function to only load css instead of building content.
                     \Elementor\Plugin::$instance->frontend->get_builder_content($settings['elementor_id'], false);
+                } elseif (!empty($settings['gutenberg_id'])) {
+                    $this->enqueue_gutenberg_bar_assets($settings['gutenberg_id']);
                 }
             } elseif($settings['source'] == 'gdpr_notification') {
                 $gdpr_notification[] = $return_posts ? $settings : $settings['nx_id'];
