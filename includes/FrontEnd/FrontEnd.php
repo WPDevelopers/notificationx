@@ -136,6 +136,11 @@ class FrontEnd {
     /**
      * Load some stylesheets without blocking the first paint.
      *
+     * - `notificationx-public` styles only what the runtime renders — bars,
+     *   popups and shortcodes all mount from REST data after the page has
+     *   loaded (the bar's reserved space is a separate inline style), and the
+     *   runtime waits for this sheet before its first render (whenStyled()).
+     *   At ~600 KB it was the largest render-blocking stylesheet on every page.
      * - `notificationx-gdpr-modal` styles only the cookie-preferences modal,
      *   which opens on a click.
      * - The font and icon stylesheets from get_external_styles(): the fonts
@@ -150,7 +155,7 @@ class FrontEnd {
      * @return string
      */
     public function non_blocking_style_tag($tag, $handle) {
-        $handles = ['notificationx-gdpr-modal', 'notificationx-open-sans', 'notificationx-fontawesome-4'];
+        $handles = ['notificationx-public', 'notificationx-gdpr-modal', 'notificationx-open-sans', 'notificationx-fontawesome-4'];
         if (!in_array($handle, $handles, true) || false !== strpos($tag, 'onload=')) {
             return $tag;
         }
