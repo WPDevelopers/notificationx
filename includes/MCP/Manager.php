@@ -58,6 +58,27 @@ class Manager {
 
         // CSS + JS for the MCP panel (copy / reveal / revoke controls).
         add_action( 'admin_print_footer_scripts', array( $this, 'print_panel_assets' ) );
+        add_action( 'admin_init', array( $this, 'redirect_hidden_tab' ) );
+    }
+
+    /**
+     * Send a user who cannot see the MCP tab (see register_settings_tab()) from
+     * a `?tab=tab-mcp` link to the settings screen's first tab, rather than to
+     * an empty screen.
+     *
+     * @return void
+     */
+    public function redirect_hidden_tab() {
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only navigation check.
+        if ( wp_doing_ajax() || ! isset( $_GET['page'], $_GET['tab'] ) || 'nx-settings' !== $_GET['page'] || 'tab-mcp' !== $_GET['tab'] ) {
+            return;
+        }
+        // phpcs:enable
+        if ( current_user_can( 'manage_options' ) ) {
+            return;
+        }
+        wp_safe_redirect( remove_query_arg( 'tab' ) );
+        exit;
     }
 
     /**
@@ -818,6 +839,14 @@ class Manager {
         // token to whoever loaded a page first, including users who cannot use
         // it. The manage_options routes (enable, connection, self-test) mint it.
 
+        // The panel prints the connection token, which acts as the administrator
+        // who paired it. Settings access can be delegated to other roles (Role
+        // Management), and every MCP route already requires manage_options, so
+        // the tab is not shown to anyone who could not use those routes.
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return $tabs;
+        }
+
         $tabs['tab-mcp'] = array(
             'id'       => 'tab-mcp',
             'label'    => __( 'MCP', 'notificationx' ),
@@ -1420,7 +1449,7 @@ class Manager {
         // a manual reload.
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only page check.
         $page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
-        if ( ! is_admin() || 0 !== strpos( $page, 'nx-' ) ) {
+        if ( ! is_admin() || 0 !== strpos( $page, 'nx-' ) || ! current_user_can( 'manage_options' ) ) {
             return;
         }
         $nonce = wp_create_nonce( 'wp_rest' );
