@@ -248,7 +248,25 @@ class PostType {
                 }
             }
             $this->update_enabled_source( $data );
-            return $this->update_post( $post, $data['nx_id'] );
+            $updated = $this->update_post( $post, $data['nx_id'] );
+            if ( false !== $updated ) {
+                /**
+                 * Fires after a notification is enabled or disabled.
+                 *
+                 * Covers the list-page toggle and bulk enable/disable, which do not
+                 * fire `nx_saved_post`. Page-cache plugins can purge on it, because
+                 * the notifications a page renders are printed into its HTML.
+                 *
+                 * @since 3.3.2
+                 *
+                 * @param int    $nx_id   Notification ID.
+                 * @param bool   $enabled New status.
+                 * @param string $source  Notification source (e.g. 'gdpr_notification'), or '' when not supplied.
+                 */
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+                do_action( 'nx_status_updated', (int) $data['nx_id'], (bool) $data['enabled'], isset( $data['source'] ) ? (string) $data['source'] : '' );
+            }
+            return $updated;
         }
         else if ( isset( $data['source'] ) && !$this->can_enable( $data['source'] ) ) {
             return $this->can_enable( $data['source'], true );

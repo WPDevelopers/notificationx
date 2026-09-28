@@ -17,8 +17,10 @@ All JS/asset builds use `@wordpress/scripts` (wp-scripts). Node version pinned i
 - `npm run frontend-watch` / `npm run frontend` — frontend popup/bar bundles ([webpack.frontend.config.js](webpack.frontend.config.js)).
 - `npm run blocks` / `npm run bb` — Gutenberg blocks ([webpack.blocks.config.js](webpack.blocks.config.js), source in [blocks/](blocks/)).
 - `npm run build` — admin + frontend production build (does NOT build blocks; use `npm run bb` separately, or `npm run release` which does both + POT).
-- `npm run release` — `build` + `bb` + `pot`. `npm run zip` adds `wp dist-archive` for distribution.
+- `npm run release` — `build` + `check:bundle` + `bb` + `cd` + `pot`. `npm run zip` adds `wp dist-archive` for distribution.
 - `npm run pot` — regenerate `languages/notificationx.pot` (excludes `nxbuild/`).
+- `npm run test:js` — JS unit tests in [tests/js/](tests/js/), including the frontend import-boundary test.
+- `npm run check:bundle` — checks the built `frontend.js`/`crossSite.js` for size and admin-only code; `npm run release` runs it after `build`.
 - `npm run up` — reinstall the `quickbuilder` dependency from the `notificationx` branch on GitHub. The `quickbuilder` package is sourced from `github:WPDevelopers/quickbuilder#notificationx` — do not bump it from npm.
 
 The `admin` step exceeds Node's default ~2 GB heap and dies with `FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory`. Raise it:
@@ -60,6 +62,9 @@ REST endpoints register through [includes/Core/REST.php](includes/Core/REST.php)
 ### Frontend
 [includes/FrontEnd/FrontEnd.php](includes/FrontEnd/FrontEnd.php) renders/enqueues the popup runtime; the React-driven popup/bar/exit-intent runtime is built from [nxdev/notificationx/frontend/](nxdev/notificationx/frontend/) via `webpack.frontend.config.js`. [Preview.php](includes/FrontEnd/Preview.php) powers the in-builder preview.
 
+### Frontend import boundary
+Frontend code (`nxdev/notificationx/frontend/`) may import only from `frontend/`, `shared/` and `icons/` — never from admin `core/` or `hooks/`. Shared helpers go in the dependency-free [nxdev/notificationx/shared/helpers.ts](nxdev/notificationx/shared/helpers.ts). One admin import once added ~900 KB to `frontend.js`; see [docs/features/frontend-performance/](docs/features/frontend-performance/).
+
 ### Frontend templating quirk
 There are two frontend builds in this repo (admin + frontend webpack configs) and three runtime contexts (admin builder, frontend popup runtime, Gutenberg blocks). Changes to popup display logic frequently need updates in both `nxdev/notificationx/frontend/` and the corresponding PHP Type class — design field changes only update one without the other will silently desync.
 
@@ -76,4 +81,5 @@ There are two frontend builds in this repo (admin + frontend webpack configs) an
 - [docs/development/adding-a-notification-type.md](docs/development/adding-a-notification-type.md) — adding a new Type end-to-end.
 - [docs/features/exit-intent/00-overview.md](docs/features/exit-intent/00-overview.md), [docs/features/exit-intent/add-new-design.md](docs/features/exit-intent/add-new-design.md) — Exit Intent specifics.
 - [docs/features/mcp/README.md](docs/features/mcp/README.md) — MCP server: ability registration and the WordPress Abilities API bridge (register the ability category before the abilities).
+- [docs/features/frontend-performance/](docs/features/frontend-performance/) — bundle size history, guardrails, optimizer (Delay JS) compatibility, B2/B3 roadmap.
 - [@todo.md](@todo.md) — author's running TODO; not authoritative roadmap.

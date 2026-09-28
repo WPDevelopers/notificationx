@@ -14,8 +14,9 @@ Everything below is defined in `includes/`. Naming conventions to keep in mind:
 | Action | Fires | Args |
 | --- | --- | --- |
 | `nx::extension::init` | An extension finishes booting ([Extension.php:86](../../includes/Extensions/Extension.php#L86)). **The main Pro integration point** — Pro attaches per-extension wiring here. | `$this` (the `Extension` instance) |
-| `nx_saved_post` / `nx_saved_post_{source}` | A notification (CPT) is saved/updated ([PostType.php:204-205](../../includes/Core/PostType.php#L204)). | `$post`, `$data`, `$nx_id` |
-| `nx_delete_post` | A notification is deleted ([PostType.php:489](../../includes/Core/PostType.php#L489)). | `$post_id`, `$post` |
+| `nx_saved_post` / `nx_saved_post_{source}` | A notification (CPT) is saved/updated ([PostType.php:216-218](../../includes/Core/PostType.php#L216)). | `$post`, `$data`, `$nx_id` |
+| `nx_status_updated` | A notification is enabled or disabled via the list toggle or a bulk action, which do not fire `nx_saved_post` ([PostType.php:267](../../includes/Core/PostType.php#L267)). Not fired when the status is unchanged or enabling is refused. Use it to purge page caches; see [../features/frontend-performance/01-optimizer-compatibility.md](../features/frontend-performance/01-optimizer-compatibility.md). | `int $nx_id`, `bool $enabled`, `string $source` (`''` when not supplied) |
+| `nx_delete_post` | A notification is deleted ([PostType.php:531](../../includes/Core/PostType.php#L531)). | `$post_id`, `$post` |
 | `nx_after_entry_inserted` | An analytics/data entry row is inserted ([Entries.php:75](../../includes/Admin/Entries.php#L75)). | `$entry` |
 | `nx_settings_saved` | Global settings are persisted ([Settings.php:677](../../includes/Admin/Settings.php#L677)). | `$settings` |
 | `nx_before_settings_fields` | Before the settings field schema is assembled ([Settings.php:105](../../includes/Admin/Settings.php#L105)). | — |

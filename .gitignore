@@ -22,3 +22,6 @@ nxbuild
 stats.json
 pnpm-lock.yaml
 .playwright-mcp
+
+# E2E bundle comparison output (tests/e2e/compare-frontend-bundles.js)
+tests/e2e/out/

@@ -18,7 +18,9 @@ Defined in [`package.json`](../../package.json) `scripts`:
 | `npm run blocks` | `wp-scripts start --config webpack.blocks.config.js` | The block in watch mode. |
 | `npm run cd` | `wp-scripts build --config webpack.countdown.config.js` | Countdown Timer block — [../../webpack.countdown.config.js](../../webpack.countdown.config.js). |
 | `npm run cd-watch` | `wp-scripts start --config webpack.countdown.config.js` | Countdown block in watch mode. |
-| `npm run release` | `build && bb && cd && pot` | Full production build: admin + frontend + both blocks + translation template. |
+| `npm run release` | `build && check:bundle && bb && cd && pot` | Full production build: admin + frontend + both blocks + translation template. Stops if the frontend bundle fails its size/admin-code check. |
+| `npm run check:bundle` | `node bin/check-frontend-bundle.js` | Checks the built `frontend.js`/`crossSite.js` against the size budget and for admin-only libraries ([../../bin/check-frontend-bundle.js](../../bin/check-frontend-bundle.js)). `--dir=nxbuild` checks a dev build. |
+| `npm run test:js` | `wp-scripts test-unit-js --config tests/js/jest.config.js` | JS unit tests in [../../tests/js/](../../tests/js/), including the frontend import-boundary test. |
 | `npm run zip` | `release && wp dist-archive .` | `release` then packages a distributable zip. |
 | `npm run pot` | `wp i18n make-pot . languages/notificationx.pot --exclude='nxbuild'` | Regenerates the translation template (excludes `nxbuild/`). |
 | `npm run up` | `npm install github:WPDevelopers/quickbuilder#notificationx` | Reinstalls the `quickbuilder` form engine from its GitHub branch (do not bump from npm). |
@@ -54,6 +56,8 @@ From the plugin root (see [../../CLAUDE.md](../../CLAUDE.md) for details):
 - `composer install` — installs PHP libraries (`lib-settings`, `query-builder`, `wp-notice`) from the VCS repos declared in [../../composer.json](../../composer.json). Run `composer dump-autoload` after adding new classes so the classmap picks them up.
 - `vendor/bin/phpunit` — runs the test suite (config [../../phpunit.xml.dist](../../phpunit.xml.dist), bootstrap `tests/bootstrap.php`).
 - `vendor/bin/phpcs --standard=phpcs.xml` — coding-standards check ([../../phpcs.xml](../../phpcs.xml)).
+
+> `composer.json` has no `require-dev`, so `vendor/bin/phpunit` is not installed by `composer install`. See [../features/frontend-performance/03-guardrails.md#running-the-tests](../features/frontend-performance/03-guardrails.md#running-the-tests) for a working setup. The old-vs-new bundle E2E comparison is in [../../tests/e2e/](../../tests/e2e/).
 
 ## Source
 - [../../package.json](../../package.json) — the authoritative `scripts` list.
