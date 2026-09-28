@@ -12,7 +12,7 @@ This release adds extension points that a later Pro release will use to take ove
 | Frontend script | `notificationx-public` now loads the WordPress `wp-hooks` script first | One extra script (`wp-hooks`) on pages that show a notification |
 | Discount Alert, Cart Peek, CTA buttons, mobile layout | The built-in code now runs through JavaScript filters. With no filter registered, it renders as before | Nothing. Verify with the regression cases |
 | Admin | New warning notice when NotificationX Pro is older than 3.2.3. Users cannot dismiss it | Only on sites with an old Pro |
-| Cross Domain Notice | `crossSite.js` is rebuilt with the same code | Nothing. It must still work on non-WordPress sites |
+| Cross Domain Notice (Pro) | The snippet loads `frontend.js` on other sites, where `wp-hooks` does not exist. The runtime must fall back to built-in rendering there | Nothing. It must still work on non-WordPress sites |
 
 Developer reference: [../api/frontend-js-hooks.md](../api/frontend-js-hooks.md).
 
@@ -152,33 +152,36 @@ Delete the second `addFilter` block (the one that throws), then reload.
 **Delete `nx-qa-hooks.php` and reload.**
 - **Expected:** the normal text is back.
 
-## Part F: Cross Domain Notice
+## Part F: Cross Domain Notice and shortcode
 
-**T20.** In **NotificationX → Settings → Cross Domain Notice**, copy the script snippet. Paste it into a plain `.html` file on a **non-WordPress** site, or into a local file opened in the browser, and open that page.
-- **Expected:** the notifications appear. The Console has no error about `wp`, `hooks` or `undefined`.
+**T20.** In **NotificationX → Settings → Cross Domain Notice** (needs Pro), add the test site's origin to the allowed origins, then copy the script snippet. Paste it into a plain `.html` page on a **non-WordPress** site and open that page. For a local test, serve the file over `http://`, for example with `python3 -m http.server 8765` and `http://localhost:8765/`. Do not open it as `file://`.
+- **Expected:** the notifications appear. In the Network tab, `frontend.js` loads from the NotificationX site, and no `wp-hooks` request is made. The Console has no error about `wp`, `hooks` or `undefined`.
 - **Fail if:** the page shows an error such as `Cannot read properties of undefined (reading 'hooks')`.
+
+**T21.** Put the Pro shortcode `[notificationx id="<id>"]` for a published Sales notification into a page and view it. This path prints the scripts in the footer by itself.
+- **Expected:** the notification renders once. In Elements, `wp-hooks-js` comes before `notificationx-public-js`. No Console error.
 
 ## Part G: Pro version notice
 
-**T21.** With Pro **3.2.3** active, open the WordPress Dashboard and the NotificationX pages.
+**T22.** With Pro **3.2.3** active, open the WordPress Dashboard and the NotificationX pages.
 - **Expected:** **no** "Please update NotificationX Pro" notice.
 
-**T22.** On a separate site, install Pro **3.2.2** or older together with free 3.4.0. Open the Dashboard, the Plugins page, and **NotificationX → All Notifications**.
+**T23.** On a separate site, install Pro **3.2.2** or older together with free 3.4.0. Open the Dashboard, the Plugins page, and **NotificationX → All Notifications**.
 - **Expected:** a yellow notice on every screen, **including the NotificationX screens**: "You are using NotificationX Pro 3.2.2. Please update NotificationX Pro to version 3.2.3 or later. …". It has a **Go to plugin updates** link.
 - **Expected:** the notice has **no** dismiss (×) button, and it comes back after every reload.
 
-**T23.** On the same site, log in as an **Editor**.
+**T24.** On the same site, log in as an **Editor**.
 - **Expected:** no notice. Only users who can update plugins see it.
 
-**T24.** Update Pro on that site to 3.2.3.
+**T25.** Update Pro on that site to 3.2.3.
 - **Expected:** the notice disappears. All notifications keep working with no re-saving.
 
-**T25.** Deactivate Pro (free only).
+**T26.** Deactivate Pro (free only).
 - **Expected:** no notice, no PHP error. Discount Alert and Cart Peek show as locked upsell cards in Add New. Free types from T15 still render.
 
 ## Part H: Caching and optimization plugins
 
-**T26.** If the test site has WP Rocket, LiteSpeed Cache or Autoptimize, turn on JS minify, combine and **delay JS execution**. Clear the cache, then repeat T1, T4 (one theme) and T15 (Sales + Notification Bar).
+**T27.** If the test site has WP Rocket, LiteSpeed Cache or Autoptimize, turn on JS minify, combine and **delay JS execution**. Clear the cache, then repeat T1, T4 (one theme) and T15 (Sales + Notification Bar).
 - **Expected:** the notifications render as without the optimizer.
 - **Fail if:** the notifications stop showing, or the Console shows `wp is not defined` or `Invalid hook call`. Record the optimizer name and settings.
 

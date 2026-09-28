@@ -10,10 +10,10 @@ Filters live on the global WordPress registry, `window.wp.hooks`. Register them 
 
 - `FrontEnd::get_script_dependencies()` ([FrontEnd.php:85](../../includes/FrontEnd/FrontEnd.php#L85)) makes `notificationx-public` depend on `wp-hooks`, so the registry is always present on WordPress pages.
 - The runtime calls filters through `nxApplyFilters()` / `nxApplyListFilter()` in [core/hooks.ts](../../nxdev/notificationx/frontend/core/hooks.ts). They read `window.wp.hooks` each time they run.
-- When `window.wp.hooks` is missing, the helpers return the default value and the built-in code renders. This happens in `crossSite.js`, which runs on non-WordPress sites.
+- When `window.wp.hooks` is missing, the helpers return the default value and the built-in code renders. This happens on non-WordPress sites: the Pro Cross Domain Notice snippet ([notificationx-pro `Admin/XSS.php`](../../../notificationx-pro/includes/Admin/XSS.php)) loads `frontend.js` there without `wp-hooks`, and the legacy `crossSite.js` runs there too.
 - When a filter throws, the helpers log the error and return the default value. A broken add-on falls back to the built-in rendering instead of unmounting the notification tree.
 
-> **Do not import `@wordpress/hooks` in the frontend runtime, and do not add it to `externals` in [webpack.frontend.config.js](../../webpack.frontend.config.js).** An import bundles a second, private registry, because the build runs with `--webpack-no-externals`, so add-on filters never reach it. An external breaks `crossSite.js`, because the same config builds it and `window.wp` does not exist on the sites where it runs. Always call `nxApplyFilters()`.
+> **Do not import `@wordpress/hooks` in the frontend runtime, and do not add it to `externals` in [webpack.frontend.config.js](../../webpack.frontend.config.js).** An import bundles a second, private registry, because the build runs with `--webpack-no-externals`, so add-on filters never reach it. An external breaks the Cross Domain Notice, because `frontend.js` (and the legacy `crossSite.js`) also run on non-WordPress sites, where `window.wp` does not exist. Always call `nxApplyFilters()`.
 
 ### The render-hook contract
 

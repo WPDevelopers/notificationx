@@ -8,11 +8,12 @@
  * - Importing `@wordpress/hooks` here would bundle a second, private registry
  *   (the frontend build runs with --webpack-no-externals), and filters that
  *   add-ons add to `window.wp.hooks` would never reach it.
- * - Declaring `@wordpress/hooks` as a webpack external would break crossSite.js,
- *   which is built by the same config and runs on non-WordPress sites where
- *   `window.wp` does not exist.
+ * - Declaring `@wordpress/hooks` as a webpack external would break the bundle
+ *   on non-WordPress sites, where `window.wp` does not exist: the Pro Cross
+ *   Domain Notice (notificationx-pro Admin/XSS.php) loads frontend.js there,
+ *   and the legacy crossSite.js is built by the same config.
  *
- * When the registry is missing (crossSite.js, or a page that dequeued
+ * When the registry is missing (a Cross Domain Notice site, or a page that dequeued
  * wp-hooks), the default value is returned, so built-in rendering continues.
  *
  * Contract for the render hooks: the default value is `undefined`. A filter
