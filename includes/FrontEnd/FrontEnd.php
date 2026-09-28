@@ -71,7 +71,31 @@ class FrontEnd {
         // After wp_enqueue_scripts (wp_head priority 1) has collected the page's bars.
         add_action('wp_head', [$this, 'print_bar_reserve'], 3);
         add_filter('body_class', [ $this, 'nx_add_body_class' ] );
+        add_filter('style_loader_tag', [$this, 'gdpr_modal_style_tag'], 10, 2);
 
+    }
+
+    /**
+     * Load the GDPR modal styles without blocking the first paint.
+     *
+     * They style only the cookie-preferences modal, which opens on a click, so
+     * the page does not need to wait for them. The stylesheet is requested as
+     * `print` and switched to `all` once it has loaded; the <noscript> copy
+     * keeps it for visitors without JavaScript.
+     *
+     * @param string $tag    The link tag.
+     * @param string $handle Style handle.
+     * @return string
+     */
+    public function gdpr_modal_style_tag($tag, $handle) {
+        if ('notificationx-gdpr-modal' !== $handle || false !== strpos($tag, 'onload=')) {
+            return $tag;
+        }
+        $deferred = preg_replace('/\smedia=([\'"])all\1/', ' media=$1print$1 onload="this.media=\'all\'"', $tag, 1, $count);
+        if (!$count) {
+            return $tag;
+        }
+        return $deferred . '<noscript>' . trim($tag) . "</noscript>\n";
     }
 
     /**
@@ -110,7 +134,7 @@ class FrontEnd {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], apply_filters('nx_frontend_css_version', NOTIFICATIONX_VERSION ), 'all');
         // GDPR cookie-customisation modal styles, split out of frontend.css
-        // (~460 KB) so only pages with an active GDPR notice load them.
+        // (~305 KB) so only pages with an active GDPR notice load them.
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         wp_register_style('notificationx-gdpr-modal', Helper::file('public/css/gdpr-modal.css', true), ['notificationx-public'], apply_filters('nx_frontend_css_version', NOTIFICATIONX_VERSION ), 'all');
         // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');

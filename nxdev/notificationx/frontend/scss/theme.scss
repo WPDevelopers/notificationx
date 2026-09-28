@@ -10,7 +10,7 @@
 @import "./_theme-color/common";
 @import "./_themes/gdpr";
 @import "./_themes/popup";
-// The admin modal styles (../../scss/modal, ~460 KB compiled) are only
+// The admin modal styles (../../scss/modal, ~305 KB compiled) are only
 // needed by the GDPR cookie-customisation modal: they ship separately as
 // public/css/gdpr-modal.css, enqueued only when a GDPR notice is active.
 @import "./_themes/exit-intent";
