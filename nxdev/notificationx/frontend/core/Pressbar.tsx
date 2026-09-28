@@ -12,6 +12,7 @@ import nxHelper, { addParentSelectorToCSS } from "./functions";
 import { loadAssets } from "./LoadAssets";
 import BarCoupon from './helper/BarCoupon';
 import { themes_has_bg } from "../../core/functions";
+import { hasBarReserve, releaseBarReserve, reportBarHeight } from "./barReserve";
 
 /**
  * @example
@@ -143,6 +144,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             if (xAdminBar?.offsetHeight) componentCSS.top = xAdminBar.offsetHeight;
             if (!settings?.pressbar_body) {
                 document.body.style.paddingTop = `${barHeight}px`;
+                reportBarHeight(frontendContext.rest, settings, barHeight);
             }
         }
         else {
@@ -151,6 +153,8 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             }
 
         }
+        // The bar's own padding has taken over from the space reserved in <head>.
+        releaseBarReserve();
 
         setStyles({
             componentCSS,
@@ -207,6 +211,9 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
 
     useEffect(() => {
         setTimeout(() => {
+            // While block content is still loading, the reserved space holds
+            // the page in place; calcHeight() sets the padding once it's styled.
+            if (isLoading && hasBarReserve()) return;
             const barHeight = document.getElementById(`nx-bar-${settings.nx_id}`).offsetHeight;
             if (!settings?.pressbar_body) {
                 if (position == 'top') {

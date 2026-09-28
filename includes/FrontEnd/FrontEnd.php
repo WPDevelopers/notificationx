@@ -47,6 +47,7 @@ class FrontEnd {
      */
     public function __construct() {
         Analytics::get_instance();
+        BarSpace::get_instance();
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reviewed for the NotificationX codebase: acceptable in this context.
         if (!is_admin() || !empty($_GET['frontend'])) {
             add_action('init', [$this, 'init'], 10);
@@ -67,6 +68,8 @@ class FrontEnd {
         add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 3);
         add_filter('nx_filtered_post', [$this, 'filtered_post'], 9999, 2);
         add_action('wp_print_footer_scripts', [$this, 'footer_scripts']);
+        // After wp_enqueue_scripts (wp_head priority 1) has collected the page's bars.
+        add_action('wp_head', [$this, 'print_bar_reserve'], 3);
         add_filter('body_class', [ $this, 'nx_add_body_class' ] );
 
     }
@@ -166,6 +169,17 @@ class FrontEnd {
         } else {
             // @todo maybe elementor edit mode CSS. to move to top.
             // LATER
+        }
+    }
+
+    /**
+     * Reserve the top bar's measured height before it mounts (see BarSpace).
+     *
+     * @return void
+     */
+    public function print_bar_reserve() {
+        if (!empty($this->notificationXArr['pressbar'])) {
+            BarSpace::get_instance()->print_reserve($this->notificationXArr['pressbar']);
         }
     }
 

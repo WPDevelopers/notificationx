@@ -147,6 +147,7 @@ return array(
     'NotificationX\\Extensions\\Zapier\\ZapierConversions' => $baseDir . '/includes/Extensions/Zapier/ZapierConversions.php',
     'NotificationX\\Extensions\\Zapier\\ZapierEmailSubscription' => $baseDir . '/includes/Extensions/Zapier/ZapierEmailSubscription.php',
     'NotificationX\\Extensions\\Zapier\\ZapierReviews' => $baseDir . '/includes/Extensions/Zapier/ZapierReviews.php',
+    'NotificationX\\FrontEnd\\BarSpace' => $baseDir . '/includes/FrontEnd/BarSpace.php',
     'NotificationX\\FrontEnd\\FrontEnd' => $baseDir . '/includes/FrontEnd/FrontEnd.php',
     'NotificationX\\FrontEnd\\Preview' => $baseDir . '/includes/FrontEnd/Preview.php',
     'NotificationX\\GetInstance' => $baseDir . '/includes/GetInstance.php',
