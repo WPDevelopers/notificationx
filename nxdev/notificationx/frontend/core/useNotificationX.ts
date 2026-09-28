@@ -7,7 +7,7 @@ import sortArray from "sort-array";
 import nxHelper, { parseDelaySeconds } from "./functions";
 import moment from "moment";
 import usePreviewType from "./usePreviewType";
-import { releaseBarReserve } from "./barReserve";
+import { releaseBarReserve, reservedBarId } from "./barReserve";
 
 const useNotificationX = (props: any) => {
 
@@ -241,8 +241,11 @@ const useNotificationX = (props: any) => {
                     if (!response?.pressbar?.length) {
                         releaseBarReserve();
                     } else {
+                        // Look for the reserved bar itself: `.nx-bar` also matches
+                        // other bars (e.g. a shortcode bar) and would keep the gap.
                         setTimeout(() => {
-                            if (!document.querySelector('.nx-bar')) releaseBarReserve();
+                            const id = reservedBarId();
+                            if (!id || !document.getElementById(`nx-bar-${id}`)) releaseBarReserve();
                         }, 3000);
                     }
                 }

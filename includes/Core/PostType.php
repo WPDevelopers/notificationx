@@ -249,7 +249,8 @@ class PostType {
             }
             $this->update_enabled_source( $data );
             $updated = $this->update_post( $post, $data['nx_id'] );
-            if ( false !== $updated ) {
+            // `$wpdb->update()` returns 0 when no row matched: no such notification.
+            if ( $updated ) {
                 /**
                  * Fires after a notification is enabled or disabled.
                  *
@@ -257,7 +258,7 @@ class PostType {
                  * fire `nx_saved_post`. Page-cache plugins can purge on it, because
                  * the notifications a page renders are printed into its HTML.
                  *
-                 * @since 3.3.2
+                 * @since 3.4.0
                  *
                  * @param int    $nx_id   Notification ID.
                  * @param bool   $enabled New status.

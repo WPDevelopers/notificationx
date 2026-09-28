@@ -24,7 +24,10 @@ class BarSpace {
 
     const OPTION     = 'notificationx_bar_heights';
     const MAX_HEIGHT = 400;
-    const THROTTLE   = 10 * MINUTE_IN_SECONDS;
+    // One report per visitor IP, bar and width bucket in this window.
+    const THROTTLE   = MINUTE_IN_SECONDS;
+    // Agreeing reports needed before a stored height is replaced.
+    const CONFIRM    = 3;
 
     /**
      * Viewport buckets as [ key => max width (exclusive) ]. Text wrapping
@@ -107,27 +110,63 @@ class BarSpace {
             return new WP_REST_Response( [ 'saved' => false ], 200 );
         }
 
-        $throttle_key = "nx_bar_height_{$nx_id}_{$bucket}";
+        // The endpoint is public, so a single client must not be able to set the
+        // gap every visitor sees. Throttle per IP (not per bar, which would also
+        // block real browsers from correcting a bad value), and only replace a
+        // stored height once several reports agree on the new one.
+        $ip           = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+        $throttle_key = 'nx_bar_height_' . md5( "{$ip}|{$nx_id}|{$bucket}" );
         if ( get_transient( $throttle_key ) ) {
             return new WP_REST_Response( [ 'saved' => false ], 200 );
         }
+        set_transient( $throttle_key, 1, self::THROTTLE );
 
         $version = (string) ( $settings['updated_at'] ?? '' );
         $heights = get_option( self::OPTION, [] );
-        $entry   = isset( $heights[ $nx_id ] ) && is_array( $heights[ $nx_id ] ) && ( $heights[ $nx_id ]['v'] ?? '' ) === $version
+        if ( ! is_array( $heights ) ) {
+            $heights = [];
+        }
+        $entry = isset( $heights[ $nx_id ] ) && is_array( $heights[ $nx_id ] ) && ( $heights[ $nx_id ]['v'] ?? '' ) === $version
             ? $heights[ $nx_id ]
             : [ 'v' => $version, 'h' => [] ];
 
-        if ( isset( $entry['h'][ $bucket ] ) && abs( $entry['h'][ $bucket ] - $height ) < 2 ) {
+        $stored = isset( $entry['h'][ $bucket ] ) ? (int) $entry['h'][ $bucket ] : 0;
+        if ( $stored && abs( $stored - $height ) < 2 ) {
+            // Agrees with what is stored: drop any competing candidate.
+            if ( isset( $entry['p'][ $bucket ] ) ) {
+                unset( $entry['p'][ $bucket ] );
+                if ( empty( $entry['p'] ) ) {
+                    unset( $entry['p'] );
+                }
+                $heights[ $nx_id ] = $entry;
+                update_option( self::OPTION, $heights, true );
+            }
             return new WP_REST_Response( [ 'saved' => false ], 200 );
         }
 
-        $entry['h'][ $bucket ] = $height;
-        $heights[ $nx_id ]     = $entry;
-        update_option( self::OPTION, $heights, false );
-        set_transient( $throttle_key, 1, self::THROTTLE );
+        $pending = isset( $entry['p'][ $bucket ] ) && is_array( $entry['p'][ $bucket ] ) ? $entry['p'][ $bucket ] : null;
+        if ( $pending && abs( (int) $pending[0] - $height ) < 2 ) {
+            $pending[1] = (int) $pending[1] + 1;
+        } else {
+            $pending = [ $height, 1 ];
+        }
 
-        return new WP_REST_Response( [ 'saved' => true ], 200 );
+        $saved = false;
+        if ( $pending[1] >= self::CONFIRM ) {
+            $entry['h'][ $bucket ] = $height;
+            unset( $entry['p'][ $bucket ] );
+            $saved = true;
+        } else {
+            $entry['p'][ $bucket ] = $pending;
+        }
+        if ( empty( $entry['p'] ) ) {
+            unset( $entry['p'] );
+        }
+        $heights[ $nx_id ] = $entry;
+        // Autoloaded: print_reserve() reads it on every front-end page with a bar.
+        update_option( self::OPTION, $heights, true );
+
+        return new WP_REST_Response( [ 'saved' => $saved ], 200 );
     }
 
     /**
@@ -182,6 +221,15 @@ class BarSpace {
                     esc_attr( $nx_id ),
                     esc_attr( wp_json_encode( $entry['h'] ) ),
                     implode( '', $rules ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built from integers above.
+                );
+                // A page cache serves this reservation to visitors who closed the
+                // bar too; for them the bar never mounts and the page would jump
+                // up once the frontend releases it. Check the close cookie before
+                // first paint. Tagged so optimizers do not delay it.
+                $cookie = 'notificationx_' . $nx_id . ( ! empty( $settings['countdown_rand'] ) ? '-' . $settings['countdown_rand'] : '' );
+                printf(
+                    "<script data-no-optimize=\"1\" data-cfasync=\"false\" data-no-defer=\"1\" nowprocket>(function(n){try{if(document.cookie.split('; ').some(function(c){var i=c.indexOf('=');return c.slice(0,i)===n&&c.slice(i+1)!==''&&c.slice(i+1)!=='false';}))document.documentElement.classList.add('nx-bar-reserve-off');}catch(e){}})(%s);</script>\n",
+                    wp_json_encode( $cookie ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-encoded string literal.
                 );
             }
             // Only one top bar sets the body padding.

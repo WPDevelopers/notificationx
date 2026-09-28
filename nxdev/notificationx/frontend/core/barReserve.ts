@@ -16,6 +16,9 @@ export const hasBarReserve = () =>
     !!document.getElementById(RESERVE_ID) &&
     !document.documentElement.classList.contains(OFF_CLASS);
 
+/** ID of the bar the <head> reservation was printed for, or "" when none. */
+export const reservedBarId = () => document.getElementById(RESERVE_ID)?.dataset.nxId || "";
+
 export const releaseBarReserve = () => {
     document.documentElement.classList.add(OFF_CLASS);
 };

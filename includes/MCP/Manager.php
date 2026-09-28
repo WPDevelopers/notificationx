@@ -54,6 +54,7 @@ class Manager {
 
         // Admin settings tab (pure PHP field schema; no JS rebuild needed).
         add_filter( 'nx_settings_tab', array( $this, 'register_settings_tab' ), 20 );
+        add_filter( 'nx_protected_settings', array( $this, 'protect_enable_setting' ) );
 
         // CSS + JS for the MCP panel (copy / reveal / revoke controls).
         add_action( 'admin_print_footer_scripts', array( $this, 'print_panel_assets' ) );
@@ -812,10 +813,10 @@ class Manager {
      * @return array
      */
     public function register_settings_tab( $tabs ) {
-        // If MCP is on, make sure a pairing token exists so the UI has one to show.
-        if ( $this->is_enabled() && ! Pairing::get_instance()->is_connected() ) {
-            Pairing::get_instance()->connect();
-        }
+        // No token is minted here. This runs for every user who can open the
+        // NotificationX admin (and for GET /builder), so minting here bound the
+        // token to whoever loaded a page first, including users who cannot use
+        // it. The manage_options routes (enable, connection, self-test) mint it.
 
         $tabs['tab-mcp'] = array(
             'id'       => 'tab-mcp',
@@ -825,6 +826,24 @@ class Manager {
         );
 
         return $tabs;
+    }
+
+    /**
+     * Keep `enable_mcp` out of reach of users who cannot manage MCP.
+     *
+     * The settings form posts the whole blob, so without this a user with
+     * settings access but without manage_options could switch MCP on or off,
+     * although every MCP management route requires manage_options.
+     *
+     * @param array $keys Protected settings keys.
+     * @return array
+     */
+    public function protect_enable_setting( $keys ) {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            $keys   = (array) $keys;
+            $keys[] = 'enable_mcp';
+        }
+        return $keys;
     }
 
     /**
@@ -1186,8 +1205,11 @@ class Manager {
      * @return string
      */
     protected function connection_html() {
-        $url   = $this->connector_url();
-        $token = Pairing::get_instance()->site_token();
+        // The token is deliberately not printed here. This markup is part of the
+        // settings schema, which reaches every user who can open the
+        // NotificationX admin (and GET /builder), not only administrators.
+        // Show/Copy fetch it from GET /mcp/connection, which requires manage_options.
+        $url = $this->connector_url();
         ob_start();
         ?>
         <div class="nx-mcp-grid">
@@ -1202,7 +1224,7 @@ class Manager {
             <div class="nx-mcp-card">
                 <span class="nx-mcp-card-label"><?php esc_html_e( 'Connection token', 'notificationx' ); ?></span>
                 <div class="nx-mcp-copyrow">
-                    <code class="nx-mcp-value nx-mcp-token" data-token="<?php echo esc_attr( $token ); ?>">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</code>
+                    <code class="nx-mcp-value nx-mcp-token" data-token="">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</code>
                     <button type="button" class="nx-mcp-copy" onclick="nxMcpReveal(this)"><?php esc_html_e( 'Show', 'notificationx' ); ?></button>
                     <?php // Reads the token from the element rather than a value baked in at render time: the panel is built before MCP is switched on, so a literal here would stay empty until a reload. ?>
                     <button type="button" class="nx-mcp-copy" onclick="nxMcpCopyToken(this)"><?php esc_html_e( 'Copy', 'notificationx' ); ?></button>
@@ -1420,6 +1442,11 @@ class Manager {
             'enabled'       => __( 'MCP access enabled.', 'notificationx' ),
             'disabled'      => __( 'MCP access disabled.', 'notificationx' ),
             'enableFailed'  => __( 'Could not save the MCP setting.', 'notificationx' ),
+            // Generic action outcomes.
+            'genericError'  => __( 'Something went wrong.', 'notificationx' ),
+            'requestFailed' => __( 'Request failed.', 'notificationx' ),
+            'done'          => __( 'Done.', 'notificationx' ),
+            'revoked'       => __( 'Connection revoked.', 'notificationx' ),
             // Refresh outcomes: say what actually changed, not just a count.
             'noneStill'     => __( 'No apps connected yet.', 'notificationx' ),
             'upToDate'      => __( 'Up to date — nothing changed.', 'notificationx' ),
@@ -1712,17 +1739,17 @@ class Manager {
                 }).then(function(r){ return r.json().catch(function(){ return {}; }); }).then(function(res){
                     btn.disabled = false; btn.textContent = old;
                     if (res && res.status === 'error'){
-                        if (opts.result) nxMcpShowResult(opts.result, false, res.message || 'Something went wrong.');
-                        nxMcpToast('error', res.message || 'Something went wrong.'); return;
+                        if (opts.result) nxMcpShowResult(opts.result, false, res.message || window.nxMcpData.i18n.genericError);
+                        nxMcpToast('error', res.message || window.nxMcpData.i18n.genericError); return;
                     }
-                    var msg = opts.success || (res && res.message) || 'Done.';
+                    var msg = opts.success || (res && res.message) || window.nxMcpData.i18n.done;
                     if (opts.result) nxMcpShowResult(opts.result, true, (res && res.message) || msg);
                     nxMcpToast('success', msg);
                     if (opts.reload){ setTimeout(function(){ window.location.reload(); }, 900); }
                 }).catch(function(){
                     btn.disabled = false; btn.textContent = old;
-                    if (opts.result) nxMcpShowResult(opts.result, false, 'Request failed.');
-                    nxMcpToast('error', 'Request failed.');
+                    if (opts.result) nxMcpShowResult(opts.result, false, window.nxMcpData.i18n.requestFailed);
+                    nxMcpToast('error', window.nxMcpData.i18n.requestFailed);
                 });
             };
             window.nxMcpRevoke = function(btn, type, clientId){
@@ -1730,7 +1757,7 @@ class Manager {
                     confirm: window.nxMcpData.i18n.revokeConfirm,
                     body: { type: type, client_id: clientId },
                     reload: true,
-                    success: 'Connection revoked.'
+                    success: window.nxMcpData.i18n.revoked
                 });
             };
             // Re-read the connected apps without a full page reload, so a newly
@@ -1867,8 +1894,19 @@ class Manager {
             // unsaved meant the connector URL, token and connection test all
             // described a state the server was not in.
             var nxMcpEnableInFlight = false;
+            var nxMcpToggleSync = false;
+            // The toggle is a controlled React input: setting `checked` on the DOM
+            // node leaves the settings form holding the old value, and the form's
+            // Save would later write it back. Click it instead, so React's own
+            // onChange updates the form state, and skip our handler for that click.
+            var nxMcpSetToggle = function(input, value){
+                if (!!input.checked === value) return;
+                nxMcpToggleSync = true;
+                try { input.click(); } finally { nxMcpToggleSync = false; }
+            };
             document.addEventListener('change', function(e){
                 if (!e.target || e.target.name !== 'enable_mcp') return;
+                if (nxMcpToggleSync) return;
                 var input = e.target;
                 var on    = !!input.checked;
 
@@ -1892,7 +1930,7 @@ class Manager {
                     nxMcpEnableInFlight = false; input.disabled = false;
                     // Server is the truth: repaint from what it reports.
                     var saved = !!res.enabled;
-                    input.checked = saved;
+                    nxMcpSetToggle(input, saved);
                     nxMcpPaintBadge(saved);
                     if (res.token) { nxMcpSetToken(res.token); }
                     nxMcpToast('success', saved ? window.nxMcpData.i18n.enabled : window.nxMcpData.i18n.disabled);
@@ -1900,7 +1938,7 @@ class Manager {
                     nxMcpEnableInFlight = false; input.disabled = false;
                     // Put the control back where it was so it cannot claim a
                     // state that was never stored.
-                    input.checked = !on;
+                    nxMcpSetToggle(input, !on);
                     nxMcpPaintBadge(!on);
                     nxMcpToast('error', window.nxMcpData.i18n.enableFailed);
                 });
