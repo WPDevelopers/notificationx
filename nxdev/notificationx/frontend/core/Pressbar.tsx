@@ -34,7 +34,8 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const [styles, setStyles] = useState<{ [key: string]: any }>({});
     const [closed, setClosed] = useState(false);
     const [isTimeBetween,setIsTimeBetween] = useState(false);
-    const [isLoading, setIsLoading] = useState(settings.is_gutenberg && settings.gutenberg_id);
+    const assetsOnPage = gutenbergAssetsOnPage(settings);
+    const [isLoading, setIsLoading] = useState(settings.is_gutenberg && settings.gutenberg_id && !assetsOnPage);
 
     const common_assets_url = frontendContext.assets.common + 'images/';
     const consentCallback = useCallback( (event) => {
@@ -246,6 +247,17 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
 
     useEffect(() => {
         if(!settings.is_gutenberg || !settings.gutenberg_id){
+            return;
+        }
+        if (assetsOnPage) {
+            // The page already has the bar's block assets (and ran their scripts
+            // at DOMContentLoaded, before the bar existed), so only the countdown
+            // needs starting on the bar's markup.
+            // @ts-ignore
+            if( typeof window.ebRunCountDown === 'function' ) {
+                // @ts-ignore
+                ebRunCountDown();
+            }
             return;
         }
         setIsLoading(true);
@@ -508,6 +520,20 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     );
 
     return createPortal(wrapper, target);
+};
+
+/**
+ * Whether this page already carries a block-editor bar's block assets.
+ *
+ * PHP renders the bar's blocks while the page's assets are collected, so every
+ * block enqueues what it needs, and marks the body with
+ * `nx-bar-assets-{gutenberg_id}` (FrontEnd::enqueue_gutenberg_bar_assets()).
+ * Without the mark — a cross-domain embed, the builder preview, an older
+ * cached page — the bar's permalink is fetched for its assets as before.
+ */
+const gutenbergAssetsOnPage = (settings) => {
+    const id = parseInt(settings?.gutenberg_id, 10);
+    return !!id && !!document.body?.classList.contains(`nx-bar-assets-${id}`);
 };
 
 const isAdminBar = () => {
