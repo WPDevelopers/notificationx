@@ -353,7 +353,15 @@ class FrontEnd {
         if (!$post || '' === trim((string) $post->post_content)) {
             return;
         }
-        do_blocks($post->post_content);
+        // This runs inside <head> (wp_enqueue_scripts). A block whose render
+        // callback echoes instead of returning would print into <head> and push
+        // every later head tag into <body>; buffer and discard all output.
+        ob_start();
+        try {
+            do_blocks($post->post_content);
+        } finally {
+            ob_end_clean();
+        }
         $this->gutenberg_bar_assets[$gutenberg_id] = true;
     }
 
