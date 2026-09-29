@@ -15,30 +15,122 @@ export const DEFAULT_EXTERNAL_STYLES: Record<string, string> = {
 };
 
 /**
+ * Switch the stylesheets PHP deferred to `all`.
+ *
+ * FrontEnd::non_blocking_style_tag() prints them as `media="print"` with an
+ * inline `onload` that switches them, marked `data-nx-style`. An optimizer can
+ * strip that handler and a Content Security Policy can block it, which would
+ * leave the notifications unstyled, so the runtime switches them too. Safe to
+ * call more than once.
+ */
+export const applyDeferredStyles = () => {
+    document.querySelectorAll<HTMLLinkElement>('link[data-nx-style]').forEach(applyLink);
+};
+
+// Links switched while still loading stay `data-nx-pending` until they load or
+// fail, so whenStyled() knows to wait for them.
+const markPending = (link: HTMLLinkElement) => {
+    link.dataset.nxPending = '1';
+    const settle = () => { delete link.dataset.nxPending; };
+    link.addEventListener('load', settle, { once: true });
+    link.addEventListener('error', settle, { once: true });
+};
+
+const applyLink = (link: HTMLLinkElement) => {
+    if (link.media !== 'print') {
+        return;
+    }
+    // A sheet that has already loaded fires no second load event when its
+    // media changes; it applies straight away.
+    if (!link.sheet) {
+        markPending(link);
+    }
+    link.media = 'all';
+};
+
+/**
+ * Whether a stylesheet's rules apply, read from its `.nx-style-probe` rule
+ * (`--nx-frontend: 1` in frontend.css, `--nx-gdpr-modal: 1` in gdpr-modal.css).
+ *
+ * @param probe Custom property name without the `--nx-` prefix.
+ */
+export const styleApplies = (probe: string): boolean => {
+    if (!document.body) {
+        return false;
+    }
+    const el = document.createElement('div');
+    el.className = 'nx-style-probe';
+    el.style.display = 'none';
+    document.body.appendChild(el);
+    const value = getComputedStyle(el).getPropertyValue('--nx-' + probe).trim();
+    el.remove();
+    return '1' === value;
+};
+
+const whenLoaded = (): Promise<void> => new Promise((resolve) => {
+    if (document.readyState === 'complete') {
+        resolve();
+        return;
+    }
+    window.addEventListener('load', () => resolve(), { once: true });
+});
+
+/** Where to get a stylesheet again when its link is not on the page. */
+export type StyleFallback = { href: string, probe: string };
+
+/**
  * Resolve once the stylesheet with this id applies to the page.
  *
  * PHP prints `notificationx-public` as `media="print"` and flips it to `all`
  * on load, so it does not block the first paint (see
  * FrontEnd::non_blocking_style_tag()). Rendering before that would show
- * notifications unstyled for a moment. A sheet that is missing (cross-domain
- * embeds, an optimizer that renamed it) or fails to load does not hold the
- * render back.
+ * notifications unstyled for a moment. The link is switched here as well, so
+ * a stripped or blocked inline handler cannot leave it unapplied.
  *
- * @param id Element id of the <link>, e.g. `notificationx-public-css`.
+ * With a `fallback`, a link that is not on the page (an optimizer combined it
+ * into a bundle) is checked with the probe rule: when the bundle does not
+ * apply (a print-only bundle), the stylesheet is added again, after the page
+ * has loaded so a bundle that is still loading is not duplicated. A sheet
+ * that is missing without a fallback (cross-domain embeds) or fails to load
+ * does not hold the render back.
+ *
+ * @param id       Element id of the <link>, e.g. `notificationx-public-css`.
+ * @param fallback URL and probe name for re-adding the stylesheet.
  */
-export const whenStyled = (id: string): Promise<void> => new Promise((resolve) => {
+export const whenStyled = (id: string, fallback?: StyleFallback): Promise<void> => {
     const link = document.getElementById(id) as HTMLLinkElement | null;
-    if (!link || link.tagName !== 'LINK' || link.media !== 'print') {
+    if (link && link.tagName === 'LINK') {
+        applyLink(link);
+        return waitFor(link);
+    }
+    if (link || !fallback?.href || styleApplies(fallback.probe)) {
+        return Promise.resolve();
+    }
+    return whenLoaded().then(() => {
+        const again = document.getElementById(id) as HTMLLinkElement | null;
+        if (again && again.tagName === 'LINK') {
+            return waitFor(again);
+        }
+        if (again || styleApplies(fallback.probe)) {
+            return;
+        }
+        const added = document.createElement('link');
+        added.id = id;
+        added.rel = 'stylesheet';
+        added.href = fallback.href;
+        markPending(added);
+        document.head.appendChild(added);
+        return waitFor(added);
+    });
+};
+
+const waitFor = (link: HTMLLinkElement): Promise<void> => new Promise((resolve) => {
+    if (!link.dataset.nxPending) {
         resolve();
         return;
     }
-    const done = () => resolve();
-    link.addEventListener('load', done, { once: true });
-    link.addEventListener('error', done, { once: true });
-    // The sheet may have finished between parsing and this call.
-    if (link.sheet) {
-        resolve();
-    }
+    link.addEventListener('load', () => resolve(), { once: true });
+    link.addEventListener('error', () => resolve(), { once: true });
 });
 
 /**

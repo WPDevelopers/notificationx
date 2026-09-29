@@ -4,7 +4,7 @@ import domReady from '@wordpress/dom-ready';
 import { setLocaleData } from "@wordpress/i18n";
 import { NotificationXFrontEnd } from "./core";
 import { exposeFrontendRuntime } from "./core/runtime";
-import { loadExternalStyles, whenStyled } from "./core/external-styles";
+import { applyDeferredStyles, loadExternalStyles, whenStyled } from "./core/external-styles";
 
 declare let __webpack_public_path__: string;
 
@@ -33,6 +33,7 @@ function notificationXWrapper(notificationX, id) {
     if (notificationX.cross) {
         loadExternalStyles(notificationX.external_styles);
     }
+    applyDeferredStyles();
 
     if(notificationX.localeData){
         const localeData = JSON.parse(notificationX.localeData)?.locale_data;
@@ -61,7 +62,14 @@ function notificationXWrapper(notificationX, id) {
 
     document.body.appendChild(xDiv);
 
-    whenStyled('notificationx-public-css').then(() => {
+    // Only set on WordPress pages (not cross-domain embeds): lets the runtime
+    // re-add a stylesheet an optimizer combined into a bundle that does not apply.
+    const styles = notificationX.styles || {};
+    if (styles['notificationx-gdpr-modal']) {
+        whenStyled('notificationx-gdpr-modal-css', { href: styles['notificationx-gdpr-modal'], probe: 'gdpr-modal' });
+    }
+    const publicCss = styles['notificationx-public'] ? { href: styles['notificationx-public'], probe: 'frontend' } : undefined;
+    whenStyled('notificationx-public-css', publicCss).then(() => {
         ReactDOM.render(
             <NotificationXFrontEnd config={notificationX} />,
             xDiv
@@ -79,6 +87,10 @@ function inIframe () {
 }
 
 domReady(function () {
+    // Apply the deferred stylesheets on every page the runtime is on, as the
+    // old inline `onload` did, even where it renders nothing (iframes).
+    applyDeferredStyles();
+
     // @ts-ignore
     if(inIframe() && !window.notificationXArr?.[0]?.nxPreview){
         console.error("NotificationX: NotificationX doesn't work in iframe.");

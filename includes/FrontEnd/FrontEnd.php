@@ -157,6 +157,9 @@ class FrontEnd {
      *
      * The stylesheet is requested as `print` and switched to `all` once it has
      * loaded; the <noscript> copy keeps it for visitors without JavaScript.
+     * `data-nx-style` marks it for the runtime, which also switches it (see
+     * applyDeferredStyles() in external-styles.ts) in case the inline handler
+     * was stripped by an optimizer or blocked by a Content Security Policy.
      *
      * @param string $tag    The link tag.
      * @param string $handle Style handle.
@@ -167,7 +170,7 @@ class FrontEnd {
         if (!in_array($handle, $handles, true) || false !== strpos($tag, 'onload=')) {
             return $tag;
         }
-        $deferred = preg_replace('/\smedia=([\'"])all\1/', ' media=$1print$1 onload="this.media=\'all\'"', $tag, 1, $count);
+        $deferred = preg_replace('/\smedia=([\'"])all\1/', ' media=$1print$1 onload="this.media=\'all\'" data-nx-style=$1print$1', $tag, 1, $count);
         if (!$count) {
             return $tag;
         }
@@ -429,9 +432,46 @@ class FrontEnd {
         return [];
     }
 
+    /**
+     * The URL WordPress prints for a registered stylesheet.
+     *
+     * @param string $handle Style handle.
+     * @return string Empty when the handle has no source.
+     */
+    protected function style_url($handle) {
+        $style = wp_styles()->query($handle, 'registered');
+        if (!$style || empty($style->src) || !is_string($style->src)) {
+            return '';
+        }
+        $src = $style->src;
+        // Same version rule as WP_Styles::_css_href().
+        $ver = null === $style->ver ? '' : ($style->ver ? $style->ver : get_bloginfo('version'));
+        if ('' !== $ver) {
+            $src = add_query_arg('ver', $ver, $src);
+        }
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core filter, so CDN rewrites apply.
+        return (string) apply_filters('style_loader_src', $src, $handle);
+    }
+
     public function get_localize_data($data) {
         $data['rest']          = REST::get_instance()->rest_data(false);
         $data['assets']        = self::ASSET_URL;
+        if (empty($data['cross'])) {
+            // The runtime re-adds these if an optimizer combined them into a
+            // bundle that does not apply (e.g. a print-only one).
+            $styles = [];
+            foreach (['notificationx-public', 'notificationx-gdpr-modal'] as $handle) {
+                if (wp_style_is($handle, 'enqueued') || wp_style_is($handle, 'done')) {
+                    $url = $this->style_url($handle);
+                    if ($url) {
+                        $styles[$handle] = $url;
+                    }
+                }
+            }
+            if ($styles) {
+                $data['styles'] = $styles;
+            }
+        }
         $data['is_pro']        = false;
         $data['gmt_offset']    = get_option('gmt_offset');
         $data['lang']          = get_locale();
