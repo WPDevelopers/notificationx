@@ -6,13 +6,29 @@ import { NotificationXFrontEnd } from "./core";
 import { exposeFrontendRuntime } from "./core/runtime";
 import { loadExternalStyles, whenStyled } from "./core/external-styles";
 
+declare let __webpack_public_path__: string;
+
 // Must run before domReady renders anything: add-on scripts that load after
 // this bundle read window.nxFrontendRuntime when their modules evaluate.
 exposeFrontendRuntime();
 
+// Lazy chunks (moment locales, announcement themes) load from the directory
+// webpack derives from this script's URL, `<plugin>/assets/public/js/../../`.
+// When an optimizer serves the bundle from somewhere else (Autoptimize's
+// cache, a combined file) that directory has no chunks, the imports fail and
+// nothing renders. Use the localized asset URL then. The config is pushed after
+// this script tag, so this runs from notificationXWrapper(), before any import.
+const setChunkPath = (assets?: unknown) => {
+    if (typeof assets === 'string' && assets && !/\/public\/js\/\.\.\/\.\.\/$/.test(__webpack_public_path__)) {
+        __webpack_public_path__ = assets.replace(/public\/?$/, '');
+    }
+};
+
 function notificationXWrapper(notificationX, id) {
     if (!notificationX?.rest)
         return;
+
+    setChunkPath(notificationX.assets);
 
     if (notificationX.cross) {
         loadExternalStyles(notificationX.external_styles);
