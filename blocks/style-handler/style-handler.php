@@ -190,26 +190,12 @@ final class StyleHandler {
      */
     public function enqueue_frontend_css() {
         global $post;
+        $upload_dir = wp_upload_dir();
+        // A block-editor bar shows on every kind of page, including 404s and
+        // archives that have no current post, so its block styles are
+        // enqueued regardless of $post.
+        $this->enqueue_bar_block_styles( $upload_dir );
         if ( ! empty( $post ) && ! empty( $post->ID ) ) {
-            $upload_dir = wp_upload_dir();
-            $args                   = [ 'enabled' => true, 'source' => 'press_bar', 'updated_at' => ['<=', current_time('mysql') ] ];
-            $pressbar_notifications = \NotificationX\Core\PostType::get_instance()->get_posts($args);
-            foreach ($pressbar_notifications as $pressbar) {
-                if( !empty( $pressbar['gutenberg_id'] ) ) {
-                    $style_file = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'eb-style' . DIRECTORY_SEPARATOR . $this->eb_prefix . '-' . $pressbar['gutenberg_id'] . '.min.css';
-                    $style_url  = set_url_scheme($upload_dir['baseurl']) . '/' . 'eb-style' . '/' . $this->eb_prefix . '-' . $pressbar['gutenberg_id'] . '.min.css';
-                    if (file_exists($style_file)) {
-                        wp_enqueue_style(
-                            'nx-style-' . $pressbar['gutenberg_id'],   // Handle based only on post ID
-                            $style_url,
-                            [],
-                            filemtime($style_file)  // Cache busting with last modified time
-                        );
-                    }
-                }
-               
-            }
-
             if ( file_exists( $upload_dir['basedir'] . '/nx-style/nx-style-' . $post->ID . '.min.css' ) ) {
                 wp_enqueue_style( 'nx-block-style-' . $post->ID, $upload_dir['baseurl'] . '/nx-style/nx-style-' . $post->ID . '.min.css', [], substr( md5( microtime( true ) ), 0, 10 ) );
             } elseif ( function_exists( 'icl_object_id' ) ) {
@@ -222,6 +208,31 @@ final class StyleHandler {
             }
             if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() && file_exists( $upload_dir['basedir'] . '/nx-style/nx-style-edit-site.min.css' ) ) {
                 wp_enqueue_style( 'nx-fullsite-style', $upload_dir['baseurl'] . '/nx-style/nx-style-edit-site.min.css', [], substr( md5( microtime( true ) ), 0, 10 ) );
+            }
+        }
+    }
+
+    /**
+     * Enqueue the Essential Blocks stylesheet of every active block-editor bar.
+     *
+     * @param array $upload_dir wp_upload_dir() result.
+     * @return void
+     */
+    private function enqueue_bar_block_styles( $upload_dir ) {
+        $args                   = [ 'enabled' => true, 'source' => 'press_bar', 'updated_at' => ['<=', current_time('mysql') ] ];
+        $pressbar_notifications = \NotificationX\Core\PostType::get_instance()->get_posts($args);
+        foreach ($pressbar_notifications as $pressbar) {
+            if( !empty( $pressbar['gutenberg_id'] ) ) {
+                $style_file = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'eb-style' . DIRECTORY_SEPARATOR . $this->eb_prefix . '-' . $pressbar['gutenberg_id'] . '.min.css';
+                $style_url  = set_url_scheme($upload_dir['baseurl']) . '/' . 'eb-style' . '/' . $this->eb_prefix . '-' . $pressbar['gutenberg_id'] . '.min.css';
+                if (file_exists($style_file)) {
+                    wp_enqueue_style(
+                        'nx-style-' . $pressbar['gutenberg_id'],   // Handle based only on post ID
+                        $style_url,
+                        [],
+                        filemtime($style_file)  // Cache busting with last modified time
+                    );
+                }
             }
         }
     }
