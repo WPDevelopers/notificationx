@@ -12,6 +12,7 @@
 namespace NotificationX\Core;
 
 use NotificationX\Admin\Admin;
+use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\GetInstance;
 
 /**
@@ -88,6 +89,8 @@ class SetupWizard {
             apply_filters( 'nx_frontend_css_version', NOTIFICATIONX_VERSION ),
             'all'
         );
+        // The fonts and icons the themes use are no longer @imported by frontend.css.
+        FrontEnd::get_instance()->enqueue_external_styles();
     }
 
     /**

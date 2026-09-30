@@ -1,5 +1,6 @@
 import { escapeHTML } from "@wordpress/escape-html";
 import { getResThemeName, getThemeName } from "../core/functions";
+import { nxApplyFilters } from "../core/hooks";
 
 // let colClasses = [
 //     "nx-first-word",
@@ -81,6 +82,19 @@ const GetTemplate = (settings) => {
                 params[param] = `<span>${params[param]}</span>`;
             }
         }
+    }
+
+    // Add-ons claim the template rows of the notifications they render (Pro:
+    // announcements_* themes and the woocommerce_cart_peek source). An array
+    // return wins; anything else falls through to the built-in layouts below.
+    const filteredTemplate = nxApplyFilters<string[] | undefined>(
+        "nx_frontend_template",
+        undefined,
+        settings,
+        params
+    );
+    if (Array.isArray(filteredTemplate)) {
+        return filteredTemplate;
     }
 
     switch (settings.themes) {

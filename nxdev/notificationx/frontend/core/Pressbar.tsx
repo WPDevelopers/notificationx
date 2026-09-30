@@ -11,7 +11,8 @@ import useNotificationContext from "./NotificationProvider";
 import nxHelper, { addParentSelectorToCSS } from "./functions";
 import { loadAssets } from "./LoadAssets";
 import BarCoupon from './helper/BarCoupon';
-import { themes_has_bg } from "../../core/functions";
+import { themes_has_bg } from "../../shared/helpers";
+import { hasBarReserve, releaseBarReserve, reportBarHeight } from "./barReserve";
 
 /**
  * @example
@@ -33,7 +34,8 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const [styles, setStyles] = useState<{ [key: string]: any }>({});
     const [closed, setClosed] = useState(false);
     const [isTimeBetween,setIsTimeBetween] = useState(false);
-    const [isLoading, setIsLoading] = useState(settings.is_gutenberg && settings.gutenberg_id);
+    const assetsOnPage = gutenbergAssetsOnPage(settings);
+    const [isLoading, setIsLoading] = useState(settings.is_gutenberg && settings.gutenberg_id && !assetsOnPage);
 
     const common_assets_url = frontendContext.assets.common + 'images/';
     const consentCallback = useCallback( (event) => {
@@ -143,6 +145,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             if (xAdminBar?.offsetHeight) componentCSS.top = xAdminBar.offsetHeight;
             if (!settings?.pressbar_body) {
                 document.body.style.paddingTop = `${barHeight}px`;
+                reportBarHeight(frontendContext.rest, settings, barHeight);
             }
         }
         else {
@@ -151,6 +154,8 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             }
 
         }
+        // The bar's own padding has taken over from the space reserved in <head>.
+        releaseBarReserve();
 
         setStyles({
             componentCSS,
@@ -207,6 +212,9 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
 
     useEffect(() => {
         setTimeout(() => {
+            // While block content is still loading, the reserved space holds
+            // the page in place; calcHeight() sets the padding once it's styled.
+            if (isLoading && hasBarReserve()) return;
             const barHeight = document.getElementById(`nx-bar-${settings.nx_id}`).offsetHeight;
             if (!settings?.pressbar_body) {
                 if (position == 'top') {
@@ -239,6 +247,17 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
 
     useEffect(() => {
         if(!settings.is_gutenberg || !settings.gutenberg_id){
+            return;
+        }
+        if (assetsOnPage) {
+            // The page already has the bar's block assets (and ran their scripts
+            // at DOMContentLoaded, before the bar existed), so only the countdown
+            // needs starting on the bar's markup.
+            // @ts-ignore
+            if( typeof window.ebRunCountDown === 'function' ) {
+                // @ts-ignore
+                ebRunCountDown();
+            }
             return;
         }
         setIsLoading(true);
@@ -291,19 +310,24 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     const direction = settings?.bar_transition_style == 'slide_right' ? 'right' : 'left';    
     const slideInterval = settings?.sliding_interval || 3000; // default 3s
     const transitionSpeed = settings?.bar_transition_speed || 500; // default 500ms
-    const [deviceClass, setDeviceClass] = useState('desktop');
+    const getDeviceClass = () => {
+        const width = window.innerWidth;
+        if (width <= 520) {
+            return 'mobile';
+        } else if (width <= 768) {
+            return 'tablet';
+        }
+        return 'desktop';
+    };
+    // Start from the real device, not 'desktop': the first render is what
+    // calcHeight() measures, and a phone laid out as desktop is taller, so the
+    // page was pushed down and then back up once the mobile class applied.
+    const [deviceClass, setDeviceClass] = useState(getDeviceClass);
 
 
     useEffect(() => {
         const updateDeviceClass = () => {
-            const width = window.innerWidth;
-            if (width <= 520) {
-                setDeviceClass('mobile');
-            } else if (width <= 768) {
-                setDeviceClass('tablet');
-            } else {
-                setDeviceClass('desktop');
-            }
+            setDeviceClass(getDeviceClass());
         };
 
         updateDeviceClass(); // set on mount
@@ -496,6 +520,20 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     );
 
     return createPortal(wrapper, target);
+};
+
+/**
+ * Whether this page already carries a block-editor bar's block assets.
+ *
+ * PHP renders the bar's blocks while the page's assets are collected, so every
+ * block enqueues what it needs, and marks the body with
+ * `nx-bar-assets-{gutenberg_id}` (FrontEnd::enqueue_gutenberg_bar_assets()).
+ * Without the mark — a cross-domain embed, the builder preview, an older
+ * cached page — the bar's permalink is fetched for its assets as before.
+ */
+const gutenbergAssetsOnPage = (settings) => {
+    const id = parseInt(settings?.gutenberg_id, 10);
+    return !!id && !!document.body?.classList.contains(`nx-bar-assets-${id}`);
 };
 
 const isAdminBar = () => {

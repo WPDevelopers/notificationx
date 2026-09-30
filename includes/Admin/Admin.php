@@ -44,6 +44,16 @@ class Admin {
     const ASSET_PATH = NOTIFICATIONX_ASSETS_PATH . 'admin/';
     const VIEWS_PATH = NOTIFICATIONX_INCLUDES . 'Admin/views/';
 
+    /**
+     * Oldest NotificationX Pro that ships its own copy of the Pro features the
+     * free plugin is removing (Flashing Tab, Cart Peek, Inline). Older Pro keeps
+     * working with this release, but loses those features once the free copies
+     * are deleted. See docs/api/frontend-js-hooks.md.
+     *
+     * @since 3.3.3
+     */
+    const MIN_PRO_VERSION = '3.2.3';
+
     private $insights = null;
 
     /**
@@ -94,6 +104,10 @@ class Admin {
         }
         add_action('admin_init', [$this, 'admin_init']);
         add_action('admin_menu', [$this, 'menu'], 10);
+        // all_admin_notices, not admin_notices: hide_others_plugin_admin_notice()
+        // clears admin_notices on NotificationX screens, and this notice must
+        // show there too.
+        add_action('all_admin_notices', [$this, 'pro_version_notice']);
         Dashboard::get_instance();
         SetupWizard::get_instance();
         PostType::get_instance();
@@ -205,6 +219,50 @@ class Admin {
 		NoticeRemover::get_instance( '1.0.0' );
     }
 
+
+    /**
+     * Whether the active NotificationX Pro is older than MIN_PRO_VERSION.
+     *
+     * @since 3.3.3
+     * @param string|null $pro_version Pro version; defaults to NOTIFICATIONX_PRO_VERSION.
+     * @return bool False when Pro is not active or its version is unknown.
+     */
+    public static function pro_needs_update( $pro_version = null ) {
+        if ( null === $pro_version ) {
+            if ( ! NotificationX::is_pro() || ! defined( 'NOTIFICATIONX_PRO_VERSION' ) ) {
+                return false;
+            }
+            $pro_version = NOTIFICATIONX_PRO_VERSION;
+        }
+        if ( ! is_string( $pro_version ) || '' === $pro_version ) {
+            return false;
+        }
+        return version_compare( $pro_version, self::MIN_PRO_VERSION, '<' );
+    }
+
+    /**
+     * Non-dismissible notice asking to update an outdated NotificationX Pro.
+     *
+     * @since 3.3.3
+     * @return void
+     */
+    public function pro_version_notice() {
+        if ( ! current_user_can( 'update_plugins' ) || ! self::pro_needs_update() ) {
+            return;
+        }
+        $message = sprintf(
+            /* translators: 1: installed NotificationX Pro version, 2: required NotificationX Pro version. */
+            __( 'You are using NotificationX Pro %1$s. Please update NotificationX Pro to version %2$s or later. Upcoming NotificationX releases move Flashing Tab, Cart Peek and Inline notifications fully into NotificationX Pro, and older Pro versions will stop showing them.', 'notificationx' ),
+            '<strong>' . esc_html( NOTIFICATIONX_PRO_VERSION ) . '</strong>',
+            '<strong>' . esc_html( self::MIN_PRO_VERSION ) . '</strong>'
+        );
+        printf(
+            '<div class="notice notice-warning nx-pro-version-notice"><p>%1$s <a href="%2$s">%3$s</a></p></div>',
+            wp_kses_post( $message ),
+            esc_url( self_admin_url( 'plugins.php?plugin_status=upgrade' ) ),
+            esc_html__( 'Go to plugin updates', 'notificationx' )
+        );
+    }
 
     public function hide_others_plugin_admin_notice()
     {

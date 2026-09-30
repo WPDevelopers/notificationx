@@ -4,9 +4,10 @@ import { isNotClosed, normalize, normalizePressBar, normalizeResponse } from "./
 import { v4 } from "uuid";
 import cookie from "react-cookies";
 import sortArray from "sort-array";
-import nxHelper from "./functions";
+import nxHelper, { parseDelaySeconds } from "./functions";
 import moment from "moment";
 import usePreviewType from "./usePreviewType";
+import { releaseBarReserve, reservedBarId } from "./barReserve";
 
 const useNotificationX = (props: any) => {
 
@@ -234,10 +235,27 @@ const useNotificationX = (props: any) => {
                 setGlobalNotices(gNotices);
                 setShortcodeNotices(response?.shortcodeNotice);
                 setPressbarNotices(response?.pressbar);
+                // This page's bar config decides the <head> reservation: drop
+                // it when no bar will mount (closed, hidden on this device…).
+                if (props.config?.pressbar?.length) {
+                    if (!response?.pressbar?.length) {
+                        releaseBarReserve();
+                    } else {
+                        // Look for the reserved bar itself: `.nx-bar` also matches
+                        // other bars (e.g. a shortcode bar) and would keep the gap.
+                        setTimeout(() => {
+                            const id = reservedBarId();
+                            if (!id || !document.getElementById(`nx-bar-${id}`)) releaseBarReserve();
+                        }, 3000);
+                    }
+                }
                 setGdprNotices(response?.gdpr);
                 setPopupNotices(response?.popup);
                 setExitIntentNotices(response?.exit_intent);
             }
+        })
+        .catch(() => {
+            if (props.config?.pressbar?.length) releaseBarReserve();
         });
         return () => {
             isMounted.current = false;
@@ -482,7 +500,7 @@ const useNotificationX = (props: any) => {
         if (gdprNotices != null && gdprNotices.length > 0) {
             gdprNotices.forEach((gdprItem) => {
                 const config = gdprItem.post;
-                const initialDelay = (+config?.cookie_visibility_delay_before || 5) * 1000;
+                const initialDelay = parseDelaySeconds(config?.cookie_visibility_delay_before, 5) * 1000;
                 const hideAfter = (+config?.hide_after || 5) * 1000;
 
                 let args = {

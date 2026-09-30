@@ -105,6 +105,24 @@ export const handleCloseNotification = (config, id, dispatch) => {
     document.body.style.paddingTop = `0px`;
 };
 
+/**
+ * Reads a "seconds" setting and returns a delay in seconds.
+ *
+ * Empty, missing or non-numeric values fall back to `fallback`. Unlike the
+ * `+value || fallback` idiom, an explicit 0 is kept, so "show immediately"
+ * works. Negative values become 0 (setTimeout already treated them as 0).
+ */
+export const parseDelaySeconds = (value, fallback = 5) => {
+    if (value === null || value === undefined || String(value).trim() === '') {
+        return fallback;
+    }
+    const seconds = Number(value);
+    if (!Number.isFinite(seconds)) {
+        return fallback;
+    }
+    return Math.max(0, seconds);
+};
+
 export function calculateAnimationStartTime(userInput, animationType) {
     const allowedAnimations = [
         'animate__slideOutDown',

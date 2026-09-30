@@ -25,6 +25,16 @@ From there:
 
 The full data-shape contract and the seven touch-points involved in adding a Type are documented in [../development/adding-a-notification-type.md](../development/adding-a-notification-type.md).
 
+## Import boundary
+
+`frontend.js` loads on every page that shows a notification, and optimizers may load it before the page is interactive. Frontend code under `nxdev/notificationx/frontend/` may import only from `frontend/`, `shared/` and `icons/`. Code the admin and the frontend both need lives in the dependency-free [../../nxdev/notificationx/shared/helpers.ts](../../nxdev/notificationx/shared/helpers.ts), which the admin modules re-export.
+
+Importing one helper from the admin `core/functions.ts` pulled ~900 KB of admin libraries into 3.3.1's bundle. `npm run test:js` (the import-boundary test) and `npm run check:bundle` now catch that. See [../features/frontend-performance/03-guardrails.md](../features/frontend-performance/03-guardrails.md).
+
+## Extension points for add-ons
+
+The runtime reads JavaScript filters from `window.wp.hooks`, so `notificationx-public` depends on `wp-hooks`. The filters let `notificationx-pro` supply template rows, theme parts, link buttons and layout lists for its own notifications. [index.tsx](../../nxdev/notificationx/frontend/index.tsx) also exposes the bundle's React copy as `window.nxFrontendRuntime`, so add-on components can use React hooks. All filters are called through [core/hooks.ts](../../nxdev/notificationx/frontend/core/hooks.ts), never through an import of `@wordpress/hooks`. The reason, and the full hook list, are in [../api/frontend-js-hooks.md](../api/frontend-js-hooks.md).
+
 ## In-builder preview
 
 `Preview` ([../../includes/FrontEnd/Preview.php](../../includes/FrontEnd/Preview.php)) powers the live preview shown inside the admin builder and Elementor/Gutenberg editors. It hooks `nx_before_enqueue_scripts` to force a single synthetic notification (`total => 1`, `nxPreview => true`) so the same public runtime renders in an isolated preview context, hides the admin bar, and quiets Query Monitor during preview. This means the preview and the live site render through the *same* React runtime, not a separate mock.

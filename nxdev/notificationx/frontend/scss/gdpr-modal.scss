@@ -1,0 +1,9 @@
+// Styles for the GDPR cookie-customisation modal (frontend/gdpr/Customization.tsx),
+// which reuses the admin modal classes (wprf-modal-*). Built as its own
+// stylesheet so pages without a GDPR notice don't download it.
+@import "./../../scss/modal";
+
+// Lets the runtime check that this stylesheet applies (external-styles.ts).
+.nx-style-probe {
+    --nx-gdpr-modal: 1;
+}

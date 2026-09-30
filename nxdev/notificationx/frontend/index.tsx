@@ -3,10 +3,37 @@ import ReactDOM from "react-dom";
 import domReady from '@wordpress/dom-ready';
 import { setLocaleData } from "@wordpress/i18n";
 import { NotificationXFrontEnd } from "./core";
+import { exposeFrontendRuntime } from "./core/runtime";
+import { applyDeferredStyles, loadExternalStyles, whenStyled } from "./core/external-styles";
+
+declare let __webpack_public_path__: string;
+
+// Must run before domReady renders anything: add-on scripts that load after
+// this bundle read window.nxFrontendRuntime when their modules evaluate.
+exposeFrontendRuntime();
+
+// Lazy chunks (moment locales, announcement themes) load from the directory
+// webpack derives from this script's URL, `<plugin>/assets/public/js/../../`.
+// When an optimizer serves the bundle from somewhere else (Autoptimize's
+// cache, a combined file) that directory has no chunks, the imports fail and
+// nothing renders. Use the localized asset URL then. The config is pushed after
+// this script tag, so this runs from notificationXWrapper(), before any import.
+const setChunkPath = (assets?: unknown) => {
+    if (typeof assets === 'string' && assets && !/\/public\/js\/\.\.\/\.\.\/$/.test(__webpack_public_path__)) {
+        __webpack_public_path__ = assets.replace(/public\/?$/, '');
+    }
+};
 
 function notificationXWrapper(notificationX, id) {
     if (!notificationX?.rest)
         return;
+
+    setChunkPath(notificationX.assets);
+
+    if (notificationX.cross) {
+        loadExternalStyles(notificationX.external_styles);
+    }
+    applyDeferredStyles();
 
     if(notificationX.localeData){
         const localeData = JSON.parse(notificationX.localeData)?.locale_data;
@@ -35,10 +62,19 @@ function notificationXWrapper(notificationX, id) {
 
     document.body.appendChild(xDiv);
 
-    ReactDOM.render(
-        <NotificationXFrontEnd config={notificationX} />,
-        document.getElementById("notificationx-frontend" + id)
-    );
+    // Only set on WordPress pages (not cross-domain embeds): lets the runtime
+    // re-add a stylesheet an optimizer combined into a bundle that does not apply.
+    const styles = notificationX.styles || {};
+    if (styles['notificationx-gdpr-modal']) {
+        whenStyled('notificationx-gdpr-modal-css', { href: styles['notificationx-gdpr-modal'], probe: 'gdpr-modal' });
+    }
+    const publicCss = styles['notificationx-public'] ? { href: styles['notificationx-public'], probe: 'frontend' } : undefined;
+    whenStyled('notificationx-public-css', publicCss).then(() => {
+        ReactDOM.render(
+            <NotificationXFrontEnd config={notificationX} />,
+            xDiv
+        );
+    });
     // @ts-ignore
 }
 
@@ -51,6 +87,10 @@ function inIframe () {
 }
 
 domReady(function () {
+    // Apply the deferred stylesheets on every page the runtime is on, as the
+    // old inline `onload` did, even where it renders nothing (iframes).
+    applyDeferredStyles();
+
     // @ts-ignore
     if(inIframe() && !window.notificationXArr?.[0]?.nxPreview){
         console.error("NotificationX: NotificationX doesn't work in iframe.");

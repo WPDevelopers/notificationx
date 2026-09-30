@@ -42,11 +42,20 @@ class FrontEnd {
     protected $notificationXArr = [];
 
     /**
+     * Block-editor bars whose block assets are already on this page, keyed by
+     * the bar's `gutenberg_id` (see enqueue_gutenberg_bar_assets()).
+     *
+     * @var array<int, true>
+     */
+    protected $gutenberg_bar_assets = [];
+
+    /**
      * Initially Invoked
      * when its initialized.
      */
     public function __construct() {
         Analytics::get_instance();
+        BarSpace::get_instance();
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reviewed for the NotificationX codebase: acceptable in this context.
         if (!is_admin() || !empty($_GET['frontend'])) {
             add_action('init', [$this, 'init'], 10);
@@ -67,8 +76,129 @@ class FrontEnd {
         add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 3);
         add_filter('nx_filtered_post', [$this, 'filtered_post'], 9999, 2);
         add_action('wp_print_footer_scripts', [$this, 'footer_scripts']);
+        // After wp_enqueue_scripts (wp_head priority 1) has collected the page's bars.
+        add_action('wp_head', [$this, 'print_bar_reserve'], 3);
         add_filter('body_class', [ $this, 'nx_add_body_class' ] );
+        add_filter('style_loader_tag', [$this, 'non_blocking_style_tag'], 10, 2);
 
+    }
+
+    /**
+     * Third-party stylesheets used by the notification themes, keyed by style
+     * handle.
+     *
+     * They used to be CSS `@import`s at the top of frontend.css, which the
+     * browser only discovers once frontend.css has downloaded: a serial,
+     * render-blocking chain to two more origins on every page. They are now
+     * enqueued next to `notificationx-public` and loaded without blocking the
+     * first paint (see non_blocking_style_tag()).
+     *
+     * @since 3.3.3
+     * @return array<string, string> Style handle => URL.
+     */
+    public function get_external_styles() {
+        $styles = [];
+        /**
+         * Filters whether NotificationX loads Open Sans from Google Fonts.
+         *
+         * Return false if the site already loads Open Sans or must not
+         * contact Google Fonts; the themes then fall back to sans-serif.
+         *
+         * @since 3.3.3
+         * @param bool $load Default true.
+         */
+        if (apply_filters('notificationx_load_open_sans', true)) {
+            $styles['notificationx-open-sans'] = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap';
+        }
+        /**
+         * Filters whether NotificationX loads FontAwesome 4.7 from cdnjs.
+         *
+         * The icons are drawn in pseudo-elements of a few themes only. Return
+         * false if the site already loads FontAwesome 4.
+         *
+         * @since 3.3.3
+         * @param bool $load Default true.
+         */
+        if (apply_filters('notificationx_load_fontawesome', true)) {
+            $styles['notificationx-fontawesome-4'] = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
+        }
+        return $styles;
+    }
+
+    /**
+     * Enqueue the third-party font and icon stylesheets (get_external_styles()).
+     *
+     * Call this wherever `notificationx-public` (or a stylesheet that bundles
+     * the frontend themes) is enqueued.
+     *
+     * @since 3.3.3
+     * @return void
+     */
+    public function enqueue_external_styles() {
+        foreach ($this->get_external_styles() as $handle => $src) {
+            // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Third-party URL; a ?ver= query would only split the CDN cache.
+            wp_enqueue_style($handle, $src, [], null);
+        }
+    }
+
+    /**
+     * Load some stylesheets without blocking the first paint.
+     *
+     * - `notificationx-public` styles only what the runtime renders — bars,
+     *   popups and shortcodes all mount from REST data after the page has
+     *   loaded (the bar's reserved space is a separate inline style), and the
+     *   runtime waits for this sheet before its first render (whenStyled()).
+     *   At ~600 KB it was the largest render-blocking stylesheet on every page.
+     * - `notificationx-gdpr-modal` styles only the cookie-preferences modal,
+     *   which opens on a click.
+     * - The font and icon stylesheets from get_external_styles(): the fonts
+     *   swap in, and the FontAwesome glyphs are drawn only in pseudo-elements
+     *   of notifications the runtime renders after the page has loaded.
+     *
+     * The stylesheet is requested as `print` and switched to `all` once it has
+     * loaded; the <noscript> copy keeps it for visitors without JavaScript.
+     * `data-nx-style` marks it for the runtime, which also switches it (see
+     * applyDeferredStyles() in external-styles.ts) in case the inline handler
+     * was stripped by an optimizer or blocked by a Content Security Policy.
+     *
+     * @param string $tag    The link tag.
+     * @param string $handle Style handle.
+     * @return string
+     */
+    public function non_blocking_style_tag($tag, $handle) {
+        $handles = ['notificationx-public', 'notificationx-gdpr-modal', 'notificationx-open-sans', 'notificationx-fontawesome-4'];
+        if (!in_array($handle, $handles, true) || false !== strpos($tag, 'onload=')) {
+            return $tag;
+        }
+        $deferred = preg_replace('/\smedia=([\'"])all\1/', ' media=$1print$1 onload="this.media=\'all\'" data-nx-style=$1print$1', $tag, 1, $count);
+        if (!$count) {
+            return $tag;
+        }
+        return $deferred . '<noscript>' . trim($tag) . "</noscript>\n";
+    }
+
+    /**
+     * Script dependencies of the `notificationx-public` runtime.
+     *
+     * `wp-hooks` provides `window.wp.hooks`, the registry the runtime reads its
+     * frontend filters from (see nxdev/notificationx/frontend/core/hooks.ts and
+     * docs/api/frontend-js-hooks.md). It is always kept, even if a filter drops
+     * it, because without it every add-on filter silently stops firing.
+     *
+     * @since 3.3.3
+     * @return string[]
+     */
+    public function get_script_dependencies() {
+        /**
+         * Filters the script dependencies of the `notificationx-public` runtime.
+         *
+         * @since 3.3.3
+         * @param string[] $deps Script handles.
+         */
+        $deps = apply_filters( 'nx_frontend_script_deps', [ 'wp-hooks' ] );
+        $deps = is_array( $deps ) ? array_filter( $deps, 'is_string' ) : [];
+        array_unshift( $deps, 'wp-hooks' );
+        return array_values( array_unique( $deps ) );
     }
 
     /**
@@ -79,9 +209,13 @@ class FrontEnd {
     public function enqueue_scripts() {
         $custom_css = $this->generate_custom_css();
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
-        wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), [], apply_filters('nx_frontend_js_version', NOTIFICATIONX_VERSION ), true);
+        wp_register_script('notificationx-public', Helper::file('public/js/frontend.js', true), $this->get_script_dependencies(), apply_filters('nx_frontend_js_version', NOTIFICATIONX_VERSION ), true);
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         wp_register_style('notificationx-public', Helper::file('public/css/frontend.css', true), [], apply_filters('nx_frontend_css_version', NOTIFICATIONX_VERSION ), 'all');
+        // GDPR cookie-customisation modal styles, split out of frontend.css
+        // (~305 KB) so only pages with an active GDPR notice load them.
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        wp_register_style('notificationx-gdpr-modal', Helper::file('public/css/gdpr-modal.css', true), ['notificationx-public'], apply_filters('nx_frontend_css_version', NOTIFICATIONX_VERSION ), 'all');
         // wp_register_style('notificationx-icon-pack', Helper::file('public/icon/style.css', true), [], NOTIFICATIONX_VERSION, 'all');
         // Localize scripts for frontend
         wp_localize_script(
@@ -151,6 +285,10 @@ class FrontEnd {
                 }
 
                 wp_enqueue_style('notificationx-public');
+                $this->enqueue_external_styles();
+                if ( ! empty( $this->notificationXArr['gdpr'] ) ) {
+                    wp_enqueue_style('notificationx-gdpr-modal');
+                }
                 wp_enqueue_script('notificationx-public');
                 wp_enqueue_style('dashicons');
                 do_action('notificationx_scripts', $this->notificationXArr);
@@ -162,9 +300,72 @@ class FrontEnd {
         }
     }
 
+    /**
+     * Reserve the top bar's measured height before it mounts (see BarSpace).
+     *
+     * @return void
+     */
+    public function print_bar_reserve() {
+        // The builder preview passes preview data here, not bar IDs.
+        if (!empty($this->notificationXArr['nxPreview']) || empty($this->notificationXArr['pressbar']) || !is_array($this->notificationXArr['pressbar'])) {
+            return;
+        }
+        $ids = array_filter($this->notificationXArr['pressbar'], 'is_numeric');
+        if ($ids) {
+            BarSpace::get_instance()->print_reserve($ids);
+        }
+    }
+
     public function nx_add_body_class($classes) {
         $classes[] = 'has-notificationx';
+        // Tells the runtime it need not fetch these bars' pages for their assets.
+        foreach (array_keys($this->gutenberg_bar_assets) as $gutenberg_id) {
+            $classes[] = 'nx-bar-assets-' . $gutenberg_id;
+        }
         return $classes;
+    }
+
+    /**
+     * Put a block-editor bar's block assets on the current page.
+     *
+     * The bar's HTML arrives over REST after load, where anything its blocks
+     * enqueue is discarded. The runtime used to recover those assets by
+     * fetching the bar's own permalink — a full themed page (~300 KB on
+     * essential-blocks.com) — and loading each stylesheet and script it had
+     * that this page did not, one after another, before the bar could settle.
+     * Rendering the blocks here, while this page's assets are still being
+     * collected, lets each block enqueue what it needs (e.g. a countdown's
+     * frontend script) exactly as it would in post content; the output is
+     * discarded. Mirrors the Elementor branch above.
+     *
+     * Runs for page loads only: REST and admin requests have no page to add
+     * assets to.
+     *
+     * @param int|string $gutenberg_id The bar's block post ID.
+     * @return void
+     */
+    protected function enqueue_gutenberg_bar_assets($gutenberg_id) {
+        $gutenberg_id = absint($gutenberg_id);
+        if (!$gutenberg_id || isset($this->gutenberg_bar_assets[$gutenberg_id]) || !doing_action('wp_enqueue_scripts')) {
+            return;
+        }
+        // Same lookup as PressBar::print_bar_notice(), which renders the HTML the runtime shows.
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        $post_id = apply_filters('wpml_object_id', $gutenberg_id, 'wp_block', true);
+        $post    = $post_id ? get_post($post_id) : null;
+        if (!$post || '' === trim((string) $post->post_content)) {
+            return;
+        }
+        // This runs inside <head> (wp_enqueue_scripts). A block whose render
+        // callback echoes instead of returning would print into <head> and push
+        // every later head tag into <body>; buffer and discard all output.
+        ob_start();
+        try {
+            do_blocks($post->post_content);
+        } finally {
+            ob_end_clean();
+        }
+        $this->gutenberg_bar_assets[$gutenberg_id] = true;
     }
 
     private function separate_css($css) {
@@ -231,9 +432,46 @@ class FrontEnd {
         return [];
     }
 
+    /**
+     * The URL WordPress prints for a registered stylesheet.
+     *
+     * @param string $handle Style handle.
+     * @return string Empty when the handle has no source.
+     */
+    protected function style_url($handle) {
+        $style = wp_styles()->query($handle, 'registered');
+        if (!$style || empty($style->src) || !is_string($style->src)) {
+            return '';
+        }
+        $src = $style->src;
+        // Same version rule as WP_Styles::_css_href().
+        $ver = null === $style->ver ? '' : ($style->ver ? $style->ver : get_bloginfo('version'));
+        if ('' !== $ver) {
+            $src = add_query_arg('ver', $ver, $src);
+        }
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core filter, so CDN rewrites apply.
+        return (string) apply_filters('style_loader_src', $src, $handle);
+    }
+
     public function get_localize_data($data) {
         $data['rest']          = REST::get_instance()->rest_data(false);
         $data['assets']        = self::ASSET_URL;
+        if (empty($data['cross'])) {
+            // The runtime re-adds these if an optimizer combined them into a
+            // bundle that does not apply (e.g. a print-only one).
+            $styles = [];
+            foreach (['notificationx-public', 'notificationx-gdpr-modal'] as $handle) {
+                if (wp_style_is($handle, 'enqueued') || wp_style_is($handle, 'done')) {
+                    $url = $this->style_url($handle);
+                    if ($url) {
+                        $styles[$handle] = $url;
+                    }
+                }
+            }
+            if ($styles) {
+                $data['styles'] = $styles;
+            }
+        }
         $data['is_pro']        = false;
         $data['gmt_offset']    = get_option('gmt_offset');
         $data['lang']          = get_locale();
@@ -245,6 +483,10 @@ class FrontEnd {
             'pid'         => !empty($GLOBALS['post']->ID) ? $GLOBALS['post']->ID : 0,
         ];
         $data['localeData'] = load_script_textdomain('notificationx-public', 'notificationx');
+        if (!empty($data['cross'])) {
+            // Cross-domain embeds have no WordPress enqueue: the runtime adds these.
+            $data['external_styles'] = $this->get_external_styles();
+        }
         return $data;
     }
 
@@ -601,6 +843,8 @@ class FrontEnd {
                 if (!empty($settings['elementor_id']) && class_exists('\Elementor\Plugin')) {
                     // @todo Find a function to only load css instead of building content.
                     \Elementor\Plugin::$instance->frontend->get_builder_content($settings['elementor_id'], false);
+                } elseif (!empty($settings['gutenberg_id'])) {
+                    $this->enqueue_gutenberg_bar_assets($settings['gutenberg_id']);
                 }
             } elseif($settings['source'] == 'gdpr_notification') {
                 $gdpr_notification[] = $return_posts ? $settings : $settings['nx_id'];

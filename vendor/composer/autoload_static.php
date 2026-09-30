@@ -170,6 +170,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\Zapier\\ZapierConversions' => __DIR__ . '/../..' . '/includes/Extensions/Zapier/ZapierConversions.php',
         'NotificationX\\Extensions\\Zapier\\ZapierEmailSubscription' => __DIR__ . '/../..' . '/includes/Extensions/Zapier/ZapierEmailSubscription.php',
         'NotificationX\\Extensions\\Zapier\\ZapierReviews' => __DIR__ . '/../..' . '/includes/Extensions/Zapier/ZapierReviews.php',
+        'NotificationX\\FrontEnd\\BarSpace' => __DIR__ . '/../..' . '/includes/FrontEnd/BarSpace.php',
         'NotificationX\\FrontEnd\\FrontEnd' => __DIR__ . '/../..' . '/includes/FrontEnd/FrontEnd.php',
         'NotificationX\\FrontEnd\\Preview' => __DIR__ . '/../..' . '/includes/FrontEnd/Preview.php',
         'NotificationX\\GetInstance' => __DIR__ . '/../..' . '/includes/GetInstance.php',

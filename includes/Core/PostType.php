@@ -104,6 +104,9 @@ class PostType {
         );
         wp_localize_script( 'notificationx-admin', 'notificationxTabs', $tabs );
         wp_enqueue_style( 'notificationx-admin', Helper::file( 'admin/css/admin.css', true ), [], $d['version'], 'all' );
+        // admin.css bundles the frontend themes for the builder preview; their
+        // fonts and icons are no longer @imported by the CSS.
+        FrontEnd::get_instance()->enqueue_external_styles();
         wp_set_script_translations( 'notificationx-admin', 'notificationx' );
         do_action( 'notificationx_admin_scripts' );
 
@@ -248,7 +251,26 @@ class PostType {
                 }
             }
             $this->update_enabled_source( $data );
-            return $this->update_post( $post, $data['nx_id'] );
+            $updated = $this->update_post( $post, $data['nx_id'] );
+            // `$wpdb->update()` returns 0 when no row matched: no such notification.
+            if ( $updated ) {
+                /**
+                 * Fires after a notification is enabled or disabled.
+                 *
+                 * Covers the list-page toggle and bulk enable/disable, which do not
+                 * fire `nx_saved_post`. Page-cache plugins can purge on it, because
+                 * the notifications a page renders are printed into its HTML.
+                 *
+                 * @since 3.3.3
+                 *
+                 * @param int    $nx_id   Notification ID.
+                 * @param bool   $enabled New status.
+                 * @param string $source  Notification source (e.g. 'gdpr_notification'), or '' when not supplied.
+                 */
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+                do_action( 'nx_status_updated', (int) $data['nx_id'], (bool) $data['enabled'], isset( $data['source'] ) ? (string) $data['source'] : '' );
+            }
+            return $updated;
         }
         else if ( isset( $data['source'] ) && !$this->can_enable( $data['source'] ) ) {
             return $this->can_enable( $data['source'], true );

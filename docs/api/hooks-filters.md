@@ -14,8 +14,9 @@ Everything below is defined in `includes/`. Naming conventions to keep in mind:
 | Action | Fires | Args |
 | --- | --- | --- |
 | `nx::extension::init` | An extension finishes booting ([Extension.php:86](../../includes/Extensions/Extension.php#L86)). **The main Pro integration point** — Pro attaches per-extension wiring here. | `$this` (the `Extension` instance) |
-| `nx_saved_post` / `nx_saved_post_{source}` | A notification (CPT) is saved/updated ([PostType.php:204-205](../../includes/Core/PostType.php#L204)). | `$post`, `$data`, `$nx_id` |
-| `nx_delete_post` | A notification is deleted ([PostType.php:489](../../includes/Core/PostType.php#L489)). | `$post_id`, `$post` |
+| `nx_saved_post` / `nx_saved_post_{source}` | A notification (CPT) is saved/updated ([PostType.php:216-218](../../includes/Core/PostType.php#L216)). | `$post`, `$data`, `$nx_id` |
+| `nx_status_updated` | A notification is enabled or disabled via the list toggle or a bulk action, which do not fire `nx_saved_post` ([PostType.php:267](../../includes/Core/PostType.php#L267)). Not fired when the status is unchanged or enabling is refused. Use it to purge page caches; see [../features/frontend-performance/01-optimizer-compatibility.md](../features/frontend-performance/01-optimizer-compatibility.md). | `int $nx_id`, `bool $enabled`, `string $source` (`''` when not supplied) |
+| `nx_delete_post` | A notification is deleted ([PostType.php:531](../../includes/Core/PostType.php#L531)). | `$post_id`, `$post` |
 | `nx_after_entry_inserted` | An analytics/data entry row is inserted ([Entries.php:75](../../includes/Admin/Entries.php#L75)). | `$entry` |
 | `nx_settings_saved` | Global settings are persisted ([Settings.php:677](../../includes/Admin/Settings.php#L677)). | `$settings` |
 | `nx_before_settings_fields` | Before the settings field schema is assembled ([Settings.php:105](../../includes/Admin/Settings.php#L105)). | — |
@@ -79,6 +80,7 @@ Fired, roughly in order, as [FrontEnd.php](../../includes/FrontEnd/FrontEnd.php)
 
 | Filter | Modifies | Args |
 | --- | --- | --- |
+| `nx_frontend_script_deps` | Script dependencies of `notificationx-public` ([:85](../../includes/FrontEnd/FrontEnd.php#L85)). `wp-hooks` is always kept. See [frontend-js-hooks.md](frontend-js-hooks.md). | `['wp-hooks']` |
 | `nx_before_enqueue_scripts` | Short-circuit: return truthy to skip enqueuing entirely ([:121](../../includes/FrontEnd/FrontEnd.php#L121)). | `$exit` |
 | `nx_frontend_localize_data` | The whole localized data array before it's handed to JS ([:209](../../includes/FrontEnd/FrontEnd.php#L209)). | `$notificationXArr` |
 | `nx_frontend_get_entries` | Entries pulled for the active notifications ([:722](../../includes/FrontEnd/FrontEnd.php#L722)). | `$entries`, `$ids`, `$notifications`, `$params` |
@@ -132,6 +134,7 @@ Pro features live in the **separate `notificationx-pro` plugin** and integrate t
 2. **Boot per-extension** — Pro attaches to the `nx::extension::init` action to wire up instance-level behavior.
 3. **Gate the free UI** — free-plugin fields that represent Pro features wrap their config in `nx_pro_alert_popup` (and `nx_is_pro_sources` / `nx_popup_alert`), so the builder shows an upgrade overlay until Pro is active. `NotificationX::is_pro()` flips these off once Pro is installed.
 4. **Extend data & render** — Pro extensions produce entries (`get_data()` → stored via `Entries`) and adjust the frontend through the `nx_filtered_*`, `nx_fallback_data*`, `nx_notification_link*`, and `nx_notification_image*` filters, the same way free extensions do.
+5. **Render in the browser**: Pro claims the templates, theme parts and link buttons of its own notifications through the JavaScript filters in [frontend-js-hooks.md](frontend-js-hooks.md), and renders with `window.nxFrontendRuntime.React`.
 
 **Do not add Pro-only logic to this repo.** If Pro needs a new seam, add a `do_action` / `apply_filters` here and consume it from `notificationx-pro`.
 

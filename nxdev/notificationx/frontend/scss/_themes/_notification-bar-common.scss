@@ -1,5 +1,6 @@
 // NX PRESS BAR CSS
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
+// Open Sans loads as its own non-render-blocking style handle
+// (notificationx-open-sans, see FrontEnd::get_external_styles()), not an @import.
 
 #nx-bar-bottom {
     position: relative;

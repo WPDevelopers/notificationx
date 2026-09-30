@@ -10,5 +10,12 @@
 @import "./_theme-color/common";
 @import "./_themes/gdpr";
 @import "./_themes/popup";
-@import "./../../scss/modal";
+// The admin modal styles (../../scss/modal, ~305 KB compiled) are only
+// needed by the GDPR cookie-customisation modal: they ship separately as
+// public/css/gdpr-modal.css, enqueued only when a GDPR notice is active.
 @import "./_themes/exit-intent";
+
+// Lets the runtime check that this stylesheet applies (external-styles.ts).
+.nx-style-probe {
+    --nx-frontend: 1;
+}
