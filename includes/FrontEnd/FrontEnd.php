@@ -93,7 +93,7 @@ class FrontEnd {
      * enqueued next to `notificationx-public` and loaded without blocking the
      * first paint (see non_blocking_style_tag()).
      *
-     * @since 3.4.0
+     * @since 3.3.3
      * @return array<string, string> Style handle => URL.
      */
     public function get_external_styles() {
@@ -104,7 +104,7 @@ class FrontEnd {
          * Return false if the site already loads Open Sans or must not
          * contact Google Fonts; the themes then fall back to sans-serif.
          *
-         * @since 3.4.0
+         * @since 3.3.3
          * @param bool $load Default true.
          */
         if (apply_filters('notificationx_load_open_sans', true)) {
@@ -116,7 +116,7 @@ class FrontEnd {
          * The icons are drawn in pseudo-elements of a few themes only. Return
          * false if the site already loads FontAwesome 4.
          *
-         * @since 3.4.0
+         * @since 3.3.3
          * @param bool $load Default true.
          */
         if (apply_filters('notificationx_load_fontawesome', true)) {
@@ -131,7 +131,7 @@ class FrontEnd {
      * Call this wherever `notificationx-public` (or a stylesheet that bundles
      * the frontend themes) is enqueued.
      *
-     * @since 3.4.0
+     * @since 3.3.3
      * @return void
      */
     public function enqueue_external_styles() {
@@ -185,14 +185,14 @@ class FrontEnd {
      * docs/api/frontend-js-hooks.md). It is always kept, even if a filter drops
      * it, because without it every add-on filter silently stops firing.
      *
-     * @since 3.4.0
+     * @since 3.3.3
      * @return string[]
      */
     public function get_script_dependencies() {
         /**
          * Filters the script dependencies of the `notificationx-public` runtime.
          *
-         * @since 3.4.0
+         * @since 3.3.3
          * @param string[] $deps Script handles.
          */
         $deps = apply_filters( 'nx_frontend_script_deps', [ 'wp-hooks' ] );

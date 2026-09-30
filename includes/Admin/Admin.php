@@ -50,7 +50,7 @@ class Admin {
      * working with this release, but loses those features once the free copies
      * are deleted. See docs/api/frontend-js-hooks.md.
      *
-     * @since 3.4.0
+     * @since 3.3.3
      */
     const MIN_PRO_VERSION = '3.2.3';
 
@@ -223,7 +223,7 @@ class Admin {
     /**
      * Whether the active NotificationX Pro is older than MIN_PRO_VERSION.
      *
-     * @since 3.4.0
+     * @since 3.3.3
      * @param string|null $pro_version Pro version; defaults to NOTIFICATIONX_PRO_VERSION.
      * @return bool False when Pro is not active or its version is unknown.
      */
@@ -243,7 +243,7 @@ class Admin {
     /**
      * Non-dismissible notice asking to update an outdated NotificationX Pro.
      *
-     * @since 3.4.0
+     * @since 3.3.3
      * @return void
      */
     public function pro_version_notice() {

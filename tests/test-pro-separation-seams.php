@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for the free-side seams of the free/Pro code separation (free 3.4.0).
+ * Tests for the free-side seams of the free/Pro code separation (free 3.3.3).
  *
  * - `notificationx-public` depends on `wp-hooks`, so the frontend runtime can
  *   read add-on filters from `window.wp.hooks` (see

@@ -1,7 +1,7 @@
-# Test Plan: Free 3.4.0 (frontend hooks for the code separation)
+# Test Plan: Free 3.3.3 (frontend hooks for the code separation)
 
-**Audience:** QA tester running the NotificationX (free) 3.4.0 release candidate.
-**Release under test:** NotificationX 3.4.0 with NotificationX Pro 3.2.3.
+**Audience:** QA tester running the NotificationX (free) 3.3.3 release candidate.
+**Release under test:** NotificationX 3.3.3 with NotificationX Pro 3.2.3.
 
 ## What changed
 
@@ -27,7 +27,7 @@ Developer reference: [../api/frontend-js-hooks.md](../api/frontend-js-hooks.md).
 
 ## Setup
 
-1. Install free NotificationX **3.4.0** (release candidate) and Pro **3.2.3**.
+1. Install free NotificationX **3.3.3** (release candidate) and Pro **3.2.3**.
 2. Activate WooCommerce with at least one product and one completed order.
 3. In **NotificationX → Settings → Modules**, confirm that WooCommerce, Discount Alert (announcements), Notification Bar and Flashing Tab are on.
 4. Remove `NX_DEBUG` from `wp-config.php`, or make sure it is not defined. When `NX_DEBUG` is on, the plugin loads files from `nxbuild/` instead of `assets/`, and a stale local build causes false failures.
@@ -129,7 +129,7 @@ This part shows that the new hooks run on a real site. It needs a temporary mu-p
 
 ```php
 <?php
-// QA only: delete after testing free 3.4.0.
+// QA only: delete after testing free 3.3.3.
 add_action( 'wp_enqueue_scripts', function () {
 	wp_add_inline_script( 'wp-hooks', "
 		wp.hooks.addFilter( 'nx_frontend_template', 'nx-qa', function ( rows, settings ) {
@@ -166,7 +166,7 @@ Delete the second `addFilter` block (the one that throws), then reload.
 **T22.** With Pro **3.2.3** active, open the WordPress Dashboard and the NotificationX pages.
 - **Expected:** **no** "Please update NotificationX Pro" notice.
 
-**T23.** On a separate site, install Pro **3.2.2** or older together with free 3.4.0. Open the Dashboard, the Plugins page, and **NotificationX → All Notifications**.
+**T23.** On a separate site, install Pro **3.2.2** or older together with free 3.3.3. Open the Dashboard, the Plugins page, and **NotificationX → All Notifications**.
 - **Expected:** a yellow notice on every screen, **including the NotificationX screens**: "You are using NotificationX Pro 3.2.2. Please update NotificationX Pro to version 3.2.3 or later. …". It has a **Go to plugin updates** link.
 - **Expected:** the notice has **no** dismiss (×) button, and it comes back after every reload.
 

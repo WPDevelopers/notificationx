@@ -2,7 +2,7 @@
 
 JavaScript extension points in the frontend runtime (`notificationx-public`, built from [../../nxdev/notificationx/frontend/](../../nxdev/notificationx/frontend/)). `notificationx-pro` uses them to render its own notifications without code in the free plugin. PHP hooks are in [hooks-filters.md](hooks-filters.md).
 
-Added in free 3.4.0 as step 4 of the free/Pro code separation (see [Why these hooks exist](#why-these-hooks-exist)).
+Added in free 3.3.3 as step 4 of the free/Pro code separation (see [Why these hooks exist](#why-these-hooks-exist)).
 
 ## How the runtime reads filters
 
@@ -70,7 +70,7 @@ The object is frozen. If the bundle loads twice, the first object stays.
    ```
 
    Only the add-on bundle uses these externals. The free frontend bundle must not use them (see the warning above).
-3. If `window.nxFrontendRuntime` is missing (free older than 3.4.0), register no filters. The built-in code in free then keeps rendering.
+3. If `window.nxFrontendRuntime` is missing (free older than 3.3.3), register no filters. The built-in code in free then keeps rendering.
 4. Claim only your own notifications:
 
    ```js
@@ -94,12 +94,12 @@ WordPress.org Guideline 5 does not allow working Pro-only code in the free plugi
 | Step | Release | Content |
 | --- | --- | --- |
 | 1–3 | Pro 3.2.3 | Pro registers its own Cart Peek Type, Inline classes and Flashing Tab bundle. |
-| 4 | **Free 3.4.0** | These hooks, the shared runtime, the `wp-hooks` dependency, and the Pro version notice. Nothing is removed. |
+| 4 | **Free 3.3.3** | These hooks, the shared runtime, the `wp-hooks` dependency, and the Pro version notice. Nothing is removed. |
 | 5 | Pro | Pro claims the announcements themes and the Cart Peek template through these hooks. |
 | 6 | — | Wait 4–6 weeks for Pro updates. |
 | 7 | Free | Delete the built-in branches that each hook wraps, and the Pro code that is still in free. |
 
-Free 3.4.0 does not change behavior: with no filters registered, every hook returns its default value. In step 7 the default values stay the same, except that `announcements` is removed from the three built-in lists and the countdown default becomes `false`.
+Free 3.3.3 does not change behavior: with no filters registered, every hook returns its default value. In step 7 the default values stay the same, except that `announcements` is removed from the three built-in lists and the countdown default becomes `false`.
 
 ### Pro version notice
 

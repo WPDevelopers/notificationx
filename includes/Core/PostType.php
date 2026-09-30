@@ -261,7 +261,7 @@ class PostType {
                  * fire `nx_saved_post`. Page-cache plugins can purge on it, because
                  * the notifications a page renders are printed into its HTML.
                  *
-                 * @since 3.4.0
+                 * @since 3.3.3
                  *
                  * @param int    $nx_id   Notification ID.
                  * @param bool   $enabled New status.
