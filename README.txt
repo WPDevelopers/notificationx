@@ -231,7 +231,7 @@ Improved: Refreshed NotificationX admin menu icon.
 Fixed: Notification Bar layout on mobile devices.
 Fixed: Notification Bar built with the Block Editor affecting page head output.
 Fixed: MCP settings tab visibility for non-admin roles.
-Few minor bug fixes and improvements
+Few minor bug fixes and improvements.
 
 = 3.3.2 - 24/09/2026 =
 Fixed: OAuth discovery handling in the MCP server.
