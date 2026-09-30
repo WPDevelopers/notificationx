@@ -102,7 +102,12 @@ export const handleCloseNotification = (config, id, dispatch) => {
         payload: id,
     });
 
-    document.body.style.paddingTop = `0px`;
+    // Only a top bar reserves body padding. Closing a popup or any other
+    // notification must leave it alone, or the header slides under a bar
+    // that is still on screen.
+    if (config?.source === 'press_bar') {
+        document.body.style.paddingTop = `0px`;
+    }
 };
 
 /**

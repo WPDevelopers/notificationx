@@ -534,7 +534,6 @@ const useNotificationX = (props: any) => {
                                 type: "REMOVE_NOTIFICATION",
                                 payload: ID,
                             });
-                            document.body.style.paddingTop = `0px`;
                         }, hideAfter);
                     }
                 }, initialDelay);
@@ -592,7 +591,6 @@ const useNotificationX = (props: any) => {
                                 type: "REMOVE_NOTIFICATION",
                                 payload: ID,
                             });
-                            document.body.style.paddingTop = `0px`;
                         }, hideAfter);
                     }
                 }, popupInitialDelay);
