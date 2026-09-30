@@ -170,7 +170,11 @@ class FrontEnd {
         if (!in_array($handle, $handles, true) || false !== strpos($tag, 'onload=')) {
             return $tag;
         }
-        $deferred = preg_replace('/\smedia=([\'"])all\1/', ' media=$1print$1 onload="this.media=\'all\'" data-nx-style=$1print$1', $tag, 1, $count);
+        // data-no-optimize keeps CSS optimizers (xSpeed's Combine CSS and
+        // Unused CSS, Autoptimize, LiteSpeed) from rewriting the link: a
+        // rewrite into a print-only bundle or pruned file drops the swap and
+        // leaves the notifications unstyled until the runtime's fallback.
+        $deferred = preg_replace('/\smedia=([\'"])all\1/', ' media=$1print$1 onload="this.media=\'all\'" data-nx-style=$1print$1 data-no-optimize="1"', $tag, 1, $count);
         if (!$count) {
             return $tag;
         }
