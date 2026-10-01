@@ -199,10 +199,7 @@ const GDPR = (props) => {
         );
         Object.assign(componentStyle, proAnimation.style || {});
     } else {
-        componentClasses = classNames(
-            ...baseClasses
-        );
-        componentStyle.animation = animationStyle
+        componentClasses = classNames('nx-anim-default-in', ...baseClasses);
     }
     const wrapper = (
         // @todo advanced style.

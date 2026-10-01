@@ -11,7 +11,7 @@
             "es2018"
         ],
         "jsx": "react",
-        "module": "esnext", // "commonjs",
+        "module": "esnext",
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "allowJs": true,
@@ -21,9 +21,19 @@
         "noUnusedLocals": false,
         "sourceMap": true,
         "types": ["node"],
+        "skipLibCheck": true
     },
     "include": [
-        "**/**/*"
+        "nxdev/**/*",
+        "blocks/**/*"
     ],
-    "exclude": [ "**/**/*.svg" ]
+    "exclude": [
+        "node_modules",
+        "assets",
+        "nxbuild",
+        "vendor",
+        "blocks/*/index.js",
+        "blocks/controls/dist",
+        "blocks/controls/webpack.config.js"
+    ]
 }
