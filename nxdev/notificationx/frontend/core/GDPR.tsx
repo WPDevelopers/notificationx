@@ -208,6 +208,9 @@ const GDPR = (props) => {
             "animate__faster",
             ...baseClasses
         );
+        if ( animate_effect?.startsWith('nx-anim-') ) {
+            componentClasses = classNames( animate_effect, ...baseClasses );
+        }
     } else {
         componentClasses = classNames('nx-anim-default-in', ...baseClasses);
     }

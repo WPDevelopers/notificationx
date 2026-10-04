@@ -495,6 +495,9 @@ const Popup = (props: any) => {
             "animate__faster",
             ...baseClasses
         );
+        if (animate_effect?.startsWith('nx-anim-')) {
+            componentClasses = classNames(animate_effect, ...baseClasses);
+        }
     } else {
         componentClasses = classNames(...baseClasses);
         componentStyle.animation = animationStyle;

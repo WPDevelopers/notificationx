@@ -125,6 +125,18 @@
 }
 .notification-item.nx-anim-default-in { animation-fill-mode: backwards; }
 
+// Curated presets (Pro). Exits end hidden so a banner that stays mounted
+// after a custom hide (GDPR) can't block clicks.
+@keyframes nxPop { from { opacity: 0; transform: scale(.94) translate3d(0,8px,0); } to { opacity: 1; transform: none; } }
+@keyframes nxSink { from { opacity: 1; transform: none; } to { opacity: 0; transform: translate3d(0, 20px, 0); visibility: hidden; } }
+@keyframes nxPopOut { from { opacity: 1; transform: none; } to { opacity: 0; transform: scale(.94) translate3d(0, 8px, 0); visibility: hidden; } }
+.nx-anim-rise-soft   { animation: nxRise .55s cubic-bezier(.22,.61,.36,1) both; }
+.nx-anim-rise-spring { animation: nxRise .65s cubic-bezier(.175,.885,.32,1.5) both; }
+.nx-anim-pop         { animation: nxPop .45s cubic-bezier(.34,1.56,.64,1) both; }
+.nx-anim-rise-soft-out   { animation: nxSink .35s cubic-bezier(.55,.055,.675,.19) forwards; pointer-events: none; }
+.nx-anim-rise-spring-out { animation: nxSink .4s cubic-bezier(.6,-.28,.735,.045) forwards; pointer-events: none; }
+.nx-anim-pop-out         { animation: nxPopOut .3s cubic-bezier(.36,0,.66,-.56) forwards; pointer-events: none; }
+
 @keyframes FadeIn {
     0% {
         opacity: 0;
