@@ -4,6 +4,7 @@ import domReady from '@wordpress/dom-ready';
 import { setLocaleData } from "@wordpress/i18n";
 import { NotificationXFrontEnd } from "./core";
 import { exposeFrontendRuntime } from "./core/runtime";
+import { startTracking } from "./core/tracker";
 import { applyDeferredStyles, loadExternalStyles, whenStyled } from "./core/external-styles";
 
 declare let __webpack_public_path__: string;
@@ -29,6 +30,8 @@ function notificationXWrapper(notificationX, id) {
         return;
 
     setChunkPath(notificationX.assets);
+    // Real impressions, clicks and closes for the Audience reports.
+    startTracking(notificationX.track);
 
     if (notificationX.cross) {
         loadExternalStyles(notificationX.external_styles);

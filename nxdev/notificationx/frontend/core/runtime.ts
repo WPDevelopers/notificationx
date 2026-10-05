@@ -1,6 +1,7 @@
 import React from "react";
 import useNotificationContext from "./NotificationProvider";
 import { analyticsOnClick, recordAnalyticsClick } from "./Analytics";
+import { trackEvent } from "./tracker";
 import nxHelper from "./functions";
 
 /**
@@ -24,6 +25,7 @@ export const createFrontendRuntime = () =>
         useNotificationContext,
         analyticsOnClick,
         recordAnalyticsClick,
+        trackEvent,
         getPath: (rest, path, query = {}) => nxHelper.getPath(rest, path, query),
     });
 
