@@ -19,6 +19,7 @@ use NotificationX\Core\QuickBuild;
 use NotificationX\Core\REST;
 use NotificationX\Core\ShortcodeInline;
 use NotificationX\Core\Targeting;
+use NotificationX\Core\Tracker;
 use NotificationX\Core\Upgrader;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\FrontEnd\FrontEnd;
@@ -92,6 +93,8 @@ class NotificationX {
         // Country/user-role targeting for ALL notification types (decoupled from the bar module).
         Targeting::get_instance();
         Cron::get_instance();
+        // Notification events for the Analytics Audience reports.
+        Tracker::get_instance();
         QuickBuild::get_instance();
         ShortcodeInline::get_instance();
         Blocks::get_instance();

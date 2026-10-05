@@ -457,6 +457,12 @@ class FrontEnd {
         $data['rest']          = REST::get_instance()->rest_data(false);
         $data['assets']        = self::ASSET_URL;
         if (empty($data['cross'])) {
+            $track = \NotificationX\Core\Tracker::get_instance()->client_config();
+            if ($track) {
+                $data['track'] = $track;
+            }
+        }
+        if (empty($data['cross'])) {
             // The runtime re-adds these if an optimizer combined them into a
             // bundle that does not apply (e.g. a print-only one).
             $styles = [];
