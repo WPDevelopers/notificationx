@@ -77,8 +77,9 @@ class Analytics {
         if ( empty( $stats ) ) {
             $data = [
                 'nx_id'  => $nx_id,
-                'clicks' => $type == 'clicks' ? 1 : 0,
-                'views'  => 1,
+                'clicks' => 'clicks' === $type ? 1 : 0,
+                // Only a view adds a view: the day's first click used to record one too.
+                'views'  => 'views' === $type ? 1 : 0,
             ];
             $this->_insert_analytics( $data, time() );
         } else {
