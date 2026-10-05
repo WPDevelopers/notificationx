@@ -124,6 +124,10 @@ class Analytics {
             $where__or_nx_id = ['nx_id' => $where__or_nx_id];
         }
         Database::get_instance()->delete_posts(Database::$table_stats, $where__or_nx_id, $limit);
+        // "Reset analytics" clears the Audience data of the notification too.
+        if (!empty($where__or_nx_id['nx_id']) && 1 === count($where__or_nx_id)) {
+            Tracker::get_instance()->delete_data($where__or_nx_id['nx_id']);
+        }
         $analytics = $this->get_total_count();
         return $analytics;
     }
