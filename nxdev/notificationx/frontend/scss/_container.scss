@@ -137,6 +137,27 @@
 .nx-anim-rise-spring-out { animation: nxSink .4s cubic-bezier(.6,-.28,.735,.045) forwards; pointer-events: none; }
 .nx-anim-pop-out         { animation: nxPopOut .3s cubic-bezier(.36,0,.66,-.56) forwards; pointer-events: none; }
 
+// 84714: today's 30px slide-out drift, done with transform instead of bottom/left/right.
+// Slide-outs fade over the second half so no part of the card pops out of view;
+// the 50% stop sets only opacity, so the transform path is unchanged.
+@keyframes nxSlideOutDownFar  { from { transform: translate3d(0, 0, 0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(0, calc(100% + 30px), 0); opacity: 0; } }
+@keyframes nxSlideOutLeftFar  { from { transform: translate3d(0, 0, 0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(calc(-100% - 30px), 0, 0); opacity: 0; } }
+@keyframes nxSlideOutRightFar { from { transform: translate3d(0, 0, 0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(calc(100% + 30px), 0, 0); opacity: 0; } }
+// Copies of Animate.css 4.1.1 slideOut* (same transform), plus the fade.
+@keyframes nxSlideOutDownFade  { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(0, 100%, 0); opacity: 0; } }
+@keyframes nxSlideOutLeftFade  { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(-100%, 0, 0); opacity: 0; } }
+@keyframes nxSlideOutRightFade { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(100%, 0, 0); opacity: 0; } }
+@keyframes nxSlideOutUpFade    { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(0, -100%, 0); opacity: 0; } }
+.notificationx-frontend .notification-item.animate__slideOutDown:not(.position-bottom_right) { animation-name: nxSlideOutDownFar; }
+html:not([dir="rtl"]) .notificationx-frontend .notification-item.animate__slideOutLeft:not(.position-bottom_right) { animation-name: nxSlideOutLeftFar; }
+html[dir="rtl"] .notificationx-frontend .notification-item.animate__slideOutRight:not(.position-bottom_right) { animation-name: nxSlideOutRightFar; }
+.notificationx-frontend .notification-item.position-bottom_right.animate__slideOutDown { animation-name: nxSlideOutDownFade; }
+html[dir="rtl"] .notificationx-frontend .notification-item.animate__slideOutLeft,
+.notificationx-frontend .notification-item.position-bottom_right.animate__slideOutLeft { animation-name: nxSlideOutLeftFade; }
+html:not([dir="rtl"]) .notificationx-frontend .notification-item.animate__slideOutRight,
+.notificationx-frontend .notification-item.position-bottom_right.animate__slideOutRight { animation-name: nxSlideOutRightFade; }
+.notificationx-frontend .notification-item.animate__slideOutUp { animation-name: nxSlideOutUpFade; }
+
 @keyframes FadeIn {
     0% {
         opacity: 0;
