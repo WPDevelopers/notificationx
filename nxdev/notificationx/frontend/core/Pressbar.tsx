@@ -484,6 +484,7 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
         // @todo advanced style.
         <div
             id={`nx-bar-${settings.nx_id}`}
+            data-nx-id={settings.nx_id}
             className={classNames(
                 `nx-bar`,
                 settings.themes,

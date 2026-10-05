@@ -259,6 +259,7 @@ const Notification = (props) => {
             className={componentClasses}
             style={cardLink ? { ...componentStyle, cursor: 'pointer' } : componentStyle}
             id={`notificationx-${settings.nx_id}`}
+            data-nx-id={settings.nx_id}
             onClick={handleCardClick}
         >
             {

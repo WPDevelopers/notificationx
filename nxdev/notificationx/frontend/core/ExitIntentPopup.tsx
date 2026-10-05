@@ -232,7 +232,7 @@ const ExitIntentPopup = (props: any) => {
         }
         return (
             <div
-                className={overlayClass}
+                className={overlayClass} data-nx-id={settings?.nx_id}
                 style={overlayStyle}
                 onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
             >
@@ -315,7 +315,7 @@ const ExitIntentPopup = (props: any) => {
         const playFill = adv ? (s.exit_intent_t4_play_color || '#1a1a2e') : '#1a1a2e';
 
         return (
-            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={overlayClass} data-nx-id={settings?.nx_id} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-four nx-exit-intent-${settings?.nx_id}`}
                     style={popupStyle}
@@ -449,7 +449,7 @@ const ExitIntentPopup = (props: any) => {
         ];
 
         return (
-            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={overlayClass} data-nx-id={settings?.nx_id} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-five nx-exit-intent-${settings?.nx_id}`}
                     style={popupStyle}
@@ -587,7 +587,7 @@ const ExitIntentPopup = (props: any) => {
         };
 
         return (
-            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={overlayClass} data-nx-id={settings?.nx_id} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-seven nx-exit-intent-${settings?.nx_id}`}
                     style={popupStyle}
@@ -709,7 +709,7 @@ const ExitIntentPopup = (props: any) => {
         ];
 
         return (
-            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={overlayClass} data-nx-id={settings?.nx_id} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-six nx-exit-intent-${settings?.nx_id}`}
                     style={popupStyle}
@@ -804,7 +804,7 @@ const ExitIntentPopup = (props: any) => {
         } : {};
 
         return (
-            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={overlayClass} data-nx-id={settings?.nx_id} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-two nx-exit-intent-${settings?.nx_id}`}
                     style={popupStyle}
@@ -893,7 +893,7 @@ const ExitIntentPopup = (props: any) => {
         } : {};
 
         return (
-            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={overlayClass} data-nx-id={settings?.nx_id} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
                     className={`nx-exit-intent-popup nx-exit-intent-theme-three nx-exit-intent-${settings?.nx_id}`}
                     style={popupStyle}
@@ -970,7 +970,7 @@ const ExitIntentPopup = (props: any) => {
     const showPattern = !adv || s.exit_intent_show_pattern !== false;
 
     return (
-        <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+        <div className={overlayClass} data-nx-id={settings?.nx_id} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
             <div
                 className={`nx-exit-intent-popup nx-exit-intent-theme-one nx-exit-intent-${settings?.nx_id}`}
                 style={popupStyle}
