@@ -3,7 +3,7 @@ export { default as Settings } from "./Settings/SettingsWrapper";
 export { default as NotificationXInner } from "./NotificationXInner";
 export { default as NotificationXItems } from "./NotificationXItems";
 export { default as NotificationXItemsMenu } from "./NotificationXItemsMenu";
-export { default as Analytics } from "./Analytics/Analytics";
+export { default as Analytics } from "./AnalyticsV2/AnalyticsApp";
 export { default as Entries } from "./Entries/Entries";
 export { default as FeedbackEntries } from "./FeedbackEntries/FeedbackEntries";
 export { default as Dashboard } from "./Dashboard/Dashboard";
