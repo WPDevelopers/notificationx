@@ -527,6 +527,7 @@ const Popup = (props: any) => {
             <div className="nx-popup-overlay" style={overlayStyles}>
             <div
                 id={`nx-popup-${settings.nx_id}`}
+                data-nx-id={settings.nx_id}
                 className={componentClasses}
                 style={componentStyle}
                 onClick={(e) => e.stopPropagation()}

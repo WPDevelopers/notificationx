@@ -255,6 +255,7 @@ const NotificationForMobile = (props) => {
             className={componentClasses}
             style={cardLink ? { ...componentStyle, cursor: 'pointer' } : componentStyle}
             id={`notificationx-res-${settings.nx_id}`}
+            data-nx-id={settings.nx_id}
             onClick={handleCardClick}
         >
             {

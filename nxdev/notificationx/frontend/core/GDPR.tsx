@@ -218,6 +218,7 @@ const GDPR = (props) => {
         // @todo advanced style.
         <div
             id={`nx-gdpr-${settings.nx_id}`}
+            data-nx-id={settings.nx_id}
             className={componentClasses}
         >
             <div className="nx-gdpr">
