@@ -124,6 +124,7 @@
     animation: nxRise 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
 }
 .notification-item.nx-anim-default-in { animation-fill-mode: backwards; }
+.notificationx-frontend .nx-container .notification-res-item.nx-anim-default-in { animation-fill-mode: backwards; }
 
 // Curated presets (Pro). Exits end hidden so a banner that stays mounted
 // after a custom hide (GDPR) can't block clicks.
