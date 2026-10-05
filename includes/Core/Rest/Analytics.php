@@ -121,8 +121,14 @@ class Analytics {
 
     public function insert_analytics($request){
         $params = $request->get_params();
-        $type = !empty( $params['type'] ) && in_array( $params['type'], ['clicks', 'views', 'ctr'] ) ? esc_sql( $params['type'] ) : 'clicks';
-        $result = CoreAnalytics::get_instance()->insert_analytics( absint( $params['nx_id'] ), $type );
+        // 'ctr' is derived, not a column: accepting it produced a failing UPDATE.
+        $type  = ! empty( $params['type'] ) && in_array( $params['type'], [ 'clicks', 'views' ], true ) ? $params['type'] : 'clicks';
+        $nx_id = absint( $params['nx_id'] );
+        // Don't create stats rows for notifications that don't exist.
+        if ( ! $nx_id || ! \NotificationX\Core\PostType::get_instance()->get_post( $nx_id, 'nx_id' ) ) {
+            return new WP_Error( 'nx_not_found', __( 'Notification not found.', 'notificationx' ), [ 'status' => 404 ] );
+        }
+        CoreAnalytics::get_instance()->insert_analytics( $nx_id, $type );
         return ['success' => true];
     }
 }
