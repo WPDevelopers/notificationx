@@ -29,10 +29,12 @@ class Database {
      * @var \wpdb
      */
     protected $wpdb;
-    public static $version = '2.1';
+    public static $version = '2.3';
     public static $table_entries;
     public static $table_posts;
     public static $table_stats;
+    public static $table_events;
+    public static $table_stats_daily;
     protected static $query;
 
     /**
@@ -44,6 +46,10 @@ class Database {
         self::$table_entries = $wpdb->prefix . 'nx_entries';
         self::$table_posts   = $wpdb->prefix . 'nx_posts';
         self::$table_stats   = $wpdb->prefix . 'nx_stats';
+        // Event tracking (Core\Tracker): raw events kept for a few weeks and
+        // the daily rollup the Audience reports read.
+        self::$table_events      = $wpdb->prefix . 'nx_events';
+        self::$table_stats_daily = $wpdb->prefix . 'nx_stats_daily';
     }
 
     public static function query() {
@@ -105,6 +111,42 @@ class Database {
             ) $charset_collate ;";
         $stats_db = dbDelta( $sql );
 
+        // No IP, cookie or user ID is stored: `visitor` is a hash salted
+        // with a key that changes every day (see Tracker::visitor_hash()).
+        $table_events = self::$table_events;
+        $sql          = "CREATE TABLE {$table_events} (
+                event_id bigint(20) unsigned NOT NULL auto_increment,
+                nx_id bigint(20) unsigned NOT NULL,
+                event tinyint(3) unsigned NOT NULL,
+                visitor char(16) NOT NULL default '',
+                device varchar(10) NOT NULL default '',
+                country char(2) NOT NULL default '',
+                page varchar(191) NOT NULL default '',
+                source varchar(100) NOT NULL default '',
+                channel varchar(12) NOT NULL default '',
+                created_at datetime NOT NULL,
+                PRIMARY KEY  (event_id),
+                KEY created_at (created_at),
+                KEY visitor_time (visitor,created_at)
+            ) $charset_collate ;";
+        dbDelta( $sql );
+
+        $table_stats_daily = self::$table_stats_daily;
+        $sql               = "CREATE TABLE {$table_stats_daily} (
+                day date NOT NULL,
+                nx_id bigint(20) unsigned NOT NULL,
+                dim varchar(12) NOT NULL,
+                val varchar(191) NOT NULL default '',
+                views int(10) unsigned NOT NULL default 0,
+                clicks int(10) unsigned NOT NULL default 0,
+                closes int(10) unsigned NOT NULL default 0,
+                submits int(10) unsigned NOT NULL default 0,
+                hovers int(10) unsigned NOT NULL default 0,
+                visitors int(10) unsigned NOT NULL default 0,
+                PRIMARY KEY  (day,nx_id,dim,val),
+                KEY dim_day (dim,day)
+            ) $charset_collate ;";
+        dbDelta( $sql );
     }
 
     public function update_analytics( $col, $id, $date, $data = null ) {
