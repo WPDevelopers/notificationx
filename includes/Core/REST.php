@@ -53,6 +53,7 @@ class REST {
         Rest\Integration::get_instance();
         Rest\Entries::get_instance();
         Rest\Analytics::get_instance();
+        Rest\AnalyticsReports::get_instance();
         Rest\Track::get_instance();
         Rest\BulkAction::get_instance();
         Rest\Popup::get_instance();

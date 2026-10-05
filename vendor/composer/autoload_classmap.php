@@ -62,6 +62,7 @@ return array(
     'NotificationX\\Core\\QuickBuild' => $baseDir . '/includes/Core/QuickBuild.php',
     'NotificationX\\Core\\REST' => $baseDir . '/includes/Core/REST.php',
     'NotificationX\\Core\\Rest\\Analytics' => $baseDir . '/includes/Core/Rest/Analytics.php',
+    'NotificationX\\Core\\Rest\\AnalyticsReports' => $baseDir . '/includes/Core/Rest/AnalyticsReports.php',
     'NotificationX\\Core\\Rest\\Track' => $baseDir . '/includes/Core/Rest/Track.php',
     'NotificationX\\Core\\Tracker' => $baseDir . '/includes/Core/Tracker.php',
     'NotificationX\\Core\\Rest\\BulkAction' => $baseDir . '/includes/Core/Rest/BulkAction.php',
