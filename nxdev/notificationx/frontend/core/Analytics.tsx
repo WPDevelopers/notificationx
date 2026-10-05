@@ -3,6 +3,7 @@ import useNotificationContext from "./NotificationProvider";
 import nxHelper, { handleCloseNotification } from "./functions";
 import { getIconUrl } from "../../shared/helpers";
 import { nxApplyFilters, nxApplyListFilter } from "./hooks";
+import { trackEvent } from "./tracker";
 
 export const analyticsOnClick = (event, restUrl, config, dispatch, credentials = true) => {
     const nx_id = config?.nx_id;
@@ -75,6 +76,7 @@ export const resolveNotificationLink = (config, data) => {
  * popups whose CTA button is hidden by the theme still register CTR.
  */
 export const recordAnalyticsClick = (restUrl, config, omitCredentials = false) => {
+    trackEvent(config?.nx_id, 'click');
     if (!config?.enable_analytics) {
         return Promise.resolve();
     }
