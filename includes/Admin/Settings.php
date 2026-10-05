@@ -119,6 +119,7 @@ class Settings extends UsabilityDynamicsSettings {
         do_action( 'nx_before_settings_fields' );
         $wp_roles  = GlobalFields::get_instance()->normalize_fields( $this->get_roles() );
         $site_name = get_bloginfo( 'name' );
+        $is_pro    = NotificationX::get_instance()->is_pro();
         $settings  = [
             'id'            => 'notificationx_metabox_wrapper',
             'title'         => __( 'NotificationX', 'notificationx' ),
@@ -348,6 +349,37 @@ class Settings extends UsabilityDynamicsSettings {
                                     'default'     => true,
                                     'priority'    => 15,
                                     'description' => __( 'Select if you want to exclude bot analytics.', 'notificationx' ),
+                                    'rules'       => Rules::is( 'enable_analytics', true ),
+                                ),
+                                'analytics_ga4_events'     => array(
+                                    'name'        => 'analytics_ga4_events',
+                                    'type'        => 'checkbox',
+                                    'label'       => __( 'Send Events to Google Analytics', 'notificationx' ),
+                                    'default'     => false,
+                                    'priority'    => 18,
+                                    'description' => __( 'Also send nx_view, nx_click, nx_close, nx_hover and nx_submit events to Google Analytics 4 or Google Tag Manager, when it is on the page.', 'notificationx' ),
+                                    'rules'       => Rules::is( 'enable_analytics', true ),
+                                ),
+                                // Read by Core\Tracker::retention_days(). Free always keeps 90 days.
+                                'analytics_retention'      => array(
+                                    'name'        => 'analytics_retention',
+                                    'type'        => 'select',
+                                    'label'       => __( 'Keep Analytics Data For', 'notificationx' ),
+                                    'priority'    => 20,
+                                    'default'     => $is_pro ? '0' : '90',
+                                    'is_pro'      => ! $is_pro,
+                                    'disable'     => ! $is_pro,
+                                    'options'     => GlobalFields::get_instance()->normalize_fields(array(
+                                        '90'  => __( '90 days', 'notificationx' ),
+                                        '180' => __( '6 months', 'notificationx' ),
+                                        '365' => __( '1 year', 'notificationx' ),
+                                        '730' => __( '2 years', 'notificationx' ),
+                                        '0'   => __( 'Forever', 'notificationx' ),
+                                        )
+                                    ),
+                                    'description' => $is_pro
+                                        ? __( 'Daily Audience data older than this is deleted. Views and clicks history is never deleted.', 'notificationx' )
+                                        : __( 'Free keeps 90 days of Audience data, so your history is ready when you upgrade. Pro lets you keep it longer.', 'notificationx' ),
                                     'rules'       => Rules::is( 'enable_analytics', true ),
                                 ),
                             ),
