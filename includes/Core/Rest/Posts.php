@@ -203,7 +203,7 @@ class Posts extends WP_REST_Controller {
 
         // Add entries count to posts
         foreach ($posts as $key => $post) {
-            if ($post['source'] === 'popup_notification') {
+            if (in_array($post['source'], ['popup_notification', 'exit_intent_custom'], true)) {
                 $posts[$key]['entries'] = isset($entries_lookup[$post['nx_id']]) ? $entries_lookup[$post['nx_id']] : 0;
             }
         }
