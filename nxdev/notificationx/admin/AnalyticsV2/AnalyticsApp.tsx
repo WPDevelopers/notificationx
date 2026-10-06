@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { __, sprintf } from "@wordpress/i18n";
 import { Header } from "../../components";
+import AnalyticsHeader from "../Analytics/AnalyticsHeader";
 import withDocumentTitle from "../../core/withDocumentTitle";
 import { useNotificationXContext } from "../../hooks";
 import { downloadCsv, getExport, getNotifications, resetData } from "./api";
@@ -171,6 +172,8 @@ const AnalyticsApp = () => {
     return (
         <div className="notificationx-items">
             <Header addNew={true} />
+            {/* All-time totals, the same cards as Dashboard, All NotificationX and Settings. */}
+            <AnalyticsHeader assetsURL={ctx?.assets} />
             <div className={`nxa ${dark ? "nxa-dark" : ""}`} ref={rootRef}>
                 <div className="nxa-head-sentinel" ref={sentinelRef} aria-hidden="true" />
                 <div className={`nxa-page-head ${stuck ? "is-stuck" : ""}`} ref={headRef}>
