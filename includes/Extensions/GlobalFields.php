@@ -2128,17 +2128,17 @@ class GlobalFields {
                                             'value' => 'default',
                                         ],
                                         'nx-anim-rise-soft-out' => [
-                                            'label'    => __('Rise (soft)', 'notificationx'),
+                                            'label'    => __('Sink (soft)', 'notificationx'),
                                             'value'    => 'nx-anim-rise-soft-out',
                                             'disabled' => NotificationX::is_pro() ? false : true,
                                         ],
                                         'nx-anim-rise-spring-out' => [
-                                            'label'    => __('Rise (spring)', 'notificationx'),
+                                            'label'    => __('Sink (spring)', 'notificationx'),
                                             'value'    => 'nx-anim-rise-spring-out',
                                             'disabled' => NotificationX::is_pro() ? false : true,
                                         ],
                                         'nx-anim-pop-out' => [
-                                            'label'    => __('Pop', 'notificationx'),
+                                            'label'    => __('Pop out', 'notificationx'),
                                             'value'    => 'nx-anim-pop-out',
                                             'disabled' => NotificationX::is_pro() ? false : true,
                                         ],
