@@ -401,7 +401,8 @@ class AnalyticsReports {
      * Click-through rate as a percent with one decimal.
      */
     public function ctr( $clicks, $views ) {
-        return $views > 0 ? round( $clicks / $views * 100, 1 ) : 0;
+        // 2 decimals, the same as the all-time CTR card (Analytics::get_total_count()).
+        return $views > 0 ? round( $clicks / $views * 100, 2 ) : 0;
     }
 
     /**
@@ -491,7 +492,7 @@ class AnalyticsReports {
                 'clicks' => $this->change( $totals['clicks'], $previous['clicks'] ),
                 'leads'  => $this->change( $totals['leads'], $previous['leads'] ),
                 // CTR moves in percentage points.
-                'ctr'    => $previous['views'] ? round( $totals['ctr'] - $previous['ctr'], 1 ) : null,
+                'ctr'    => $previous['views'] ? round( $totals['ctr'] - $previous['ctr'], 2 ) : null,
             ];
             $previous['window'] = $prev_window;
         }
@@ -588,7 +589,7 @@ class AnalyticsReports {
             $changes = [
                 'views'  => $this->change( $totals['views'], $ptotals['views'] ),
                 'clicks' => $this->change( $totals['clicks'], $ptotals['clicks'] ),
-                'ctr'    => $ptotals['views'] ? round( $totals['ctr'] - $ptotals['ctr'], 1 ) : null,
+                'ctr'    => $ptotals['views'] ? round( $totals['ctr'] - $ptotals['ctr'], 2 ) : null,
             ];
         }
         return new WP_REST_Response( [
