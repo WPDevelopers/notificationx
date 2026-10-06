@@ -216,19 +216,16 @@ const NotificationForMobile = (props) => {
     }
 
     let componentClasses;
-    let animationStyle = 'SlideTop 300ms';
     if ((is_pro && settings?.animation_notification_show !== 'default') || (is_pro && settings?.animation_notification_hide !== 'default')) {
         let animate_effect;
         if (settings?.animation_notification_hide !== 'default' && settings?.animation_notification_show === 'default') {
             if (animation) {
                 animate_effect = settings?.animation_notification_hide;
             } else {
-                componentStyle.animation = animationStyle
+                animate_effect = 'nx-anim-default-in';
             }
         } else if (settings?.animation_notification_show !== 'default' && settings?.animation_notification_hide === 'default') {
-            if (animation) {
-                componentStyle.animation = animationStyle;
-            } else {
+            if (!animation) {
                 animate_effect = settings?.animation_notification_show;
             }
         } else {
