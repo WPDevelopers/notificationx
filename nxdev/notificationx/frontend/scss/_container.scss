@@ -199,6 +199,20 @@ html .notificationx-frontend.nx-spacing-v2 .nx-container .notification-item.anim
         }
     }
 }
+// Review #3: the Pro mobile card gets the same transform + fade slide-outs as the desktop
+// card. It keeps its resting offsets on hide (getAnimationStyles), so nothing animates layout.
+.notificationx-frontend .nx-container .notification-res-item {
+    &.animate__slideOutDown  { animation-name: nxSlideOutDownFade; }
+    &.animate__slideOutLeft  { animation-name: nxSlideOutLeftFade; }
+    &.animate__slideOutRight { animation-name: nxSlideOutRightFade; }
+    &.animate__slideOutUp    { animation-name: nxSlideOutUpFade; }
+}
+// RTL with the previous spacing: the card rests at right: 30px and used to drift to 0 on hide.
+@keyframes nxSlideOutUpDriftFade { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(30px, -100%, 0); opacity: 0; } }
+html[dir="rtl"] .notificationx-frontend:not(.nx-spacing-v2) .nx-container .notification-res-item {
+    &.animate__slideOutRight { animation-name: nxSlideOutRightFar; }
+    &.animate__slideOutUp    { animation-name: nxSlideOutUpDriftFade; }
+}
 
 @keyframes FadeIn {
     0% {

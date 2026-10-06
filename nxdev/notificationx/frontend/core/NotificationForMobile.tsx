@@ -88,28 +88,28 @@ const NotificationForMobile = (props) => {
         switch (settings.animation_notification_hide) {
             case 'animate__slideOutDown':
                 return {
-                    bottom: !animation ? '30px' : '0',
+                    bottom: '30px',
                     left: !animation ? '30px' : '30px',
                     right: !animation ? '30px' : '30px',
                     transition: '300ms',
                 };
             case 'animate__slideOutLeft':
                 return {
-                    left: !animation ? '30px' : '0',
+                    left: '30px',
                     bottom: !animation ? '30px' : '30px',
                     right: !animation ? '30px' : '30px',
                     transition: '300ms',
                 };
             case 'animate__slideOutRight':
                 return {
-                    right: !animation ? '30px' : '0',
+                    right: '30px',
                     left: !animation ? '30px' : '30px',
                     bottom: !animation ? '30px' : '30px',
                     transition: '300ms',
                 };
             case 'animate__slideOutUp':
                 return {
-                    right: !animation ? '30px' : '0',
+                    right: '30px',
                     left: !animation ? '30px' : '30px',
                     bottom: !animation ? '30px' : '30px',
                     transition: '300ms',
