@@ -85,7 +85,7 @@ class AnalyticsReports {
         register_rest_route( $this->namespace, '/analytics/report/summary', [
             'methods'             => WP_REST_Server::READABLE,
             'callback'            => [ $this, 'summary' ],
-            'permission_callback' => [ $this, 'can_read' ],
+            'permission_callback' => [ $this, 'can_read_pro' ],
             'args'                => $common,
         ] );
         register_rest_route( $this->namespace, '/analytics/report/notifications', [
@@ -146,9 +146,11 @@ class AnalyticsReports {
     }
 
     /**
-     * Free shows the basic numbers (views, clicks, CTR, leads) on the
-     * Overview; the detailed reports are Pro. Tracking still runs on Free, so
-     * the history is there after an upgrade.
+     * Every report is Pro. Free shows the all-time totals (the header cards,
+     * from Analytics::get_total_count()) and a preview of the reports; a
+     * range chart next to all-time cards would show two different "views"
+     * numbers. Tracking still runs on Free, so the history is there after an
+     * upgrade.
      *
      * @return bool|WP_Error
      */
@@ -471,11 +473,9 @@ class AnalyticsReports {
      * GET analytics/report/summary
      */
     public function summary( WP_REST_Request $request ) {
-        $pro     = $this->is_pro();
-        // Filtering by notification or type is Pro.
-        $nx_id   = $pro ? $this->request_scope( $request ) : 0;
+        $nx_id   = $this->request_scope( $request );
         $window  = $this->resolve_window( $request['range'] );
-        $compare = $this->is_pro() && rest_sanitize_boolean( $request['compare'] );
+        $compare = rest_sanitize_boolean( $request['compare'] );
 
         $by_date = $this->stats( $window, $nx_id );
         $by_nx   = $this->stats( $window, $nx_id, 'nx_id' );
@@ -530,10 +530,8 @@ class AnalyticsReports {
             'previous' => $previous,
             'changes'  => $changes,
             'series'   => $this->series( $window, $by_date ),
-            'types'    => $pro ? $types : [],
-            // Free: the basic totals and trend only.
-            'top'      => $pro ? array_slice( $top, 0, 8 ) : [],
-            'locked'   => ! $pro,
+            'types'    => $types,
+            'top'      => array_slice( $top, 0, 8 ),
             'tracked'  => [
                 // Legacy views count loads and skip these types; seen
                 // impressions for every type are in the Audience report.

@@ -5,6 +5,17 @@ import { Chip, Icon, PRICING_URL, ProPill, Tone } from "./ui";
 type Locked = { icon: string; tone: Tone; title: string; text: string; points: string[] };
 
 const SCREENS: Record<string, Locked> = {
+    overview: {
+        icon: "trend", tone: "brand",
+        title: __("See how your notifications perform over time", "notificationx"),
+        text: __("The totals above count everything since you started. Pro breaks them down by day so you can spot what changed and why.", "notificationx"),
+        points: [
+            __("Daily views, clicks and click-through rate on one chart", "notificationx"),
+            __("Last 7, 14, 30 or 90 days, all time, or any custom range", "notificationx"),
+            __("Compare with the previous period", "notificationx"),
+            __("Filter by notification or type, see your top notifications, export to CSV", "notificationx"),
+        ],
+    },
     audience: {
         icon: "globe", tone: "brand",
         title: __("See who your notifications reach", "notificationx"),
@@ -79,18 +90,5 @@ const ProScreen = ({ view }: { view: string }) => {
         </div>
     );
 };
-
-/** Inline lock for one card on a Free screen. */
-export const ProCard = ({ title, text, className = "" }: { title: string; text: string; className?: string }) => (
-    <section className={`nxa-card nxa-pro-inline ${className}`}>
-        <div className="nxa-pro-inline-sketch" aria-hidden="true">{[86, 64, 48, 30].map((w) => <span key={w}><i /><b style={{ width: `${w}%` }} /></span>)}</div>
-        <div className="nxa-pro-inline-body">
-            <ProPill />
-            <h3>{title}</h3>
-            <p>{text}</p>
-            <a className="nxa-btn nxa-btn-primary" href={PRICING_URL} target="_blank" rel="noopener noreferrer">{__("Upgrade to Pro", "notificationx")}</a>
-        </div>
-    </section>
-);
 
 export default ProScreen;
