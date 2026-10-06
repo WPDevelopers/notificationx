@@ -96,6 +96,8 @@ class Test_Analytics_Reports extends WP_UnitTestCase {
 		$this->assertSame( 50.0, $r->change( 15, 10 ) );
 		$this->assertSame( -25.0, $r->change( 30, 40 ) );
 		$this->assertSame( 5.0, $r->ctr( 5, 100 ) );
+		// Two decimals, like the all-time CTR card (6.09%).
+		$this->assertSame( 6.09, $r->ctr( 1075, 17662 ) );
 		$this->assertSame( 0, $r->ctr( 5, 0 ) );
 	}
 

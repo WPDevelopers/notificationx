@@ -328,7 +328,7 @@ class Test_Analytics_Tracker extends WP_UnitTestCase {
 		$all = $get();
 		$this->assertSame( 3, $all['seen'] );
 		$this->assertSame( 1, $all['hovers'] );
-		$this->assertSame( 33.3, $all['engagement'] );
+		$this->assertSame( 33.33, $all['engagement'] );
 		// Unique per day across notifications: 2 people, not 3 notification-visitors.
 		$this->assertSame( 2, $all['visitors'] );
 		$this->assertSame( 1.5, $all['per_visitor'] );

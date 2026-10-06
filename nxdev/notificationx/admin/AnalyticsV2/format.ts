@@ -11,7 +11,8 @@ export const fmtCompact = (n: number) =>
         ? fmtNum(n)
         : new Intl.NumberFormat(locale(), { notation: "compact", maximumFractionDigits: 1 }).format(Number(n) || 0);
 
-export const fmtPct = (n: number) => `${(Number(n) || 0).toFixed(1)}%`;
+/** Up to 2 decimals without trailing zeros (6.09%, 5.5%, 0%), like the all-time CTR card. */
+export const fmtPct = (n: number) => `${new Intl.NumberFormat(locale(), { maximumFractionDigits: 2 }).format(Number(n) || 0)}%`;
 
 /**
  * Stats are stored per UTC day as "YYYY-MM-DD". Format the date itself,

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { __, sprintf } from "@wordpress/i18n";
-import { deltaInfo } from "./format";
+import { deltaInfo, fmtPct } from "./format";
 import { Sparkline } from "./charts";
 
 export const PRICING_URL = "https://notificationx.com/#pricing";
@@ -73,7 +73,7 @@ export const Avatar = ({ text, color }: { text: string; color?: string }) => (
 
 /** CTR as a pill; strong rates stand out, zero stays quiet. */
 export const CtrPill = ({ value }: { value: number }) => (
-    <span className={`nxa-pill ${value >= 10 ? "is-high" : value > 0 ? "is-mid" : "is-zero"}`}>{(Number(value) || 0).toFixed(1)}%</span>
+    <span className={`nxa-pill ${value >= 10 ? "is-high" : value > 0 ? "is-mid" : "is-zero"}`}>{fmtPct(value)}</span>
 );
 
 export const Card = ({ title, action, children, className = "", icon, tone, subtitle }: { title?: React.ReactNode; action?: React.ReactNode; children: React.ReactNode; className?: string; icon?: string; tone?: Tone; subtitle?: React.ReactNode }) => (
