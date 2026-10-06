@@ -687,7 +687,11 @@ class AnalyticsReports {
                 'exit_intent_custom' => isset( $by_source['exit_intent_custom'] ) ? $by_source['exit_intent_custom'] : 0,
             ],
             'top'        => array_slice( $rows, 0, 8 ),
-            'entries_url' => admin_url( 'admin.php?page=nx-feedback-entries' ),
+            // The entries list is the Entries tab of Settings, so it needs the
+            // settings capability; without it the link is left out.
+            'entries_url' => current_user_can( 'edit_notificationx_settings' )
+                ? add_query_arg( array_filter( [ 'page' => 'nx-settings', 'tab' => 'entries', 'notification_id' => is_int( $scope ) && $scope ? $scope : null ] ), admin_url( 'admin.php' ) )
+                : null,
         ] );
     }
 

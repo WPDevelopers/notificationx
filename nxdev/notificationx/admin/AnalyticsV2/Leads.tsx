@@ -34,7 +34,7 @@ const Leads = ({ range, nxId, type, compare, isPro, reloadKey }: any) => {
     const { totals, series, weekday, sources, top, change, entries_url } = data;
     const bestDay = weekday.indexOf(Math.max(...weekday));
     const sourceTotal = sources.popup_notification + sources.exit_intent_custom;
-    const manage = <a className="nxa-btn nxa-btn-ghost nxa-btn-sm" href={entries_url}><Icon name="arrow" size={14} />{__("View all entries", "notificationx")}</a>;
+    const manage = entries_url ? <a className="nxa-btn nxa-btn-ghost nxa-btn-sm" href={entries_url}><Icon name="arrow" size={14} />{nxId ? __("View entries", "notificationx") : __("View all entries", "notificationx")}</a> : null;
 
     return (
         <div className={`nxa-leads ${loading ? "is-refreshing" : ""}`}>
