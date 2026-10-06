@@ -102,6 +102,7 @@ class Test_Analytics_Reports extends WP_UnitTestCase {
 	}
 
 	public function test_summary_totals_match_the_rows_inside_the_window_only() {
+		$this->set_pro( true );
 		$today = gmdate( 'Y-m-d' );
 		$this->add_stats( $today, 40, 2 );
 		$this->add_stats( gmdate( 'Y-m-d', strtotime( '-3 days' ) ), 60, 3 );
@@ -112,24 +113,26 @@ class Test_Analytics_Reports extends WP_UnitTestCase {
 		$this->assertSame( 5.0, $data['totals']['ctr'] );
 		$this->assertCount( 7, $data['series'] );
 		$this->assertSame( 40, end( $data['series'] )['views'] );
-		$this->assertNull( $data['changes'] ); // Compare is Pro.
-		// Free: basic totals and trend only.
-		$this->assertSame( array(), $data['top'] );
-		$this->assertSame( array(), $data['types'] );
-		$this->assertTrue( $data['locked'] );
-		// Pro gets the breakdowns.
-		$this->set_pro( true );
-		$data = $this->get( 'summary', array( 'range' => '7' ) )->get_data();
 		$this->assertSame( $this->nx_id, $data['top'][0]['nx_id'] );
-		$this->assertFalse( $data['locked'] );
+		$this->assertNull( $data['changes'] ); // Compare not asked for.
 	}
 
-	public function test_free_ignores_the_notification_filter() {
+	public function test_every_report_is_pro_and_free_keeps_the_all_time_totals() {
 		$this->add_stats( gmdate( 'Y-m-d' ), 10, 1 );
+		// Free: no range data at all, so it can't contradict the all-time cards.
+		foreach ( array( 'summary', 'notifications', 'audience', 'leads' ) as $route ) {
+			$res = $this->get( $route );
+			$this->assertSame( 403, $res->get_status(), $route );
+			$this->assertSame( 'nx_pro_required', $res->get_data()['code'], $route );
+		}
+		// The all-time totals behind the header cards still work on Free.
+		$totals = Analytics::get_instance()->get_total_count();
+		$this->assertSame( 10.0, (float) $totals['totalCtr'] );
+		// Pro: the notification filter applies.
 		$this->add_stats( gmdate( 'Y-m-d' ), 30, 3, 999 );
-		$this->assertSame( 40, $this->get( 'summary', array( 'nx_id' => $this->nx_id ) )->get_data()['totals']['views'] );
 		$this->set_pro( true );
 		$this->assertSame( 10, $this->get( 'summary', array( 'nx_id' => $this->nx_id ) )->get_data()['totals']['views'] );
+		$this->assertSame( 40, $this->get( 'summary' )->get_data()['totals']['views'] );
 	}
 
 	public function test_reports_need_the_analytics_capability() {

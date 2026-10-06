@@ -18,7 +18,8 @@ const VIEWS = ["overview", "audience", "notifications", "leads"] as const;
 type View = typeof VIEWS[number];
 const FREE_RANGES = ["7", "30"];
 /** Screens that are Pro; Free sees an upgrade screen instead. */
-const LOCKED: string[] = ["audience", "notifications", "leads"];
+// On Free every report is a preview; the all-time cards above stay real.
+const LOCKED: string[] = ["overview", "audience", "notifications", "leads"];
 const PRO_RANGES = ["14", "90", "all"];
 const THEME_KEY = "nx-analytics-theme";
 
@@ -183,11 +184,6 @@ const AnalyticsApp = () => {
                     </div>
                     {(
                         <div className="nxa-controls">
-                            {!isPro && view === "overview" && (
-                                <ProLocked feature={__("Filter by notification", "notificationx")} text={__("Look at one notification or one type of notification at a time.", "notificationx")}>
-                                    <Icon name="layers" size={15} />{__("Filter", "notificationx")}
-                                </ProLocked>
-                            )}
                             {isPro && (view === "overview" || view === "audience" || view === "leads") && (
                                 <>
                                     <select className="nxa-input nxa-input-type" value={type} onChange={(e) => pickType(e.target.value)} aria-label={__("Notification type", "notificationx")}>
@@ -268,7 +264,7 @@ const AnalyticsApp = () => {
                         </button>
                     </nav>
                     <main className="nxa-main">
-                        {view === "overview" && <Overview range={range} nxId={nxId} type={type} compare={compare} isPro={isPro} onOpen={setDrawer} reloadKey={reloadKey} />}
+                        {isPro && view === "overview" && <Overview range={range} nxId={nxId} type={type} compare={compare} isPro={isPro} onOpen={setDrawer} reloadKey={reloadKey} />}
                         {!isPro && LOCKED.includes(view) && <ProScreen view={view} />}
                         {isPro && view === "audience" && <Audience range={range} nxId={nxId} type={type} reloadKey={reloadKey} />}
                         {isPro && view === "notifications" && <Notifications range={range} onOpen={setDrawer} reloadKey={reloadKey} />}

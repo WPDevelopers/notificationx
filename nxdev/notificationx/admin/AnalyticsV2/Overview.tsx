@@ -4,7 +4,6 @@ import { getSummary } from "./api";
 import { AreaChart, BarList } from "./charts";
 import { Card, CtrPill, Delta, EmptyState, ErrorState, KpiCard, LegendToggle, Skeleton, StatusDot, TypeBadge, chartSeries, useChartFocus } from "./ui";
 import { fmtCompact, fmtNum, fmtPct, rangeLabel } from "./format";
-import { ProCard } from "./ProScreen";
 
 const Overview = ({ range, nxId, type, compare, isPro, onOpen, reloadKey }: any) => {
     const [data, setData] = useState<any>(null);
@@ -94,10 +93,6 @@ const Overview = ({ range, nxId, type, compare, isPro, onOpen, reloadKey }: any)
                     hint={__("Form submissions from Popup and Exit Intent notifications.", "notificationx")} />
             </div>
 
-            {data.locked ? (
-                <ProCard title={__("Find your best notifications", "notificationx")}
-                    text={__("See your top notifications, which types perform best, and open any notification for its own trend.", "notificationx")} />
-            ) : (
             <div className="nxa-grid">
                 <Card className="nxa-col-8" icon="trophy" tone="amber" title={__("Top notifications", "notificationx")} subtitle={__("Ranked by views", "notificationx")}>
                     {top.length ? (
@@ -126,7 +121,6 @@ const Overview = ({ range, nxId, type, compare, isPro, onOpen, reloadKey }: any)
                     <p className="nxa-note">{__("Views count page loads and leave out Popup, Exit Intent and Cookie Notice. Audience shows how often every notification was actually seen.", "notificationx")}</p>
                 </Card>
             </div>
-            )}
         </div>
     );
 };

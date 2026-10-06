@@ -756,13 +756,7 @@
 }
 .nxa-pro-card-head { display: flex; align-items: center; justify-content: space-between; .nxa-chip { width: 44px; height: 44px; border-radius: 12px; } }
 .nxa-btn-lg { height: 44px; padding: 0 20px; font-size: 14px; border-radius: 10px; }
-.nxa-pro-inline {
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px; align-items: center; padding: 24px; overflow: hidden;
-    background: linear-gradient(120deg, var(--nxa-surface) 40%, var(--nxa-brand-soft));
-}
-.nxa-pro-inline-sketch { display: grid; gap: 14px; filter: blur(3px); opacity: .6; span { display: grid; gap: 6px; } i { width: 35%; height: 9px; border-radius: 6px; background: var(--nxa-grid); } b { height: 8px; border-radius: 6px; background: linear-gradient(90deg, var(--nxa-brand), var(--nxa-mint)); } }
-.nxa-pro-inline-body { display: grid; gap: 8px; justify-items: start; h3 { font-size: 17px; } p { margin: 0 0 6px; color: var(--nxa-muted); } }
-@media (max-width: 960px) { .nxa-sketch-kpis { grid-template-columns: repeat(2, 1fr); } .nxa-pro-inline { grid-template-columns: 1fr; } .nxa-pro-inline-sketch { display: none; } }
+@media (max-width: 960px) { .nxa-sketch-kpis { grid-template-columns: repeat(2, 1fr); } }
 
 // Pro tag = the plugin's own crown badge (icons/crown.svg), same as Settings and the builder.
 .nxa .nxa-pro-pill {

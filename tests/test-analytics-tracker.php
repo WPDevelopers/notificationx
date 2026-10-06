@@ -346,7 +346,7 @@ class Test_Analytics_Tracker extends WP_UnitTestCase {
 		$this->assertSame( 202, $this->post( $this->batch( array( array( 'n' => $this->nx_id, 'e' => 'view' ) ) ) )->get_status() );
 		$this->assertSame( 1, $this->event_count() );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		foreach ( array( 'audience', 'leads', 'notifications', 'notification/' . $this->nx_id ) as $route ) {
+		foreach ( array( 'summary', 'audience', 'leads', 'notifications', 'notification/' . $this->nx_id ) as $route ) {
 			$res = rest_get_server()->dispatch( new WP_REST_Request( 'GET', '/notificationx/v1/analytics/report/' . $route ) );
 			$this->assertSame( 403, $res->get_status(), $route );
 			$this->assertSame( 'nx_pro_required', $res->get_data()['code'], $route );
