@@ -352,4 +352,22 @@ class Test_Analytics_Tracker extends WP_UnitTestCase {
 			$this->assertSame( 'nx_pro_required', $res->get_data()['code'], $route );
 		}
 	}
+
+	public function test_leads_report_links_to_the_entries_tab() {
+		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
+		$get = function ( $params = array() ) {
+			$request = new WP_REST_Request( 'GET', '/notificationx/v1/analytics/report/leads' );
+			foreach ( $params as $k => $v ) {
+				$request->set_param( $k, $v );
+			}
+			return rest_get_server()->dispatch( $request )->get_data()['entries_url'];
+		};
+		$this->assertSame( admin_url( 'admin.php?page=nx-settings&tab=entries' ), $get() );
+		$this->assertSame( admin_url( 'admin.php?page=nx-settings&tab=entries&notification_id=' . $this->nx_id ), $get( array( 'nx_id' => $this->nx_id ) ) );
+		// A user who can read analytics but not edit settings gets no link.
+		$user = self::factory()->user->create( array( 'role' => 'editor' ) );
+		get_user_by( 'id', $user )->add_cap( 'read_notificationx_analytics' );
+		wp_set_current_user( $user );
+		$this->assertNull( $get() );
+	}
 }
