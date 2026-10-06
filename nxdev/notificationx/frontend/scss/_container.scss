@@ -159,6 +159,47 @@ html:not([dir="rtl"]) .notificationx-frontend .notification-item.animate__slideO
 .notificationx-frontend .notification-item.position-bottom_right.animate__slideOutRight { animation-name: nxSlideOutRightFade; }
 .notificationx-frontend .notification-item.animate__slideOutUp { animation-name: nxSlideOutUpFade; }
 
+// 84709: "Use new corner spacing" (root class nx-spacing-v2). The same gap from both
+// edges in every corner; override with --nx-edge on any ancestor. !important is needed
+// to beat the legacy #notificationx-frontend container rules and the card's inline
+// offsets; everything here is scoped to nx-spacing-v2, so the legacy layout is untouched.
+.notificationx-frontend.nx-spacing-v2 .nx-container {
+    &.nxc-bottom_left  { bottom: var(--nx-edge, 20px) !important; left: var(--nx-edge, 20px) !important; right: var(--nx-edge, 20px) !important; margin: 0 !important; }
+    &.nxc-bottom_right { bottom: var(--nx-edge, 20px) !important; right: var(--nx-edge, 20px) !important; left: var(--nx-edge, 20px) !important; margin: 0 !important; }
+    &.nxc-top_left     { top: var(--nx-edge, 20px) !important; left: var(--nx-edge, 20px) !important; margin: 0 !important; align-items: flex-start !important; }
+    &.nxc-top_right    { top: var(--nx-edge, 20px) !important; right: var(--nx-edge, 20px) !important; margin: 0 !important; }
+    &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
+        .notification-item, .notification-res-item { top: auto !important; right: auto !important; bottom: 0 !important; left: 0 !important; }
+    }
+    @media only screen and (max-width: 480px) {
+        &.nxc-bottom_left, &.nxc-bottom_right { bottom: var(--nx-edge, 12px) !important; left: var(--nx-edge, 12px) !important; right: var(--nx-edge, 12px) !important; }
+        &.nxc-top_left, &.nxc-top_right { top: var(--nx-edge, 12px) !important; left: var(--nx-edge, 12px) !important; right: var(--nx-edge, 12px) !important; }
+    }
+}
+body.admin-bar .notificationx-frontend.nx-spacing-v2 .nx-container {
+    &.nxc-top_left, &.nxc-top_right { top: calc(var(--nx-edge, 20px) + 32px) !important; }
+    @media screen and (max-width: 782px) {
+        &.nxc-top_left, &.nxc-top_right { top: calc(var(--nx-edge, 20px) + 46px) !important; }
+    }
+    @media only screen and (max-width: 480px) {
+        &.nxc-top_left, &.nxc-top_right { top: calc(var(--nx-edge, 12px) + 46px) !important; }
+    }
+}
+// No 30px offset under v2, so slide-outs use the plain path (plus the fade) instead of the drift.
+html .notificationx-frontend.nx-spacing-v2 .nx-container .notification-item.animate__slideOutDown { animation-name: nxSlideOutDownFade; }
+html .notificationx-frontend.nx-spacing-v2 .nx-container .notification-item.animate__slideOutLeft { animation-name: nxSlideOutLeftFade; }
+html .notificationx-frontend.nx-spacing-v2 .nx-container .notification-item.animate__slideOutRight { animation-name: nxSlideOutRightFade; }
+// 84709: on phones (v2), every corner position is centered horizontally; the vertical
+// gap stays var(--nx-edge, 12px). min-width lets the 300px card shrink on very small phones.
+@media only screen and (max-width: 480px) {
+    .notificationx-frontend.nx-spacing-v2 .nx-container {
+        &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
+            align-items: center !important;
+            .notification-item { min-width: min(300px, 100%) !important; }
+        }
+    }
+}
+
 @keyframes FadeIn {
     0% {
         opacity: 0;

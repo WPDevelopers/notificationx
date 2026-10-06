@@ -2252,7 +2252,7 @@ class GlobalFields {
                                     'name'        => "delay_before",
                                     'type'        => "number",
                                     'priority'    => 40,
-                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 5,
+                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 8,
                                     'help'        => __('Initial Delay', 'notificationx'),
                                     'description' => __('seconds', 'notificationx'),
 
@@ -2264,7 +2264,7 @@ class GlobalFields {
                                     'description' => __('seconds', 'notificationx'),
                                     'help'        => __('Display each notification for * seconds', 'notificationx'),
                                     'priority'    => 60,
-                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 2 : 5,
+                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 2 : 7,
                                 ],
                                 'delay_between' => [
                                     'name'        => "delay_between",
@@ -2273,7 +2273,7 @@ class GlobalFields {
                                     'description' => __('seconds', 'notificationx'),
                                     'help'        => __('Delay between each notification', 'notificationx'),
                                     'priority'    => 70,
-                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 5,
+                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 8,
                                 ],
                             ]
                         ],
