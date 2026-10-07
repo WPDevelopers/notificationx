@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.3.3\n"
+"Project-Id-Version: NotificationX 3.3.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-28T06:53:10+00:00\n"
+"POT-Creation-Date: 2026-10-07T08:31:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
@@ -224,58 +224,58 @@ msgstr ""
 msgid "Read and manage NotificationX notifications, form entries, analytics and settings."
 msgstr ""
 
-#: includes/Admin/Admin.php:146
+#: includes/Admin/Admin.php:149
 #: assets/admin/js/admin.js:11
 msgid "All NotificationX"
 msgstr ""
 
 #. translators: 1: installed NotificationX Pro version, 2: required NotificationX Pro version.
-#: includes/Admin/Admin.php:255
+#: includes/Admin/Admin.php:258
 #, php-format
-msgid "You are using NotificationX Pro %1$s. Please update NotificationX Pro to version %2$s or later. Upcoming NotificationX releases move Flashing Tab, Cart Peek and Inline notifications fully into NotificationX Pro, and older Pro versions will stop showing them."
+msgid "You are using NotificationX Pro %1$s. Please update NotificationX Pro to version %2$s or later. Upcoming NotificationX releases move Flashing Tab, Cart Peek, Inline and Discount Alert notifications fully into NotificationX Pro, and older Pro versions will stop showing them."
 msgstr ""
 
-#: includes/Admin/Admin.php:263
+#: includes/Admin/Admin.php:266
 msgid "Go to plugin updates"
 msgstr ""
 
-#: includes/Admin/Admin.php:292
+#: includes/Admin/Admin.php:295
 msgid "We hope you're enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
 msgstr ""
 
-#: includes/Admin/Admin.php:297
+#: includes/Admin/Admin.php:300
 msgid "Ok, you deserve it!"
 msgstr ""
 
-#: includes/Admin/Admin.php:301
+#: includes/Admin/Admin.php:304
 msgid "I already did"
 msgstr ""
 
-#: includes/Admin/Admin.php:308
+#: includes/Admin/Admin.php:311
 msgid "Maybe Later"
 msgstr ""
 
-#: includes/Admin/Admin.php:316
+#: includes/Admin/Admin.php:319
 msgid "I need help"
 msgstr ""
 
-#: includes/Admin/Admin.php:320
+#: includes/Admin/Admin.php:323
 msgid "Never show again"
 msgstr ""
 
-#: includes/Admin/Admin.php:353
+#: includes/Admin/Admin.php:356
 msgid "<p><strong>Black Friday Exclusive:</strong> SAVE up to 40% & access to <strong>NotificationX Pro</strong> features.</p>"
 msgstr ""
 
-#: includes/Admin/Admin.php:353
+#: includes/Admin/Admin.php:356
 msgid "Grab The Offer"
 msgstr ""
 
-#: includes/Admin/Admin.php:490
+#: includes/Admin/Admin.php:493
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:491
+#: includes/Admin/Admin.php:494
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -335,7 +335,7 @@ msgstr ""
 #: includes/Admin/Settings.php:529
 #: includes/Core/Analytics.php:46
 #: includes/Extensions/GlobalFields.php:1296
-#: includes/FrontEnd/FrontEnd.php:131
+#: includes/FrontEnd/FrontEnd.php:238
 #: assets/admin/js/admin.js:1
 msgid "Analytics"
 msgstr ""
@@ -1986,10 +1986,10 @@ msgstr ""
 #: includes/Extensions/WordPress/WPComments.php:262
 #: includes/Extensions/WordPress/WPComments.php:263
 #: includes/Extensions/WordPress/WPComments.php:264
-#: includes/FrontEnd/FrontEnd.php:343
-#: includes/FrontEnd/FrontEnd.php:344
-#: includes/FrontEnd/FrontEnd.php:345
-#: includes/FrontEnd/FrontEnd.php:906
+#: includes/FrontEnd/FrontEnd.php:539
+#: includes/FrontEnd/FrontEnd.php:540
+#: includes/FrontEnd/FrontEnd.php:541
+#: includes/FrontEnd/FrontEnd.php:1104
 #: includes/Types/Comments.php:54
 #: includes/Types/Comments.php:67
 #: includes/Types/Comments.php:80
@@ -2046,7 +2046,7 @@ msgid "Add New"
 msgstr ""
 
 #. translators: %1$s: number of scans already used, %2$s: total free scans available
-#: includes/Core/PostType.php:134
+#: includes/Core/PostType.php:137
 #, php-format
 msgid "%1$s of %2$s free scans used"
 msgstr ""
@@ -2268,8 +2268,8 @@ msgstr ""
 msgid "Cannot create existing post."
 msgstr ""
 
-#: includes/Core/SetupWizard.php:61
 #: includes/Core/SetupWizard.php:62
+#: includes/Core/SetupWizard.php:63
 msgid "Setup Wizard"
 msgstr ""
 
@@ -2768,7 +2768,7 @@ msgstr ""
 #: includes/Extensions/Tutor/TutorInline.php:75
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:157
 #: includes/Extensions/WooCommerce/WooInline.php:161
-#: includes/FrontEnd/Preview.php:305
+#: includes/FrontEnd/Preview.php:306
 msgid "In last 1 day"
 msgstr ""
 
@@ -2779,7 +2779,7 @@ msgstr ""
 #: includes/Extensions/Tutor/TutorInline.php:76
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:158
 #: includes/Extensions/WooCommerce/WooInline.php:162
-#: includes/FrontEnd/Preview.php:306
+#: includes/FrontEnd/Preview.php:307
 #: includes/Types/DownloadStats.php:136
 #: includes/Types/DownloadStats.php:156
 msgid "In last 7 days"
@@ -2792,7 +2792,7 @@ msgstr ""
 #: includes/Extensions/Tutor/TutorInline.php:77
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:159
 #: includes/Extensions/WooCommerce/WooInline.php:163
-#: includes/FrontEnd/Preview.php:307
+#: includes/FrontEnd/Preview.php:308
 msgid "In last 30 days"
 msgstr ""
 
@@ -3702,14 +3702,14 @@ msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:415
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:428
-#: includes/MCP/Manager.php:1228
-#: includes/MCP/Manager.php:1680
+#: includes/MCP/Manager.php:1257
+#: includes/MCP/Manager.php:1709
 msgid "Show"
 msgstr ""
 
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:416
 #: includes/Extensions/ExitIntent/ExitIntentNotification.php:429
-#: includes/MCP/Manager.php:1686
+#: includes/MCP/Manager.php:1715
 msgid "Hide"
 msgstr ""
 
@@ -5101,7 +5101,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:117
 #: includes/Extensions/WooCommerce/WOOReviews.php:129
 #: includes/Extensions/WordPress/WPComments.php:266
-#: includes/FrontEnd/FrontEnd.php:347
+#: includes/FrontEnd/FrontEnd.php:543
 #: includes/Types/Comments.php:59
 #: includes/Types/Comments.php:72
 #: includes/Types/Comments.php:85
@@ -5185,7 +5185,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:1538
 #: includes/Extensions/GlobalFields.php:1780
 #: includes/Extensions/GlobalFields.php:1788
-#: includes/FrontEnd/Preview.php:432
+#: includes/FrontEnd/Preview.php:433
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 #: assets/admin/js/admin.js:20
@@ -5475,7 +5475,7 @@ msgid "By default, consent expires after 30 days. If needed, you can adjust this
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1187
-#: includes/FrontEnd/FrontEnd.php:123
+#: includes/FrontEnd/FrontEnd.php:230
 msgid "Necessary"
 msgstr ""
 
@@ -5489,22 +5489,22 @@ msgid "Edit Category "
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1242
-#: includes/FrontEnd/FrontEnd.php:127
+#: includes/FrontEnd/FrontEnd.php:234
 msgid "Functional"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1350
-#: includes/FrontEnd/FrontEnd.php:135
+#: includes/FrontEnd/FrontEnd.php:242
 msgid "Performance"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1404
-#: includes/FrontEnd/FrontEnd.php:139
+#: includes/FrontEnd/FrontEnd.php:246
 msgid "Advertisement"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1458
-#: includes/FrontEnd/FrontEnd.php:143
+#: includes/FrontEnd/FrontEnd.php:250
 msgid "Uncategorized"
 msgstr ""
 
@@ -6077,7 +6077,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:173
 #: includes/Extensions/WooCommerce/WOOReviews.php:142
 #: includes/Extensions/WooCommerce/WOOReviews.php:162
-#: includes/FrontEnd/FrontEnd.php:346
+#: includes/FrontEnd/FrontEnd.php:542
 #: includes/Types/Donations.php:54
 #: includes/Types/EmailSubscription.php:70
 #: includes/Types/Reviews.php:205
@@ -7822,483 +7822,483 @@ msgctxt "Inline Shortcode"
 msgid "%s ago"
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:124
+#: includes/FrontEnd/FrontEnd.php:231
 msgid "Necessary cookies are needed to ensure the basic functions of this site, like allowing secure log-ins and managing your consent settings. These cookies do not collect any personal information."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:128
+#: includes/FrontEnd/FrontEnd.php:235
 msgid "Functional cookies assist in performing tasks like sharing website content on social media, collecting feedback, and enabling other third-party features."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:132
+#: includes/FrontEnd/FrontEnd.php:239
 msgid "Analytical cookies help us understand how visitors use the website. They provide data on metrics like the number of visitors, bounce rate, traffic sources etc."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:136
+#: includes/FrontEnd/FrontEnd.php:243
 msgid "Performance cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:140
+#: includes/FrontEnd/FrontEnd.php:247
 msgid "Advertisement cookies help analyze the website's key advertising indicators, which in turn helps improve the user experience for visitors."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:144
+#: includes/FrontEnd/FrontEnd.php:251
 msgid "Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types."
 msgstr ""
 
-#: includes/FrontEnd/Preview.php:423
+#: includes/FrontEnd/Preview.php:424
 msgid "Talk to Support"
 msgstr ""
 
-#: includes/MCP/Manager.php:199
-#: includes/MCP/Manager.php:1354
+#: includes/MCP/Manager.php:220
+#: includes/MCP/Manager.php:1383
 msgid "Read-only"
 msgstr ""
 
-#: includes/MCP/Manager.php:199
-#: includes/MCP/Manager.php:641
-#: includes/MCP/Manager.php:1354
+#: includes/MCP/Manager.php:220
+#: includes/MCP/Manager.php:662
+#: includes/MCP/Manager.php:1383
 msgid "Read & write"
 msgstr ""
 
-#: includes/MCP/Manager.php:228
+#: includes/MCP/Manager.php:249
 msgid "Nothing to revoke."
 msgstr ""
 
-#: includes/MCP/Manager.php:501
+#: includes/MCP/Manager.php:522
 msgid "You do not have permission to authorize an MCP connection."
 msgstr ""
 
-#: includes/MCP/Manager.php:641
+#: includes/MCP/Manager.php:662
 msgid "Read only"
 msgstr ""
 
-#: includes/MCP/Manager.php:643
+#: includes/MCP/Manager.php:664
 msgid "It can read your notifications, entries and analytics. It cannot create, change or delete anything."
 msgstr ""
 
-#: includes/MCP/Manager.php:644
+#: includes/MCP/Manager.php:665
 msgid "It acts as you: anything it creates, edits or deletes is recorded under your account."
 msgstr ""
 
-#: includes/MCP/Manager.php:659
+#: includes/MCP/Manager.php:680
 msgid "Authorize MCP connection"
 msgstr ""
 
 #. translators: %1$s: client app name, %2$s: site name.
-#: includes/MCP/Manager.php:732
+#: includes/MCP/Manager.php:753
 #, php-format
 msgid "%1$s wants to work with your notifications on %2$s."
 msgstr ""
 
 #. translators: %1$s: user display name, %2$s: user role.
-#: includes/MCP/Manager.php:750
+#: includes/MCP/Manager.php:771
 #, php-format
 msgid "Signed in as %1$s%2$s"
 msgstr ""
 
 #. translators: %1$s: client app name, %2$d: number of tools.
-#: includes/MCP/Manager.php:765
+#: includes/MCP/Manager.php:786
 #, php-format
 msgid "What %1$s will be able to do (%2$d)"
 msgstr ""
 
-#: includes/MCP/Manager.php:787
+#: includes/MCP/Manager.php:808
 msgid "Secured with OAuth. You can revoke this app at any time under NotificationX → MCP."
 msgstr ""
 
-#: includes/MCP/Manager.php:794
+#: includes/MCP/Manager.php:815
 msgid "Deny"
 msgstr ""
 
-#: includes/MCP/Manager.php:795
+#: includes/MCP/Manager.php:816
 msgid "Approve"
 msgstr ""
 
-#: includes/MCP/Manager.php:823
+#: includes/MCP/Manager.php:852
 msgid "MCP"
 msgstr ""
 
-#: includes/MCP/Manager.php:871
+#: includes/MCP/Manager.php:900
 msgid "MCP Server"
 msgstr ""
 
-#: includes/MCP/Manager.php:884
+#: includes/MCP/Manager.php:913
 msgid "Enable MCP access"
 msgstr ""
 
-#: includes/MCP/Manager.php:885
+#: includes/MCP/Manager.php:914
 msgid "When enabled, approved AI assistants can connect to this site to manage notifications and read analytics."
 msgstr ""
 
-#: includes/MCP/Manager.php:901
+#: includes/MCP/Manager.php:930
 msgid "Connection"
 msgstr ""
 
-#: includes/MCP/Manager.php:917
+#: includes/MCP/Manager.php:946
 msgid "Connect a client"
 msgstr ""
 
-#: includes/MCP/Manager.php:933
-#: includes/MCP/Manager.php:1157
+#: includes/MCP/Manager.php:962
+#: includes/MCP/Manager.php:1186
 msgid "Connected apps"
 msgstr ""
 
-#: includes/MCP/Manager.php:949
+#: includes/MCP/Manager.php:978
 msgid "Connection health"
 msgstr ""
 
-#: includes/MCP/Manager.php:973
-#: includes/MCP/Manager.php:1461
+#: includes/MCP/Manager.php:1002
+#: includes/MCP/Manager.php:1490
 msgid "Off"
 msgstr ""
 
-#: includes/MCP/Manager.php:976
-#: includes/MCP/Manager.php:1460
+#: includes/MCP/Manager.php:1005
+#: includes/MCP/Manager.php:1489
 #: assets/admin/js/admin.js:1
 msgid "Active"
 msgstr ""
 
-#: includes/MCP/Manager.php:978
+#: includes/MCP/Manager.php:1007
 msgid "Setup needed"
 msgstr ""
 
-#: includes/MCP/Manager.php:1024
+#: includes/MCP/Manager.php:1053
 msgid "Turn MCP on"
 msgstr ""
 
-#: includes/MCP/Manager.php:1025
+#: includes/MCP/Manager.php:1054
 msgid "Flip the switch below."
 msgstr ""
 
-#: includes/MCP/Manager.php:1029
+#: includes/MCP/Manager.php:1058
 msgid "Copy your connector"
 msgstr ""
 
-#: includes/MCP/Manager.php:1030
+#: includes/MCP/Manager.php:1059
 msgid "One URL, and a token for clients that need one."
 msgstr ""
 
-#: includes/MCP/Manager.php:1034
+#: includes/MCP/Manager.php:1063
 msgid "Approve the client"
 msgstr ""
 
-#: includes/MCP/Manager.php:1035
+#: includes/MCP/Manager.php:1064
 msgid "Add it in Claude, ChatGPT or Cursor and confirm."
 msgstr ""
 
-#: includes/MCP/Manager.php:1072
+#: includes/MCP/Manager.php:1101
 msgid "Run NotificationX from your AI assistant"
 msgstr ""
 
-#: includes/MCP/Manager.php:1079
+#: includes/MCP/Manager.php:1108
 msgid "A built-in MCP server lets Claude, ChatGPT, Cursor and other assistants build campaigns, flip notifications on or off and read your analytics — in plain language, without leaving the chat. It stays off until you switch it on, and only administrators can connect."
 msgstr ""
 
-#: includes/MCP/Manager.php:1082
+#: includes/MCP/Manager.php:1111
 msgid "Learn how it works"
 msgstr ""
 
-#: includes/MCP/Manager.php:1137
+#: includes/MCP/Manager.php:1166
 msgid "Server status"
 msgstr ""
 
 #. translators: %s: the date the connection was established.
-#: includes/MCP/Manager.php:1142
+#: includes/MCP/Manager.php:1171
 #, php-format
 msgid "since %s"
 msgstr ""
 
-#: includes/MCP/Manager.php:1147
+#: includes/MCP/Manager.php:1176
 msgid "Tools exposed"
 msgstr ""
 
 #. translators: %s: number of Pro-only tools.
-#: includes/MCP/Manager.php:1152
+#: includes/MCP/Manager.php:1181
 #, php-format
 msgid "%s from Pro"
 msgid_plural "%s from Pro"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/MCP/Manager.php:1153
+#: includes/MCP/Manager.php:1182
 msgid "more with Pro"
 msgstr ""
 
-#: includes/MCP/Manager.php:1160
+#: includes/MCP/Manager.php:1189
 msgid "none yet"
 msgstr ""
 
-#: includes/MCP/Manager.php:1164
+#: includes/MCP/Manager.php:1193
 msgid "Last activity"
 msgstr ""
 
 #. translators: %s: human-readable time difference, e.g. "5 mins".
-#: includes/MCP/Manager.php:1167
+#: includes/MCP/Manager.php:1196
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: includes/MCP/Manager.php:1168
+#: includes/MCP/Manager.php:1197
 msgid "Never"
 msgstr ""
 
-#: includes/MCP/Manager.php:1217
+#: includes/MCP/Manager.php:1246
 msgid "Connector URL"
 msgstr ""
 
-#: includes/MCP/Manager.php:1220
-#: includes/MCP/Manager.php:1230
+#: includes/MCP/Manager.php:1249
+#: includes/MCP/Manager.php:1259
 msgid "Copy"
 msgstr ""
 
-#: includes/MCP/Manager.php:1222
+#: includes/MCP/Manager.php:1251
 msgid "Add this URL as a custom connector in your AI client."
 msgstr ""
 
-#: includes/MCP/Manager.php:1225
+#: includes/MCP/Manager.php:1254
 msgid "Connection token"
 msgstr ""
 
-#: includes/MCP/Manager.php:1232
+#: includes/MCP/Manager.php:1261
 msgid "For token-based clients (ChatGPT, Cursor): send it as an Authorization: Bearer header. Keep it secret."
 msgstr ""
 
-#: includes/MCP/Manager.php:1236
+#: includes/MCP/Manager.php:1265
 msgid "Connection test passed — the MCP server is reachable and exposing its tools."
 msgstr ""
 
-#: includes/MCP/Manager.php:1236
+#: includes/MCP/Manager.php:1265
 msgid "Test connection"
 msgstr ""
 
-#: includes/MCP/Manager.php:1237
+#: includes/MCP/Manager.php:1266
 msgid "Reset the connection token? Existing clients will need the new token to reconnect."
 msgstr ""
 
-#: includes/MCP/Manager.php:1237
+#: includes/MCP/Manager.php:1266
 msgid "A new connection token was generated."
 msgstr ""
 
-#: includes/MCP/Manager.php:1237
+#: includes/MCP/Manager.php:1266
 msgid "Reset token"
 msgstr ""
 
-#: includes/MCP/Manager.php:1263
+#: includes/MCP/Manager.php:1292
 msgid "Claude"
 msgstr ""
 
-#: includes/MCP/Manager.php:1264
+#: includes/MCP/Manager.php:1293
 msgid "OAuth"
 msgstr ""
 
-#: includes/MCP/Manager.php:1267
+#: includes/MCP/Manager.php:1296
 msgid "In Claude, add a custom connector."
 msgstr ""
 
-#: includes/MCP/Manager.php:1268
+#: includes/MCP/Manager.php:1297
 msgid "Paste the Connector URL above."
 msgstr ""
 
-#: includes/MCP/Manager.php:1269
+#: includes/MCP/Manager.php:1298
 msgid "Approve the connection when prompted — you sign in here, no token needed."
 msgstr ""
 
-#: includes/MCP/Manager.php:1271
-#: includes/MCP/Manager.php:1284
+#: includes/MCP/Manager.php:1300
+#: includes/MCP/Manager.php:1313
 msgid "Copy connector URL"
 msgstr ""
 
-#: includes/MCP/Manager.php:1276
+#: includes/MCP/Manager.php:1305
 msgid "ChatGPT"
 msgstr ""
 
-#: includes/MCP/Manager.php:1277
-#: includes/MCP/Manager.php:1290
+#: includes/MCP/Manager.php:1306
+#: includes/MCP/Manager.php:1319
 msgid "Token"
 msgstr ""
 
-#: includes/MCP/Manager.php:1280
+#: includes/MCP/Manager.php:1309
 msgid "Settings → Connectors → Add a custom connector."
 msgstr ""
 
-#: includes/MCP/Manager.php:1281
+#: includes/MCP/Manager.php:1310
 msgid "Use the Connector URL above."
 msgstr ""
 
-#: includes/MCP/Manager.php:1282
+#: includes/MCP/Manager.php:1311
 msgid "Provide the connection token as a Bearer credential."
 msgstr ""
 
-#: includes/MCP/Manager.php:1289
+#: includes/MCP/Manager.php:1318
 msgid "Cursor &amp; others"
 msgstr ""
 
-#: includes/MCP/Manager.php:1293
+#: includes/MCP/Manager.php:1322
 msgid "Open the client’s MCP configuration file."
 msgstr ""
 
-#: includes/MCP/Manager.php:1294
+#: includes/MCP/Manager.php:1323
 msgid "Paste the server block below into mcpServers."
 msgstr ""
 
-#: includes/MCP/Manager.php:1295
+#: includes/MCP/Manager.php:1324
 msgid "Confirm the install when the client asks."
 msgstr ""
 
-#: includes/MCP/Manager.php:1297
+#: includes/MCP/Manager.php:1326
 msgid "Copy JSON config"
 msgstr ""
 
-#: includes/MCP/Manager.php:1321
+#: includes/MCP/Manager.php:1350
 msgid "Token connection (ChatGPT / Cursor / manual)"
 msgstr ""
 
-#: includes/MCP/Manager.php:1343
+#: includes/MCP/Manager.php:1372
 msgid "Apps you have approved. Refresh to pick up a new or detached connection."
 msgstr ""
 
-#: includes/MCP/Manager.php:1344
+#: includes/MCP/Manager.php:1373
 msgid "Refresh"
 msgstr ""
 
-#: includes/MCP/Manager.php:1349
-#: includes/MCP/Manager.php:1438
+#: includes/MCP/Manager.php:1378
+#: includes/MCP/Manager.php:1467
 msgid "No AI clients are connected yet."
 msgstr ""
 
-#: includes/MCP/Manager.php:1361
-#: includes/MCP/Manager.php:1437
+#: includes/MCP/Manager.php:1390
+#: includes/MCP/Manager.php:1466
 msgid "Revoke"
 msgstr ""
 
-#: includes/MCP/Manager.php:1386
+#: includes/MCP/Manager.php:1415
 msgid "Secure connection (HTTPS) is on."
 msgstr ""
 
-#: includes/MCP/Manager.php:1388
+#: includes/MCP/Manager.php:1417
 msgid "This site is not served over HTTPS. Token clients work, but hosted clients like Claude require an HTTPS site to connect."
 msgstr ""
 
 #. translators: %s: protocol version
-#: includes/MCP/Manager.php:1391
+#: includes/MCP/Manager.php:1420
 #, php-format
 msgid "MCP protocol version %s."
 msgstr ""
 
 #. translators: %s: protocol version
-#: includes/MCP/Manager.php:1392
+#: includes/MCP/Manager.php:1421
 msgid "Endpoint:"
 msgstr ""
 
-#: includes/MCP/Manager.php:1393
+#: includes/MCP/Manager.php:1422
 msgid "Use “Test connection” above to verify the server end-to-end."
 msgstr ""
 
-#: includes/MCP/Manager.php:1397
+#: includes/MCP/Manager.php:1426
 msgid "Disconnect all"
 msgstr ""
 
-#: includes/MCP/Manager.php:1398
+#: includes/MCP/Manager.php:1427
 msgid "Revoke every connection and OAuth grant. All clients will need to reconnect."
 msgstr ""
 
-#: includes/MCP/Manager.php:1400
+#: includes/MCP/Manager.php:1429
 msgid "Disconnect all clients? Every connection will be revoked."
 msgstr ""
 
-#: includes/MCP/Manager.php:1400
+#: includes/MCP/Manager.php:1429
 msgid "All MCP connections have been revoked."
 msgstr ""
 
-#: includes/MCP/Manager.php:1400
+#: includes/MCP/Manager.php:1429
 msgid "Disconnect all clients"
 msgstr ""
 
-#: includes/MCP/Manager.php:1439
+#: includes/MCP/Manager.php:1468
 msgid "Could not refresh the connected apps."
 msgstr ""
 
-#: includes/MCP/Manager.php:1440
+#: includes/MCP/Manager.php:1469
 msgid "Revoke this connection? The client will need to reconnect."
 msgstr ""
 
-#: includes/MCP/Manager.php:1442
+#: includes/MCP/Manager.php:1471
 msgid "MCP access enabled."
 msgstr ""
 
-#: includes/MCP/Manager.php:1443
+#: includes/MCP/Manager.php:1472
 msgid "MCP access disabled."
 msgstr ""
 
-#: includes/MCP/Manager.php:1444
+#: includes/MCP/Manager.php:1473
 msgid "Could not save the MCP setting."
 msgstr ""
 
-#: includes/MCP/Manager.php:1446
+#: includes/MCP/Manager.php:1475
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:9
 #: assets/admin/js/admin.js:11
 msgid "Something went wrong."
 msgstr ""
 
-#: includes/MCP/Manager.php:1447
+#: includes/MCP/Manager.php:1476
 msgid "Request failed."
 msgstr ""
 
-#: includes/MCP/Manager.php:1448
+#: includes/MCP/Manager.php:1477
 msgid "Done."
 msgstr ""
 
-#: includes/MCP/Manager.php:1449
+#: includes/MCP/Manager.php:1478
 msgid "Connection revoked."
 msgstr ""
 
-#: includes/MCP/Manager.php:1451
+#: includes/MCP/Manager.php:1480
 msgid "No apps connected yet."
 msgstr ""
 
-#: includes/MCP/Manager.php:1452
+#: includes/MCP/Manager.php:1481
 msgid "Up to date — nothing changed."
 msgstr ""
 
-#: includes/MCP/Manager.php:1453
+#: includes/MCP/Manager.php:1482
 msgid "1 new app connected."
 msgstr ""
 
 #. translators: %d: number of newly connected apps.
-#: includes/MCP/Manager.php:1455
+#: includes/MCP/Manager.php:1484
 #, php-format
 msgid "%d new apps connected."
 msgstr ""
 
-#: includes/MCP/Manager.php:1456
+#: includes/MCP/Manager.php:1485
 msgid "1 app disconnected."
 msgstr ""
 
 #. translators: %d: number of disconnected apps.
-#: includes/MCP/Manager.php:1458
+#: includes/MCP/Manager.php:1487
 #, php-format
 msgid "%d apps disconnected."
 msgstr ""
 
-#: includes/MCP/Manager.php:1459
+#: includes/MCP/Manager.php:1488
 msgid "Connected apps updated."
 msgstr ""
 
-#: includes/MCP/Manager.php:1462
+#: includes/MCP/Manager.php:1491
 msgid "Copied"
 msgstr ""
 
-#: includes/MCP/Manager.php:1463
+#: includes/MCP/Manager.php:1492
 msgid "The token is not on screen yet. Reload the page and try again."
 msgstr ""
 
-#: includes/MCP/Manager.php:1464
+#: includes/MCP/Manager.php:1493
 msgid "Server block copied. Paste it into your client’s MCP config."
 msgstr ""
 
-#: includes/MCP/Manager.php:2023
+#: includes/MCP/Manager.php:2052
 msgid "No route was found matching the URL and request method."
 msgstr ""
 
@@ -9209,6 +9209,9 @@ msgstr ""
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 #: assets/admin/js/admin.js:20
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+#: nxdev/notificationx/frontend/themes/helpers/Close.js:51
 msgid "Close"
 msgstr ""
 

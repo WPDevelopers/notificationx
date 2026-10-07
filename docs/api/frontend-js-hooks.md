@@ -95,15 +95,19 @@ WordPress.org Guideline 5 does not allow working Pro-only code in the free plugi
 | --- | --- | --- |
 | 1–3 | Pro 3.2.3 | Pro registers its own Cart Peek Type, Inline classes and Flashing Tab bundle. |
 | 4 | **Free 3.3.3** | These hooks, the shared runtime, the `wp-hooks` dependency, and the Pro version notice. Nothing is removed. |
-| 5 | Pro | Pro claims the announcements themes and the Cart Peek template through these hooks. |
+| 5 | **Pro 3.2.4** + free | Pro claims the Discount Alert (announcements) themes and the Cart Peek rows through these hooks (`notificationx-pro` [nxdev/frontend-themes/](../../../notificationx-pro/nxdev/frontend-themes/)), and runs its Inline classes without the free copies. The next free release raises `MIN_PRO_VERSION` to `3.2.4`. Release Pro first. |
 | 6 | — | Wait 4–6 weeks for Pro updates. |
 | 7 | Free | Delete the built-in branches that each hook wraps, and the Pro code that is still in free. |
 
 Free 3.3.3 does not change behavior: with no filters registered, every hook returns its default value. In step 7 the default values stay the same, except that `announcements` is removed from the three built-in lists and the countdown default becomes `false`.
 
+### Open before step 7: the Cross Domain Notice
+
+On a non-WordPress site, the Cross Domain Notice snippet (notificationx-pro `Admin/XSS.php`) loads `frontend.js` without `wp-hooks` and without Pro's `frontend-themes.js`. The hooks then return their defaults, so the built-in Discount Alert and Cart Peek code renders there. After step 7 deletes that code, these notifications render without their badge, button and rows on cross-domain sites. Users paste the snippet once, so a change to `get_scripts()` reaches only sites that copy it again. Step 7 needs a way for `frontend.js` to load the add-on script on those sites (for example from the REST data), plus a hooks registry when `window.wp` is missing.
+
 ### Pro version notice
 
-`Admin::pro_version_notice()` ([Admin.php:249](../../includes/Admin/Admin.php#L249)) shows a warning that users cannot dismiss when NotificationX Pro is older than `Admin::MIN_PRO_VERSION` (`3.2.3`, [Admin.php:55](../../includes/Admin/Admin.php#L55)). Only users with `update_plugins` see it. The notice uses `all_admin_notices` because `hide_others_plugin_admin_notice()` removes `admin_notices` callbacks on NotificationX screens.
+`Admin::pro_version_notice()` ([Admin.php:252](../../includes/Admin/Admin.php#L252)) shows a warning that users cannot dismiss when NotificationX Pro is older than `Admin::MIN_PRO_VERSION` (`3.2.4`, [Admin.php:58](../../includes/Admin/Admin.php#L58)). Only users with `update_plugins` see it. The notice uses `all_admin_notices` because `hide_others_plugin_admin_notice()` removes `admin_notices` callbacks on NotificationX screens.
 
 ## Tests
 

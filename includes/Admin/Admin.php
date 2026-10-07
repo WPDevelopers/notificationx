@@ -46,13 +46,16 @@ class Admin {
 
     /**
      * Oldest NotificationX Pro that ships its own copy of the Pro features the
-     * free plugin is removing (Flashing Tab, Cart Peek, Inline). Older Pro keeps
-     * working with this release, but loses those features once the free copies
-     * are deleted. See docs/api/frontend-js-hooks.md.
+     * free plugin is removing (Flashing Tab, Cart Peek, Inline, Discount Alert).
+     * Older Pro keeps working with this release, but loses those features once
+     * the free copies are deleted. See docs/api/frontend-js-hooks.md.
+     *
+     * Pro 3.2.3 brought Flashing Tab, Cart Peek and Inline; Pro 3.2.4 brings the
+     * Discount Alert rendering and runs Inline without the free copy.
      *
      * @since 3.3.3
      */
-    const MIN_PRO_VERSION = '3.2.3';
+    const MIN_PRO_VERSION = '3.2.4';
 
     private $insights = null;
 
@@ -252,7 +255,7 @@ class Admin {
         }
         $message = sprintf(
             /* translators: 1: installed NotificationX Pro version, 2: required NotificationX Pro version. */
-            __( 'You are using NotificationX Pro %1$s. Please update NotificationX Pro to version %2$s or later. Upcoming NotificationX releases move Flashing Tab, Cart Peek and Inline notifications fully into NotificationX Pro, and older Pro versions will stop showing them.', 'notificationx' ),
+            __( 'You are using NotificationX Pro %1$s. Please update NotificationX Pro to version %2$s or later. Upcoming NotificationX releases move Flashing Tab, Cart Peek, Inline and Discount Alert notifications fully into NotificationX Pro, and older Pro versions will stop showing them.', 'notificationx' ),
             '<strong>' . esc_html( NOTIFICATIONX_PRO_VERSION ) . '</strong>',
             '<strong>' . esc_html( self::MIN_PRO_VERSION ) . '</strong>'
         );

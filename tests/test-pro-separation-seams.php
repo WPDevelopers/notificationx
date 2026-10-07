@@ -82,17 +82,17 @@ class Test_Pro_Separation_Seams extends WP_UnitTestCase {
 
 	public function pro_versions() {
 		return [
-			'older patch'        => [ '3.2.2', true ],
+			'older patch'        => [ '3.2.3', true ],
 			'older minor'        => [ '3.1.5', true ],
-			'minimum'            => [ '3.2.3', false ],
+			'minimum'            => [ '3.2.4', false ],
 			'newer'              => [ '3.3.0', false ],
 			'empty version'      => [ '', false ],
 			'non-string version' => [ 3.1, false ],
 		];
 	}
 
-	public function test_min_pro_version_is_the_release_with_steps_1_to_3() {
-		$this->assertSame( '3.2.3', Admin::MIN_PRO_VERSION );
+	public function test_min_pro_version_is_the_release_with_steps_1_to_5() {
+		$this->assertSame( '3.2.4', Admin::MIN_PRO_VERSION );
 	}
 
 	public function test_pro_needs_update_is_false_without_pro() {
