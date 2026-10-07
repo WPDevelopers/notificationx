@@ -213,6 +213,28 @@ html[dir="rtl"] .notificationx-frontend:not(.nx-spacing-v2) .nx-container .notif
     &.animate__slideOutRight { animation-name: nxSlideOutRightFar; }
     &.animate__slideOutUp    { animation-name: nxSlideOutUpDriftFade; }
 }
+// 84712: Progressive reveal (Pro). Rows 2-3 fade in after the card lands; only opacity and
+// transform animate, so the card's height and the page layout never change.
+@keyframes nxRevealRow { from { opacity: 0; transform: translate3d(0, 6px, 0); } }
+.notificationx-content.nx-reveal > p.nx-second-row { animation: nxRevealRow .35s cubic-bezier(.22,.61,.36,1) .3s backwards; }
+.notificationx-content.nx-reveal > p.nx-third-row  { animation: nxRevealRow .35s cubic-bezier(.22,.61,.36,1) .38s backwards; }
+// Shortcode cards render outside .notificationx-frontend, so the global reduced-motion rule doesn't reach them.
+@media (prefers-reduced-motion: reduce) { .notificationx-content.nx-reveal > p { animation: none !important; } }
+// 84712: in these themes the "powered by" branding is position:absolute. A transformed row becomes
+// its containing block, so it would sit in the wrong place during the reveal and jump at the end.
+// Those rows only fade; their in-flow children rise; the branding stays put. Without :has() support
+// these rules are dropped and the row keeps the default reveal.
+@keyframes nxRevealRowFade { from { opacity: 0; } }
+@keyframes nxRevealRowRise { from { transform: translate3d(0, 6px, 0); } }
+.notification-item:is(.themes-conversions_conv-theme-ten, .themes-woocommerce_sales_conv-theme-ten, .themes-conversions_conv-theme-eleven, .themes-woocommerce_sales_conv-theme-eleven) .no-advance-edit .notificationx-content.nx-reveal > p.nx-third-row:has(> .nx-branding),
+.notification-item:is(.themes-conversions_conv-theme-fourteen, .themes-woocommerce_sales_conv-theme-fourteen, .themes-conversions_conv-theme-sixteen, .themes-woocommerce_sales_conv-theme-sixteen) .notificationx-content.nx-reveal > p.nx-third-row:has(> .nx-branding) {
+    animation-name: nxRevealRowFade;
+    > :not(.nx-branding) { animation: nxRevealRowRise .35s cubic-bezier(.22,.61,.36,1) .38s backwards; }
+}
+// Shortcode cards sit outside .notificationx-frontend; stop the child rise there too under reduced motion.
+@media (prefers-reduced-motion: reduce) {
+    .notificationx-content.nx-reveal > p:has(> .nx-branding) > :not(.nx-branding) { animation: none !important; }
+}
 
 @keyframes FadeIn {
     0% {

@@ -2194,6 +2194,16 @@ class GlobalFields {
                                         ],
                                     ],
                                 ],
+                                'progressive_reveal' => [
+                                    'label'       => __('Progressive reveal', 'notificationx'),
+                                    'name'        => 'progressive_reveal',
+                                    'type'        => 'checkbox',
+                                    'priority'    => 12,
+                                    'default'     => 0,
+                                    'is_pro'      => true,
+                                    'description' => __('Show the first line with the notification, then fade in the rest.', 'notificationx'),
+                                    'rules'       => Rules::includes( 'type', [ 'popup', 'gdpr', 'notification_bar', 'offer_announcement', 'flashing_tab' ], true ),
+                                ],
                                 // 'animation_notification_duration' => [
                                 //     'label'    => __("Duration", 'notificationx'),
                                 //     'name'     => "animation_notification_duration",
