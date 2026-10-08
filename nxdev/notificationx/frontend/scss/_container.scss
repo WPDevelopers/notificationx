@@ -272,6 +272,26 @@ html[dir="rtl"] .notificationx-frontend:not(.nx-spacing-v2) .nx-container .notif
 @media (prefers-reduced-motion: reduce) {
     .notificationx-content.nx-reveal > p:has(> .nx-branding) > :not(.nx-branding) { animation: none !important; }
 }
+// 80989: Animation Duration (Pro). Only a card whose value isn't 0.5s gets .nx-anim-timed and
+// --nx-anim-scale (value / 0.5s); every preset keeps its own proportion. Animate.css reads
+// --animate-duration from the same card. The reduced-motion !important rules still win.
+.nx-anim-timed {
+    &.nx-anim-default-in       { animation-duration: calc(.5s * var(--nx-anim-scale, 1)); }
+    &.nx-anim-rise-soft        { animation-duration: calc(.55s * var(--nx-anim-scale, 1)); }
+    &.nx-anim-rise-spring      { animation-duration: calc(.65s * var(--nx-anim-scale, 1)); }
+    &.nx-anim-pop              { animation-duration: calc(.45s * var(--nx-anim-scale, 1)); }
+    &.nx-anim-rise-soft-out    { animation-duration: calc(.35s * var(--nx-anim-scale, 1)); }
+    &.nx-anim-rise-spring-out  { animation-duration: calc(.4s * var(--nx-anim-scale, 1)); }
+    &.nx-anim-pop-out          { animation-duration: calc(.3s * var(--nx-anim-scale, 1)); }
+    // Progressive reveal: rows keep landing just before the card does.
+    .notificationx-content.nx-reveal > p.nx-second-row { animation-duration: calc(.35s * var(--nx-anim-scale, 1)); animation-delay: calc(.3s * var(--nx-anim-scale, 1)); }
+    .notificationx-content.nx-reveal > p.nx-third-row  { animation-duration: calc(.35s * var(--nx-anim-scale, 1)); animation-delay: calc(.38s * var(--nx-anim-scale, 1)); }
+}
+.notification-item.nx-anim-timed:is(.themes-conversions_conv-theme-ten, .themes-woocommerce_sales_conv-theme-ten, .themes-conversions_conv-theme-eleven, .themes-woocommerce_sales_conv-theme-eleven) .no-advance-edit .notificationx-content.nx-reveal > p.nx-third-row:has(> .nx-branding) > :not(.nx-branding),
+.notification-item.nx-anim-timed:is(.themes-conversions_conv-theme-fourteen, .themes-woocommerce_sales_conv-theme-fourteen, .themes-conversions_conv-theme-sixteen, .themes-woocommerce_sales_conv-theme-sixteen) .notificationx-content.nx-reveal > p.nx-third-row:has(> .nx-branding) > :not(.nx-branding) {
+    animation-duration: calc(.35s * var(--nx-anim-scale, 1));
+    animation-delay: calc(.38s * var(--nx-anim-scale, 1));
+}
 
 @keyframes FadeIn {
     0% {
