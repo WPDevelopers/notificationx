@@ -555,6 +555,8 @@ class PostType {
         if ( !NotificationX::is_pro() ) {
             $post['animation_notification_show']     = 'default';
             $post['animation_notification_hide']     = 'default';
+            $post['progressive_reveal']              = false;
+            $post['animation_duration']              = 0.5;
         }
 
         return $post;

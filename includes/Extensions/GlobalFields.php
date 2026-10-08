@@ -2032,6 +2032,21 @@ class GlobalFields {
                                             'value'    => 'default',
                                             'selected' => 'selected',
                                         ],
+                                        'nx-anim-rise-soft' => [
+                                            'label'    => __('Rise (soft)', 'notificationx'),
+                                            'value'    => 'nx-anim-rise-soft',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'nx-anim-rise-spring' => [
+                                            'label'    => __('Rise (spring)', 'notificationx'),
+                                            'value'    => 'nx-anim-rise-spring',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'nx-anim-pop' => [
+                                            'label'    => __('Pop', 'notificationx'),
+                                            'value'    => 'nx-anim-pop',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
                                         'animate__fadeIn' => [
                                             'label'    => __('Fade In', 'notificationx'),
                                             'value'    => 'animate__fadeIn',
@@ -2112,6 +2127,21 @@ class GlobalFields {
                                             'label' => __('Default', 'notificationx'),
                                             'value' => 'default',
                                         ],
+                                        'nx-anim-rise-soft-out' => [
+                                            'label'    => __('Sink (soft)', 'notificationx'),
+                                            'value'    => 'nx-anim-rise-soft-out',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'nx-anim-rise-spring-out' => [
+                                            'label'    => __('Sink (spring)', 'notificationx'),
+                                            'value'    => 'nx-anim-rise-spring-out',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'nx-anim-pop-out' => [
+                                            'label'    => __('Pop out', 'notificationx'),
+                                            'value'    => 'nx-anim-pop-out',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
                                         'animate__fadeOut' => [
                                             'label'    => __('Fade Out', 'notificationx'),
                                             'value'    => 'animate__fadeOut',
@@ -2163,6 +2193,29 @@ class GlobalFields {
                                             'disabled' => NotificationX::is_pro() ? false : true,
                                         ],
                                     ],
+                                ],
+                                // 80989: one base speed for the Show and Hide animations (seconds).
+                                // 0.5 is today's speed; the frontend changes nothing at 0.5.
+                                'animation_duration' => [
+                                    'label'       => __('Animation Duration', 'notificationx'),
+                                    'name'        => 'animation_duration',
+                                    'type'        => 'number',
+                                    'priority'    => 11,
+                                    'default'     => 0.5,
+                                    'step'        => 'any',
+                                    'is_pro'      => true,
+                                    'description' => __('seconds', 'notificationx'),
+                                    'rules'       => Rules::includes( 'type', [ 'notification_bar', 'offer_announcement', 'flashing_tab' ], true ),
+                                ],
+                                'progressive_reveal' => [
+                                    'label'       => __('Progressive reveal', 'notificationx'),
+                                    'name'        => 'progressive_reveal',
+                                    'type'        => 'checkbox',
+                                    'priority'    => 12,
+                                    'default'     => 0,
+                                    'is_pro'      => true,
+                                    'description' => __('Show the first line with the notification, then fade in the rest.', 'notificationx'),
+                                    'rules'       => Rules::includes( 'type', [ 'popup', 'gdpr', 'notification_bar', 'offer_announcement', 'flashing_tab' ], true ),
                                 ],
                                 // 'animation_notification_duration' => [
                                 //     'label'    => __("Duration", 'notificationx'),
@@ -2222,7 +2275,7 @@ class GlobalFields {
                                     'name'        => "delay_before",
                                     'type'        => "number",
                                     'priority'    => 40,
-                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 5,
+                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 8,
                                     'help'        => __('Initial Delay', 'notificationx'),
                                     'description' => __('seconds', 'notificationx'),
 
@@ -2234,7 +2287,7 @@ class GlobalFields {
                                     'description' => __('seconds', 'notificationx'),
                                     'help'        => __('Display each notification for * seconds', 'notificationx'),
                                     'priority'    => 60,
-                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 2 : 5,
+                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 2 : 7,
                                 ],
                                 'delay_between' => [
                                     'name'        => "delay_between",
@@ -2243,7 +2296,7 @@ class GlobalFields {
                                     'description' => __('seconds', 'notificationx'),
                                     'help'        => __('Delay between each notification', 'notificationx'),
                                     'priority'    => 70,
-                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 5,
+                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 8,
                                 ],
                             ]
                         ],

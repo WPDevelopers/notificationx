@@ -116,6 +116,183 @@
     }
 }
 
+@keyframes nxRise {
+    from { opacity: 0; transform: translate3d(0, 20px, 0); }
+    to   { opacity: 1; transform: none; }
+}
+.nx-anim-default-in {
+    animation: nxRise 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+}
+.notification-item.nx-anim-default-in { animation-fill-mode: backwards; }
+.notificationx-frontend .nx-container .notification-res-item.nx-anim-default-in { animation-fill-mode: backwards; }
+
+// Curated presets (Pro). Exits end hidden so a banner that stays mounted
+// after a custom hide (GDPR) can't block clicks.
+@keyframes nxPop { from { opacity: 0; transform: scale(.94) translate3d(0,8px,0); } to { opacity: 1; transform: none; } }
+@keyframes nxSink { from { opacity: 1; transform: none; } to { opacity: 0; transform: translate3d(0, 20px, 0); visibility: hidden; } }
+@keyframes nxPopOut { from { opacity: 1; transform: none; } to { opacity: 0; transform: scale(.94) translate3d(0, 8px, 0); visibility: hidden; } }
+.nx-anim-rise-soft   { animation: nxRise .55s cubic-bezier(.22,.61,.36,1) both; }
+.nx-anim-rise-spring { animation: nxRise .65s cubic-bezier(.175,.885,.32,1.5) both; }
+.nx-anim-pop         { animation: nxPop .45s cubic-bezier(.34,1.56,.64,1) both; }
+.nx-anim-rise-soft-out   { animation: nxSink .35s cubic-bezier(.55,.055,.675,.19) forwards; pointer-events: none; }
+.nx-anim-rise-spring-out { animation: nxSink .4s cubic-bezier(.6,-.28,.735,.045) forwards; pointer-events: none; }
+.nx-anim-pop-out         { animation: nxPopOut .3s cubic-bezier(.36,0,.66,-.56) forwards; pointer-events: none; }
+
+// 84714: today's 30px slide-out drift, done with transform instead of bottom/left/right.
+// Slide-outs fade over the second half so no part of the card pops out of view;
+// the 50% stop sets only opacity, so the transform path is unchanged.
+@keyframes nxSlideOutDownFar  { from { transform: translate3d(0, 0, 0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(0, calc(100% + 30px), 0); opacity: 0; } }
+@keyframes nxSlideOutLeftFar  { from { transform: translate3d(0, 0, 0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(calc(-100% - 30px), 0, 0); opacity: 0; } }
+@keyframes nxSlideOutRightFar { from { transform: translate3d(0, 0, 0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(calc(100% + 30px), 0, 0); opacity: 0; } }
+// Copies of Animate.css 4.1.1 slideOut* (same transform), plus the fade.
+@keyframes nxSlideOutDownFade  { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(0, 100%, 0); opacity: 0; } }
+@keyframes nxSlideOutLeftFade  { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(-100%, 0, 0); opacity: 0; } }
+@keyframes nxSlideOutRightFade { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(100%, 0, 0); opacity: 0; } }
+@keyframes nxSlideOutUpFade    { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(0, -100%, 0); opacity: 0; } }
+.notificationx-frontend .notification-item.animate__slideOutDown:not(.position-bottom_right) { animation-name: nxSlideOutDownFar; }
+html:not([dir="rtl"]) .notificationx-frontend .notification-item.animate__slideOutLeft:not(.position-bottom_right) { animation-name: nxSlideOutLeftFar; }
+html[dir="rtl"] .notificationx-frontend .notification-item.animate__slideOutRight:not(.position-bottom_right) { animation-name: nxSlideOutRightFar; }
+.notificationx-frontend .notification-item.position-bottom_right.animate__slideOutDown { animation-name: nxSlideOutDownFade; }
+html[dir="rtl"] .notificationx-frontend .notification-item.animate__slideOutLeft,
+.notificationx-frontend .notification-item.position-bottom_right.animate__slideOutLeft { animation-name: nxSlideOutLeftFade; }
+html:not([dir="rtl"]) .notificationx-frontend .notification-item.animate__slideOutRight,
+.notificationx-frontend .notification-item.position-bottom_right.animate__slideOutRight { animation-name: nxSlideOutRightFade; }
+.notificationx-frontend .notification-item.animate__slideOutUp { animation-name: nxSlideOutUpFade; }
+
+// 84709: "Use new corner spacing" (root class nx-spacing-v2). The same gap from both
+// edges in every corner; override with --nx-edge on any ancestor. !important is needed
+// to beat the legacy #notificationx-frontend container rules and the card's inline
+// offsets; everything here is scoped to nx-spacing-v2, so the legacy layout is untouched.
+.notificationx-frontend.nx-spacing-v2 .nx-container {
+    &.nxc-bottom_left  { bottom: var(--nx-edge, 20px) !important; left: var(--nx-edge, 20px) !important; right: var(--nx-edge, 20px) !important; margin: 0 !important; }
+    &.nxc-bottom_right { bottom: var(--nx-edge, 20px) !important; right: var(--nx-edge, 20px) !important; left: var(--nx-edge, 20px) !important; margin: 0 !important; }
+    &.nxc-top_left     { top: var(--nx-edge, 20px) !important; left: var(--nx-edge, 20px) !important; margin: 0 !important; align-items: flex-start !important; }
+    &.nxc-top_right    { top: var(--nx-edge, 20px) !important; right: var(--nx-edge, 20px) !important; margin: 0 !important; }
+    &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
+        .notification-item, .notification-res-item { top: auto !important; right: auto !important; bottom: 0 !important; left: 0 !important; }
+    }
+    @media only screen and (max-width: 480px) {
+        &.nxc-bottom_left, &.nxc-bottom_right { bottom: var(--nx-edge, 12px) !important; left: var(--nx-edge, 12px) !important; right: var(--nx-edge, 12px) !important; }
+        &.nxc-top_left, &.nxc-top_right { top: var(--nx-edge, 12px) !important; left: var(--nx-edge, 12px) !important; right: var(--nx-edge, 12px) !important; }
+    }
+}
+body.admin-bar .notificationx-frontend.nx-spacing-v2 .nx-container {
+    &.nxc-top_left, &.nxc-top_right { top: calc(var(--nx-edge, 20px) + 32px) !important; }
+    @media screen and (max-width: 782px) {
+        &.nxc-top_left, &.nxc-top_right { top: calc(var(--nx-edge, 20px) + 46px) !important; }
+    }
+    @media only screen and (max-width: 480px) {
+        &.nxc-top_left, &.nxc-top_right { top: calc(var(--nx-edge, 12px) + 46px) !important; }
+    }
+}
+// No 30px offset under v2, so slide-outs use the plain path (plus the fade) instead of the drift.
+html .notificationx-frontend.nx-spacing-v2 .nx-container .notification-item.animate__slideOutDown { animation-name: nxSlideOutDownFade; }
+html .notificationx-frontend.nx-spacing-v2 .nx-container .notification-item.animate__slideOutLeft { animation-name: nxSlideOutLeftFade; }
+html .notificationx-frontend.nx-spacing-v2 .nx-container .notification-item.animate__slideOutRight { animation-name: nxSlideOutRightFade; }
+// 84709: on phones (v2), every corner position is centered horizontally; the vertical
+// gap stays var(--nx-edge, 12px). min-width lets the 300px card shrink on very small phones.
+@media only screen and (max-width: 480px) {
+    .notificationx-frontend.nx-spacing-v2 .nx-container {
+        &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
+            align-items: center !important;
+            .notification-item { min-width: min(300px, 100%) !important; }
+        }
+    }
+}
+// Review #3: the Pro mobile card gets the same transform + fade slide-outs as the desktop
+// card. It keeps its resting offsets on hide (getAnimationStyles), so nothing animates layout.
+.notificationx-frontend .nx-container .notification-res-item {
+    &.animate__slideOutDown  { animation-name: nxSlideOutDownFade; }
+    &.animate__slideOutLeft  { animation-name: nxSlideOutLeftFade; }
+    &.animate__slideOutRight { animation-name: nxSlideOutRightFade; }
+    &.animate__slideOutUp    { animation-name: nxSlideOutUpFade; }
+}
+// RTL with the previous spacing: the card rests at right: 30px and used to drift to 0 on hide.
+@keyframes nxSlideOutUpDriftFade { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(30px, -100%, 0); opacity: 0; } }
+html[dir="rtl"] .notificationx-frontend:not(.nx-spacing-v2) .nx-container .notification-res-item {
+    &.animate__slideOutRight { animation-name: nxSlideOutRightFar; }
+    &.animate__slideOutUp    { animation-name: nxSlideOutUpDriftFade; }
+}
+// 80989: legacy spacing on phones. Same gap from the nearest edges in every corner.
+// !important beats the #notificationx-frontend container rules, the mobile card's
+// !important offsets and the cards' inline offsets.
+@media only screen and (max-width: 480px) {
+    .notificationx-frontend:not(.nx-spacing-v2) .nx-container {
+        &.nxc-bottom_left, &.nxc-bottom_right { bottom: var(--nx-edge, 12px) !important; }
+        &.nxc-top_left, &.nxc-top_right { top: var(--nx-edge, 12px) !important; }
+        &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
+            left: var(--nx-edge, 12px) !important; right: var(--nx-edge, 12px) !important; margin: 0 !important;
+            .notification-item, .notification-res-item { top: auto !important; right: auto !important; bottom: 0 !important; left: 0 !important; }
+            .notification-item { min-width: min(300px, 100%) !important; }
+            .notification-item.button-link { margin-top: 35px; } // room for the link button above the card
+        }
+        &.nxc-top_left { align-items: flex-start !important; }
+    }
+    body.admin-bar .notificationx-frontend:not(.nx-spacing-v2) .nx-container {
+        &.nxc-top_left, &.nxc-top_right { top: calc(var(--nx-edge, 12px) + 46px) !important; }
+    }
+    html[dir="rtl"] .notificationx-frontend:not(.nx-spacing-v2) .nx-container {
+        &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
+            .notification-res-item.animate__slideOutUp { animation-name: nxSlideOutUpFade; } // no 30px drift without the offset
+        }
+    }
+}
+// 80989: the Pro mobile card on phones (either spacing) stays on one line. Rows stay side by side
+// and may shrink; their text ends with an ellipsis instead of wrapping. The avatar keeps its
+// min-width and the close button is absolute, so both stay visible.
+@media only screen and (max-width: 480px) {
+    .notificationx-frontend .nx-container {
+        &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
+            .notification-res-item .notificationx-content { min-width: 0; flex-wrap: nowrap; }
+            .notification-res-item .notificationx-content > p { min-width: 0; flex-wrap: nowrap; }
+            // ±2px keeps ascenders and descenders inside the clip box without changing the row height.
+            .notification-res-item .notificationx-content > p > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-top: 2px; padding-bottom: 2px; margin-top: -2px; margin-bottom: -2px; }
+        }
+    }
+}
+// 84712: Progressive reveal (Pro). Rows 2-3 fade in after the card lands; only opacity and
+// transform animate, so the card's height and the page layout never change.
+@keyframes nxRevealRow { from { opacity: 0; transform: translate3d(0, 6px, 0); } }
+.notificationx-content.nx-reveal > p.nx-second-row { animation: nxRevealRow .35s cubic-bezier(.22,.61,.36,1) .3s backwards; }
+.notificationx-content.nx-reveal > p.nx-third-row  { animation: nxRevealRow .35s cubic-bezier(.22,.61,.36,1) .38s backwards; }
+// Shortcode cards render outside .notificationx-frontend, so the global reduced-motion rule doesn't reach them.
+@media (prefers-reduced-motion: reduce) { .notificationx-content.nx-reveal > p { animation: none !important; } }
+// 84712: in these themes the "powered by" branding is position:absolute. A transformed row becomes
+// its containing block, so it would sit in the wrong place during the reveal and jump at the end.
+// Those rows only fade; their in-flow children rise; the branding stays put. Without :has() support
+// these rules are dropped and the row keeps the default reveal.
+@keyframes nxRevealRowFade { from { opacity: 0; } }
+@keyframes nxRevealRowRise { from { transform: translate3d(0, 6px, 0); } }
+.notification-item:is(.themes-conversions_conv-theme-ten, .themes-woocommerce_sales_conv-theme-ten, .themes-conversions_conv-theme-eleven, .themes-woocommerce_sales_conv-theme-eleven) .no-advance-edit .notificationx-content.nx-reveal > p.nx-third-row:has(> .nx-branding),
+.notification-item:is(.themes-conversions_conv-theme-fourteen, .themes-woocommerce_sales_conv-theme-fourteen, .themes-conversions_conv-theme-sixteen, .themes-woocommerce_sales_conv-theme-sixteen) .notificationx-content.nx-reveal > p.nx-third-row:has(> .nx-branding) {
+    animation-name: nxRevealRowFade;
+    > :not(.nx-branding) { animation: nxRevealRowRise .35s cubic-bezier(.22,.61,.36,1) .38s backwards; }
+}
+// Shortcode cards sit outside .notificationx-frontend; stop the child rise there too under reduced motion.
+@media (prefers-reduced-motion: reduce) {
+    .notificationx-content.nx-reveal > p:has(> .nx-branding) > :not(.nx-branding) { animation: none !important; }
+}
+// 80989: Animation Duration (Pro). Only a card whose value isn't 0.5s gets .nx-anim-timed and
+// --nx-anim-scale (value / 0.5s); every preset keeps its own proportion. Animate.css reads
+// --animate-duration from the same card. The reduced-motion !important rules still win.
+.nx-anim-timed {
+    &.nx-anim-default-in       { animation-duration: calc(.5s * var(--nx-anim-scale, 1)); }
+    &.nx-anim-rise-soft        { animation-duration: calc(.55s * var(--nx-anim-scale, 1)); }
+    &.nx-anim-rise-spring      { animation-duration: calc(.65s * var(--nx-anim-scale, 1)); }
+    &.nx-anim-pop              { animation-duration: calc(.45s * var(--nx-anim-scale, 1)); }
+    &.nx-anim-rise-soft-out    { animation-duration: calc(.35s * var(--nx-anim-scale, 1)); }
+    &.nx-anim-rise-spring-out  { animation-duration: calc(.4s * var(--nx-anim-scale, 1)); }
+    &.nx-anim-pop-out          { animation-duration: calc(.3s * var(--nx-anim-scale, 1)); }
+    // Progressive reveal: rows keep landing just before the card does.
+    .notificationx-content.nx-reveal > p.nx-second-row { animation-duration: calc(.35s * var(--nx-anim-scale, 1)); animation-delay: calc(.3s * var(--nx-anim-scale, 1)); }
+    .notificationx-content.nx-reveal > p.nx-third-row  { animation-duration: calc(.35s * var(--nx-anim-scale, 1)); animation-delay: calc(.38s * var(--nx-anim-scale, 1)); }
+}
+.notification-item.nx-anim-timed:is(.themes-conversions_conv-theme-ten, .themes-woocommerce_sales_conv-theme-ten, .themes-conversions_conv-theme-eleven, .themes-woocommerce_sales_conv-theme-eleven) .no-advance-edit .notificationx-content.nx-reveal > p.nx-third-row:has(> .nx-branding) > :not(.nx-branding),
+.notification-item.nx-anim-timed:is(.themes-conversions_conv-theme-fourteen, .themes-woocommerce_sales_conv-theme-fourteen, .themes-conversions_conv-theme-sixteen, .themes-woocommerce_sales_conv-theme-sixteen) .notificationx-content.nx-reveal > p.nx-third-row:has(> .nx-branding) > :not(.nx-branding) {
+    animation-duration: calc(.35s * var(--nx-anim-scale, 1));
+    animation-delay: calc(.38s * var(--nx-anim-scale, 1));
+}
+
 @keyframes FadeIn {
     0% {
         opacity: 0;

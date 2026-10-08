@@ -88,6 +88,17 @@ class Upgrader {
             $this->database->update_option( 'nx_free_version', NOTIFICATIONX_VERSION, 'no' );
             $this->clear_transient();
         }
+
+        // Decide the corner spacing default once. Only a fresh install (no stored
+        // version and no notifications, so not a migrated 1.x site either) gets the
+        // new spacing; every existing site keeps its layout until an admin opts in.
+        $settings = \NotificationX\Admin\Settings::get_instance();
+        if ( '__unset__' === $settings->get( 'settings.corner_spacing_v2', '__unset__' ) ) {
+            global $wpdb;
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- one-time count on a plugin table name, no user input.
+            $has_notifications = (int) $wpdb->get_var( "SELECT COUNT(*) FROM " . Database::$table_posts ) > 0;
+            $settings->set( 'settings.corner_spacing_v2', ! $nx_free_version && ! $has_notifications );
+        }
     }
 
     public function clear_transient(){

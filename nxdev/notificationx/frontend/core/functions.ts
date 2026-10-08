@@ -163,6 +163,44 @@ export function calculateAnimationStartTime(userInput, animationType) {
     return result;
 }
 
+// 80989: "Animation Duration" (Pro), in seconds. 0.5s is today's default and Animate.css speed.
+export const NX_ANIM_BASE_SECONDS = 0.5;
+const NX_EXIT_DELAY_MS = 500;
+
+/**
+ * Timing for the card's show/hide animations.
+ *
+ * A missing, invalid or 0.5s value (or Free) returns nothing extra and the usual 500ms
+ * removal delay, so the card is unchanged. Otherwise the card gets `nx-anim-timed`, a
+ * scale factor (value / 0.5s) for the nx-anim-* presets and the reveal, and
+ * --animate-duration for Animate.css (animate__faster halves it). The removal delay
+ * waits for the exit (each exit is at most 1x the value), capped at Delay Between,
+ * which the scheduler reads the same way, so a long exit can't overlap the next card.
+ */
+// `style` holds CSS custom properties, which React's CSSProperties type doesn't list.
+export const getAnimationTiming = (settings, isPro): { className: string; style: any; scale: number; exitDelay: number } => {
+    const none = { className: '', style: {}, scale: 1, exitDelay: NX_EXIT_DELAY_MS };
+    const raw = settings?.animation_duration;
+    const seconds = typeof raw === 'string' && raw.trim() === '' ? NaN : Number(raw);
+    if (!isPro || !Number.isFinite(seconds) || seconds <= 0 || seconds === NX_ANIM_BASE_SECONDS) {
+        return none;
+    }
+    const ms = Math.round(seconds * 1000);
+    const hide = settings?.animation_notification_hide;
+    const exitMs = hide && hide !== 'default' ? ms : 0;
+    const delayBetween = (settings?.delay_between || 5) * 1000;
+    const scale = seconds / NX_ANIM_BASE_SECONDS;
+    return {
+        className: 'nx-anim-timed',
+        scale,
+        style: {
+            '--nx-anim-scale': String(scale),
+            '--animate-duration': `${ms * 2}ms`,
+        },
+        exitDelay: Math.max(NX_EXIT_DELAY_MS, Math.min(exitMs, delayBetween)),
+    };
+};
+
 class NotificationXHelpers {
     getPath = (rest, path, query = {}) => {
         query = {...query, frontend: 'true'}

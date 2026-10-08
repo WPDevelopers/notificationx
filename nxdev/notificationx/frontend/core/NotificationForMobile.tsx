@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
+import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName, getAnimationTiming } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics, { resolveNotificationLink, recordAnalyticsClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
@@ -35,6 +35,8 @@ const NotificationForMobile = (props) => {
     const { config: settings } = props;
     const frontEndContext = useNotificationContext();
     const is_pro = frontEndContext?.state?.is_pro ?? false;
+    // 80989: Animation Duration (Pro). Nothing changes at the default 0.5s.
+    const animationTiming = getAnimationTiming(settings, is_pro);
     const incrementValue = 0.5;
     const displayFor = ((settings?.display_for || 5) * 1000);
     const isMin = displayFor * (incrementValue / 100)
@@ -88,28 +90,28 @@ const NotificationForMobile = (props) => {
         switch (settings.animation_notification_hide) {
             case 'animate__slideOutDown':
                 return {
-                    bottom: !animation ? '30px' : '0',
+                    bottom: '30px',
                     left: !animation ? '30px' : '30px',
                     right: !animation ? '30px' : '30px',
                     transition: '300ms',
                 };
             case 'animate__slideOutLeft':
                 return {
-                    left: !animation ? '30px' : '0',
+                    left: '30px',
                     bottom: !animation ? '30px' : '30px',
                     right: !animation ? '30px' : '30px',
                     transition: '300ms',
                 };
             case 'animate__slideOutRight':
                 return {
-                    right: !animation ? '30px' : '0',
+                    right: '30px',
                     left: !animation ? '30px' : '30px',
                     bottom: !animation ? '30px' : '30px',
                     transition: '300ms',
                 };
             case 'animate__slideOutUp':
                 return {
-                    right: !animation ? '30px' : '0',
+                    right: '30px',
                     left: !animation ? '30px' : '30px',
                     bottom: !animation ? '30px' : '30px',
                     transition: '300ms',
@@ -137,7 +139,7 @@ const NotificationForMobile = (props) => {
                     payload: props.id,
                 });
                 setAnimation(false);
-            }, 500)
+            }, animationTiming.exitDelay)
         }
         // return () => {
         //     handlePauseTimer();
@@ -209,26 +211,24 @@ const NotificationForMobile = (props) => {
 
     const componentStyle: any = {
         maxWidth: `${notificationSize}px`,
-        ...getAnimationStyles()
+        ...getAnimationStyles(),
+        ...animationTiming.style,
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
     }
 
     let componentClasses;
-    let animationStyle = 'SlideTop 300ms';
     if ((is_pro && settings?.animation_notification_show !== 'default') || (is_pro && settings?.animation_notification_hide !== 'default')) {
         let animate_effect;
         if (settings?.animation_notification_hide !== 'default' && settings?.animation_notification_show === 'default') {
             if (animation) {
                 animate_effect = settings?.animation_notification_hide;
             } else {
-                componentStyle.animation = animationStyle
+                animate_effect = 'nx-anim-default-in';
             }
         } else if (settings?.animation_notification_show !== 'default' && settings?.animation_notification_hide === 'default') {
-            if (animation) {
-                componentStyle.animation = animationStyle;
-            } else {
+            if (!animation) {
                 animate_effect = settings?.animation_notification_show;
             }
         } else {
@@ -241,11 +241,14 @@ const NotificationForMobile = (props) => {
             "animate__faster",
             ...baseClasses
         );
+        if (animate_effect?.startsWith('nx-anim-')) {
+            componentClasses = classNames(animate_effect, ...baseClasses);
+        }
     } else {
-        componentClasses = classNames(
-            ...baseClasses
-        );
-        componentStyle.animation = animationStyle
+        componentClasses = classNames('nx-anim-default-in', ...baseClasses);
+    }
+    if (animationTiming.className) {
+        componentClasses = classNames(componentClasses, animationTiming.className);
     }
     const splitThemes = ['res-theme-three'];
     return (

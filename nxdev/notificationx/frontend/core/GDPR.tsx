@@ -9,7 +9,7 @@ import CloseIcon from '../../icons/Close';
 import { getDynamicCookie, loadScripts } from '../gdpr/utils/helper';
 import useNotificationContext from "./NotificationProvider";
 import 'animate.css';
-import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
+import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName, getAnimationTiming } from "../core/functions";
 
 const useMediaQuery = (query) => {
     const mediaQuery = window.matchMedia(query);
@@ -41,6 +41,8 @@ const GDPR = (props) => {
     const [notificationSize, setNotificationSize] = useState();
     const [animation, setAnimation] = useState(false);
     const is_pro = frontEndContext?.state?.is_pro ?? false;
+    // 80989: Animation Duration (Pro). Nothing changes at the default 0.5s.
+    const animationTiming = getAnimationTiming(settings, is_pro);
     let mainBGColor = {};
     let titleColorFont = {};
     let descColorFont = {};
@@ -182,19 +184,16 @@ const GDPR = (props) => {
     ];
 
     let componentClasses;
-    let animationStyle = 'SlideTop 300ms';
     if ( (is_pro && settings?.animation_notification_show !== 'default') || (is_pro && settings?.animation_notification_hide !== 'default') ) {
         let animate_effect;
         if( settings?.animation_notification_hide !== 'default' && settings?.animation_notification_show === 'default' ) {
             if( animation ) {
                 animate_effect = settings?.animation_notification_hide;
             }else{
-                componentStyle.animation = animationStyle
+                animate_effect = 'nx-anim-default-in';
             }
         }else if( settings?.animation_notification_show !== 'default' && settings?.animation_notification_hide === 'default' ) {
-            if( animation ) {
-                componentStyle.animation = animationStyle;
-            }else {
+            if( !animation ) {
                 animate_effect = settings?.animation_notification_show;
             }
         }else {            
@@ -208,17 +207,21 @@ const GDPR = (props) => {
             "animate__faster",
             ...baseClasses
         );
+        if ( animate_effect?.startsWith('nx-anim-') ) {
+            componentClasses = classNames( animate_effect, ...baseClasses );
+        }
     } else {
-        componentClasses = classNames(
-            ...baseClasses
-        );
-        componentStyle.animation = animationStyle
+        componentClasses = classNames('nx-anim-default-in', ...baseClasses);
+    }
+    if (animationTiming.className) {
+        componentClasses = classNames(componentClasses, animationTiming.className);
     }
     const wrapper = (
         // @todo advanced style.
         <div
             id={`nx-gdpr-${settings.nx_id}`}
             className={componentClasses}
+            style={animationTiming.style}
         >
             <div className="nx-gdpr">
                 <div className={`nx-gdpr-card ${settings?.disable_powered_by ? 'no-branding' : '' }`}>

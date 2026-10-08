@@ -59,6 +59,9 @@ function notificationXWrapper(notificationX, id) {
     let xDiv = document.createElement('div');
     xDiv.id = 'notificationx-frontend' + id;
     xDiv.classList.add('notificationx-frontend');
+    if (notificationX.spacing_v2) {
+        xDiv.classList.add('nx-spacing-v2');
+    }
 
     document.body.appendChild(xDiv);
 
