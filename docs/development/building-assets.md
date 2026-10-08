@@ -10,7 +10,7 @@ Defined in [`package.json`](../../package.json) `scripts`:
 | --- | --- | --- |
 | `npm run admin` | `wp-scripts build` | Admin React app (production) — [../../webpack.config.js](../../webpack.config.js), entry `nxdev/index.tsx`. |
 | `npm run admin-watch` | `wp-scripts start` | Admin app in watch mode (development). |
-| `npm run frontend` | `wp-scripts build --config webpack.frontend.config.js --webpack-no-externals` | Frontend popup/bar runtime (production) — [../../webpack.frontend.config.js](../../webpack.frontend.config.js). Entries: `frontend`, `crossSite`, `flashing-tab`. |
+| `npm run frontend` | `wp-scripts build --config webpack.frontend.config.js --webpack-no-externals` | Frontend popup/bar runtime (production) — [../../webpack.frontend.config.js](../../webpack.frontend.config.js). Entries: `frontend`, `crossSite`, `gdpr-modal`. |
 | `npm run frontend-watch` | `wp-scripts start --config webpack.frontend.config.js --webpack-no-externals` | Frontend runtime in watch mode. |
 | `npm run start` | `admin-watch & frontend-watch` | Admin **and** frontend together, both in watch mode. |
 | `npm run build` | `admin && frontend` | Admin + frontend production build. **Does not** build blocks or countdown. |

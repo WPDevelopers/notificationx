@@ -13,15 +13,31 @@ const cartPeek = { themes: 'woocommerce_cart_peek_conv-theme-fourteen', source: 
 const sales = { themes: 'woocommerce_sales_theme-one', source: 'woocommerce_sales', 'notification-template': template };
 
 describe( 'GetTemplate / nx_frontend_template', () => {
-	it( 'keeps the built-in announcements layout when no filter claims it', () => {
+	// Free 3.3.4 has no layout for the Discount Alert themes or Cart Peek:
+	// NotificationX Pro claims them. Without a filter they get the generic
+	// fallback rows, never the old Pro-only layouts.
+	it( 'has no built-in announcements layout', () => {
+		const spy = jest.spyOn( console, 'error' ).mockImplementation( () => {} );
 		expect( GetTemplate( announcement ) ).toEqual( [
-			'<span>{{title}}</span>',
+			'<span>{{title}}</span> <span>Second</span>',
 			'<span>{{offer}}</span>',
+			'<span>{{time}}</span>',
+		] );
+		spy.mockRestore();
+	} );
+
+	it( 'has no built-in Cart Peek layout', () => {
+		// conv-theme-fourteen is a Sales layout: count + label + product, then time.
+		expect( GetTemplate( cartPeek ) ).toEqual( [
+			'<span>{{title}}</span> <span>Second</span> <span>{{offer}}</span>',
 			'<span>{{time}}</span>',
 		] );
 	} );
 
-	it( 'keeps the built-in Cart Peek layout when no filter claims it', () => {
+	it( 'uses the rows an add-on returns for Cart Peek', () => {
+		installHooks().addFilter( 'nx_frontend_template', 'test', ( value, settings, params ) =>
+			settings.source === 'woocommerce_cart_peek' ? [ params.first_param, params.third_param ] : value
+		);
 		expect( GetTemplate( cartPeek ) ).toEqual( [
 			'<span>{{title}}</span>',
 			'<span>{{offer}}</span>',
@@ -52,9 +68,10 @@ describe( 'GetTemplate / nx_frontend_template', () => {
 
 	it( 'ignores a non-array return and renders the built-in layout', () => {
 		installHooks().addFilter( 'nx_frontend_template', 'test', () => 'not an array' );
-		expect( GetTemplate( cartPeek ) ).toEqual( [
-			'<span>{{title}}</span>',
+		expect( GetTemplate( sales ) ).toEqual( [
+			'<span>{{title}}</span> <span>Second</span>',
 			'<span>{{offer}}</span>',
+			'<span>{{time}}</span>',
 		] );
 	} );
 } );

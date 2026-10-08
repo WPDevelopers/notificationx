@@ -34,7 +34,7 @@ const NotificationContainer = (props: any) => {
         // Add-ons append the sources they render (Pro: announcements).
         const noMobileDesign = nxApplyListFilter(
             'nx_frontend_no_mobile_design_sources',
-            ['announcements', 'custom_notification', 'inline','gdpr_notification']
+            ['custom_notification', 'inline', 'gdpr_notification']
         );
         // Types drawn by their own component (<Popup>, <GDPR>, <ExitIntentPopup>,
         // <Pressbar>) instead of <Notification>. They carry no `template`, which is

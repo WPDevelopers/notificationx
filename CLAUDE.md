@@ -77,7 +77,8 @@ There are two frontend builds in this repo (admin + frontend webpack configs) an
 - The constant `NOTIFICATIONX_DEV_ASSETS` points at `nxbuild/` — when wiring up new bundles, register handles against this path, not `assets/`.
 - Distribution exclusions live in [.distignore](.distignore); `.gitattributes` controls `git archive`. Update both if you add top-level dev-only files.
 - WPML strings are declared in [wpml-config.xml](wpml-config.xml).
-- Frontend runtime filters go through `nxApplyFilters()` in [nxdev/notificationx/frontend/core/hooks.ts](nxdev/notificationx/frontend/core/hooks.ts). Never import `@wordpress/hooks` in the frontend runtime and never add it to the frontend webpack `externals`. See [docs/api/frontend-js-hooks.md](docs/api/frontend-js-hooks.md).
+- Frontend runtime filters go through `nxApplyFilters()` in [nxdev/notificationx/frontend/core/hooks.ts](nxdev/notificationx/frontend/core/hooks.ts). Never import `@wordpress/hooks` in the frontend runtime and never add it to the frontend webpack `externals`. On pages without WordPress script loading (Cross Domain Notice sites) [core/addons.ts](nxdev/notificationx/frontend/core/addons.ts) creates a small registry and loads add-on scripts from the `notice` response (PHP filter `nx_frontend_addon_scripts`). See [docs/api/frontend-js-hooks.md](docs/api/frontend-js-hooks.md).
+- Since 3.3.4 free has no Discount Alert, Cart Peek, Inline or Flashing Tab code; NotificationX Pro owns it. Keep only upsell stubs here. When removing a Type, delete the class and its `TypesFactory::$types` entry in the same change (`TypeFactory` has no `class_exists()` guard), and run `composer dump-autoload --no-dev -o` (the classmap is committed).
 
 ## Reference docs in-repo
 - [docs/development/adding-a-notification-type.md](docs/development/adding-a-notification-type.md) — adding a new Type end-to-end.

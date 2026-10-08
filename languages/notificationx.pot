@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-07T08:31:25+00:00\n"
+"POT-Creation-Date: 2026-10-08T05:51:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
@@ -224,58 +224,58 @@ msgstr ""
 msgid "Read and manage NotificationX notifications, form entries, analytics and settings."
 msgstr ""
 
-#: includes/Admin/Admin.php:149
+#: includes/Admin/Admin.php:150
 #: assets/admin/js/admin.js:11
 msgid "All NotificationX"
 msgstr ""
 
 #. translators: 1: installed NotificationX Pro version, 2: required NotificationX Pro version.
-#: includes/Admin/Admin.php:258
+#: includes/Admin/Admin.php:259
 #, php-format
-msgid "You are using NotificationX Pro %1$s. Please update NotificationX Pro to version %2$s or later. Upcoming NotificationX releases move Flashing Tab, Cart Peek, Inline and Discount Alert notifications fully into NotificationX Pro, and older Pro versions will stop showing them."
+msgid "You are using NotificationX Pro %1$s. Please update NotificationX Pro to version %2$s or later. Flashing Tab, Cart Peek, Inline and Discount Alert notifications now run only from NotificationX Pro, and your Pro version does not show them."
 msgstr ""
 
-#: includes/Admin/Admin.php:266
+#: includes/Admin/Admin.php:267
 msgid "Go to plugin updates"
 msgstr ""
 
-#: includes/Admin/Admin.php:295
+#: includes/Admin/Admin.php:296
 msgid "We hope you're enjoying NotificationX! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
 msgstr ""
 
-#: includes/Admin/Admin.php:300
+#: includes/Admin/Admin.php:301
 msgid "Ok, you deserve it!"
 msgstr ""
 
-#: includes/Admin/Admin.php:304
+#: includes/Admin/Admin.php:305
 msgid "I already did"
 msgstr ""
 
-#: includes/Admin/Admin.php:311
+#: includes/Admin/Admin.php:312
 msgid "Maybe Later"
 msgstr ""
 
-#: includes/Admin/Admin.php:319
+#: includes/Admin/Admin.php:320
 msgid "I need help"
 msgstr ""
 
-#: includes/Admin/Admin.php:323
+#: includes/Admin/Admin.php:324
 msgid "Never show again"
 msgstr ""
 
-#: includes/Admin/Admin.php:356
+#: includes/Admin/Admin.php:357
 msgid "<p><strong>Black Friday Exclusive:</strong> SAVE up to 40% & access to <strong>NotificationX Pro</strong> features.</p>"
 msgstr ""
 
-#: includes/Admin/Admin.php:356
+#: includes/Admin/Admin.php:357
 msgid "Grab The Offer"
 msgstr ""
 
-#: includes/Admin/Admin.php:493
+#: includes/Admin/Admin.php:494
 msgid "Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage."
 msgstr ""
 
-#: includes/Admin/Admin.php:494
+#: includes/Admin/Admin.php:495
 msgid ""
 "We collect non-sensitive diagnostic data and plugin usage information.\n"
 "\t\t\tYour site URL, WordPress & PHP version, plugins & themes and email address to send you the\n"
@@ -1967,9 +1967,9 @@ msgstr ""
 #: includes/Extensions/Tutor/Tutor.php:531
 #: includes/Extensions/Tutor/Tutor.php:532
 #: includes/Extensions/Tutor/Tutor.php:533
-#: includes/Extensions/WooCommerce/WooCommerce.php:600
-#: includes/Extensions/WooCommerce/WooCommerce.php:601
-#: includes/Extensions/WooCommerce/WooCommerce.php:602
+#: includes/Extensions/WooCommerce/WooCommerce.php:605
+#: includes/Extensions/WooCommerce/WooCommerce.php:606
+#: includes/Extensions/WooCommerce/WooCommerce.php:607
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:73
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:85
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:97
@@ -1989,7 +1989,7 @@ msgstr ""
 #: includes/FrontEnd/FrontEnd.php:539
 #: includes/FrontEnd/FrontEnd.php:540
 #: includes/FrontEnd/FrontEnd.php:541
-#: includes/FrontEnd/FrontEnd.php:1104
+#: includes/FrontEnd/FrontEnd.php:1169
 #: includes/Types/Comments.php:54
 #: includes/Types/Comments.php:67
 #: includes/Types/Comments.php:80
@@ -2343,7 +2343,7 @@ msgstr ""
 #: includes/Extensions/ReviewX/ReviewX.php:210
 #: includes/Extensions/SureCart/SureCart.php:453
 #: includes/Extensions/Tutor/Tutor.php:129
-#: includes/Extensions/WooCommerce/WooCommerce.php:131
+#: includes/Extensions/WooCommerce/WooCommerce.php:136
 #: includes/Extensions/WooCommerce/WOOReviews.php:231
 #: includes/Extensions/WPF/WPForms.php:90
 msgid "You have to install"
@@ -2363,7 +2363,7 @@ msgstr ""
 #: includes/Extensions/NJF/NinjaForms.php:93
 #: includes/Extensions/SureCart/SureCart.php:456
 #: includes/Extensions/Tutor/Tutor.php:132
-#: includes/Extensions/WooCommerce/WooCommerce.php:134
+#: includes/Extensions/WooCommerce/WooCommerce.php:139
 #: includes/Extensions/WooCommerce/WOOReviews.php:234
 #: includes/Extensions/WPF/WPForms.php:93
 msgid "plugin first."
@@ -2526,7 +2526,6 @@ msgstr ""
 #: includes/Types/OfferAnnouncement.php:50
 #: includes/Types/PageAnalytics.php:48
 #: includes/Types/Video.php:53
-#: includes/Types/WooCommerceCartPeek.php:194
 msgid "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>"
 msgstr ""
 
@@ -2661,23 +2660,23 @@ msgid "Easy Digital Downloads"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:143
-#: includes/Extensions/WooCommerce/WooCommerce.php:526
+#: includes/Extensions/WooCommerce/WooCommerce.php:531
 msgid " & "
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:149
-#: includes/Extensions/WooCommerce/WooCommerce.php:532
+#: includes/Extensions/WooCommerce/WooCommerce.php:537
 msgid "more product"
 msgstr ""
 
 #: includes/Extensions/EDD/EDD.php:153
-#: includes/Extensions/WooCommerce/WooCommerce.php:536
+#: includes/Extensions/WooCommerce/WooCommerce.php:541
 msgid "more products"
 msgstr ""
 
 #. translators: %1$s: product title, %2$s: combined "and N more products" text
 #: includes/Extensions/EDD/EDD.php:168
-#: includes/Extensions/WooCommerce/WooCommerce.php:551
+#: includes/Extensions/WooCommerce/WooCommerce.php:556
 #, php-format
 msgid "%1$s & %2$s"
 msgstr ""
@@ -2685,7 +2684,7 @@ msgstr ""
 #: includes/Extensions/EDD/EDD.php:187
 #: includes/Extensions/FluentCart/FluentCart.php:729
 #: includes/Extensions/SureCart/SureCart.php:431
-#: includes/Extensions/WooCommerce/WooCommerce.php:161
+#: includes/Extensions/WooCommerce/WooCommerce.php:166
 #: includes/Types/DownloadStats.php:199
 #: includes/Types/Traits/Reviews.php:22
 msgid "Product Page"
@@ -2697,7 +2696,7 @@ msgstr ""
 #: includes/Extensions/LearnPress/LearnPress.php:539
 #: includes/Extensions/SureCart/SureCart.php:441
 #: includes/Extensions/Tutor/Tutor.php:534
-#: includes/Extensions/WooCommerce/WooCommerce.php:603
+#: includes/Extensions/WooCommerce/WooCommerce.php:608
 #: includes/Types/Conversions.php:69
 #: includes/Types/WooCommerceSales.php:66
 msgid "Anonymous Product"
@@ -2754,8 +2753,6 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:165
 #: includes/Types/Conversions.php:276
 #: includes/Types/Conversions.php:307
-#: includes/Types/WooCommerceCartPeek.php:171
-#: includes/Types/WooCommerceCartPeek.php:180
 #: includes/Types/WooCommerceSales.php:269
 #: includes/Types/WooCommerceSales.php:290
 msgid "Product Title"
@@ -4733,26 +4730,26 @@ msgstr ""
 msgid "Flashing Tab"
 msgstr ""
 
-#: includes/Extensions/FlashingTab/FlashingTab.php:63
-#: includes/Extensions/FlashingTab/FlashingTab.php:83
-#: includes/Extensions/FlashingTab/FlashingTab.php:98
+#: includes/Extensions/FlashingTab/FlashingTab.php:65
+#: includes/Extensions/FlashingTab/FlashingTab.php:85
+#: includes/Extensions/FlashingTab/FlashingTab.php:100
 msgid "Comeback!"
 msgstr ""
 
-#: includes/Extensions/FlashingTab/FlashingTab.php:74
+#: includes/Extensions/FlashingTab/FlashingTab.php:76
 msgid "Comeback! We miss you."
 msgstr ""
 
-#: includes/Extensions/FlashingTab/FlashingTab.php:87
+#: includes/Extensions/FlashingTab/FlashingTab.php:89
 msgid "You forgot to purchase!"
 msgstr ""
 
-#: includes/Extensions/FlashingTab/FlashingTab.php:104
+#: includes/Extensions/FlashingTab/FlashingTab.php:106
 msgid "{quantity} items in your cart!"
 msgstr ""
 
 #. translators: links
-#: includes/Extensions/FlashingTab/FlashingTab.php:136
+#: includes/Extensions/FlashingTab/FlashingTab.php:138
 #, php-format
 msgid ""
 "\n"
@@ -5329,7 +5326,6 @@ msgid "Notification Template"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:709
-#: includes/Types/WooCommerceCartPeek.php:213
 msgid "recently purchased"
 msgstr ""
 
@@ -5918,8 +5914,6 @@ msgstr ""
 #: includes/Types/ELearning.php:188
 #: includes/Types/EmailSubscription.php:129
 #: includes/Types/Reviews.php:209
-#: includes/Types/WooCommerceCartPeek.php:172
-#: includes/Types/WooCommerceCartPeek.php:181
 #: includes/Types/WooCommerceSales.php:272
 msgid "Definite Time"
 msgstr ""
@@ -7518,7 +7512,7 @@ msgstr ""
 
 #: includes/Extensions/WooCommerce/WooCommerce.php:54
 #: includes/Extensions/WooCommerce/WooCommerce.php:55
-#: includes/Extensions/WooCommerce/WooCommerce.php:133
+#: includes/Extensions/WooCommerce/WooCommerce.php:138
 #: includes/Extensions/WooCommerce/WooCommerceCartPeek.php:71
 #: includes/Extensions/WooCommerce/WOOReviews.php:55
 #: includes/Extensions/WooCommerce/WOOReviews.php:56
@@ -7533,7 +7527,7 @@ msgid "Product Title Raw"
 msgstr ""
 
 #. translators: %1$s: WooCommerce installed & activated link URL, %2$s: documentation link URL, %3$s: Watch video tutorial link URL, %4$s: Best FOMO and Social Proof Plugin link URL, %5$s: boost WooCommerce Sales link URL
-#: includes/Extensions/WooCommerce/WooCommerce.php:612
+#: includes/Extensions/WooCommerce/WooCommerce.php:617
 #: includes/Extensions/WooCommerce/WooCommerceSales.php:204
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:215
 #, php-format
@@ -7547,7 +7541,6 @@ msgid ""
 msgstr ""
 
 #: includes/Extensions/WooCommerce/WooCommerceCartPeek.php:72
-#: includes/Types/WooCommerceCartPeek.php:56
 msgid "Cart Peek"
 msgstr ""
 
@@ -7569,7 +7562,6 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooInline.php:147
 #: includes/Extensions/WooCommerce/WooInline.php:197
 #: includes/Types/PageAnalytics.php:102
-#: includes/Types/WooCommerceCartPeek.php:93
 msgid "right now"
 msgstr ""
 
@@ -7805,21 +7797,6 @@ msgid ""
 "                src=\"https://www.youtube.com/embed/KjdLv5YMByQ\">\n"
 "                </iframe>\n"
 "            "
-msgstr ""
-
-#: includes/Features/ShortcodeInline.php:66
-msgid "Choose a Notification from the dropdown."
-msgstr ""
-
-#: includes/Features/ShortcodeInline.php:73
-msgid "Make sure you have enabled the notification which ID you have given."
-msgstr ""
-
-#. translators: time
-#: includes/Features/ShortcodeInline.php:155
-#, php-format
-msgctxt "Inline Shortcode"
-msgid "%s ago"
 msgstr ""
 
 #: includes/FrontEnd/FrontEnd.php:231
@@ -8418,16 +8395,16 @@ msgstr ""
 msgid "This connection is read-only and cannot run write tools."
 msgstr ""
 
-#: includes/NotificationX.php:209
+#: includes/NotificationX.php:207
 msgid "Opps! This is PRO Feature."
 msgstr ""
 
-#: includes/NotificationX.php:235
+#: includes/NotificationX.php:233
 #: assets/admin/js/admin.js:11
 msgid "Settings"
 msgstr ""
 
-#: includes/NotificationX.php:240
+#: includes/NotificationX.php:238
 msgid "Go Pro"
 msgstr ""
 
@@ -8490,7 +8467,6 @@ msgid "Select a Form"
 msgstr ""
 
 #: includes/Types/Conversions.php:67
-#: includes/Types/WooCommerceCartPeek.php:213
 #: includes/Types/WooCommerceSales.php:64
 msgid "just purchased"
 msgstr ""
@@ -8986,119 +8962,10 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/Types/WooCommerceCartPeek.php:55
-msgid "Cart Peek 🛒"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:88
-msgid "A few shoppers have this in their cart"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:91
-msgid "this product"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:112
-#: includes/Types/WooCommerceCartPeek.php:121
-#: includes/Types/WooCommerceCartPeek.php:145
-msgid "View product"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:170
-#: includes/Types/WooCommerceCartPeek.php:179
-msgid "Cart Count"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:193
-msgid "<a href='https://notificationx.com/docs/how-to-create-a-cart-peek-notification/' target='_blank'>More Info</a>"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:196
-msgid ""
-"\n"
-"                <span>Show the live count of shoppers who currently have a product in their cart to spark urgency and boost conversions.</span>\n"
-"            "
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:345
-#: includes/Types/WooCommerceCartPeek.php:352
-msgid "Cart Confirmation Popup"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:357
-msgid "Show the shopper a \"Continue shopping / Go to checkout\" popup right after they add a product to the cart."
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:360
-msgid "Popup Heading"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:363
-msgid "Leaving so soon?"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:367
-msgid "Continue Shopping Button"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:370
-msgid "Continue shopping"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:374
-msgid "Checkout Button"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:377
-msgid "Go to checkout"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:381
-msgid "Multiple Products Display"
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:385
-msgid "How to show the message when the cart has more than one product."
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:387
-msgid "Show count — e.g. \"Product A and 2 more products\""
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:388
-msgid "List product names — e.g. \"Product A, Product B, Product C\""
-msgstr ""
-
-#: includes/Types/WooCommerceCartPeek.php:389
-msgid "Show total items — e.g. \"3 items\""
-msgstr ""
-
 #. translators: %s: URL of the wp-admin plugins page
 #: notificationx.php:85
 #, php-format
 msgid "<strong>Recommended: </strong> Seems like you haven't updated the NotificationX Pro version. Please make sure to update NotificationX Pro plugin from <a href='%s'><strong>wp-admin -> Plugins</strong></a>."
-msgstr ""
-
-#: assets/admin/js/223.js:1
-#: assets/admin/js/328.js:1
-#: assets/admin/js/435.js:1
-#: assets/admin/js/468.js:1
-#: assets/admin/js/500.js:1
-#: assets/admin/js/605.js:1
-#: assets/admin/js/635.js:1
-#: assets/admin/js/736.js:1
-#: assets/admin/js/895.js:1
-#: assets/admin/js/929.js:1
-#: assets/admin/js/admin.js:13
-#: assets/public/4468.js:1
-#: assets/public/5223.js:1
-#: assets/public/6435.js:1
-#: assets/public/6895.js:1
-#: assets/public/7500.js:1
-#: assets/public/8736.js:1
-#: assets/public/js/crossSite.js:1
-#: assets/public/js/frontend.js:1
-msgid "OFF"
 msgstr ""
 
 #: assets/admin/js/admin.js:1
@@ -10106,6 +9973,12 @@ msgstr ""
 
 #: assets/admin/js/admin.js:13
 msgid "50% Off"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "OFF"
 msgstr ""
 
 #: assets/admin/js/admin.js:13

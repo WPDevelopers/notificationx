@@ -5,6 +5,7 @@ Manual test plans for NotificationX (free) releases. Each guide says what change
 | Guide | Covers |
 | --- | --- |
 | [free-3.3.3-frontend-hooks.md](free-3.3.3-frontend-hooks.md) | Step 4 of the free/Pro code separation: the `wp-hooks` dependency, frontend JS hooks around Discount Alert / Cart Peek / CTA buttons / mobile layout, `window.nxFrontendRuntime`, the Cross Domain Notice, and the old-Pro update notice. Nothing should change visibly. |
+| [free-3.3.4-pro-3.2.4-code-separation.md](free-3.3.4-pro-3.2.4-code-separation.md) | Steps 5 and 7 of the free/Pro code separation: Pro renders Discount Alert, Cart Peek, Inline and Flashing Tab, free no longer contains that code, the Cross Domain Notice loads Pro's script, and free with no Pro or an older Pro. |
 
 ## Conventions
 

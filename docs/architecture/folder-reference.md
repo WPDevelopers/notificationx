@@ -12,7 +12,7 @@ What lives where in the repository.
 | `includes/Core/` | REST (`REST.php` + `Rest/`), `PostType.php`, `Database.php`, `Migration.php`, `Upgrader.php`, `Analytics.php`, `Helper.php`, `QuickBuild.php`, and other engine classes. |
 | `includes/Admin/` | Admin PHP — `Admin.php`, `Settings.php`, `Cron.php`, `Entries.php`, dashboard/reports/scanner, and `views/`. |
 | `includes/FrontEnd/` | Public popup runtime enqueue (`FrontEnd.php`) + in-builder `Preview.php`. |
-| `includes/Features/` | Discrete feature modules. |
+| `includes/Features/` | Removed in free 3.3.4. It held `Inline.php` and `ShortcodeInline.php` (`NotificationX\Core\*`), which now live in NotificationX Pro. |
 | `includes/ThirdParty/` | Integrations/shims for other plugins (WPML, VisualPortfolio, …). |
 | `nxdev/` | React/TypeScript source — admin SPA (`index.tsx`, `notificationx/`) and public runtime (`notificationx/frontend/`). |
 | `blocks/` | Gutenberg blocks source (`Blocks.php`, `notificationx/`, `countdown/`, `controls/`, `style-handler/`). |

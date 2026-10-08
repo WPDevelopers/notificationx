@@ -24,7 +24,7 @@ Everything below is defined in `includes/`. Naming conventions to keep in mind:
 | `notificationx_admin_scripts` | Admin builder assets are enqueued ([PostType.php:108](../../includes/Core/PostType.php#L108)). | — |
 | `nx_before_metabox_load` | Before the QuickBuilder metabox/GlobalFields schema loads ([GlobalFields.php:48](../../includes/Extensions/GlobalFields.php#L48)). | — |
 | `nx_api_response_success` / `nx_api_response_success_{source}` | A remote API integration call succeeds ([Rest/Integration.php:188-191](../../includes/Core/Rest/Integration.php#L188)). | `$data` |
-| `nx_inline` | An inline (shortcode/block) notification renders ([Inline.php:54](../../includes/Features/Inline.php#L54), [ShortcodeInline.php:76](../../includes/Features/ShortcodeInline.php#L76)). | — |
+| `nx_inline` | An inline (shortcode/block) notification renders. Fired by NotificationX Pro since free 3.3.4 removed its copies of the inline classes (notificationx-pro `Core/Inline.php`, `Core/ShortcodeInline.php`). | — |
 | `{$hook}_{$source}` (dynamic cron) | A scheduled data-sync fires for a source ([Cron.php:114](../../includes/Admin/Cron.php#L114)). Extensions register the matching handler. | `$post_id`, `$post` |
 
 > The `wpdeveloper_*_notice_for_notificationx` actions in [Notice.php](../../includes/Admin/Notice.php) belong to the shared `wp-notice` library, not to NotificationX's public API — treat them as internal.
@@ -40,7 +40,7 @@ These are how a plugin (Pro or third-party) adds new Types, Extensions, sources,
 | Filter | Modifies | Args |
 | --- | --- | --- |
 | `nx_extension_classes` | The list of `Extension` classes to instantiate. **Pro registers its extensions here** ([ExtensionFactory.php:98](../../includes/Extensions/ExtensionFactory.php#L98)). | `$extension_classes` |
-| `nx_types_classes` | The list of `Types` classes to register ([TypesFactory.php:51](../../includes/Types/TypesFactory.php#L51)). | `$types` |
+| `nx_types_classes` | The list of `Types` classes to register ([TypesFactory.php:51](../../includes/Types/TypesFactory.php#L51)). NotificationX Pro adds `woocommerce_cart_peek` here (free 3.3.4+ has no Cart Peek Type). Add your filter before anything builds the `TypeFactory`. | `$types` |
 | `nx_sources` | Source (extension) options shown in the builder dropdown ([GlobalFields.php:141](../../includes/Extensions/GlobalFields.php#L141)); each extension appends via `__nx_sources` ([Extension.php:451](../../includes/Extensions/Extension.php#L451)). | `[]` (array of source configs) |
 | `nx_is_pro_sources` | Which source ids are flagged Pro-only ([GlobalFields.php:63](../../includes/Extensions/GlobalFields.php#L63)). | `[]` |
 | `nx_themes` / `nx_res_themes` | Theme (design) options, and responsive-theme options ([GlobalFields.php:340](../../includes/Extensions/GlobalFields.php#L340), [:379](../../includes/Extensions/GlobalFields.php#L379)). | `[]` |
@@ -82,6 +82,7 @@ Fired, roughly in order, as [FrontEnd.php](../../includes/FrontEnd/FrontEnd.php)
 | --- | --- | --- |
 | `nx_frontend_script_deps` | Script dependencies of `notificationx-public` ([:85](../../includes/FrontEnd/FrontEnd.php#L85)). `wp-hooks` is always kept. See [frontend-js-hooks.md](frontend-js-hooks.md). | `['wp-hooks']` |
 | `nx_before_enqueue_scripts` | Short-circuit: return truthy to skip enqueuing entirely ([:121](../../includes/FrontEnd/FrontEnd.php#L121)). | `$exit` |
+| `nx_frontend_addon_scripts` | Add-on scripts that the frontend runtime loads on pages without WordPress script loading, such as Cross Domain Notice sites ([FrontEnd.php:778](../../includes/FrontEnd/FrontEnd.php#L778)). Returned in the `notice` REST response as `addon_scripts` only when the runtime asks for them. Items: `handle`, absolute `src`, optional `data` (`['name' => 'jsGlobal', 'value' => …]`). See [frontend-js-hooks.md](frontend-js-hooks.md#cross-domain-notice). | `[]`, `$result` (the `notice` response) |
 | `nx_frontend_localize_data` | The whole localized data array before it's handed to JS ([:209](../../includes/FrontEnd/FrontEnd.php#L209)). | `$notificationXArr` |
 | `nx_frontend_get_entries` | Entries pulled for the active notifications ([:722](../../includes/FrontEnd/FrontEnd.php#L722)). | `$entries`, `$ids`, `$notifications`, `$params` |
 | `nx_get_entries_query_part_{source}` | Per-source SQL fragment for the entries query ([:705](../../includes/FrontEnd/FrontEnd.php#L705)). | `$global_query`, `$notification`, `$params` |
@@ -130,7 +131,7 @@ The registry also *consumes* two core actions on WordPress 6.9+: `wp_abilities_a
 
 Pro features live in the **separate `notificationx-pro` plugin** and integrate through the same Extension/Type system plus the filters above — never by editing the free repo. The typical path:
 
-1. **Register classes** — `notificationx-pro` adds its Extension classes via `nx_extension_classes` and any new Types via `nx_types_classes`. From there they flow through `ExtensionFactory` / `TypesFactory` exactly like the built-in ones.
+1. **Register classes** — `notificationx-pro` adds its Extension classes via `nx_extension_classes` and any new Types via `nx_types_classes`. From there they flow through `ExtensionFactory` / `TypesFactory` exactly like the built-in ones. `ExtensionFactory` skips an extension whose `$types` is not in the `TypeFactory` map (free 3.3.4+), so a source stub for a Pro-only Type (the Cart Peek stub) registers only when Pro registers that Type.
 2. **Boot per-extension** — Pro attaches to the `nx::extension::init` action to wire up instance-level behavior.
 3. **Gate the free UI** — free-plugin fields that represent Pro features wrap their config in `nx_pro_alert_popup` (and `nx_is_pro_sources` / `nx_popup_alert`), so the builder shows an upgrade overlay until Pro is active. `NotificationX::is_pro()` flips these off once Pro is installed.
 4. **Extend data & render** — Pro extensions produce entries (`get_data()` → stored via `Entries`) and adjust the frontend through the `nx_filtered_*`, `nx_fallback_data*`, `nx_notification_link*`, and `nx_notification_image*` filters, the same way free extensions do.

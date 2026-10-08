@@ -8,6 +8,7 @@ import nxHelper, { parseDelaySeconds } from "./functions";
 import moment from "moment";
 import usePreviewType from "./usePreviewType";
 import { releaseBarReserve, reservedBarId } from "./barReserve";
+import { loadAddonScripts, needsAddonScripts } from "./addons";
 
 const useNotificationX = (props: any) => {
 
@@ -204,6 +205,9 @@ const useNotificationX = (props: any) => {
             exit_intent : props.config?.exit_intent || [],
             deviceType: deviceType,
             extra     : { ...extras,'url': location.pathname, 'page_title': document.title },
+            // No WordPress hooks registry means no WordPress script loading
+            // (a Cross Domain Notice site): ask for the add-on scripts. See core/addons.ts.
+            addon_scripts: needsAddonScripts(),
         };
 
         const args: {[key: string]: any} = {};
@@ -213,6 +217,8 @@ const useNotificationX = (props: any) => {
 
         nxHelper
         .post(url, data, args)
+        // Add-on scripts must register their filters before the first render.
+        .then((response: any) => loadAddonScripts(response?.addon_scripts).then(() => response))
         .then(response => normalizeResponse(response))
         .then((response: any) => {
             // Add Active Notices into State

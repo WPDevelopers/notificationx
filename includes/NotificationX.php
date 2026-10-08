@@ -17,7 +17,6 @@ use NotificationX\Core\Database;
 use NotificationX\Core\PostType;
 use NotificationX\Core\QuickBuild;
 use NotificationX\Core\REST;
-use NotificationX\Core\ShortcodeInline;
 use NotificationX\Core\Targeting;
 use NotificationX\Core\Upgrader;
 use NotificationX\Extensions\GlobalFields;
@@ -93,7 +92,6 @@ class NotificationX {
         Targeting::get_instance();
         Cron::get_instance();
         QuickBuild::get_instance();
-        ShortcodeInline::get_instance();
         Blocks::get_instance();
 
         CoreInstaller::get_instance(basename(NOTIFICATIONX_FILE, '.php'));

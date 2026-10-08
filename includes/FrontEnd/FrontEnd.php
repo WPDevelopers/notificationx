@@ -739,7 +739,72 @@ class FrontEnd {
         }
 
         $result['settings'] = $this->get_settings();
+        // Pages without WordPress script loading (Cross Domain Notice sites)
+        // ask for the add-on scripts; the runtime loads them before rendering.
+        if ( ! empty( $_params['addon_scripts'] ) && rest_sanitize_boolean( $_params['addon_scripts'] ) ) {
+            $result['addon_scripts'] = $this->get_addon_scripts( $result );
+        }
         return $result;
+    }
+
+    /**
+     * Add-on frontend scripts for pages that cannot enqueue them.
+     *
+     * A Cross Domain Notice site loads only `frontend.js` from the pasted
+     * snippet, so add-ons (NotificationX Pro) cannot enqueue the scripts that
+     * render their notifications there. The frontend runtime asks the `notice`
+     * endpoint for them and loads them before the first render
+     * (nxdev/notificationx/frontend/core/addons.ts).
+     *
+     * @since 3.3.4
+     * @param array $result The `notice` response without this list.
+     * @return array<int, array{handle: string, src: string, data: array|null}>
+     */
+    public function get_addon_scripts( $result = [] ) {
+        /**
+         * Filters the add-on scripts that the frontend runtime loads on pages
+         * without WordPress script loading (Cross Domain Notice sites).
+         *
+         * Each item: `handle` (the tag gets the id `<handle>-js`), `src` (an
+         * absolute http(s) URL, with the version in the query string), and
+         * optional `data` (`['name' => 'jsGlobal', 'value' => mixed]`, set on
+         * `window` before the script runs). Scripts load in list order.
+         *
+         * @since 3.3.4
+         * @param array $scripts Add-on scripts.
+         * @param array $result  The `notice` response.
+         */
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        $scripts = apply_filters( 'nx_frontend_addon_scripts', [], $result );
+        if ( ! is_array( $scripts ) ) {
+            return [];
+        }
+
+        $clean = [];
+        foreach ( $scripts as $script ) {
+            if ( ! is_array( $script ) || empty( $script['handle'] ) || empty( $script['src'] ) || ! is_string( $script['src'] ) ) {
+                continue;
+            }
+            $handle = sanitize_key( $script['handle'] );
+            $src    = esc_url_raw( $script['src'], [ 'http', 'https' ] );
+            if ( '' === $handle || '' === $src ) {
+                continue;
+            }
+            $data = null;
+            if ( isset( $script['data']['name'] ) && is_string( $script['data']['name'] )
+                && preg_match( '/^[A-Za-z_$][A-Za-z0-9_$]*$/', $script['data']['name'] ) ) {
+                $data = [
+                    'name'  => $script['data']['name'],
+                    'value' => isset( $script['data']['value'] ) ? $script['data']['value'] : null,
+                ];
+            }
+            $clean[] = [
+                'handle' => $handle,
+                'src'    => $src,
+                'data'   => $data,
+            ];
+        }
+        return $clean;
     }
 
     public function get_settings(){

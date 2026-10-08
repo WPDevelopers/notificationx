@@ -84,8 +84,9 @@ const GetTemplate = (settings) => {
         }
     }
 
-    // Add-ons claim the template rows of the notifications they render (Pro:
-    // announcements_* themes and the woocommerce_cart_peek source). An array
+    // Add-ons claim the template rows of the notifications they render.
+    // NotificationX Pro owns the Discount Alert (announcements_*) themes and
+    // the woocommerce_cart_peek source; free has no layout for them. An array
     // return wins; anything else falls through to the built-in layouts below.
     const filteredTemplate = nxApplyFilters<string[] | undefined>(
         "nx_frontend_template",
@@ -154,24 +155,6 @@ const GetTemplate = (settings) => {
                 `${params?.third_param} ${params?.yt_third_label} ${params?.fourth_param} ${params?.yt_fourth_label} ${params?.fifth_param} ${params?.yt_fifth_label}`,
             ];
             break;
-        case "announcements_theme-1":
-        case "announcements_theme-2":
-        case "announcements_theme-12":
-        case "announcements_theme-14":
-            return [
-                `${params?.first_param}`,
-                `${params?.third_param}`,
-                `${params?.fourth_param}`,
-            ];
-        case "announcements_theme-13":
-            return [
-                `${params?.first_param}`,
-            ];
-        case "announcements_theme-15":
-            return [
-                `${params?.first_param}`,
-                `${params?.third_param}`,
-            ];
     }
 
     // get template based on source
@@ -207,29 +190,6 @@ const GetTemplate = (settings) => {
                 return [
                     `${params?.first_param} ${params?.second_param}`,
                     `${params?.third_param} ${params?.fourth_param} ${params?.freemius_fifth_param} ${params?.freemius_sixth_param} ${params?.freemius_seventh_param}`,
-                ];
-        }
-    }
-
-    // Cart Peek borrows the Sales themes' compiled CSS (Pro remaps its theme
-    // keys to woocommerce_sales_*), but each Cart Peek design stacks its own rows:
-    // row 1 = shopper count (first_param), row 2 = product (third_param), and —
-    // for every design EXCEPT conv-theme-fourteen / conv-theme-sixteen — row 3 =
-    // time (fourth_param). No design shows the Sales "action" link, so it is
-    // hidden via CSS. This override keeps the Sales visual but the Cart Peek layout.
-    if (settings.source === 'woocommerce_cart_peek') {
-        switch (themeName) {
-            case 'conv-theme-fourteen':
-            case 'conv-theme-sixteen':
-                return [
-                    `${params?.first_param}`,
-                    `${params?.third_param}`,
-                ];
-            default:
-                return [
-                    `${params?.first_param}`,
-                    `${params?.third_param}`,
-                    `${params?.fourth_param}`,
                 ];
         }
     }

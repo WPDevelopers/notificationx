@@ -215,7 +215,6 @@ const Notification = (props) => {
     splitThemes = splitThemes.concat(props?.splitThemes);
 
     const componentCSS: any = {};
-    const announcementCSS: any = {};
     const resThemeName = getResThemeName(settings) || null;
     const isSplit = splitThemes.includes(themeName) || splitThemes.includes(resThemeName);
     
@@ -227,12 +226,6 @@ const Notification = (props) => {
             if (props?.config?.border_style) componentCSS.borderStyle = props?.config?.border_style;
             if (props?.config?.border_color) componentCSS.borderColor = props?.config?.border_color;
         }
-        // Add announcementCSS
-        if (props?.config?.discount_text_color) announcementCSS.discountTextColor = props?.config?.discount_text_color;
-        if (props?.config?.discount_background) announcementCSS.discountBackground = props?.config?.discount_background;
-        if (props?.config?.link_button_bg_color) announcementCSS.linkButtonBgColor = props?.config?.link_button_bg_color;
-        if (props?.config?.link_button_font_size) announcementCSS.linkButtonFontSize = props?.config?.link_button_font_size;
-        if (props?.config?.link_button_text_color) announcementCSS.linkButtonTextColor = props?.config?.link_button_text_color;
     }
     
     const componentStyle: any = {

@@ -43,7 +43,7 @@ its field values (icon URLs, messages) onto the `nx_bar` post as usual via
 `Extension::init()` (`save_post`/`saved_post` filters, inherited, not overridden
 here). At runtime the frontend popup/bar runtime reads that config and flashes the
 document title/favicon. The frontend runtime that implements this is
-[`nxdev/notificationx/frontend/flashing-tab.ts`](../../nxdev/notificationx/frontend/flashing-tab.ts),
+notificationx-pro [`nxdev/flashing-tab.ts`](../../../notificationx-pro/nxdev/flashing-tab.ts) (free shipped a copy until 3.3.4),
 which reads its config from `window.nx_flashing_tab` and imports
 `flashing/favloader.ts` (favicon swap) and `flashing/webWorker.ts` (the rotate
 interval).
@@ -103,7 +103,7 @@ the notification's source is Flashing Tab.
   logic.
 - The browser-tab-flashing JS implementation (favicon/title swap, rotate interval)
   lives in the frontend bundle:
-  [`nxdev/notificationx/frontend/flashing-tab.ts`](../../nxdev/notificationx/frontend/flashing-tab.ts)
+  notificationx-pro [`nxdev/flashing-tab.ts`](../../../notificationx-pro/nxdev/flashing-tab.ts) (free shipped a copy until 3.3.4)
   plus `flashing/favloader.ts` and `flashing/webWorker.ts` — check there before
   assuming runtime behavior.
 - No dedicated tests for Flashing Tab exist under `tests/`; the `flashing_tab` source

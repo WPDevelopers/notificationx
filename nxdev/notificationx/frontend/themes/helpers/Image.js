@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-import Announcements from "../announcements";
 import { nxApplyFilters } from "../../core/hooks";
 
 const Image = ({ data, config, id, theme: themeName, style, isSplitCss, isSplit, announcementCSS = '' }) => {
@@ -8,7 +7,7 @@ const Image = ({ data, config, id, theme: themeName, style, isSplitCss, isSplit,
         return null;
     }
 
-    const { advance_edit, image_position, themes } = config;
+    const { advance_edit, image_position } = config;
     let { image_shape } = config;
     const custom_image_shape =
         image_shape == "custom" ? config?.custom_image_shape : false;
@@ -47,7 +46,7 @@ const Image = ({ data, config, id, theme: themeName, style, isSplitCss, isSplit,
         imgRadius = { ...imgRadius, borderRadius: radiusValue };
     }
     
-    // Add announcement css to data object
+    // Discount Alert colors, read from `data` by add-on image parts.
     data.announcementCSS = announcementCSS;
     // Add-ons replace the whole image slot for the themes they own (Pro:
     // announcements_theme-1/2 discount badge). Anything but undefined/null wins.
@@ -56,9 +55,6 @@ const Image = ({ data, config, id, theme: themeName, style, isSplitCss, isSplit,
     });
     if (filteredImage !== undefined && filteredImage !== null) {
         return filteredImage;
-    }
-    if(["announcements_theme-1", "announcements_theme-2",].includes(themes)){
-        return (<Announcements {...{themeName, data, config, id, style, componentClasses }} />);
     }
 
     return (

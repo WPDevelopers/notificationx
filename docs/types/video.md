@@ -68,7 +68,7 @@ renderer — there is no `video`/`youtube`-specific component (only `announcemen
 per-theme `.tsx` files).
 
 The Growth Alert / inline text renderer in
-[`includes/Features/Inline.php`](../../includes/Features/Inline.php) has explicit
+notificationx-pro [`includes/Core/Inline.php`](../../../notificationx-pro/includes/Core/Inline.php) (free's copy was removed in 3.3.4) has explicit
 `case` branches for `youtube_channel-1`, `youtube_channel-2`, `youtube_video-1`…`4`
 that stitch together `second_param` … `fifth_param` (plus the `yt_*_label` tokens) into
 a single sentence — this is what a "Growth Alert" inline rendering of a video
@@ -128,7 +128,7 @@ sourced from the Extension, not the Type.
 | Extensions | [`includes/Extensions/Google/YouTube.php`](../../includes/Extensions/Google/YouTube.php) (active), [`includes/Extensions/Vimeo/Vimeo.php`](../../includes/Extensions/Vimeo/Vimeo.php) (stub), [`includes/Extensions/Wistia/Wistia.php`](../../includes/Extensions/Wistia/Wistia.php) (stub) |
 | Factory registration | [`includes/Types/TypesFactory.php`](../../includes/Types/TypesFactory.php) (`'video' => 'NotificationX\Types\Video'`), [`includes/Extensions/ExtensionFactory.php`](../../includes/Extensions/ExtensionFactory.php) (`'youtube'`, `'vimeo'`, `'wistia'`) |
 | Global fields | [`includes/Extensions/GlobalFields.php`](../../includes/Extensions/GlobalFields.php) (`link_button` rule includes `video`) |
-| Inline/Growth Alert rendering | [`includes/Features/Inline.php`](../../includes/Features/Inline.php) (`youtube_channel-*` / `youtube_video-*` cases) |
+| Inline/Growth Alert rendering | notificationx-pro [`includes/Core/Inline.php`](../../../notificationx-pro/includes/Core/Inline.php) (free's copy was removed in 3.3.4) (`youtube_channel-*` / `youtube_video-*` cases) |
 | Admin Quick Builder | [`includes/Core/QuickBuild.php`](../../includes/Core/QuickBuild.php) (`types_title['video']`, `youtube_channel_id`, `youtube_video_id`) |
 | PHP frontend | [`includes/FrontEnd/FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php) (`youtube` excluded from `display_last` slicing in `filtered_data()`) |
 | Frontend runtime | [`nxdev/notificationx/frontend/themes/Theme.tsx`](../../nxdev/notificationx/frontend/themes/Theme.tsx) — the generic renderer; no `video`/`youtube`-specific React component |

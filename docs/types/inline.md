@@ -76,8 +76,8 @@ source (a different Type) registers its own copy of the same design; see
 ## Data flow
 
 1. An enabled notification post with `type = inline` and a non-empty `inline_location` is fetched by `PostType::get_posts(['is_inline' => true, ...])` — `is_inline` is a derived flag set in [`Core/PostType.php:174`](../../includes/Core/PostType.php#L174): `'is_inline' => ! empty($data['inline_location'])`.
-2. [`Features/Inline.php`](../../includes/Features/Inline.php) (`NotificationX\Core\Inline`, a separate helper class from this Type, despite the shared name) — `get_notifications_data()` pulls those posts and calls `FrontEnd::get_instance()->get_notifications_data(['shortcode' => [...nx_ids], 'inline_shortcode' => true])` to assemble entry data for them.
-3. `Features/Inline.php::get_template()` builds the plain-text/HTML template string for the notification (param substitution, including the `stock-theme-one`/`stock-theme-two` case at line 243-246 that renders only `second_param`…`fifth_param`, no `first_param`).
+2. NotificationX Pro's [`Core/Inline.php`](../../../notificationx-pro/includes/Core/Inline.php) (`NotificationXPro\Core\Inline`, a separate helper class from this Type, despite the shared name; free shipped `NotificationX\Core\Inline` until 3.3.4) — `get_notifications_data()` pulls those posts and calls `FrontEnd::get_instance()->get_notifications_data(['shortcode' => [...nx_ids], 'inline_shortcode' => true])` to assemble entry data for them.
+3. Pro's `Core/Inline.php::get_template()` builds the plain-text/HTML template string for the notification (param substitution, including the `stock-theme-one`/`stock-theme-two` case at line 259-260 that renders only `second_param`…`fifth_param`, no `first_param`).
 4. In [`FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php):
    - Line 353 — inside the shortcode-post-assembly loop, `'inline' === $settings['type']` (alongside `show_on === 'only_shortcode'` and `'woocommerce_sales_inline' == $settings['source']`) causes the notification to be treated as shortcode/inline-only and skipped from the normal floating popup/global queue (`continue`).
    - Line 835 — `filtered_data()` excludes sources `woo_inline`, `edd_inline`, `tutor_inline`, `learndash_inline`, `fluentcart_inline` (alongside `google`, `google_reviews`, `youtube`, `woocommerce_sales_inline`) from the "display last N entries" popup slicing behavior.
@@ -93,7 +93,7 @@ source (a different Type) registers its own copy of the same design; see
   - The five inline extensions' `show_on_exclude()` no longer read `inline_location` at all (see [Excluding inline notifications from the popup loop](#excluding-inline-notifications-from-the-popup-loop)).
   - MCP `create-notification` backfills the theme's default `inline_location` ([`BuilderInfo::default_inline_location_for_theme()`](../../includes/Abilities/BuilderInfo.php)). Without it, a headless-created inline notification saves fine but renders nowhere.
 - `GlobalFields.php` line 328 includes `inline` in a `Rules::includes('type', [...])` list (alongside `notification_bar`, `flashing_tab`, `sales_inline`, `offer_announcement`, `custom`) that gates the "For Mobile" responsive-themes tab — i.e. this Type does not get a separate mobile-theme tab the way popup/bar types do.
-- Themes (per-Extension `$themes`, e.g. in `WooInline::init_extension()`) declare per-theme `template` param maps (`first_param`…`fifth_param`) consumed by `Features/Inline.php::get_template()`.
+- Themes (per-Extension `$themes`, e.g. in `WooInline::init_extension()`) declare per-theme `template` param maps (`first_param`…`fifth_param`) consumed by Pro's `Core/Inline.php::get_template()`.
 
 ## Themes / templates
 
@@ -112,7 +112,7 @@ Other compatible extensions (`EDDInline`, `TutorInline`, `LearnDashInline`, `Lea
 | Base class | [`includes/Types/Types.php`](../../includes/Types/Types.php) |
 | Factory registration | [`includes/Types/TypesFactory.php`](../../includes/Types/TypesFactory.php#L38), [`includes/Extensions/ExtensionFactory.php`](../../includes/Extensions/ExtensionFactory.php) |
 | Extensions (data sources) | [`WooInline.php`](../../includes/Extensions/WooCommerce/WooInline.php), [`EDInline.php`](../../includes/Extensions/EDD/EDInline.php), [`TutorInline.php`](../../includes/Extensions/Tutor/TutorInline.php), [`LearnDashInline.php`](../../includes/Extensions/LearnDash/LearnDashInline.php), [`LearnPressInline.php`](../../includes/Extensions/LearnPress/LearnPressInline.php), [`FluentCartInline.php`](../../includes/Extensions/FluentCart/FluentCartInline.php) |
-| Rendering/template helper | [`includes/Features/Inline.php`](../../includes/Features/Inline.php) (`NotificationX\Core\Inline` — shared with other types, not `inline`-exclusive) |
+| Rendering/template helper | notificationx-pro [`includes/Core/Inline.php`](../../../notificationx-pro/includes/Core/Inline.php) and [`Core/ShortcodeInline.php`](../../../notificationx-pro/includes/Core/ShortcodeInline.php) (`[notificationx_inline]`) — shared with other types, not `inline`-exclusive. Removed from free in 3.3.4. |
 | Shared field registry | [`includes/Extensions/GlobalFields.php`](../../includes/Extensions/GlobalFields.php) (line ~328) |
 | PHP frontend routing | [`includes/FrontEnd/FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php) (lines ~353, ~835, ~926–929) |
 | Post-type derived flag | [`includes/Core/PostType.php`](../../includes/Core/PostType.php#L174) (`is_inline`) |
