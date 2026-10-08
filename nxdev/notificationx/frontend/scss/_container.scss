@@ -213,6 +213,43 @@ html[dir="rtl"] .notificationx-frontend:not(.nx-spacing-v2) .nx-container .notif
     &.animate__slideOutRight { animation-name: nxSlideOutRightFar; }
     &.animate__slideOutUp    { animation-name: nxSlideOutUpDriftFade; }
 }
+// 80989: legacy spacing on phones. Same gap from the nearest edges in every corner.
+// !important beats the #notificationx-frontend container rules, the mobile card's
+// !important offsets and the cards' inline offsets.
+@media only screen and (max-width: 480px) {
+    .notificationx-frontend:not(.nx-spacing-v2) .nx-container {
+        &.nxc-bottom_left, &.nxc-bottom_right { bottom: var(--nx-edge, 12px) !important; }
+        &.nxc-top_left, &.nxc-top_right { top: var(--nx-edge, 12px) !important; }
+        &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
+            left: var(--nx-edge, 12px) !important; right: var(--nx-edge, 12px) !important; margin: 0 !important;
+            .notification-item, .notification-res-item { top: auto !important; right: auto !important; bottom: 0 !important; left: 0 !important; }
+            .notification-item { min-width: min(300px, 100%) !important; }
+            .notification-item.button-link { margin-top: 35px; } // room for the link button above the card
+        }
+        &.nxc-top_left { align-items: flex-start !important; }
+    }
+    body.admin-bar .notificationx-frontend:not(.nx-spacing-v2) .nx-container {
+        &.nxc-top_left, &.nxc-top_right { top: calc(var(--nx-edge, 12px) + 46px) !important; }
+    }
+    html[dir="rtl"] .notificationx-frontend:not(.nx-spacing-v2) .nx-container {
+        &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
+            .notification-res-item.animate__slideOutUp { animation-name: nxSlideOutUpFade; } // no 30px drift without the offset
+        }
+    }
+}
+// 80989: the Pro mobile card on phones (either spacing) stays on one line. Rows stay side by side
+// and may shrink; their text ends with an ellipsis instead of wrapping. The avatar keeps its
+// min-width and the close button is absolute, so both stay visible.
+@media only screen and (max-width: 480px) {
+    .notificationx-frontend .nx-container {
+        &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
+            .notification-res-item .notificationx-content { min-width: 0; flex-wrap: nowrap; }
+            .notification-res-item .notificationx-content > p { min-width: 0; flex-wrap: nowrap; }
+            // ±2px keeps ascenders and descenders inside the clip box without changing the row height.
+            .notification-res-item .notificationx-content > p > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-top: 2px; padding-bottom: 2px; margin-top: -2px; margin-bottom: -2px; }
+        }
+    }
+}
 // 84712: Progressive reveal (Pro). Rows 2-3 fade in after the card lands; only opacity and
 // transform animate, so the card's height and the page layout never change.
 @keyframes nxRevealRow { from { opacity: 0; transform: translate3d(0, 6px, 0); } }
