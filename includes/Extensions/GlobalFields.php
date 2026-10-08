@@ -2194,6 +2194,19 @@ class GlobalFields {
                                         ],
                                     ],
                                 ],
+                                // 80989: one base speed for the Show and Hide animations (seconds).
+                                // 0.5 is today's speed; the frontend changes nothing at 0.5.
+                                'animation_duration' => [
+                                    'label'       => __('Animation Duration', 'notificationx'),
+                                    'name'        => 'animation_duration',
+                                    'type'        => 'number',
+                                    'priority'    => 11,
+                                    'default'     => 0.5,
+                                    'step'        => 'any',
+                                    'is_pro'      => true,
+                                    'description' => __('seconds', 'notificationx'),
+                                    'rules'       => Rules::includes( 'type', [ 'notification_bar', 'offer_announcement', 'flashing_tab' ], true ),
+                                ],
                                 'progressive_reveal' => [
                                     'label'       => __('Progressive reveal', 'notificationx'),
                                     'name'        => 'progressive_reveal',

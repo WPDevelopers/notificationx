@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
+import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName, getAnimationTiming } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics, { resolveNotificationLink, recordAnalyticsClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
@@ -35,6 +35,8 @@ const Notification = (props) => {
     const { config: settings } = props;
     const frontEndContext = useNotificationContext();
     const is_pro = frontEndContext?.state?.is_pro ?? false;
+    // 80989: Animation Duration (Pro). Nothing changes at the default 0.5s.
+    const animationTiming = getAnimationTiming(settings, is_pro);
     const incrementValue = 0.5;
     const displayFor = ((settings?.display_for || 5) * 1000);
     const isMin = displayFor * (incrementValue / 100)
@@ -137,7 +139,7 @@ const Notification = (props) => {
                     payload: props.id,
                 });
                 setAnimation(false);
-            }, 500 )
+            }, animationTiming.exitDelay )
         }
         // return () => {
         //     handlePauseTimer();
@@ -239,6 +241,7 @@ const Notification = (props) => {
         ...componentCSS,
         maxWidth: `${notificationSize}px`,
         ...getAnimationStyles(),
+        ...animationTiming.style,
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
@@ -272,6 +275,9 @@ const Notification = (props) => {
         }
     } else {
         componentClasses = classNames('nx-anim-default-in', ...baseClasses);
+    }
+    if (animationTiming.className) {
+        componentClasses = classNames(componentClasses, animationTiming.className);
     }
 
     return (
