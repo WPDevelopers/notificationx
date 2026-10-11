@@ -258,6 +258,7 @@ const NotificationForMobile = (props) => {
             className={componentClasses}
             style={cardLink ? { ...componentStyle, cursor: 'pointer' } : componentStyle}
             id={`notificationx-res-${settings.nx_id}`}
+            data-nx-key={props.id} // 84710: lets StackGlide track this card across stack changes
             onClick={handleCardClick}
         >
             {

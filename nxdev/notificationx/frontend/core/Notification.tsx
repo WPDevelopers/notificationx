@@ -287,6 +287,7 @@ const Notification = (props) => {
             className={componentClasses}
             style={cardLink ? { ...componentStyle, cursor: 'pointer' } : componentStyle}
             id={`notificationx-${settings.nx_id}`}
+            data-nx-key={props.id} // 84710: lets StackGlide track this card across stack changes
             onClick={handleCardClick}
         >
             {
