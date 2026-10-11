@@ -209,13 +209,17 @@ const NotificationForMobile = (props) => {
         }
     ];
 
+    // 80989: never wider than the corner container, and still no wider than the mobile
+    // Size setting. A percentage max-width wins over the card's min-content, so a long
+    // one-line text shrinks and ends with "…" instead of pushing the card off screen.
+    const capToContainer = (size) => `min(100%, ${typeof size === 'number' || /^\d+(\.\d+)?$/.test(String(size)) ? `${size}px` : size})`;
     const componentStyle: any = {
-        maxWidth: `${notificationSize}px`,
+        maxWidth: notificationSize ? capToContainer(notificationSize) : '100%',
         ...getAnimationStyles(),
         ...animationTiming.style,
     };
     if (settings?.advance_edit && settings?.conversion_size) {
-        componentStyle.maxWidth = settings?.conversion_size;
+        componentStyle.maxWidth = capToContainer(settings?.conversion_size);
     }
 
     let componentClasses;
