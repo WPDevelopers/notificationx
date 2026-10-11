@@ -240,6 +240,9 @@ class Posts extends WP_REST_Controller {
                 array( 'status' => 404 )
             );
         }
+        // The builder cannot show an unregistered type; it shows a notice and
+        // blocks Update (PostType::check_type_change()). Not stored.
+        $post['type_unavailable'] = ! PostType::get_instance()->is_type_registered( isset( $post['type'] ) ? $post['type'] : '' );
         return $post;
     }
 
@@ -316,6 +319,10 @@ class Posts extends WP_REST_Controller {
      */
     public function update_item($request) {
         $params = $request->get_params();
+        $check  = PostType::get_instance()->check_type_change($params);
+        if ( is_wp_error( $check ) ) {
+            return $check;
+        }
         return PostType::get_instance()->save_post($params);
     }
 

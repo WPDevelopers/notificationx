@@ -111,15 +111,23 @@ Kept in free: the upsell stubs (Cart Peek, Flashing Tab and Discount Alert sourc
 
 **The rule that keeps the removal fatal-free:** delete a Type class and its `TypesFactory::$types` entry in the same change. `TypeFactory::register_types()` and `get()` have no `class_exists()` guard, so an entry whose class is missing is the one fatal path. `ExtensionFactory` skips an extension whose Type is not registered, so the free Cart Peek stub registers only when Pro registers the Cart Peek Type, and `WooCommerce::admin_actions()` hooks the Type's `nx_can_entry` only when the Type exists.
 
-### With an older NotificationX Pro
+### Without NotificationX Pro, or with an older Pro
 
-No fatal error with any Pro version: Pro 3.2.3 and older check `class_exists( 'NotificationX\Core\Inline' )` before using the free inline classes, and nothing in them extends a deleted class at load time. They lose these notifications instead:
+No fatal error with any Pro version: Pro 3.2.3 and older check `class_exists( 'NotificationX\Core\Inline' )` before using the free inline classes, and nothing in them extends a deleted class at load time. Free 3.3.4 handles what they cannot render:
 
-| Pro | Flashing Tab | Inline / `[notificationx_inline]` | Cart Peek | Discount Alert |
+| Pro | Flashing Tab | Growth Alert, `[notificationx_inline]` | Cart Peek | Discount Alert |
 | --- | --- | --- | --- | --- |
-| 3.2.2 and older | No (loaded free's script) | No | No | Generic layout, no badge or button |
-| 3.2.3 | Yes | No | Type and data work; rows use the generic Sales layout | Generic layout, no badge or button |
+| none | No (upsell) | Nothing shown | Nothing shown | Nothing shown |
+| 3.2.2 and older | No | Nothing shown | Nothing shown | Nothing shown |
+| 3.2.3 | Yes | Nothing shown | Nothing shown | Nothing shown |
 | 3.2.4+ | Yes | Yes | Yes | Yes |
+
+How free does it:
+
+- **Frontend.** `NotificationX::PRO_RENDERED_TYPES` lists `inline`, `woocommerce_cart_peek` and `offer_announcement`. `NotificationX::is_type_unrenderable()` is true for them when Pro is not active or `Admin::pro_needs_update()`. `FrontEnd::get_notifications_ids()` and `FrontEnd::get_notifications()` skip such notifications, so the frontend never renders them without their theme code. Before this, Growth Alert showed as a floating card with Pro 3.2.3 (the free `Types\Inline::show_on_exclude` filter is added only when the Type is registered), and Discount Alert logged `Please select a theme` in the Console.
+- **`[notificationx_inline]`.** `FrontEnd::register_inline_shortcode_fallback()` (`init` priority 999, also in admin) registers an empty handler when no plugin registered the shortcode. Pro 3.2.4+ registers the real one earlier, and its `add_shortcode()` would replace the fallback anyway. Without it, the raw shortcode text was shown to visitors.
+- **Pro 3.2.2 Flashing Tab script.** Pro 3.2.2 enqueues `notificationx-public-flashing-tab` from free's deleted `assets/public/js/flashing-tab.js` (a 404). `FrontEnd::dequeue_removed_scripts()` (`wp_enqueue_scripts` priority 100) dequeues a handle in `FrontEnd::REMOVED_SCRIPTS` only when its source is free's copy and the file is missing. Pro 3.2.3+ uses the same handle with its own file, which is kept.
+- **Builder.** A Type is registered only when an active extension uses it. Without Pro the Cart Peek Type is missing; with Pro 3.2.3 the Growth Alert (`inline`) Type is missing, because Pro 3.2.3's inline extensions return early without the free `Core\Inline` class. The builder cannot show a missing Type and opens the notification as the first registered Type (WooCommerce Sales), so Update used to rewrite `type`, `source` and `theme`. Now `GET /nx/{id}` returns `type_unavailable: true` for such a notification (never stored, `PostType::save_post()` drops it). The builder shows an error notice and disables **Update**. `POST /nx/{id}` refuses to change the type of a notification whose saved Type is not registered (`PostType::check_type_change()`, `409 nx_type_unavailable`). Saving with the same type, the status toggle and Delete still work. The same applies when a module is turned off.
 
 The non-dismissible [Pro version notice](#pro-version-notice) asks these sites to update.
 
@@ -130,10 +138,12 @@ A Cross Domain Notice site is not a WordPress site. The snippet that users paste
 [core/addons.ts](../../nxdev/notificationx/frontend/core/addons.ts):
 
 1. When the page has no hooks registry, the runtime sends `addon_scripts: true` with its `notice` REST request ([useNotificationX.ts](../../nxdev/notificationx/frontend/core/useNotificationX.ts)).
-2. `FrontEnd::get_addon_scripts()` ([FrontEnd.php:763](../../includes/FrontEnd/FrontEnd.php#L763)) returns the list from the PHP filter `nx_frontend_addon_scripts` as `addon_scripts` in the response. Each item has a `handle`, an absolute http(s) `src` and an optional `data` object. Invalid items are dropped. Without the request flag the key is not in the response.
+2. `FrontEnd::get_addon_scripts()` ([FrontEnd.php:824](../../includes/FrontEnd/FrontEnd.php#L824)) returns the list from the PHP filter `nx_frontend_addon_scripts` as `addon_scripts` in the response. Each item has a `handle`, an absolute http(s) `src` and an optional `data` object. Invalid items are dropped. Without the request flag the key is not in the response.
 3. Before the notifications are set into state, `loadAddonScripts()` creates a small registry at `window.wp.hooks` when there is none (`addFilter`, `applyFilters`, `removeFilter`, `hasFilter` and the action equivalents; callbacks run by priority, then in the order they were added), sets each `data` object on `window`, and loads the scripts in list order. A script that fails or takes longer than 5 seconds is skipped, so a blocked URL never stops the notifications. Each script loads once per page. When the page has several `notificationXArr` configs, each one asks for the list (a registry the runtime created does not count as a WordPress registry) and waits for every add-on load that another config started, so no config renders before the add-on filters exist.
 
 NotificationX Pro 3.2.4 adds `frontend-themes.js` to the list when the site has an enabled Discount Alert or Cart Peek notification (`FrontEnd::frontend_addon_scripts()`), with `nxProFrontendThemes` as its data. On cross-domain sites the "OFF" badge uses Pro's translation only, because free's script translations are not available in a REST request.
+
+Fonts: a snippet copied before Pro 3.2.4 has no DM Sans (Discount Alert badge) in its `external_styles`, so free loads only its default fonts. `nxProFrontendThemes.styles` carries Pro's font stylesheets (`FrontEnd::get_external_styles_pro()`, opt-out filter `notificationx_pro_load_dm_sans`), and `frontend-themes.js` adds each one that is not on the page yet (notificationx-pro `nxdev/frontend-themes/styles.ts`). Free 3.3.3 does not ask for add-on scripts, so free 3.3.3 + Pro 3.2.4 with an old snippet stays without DM Sans until free is updated.
 
 An existing registry is never replaced. On a WordPress page that dequeued `wp-hooks`, the runtime also asks for the add-on scripts; Pro's own enqueue does not print there, because it depends on `wp-hooks`.
 
@@ -146,7 +156,8 @@ An existing registry is never replaced. On a WordPress page that dequeued `wp-ho
 - `npm run test:js`: Jest tests in [../../tests/js/](../../tests/js/). They cover each hook's default path (no Discount Alert or Cart Peek rendering in free) and claimed path, the no-registry fallback, a throwing filter, the runtime object, and the add-on loader and registry ([frontend/addons.test.js](../../tests/js/frontend/addons.test.js)).
 - `vendor/bin/phpunit --filter Test_Pro_Separation_Seams` ([../../tests/test-pro-separation-seams.php](../../tests/test-pro-separation-seams.php)): the script dependencies and the Pro version notice.
 - `vendor/bin/phpunit --filter Test_Pro_Code_Removed` ([../../tests/test-pro-code-removed.php](../../tests/test-pro-code-removed.php)): the removed classes, files and Type entry, the Flashing Tab stub icons, the Cart Peek stub without its Type, and the `addon_scripts` list in the `notice` response.
-- notificationx-pro `tests/test-pro-code-separation.php`: Pro registers the Cart Peek Type and returns `frontend-themes.js` as an add-on script.
+- `vendor/bin/phpunit --filter Test_Old_Pro_Compat` ([../../tests/test-old-pro-compat.php](../../tests/test-old-pro-compat.php)): free without Pro, the builder type guard and `type_unavailable`, the skipped Pro-rendered types, the empty `[notificationx_inline]` and the dequeued Pro 3.2.2 Flashing Tab script.
+- notificationx-pro `tests/test-pro-code-separation.php`: Pro registers the Cart Peek Type, returns `frontend-themes.js` with its fonts as an add-on script, keeps its `[notificationx_inline]` handler, and free treats the Pro types as available.
 
 ## Source
 

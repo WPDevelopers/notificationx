@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T05:51:55+00:00\n"
+"POT-Creation-Date: 2026-10-11T08:30:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
@@ -335,7 +335,7 @@ msgstr ""
 #: includes/Admin/Settings.php:529
 #: includes/Core/Analytics.php:46
 #: includes/Extensions/GlobalFields.php:1296
-#: includes/FrontEnd/FrontEnd.php:238
+#: includes/FrontEnd/FrontEnd.php:299
 #: assets/admin/js/admin.js:1
 msgid "Analytics"
 msgstr ""
@@ -1986,10 +1986,10 @@ msgstr ""
 #: includes/Extensions/WordPress/WPComments.php:262
 #: includes/Extensions/WordPress/WPComments.php:263
 #: includes/Extensions/WordPress/WPComments.php:264
-#: includes/FrontEnd/FrontEnd.php:539
-#: includes/FrontEnd/FrontEnd.php:540
-#: includes/FrontEnd/FrontEnd.php:541
-#: includes/FrontEnd/FrontEnd.php:1169
+#: includes/FrontEnd/FrontEnd.php:600
+#: includes/FrontEnd/FrontEnd.php:601
+#: includes/FrontEnd/FrontEnd.php:602
+#: includes/FrontEnd/FrontEnd.php:1244
 #: includes/Types/Comments.php:54
 #: includes/Types/Comments.php:67
 #: includes/Types/Comments.php:80
@@ -2030,7 +2030,7 @@ msgstr ""
 msgid "Someone"
 msgstr ""
 
-#: includes/Core/PostType.php:77
+#: includes/Core/PostType.php:79
 #: includes/Extensions/GlobalFields.php:1232
 #: includes/Extensions/GlobalFields.php:1287
 #: includes/Extensions/GlobalFields.php:1341
@@ -2046,9 +2046,15 @@ msgid "Add New"
 msgstr ""
 
 #. translators: %1$s: number of scans already used, %2$s: total free scans available
-#: includes/Core/PostType.php:137
+#: includes/Core/PostType.php:139
 #, php-format
 msgid "%1$s of %2$s free scans used"
+msgstr ""
+
+#. translators: %s: required NotificationX Pro version.
+#: includes/Core/PostType.php:196
+#, php-format
+msgid "This notification type is not available on this site, so the notification was not saved. Install or update NotificationX Pro to version %s or later, or turn on the module this notification uses, then try again."
 msgstr ""
 
 #: includes/Core/QuickBuild.php:47
@@ -2263,8 +2269,8 @@ msgstr ""
 msgid "Invalid notification ID."
 msgstr ""
 
-#: includes/Core/Rest/Posts.php:258
-#: includes/Core/Rest/Posts.php:278
+#: includes/Core/Rest/Posts.php:261
+#: includes/Core/Rest/Posts.php:281
 msgid "Cannot create existing post."
 msgstr ""
 
@@ -5098,7 +5104,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:117
 #: includes/Extensions/WooCommerce/WOOReviews.php:129
 #: includes/Extensions/WordPress/WPComments.php:266
-#: includes/FrontEnd/FrontEnd.php:543
+#: includes/FrontEnd/FrontEnd.php:604
 #: includes/Types/Comments.php:59
 #: includes/Types/Comments.php:72
 #: includes/Types/Comments.php:85
@@ -5471,7 +5477,7 @@ msgid "By default, consent expires after 30 days. If needed, you can adjust this
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1187
-#: includes/FrontEnd/FrontEnd.php:230
+#: includes/FrontEnd/FrontEnd.php:291
 msgid "Necessary"
 msgstr ""
 
@@ -5485,22 +5491,22 @@ msgid "Edit Category "
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1242
-#: includes/FrontEnd/FrontEnd.php:234
+#: includes/FrontEnd/FrontEnd.php:295
 msgid "Functional"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1350
-#: includes/FrontEnd/FrontEnd.php:242
+#: includes/FrontEnd/FrontEnd.php:303
 msgid "Performance"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1404
-#: includes/FrontEnd/FrontEnd.php:246
+#: includes/FrontEnd/FrontEnd.php:307
 msgid "Advertisement"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1458
-#: includes/FrontEnd/FrontEnd.php:250
+#: includes/FrontEnd/FrontEnd.php:311
 msgid "Uncategorized"
 msgstr ""
 
@@ -6071,7 +6077,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:173
 #: includes/Extensions/WooCommerce/WOOReviews.php:142
 #: includes/Extensions/WooCommerce/WOOReviews.php:162
-#: includes/FrontEnd/FrontEnd.php:542
+#: includes/FrontEnd/FrontEnd.php:603
 #: includes/Types/Donations.php:54
 #: includes/Types/EmailSubscription.php:70
 #: includes/Types/Reviews.php:205
@@ -7799,27 +7805,27 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:231
+#: includes/FrontEnd/FrontEnd.php:292
 msgid "Necessary cookies are needed to ensure the basic functions of this site, like allowing secure log-ins and managing your consent settings. These cookies do not collect any personal information."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:235
+#: includes/FrontEnd/FrontEnd.php:296
 msgid "Functional cookies assist in performing tasks like sharing website content on social media, collecting feedback, and enabling other third-party features."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:239
+#: includes/FrontEnd/FrontEnd.php:300
 msgid "Analytical cookies help us understand how visitors use the website. They provide data on metrics like the number of visitors, bounce rate, traffic sources etc."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:243
+#: includes/FrontEnd/FrontEnd.php:304
 msgid "Performance cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:247
+#: includes/FrontEnd/FrontEnd.php:308
 msgid "Advertisement cookies help analyze the website's key advertising indicators, which in turn helps improve the user experience for visitors."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:251
+#: includes/FrontEnd/FrontEnd.php:312
 msgid "Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types."
 msgstr ""
 
@@ -10319,6 +10325,10 @@ msgstr ""
 
 #: assets/admin/js/admin.js:18
 msgid "Successfully Created."
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+msgid "This notification type is not available on this site, so this notification cannot be edited. Install or update NotificationX Pro, or turn on the module this notification uses, then open it again."
 msgstr ""
 
 #. translators: Postfix for notice created by duplicate button.

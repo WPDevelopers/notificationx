@@ -87,6 +87,15 @@
             margin-bottom: 0;
         }
     }
+    &.error-notice {
+        background: #f8d7da;
+        color: #721c24;
+        border: 2px solid #f5c6cb;
+        p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
     &:not(:last-child) {
       margin-bottom: 30px;
     }

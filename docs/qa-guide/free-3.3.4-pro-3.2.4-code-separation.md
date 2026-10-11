@@ -14,7 +14,8 @@ Free no longer contains working Pro code (WordPress.org Guideline 5). Flashing T
 | Cart Peek rows | Cart Peek designs show their own rows (count, product, time) | Same as before with Pro 3.2.3 |
 | Cross Domain Notice | Free's `frontend.js` loads Pro's `frontend-themes.js` on the other site | Discount Alert and Cart Peek keep their badge, button and rows on non-WordPress sites |
 | Free without Pro | Cart Peek is no longer in the notification type list | Other Pro upsells stay locked as before |
-| Old Pro (3.2.3 or older) | Warning notice, cannot be dismissed. Some Pro notifications stop showing | No white screen, no PHP fatal error |
+| Old Pro (3.2.3 or older) | Warning notice, cannot be dismissed. Growth Alert, Cart Peek and Discount Alert show nothing | No white screen, no PHP fatal error, no raw shortcode, no Console error |
+| Builder, type not available | Notice in the builder, **Update** disabled; the server refuses to change the type | A Cart Peek or Growth Alert notification is never turned into a Sales notification |
 
 Developer reference: [../api/frontend-js-hooks.md](../api/frontend-js-hooks.md) ("Why these hooks exist", "Cross Domain Notice").
 
@@ -64,7 +65,9 @@ Developer reference: [../api/frontend-js-hooks.md](../api/frontend-js-hooks.md) 
 - Network: the `notice` request body contains `"addon_scripts":true`, the response contains `addon_scripts` with `frontend-themes.js`, and `frontend-themes.js` loads once.
 - Console: no errors.
 
-**T11.** Use a snippet that was copied from the comparison site **before** the update (the old snippet). Expected: same as T10. Users do not need to copy the snippet again.
+**T11.** Use a snippet that was copied from the comparison site **before** the update (the old snippet). Expected: same as T10, including the DM Sans font on the Discount Alert badge ("OFF" in DM Sans; Network shows one `fonts.googleapis.com/css2?family=DM+Sans` request). Users do not need to copy the snippet again.
+
+**T11a.** With the T11 page, add `add_filter( 'notificationx_pro_load_dm_sans', '__return_false' );` to the WordPress site (for example a must-use plugin). Expected: no DM Sans request. Remove the filter after the test.
 
 **T12.** Disable all Discount Alert and Cart Peek notifications and reload the T10 page. Expected: no `frontend-themes.js` request, other notifications still show.
 
@@ -78,22 +81,25 @@ Deactivate NotificationX Pro.
 
 **T15.** In **Add New**, look at the notification types. Expected: Cart Peek is not in the list. Flashing Tab, Discount Alert and Growth Alert still show as Pro (locked) as before.
 
-**T16.** The Cart Peek, Discount Alert and Flashing Tab notifications created with Pro still exist in the list. Open one in the builder. Expected: no fatal error. Frontend: no Console errors. (Pro notifications do not need to render without Pro.)
+**T16.** The Cart Peek, Discount Alert and Flashing Tab notifications created with Pro still exist in the list. Open one in the builder. Expected: no fatal error. Frontend: no Console errors, and Growth Alert, Cart Peek and Discount Alert show nothing. The `[notificationx_inline]` page shows nothing (no raw shortcode text).
+
+**T16a. Builder with a type that is not available.** Without Pro, open the Cart Peek notification in the builder. Expected: a red notice "This notification type is not available on this site…" at the top, and **Update** is disabled. Delete and the Active toggle still work. Then check the database row (or reactivate Pro 3.2.4 and open it): type, source and theme are unchanged (`woocommerce_cart_peek`). To check the server side, send `POST /wp-json/notificationx/v1/nx/<id>` with `"type":"woocommerce_sales"`: expected `409` with code `nx_type_unavailable`, row unchanged.
 
 ## Part D: Free 3.3.4 with an older Pro
 
 **T17. Pro 3.2.3.** Install Pro 3.2.3 on the test site. Expected:
 - No fatal error anywhere (admin, frontend, builder, shortcode page).
 - The yellow notice "You are using NotificationX Pro 3.2.3. Please update NotificationX Pro to version 3.2.4 or later…" shows on every admin screen, including NotificationX screens, only for administrators. It has no dismiss button.
-- Flashing Tab works. Growth Alert and the inline shortcode show nothing. Discount Alert shows without badge and button. Cart Peek shows the generic Sales layout.
+- Flashing Tab works. Growth Alert (inline text and floating card), the inline shortcode, Discount Alert and Cart Peek show nothing. No `Please select a theme` error in the Console, on the frontend or in the builder preview of other notifications.
+- Open the Growth Alert notification in the builder: same as T16a (notice, **Update** disabled, row unchanged).
 
-**T18. Pro 3.2.2.** Same as T17, no fatal error. Flashing Tab and Cart Peek also stop working.
+**T18. Pro 3.2.2.** Same as T17, no fatal error. Flashing Tab also stops working, and the page makes no request to `notificationx/assets/public/js/flashing-tab.js` (no 404). Growth Alert and Cart Peek open in the builder as in T16a.
 
 **T19.** Update Pro to 3.2.4 from **Plugins → Updates**. Expected: the notice disappears and T1 to T6 pass without other changes.
 
 ## Part E: Update order
 
-**T20.** On a copy of the comparison site, update **Pro first** (3.2.4, still free 3.3.3), check T1 to T6, then update free to 3.3.4 and check again. Expected: all pass at both points.
+**T20.** On a copy of the comparison site, update **Pro first** (3.2.4, still free 3.3.3), check T1 to T6, then update free to 3.3.4 and check again. Expected: all pass at both points. Known and accepted: between the two updates, an old Cross Domain snippet (T11) shows the Discount Alert badge without DM Sans, because free 3.3.3 does not load add-on scripts. It is fixed by the free update.
 
 **T21.** On another copy, update **free first** (3.3.4, still Pro 3.2.3). Expected: T17 behavior, then T19 after the Pro update.
 

@@ -43,8 +43,8 @@ All routes below are under `/notificationx/v1` unless noted. Permission column n
 | --- | --- | --- | --- |
 | GET | `/nx` | `read_notificationx` | List notifications (paginated, searchable, with view/click totals). |
 | POST | `/nx` | `edit_notificationx` | Create a notification. |
-| GET | `/nx/(?P<id>\d+)` | `read_notificationx` | Get a single notification (edit context). |
-| POST/PUT/PATCH | `/nx/(?P<id>\d+)` | `edit_notificationx` | Update a notification (`PostType::save_post`). |
+| GET | `/nx/(?P<id>\d+)` | `read_notificationx` | Get a single notification (edit context). 404 for a missing ID. Adds `type_unavailable` (bool, not stored): true when the saved type is not registered on the site (Pro missing or older than 3.2.4, or its module off). |
+| POST/PUT/PATCH | `/nx/(?P<id>\d+)` | `edit_notificationx` | Update a notification (`PostType::save_post`). `409 nx_type_unavailable` when the request changes the type of a notification whose saved type is not registered (`PostType::check_type_change()`, since 3.3.4). |
 | DELETE | `/nx/(?P<id>\d+)` | `edit_notificationx` | Delete a notification. |
 
 ### Integrations — `includes/Core/Rest/Integration.php` (base `notification`)

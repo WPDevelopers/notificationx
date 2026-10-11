@@ -248,6 +248,38 @@ class NotificationX {
     public static function is_pro() {
         return class_exists('\NotificationXPro\NotificationX');
     }
+
+    /**
+     * Notification types that only NotificationX Pro renders.
+     *
+     * Free 3.3.4 removed their frontend code (Growth Alert, Cart Peek,
+     * Discount Alert). Pro older than Admin::MIN_PRO_VERSION does not ship
+     * that code either, so these types cannot render with it.
+     *
+     * Flashing Tab is not listed: Pro 3.2.3 already has its own Flashing Tab
+     * script.
+     *
+     * @since 3.3.4
+     */
+    const PRO_RENDERED_TYPES = [ 'inline', 'woocommerce_cart_peek', 'offer_announcement' ];
+
+    /**
+     * Whether a notification of this type cannot render on this site.
+     *
+     * True for a PRO_RENDERED_TYPES type when NotificationX Pro is not
+     * active or is older than Admin::MIN_PRO_VERSION. The frontend skips such
+     * notifications instead of rendering them without their theme code.
+     *
+     * @since 3.3.4
+     * @param string $type Notification type id.
+     * @return bool
+     */
+    public static function is_type_unrenderable( $type ) {
+        if ( ! is_string( $type ) || ! in_array( $type, self::PRO_RENDERED_TYPES, true ) ) {
+            return false;
+        }
+        return ! self::is_pro() || Admin::pro_needs_update();
+    }
     /**
      * Get Tabs array in json.
      *

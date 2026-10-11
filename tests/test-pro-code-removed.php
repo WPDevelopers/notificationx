@@ -85,8 +85,13 @@ class Test_Pro_Code_Removed extends WP_UnitTestCase {
 		}
 	}
 
-	public function test_free_does_not_register_the_inline_shortcode() {
-		$this->assertFalse( shortcode_exists( 'notificationx_inline' ) );
+	/**
+	 * Free registers only an empty fallback, so the raw shortcode is never
+	 * shown without Pro (see test-old-pro-compat.php).
+	 */
+	public function test_free_inline_shortcode_is_only_the_empty_fallback() {
+		global $shortcode_tags;
+		$this->assertSame( '__return_empty_string', $shortcode_tags['notificationx_inline'] );
 	}
 
 	public function test_flashing_tab_and_announcement_files_are_deleted() {

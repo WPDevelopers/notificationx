@@ -10,7 +10,7 @@ import nxToast from "../core/ToasterMsg";
 import { __, sprintf } from "@wordpress/i18n";
 
 const PublishWidget = (props) => {
-    const { title, context, isEdit, setIsLoading, setIsCreated, id, ...rest } = props;
+    const { title, context, isEdit, setIsLoading, setIsCreated, id, saveDisabled, ...rest } = props;
     const builderContext = useNotificationXContext();
     const [ isEnabled, setIsEnabled  ] = useState(props?.context?.values?.enabled);
     const handleSubmit = useCallback(
@@ -23,7 +23,7 @@ const PublishWidget = (props) => {
                     ...context.values,
                     title,
                     currentTab: context.config.active,
-                })
+                }, { get_error: true })
                 .then((res: any) => {
                     if (res?.nx_id) {
                         if (setIsCreated) {
@@ -40,6 +40,11 @@ const PublishWidget = (props) => {
                         }
                     } else {
                         setIsLoading(false);
+                        context.setSubmitting(false);
+                        if (res?.code && res?.message) {
+                            // WP_Error from the REST API, e.g. nx_type_unavailable.
+                            nxToast.error(res.message);
+                        }
                         console.error(__("NX Not Created", 'notificationx'));
                     }
                 })
@@ -170,10 +175,10 @@ const PublishWidget = (props) => {
                     <Button
                         isPrimary
                         className={classNames("nx-save nx-btn",{
-                            disabled: builderContext?.createRedirect,
+                            disabled: builderContext?.createRedirect || saveDisabled,
                         })}
                         onClick={handleSubmit}
-                        disabled={builderContext?.createRedirect}
+                        disabled={builderContext?.createRedirect || saveDisabled}
                     >
                         {isInTheFuture(context.values?.updated_at) ? __("Schedule", 'notificationx') : (isEdit ? __("Update", 'notificationx') : __("Publish", 'notificationx'))}
                     </Button>

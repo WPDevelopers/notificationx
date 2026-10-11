@@ -11,6 +11,8 @@ use NotificationX\Extensions\GlobalFields;
 use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
+use NotificationX\Types\TypeFactory;
+use WP_Error;
 
 /**
  * @method static PostType get_instance($args = null)
@@ -149,6 +151,55 @@ class PostType {
     }
 
     /**
+     * Whether a notification type is registered on this site.
+     *
+     * A type is registered only when an active extension uses it, so a Pro
+     * type is missing without Pro, with an outdated Pro, or when its module is
+     * off. The builder cannot show such a type and would fall back to another.
+     *
+     * @since 3.3.4
+     * @param string $type Notification type id.
+     * @return bool
+     */
+    public function is_type_registered( $type ) {
+        if ( ! is_string( $type ) || '' === $type ) {
+            return false;
+        }
+        $types = TypeFactory::get_instance()->get_all();
+        return isset( $types[ $type ] );
+    }
+
+    /**
+     * Refuse to change the type of a notification whose saved type is not
+     * registered.
+     *
+     * The builder cannot show an unregistered type, so it opens the
+     * notification as the first registered type. Saving that would rewrite
+     * `type`, `source` and `theme` and lose the notification. Changing the
+     * type of a notification whose saved type is registered stays allowed.
+     *
+     * @since 3.3.4
+     * @param array $data Notification data with `nx_id` and `type`.
+     * @return true|WP_Error
+     */
+    public function check_type_change( $data ) {
+        $nx_id = ! empty( $data['nx_id'] ) ? absint( $data['nx_id'] ) : 0;
+        if ( ! $nx_id || empty( $data['type'] ) || ! empty( $data['update_status'] ) ) {
+            return true;
+        }
+        $saved = Database::get_instance()->get_post( Database::$table_posts, $nx_id, 'type' );
+        if ( empty( $saved['type'] ) || $saved['type'] === $data['type'] || $this->is_type_registered( $saved['type'] ) ) {
+            return true;
+        }
+        $message = sprintf(
+            /* translators: %s: required NotificationX Pro version. */
+            __( 'This notification type is not available on this site, so the notification was not saved. Install or update NotificationX Pro to version %s or later, or turn on the module this notification uses, then try again.', 'notificationx' ),
+            Admin::MIN_PRO_VERSION
+        );
+        return new WP_Error( 'nx_type_unavailable', $message, [ 'status' => 409 ] );
+    }
+
+    /**
      * Save data on post save.
      *
      * @param int $post_id
@@ -158,6 +209,9 @@ class PostType {
         $results = [
             'status' => 'success',
         ];
+
+        // Builder-only flag from Rest\Posts::get_item(), never stored.
+        unset( $data['type_unavailable'] );
 
         if ( ! empty( $data['update_status'] ) ) {
             return $this->update_status( $data );

@@ -6,7 +6,7 @@ import { Content, Instructions, ProWidget, PublishWidget, RatingWidget, Sidebar 
 import { permissionAlert, proAlert, updateGeneratedCSS } from '../../core/functions';
 
 const EditNx = (props) => {
-    const { setIsLoading, setIsDelete, id, title, setTitle, setIsUpdated } = props;
+    const { setIsLoading, setIsDelete, id, title, setTitle, setIsUpdated, typeUnavailable } = props;
     const builderContext = useBuilderContext();
 
     useEffect(() => {
@@ -100,6 +100,7 @@ const EditNx = (props) => {
                     id={props?.id}
                     title={title}
                     isEdit={true}
+                    saveDisabled={!!typeUnavailable}
                     setIsCreated={false}
                     setIsUpdated={setIsUpdated}
                     setIsLoading={setIsLoading}
