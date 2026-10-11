@@ -199,6 +199,14 @@ html .notificationx-frontend.nx-spacing-v2 .nx-container .notification-item.anim
         }
     }
 }
+// 84710: with "Use new corner spacing", stacked cards sit 12px apart (desktop and Pro mobile
+// card). The default spacing keeps 30px / 20px.
+.notificationx-frontend.nx-spacing-v2 .nx-container {
+    &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
+        .notification-item:not(:last-child),
+        .notification-res-item:not(:last-child) { margin-bottom: 12px; }
+    }
+}
 // Review #3: the Pro mobile card gets the same transform + fade slide-outs as the desktop
 // card. It keeps its resting offsets on hide (getAnimationStyles), so nothing animates layout.
 .notificationx-frontend .nx-container .notification-res-item {
