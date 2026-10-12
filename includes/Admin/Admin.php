@@ -255,16 +255,15 @@ class Admin {
             return;
         }
         $message = sprintf(
-            /* translators: 1: installed NotificationX Pro version, 2: required NotificationX Pro version. */
-            __( 'You are using NotificationX Pro %1$s. Please update NotificationX Pro to version %2$s or later. Flashing Tab, Cart Peek, Inline and Discount Alert notifications now run only from NotificationX Pro, and your Pro version does not show them.', 'notificationx' ),
-            '<strong>' . esc_html( NOTIFICATIONX_PRO_VERSION ) . '</strong>',
-            '<strong>' . esc_html( self::MIN_PRO_VERSION ) . '</strong>'
+            /* translators: %s: required NotificationX Pro version. */
+            __( 'NotificationX Pro needs a compatibility update. Please update to the v%s or later version.', 'notificationx' ),
+            self::MIN_PRO_VERSION
         );
         printf(
             '<div class="notice notice-warning nx-pro-version-notice"><p>%1$s <a href="%2$s">%3$s</a></p></div>',
-            wp_kses_post( $message ),
-            esc_url( self_admin_url( 'plugins.php?plugin_status=upgrade' ) ),
-            esc_html__( 'Go to plugin updates', 'notificationx' )
+            esc_html( $message ),
+            esc_url( self_admin_url( 'plugins.php' ) ),
+            esc_html__( 'Update', 'notificationx' )
         );
     }
 

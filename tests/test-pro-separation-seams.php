@@ -146,9 +146,9 @@ class Test_Pro_Separation_Seams extends WP_UnitTestCase {
 		$html = ob_get_clean();
 
 		$this->assertStringContainsString( 'nx-pro-version-notice', $html );
-		$this->assertStringContainsString( '3.2.2', $html );
+		$this->assertStringContainsString( 'NotificationX Pro needs a compatibility update', $html );
 		$this->assertStringContainsString( Admin::MIN_PRO_VERSION, $html );
-		$this->assertStringContainsString( 'plugin_status=upgrade', $html );
+		$this->assertStringContainsString( 'plugins.php', $html );
 		$this->assertStringNotContainsString( 'is-dismissible', $html );
 	}
 }

@@ -229,14 +229,10 @@ msgstr ""
 msgid "All NotificationX"
 msgstr ""
 
-#. translators: 1: installed NotificationX Pro version, 2: required NotificationX Pro version.
+#. translators: %s: required NotificationX Pro version.
 #: includes/Admin/Admin.php:259
 #, php-format
-msgid "You are using NotificationX Pro %1$s. Please update NotificationX Pro to version %2$s or later. Flashing Tab, Cart Peek, Inline and Discount Alert notifications now run only from NotificationX Pro, and your Pro version does not show them."
-msgstr ""
-
-#: includes/Admin/Admin.php:267
-msgid "Go to plugin updates"
+msgid "NotificationX Pro needs a compatibility update. Please update to the v%s or later version."
 msgstr ""
 
 #: includes/Admin/Admin.php:296
@@ -9191,6 +9187,7 @@ msgstr ""
 
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:20
+#: includes/Admin/Admin.php:266
 msgid "Update"
 msgstr ""
 
