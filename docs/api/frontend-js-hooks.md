@@ -36,6 +36,14 @@ Filters live on the global WordPress registry, `window.wp.hooks`. Register them 
 | `nx_frontend_no_entry_link_types` | [Analytics.tsx:58](../../nxdev/notificationx/frontend/core/Analytics.tsx#L58), `resolveNotificationLink()` | `['none', 'yt_channel_link']` (free 3.3.3 also had `announcements_link`) | `config`, `data` | The list with your link type added. A whole-card click on these types does not navigate to `data.link`. |
 | `nx_frontend_link_button` | [Analytics.tsx:124](../../nxdev/notificationx/frontend/core/Analytics.tsx#L124), CTA button | `undefined` | `config`, `data` | `{ link_text, show_default_subscribe? }` |
 | `nx_frontend_no_mobile_design_sources` | [NotificationContainer.tsx:36](../../nxdev/notificationx/frontend/core/NotificationContainer.tsx#L36) | `['custom_notification', 'inline', 'gdpr_notification']` (free 3.3.3 also had `announcements`) | — | The list with your source added. These sources keep the desktop layout on mobile. |
+| `nx_frontend_animation` | `Notification.tsx`, `GDPR.tsx`, `Popup.tsx`, before the class list is built | `undefined` | `{ settings, animation, animationStyle, is_pro }` (`animation` is true while hiding; `animationStyle` is the built-in entrance) | `{ classNames, style }`: classes put before the base classes, style merged into the element style. Without a claim the built-in entrance (`SlideTop 300ms`, popups `fadeIn 300ms`) is used. |
+| `nx_frontend_notification_sound` | `Notification.tsx`, first child of the notification | `null` | `{ settings, assets, is_pro }` | A React node (Pro: `<audio>` that plays on mount). |
+| `nx_frontend_mobile_notification` | `NotificationContainer.tsx`, before `<Notification>`, only on mobile for `is_mobile_responsive` notifications that are not in `nx_frontend_no_mobile_design_sources` | `undefined` | `{ notice, assets, dispatch, is_pro }` | A keyed React element that replaces `<Notification>` (Pro: the compact mobile layout). |
+| `nx_popup_form_fields` | `Popup.tsx`, before the message field | `null` | `{ settings, formData, handleInputChange, setFocusedField, isSubmitting, validationErrors, getInputStyles, is_pro, labels }` | A React node (Pro: name and email inputs, themes four to seven). |
+| `nx_popup_validate_fields` | `Popup.tsx`, `validateForm()` | `{}` | `{ settings, formData, is_pro, messages }` | Errors to merge (`{ name?, email? }`), translated texts from `messages`. |
+| `nx_popup_submission_fields` | `Popup.tsx`, submitted data | `{ name: '', email: '' }` | `{ settings, formData, is_pro }` | `{ name, email }`. |
+| `nx_exit_intent_form_fields` | `ExitIntentPopup.tsx` theme one, before the message field | `null` | `{ s, name, email, setName, setEmail, inputStyle, namePlaceholder, emailPlaceholder, is_pro }` | A React node (Pro: name and email inputs). |
+| `nx_exit_intent_submission_fields` | `ExitIntentPopup.tsx`, submitted data | `{}` | `{ s, name, email, is_pro }` | `{ name?, email? }` merged into the payload. |
 
 `nx_frontend_template` also runs in the admin builder, because the admin bundle imports `GetTemplate` for the `nx_adv_template_default` filter ([AddEditNx/index.ts](../../nxdev/notificationx/admin/AddEditNx/index.ts)). An add-on must register that filter in the admin builder as well as on the frontend.
 
@@ -51,6 +59,8 @@ The frontend bundle contains its own copy of React. A component from another bun
 | `analyticsOnClick(event, restUrl, config, dispatch, credentials)` | Records a CTA click and closes the notification. |
 | `recordAnalyticsClick(restUrl, config, omitCredentials)` | Records a click without closing the notification. |
 | `getPath(rest, path, query?)` | Builds a REST URL, for example `getPath(ctx.rest, 'analytics/')`. |
+| `Theme`, `Analytics` | Free's theme and analytics components (free 3.3.4+), used by the Pro compact mobile layout. |
+| `resolveNotificationLink`, `isObject`, `calculateAnimationStartTime`, `getResThemeName`, `getThemeName` | Helpers used by the same layout (free 3.3.4+). |
 
 The object is frozen. If the bundle loads twice, the first object stays.
 
@@ -105,6 +115,7 @@ What free 3.3.4 removed:
 
 - PHP: `Types/WooCommerceCartPeek.php` and its `TypesFactory` entry (same change, see the rule below), `Features/Inline.php` (`NotificationX\Core\Inline`), `Features/ShortcodeInline.php` and its boot in `NotificationX.php`.
 - JS: `themes/announcements/`, `themes/helpers/Button.js`, the announcements and Cart Peek layouts in `GetTemplate.ts`, the built-in branches behind `nx_theme_before_content`, `nx_theme_after_content`, `nx_content_append`, `nx_frontend_image` and `nx_frontend_link_button`, the unused `announcementCSS` in `core/Notification.tsx`, `flashing-tab.ts`, `flashing/` and its webpack entry.
+- Pro-only behaviour that free shipped locked behind `is_pro` (WordPress.org Guideline 5, issue #184), moved to NotificationX Pro 3.2.4 (`nxdev/frontend-themes/features/`) behind the hooks above: notification show/hide animations (and animate.css; free keeps only the `fadeIn` keyframe its popups use), notification sound, the compact mobile layout (`core/NotificationForMobile.tsx`), and the Popup / Exit Intent name and email fields, their validation and submitted values. The feedback CSV export gets its Name and Email Address columns from Pro (`nx_feedback_entries_csv_headers`, `nx_feedback_entries_csv_cells`).
 - Assets: `assets/public/js/flashing-tab.js`, `assets/public/image/flashing-tab/`, `scss/_themes/_announcement.scss` (moved to notificationx-pro `nxdev/scss/frontend/themes/_announcements-base.scss`, imported first so the cascade is unchanged).
 
 Kept in free: the upsell stubs (Cart Peek, Flashing Tab and Discount Alert sources, `Types/FlashingTab.php`, `Types/OfferAnnouncement.php`, theme preview images). The Flashing Tab stub stores bare icon file names, which Pro resolves against its own icons. `announcementCSS` is still built in `Theme.tsx`, because the render hooks pass it to add-ons.

@@ -1,7 +1,8 @@
 import React from "react";
 import useNotificationContext from "./NotificationProvider";
-import { analyticsOnClick, recordAnalyticsClick } from "./Analytics";
-import nxHelper from "./functions";
+import Analytics, { analyticsOnClick, recordAnalyticsClick, resolveNotificationLink } from "./Analytics";
+import nxHelper, { calculateAnimationStartTime, getResThemeName, getThemeName, isObject } from "./functions";
+import { Theme } from "../themes";
 
 /**
  * Shared runtime for add-ons that render inside the NotificationX React tree.
@@ -25,6 +26,15 @@ export const createFrontendRuntime = () =>
         analyticsOnClick,
         recordAnalyticsClick,
         getPath: (rest, path, query = {}) => nxHelper.getPath(rest, path, query),
+        // For the Pro compact mobile layout (`nx_frontend_mobile_notification`),
+        // which renders through the same theme and analytics components.
+        Theme,
+        Analytics,
+        resolveNotificationLink,
+        isObject,
+        calculateAnimationStartTime,
+        getResThemeName,
+        getThemeName,
     });
 
 export const exposeFrontendRuntime = () => {

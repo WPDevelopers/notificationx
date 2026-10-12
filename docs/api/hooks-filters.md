@@ -73,6 +73,8 @@ These are how a plugin (Pro or third-party) adds new Types, Extensions, sources,
 | `nx_can_entry_gdpr_notification` | Same gate, applied by the GDPR scanner ([Scanner.php:183](../../includes/Admin/Scanner/Scanner.php#L183)). | `true`, `$entry`, `$post` |
 | `nx_insert_entry` | Entry row just before insert ([Entries.php:72](../../includes/Admin/Entries.php#L72), [:93](../../includes/Admin/Entries.php#L93)). | `$entry` |
 | `nx_get_entry` / `nx_get_entries` | Entries read back from the table ([Entries.php:104-114](../../includes/Admin/Entries.php#L104)). | `$entry` / `$entries` |
+| `nx_feedback_entries_csv_headers` | Feedback entries CSV columns between "NotificationX Title" and "Message" ([Rest/Popup.php](../../includes/Core/Rest/Popup.php), `generate_csv_data()`). NotificationX Pro adds Name and Email Address. Since 3.3.4. | `$columns` |
+| `nx_feedback_entries_csv_cells` | The matching cells for one feedback entry ([Rest/Popup.php](../../includes/Core/Rest/Popup.php)). Must match `nx_feedback_entries_csv_headers`. Since 3.3.4. | `$cells`, `$data` |
 
 ### Frontend render pipeline
 

@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { isAdminBar } from './utils';
 import CloseIcon from '../../icons/Close';
 import useNotificationContext from "./NotificationProvider";
-import 'animate.css';
 import { isObject, handleCloseNotification } from "../core/functions";
 import { getIconUrl } from "../../shared/helpers";
 
@@ -11,6 +10,7 @@ import { __ } from '@wordpress/i18n';
 import nxHelper from './functions';
 import NXBranding from '../themes/helpers/NXBranding';
 import PopupHeader from './helper/PopupHeader';
+import { nxApplyFilters } from "./hooks";
 
 const useMediaQuery = (query: string) => {
     const mediaQuery = window.matchMedia(query);
@@ -228,11 +228,6 @@ const Popup = (props: any) => {
     };
 
     // Validation functions
-    const validateEmail = (email: string) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
-
     const validateForm = () => {
         const errors = {
             name: '',
@@ -240,18 +235,18 @@ const Popup = (props: any) => {
             message: ''
         };
 
-        // Name/email are pro-only — skip validation when running the free build
-        if (is_pro && settings.popup_show_name_field && !formData.name.trim()) {
-            errors.name = __('Please enter your name.', 'notificationx');
-        }
-
-        if (is_pro && settings.popup_show_email_field) {
-            if (!formData.email.trim()) {
-                errors.email = __('Please enter your email address.', 'notificationx');
-            } else if (!validateEmail(formData.email)) {
-                errors.email = __('Please enter a valid email address.', 'notificationx');
-            }
-        }
+        // Name/email fields are a NotificationX Pro feature (filter
+        // `nx_popup_validate_fields` sets their errors).
+        Object.assign(errors, nxApplyFilters('nx_popup_validate_fields', {}, {
+            settings,
+            formData,
+            is_pro,
+            messages: {
+                name: __('Please enter your name.', 'notificationx'),
+                email: __('Please enter your email address.', 'notificationx'),
+                emailInvalid: __('Please enter a valid email address.', 'notificationx'),
+            },
+        }));
 
         // Validate message field if it's shown and required
         if (settings.popup_show_message_field && !formData.message.trim()) {
@@ -289,8 +284,8 @@ const Popup = (props: any) => {
         try {
             const submissionData = {
                 nx_id: settings.nx_id,
-                name: (is_pro && settings.popup_show_name_field) ? formData.name : '',
-                email: (is_pro && settings.popup_show_email_field) ? formData.email : '',
+                // Name/email: NotificationX Pro (filter `nx_popup_submission_fields`).
+                ...nxApplyFilters('nx_popup_submission_fields', { name: '', email: '' }, { settings, formData, is_pro }),
                 message: settings.popup_show_message_field ? formData.message : '',
                 theme: settings.themes,
                 title: settings.popup_title || '',
@@ -471,33 +466,26 @@ const Popup = (props: any) => {
     let componentClasses: string;
     let animationStyle = 'fadeIn 300ms';
 
-    if ((is_pro && settings?.animation_notification_show !== 'default') || (is_pro && settings?.animation_notification_hide !== 'default')) {
-        let animate_effect: string;
-        if (settings?.animation_notification_hide !== 'default' && settings?.animation_notification_show === 'default') {
-            if (animation) {
-                animate_effect = settings?.animation_notification_hide;
-            } else {
-                componentStyle.animation = animationStyle;
-            }
-        } else if (settings?.animation_notification_show !== 'default' && settings?.animation_notification_hide === 'default') {
-            if (animation) {
-                componentStyle.animation = animationStyle;
-            } else {
-                animate_effect = settings?.animation_notification_show;
-            }
-        } else {
-            animate_effect = animation ? settings?.animation_notification_hide : settings?.animation_notification_show;
-        }
-
+    // Notification animations are rendered by NotificationX Pro (filter
+    // `nx_frontend_animation`): it returns the animate.css classes and the
+    // style for the current show/hide state. Without it, the built-in
+    // `fadeIn` entrance is used.
+    const proAnimation = nxApplyFilters<{ classNames: any[]; style?: Record<string, any> } | undefined>(
+        'nx_frontend_animation',
+        undefined,
+        { settings, animation, animationStyle, is_pro }
+    );
+    if (proAnimation) {
         componentClasses = classNames(
-            "animate__animated",
-            animate_effect,
-            "animate__faster",
+            ...proAnimation.classNames,
             ...baseClasses
         );
+        Object.assign(componentStyle, proAnimation.style || {});
     } else {
-        componentClasses = classNames(...baseClasses);
-        componentStyle.animation = animationStyle;
+        componentClasses = classNames(
+            ...baseClasses
+        );
+        componentStyle.animation = animationStyle
     }
     const iconUrl = getIconUrl(settings?.popup_icon);
     const buttonIconUrl = getIconUrl(settings?.popup_button_icon);
@@ -750,52 +738,21 @@ const Popup = (props: any) => {
                                 )}
                             </div>
                         ) }
-                        {/* Name Field - Pro-only, only renders when pro is active and the toggle is on */}
-                        { is_pro && ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
-                            .some(theme => settings.themes.includes(theme)) && settings.popup_show_name_field && (
-                                <div className="nx-popup-name">
-                                    <input
-                                        type="text"
-                                        placeholder={settings?.popup_name_placeholder || __('Enter your name', 'notificationx')}
-                                        value={formData.name}
-                                        onChange={(e) => handleInputChange('name', e.target.value)}
-                                        onFocus={() => setFocusedField('name')}
-                                        onBlur={() => setFocusedField(null)}
-                                        disabled={isSubmitting}
-                                        className={validationErrors.name ? 'nx-popup-input-error' : ''}
-                                        style={getInputStyles('name')}
-                                    />
-                                    {validationErrors.name && (
-                                        <div className="nx-popup-error-message">
-                                            {validationErrors.name}
-                                        </div>
-                                    )}
-                                </div>
-                        ) }
-
-                        {/* Email Field - Pro-only, only renders when pro is active and the toggle is on */}
-                        { is_pro && ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
-                            .some(theme => settings.themes.includes(theme)) && settings.popup_show_email_field && (
-                                <div className="nx-popup-email">
-                                    <input
-                                        type="email"
-                                        placeholder={settings?.popup_email_placeholder || __('Enter your email address', 'notificationx')}
-                                        value={formData.email}
-                                        onChange={(e) => handleInputChange('email', e.target.value)}
-                                        onFocus={() => setFocusedField('email')}
-                                        onBlur={() => setFocusedField(null)}
-                                        disabled={isSubmitting}
-                                        className={validationErrors.email ? 'nx-popup-input-error' : ''}
-                                        style={getInputStyles('email')}
-                                        required
-                                    />
-                                    {validationErrors.email && (
-                                        <div className="nx-popup-error-message">
-                                            {validationErrors.email}
-                                        </div>
-                                    )}
-                                </div>
-                        ) }
+                        {/* Name and email fields: NotificationX Pro (filter `nx_popup_form_fields`). */}
+                        { nxApplyFilters('nx_popup_form_fields', null, {
+                            settings,
+                            formData,
+                            handleInputChange,
+                            setFocusedField,
+                            isSubmitting,
+                            validationErrors,
+                            getInputStyles,
+                            is_pro,
+                            labels: {
+                                name: __('Enter your name', 'notificationx'),
+                                email: __('Enter your email address', 'notificationx'),
+                            },
+                        }) }
 
                         {/* Message Field - Show if enabled for form themes */}
                         { ["popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven"]
