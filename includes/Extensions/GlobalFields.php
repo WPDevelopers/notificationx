@@ -8,6 +8,7 @@
 
 namespace NotificationX\Extensions;
 
+use NotificationX\Admin\Admin;
 use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\Admin\Settings;
 use NotificationX\Core\Rules;
@@ -109,16 +110,7 @@ class GlobalFields {
                                             'position' => 'top'
                                         ]
                                     ],
-                                    'options' => (array) array_map(function ($type) {
-                                        return [
-                                            'value'             => $type->id,
-                                            'label'             => $type->title,
-                                            'is_pro'            => $type->is_pro && ! NotificationX::is_pro(),
-                                            'priority'          => $type->priority,
-                                            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
-                                            'popup'             => apply_filters('nx_pro_alert_popup', $type->popup),
-                                        ];
-                                    }, array_values(TypeFactory::get_instance()->get_all())),
+                                    'options' => $this->get_type_options(),
                                     'validation_rules' => [
                                         'required' => true,
                                         'label'    => "Type",
@@ -2337,6 +2329,78 @@ class GlobalFields {
         return $tabs;
     }
 
+
+    /**
+     * Options of the notification type picker (Add New and Quick Builder).
+     *
+     * With NotificationX Pro older than Admin::MIN_PRO_VERSION, the types
+     * only a current Pro renders (NotificationX::PRO_RENDERED_TYPES) are shown
+     * locked with an update prompt instead of being selectable or missing:
+     * an outdated Pro may register them without being able to show them, or
+     * not register them at all.
+     *
+     * @since 3.3.4
+     * @return array
+     */
+    public function get_type_options() {
+        $outdated_pro = Admin::pro_needs_update();
+        $options      = [];
+        foreach ( TypeFactory::get_instance()->get_all() as $type ) {
+            $needs_pro_update = $outdated_pro && in_array( $type->id, NotificationX::PRO_RENDERED_TYPES, true );
+            $options[]        = [
+                'value'    => $type->id,
+                'label'    => $type->title,
+                'is_pro'   => ( $type->is_pro && ! NotificationX::is_pro() ) || $needs_pro_update,
+                'priority' => $type->priority,
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+                'popup'    => $needs_pro_update ? $this->pro_update_popup() : apply_filters( 'nx_pro_alert_popup', $type->popup ),
+            ];
+        }
+        if ( ! $outdated_pro ) {
+            return $options;
+        }
+        // Types an outdated Pro does not register at all: list them locked.
+        $listed = wp_list_pluck( $options, 'value' );
+        $known  = [
+            'inline'                => [ __( 'Growth Alert 🚀', 'notificationx' ), 50 ],
+            'woocommerce_cart_peek' => [ __( 'Cart Peek 🛒', 'notificationx' ), 51 ],
+            'offer_announcement'    => [ __( 'Discount Alert', 'notificationx' ), 36 ],
+        ];
+        foreach ( NotificationX::PRO_RENDERED_TYPES as $id ) {
+            if ( in_array( $id, $listed, true ) || ! isset( $known[ $id ] ) ) {
+                continue;
+            }
+            $options[] = [
+                'value'    => $id,
+                'label'    => $known[ $id ][0],
+                'is_pro'   => true,
+                'priority' => $known[ $id ][1],
+                'popup'    => $this->pro_update_popup(),
+            ];
+        }
+        return $options;
+    }
+
+    /**
+     * Popup for a type locked because NotificationX Pro is outdated.
+     *
+     * @since 3.3.4
+     * @return array
+     */
+    protected function pro_update_popup() {
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        return apply_filters( 'nx_pro_alert_popup', [
+            'title'             => __( 'NotificationX Pro needs a compatibility update.', 'notificationx' ),
+            'html'              => sprintf(
+                /* translators: %s: required NotificationX Pro version. */
+                esc_html__( 'Please update to the v%s or later version.', 'notificationx' ),
+                esc_html( Admin::MIN_PRO_VERSION )
+            ),
+            'confirmButtonText' => sprintf( '<a href="%s">%s</a>', esc_url( self_admin_url( 'plugins.php' ) ), esc_html__( 'Update', 'notificationx' ) ),
+            // Shown even though Pro is active (the builder skips Pro alerts then).
+            'forced'            => true,
+        ] );
+    }
 
     public function normalize_fields($fields, $key = '', $value = [], $return = []) {
         foreach ($fields as $val => $label) {

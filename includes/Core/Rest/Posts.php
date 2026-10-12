@@ -283,6 +283,11 @@ class Posts extends WP_REST_Controller {
             );
         }
 
+        $check = PostType::get_instance()->check_type_create($request->get_params());
+        if ( is_wp_error( $check ) ) {
+            return $check;
+        }
+
         // $prepared_post = $this->prepare_item_for_database($request);
 
         // if (is_wp_error($prepared_post)) {

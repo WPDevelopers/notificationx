@@ -231,8 +231,23 @@ msgstr ""
 
 #. translators: %s: required NotificationX Pro version.
 #: includes/Admin/Admin.php:259
+#: includes/Core/PostType.php:223
 #, php-format
 msgid "NotificationX Pro needs a compatibility update. Please update to the v%s or later version."
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2366
+msgid "Cart Peek 🛒"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2393
+msgid "NotificationX Pro needs a compatibility update."
+msgstr ""
+
+#. translators: %s: required NotificationX Pro version.
+#: includes/Extensions/GlobalFields.php:2396
+#, php-format
+msgid "Please update to the v%s or later version."
 msgstr ""
 
 #: includes/Admin/Admin.php:296
@@ -9188,6 +9203,7 @@ msgstr ""
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:20
 #: includes/Admin/Admin.php:266
+#: includes/Extensions/GlobalFields.php:2399
 msgid "Update"
 msgstr ""
 

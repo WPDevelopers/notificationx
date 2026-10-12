@@ -200,6 +200,33 @@ class PostType {
     }
 
     /**
+     * Refuse to create a notification of a type that only a current
+     * NotificationX Pro renders while the active Pro is outdated.
+     *
+     * The type picker shows these types locked (GlobalFields::get_type_options()),
+     * but the builder still selects them when Pro is active, so creating one
+     * is refused here. Without Pro nothing changes: the types stay Pro-locked.
+     *
+     * @since 3.3.4
+     * @param array $data Notification data with `type`.
+     * @return true|WP_Error
+     */
+    public function check_type_create( $data ) {
+        if ( ! empty( $data['nx_id'] ) || empty( $data['type'] ) || ! Admin::pro_needs_update() ) {
+            return true;
+        }
+        if ( ! in_array( $data['type'], NotificationX::PRO_RENDERED_TYPES, true ) ) {
+            return true;
+        }
+        $message = sprintf(
+            /* translators: %s: required NotificationX Pro version. */
+            __( 'NotificationX Pro needs a compatibility update. Please update to the v%s or later version.', 'notificationx' ),
+            Admin::MIN_PRO_VERSION
+        );
+        return new WP_Error( 'nx_type_needs_pro_update', $message, [ 'status' => 409 ] );
+    }
+
+    /**
      * Save data on post save.
      *
      * @param int $post_id
