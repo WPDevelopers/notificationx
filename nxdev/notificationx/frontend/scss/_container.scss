@@ -400,6 +400,32 @@ $nx-live-yt-res-icons: ".notification-res-item.nx-live-effects:is(.themes-youtub
     }
 }
 
+// Cart Peek (all six themes): the close (✕) sits in the card's top corner (top-left in RTL), so
+// the text gets the full width. (0,4,0) outranks the Sales themes' close rules (0,3,0).
+// !important only where needed: Pro's card width, the themes' `left: calc(100% + 6px)` and the
+// inline top/right the Close component sets.
+.notificationx-frontend .notification-item.source-woocommerce_cart_peek {
+    max-width: min(380px, 100%) !important;
+    .notificationx-close {
+        position: absolute;
+        top: 4px !important;
+        right: 4px !important;
+        left: auto !important;
+        bottom: auto;
+        margin: 0;
+        padding: 7px; // the 10px ✕ plus 7px on each side: a 24×24 click area
+        z-index: 11;
+    }
+    // Row 1 stops 4px short of the ✕, so its text never runs under it.
+    .nx-first-row {
+        padding-inline-end: 16px;
+    }
+}
+html[dir="rtl"] .notificationx-frontend .notification-item.source-woocommerce_cart_peek .notificationx-close {
+    right: auto !important;
+    left: 4px !important;
+}
+
 @keyframes FadeIn {
     0% {
         opacity: 0;
