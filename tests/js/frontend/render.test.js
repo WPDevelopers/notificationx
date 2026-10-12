@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import Theme from '../../../nxdev/notificationx/frontend/themes/Theme';
+import GetTemplate from '../../../nxdev/notificationx/frontend/themes/GetTemplate';
 import Content from '../../../nxdev/notificationx/frontend/themes/helpers/Content';
 import Image from '../../../nxdev/notificationx/frontend/themes/helpers/Image';
 import Analytics from '../../../nxdev/notificationx/frontend/core/Analytics';
+import Notification from '../../../nxdev/notificationx/frontend/core/Notification';
+import NotificationForMobile from '../../../nxdev/notificationx/frontend/core/NotificationForMobile';
 import { NotificationProvider } from '../../../nxdev/notificationx/frontend/core/NotificationProvider';
 import { installHooks } from '../helpers';
 
@@ -181,5 +184,88 @@ describe( 'Analytics / nx_frontend_link_button', () => {
 			<Analytics config={ { link_type: 'custom', link_button: true, link_button_text: 'Buy' } } data={ data } />
 		);
 		expect( container.querySelector( 'a' ).textContent ).toContain( 'Buy' );
+	} );
+} );
+
+describe( 'Notification / Live Effects (84711)', () => {
+	let matchMedia;
+	beforeEach( () => {
+		jest.useFakeTimers();
+		matchMedia = window.matchMedia;
+		window.matchMedia = () => ( { matches: false, addEventListener() {}, removeEventListener() {} } );
+	} );
+	afterEach( () => {
+		ReactDOM.unmountComponentAtNode( container );
+		jest.useRealTimers();
+		window.matchMedia = matchMedia;
+	} );
+
+	const renderCard = ( Card, isPro, liveEffects ) => {
+		const config = {
+			nx_id: 1,
+			themes: 'woocommerce_sales_conv-theme-seven',
+			responsive_themes: 'woocommerce_sales_res-theme-nine',
+			source: 'woocommerce_sales',
+			type: 'conversions',
+			display_for: 5,
+			animation_notification_show: 'default',
+			animation_notification_hide: 'default',
+			template: [ 'Row' ],
+			live_effects: liveEffects,
+		};
+		act( () => {
+			ReactDOM.render(
+				<NotificationProvider value={ { ...frontendContext, state: { is_pro: isPro } } }>
+					<Card id={ 1 } dispatch={ () => {} } data={ entry() } config={ config } />
+				</NotificationProvider>,
+				container
+			);
+		} );
+		return container.firstElementChild;
+	};
+
+	[ [ 'desktop', Notification ], [ 'mobile', NotificationForMobile ] ].forEach( ( [ name, Card ] ) => {
+		it( `adds nx-live-effects to the ${ name } card with Pro and the toggle on`, () => {
+			const card = renderCard( Card, true, true );
+			expect( card.classList.contains( 'nx-live-effects' ) ).toBe( true );
+			expect( card.querySelector( '.notificationx-content' ).classList.contains( 'nx-live-effects' ) ).toBe( false );
+		} );
+
+		it( `leaves the ${ name } card classes unchanged with the toggle off or on Free`, () => {
+			const off = renderCard( Card, true, false ).className;
+			expect( off ).not.toContain( 'nx-live-effects' );
+			expect( renderCard( Card, false, true ).className ).toBe( off );
+		} );
+	} );
+} );
+
+describe( 'Theme / Live Effects rotating line (84711)', () => {
+	const peekConfig = () => {
+		const config = {
+			nx_id: 1,
+			source: 'woocommerce_cart_peek',
+			type: 'woocommerce_cart_peek',
+			custom_type: 'woocommerce_sales',
+			themes: 'woocommerce_sales_theme-one',
+			live_effects: true,
+			'notification-template': { first_param: 'tag_cart_peek_count', third_param: 'tag_product_title', fourth_param: 'tag_time' },
+		};
+		return { ...config, template: GetTemplate( config ) };
+	};
+	const peekEntry = ( extra = {} ) => entry( { title: 'Hoodie', cart_peek_count: '3 shoppers have this in their cart', ...extra } );
+
+	it( 'rotates the product title and the add-to-cart time', () => {
+		render( <Theme config={ peekConfig() } data={ peekEntry() } /> );
+		const facts = container.querySelectorAll( '.nx-second-row .nx-live-rotator > .nx-live-fact' );
+		expect( facts ).toHaveLength( 2 );
+		expect( facts[ 0 ].textContent ).toBe( 'Hoodie' );
+		expect( facts[ 1 ].textContent ).toBe( 'Added to a cart 5 days ago' );
+	} );
+
+	it( 'shows only the product title, without rotation, when there is no time', () => {
+		render( <Theme config={ peekConfig() } data={ peekEntry( { updated_at: '' } ) } /> );
+		expect( container.querySelector( '.nx-live-rotator' ) ).toBeNull();
+		expect( container.querySelector( '.nx-second-row' ).textContent ).toBe( 'Hoodie' );
+		expect( container.textContent ).not.toContain( 'Added to a cart' );
 	} );
 } );

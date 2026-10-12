@@ -300,6 +300,105 @@ html[dir="rtl"] .notificationx-frontend:not(.nx-spacing-v2) .nx-container .notif
     animation-duration: calc(.35s * var(--nx-anim-scale, 1));
     animation-delay: calc(.38s * var(--nx-anim-scale, 1));
 }
+// 84711: Live Effects (Pro). The card (desktop and mobile) gets .nx-live-effects when the
+// toggle is on. The live dot and the rotating line are styled in the .nx-live-effects block;
+// the floating icon, phone and reduced-motion rules follow it, each scoped to that class.
+// Only transform and opacity animate.
+$nx-live-yt-icons: ".notification-item.nx-live-effects:is(.themes-youtube_channel-2, .themes-youtube_video-1, .themes-youtube_video-3) .nx-second-row > span > span::before";
+$nx-live-yt-res-icons: ".notification-res-item.nx-live-effects:is(.themes-youtube_res-channel-2, .themes-youtube_res-video-1, .themes-youtube_res-video-3) .nx-second-row > span > span::before";
+@keyframes nxLivePulse { from { transform: scale(1); opacity: .45; } to { transform: scale(2); opacity: 0; } }
+@keyframes nxLiveFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+// The mobile YouTube icons are centred with translateY(-50%); keep it while they float.
+@keyframes nxLiveFloatMid { 0%, 100% { transform: translateY(-50%); } 50% { transform: translateY(calc(-50% - 2px)); } }
+// Two facts, 4s each, with a 0.5s cross-fade. The second fact runs 4s ahead.
+@keyframes nxLiveFact { 0%, 44% { opacity: 1; } 50%, 94% { opacity: 0; } 100% { opacity: 1; } }
+.nx-live-effects {
+    // Live dot: a 6px green dot with a pulsing ring before the live time ("right now"). Both
+    // pseudo-elements sit in the span's start padding, so the 2x ring never leaves it (the
+    // mobile one-line rows clip overflow).
+    .notificationx-content .nx-live-time {
+        position: relative;
+        padding-inline-start: 12px;
+        white-space: nowrap;
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            inset-inline-start: 3px;
+            width: 6px;
+            height: 6px;
+            margin-top: -3px;
+            border-radius: 50%;
+            background: #22c55e;
+            pointer-events: none;
+        }
+        &::after {
+            opacity: 0;
+            animation: nxLivePulse 1.8s cubic-bezier(.22,.61,.36,1) infinite;
+        }
+    }
+    // Rotating line (Cart Peek row 2): the facts share one grid cell, so the row is as tall as
+    // the tallest fact and the card never changes size. Hover or focus inside the card pauses it.
+    .nx-live-rotator {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .nx-live-fact {
+        grid-area: 1 / 1;
+        min-width: 0;
+        animation: nxLiveFact 8s ease-in-out infinite;
+        & + .nx-live-fact {
+            opacity: 0;
+            animation-delay: -4s;
+        }
+    }
+    &:hover .nx-live-fact,
+    &:focus-within .nx-live-fact {
+        animation-play-state: paused;
+    }
+}
+// Floating icon: the cart badge on the sales-count themes, and the YouTube stat icons.
+.notification-item.nx-live-effects:is(
+    .themes-conversions_conv-theme-six, .themes-conversions_conv-theme-seven, .themes-conversions_conv-theme-eight, .themes-conversions_conv-theme-nine,
+    .themes-woocommerce_sales_conv-theme-six, .themes-woocommerce_sales_conv-theme-seven, .themes-woocommerce_sales_conv-theme-eight, .themes-woocommerce_sales_conv-theme-nine,
+    .themes-donation_conv-theme-six, .themes-donation_conv-theme-eight, .themes-donation_conv-theme-nine,
+    .themes-elearning_conv-theme-six, .themes-elearning_conv-theme-eight, .themes-elearning_conv-theme-nine
+) .notificationx-image::after,
+.notification-res-item.nx-live-effects:is(
+    .themes-conversions_res-theme-five, .themes-conversions_res-theme-nine, .themes-woocommerce_sales_res-theme-nine,
+    .themes-conversions_res-theme-eleven, .themes-woocommerce_sales_res-theme-eleven,
+    .themes-donation_res-theme-eight, .themes-donation_res-theme-nine, .themes-donation_res-theme-ten,
+    .themes-elearning_elearning-res-theme-six, .themes-elearning_elearning-res-theme-seven, .themes-elearning_elearning-res-theme-eight, .themes-elearning_res-theme-nine
+) .notificationx-image::after,
+#{$nx-live-yt-icons} {
+    animation: nxLiveFloat 3s ease-in-out infinite;
+}
+#{$nx-live-yt-res-icons} {
+    animation: nxLiveFloatMid 3s ease-in-out infinite;
+}
+// One line with "…" on phones.
+@media (max-width: 480px) {
+    .nx-live-effects .nx-live-fact {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+// The global reduced-motion rule doesn't reach pseudo-elements: keep the dot, stop the ring
+// and the floats. The rotating line shows only its first fact.
+@media (prefers-reduced-motion: reduce) {
+    .nx-live-effects .notificationx-content .nx-live-time::after,
+    .nx-live-effects .notificationx-image::after,
+    #{$nx-live-yt-icons},
+    #{$nx-live-yt-res-icons},
+    .nx-live-effects .nx-live-fact {
+        animation: none !important;
+    }
+    .nx-live-effects .nx-live-fact + .nx-live-fact {
+        visibility: hidden;
+    }
+}
 
 @keyframes FadeIn {
     0% {
