@@ -416,6 +416,42 @@ class GlobalFields {
                                         ],
                                     ]
                                 ],
+                                // 84711: one toggle for every live effect. Visible only where at least
+                                // one applies: the live dot (Page Analytics realtime, themes one to three),
+                                // the rotating line (Cart Peek) and the floating icon (the themes below).
+                                'live_effects' => [
+                                    'label'       => __('Live Effects', 'notificationx'),
+                                    'name'        => 'live_effects',
+                                    'type'        => 'toggle',
+                                    'default'     => false,
+                                    'priority'    => 15,
+                                    'is_pro'      => true,
+                                    'description' => __('Adds subtle motion to make the notification feel live.', 'notificationx'),
+                                    'rules'       => Rules::logicalRule([
+                                        Rules::is( 'type', 'woocommerce_cart_peek' ),
+                                        Rules::logicalRule([
+                                            Rules::includes( 'themes', [ 'page_analytics_pa-theme-one', 'page_analytics_pa-theme-two', 'page_analytics_pa-theme-three' ] ),
+                                            Rules::is( 'notification-template.first_param', 'tag_realtime_siteview' ),
+                                        ]),
+                                        Rules::includes( 'themes', [
+                                            'conversions_conv-theme-six', 'conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine',
+                                            'woocommerce_sales_conv-theme-six', 'woocommerce_sales_conv-theme-seven', 'woocommerce_sales_conv-theme-eight', 'woocommerce_sales_conv-theme-nine',
+                                            'donation_conv-theme-six', 'donation_conv-theme-eight', 'donation_conv-theme-nine',
+                                            'elearning_conv-theme-six', 'elearning_conv-theme-eight', 'elearning_conv-theme-nine',
+                                            'youtube_channel-2', 'youtube_video-1', 'youtube_video-3',
+                                        ] ),
+                                        Rules::logicalRule([
+                                            Rules::is( 'is_mobile_responsive', true ),
+                                            Rules::includes( 'responsive_themes', [
+                                                'conversions_res-theme-five', 'conversions_res-theme-nine', 'woocommerce_sales_res-theme-nine',
+                                                'conversions_res-theme-eleven', 'woocommerce_sales_res-theme-eleven',
+                                                'donation_res-theme-eight', 'donation_res-theme-nine', 'donation_res-theme-ten',
+                                                'elearning_elearning-res-theme-six', 'elearning_elearning-res-theme-seven', 'elearning_elearning-res-theme-eight', 'elearning_res-theme-nine',
+                                                'youtube_res-channel-2', 'youtube_res-video-1', 'youtube_res-video-3',
+                                            ] ),
+                                        ]),
+                                    ], 'or'),
+                                ],
                                 [
                                     'label'   => __("Position", 'notificationx'),
                                     'name'    => "gdpr_position",

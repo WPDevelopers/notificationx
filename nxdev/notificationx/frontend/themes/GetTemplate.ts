@@ -1,4 +1,5 @@
 import { escapeHTML } from "@wordpress/escape-html";
+import { _x, sprintf } from "@wordpress/i18n";
 import { getResThemeName, getThemeName } from "../core/functions";
 import { nxApplyFilters } from "../core/hooks";
 
@@ -14,6 +15,36 @@ import { nxApplyFilters } from "../core/hooks";
 //     "nx-nineth-word",
 //     "nx-tenth-word",
 // ];
+
+// 84711: which template param holds the live time phrase for the Live Effects dot, or null.
+// Only Page Analytics "Realtime site view" in pa-theme-one to -three has one: ga_fourth_param
+// ("right now"). Found by field, not by its words, so translated or edited text still works.
+export const getLiveTimeParam = (settings, themeName) => {
+    if (settings?.type === 'page_analytics' && settings?.['notification-template']?.first_param === 'tag_realtime_siteview'
+        && ['pa-theme-one', 'pa-theme-two', 'pa-theme-three'].includes(themeName)) {
+        return 'ga_fourth_param';
+    }
+    return null;
+};
+
+// 84711: the Live Effects rotating line. Every fact shares one grid cell (fixed row height);
+// CSS cross-fades them. Facts after the first are hidden from screen readers.
+const LIVE_ROTATOR_OPEN = '<span class="nx-live-rotator"><span class="nx-live-fact">';
+const LIVE_NEXT_FACT = '</span><span class="nx-live-fact" aria-hidden="true">';
+export const getLiveRotator = (facts: string[]) =>
+    '<span class="nx-live-rotator">' +
+    facts.map((fact, i) => `<span class="nx-live-fact"${i ? ' aria-hidden="true"' : ''}>${fact}</span>`).join('') +
+    '</span>';
+
+// 84711: a rotating line that shows the entry time is cut back to its first fact (no
+// rotation) when the entry has no time. Runs on the template row, before placeholders are filled.
+export const withoutLiveTimeFact = (row) => {
+    if (typeof row !== 'string' || row.indexOf(LIVE_ROTATOR_OPEN) !== 0 || row.indexOf('{{time}}') === -1) {
+        return row;
+    }
+    const end = row.indexOf(LIVE_NEXT_FACT);
+    return end > 0 ? row.slice(LIVE_ROTATOR_OPEN.length, end) : row;
+};
 
 const GetTemplate = (settings) => {
     const themeName = getThemeName(settings);
@@ -82,6 +113,16 @@ const GetTemplate = (settings) => {
                 params[param] = `<span>${params[param]}</span>`;
             }
         }
+    }
+
+    // 84711: Live Effects (Pro: Free resets live_effects on read, and the wrapper class needs
+    // is_pro). Mark the span that holds the live time so the dot can sit before it; an empty
+    // span gets no dot. With the toggle off, the template is unchanged.
+    const liveParam = settings?.live_effects ? getLiveTimeParam(settings, themeName) : null;
+    const liveSpan = liveParam ? params[liveParam] : null;
+    if (typeof liveSpan === 'string' && liveSpan.indexOf('<span>') === 0
+        && liveSpan.slice('<span>'.length, -'</span>'.length).trim()) {
+        params[liveParam] = '<span class="nx-live-time">' + liveSpan.slice('<span>'.length);
     }
 
     // Add-ons claim the template rows of the notifications they render (Pro:
@@ -218,6 +259,18 @@ const GetTemplate = (settings) => {
     // time (fourth_param). No design shows the Sales "action" link, so it is
     // hidden via CSS. This override keeps the Sales visual but the Cart Peek layout.
     if (settings.source === 'woocommerce_cart_peek') {
+        // 84711: Live Effects. Row 2 rotates the product title and the last add-to-cart time,
+        // so the time row goes (every design then matches fourteen / sixteen).
+        if (settings?.live_effects) {
+            const addedAt = escapeHTML(
+                // translators: %s: relative time, e.g. "5 minutes ago".
+                sprintf(_x('Added to a cart %s', 'Cart Peek: Added to a cart 5 minutes ago', 'notificationx'), '{{time}}')
+            );
+            return [
+                `${params?.first_param}`,
+                getLiveRotator([`${params?.third_param}`, `<span>${addedAt}</span>`]),
+            ];
+        }
         switch (themeName) {
             case 'conv-theme-fourteen':
             case 'conv-theme-sixteen':

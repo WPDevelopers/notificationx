@@ -201,6 +201,8 @@ const Notification = (props) => {
             exit: exit,
             "has-close-btn": settings?.close_button,
             "has-no-image": settings?.image_data === false,
+            // 84711: Live Effects (Pro). One class for every effect; each has its own rules under it.
+            "nx-live-effects": is_pro && !!settings?.live_effects,
             // Advanced Edit
             [`custom-style-${settings?.id}`]: advance_edit,
             [`img-position-${settings?.image_position}`]: advance_edit,
