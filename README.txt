@@ -221,13 +221,10 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.3.4 - 07/10/2026 =
-Fixed: Notification Bar styles on 404 pages, an unreachable close button, and the bar covering the mobile menu.
-Fixed: Deferred notification styles broken by CSS optimization plugins, and closing a popup removing the Notification Bar's top spacing.
-Improved: Flashing Tab, Cart Peek, Inline and Discount Alert notifications now run entirely from NotificationX Pro 3.2.4.
-Improved: Discount Alert and Cart Peek notifications keep their design on Cross Domain Notice sites.
-Fixed: Editing a notification whose type is not available (NotificationX Pro missing or outdated) could turn it into a Sales notification.
-Fixed: Growth Alert, Cart Peek and Discount Alert notifications showing incorrectly with an outdated NotificationX Pro, and the inline shortcode showing as raw text.
+= 3.3.4 - 12/10/2026 =
+Improved: Notification editing experience.
+Fixed: Notification Bar display issues.
+Fixed: Compatibility issues with CSS optimization plugins.
 Few minor bug fixes and improvements.
 
 = 3.3.3 - 30/09/2026 =
