@@ -12,8 +12,10 @@
  * inline shortcode / dynamic block substituted it unescaped into the page.
  *
  * The fix:
- *   - PopupNotification::handle_popup_submission() refuses notifications that
- *     are disabled or whose source is not in Rest\Popup::form_sources().
+ *   - PopupNotification::handle_popup_submission() refuses notifications whose
+ *     source is not in Rest\Popup::form_sources(). Disabled popup / exit intent
+ *     campaigns are still accepted: the Elementor "NX Form" widget can be bound
+ *     to one, and their entries only appear in the admin Feedback Entries screen.
  *   - WPOrgReview strips tags after decoding `name`.
  *   - (Pro) Core\ShortcodeInline escapes every substituted value.
  *
@@ -148,8 +150,41 @@ class Test_Security_Popup_Submit extends WP_UnitTestCase {
 		$this->assertEmpty( $this->entries_for( $nx_id ) );
 	}
 
-	public function test_rejects_disabled_popup() {
+	/**
+	 * The Elementor "NX Form" widget lists and renders disabled campaigns too,
+	 * so a disabled popup must still accept entries under its own source.
+	 */
+	public function test_accepts_disabled_popup() {
 		$nx_id = $this->create_notification( 'popup', 'popup_notification', 'popup_notification_theme-four', false );
+
+		$response = $this->submit( $nx_id, array( 'message' => 'Hello' ) );
+
+		$this->assertSame( 200, $response->get_status() );
+		$this->assertSame(
+			array(
+				array(
+					'source'    => 'popup_notification',
+					'entry_key' => 'popup_notification_' . $nx_id,
+				),
+			),
+			$this->entries_for( $nx_id )
+		);
+	}
+
+	public function test_accepts_disabled_exit_intent() {
+		$nx_id = $this->create_notification( 'exit_intent', 'exit_intent_custom', 'exit_intent_custom_theme-one', false );
+
+		$response = $this->submit( $nx_id, array( 'email' => 'jane@example.org' ) );
+
+		$this->assertSame( 200, $response->get_status() );
+		$this->assertCount( 1, $this->entries_for( $nx_id ) );
+	}
+
+	/**
+	 * Disabling a non-form campaign must not open the route to it either.
+	 */
+	public function test_rejects_disabled_non_form_source() {
+		$nx_id = $this->create_notification( 'notification_bar', 'press_bar', 'press_bar_theme-one', false );
 
 		$response = $this->submit( $nx_id );
 

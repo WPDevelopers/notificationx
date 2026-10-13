@@ -486,7 +486,9 @@ class Admin {
         }
         $this->insights = PluginInsights::get_instance( NOTIFICATIONX_FILE, [
 			'opt_in'       => true,
-			'goodbye_form' => true,
+			// Tracking runs on Pro sites too (see init()), but the deactivation
+			// feedback form is for free-only sites, as before 3.2.10.
+			'goodbye_form' => ! NotificationX::is_pro(),
 			'item_id'      => '6ba8d30bc0beaddb2540'
 		] );
 		$this->insights->set_notice_options(array(

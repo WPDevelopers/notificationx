@@ -949,6 +949,24 @@ class PluginInsights {
                 margin: 0 0 15px;
             }
 
+            /* Layout follows Better Payment's feedback form; the submit button uses the NotificationX brand colour. */
+            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-body #wpinsights-goodbye-options input[type=radio] {
+                border-color: #6B59EE;
+                box-shadow: none;
+                outline: 0;
+            }
+
+            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-body #wpinsights-goodbye-options input[type=radio]:checked::before {
+                content: "";
+                border-radius: 50%;
+                width: .6rem;
+                height: .6rem;
+                margin: 2.45px;
+                background-color: #6B59EE;
+                line-height: 1.14285714;
+                outline: 0;
+            }
+
             .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-body #wpinsights-goodbye-options ul>li>div {
                 display: inline;
                 padding-left: 3px;
@@ -960,18 +978,6 @@ class PluginInsights {
                 margin: 10px 18px;
                 padding: 8px;
                 width: 80%;
-            }
-
-            .wpinsights-goodbye-form-wrapper-notificationx .deactivating-spinner {
-                display: none;
-                padding-bottom: 20px !important;
-            }
-
-            .wpinsights-goodbye-form-wrapper-notificationx .deactivating-spinner .spinner {
-                float: none;
-                margin: 4px 4px 0 18px;
-                vertical-align: bottom;
-                visibility: visible;
             }
 
             .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-footer {
@@ -989,34 +995,28 @@ class PluginInsights {
 
             .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-footer .wpinsights-submit-btn {
                 display: inline-block;
-                background-color: #d30c5c;
-                -webkit-border-radius: 3px;
-                border-radius: 3px;
+                background-color: #6A4BFF;
+                -webkit-border-radius: 8px;
+                border-radius: 8px;
                 color: #fff;
                 line-height: 1;
-                padding: 15px 20px;
+                padding: 12px 18px;
                 font-size: 13px;
                 text-decoration: none;
             }
 
             .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-footer .wpinsights-submit-btn:hover,
             .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-footer .wpinsights-submit-btn:focus {
-                background-color: #b00a4d;
                 color: #fff;
             }
 
             .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-footer .wpinsights-deactivate-btn {
                 font-size: 13px;
-                color: #6d7882;
+                color: #a4afb7;
                 background: none;
                 padding-right: 10px;
                 width: auto;
                 text-decoration: underline;
-            }
-
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-footer .wpinsights-deactivate-btn:hover,
-            .wpinsights-goodbye-form-wrapper-notificationx .wpinsights-goodbye-form-footer .wpinsights-deactivate-btn:focus {
-                color: #495157;
             }
         </style>
 
@@ -1059,7 +1059,6 @@ class PluginInsights {
             $html .= '</ul></div><!-- .wpinsights-' . esc_attr( $this->plugin_name ) . '-goodbye-options -->';
         }
         $html .= '</div><!-- .wpinsights-goodbye-form-body -->';
-        $html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Submitting form', 'notificationx' ) . '</p>';
 
         ?>
         <script type="text/javascript">
@@ -1090,11 +1089,13 @@ class PluginInsights {
                     ?>
                     $form.html( '<?php echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>' + '<div class="wpinsights-goodbye-form-footer"><div class="wpinsights-goodbye-form-buttons"><a id="wpinsights-submit-form-<?php echo esc_attr( $this->plugin_name ); ?>" class="wpinsights-submit-btn" href="#"><?php esc_html_e( 'Submit and Deactivate', 'notificationx' ); ?></a>&nbsp;<a class="wpinsights-deactivate-btn" href="'+url+'"><?php esc_html_e( 'Just Deactivate', 'notificationx' ); ?></a></div></div>');
                     $('#wpinsights-submit-form-<?php echo esc_attr( $this->plugin_name ); ?>').on('click', function(e){
-                        // As soon as we click, the body of the form should disappear
-                        $form.find(".wpinsights-goodbye-form-body, .wpinsights-goodbye-form-footer").fadeOut();
-                        // Fade in spinner
-                        $form.find(".deactivating-spinner").fadeIn();
                         e.preventDefault();
+                        // No loading state: the form stays as it is until the page
+                        // follows the deactivation URL. Ignore repeat clicks meanwhile.
+                        if ( $(this).data('submitting') ) {
+                            return;
+                        }
+                        $(this).data('submitting', true);
                         var checkedInput = $form.find("input[name='wpinsights-<?php echo esc_attr( $this->plugin_name ); ?>-goodbye-options']:checked"),
                             checkedInputVal, details;
                         if( checkedInput.length > 0 ) {
@@ -1118,7 +1119,7 @@ class PluginInsights {
                         }
 
                         // Redirect to original deactivation URL, even if the request fails,
-                        // so the user is never left on the spinner.
+                        // so the user is never stuck on the form.
                         $.post( ajaxurl, data ).always( function(){
                             window.location.href = url;
                         } );

@@ -10,8 +10,9 @@ The "Sorry to see you go" dialog on **Plugins → Installed Plugins** had layout
 | Before | After |
 | --- | --- |
 | Admin menu and admin bar stayed bright and clickable above the dark overlay | Overlay covers the whole screen, including the admin menu and admin bar |
-| **Just Deactivate** looked like a plain blue admin link | **Just Deactivate** is a grey, underlined text link |
-| **Submit and Deactivate** did not show the "Submitting form" spinner | The reasons and buttons fade out and the spinner shows until the redirect |
+| Pink **Submit and Deactivate** button, **Just Deactivate** looked like a plain blue admin link | Same layout as the Better Payment form: rounded button in the NotificationX brand colour (`#6A4BFF`), purple radio buttons, light grey underlined **Just Deactivate** |
+| The dialog also opened on sites with NotificationX Pro active | No dialog while Pro is active |
+| A "Submitting form" spinner was in the markup but never showed | No loading state: the dialog stays as it is until the page reloads. Clicking **Submit and Deactivate** twice sends one request |
 | A failed submit request left the dialog open | The plugin deactivates even if the request fails |
 | The page behind the dialog scrolled | The page behind the dialog does not scroll |
 
@@ -39,26 +40,33 @@ Expected: the dialog opens once, with no reason selected. Clicking outside close
 Expected: the plugins list behind the dialog does not move.
 
 **T5. Footer links.** Open the dialog.
-Expected: **Submit and Deactivate** is a pink button on the left. **Just Deactivate** is a grey, underlined link on the right. Hovering darkens each one.
+Expected: **Submit and Deactivate** is a button in the NotificationX brand colour (`#6A4BFF`, same as the **Add New** button) with rounded corners on the left. **Just Deactivate** is a light grey, underlined link on the right. Selecting a reason fills its radio button with a purple dot. Open Better Payment's dialog (if installed) and compare: both look the same except the submit button colour.
 
 **T6. Submit with a reason.** Open the dialog, select **I found a better plugin**, click **Submit and Deactivate**.
-Expected: the reasons and buttons fade out and "Submitting form" with a spinner shows. Then the page reloads with NotificationX deactivated.
-Fails if: the dialog stays unchanged until the reload, or the plugin is still active.
+Expected: the dialog stays as it is, with no spinner or "Submitting form" text. Then the page reloads with NotificationX deactivated.
+Fails if: a spinner shows, the dialog content disappears before the reload, or the plugin is still active.
 
-**T7. Submit without a reason.** Reactivate NotificationX. Open the dialog and click **Submit and Deactivate** without selecting a reason.
+**T7. Double click.** Reactivate NotificationX. In DevTools **Network**, filter by `admin-ajax`. Open the dialog and double-click **Submit and Deactivate**.
+Expected: one `admin-ajax.php` request with `action=deactivation_form_notificationx`, then the page reloads with NotificationX deactivated.
+
+**T8. Submit without a reason.** Reactivate NotificationX. Open the dialog and click **Submit and Deactivate** without selecting a reason.
 Expected: same as T6.
 
-**T8. Just Deactivate.** Reactivate NotificationX. Open the dialog and click **Just Deactivate**.
-Expected: the page reloads with NotificationX deactivated. No spinner shows.
+**T9. Just Deactivate.** Reactivate NotificationX. Open the dialog and click **Just Deactivate**.
+Expected: the page reloads with NotificationX deactivated.
 
-**T9. Failed request still deactivates.** Reactivate NotificationX. In DevTools **Network**, block the request URL pattern `*admin-ajax.php*`. Open the dialog and click **Submit and Deactivate**.
-Expected: the spinner shows, then the page reloads with NotificationX deactivated. Remove the block afterwards.
+**T10. Failed request still deactivates.** Reactivate NotificationX. In DevTools **Network**, block the request URL pattern `*admin-ajax.php*`. Open the dialog and click **Submit and Deactivate**.
+Expected: the page reloads with NotificationX deactivated. Remove the block afterwards.
 
-**T10. Other WPDeveloper plugin.** Click **Deactivate** under the other WPDeveloper plugin from Setup step 2.
+**T11. Other WPDeveloper plugin.** Click **Deactivate** under the other WPDeveloper plugin from Setup step 2.
 Expected: that plugin's own dialog opens. The NotificationX dialog does not open. Close it, then repeat T1: only the NotificationX dialog opens.
 
-**T11. Narrow screen.** Set the browser width to 375 px (DevTools device toolbar) and repeat T1.
+**T12. Narrow screen.** Set the browser width to 375 px (DevTools device toolbar) and repeat T1.
 Expected: the dialog has a small gap on each side and fits in the screen. If the screen is short, the dialog content scrolls inside the dialog.
 
-**T12. Another admin colour scheme.** In **Users → Profile**, choose a different admin colour scheme and repeat T1 and T5.
+**T13. Another admin colour scheme.** In **Users → Profile**, choose a different admin colour scheme and repeat T1 and T5.
 Expected: same result as T1 and T5.
+
+**T14. No form with NotificationX Pro.** Activate NotificationX Pro. Go to **Plugins** and click **Deactivate** under NotificationX.
+Expected: no dialog opens and the Deactivate link works like any other plugin's. Reactivate NotificationX afterwards.
+Fails if: the "Sorry to see you go" dialog opens.

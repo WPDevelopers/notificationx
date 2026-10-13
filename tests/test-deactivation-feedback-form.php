@@ -9,11 +9,15 @@
  *     bar (z-index 99999), so the overlay dims and blocks the whole screen.
  *  2. Every class the footer links use has a style rule ("Just Deactivate"
  *     printed `wpsp-put-deactivate-btn`, which had none).
- *  3. The submit handler hides the form body and shows the spinner through
- *     elements that exist (it used `#wpinsights-goodbye-form-notificationx`,
- *     an id the markup never had).
+ *  3. Submitting has no loading state: no spinner markup, no fade-out, and a
+ *     repeat click does not send a second request.
  *  4. Lookups are scoped to the NotificationX wrapper, because other
  *     WPDeveloper plugins print the same `#wpinsights-goodbye-form` id.
+ *  5. The look (8px button radius, purple radios) matches the Better Payment
+ *     feedback form; the submit button uses the NotificationX brand #6A4BFF.
+ *  6. Admin::plugin_usage_insights() turns the form off while NotificationX
+ *     Pro is active. Tracking starts on Pro sites too since 3.2.10, and the
+ *     form leaked onto them with it.
  *
  * See docs/features/deactivation-feedback-form.md.
  *
@@ -132,15 +136,54 @@ class Test_Deactivation_Feedback_Form extends WP_UnitTestCase {
 		$this->rule( $css, '.wpinsights-goodbye-form-footer .wpinsights-deactivate-btn' );
 	}
 
-	public function test_submit_handler_targets_elements_that_exist() {
+	public function test_submit_has_no_loading_state() {
 		$script = $this->script();
+		$css    = $this->style();
 
-		$this->assertStringNotContainsString( '#wpinsights-goodbye-form-notificationx', $script, 'That id is not in the markup, so the spinner never showed.' );
+		$this->assertStringNotContainsString( 'deactivating-spinner', $script );
+		$this->assertStringNotContainsString( 'Submitting form', $script );
+		$this->assertStringNotContainsString( 'deactivating-spinner', $css );
+		$this->assertStringNotContainsString( 'fadeOut', $this->submit_handler( $script ), 'Submitting must not hide the form.' );
+	}
 
-		foreach ( [ 'wpinsights-goodbye-form-body', 'wpinsights-goodbye-form-footer', 'deactivating-spinner' ] as $class ) {
-			$this->assertStringContainsString( 'class="' . $class . '"', $script, "The form markup must contain .$class." );
-			$this->assertMatchesRegularExpression( '/\$form\.find\([^)]*\.' . preg_quote( $class, '/' ) . '/', $script, ".$class must be looked up inside the NotificationX form." );
-		}
+	public function test_repeat_submit_clicks_are_ignored() {
+		$handler = $this->submit_handler( $this->script() );
+
+		$this->assertStringContainsString( "if ( $(this).data('submitting') ) {", $handler );
+		$this->assertStringContainsString( "$(this).data('submitting', true);", $handler );
+		$this->assertLessThan( strpos( $handler, '$.post(' ), strpos( $handler, "$(this).data('submitting', true);" ), 'The guard must be set before the request is sent.' );
+	}
+
+	public function test_look_matches_better_payment_form() {
+		$css = $this->style();
+
+		$submit = $this->rule( $css, '.wpinsights-goodbye-form-footer .wpinsights-submit-btn' );
+		$this->assertMatchesRegularExpression( '/background-color:\s*#6A4BFF/i', $submit, 'Submit button uses the NotificationX brand colour.' );
+		$this->assertMatchesRegularExpression( '/(?<!-)border-radius:\s*8px/', $submit );
+		$this->assertMatchesRegularExpression( '/padding:\s*12px 18px/', $submit );
+
+		$radio = $this->rule( $css, '#wpinsights-goodbye-options input[type=radio]' );
+		$this->assertMatchesRegularExpression( '/border-color:\s*#6B59EE/i', $radio );
+
+		$checked = $this->rule( $css, '#wpinsights-goodbye-options input[type=radio]:checked::before' );
+		$this->assertMatchesRegularExpression( '/background-color:\s*#6B59EE/i', $checked );
+
+		$deactivate = $this->rule( $css, '.wpinsights-goodbye-form-footer .wpinsights-deactivate-btn' );
+		$this->assertMatchesRegularExpression( '/color:\s*#a4afb7/i', $deactivate );
+	}
+
+	/**
+	 * Body of the "Submit and Deactivate" click handler.
+	 *
+	 * @param string $script
+	 * @return string
+	 */
+	protected function submit_handler( $script ) {
+		$start = strpos( $script, "$('#wpinsights-submit-form-notificationx').on('click'" );
+		$end   = strpos( $script, '$form.find(\'#wpinsights-goodbye-options > ul\')', $start );
+		$this->assertNotFalse( $start, 'Submit handler not found.' );
+		$this->assertNotFalse( $end );
+		return substr( $script, $start, $end - $start );
 	}
 
 	public function test_lookups_are_scoped_to_notificationx_wrapper() {
@@ -202,5 +245,50 @@ class Test_Deactivation_Feedback_Form extends WP_UnitTestCase {
 
 		$this->assertStringNotContainsString( '<img src=x', $script );
 		$this->assertStringContainsString( '&lt;img src=x onerror=alert(1)&gt;', $script );
+	}
+
+	/**
+	 * Build the insights instance through Admin, the way the plugin does.
+	 *
+	 * @return PluginInsights
+	 */
+	protected function admin_insights() {
+		$singleton = new ReflectionProperty( PluginInsights::class, '_instance' );
+		$singleton->setAccessible( true );
+		$singleton->setValue( null, null );
+
+		$admin = \NotificationX\Admin\Admin::get_instance();
+		$cached = new ReflectionProperty( $admin, 'insights' );
+		$cached->setAccessible( true );
+		$cached->setValue( $admin, null );
+
+		return $admin->plugin_usage_insights();
+	}
+
+	public function test_admin_enables_form_without_pro() {
+		$this->assertFalse( \NotificationX\NotificationX::is_pro(), 'This case needs Pro to be absent.' );
+
+		$this->insights = $this->admin_insights();
+		$links          = $this->action_links();
+
+		$this->assertStringContainsString( 'id="wpinsights-goodbye-link-notificationx"', $links['deactivate'] );
+	}
+
+	/**
+	 * Loading a stand-in for the Pro main class cannot be undone, so this case
+	 * runs in its own process.
+	 *
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 */
+	public function test_admin_disables_form_when_pro_active() {
+		eval( 'namespace NotificationXPro; class NotificationX {}' );
+		$this->assertTrue( \NotificationX\NotificationX::is_pro() );
+
+		$this->insights = $this->admin_insights();
+		$links          = $this->action_links();
+
+		$this->assertSame( '<a href="https://example.test/deactivate">Deactivate</a>', $links['deactivate'], 'No feedback form while Pro is active.' );
+		$this->assertNotFalse( has_action( 'put_do_weekly_action', [ $this->insights, 'do_tracking' ] ), 'Tracking must still run on Pro sites.' );
 	}
 }

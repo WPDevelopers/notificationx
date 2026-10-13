@@ -9,7 +9,7 @@ Wordfence reported "NotificationX <= 3.3.3 - Unauthenticated Stored Cross-Site S
 
 | Plugin | Change | What you can see |
 |---|---|---|
-| Free | `POST /wp-json/notificationx/v1/popup-submit` accepts entries only for an **enabled** Popup or Exit Intent notification | Any other notification ID gets `404 Notification not found` and nothing is stored |
+| Free | `POST /wp-json/notificationx/v1/popup-submit` accepts entries only for a Popup or Exit Intent notification, enabled or disabled | Any other notification ID gets `404 Notification not found` and nothing is stored |
 | Free | WordPress.org Reviews names have tags removed after decoding | Plugin names with `&` still show `&`, not `&amp;` |
 | Free | A submission without a title no longer logs `Undefined array key "title"` | The entry title is "Popup Submission" |
 | Pro | `[notificationx_inline]` and the NotificationX block escape every entry value | Markup inside an entry shows as text, not as a live element |
@@ -44,8 +44,8 @@ Fails if: the response is 200, or a row is stored.
 **T2. Pages stay clean.** Open Page A and Page B logged out and logged in as administrator.
 Expected: no alert, no broken image, no Console error.
 
-**T3. Disabled popup is refused.** Repeat T1 with `nx_id=D`.
-Expected: 404, nothing stored for `D`.
+**T3. Disabled popup is accepted.** Repeat T1 with `nx_id=D`.
+Expected: HTTP 200 and one entry stored for `D`, shown only in **NotificationX → Feedback Entries** (the markup shows as text there). Delete that entry afterwards.
 
 **T4. Unknown ID is refused.** Repeat T1 with `nx_id=999999`.
 Expected: 404.
@@ -87,8 +87,9 @@ Expected: the entry appears in Feedback Entries.
 **T12. CSV export.** In Feedback Entries, export the entries.
 Expected: same columns and values as before the update.
 
-**T13. Popup or Exit Intent turned off.** Disable **P**, then submit the same form from a page that was already open.
-Expected: the submission fails (404). Enable **P** again and it saves.
+**T13. Elementor form bound to a disabled popup.** Add the **NotificationX Form** widget bound to **D** to a page. Visit it logged out and submit Name, Email and Message.
+Expected: "Thanks! Your submission has been received." and the entry appears in Feedback Entries. Repeat with a disabled Exit Intent campaign: it saves too.
+Fails if: the visitor sees "Notification not found".
 
 ## Part 4: version matrix
 
