@@ -88,7 +88,7 @@ These handle popup **and** exit-intent form submissions (`source IN ('popup_noti
 
 | Method | Route | Permission | Purpose |
 | --- | --- | --- | --- |
-| POST | `/popup-submit` | `__return_true` (public) | **Frontend**: accept a popup/exit-intent form submission. |
+| POST | `/popup-submit` | `__return_true` (public) | **Frontend**: accept a popup/exit-intent form submission. Only for an **enabled** notification whose source is in `Popup::form_sources()` (`popup_notification`, `exit_intent_custom`); any other ID gets `404`. |
 | GET | `/feedback-entries` | `read_notificationx` | List submissions (paginated, searchable). |
 | DELETE | `/feedback-entries/(?P<id>\d+)` | `edit_notificationx` | Delete one submission. |
 | POST | `/feedback-entries/bulk-delete` | `edit_notificationx` | Delete many submissions by `ids`. |
@@ -98,7 +98,7 @@ These handle popup **and** exit-intent form submissions (`source IN ('popup_noti
 
 **Custom capabilities.** Permission callbacks check NotificationX-specific caps rather than raw WP caps: `read_notificationx`, `edit_notificationx`, `edit_notificationx_settings`, and `read_notificationx_analytics`. These are mapped onto roles by `WPDRoleManagement` using the settings role map (see [../architecture/plugin-lifecycle.md](../architecture/plugin-lifecycle.md)). A few endpoints instead require core WP caps (`install_plugins` / `activate_plugins` for `/core-install`).
 
-**Public endpoints.** `/notice`, `/analytics`, `/delete-cookies`, `/popup-submit`, and the `/notification/{id}` integration routes use `permission_callback => '__return_true'` because they serve unauthenticated visitors. The integration routes compensate with the `api_key` (`md5(home_url())`) check; `/popup-submit` sanitizes each input field.
+**Public endpoints.** `/notice`, `/analytics`, `/delete-cookies`, `/popup-submit`, and the `/notification/{id}` integration routes use `permission_callback => '__return_true'` because they serve unauthenticated visitors. The integration routes compensate with the `api_key` (`md5(home_url())`) check; `/popup-submit` sanitizes each input field and accepts entries only for enabled `popup_notification` / `exit_intent_custom` notifications. Before that check, anyone could post an entry into any campaign (for example a WordPress.org Reviews campaign), and the inline shortcode rendered it as HTML (Wordfence report against <= 3.3.3). Keep the route public: restrict it by source and enabled status, never by capability.
 
 **Nonces & localized data.** The admin SPA authenticates with a standard `wp_rest` nonce. `REST::rest_data()` supplies the client with `root` (REST URL), `namespace`, `nonce` (`wp_create_nonce('wp_rest')`), and `omit_credentials`, filtered through `nx_rest_data`.
 

@@ -292,7 +292,7 @@ class WPOrgReview extends Extension {
 
     // @todo frontend
     public function conversion_data($saved_data, $settings) {
-        $saved_data['name']        = isset($saved_data['name']) ? html_entity_decode($saved_data['name']) : '';
+        $saved_data['name']        = isset($saved_data['name']) ? wp_strip_all_tags( html_entity_decode( $saved_data['name'], ENT_QUOTES, 'UTF-8' ) ) : '';
         if(empty($saved_data['rated'])){
             $saved_data['rated'] = isset($saved_data['ratings']) ? $saved_data['ratings']['5'] : '';
         }
@@ -330,7 +330,7 @@ class WPOrgReview extends Extension {
                         $nx_ids[]             = $nx_id;
 
                         $entry['rated']       = isset($entry['ratings']) ? $entry['ratings']['5'] : '';
-                        $entry['name']        = isset($entry['name']) ? html_entity_decode($entry['name']) : '';
+                        $entry['name']        = isset($entry['name']) ? wp_strip_all_tags( html_entity_decode( $entry['name'], ENT_QUOTES, 'UTF-8' ) ) : '';
                         $entry['plugin_name'] = $entry['name'];
                         $entry['timestamp']   = time();
                         $product_type         = $settings['wp_reviews_product_type'];

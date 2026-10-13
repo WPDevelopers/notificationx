@@ -23,9 +23,10 @@ class Popup {
 
     /**
      * Sources that share the popup-submit form pipeline.
-     * Entries from these sources are listed/managed together in the Feedback Entries screen.
+     * Entries from these sources are listed/managed together in the Feedback Entries screen,
+     * and only notifications from these sources may receive popup-submit entries.
      */
-    private function form_sources() {
+    public static function form_sources() {
         return [ 'popup_notification', 'exit_intent_custom' ];
     }
 
@@ -207,7 +208,7 @@ class Popup {
         $offset = ($page - 1) * $per_page;
 
         // Build WHERE clause — include both popup and exit-intent submissions
-        $sources       = $this->form_sources();
+        $sources       = self::form_sources();
         $src_placeholders = implode(',', array_fill(0, count($sources), '%s'));
         $where_conditions = ["e.source IN ({$src_placeholders})"];
         $where_values     = $sources;
@@ -293,7 +294,7 @@ class Popup {
         $entry_id = $request->get_param('id');
         $table_name = $wpdb->prefix . 'nx_entries';
 
-        $sources          = $this->form_sources();
+        $sources          = self::form_sources();
         $src_placeholders = implode(',', array_fill(0, count($sources), '%s'));
         $delete_query     = $wpdb->prepare(
             // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
@@ -348,7 +349,7 @@ class Popup {
 
         // Create placeholders for the IN clauses
         $placeholders     = implode(',', array_fill(0, count($entry_ids), '%d'));
-        $sources          = $this->form_sources();
+        $sources          = self::form_sources();
         $src_placeholders = implode(',', array_fill(0, count($sources), '%s'));
 
         // Prepare the query with source filter
@@ -393,7 +394,7 @@ class Popup {
         $notification_id = $request->get_param('notification_id') ?: '';
 
         // Build WHERE clause — include both popup and exit-intent submissions
-        $sources          = $this->form_sources();
+        $sources          = self::form_sources();
         $src_placeholders = implode(',', array_fill(0, count($sources), '%s'));
         $where_conditions = ["e.source IN ({$src_placeholders})"];
         $where_values     = $sources;

@@ -1128,9 +1128,20 @@ class PopupNotification extends Extension {
             ], 404);
         }
 
+        // The endpoint is public, so only accept entries for enabled popup / exit-intent
+        // notifications. Otherwise anyone could inject entries into other sources
+        // (e.g. wp_reviews) that are rendered on the frontend.
+        $source = isset( $notificationx['source'] ) ? $notificationx['source'] : '';
+        if ( empty( $notificationx['enabled'] ) || ! in_array( $source, \NotificationX\Core\Rest\Popup::form_sources(), true ) ) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('Notification not found', 'notificationx'),
+            ], 404);
+        }
+
         // Prepare entry data
         $data = [
-            'title' => $params['title'] ?: __('Popup Submission', 'notificationx'),
+            'title' => ! empty( $params['title'] ) ? $params['title'] : __('Popup Submission', 'notificationx'),
             'timestamp' => time(),
         ];
 
@@ -1158,7 +1169,6 @@ class PopupNotification extends Extension {
 
         // Use the post's own source so exit-intent submissions aren't mis-tagged as
         // popup_notification (the same /popup-submit endpoint serves both types).
-        $source    = ! empty( $notificationx['source'] ) ? $notificationx['source'] : $this->id;
         $entry_key = $source . '_' . $params['nx_id'];
         $entry = [
             'nx_id'     => $params['nx_id'],
