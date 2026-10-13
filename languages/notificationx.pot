@@ -10830,3 +10830,14 @@ msgstr ""
 #: blocks/notificationx/index.js:1
 msgid "Link Color"
 msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2435
+msgid "<a href='https://notificationx.com/docs/how-to-create-a-cart-peek-notification/' target='_blank'>More Info</a>"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2438
+msgid ""
+"\n"
+"                <span>Show the live count of shoppers who currently have a product in their cart to spark urgency and boost conversions.</span>\n"
+"            "
+msgstr ""

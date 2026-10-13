@@ -508,13 +508,15 @@ class PostType {
             $source                          = $value['source'];
             $posts[ $key ]['can_regenerate'] = false;
             $extension                       = ExtensionFactory::get_instance()->get( $source );
-            $posts[ $key ]['source_label']   = $extension->title;
+            $posts[ $key ]['source_label']   = ! empty( $extension ) ? $extension->title : '';
             if ( ! empty( $extension ) && method_exists( $extension, 'get_notification_ready' ) && $extension->is_active( false ) ) {
                 $posts[ $key ]['can_regenerate'] = true;
             }
             if ( ! empty( $extension ) && $extension->get_type() ) {
                 $type                        = $extension->get_type();
                 $posts[ $key ]['type_label'] = $type->dashboard_title ?: $type->title;
+            } else {
+                $posts[ $key ]['type_label'] = $this->stub_type_label( $value['type'] ?? '' );
             }
         }
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
@@ -584,7 +586,7 @@ class PostType {
             $source                          = $post['source'];
             $posts[ $key ]['can_regenerate'] = false;
             $extension                       = ExtensionFactory::get_instance()->get( $source );
-            $posts[ $key ]['source_label']   = $extension->title;
+            $posts[ $key ]['source_label']   = ! empty( $extension ) ? $extension->title : '';
 
             // Add entries count for popup notifications
             if ($source === 'popup_notification') {
@@ -597,9 +599,24 @@ class PostType {
             if ( ! empty( $extension ) && $extension->get_type() ) {
                 $type                        = $extension->get_type();
                 $posts[ $key ]['type_label'] = $type->dashboard_title ?: $type->title;
+            } else {
+                $posts[ $key ]['type_label'] = $this->stub_type_label( $post['type'] ?? '' );
             }
         }
         return $posts;
+    }
+
+    /**
+     * List label of a Pro-rendered type whose Type is not registered (no Pro,
+     * or an outdated Pro), so the list shows "Cart Peek" instead of its id.
+     *
+     * @since 3.3.4
+     * @param string $type Type id.
+     * @return string Empty when the type is not one of them.
+     */
+    protected function stub_type_label( $type ) {
+        $stubs = GlobalFields::pro_rendered_type_stubs();
+        return isset( $stubs[ $type ] ) ? $stubs[ $type ]['dashboard_title'] : '';
     }
 
     public function get_col( $col, $wheres ) {

@@ -23,9 +23,11 @@
  * @package Notificationx
  */
 
+use NotificationX\Admin\Settings;
 use NotificationX\Core\Database;
 use NotificationX\Core\PostType;
 use NotificationX\Core\REST;
+use NotificationX\Extensions\GlobalFields;
 use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\NotificationX;
 use NotificationX\Types\TypeFactory;
@@ -94,6 +96,36 @@ class Test_Old_Pro_Compat extends WP_UnitTestCase {
 		$this->assertFalse( PostType::get_instance()->is_type_registered( '' ) );
 		$this->assertFalse( PostType::get_instance()->is_type_registered( null ) );
 		$this->assertTrue( PostType::get_instance()->is_type_registered( $this->registered_type() ) );
+	}
+
+	/**
+	 * Without Pro, Cart Peek stays in the type picker (Add New and Quick
+	 * Builder) as a locked Pro type with its upsell popup, as in free 3.3.3.
+	 */
+	public function test_picker_lists_cart_peek_locked_without_pro() {
+		$options = wp_list_pluck( GlobalFields::get_instance()->get_type_options(), null, 'value' );
+		$this->assertArrayHasKey( 'woocommerce_cart_peek', $options );
+		$cart_peek = $options['woocommerce_cart_peek'];
+		$this->assertTrue( $cart_peek['is_pro'] );
+		$this->assertSame( 51, $cart_peek['priority'] );
+		$this->assertStringContainsString( 'Upgrade to PRO', $cart_peek['popup']['confirmButtonText'] );
+		$this->assertArrayNotHasKey( 'forced', $cart_peek['popup'] );
+		$this->assertSame( 1, count( array_keys( wp_list_pluck( $options, 'value' ), 'woocommerce_cart_peek', true ) ) );
+	}
+
+	public function test_picker_hides_cart_peek_with_the_woocommerce_module_off() {
+		$modules = (array) Settings::get_instance()->get( 'settings.modules' );
+		Settings::get_instance()->set( 'settings.modules', array_merge( $modules, [ 'modules_woocommerce' => false ] ) );
+		$values = wp_list_pluck( GlobalFields::get_instance()->get_type_options(), 'value' );
+		Settings::get_instance()->set( 'settings.modules', $modules );
+		$this->assertNotContains( 'woocommerce_cart_peek', $values );
+	}
+
+	public function test_list_labels_an_unregistered_cart_peek_notification() {
+		$nx_id = $this->insert_row( 'woocommerce_cart_peek', 'woocommerce_cart_peek', 'woocommerce_cart_peek_conv-theme-fourteen' );
+		$posts = wp_list_pluck( PostType::get_instance()->get_posts( [ 'nx_id' => $nx_id ] ), null, 'nx_id' );
+		$this->assertSame( 'Cart Peek', $posts[ $nx_id ]['type_label'] );
+		$this->assertSame( '', $posts[ $nx_id ]['source_label'] );
 	}
 
 	/**

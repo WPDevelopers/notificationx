@@ -2362,11 +2362,15 @@ class GlobalFields {
      * an outdated Pro may register them without being able to show them, or
      * not register them at all.
      *
+     * Without Pro, a Pro-rendered type whose Type only Pro registers (Cart
+     * Peek) is listed locked with its upsell popup, like the other Pro types.
+     *
      * @since 3.3.4
      * @return array
      */
     public function get_type_options() {
         $outdated_pro = Admin::pro_needs_update();
+        $without_pro  = ! NotificationX::is_pro();
         $options      = [];
         foreach ( TypeFactory::get_instance()->get_all() as $type ) {
             $needs_pro_update = $outdated_pro && in_array( $type->id, NotificationX::PRO_RENDERED_TYPES, true );
@@ -2379,29 +2383,72 @@ class GlobalFields {
                 'popup'    => $needs_pro_update ? $this->pro_update_popup() : apply_filters( 'nx_pro_alert_popup', $type->popup ),
             ];
         }
-        if ( ! $outdated_pro ) {
+        if ( ! $outdated_pro && ! $without_pro ) {
             return $options;
         }
-        // Types an outdated Pro does not register at all: list them locked.
+        // Types that are not registered (an outdated Pro, or no Pro): list them locked.
         $listed = wp_list_pluck( $options, 'value' );
-        $known  = [
-            'inline'                => [ __( 'Growth Alert 🚀', 'notificationx' ), 50 ],
-            'woocommerce_cart_peek' => [ __( 'Cart Peek 🛒', 'notificationx' ), 51 ],
-            'offer_announcement'    => [ __( 'Discount Alert', 'notificationx' ), 36 ],
-        ];
+        $known  = self::pro_rendered_type_stubs();
         foreach ( NotificationX::PRO_RENDERED_TYPES as $id ) {
             if ( in_array( $id, $listed, true ) || ! isset( $known[ $id ] ) ) {
                 continue;
             }
+            // Without Pro, follow the module like a registered Type would.
+            if ( ! $outdated_pro && ! Modules::get_instance()->is_enabled( $known[ $id ]['module'] ) ) {
+                continue;
+            }
             $options[] = [
                 'value'    => $id,
-                'label'    => $known[ $id ][0],
+                'label'    => $known[ $id ]['title'],
                 'is_pro'   => true,
-                'priority' => $known[ $id ][1],
-                'popup'    => $this->pro_update_popup(),
+                'priority' => $known[ $id ]['priority'],
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+                'popup'    => $outdated_pro ? $this->pro_update_popup() : apply_filters( 'nx_pro_alert_popup', $known[ $id ]['popup'] ),
             ];
         }
         return $options;
+    }
+
+    /**
+     * Picker and list data for the types only NotificationX Pro renders
+     * (NotificationX::PRO_RENDERED_TYPES), used when their Type is not
+     * registered. Matches the Type classes free shipped before 3.3.4.
+     *
+     * @since 3.3.4
+     * @return array
+     */
+    public static function pro_rendered_type_stubs() {
+        return [
+            'inline'                => [
+                'title'           => __( 'Growth Alert 🚀', 'notificationx' ),
+                'dashboard_title' => __( 'Growth Alert', 'notificationx' ),
+                'priority'        => 50,
+                'module'          => 'modules_woocommerce',
+                'popup'           => [],
+            ],
+            'woocommerce_cart_peek' => [
+                'title'           => __( 'Cart Peek 🛒', 'notificationx' ),
+                'dashboard_title' => __( 'Cart Peek', 'notificationx' ),
+                'priority'        => 51,
+                'module'          => 'modules_woocommerce',
+                'popup'           => [
+                    'denyButtonText'    => __( "<a href='https://notificationx.com/docs/how-to-create-a-cart-peek-notification/' target='_blank'>More Info</a>", 'notificationx' ),
+                    'confirmButtonText' => __( "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", 'notificationx' ),
+                    // phpcs:disable PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- False positive for this context: remote documentation/pricing links in admin help text, not offloaded plugin assets.
+                    'html'              => __( '
+                <span>Show the live count of shoppers who currently have a product in their cart to spark urgency and boost conversions.</span>
+            ', 'notificationx' ),
+                    // phpcs:enable PluginCheck.CodeAnalysis.Offloading.OffloadedContent
+                ],
+            ],
+            'offer_announcement'    => [
+                'title'           => __( 'Discount Alert', 'notificationx' ),
+                'dashboard_title' => __( 'Discount Alert', 'notificationx' ),
+                'priority'        => 36,
+                'module'          => 'modules_announcements',
+                'popup'           => [],
+            ],
+        ];
     }
 
     /**
