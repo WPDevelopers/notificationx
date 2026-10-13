@@ -36,8 +36,31 @@ class GlobalFields {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-
+        // After the type/extension template filters (priority 7-10), like the
+        // Cart Peek Type that used to add this rule from free.
+        add_filter( 'nx_notification_template', [ $this, 'verb_field_rule' ], 20 );
         // dump(Rules::logicalRule([ Rules::is('test'), Rules::is('test2') ]));
+    }
+
+    /**
+     * Rule on the template's verb field (`second_param`): hidden for Cart Peek,
+     * which has no verb.
+     *
+     * The rule also makes the builder apply the selected theme's verb when the
+     * notification type changes (for example "commented on" for Comments);
+     * without a rule the field keeps the verb it was first loaded with. Free up
+     * to 3.3.3 added it through its Cart Peek Type, which free 3.3.4 no longer
+     * ships; NotificationX Pro's Cart Peek Type sets the same rule.
+     *
+     * @since 3.3.4
+     * @param array $fields Template fields.
+     * @return array
+     */
+    public function verb_field_rule( $fields ) {
+        if ( is_array( $fields ) && isset( $fields['second_param'] ) && is_array( $fields['second_param'] ) ) {
+            $fields['second_param']['rules'] = Rules::is( 'source', 'woocommerce_cart_peek', true );
+        }
+        return $fields;
     }
 
     public function tabs() {
