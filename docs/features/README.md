@@ -12,3 +12,4 @@ Deep dives on specific NotificationX product features — the cross-cutting flow
 | [sales-notification/](sales-notification/) | Sales/Conversions notification design authoring. |
 | [mcp/](mcp/) | MCP server — ability registration and the WordPress Abilities API bridge. |
 | [frontend-performance/](frontend-performance/) | Public bundle size: the xSpeed report, root causes, what changed in B1, guardrails, and the B2/B3 roadmap. Also optimizer (Delay JS) compatibility. |
+| [deactivation-feedback-form.md](deactivation-feedback-form.md) | The "Sorry to see you go" dialog on the Plugins screen: markup, stacking above the admin menu and admin bar, shared ids with other WPDeveloper plugins, fix history. |
