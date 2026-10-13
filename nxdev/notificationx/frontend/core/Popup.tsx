@@ -4,7 +4,7 @@ import { isAdminBar } from './utils';
 import CloseIcon from '../../icons/Close';
 import useNotificationContext from "./NotificationProvider";
 import 'animate.css';
-import { isObject, handleCloseNotification } from "../core/functions";
+import { isObject, handleCloseNotification, getAnimationTiming } from "../core/functions";
 import { getIconUrl } from "../../shared/helpers";
 
 import { __ } from '@wordpress/i18n';
@@ -56,6 +56,8 @@ const Popup = (props: any) => {
     const isTablet = useMediaQuery("(max-width: 768px)");
     const [notificationSize, setNotificationSize] = useState();
     const is_pro = frontEndContext?.state?.is_pro ?? false;
+    // 80989: Animation Duration (Pro). Nothing changes at the default 0.5s; Show only (Hide is a known separate issue).
+    const animationTiming = getAnimationTiming(settings, is_pro);
     const [isButtonHovered, setIsButtonHovered] = useState(false);
     const [focusedField, setFocusedField] = useState<string | null>(null);
     const [couponCopied, setCouponCopied] = useState(false);
@@ -445,6 +447,7 @@ const Popup = (props: any) => {
         maxWidth: `${notificationSize}px`,
         ...getAnimationStyles(),
         ...mainBGColor,
+        ...animationTiming.style,
     };
 
     if (settings?.advance_edit && settings?.popup_width) {
@@ -469,7 +472,7 @@ const Popup = (props: any) => {
     ];
 
     let componentClasses: string;
-    let animationStyle = 'fadeIn 300ms';
+    let animationStyle = `fadeIn ${Math.round(300 * animationTiming.scale)}ms`;
 
     if ((is_pro && settings?.animation_notification_show !== 'default') || (is_pro && settings?.animation_notification_hide !== 'default')) {
         let animate_effect: string;
@@ -495,9 +498,15 @@ const Popup = (props: any) => {
             "animate__faster",
             ...baseClasses
         );
+        if (animate_effect?.startsWith('nx-anim-')) {
+            componentClasses = classNames(animate_effect, ...baseClasses);
+        }
     } else {
         componentClasses = classNames(...baseClasses);
         componentStyle.animation = animationStyle;
+    }
+    if (animationTiming.className) {
+        componentClasses = classNames(componentClasses, animationTiming.className);
     }
     const iconUrl = getIconUrl(settings?.popup_icon);
     const buttonIconUrl = getIconUrl(settings?.popup_button_icon);

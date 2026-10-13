@@ -3,9 +3,13 @@ import { Branding as NXSvg, ThemeFiveShape } from ".";
 import Star from "../../../icons/Star";
 import Button from "./Button";
 import { nxApplyFilters } from "../../core/hooks";
+import useNotificationContext from "../../core/NotificationProvider";
 
 const Content = (props) => {
     const { config } = props;
+    // 84712: Progressive reveal (Pro). Announcements are excluded: their buttons sit in the content.
+    const frontendContext = useNotificationContext();
+    const reveal = !!(frontendContext?.state?.is_pro && config?.progressive_reveal && config?.source !== 'announcements');
     let rowClasses = ["nx-first-row", "nx-second-row", "nx-third-row"];
     let themeFiveShapeStyle = {};
     if (props.style) {
@@ -72,7 +76,7 @@ const Content = (props) => {
     return (
         <div
             className={`notificationx-content ${config.template_adv ? "adv-template" : ""
-                }`}
+                }${reveal ? " nx-reveal" : ""}`}
             style={props.style}
         >
             {(props.themes == "theme-five" || (props?.isSplit && props?.splitThemes?.includes('res-theme-three'))) && (

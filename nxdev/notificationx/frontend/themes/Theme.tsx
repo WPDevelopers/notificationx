@@ -7,6 +7,7 @@ import { useNotificationContext } from "../core";
 import { getResThemeName, getThemeName } from "../core/functions";
 import { __, _x } from "@wordpress/i18n";
 import Button from "./helpers/Button";
+import { withoutLiveTimeFact } from "./GetTemplate";
 import { nxApplyFilters } from "../core/hooks";
 import Cookies from 'js-cookie';
 
@@ -39,6 +40,8 @@ const Theme = (props) => {
     let template = [];
     tmpl?.forEach((row) => {
         if (!row) return;
+        // 84711: without a time, the Live Effects line shows only its first fact, no rotation.
+        if (!entry?.updated_at) row = withoutLiveTimeFact(row);
         let match;
         let _row = row;
         let regex = /{{(.*?)}}/g;

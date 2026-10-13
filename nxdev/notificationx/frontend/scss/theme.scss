@@ -14,6 +14,7 @@
 // needed by the GDPR cookie-customisation modal: they ship separately as
 // public/css/gdpr-modal.css, enqueued only when a GDPR notice is active.
 @import "./_themes/exit-intent";
+@import "./reduced-motion";
 
 // Lets the runtime check that this stylesheet applies (external-styles.ts).
 .nx-style-probe {

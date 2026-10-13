@@ -1,0 +1,17 @@
+@media (prefers-reduced-motion: reduce) {
+    .notificationx-frontend,
+    .notificationx-frontend *,
+    .nx-bar,
+    .nx-bar *,
+    .nx-gdpr,
+    .nx-gdpr *,
+    .nx-exit-intent-overlay,
+    .nx-exit-intent-overlay * {
+        animation-duration: 1ms !important;
+        animation-delay: 0s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+        transition-delay: 0s !important;
+        scroll-behavior: auto !important;
+    }
+}

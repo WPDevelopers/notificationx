@@ -473,6 +473,7 @@ class FrontEnd {
             }
         }
         $data['is_pro']        = false;
+        $data['spacing_v2']    = (bool) Settings::get_instance()->get('settings.corner_spacing_v2', false);
         $data['gmt_offset']    = get_option('gmt_offset');
         $data['lang']          = get_locale();
         $data['common_assets'] = NOTIFICATIONX_COMMON_URL;

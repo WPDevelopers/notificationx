@@ -1,7 +1,7 @@
 /**
  * Frontend-only helpers touched by the B1 performance work.
  */
-import { parseDelaySeconds } from '../../nxdev/notificationx/frontend/core/functions';
+import { parseDelaySeconds, getAnimationTiming } from '../../nxdev/notificationx/frontend/core/functions';
 
 jest.mock( '@wordpress/api-fetch', () => jest.fn() );
 import apiFetch from '@wordpress/api-fetch';
@@ -60,5 +60,63 @@ describe( 'requestCookieDeletion', () => {
 		apiFetch.mockRejectedValue( new Error( 'network' ) );
 
 		await expect( requestCookieDeletion() ).resolves.toBeUndefined();
+	} );
+} );
+
+describe( 'getAnimationTiming (80989 Animation Duration)', () => {
+	const UNCHANGED = { className: '', style: {}, scale: 1, exitDelay: 500 };
+	const hide = { animation_notification_hide: 'nx-anim-rise-soft-out' };
+
+	it( 'changes nothing when the value is missing', () => {
+		expect( getAnimationTiming( {}, true ) ).toEqual( UNCHANGED );
+		expect( getAnimationTiming( undefined, true ) ).toEqual( UNCHANGED );
+	} );
+
+	it.each( [ 0.5, '0.5', ' 0.5 ' ] )( 'changes nothing at the default %p', ( value ) => {
+		expect( getAnimationTiming( { ...hide, animation_duration: value }, true ) ).toEqual( UNCHANGED );
+	} );
+
+	it.each( [ 0, '0', -1, '-0.3', '', '   ', 'abc', null, NaN, Infinity ] )(
+		'falls back to the default for invalid input %p',
+		( value ) => {
+			expect( getAnimationTiming( { ...hide, animation_duration: value }, true ) ).toEqual( UNCHANGED );
+		}
+	);
+
+	it( 'changes nothing on Free', () => {
+		expect( getAnimationTiming( { ...hide, animation_duration: 2 }, false ) ).toEqual( UNCHANGED );
+	} );
+
+	it( 'scales a small value and keeps the 500ms removal floor', () => {
+		expect( getAnimationTiming( { ...hide, animation_duration: 0.25 }, true ) ).toEqual( {
+			className: 'nx-anim-timed',
+			scale: 0.5,
+			style: { '--nx-anim-scale': '0.5', '--animate-duration': '500ms' },
+			exitDelay: 500,
+		} );
+	} );
+
+	it( 'scales a large value and waits for the exit', () => {
+		expect( getAnimationTiming( { ...hide, animation_duration: '1.5', delay_between: 8 }, true ) ).toEqual( {
+			className: 'nx-anim-timed',
+			scale: 3,
+			style: { '--nx-anim-scale': '3', '--animate-duration': '3000ms' },
+			exitDelay: 1500,
+		} );
+	} );
+
+	it( 'caps the removal delay at Delay Between', () => {
+		expect( getAnimationTiming( { ...hide, animation_duration: 4, delay_between: 2 }, true ).exitDelay ).toBe( 2000 );
+	} );
+
+	it( 'reads Delay Between like the scheduler (empty or 0 means 5s)', () => {
+		expect( getAnimationTiming( { ...hide, animation_duration: 9 }, true ).exitDelay ).toBe( 5000 );
+		expect( getAnimationTiming( { ...hide, animation_duration: 9, delay_between: 0 }, true ).exitDelay ).toBe( 5000 );
+	} );
+
+	it( 'keeps 500ms removal when Hide is Default (no exit animation to wait for)', () => {
+		const t = getAnimationTiming( { animation_notification_hide: 'default', animation_duration: 2 }, true );
+		expect( t.className ).toBe( 'nx-anim-timed' );
+		expect( t.exitDelay ).toBe( 500 );
 	} );
 } );
