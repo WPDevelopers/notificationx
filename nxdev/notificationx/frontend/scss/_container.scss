@@ -426,6 +426,43 @@ html[dir="rtl"] .notificationx-frontend .notification-item.source-woocommerce_ca
     left: 4px !important;
 }
 
+// theme-five (speech bubble) on phones: scale the desktop bubble, icon, tail and gap by 0.565
+// (70/124) and make the text column as tall as the bubble, so the curved edge lines up as on
+// desktop. (0,3,0)/(0,4,0) outrank the theme's own phone rules; !important only where those use it.
+@media only screen and (max-width: 576px) {
+    .notification-item.themes-theme-five {
+        .notificationx-image {
+            flex-basis: 56px; width: 56px; min-width: 56px; height: 56px; // 70px bubble
+            margin: 0;
+            padding: 7px;                                                 // 56px icon
+            .notificationx-image-badge {                                  // tail 20×23
+                bottom: -14px !important;
+                left: 50% !important;
+                border-top-width: 23px !important;
+                border-right-width: 20px !important;
+            }
+        }
+        .notificationx-content {
+            margin-left: 11px !important;  // curve overlaps the bubble by ~4px, as on desktop
+            box-sizing: border-box;
+            min-height: 70px;              // same height as the bubble
+            padding-top: 5px;              // was 10px: three rows fit inside 70px
+            padding-bottom: 5px;
+            justify-content: center;
+            > p { margin-top: 0; margin-bottom: 4px; }
+            > p:last-child { margin-bottom: 0; }
+            // A row whose content is empty (e.g. no product title) takes no space.
+            > p:has(> span:only-child:empty),
+            > p:has(> span:only-child > span:only-child:empty) { display: none; }
+        }
+        &.img-position-right .notificationx-content { margin-left: 0 !important; margin-right: 11px !important; }
+    }
+}
+// Phones (12px-edge containers): full width, so the text keeps its desktop line breaks.
+@media only screen and (max-width: 480px) {
+    .notification-item.themes-theme-five { width: 100%; }
+}
+
 @keyframes FadeIn {
     0% {
         opacity: 0;
