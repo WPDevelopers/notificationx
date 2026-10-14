@@ -705,8 +705,8 @@ span.coupon-code {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 36px;
-    min-height: 36px;
+    height: 32px;
+    min-height: 32px;
     margin: 0;
     padding: 0 18px;
     background-color: #5252dc;
