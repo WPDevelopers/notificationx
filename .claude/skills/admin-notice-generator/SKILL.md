@@ -21,6 +21,8 @@ Before anything else, ask the user **one question**:
 
 > "Please share the Figma design link for this admin notice campaign."
 
+If the user already gave a screenshot of the design plus the dates and URL, skip Figma: read the text, bold runs, CTA and dismiss labels from the screenshot, reuse the colours of the latest campaign block in the CSS (currently `#5252dc`), and go to Step 2 for any missing values.
+
 Wait for the link. Accept any of these forms:
 - `https://www.figma.com/file/<KEY>/...`
 - `https://www.figma.com/design/<KEY>/...?node-id=<NODE_ID>`
@@ -87,6 +89,10 @@ Insert the following block **just before** the closing line `self::$cache_bank->
             'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
             'html'      => $_{CAMPAIGN_KEY}_text,
         ];
+        // Notices register on `init`, before wp-admin loads plugin.php.
+        if ( ! function_exists( 'is_plugin_active' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
         $notices->add(
             '{CAMPAIGN_KEY}',
             $_{CAMPAIGN_KEY},
@@ -95,10 +101,12 @@ Insert the following block **just before** the closing line `self::$cache_bank->
                 'recurrence'  => false,
                 'dismissible' => true,
                 'refresh'     => NOTIFICATIONX_VERSION,{SCREENS_LINE}{EXPIRE_LINE}
-                'display_if'  => !is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
+                'display_if'  => ! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )
             ]
         );
 ```
+
+Since Halloween 2026 the campaign notices use `is_plugin_active()`, so users who have Pro installed but inactive also see the offer. Campaigns before that used `! is_array( $notices->is_installed( ... ) )`, which hides the notice whenever the Pro folder exists. Keep the `function_exists` guard: `Admin::init()` runs on `init`, before WordPress loads `wp-admin/includes/plugin.php`.
 
 **Substitution rules:**
 
@@ -194,6 +202,47 @@ Append the following block at the **end** of `wpdeveloper-review-notice.css`. No
 
 ---
 
+## Step 5 — Test on the local site only
+
+Run these steps only on a local development site. Never run them against staging or production databases.
+
+The notice library is `vendor/priyomukul/wp-notice`. Only one notice shows at a time across all WPDeveloper plugins, so a notice can be hidden for reasons that have nothing to do with the new code. Check each of these:
+
+1. **Pro must be inactive.** `Admin::init()` registers the notices only when `! NotificationX::is_pro()`, and new campaigns use `display_if => ! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )`. Deactivate Pro (`wp plugin deactivate notificationx-pro`). Older campaigns used `is_installed()`, which reads `get_plugins()`; for those, deactivating is not enough and the Pro folder must be renamed temporarily (`mv notificationx-pro _nxpro-test-hidden`, rename it back afterwards).
+2. **Global cooldown transient.** Dismissing any WPDeveloper notice sets the `wpnotice_priority_time_expired` transient, which hides every notice until it expires. Delete it:
+   ```bash
+   wp transient delete wpnotice_priority_time_expired
+   ```
+3. **Notice queue option.** The queue is stored in the `notificationx_notices` option (`{id}_{storage_key}`; search the options table for `notices`). An entry for the campaign key is created on the first admin page load, with the `start`/`expire` values from the code. If the start/expire dates changed after the entry was saved, delete the entry (or bump `refresh`) so it is rebuilt:
+   ```bash
+   wp eval '$q = get_site_option( "notificationx_notices" ); unset( $q["{CAMPAIGN_KEY}"] ); update_site_option( "notificationx_notices", $q );'
+   ```
+   To test before the real start date, set the entry's `start` to a past timestamp the same way. Do not change the code dates for testing.
+4. **Dismissed flag per user.** Dismissing writes the user meta `notificationx_{CAMPAIGN_KEY}_notice_dismissed`. Remove it to see the notice again:
+   ```bash
+   wp db query "DELETE FROM $(wp db prefix)usermeta WHERE meta_key LIKE '%_notice_dismissed'"
+   ```
+   Narrow the `LIKE` to the campaign key if the other plugins' dismissed notices must stay dismissed.
+5. **Other WPDeveloper plugins.** Each plugin registers a notice "account" with a priority (NotificationX = 5, Essential Blocks = 3, EmbedPress = 6). The account with the lowest priority number that has an eligible notice wins. If another active plugin with a lower priority has a live notice, the NotificationX notice will not show. Deactivate that plugin for the test.
+6. **Screen.** Campaign notices use `'screens' => [ 'dashboard' ]`, so open `wp-admin/index.php`, not a NotificationX page (`hide_others_plugin_admin_notice()` removes all notices on NotificationX screens).
+
+Quick render check without a browser (prints the notice IDs that would show on the dashboard; skips `admin_init`, which can crash WooCommerce under WP-CLI):
+
+```php
+<?php // wp eval-file render.php
+wp_set_current_user( 1 );
+require_once ABSPATH . 'wp-admin/includes/admin.php';
+set_current_screen( 'dashboard' );
+\NotificationX\Admin\Admin::get_instance()->admin_notices();
+ob_start(); do_action( 'admin_notices' ); $h = ob_get_clean();
+preg_match_all( '/id="(wpnotice-[^"]+)"/', $h, $m );
+echo implode( ', ', $m[1] ), "\n";
+```
+
+After the test, restore the Pro folder name if you renamed it, and tell the user which DB rows were changed.
+
+---
+
 ## Notes
 
 - **Always** start with the Figma link question. Do not ask for text/colors/CTA before pulling them from Figma — the design is the source of truth.
@@ -204,6 +253,7 @@ Append the following block at the **end** of `wpdeveloper-review-notice.css`. No
 - Never overwrite existing notices — always insert/append.
 - Validate hex colors: if Figma or the user supplies a value without `#`, prepend it automatically.
 - If start date is `now`, use `$notices->time()`. If it's a relative string like `+1 day`, use `$notices->strtotime( '+1 day' )`. If it's an absolute date, use PHP `strtotime( '...' )` directly.
-- The Pro plugin check for NotificationX is `notificationx-pro/notificationx-pro.php`.
+- The Pro plugin check for NotificationX is `! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )` (with the `function_exists` guard).
 - The asset URL constant in this plugin is `self::ASSET_URL` and the version constant is `NOTIFICATIONX_VERSION`.
+- **Emoji in the text:** WordPress core replaces emoji with small Twemoji `<img>` tags in wp-admin, which renders them tiny and misaligned. Wrap the emoji like Better Payment does: `<span class='nx-notice-emoji wp-exclude-emoji' aria-hidden='true'>&#x1F47B;</span>` (HTML entity, not the raw character), and add a `.nx-notice-emoji` CSS rule for the campaign: `display: inline-block; font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; font-size: 18px; font-style: normal; line-height: 1; vertical-align: -2px;`.
 - The action button wrapper class is `nx-notice-action-button` and the dismiss link class is `nx-notice-action-dismiss` (note the `nx-` prefix).

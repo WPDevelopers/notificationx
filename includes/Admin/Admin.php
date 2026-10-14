@@ -475,6 +475,34 @@ class Admin {
             ]
         );
 
+        // nx_halloween_2026 notice
+        $_nx_halloween_2026_text = "<p><span class='nx-notice-emoji wp-exclude-emoji' aria-hidden='true'>&#x1F47B;</span> <strong>Halloween Sale:</strong> Boost conversions with real-time social proof & AI-powered notification alerts – now <strong>up to 35% OFF!</strong></p>
+                        <div class='nx-notice-action-button'>
+                            <a class='button button-primary' href='https://notificationx.com/halloween2026/admin-notice' target='_blank'>Upgrade To Pro Now</a>
+                            <a class='nx-notice-action-dismiss dismiss-btn' data-dismiss='true' href='#'>I Don’t Want Any Discount</a>
+                        </div>";
+        $_nx_halloween_2026 = [
+            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
+            'html'      => $_nx_halloween_2026_text,
+        ];
+        // Notices register on `init`, before wp-admin loads plugin.php.
+        if ( ! function_exists( 'is_plugin_active' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+        $notices->add(
+            'nx_halloween_2026',
+            $_nx_halloween_2026,
+            [
+                'start'       => strtotime( '12:00:00am 14th October, 2026' ),
+                'recurrence'  => false,
+                'dismissible' => true,
+                'refresh'     => NOTIFICATIONX_VERSION,
+                'screens'     => [ 'dashboard' ],
+                "expire"      => strtotime( '11:59:59pm 5th November, 2026' ),
+                'display_if'  => ! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )
+            ]
+        );
+
         // $notices->init();
         self::$cache_bank->create_account( $notices );
 		self::$cache_bank->calculate_deposits( $notices );
