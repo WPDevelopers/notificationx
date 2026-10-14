@@ -2467,6 +2467,10 @@ class GlobalFields {
                 esc_html( Admin::MIN_PRO_VERSION )
             ),
             'confirmButtonText' => sprintf( '<a href="%s">%s</a>', esc_url( self_admin_url( 'plugins.php' ) ), esc_html__( 'Update', 'notificationx' ) ),
+            // The Pro alert buttons take their padding from an inner link, like
+            // the upsell's "More Info"; a plain-text label collapses the button.
+            // No href: the button itself closes the popup.
+            'denyButtonText'    => sprintf( '<a style="cursor: pointer;">%s</a>', esc_html__( 'Close', 'notificationx' ) ),
             // Shown even though Pro is active (the builder skips Pro alerts then).
             'forced'            => true,
         ] );
