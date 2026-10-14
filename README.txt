@@ -223,6 +223,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 = 3.3.4 - 12/10/2026 =
 Improved: Notification editing experience.
+Improved: Security enhancement.
 Fixed: Notification Bar display issues.
 Fixed: Compatibility issues with CSS optimization plugins.
 Few minor bug fixes and improvements.
