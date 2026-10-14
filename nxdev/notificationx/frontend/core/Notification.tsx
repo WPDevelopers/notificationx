@@ -1,11 +1,11 @@
 import classNames from "classnames";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics, { resolveNotificationLink, recordAnalyticsClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
 import nxHelper from "./functions";
-// import 'animate.css';
+import { nxApplyFilters } from "./hooks";
 
 const useMediaQuery = (query) => {
     const mediaQuery = window.matchMedia(query);
@@ -144,16 +144,7 @@ const Notification = (props) => {
         // };
     }, [width]);
 
-    const audioRef = useRef(null);
-
     useEffect(() => {
-        if (audioRef.current && is_pro) {
-            audioRef.current.volume = parseInt(settings.volume || 1) / 100;
-            audioRef.current.muted = false;
-            audioRef.current.play().then(res => {
-                // console.log('Playing Audio Sound for NX Notice');
-            }).catch(err => console.error("NX SoundError: ", err))
-        }
         handleStartTimer();
         return () => {
             handlePauseTimer();
@@ -215,7 +206,6 @@ const Notification = (props) => {
     splitThemes = splitThemes.concat(props?.splitThemes);
 
     const componentCSS: any = {};
-    const announcementCSS: any = {};
     const resThemeName = getResThemeName(settings) || null;
     const isSplit = splitThemes.includes(themeName) || splitThemes.includes(resThemeName);
     
@@ -227,12 +217,6 @@ const Notification = (props) => {
             if (props?.config?.border_style) componentCSS.borderStyle = props?.config?.border_style;
             if (props?.config?.border_color) componentCSS.borderColor = props?.config?.border_color;
         }
-        // Add announcementCSS
-        if (props?.config?.discount_text_color) announcementCSS.discountTextColor = props?.config?.discount_text_color;
-        if (props?.config?.discount_background) announcementCSS.discountBackground = props?.config?.discount_background;
-        if (props?.config?.link_button_bg_color) announcementCSS.linkButtonBgColor = props?.config?.link_button_bg_color;
-        if (props?.config?.link_button_font_size) announcementCSS.linkButtonFontSize = props?.config?.link_button_font_size;
-        if (props?.config?.link_button_text_color) announcementCSS.linkButtonTextColor = props?.config?.link_button_text_color;
     }
     
     const componentStyle: any = {
@@ -246,30 +230,21 @@ const Notification = (props) => {
     
     let componentClasses;
     let animationStyle = 'SlideTop 300ms';
-    if ( (is_pro && settings?.animation_notification_show !== 'default') || (is_pro && settings?.animation_notification_hide !== 'default') ) {
-        let animate_effect;
-        if( settings?.animation_notification_hide !== 'default' && settings?.animation_notification_show === 'default' ) {
-            if( animation ) {
-                animate_effect = settings?.animation_notification_hide;
-            }else{
-                componentStyle.animation = animationStyle
-            }
-        }else if( settings?.animation_notification_show !== 'default' && settings?.animation_notification_hide === 'default' ) {
-            if( animation ) {
-                componentStyle.animation = animationStyle;
-            }else{
-                animate_effect = settings?.animation_notification_show;
-            }
-        }else{
-            animate_effect = animation ? settings?.animation_notification_hide : settings?.animation_notification_show
-        }
+    // Notification animations are rendered by NotificationX Pro (filter
+    // `nx_frontend_animation`): it returns the animate.css classes and the
+    // style for the current show/hide state. Without it, the built-in
+    // `SlideTop` entrance is used.
+    const proAnimation = nxApplyFilters<{ classNames: any[]; style?: Record<string, any> } | undefined>(
+        'nx_frontend_animation',
+        undefined,
+        { settings, animation, animationStyle, is_pro }
+    );
+    if (proAnimation) {
         componentClasses = classNames(
-            "animate__animated",
-            animate_effect,
-            // settings?.animation_notification_duration,
-            "animate__faster",
+            ...proAnimation.classNames,
             ...baseClasses
         );
+        Object.assign(componentStyle, proAnimation.style || {});
     } else {
         componentClasses = classNames(
             ...baseClasses
@@ -287,12 +262,8 @@ const Notification = (props) => {
             onClick={handleCardClick}
         >
             {
-                is_pro && settings?.sound && settings?.sound != 'none' && settings.sound.length > 0 && props.assets?.pro &&
-                <audio
-                    ref={audioRef}
-                    autoPlay={true}
-                    src={`${props.assets.pro}sounds/${settings.sound}.mp3`}
-                />
+                // Notification sound: rendered by NotificationX Pro.
+                nxApplyFilters('nx_frontend_notification_sound', null, { settings, assets: props.assets, is_pro })
             }
             <Theme {...props} />
             <Analytics

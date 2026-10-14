@@ -172,7 +172,7 @@ not Pro's `WooInline`. Everything below is implemented identically in both, with
   (`Rule::can_add()` only merges `includes`, never `!includes`). Registration order is
   therefore irrelevant.
 
-- **It colours itself.** `Core\Inline::get_template()` only wraps params in `<span>` while
+- **It colours itself.** Pro's `Core\Inline::get_template()` only wraps params in `<span>` while
   previewing, so on the frontend a Growth Alert is one flat text run with nothing to style —
   which is why the other designs render uncoloured on a live page even though their
   thumbnails and builder previews show green/red. `before_add_to_cart_form()` therefore

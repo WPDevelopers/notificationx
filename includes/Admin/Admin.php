@@ -45,14 +45,18 @@ class Admin {
     const VIEWS_PATH = NOTIFICATIONX_INCLUDES . 'Admin/views/';
 
     /**
-     * Oldest NotificationX Pro that ships its own copy of the Pro features the
-     * free plugin is removing (Flashing Tab, Cart Peek, Inline). Older Pro keeps
-     * working with this release, but loses those features once the free copies
-     * are deleted. See docs/api/frontend-js-hooks.md.
+     * Oldest NotificationX Pro that ships its own copy of the Pro features that
+     * free 3.3.4 removed (Flashing Tab, Cart Peek, Inline, Discount Alert).
+     * Older Pro keeps working without a fatal error, but no longer shows those
+     * notifications. See docs/api/frontend-js-hooks.md.
+     *
+     * Pro 3.2.3 brought Flashing Tab, Cart Peek and Inline; Pro 3.2.4 brings the
+     * Discount Alert rendering, runs Inline without the free copy, and loads its
+     * rendering script on Cross Domain Notice sites.
      *
      * @since 3.3.3
      */
-    const MIN_PRO_VERSION = '3.2.3';
+    const MIN_PRO_VERSION = '3.2.4';
 
     private $insights = null;
 
@@ -251,16 +255,15 @@ class Admin {
             return;
         }
         $message = sprintf(
-            /* translators: 1: installed NotificationX Pro version, 2: required NotificationX Pro version. */
-            __( 'You are using NotificationX Pro %1$s. Please update NotificationX Pro to version %2$s or later. Upcoming NotificationX releases move Flashing Tab, Cart Peek and Inline notifications fully into NotificationX Pro, and older Pro versions will stop showing them.', 'notificationx' ),
-            '<strong>' . esc_html( NOTIFICATIONX_PRO_VERSION ) . '</strong>',
-            '<strong>' . esc_html( self::MIN_PRO_VERSION ) . '</strong>'
+            /* translators: %s: required NotificationX Pro version. */
+            __( 'NotificationX Pro needs a compatibility update. Please update to the v%s or later version.', 'notificationx' ),
+            self::MIN_PRO_VERSION
         );
         printf(
             '<div class="notice notice-warning nx-pro-version-notice"><p>%1$s <a href="%2$s">%3$s</a></p></div>',
-            wp_kses_post( $message ),
-            esc_url( self_admin_url( 'plugins.php?plugin_status=upgrade' ) ),
-            esc_html__( 'Go to plugin updates', 'notificationx' )
+            esc_html( $message ),
+            esc_url( self_admin_url( 'plugins.php' ) ),
+            esc_html__( 'Update', 'notificationx' )
         );
     }
 
@@ -472,6 +475,34 @@ class Admin {
             ]
         );
 
+        // nx_halloween_2026 notice
+        $_nx_halloween_2026_text = "<p><span class='nx-notice-emoji wp-exclude-emoji' aria-hidden='true'>&#x1F47B;</span> <strong>Halloween Sale:</strong> Boost conversions with real-time social proof & AI-powered notification alerts – now <strong>up to 35% OFF!</strong></p>
+                        <div class='nx-notice-action-button'>
+                            <a class='button button-primary' href='https://notificationx.com/halloween2026/admin-notice' target='_blank'>Upgrade To Pro Now</a>
+                            <a class='nx-notice-action-dismiss dismiss-btn' data-dismiss='true' href='#'>I Don’t Want Any Discount</a>
+                        </div>";
+        $_nx_halloween_2026 = [
+            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
+            'html'      => $_nx_halloween_2026_text,
+        ];
+        // Notices register on `init`, before wp-admin loads plugin.php.
+        if ( ! function_exists( 'is_plugin_active' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+        $notices->add(
+            'nx_halloween_2026',
+            $_nx_halloween_2026,
+            [
+                'start'       => strtotime( '12:00:00am 14th October, 2026' ),
+                'recurrence'  => false,
+                'dismissible' => true,
+                'refresh'     => NOTIFICATIONX_VERSION,
+                'screens'     => [ 'dashboard' ],
+                "expire"      => strtotime( '11:59:59pm 5th November, 2026' ),
+                'display_if'  => ! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )
+            ]
+        );
+
         // $notices->init();
         self::$cache_bank->create_account( $notices );
 		self::$cache_bank->calculate_deposits( $notices );
@@ -483,7 +514,9 @@ class Admin {
         }
         $this->insights = PluginInsights::get_instance( NOTIFICATIONX_FILE, [
 			'opt_in'       => true,
-			'goodbye_form' => true,
+			// Tracking runs on Pro sites too (see init()), but the deactivation
+			// feedback form is for free-only sites, as before 3.2.10.
+			'goodbye_form' => ! NotificationX::is_pro(),
 			'item_id'      => '6ba8d30bc0beaddb2540'
 		] );
 		$this->insights->set_notice_options(array(

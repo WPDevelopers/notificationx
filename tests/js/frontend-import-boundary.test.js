@@ -21,7 +21,6 @@ const NX = path.join( ROOT, 'nxdev/notificationx' );
 const ENTRIES = [
 	'frontend/index.tsx',
 	'frontend/crossSite.tsx',
-	'frontend/flashing-tab.ts',
 ].map( ( p ) => path.join( NX, p ) );
 
 // Local folders the frontend may import from.
@@ -98,7 +97,7 @@ describe( 'frontend import boundary', () => {
 
 	it( 'walks the real frontend source', () => {
 		// Sanity check that the walker follows imports at all.
-		expect( seen.size ).toBeGreaterThan( 50 );
+		expect( seen.size ).toBeGreaterThan( 40 );
 		expect( [ ...seen ].some( ( f ) => f.endsWith( 'frontend/core/GDPR.tsx' ) ) ).toBe( true );
 	} );
 

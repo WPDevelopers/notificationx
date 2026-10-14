@@ -125,3 +125,15 @@
         opacity: 1;
     }
 }
+
+// Popup entrance (`fadeIn 300ms`, Popup.tsx). Same keyframes as animate.css
+// `fadeIn`, which free no longer ships (notification animations are Pro).
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

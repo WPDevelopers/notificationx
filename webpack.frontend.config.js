@@ -25,10 +25,6 @@ const config = {
             __dirname,
             "nxdev/notificationx/frontend/crossSite.tsx"
         ),
-        "flashing-tab": path.resolve(
-            __dirname,
-            "nxdev/notificationx/frontend/flashing-tab.ts"
-        ),
         "gdpr-modal": path.resolve(
             __dirname,
             "nxdev/notificationx/frontend/gdpr-modal.ts"

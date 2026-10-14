@@ -61,6 +61,8 @@ class FrontEnd {
             add_action('init', [$this, 'init'], 10);
         }
         add_filter('nx_frontend_localize_data', [$this, 'get_localize_data']);
+        // Admin too: block and page-builder previews render shortcodes there.
+        add_action('init', [$this, 'register_inline_shortcode_fallback'], 999);
         Preview::get_instance();
     }
 
@@ -72,6 +74,7 @@ class FrontEnd {
      */
     public function init() {
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts'], 10);
+        add_action('wp_enqueue_scripts', [$this, 'dequeue_removed_scripts'], 100);
         add_filter('nx_fallback_data', [$this, 'fallback_data'], 10, 3);
         add_filter('nx_filtered_data', [$this, 'filtered_data'], 9999, 3);
         add_filter('nx_filtered_post', [$this, 'filtered_post'], 9999, 2);
@@ -81,6 +84,64 @@ class FrontEnd {
         add_filter('body_class', [ $this, 'nx_add_body_class' ] );
         add_filter('style_loader_tag', [$this, 'non_blocking_style_tag'], 10, 2);
 
+    }
+
+    /**
+     * Register an empty `[notificationx_inline]` when nothing else did.
+     *
+     * NotificationX Pro 3.2.4+ registers the shortcode. Free up to 3.3.3
+     * shipped its own copy, which printed nothing without Pro. Free 3.3.4
+     * removed that copy, so without Pro, or with Pro older than 3.2.4, a page
+     * that contains the shortcode would show its raw text to visitors.
+     *
+     * Runs on `init` priority 999, after Pro booted. Pro's add_shortcode()
+     * replaces this handler if it runs later.
+     *
+     * @since 3.3.4
+     * @return void
+     */
+    public function register_inline_shortcode_fallback() {
+        if (!shortcode_exists('notificationx_inline')) {
+            add_shortcode('notificationx_inline', '__return_empty_string');
+        }
+    }
+
+    /**
+     * Script handles that older NotificationX Pro enqueues from this plugin's
+     * folder, keyed by handle, with the file path relative to `assets/`.
+     *
+     * Free 3.3.4 removed these files. Pro 3.2.2 and older still enqueue
+     * `notificationx-public-flashing-tab` from free's folder, which is a 404.
+     * Pro 3.2.3+ uses the same handle with its own file, which is kept.
+     *
+     * @since 3.3.4
+     */
+    const REMOVED_SCRIPTS = [
+        'notificationx-public-flashing-tab' => 'public/js/flashing-tab.js',
+    ];
+
+    /**
+     * Dequeue scripts that point at files this plugin no longer ships.
+     *
+     * Runs after the add-ons enqueue (wp_enqueue_scripts priority 100). A
+     * handle is dequeued only when its source is this plugin's copy of the
+     * file and that file is missing.
+     *
+     * @since 3.3.4
+     * @return void
+     */
+    public function dequeue_removed_scripts() {
+        $scripts = wp_scripts();
+        foreach (self::REMOVED_SCRIPTS as $handle => $file) {
+            if (!wp_script_is($handle, 'enqueued') || empty($scripts->registered[$handle]->src)) {
+                continue;
+            }
+            $src = $scripts->registered[$handle]->src;
+            if (0 !== strpos($src, NOTIFICATIONX_ASSETS . $file) || file_exists(NOTIFICATIONX_ASSETS_PATH . $file)) {
+                continue;
+            }
+            wp_dequeue_script($handle);
+        }
     }
 
     /**
@@ -170,7 +231,11 @@ class FrontEnd {
         if (!in_array($handle, $handles, true) || false !== strpos($tag, 'onload=')) {
             return $tag;
         }
-        $deferred = preg_replace('/\smedia=([\'"])all\1/', ' media=$1print$1 onload="this.media=\'all\'" data-nx-style=$1print$1', $tag, 1, $count);
+        // data-no-optimize keeps CSS optimizers (xSpeed's Combine CSS and
+        // Unused CSS, Autoptimize, LiteSpeed) from rewriting the link: a
+        // rewrite into a print-only bundle or pruned file drops the swap and
+        // leaves the notifications unstyled until the runtime's fallback.
+        $deferred = preg_replace('/\smedia=([\'"])all\1/', ' media=$1print$1 onload="this.media=\'all\'" data-nx-style=$1print$1 data-no-optimize="1"', $tag, 1, $count);
         if (!$count) {
             return $tag;
         }
@@ -735,7 +800,72 @@ class FrontEnd {
         }
 
         $result['settings'] = $this->get_settings();
+        // Pages without WordPress script loading (Cross Domain Notice sites)
+        // ask for the add-on scripts; the runtime loads them before rendering.
+        if ( ! empty( $_params['addon_scripts'] ) && rest_sanitize_boolean( $_params['addon_scripts'] ) ) {
+            $result['addon_scripts'] = $this->get_addon_scripts( $result );
+        }
         return $result;
+    }
+
+    /**
+     * Add-on frontend scripts for pages that cannot enqueue them.
+     *
+     * A Cross Domain Notice site loads only `frontend.js` from the pasted
+     * snippet, so add-ons (NotificationX Pro) cannot enqueue the scripts that
+     * render their notifications there. The frontend runtime asks the `notice`
+     * endpoint for them and loads them before the first render
+     * (nxdev/notificationx/frontend/core/addons.ts).
+     *
+     * @since 3.3.4
+     * @param array $result The `notice` response without this list.
+     * @return array<int, array{handle: string, src: string, data: array|null}>
+     */
+    public function get_addon_scripts( $result = [] ) {
+        /**
+         * Filters the add-on scripts that the frontend runtime loads on pages
+         * without WordPress script loading (Cross Domain Notice sites).
+         *
+         * Each item: `handle` (the tag gets the id `<handle>-js`), `src` (an
+         * absolute http(s) URL, with the version in the query string), and
+         * optional `data` (`['name' => 'jsGlobal', 'value' => mixed]`, set on
+         * `window` before the script runs). Scripts load in list order.
+         *
+         * @since 3.3.4
+         * @param array $scripts Add-on scripts.
+         * @param array $result  The `notice` response.
+         */
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        $scripts = apply_filters( 'nx_frontend_addon_scripts', [], $result );
+        if ( ! is_array( $scripts ) ) {
+            return [];
+        }
+
+        $clean = [];
+        foreach ( $scripts as $script ) {
+            if ( ! is_array( $script ) || empty( $script['handle'] ) || empty( $script['src'] ) || ! is_string( $script['src'] ) ) {
+                continue;
+            }
+            $handle = sanitize_key( $script['handle'] );
+            $src    = esc_url_raw( $script['src'], [ 'http', 'https' ] );
+            if ( '' === $handle || '' === $src ) {
+                continue;
+            }
+            $data = null;
+            if ( isset( $script['data']['name'] ) && is_string( $script['data']['name'] )
+                && preg_match( '/^[A-Za-z_$][A-Za-z0-9_$]*$/', $script['data']['name'] ) ) {
+                $data = [
+                    'name'  => $script['data']['name'],
+                    'value' => isset( $script['data']['value'] ) ? $script['data']['value'] : null,
+                ];
+            }
+            $clean[] = [
+                'handle' => $handle,
+                'src'    => $src,
+                'data'   => $data,
+            ];
+        }
+        return $clean;
     }
 
     public function get_settings(){
@@ -786,6 +916,13 @@ class FrontEnd {
                 if($ext && $ext->is_pro){
                     continue;
                 }
+            }
+
+            /**
+             * Skip types whose theme code only a current Pro ships.
+             */
+            if (NotificationX::is_type_unrenderable($settings['type'] ?? '')) {
+                continue;
             }
 
             $countdown_rand = !empty($settings['countdown_rand']) ? "-{$settings['countdown_rand']}" : '';
@@ -965,6 +1102,13 @@ class FrontEnd {
                 if($ext && $ext->is_pro){
                     continue;
                 }
+            }
+
+            /**
+             * Skip types whose theme code only a current Pro ships.
+             */
+            if (NotificationX::is_type_unrenderable($value['type'] ?? '')) {
+                continue;
             }
 
             $results[$value['nx_id']] = $value;

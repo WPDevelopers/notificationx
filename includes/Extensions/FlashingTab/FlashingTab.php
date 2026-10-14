@@ -51,14 +51,16 @@ class FlashingTab extends Extension {
     {
         $this->title = __('Flashing Tab', 'notificationx');
         $this->module_title = __('Flashing Tab', 'notificationx');
+        // Icons are bare file names: the icons ship with NotificationX Pro,
+        // which resolves them against its own image/flashing-tab/ folder.
         $this->themes = [
             'theme-1' => array(
                 'is_pro'          => true,
                 'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-1.gif',
                 'defaults'        => [
                     'ft_theme_one_icons' => [
-                        'icon-one' => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-1.png',
-                        'icon-two' => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-1-icon-2.png',
+                        'icon-one' => 'theme-1-icon-1.png',
+                        'icon-two' => 'theme-1-icon-2.png',
                     ],
                     'ft_theme_one_message' => __('Comeback!', 'notificationx'),
                 ],
@@ -68,8 +70,8 @@ class FlashingTab extends Extension {
                 'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-2.gif',
                 'defaults'        => [
                     'ft_theme_one_icons' => [
-                        'icon-one' => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-1.png',
-                        'icon-two' => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-2-icon-2.png',
+                        'icon-one' => 'theme-2-icon-1.png',
+                        'icon-two' => 'theme-2-icon-2.png',
                     ],
                     'ft_theme_one_message' => __('Comeback! We miss you.', 'notificationx'),
                 ],
@@ -79,11 +81,11 @@ class FlashingTab extends Extension {
                 'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/flashing-tab/theme-3.gif',
                 'defaults'        => [
                     'ft_theme_three_line_one' => [
-                        'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-1.png',
+                        'icon'    => 'theme-3-icon-1.png',
                         'message' => __('Comeback!', 'notificationx'),
                     ],
                     'ft_theme_three_line_two' => [
-                        'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-3-icon-2.png',
+                        'icon'    => 'theme-3-icon-2.png',
                         'message' => __('You forgot to purchase!', 'notificationx'),
                     ],
                 ],
@@ -94,17 +96,17 @@ class FlashingTab extends Extension {
                 'defaults'        => [
                     // 'ft_theme_three_line_one' => 'dddddd',
                     'ft_theme_three_line_one' => [
-                        'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-1.png',
+                        'icon'    => 'theme-4-icon-1.png',
                         'message' => __('Comeback!', 'notificationx'),
                     ],
                     'ft_theme_four_line_two' => [
                         'is-show-empty' => false,
                         'default'       => [
-                            'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-2.png',
+                            'icon'    => 'theme-4-icon-2.png',
                             'message' => __('{quantity} items in your cart!', 'notificationx'),
                         ],
                         'alternative' => [
-                            'icon'    => NOTIFICATIONX_PUBLIC_URL . 'image/flashing-tab/theme-4-icon-2.png',
+                            'icon'    => 'theme-4-icon-2.png',
                             'message' => '',
                         ],
                     ],

@@ -65,9 +65,14 @@ dedicated `exit_intent` Type — see [Related docs](#related-docs).
    taken from the post's own `source` field (not hardcoded to `popup_notification`) "so
    exit-intent submissions aren't mis-tagged" (per the source comment), since the same
    `/popup-submit` endpoint also serves `exit_intent_custom` submissions.
-   `Core/Rest/Popup.php::form_sources()` lists `['popup_notification', 'exit_intent_custom']`
+   `Core/Rest/Popup.php::form_sources()` (public static) lists `['popup_notification', 'exit_intent_custom']`
    as the sources whose entries share the Feedback Entries admin screen
-   (list/search/delete/bulk-delete/export endpoints, same file).
+   (list/search/delete/bulk-delete/export endpoints, same file). The same list gates
+   the submission: `handle_popup_submission()` returns `404` unless the notification's
+   source is in `form_sources()`, so the public route cannot write entries into other
+   campaigns. Disabled popup / exit-intent campaigns are still accepted, because the
+   Elementor "NX Form" widget can be bound to a disabled popup. A new form source must
+   be added to that list.
 4. **Routing (`FrontEnd.php`)** — `popup_notification` is special-cased in
    `get_notifications_ids()`: `elseif($settings['source'] == 'popup_notification') { $popup_notifications[] = ...; }`
    ([`includes/FrontEnd/FrontEnd.php`](../../includes/FrontEnd/FrontEnd.php) line 575-576),
@@ -182,7 +187,7 @@ button text/url, form field toggles).
   when `is_pro` is true client-side; `theme-five`/`theme-six`/`theme-seven` are
   `is_pro: true` themes. Verify free-plugin behavior degrades sensibly (message field
   and button remain functional without name/email capture).
-- This type **is** exercised by the PHPUnit suite: [`tests/test-types-factory.php`](../../tests/test-types-factory.php#L111-L115) uses `popup` as its representative fixture for `register_types()`/`get_all()`, and [`tests/test-rest.php`](../../tests/test-rest.php#L116) asserts the `/notificationx/v1/popup-submit` route (this type's form-submission endpoint) is registered. There is no broader behavioural coverage beyond that.
+- This type **is** exercised by the PHPUnit suite: [`tests/test-types-factory.php`](../../tests/test-types-factory.php#L111-L115) uses `popup` as its representative fixture for `register_types()`/`get_all()`, [`tests/test-rest.php`](../../tests/test-rest.php#L116) asserts the `/notificationx/v1/popup-submit` route (this type's form-submission endpoint) is registered, and [`tests/test-security-popup-submit.php`](../../tests/test-security-popup-submit.php) covers the submission gate (popup and exit intent accepted under their own source; also when disabled; unknown and non-form notifications refused with nothing stored).
 
 ## Related docs
 

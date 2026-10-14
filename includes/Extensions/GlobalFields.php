@@ -8,6 +8,7 @@
 
 namespace NotificationX\Extensions;
 
+use NotificationX\Admin\Admin;
 use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\Admin\Settings;
 use NotificationX\Core\Rules;
@@ -35,8 +36,31 @@ class GlobalFields {
      * Initially Invoked when initialized.
      */
     public function __construct() {
-
+        // After the type/extension template filters (priority 7-10), like the
+        // Cart Peek Type that used to add this rule from free.
+        add_filter( 'nx_notification_template', [ $this, 'verb_field_rule' ], 20 );
         // dump(Rules::logicalRule([ Rules::is('test'), Rules::is('test2') ]));
+    }
+
+    /**
+     * Rule on the template's verb field (`second_param`): hidden for Cart Peek,
+     * which has no verb.
+     *
+     * The rule also makes the builder apply the selected theme's verb when the
+     * notification type changes (for example "commented on" for Comments);
+     * without a rule the field keeps the verb it was first loaded with. Free up
+     * to 3.3.3 added it through its Cart Peek Type, which free 3.3.4 no longer
+     * ships; NotificationX Pro's Cart Peek Type sets the same rule.
+     *
+     * @since 3.3.4
+     * @param array $fields Template fields.
+     * @return array
+     */
+    public function verb_field_rule( $fields ) {
+        if ( is_array( $fields ) && isset( $fields['second_param'] ) && is_array( $fields['second_param'] ) ) {
+            $fields['second_param']['rules'] = Rules::is( 'source', 'woocommerce_cart_peek', true );
+        }
+        return $fields;
     }
 
     public function tabs() {
@@ -109,16 +133,7 @@ class GlobalFields {
                                             'position' => 'top'
                                         ]
                                     ],
-                                    'options' => (array) array_map(function ($type) {
-                                        return [
-                                            'value'             => $type->id,
-                                            'label'             => $type->title,
-                                            'is_pro'            => $type->is_pro && ! NotificationX::is_pro(),
-                                            'priority'          => $type->priority,
-                                            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
-                                            'popup'             => apply_filters('nx_pro_alert_popup', $type->popup),
-                                        ];
-                                    }, array_values(TypeFactory::get_instance()->get_all())),
+                                    'options' => $this->get_type_options(),
                                     'validation_rules' => [
                                         'required' => true,
                                         'label'    => "Type",
@@ -2337,6 +2352,129 @@ class GlobalFields {
         return $tabs;
     }
 
+
+    /**
+     * Options of the notification type picker (Add New and Quick Builder).
+     *
+     * With NotificationX Pro older than Admin::MIN_PRO_VERSION, the types
+     * only a current Pro renders (NotificationX::PRO_RENDERED_TYPES) are shown
+     * locked with an update prompt instead of being selectable or missing:
+     * an outdated Pro may register them without being able to show them, or
+     * not register them at all.
+     *
+     * Without Pro, a Pro-rendered type whose Type only Pro registers (Cart
+     * Peek) is listed locked with its upsell popup, like the other Pro types.
+     *
+     * @since 3.3.4
+     * @return array
+     */
+    public function get_type_options() {
+        $outdated_pro = Admin::pro_needs_update();
+        $without_pro  = ! NotificationX::is_pro();
+        $options      = [];
+        foreach ( TypeFactory::get_instance()->get_all() as $type ) {
+            $needs_pro_update = $outdated_pro && in_array( $type->id, NotificationX::PRO_RENDERED_TYPES, true );
+            $options[]        = [
+                'value'    => $type->id,
+                'label'    => $type->title,
+                'is_pro'   => ( $type->is_pro && ! NotificationX::is_pro() ) || $needs_pro_update,
+                'priority' => $type->priority,
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+                'popup'    => $needs_pro_update ? $this->pro_update_popup() : apply_filters( 'nx_pro_alert_popup', $type->popup ),
+            ];
+        }
+        if ( ! $outdated_pro && ! $without_pro ) {
+            return $options;
+        }
+        // Types that are not registered (an outdated Pro, or no Pro): list them locked.
+        $listed = wp_list_pluck( $options, 'value' );
+        $known  = self::pro_rendered_type_stubs();
+        foreach ( NotificationX::PRO_RENDERED_TYPES as $id ) {
+            if ( in_array( $id, $listed, true ) || ! isset( $known[ $id ] ) ) {
+                continue;
+            }
+            // Without Pro, follow the module like a registered Type would.
+            if ( ! $outdated_pro && ! Modules::get_instance()->is_enabled( $known[ $id ]['module'] ) ) {
+                continue;
+            }
+            $options[] = [
+                'value'    => $id,
+                'label'    => $known[ $id ]['title'],
+                'is_pro'   => true,
+                'priority' => $known[ $id ]['priority'],
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+                'popup'    => $outdated_pro ? $this->pro_update_popup() : apply_filters( 'nx_pro_alert_popup', $known[ $id ]['popup'] ),
+            ];
+        }
+        return $options;
+    }
+
+    /**
+     * Picker and list data for the types only NotificationX Pro renders
+     * (NotificationX::PRO_RENDERED_TYPES), used when their Type is not
+     * registered. Matches the Type classes free shipped before 3.3.4.
+     *
+     * @since 3.3.4
+     * @return array
+     */
+    public static function pro_rendered_type_stubs() {
+        return [
+            'inline'                => [
+                'title'           => __( 'Growth Alert 🚀', 'notificationx' ),
+                'dashboard_title' => __( 'Growth Alert', 'notificationx' ),
+                'priority'        => 50,
+                'module'          => 'modules_woocommerce',
+                'popup'           => [],
+            ],
+            'woocommerce_cart_peek' => [
+                'title'           => __( 'Cart Peek 🛒', 'notificationx' ),
+                'dashboard_title' => __( 'Cart Peek', 'notificationx' ),
+                'priority'        => 51,
+                'module'          => 'modules_woocommerce',
+                'popup'           => [
+                    'denyButtonText'    => __( "<a href='https://notificationx.com/docs/how-to-create-a-cart-peek-notification/' target='_blank'>More Info</a>", 'notificationx' ),
+                    'confirmButtonText' => __( "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", 'notificationx' ),
+                    // phpcs:disable PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- False positive for this context: remote documentation/pricing links in admin help text, not offloaded plugin assets.
+                    'html'              => __( '
+                <span>Show the live count of shoppers who currently have a product in their cart to spark urgency and boost conversions.</span>
+            ', 'notificationx' ),
+                    // phpcs:enable PluginCheck.CodeAnalysis.Offloading.OffloadedContent
+                ],
+            ],
+            'offer_announcement'    => [
+                'title'           => __( 'Discount Alert', 'notificationx' ),
+                'dashboard_title' => __( 'Discount Alert', 'notificationx' ),
+                'priority'        => 36,
+                'module'          => 'modules_announcements',
+                'popup'           => [],
+            ],
+        ];
+    }
+
+    /**
+     * Popup for a type locked because NotificationX Pro is outdated.
+     *
+     * @since 3.3.4
+     * @return array
+     */
+    protected function pro_update_popup() {
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        return apply_filters( 'nx_pro_alert_popup', [
+            'title'             => __( 'NotificationX Pro needs a compatibility update.', 'notificationx' ),
+            'html'              => sprintf(
+                /* translators: %s: required NotificationX Pro version. */
+                esc_html__( 'Please update to the v%s or later version.', 'notificationx' ),
+                esc_html( Admin::MIN_PRO_VERSION )
+            ),
+            'confirmButtonText' => sprintf( '<a href="%s">%s</a>', esc_url( self_admin_url( 'plugins.php' ) ), esc_html__( 'Update', 'notificationx' ) ),
+            // The Pro alert buttons take their padding from an inner link, like
+            // the upsell's "More Info"; a plain-text label collapses the button.
+            // No href: the button itself closes the popup.
+            'denyButtonText'    => sprintf( '<a style="cursor: pointer;">%s</a>', esc_html__( 'Close', 'notificationx' ) ),
+            // Shown even though Pro is active (the builder skips Pro alerts then).
+            'forced'            => true,
+        ] );
+    }
 
     public function normalize_fields($fields, $key = '', $value = [], $return = []) {
         foreach ($fields as $val => $label) {

@@ -15,7 +15,7 @@ The runtime is a filter-driven data pipeline: `nx_before_enqueue_scripts` can sh
 
 ## The popup/bar/exit-intent runtime
 
-The runtime is a React app built from [../../nxdev/notificationx/frontend/](../../nxdev/notificationx/frontend/) via [../../webpack.frontend.config.js](../../webpack.frontend.config.js) (entry `frontend`, plus `crossSite` and `flashing-tab`). Its entry [../../nxdev/notificationx/frontend/index.tsx](../../nxdev/notificationx/frontend/index.tsx) reads the localized `notificationX` config, sets up i18n/moment locale, appends a container div to `document.body`, and renders `<NotificationXFrontEnd config={…} />` from `frontend/core`.
+The runtime is a React app built from [../../nxdev/notificationx/frontend/](../../nxdev/notificationx/frontend/) via [../../webpack.frontend.config.js](../../webpack.frontend.config.js) (entry `frontend`, plus `crossSite` and `gdpr-modal`; the `flashing-tab` bundle moved to NotificationX Pro in free 3.3.4). Its entry [../../nxdev/notificationx/frontend/index.tsx](../../nxdev/notificationx/frontend/index.tsx) reads the localized `notificationX` config, sets up i18n/moment locale, appends a container div to `document.body`, and renders `<NotificationXFrontEnd config={…} />` from `frontend/core`.
 
 From there:
 

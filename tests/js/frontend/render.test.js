@@ -47,13 +47,16 @@ const entry = ( extra = {} ) => ( {
 } );
 
 describe( 'Theme hooks', () => {
-	it( 'renders the built-in announcement button for theme-13 and theme-15 without filters', () => {
-		render( <Theme config={ announcementConfig( 'announcements_theme-13' ) } data={ entry() } /> );
-		expect( container.querySelectorAll( 'a[href="https://example.com/sale"]' ) ).toHaveLength( 1 );
-		expect( container.querySelector( 'a svg' ) ).not.toBeNull();
-	} );
+	it.each( [ 'announcements_theme-13', 'announcements_theme-15' ] )(
+		'renders no Discount Alert button for %s without filters (Pro renders it)',
+		( themes ) => {
+			render( <Theme config={ announcementConfig( themes ) } data={ entry() } /> );
+			expect( container.querySelectorAll( 'a[href="https://example.com/sale"]' ) ).toHaveLength( 0 );
+			expect( container.querySelector( '.notificationx-content' ) ).not.toBeNull();
+		}
+	);
 
-	it( 'nx_theme_before_content replaces the built-in button (no double render)', () => {
+	it( 'nx_theme_before_content renders the add-on element once', () => {
 		const filter = jest.fn( ( value, props ) =>
 			props.config.themes === 'announcements_theme-13' ? <b className="pro-before">pro</b> : value
 		);
@@ -65,7 +68,7 @@ describe( 'Theme hooks', () => {
 		expect( filter.mock.calls[ 0 ][ 1 ] ).toHaveProperty( 'announcementCSS' );
 	} );
 
-	it( 'nx_theme_after_content replaces the built-in theme-15 button', () => {
+	it( 'nx_theme_after_content renders the add-on element', () => {
 		installHooks().addFilter( 'nx_theme_after_content', 'test', ( value, props ) =>
 			props.config.themes === 'announcements_theme-15' ? <i className="pro-after" /> : value
 		);
@@ -75,28 +78,30 @@ describe( 'Theme hooks', () => {
 		expect( container.querySelectorAll( 'a[href="https://example.com/sale"]' ) ).toHaveLength( 0 );
 	} );
 
-	it( 'nx_frontend_time_is_countdown defaults to true for announcements', () => {
-		render( <Theme config={ announcementConfig( 'announcements_theme-13' ) } data={ entry() } /> );
-		expect( container.textContent ).toContain( '5 days remaining' );
-	} );
-
-	it( 'nx_frontend_time_is_countdown lets an add-on switch the time format', () => {
-		installHooks().addFilter( 'nx_frontend_time_is_countdown', 'test', () => false );
+	it( 'nx_frontend_time_is_countdown defaults to false, also for announcements', () => {
 		render( <Theme config={ announcementConfig( 'announcements_theme-13' ) } data={ entry() } /> );
 		expect( container.textContent ).toContain( '5 days ago' );
 		expect( container.textContent ).not.toContain( 'remaining' );
+	} );
+
+	it( 'nx_frontend_time_is_countdown lets an add-on switch to a countdown', () => {
+		const filter = jest.fn( ( value, post ) => ( post.source === 'announcements' ? true : value ) );
+		installHooks().addFilter( 'nx_frontend_time_is_countdown', 'test', filter );
+		render( <Theme config={ announcementConfig( 'announcements_theme-13' ) } data={ entry() } /> );
+		expect( container.textContent ).toContain( '5 days remaining' );
+		expect( filter.mock.calls[ 0 ][ 0 ] ).toBe( false );
 	} );
 } );
 
 describe( 'Content / nx_content_append', () => {
 	const props = () => ( { config: announcementConfig( 'announcements_theme-14' ), data: entry(), template: [ 'Row' ] } );
 
-	it( 'renders the built-in theme-14 button without filters', () => {
+	it( 'renders no theme-14 button without filters (Pro renders it)', () => {
 		render( <Content { ...props() } /> );
-		expect( container.querySelectorAll( 'a[href="https://example.com/sale"]' ) ).toHaveLength( 1 );
+		expect( container.querySelectorAll( 'a[href="https://example.com/sale"]' ) ).toHaveLength( 0 );
 	} );
 
-	it( 'renders the add-on element instead of the built-in button', () => {
+	it( 'renders the add-on element', () => {
 		installHooks().addFilter( 'nx_content_append', 'test', ( value, p ) =>
 			p.config.themes === 'announcements_theme-14' ? <u className="pro-append" /> : value
 		);
@@ -109,10 +114,13 @@ describe( 'Content / nx_content_append', () => {
 describe( 'Image / nx_frontend_image', () => {
 	const props = ( themes ) => ( { config: { themes }, data: entry(), id: 1, theme: themes.split( '_' ).pop() } );
 
-	it( 'renders the plain image for other themes', () => {
-		render( <Image { ...props( 'woocommerce_sales_theme-one' ) } /> );
-		expect( container.querySelector( 'img' ).getAttribute( 'src' ) ).toBe( 'https://example.com/i.png' );
-	} );
+	it.each( [ 'woocommerce_sales_theme-one', 'announcements_theme-1' ] )(
+		'renders the plain image for %s without filters',
+		( themes ) => {
+			render( <Image { ...props( themes ) } /> );
+			expect( container.querySelector( 'img' ).getAttribute( 'src' ) ).toBe( 'https://example.com/i.png' );
+		}
+	);
 
 	it( 'renders the add-on element for a theme it claims', () => {
 		const filter = jest.fn( ( value, args ) =>
@@ -140,14 +148,20 @@ describe( 'Image / nx_frontend_image', () => {
 describe( 'Analytics / nx_frontend_link_button', () => {
 	const data = { link: 'https://example.com/entry' };
 
-	it( 'keeps the built-in announcements_link button text', () => {
+	it( 'has no built-in announcements_link text: it uses the generic button text', () => {
 		render(
 			<Analytics
-				config={ { link_type: 'announcements_link', link_button: true, announcement_link_button_text: 'Grab it' } }
+				config={ {
+					link_type: 'announcements_link',
+					link_button: true,
+					link_button_text: 'Buy',
+					announcement_link_button_text: 'Grab it',
+				} }
 				data={ data }
 			/>
 		);
-		expect( container.querySelector( 'a' ).textContent ).toContain( 'Grab it' );
+		expect( container.querySelector( 'a' ).textContent ).toContain( 'Buy' );
+		expect( container.querySelector( 'a' ).textContent ).not.toContain( 'Grab it' );
 	} );
 
 	it( 'uses the link text an add-on returns for its own link type', () => {

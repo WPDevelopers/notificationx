@@ -3,8 +3,7 @@ import { useNotificationContext, Notification, Shortcode, Pressbar } from ".";
 import GDPR from "./GDPR";
 import Popup from "./Popup";
 import ExitIntentPopup from "./ExitIntentPopup";
-import NotificationForMobile from "./NotificationForMobile";
-import { nxApplyListFilter } from "./hooks";
+import { nxApplyFilters, nxApplyListFilter } from "./hooks";
 const NotificationContainer = (props: any) => {
     const frontendContext = useNotificationContext();
     const [isMobile, setIsMobile] = useState(false);
@@ -20,21 +19,11 @@ const NotificationContainer = (props: any) => {
     }, []);
 
     const renderNotice = (NoticeList, position) => {
-        // Check using custom animation
-        const hasCustomAnimation = NoticeList.some(item =>  item.config.animation_notification_hide !== 'default' ||  item.config.animation_notification_show !== 'default' );
-        let isAnimateImport = false;
-        if (hasCustomAnimation && !isAnimateImport) {
-            // @ts-ignore 
-            import("animate.css/animate.min.css")
-            isAnimateImport = true;
-        }
-        
-        const isMobileAndPro = isMobile && frontendContext?.is_pro;
         // Sources rendered by <Notification> that opt out of the compact mobile layout.
         // Add-ons append the sources they render (Pro: announcements).
         const noMobileDesign = nxApplyListFilter(
             'nx_frontend_no_mobile_design_sources',
-            ['announcements', 'custom_notification', 'inline','gdpr_notification']
+            ['custom_notification', 'inline', 'gdpr_notification']
         );
         // Types drawn by their own component (<Popup>, <GDPR>, <ExitIntentPopup>,
         // <Pressbar>) instead of <Notification>. They carry no `template`, which is
@@ -105,19 +94,23 @@ const NotificationContainer = (props: any) => {
                     }
 
                     if (
-                        isMobileAndPro &&
+                        isMobile &&
                         notice?.config?.is_mobile_responsive &&
                         !noMobileDesign?.includes(notice?.config?.source) &&
                         !ownRendererTypes.includes(notice?.config?.type)
                     ) {
-                        return (
-                            <NotificationForMobile
-                                assets={frontendContext.assets}
-                                dispatch={frontendContext.dispatch}
-                                key={notice.id}
-                                {...notice}
-                            />
-                        );
+                        // Compact mobile layout: rendered by NotificationX Pro
+                        // (filter `nx_frontend_mobile_notification`). Without it
+                        // the regular <Notification> below is used.
+                        const mobileNotice = nxApplyFilters('nx_frontend_mobile_notification', undefined, {
+                            notice,
+                            assets: frontendContext.assets,
+                            dispatch: frontendContext.dispatch,
+                            is_pro: frontendContext?.is_pro,
+                        });
+                        if (mobileNotice !== undefined && mobileNotice !== null) {
+                            return mobileNotice;
+                        }
                     }
 
                     return (

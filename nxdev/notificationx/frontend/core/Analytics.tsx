@@ -53,10 +53,10 @@ export const resolveNotificationLink = (config, data) => {
         return null;
     }
     // Link types whose target is not a plain URL on the entry (a YouTube
-    // subscribe widget, an announcement CTA button). Add-ons append their own.
+    // subscribe widget). Add-ons append their own (Pro: announcements_link).
     const noEntryLinkTypes = nxApplyListFilter(
         'nx_frontend_no_entry_link_types',
-        ['none', 'yt_channel_link', 'announcements_link'],
+        ['none', 'yt_channel_link'],
         config,
         data
     );
@@ -143,10 +143,6 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
         case 'yt_channel_link':
             show_default_subscribe = true;
             link_text = config?.link_button_text_channel;
-            break;
-        case 'announcements_link':
-            show_default_subscribe = true;
-            link_text = config?.announcement_link_button_text;
             break;
         default:
             link_text = config?.link_button_text;

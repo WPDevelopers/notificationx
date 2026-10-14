@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import nxHelper from './functions';
 import useNotificationContext from './NotificationProvider';
+import { nxApplyFilters } from "./hooks";
 
 const useCountdown = (endDateStr: string, fallbackDurationMs?: number) => {
     const fallbackEndRef = useRef<number | null>(null);
@@ -182,9 +183,6 @@ const ExitIntentPopup = (props: any) => {
 
         setSubmitting(true);
         try {
-            // exit_intent_show_name / exit_intent_show_email are pro features — force off on free.
-            const _showName    = is_pro && s.exit_intent_show_name  !== false;
-            const _showEmail   = is_pro && s.exit_intent_show_email !== false;
             const _showMessage = s.exit_intent_show_message === true;
 
             const payload: Record<string, any> = {
@@ -193,8 +191,8 @@ const ExitIntentPopup = (props: any) => {
                 title: s.exit_intent_title || '',
             };
 
-            if (_showName    && name)    payload.name    = name;
-            if (_showEmail   && email)   payload.email   = email;
+            // Name/email: NotificationX Pro (filter `nx_exit_intent_submission_fields`).
+            Object.assign(payload, nxApplyFilters('nx_exit_intent_submission_fields', {}, { s, name, email, is_pro }));
             if (_showMessage && message) payload.message = message;
 
             const submitUrl = nxHelper.getPath(rest, 'popup-submit');
@@ -930,9 +928,6 @@ const ExitIntentPopup = (props: any) => {
     const title       = s.exit_intent_title    || 'Wait! Before You Go...';
     const subtitle    = s.exit_intent_subtitle || "We'd love to understand what's holding you back";
     const buttonText  = s.exit_intent_button_text || 'SUBMIT';
-    // exit_intent_show_name / exit_intent_show_email are pro features — force off on free.
-    const showName    = is_pro && s.exit_intent_show_name  !== false;
-    const showEmail   = is_pro && s.exit_intent_show_email !== false;
     const showMessage = s.exit_intent_show_message === true;
     const namePlaceholder    = s.exit_intent_name_label          || 'Name *';
     const emailPlaceholder   = s.exit_intent_email_label         || 'Enter Your Email *';
@@ -1010,30 +1005,18 @@ const ExitIntentPopup = (props: any) => {
                         </div>
                     ) : (
                         <form className="nx-exit-intent-form" onSubmit={handleSubmit}>
-                            {(showName || showEmail) && (
-                                <div className={`nx-exit-intent-fields ${showName && showEmail ? 'nx-exit-intent-two-col' : ''}`}>
-                                    {showName && (
-                                        <input
-                                            type="text"
-                                            className="nx-exit-intent-input"
-                                            style={inputStyle}
-                                            placeholder={namePlaceholder}
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                        />
-                                    )}
-                                    {showEmail && (
-                                        <input
-                                            type="email"
-                                            className="nx-exit-intent-input"
-                                            style={inputStyle}
-                                            placeholder={emailPlaceholder}
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                        />
-                                    )}
-                                </div>
-                            )}
+                            {/* Name and email fields: NotificationX Pro (filter `nx_exit_intent_form_fields`). */}
+                            {nxApplyFilters('nx_exit_intent_form_fields', null, {
+                                s,
+                                name,
+                                email,
+                                setName,
+                                setEmail,
+                                inputStyle,
+                                namePlaceholder,
+                                emailPlaceholder,
+                                is_pro,
+                            })}
 
                             {showMessage && (
                                 <textarea

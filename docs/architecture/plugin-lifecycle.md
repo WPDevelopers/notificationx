@@ -21,7 +21,7 @@ The root singleton constructor ([../../includes/NotificationX.php](../../include
 - `Admin::get_instance()` — only when in admin (or `?frontend` is not set).
 - `FrontEnd::get_instance()`.
 - Hooks: `admin_init → maybe_redirect`, `init → init`, `plugins_loaded → init_extension`, filter `nx_pro_alert_popup`, `init → register_custom_image_size`.
-- `REST`, `Cron`, `QuickBuild`, `ShortcodeInline`, `Blocks`, `CoreInstaller`.
+- `REST`, `Cron`, `QuickBuild`, `Blocks`, `CoreInstaller`. (`ShortcodeInline` moved to NotificationX Pro in free 3.3.4; the Pro engine boots it.)
 - Third-party shims: `WPML`, `VisualPortfolio`, and `ElementorManager` (deferred to `elementor/loaded`), plus `EntriesMailReceiver`.
 
 `init_extension()` (on `plugins_loaded`) calls `ExtensionFactory::get_instance()`, which registers every enabled Extension.

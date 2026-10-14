@@ -11,6 +11,7 @@ use Exception;
 use NotificationX\Core\Database;
 use NotificationX\GetInstance;
 use NotificationX\Core\Modules;
+use NotificationX\Types\TypeFactory;
 
 /**
  * ExtensionFactory Class
@@ -99,9 +100,16 @@ class ExtensionFactory {
 	public function register_extensions(){
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
 		$this->extension_classes = apply_filters( 'nx_extension_classes', $this->extension_classes );
+		$type_classes = TypeFactory::get_instance()->types;
 		foreach ($this->extension_classes as $extension) {
 			// initializing extension.
 			if(class_exists($extension)){
+				// Skip a source whose Type is not registered, e.g. the Cart Peek
+				// stub without NotificationX Pro, which registers that Type.
+				$class_vars = get_class_vars($extension);
+				if ( isset( $class_vars['types'] ) && is_string( $class_vars['types'] ) && '' !== $class_vars['types'] && ! isset( $type_classes[ $class_vars['types'] ] ) ) {
+					continue;
+				}
 				$obj = $extension::get_instance();
 				if(Modules::get_instance()->is_enabled($obj->module)){
 					$this->add($obj);

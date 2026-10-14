@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import Analytics from '../../nxdev/notificationx/frontend/core/Analytics';
 import { NotificationProvider } from '../../nxdev/notificationx/frontend/core/NotificationProvider';
+import { installHooks } from './helpers';
 
 const PLATFORM_SRC = 'https://apis.google.com/js/platform.js';
 
@@ -114,7 +115,12 @@ describe( 'platform.js loading', () => {
 		expect( platformScripts() ).toHaveLength( 1 );
 	} );
 
-	it( 'is added for announcements using the default subscribe button', () => {
+	it( 'is added for an add-on link type that asks for the default subscribe button', () => {
+		installHooks().addFilter( 'nx_frontend_link_button', 'test', ( value, config ) =>
+			config.link_type === 'announcements_link'
+				? { link_text: config.announcement_link_button_text, show_default_subscribe: true }
+				: value
+		);
 		render( {
 			config: { ...ytChannelConfig, link_type: 'announcements_link', announcement_link_button_text: 'Go' },
 			data: { id: 'UC123' },

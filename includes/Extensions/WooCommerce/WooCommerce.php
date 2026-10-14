@@ -108,7 +108,12 @@ class WooCommerce extends Extension {
     public function admin_actions() {
         parent::admin_actions();
         add_filter("nx_can_entry_{$this->id}", array($this, 'check_order_status'), 10, 3);
-        add_filter("nx_can_entry_{$this->id}", array($this->get_type(), 'nx_can_entry'), 10, 3);
+        // A Pro-only source keeps its free stub, but its Type is registered by
+        // NotificationX Pro (e.g. woocommerce_cart_peek), so it can be missing.
+        $type = $this->get_type();
+        if ( is_object( $type ) && method_exists( $type, 'nx_can_entry' ) ) {
+            add_filter("nx_can_entry_{$this->id}", array($type, 'nx_can_entry'), 10, 3);
+        }
     }
 
     public function public_actions(){

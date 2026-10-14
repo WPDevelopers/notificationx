@@ -185,10 +185,8 @@
         }
 
         .notificationx-close {
-            margin: 0;
             @extend %posa;
             right: 30px;
-            margin-top: -5px;
             cursor: pointer;
             top: 25%;
             transform: translateY(-50%);
@@ -198,6 +196,14 @@
             height: 10px;
             line-height: 17px;
             font-size: 14px;
+            // Above the bar's content: block-editor bars wrap it in positioned,
+            // z-indexed blocks that otherwise cover the button. The padding
+            // makes a 24x24 target; the negative margin keeps the icon where
+            // it was (margin-top was -5px).
+            z-index: 3;
+            box-sizing: content-box;
+            padding: 7px;
+            margin: -12px -7px -7px;
         }
         .notificationx-close.pressbar.position-top-right {
             right: 20px;
@@ -1696,3 +1702,11 @@
     }
 }
 
+
+// A block theme's navigation overlay (core/navigation adds `has-modal-open` to
+// <html> while it is open) is drawn in the header's stacking context, below a
+// top bar, so the bar covered the menu's close button. Hide the bar while the
+// overlay is open.
+html.has-modal-open .nx-bar.nx-position-top {
+    visibility: hidden;
+}

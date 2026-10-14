@@ -11,6 +11,8 @@ use NotificationX\Extensions\GlobalFields;
 use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
+use NotificationX\Types\TypeFactory;
+use WP_Error;
 
 /**
  * @method static PostType get_instance($args = null)
@@ -149,6 +151,82 @@ class PostType {
     }
 
     /**
+     * Whether a notification type is registered on this site.
+     *
+     * A type is registered only when an active extension uses it, so a Pro
+     * type is missing without Pro, with an outdated Pro, or when its module is
+     * off. The builder cannot show such a type and would fall back to another.
+     *
+     * @since 3.3.4
+     * @param string $type Notification type id.
+     * @return bool
+     */
+    public function is_type_registered( $type ) {
+        if ( ! is_string( $type ) || '' === $type ) {
+            return false;
+        }
+        $types = TypeFactory::get_instance()->get_all();
+        return isset( $types[ $type ] );
+    }
+
+    /**
+     * Refuse to change the type of a notification whose saved type is not
+     * registered.
+     *
+     * The builder cannot show an unregistered type, so it opens the
+     * notification as the first registered type. Saving that would rewrite
+     * `type`, `source` and `theme` and lose the notification. Changing the
+     * type of a notification whose saved type is registered stays allowed.
+     *
+     * @since 3.3.4
+     * @param array $data Notification data with `nx_id` and `type`.
+     * @return true|WP_Error
+     */
+    public function check_type_change( $data ) {
+        $nx_id = ! empty( $data['nx_id'] ) ? absint( $data['nx_id'] ) : 0;
+        if ( ! $nx_id || empty( $data['type'] ) || ! empty( $data['update_status'] ) ) {
+            return true;
+        }
+        $saved = Database::get_instance()->get_post( Database::$table_posts, $nx_id, 'type' );
+        if ( empty( $saved['type'] ) || $saved['type'] === $data['type'] || $this->is_type_registered( $saved['type'] ) ) {
+            return true;
+        }
+        $message = sprintf(
+            /* translators: %s: required NotificationX Pro version. */
+            __( 'This notification type is not available on this site, so the notification was not saved. Install or update NotificationX Pro to version %s or later, or turn on the module this notification uses, then try again.', 'notificationx' ),
+            Admin::MIN_PRO_VERSION
+        );
+        return new WP_Error( 'nx_type_unavailable', $message, [ 'status' => 409 ] );
+    }
+
+    /**
+     * Refuse to create a notification of a type that only a current
+     * NotificationX Pro renders while the active Pro is outdated.
+     *
+     * The type picker shows these types locked (GlobalFields::get_type_options()),
+     * but the builder still selects them when Pro is active, so creating one
+     * is refused here. Without Pro nothing changes: the types stay Pro-locked.
+     *
+     * @since 3.3.4
+     * @param array $data Notification data with `type`.
+     * @return true|WP_Error
+     */
+    public function check_type_create( $data ) {
+        if ( ! empty( $data['nx_id'] ) || empty( $data['type'] ) || ! Admin::pro_needs_update() ) {
+            return true;
+        }
+        if ( ! in_array( $data['type'], NotificationX::PRO_RENDERED_TYPES, true ) ) {
+            return true;
+        }
+        $message = sprintf(
+            /* translators: %s: required NotificationX Pro version. */
+            __( 'NotificationX Pro needs a compatibility update. Please update to the v%s or later version.', 'notificationx' ),
+            Admin::MIN_PRO_VERSION
+        );
+        return new WP_Error( 'nx_type_needs_pro_update', $message, [ 'status' => 409 ] );
+    }
+
+    /**
      * Save data on post save.
      *
      * @param int $post_id
@@ -158,6 +236,9 @@ class PostType {
         $results = [
             'status' => 'success',
         ];
+
+        // Builder-only flag from Rest\Posts::get_item(), never stored.
+        unset( $data['type_unavailable'] );
 
         if ( ! empty( $data['update_status'] ) ) {
             return $this->update_status( $data );
@@ -427,13 +508,15 @@ class PostType {
             $source                          = $value['source'];
             $posts[ $key ]['can_regenerate'] = false;
             $extension                       = ExtensionFactory::get_instance()->get( $source );
-            $posts[ $key ]['source_label']   = $extension->title;
+            $posts[ $key ]['source_label']   = ! empty( $extension ) ? $extension->title : '';
             if ( ! empty( $extension ) && method_exists( $extension, 'get_notification_ready' ) && $extension->is_active( false ) ) {
                 $posts[ $key ]['can_regenerate'] = true;
             }
             if ( ! empty( $extension ) && $extension->get_type() ) {
                 $type                        = $extension->get_type();
                 $posts[ $key ]['type_label'] = $type->dashboard_title ?: $type->title;
+            } else {
+                $posts[ $key ]['type_label'] = $this->stub_type_label( $value['type'] ?? '' );
             }
         }
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
@@ -503,7 +586,7 @@ class PostType {
             $source                          = $post['source'];
             $posts[ $key ]['can_regenerate'] = false;
             $extension                       = ExtensionFactory::get_instance()->get( $source );
-            $posts[ $key ]['source_label']   = $extension->title;
+            $posts[ $key ]['source_label']   = ! empty( $extension ) ? $extension->title : '';
 
             // Add entries count for popup notifications
             if ($source === 'popup_notification') {
@@ -516,9 +599,24 @@ class PostType {
             if ( ! empty( $extension ) && $extension->get_type() ) {
                 $type                        = $extension->get_type();
                 $posts[ $key ]['type_label'] = $type->dashboard_title ?: $type->title;
+            } else {
+                $posts[ $key ]['type_label'] = $this->stub_type_label( $post['type'] ?? '' );
             }
         }
         return $posts;
+    }
+
+    /**
+     * List label of a Pro-rendered type whose Type is not registered (no Pro,
+     * or an outdated Pro), so the list shows "Cart Peek" instead of its id.
+     *
+     * @since 3.3.4
+     * @param string $type Type id.
+     * @return string Empty when the type is not one of them.
+     */
+    protected function stub_type_label( $type ) {
+        $stubs = GlobalFields::pro_rendered_type_stubs();
+        return isset( $stubs[ $type ] ) ? $stubs[ $type ]['dashboard_title'] : '';
     }
 
     public function get_col( $col, $wheres ) {

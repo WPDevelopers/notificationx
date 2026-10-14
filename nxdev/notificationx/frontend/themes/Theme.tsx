@@ -6,7 +6,6 @@ import { escapeHTML } from "@wordpress/escape-html";
 import { useNotificationContext } from "../core";
 import { getResThemeName, getThemeName } from "../core/functions";
 import { __, _x } from "@wordpress/i18n";
-import Button from "./helpers/Button";
 import { nxApplyFilters } from "../core/hooks";
 import Cookies from 'js-cookie';
 
@@ -56,10 +55,11 @@ const Theme = (props) => {
 
             if (key === "time") {
                 // true = the entry time is a deadline ("5 days remaining"),
-                // not an event in the past.
+                // not an event in the past. NotificationX Pro returns true for
+                // the Discount Alert (announcements) source.
                 const suffix = !!nxApplyFilters<boolean>(
                     "nx_frontend_time_is_countdown",
-                    ['announcements'].includes(post.source),
+                    false,
                     post,
                     entry
                 );
@@ -151,7 +151,8 @@ const Theme = (props) => {
             // shadow post.bg_color;
             // shadow border - color;
         }
-        // Add announcementCSS
+        // Discount Alert colors. Free renders no Discount Alert part; the
+        // values reach add-on render filters as `announcementCSS`.
         if (post.discount_text_color) announcementCSS.discountTextColor = post.discount_text_color;
         if (post.discount_background) announcementCSS.discountBackground = post.discount_background;
         if (post.link_button_bg_color) announcementCSS.linkButtonBgColor = post.link_button_bg_color;
@@ -176,15 +177,7 @@ const Theme = (props) => {
                 "nx_theme_before_content",
                 undefined,
                 { ...props, announcementCSS }
-            ) ??
-                (["announcements_theme-13"].includes(props?.config?.themes) &&
-                    <Button
-                        {...props}
-                        announcementCSS={announcementCSS}
-                        icon={true}
-                    />
-                )
-            }
+            ) ?? null}
             <Content
                 {...props}
                 template={template}
@@ -198,14 +191,7 @@ const Theme = (props) => {
                 "nx_theme_after_content",
                 undefined,
                 { ...props, announcementCSS }
-            ) ??
-                (["announcements_theme-15"].includes(props?.config?.themes) &&
-                    <Button
-                        {...props}
-                        announcementCSS={announcementCSS}
-                    />
-                )
-            }
+            ) ?? null}
             <Close {...props} />
         </div>
     );

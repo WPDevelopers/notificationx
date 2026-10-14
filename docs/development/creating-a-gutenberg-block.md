@@ -35,7 +35,7 @@ The three registered block types and their callbacks:
 
 | Block name | Registered attributes | `render_callback` |
 | --- | --- | --- |
-| `notificationx-pro/notificationx` | `nx_id`, `blockId`, `product_id` | `notificationx_render_callback()` — renders via the `[notificationx_inline]` shortcode. |
+| `notificationx-pro/notificationx` | `nx_id`, `blockId`, `product_id` | `notificationx_render_callback()` — renders via the `[notificationx_inline]` shortcode. Its output is **not** passed through `wp_kses( Helper::nx_allowed_html() )`, because that allow-list drops the `data-nx-stock-count` / `data-product-id` attributes the Pro inline renderers need. The shortcode escapes entry values itself. |
 | `notificationx-pro/notificationx-render` | `nx_id`, `blockId`, `product_id`, `post_type` | `gutenberg_examples_dynamic_render_callback()` — inline render helper (used inside the block editor / templates). |
 | `notificationx/countdown` | server schema from `countdown_block_attributes()` | `countdown_render_callback()` — mirrors the Elementor `CountdownWidget` markup. |
 

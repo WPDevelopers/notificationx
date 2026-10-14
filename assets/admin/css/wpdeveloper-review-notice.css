@@ -651,3 +651,109 @@ span.coupon-code {
         display: none !important;
     }
 }
+/*
+ * Nx Halloween 2026 Notice
+ */
+#wpnotice-notificationx-nx_halloween_2026 {
+    position: relative;
+    border-left: 4px solid #5252dc;
+    background-color: #ffffff;
+    padding: 10px 40px 10px 20px;
+}
+#wpnotice-notificationx-nx_halloween_2026 .wpnotice-thumbnail-wrapper {
+    flex-shrink: 0;
+    padding: 0 15px 0 0;
+}
+#wpnotice-notificationx-nx_halloween_2026 .wpnotice-thumbnail-wrapper img {
+    width: 180px;
+}
+#wpnotice-notificationx-nx_halloween_2026 .wpnotice-content-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+}
+#wpnotice-notificationx-nx_halloween_2026 .wpnotice-content-wrapper p {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    color: #171717;
+}
+#wpnotice-notificationx-nx_halloween_2026 .wpnotice-content-wrapper p strong {
+    font-weight: 600;
+    color: #171717;
+}
+#wpnotice-notificationx-nx_halloween_2026 .wpnotice-content-wrapper .nx-notice-emoji {
+    display: inline-block;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    line-height: 1;
+    vertical-align: -2px;
+}
+#wpnotice-notificationx-nx_halloween_2026 .nx-notice-action-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+#wpnotice-notificationx-nx_halloween_2026 .nx-notice-action-button > a.button-primary,
+#wpnotice-notificationx-nx_halloween_2026 .nx-notice-action-button > a.button-primary:focus,
+#wpnotice-notificationx-nx_halloween_2026 .nx-notice-action-button > a.button-primary:hover {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    min-height: 32px;
+    margin: 0;
+    padding: 0 18px;
+    background-color: #5252dc;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    box-shadow: none;
+    text-shadow: none;
+    vertical-align: middle;
+}
+#wpnotice-notificationx-nx_halloween_2026 .nx-notice-action-button > a.button-primary:hover {
+    background-color: #4343c9;
+}
+#wpnotice-notificationx-nx_halloween_2026 .nx-notice-action-button .nx-notice-action-dismiss.dismiss-btn {
+    background: none;
+    border: none;
+    color: #424242;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    box-shadow: none;
+}
+#wpnotice-notificationx-nx_halloween_2026.is-dismissible .notice-dismiss {
+    top: 4px;
+    right: 4px;
+    bottom: auto;
+    transform: none;
+}
+@media screen and (max-width: 782px) {
+    #wpnotice-notificationx-nx_halloween_2026 .wpnotice-thumbnail-wrapper {
+        padding: 0;
+    }
+    #wpnotice-notificationx-nx_halloween_2026 .wpnotice-thumbnail-wrapper img {
+        width: 140px;
+    }
+}
+@media screen and (max-width: 574px) {
+    #wpnotice-notificationx-nx_halloween_2026 {
+        display: none !important;
+    }
+}

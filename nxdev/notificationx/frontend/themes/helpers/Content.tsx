@@ -1,7 +1,6 @@
 import React from "react";
 import { Branding as NXSvg, ThemeFiveShape } from ".";
 import Star from "../../../icons/Star";
-import Button from "./Button";
 import { nxApplyFilters } from "../../core/hooks";
 
 const Content = (props) => {
@@ -80,13 +79,7 @@ const Content = (props) => {
             )}
             {content}
             {/* {post.nx_id} &gt; {props?.data?.entry_id} */}
-            {nxApplyFilters<React.ReactNode>("nx_content_append", undefined, props) ??
-                (["announcements_theme-14"].includes(props?.config?.themes) &&
-                    <Button
-                        {...props}
-                    />
-                )
-            }
+            {nxApplyFilters<React.ReactNode>("nx_content_append", undefined, props) ?? null}
         </div>
     );
 };

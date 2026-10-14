@@ -43,8 +43,8 @@ All routes below are under `/notificationx/v1` unless noted. Permission column n
 | --- | --- | --- | --- |
 | GET | `/nx` | `read_notificationx` | List notifications (paginated, searchable, with view/click totals). |
 | POST | `/nx` | `edit_notificationx` | Create a notification. |
-| GET | `/nx/(?P<id>\d+)` | `read_notificationx` | Get a single notification (edit context). |
-| POST/PUT/PATCH | `/nx/(?P<id>\d+)` | `edit_notificationx` | Update a notification (`PostType::save_post`). |
+| GET | `/nx/(?P<id>\d+)` | `read_notificationx` | Get a single notification (edit context). 404 for a missing ID. Adds `type_unavailable` (bool, not stored): true when the saved type is not registered on the site (Pro missing or older than 3.2.4, or its module off). |
+| POST/PUT/PATCH | `/nx/(?P<id>\d+)` | `edit_notificationx` | Update a notification (`PostType::save_post`). `409 nx_type_unavailable` when the request changes the type of a notification whose saved type is not registered (`PostType::check_type_change()`, since 3.3.4). |
 | DELETE | `/nx/(?P<id>\d+)` | `edit_notificationx` | Delete a notification. |
 
 ### Integrations — `includes/Core/Rest/Integration.php` (base `notification`)
@@ -88,7 +88,7 @@ These handle popup **and** exit-intent form submissions (`source IN ('popup_noti
 
 | Method | Route | Permission | Purpose |
 | --- | --- | --- | --- |
-| POST | `/popup-submit` | `__return_true` (public) | **Frontend**: accept a popup/exit-intent form submission. |
+| POST | `/popup-submit` | `__return_true` (public) | **Frontend**: accept a popup/exit-intent form submission. Only for a notification whose source is in `Popup::form_sources()` (`popup_notification`, `exit_intent_custom`), enabled or disabled; any other ID gets `404`. |
 | GET | `/feedback-entries` | `read_notificationx` | List submissions (paginated, searchable). |
 | DELETE | `/feedback-entries/(?P<id>\d+)` | `edit_notificationx` | Delete one submission. |
 | POST | `/feedback-entries/bulk-delete` | `edit_notificationx` | Delete many submissions by `ids`. |
@@ -98,7 +98,7 @@ These handle popup **and** exit-intent form submissions (`source IN ('popup_noti
 
 **Custom capabilities.** Permission callbacks check NotificationX-specific caps rather than raw WP caps: `read_notificationx`, `edit_notificationx`, `edit_notificationx_settings`, and `read_notificationx_analytics`. These are mapped onto roles by `WPDRoleManagement` using the settings role map (see [../architecture/plugin-lifecycle.md](../architecture/plugin-lifecycle.md)). A few endpoints instead require core WP caps (`install_plugins` / `activate_plugins` for `/core-install`).
 
-**Public endpoints.** `/notice`, `/analytics`, `/delete-cookies`, `/popup-submit`, and the `/notification/{id}` integration routes use `permission_callback => '__return_true'` because they serve unauthenticated visitors. The integration routes compensate with the `api_key` (`md5(home_url())`) check; `/popup-submit` sanitizes each input field.
+**Public endpoints.** `/notice`, `/analytics`, `/delete-cookies`, `/popup-submit`, and the `/notification/{id}` integration routes use `permission_callback => '__return_true'` because they serve unauthenticated visitors. The integration routes compensate with the `api_key` (`md5(home_url())`) check; `/popup-submit` sanitizes each input field and accepts entries only for `popup_notification` / `exit_intent_custom` notifications. Before that check, anyone could post an entry into any campaign (for example a WordPress.org Reviews campaign), and the inline shortcode rendered it as HTML (Wordfence report against <= 3.3.3). Keep the route public: restrict it by source, never by capability. Do not add an enabled-status check: the Elementor "NX Form" widget can be bound to a disabled popup, and form-source entries are never rendered on the public site.
 
 **Nonces & localized data.** The admin SPA authenticates with a standard `wp_rest` nonce. `REST::rest_data()` supplies the client with `root` (REST URL), `namespace`, `nonce` (`wp_create_nonce('wp_rest')`), and `omit_credentials`, filtered through `nx_rest_data`.
 

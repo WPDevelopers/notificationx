@@ -5,7 +5,6 @@ namespace NotificationX\Core\Rest;
 use NotificationX\GetInstance;
 use NotificationX\Core\PopupNotification;
 use NotificationX\Extensions\Popup\PopupNotification as PopupPopupNotification;
-use NotificationX\NotificationX;
 use WP_REST_Server;
 
 /**
@@ -24,9 +23,10 @@ class Popup {
 
     /**
      * Sources that share the popup-submit form pipeline.
-     * Entries from these sources are listed/managed together in the Feedback Entries screen.
+     * Entries from these sources are listed/managed together in the Feedback Entries screen,
+     * and only notifications from these sources may receive popup-submit entries.
      */
-    private function form_sources() {
+    public static function form_sources() {
         return [ 'popup_notification', 'exit_intent_custom' ];
     }
 
@@ -208,7 +208,7 @@ class Popup {
         $offset = ($page - 1) * $per_page;
 
         // Build WHERE clause — include both popup and exit-intent submissions
-        $sources       = $this->form_sources();
+        $sources       = self::form_sources();
         $src_placeholders = implode(',', array_fill(0, count($sources), '%s'));
         $where_conditions = ["e.source IN ({$src_placeholders})"];
         $where_values     = $sources;
@@ -294,7 +294,7 @@ class Popup {
         $entry_id = $request->get_param('id');
         $table_name = $wpdb->prefix . 'nx_entries';
 
-        $sources          = $this->form_sources();
+        $sources          = self::form_sources();
         $src_placeholders = implode(',', array_fill(0, count($sources), '%s'));
         $delete_query     = $wpdb->prepare(
             // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- False positive: the query is prepared via $this->wpdb->prepare(), which this sniff does not recognise, and only $wpdb->prefix table names are interpolated. Audited 2026-07-16.
@@ -349,7 +349,7 @@ class Popup {
 
         // Create placeholders for the IN clauses
         $placeholders     = implode(',', array_fill(0, count($entry_ids), '%d'));
-        $sources          = $this->form_sources();
+        $sources          = self::form_sources();
         $src_placeholders = implode(',', array_fill(0, count($sources), '%s'));
 
         // Prepare the query with source filter
@@ -394,7 +394,7 @@ class Popup {
         $notification_id = $request->get_param('notification_id') ?: '';
 
         // Build WHERE clause — include both popup and exit-intent submissions
-        $sources          = $this->form_sources();
+        $sources          = self::form_sources();
         $src_placeholders = implode(',', array_fill(0, count($sources), '%s'));
         $where_conditions = ["e.source IN ({$src_placeholders})"];
         $where_values     = $sources;
@@ -462,7 +462,6 @@ class Popup {
      */
     private function generate_csv_data($entries) {
         $csv_data = [];
-        $is_pro = NotificationX::is_pro();
 
         // CSV Headers
        $csv_headers = [
@@ -471,10 +470,15 @@ class Popup {
             __('NotificationX Title', 'notificationx'),
         ];
 
-        if ($is_pro) {
-            $csv_headers[] = __('Name', 'notificationx');
-            $csv_headers[] = __('Email Address', 'notificationx');
-        }
+        /**
+         * Filters the CSV columns between "NotificationX Title" and "Message"
+         * (NotificationX Pro adds Name and Email Address).
+         *
+         * @since 3.3.4
+         * @param array $columns Column headers.
+         */
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        $csv_headers = array_merge( $csv_headers, (array) apply_filters( 'nx_feedback_entries_csv_headers', [] ) );
 
         $csv_headers[] = __('Message', 'notificationx');
 
@@ -493,10 +497,16 @@ class Popup {
                 $entry['notification_name'] ?: sprintf(__('Notification #%d', 'notificationx'), $entry['nx_id']),
             ];
 
-            if ($is_pro) {
-                $row[] = $data['name'] ?? '';
-                $row[] = $data['email'] ?? '';
-            }
+            /**
+             * Filters the CSV cells between "NotificationX Title" and "Message"
+             * for one entry; must match `nx_feedback_entries_csv_headers`.
+             *
+             * @since 3.3.4
+             * @param array $cells Cell values.
+             * @param array $data  Entry data (name, email, message, ...).
+             */
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+            $row = array_merge( $row, (array) apply_filters( 'nx_feedback_entries_csv_cells', [], $data ) );
 
             $row[] = $data['message'] ?? '';
 
