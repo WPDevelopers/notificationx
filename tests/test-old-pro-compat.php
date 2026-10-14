@@ -103,7 +103,7 @@ class Test_Old_Pro_Compat extends WP_UnitTestCase {
 	 * Builder) as a locked Pro type with its upsell popup, as in free 3.3.3.
 	 */
 	public function test_picker_lists_cart_peek_locked_without_pro() {
-		$options = wp_list_pluck( GlobalFields::get_instance()->get_type_options(), null, 'value' );
+		$options = array_column( GlobalFields::get_instance()->get_type_options(), null, 'value' );
 		$this->assertArrayHasKey( 'woocommerce_cart_peek', $options );
 		$cart_peek = $options['woocommerce_cart_peek'];
 		$this->assertTrue( $cart_peek['is_pro'] );
@@ -123,9 +123,12 @@ class Test_Old_Pro_Compat extends WP_UnitTestCase {
 
 	public function test_list_labels_an_unregistered_cart_peek_notification() {
 		$nx_id = $this->insert_row( 'woocommerce_cart_peek', 'woocommerce_cart_peek', 'woocommerce_cart_peek_conv-theme-fourteen' );
-		$posts = wp_list_pluck( PostType::get_instance()->get_posts( [ 'nx_id' => $nx_id ] ), null, 'nx_id' );
+		global $wpdb;
+		// The All NotificationX list (Rest\Posts::get_items) labels rows through __get_posts().
+		$rows  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . Database::$table_posts . ' WHERE nx_id = %d', $nx_id ) ); // phpcs:ignore WordPress.DB
+		$posts = array_column( PostType::get_instance()->__get_posts( $rows, '*' ), null, 'nx_id' );
 		$this->assertSame( 'Cart Peek', $posts[ $nx_id ]['type_label'] );
-		$this->assertSame( '', $posts[ $nx_id ]['source_label'] );
+		$this->assertEmpty( $posts[ $nx_id ]['source_label'] );
 	}
 
 	/**
