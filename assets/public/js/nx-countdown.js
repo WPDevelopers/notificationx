@@ -19,8 +19,8 @@
         var widgetId     = $wrapper.data('countdown-id') || '';
         var countdownType= $wrapper.data('countdown-type') || 'due_date';
         var expireType   = $wrapper.data('expire-type')   || 'none';
-        var expireTitle  = $wrapper.data('expiry-title')  || '';
-        var expireText   = $wrapper.data('expiry-text')   || '';
+        // Server-rendered (kses'd) expiry message; cloned as DOM, never re-parsed.
+        var expiryTemplate = $wrapper.find('template.nx-countdown-expiry').get(0);
         var redirectUrl  = $wrapper.data('redirect-url')  || '';
         var evergreenTime= parseInt($wrapper.data('evergreen-time') || 0, 10); // seconds
         var recurring    = $wrapper.data('evergreen-recurring');
@@ -88,12 +88,10 @@
             delete activeIntervals[widgetId];
 
             if (expireType === 'text') {
-                $list.html(
-                    '<div class="nx-countdown-finish-message">' +
-                        '<h4 class="nx-expiry-title">' + expireTitle + '</h4>' +
-                        '<div class="nx-expiry-text">' + expireText + '</div>' +
-                    '</div>'
-                );
+                $list.empty();
+                if (expiryTemplate && expiryTemplate.content) {
+                    $list.append(document.importNode(expiryTemplate.content, true));
+                }
             } else if (expireType === 'url') {
                 if (typeof elementorFrontend !== 'undefined' && elementorFrontend.isEditMode()) {
                     $list.html('<p>Page will redirect to the given URL on the frontend.</p>');
