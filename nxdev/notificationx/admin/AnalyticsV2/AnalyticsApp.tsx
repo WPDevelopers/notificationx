@@ -52,6 +52,8 @@ const AnalyticsApp = () => {
     const [drawer, setDrawer] = useState<number | null>(Number(readParam("open", "0")) || null);
     const [options, setOptions] = useState<any[]>([]);
     const [reloadKey, setReloadKey] = useState(0);
+    // Below the bar: Pro's filter bar renders its custom date panel here.
+    const [slot, setSlot] = useState<HTMLDivElement | null>(null);
     const rootRef = useRef<HTMLDivElement>(null);
     const headRef = useRef<HTMLDivElement>(null);
     const sentinelRef = useRef<HTMLDivElement>(null);
@@ -115,13 +117,14 @@ const AnalyticsApp = () => {
                     </div>
                     {(
                         <div className="nxa-controls">
-                            {hasReports && applyFilters("nx_analytics_controls", null, { view, range, setRange, nxId, setNxId, type, setType, compare, setCompare, options, setOptions, reloadKey }) as React.ReactNode}
+                            {hasReports && applyFilters("nx_analytics_controls", null, { view, range, setRange, nxId, setNxId, type, setType, compare, setCompare, options, setOptions, reloadKey, slot }) as React.ReactNode}
                             <button type="button" className="nxa-icon-btn nxa-theme" onClick={() => setDark(!dark)} aria-label={dark ? __("Switch to light mode", "notificationx") : __("Switch to dark mode", "notificationx")} title={dark ? __("Light mode", "notificationx") : __("Dark mode", "notificationx")}>
                                 <Icon name={dark ? "sun" : "moon"} size={16} />
                             </button>
                         </div>
                     )}
                 </div>
+                <div ref={setSlot} />
 
                 <div className="nxa-shell">
                     <nav className="nxa-nav" aria-label={__("Analytics sections", "notificationx")}>

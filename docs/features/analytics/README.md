@@ -22,11 +22,11 @@ Pro renders the views, the drawer and the filter bar through the admin filters b
 | Filter | Returns | Args |
 | --- | --- | --- |
 | `nx_analytics_reports` | `true` when the reports are registered. Without it the page shows previews; with an active Pro that returns `false` (an older Pro) the preview asks to update Pro. | `false` |
-| `nx_analytics_controls` | The filter bar (type, notification, range, compare, export) before the theme toggle. | `null`, `{ view, range, setRange, nxId, setNxId, type, setType, compare, setCompare, options, setOptions, reloadKey }` |
+| `nx_analytics_controls` | The filter bar (type, notification, range, compare, export) before the theme toggle. | `null`, `{ view, range, setRange, nxId, setNxId, type, setType, compare, setCompare, options, setOptions, reloadKey, slot }` |
 | `nx_analytics_view` | The current view (`overview`, `audience`, `notifications`, `leads`). | `null`, `{ view, range, nxId, type, compare, isPro, reloadKey, onOpen }` |
 | `nx_analytics_drawer` | The per-notification drawer, rendered while `open` is set. | `null`, `{ id, range, reloadKey, onClose, onReset }` |
 
-`options` (set by the controls) gives the reset dialog the notification titles. `reloadKey` changes after a reset; views refetch when it does.
+`options` (set by the controls) gives the reset dialog the notification titles. `slot` is an empty element below the bar; the controls portal the custom date panel into it. `reloadKey` changes after a reset; views refetch when it does.
 
 ### PHP
 
