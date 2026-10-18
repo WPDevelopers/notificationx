@@ -65,15 +65,10 @@ class Tracker {
     const RETENTION_DAYS = 30;
 
     /**
-     * Days of daily data Free keeps. Free shows 7 or 30 days, but keeps 90
-     * so the history is already there after an upgrade to Pro.
+     * Days of daily data kept without NotificationX Pro: 90, so the history
+     * is already there after an upgrade.
      */
     const FREE_RETENTION_DAYS = 90;
-
-    /**
-     * Retention choices (days; 0 = forever) for the analytics_retention setting.
-     */
-    const RETENTION_CHOICES = [ 90, 180, 365, 730, 0 ];
 
     /**
      * Referrer hosts of AI assistants, and the name shown for each.
@@ -111,18 +106,13 @@ class Tracker {
     }
 
     /**
-     * Days of daily data to keep; 0 keeps everything. Free: 90 days. Pro:
-     * the analytics_retention setting, keeping everything by default.
+     * Days of daily data to keep; 0 keeps everything. Free keeps 90 days, so
+     * the history is there after an upgrade. NotificationX Pro applies its
+     * "Keep Analytics Data For" setting through `nx_analytics_retention_days`.
      */
     public function retention_days() {
-        if ( ! \NotificationX\NotificationX::get_instance()->is_pro() ) {
-            $days = self::FREE_RETENTION_DAYS;
-        } else {
-            $days = (int) Settings::get_instance()->get( 'settings.analytics_retention', 0 );
-            $days = in_array( $days, self::RETENTION_CHOICES, true ) ? $days : 0;
-        }
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-        return max( 0, (int) apply_filters( 'nx_analytics_retention_days', $days ) );
+        return max( 0, (int) apply_filters( 'nx_analytics_retention_days', self::FREE_RETENTION_DAYS ) );
     }
 
     /**
