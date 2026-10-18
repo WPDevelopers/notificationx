@@ -124,18 +124,6 @@ class AnalyticsReports {
                 ],
             ],
         ] );
-        register_rest_route( $this->namespace, '/analytics/report/export', [
-            'methods'             => WP_REST_Server::READABLE,
-            'callback'            => [ $this, 'export' ],
-            'permission_callback' => [ $this, 'can_export' ],
-            'args'                => $common + [
-                'module' => [
-                    'type'    => 'string',
-                    'enum'    => [ 'overview', 'notifications' ],
-                    'default' => 'overview',
-                ],
-            ],
-        ] );
     }
 
     /**
@@ -189,12 +177,6 @@ class AnalyticsReports {
         return new WP_REST_Response( [ 'reset' => true, 'nx_id' => $nx_id ] );
     }
 
-    /**
-     * CSV export is a Pro feature.
-     */
-    public function can_export() {
-        return $this->can_read() && $this->is_pro();
-    }
 
     /**
      * Tests set this through reflection to exercise the Pro reports.
@@ -814,43 +796,5 @@ class AnalyticsReports {
         ] );
     }
 
-    /**
-     * GET analytics/report/export — CSV of the active screen.
-     */
-    public function export( WP_REST_Request $request ) {
-        $module = 'notifications' === $request['module'] ? 'notifications' : 'overview';
-        $lines  = [];
-        if ( 'notifications' === $module ) {
-            $data    = $this->notifications( $request )->get_data();
-            $lines[] = [ 'ID', 'Notification', 'Type', 'Status', 'Views', 'Clicks', 'CTR %', 'Leads' ];
-            foreach ( $data['rows'] as $row ) {
-                $lines[] = [ $row['nx_id'], $row['title'], $row['type_label'], $row['enabled'] ? 'Enabled' : 'Disabled', $row['views'], $row['clicks'], $row['ctr'], $row['leads'] ];
-            }
-        } else {
-            $data    = $this->summary( $request )->get_data();
-            $lines[] = [ 'Date (UTC)', 'Views', 'Clicks', 'CTR %' ];
-            foreach ( $data['series'] as $row ) {
-                $lines[] = [ $row['date'], $row['views'], $row['clicks'], $this->ctr( $row['clicks'], $row['views'] ) ];
-            }
-        }
-        $csv = '';
-        foreach ( $lines as $line ) {
-            $csv .= implode( ',', array_map( [ $this, 'csv_cell' ], $line ) ) . "\n";
-        }
-        return new WP_REST_Response( [
-            'filename' => sprintf( 'notificationx-%s-%s-to-%s.csv', $module, $data['window']['start'], $data['window']['end'] ),
-            'csv'      => $csv,
-        ] );
-    }
 
-    /**
-     * Quote a CSV cell and neutralise spreadsheet formulas.
-     */
-    public function csv_cell( $value ) {
-        $value = (string) $value;
-        if ( '' !== $value && in_array( $value[0], [ '=', '+', '-', '@', "\t", "\r" ], true ) && ! is_numeric( $value ) ) {
-            $value = "'" . $value;
-        }
-        return '"' . str_replace( '"', '""', $value ) . '"';
-    }
 }
