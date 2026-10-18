@@ -89,14 +89,17 @@ const AnalyticsApp = () => {
 
     useEffect(() => {
         if (parsed) return;
+        // Not batched here (React 17): set the filters first and `parsed`
+        // last, so no render fetches the defaults or flashes the preview.
         const onParsed = () => {
+            if (readReports()) {
+                setRange(readParam("range", "7"));
+                setNxId(Number(readParam("nx", "0")) || 0);
+                setType(readParam("type", ""));
+                setCompare(readParam("compare", "1") === "1");
+                setHasReports(true);
+            }
             setParsed(true);
-            if (!readReports()) return;
-            setHasReports(true);
-            setRange(readParam("range", "7"));
-            setNxId(Number(readParam("nx", "0")) || 0);
-            setType(readParam("type", ""));
-            setCompare(readParam("compare", "1") === "1");
         };
         document.addEventListener("DOMContentLoaded", onParsed);
         return () => document.removeEventListener("DOMContentLoaded", onParsed);
