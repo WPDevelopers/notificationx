@@ -13,7 +13,7 @@ const VIEWS = ["overview", "audience", "notifications", "leads"] as const;
 type View = typeof VIEWS[number];
 const THEME_KEY = "nx-analytics-theme";
 
-const readParam = (key: string, d = "") => new URLSearchParams(window.location.search).get(key) || d;
+const readReports = () => !!applyFilters("nx_analytics_reports", false);
 
 /** Keep the dashboard state in the URL so it survives reloads and can be shared. */
 const writeParams = (params: Record<string, string>) => {
@@ -37,9 +37,15 @@ const NavIcon = ({ name }: { name: View }) => {
 const AnalyticsApp = () => {
     const ctx = useNotificationXContext();
     const isPro = !!ctx?.is_pro_active;
+    // The URL as the page opened, before this page rewrites it.
+    const [initialParams] = useState(() => new URLSearchParams(window.location.search));
+    const readParam = (key: string, d = "") => initialParams.get(key) || d;
     // The reports are rendered by NotificationX Pro through the filters below.
     // Without them every view is a preview; the all-time cards above stay real.
-    const hasReports = !!applyFilters("nx_analytics_reports", false);
+    // Pro's script loads after free's and this page can mount before it runs,
+    // so the answer is final only once the document is parsed.
+    const [parsed, setParsed] = useState(document.readyState !== "loading");
+    const [hasReports, setHasReports] = useState(readReports);
     const initialView = readParam("view", "overview") as View;
     const [view, setView] = useState<View>(VIEWS.includes(initialView) ? initialView : "overview");
     const [range, setRange] = useState(() => (hasReports ? readParam("range", "7") : "7"));
@@ -82,8 +88,24 @@ const AnalyticsApp = () => {
     }, []);
 
     useEffect(() => {
+        if (parsed) return;
+        const onParsed = () => {
+            setParsed(true);
+            if (!readReports()) return;
+            setHasReports(true);
+            setRange(readParam("range", "7"));
+            setNxId(Number(readParam("nx", "0")) || 0);
+            setType(readParam("type", ""));
+            setCompare(readParam("compare", "1") === "1");
+        };
+        document.addEventListener("DOMContentLoaded", onParsed);
+        return () => document.removeEventListener("DOMContentLoaded", onParsed);
+    }, []);
+
+    useEffect(() => {
+        if (!parsed) return; // Keep the URL until the filters are known.
         writeParams({ view: view === "overview" ? "" : view, range: range === "7" ? "" : range, nx: nxId ? String(nxId) : "", type, compare: hasReports && compare ? "1" : "", open: drawer ? String(drawer) : "" });
-    }, [view, range, nxId, type, compare, drawer]);
+    }, [parsed, view, range, nxId, type, compare, drawer]);
     useEffect(() => { try { window.localStorage.setItem(THEME_KEY, dark ? "dark" : "light"); } catch (e) { /* storage blocked */ } }, [dark]);
     const doReset = () => {
         if (resetOpen === null) return;
@@ -133,7 +155,7 @@ const AnalyticsApp = () => {
                             <button type="button" key={v} className={view === v ? "is-active" : ""} aria-current={view === v ? "page" : undefined} onClick={() => setView(v)}>
                                 <NavIcon name={v} />
                                 {{ overview: __("Overview", "notificationx"), audience: __("Audience", "notificationx"), notifications: __("Notifications", "notificationx"), leads: __("Leads", "notificationx") }[v]}
-                                {!hasReports && <ProPill />}
+                                {parsed && !hasReports && <ProPill />}
                             </button>
                         ))}
                         <div className="nxa-nav-group">{__("Configuration", "notificationx")}</div>
@@ -149,7 +171,7 @@ const AnalyticsApp = () => {
                     <main className="nxa-main">
                         {hasReports
                             ? applyFilters("nx_analytics_view", null, { view, range, nxId, type, compare, isPro, reloadKey, onOpen: setDrawer }) as React.ReactNode
-                            : <ProScreen view={view} needsUpdate={isPro} />}
+                            : parsed && <ProScreen view={view} needsUpdate={isPro} />}
                     </main>
                 </div>
                 {hasReports && drawer && applyFilters("nx_analytics_drawer", null, { id: drawer, range, reloadKey, onClose: () => setDrawer(null), onReset: (id: number) => setResetOpen(id) }) as React.ReactNode}
