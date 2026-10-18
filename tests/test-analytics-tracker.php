@@ -1,6 +1,8 @@
 <?php
 /**
- * Tests for event tracking (Core\Tracker, POST /track) and the Audience report.
+ * Tests for event tracking (Core\Tracker, POST /track), retention and the data reset.
+ *
+ * The reports built from this data are in NotificationX Pro and tested there.
  *
  * @package Notificationx
  */
@@ -8,7 +10,6 @@
 use NotificationX\Core\Database;
 use NotificationX\Core\PostType;
 use NotificationX\Core\Tracker;
-use NotificationX\Core\Rest\AnalyticsReports;
 
 class Test_Analytics_Tracker extends WP_UnitTestCase {
 
@@ -26,22 +27,7 @@ class Test_Analytics_Tracker extends WP_UnitTestCase {
 		$_SERVER['REMOTE_ADDR']     = '203.0.113.' . wp_rand( 1, 250 );
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Macintosh) Chrome/124';
 		unset( $_SERVER['HTTP_CF_IPCOUNTRY'], $_SERVER['HTTP_X_FORWARDED_FOR'] );
-		// The Audience report is Pro; collecting events is not.
-		$this->set_pro( true );
 	}
-
-	/** Run the reports as Pro (true), Free (false) or the real check (null). */
-	protected function set_pro( $pro ) {
-		$prop = new ReflectionProperty( AnalyticsReports::class, 'pro_override' );
-		$prop->setAccessible( true );
-		$prop->setValue( null, $pro );
-	}
-
-	public function tearDown(): void {
-		$this->set_pro( null );
-		parent::tearDown();
-	}
-
 
 	protected function notification( $enabled ) {
 		$saved = PostType::get_instance()->save_post(
@@ -162,7 +148,8 @@ class Test_Analytics_Tracker extends WP_UnitTestCase {
 		$this->assertNotSame( $today, $t->visitor_hash() );
 	}
 
-	public function test_rollup_is_idempotent_and_feeds_the_audience_report() {
+	public function test_rollup_is_idempotent() {
+		global $wpdb;
 		$_SERVER['HTTP_CF_IPCOUNTRY'] = 'BD';
 		$this->post( $this->batch( array( array( 'n' => $this->nx_id, 'e' => 'view' ), array( 'n' => $this->nx_id, 'e' => 'click' ) ), array( 'r' => 'https://chatgpt.com/', 'w' => 390 ) ) );
 		$_SERVER['REMOTE_ADDR']       = '198.51.100.9';
@@ -170,42 +157,17 @@ class Test_Analytics_Tracker extends WP_UnitTestCase {
 		$this->post( $this->batch( array( array( 'n' => $this->nx_id, 'e' => 'view' ), array( 'n' => $this->nx_id, 'e' => 'close' ) ) ) );
 
 		$today = gmdate( 'Y-m-d' );
+		$total = function () use ( $wpdb, $today ) {
+			return $wpdb->get_row( $wpdb->prepare( 'SELECT views, clicks, closes, visitors FROM ' . Database::$table_stats_daily . " WHERE day = %s AND nx_id = %d AND dim = 'all'", $today, $this->nx_id ), ARRAY_A ); // phpcs:ignore
+		};
 		Tracker::get_instance()->rollup( $today, $today );
+		$first = $total();
+		$rows  = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . Database::$table_stats_daily );
 		Tracker::get_instance()->rollup( $today, $today ); // Twice: no double counting.
 
-		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		$request = new WP_REST_Request( 'GET', '/notificationx/v1/analytics/report/audience' );
-		$request->set_param( 'range', '7' );
-		$data = rest_get_server()->dispatch( $request )->get_data();
-
-		$this->assertSame( 2, $data['totals']['seen'] );
-		$this->assertSame( 1, $data['totals']['clicks'] );
-		$this->assertSame( 1, $data['totals']['closes'] );
-		$this->assertSame( 2, $data['totals']['visitors'] );
-		$this->assertSame( 50.0, $data['totals']['ctr'] );
-		$this->assertSame( $today, $data['since'] );
-		$this->assertSame( 2, end( $data['series'] )['seen'] );
-
-		$devices = wp_list_pluck( $data['devices'], 'seen', 'key' );
-		$this->assertSame( array( 'mobile' => 1, 'desktop' => 1 ), array_intersect_key( $devices, array( 'mobile' => 0, 'desktop' => 0 ) ) );
-		$this->assertEqualsCanonicalizing( array( 'BD', 'DE' ), wp_list_pluck( $data['countries'], 'key' ) );
-		$this->assertSame( 'Bangladesh', wp_list_pluck( $data['countries'], 'label', 'key' )['BD'] );
-		$this->assertSame( 1, $data['ai']['seen'] );
-		$this->assertSame( 'ChatGPT', $data['ai']['assistants'][0]['key'] );
-		$this->assertSame( 50.0, $data['ai']['share'] );
-		$this->assertSame( '/shop/', $data['pages'][0]['key'] );
-		$this->assertSame( 'chatgpt.com', $data['sources'][0]['key'] );
-
-		// The notifications report shows the same impressions as "seen".
-		$request = new WP_REST_Request( 'GET', '/notificationx/v1/analytics/report/notifications' );
-		$rows    = wp_list_pluck( rest_get_server()->dispatch( $request )->get_data()['rows'], 'seen', 'nx_id' );
-		$this->assertSame( 2, $rows[ $this->nx_id ] );
-	}
-
-	public function test_audience_needs_the_analytics_capability() {
-		wp_set_current_user( self::factory()->user->create( array( 'role' => 'subscriber' ) ) );
-		$request = new WP_REST_Request( 'GET', '/notificationx/v1/analytics/report/audience' );
-		$this->assertSame( 403, rest_get_server()->dispatch( $request )->get_status() );
+		$this->assertSame( array( 'views' => '2', 'clicks' => '1', 'closes' => '1', 'visitors' => '2' ), array_map( 'strval', $first ) );
+		$this->assertSame( $first, $total() );
+		$this->assertSame( $rows, (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . Database::$table_stats_daily ) );
 	}
 
 	public function test_purge_drops_old_raw_events_only() {
@@ -279,95 +241,17 @@ class Test_Analytics_Tracker extends WP_UnitTestCase {
 		$this->assertSame( 0, (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . Database::$table_stats_daily ) );
 	}
 
-	public function test_type_filter_limits_the_audience_report() {
-		$saved = PostType::get_instance()->save_post(
-			array(
-				'type'   => 'gdpr',
-				'source' => 'gdpr_notification',
-				'themes' => 'gdpr_theme-light-one',
-				'title'  => 'cookie',
-			)
-		);
-		$gdpr = (int) $saved['nx_id'];
-		$this->daily_row( gmdate( 'Y-m-d' ), $this->nx_id, 5 );
-		$this->daily_row( gmdate( 'Y-m-d' ), $gdpr, 2 );
-		update_option( 'nx_analytics_rolled_at', time() ); // Keep the rows above.
-		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		$get = function ( $params ) {
-			$request = new WP_REST_Request( 'GET', '/notificationx/v1/analytics/report/audience' );
-			foreach ( $params as $k => $v ) {
-				$request->set_param( $k, $v );
-			}
-			return rest_get_server()->dispatch( $request )->get_data()['totals']['seen'];
-		};
-		$this->assertSame( 7, $get( array() ) );
-		$this->assertSame( 2, $get( array( 'type' => 'gdpr' ) ) );
-		$this->assertSame( 5, $get( array( 'type' => 'notification_bar' ) ) );
-		$this->assertSame( 0, $get( array( 'type' => 'no_such_type' ) ) );
-		$this->assertSame( 5, $get( array( 'type' => 'gdpr', 'nx_id' => $this->nx_id ) ) ); // nx_id wins.
-	}
-
-	public function test_hovers_and_site_wide_visitors_reach_the_audience_report() {
-		$other = $this->notification( true );
-		// One visitor sees and hovers two notifications.
-		$this->post( $this->batch( array( array( 'n' => $this->nx_id, 'e' => 'view' ), array( 'n' => $other, 'e' => 'view' ), array( 'n' => $this->nx_id, 'e' => 'hover' ) ) ) );
-		// A second visitor sees one.
-		$_SERVER['REMOTE_ADDR'] = '198.51.100.77';
-		$this->post( $this->batch( array( array( 'n' => $this->nx_id, 'e' => 'view' ) ) ) );
-		$today = gmdate( 'Y-m-d' );
-		Tracker::get_instance()->rollup( $today, $today );
-
-		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		$get = function ( $params = array() ) {
-			$request = new WP_REST_Request( 'GET', '/notificationx/v1/analytics/report/audience' );
-			foreach ( $params as $k => $v ) {
-				$request->set_param( $k, $v );
-			}
-			return rest_get_server()->dispatch( $request )->get_data()['totals'];
-		};
-		$all = $get();
-		$this->assertSame( 3, $all['seen'] );
-		$this->assertSame( 1, $all['hovers'] );
-		$this->assertSame( 33.33, $all['engagement'] );
-		// Unique per day across notifications: 2 people, not 3 notification-visitors.
-		$this->assertSame( 2, $all['visitors'] );
-		$this->assertSame( 1.5, $all['per_visitor'] );
-		// Filtered to one notification: its own uniques.
-		$this->assertSame( 2, $get( array( 'nx_id' => $this->nx_id ) )['visitors'] );
-		$this->assertSame( 1, $get( array( 'nx_id' => $other ) )['visitors'] );
-	}
-
 	public function test_client_config_carries_the_ga_switch() {
 		$this->assertFalse( Tracker::get_instance()->client_config()['ga'] );
 	}
 
-	public function test_free_still_collects_but_the_reports_are_pro() {
-		$this->set_pro( false );
+	public function test_free_still_collects_but_has_no_reports() {
 		$this->assertSame( 202, $this->post( $this->batch( array( array( 'n' => $this->nx_id, 'e' => 'view' ) ) ) )->get_status() );
 		$this->assertSame( 1, $this->event_count() );
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		foreach ( array( 'summary', 'audience', 'leads', 'notifications', 'notification/' . $this->nx_id ) as $route ) {
+		foreach ( array( 'summary', 'audience', 'leads', 'notifications', 'notification/' . $this->nx_id, 'export' ) as $route ) {
 			$res = rest_get_server()->dispatch( new WP_REST_Request( 'GET', '/notificationx/v1/analytics/report/' . $route ) );
-			$this->assertSame( 403, $res->get_status(), $route );
-			$this->assertSame( 'nx_pro_required', $res->get_data()['code'], $route );
+			$this->assertSame( 404, $res->get_status(), $route );
 		}
-	}
-
-	public function test_leads_report_links_to_the_entries_tab() {
-		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		$get = function ( $params = array() ) {
-			$request = new WP_REST_Request( 'GET', '/notificationx/v1/analytics/report/leads' );
-			foreach ( $params as $k => $v ) {
-				$request->set_param( $k, $v );
-			}
-			return rest_get_server()->dispatch( $request )->get_data()['entries_url'];
-		};
-		$this->assertSame( admin_url( 'admin.php?page=nx-settings&tab=entries' ), $get() );
-		$this->assertSame( admin_url( 'admin.php?page=nx-settings&tab=entries&notification_id=' . $this->nx_id ), $get( array( 'nx_id' => $this->nx_id ) ) );
-		// A user who can read analytics but not edit settings gets no link.
-		$user = self::factory()->user->create( array( 'role' => 'editor' ) );
-		get_user_by( 'id', $user )->add_cap( 'read_notificationx_analytics' );
-		wp_set_current_user( $user );
-		$this->assertNull( $get() );
 	}
 }
