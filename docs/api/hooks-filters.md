@@ -75,6 +75,13 @@ These are how a plugin (Pro or third-party) adds new Types, Extensions, sources,
 | `nx_get_entry` / `nx_get_entries` | Entries read back from the table ([Entries.php:104-114](../../includes/Admin/Entries.php#L104)). | `$entry` / `$entries` |
 | `nx_feedback_entries_csv_headers` | Feedback entries CSV columns between "NotificationX Title" and "Message" ([Rest/Popup.php](../../includes/Core/Rest/Popup.php), `generate_csv_data()`). NotificationX Pro adds Name and Email Address. Since 3.3.4. | `$columns` |
 | `nx_feedback_entries_csv_cells` | The matching cells for one feedback entry ([Rest/Popup.php](../../includes/Core/Rest/Popup.php)). Must match `nx_feedback_entries_csv_headers`. Since 3.3.4. | `$cells`, `$data` |
+| `nx_analytics_retention_days` | Days of `nx_stats_daily` to keep; `0` keeps everything ([Tracker.php](../../includes/Core/Tracker.php), `retention_days()`). Free keeps 90; NotificationX Pro returns its `analytics_retention` setting. | `90` |
+| `nx_pro_analytics_features` | Return `true` when the active Pro applies `analytics_retention`; free unlocks that setting only then ([Settings.php](../../includes/Admin/Settings.php)). | `false` |
+| `nx_analytics_tracking_enabled` | Whether frontend events are collected ([Tracker.php](../../includes/Core/Tracker.php)). | setting `enable_analytics` |
+| `nx_analytics_channel` | The channel a visit is counted under ([Tracker.php](../../includes/Core/Tracker.php)). | `$channel`, `$host`, `$referrer` |
+| `nx_analytics_country` | The visitor's country code ([Tracker.php](../../includes/Core/Tracker.php)). | `$code` |
+
+The admin JS filters that let Pro render the Analytics reports (`nx_analytics_reports`, `nx_analytics_controls`, `nx_analytics_view`, `nx_analytics_drawer`) are listed in [../features/analytics/README.md](../features/analytics/README.md).
 
 ### Frontend render pipeline
 
