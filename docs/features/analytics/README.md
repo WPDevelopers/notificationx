@@ -43,4 +43,4 @@ Pro renders the views, the drawer and the filter bar through the admin filters b
 Free auto-updates from WordPress.org and Pro through the licensed channel, so new free often runs with old Pro:
 
 - **New free + old Pro:** previews with "Update NotificationX Pro", and the retention setting stays locked. Nothing breaks.
-- **Old free + new Pro:** Pro's filters are never called and its routes extend a class with the same name, so the old free page keeps working.
+- **Old free + new Pro:** the old free page never calls Pro's filters, and Pro's `AnalyticsReports` is loaded only through free's `AnalyticsReports::get_instance()`, which old free doesn't have. Pro must never reference that class directly.
