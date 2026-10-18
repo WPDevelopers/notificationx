@@ -68,7 +68,11 @@ const Sketch = ({ view }: { view: string }) => (
     </div>
 );
 
-const ProScreen = ({ view }: { view: string }) => {
+/**
+ * Preview of a report NotificationX Pro renders. With an older Pro active
+ * (it doesn't register the reports yet) it asks for an update instead.
+ */
+const ProScreen = ({ view, needsUpdate = false }: { view: string; needsUpdate?: boolean }) => {
     const s = SCREENS[view] || SCREENS.audience;
     return (
         <div className="nxa-pro-screen">
@@ -83,9 +87,15 @@ const ProScreen = ({ view }: { view: string }) => {
                 <ul>
                     {s.points.map((point) => <li key={point}><Icon name="check" size={16} />{point}</li>)}
                 </ul>
-                <a className="nxa-btn nxa-btn-primary nxa-btn-lg" href={PRICING_URL} target="_blank" rel="noopener noreferrer">
-                    <Icon name="sparkle" size={16} />{__("Upgrade to Pro", "notificationx")}
-                </a>
+                {needsUpdate ? (
+                    <a className="nxa-btn nxa-btn-primary nxa-btn-lg" href="plugins.php">
+                        <Icon name="sparkle" size={16} />{__("Update NotificationX Pro", "notificationx")}
+                    </a>
+                ) : (
+                    <a className="nxa-btn nxa-btn-primary nxa-btn-lg" href={PRICING_URL} target="_blank" rel="noopener noreferrer">
+                        <Icon name="sparkle" size={16} />{__("Upgrade to Pro", "notificationx")}
+                    </a>
+                )}
             </div>
         </div>
     );
