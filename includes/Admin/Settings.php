@@ -120,6 +120,11 @@ class Settings extends UsabilityDynamicsSettings {
         $wp_roles  = GlobalFields::get_instance()->normalize_fields( $this->get_roles() );
         $site_name = get_bloginfo( 'name' );
         $is_pro    = NotificationX::get_instance()->is_pro();
+        // The retention choice is applied by NotificationX Pro (filter
+        // nx_analytics_retention_days); only a Pro that declares
+        // nx_pro_analytics_features does that, so only then is it unlocked.
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+        $pro_analytics = $is_pro && (bool) apply_filters( 'nx_pro_analytics_features', false );
         $settings  = [
             'id'            => 'notificationx_metabox_wrapper',
             'title'         => __( 'NotificationX', 'notificationx' ),
@@ -366,9 +371,9 @@ class Settings extends UsabilityDynamicsSettings {
                                     'type'        => 'select',
                                     'label'       => __( 'Keep Analytics Data For', 'notificationx' ),
                                     'priority'    => 20,
-                                    'default'     => $is_pro ? '0' : '90',
-                                    'is_pro'      => ! $is_pro,
-                                    'disable'     => ! $is_pro,
+                                    'default'     => $pro_analytics ? '0' : '90',
+                                    'is_pro'      => ! $pro_analytics,
+                                    'disable'     => ! $pro_analytics,
                                     'options'     => GlobalFields::get_instance()->normalize_fields(array(
                                         '90'  => __( '90 days', 'notificationx' ),
                                         '180' => __( '6 months', 'notificationx' ),
@@ -377,7 +382,7 @@ class Settings extends UsabilityDynamicsSettings {
                                         '0'   => __( 'Forever', 'notificationx' ),
                                         )
                                     ),
-                                    'description' => $is_pro
+                                    'description' => $pro_analytics
                                         ? __( 'Daily Audience data older than this is deleted. Views and clicks history is never deleted.', 'notificationx' )
                                         : __( 'Free keeps 90 days of Audience data, so your history is ready when you upgrade. Pro lets you keep it longer.', 'notificationx' ),
                                     'rules'       => Rules::is( 'enable_analytics', true ),
