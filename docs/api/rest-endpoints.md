@@ -72,6 +72,15 @@ All routes below are under `/notificationx/v1` unless noted. Permission column n
 | POST/PUT/PATCH | `/analytics` | `can_insert_analytics` (setting `enable_analytics`) | **Frontend**: record a view/click/CTR. |
 | POST/PUT/PATCH | `/analytics/get` | `can_read_analytics` (`read_notificationx_analytics` + setting) | Fetch aggregated stats for a date range. |
 
+### Analytics dashboard — `includes/Core/Rest/AnalyticsReports.php`, `includes/Core/Rest/Track.php`
+
+| Method | Route | Permission | Purpose |
+| --- | --- | --- | --- |
+| POST | `/track` | `Tracker::enabled()` (setting `enable_analytics`) + site token | **Frontend**: record seen/click/close/submit/hover events, 20 per batch, rate limited per visitor. |
+| DELETE | `/analytics/report/data` | `can_reset` (`read_notificationx_analytics` + `edit_notificationx`) | Delete the views, clicks and tracked data of one notification (`nx_id`) or of all. Leads are kept. |
+
+The report routes (`/analytics/report/summary`, `notifications`, `notification/{id}`, `audience`, `leads`, `export`) are registered by NotificationX Pro; see [../features/analytics/README.md](../features/analytics/README.md).
+
 ### Bulk actions — `includes/Core/Rest/BulkAction.php` (base `bulk-action`)
 
 | Method | Route | Permission | Purpose |
