@@ -1,20 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import { __, sprintf } from "@wordpress/i18n";
-import { deltaInfo, fmtPct } from "./format";
-import { Sparkline } from "./charts";
+import React from "react";
+import { __ } from "@wordpress/i18n";
 
 export const PRICING_URL = "https://notificationx.com/#pricing";
-
-export const Delta = ({ value, unit = "pct", invert = false }: { value: number | null | undefined; unit?: "pct" | "pp"; invert?: boolean }) => {
-    const info = deltaInfo(value, unit);
-    if (!info) return null;
-    const good = info.dir === "flat" ? "flat" : (info.dir === "up") !== invert ? "good" : "bad";
-    return (
-        <span className={`nxa-delta nxa-delta-${good}`} title={__("Compared with the previous period of the same length", "notificationx")}>
-            <span aria-hidden="true">{info.dir === "up" ? "▲" : info.dir === "down" ? "▼" : "•"}</span> {info.text}
-        </span>
-    );
-};
 
 export type Tone = "brand" | "mint" | "blue" | "pink" | "amber" | "slate";
 
@@ -47,14 +34,6 @@ const ICONS: Record<string, string> = {
     leads: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM19 8v6M22 11h-6",
 };
 
-/** Small info icon with a tooltip on hover and keyboard focus. */
-export const InfoTip = ({ text }: { text: string }) => (
-    <span className="nxa-info" tabIndex={0} role="note" aria-label={text}>
-        <Icon name="info" size={14} />
-        <span className="nxa-info-tip" aria-hidden="true">{text}</span>
-    </span>
-);
-
 export const Icon = ({ name, size = 18 }: { name: string; size?: number }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d={ICONS[name] || ICONS.trend} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" />
@@ -66,158 +45,12 @@ export const Chip = ({ icon, tone = "brand", size = 18 }: { icon: string; tone?:
     <span className={`nxa-chip tone-${tone}`} aria-hidden="true"><Icon name={icon} size={size} /></span>
 );
 
-/** Round initial in a solid color, for sources and assistants without a logo. */
-export const Avatar = ({ text, color }: { text: string; color?: string }) => (
-    <span className="nxa-avatar" style={color ? { background: color } : undefined} aria-hidden="true">{(text || "?").replace(/^www\./, "").charAt(0).toUpperCase()}</span>
-);
-
-/** CTR as a pill; strong rates stand out, zero stays quiet. */
-export const CtrPill = ({ value }: { value: number }) => (
-    <span className={`nxa-pill ${value >= 10 ? "is-high" : value > 0 ? "is-mid" : "is-zero"}`}>{fmtPct(value)}</span>
-);
-
-export const Card = ({ title, action, children, className = "", icon, tone, subtitle }: { title?: React.ReactNode; action?: React.ReactNode; children: React.ReactNode; className?: string; icon?: string; tone?: Tone; subtitle?: React.ReactNode }) => (
-    <section className={`nxa-card ${className}`}>
-        {(title || action) && (
-            <header className="nxa-card-head">
-                <div className="nxa-card-title">
-                    {icon && <Chip icon={icon} tone={tone} size={16} />}
-                    <div>
-                        {title && <h3>{title}</h3>}
-                        {subtitle && <p className="nxa-card-sub">{subtitle}</p>}
-                    </div>
-                </div>
-                {action}
-            </header>
-        )}
-        <div className="nxa-card-body">{children}</div>
-    </section>
-);
-
-/**
- * KPI tile. With `spark` it shows the trend; with `meter` (0–100) a slim
- * gauge, so rate tiles carry a visual too instead of a lone number.
- */
-export const KpiCard = ({ label, value, delta, deltaUnit, spark, sparkColor, hint, invert, icon, tone = "brand", meter, foot }: any) => (
-    <div className={`nxa-kpi tone-${tone}`}>
-        <div className="nxa-kpi-top">
-            <div className="nxa-kpi-label"><span className="nxa-kpi-label-text">{label}</span>{hint && <InfoTip text={hint} />}</div>
-            {icon && <Chip icon={icon} tone={tone} size={16} />}
-        </div>
-        <div className="nxa-kpi-row">
-            <div>
-                <div className="nxa-kpi-value nxa-num">{value}</div>
-                <Delta value={delta} unit={deltaUnit} invert={invert} />
-            </div>
-            {spark && <Sparkline values={spark} color={sparkColor} />}
-        </div>
-        {meter !== undefined && (
-            <div className="nxa-kpi-meter" role="presentation"><span style={{ width: `${Math.max(0, Math.min(100, meter))}%` }} /></div>
-        )}
-        {foot && <div className="nxa-kpi-foot">{foot}</div>}
-    </div>
-);
-
-export const Skeleton = ({ height = 16, width = "100%", radius = 8 }: { height?: number; width?: string | number; radius?: number }) => (
-    <span className="nxa-skeleton" style={{ height, width, borderRadius: radius }} aria-hidden="true" />
-);
-
-export const EmptyState = ({ title, text, action }: { title: string; text?: string; action?: React.ReactNode }) => (
-    <div className="nxa-empty">
-        <svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true">
-            <rect x="6" y="10" width="44" height="34" rx="8" fill="var(--nxa-brand-soft)" />
-            <path d="M14 36l9-10 7 6 12-14" fill="none" stroke="var(--nxa-brand)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        <h4>{title}</h4>
-        {text && <p>{text}</p>}
-        {action}
-    </div>
-);
-
-export const ErrorState = ({ onRetry }: { onRetry: () => void }) => (
-    <div className="nxa-empty nxa-error" role="alert">
-        <h4>{__("Couldn't load this report", "notificationx")}</h4>
-        <p>{__("Check your connection and try again.", "notificationx")}</p>
-        <button type="button" className="nxa-btn" onClick={onRetry}>{__("Try again", "notificationx")}</button>
-    </div>
-);
-
 /** The plugin's Pro badge (the crown used across NotificationX), with a text label for screen readers. */
 export const ProPill = () => (
     <span className="nxa-pro-pill" title={__("Pro feature", "notificationx")}>
         <span className="nxa-sr-only">{__("Pro", "notificationx")}</span>
     </span>
 );
-
-/**
- * A control that is locked in Free: clicking it explains what Pro adds and
- * links to pricing, instead of doing nothing.
- */
-export const ProLocked = ({ children, feature, text }: { children: React.ReactNode; feature: string; text: string }) => {
-    const [open, setOpen] = useState(false);
-    const ref = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        if (!open) return;
-        const close = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); };
-        const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
-        document.addEventListener("mousedown", close);
-        document.addEventListener("keydown", esc);
-        return () => { document.removeEventListener("mousedown", close); document.removeEventListener("keydown", esc); };
-    }, [open]);
-    return (
-        <div className="nxa-locked" ref={ref}>
-            <button type="button" className="nxa-btn nxa-btn-ghost" aria-expanded={open} onClick={() => setOpen(!open)}>
-                {children} <ProPill />
-            </button>
-            {open && (
-                <div className="nxa-popover" role="dialog" aria-label={feature}>
-                    <strong>{feature}</strong>
-                    <p>{text}</p>
-                    <a className="nxa-btn nxa-btn-primary" href={PRICING_URL} target="_blank" rel="noopener noreferrer">{__("Upgrade to Pro", "notificationx")}</a>
-                </div>
-            )}
-        </div>
-    );
-};
-
-export const TypeBadge = ({ label }: { label: string }) => <span className="nxa-badge">{label}</span>;
-
-export const StatusDot = ({ enabled }: { enabled: boolean }) => (
-    <span className={`nxa-status ${enabled ? "is-on" : "is-off"}`} title={enabled ? __("Enabled", "notificationx") : __("Disabled", "notificationx")} />
-);
-
-/**
- * What the chart shows: "All" (the default lines) or one metric. Each
- * option always gives the same chart — clicking it twice changes nothing —
- * because on/off toggles that flip on every click were confusing.
- */
-export const LegendToggle = ({ items, focus, onFocus, defaultHidden = [] }: { items: { key: string; label: string; color: string; value?: React.ReactNode }[]; focus: string | null; onFocus: (key: string | null) => void; defaultHidden?: string[] }) => (
-    <div className="nxa-series-picker" role="radiogroup" aria-label={__("Show on chart", "notificationx")}>
-        <button type="button" role="radio" aria-checked={!focus} className={!focus ? "is-active" : ""} onClick={() => onFocus(null)}>
-            <span className="nxa-series-dots" aria-hidden="true">
-                {items.filter((i) => !defaultHidden.includes(i.key)).map((i) => <i key={i.key} style={{ background: i.color }} />)}
-            </span>
-            {__("All", "notificationx")}
-        </button>
-        {items.map((item) => (
-            <button type="button" role="radio" key={item.key} aria-checked={focus === item.key} className={focus === item.key ? "is-active" : ""} onClick={() => onFocus(item.key)}>
-                <i style={{ background: item.color }} aria-hidden="true" />
-                {item.label}
-                {item.value !== undefined && <strong className="nxa-num">{item.value}</strong>}
-            </button>
-        ))}
-    </div>
-);
-
-/** Which single metric the chart is focused on (null = the default lines). */
-export const useChartFocus = () => React.useState<string | null>(null);
-
-/**
- * Series to draw: the focused one alone (scaled to itself, so small numbers
- * stay readable), or every series with the default-hidden ones switched off.
- */
-export const chartSeries = <T extends { key: string }>(all: T[], focus: string | null, defaultHidden: string[] = []) =>
-    focus ? { series: all.filter((s) => s.key === focus), hidden: [] as string[] } : { series: all.filter((s) => !defaultHidden.includes(s.key)), hidden: [] as string[] };
 
 /** Small modal for destructive actions. Focuses Cancel; Esc cancels. */
 export const ConfirmDialog = ({ title, text, confirmLabel, busy, onConfirm, onCancel }: { title: string; text: React.ReactNode; confirmLabel: string; busy?: boolean; onConfirm: () => void; onCancel: () => void }) => {
