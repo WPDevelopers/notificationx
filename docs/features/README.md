@@ -10,6 +10,7 @@ Deep dives on specific NotificationX product features — the cross-cutting flow
 | [exit-intent/](exit-intent/) | Exit-intent popup — built-in themes, add-new-design flow, and the Elementor custom-design task breakdown. |
 | [notification-bar/](notification-bar/) | Notification bar (PressBar) reference. |
 | [sales-notification/](sales-notification/) | Sales/Conversions notification design authoring. |
+| [analytics/](analytics/) | Analytics dashboard — what free collects and keeps, what Pro reports, and the hooks between them. |
 | [mcp/](mcp/) | MCP server — ability registration and the WordPress Abilities API bridge. |
 | [frontend-performance/](frontend-performance/) | Public bundle size: the xSpeed report, root causes, what changed in B1, guardrails, and the B2/B3 roadmap. Also optimizer (Delay JS) compatibility. |
 | [deactivation-feedback-form.md](deactivation-feedback-form.md) | The "Sorry to see you go" dialog on the Plugins screen: markup, stacking above the admin menu and admin bar, shared ids with other WPDeveloper plugins, fix history. |
