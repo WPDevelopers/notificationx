@@ -38,8 +38,10 @@ const Theme = (props) => {
     let template = [];
     tmpl?.forEach((row) => {
         if (!row) return;
-        // 84711: without a time, the Live Effects line shows only its first fact, no rotation.
-        if (!entry?.updated_at) row = withoutLiveTimeFact(row);
+        // Add-ons can rewrite a template row for this entry before its
+        // placeholders are filled (filter `nx_frontend_template_row`).
+        const filteredRow = nxApplyFilters<any>("nx_frontend_template_row", row, entry, props?.config);
+        if (typeof filteredRow === "string") row = filteredRow;
         let match;
         let _row = row;
         let regex = /{{(.*?)}}/g;

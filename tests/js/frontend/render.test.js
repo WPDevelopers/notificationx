@@ -7,7 +7,6 @@ import Content from '../../../nxdev/notificationx/frontend/themes/helpers/Conten
 import Image from '../../../nxdev/notificationx/frontend/themes/helpers/Image';
 import Analytics from '../../../nxdev/notificationx/frontend/core/Analytics';
 import Notification from '../../../nxdev/notificationx/frontend/core/Notification';
-import NotificationForMobile from '../../../nxdev/notificationx/frontend/core/NotificationForMobile';
 import { NotificationProvider } from '../../../nxdev/notificationx/frontend/core/NotificationProvider';
 import { installHooks } from '../helpers';
 
@@ -187,7 +186,7 @@ describe( 'Analytics / nx_frontend_link_button', () => {
 	} );
 } );
 
-describe( 'Notification / Live Effects (84711)', () => {
+describe( 'Notification / animation and card class hooks', () => {
 	let matchMedia;
 	beforeEach( () => {
 		jest.useFakeTimers();
@@ -200,23 +199,21 @@ describe( 'Notification / Live Effects (84711)', () => {
 		window.matchMedia = matchMedia;
 	} );
 
-	const renderCard = ( Card, isPro, liveEffects ) => {
-		const config = {
-			nx_id: 1,
-			themes: 'woocommerce_sales_conv-theme-seven',
-			responsive_themes: 'woocommerce_sales_res-theme-nine',
-			source: 'woocommerce_sales',
-			type: 'conversions',
-			display_for: 5,
-			animation_notification_show: 'default',
-			animation_notification_hide: 'default',
-			template: [ 'Row' ],
-			live_effects: liveEffects,
-		};
+	const config = {
+		nx_id: 1,
+		themes: 'woocommerce_sales_conv-theme-seven',
+		source: 'woocommerce_sales',
+		type: 'conversions',
+		display_for: 5,
+		animation_notification_show: 'default',
+		animation_notification_hide: 'default',
+		template: [ 'Row' ],
+	};
+	const renderCard = () => {
 		act( () => {
 			ReactDOM.render(
-				<NotificationProvider value={ { ...frontendContext, state: { is_pro: isPro } } }>
-					<Card id={ 1 } dispatch={ () => {} } data={ entry() } config={ config } />
+				<NotificationProvider value={ { ...frontendContext, state: { is_pro: false } } }>
+					<Notification id={ 1 } dispatch={ () => {} } data={ entry() } config={ config } />
 				</NotificationProvider>,
 				container
 			);
@@ -224,48 +221,76 @@ describe( 'Notification / Live Effects (84711)', () => {
 		return container.firstElementChild;
 	};
 
-	[ [ 'desktop', Notification ], [ 'mobile', NotificationForMobile ] ].forEach( ( [ name, Card ] ) => {
-		it( `adds nx-live-effects to the ${ name } card with Pro and the toggle on`, () => {
-			const card = renderCard( Card, true, true );
-			expect( card.classList.contains( 'nx-live-effects' ) ).toBe( true );
-			expect( card.querySelector( '.notificationx-content' ).classList.contains( 'nx-live-effects' ) ).toBe( false );
-		} );
+	it( 'uses the soft default entrance class instead of an inline SlideTop', () => {
+		const card = renderCard();
+		expect( card.classList.contains( 'nx-anim-default-in' ) ).toBe( true );
+		expect( card.style.animation ).toBe( '' );
+	} );
 
-		it( `leaves the ${ name } card classes unchanged with the toggle off or on Free`, () => {
-			const off = renderCard( Card, true, false ).className;
-			expect( off ).not.toContain( 'nx-live-effects' );
-			expect( renderCard( Card, false, true ).className ).toBe( off );
-		} );
+	it( 'passes the default entrance class to nx_frontend_animation', () => {
+		const filter = jest.fn( ( value ) => value );
+		installHooks().addFilter( 'nx_frontend_animation', 'test', filter );
+		renderCard();
+		expect( filter.mock.calls[ 0 ][ 1 ] ).toMatchObject( { defaultClass: 'nx-anim-default-in', animationStyle: 'SlideTop 300ms' } );
+	} );
+
+	it( 'adds the classes nx_frontend_card_classes returns', () => {
+		installHooks().addFilter( 'nx_frontend_card_classes', 'test', ( classes, args ) => [ ...classes, `extra-${ args.settings.nx_id }` ] );
+		expect( renderCard().classList.contains( 'extra-1' ) ).toBe( true );
+	} );
+
+	it( 'ignores a non-array nx_frontend_card_classes return', () => {
+		const plain = renderCard().className;
+		ReactDOM.unmountComponentAtNode( container );
+		installHooks().addFilter( 'nx_frontend_card_classes', 'test', () => 'bad' );
+		expect( renderCard().className ).toBe( plain );
+	} );
+
+	it( 'applies the class and style from nx_frontend_animation_timing', () => {
+		installHooks().addFilter( 'nx_frontend_animation_timing', 'test', () => ( {
+			className: 'nx-anim-timed', style: { '--nx-anim-scale': '2' }, scale: 2, exitDelay: 1000,
+		} ) );
+		const card = renderCard();
+		expect( card.classList.contains( 'nx-anim-timed' ) ).toBe( true );
+		expect( card.style.getPropertyValue( '--nx-anim-scale' ) ).toBe( '2' );
 	} );
 } );
 
-describe( 'Theme / Live Effects rotating line (84711)', () => {
-	const peekConfig = () => {
-		const config = {
-			nx_id: 1,
-			source: 'woocommerce_cart_peek',
-			type: 'woocommerce_cart_peek',
-			custom_type: 'woocommerce_sales',
-			themes: 'woocommerce_sales_theme-one',
-			live_effects: true,
-			'notification-template': { first_param: 'tag_cart_peek_count', third_param: 'tag_product_title', fourth_param: 'tag_time' },
-		};
-		return { ...config, template: GetTemplate( config ) };
-	};
-	const peekEntry = ( extra = {} ) => entry( { title: 'Hoodie', cart_peek_count: '3 shoppers have this in their cart', ...extra } );
+describe( 'Content / nx_frontend_content_classes', () => {
+	const config = { nx_id: 1, themes: 'theme-one', template: [ 'Row' ] };
 
-	it( 'rotates the product title and the add-to-cart time', () => {
-		render( <Theme config={ peekConfig() } data={ peekEntry() } /> );
-		const facts = container.querySelectorAll( '.nx-second-row .nx-live-rotator > .nx-live-fact' );
-		expect( facts ).toHaveLength( 2 );
-		expect( facts[ 0 ].textContent ).toBe( 'Hoodie' );
-		expect( facts[ 1 ].textContent ).toBe( 'Added to a cart 5 days ago' );
+	it( 'adds no class without filters', () => {
+		render( <Content config={ config } data={ entry() } template={ [ 'Row' ] } /> );
+		expect( container.querySelector( '.notificationx-content' ).className.trim() ).toBe( 'notificationx-content' );
 	} );
 
-	it( 'shows only the product title, without rotation, when there is no time', () => {
-		render( <Theme config={ peekConfig() } data={ peekEntry( { updated_at: '' } ) } /> );
-		expect( container.querySelector( '.nx-live-rotator' ) ).toBeNull();
-		expect( container.querySelector( '.nx-second-row' ).textContent ).toBe( 'Hoodie' );
-		expect( container.textContent ).not.toContain( 'Added to a cart' );
+	it( 'adds the classes an add-on returns', () => {
+		installHooks().addFilter( 'nx_frontend_content_classes', 'test', ( classes ) => [ ...classes, 'nx-reveal' ] );
+		render( <Content config={ config } data={ entry() } template={ [ 'Row' ] } /> );
+		expect( container.querySelector( '.notificationx-content' ).classList.contains( 'nx-reveal' ) ).toBe( true );
+	} );
+} );
+
+describe( 'Theme / nx_frontend_template_row', () => {
+	const config = { nx_id: 1, themes: 'theme-one', source: 'woocommerce_sales', template: [ '{{title}}' ] };
+
+	it( 'renders each row as given without filters', () => {
+		render( <Theme config={ config } data={ entry() } /> );
+		expect( container.textContent ).toContain( 'Big sale' );
+	} );
+
+	it( 'renders the row an add-on returns, with the entry passed in', () => {
+		const filter = jest.fn( () => 'Changed {{title}}' );
+		installHooks().addFilter( 'nx_frontend_template_row', 'test', filter );
+		render( <Theme config={ config } data={ entry() } /> );
+		expect( container.textContent ).toContain( 'Changed Big sale' );
+		expect( filter.mock.calls[ 0 ][ 0 ] ).toBe( '{{title}}' );
+		expect( filter.mock.calls[ 0 ][ 1 ] ).toMatchObject( { title: 'Big sale' } );
+	} );
+
+	it( 'ignores a non-string return', () => {
+		installHooks().addFilter( 'nx_frontend_template_row', 'test', () => [ 'x' ] );
+		render( <Theme config={ config } data={ entry() } /> );
+		expect( container.textContent ).toContain( 'Big sale' );
 	} );
 } );

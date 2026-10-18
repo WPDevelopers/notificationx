@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
-import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
+import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName, getAnimationTiming } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics, { resolveNotificationLink, recordAnalyticsClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
 import nxHelper from "./functions";
-import { nxApplyFilters } from "./hooks";
+import { nxApplyFilters, nxApplyListFilter } from "./hooks";
 
 const useMediaQuery = (query) => {
     const mediaQuery = window.matchMedia(query);
@@ -35,6 +35,8 @@ const Notification = (props) => {
     const { config: settings } = props;
     const frontEndContext = useNotificationContext();
     const is_pro = frontEndContext?.state?.is_pro ?? false;
+    // Show/hide timing; add-ons can change it (filter `nx_frontend_animation_timing`).
+    const animationTiming = getAnimationTiming(settings, is_pro);
     const incrementValue = 0.5;
     const displayFor = ((settings?.display_for || 5) * 1000);
     const isMin = displayFor * (incrementValue / 100)
@@ -137,7 +139,7 @@ const Notification = (props) => {
                     payload: props.id,
                 });
                 setAnimation(false);
-            }, 500 )
+            }, animationTiming.exitDelay )
         }
         // return () => {
         //     handlePauseTimer();
@@ -190,8 +192,6 @@ const Notification = (props) => {
             exit: exit,
             "has-close-btn": settings?.close_button,
             "has-no-image": settings?.image_data === false,
-            // 84711: Live Effects (Pro). One class for every effect; each has its own rules under it.
-            "nx-live-effects": is_pro && !!settings?.live_effects,
             // Advanced Edit
             [`custom-style-${settings?.id}`]: advance_edit,
             [`img-position-${settings?.image_position}`]: advance_edit,
@@ -225,6 +225,7 @@ const Notification = (props) => {
         ...componentCSS,
         maxWidth: `${notificationSize}px`,
         ...getAnimationStyles(),
+        ...animationTiming.style,
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
@@ -239,7 +240,7 @@ const Notification = (props) => {
     const proAnimation = nxApplyFilters<{ classNames: any[]; style?: Record<string, any> } | undefined>(
         'nx_frontend_animation',
         undefined,
-        { settings, animation, animationStyle, is_pro }
+        { settings, animation, animationStyle, defaultClass: 'nx-anim-default-in', is_pro }
     );
     if (proAnimation) {
         componentClasses = classNames(
@@ -250,6 +251,13 @@ const Notification = (props) => {
     } else {
         componentClasses = classNames('nx-anim-default-in', ...baseClasses);
     }
+    // Extra card classes from add-ons (filter `nx_frontend_card_classes`), plus
+    // the timing class.
+    componentClasses = classNames(
+        componentClasses,
+        animationTiming.className,
+        ...nxApplyListFilter('nx_frontend_card_classes', [], { settings, is_pro })
+    );
 
     return (
         <div

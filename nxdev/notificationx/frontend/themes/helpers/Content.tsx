@@ -1,14 +1,13 @@
 import React from "react";
 import { Branding as NXSvg, ThemeFiveShape } from ".";
 import Star from "../../../icons/Star";
-import { nxApplyFilters } from "../../core/hooks";
-import useNotificationContext from "../../core/NotificationProvider";
+import { nxApplyFilters, nxApplyListFilter } from "../../core/hooks";
 
 const Content = (props) => {
     const { config } = props;
-    // 84712: Progressive reveal (Pro). Announcements are excluded: their buttons sit in the content.
-    const frontendContext = useNotificationContext();
-    const reveal = !!(frontendContext?.state?.is_pro && config?.progressive_reveal && config?.source !== 'announcements');
+    // Extra content classes from add-ons (filter `nx_frontend_content_classes`),
+    // e.g. NotificationX Pro's progressive reveal.
+    const contentClasses = nxApplyListFilter('nx_frontend_content_classes', [], config).filter(Boolean);
     let rowClasses = ["nx-first-row", "nx-second-row", "nx-third-row"];
     let themeFiveShapeStyle = {};
     if (props.style) {
@@ -75,7 +74,7 @@ const Content = (props) => {
     return (
         <div
             className={`notificationx-content ${config.template_adv ? "adv-template" : ""
-                }${reveal ? " nx-reveal" : ""}`}
+                }${contentClasses.length ? ` ${contentClasses.join(" ")}` : ""}`}
             style={props.style}
         >
             {(props.themes == "theme-five" || (props?.isSplit && props?.splitThemes?.includes('res-theme-three'))) && (

@@ -126,39 +126,6 @@
 .notification-item.nx-anim-default-in { animation-fill-mode: backwards; }
 .notificationx-frontend .nx-container .notification-res-item.nx-anim-default-in { animation-fill-mode: backwards; }
 
-// Curated presets (Pro). Exits end hidden so a banner that stays mounted
-// after a custom hide (GDPR) can't block clicks.
-@keyframes nxPop { from { opacity: 0; transform: scale(.94) translate3d(0,8px,0); } to { opacity: 1; transform: none; } }
-@keyframes nxSink { from { opacity: 1; transform: none; } to { opacity: 0; transform: translate3d(0, 20px, 0); visibility: hidden; } }
-@keyframes nxPopOut { from { opacity: 1; transform: none; } to { opacity: 0; transform: scale(.94) translate3d(0, 8px, 0); visibility: hidden; } }
-.nx-anim-rise-soft   { animation: nxRise .55s cubic-bezier(.22,.61,.36,1) both; }
-.nx-anim-rise-spring { animation: nxRise .65s cubic-bezier(.175,.885,.32,1.5) both; }
-.nx-anim-pop         { animation: nxPop .45s cubic-bezier(.34,1.56,.64,1) both; }
-.nx-anim-rise-soft-out   { animation: nxSink .35s cubic-bezier(.55,.055,.675,.19) forwards; pointer-events: none; }
-.nx-anim-rise-spring-out { animation: nxSink .4s cubic-bezier(.6,-.28,.735,.045) forwards; pointer-events: none; }
-.nx-anim-pop-out         { animation: nxPopOut .3s cubic-bezier(.36,0,.66,-.56) forwards; pointer-events: none; }
-
-// 84714: today's 30px slide-out drift, done with transform instead of bottom/left/right.
-// Slide-outs fade over the second half so no part of the card pops out of view;
-// the 50% stop sets only opacity, so the transform path is unchanged.
-@keyframes nxSlideOutDownFar  { from { transform: translate3d(0, 0, 0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(0, calc(100% + 30px), 0); opacity: 0; } }
-@keyframes nxSlideOutLeftFar  { from { transform: translate3d(0, 0, 0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(calc(-100% - 30px), 0, 0); opacity: 0; } }
-@keyframes nxSlideOutRightFar { from { transform: translate3d(0, 0, 0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(calc(100% + 30px), 0, 0); opacity: 0; } }
-// Copies of Animate.css 4.1.1 slideOut* (same transform), plus the fade.
-@keyframes nxSlideOutDownFade  { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(0, 100%, 0); opacity: 0; } }
-@keyframes nxSlideOutLeftFade  { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(-100%, 0, 0); opacity: 0; } }
-@keyframes nxSlideOutRightFade { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(100%, 0, 0); opacity: 0; } }
-@keyframes nxSlideOutUpFade    { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(0, -100%, 0); opacity: 0; } }
-.notificationx-frontend .notification-item.animate__slideOutDown:not(.position-bottom_right) { animation-name: nxSlideOutDownFar; }
-html:not([dir="rtl"]) .notificationx-frontend .notification-item.animate__slideOutLeft:not(.position-bottom_right) { animation-name: nxSlideOutLeftFar; }
-html[dir="rtl"] .notificationx-frontend .notification-item.animate__slideOutRight:not(.position-bottom_right) { animation-name: nxSlideOutRightFar; }
-.notificationx-frontend .notification-item.position-bottom_right.animate__slideOutDown { animation-name: nxSlideOutDownFade; }
-html[dir="rtl"] .notificationx-frontend .notification-item.animate__slideOutLeft,
-.notificationx-frontend .notification-item.position-bottom_right.animate__slideOutLeft { animation-name: nxSlideOutLeftFade; }
-html:not([dir="rtl"]) .notificationx-frontend .notification-item.animate__slideOutRight,
-.notificationx-frontend .notification-item.position-bottom_right.animate__slideOutRight { animation-name: nxSlideOutRightFade; }
-.notificationx-frontend .notification-item.animate__slideOutUp { animation-name: nxSlideOutUpFade; }
-
 // 84709: "Use new corner spacing" (root class nx-spacing-v2). The same gap from both
 // edges in every corner; override with --nx-edge on any ancestor. !important is needed
 // to beat the legacy #notificationx-frontend container rules and the card's inline
@@ -185,10 +152,6 @@ body.admin-bar .notificationx-frontend.nx-spacing-v2 .nx-container {
         &.nxc-top_left, &.nxc-top_right { top: calc(var(--nx-edge, 12px) + 46px) !important; }
     }
 }
-// No 30px offset under v2, so slide-outs use the plain path (plus the fade) instead of the drift.
-html .notificationx-frontend.nx-spacing-v2 .nx-container .notification-item.animate__slideOutDown { animation-name: nxSlideOutDownFade; }
-html .notificationx-frontend.nx-spacing-v2 .nx-container .notification-item.animate__slideOutLeft { animation-name: nxSlideOutLeftFade; }
-html .notificationx-frontend.nx-spacing-v2 .nx-container .notification-item.animate__slideOutRight { animation-name: nxSlideOutRightFade; }
 // 84709: on phones (v2), every corner position is centered horizontally; the vertical
 // gap stays var(--nx-edge, 12px). min-width lets the 300px card shrink on very small phones.
 @media only screen and (max-width: 480px) {
@@ -206,20 +169,6 @@ html .notificationx-frontend.nx-spacing-v2 .nx-container .notification-item.anim
         .notification-item:not(:last-child),
         .notification-res-item:not(:last-child) { margin-bottom: 12px; }
     }
-}
-// Review #3: the Pro mobile card gets the same transform + fade slide-outs as the desktop
-// card. It keeps its resting offsets on hide (getAnimationStyles), so nothing animates layout.
-.notificationx-frontend .nx-container .notification-res-item {
-    &.animate__slideOutDown  { animation-name: nxSlideOutDownFade; }
-    &.animate__slideOutLeft  { animation-name: nxSlideOutLeftFade; }
-    &.animate__slideOutRight { animation-name: nxSlideOutRightFade; }
-    &.animate__slideOutUp    { animation-name: nxSlideOutUpFade; }
-}
-// RTL with the previous spacing: the card rests at right: 30px and used to drift to 0 on hide.
-@keyframes nxSlideOutUpDriftFade { from { transform: translateZ(0); opacity: 1; } 50% { opacity: 1; } to { visibility: hidden; transform: translate3d(30px, -100%, 0); opacity: 0; } }
-html[dir="rtl"] .notificationx-frontend:not(.nx-spacing-v2) .nx-container .notification-res-item {
-    &.animate__slideOutRight { animation-name: nxSlideOutRightFar; }
-    &.animate__slideOutUp    { animation-name: nxSlideOutUpDriftFade; }
 }
 // 80989: legacy spacing on phones. Same gap from the nearest edges in every corner.
 // !important beats the #notificationx-frontend container rules, the mobile card's
@@ -239,11 +188,6 @@ html[dir="rtl"] .notificationx-frontend:not(.nx-spacing-v2) .nx-container .notif
     body.admin-bar .notificationx-frontend:not(.nx-spacing-v2) .nx-container {
         &.nxc-top_left, &.nxc-top_right { top: calc(var(--nx-edge, 12px) + 46px) !important; }
     }
-    html[dir="rtl"] .notificationx-frontend:not(.nx-spacing-v2) .nx-container {
-        &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
-            .notification-res-item.animate__slideOutUp { animation-name: nxSlideOutUpFade; } // no 30px drift without the offset
-        }
-    }
 }
 // 80989: the Pro mobile card on phones (either spacing) stays on one line. Rows stay side by side
 // and may shrink; their text ends with an ellipsis instead of wrapping. The avatar keeps its
@@ -257,173 +201,6 @@ html[dir="rtl"] .notificationx-frontend:not(.nx-spacing-v2) .nx-container .notif
             .notification-res-item .notificationx-content > p > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-top: 2px; padding-bottom: 2px; margin-top: -2px; margin-bottom: -2px; }
         }
     }
-}
-// 84712: Progressive reveal (Pro). Rows 2-3 fade in after the card lands; only opacity and
-// transform animate, so the card's height and the page layout never change.
-@keyframes nxRevealRow { from { opacity: 0; transform: translate3d(0, 6px, 0); } }
-.notificationx-content.nx-reveal > p.nx-second-row { animation: nxRevealRow .35s cubic-bezier(.22,.61,.36,1) .3s backwards; }
-.notificationx-content.nx-reveal > p.nx-third-row  { animation: nxRevealRow .35s cubic-bezier(.22,.61,.36,1) .38s backwards; }
-// Shortcode cards render outside .notificationx-frontend, so the global reduced-motion rule doesn't reach them.
-@media (prefers-reduced-motion: reduce) { .notificationx-content.nx-reveal > p { animation: none !important; } }
-// 84712: in these themes the "powered by" branding is position:absolute. A transformed row becomes
-// its containing block, so it would sit in the wrong place during the reveal and jump at the end.
-// Those rows only fade; their in-flow children rise; the branding stays put. Without :has() support
-// these rules are dropped and the row keeps the default reveal.
-@keyframes nxRevealRowFade { from { opacity: 0; } }
-@keyframes nxRevealRowRise { from { transform: translate3d(0, 6px, 0); } }
-.notification-item:is(.themes-conversions_conv-theme-ten, .themes-woocommerce_sales_conv-theme-ten, .themes-conversions_conv-theme-eleven, .themes-woocommerce_sales_conv-theme-eleven) .no-advance-edit .notificationx-content.nx-reveal > p.nx-third-row:has(> .nx-branding),
-.notification-item:is(.themes-conversions_conv-theme-fourteen, .themes-woocommerce_sales_conv-theme-fourteen, .themes-conversions_conv-theme-sixteen, .themes-woocommerce_sales_conv-theme-sixteen) .notificationx-content.nx-reveal > p.nx-third-row:has(> .nx-branding) {
-    animation-name: nxRevealRowFade;
-    > :not(.nx-branding) { animation: nxRevealRowRise .35s cubic-bezier(.22,.61,.36,1) .38s backwards; }
-}
-// Shortcode cards sit outside .notificationx-frontend; stop the child rise there too under reduced motion.
-@media (prefers-reduced-motion: reduce) {
-    .notificationx-content.nx-reveal > p:has(> .nx-branding) > :not(.nx-branding) { animation: none !important; }
-}
-// 80989: Animation Duration (Pro). Only a card whose value isn't 0.5s gets .nx-anim-timed and
-// --nx-anim-scale (value / 0.5s); every preset keeps its own proportion. Animate.css reads
-// --animate-duration from the same card. The reduced-motion !important rules still win.
-.nx-anim-timed {
-    &.nx-anim-default-in       { animation-duration: calc(.5s * var(--nx-anim-scale, 1)); }
-    &.nx-anim-rise-soft        { animation-duration: calc(.55s * var(--nx-anim-scale, 1)); }
-    &.nx-anim-rise-spring      { animation-duration: calc(.65s * var(--nx-anim-scale, 1)); }
-    &.nx-anim-pop              { animation-duration: calc(.45s * var(--nx-anim-scale, 1)); }
-    &.nx-anim-rise-soft-out    { animation-duration: calc(.35s * var(--nx-anim-scale, 1)); }
-    &.nx-anim-rise-spring-out  { animation-duration: calc(.4s * var(--nx-anim-scale, 1)); }
-    &.nx-anim-pop-out          { animation-duration: calc(.3s * var(--nx-anim-scale, 1)); }
-    // Progressive reveal: rows keep landing just before the card does.
-    .notificationx-content.nx-reveal > p.nx-second-row { animation-duration: calc(.35s * var(--nx-anim-scale, 1)); animation-delay: calc(.3s * var(--nx-anim-scale, 1)); }
-    .notificationx-content.nx-reveal > p.nx-third-row  { animation-duration: calc(.35s * var(--nx-anim-scale, 1)); animation-delay: calc(.38s * var(--nx-anim-scale, 1)); }
-}
-.notification-item.nx-anim-timed:is(.themes-conversions_conv-theme-ten, .themes-woocommerce_sales_conv-theme-ten, .themes-conversions_conv-theme-eleven, .themes-woocommerce_sales_conv-theme-eleven) .no-advance-edit .notificationx-content.nx-reveal > p.nx-third-row:has(> .nx-branding) > :not(.nx-branding),
-.notification-item.nx-anim-timed:is(.themes-conversions_conv-theme-fourteen, .themes-woocommerce_sales_conv-theme-fourteen, .themes-conversions_conv-theme-sixteen, .themes-woocommerce_sales_conv-theme-sixteen) .notificationx-content.nx-reveal > p.nx-third-row:has(> .nx-branding) > :not(.nx-branding) {
-    animation-duration: calc(.35s * var(--nx-anim-scale, 1));
-    animation-delay: calc(.38s * var(--nx-anim-scale, 1));
-}
-// 84711: Live Effects (Pro). The card (desktop and mobile) gets .nx-live-effects when the
-// toggle is on. The live dot and the rotating line are styled in the .nx-live-effects block;
-// the floating icon, phone and reduced-motion rules follow it, each scoped to that class.
-// Only transform and opacity animate.
-$nx-live-yt-icons: ".notification-item.nx-live-effects:is(.themes-youtube_channel-2, .themes-youtube_video-1, .themes-youtube_video-3) .nx-second-row > span > span::before";
-$nx-live-yt-res-icons: ".notification-res-item.nx-live-effects:is(.themes-youtube_res-channel-2, .themes-youtube_res-video-1, .themes-youtube_res-video-3) .nx-second-row > span > span::before";
-@keyframes nxLivePulse { from { transform: scale(1); opacity: .45; } to { transform: scale(2); opacity: 0; } }
-@keyframes nxLiveFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
-// The mobile YouTube icons are centred with translateY(-50%); keep it while they float.
-@keyframes nxLiveFloatMid { 0%, 100% { transform: translateY(-50%); } 50% { transform: translateY(calc(-50% - 2px)); } }
-// Two facts, 4s each, with a 0.5s cross-fade. The second fact runs 4s ahead.
-@keyframes nxLiveFact { 0%, 44% { opacity: 1; } 50%, 94% { opacity: 0; } 100% { opacity: 1; } }
-.nx-live-effects {
-    // Live dot: a 6px green dot with a pulsing ring before the live time ("right now"). Both
-    // pseudo-elements sit in the span's start padding, so the 2x ring never leaves it (the
-    // mobile one-line rows clip overflow).
-    .notificationx-content .nx-live-time {
-        position: relative;
-        padding-inline-start: 12px;
-        white-space: nowrap;
-        &::before,
-        &::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            inset-inline-start: 3px;
-            width: 6px;
-            height: 6px;
-            margin-top: -3px;
-            border-radius: 50%;
-            background: #22c55e;
-            pointer-events: none;
-        }
-        &::after {
-            opacity: 0;
-            animation: nxLivePulse 1.8s cubic-bezier(.22,.61,.36,1) infinite;
-        }
-    }
-    // Rotating line (Cart Peek row 2): the facts share one grid cell, so the row is as tall as
-    // the tallest fact and the card never changes size. Hover or focus inside the card pauses it.
-    .nx-live-rotator {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-    }
-    .nx-live-fact {
-        grid-area: 1 / 1;
-        min-width: 0;
-        animation: nxLiveFact 8s ease-in-out infinite;
-        & + .nx-live-fact {
-            opacity: 0;
-            animation-delay: -4s;
-        }
-    }
-    &:hover .nx-live-fact,
-    &:focus-within .nx-live-fact {
-        animation-play-state: paused;
-    }
-}
-// Floating icon: the cart badge on the sales-count themes, and the YouTube stat icons.
-.notification-item.nx-live-effects:is(
-    .themes-conversions_conv-theme-six, .themes-conversions_conv-theme-seven, .themes-conversions_conv-theme-eight, .themes-conversions_conv-theme-nine,
-    .themes-woocommerce_sales_conv-theme-six, .themes-woocommerce_sales_conv-theme-seven, .themes-woocommerce_sales_conv-theme-eight, .themes-woocommerce_sales_conv-theme-nine,
-    .themes-donation_conv-theme-six, .themes-donation_conv-theme-eight, .themes-donation_conv-theme-nine,
-    .themes-elearning_conv-theme-six, .themes-elearning_conv-theme-eight, .themes-elearning_conv-theme-nine
-) .notificationx-image::after,
-.notification-res-item.nx-live-effects:is(
-    .themes-conversions_res-theme-five, .themes-conversions_res-theme-nine, .themes-woocommerce_sales_res-theme-nine,
-    .themes-conversions_res-theme-eleven, .themes-woocommerce_sales_res-theme-eleven,
-    .themes-donation_res-theme-eight, .themes-donation_res-theme-nine, .themes-donation_res-theme-ten,
-    .themes-elearning_elearning-res-theme-six, .themes-elearning_elearning-res-theme-seven, .themes-elearning_elearning-res-theme-eight, .themes-elearning_res-theme-nine
-) .notificationx-image::after,
-#{$nx-live-yt-icons} {
-    animation: nxLiveFloat 3s ease-in-out infinite;
-}
-#{$nx-live-yt-res-icons} {
-    animation: nxLiveFloatMid 3s ease-in-out infinite;
-}
-// One line with "…" on phones.
-@media (max-width: 480px) {
-    .nx-live-effects .nx-live-fact {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-}
-// The global reduced-motion rule doesn't reach pseudo-elements: keep the dot, stop the ring
-// and the floats. The rotating line shows only its first fact.
-@media (prefers-reduced-motion: reduce) {
-    .nx-live-effects .notificationx-content .nx-live-time::after,
-    .nx-live-effects .notificationx-image::after,
-    #{$nx-live-yt-icons},
-    #{$nx-live-yt-res-icons},
-    .nx-live-effects .nx-live-fact {
-        animation: none !important;
-    }
-    .nx-live-effects .nx-live-fact + .nx-live-fact {
-        visibility: hidden;
-    }
-}
-
-// Cart Peek (all six themes): the close (✕) sits in the card's top corner (top-left in RTL), so
-// the text gets the full width. (0,4,0) outranks the Sales themes' close rules (0,3,0).
-// !important only where needed: Pro's card width, the themes' `left: calc(100% + 6px)` and the
-// inline top/right the Close component sets.
-.notificationx-frontend .notification-item.source-woocommerce_cart_peek {
-    max-width: min(380px, 100%) !important;
-    .notificationx-close {
-        position: absolute;
-        top: 4px !important;
-        right: 4px !important;
-        left: auto !important;
-        bottom: auto;
-        margin: 0;
-        padding: 7px; // the 10px ✕ plus 7px on each side: a 24×24 click area
-        z-index: 11;
-    }
-    // Row 1 stops 4px short of the ✕, so its text never runs under it.
-    .nx-first-row {
-        padding-inline-end: 16px;
-    }
-}
-html[dir="rtl"] .notificationx-frontend .notification-item.source-woocommerce_cart_peek .notificationx-close {
-    right: auto !important;
-    left: 4px !important;
 }
 
 // theme-five (speech bubble) on phones: scale the desktop bubble, icon, tail and gap by 0.565

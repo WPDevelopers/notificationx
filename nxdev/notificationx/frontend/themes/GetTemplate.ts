@@ -1,5 +1,4 @@
 import { escapeHTML } from "@wordpress/escape-html";
-import { _x, sprintf } from "@wordpress/i18n";
 import { getResThemeName, getThemeName } from "../core/functions";
 import { nxApplyFilters } from "../core/hooks";
 
@@ -15,36 +14,6 @@ import { nxApplyFilters } from "../core/hooks";
 //     "nx-nineth-word",
 //     "nx-tenth-word",
 // ];
-
-// 84711: which template param holds the live time phrase for the Live Effects dot, or null.
-// Only Page Analytics "Realtime site view" in pa-theme-one to -three has one: ga_fourth_param
-// ("right now"). Found by field, not by its words, so translated or edited text still works.
-export const getLiveTimeParam = (settings, themeName) => {
-    if (settings?.type === 'page_analytics' && settings?.['notification-template']?.first_param === 'tag_realtime_siteview'
-        && ['pa-theme-one', 'pa-theme-two', 'pa-theme-three'].includes(themeName)) {
-        return 'ga_fourth_param';
-    }
-    return null;
-};
-
-// 84711: the Live Effects rotating line. Every fact shares one grid cell (fixed row height);
-// CSS cross-fades them. Facts after the first are hidden from screen readers.
-const LIVE_ROTATOR_OPEN = '<span class="nx-live-rotator"><span class="nx-live-fact">';
-const LIVE_NEXT_FACT = '</span><span class="nx-live-fact" aria-hidden="true">';
-export const getLiveRotator = (facts: string[]) =>
-    '<span class="nx-live-rotator">' +
-    facts.map((fact, i) => `<span class="nx-live-fact"${i ? ' aria-hidden="true"' : ''}>${fact}</span>`).join('') +
-    '</span>';
-
-// 84711: a rotating line that shows the entry time is cut back to its first fact (no
-// rotation) when the entry has no time. Runs on the template row, before placeholders are filled.
-export const withoutLiveTimeFact = (row) => {
-    if (typeof row !== 'string' || row.indexOf(LIVE_ROTATOR_OPEN) !== 0 || row.indexOf('{{time}}') === -1) {
-        return row;
-    }
-    const end = row.indexOf(LIVE_NEXT_FACT);
-    return end > 0 ? row.slice(LIVE_ROTATOR_OPEN.length, end) : row;
-};
 
 const GetTemplate = (settings) => {
     const themeName = getThemeName(settings);
@@ -69,7 +38,7 @@ const GetTemplate = (settings) => {
         res_third_param: "",
         res_fourth_param: "",
     };
-    const params = { ...defaults, ...settings?.["notification-template"] };
+    let params = { ...defaults, ...settings?.["notification-template"] };
     for (const param in params) {
         if (Object.hasOwnProperty.call(params, param)) {
             let element = params[param] || "";
@@ -113,6 +82,14 @@ const GetTemplate = (settings) => {
                 params[param] = `<span>${params[param]}</span>`;
             }
         }
+    }
+
+    // Add-ons can adjust the filled-in params before any layout uses them
+    // (NotificationX Pro: Live Effects marks the live time). Anything but an
+    // object is ignored.
+    const filteredParams = nxApplyFilters<any>("nx_frontend_template_params", params, settings, themeName);
+    if (filteredParams && typeof filteredParams === "object" && !Array.isArray(filteredParams)) {
+        params = filteredParams;
     }
 
     // Add-ons claim the template rows of the notifications they render.
