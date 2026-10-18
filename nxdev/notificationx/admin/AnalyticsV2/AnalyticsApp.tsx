@@ -1,26 +1,16 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { __, sprintf } from "@wordpress/i18n";
+import { applyFilters } from "@wordpress/hooks";
 import { Header } from "../../components";
 import AnalyticsHeader from "../Analytics/AnalyticsHeader";
 import withDocumentTitle from "../../core/withDocumentTitle";
 import { useNotificationXContext } from "../../hooks";
-import { downloadCsv, getExport, getNotifications, resetData } from "./api";
-import { RANGE_LABELS } from "./format";
-import { ConfirmDialog, Icon, ProLocked, ProPill } from "./ui";
-import Overview from "./Overview";
-import Notifications from "./Notifications";
-import Leads from "./Leads";
-import Audience from "./Audience";
-import Drawer from "./Drawer";
+import { resetData } from "./api";
+import { ConfirmDialog, Icon, ProPill } from "./ui";
 import ProScreen from "./ProScreen";
 
 const VIEWS = ["overview", "audience", "notifications", "leads"] as const;
 type View = typeof VIEWS[number];
-const FREE_RANGES = ["7", "30"];
-/** Screens that are Pro; Free sees an upgrade screen instead. */
-// On Free every report is a preview; the all-time cards above stay real.
-const LOCKED: string[] = ["overview", "audience", "notifications", "leads"];
-const PRO_RANGES = ["14", "90", "all"];
 const THEME_KEY = "nx-analytics-theme";
 
 const readParam = (key: string, d = "") => new URLSearchParams(window.location.search).get(key) || d;
@@ -47,26 +37,21 @@ const NavIcon = ({ name }: { name: View }) => {
 const AnalyticsApp = () => {
     const ctx = useNotificationXContext();
     const isPro = !!ctx?.is_pro_active;
+    // The reports are rendered by NotificationX Pro through the filters below.
+    // Without them every view is a preview; the all-time cards above stay real.
+    const hasReports = !!applyFilters("nx_analytics_reports", false);
     const initialView = readParam("view", "overview") as View;
     const [view, setView] = useState<View>(VIEWS.includes(initialView) ? initialView : "overview");
-    const [range, setRange] = useState(() => {
-        const r = readParam("range", "7");
-        return isPro || FREE_RANGES.includes(r) ? r : "7";
-    });
-    // Filtering by notification or type is Pro.
-    const [nxId, setNxId] = useState(isPro ? Number(readParam("nx", "0")) || 0 : 0);
-    const [type, setType] = useState(isPro ? readParam("type", "") : "");
+    const [range, setRange] = useState(() => (hasReports ? readParam("range", "7") : "7"));
+    const [nxId, setNxId] = useState(hasReports ? Number(readParam("nx", "0")) || 0 : 0);
+    const [type, setType] = useState(hasReports ? readParam("type", "") : "");
     const [resetOpen, setResetOpen] = useState<number | null>(null);
     const [resetting, setResetting] = useState(false);
-    const [compare, setCompare] = useState(readParam("compare", isPro ? "1" : "") === "1");
+    const [compare, setCompare] = useState(readParam("compare", hasReports ? "1" : "") === "1");
     const [dark, setDark] = useState(readTheme);
     const [drawer, setDrawer] = useState<number | null>(Number(readParam("open", "0")) || null);
     const [options, setOptions] = useState<any[]>([]);
-    const [customOpen, setCustomOpen] = useState(false);
-    const [custom, setCustom] = useState({ start: "", end: "" });
-    const [exporting, setExporting] = useState(false);
     const [reloadKey, setReloadKey] = useState(0);
-    const moreRef = useRef<HTMLDetailsElement>(null);
     const rootRef = useRef<HTMLDivElement>(null);
     const headRef = useRef<HTMLDivElement>(null);
     const sentinelRef = useRef<HTMLDivElement>(null);
@@ -95,52 +80,9 @@ const AnalyticsApp = () => {
     }, []);
 
     useEffect(() => {
-        writeParams({ view: view === "overview" ? "" : view, range: range === "7" ? "" : range, nx: nxId ? String(nxId) : "", type, compare: isPro && compare ? "1" : "", open: drawer ? String(drawer) : "" });
+        writeParams({ view: view === "overview" ? "" : view, range: range === "7" ? "" : range, nx: nxId ? String(nxId) : "", type, compare: hasReports && compare ? "1" : "", open: drawer ? String(drawer) : "" });
     }, [view, range, nxId, type, compare, drawer]);
     useEffect(() => { try { window.localStorage.setItem(THEME_KEY, dark ? "dark" : "light"); } catch (e) { /* storage blocked */ } }, [dark]);
-    useEffect(() => { if (isPro) getNotifications("7").then((res) => res?.rows && setOptions(res.rows)); }, [reloadKey, isPro]);
-
-    // <details> stays open until its summary is clicked again; close the
-    // "More" date menu on any click outside it, or on Esc, like a dropdown.
-    useEffect(() => {
-        const close = (e: Event) => {
-            const menu = moreRef.current;
-            if (!menu || !menu.open) return;
-            if (e instanceof KeyboardEvent) {
-                if (e.key !== "Escape") return;
-                menu.open = false;
-                (menu.querySelector("summary") as HTMLElement | null)?.focus();
-                return;
-            }
-            if (!menu.contains(e.target as Node)) menu.open = false;
-        };
-        document.addEventListener("mousedown", close);
-        document.addEventListener("touchstart", close);
-        document.addEventListener("keydown", close);
-        return () => {
-            document.removeEventListener("mousedown", close);
-            document.removeEventListener("touchstart", close);
-            document.removeEventListener("keydown", close);
-        };
-    }, []);
-
-    const pickRange = (r: string) => {
-        setRange(r);
-        if (moreRef.current) moreRef.current.open = false;
-    };
-    const applyCustom = () => {
-        if (!custom.start || !custom.end) return;
-        pickRange(`custom:${custom.start}:${custom.end}`);
-        setCustomOpen(false);
-    };
-    const doExport = () => {
-        setExporting(true);
-        getExport(view === "notifications" ? "notifications" : "overview", range, nxId).then((res) => {
-            if (res?.csv) downloadCsv(res.filename, res.csv);
-            setExporting(false);
-        });
-    };
-
     const doReset = () => {
         if (resetOpen === null) return;
         setResetting(true);
@@ -152,17 +94,6 @@ const AnalyticsApp = () => {
     };
     const resetTitle = (id: number) => options.find((o) => o.nx_id === id)?.title || `#${id}`;
 
-    // Type filter: types that exist, and the notifications of the chosen one.
-    const pool = view === "leads" ? options.filter((o) => o.is_lead) : options;
-    const types = Array.from(new Map(pool.map((o) => [o.type, o.type_label])).entries()).sort((a, b) => String(a[1]).localeCompare(String(b[1])));
-    const nxOptions = type ? pool.filter((o) => o.type === type) : pool;
-    const pickType = (t: string) => {
-        setType(t);
-        if (t && nxId && options.find((o) => o.nx_id === nxId)?.type !== t) setNxId(0);
-    };
-
-    const isCustom = range.startsWith("custom:");
-    const lockedView = !isPro && LOCKED.includes(view);
     const titles: Record<View, [string, string]> = {
         overview: [__("Analytics overview", "notificationx"), __("How your notifications perform with your visitors.", "notificationx")],
         audience: [__("Audience", "notificationx"), __("Who sees your notifications: devices, countries, pages and where visitors came from.", "notificationx")],
@@ -184,64 +115,13 @@ const AnalyticsApp = () => {
                     </div>
                     {(
                         <div className="nxa-controls">
-                            {isPro && (view === "overview" || view === "audience" || view === "leads") && (
-                                <>
-                                    <select className="nxa-input nxa-input-type" value={type} onChange={(e) => pickType(e.target.value)} aria-label={__("Notification type", "notificationx")}>
-                                        <option value="">{__("All types", "notificationx")}</option>
-                                        {types.map(([t, label]) => <option key={t} value={t}>{label}</option>)}
-                                    </select>
-                                    <select className="nxa-input" value={nxId} onChange={(e) => setNxId(Number(e.target.value))} aria-label={__("Notification", "notificationx")}>
-                                        <option value={0}>{type ? __("All of this type", "notificationx") : __("All notifications", "notificationx")}</option>
-                                        {nxOptions.map((o) => <option key={o.nx_id} value={o.nx_id}>{o.title}</option>)}
-                                    </select>
-                                </>
-                            )}
-                            {!lockedView && <div className="nxa-segmented" role="group" aria-label={__("Date range", "notificationx")}>
-                                {FREE_RANGES.map((r) => (
-                                    <button type="button" key={r} className={range === r ? "is-active" : ""} aria-pressed={range === r} onClick={() => pickRange(r)}>{r === "7" ? __("7 days", "notificationx") : __("30 days", "notificationx")}</button>
-                                ))}
-                                {isPro ? (
-                                    <details className="nxa-more" ref={moreRef}>
-                                        <summary className={!FREE_RANGES.includes(range) ? "is-active" : ""}>{!FREE_RANGES.includes(range) ? (isCustom ? __("Custom", "notificationx") : RANGE_LABELS[range]) : __("More", "notificationx")} ▾</summary>
-                                        <div className="nxa-menu">
-                                            {PRO_RANGES.map((r) => <button type="button" key={r} onClick={() => pickRange(r)} className={range === r ? "is-active" : ""}>{RANGE_LABELS[r]}</button>)}
-                                            <button type="button" onClick={() => { setCustomOpen(true); if (moreRef.current) moreRef.current.open = false; }}>{__("Custom range…", "notificationx")}</button>
-                                        </div>
-                                    </details>
-                                ) : (
-                                    <ProLocked feature={__("More date ranges", "notificationx")} text={__("See 14 and 90 days, all time, or any custom range.", "notificationx")}>{__("More", "notificationx")}</ProLocked>
-                                )}
-                            </div>}
-                            {!lockedView && (view === "overview" || view === "leads") && (isPro ? (
-                                <label className="nxa-switch">
-                                    <input type="checkbox" checked={compare} onChange={(e) => setCompare(e.target.checked)} />
-                                    <span aria-hidden="true" />{__("Compare", "notificationx")}
-                                </label>
-                            ) : (
-                                <ProLocked feature={__("Compare periods", "notificationx")} text={__("See how every number changed against the previous period.", "notificationx")}>{__("Compare", "notificationx")}</ProLocked>
-                            ))}
-                            {!lockedView && (view === "overview" || view === "notifications") && (isPro ? (
-                                <button type="button" className="nxa-btn nxa-btn-ghost" onClick={doExport} disabled={exporting} title={__("Download this report as CSV", "notificationx")}>
-                                    <Icon name="download" size={15} />{exporting ? __("Exporting…", "notificationx") : __("Export", "notificationx")}
-                                </button>
-                            ) : (
-                                <ProLocked feature={__("CSV export", "notificationx")} text={__("Download the numbers behind any report.", "notificationx")}>{__("Export", "notificationx")}</ProLocked>
-                            ))}
+                            {hasReports && applyFilters("nx_analytics_controls", null, { view, range, setRange, nxId, setNxId, type, setType, compare, setCompare, options, setOptions, reloadKey }) as React.ReactNode}
                             <button type="button" className="nxa-icon-btn nxa-theme" onClick={() => setDark(!dark)} aria-label={dark ? __("Switch to light mode", "notificationx") : __("Switch to dark mode", "notificationx")} title={dark ? __("Light mode", "notificationx") : __("Dark mode", "notificationx")}>
                                 <Icon name={dark ? "sun" : "moon"} size={16} />
                             </button>
                         </div>
                     )}
                 </div>
-
-                {customOpen && (
-                    <div className="nxa-custom">
-                        <label>{__("From", "notificationx")}<input type="date" className="nxa-input" value={custom.start} max={custom.end || undefined} onChange={(e) => setCustom({ ...custom, start: e.target.value })} /></label>
-                        <label>{__("To", "notificationx")}<input type="date" className="nxa-input" value={custom.end} min={custom.start || undefined} onChange={(e) => setCustom({ ...custom, end: e.target.value })} /></label>
-                        <button type="button" className="nxa-btn nxa-btn-primary" onClick={applyCustom} disabled={!custom.start || !custom.end}>{__("Apply", "notificationx")}</button>
-                        <button type="button" className="nxa-btn nxa-btn-ghost" onClick={() => setCustomOpen(false)}>{__("Cancel", "notificationx")}</button>
-                    </div>
-                )}
 
                 <div className="nxa-shell">
                     <nav className="nxa-nav" aria-label={__("Analytics sections", "notificationx")}>
@@ -250,7 +130,7 @@ const AnalyticsApp = () => {
                             <button type="button" key={v} className={view === v ? "is-active" : ""} aria-current={view === v ? "page" : undefined} onClick={() => setView(v)}>
                                 <NavIcon name={v} />
                                 {{ overview: __("Overview", "notificationx"), audience: __("Audience", "notificationx"), notifications: __("Notifications", "notificationx"), leads: __("Leads", "notificationx") }[v]}
-                                {!isPro && LOCKED.includes(v) && <ProPill />}
+                                {!hasReports && <ProPill />}
                             </button>
                         ))}
                         <div className="nxa-nav-group">{__("Configuration", "notificationx")}</div>
@@ -264,14 +144,12 @@ const AnalyticsApp = () => {
                         </button>
                     </nav>
                     <main className="nxa-main">
-                        {isPro && view === "overview" && <Overview range={range} nxId={nxId} type={type} compare={compare} isPro={isPro} onOpen={setDrawer} reloadKey={reloadKey} />}
-                        {!isPro && LOCKED.includes(view) && <ProScreen view={view} />}
-                        {isPro && view === "audience" && <Audience range={range} nxId={nxId} type={type} reloadKey={reloadKey} />}
-                        {isPro && view === "notifications" && <Notifications range={range} onOpen={setDrawer} reloadKey={reloadKey} />}
-                        {isPro && view === "leads" && <Leads range={range} nxId={nxId} type={type} compare={compare} isPro={isPro} reloadKey={reloadKey} />}
+                        {hasReports
+                            ? applyFilters("nx_analytics_view", null, { view, range, nxId, type, compare, isPro, reloadKey, onOpen: setDrawer }) as React.ReactNode
+                            : <ProScreen view={view} needsUpdate={isPro} />}
                     </main>
                 </div>
-                {isPro && drawer && <Drawer id={drawer} range={range} reloadKey={reloadKey} onClose={() => setDrawer(null)} onReset={(id: number) => setResetOpen(id)} />}
+                {hasReports && drawer && applyFilters("nx_analytics_drawer", null, { id: drawer, range, reloadKey, onClose: () => setDrawer(null), onReset: (id: number) => setResetOpen(id) }) as React.ReactNode}
                 {resetOpen !== null && (
                     <ConfirmDialog
                         busy={resetting}
