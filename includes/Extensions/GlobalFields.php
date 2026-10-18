@@ -2254,6 +2254,8 @@ class GlobalFields {
                                     'priority'    => 11,
                                     'default'     => 0.5,
                                     'step'        => 'any',
+                                    'min'         => 0.1,
+                                    'max'         => 3,
                                     'is_pro'      => true,
                                     'description' => __('seconds', 'notificationx'),
                                     'rules'       => Rules::includes( 'type', [ 'notification_bar', 'offer_announcement', 'flashing_tab' ], true ),
@@ -2433,6 +2435,7 @@ class GlobalFields {
         $tabs['tabs'] = apply_filters('nx_metabox_tabs', $tabs['tabs']);
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $tabs = apply_filters('nx_metabox_config', $tabs);
+        $tabs = $this->strip_unsupported_motion_options( $tabs );
 
         if(defined('NX_DEBUG') && NX_DEBUG){
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
@@ -2441,6 +2444,44 @@ class GlobalFields {
         return $tabs;
     }
 
+
+    /**
+     * Whether the active NotificationX Pro renders the motion options (the
+     * nx-anim-* presets, Animation Duration, Progressive reveal and Live
+     * Effects). Pro declares it with the `nx_pro_motion_features` filter.
+     *
+     * Without Pro the options stay listed, locked like the other Pro options.
+     *
+     * @since 3.3.5
+     * @return bool
+     */
+    public static function pro_renders_motion_options() {
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        return ! NotificationX::is_pro() || (bool) apply_filters( 'nx_pro_motion_features', false );
+    }
+
+    /**
+     * Removes the motion options an older NotificationX Pro can't render, so
+     * they can't be picked and then do nothing.
+     *
+     * @since 3.3.5
+     * @param array $fields Builder tabs or a part of them.
+     * @return array
+     */
+    protected function strip_unsupported_motion_options( $fields ) {
+        if ( ! is_array( $fields ) || self::pro_renders_motion_options() ) {
+            return $fields;
+        }
+        foreach ( $fields as $key => $value ) {
+            if ( in_array( $key, [ 'live_effects', 'animation_duration', 'progressive_reveal' ], true )
+                || ( is_string( $key ) && 0 === strpos( $key, 'nx-anim-' ) ) ) {
+                unset( $fields[ $key ] );
+            } elseif ( is_array( $value ) ) {
+                $fields[ $key ] = $this->strip_unsupported_motion_options( $value );
+            }
+        }
+        return $fields;
+    }
 
     /**
      * Options of the notification type picker (Add New and Quick Builder).

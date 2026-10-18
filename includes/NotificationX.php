@@ -485,6 +485,13 @@ class NotificationX {
     }
 
     public function get_tab(){
+        // Rebuild when NotificationX Pro is switched or updated: its options
+        // (and which motion options it renders) are part of the cached fields.
+        $pro_version = defined('NOTIFICATIONX_PRO_VERSION') && self::is_pro() ? NOTIFICATIONX_PRO_VERSION : 'none';
+        if ( get_transient('nx_builder_fields_pro') !== $pro_version ) {
+            delete_transient('nx_builder_fields');
+            set_transient( 'nx_builder_fields_pro', $pro_version, DAY_IN_SECONDS );
+        }
         $tabs = get_transient('nx_builder_fields');
         if(empty($tabs) || (defined('NX_DEBUG') && NX_DEBUG)){
             $tabs = GlobalFields::get_instance()->tabs();

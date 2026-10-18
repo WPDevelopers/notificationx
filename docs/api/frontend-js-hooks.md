@@ -45,10 +45,13 @@ Filters live on the global WordPress registry, `window.wp.hooks`. Register them 
 | `nx_exit_intent_form_fields` | `ExitIntentPopup.tsx` theme one, before the message field | `null` | `{ s, name, email, setName, setEmail, inputStyle, namePlaceholder, emailPlaceholder, is_pro }` | A React node (Pro: name and email inputs). |
 | `nx_exit_intent_submission_fields` | `ExitIntentPopup.tsx`, submitted data | `{}` | `{ s, name, email, is_pro }` | `{ name?, email? }` merged into the payload. |
 | `nx_frontend_animation_timing` | `core/functions.ts` `getAnimationTiming()`, used by `Notification.tsx`, `GDPR.tsx` and `Popup.tsx` | `{ className: '', style: {}, scale: 1, exitDelay: 500 }` | `{ settings, is_pro }` | `{ className, style, scale, exitDelay }`: `className` and `style` go on the card, `scale` multiplies the built-in entrance durations, `exitDelay` (ms) is how long an exiting card stays mounted. Malformed fields fall back to the defaults (Pro: Animation Duration). |
+
 | `nx_frontend_card_classes` | `Notification.tsx`, after the animation classes | `[]` | `{ settings, is_pro }` | Extra card classes. A non-array return is ignored (Pro: `nx-live-effects`). |
 | `nx_frontend_content_classes` | `Content.tsx`, `.notificationx-content` | `[]` | `config` | Extra content classes. A non-array return is ignored (Pro: `nx-reveal`, progressive reveal). |
 | `nx_frontend_template_params` | `GetTemplate.ts`, after the params are filled and before `nx_frontend_template` | the params | `settings`, `themeName` | The params object to build the rows from. Anything but a plain object is ignored (Pro: Live Effects marks the live time). |
 | `nx_frontend_template_row` | `Theme.tsx`, for each template row before its `{{…}}` tags are filled | the row | `entry`, `config` | The row string to fill. Anything but a string is ignored (Pro: Live Effects drops the time fact when the entry has no time). |
+
+The motion options these filters serve (the `nx-anim-*` presets, Animation Duration, Progressive reveal, Live Effects) are listed in the builder only when the active NotificationX Pro returns `true` from the PHP filter `nx_pro_motion_features` (`GlobalFields::pro_renders_motion_options()`); an older Pro gets none of them. Without Pro they stay listed, locked.
 
 `nx_frontend_template` also runs in the admin builder, because the admin bundle imports `GetTemplate` for the `nx_adv_template_default` filter ([AddEditNx/index.ts](../../nxdev/notificationx/admin/AddEditNx/index.ts)). An add-on must register that filter in the admin builder as well as on the frontend.
 

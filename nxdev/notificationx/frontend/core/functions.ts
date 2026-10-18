@@ -185,15 +185,18 @@ export const NX_DEFAULT_ANIMATION_TIMING = { className: '', style: {}, scale: 1,
  */
 // `style` holds CSS custom properties, which React's CSSProperties type doesn't list.
 export const getAnimationTiming = (settings, isPro): { className: string; style: any; scale: number; exitDelay: number } => {
-    const timing = nxApplyFilters<any>('nx_frontend_animation_timing', NX_DEFAULT_ANIMATION_TIMING, { settings, is_pro: isPro });
+    // A fresh copy per card, so a filter that edits its value in place can't
+    // change the defaults of every other card.
+    const defaults = { ...NX_DEFAULT_ANIMATION_TIMING, style: {} };
+    const timing = nxApplyFilters<any>('nx_frontend_animation_timing', { ...defaults, style: {} }, { settings, is_pro: isPro });
     if (!timing || typeof timing !== 'object') {
-        return NX_DEFAULT_ANIMATION_TIMING;
+        return defaults;
     }
     const scale = Number(timing.scale);
     const exitDelay = Number(timing.exitDelay);
     return {
         className: typeof timing.className === 'string' ? timing.className : '',
-        style: timing.style && typeof timing.style === 'object' ? timing.style : {},
+        style: timing.style && typeof timing.style === 'object' && !Array.isArray(timing.style) ? timing.style : {},
         scale: Number.isFinite(scale) && scale > 0 ? scale : 1,
         exitDelay: Number.isFinite(exitDelay) && exitDelay >= 0 ? exitDelay : NX_EXIT_DELAY_MS,
     };
