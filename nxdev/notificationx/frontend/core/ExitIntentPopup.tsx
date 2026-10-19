@@ -3,41 +3,6 @@ import nxHelper from './functions';
 import useNotificationContext from './NotificationProvider';
 import { nxApplyFilters } from "./hooks";
 
-const useCountdown = (endDateStr: string, fallbackDurationMs?: number) => {
-    const fallbackEndRef = useRef<number | null>(null);
-    if (!endDateStr && fallbackDurationMs && fallbackEndRef.current === null) {
-        fallbackEndRef.current = Date.now() + fallbackDurationMs;
-    }
-
-    const calc = () => {
-        let end: number | null = null;
-        if (endDateStr) {
-            const parsed = Date.parse(endDateStr) || Date.parse(endDateStr.replace(' ', 'T'));
-            if (parsed && !isNaN(parsed)) end = parsed;
-        } else if (fallbackEndRef.current) {
-            end = fallbackEndRef.current;
-        }
-        if (end === null) return null;
-        const diff = end - Date.now();
-        if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-        return {
-            days:    Math.floor(diff / (1000 * 60 * 60 * 24)),
-            hours:   Math.floor((diff / (1000 * 60 * 60)) % 24),
-            minutes: Math.floor((diff / (1000 * 60)) % 60),
-            seconds: Math.floor((diff / 1000) % 60),
-        };
-    };
-    const [timeLeft, setTimeLeft] = useState(calc);
-    useEffect(() => {
-        if (!endDateStr && !fallbackDurationMs) return;
-        setTimeLeft(calc());
-        const timer = setInterval(() => setTimeLeft(calc()), 1000);
-        return () => clearInterval(timer);
-    }, [endDateStr, fallbackDurationMs]);
-    return timeLeft;
-};
-
-const pad = (n: number) => String(n).padStart(2, '0');
 const px = (v: any): string | undefined => (v || v === 0) ? `${v}px` : undefined;
 
 const ExitIntentPopup = (props: any) => {
@@ -60,11 +25,6 @@ const ExitIntentPopup = (props: any) => {
     const s         = settings || {};
     const position  = ['center', 'bottom-left', 'bottom-right'].includes(s.exit_intent_position) ? s.exit_intent_position : 'center';
     const overlayClass = `nx-exit-intent-overlay nx-exit-intent-position-${position}`;
-
-    // Fallback duration so the timer ticks even without an end date (themes that show a countdown).
-    const cdFallbackMs = ((2 * 24 + 14) * 3600 + 30 * 60 + 21) * 1000;
-    const fallbackDuration = (theme === 'theme-five' || theme === 'theme-six') ? cdFallbackMs : undefined;
-    const timeLeft = useCountdown(s.exit_intent_countdown_end || '', fallbackDuration);
 
     // Boot Elementor widgets inside the server-rendered popup HTML. The markup is
     // injected via dangerouslySetInnerHTML after page load, so Elementor's own DOM
@@ -172,6 +132,15 @@ const ExitIntentPopup = (props: any) => {
         );
     };
 
+    // Store a submission in the feedback entries (REST `popup-submit`).
+    // Resolves false when the page has no REST URL, so nothing was sent.
+    const submitEntry = async (payload: Record<string, any>): Promise<boolean> => {
+        if (!rest) return false;
+        const submitUrl = nxHelper.getPath(rest, 'popup-submit');
+        await nxHelper.post(submitUrl, payload, { credentials: 'same-origin' });
+        return true;
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (submitting) return;
@@ -195,8 +164,7 @@ const ExitIntentPopup = (props: any) => {
             Object.assign(payload, nxApplyFilters('nx_exit_intent_submission_fields', {}, { s, name, email, is_pro }));
             if (_showMessage && message) payload.message = message;
 
-            const submitUrl = nxHelper.getPath(rest, 'popup-submit');
-            await nxHelper.post(submitUrl, payload, { credentials: 'same-origin' });
+            await submitEntry(payload);
 
             setSubmitted(true);
             setTimeout(() => handleClose(), 2500);
@@ -255,6 +223,25 @@ const ExitIntentPopup = (props: any) => {
                 </div>
             </div>
         );
+    }
+
+    // ─── Themes rendered by NotificationX Pro ─────────────────────────────────
+    // Themes two, five, six and seven live in NotificationX Pro (filter
+    // `nx_exit_intent_theme`). Free does not render them; PHP skips those
+    // notifications when Pro cannot (NotificationX::is_theme_unrenderable()).
+    const addonTheme = nxApplyFilters('nx_exit_intent_theme', undefined, {
+        theme,
+        settings,
+        is_pro,
+        overlayClass,
+        showClose,
+        closeStyle,
+        handleClose,
+        renderCta,
+        submitEntry,
+    });
+    if (addonTheme !== undefined && addonTheme !== null) {
+        return addonTheme;
     }
 
     // ─── Theme Four ───────────────────────────────────────────────────────────
@@ -364,472 +351,6 @@ const ExitIntentPopup = (props: any) => {
                             )}
                         </div>
                     )}
-                </div>
-            </div>
-        );
-    }
-
-    // ─── Theme Five ───────────────────────────────────────────────────────────
-    if (theme === 'theme-five') {
-        const t5Title        = s.exit_intent_t5_title           || 'Flash Sale';
-        const t5Headline     = s.exit_intent_t5_headline        || '50% OFF';
-        const t5Desc         = s.exit_intent_t5_desc            || 'ON ENTIRE ORDER';
-        const showTimer      = s.exit_intent_t5_show_timer      !== false;
-        const countdownLabel = s.exit_intent_t5_countdown_label || 'LIMITED-TIME OFFER! SALE ENDS IN';
-        const daysLbl        = s.exit_intent_t5_days_label      || 'DAYS';
-        const hoursLbl       = s.exit_intent_t5_hours_label     || 'HRS';
-        const minutesLbl     = s.exit_intent_t5_minutes_label   || 'MIN';
-        const secondsLbl     = s.exit_intent_t5_seconds_label   || 'SEC';
-        const timerBg        = s.exit_intent_t5_timer_bg        || '#fff0f5';
-        const timerColor     = s.exit_intent_t5_timer_color     || '#e91e63';
-        const buttonText     = s.exit_intent_button_text        || 'Shop The Flash Sale Now';
-        const dismissText    = s.exit_intent_dismiss_text       || 'NO, THANKS!';
-        const imageUrl       = s.exit_intent_image_url?.url || s.exit_intent_image_url || '';
-
-        const overlayStyle: React.CSSProperties = adv
-            ? { background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.6)' } : {};
-        const popupStyle: React.CSSProperties = adv ? {
-            borderRadius: px(s.exit_intent_t5_border_radius),
-            maxWidth:     px(s.exit_intent_t5_max_width),
-        } : {};
-        // `.nx-exit-intent-t5-left` (not the outer grid wrapper) is the
-        // element the title/headline/desc text actually sits on — it has a
-        // hardcoded white background in SCSS that opaquely covers the whole
-        // left column, so a background applied to the outer wrapper is
-        // never visible behind it. Style the inner panel directly instead.
-        const leftPanelStyle: React.CSSProperties = adv ? {
-            background: s.exit_intent_t5_bg_color || undefined,
-        } : {};
-        const titleStyle: React.CSSProperties = adv ? {
-            color:      s.exit_intent_t5_title_color       || undefined,
-            fontSize:   px(s.exit_intent_t5_title_font_size),
-            fontWeight: s.exit_intent_t5_title_font_weight || undefined,
-        } : {};
-        const headlineStyle: React.CSSProperties = adv ? {
-            color:      s.exit_intent_t5_headline_color       || undefined,
-            fontSize:   px(s.exit_intent_t5_headline_font_size),
-            fontWeight: s.exit_intent_t5_headline_font_weight || undefined,
-        } : {};
-        const descStyle: React.CSSProperties = adv ? {
-            color:    s.exit_intent_t5_desc_color || undefined,
-            fontSize: px(s.exit_intent_t5_desc_font_size),
-        } : {};
-        const cdLabelStyle: React.CSSProperties = adv ? {
-            color:    s.exit_intent_t5_cd_label_color || undefined,
-            fontSize: px(s.exit_intent_t5_cd_label_font_size),
-        } : {};
-        const cdNumStyle: React.CSSProperties = {
-            background:   adv ? (s.exit_intent_t5_cd_num_bg    || timerBg)    : timerBg,
-            color:        adv ? (s.exit_intent_t5_cd_num_color || timerColor) : timerColor,
-            fontSize:     adv ? px(s.exit_intent_t5_cd_num_font_size) : undefined,
-            borderRadius: adv ? px(s.exit_intent_t5_cd_num_radius)    : undefined,
-        };
-        const cdUnitStyle: React.CSSProperties = adv ? {
-            color:    s.exit_intent_t5_cd_unit_color || undefined,
-            fontSize: px(s.exit_intent_t5_cd_unit_font_size),
-        } : {};
-        const btnStyle: React.CSSProperties = adv ? {
-            background:   s.exit_intent_t5_btn_bg            || undefined,
-            color:        s.exit_intent_t5_btn_color         || undefined,
-            borderRadius: px(s.exit_intent_t5_btn_border_radius),
-            fontSize:     px(s.exit_intent_t5_btn_font_size),
-            fontWeight:   s.exit_intent_t5_btn_font_weight   || undefined,
-        } : {};
-        const dismissStyle: React.CSSProperties = adv ? {
-            color:    s.exit_intent_t5_dismiss_color || undefined,
-            fontSize: px(s.exit_intent_t5_dismiss_font_size),
-        } : {};
-
-        const display = timeLeft || { days: 0, hours: 0, minutes: 0, seconds: 0 };
-        const unitMeta: Array<{ key: 'days' | 'hours' | 'minutes' | 'seconds'; lbl: string }> = [
-            { key: 'days',    lbl: daysLbl },
-            { key: 'hours',   lbl: hoursLbl },
-            { key: 'minutes', lbl: minutesLbl },
-            { key: 'seconds', lbl: secondsLbl },
-        ];
-
-        return (
-            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
-                <div
-                    className={`nx-exit-intent-popup nx-exit-intent-theme-five nx-exit-intent-${settings?.nx_id}`}
-                    style={popupStyle}
-                >
-                    {showClose && (
-                        <button className="nx-exit-intent-close" style={closeStyle} onClick={handleClose} aria-label="Close">
-                            &times;
-                        </button>
-                    )}
-
-                    <div className="nx-exit-intent-t5-left" style={leftPanelStyle}>
-                        <span className="nx-exit-intent-t5-decor" aria-hidden="true" />
-
-                        <h2 className="nx-exit-intent-t5-title" style={titleStyle}>{t5Title}</h2>
-                        <div className="nx-exit-intent-t5-headline" style={headlineStyle}>{t5Headline}</div>
-                        <p className="nx-exit-intent-t5-desc" style={descStyle}>{t5Desc}</p>
-
-                        {showTimer && (
-                            <>
-                                <p className="nx-exit-intent-t5-countdown-label" style={cdLabelStyle}>{countdownLabel}</p>
-                                <div className="nx-exit-intent-t5-countdown">
-                                    {unitMeta.map(({ key, lbl }) => (
-                                        <div key={key} className="nx-exit-intent-t5-countdown-unit">
-                                            <span className="nx-exit-intent-t5-countdown-num" style={cdNumStyle}>
-                                                {pad(display[key])}
-                                            </span>
-                                            <span className="nx-exit-intent-t5-countdown-lbl" style={cdUnitStyle}>{lbl}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </>
-                        )}
-
-                        {renderCta('nx-exit-intent-t5-btn', btnStyle, buttonText)}
-                        <button type="button" className="nx-exit-intent-t5-dismiss" style={dismissStyle} onClick={handleClose}>
-                            {dismissText}
-                        </button>
-                    </div>
-
-                    <div
-                        className="nx-exit-intent-t5-right"
-                        style={imageUrl ? { backgroundImage: `url(${imageUrl})` } : undefined}
-                    />
-                </div>
-            </div>
-        );
-    }
-
-    // ─── Theme Seven ──────────────────────────────────────────────────────────
-    if (theme === 'theme-seven') {
-        const headline      = s.exit_intent_t7_headline          || 'Home Is Where Your Story Begins';
-        const discountText  = s.exit_intent_t7_discount_text     || 'Get 15% Off Your First Order!';
-        const description   = s.exit_intent_t7_description       || 'Discover timeless pieces that turn any space into a sanctuary.';
-        const emailPlaceholder = s.exit_intent_t7_email_placeholder || 'Enter your email';
-        const buttonText    = s.exit_intent_button_text          || 'SEND COUPON';
-        const imageUrl      = s.exit_intent_image_url?.url || s.exit_intent_image_url || '';
-
-        const overlayStyle: React.CSSProperties = adv
-            ? { background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.5)' } : {};
-        const popupStyle: React.CSSProperties = adv ? {
-            borderRadius: px(s.exit_intent_t7_border_radius),
-            maxWidth:     px(s.exit_intent_t7_max_width),
-        } : {};
-        // The outer grid wrapper is fully covered by its image + content
-        // columns, so a background there is invisible. The right content
-        // panel (.nx-exit-intent-t7-right, hardcoded brown in SCSS) is the
-        // dominant visible surface holding the headline/discount/form —
-        // apply the AI/user background color there.
-        const rightPanelStyle: React.CSSProperties = adv ? {
-            background: s.exit_intent_t7_bg_color || undefined,
-        } : {};
-        const imagePanelStyle: React.CSSProperties = {
-            background: imageUrl
-                ? `${adv ? (s.exit_intent_t7_image_bg || '#534542') : '#534542'} center / cover no-repeat`
-                : (adv ? (s.exit_intent_t7_image_bg || undefined) : undefined),
-            backgroundImage: imageUrl ? `url(${imageUrl})` : undefined,
-        };
-        const headlineStyle: React.CSSProperties = adv ? {
-            color:      s.exit_intent_t7_headline_color       || undefined,
-            fontSize:   px(s.exit_intent_t7_headline_font_size),
-            fontWeight: s.exit_intent_t7_headline_font_weight || undefined,
-            fontFamily: s.exit_intent_t7_headline_font_family && s.exit_intent_t7_headline_font_family !== 'inherit'
-                ? s.exit_intent_t7_headline_font_family
-                : undefined,
-        } : {};
-        const discountStyle: React.CSSProperties = adv ? {
-            background:   s.exit_intent_t7_discount_bg     || undefined,
-            borderColor:  s.exit_intent_t7_discount_border || undefined,
-            color:        s.exit_intent_t7_discount_color  || undefined,
-            fontSize:     px(s.exit_intent_t7_discount_font_size),
-            borderRadius: px(s.exit_intent_t7_discount_radius),
-        } : {};
-        const descStyle: React.CSSProperties = adv ? {
-            color:    s.exit_intent_t7_desc_color || undefined,
-            fontSize: px(s.exit_intent_t7_desc_font_size),
-        } : {};
-        const inputStyle: React.CSSProperties = adv ? {
-            background:   s.exit_intent_t7_input_bg            || undefined,
-            borderColor:  s.exit_intent_t7_input_border_color  || undefined,
-            borderRadius: px(s.exit_intent_t7_input_border_radius),
-            color:        s.exit_intent_t7_input_text_color    || undefined,
-        } : {};
-        const btnStyle: React.CSSProperties = adv ? {
-            background:   s.exit_intent_t7_btn_bg            || undefined,
-            color:        s.exit_intent_t7_btn_color         || undefined,
-            borderRadius: px(s.exit_intent_t7_btn_border_radius),
-            fontSize:     px(s.exit_intent_t7_btn_font_size),
-            fontWeight:   s.exit_intent_t7_btn_font_weight   || undefined,
-        } : {};
-
-        const handleT7Submit = (e: React.FormEvent) => {
-            e.preventDefault();
-            if (submitting) return;
-            if (!rest) { handleClose(); return; }
-
-            setSubmitting(true);
-            (async () => {
-                try {
-                    const payload: Record<string, any> = {
-                        nx_id: String(settings?.nx_id || ''),
-                        theme: settings?.themes        || '',
-                        title: headline,
-                    };
-                    if (email) payload.email = email;
-                    const submitUrl = nxHelper.getPath(rest, 'popup-submit');
-                    await nxHelper.post(submitUrl, payload, { credentials: 'same-origin' });
-                    setSubmitted(true);
-                    setTimeout(() => handleClose(), 2500);
-                } catch {
-                    handleClose();
-                } finally {
-                    setSubmitting(false);
-                }
-            })();
-        };
-
-        return (
-            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
-                <div
-                    className={`nx-exit-intent-popup nx-exit-intent-theme-seven nx-exit-intent-${settings?.nx_id}`}
-                    style={popupStyle}
-                >
-                    {showClose && (
-                        <button className="nx-exit-intent-close" style={closeStyle} onClick={handleClose} aria-label="Close">
-                            &times;
-                        </button>
-                    )}
-
-                    <div className="nx-exit-intent-t7-left" style={imagePanelStyle} aria-hidden="true" />
-
-                    <div className="nx-exit-intent-t7-right" style={rightPanelStyle}>
-                        <h2 className="nx-exit-intent-t7-headline" style={headlineStyle}>{headline}</h2>
-
-                        {discountText && (
-                            <div className="nx-exit-intent-t7-discount" style={discountStyle}>
-                                {discountText}
-                            </div>
-                        )}
-
-                        {description && (
-                            <p className="nx-exit-intent-t7-desc" style={descStyle}>{description}</p>
-                        )}
-
-                        {submitted ? (
-                            <div className="nx-exit-intent-t7-success" style={{ color: discountStyle.color }}>
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-                                    <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                                </svg>
-                                <span>Thank you! Check your inbox for the coupon.</span>
-                            </div>
-                        ) : (
-                            <form className="nx-exit-intent-t7-form" onSubmit={handleT7Submit}>
-                                <input
-                                    type="email"
-                                    className="nx-exit-intent-t7-input"
-                                    style={inputStyle}
-                                    placeholder={emailPlaceholder}
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                />
-                                <button
-                                    type="submit"
-                                    className="nx-exit-intent-t7-btn"
-                                    style={btnStyle}
-                                    disabled={submitting}
-                                >
-                                    {submitting ? '...' : buttonText}
-                                </button>
-                            </form>
-                        )}
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    // ─── Theme Six ────────────────────────────────────────────────────────────
-    if (theme === 'theme-six') {
-        const t6Title        = s.exit_intent_t6_title           || 'Limited Edition Bass Boost Headphones';
-        const showTimer      = s.exit_intent_t6_show_timer      !== false;
-        const countdownLabel = s.exit_intent_t6_countdown_label || 'Offer Ends In';
-        const daysLbl        = s.exit_intent_t6_days_label      || 'DAYS';
-        const hoursLbl       = s.exit_intent_t6_hours_label     || 'HOURS';
-        const minutesLbl     = s.exit_intent_t6_minutes_label   || 'MIN';
-        const secondsLbl     = s.exit_intent_t6_seconds_label   || 'SEC';
-        const buttonText     = s.exit_intent_button_text        || 'Grab Now';
-        const imageUrl       = s.exit_intent_image_url?.url || s.exit_intent_image_url || '';
-
-        const bgStart = (adv && s.exit_intent_t6_bg_start) || '#ffffff';
-        const bgMid   = (adv && s.exit_intent_t6_bg_mid)   || '#fdf2f8';
-        const bgEnd   = (adv && s.exit_intent_t6_bg_end)   || '#f5f3ff';
-
-        const overlayStyle: React.CSSProperties = adv
-            ? { background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.5)' } : {};
-        const popupStyle: React.CSSProperties = {
-            background:   `radial-gradient(circle at center, ${bgStart} 0%, ${bgMid} 50%, ${bgEnd} 100%)`,
-            borderRadius: adv ? px(s.exit_intent_t6_border_radius) : undefined,
-            maxWidth:     adv ? px(s.exit_intent_t6_max_width)     : undefined,
-        };
-        const titleStyle: React.CSSProperties = adv ? {
-            color:      s.exit_intent_t6_title_color       || undefined,
-            fontSize:   px(s.exit_intent_t6_title_font_size),
-            fontWeight: s.exit_intent_t6_title_font_weight || undefined,
-        } : {};
-        const cdLabelStyle: React.CSSProperties = adv ? {
-            color:    s.exit_intent_t6_cd_label_color || undefined,
-            fontSize: px(s.exit_intent_t6_cd_label_font_size),
-        } : {};
-        const cdNumStyle: React.CSSProperties = adv ? {
-            background:   s.exit_intent_t6_cd_num_bg     || undefined,
-            color:        s.exit_intent_t6_cd_num_color  || undefined,
-            fontSize:     px(s.exit_intent_t6_cd_num_font_size),
-            borderRadius: px(s.exit_intent_t6_cd_num_radius),
-        } : {};
-        const cdUnitStyle: React.CSSProperties = adv ? {
-            color:    s.exit_intent_t6_cd_unit_color || undefined,
-            fontSize: px(s.exit_intent_t6_cd_unit_font_size),
-        } : {};
-        const cdSepStyle: React.CSSProperties = adv ? {
-            fontSize: px(s.exit_intent_t6_cd_num_font_size),
-        } : {};
-        const btnStyle: React.CSSProperties = adv ? {
-            background:   s.exit_intent_t6_btn_bg            || undefined,
-            color:        s.exit_intent_t6_btn_color         || undefined,
-            borderRadius: px(s.exit_intent_t6_btn_border_radius),
-            fontSize:     px(s.exit_intent_t6_btn_font_size),
-            fontWeight:   s.exit_intent_t6_btn_font_weight   || undefined,
-        } : {};
-
-        const display = timeLeft || { days: 0, hours: 0, minutes: 0, seconds: 0 };
-        const unitMeta: Array<{ key: 'days' | 'hours' | 'minutes' | 'seconds'; lbl: string }> = [
-            { key: 'days',    lbl: daysLbl },
-            { key: 'hours',   lbl: hoursLbl },
-            { key: 'minutes', lbl: minutesLbl },
-            { key: 'seconds', lbl: secondsLbl },
-        ];
-
-        return (
-            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
-                <div
-                    className={`nx-exit-intent-popup nx-exit-intent-theme-six nx-exit-intent-${settings?.nx_id}`}
-                    style={popupStyle}
-                >
-                    {showClose && (
-                        <button className="nx-exit-intent-close" style={closeStyle} onClick={handleClose} aria-label="Close">
-                            &times;
-                        </button>
-                    )}
-
-                    {imageUrl && (
-                        <div className="nx-exit-intent-t6-image">
-                            <img src={imageUrl} alt="" />
-                        </div>
-                    )}
-
-                    <h2 className="nx-exit-intent-t6-title" style={titleStyle}>{t6Title}</h2>
-
-                    {showTimer && (
-                        <div className="nx-exit-intent-t6-countdown-wrap">
-                            <p className="nx-exit-intent-t6-countdown-label" style={cdLabelStyle}>{countdownLabel}</p>
-                            <div className="nx-exit-intent-t6-countdown">
-                                {unitMeta.map(({ key, lbl }, idx) => (
-                                    <React.Fragment key={key}>
-                                        {idx > 0 && (
-                                            <span className="nx-exit-intent-t6-countdown-sep" style={cdSepStyle} aria-hidden="true">:</span>
-                                        )}
-                                        <div className="nx-exit-intent-t6-countdown-unit">
-                                            <span className="nx-exit-intent-t6-countdown-num" style={cdNumStyle}>
-                                                {pad(display[key])}
-                                            </span>
-                                            <span className="nx-exit-intent-t6-countdown-lbl" style={cdUnitStyle}>{lbl}</span>
-                                        </div>
-                                    </React.Fragment>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    {renderCta('nx-exit-intent-t6-btn', btnStyle, buttonText)}
-                </div>
-            </div>
-        );
-    }
-
-    // ─── Theme Two ────────────────────────────────────────────────────────────
-    if (theme === 'theme-two') {
-        const saleBadge    = s.exit_intent_sale_badge    || 'Flash Sale';
-        const saleHeadline = s.exit_intent_sale_headline || '50% OFF';
-        const saleDesc     = s.exit_intent_sale_desc     || 'ON ENTIRE ORDER';
-        const buttonText   = s.exit_intent_button_text   || 'Shop The Flash Sale Now';
-        const dismissText  = s.exit_intent_dismiss_text  || 'NO, THANKS!';
-        const imageUrl     = s.exit_intent_image_url?.url || s.exit_intent_image_url || '';
-
-        const overlayStyle: React.CSSProperties = adv
-            ? { background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.5)' } : {};
-        const popupStyle: React.CSSProperties = adv ? {
-            borderRadius: px(s.exit_intent_t2_border_radius),
-            maxWidth:     px(s.exit_intent_t2_max_width),
-        } : {};
-        // The outer grid wrapper is fully covered by its two columns, so a
-        // background there is invisible. The left text panel
-        // (.nx-exit-intent-t2-left, hardcoded navy in SCSS) is the dominant
-        // visible surface — apply the AI/user background color there.
-        const leftPanelStyle: React.CSSProperties = adv ? {
-            background: s.exit_intent_t2_bg_color || undefined,
-        } : {};
-        const badgeStyle: React.CSSProperties = adv ? {
-            background: s.exit_intent_t2_badge_bg    || undefined,
-            color:      s.exit_intent_t2_badge_color || undefined,
-            fontSize:   px(s.exit_intent_t2_badge_font_size),
-        } : {};
-        const headlineStyle: React.CSSProperties = adv ? {
-            color:      s.exit_intent_t2_headline_color       || undefined,
-            fontSize:   px(s.exit_intent_t2_headline_font_size),
-            fontWeight: s.exit_intent_t2_headline_font_weight || undefined,
-        } : {};
-        const descStyle: React.CSSProperties = adv ? {
-            color:    s.exit_intent_t2_desc_color || undefined,
-            fontSize: px(s.exit_intent_t2_desc_font_size),
-        } : {};
-        const btnStyle: React.CSSProperties = adv ? {
-            background:   s.exit_intent_t2_btn_bg            || undefined,
-            color:        s.exit_intent_t2_btn_color         || undefined,
-            borderRadius: px(s.exit_intent_t2_btn_border_radius),
-            fontSize:     px(s.exit_intent_t2_btn_font_size),
-            fontWeight:   s.exit_intent_t2_btn_font_weight   || undefined,
-        } : {};
-        const dismissStyle: React.CSSProperties = adv ? {
-            color:    s.exit_intent_t2_dismiss_color || undefined,
-            fontSize: px(s.exit_intent_t2_dismiss_font_size),
-        } : {};
-
-        return (
-            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
-                <div
-                    className={`nx-exit-intent-popup nx-exit-intent-theme-two nx-exit-intent-${settings?.nx_id}`}
-                    style={popupStyle}
-                >
-                    {showClose && (
-                        <button className="nx-exit-intent-close" style={closeStyle} onClick={handleClose} aria-label="Close">
-                            &times;
-                        </button>
-                    )}
-
-                    <div className="nx-exit-intent-t2-left" style={leftPanelStyle}>
-                        <span className="nx-exit-intent-t2-badge" style={badgeStyle}>{saleBadge}</span>
-                        <h2 className="nx-exit-intent-t2-headline" style={headlineStyle}>{saleHeadline}</h2>
-                        <p className="nx-exit-intent-t2-desc" style={descStyle}>{saleDesc}</p>
-
-                        {renderCta('nx-exit-intent-t2-btn', btnStyle, buttonText)}
-                        <button type="button" className="nx-exit-intent-t2-dismiss" style={dismissStyle} onClick={handleClose}>
-                            {dismissText}
-                        </button>
-                    </div>
-
-                    <div
-                        className="nx-exit-intent-t2-right"
-                        style={imageUrl ? { backgroundImage: `url(${imageUrl})` } : undefined}
-                    />
                 </div>
             </div>
         );

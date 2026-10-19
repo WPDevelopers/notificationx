@@ -31,7 +31,7 @@ function notificationXWrapper(notificationX, id) {
     setChunkPath(notificationX.assets);
 
     if (notificationX.cross) {
-        loadExternalStyles(notificationX.external_styles);
+        loadExternalStyles(notificationX.external_styles, notificationX.common_assets);
     }
     applyDeferredStyles();
 

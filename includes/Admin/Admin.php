@@ -54,9 +54,12 @@ class Admin {
      * Discount Alert rendering, runs Inline without the free copy, and loads its
      * rendering script on Cross Domain Notice sites.
      *
+     * Pro 3.2.5 renders the Exit Intent themes two, five, six and seven, which
+     * free 3.3.5 removed (NotificationX::PRO_RENDERED_THEMES).
+     *
      * @since 3.3.3
      */
-    const MIN_PRO_VERSION = '3.2.4';
+    const MIN_PRO_VERSION = '3.2.5';
 
     private $insights = null;
 
@@ -521,10 +524,10 @@ class Admin {
 		] );
 		$this->insights->set_notice_options(array(
 			'notice' => __( 'Want to help make <strong>NotificationX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage.', 'notificationx' ),
-			'extra_notice' => __( 'We collect non-sensitive diagnostic data and plugin usage information.
-			Your site URL, WordPress & PHP version, plugins & themes and email address to send you the
-			discount coupon. This data lets us make sure this plugin always stays compatible with the most
-			popular plugins and themes. No spam, I promise.', 'notificationx' ),
+			// Keep in step with the Setup Wizard's "What do we collect?" text
+			// (nxdev/notificationx/admin/SetupWizard/SetupWizard.tsx) and with
+			// PluginInsights::get_data() + UsageTracker: this is what the user consents to.
+			'extra_notice' => __( 'Only if you allow it, NotificationX sends this to WPDeveloper (send.wpinsight.com): once right away, once a day after that, and once if you deactivate the plugin. It includes your site URL and name; WordPress, PHP and server versions; language, charset, text direction and whether it is a multisite; your active plugins and theme, and how many plugins are inactive; the NotificationX version; a site ID the service assigns; how many notifications you have of each type and source; your email address, to send you the discount coupon; and, if you deactivate the plugin, the reason you choose. No spam, I promise.', 'notificationx' ),
 		));
 		$this->insights->init();
 

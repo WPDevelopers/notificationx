@@ -70,7 +70,8 @@ body.nx-setup-wizard-active {
     font-size: 14px;
     line-height: 1.5;
 
-    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+    // Inter is self-hosted: assets/admin/vendor/fonts/admin-fonts.css,
+    // enqueued by PostType::admin_enqueue_scripts() (issue #184).
 
     * {
         box-sizing: border-box;
@@ -534,11 +535,34 @@ body.nx-setup-wizard-active {
         }
     }
 
+    // Tracking consent notice: legible, because it is the basis of consent.
     &__welcome-fineprint {
         margin: 16px 0 0;
-        font-size: 10px;
+        font-size: 12px;
         line-height: 1.6;
-        color: rgba(71, 69, 86, 0.6);
+        color: rgba(71, 69, 86, 0.8);
+
+        p {
+            margin: 0;
+        }
+    }
+
+    &__collect-toggle {
+        padding: 0;
+        border: none;
+        background: none;
+        color: $sw-brand;
+        font: inherit;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        cursor: pointer;
+    }
+
+    &__collect-details {
+        margin-top: 8px !important;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: $sw-lav;
     }
 
     // ---- Right illustration / live-preview panel ----------------------

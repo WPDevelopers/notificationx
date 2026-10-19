@@ -228,10 +228,10 @@ class Preview {
             '_first_name'       => 'John',
             'formatted_address' => 'House 592, Road 8 Avenue 5, Dhaka 1216, Bangladesh',
             'ga_title'          => 'NotificationX',
-            'icon'              => 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png',
+            'icon'              => NOTIFICATIONX_PUBLIC_URL . 'image/icons/google-business-71.png',
             'icons'             => array(
-                '1x' => "https://ps.w.org/notificationx/assets/icon-128x128.gif?rev=2783824",
-                '2x' => "https://ps.w.org/notificationx/assets/icon-256x256.gif?rev=2783824",
+                '1x' => NOTIFICATIONX_PUBLIC_URL . 'image/icons/nx-plugin-icon-256.gif',
+                '2x' => NOTIFICATIONX_PUBLIC_URL . 'image/icons/nx-plugin-icon-256.gif',
             ),
             'id'         => 5,
             'image_data' => array(
