@@ -192,6 +192,38 @@ class Test_WPOrg_Compliance extends WP_UnitTestCase {
 		$this->assertSame( $custom, $extension->localize_default_image( $custom, [] ) );
 	}
 
+	/**
+	 * The Cookie Notice's default Custom Logo is bundled; notices saved with
+	 * the old notificationx.com URL are served the bundled copy.
+	 */
+	public function test_gdpr_default_logo_is_bundled() {
+		$source = file_get_contents( NOTIFICATIONX_PATH . 'includes/Types/GDPR.php' );
+		$this->assertStringNotContainsString( "'url' => 'https://notificationx.com/wp-content/uploads/2025/01/cookie-image.png'", $source );
+		$this->assertFileExists( NOTIFICATIONX_ASSETS_PATH . 'public/image/gdpr/cookie-image.png' );
+
+		$extension = \NotificationX\Extensions\GDPR\GDPR_Notification::get_instance();
+		$settings  = $extension->localize_default_logo(
+			[
+				'source'           => 'gdpr_notification',
+				'gdpr_custom_logo' => [ 'url' => 'https://notificationx.com/wp-content/uploads/2025/01/cookie-image.png', 'title' => 'cookie' ],
+			],
+			[]
+		);
+		$this->assertSame( NOTIFICATIONX_PUBLIC_URL . 'image/gdpr/cookie-image.png', $settings['gdpr_custom_logo']['url'] );
+		$this->assertSame( 'cookie', $settings['gdpr_custom_logo']['title'] );
+
+		$custom = [
+			'source'           => 'gdpr_notification',
+			'gdpr_custom_logo' => [ 'url' => 'https://example.com/my-logo.png' ],
+		];
+		$this->assertSame( $custom, $extension->localize_default_logo( $custom, [] ) );
+		$other = [
+			'source'           => 'popup_notification',
+			'gdpr_custom_logo' => [ 'url' => 'https://notificationx.com/wp-content/uploads/2025/01/cookie-image.png' ],
+		];
+		$this->assertSame( $other, $extension->localize_default_logo( $other, [] ) );
+	}
+
 	public function test_bundled_font_files_exist() {
 		foreach ( [
 			'assets/public/vendor/open-sans/css/open-sans.css',
