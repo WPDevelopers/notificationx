@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, notification ba
 Requires at least: 5.3
 Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 3.3.4
+Stable tag: 3.3.5
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -226,6 +226,15 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 3.3.5 - 22/10/2026 =
+Improved: WordPress.org guidelines compliance.
+Improved: Usage data is shared only after you opt in.
+Improved: Fonts, icons and images now load from your own site.
+Improved: MCP connected apps experience.
+Improved: Security enhancement.
+Fixed: Countdown expiry message display issues.
+Few minor bug fixes and improvements.
 
 = 3.3.4 - 14/10/2026 =
 Improved: Notification editing experience.
