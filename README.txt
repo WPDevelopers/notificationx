@@ -228,9 +228,6 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 == Changelog ==
 
 = 3.3.5 - 22/10/2026 =
-Improved: WordPress.org guidelines compliance.
-Improved: Usage data is shared only after you opt in.
-Improved: Fonts, icons and images now load from your own site.
 Improved: MCP connected apps experience.
 Improved: Security enhancement.
 Fixed: Countdown expiry message display issues.
