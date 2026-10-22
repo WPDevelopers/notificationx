@@ -163,33 +163,15 @@ NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 6 
 
 📚 [BetterDocs](https://wordpress.org/plugins/betterdocs/): Best Documentation & Knowledge Base Plugin for WordPress to reduce manual support tickets & improve user experience.
 
-== External services ==
+### Acknowledgements ###
 
-NotificationX connects to the services below only for the features named. Nothing is sent to WPDeveloper unless you opt in. The fonts and icons the notifications use (Open Sans, Font Awesome 4.7) and the admin fonts (DM Sans, Inter) are bundled with the plugin, so loading them contacts no third party.
+This plugin relies on third-party services only for the following optional features:
 
-**WPDeveloper usage insights (send.wpinsight.com)** — Only if you opt in, through "Allow" in the admin notice or "Get My Recommendations" in the Setup Wizard. Declining, or choosing "Skip" or "I'll do this Manually" in the Setup Wizard, sends nothing.
+– [country.is](https://country.is/): Used for Country Targeting.
 
-- Data sent: your site URL and name; WordPress, PHP and server versions; language, charset, text direction and whether it is a multisite; your active plugins and theme, and how many plugins are inactive; the NotificationX version; a site ID the service assigns; how many notifications you have of each type and source; the email address of the admin who opted in; and, if you deactivate the plugin, the reason you choose in the feedback form.
-- When: once when you opt in, once a day after that, and once when the plugin is deactivated.
-- Service provided by WPDeveloper. Terms: https://wpdeveloper.com/terms-and-conditions/ — Privacy policy: https://wpdeveloper.com/privacy-policy/
+– [api.wordpress.org](https://wordpress.org/about/privacy/): Used for WordPress Reviews and Download Stats sources.
 
-**country.is (IP geolocation)** — Used only by the Country Targeting option. To show a notification to visitors from specific countries, NotificationX needs the visitor's country. If your host or CDN already sends it in a header (for example Cloudflare's `CF-IPCountry`), that is used and nothing is sent. Otherwise the visitor's IP address is sent over HTTPS to api.country.is, which returns the country code; the result is cached for 12 hours. Notifications without country targeting (or set to "All Countries") never trigger it. The provider can be changed or disabled with the `nx_visitor_country_api` filter.
-
-- Data sent: the visitor's IP address.
-- When: on front-end page views, only while a country-targeted notification is active and the country is not cached.
-- Service provided by country.is (open source, https://github.com/lineofflight/country). It states that it keeps no request logs. Terms and privacy: https://country.is/
-
-**NotificationX Cookie Scanner (api.notificationx.com)** — Used only when an administrator starts a cookie scan in a GDPR notification's settings, to list the cookies the site sets.
-
-- Data sent: the URL of your site (and whether NotificationX Pro is active). The service then loads your site's public pages to find their cookies.
-- When: only when an administrator starts a scan.
-- Service provided by WPDeveloper. Terms: https://wpdeveloper.com/terms-and-conditions/ — Privacy policy: https://notificationx.com/privacy-policy/
-
-**WordPress.org Plugin and Theme API (api.wordpress.org)** — Used only by the "WordPress" review and download-count sources, to read the reviews, ratings and download numbers of the plugin or theme you enter.
-
-- Data sent: the plugin or theme slug you entered, and the standard WordPress request headers (including your site URL).
-- When: when such a notification is saved, and when its data is refreshed.
-- Service provided by WordPress.org. Privacy policy: https://wordpress.org/about/privacy/
+– [fonts.googleapis.com](https://policies.google.com/privacy): Used for rendering fonts.
 
 == Source code ==
 
