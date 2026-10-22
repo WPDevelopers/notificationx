@@ -287,9 +287,9 @@ const SetupWizard = (props) => {
     /**
      * "Get My Recommendations": the wizard's only usage-tracking opt-in (see
      * the Welcome notice). Opt the site in, let the server send the data to
-     * the insights API, then advance. Fire-and-forget. "Skip" advances
-     * without calling this, so it sends and records nothing (WordPress.org
-     * Guideline 7, issue #184).
+     * the insights API, then advance. Fire-and-forget. "I'll do this
+     * Manually" leaves the wizard without calling this, so it sends and
+     * records nothing (WordPress.org Guideline 7, issue #184).
      */
     const startWizard = () => {
         nxHelper
@@ -362,7 +362,6 @@ const SetupWizard = (props) => {
                 {active === 0 && (
                     <StepWelcome
                         onStart={startWizard}
-                        onSkipSharing={next}
                         onSkip={() => finish("dashboard")}
                     />
                 )}
@@ -410,7 +409,7 @@ const SetupWizard = (props) => {
  * two-column body (content + the lavender illustration panel). The same
  * in-card header is reused on every step via `WizardCardHeader`.
  */
-const StepWelcome = ({ onStart, onSkipSharing, onSkip }) => {
+const StepWelcome = ({ onStart, onSkip }) => {
     const [showCollected, setShowCollected] = useState(false);
     return (
     <section className="nx-sw__welcome-card">
@@ -442,9 +441,6 @@ const StepWelcome = ({ onStart, onSkipSharing, onSkip }) => {
                     <button className="nx-sw__cta" onClick={onStart}>
                         {__("Get My Recommendations", "notificationx")}
                     </button>
-                    <button className="nx-sw__cta-skip" onClick={onSkipSharing}>
-                        {__("Skip", "notificationx")}
-                    </button>
                     <button className="nx-sw__cta-skip" onClick={onSkip}>
                         {__("I\'ll do this Manually", "notificationx")}
                     </button>
@@ -456,7 +452,7 @@ const StepWelcome = ({ onStart, onSkipSharing, onSkip }) => {
                 <div className="nx-sw__welcome-fineprint">
                     <p>
                         {__(
-                            "“Get My Recommendations” shares your email address and non-sensitive usage data with WPDeveloper. Choose “Skip” or “I\'ll do this Manually” to continue without sharing anything.",
+                            "“Get My Recommendations” helps us improve NotificationX. We never track your site visitors or content.",
                             "notificationx"
                         )}{" "}
                         <button
@@ -465,13 +461,13 @@ const StepWelcome = ({ onStart, onSkipSharing, onSkip }) => {
                             aria-expanded={showCollected}
                             onClick={() => setShowCollected((v) => !v)}
                         >
-                            {__("What do we collect?", "notificationx")}
+                            {__("Find out what we collect.", "notificationx")}
                         </button>
                     </p>
                     {showCollected && (
                         <p className="nx-sw__collect-details">
                             {__(
-                                "Only if you choose “Get My Recommendations”, NotificationX sends this to WPDeveloper (send.wpinsight.com): once right away, once a day after that, and once if you deactivate the plugin. It includes your site URL and name; WordPress, PHP and server versions; language, charset, text direction and whether it is a multisite; your active plugins and theme, and how many plugins are inactive; the NotificationX version; a site ID the service assigns; how many notifications you have of each type and source; your email address, to send you the discount coupon; and, if you deactivate the plugin, the reason you choose. Skipping sends nothing. No spam, ever.",
+                                "Only if you choose “Get My Recommendations”, NotificationX sends this to WPDeveloper (send.wpinsight.com): once right away, once a day after that, and once if you deactivate the plugin. It includes your site URL and name; WordPress, PHP and server versions; language, charset, text direction and whether it is a multisite; your active plugins and theme, and how many plugins are inactive; the NotificationX version; a site ID the service assigns; how many notifications you have of each type and source; your email address, to send you the discount coupon; and, if you deactivate the plugin, the reason you choose. “I\'ll do this Manually” sends nothing. No spam, ever.",
                                 "notificationx"
                             )}
                         </p>

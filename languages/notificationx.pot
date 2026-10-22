@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.3.4\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nx-pot\n"
+"Project-Id-Version: NotificationX 3.3.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nx-wiz\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-22T05:46:21+00:00\n"
+"POT-Creation-Date: 2026-10-22T06:47:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -10127,23 +10127,19 @@ msgid "Get My Recommendations"
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-msgid "Skip"
-msgstr ""
-
-#: assets/admin/js/admin.js:13
 msgid "I'll do this Manually"
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-msgid "“Get My Recommendations” shares your email address and non-sensitive usage data with WPDeveloper. Choose “Skip” or “I'll do this Manually” to continue without sharing anything."
+msgid "“Get My Recommendations” helps us improve NotificationX. We never track your site visitors or content."
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-msgid "What do we collect?"
+msgid "Find out what we collect."
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-msgid "Only if you choose “Get My Recommendations”, NotificationX sends this to WPDeveloper (send.wpinsight.com): once right away, once a day after that, and once if you deactivate the plugin. It includes your site URL and name; WordPress, PHP and server versions; language, charset, text direction and whether it is a multisite; your active plugins and theme, and how many plugins are inactive; the NotificationX version; a site ID the service assigns; how many notifications you have of each type and source; your email address, to send you the discount coupon; and, if you deactivate the plugin, the reason you choose. Skipping sends nothing. No spam, ever."
+msgid "Only if you choose “Get My Recommendations”, NotificationX sends this to WPDeveloper (send.wpinsight.com): once right away, once a day after that, and once if you deactivate the plugin. It includes your site URL and name; WordPress, PHP and server versions; language, charset, text direction and whether it is a multisite; your active plugins and theme, and how many plugins are inactive; the NotificationX version; a site ID the service assigns; how many notifications you have of each type and source; your email address, to send you the discount coupon; and, if you deactivate the plugin, the reason you choose. “I'll do this Manually” sends nothing. No spam, ever."
 msgstr ""
 
 #: assets/admin/js/admin.js:13
