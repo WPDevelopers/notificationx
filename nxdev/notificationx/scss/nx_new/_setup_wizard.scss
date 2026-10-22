@@ -537,6 +537,7 @@ body.nx-setup-wizard-active {
 
     // Tracking consent notice: legible, because it is the basis of consent.
     &__welcome-fineprint {
+        position: relative;
         margin: 16px 0 0;
         font-size: 12px;
         line-height: 1.6;
@@ -558,11 +559,40 @@ body.nx-setup-wizard-active {
         cursor: pointer;
     }
 
+    // Popover above the fine print: it overlays the card instead of growing it.
     &__collect-details {
-        margin-top: 8px !important;
-        padding: 10px 12px;
-        border-radius: 8px;
-        background: $sw-lav;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: calc(100% + 10px);
+        z-index: 5;
+        padding: 14px 16px;
+        border: 1px solid rgba(91, 75, 232, 0.12);
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 12px 32px rgba(19, 27, 46, 0.16);
+        font-size: 12px;
+        line-height: 1.5;
+        color: rgba(71, 69, 86, 0.9);
+
+        p {
+            margin: 0 0 6px;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            margin: 4px 0 0;
+        }
+
+        strong {
+            font-weight: 600;
+            color: #1d1b2c;
+        }
     }
 
     // ---- Right illustration / live-preview panel ----------------------

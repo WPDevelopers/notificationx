@@ -411,6 +411,22 @@ const SetupWizard = (props) => {
  */
 const StepWelcome = ({ onStart, onSkip }) => {
     const [showCollected, setShowCollected] = useState(false);
+    const finePrintRef = useRef<HTMLDivElement>(null);
+    // The details open as a popover over the card, so the card never grows
+    // and needs no scrolling. Close it on Esc or a click outside it.
+    useEffect(() => {
+        if (!showCollected) return;
+        const onKey = (e: KeyboardEvent) => e.key === "Escape" && setShowCollected(false);
+        const onClick = (e: MouseEvent) => {
+            if (finePrintRef.current && !finePrintRef.current.contains(e.target as Node)) setShowCollected(false);
+        };
+        document.addEventListener("keydown", onKey);
+        document.addEventListener("mousedown", onClick);
+        return () => {
+            document.removeEventListener("keydown", onKey);
+            document.removeEventListener("mousedown", onClick);
+        };
+    }, [showCollected]);
     return (
     <section className="nx-sw__welcome-card">
         <WizardCardHeader active={0} />
@@ -449,7 +465,7 @@ const StepWelcome = ({ onStart, onSkip }) => {
                 {/* The basis of consent: keep in step with the opt-in notice
                     text (Admin::plugin_usage_insights()) and with what
                     PluginInsights::get_data() + UsageTracker send. */}
-                <div className="nx-sw__welcome-fineprint">
+                <div className="nx-sw__welcome-fineprint" ref={finePrintRef}>
                     <p>
                         {__(
                             "“Get My Recommendations” helps us improve NotificationX. We never track your site visitors or content.",
