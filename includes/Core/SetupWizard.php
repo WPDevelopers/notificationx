@@ -140,15 +140,12 @@ class SetupWizard {
     }
 
     /**
-     * Record the user's opt-in to WP Insights usage tracking and send the data
-     * to the insights API immediately. Triggered when the user proceeds past
-     * the Welcome step — the in-card notice states that proceeding consents to
-     * collecting the admin email to personalise the setup.
-     *
-     * The wizard no longer decides *whether* data is collected: collection is
-     * enabled from the backend on activation regardless of this flow (see
-     * {@see \NotificationX\Admin\PluginInsights::is_tracking_allowed()}).
-     * This only stores the explicit consent state and sends immediately.
+     * Opt the site into WP Insights usage tracking and send the data to the
+     * insights API immediately. Called only from the Welcome step's "Get My
+     * Recommendations" button, whose notice says it shares the data (and
+     * lists what). "Skip" and "I'll do this Manually" never call it, and no
+     * other code may: it is the wizard's only opt-in (WordPress.org
+     * Guideline 7, issue #184).
      *
      * @return bool
      */

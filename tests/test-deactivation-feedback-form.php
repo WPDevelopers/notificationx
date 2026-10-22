@@ -45,6 +45,9 @@ class Test_Deactivation_Feedback_Form extends WP_UnitTestCase {
 	public function setUp(): void {
 		parent::setUp();
 
+		// The form is shown only to sites that opted in to tracking (issue #184).
+		update_option( 'wpins_allow_tracking', [ 'notificationx' => 'notificationx' ] );
+
 		$property = new ReflectionProperty( PluginInsights::class, '_instance' );
 		$property->setAccessible( true );
 		$property->setValue( null, null );
@@ -57,6 +60,11 @@ class Test_Deactivation_Feedback_Form extends WP_UnitTestCase {
 				'item_id'      => '6ba8d30bc0beaddb2540',
 			]
 		);
+	}
+
+	public function tearDown(): void {
+		delete_option( 'wpins_allow_tracking' );
+		parent::tearDown();
 	}
 
 	protected function style() {
