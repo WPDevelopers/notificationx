@@ -465,12 +465,27 @@ const StepWelcome = ({ onStart, onSkip }) => {
                         </button>
                     </p>
                     {showCollected && (
-                        <p className="nx-sw__collect-details">
-                            {__(
-                                "Only if you choose “Get My Recommendations”, NotificationX sends this to WPDeveloper (send.wpinsight.com): once right away, once a day after that, and once if you deactivate the plugin. It includes your site URL and name; WordPress, PHP and server versions; language, charset, text direction and whether it is a multisite; your active plugins and theme, and how many plugins are inactive; the NotificationX version; a site ID the service assigns; how many notifications you have of each type and source; your email address, to send you the discount coupon; and, if you deactivate the plugin, the reason you choose. “I\'ll do this Manually” sends nothing. No spam, ever.",
-                                "notificationx"
-                            )}
-                        </p>
+                        <div className="nx-sw__collect-details">
+                            <p>{__("We only collect usage data if you choose “Get My Recommendations”.", "notificationx")}</p>
+                            <ul>
+                                <li>
+                                    <strong>{__("System:", "notificationx")}</strong>{" "}
+                                    {__("WordPress, PHP and server versions, site language and charset.", "notificationx")}
+                                </li>
+                                <li>
+                                    <strong>{__("Plugins:", "notificationx")}</strong>{" "}
+                                    {__("Active plugins and theme, the number of inactive plugins, and which NotificationX notification types you use.", "notificationx")}
+                                </li>
+                                <li>
+                                    <strong>{__("Site & contact:", "notificationx")}</strong>{" "}
+                                    {__("Site URL, site name and admin email, for your discount coupon.", "notificationx")}
+                                </li>
+                                <li>
+                                    <strong>{__("Never collected:", "notificationx")}</strong>{" "}
+                                    {__("Your site content, visitor data or the names of inactive plugins. No spam, ever.", "notificationx")}
+                                </li>
+                            </ul>
+                        </div>
                     )}
                 </div>
             </div>
