@@ -453,56 +453,60 @@ const StepWelcome = ({ onStart, onSkip }) => {
                     ))}
                 </div>
 
-                <div className="nx-sw__welcome-actions">
-                    <button className="nx-sw__cta" onClick={onStart}>
-                        {__("Get My Recommendations", "notificationx")}
-                    </button>
-                    <button className="nx-sw__cta-skip" onClick={onSkip}>
-                        {__("I\'ll do this Manually", "notificationx")}
-                    </button>
-                </div>
-
-                {/* The basis of consent: keep in step with the opt-in notice
-                    text (Admin::plugin_usage_insights()) and with what
-                    PluginInsights::get_data() + UsageTracker send. */}
-                <div className="nx-sw__welcome-fineprint" ref={finePrintRef}>
-                    <p>
-                        {__(
-                            "“Get My Recommendations” helps us improve NotificationX. We never track your site visitors or content.",
-                            "notificationx"
-                        )}{" "}
-                        <button
-                            type="button"
-                            className="nx-sw__collect-toggle"
-                            aria-expanded={showCollected}
-                            onClick={() => setShowCollected((v) => !v)}
-                        >
-                            {__("Find out what we collect.", "notificationx")}
+                {/* The details popover anchors to this wrapper's top edge, so it opens
+                    above the buttons and never covers them. */}
+                <div className="nx-sw__welcome-consent" ref={finePrintRef}>
+                    <div className="nx-sw__welcome-actions">
+                        <button className="nx-sw__cta" onClick={onStart}>
+                            {__("Get My Recommendations", "notificationx")}
                         </button>
-                    </p>
-                    {showCollected && (
-                        <div className="nx-sw__collect-details">
-                            <p>{__("We only collect usage data if you choose “Get My Recommendations”.", "notificationx")}</p>
-                            <ul>
-                                <li>
-                                    <strong>{__("System:", "notificationx")}</strong>{" "}
-                                    {__("WordPress, PHP and server versions, site language and charset.", "notificationx")}
-                                </li>
-                                <li>
-                                    <strong>{__("Plugins:", "notificationx")}</strong>{" "}
-                                    {__("Active plugins and theme, the number of inactive plugins, and which NotificationX notification types you use.", "notificationx")}
-                                </li>
-                                <li>
-                                    <strong>{__("Site & contact:", "notificationx")}</strong>{" "}
-                                    {__("Site URL, site name and admin email, for your discount coupon.", "notificationx")}
-                                </li>
-                                <li>
-                                    <strong>{__("Never collected:", "notificationx")}</strong>{" "}
-                                    {__("Your site content, visitor data or the names of inactive plugins. No spam, ever.", "notificationx")}
-                                </li>
-                            </ul>
-                        </div>
-                    )}
+                        <button className="nx-sw__cta-skip" onClick={onSkip}>
+                            {__("I\'ll do this Manually", "notificationx")}
+                        </button>
+                    </div>
+
+                    {/* The basis of consent: keep in step with the opt-in notice
+                        text (Admin::plugin_usage_insights()) and with what
+                        PluginInsights::get_data() + UsageTracker send. */}
+                    <div className="nx-sw__welcome-fineprint">
+                        <p>
+                            {__(
+                                "“Get My Recommendations” helps us improve NotificationX. We never track your site visitors or content.",
+                                "notificationx"
+                            )}{" "}
+                            <button
+                                type="button"
+                                className="nx-sw__collect-toggle"
+                                aria-expanded={showCollected}
+                                onClick={() => setShowCollected((v) => !v)}
+                            >
+                                {__("Find out what we collect.", "notificationx")}
+                            </button>
+                        </p>
+                        {showCollected && (
+                            <div className="nx-sw__collect-details">
+                                <p>{__("We only collect usage data if you choose “Get My Recommendations”.", "notificationx")}</p>
+                                <ul>
+                                    <li>
+                                        <strong>{__("System:", "notificationx")}</strong>{" "}
+                                        {__("WordPress, PHP and server versions, site language and charset.", "notificationx")}
+                                    </li>
+                                    <li>
+                                        <strong>{__("Plugins:", "notificationx")}</strong>{" "}
+                                        {__("Active plugins and theme, the number of inactive plugins, and which NotificationX notification types you use.", "notificationx")}
+                                    </li>
+                                    <li>
+                                        <strong>{__("Site & contact:", "notificationx")}</strong>{" "}
+                                        {__("Site URL, site name and admin email, for your discount coupon.", "notificationx")}
+                                    </li>
+                                    <li>
+                                        <strong>{__("Never collected:", "notificationx")}</strong>{" "}
+                                        {__("Your site content, visitor data or the names of inactive plugins. No spam, ever.", "notificationx")}
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 

@@ -536,8 +536,11 @@ body.nx-setup-wizard-active {
     }
 
     // Tracking consent notice: legible, because it is the basis of consent.
-    &__welcome-fineprint {
+    &__welcome-consent {
         position: relative;
+    }
+
+    &__welcome-fineprint {
         margin: 16px 0 0;
         font-size: 12px;
         line-height: 1.6;
@@ -559,7 +562,8 @@ body.nx-setup-wizard-active {
         cursor: pointer;
     }
 
-    // Popover above the fine print: it overlays the card instead of growing it.
+    // Popover above the buttons (anchored to __welcome-consent): it overlays the
+    // card instead of growing it, and never covers the buttons.
     &__collect-details {
         position: absolute;
         left: 0;
