@@ -3,13 +3,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NotificationX 3.3.5\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nx-wiz\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nx-wiz2\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-22T06:47:21+00:00\n"
+"POT-Creation-Date: 2026-10-22T08:34:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: notificationx\n"
@@ -10139,7 +10139,39 @@ msgid "Find out what we collect."
 msgstr ""
 
 #: assets/admin/js/admin.js:13
-msgid "Only if you choose “Get My Recommendations”, NotificationX sends this to WPDeveloper (send.wpinsight.com): once right away, once a day after that, and once if you deactivate the plugin. It includes your site URL and name; WordPress, PHP and server versions; language, charset, text direction and whether it is a multisite; your active plugins and theme, and how many plugins are inactive; the NotificationX version; a site ID the service assigns; how many notifications you have of each type and source; your email address, to send you the discount coupon; and, if you deactivate the plugin, the reason you choose. “I'll do this Manually” sends nothing. No spam, ever."
+msgid "We only collect usage data if you choose “Get My Recommendations”."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "System:"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "WordPress, PHP and server versions, site language and charset."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Plugins:"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Active plugins and theme, the number of inactive plugins, and which NotificationX notification types you use."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Site & contact:"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Site URL, site name and admin email, for your discount coupon."
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Never collected:"
+msgstr ""
+
+#: assets/admin/js/admin.js:13
+msgid "Your site content, visitor data or the names of inactive plugins. No spam, ever."
 msgstr ""
 
 #: assets/admin/js/admin.js:13
