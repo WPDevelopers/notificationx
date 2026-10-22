@@ -19,6 +19,13 @@ use NotificationX\Extensions\Extension;
  * @method static ExitIntentNotification get_instance($args = null)
  */
 class ExitIntentNotification extends Extension {
+    /**
+     * Where the default theme images used to load from. Notifications saved
+     * before 3.3.5 still carry these URLs; localize_default_image() serves
+     * the bundled copies instead (WordPress.org Guideline 8, issue #184).
+     */
+    const REMOTE_DEFAULT_IMAGES = 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-';
+
     use GetInstance;
 
     public $priority        = 16;
@@ -40,6 +47,7 @@ class ExitIntentNotification extends Extension {
         add_action( 'init', [ $this, 'register_post_type' ] );
         add_filter( 'get_edit_post_link', [ $this, 'filter_edit_post_link' ], 10, 3 );
         add_filter( 'nx_filtered_post', [ $this, 'inject_elementor_html' ], 10, 2 );
+        add_filter( 'nx_filtered_post', [ $this, 'localize_default_image' ], 10, 2 );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_elementor_assets' ], 20 );
         add_action( 'wp_head', [ $this, 'print_section_constraint_css' ], 99 );
         add_action( 'elementor/documents/register_controls', [ $this, 'register_popup_layout_controls' ] );
@@ -91,6 +99,31 @@ class ExitIntentNotification extends Extension {
      * Runs for every campaign settings array via the `nx_filtered_post` filter;
      * scoped to Exit Intent campaigns that have a linked, published nx_exit_intent.
      */
+    public function localize_default_image( $settings, $params ) {
+        if ( empty( $settings['source'] ) || $settings['source'] !== $this->id ) {
+            return $settings;
+        }
+        $image = $settings['exit_intent_image_url'] ?? null;
+        $url   = is_array( $image ) ? ( $image['url'] ?? '' ) : $image;
+        if ( ! is_string( $url ) || 0 !== strpos( $url, self::REMOTE_DEFAULT_IMAGES ) ) {
+            return $settings;
+        }
+        $file = basename( wp_parse_url( $url, PHP_URL_PATH ) );
+        if ( 'exit-intend-theme-five.png' === $file ) {
+            $file = 'exit-intend-theme-five.webp';
+        }
+        if ( ! preg_match( '/^exit-intend-[a-z-]+\.(png|jpg|webp)$/', $file ) || ! file_exists( NOTIFICATIONX_ASSETS_PATH . 'public/image/exit-intent/' . $file ) ) {
+            return $settings;
+        }
+        $local = NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/' . $file;
+        if ( is_array( $image ) ) {
+            $settings['exit_intent_image_url']['url'] = $local;
+        } else {
+            $settings['exit_intent_image_url'] = $local;
+        }
+        return $settings;
+    }
+
     public function inject_elementor_html( $settings, $params ) {
         if ( empty( $settings['source'] ) || $settings['source'] !== $this->id ) {
             return $settings;
@@ -616,7 +649,7 @@ JS;
                     'exit_intent_t4_badge'    => __( 'Before you go...', 'notificationx' ),
                     'exit_intent_t4_title'    => __( 'Watch this short demo video', 'notificationx' ),
                     'exit_intent_t4_subtitle' => __( 'See how our product simplifies your workflow.', 'notificationx' ),
-                    'exit_intent_image_url'    => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-four.jpg' ],
+                    'exit_intent_image_url'    => [ 'url' => NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/exit-intend-theme-four.jpg' ],
                     'exit_intent_t4_video_url' => '',
                     'position'                => 'center',
                 ],
@@ -631,7 +664,7 @@ JS;
                     'exit_intent_t3_coupon_text' => __( "Use code STAY15 at checkout. Don't miss out on this limited-time offer.", 'notificationx' ),
                     'exit_intent_button_text'    => __( 'Claim Offer', 'notificationx' ),
                     'exit_intent_dismiss_text'   => __( 'No, thanks!', 'notificationx' ),
-                    'exit_intent_image_url'      => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-three.png' ],
+                    'exit_intent_image_url'      => [ 'url' => NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/exit-intend-theme-three.png' ],
                     'position'                   => 'center',
                 ],
                 'column' => '5',
@@ -648,7 +681,7 @@ JS;
                     'exit_intent_t6_minutes_label'   => __( 'MIN', 'notificationx' ),
                     'exit_intent_t6_seconds_label'   => __( 'SEC', 'notificationx' ),
                     'exit_intent_button_text'        => __( 'Grab Now', 'notificationx' ),
-                    'exit_intent_image_url'          => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-six.png' ],
+                    'exit_intent_image_url'          => [ 'url' => NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/exit-intend-theme-six.png' ],
                     'position'                       => 'center',
                 ],
                 'column' => '5',
@@ -662,7 +695,7 @@ JS;
                     'exit_intent_sale_desc'        => __( 'ON ENTIRE ORDER', 'notificationx' ),
                     'exit_intent_button_text'      => __( 'Shop The Flash Sale Now', 'notificationx' ),
                     'exit_intent_dismiss_text'     => __( 'NO, THANKS!', 'notificationx' ),
-                    'exit_intent_image_url'        => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-two.jpg' ],
+                    'exit_intent_image_url'        => [ 'url' => NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/exit-intend-theme-two.jpg' ],
                     'position'                     => 'center',
                 ],
                 'column' => '5',
@@ -676,7 +709,7 @@ JS;
                     'exit_intent_t7_description'       => __( 'Handpicked decor that feels like home the moment it arrives.', 'notificationx' ),
                     'exit_intent_t7_email_placeholder' => __( 'Enter your email', 'notificationx' ),
                     'exit_intent_button_text'          => __( 'SEND COUPON', 'notificationx' ),
-                    'exit_intent_image_url'            => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-five.png' ],
+                    'exit_intent_image_url'            => [ 'url' => NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/exit-intend-theme-five.webp' ],
                     'position'                         => 'center',
                 ],
                 'column' => '5',
@@ -698,7 +731,7 @@ JS;
                     'exit_intent_t5_timer_color'    => '#e91e63',
                     'exit_intent_button_text'        => __( 'Shop The Flash Sale Now', 'notificationx' ),
                     'exit_intent_dismiss_text'       => __( 'NO, THANKS!', 'notificationx' ),
-                    'exit_intent_image_url'          => [ 'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-six.jpg' ],
+                    'exit_intent_image_url'          => [ 'url' => NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/exit-intend-theme-six.jpg' ],
                     'position'                       => 'center',
                 ],
                 'column' => '5',
@@ -1169,7 +1202,7 @@ JS;
                     'type'     => 'media',
                     'priority' => 5,
                     'default'  => [
-                        'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-two-five-seven.jpg',
+                        'url' => NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/exit-intend-theme-two-five-seven.jpg',
                     ],
                     'help'     => __( 'Upload or select the image to display in the right panel.', 'notificationx' ),
                 ],
@@ -1243,7 +1276,7 @@ JS;
                     'type'     => 'media',
                     'priority' => 5,
                     'default'  => [
-                        'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-three.png',
+                        'url' => NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/exit-intend-theme-three.png',
                     ],
                     'help'     => __( 'Upload or select a character/illustration image. It will appear above the popup card.', 'notificationx' ),
                 ],
@@ -1324,7 +1357,7 @@ JS;
                     'type'     => 'media',
                     'priority' => 5,
                     'default'  => [
-                        'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-four.jpg',
+                        'url' => NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/exit-intend-theme-four.jpg',
                     ],
                     'help'     => __( 'Upload or select the video thumbnail/preview image.', 'notificationx' ),
                 ],
@@ -1378,7 +1411,7 @@ JS;
                     'type'     => 'media',
                     'priority' => 5,
                     'default'  => [
-                        'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-two-five-seven.jpg',
+                        'url' => NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/exit-intend-theme-two-five-seven.jpg',
                     ],
                     'help'     => __( 'Upload or select the image to display in the right panel.', 'notificationx' ),
                 ],
@@ -1538,7 +1571,7 @@ JS;
                     'type'     => 'media',
                     'priority' => 5,
                     'default'  => [
-                        'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-two-five-seven.jpg',
+                        'url' => NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/exit-intend-theme-two-five-seven.jpg',
                     ],
                     'help'     => __( 'Upload or select the image to display in the left panel.', 'notificationx' ),
                 ],
@@ -1597,7 +1630,7 @@ JS;
                     'type'     => 'media',
                     'priority' => 5,
                     'default'  => [
-                        'url' => 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-theme-six.png',
+                        'url' => NOTIFICATIONX_PUBLIC_URL . 'image/exit-intent/exit-intend-theme-six.png',
                     ],
                     'help'     => __( 'Upload or select the product image to display at the top of the popup.', 'notificationx' ),
                 ],

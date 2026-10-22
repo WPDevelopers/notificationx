@@ -191,12 +191,11 @@ class PluginInsights {
     /**
      * Record the user's explicit opt-in and (optionally) send the data to the
      * insights API immediately. Used by the onboarding Setup Wizard when the
-     * user proceeds past the Welcome step (which is the consent point).
+     * user clicks "Get My Recommendations" (its opt-in; "Skip" sends nothing).
      *
-     * Collection itself no longer depends on this call — see
-     * {@see self::is_tracking_allowed()}; this only stores the consent state
-     * (which suppresses the opt-in notice and enables the feedback form) and
-     * triggers an immediate send.
+     * Nothing is collected or sent before this call or the opt-in notice's
+     * "Allow" (WordPress.org Guideline 7, issue #184); see
+     * {@see self::is_tracking_allowed()}.
      *
      * @param bool $send Send the collected data right away.
      * @return bool|\WP_Error
@@ -248,17 +247,12 @@ class PluginInsights {
     /**
      * Is data collection allowed?
      *
-     * Since 3.3.0 collection is no longer gated behind the opt-in notice or
-     * the Setup Wizard: it is enabled from the backend for every install, so
-     * the payload is collected whether the user accepts, rejects, ignores or
-     * never opens the consent/onboarding flow. The only remaining hard stop is
-     * the programmatic opt-out exposed through the `options` constructor
-     * argument (see {@see self::has_user_opted_out()}).
-     *
-     * The deactivation feedback form follows this same gate, so it is
-     * available as soon as the plugin is activated. The user's explicit
-     * consent state is still recorded separately and is readable through
-     * {@see self::has_user_consented()}, but nothing is gated on it.
+     * Only after the user opted in: the opt-in notice's "Allow" or the Setup
+     * Wizard's "Get My Recommendations" (WordPress.org Guideline 7, issue
+     * #184). 3.3.0 – 3.3.4 collected from activation whatever the user chose;
+     * that is reverted. The scheduled send, the send on deactivation and the
+     * deactivation feedback form all follow this gate. The programmatic
+     * opt-out (the `options` constructor argument) still wins over consent.
      *
      * @since 1.0.0
      */
@@ -269,15 +263,14 @@ class PluginInsights {
             $this->set_is_tracking_allowed( false, $this->plugin_name );
             return false;
         }
-        return true;
+        return $this->has_user_consented();
     }
     /**
      * Has the user explicitly consented to tracking?
      *
-     * This is the legacy `wpins_allow_tracking` state, set when the user
-     * accepts the opt-in notice or proceeds past the Setup Wizard welcome
-     * step. It is recorded for reporting only: neither data collection nor the
-     * deactivation feedback form is gated on it any more.
+     * The `wpins_allow_tracking` state, set when the user accepts the opt-in
+     * notice or clicks "Get My Recommendations" in the Setup Wizard. Data
+     * collection is gated on it ({@see self::is_tracking_allowed()}).
      *
      * @since 3.3.0
      * @return bool
@@ -381,7 +374,6 @@ class PluginInsights {
             'wpins_version' => self::WPINS_VERSION,
             'php_version'   => phpversion(),
             'multisite'     => is_multisite(),
-            'file_location' => __FILE__,
         );
 
         // Collect the email if the correct option has been set
@@ -399,20 +391,18 @@ class PluginInsights {
         $body['server']           = isset( $_SERVER['SERVER_SOFTWARE'] ) ? sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) ) : '';
 
         /**
-         * Collect all active and inactive plugins
+         * Collect the active plugins, and only the number of inactive ones:
+         * a list of inactive plugins is an inventory for matching a site
+         * against known vulnerabilities (issue #184). No server file path
+         * (`file_location`) is sent either.
          */
         if ( ! function_exists( 'get_plugins' ) ) {
             include ABSPATH . '/wp-admin/includes/plugin.php';
         }
         $plugins        = array_keys( get_plugins() );
         $active_plugins = is_network_admin() ? array_keys( get_site_option( 'active_sitewide_plugins', array() ) ) : get_option( 'active_plugins', array() );
-        foreach ( $plugins as $key => $plugin ) {
-            if ( in_array( $plugin, $active_plugins ) ) {
-                unset( $plugins[ $key ] );
-            }
-        }
-        $body['active_plugins']   = $active_plugins;
-        $body['inactive_plugins'] = $plugins;
+        $body['active_plugins']         = $active_plugins;
+        $body['inactive_plugins_count'] = count( array_diff( $plugins, (array) $active_plugins ) );
 
         /**
          * Text Direction.
@@ -499,14 +489,8 @@ class PluginInsights {
          * Send Initial Data to API
          */
         if ( $site_id == false && $this->item_id !== false && $original_site_url === false ) {
-            if ( isset( $_SERVER['REMOTE_ADDR'] ) && ! empty( $_SERVER['REMOTE_ADDR'] && $_SERVER['REMOTE_ADDR'] != '127.0.0.1' ) ) {
-                $country_request = wp_remote_get( 'http://ip-api.com/json/' . sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) . '?fields=country' );
-                if ( ! is_wp_error( $country_request ) && $country_request['response']['code'] == 200 ) {
-                    $ip_data         = json_decode( $country_request['body'] );
-                    $body['country'] = isset( $ip_data->country ) ? $ip_data->country : 'NOT SET';
-                }
-            }
-
+            // The admin's IP is not sent to a geolocation service (issue #184);
+            // the insights server keeps the country 'NOT SET'.
             $body['plugin_slug'] = $this->plugin_name;
             $body['url']         = $site_url;
             $body['item_id']     = $this->item_id;
@@ -794,10 +778,8 @@ class PluginInsights {
      */
     public function deactivate_action_links( $links ) {
         /**
-         * The feedback form follows data collection, not the opt-in choice:
-         * collection is enabled from the backend on activation, so the form is
-         * available from that moment too. The programmatic opt-out is still a
-         * hard stop, because it turns collection off entirely.
+         * The feedback form is sent with the insights data on deactivation,
+         * so it is shown only to sites that opted in.
          */
         if ( ! $this->is_tracking_allowed() ) {
             return $links;

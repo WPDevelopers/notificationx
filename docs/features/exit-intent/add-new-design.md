@@ -13,8 +13,8 @@ This document is a step-by-step **how-to** for adding the next design (e.g. `the
 | 1 | Theme registry, content fields, design fields, customize fields | [includes/Extensions/ExitIntent/ExitIntentNotification.php](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php) |
 | 2 | Notification type registration (no change usually needed) | [includes/Types/ExitIntent.php](../../../includes/Types/ExitIntent.php) |
 | 3 | REST serializer (no change needed — generic) | [includes/FrontEnd/FrontEnd.php](../../../includes/FrontEnd/FrontEnd.php) |
-| 4 | React renderer — add a branch for the new theme | [nxdev/notificationx/frontend/core/ExitIntentPopup.tsx](../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx) |
-| 5 | Frontend stylesheet — add a per-theme block | [nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss](../../../nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss) |
+| 4 | React renderer — add a branch for the new theme. **A Pro theme goes in NotificationX Pro** (`nxdev/frontend-themes/exit-intent/`, through `nx_exit_intent_theme`) and in `NotificationX::PRO_RENDERED_THEMES`, never here (WordPress.org Guideline 5, issue #184) | [nxdev/notificationx/frontend/core/ExitIntentPopup.tsx](../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx) |
+| 5 | Frontend stylesheet — add a per-theme block (a Pro theme: NotificationX Pro `nxdev/scss/frontend/themes/_exit-intent.scss`) | [nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss](../../../nxdev/notificationx/frontend/scss/_themes/_exit-intent.scss) |
 | 6 | Admin theme picker preview PNG | [assets/admin/images/extensions/themes/exit-intent/](../../../assets/admin/images/extensions/themes/exit-intent/) |
 | 7 | Photo/image assets used by the theme (optional) | Hosted under `https://notificationx.com/wp-content/uploads/.../exit-intend-*.png` and referenced from the `defaults` array; bundled assets in `assets/common/exit-intend-popup/` are also supported |
 

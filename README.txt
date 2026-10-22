@@ -2,7 +2,7 @@
 Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, fuadragib, shahrear17
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, notification bar
-Requires at least: 5.0
+Requires at least: 5.3
 Tested up to: 7.1
 Requires PHP: 5.6
 Stable tag: 3.3.4
@@ -165,13 +165,37 @@ NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 6 
 
 == External services ==
 
-This plugin relies on one third-party service, and only for the optional **Country Targeting** feature:
+NotificationX connects to the services below only for the features named. Nothing is sent to WPDeveloper unless you opt in. The fonts and icons the notifications use (Open Sans, Font Awesome 4.7) and the admin fonts (DM Sans, Inter) are bundled with the plugin, so loading them contacts no third party.
 
-**ip-api.com (IP geolocation)** — When a notification is configured to target one or more specific countries, NotificationX needs to know the visitor's country. To resolve it, the visitor's IP address is sent to ip-api.com, which returns the corresponding country code. This request is made only when Country Targeting with a specific country is enabled for a notification; notifications without country targeting (or set to "All Countries") never trigger it. If your host or CDN already provides a geolocation header (for example Cloudflare's `CF-IPCountry`), that value is used and no request is sent to ip-api.com. The provider can also be changed or disabled entirely via the `nx_visitor_country_api` filter.
+**WPDeveloper usage insights (send.wpinsight.com)** — Only if you opt in, through "Allow" in the admin notice or "Get My Recommendations" in the Setup Wizard. Declining, or choosing "Skip" or "I'll do this Manually" in the Setup Wizard, sends nothing.
+
+- Data sent: your site URL and name; WordPress, PHP and server versions; language, charset, text direction and whether it is a multisite; your active plugins and theme, and how many plugins are inactive; the NotificationX version; a site ID the service assigns; how many notifications you have of each type and source; the email address of the admin who opted in; and, if you deactivate the plugin, the reason you choose in the feedback form.
+- When: once when you opt in, once a day after that, and once when the plugin is deactivated.
+- Service provided by WPDeveloper. Terms: https://wpdeveloper.com/terms-and-conditions/ — Privacy policy: https://wpdeveloper.com/privacy-policy/
+
+**country.is (IP geolocation)** — Used only by the Country Targeting option. To show a notification to visitors from specific countries, NotificationX needs the visitor's country. If your host or CDN already sends it in a header (for example Cloudflare's `CF-IPCountry`), that is used and nothing is sent. Otherwise the visitor's IP address is sent over HTTPS to api.country.is, which returns the country code; the result is cached for 12 hours. Notifications without country targeting (or set to "All Countries") never trigger it. The provider can be changed or disabled with the `nx_visitor_country_api` filter.
 
 - Data sent: the visitor's IP address.
-- When: on front-end page views, only while a country-targeted notification is active.
-- Service provided by ip-api.com. Terms of use: https://ip-api.com/docs/legal — Privacy policy: https://ip-api.com/docs/legal
+- When: on front-end page views, only while a country-targeted notification is active and the country is not cached.
+- Service provided by country.is (open source, https://github.com/lineofflight/country). It states that it keeps no request logs. Terms and privacy: https://country.is/
+
+**NotificationX Cookie Scanner (api.notificationx.com)** — Used only when an administrator starts a cookie scan in a GDPR notification's settings, to list the cookies the site sets.
+
+- Data sent: the URL of your site (and whether NotificationX Pro is active). The service then loads your site's public pages to find their cookies.
+- When: only when an administrator starts a scan.
+- Service provided by WPDeveloper. Terms: https://wpdeveloper.com/terms-and-conditions/ — Privacy policy: https://notificationx.com/privacy-policy/
+
+**WordPress.org Plugin and Theme API (api.wordpress.org)** — Used only by the "WordPress" review and download-count sources, to read the reviews, ratings and download numbers of the plugin or theme you enter.
+
+- Data sent: the plugin or theme slug you entered, and the standard WordPress request headers (including your site URL).
+- When: when such a notification is saved, and when its data is refreshed.
+- Service provided by WordPress.org. Privacy policy: https://wordpress.org/about/privacy/
+
+== Source code ==
+
+The JavaScript and CSS in this plugin are built from human-readable source code, which is not included in the plugin zip. It is public at https://github.com/WPDevelopers/notificationx (React/TypeScript in `nxdev/`, the Gutenberg block in `blocks/`).
+
+To build it: install Node.js (version in `.nvmrc`) and Composer, then run `composer install`, `npm install` and `npm run release` in the plugin folder.
 
 == Installation ==
 
