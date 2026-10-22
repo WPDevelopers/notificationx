@@ -536,10 +536,6 @@ body.nx-setup-wizard-active {
     }
 
     // Tracking consent notice: legible, because it is the basis of consent.
-    &__welcome-consent {
-        position: relative;
-    }
-
     &__welcome-fineprint {
         margin: 16px 0 0;
         font-size: 12px;
@@ -562,41 +558,134 @@ body.nx-setup-wizard-active {
         cursor: pointer;
     }
 
-    // Popover above the buttons (anchored to __welcome-consent): it overlays the
-    // card instead of growing it, and never covers the buttons.
-    &__collect-details {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: calc(100% + 10px);
-        z-index: 5;
-        padding: 14px 16px;
-        border: 1px solid rgba(91, 75, 232, 0.12);
-        border-radius: 10px;
+    // "What we collect" modal over the wizard.
+    &__collect-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 100000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(11, 28, 48, 0.45);
+        animation: nx-sw-collect-fade 0.15s ease-out;
+    }
+
+    &__collect-modal {
+        position: relative;
+        width: 100%;
+        max-width: 440px;
+        max-height: calc(100vh - 48px);
+        overflow-y: auto;
+        padding: 28px 28px 24px;
+        border-radius: 16px;
         background: #fff;
-        box-shadow: 0 12px 32px rgba(19, 27, 46, 0.16);
-        font-size: 12px;
+        box-shadow: 0 24px 60px rgba(11, 28, 48, 0.25);
+        text-align: left;
+        animation: nx-sw-collect-pop 0.18s ease-out;
+
+        h3 {
+            margin: 14px 0 4px;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.3;
+            color: $sw-ink;
+        }
+    }
+
+    &__collect-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        border: none;
+        border-radius: 50%;
+        background: transparent;
+        color: #6b7280;
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+            background: #f3f4f6;
+            color: $sw-ink;
+        }
+    }
+
+    &__collect-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: rgba(81, 41, 230, 0.1);
+        color: $sw-brand;
+
+        svg {
+            width: 22px;
+            height: 22px;
+        }
+    }
+
+    &__collect-intro {
+        margin: 0;
+        font-size: 13px;
         line-height: 1.5;
-        color: rgba(71, 69, 86, 0.9);
+        color: rgba(71, 69, 86, 0.85);
+    }
 
-        p {
-            margin: 0 0 6px;
-        }
-
-        ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
+    &__collect-list {
+        margin: 18px 0 0;
+        padding: 0;
+        list-style: none;
 
         li {
-            margin: 4px 0 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 0;
+            padding: 12px 0;
+            border-top: 1px solid #eef0f4;
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: rgba(71, 69, 86, 0.9);
         }
 
         strong {
+            display: block;
+            margin-bottom: 2px;
+            font-size: 13px;
             font-weight: 600;
-            color: #1d1b2c;
+            color: $sw-ink;
         }
+
+        .is-never .nx-sw__collect-icon {
+            background: #e8f7ef;
+            color: #0f9d47;
+        }
+    }
+
+    &__collect-icon {
+        flex: 0 0 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: rgba(81, 41, 230, 0.08);
+        color: $sw-brand;
+    }
+
+    &__collect-ok {
+        width: 100%;
+        margin-top: 8px;
+        justify-content: center;
     }
 
     // ---- Right illustration / live-preview panel ----------------------
@@ -2523,4 +2612,14 @@ body.nx-setup-wizard-active {
         opacity: 0;
         transform: scale(0.82);
     }
+}
+
+@keyframes nx-sw-collect-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes nx-sw-collect-pop {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to { opacity: 1; transform: none; }
 }
