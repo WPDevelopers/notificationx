@@ -1,10 +1,13 @@
 import React from "react";
 import { Branding as NXSvg, ThemeFiveShape } from ".";
 import Star from "../../../icons/Star";
-import { nxApplyFilters } from "../../core/hooks";
+import { nxApplyFilters, nxApplyListFilter } from "../../core/hooks";
 
 const Content = (props) => {
     const { config } = props;
+    // Extra content classes from add-ons (filter `nx_frontend_content_classes`),
+    // e.g. NotificationX Pro's progressive reveal.
+    const contentClasses = nxApplyListFilter('nx_frontend_content_classes', [], config).filter(Boolean);
     let rowClasses = ["nx-first-row", "nx-second-row", "nx-third-row"];
     let themeFiveShapeStyle = {};
     if (props.style) {
@@ -71,7 +74,7 @@ const Content = (props) => {
     return (
         <div
             className={`notificationx-content ${config.template_adv ? "adv-template" : ""
-                }`}
+                }${contentClasses.length ? ` ${contentClasses.join(" ")}` : ""}`}
             style={props.style}
         >
             {(props.themes == "theme-five" || (props?.isSplit && props?.splitThemes?.includes('res-theme-three'))) && (

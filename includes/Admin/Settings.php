@@ -225,6 +225,14 @@ class Settings extends UsabilityDynamicsSettings {
                                     'default' => 100,
                                     'priority' => 25,
                                 ],
+                                'corner_spacing_v2' => [
+                                    'name'        => "corner_spacing_v2",
+                                    'type'        => 'checkbox',
+                                    'label'       => __('Use new corner spacing', 'notificationx'),
+                                    'default'     => false,
+                                    'priority'    => 30,
+                                    'description' => __( 'Place corner notifications the same distance from both screen edges: 20px on desktop, 12px on phones. Turn off to keep the previous spacing.', 'notificationx' ),
+                                ],
                             ),
                         ],
                         'powered_by'      => [

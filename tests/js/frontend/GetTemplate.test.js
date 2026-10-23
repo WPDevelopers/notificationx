@@ -75,3 +75,21 @@ describe( 'GetTemplate / nx_frontend_template', () => {
 		] );
 	} );
 } );
+
+describe( 'GetTemplate / nx_frontend_template_params', () => {
+	const sales = { themes: 'woocommerce_sales_theme-one', source: 'woocommerce_sales', 'notification-template': template };
+
+	it( 'builds the rows from the params an add-on returns', () => {
+		const plain = GetTemplate( sales ).join( '' );
+		installHooks().addFilter( 'nx_frontend_template_params', 'test', ( params ) => ( { ...params, second_param: '<span>Changed</span>' } ) );
+		const rows = GetTemplate( sales ).join( '' );
+		expect( rows ).toContain( 'Changed' );
+		expect( rows ).not.toBe( plain );
+	} );
+
+	it.each( [ null, 'x', [ 'a' ] ] )( 'ignores a filter that returns %p', ( value ) => {
+		const plain = GetTemplate( sales );
+		installHooks().addFilter( 'nx_frontend_template_params', 'test', () => value );
+		expect( GetTemplate( sales ) ).toEqual( plain );
+	} );
+} );
