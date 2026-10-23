@@ -2452,7 +2452,7 @@ class GlobalFields {
      *
      * Without Pro the options stay listed, locked like the other Pro options.
      *
-     * @since 3.3.5
+     * @since 3.3.6
      * @return bool
      */
     public static function pro_renders_motion_options() {
@@ -2464,7 +2464,7 @@ class GlobalFields {
      * Removes the motion options an older NotificationX Pro can't render, so
      * they can't be picked and then do nothing.
      *
-     * @since 3.3.5
+     * @since 3.3.6
      * @param array $fields Builder tabs or a part of them.
      * @return array
      */
