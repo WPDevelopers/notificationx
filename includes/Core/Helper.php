@@ -474,7 +474,7 @@ class Helper {
             'httpversion' => '1.1',
             'user-agent'  => 'NotificationX/' . NOTIFICATIONX_VERSION . '; ' . home_url(),
             'body'        => null,
-            'sslverify'   => false,
+            'sslverify'   => true,
             'stream'      => false,
             'filename'    => null
         );
@@ -1117,8 +1117,8 @@ class Helper {
         // unknown country as "don't filter" (fail-open), so country-targeted
         // notifications still show during local testing instead of silently
         // disappearing. Bailing here also avoids requesting
-        // http://ip-api.com/json/?fields=countryCode with an empty IP, which would
-        // resolve to the SERVER's country and cache nothing.
+        // https://api.country.is/ with an empty IP, which would resolve to the
+        // SERVER's country and cache nothing.
         if ($ip === '' || $ip === '127.0.0.1' || $ip === '::1') {
             return apply_filters('nx_visitor_country_code', '', $ip);
         }
@@ -1147,7 +1147,7 @@ class Helper {
         // persistent object cache (Redis/Memcached) when one is available — so those
         // sites add zero wp_options rows — and transparently falls back to the options
         // table otherwise, so the country stays cached across requests on plain sites
-        // too (which is what keeps us under ip-api's 45 req/min limit). A cached empty
+        // too (which keeps us under the API's rate limit). A cached empty
         // string is a remembered "lookup failed" marker, distinct from a miss (false).
         $cache_key = 'nx_geo_' . md5($ip);
         $cached    = get_transient($cache_key);
@@ -1157,19 +1157,26 @@ class Helper {
         }
 
         $country      = '';
-        $api_endpoint = apply_filters('nx_visitor_country_api', "http://ip-api.com/json/{$ip}?fields=countryCode", $ip);
+        // country.is over HTTPS (free, no key, no request logs). Before 3.3.5 this
+        // was ip-api.com over plain HTTP: its free tier has no HTTPS (issue #184).
+        $api_endpoint = apply_filters('nx_visitor_country_api', 'https://api.country.is/' . rawurlencode($ip), $ip);
         $response     = wp_remote_get($api_endpoint, ['timeout' => 3]);
 
         if (!is_wp_error($response) && (int) wp_remote_retrieve_response_code($response) === 200) {
             $data = json_decode(wp_remote_retrieve_body($response), true);
-            if (isset($data['countryCode']) && $data['countryCode'] !== '') {
-                $country = $data['countryCode'];
+            // `country` is country.is; `countryCode` keeps an ip-api.com URL set
+            // through the nx_visitor_country_api filter working.
+            foreach (['country', 'countryCode'] as $field) {
+                if (isset($data[$field]) && is_string($data[$field]) && preg_match('/^[A-Za-z]{2}$/', $data[$field])) {
+                    $country = strtoupper($data[$field]);
+                    break;
+                }
             }
         }
 
         // Cache successes for the full TTL; negative-cache failures for a short window
-        // so a rate-limit/timeout (ip-api's free tier is ~45 req/min keyed by the
-        // SERVER IP, shared across all visitors) doesn't re-hit the API on every
+        // so a rate-limit/timeout (keyed by the SERVER IP, shared across all
+        // visitors) doesn't re-hit the API on every
         // subsequent page load while it recovers.
         $ttl = '' !== $country
             ? (int) apply_filters('nx_visitor_country_cache_ttl', 12 * HOUR_IN_SECONDS)

@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode, useEffect } from "react";
+import React, { CSSProperties, ReactNode } from "react";
 import useNotificationContext from "./NotificationProvider";
 import nxHelper, { handleCloseNotification } from "./functions";
 import { getIconUrl } from "../../shared/helpers";
@@ -149,33 +149,6 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
             break;
     }
 
-    // The YouTube subscribe widget (.g-ytsubscribe) is the only thing that
-    // needs Google's platform.js. Press bars return early below and never
-    // render it.
-    const showYtSubscribe = !!(
-        config.source !== 'press_bar' &&
-        data?.id &&
-        config?.nx_subscribe_button_type === 'yt_default' &&
-        show_default_subscribe &&
-        config.link_button
-    );
-
-    // Add platform.js on mount and remove it on unmount, as before, but only
-    // for notifications that render the widget. Re-adding the script on each
-    // mount makes it scan the page again and render the newly mounted widget,
-    // so keep this add/remove pattern rather than loading the script once.
-    useEffect(() => {
-        if (!showYtSubscribe) {
-            return;
-        }
-        const script = document.createElement('script');
-        script.src = 'https://apis.google.com/js/platform.js';
-        script.async = true;
-        document.body.appendChild(script);
-        return () => {
-          script.parentNode?.removeChild(script);
-        };
-    }, [showYtSubscribe]);
     const iconUrl = getIconUrl(config.button_icon);
 
     // a11y: guarantee the link has a discernible accessible name.
@@ -222,18 +195,19 @@ const Analytics = ({config, children = null, href = null, data = {}, dispatch = 
         );
     }
 
+    // Add-ons can replace the link with their own widget (Pro: the YouTube
+    // subscribe button, which loads Google's platform.js). Free has no
+    // built-in widget (issue #184).
+    const linkWidget = nxApplyFilters('nx_frontend_link_widget', undefined, {
+        config,
+        data,
+        styles,
+        show_default_subscribe,
+    });
+
     return (
         <>
-           { showYtSubscribe ?
-            <div className="yt-notificationx-link" >
-                <div
-                    style={styles}
-                    className="g-ytsubscribe"
-                    data-channelid={ data.id }
-                    data-layout="default"
-                    data-count="default">
-                </div>
-            </div> : (link && ( config.link_type !== 'none' ) ) &&
+           { (linkWidget !== undefined && linkWidget !== null) ? linkWidget : (link && ( config.link_type !== 'none' ) ) &&
             <div  className="notificationx-link-wrapper">
                 <a
                     href={ link }

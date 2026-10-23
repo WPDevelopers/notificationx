@@ -2,10 +2,10 @@
 Contributors: Asif2BD, priyomukul, wpdevteam, re_enter_rupok, alimuzzamanalim, fuadragib, shahrear17
 Donate link: https://notificationx.com
 Tags: sales notification, fomo, social proof, woocommerce sales, notification bar
-Requires at least: 5.0
+Requires at least: 5.3
 Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 3.3.4
+Stable tag: 3.3.5
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -163,15 +163,21 @@ NotificationX is backed by WPDeveloper, a dedicated team trusted by more than 6 
 
 📚 [BetterDocs](https://wordpress.org/plugins/betterdocs/): Best Documentation & Knowledge Base Plugin for WordPress to reduce manual support tickets & improve user experience.
 
-== External services ==
+### Acknowledgements ###
 
-This plugin relies on one third-party service, and only for the optional **Country Targeting** feature:
+This plugin relies on third-party services only for the following optional features:
 
-**ip-api.com (IP geolocation)** — When a notification is configured to target one or more specific countries, NotificationX needs to know the visitor's country. To resolve it, the visitor's IP address is sent to ip-api.com, which returns the corresponding country code. This request is made only when Country Targeting with a specific country is enabled for a notification; notifications without country targeting (or set to "All Countries") never trigger it. If your host or CDN already provides a geolocation header (for example Cloudflare's `CF-IPCountry`), that value is used and no request is sent to ip-api.com. The provider can also be changed or disabled entirely via the `nx_visitor_country_api` filter.
+– [country.is](https://country.is/): Used for Country Targeting.
 
-- Data sent: the visitor's IP address.
-- When: on front-end page views, only while a country-targeted notification is active.
-- Service provided by ip-api.com. Terms of use: https://ip-api.com/docs/legal — Privacy policy: https://ip-api.com/docs/legal
+– [api.wordpress.org](https://wordpress.org/about/privacy/): Used for WordPress Reviews and Download Stats sources.
+
+– [fonts.googleapis.com](https://policies.google.com/privacy): Used for rendering fonts.
+
+== Source code ==
+
+The JavaScript and CSS in this plugin are built from human-readable source code, which is not included in the plugin zip. It is public at https://github.com/WPDevelopers/notificationx (React/TypeScript in `nxdev/`, the Gutenberg block in `blocks/`).
+
+To build it: install Node.js (version in `.nvmrc`) and Composer, then run `composer install`, `npm install` and `npm run release` in the plugin folder.
 
 == Installation ==
 
@@ -220,6 +226,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 3.3.5 - 22/10/2026 =
+Improved: MCP connected apps experience.
+Improved: Security enhancement.
+Fixed: Countdown expiry message display issues.
+Few minor bug fixes and improvements.
 
 = 3.3.4 - 14/10/2026 =
 Improved: Notification editing experience.

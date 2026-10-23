@@ -356,9 +356,18 @@ class Blocks {
         $wrapper_attrs .= ' data-countdown-type="' . esc_attr( $a['countdownType'] ) . '"';
         $wrapper_attrs .= ' data-expire-type="' . esc_attr( $a['expireType'] ) . '"';
 
+        // The expiry message is rendered server-side into an inert <template> that
+        // frontend.js clones on expiry. Never pass it through a data attribute:
+        // the browser decodes attribute entities, so kses-clean "&lt;img onerror&gt;"
+        // would turn into live markup once the script wrote it to innerHTML.
+        $expiry_html = '';
         if ( 'text' === $a['expireType'] ) {
-            $wrapper_attrs .= ' data-expiry-title="' . esc_attr( wp_kses_post( $a['expiryTitle'] ) ) . '"';
-            $wrapper_attrs .= ' data-expiry-text="' . esc_attr( wp_kses_post( $a['expiryText'] ) ) . '"';
+            $expiry_html = '<template class="nx-countdown-expiry">'
+                . '<div class="nx-countdown-finish-message">'
+                . '<h4 class="nx-expiry-title">' . wp_kses_post( $a['expiryTitle'] ) . '</h4>'
+                . '<div class="nx-expiry-text">' . wp_kses_post( $a['expiryText'] ) . '</div>'
+                . '</div>'
+                . '</template>';
         } elseif ( 'url' === $a['expireType'] ) {
             $wrapper_attrs .= ' data-redirect-url="' . esc_url( $a['redirectUrl'] ) . '"';
         }
@@ -405,7 +414,9 @@ class Blocks {
         $html .= '<div class="' . esc_attr( $block_id ) . ' nx-countdown-wrapper"' . $wrapper_attrs . '>';
         $html .= '<ul id="nx-countdown-' . esc_attr( $block_id ) . '" class="' . esc_attr( $list_classes ) . '" data-date="' . esc_attr( $due_date_str ) . '">';
         $html .= $items_html;
-        $html .= '</ul></div>';
+        $html .= '</ul>';
+        $html .= $expiry_html;
+        $html .= '</div>';
 
         return $html;
     }

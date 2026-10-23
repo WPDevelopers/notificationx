@@ -105,7 +105,10 @@ class PostType {
             true
         );
         wp_localize_script( 'notificationx-admin', 'notificationxTabs', $tabs );
-        wp_enqueue_style( 'notificationx-admin', Helper::file( 'admin/css/admin.css', true ), [], $d['version'], 'all' );
+        // DM Sans and Inter for the admin UI, bundled instead of loaded from
+        // Google Fonts (WordPress.org Guideline 8, issue #184).
+        wp_enqueue_style( 'notificationx-admin-fonts', NOTIFICATIONX_ASSETS . 'admin/vendor/fonts/admin-fonts.css', [], NOTIFICATIONX_VERSION );
+        wp_enqueue_style( 'notificationx-admin', Helper::file( 'admin/css/admin.css', true ), [ 'notificationx-admin-fonts' ], $d['version'], 'all' );
         // admin.css bundles the frontend themes for the builder preview; their
         // fonts and icons are no longer @imported by the CSS.
         FrontEnd::get_instance()->enqueue_external_styles();

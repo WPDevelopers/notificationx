@@ -113,6 +113,8 @@ class Pairing {
         $state['connected']    = true;
         $state['connected_at'] = time();
         $state['user_id']      = get_current_user_id();
+        // A new token has not been used by any client yet.
+        $state['last_used']    = 0;
         if ( empty( $state['scopes'] ) ) {
             $state['scopes'] = array( 'read', 'write' );
         }
