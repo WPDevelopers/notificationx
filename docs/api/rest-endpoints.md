@@ -56,7 +56,7 @@ All routes below are under `/notificationx/v1` unless noted. Permission column n
 | POST | `/notification/(?P<id>\d+)` | `__return_true` (validates `api_key`) | Receive an integration webhook (`nx_api_response_success[_{source}]`). |
 | GET/POST | `notificationx/notification/(?P<id>\d+)` | `__return_true` | Legacy un-versioned Zapier fallback (same handlers). |
 
-`api_key` must equal the site's random integration key (`Integration::get_api_key()`, option `nx_integration_api_key`, shown in the Zapier / IFTTT settings) — this is how webhook sources (Zapier and similar) authenticate without a WP login. The old `md5(home_url())` key is accepted only for 14 days after the upgrade that introduced the random key, and only on sites that had Zapier / IFTTT notifications then (`Integration::maybe_seed_from_upgrade()`); every accepted legacy request is recorded in `nx_integration_legacy_key_last_used_at` and shown in an admin notice.
+`api_key` must equal the site's random integration key (`Integration::get_api_key()`, option `nx_integration_api_key`, shown in the Zapier / IFTTT settings) — this is how webhook sources (Zapier and similar) authenticate without a WP login. The old `md5(home_url())` key is accepted only for 14 days after the upgrade that introduced the random key, and only on sites that had Zapier / IFTTT notifications then (`Integration::maybe_seed_from_upgrade()`); a window opened by an earlier version is closed on the next update; every accepted legacy request is recorded in `nx_integration_legacy_key_last_used_at` and shown in an admin notice.
 
 ### Entries — `includes/Core/Rest/Entries.php`
 

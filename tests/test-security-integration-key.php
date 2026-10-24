@@ -28,6 +28,7 @@ class Test_Security_Integration_Key extends WP_UnitTestCase {
 		delete_option( Integration::OPT_GRACE_STARTED_AT );
 		delete_option( Integration::OPT_LEGACY_KEY_LAST_USED );
 		delete_option( Integration::OPT_SEEDED_VERSION );
+		delete_option( Integration::OPT_GRACE_FIRST_SEED );
 	}
 
 	protected function legacy_key() {
@@ -90,18 +91,36 @@ class Test_Security_Integration_Key extends WP_UnitTestCase {
 		$this->assertEmpty( get_option( Integration::OPT_LEGACY_KEY_LAST_USED ) );
 	}
 
-	public function test_open_grace_window_survives_later_updates() {
-		// A legacy site in its grace window updates again: the window is kept.
+	public function test_window_opened_by_this_version_survives_later_updates() {
+		// A legacy site upgrades: the window opens and is marked as opened here.
 		$this->create_zapier_notification();
-		update_option( Integration::OPT_SEEDED_VERSION, '3.3.4', false );
-		Integration::get_api_key();
-		$started = time() - 3 * DAY_IN_SECONDS;
-		update_option( Integration::OPT_GRACE_STARTED_AT, $started, false );
+		Integration::maybe_seed_from_upgrade();
+		$started = (int) get_option( Integration::OPT_GRACE_STARTED_AT );
+		$this->assertNotEmpty( $started );
+		$this->assertNotEmpty( get_option( Integration::OPT_GRACE_FIRST_SEED ) );
 
+		// It updates again within the window: the window is kept.
+		update_option( Integration::OPT_SEEDED_VERSION, '0.0.1', false );
 		Integration::maybe_seed_from_upgrade();
 
 		$this->assertSame( $started, (int) get_option( Integration::OPT_GRACE_STARTED_AT ) );
 		$this->assertTrue( Integration::is_valid_api_key( $this->legacy_key() ) );
+	}
+
+	public function test_window_opened_by_an_earlier_version_is_closed_on_update() {
+		// An earlier version opened a window (no first-seed mark), possibly on a site
+		// that already had the random key. The next update closes it.
+		$this->create_zapier_notification();
+		update_option( Integration::OPT_SEEDED_VERSION, '3.3.4', false );
+		$key = Integration::get_api_key();
+		update_option( Integration::OPT_GRACE_STARTED_AT, time() - 3 * DAY_IN_SECONDS, false );
+		$this->assertTrue( Integration::is_valid_api_key( $this->legacy_key() ) );
+
+		Integration::maybe_seed_from_upgrade();
+
+		$this->assertEmpty( get_option( Integration::OPT_GRACE_STARTED_AT ) );
+		$this->assertFalse( Integration::is_valid_api_key( $this->legacy_key() ) );
+		$this->assertTrue( Integration::is_valid_api_key( $key ) );
 	}
 
 	public function test_expired_grace_window_rejects_legacy_key() {
