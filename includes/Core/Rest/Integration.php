@@ -347,7 +347,8 @@ class Integration {
             } );
             if (isset($response_data['data']['id'])){
                 $post = PostType::get_instance()->get_post($response_data['data']['id']);
-                if($post['source']){
+                // get_post() returns null for an unknown id; the generic action below still fires.
+                if( ! empty( $post['source'] ) ){
                     // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     do_action( "nx_api_response_success_{$post['source']}", $response_data['data'] );
                 }
