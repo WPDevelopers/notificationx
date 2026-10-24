@@ -172,22 +172,28 @@ class Integration {
 
     /**
      * Runs once per plugin version at bootstrap. Ensures the API key exists and opens the
-     * legacy-key grace window ONLY when the site actually had legacy integrations configured
-     * before the upgrade — never on a fresh install and never on customer sites that never
-     * used Zapier/IFTTT. Gated by a version marker so it does not retrigger.
+     * legacy-key grace window ONLY on the upgrade that introduces the random key, and only
+     * when the site had legacy integrations configured — never on a fresh install, never on
+     * customer sites that never used Zapier/IFTTT, and never on a later update of a site that
+     * already had the random key (a Zapier/IFTTT notification created after that was set up
+     * with the random key, so the legacy key must not start working). Gated by a version
+     * marker so it does not retrigger.
      */
     public static function maybe_seed_from_upgrade() {
         $seeded = get_option( self::OPT_SEEDED_VERSION );
         if ( $seeded === NOTIFICATIONX_VERSION ) {
             return;
         }
+        // First seeding on this site: no seed marker and no random key yet, so any
+        // Zapier/IFTTT integration was configured with the legacy key.
+        $first_seed = false === $seeded && '' === (string) get_option( self::OPT_API_KEY );
         update_option( self::OPT_SEEDED_VERSION, NOTIFICATIONX_VERSION, false );
 
         // Ensure the new key exists (idempotent — no grace side effect).
         self::get_api_key();
 
-        // Open the grace window only for sites that had legacy integrations.
-        if ( ! get_option( self::OPT_GRACE_STARTED_AT ) && self::has_legacy_integrations() ) {
+        // Open the grace window only for sites that had legacy integrations before the key existed.
+        if ( $first_seed && ! get_option( self::OPT_GRACE_STARTED_AT ) && self::has_legacy_integrations() ) {
             update_option( self::OPT_GRACE_STARTED_AT, time(), false );
         }
     }
