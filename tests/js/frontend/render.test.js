@@ -93,6 +93,40 @@ describe( 'Theme hooks', () => {
 	} );
 } );
 
+describe( 'Theme / {{city_country}} escaping', () => {
+	const config = { nx_id: 1, themes: 'conversions_conv-theme-fifteen', source: 'woocommerce', template: [ '{{city_country}}' ] };
+	const payload = '<img src=x onerror="window.__nxCityXss=1">';
+
+	afterEach( () => {
+		delete window.__nxCityXss;
+	} );
+
+	it( 'renders a markup city and country as text', () => {
+		render( <Theme config={ config } data={ entry( { city: payload, country: '<b>BD</b>' } ) } /> );
+		expect( container.querySelector( '.notificationx-content img' ) ).toBeNull();
+		expect( container.querySelector( '.notificationx-content b' ) ).toBeNull();
+		expect( container.textContent ).toContain( `${ payload }, <b>BD</b>` );
+		expect( window.__nxCityXss ).toBeUndefined();
+	} );
+
+	it( 'renders a markup composed city_country as text', () => {
+		render( <Theme config={ config } data={ entry( { city_country: payload } ) } /> );
+		expect( container.querySelector( '.notificationx-content img' ) ).toBeNull();
+		expect( container.textContent ).toContain( payload );
+	} );
+
+	it( 'keeps a pre-escaped value as text instead of decoding it', () => {
+		render( <Theme config={ config } data={ entry( { city: '&lt;img src=x&gt;' } ) } /> );
+		expect( container.querySelector( '.notificationx-content img' ) ).toBeNull();
+		expect( container.textContent ).toContain( '<img src=x>' );
+	} );
+
+	it( 'still joins plain city and country with a comma', () => {
+		render( <Theme config={ config } data={ entry( { city: 'Dhaka', country: 'Bangladesh' } ) } /> );
+		expect( container.textContent ).toContain( 'Dhaka, Bangladesh' );
+	} );
+} );
+
 describe( 'Content / nx_content_append', () => {
 	const props = () => ( { config: announcementConfig( 'announcements_theme-14' ), data: entry(), template: [ 'Row' ] } );
 
