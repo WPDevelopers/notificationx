@@ -204,6 +204,20 @@ class WooCommerceSales extends Types {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
                 'image_shape' => 'rounded',
             ),
+            // "Verified card" (vc) themes, same entries and END position as in
+            // includes/Types/Conversions.php. Full keys: GlobalFields::vc_theme_keys().
+            'vc-receipt' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-receipt.png',
+                'image_shape' => 'rounded',
+                'template'    => $common_fields,
+            ),
+            'vc-showcase' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-showcase.png',
+                'image_shape' => 'rounded',
+                'template'    => array_merge( $common_fields, [
+                    'second_param' => __( 'Just purchased', 'notificationx' ),
+                ] ),
+            ),
         ];
         $this->res_themes = [
             'res-theme-one'   => [
@@ -282,6 +296,8 @@ class WooCommerceSales extends Types {
                     'woocommerce_sales_conv-theme-twelve',
                     'woocommerce_sales_conv-theme-thirteen',
                     'woocommerce_sales_conv-theme-fifteen',
+                    'woocommerce_sales_vc-receipt',
+                    'woocommerce_sales_vc-showcase',
                 ]
             ],
             'woo_template_sales_count' => [

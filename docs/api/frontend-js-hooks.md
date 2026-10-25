@@ -47,6 +47,20 @@ Filters live on the global WordPress registry, `window.wp.hooks`. Register them 
 
 `nx_frontend_template` also runs in the admin builder, because the admin bundle imports `GetTemplate` for the `nx_adv_template_default` filter ([AddEditNx/index.ts](../../nxdev/notificationx/admin/AddEditNx/index.ts)). An add-on must register that filter in the admin builder as well as on the frontend.
 
+### Verified Cards (`vc-*`)
+
+The Verified Card themes (`conversions_vc-receipt`, `woocommerce_sales_vc-receipt`, `conversions_vc-showcase`, `woocommerce_sales_vc-showcase`) render through their own card, [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx), on desktop, tablet and the slim phone layout. That card replaces the generic Image/Content/Close markup, so for these keys:
+
+- `nx_theme_before_content`, `nx_theme_after_content` and `nx_content_append` **do not run**. NotificationX Pro uses them only for its Discount Alert (`announcements_*`) themes ([register.tsx](../../../notificationx-pro/nxdev/frontend-themes/register.tsx)); a third-party add-on that relies on them does not reach vc cards.
+- `nx_frontend_image` still runs: the card renders the image through `Image`.
+- `nx_frontend_template` runs before the vc case. For a vc key, `GetTemplate` returns **slots** (a fixed-length array the card reads by index), not display rows; see [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-). An add-on should not claim vc keys, or must return the same slot shape.
+- `nx_frontend_time_is_countdown` runs as for every theme (the `{{time}}` substitution in Theme.tsx).
+- NotificationX Pro's mobile card (`nx_frontend_mobile_notification`) renders Theme with `is_mobile`; vc keys then take the generic path with compact rows, so the content hooks above run there as before.
+
+The vc option C line scroll ([useVcLineScroll.ts](../../nxdev/notificationx/frontend/themes/vc/useVcLineScroll.ts)) uses no hooks and imports only React. [tests/js/frontend-no-wp-hooks.test.js](../../tests/js/frontend-no-wp-hooks.test.js) fails if any file reachable from the frontend entries imports `@wordpress/hooks`.
+
+The admin `nx_adv_template_default` callback in [AddEditNx/index.ts](../../nxdev/notificationx/admin/AddEditNx/index.ts) returns compact rows for vc keys (`vcCompactRows(getThemeName(v), GetTemplate(v))`) and `GetTemplate(v)` for every other key.
+
 ## `window.nxFrontendRuntime`
 
 The frontend bundle contains its own copy of React. A component from another bundle that uses React hooks (`useState`, `useContext`, `lazy`/`Suspense`) must use the same copy, or React throws "Invalid hook call". [core/runtime.ts](../../nxdev/notificationx/frontend/core/runtime.ts) exposes that copy. [index.tsx](../../nxdev/notificationx/frontend/index.tsx) creates the object when the bundle loads, before `domReady` renders anything.

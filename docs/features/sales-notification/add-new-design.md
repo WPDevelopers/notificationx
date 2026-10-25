@@ -31,6 +31,8 @@ The examples below use a `conv-theme-twelve` placeholder for readability; bump t
 - The theme-picker UI / `TypesFactory` / `ExtensionFactory` — the picker is auto-generated from the registry arrays.
 - [nxdev/notificationx/frontend/themes/helpers/Content.tsx](../../../nxdev/notificationx/frontend/themes/helpers/Content.tsx) — the generic 3-row renderer (see [§3](#3-how-rendering-actually-works)).
 
+> **Verified Cards (`vc-*`) are different.** They render through their own React card ([themes/vc/VerifiedCard.tsx](../../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx)), not through `Content.tsx`, and their `GetTemplate` cases return *slots*, not rows. See [§8](#8-verified-cards-vc-).
+
 ---
 
 ## 2. Naming Conventions
@@ -268,3 +270,64 @@ Two PHP registries (kept identical) → one content `case` → one SCSS partial 
 - [ ] If split: image side is not recolored by the advanced-edit background color.
 - [ ] If Pro-gated: the card shows the Pro lock on a free build.
 - [ ] Responsive variant (if added) renders on mobile widths.
+
+---
+
+## 8. Verified Cards (`vc-*`)
+
+The Verified Cards ("vc", issue 84707) are a theme family that does **not** use the generic renderer from [§3](#3-how-rendering-actually-works). Each vc theme has its own React layout, a slim two-line phone card, and the credit "✓ Verified by [bell] NotificationX". Part 1 ships **Receipt** and **Showcase**. Thread, Scorecard and Counter (Part 2) are not built yet: their keys are not whitelisted, so a vc key without JS takes the generic path.
+
+### Keys and slots
+
+| Theme | Full keys | Slots returned by `GetTemplate` |
+|---|---|---|
+| Receipt | `conversions_vc-receipt`, `woocommerce_sales_vc-receipt` | `[0]` `first_param` (name) · `[1]` `second_param` (action) · `[2]` `third_param` (product) · `[3]` `fourth_param` (time) · `[4]` Freemius plan and price: `` `${freemius_fifth_param} ${freemius_seventh_param}` `` when `source === 'freemius_conversions'`, otherwise `'<span></span>'` |
+| Showcase | `conversions_vc-showcase`, `woocommerce_sales_vc-showcase` | `[0]` `second_param` (action chip, default "Just purchased") · `[1]` `third_param` (product) · `[2]` `first_param` (name) · `[3]` `'<span>{{city_country}}</span>'` · `[4]` `fourth_param` (time) |
+
+**The slot contract.** A vc case in [GetTemplate.ts](../../../nxdev/notificationx/frontend/themes/GetTemplate.ts) returns a fixed-length array whose indexes the card reads by position. Every slot must be a **non-empty string**: [Theme.tsx](../../../nxdev/notificationx/frontend/themes/Theme.tsx) drops falsy rows, which would shift the indexes. Each param is already wrapped in a `<span>`, so an unset param is `'<span></span>'`; the card hides a part whose slot has no text once the tags are stripped (for example the Showcase pin and its `·` when there is no city and country, as on EDD, Envato and Freemius). The vc cases sit in the stripped-slug `switch`, so `freemius_conversions` falls through the Freemius block to them. Unit tests lock the arrays ([tests/js/frontend/vc-get-template.test.js](../../../tests/js/frontend/vc-get-template.test.js)).
+
+### How a vc card renders
+
+1. **PHP registry** — each vc entry is appended at the **end** of `$this->themes` in both [Conversions.php](../../../includes/Types/Conversions.php) and [WooCommerceSales.php](../../../includes/Types/WooCommerceSales.php), so every existing picker card keeps its position. The full keys are appended to `woo_template_new['_themes']`; they are not in `$conversions_count` or `woo_template_sales_count`. The entries have no `defaults`, so picking one sets `link_button` to false. `GlobalFields::vc_theme_keys()` (the one PHP list of vc keys) hides the **Advanced Design** toggle and the **Button** toggle for them. The Custom Notification type and the Sales › Custom source do not offer vc themes (`'_vc-'` filters in [CustomNotification.php](../../../includes/Extensions/CustomNotification/CustomNotification.php) and [CustomNotificationConversions.php](../../../includes/Extensions/CustomNotification/CustomNotificationConversions.php)).
+2. **Whitelist** — [themes/vc/isVcTheme.ts](../../../nxdev/notificationx/frontend/themes/vc/isVcTheme.ts) holds the one JS list of vc slugs (`VC_SLUGS`) plus an anchored key regex (`^[a-z0-9_]+_vc-[a-z]+$`). `isVcTheme(settings)` is true only when both match.
+3. **Root class** — [Notification.tsx](../../../nxdev/notificationx/frontend/core/Notification.tsx) adds `nx-vc` to the root for `isVcTheme(settings) && !settings.template_adv`. `classnames` drops it for every other key, so existing root classes are unchanged.
+4. **Theme branch** — Theme.tsx sets `isVc = isVcTheme(post) && !post.template_adv`.
+   - `isVc && is_mobile` (NotificationX Pro's mobile card, `NotificationForMobile` renders Theme with `is_mobile`): the slots go through [vcCompactRows.ts](../../../nxdev/notificationx/frontend/themes/vc/vcCompactRows.ts) (at most three theme-one style rows: "name action", "product", "time") and then the generic Image/Content/Close path with the old "by NotificationX" credit.
+   - `isVc && !is_mobile`: after the `{{tag}}` substitution, Theme returns `<VerifiedCard slots={template} themeName={…} />`.
+   - Every other theme: the template and return path are exactly as before.
+5. **Card** — [VerifiedCard.tsx](../../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx) renders the 344px card on desktop and tablet, and at 480px and below (guarded `matchMedia('(max-width: 480px)')`) the slim two-line card: a 32px image, line 1 with the time at its right end, and line 2 with credit A. Only one layout is mounted at a time. It uses the existing `Image` and `Close` helpers (concrete imports, never `core/index`).
+6. **Credit** — [VcCredit.tsx](../../../nxdev/notificationx/frontend/themes/vc/VcCredit.tsx): `<small class="nx-branding nx-branding-verified nx-vc-credit">` with [VerifiedCheck](../../../nxdev/notificationx/frontend/themes/vc/VerifiedCheck.js), the translatable "Verified by", and a link to `affiliate_link` (`rel="nofollow"`, `target="_blank"`, `aria-label="NotificationX"`) holding the bell and the lettering as two SVGs ([VcBrandMark.js](../../../nxdev/notificationx/frontend/themes/vc/VcBrandMark.js), path data copied from BrandLogo). It is not rendered when `disable_powered_by` is on. `NXBranding.js`, `BrandLogo.js`, `Content.tsx` and `Star.tsx` are not changed by the vc family.
+7. **SCSS** — [_themes/_vc.scss](../../../nxdev/notificationx/frontend/scss/_themes/_vc.scss), imported last in `_common.scss`. Every selector is rooted at `.notification-item.nx-vc.themes-vc-<slug>` (the `$nx-vc-root` list at the top of the file), so an existing theme, an Advanced Template card and Pro's `.notification-res-item` never match. The root sets the palette (`background`, `color`, `border` with `!important`), which overrides the inline Advanced Design styles of a notification saved before switching theme, and `max-width: 360px !important` over the inline Size. The close sits outside the top-right corner (theme twelve's reset); the credit link is above the Analytics link overlay. At 480px and below the root becomes the slim card (`width: calc(100% - 12px)`, `max-width: calc(100vw - 32px) !important`, a 40x40 close in the corner). RTL rules live under `[dir="rtl"] &`.
+
+### Option C (slim card, line 1)
+
+When line 1 does not fit, it scrolls once to show its hidden end and stays there. The timing is the pure [vcScrollPlan.ts](../../../nxdev/notificationx/frontend/themes/vc/vcScrollPlan.ts); the behaviour is the React hook [useVcLineScroll.ts](../../../nxdev/notificationx/frontend/themes/vc/useVcLineScroll.ts):
+
+- One pass: wait 800ms, then (only then) measure the hidden width `d`; scroll at 40px/s, raised so the scroll fits in 2900ms and capped at 80px/s; hold 800ms; stay at the end (no scroll back, no loop). Total ≤ 4.5s plus any paused time.
+- No scroll (the CSS "…" stays) when the line fits, when more than 232px is hidden, when `prefers-reduced-motion` matches (also when it turns on mid-run), or when `matchMedia` / `Element.animate` / `Animation.finished` is missing.
+- Pointer or touch on the **notification root** pauses it, also during the waits (the root also gets the events that land on the Analytics link overlay). Release resumes it. A tap still opens the card link.
+- `translateX(-d)` in LTR, `+d` when the computed direction is `rtl`. Only `transform` is animated; the full text stays in the DOM.
+- The hook runs once per mount (Notification re-renders about every 25ms), guards every promise with a run token and cleans up on unmount. It imports only React (never `@wordpress/hooks`, never `core/index`).
+
+### Frontend hooks
+
+The vc desktop and slim cards do **not** run `nx_theme_before_content`, `nx_theme_after_content` or `nx_content_append` (NotificationX Pro uses them only for its Discount Alert themes). `nx_frontend_image` still runs through `Image`, and `nx_frontend_template` / `nx_frontend_time_is_countdown` run as for every theme. See [frontend-js-hooks.md](../../api/frontend-js-hooks.md#verified-cards-vc-).
+
+### Advanced Template
+
+The admin `nx_adv_template_default` callback ([AddEditNx/index.ts](../../../nxdev/notificationx/admin/AddEditNx/index.ts)) gives a vc key the compact rows (`vcCompactRows(getThemeName(v), GetTemplate(v))`) instead of the raw slots; every other key still gets `GetTemplate(v)`. On the frontend a vc key with an Advanced Template renders the merchant's lines in the generic card, with no `nx-vc` class and no vc styling.
+
+### Thumbnails
+
+`assets/admin/images/extensions/themes/vc/vc-receipt.png` and `vc-showcase.png`: one PNG per design, shared by the `conversions_` and `woocommerce_sales_` keys and used by the picker card and the list preview. They are committed static assets, not build output.
+
+### Adding the next vc theme (Part 2)
+
+1. PHP: append the entry at the end of the Type's `$themes`, add the full keys to the right `_themes` list and to `GlobalFields::vc_theme_keys()`.
+2. Add the slug to `VC_SLUGS` in `isVcTheme.ts`.
+3. Add a stripped-slug case in `GetTemplate.ts` that returns the slot array (every slot a non-empty string) and document its indexes.
+4. Add the desktop layout and the slim line 1 in `VerifiedCard.tsx`, and a case in `vcCompactRows.ts`.
+5. Add the root to `$nx-vc-root` and a theme block at the end of `_vc.scss`.
+6. Extend `tests/js/frontend/vc-*.test.js`. The golden tests ([golden-get-template.test.js](../../../tests/js/frontend/golden-get-template.test.js), [golden-render.test.js](../../../tests/js/frontend/golden-render.test.js)) must keep passing without updating their snapshots.
+7. Add the thumbnail.
+

@@ -369,6 +369,37 @@ const GetTemplate = (settings) => {
                 `${params?.second_param} ${params?.third_param} ${params?.fourth_param} ${params?.fifth_param}`,
             ];
             break;
+        // Verified Cards (vc-*, themes/vc/). These return SLOTS, not display
+        // rows: VerifiedCard maps each index to a part of the card, and
+        // vcCompactRows turns them into classic rows where the card is not
+        // used (Pro's mobile card, the admin Advanced Template default).
+        // Every slot must be a non-empty string: Theme.tsx drops falsy rows,
+        // which would shift the indexes. Each param is already wrapped in a
+        // <span>, so an unset one is '<span></span>' and the card hides it.
+        case "vc-receipt":
+            // [0] name, [1] action, [2] product, [3] time,
+            // [4] Freemius plan + price (freemius_conversions falls through
+            // the Freemius block above to here), '<span></span>' elsewhere.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+                settings?.source === "freemius_conversions"
+                    ? `${params?.freemius_fifth_param} ${params?.freemius_seventh_param}`
+                    : "<span></span>",
+            ];
+        case "vc-showcase":
+            // [0] action (chip), [1] product, [2] name,
+            // [3] city, country (always sent; empty for EDD, Envato, Freemius),
+            // [4] time.
+            return [
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.first_param}`,
+                "<span>{{city_country}}</span>",
+                `${params?.fourth_param}`,
+            ];
         default:
             console.error("Please select a theme", settings);
             return [

@@ -1,0 +1,570 @@
+// Verified Cards (vc-*): Receipt and Showcase.
+// Markup: themes/vc/VerifiedCard.tsx. Approved design: the 84707 theme gallery.
+//
+// Imported inside `.notification-item {}` (_common.scss). EVERY rule is rooted
+// at `.notification-item.nx-vc.themes-vc-<slug>`: the `nx-vc` class is added
+// only by Free's Notification.tsx, and only for a whitelisted vc key without an
+// Advanced Template (isVcTheme). Existing themes, an Advanced Template card and
+// Pro's mobile card (.notification-res-item, no nx-vc) never match.
+//
+// To add a vc theme, append its root to $nx-vc-root (the one list here) and
+// add its own block at the end.
+$nx-vc-root: "&.nx-vc.themes-vc-receipt, &.nx-vc.themes-vc-showcase";
+
+$nx-vc-ink: #131b2e;
+$nx-vc-text: #3a4256;
+$nx-vc-label: #6b7385;
+$nx-vc-meta: #949daf;
+$nx-vc-line: #eceef3;
+$nx-vc-panel: #f6f7fb;
+$nx-vc-shadow: 0 8px 24px rgba(19, 27, 46, 0.1), 0 1px 2px rgba(19, 27, 46, 0.06);
+
+#{$nx-vc-root} {
+    --nx-vc-a: #5614d5;
+    position: relative;
+    box-sizing: border-box;
+    width: 344px;
+    min-width: 0;
+    // Beats the inline max-width from the campaign Size (and Advanced Design's
+    // conversion_size): the card is always 344px on desktop and tablet.
+    max-width: 360px !important;
+    padding: 14px 16px 12px;
+    border-radius: 12px;
+    box-shadow: $nx-vc-shadow;
+    text-align: left;
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 400;
+    // Advanced Design is hidden for vc keys, but a notification saved with it
+    // on before switching theme still gets inline background, text colour and
+    // border on this root (Notification.tsx). The vc palette always wins.
+    background: #fff !important;
+    color: $nx-vc-ink !important;
+    border: 1px solid $nx-vc-line !important;
+
+    .nx-vc-card {
+        position: static; // the time and close position against the root
+        display: block;
+        margin: 0;
+        padding: 0;
+        min-width: 0;
+        color: $nx-vc-ink;
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+    }
+
+    // ---- shared parts (desktop / tablet) ----
+    .nx-vc-time {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        z-index: 2;
+        max-width: 42%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 11px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: $nx-vc-meta;
+    }
+
+    .nx-vc-card.has-time .nx-vc-rsv {
+        padding-right: 84px;
+    }
+
+    .nx-vc-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    .nx-vc-col {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .nx-vc-name {
+        font-size: 14px;
+        line-height: 1.3;
+        font-weight: 600;
+        color: $nx-vc-ink;
+    }
+
+    .nx-vc-body {
+        font-size: 13px;
+        line-height: 1.4;
+        font-weight: 400;
+        color: $nx-vc-text;
+    }
+
+    .nx-vc-em-a {
+        font-weight: 600;
+        color: var(--nx-vc-a);
+    }
+
+    .nx-vc-label {
+        font-size: 11.5px;
+        line-height: 1.3;
+        font-weight: 500;
+        color: $nx-vc-label;
+    }
+
+    .nx-vc-meta {
+        font-size: 11px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: $nx-vc-meta;
+        white-space: nowrap;
+    }
+
+    .nx-vc-chip {
+        display: inline-flex;
+        align-items: center;
+        max-width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(86, 20, 213, 0.1);
+        background: color-mix(in srgb, var(--nx-vc-a) 10%, transparent);
+        color: var(--nx-vc-a);
+        font-size: 11px;
+        line-height: 1;
+        font-weight: 600;
+    }
+
+    .nx-vc-panel {
+        margin-top: 10px;
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: $nx-vc-panel;
+    }
+
+    .nx-vc-ell {
+        min-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .nx-vc-cl2 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    // Image (Image.js markup): a fixed tile, the photo covers it.
+    .notificationx-image {
+        display: block;
+        flex: none;
+        flex-basis: auto;
+        width: 48px;
+        min-width: 0;
+        height: 48px;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        align-self: center;
+        // Beats `.img-position-right .notificationx-image { order: 2 }` from a
+        // notification saved with Advanced Design on: the layout stays fixed.
+        order: 0;
+        border-radius: 10px;
+        line-height: 0;
+
+        &.image-circle {
+            border-radius: 50%;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            max-height: none;
+            margin: 0;
+            object-fit: cover;
+            border-radius: 0;
+        }
+    }
+
+    // ---- credit: ✓ Verified by [bell] NotificationX ----
+    // Spacing as in the gallery: 4px after the check, 4px before the logo.
+    .nx-vc-credit {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        height: 16px;
+        box-sizing: content-box !important;
+        margin: 10px 0 0;
+        padding: 9px 0 0;
+        border-top: 1px solid #f0f2f6;
+        font-size: 11px;
+        line-height: 16px;
+        font-weight: 400;
+        color: $nx-vc-meta;
+        white-space: nowrap;
+
+        & > * {
+            margin: 0;
+        }
+
+        .nx-verified-check {
+            display: block;
+            flex: none;
+            width: 12px;
+            height: 12px;
+            margin-right: 4px;
+        }
+
+        .nx-byline {
+            font-size: 11px;
+            line-height: 16px;
+            color: $nx-vc-meta;
+            white-space: nowrap;
+        }
+
+        // Above the Analytics link overlay (.notificationx-link), so the credit
+        // opens the affiliate URL, not the notification link.
+        .nx-powered-by {
+            position: relative;
+            z-index: 12;
+            display: inline-flex;
+            align-items: baseline;
+            margin-left: 4px;
+            color: inherit;
+            text-decoration: none;
+            white-space: nowrap;
+            line-height: 16px;
+
+            &:hover {
+                opacity: 0.85;
+            }
+        }
+
+        .nx-vc-bell {
+            display: inline-block;
+            align-self: center;
+            width: 11.08px;
+            height: 11.2px;
+            fill: none;
+        }
+
+        // The lettering's capitals match the "Verified by" cap height.
+        .nx-vc-word {
+            display: inline-block;
+            width: 6.347em;
+            height: 0.765em;
+            margin-left: 4px;
+            fill: none;
+        }
+    }
+
+    // ---- close: just outside the top-right corner (theme twelve's reset).
+    // !important beats the inline top/right that Close.js writes.
+    .notificationx-close {
+        position: absolute !important;
+        top: 0 !important;
+        left: calc(100% + 6px) !important;
+        right: auto !important;
+        bottom: auto !important;
+        margin: 0 !important;
+        padding: 4px;
+        z-index: 11;
+        display: block;
+        line-height: 0;
+        cursor: pointer;
+
+        svg {
+            display: block;
+            width: 10px !important;
+            height: 10px !important;
+            fill: $nx-vc-ink;
+        }
+    }
+
+    // ---- RTL (desktop) ----
+    [dir="rtl"] & {
+        text-align: right;
+
+        .nx-vc-time {
+            right: auto;
+            left: 16px;
+        }
+
+        .nx-vc-card.has-time .nx-vc-rsv {
+            padding-right: 0;
+            padding-left: 84px;
+        }
+
+        .nx-vc-credit .nx-verified-check {
+            margin-right: 0;
+            margin-left: 4px;
+        }
+
+        .nx-vc-credit .nx-powered-by {
+            margin-left: 0;
+            margin-right: 4px;
+            direction: ltr;
+        }
+
+        .notificationx-close {
+            left: auto !important;
+            right: calc(100% + 6px) !important;
+        }
+    }
+
+    // ---- slim phone card (≤480px): 2 lines, credit A, option C ----
+    @media only screen and (max-width: 480px) {
+        // calc(100% - 12px) fits the fixed container (inset 10px: 16px
+        // gutters) and an in-page shortcode column; the max-width beats the
+        // inline Size max-width.
+        width: calc(100% - 12px);
+        max-width: calc(100vw - 32px) !important;
+        min-width: 0;
+        left: auto !important;
+        right: auto !important;
+        align-self: center;
+        padding: 9px 40px 9px 12px;
+        font-size: 13px;
+        line-height: 18px;
+
+        .nx-vc-card.nx-vc-slim {
+            display: grid;
+            grid-template-columns: 32px minmax(0, 1fr);
+            grid-template-rows: 18px 14px;
+            grid-template-areas: "img l1" "img cr";
+            column-gap: 10px;
+            row-gap: 2px;
+            align-items: center;
+
+            &.is-no-img {
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-areas: "l1" "cr";
+            }
+
+            &.is-no-credit {
+                grid-template-rows: 32px;
+                grid-template-areas: "img l1";
+            }
+
+            &.is-no-img.is-no-credit {
+                grid-template-rows: 18px;
+                grid-template-areas: "l1";
+            }
+        }
+
+        .nx-vc-slim .notificationx-image {
+            grid-area: img;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+
+            &.image-circle {
+                border-radius: 50%;
+            }
+        }
+
+        // Line 1: the message (one line, "…") and the time at its right end.
+        .nx-vc-l1 {
+            grid-area: l1;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            height: 18px;
+            min-width: 0;
+        }
+
+        .nx-vc-msg {
+            flex: 1 1 auto;
+            min-width: 0;
+            height: 18px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 13px;
+            line-height: 18px;
+            font-weight: 400;
+            color: $nx-vc-text;
+
+            * {
+                font-size: inherit;
+                line-height: inherit;
+            }
+
+            b {
+                font-weight: 600;
+                color: $nx-vc-ink;
+            }
+
+            .nx-vc-em-a {
+                font-weight: 600;
+                color: var(--nx-vc-a);
+            }
+
+            .nx-vc-dim {
+                color: $nx-vc-label;
+            }
+        }
+
+        // Option C: the inner span is inline (so the "…" works) and becomes
+        // inline-block only while useVcLineScroll runs (is-run).
+        .nx-vc-msg-in {
+            display: inline;
+        }
+
+        .nx-vc-msg.is-run {
+            text-overflow: clip;
+
+            .nx-vc-msg-in {
+                display: inline-block;
+            }
+        }
+
+        .nx-vc-slim-time {
+            flex: none;
+            max-width: 90px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 10.5px;
+            line-height: 18px;
+            font-weight: 400;
+            color: $nx-vc-meta;
+        }
+
+        // Line 2, credit A: check + "Verified by" + bell + NotificationX,
+        // 14px row, no divider.
+        .nx-vc-credit.is-slim {
+            grid-area: cr;
+            height: 14px;
+            min-width: 0;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 10px;
+            line-height: 14px;
+
+            .nx-verified-check {
+                width: 11px;
+                height: 11px;
+            }
+
+            .nx-byline {
+                font-size: 10px;
+                line-height: 14px;
+            }
+
+            .nx-powered-by {
+                margin-left: 3px;
+                line-height: 14px;
+            }
+
+            .nx-vc-bell {
+                width: 9.89px;
+                height: 10px;
+            }
+
+            .nx-vc-word {
+                margin-left: 3px;
+            }
+        }
+
+        // Close: a 40x40 hit area in the card's top-right corner, the 10px
+        // glyph centred on line 1.
+        .notificationx-close {
+            top: 0 !important;
+            right: 0 !important;
+            left: auto !important;
+            width: 40px;
+            height: 40px;
+            padding: 13px 15px 17px;
+            border-radius: 0 11px 0 10px;
+
+            svg {
+                fill: $nx-vc-label;
+            }
+        }
+
+        [dir="rtl"] & {
+            padding: 9px 12px 9px 40px;
+
+            .notificationx-close {
+                left: 0 !important;
+                right: auto !important;
+                border-radius: 11px 0 10px 0;
+            }
+
+            .nx-vc-credit.is-slim .nx-powered-by {
+                margin-left: 0;
+                margin-right: 3px;
+            }
+        }
+    }
+}
+
+// ---- Receipt: name + time, then an inset line-item panel ----
+&.nx-vc.themes-vc-receipt {
+    .nx-vc-receipt .nx-vc-panel .nx-vc-col {
+        gap: 2px;
+    }
+
+    // Freemius plan · price: the separator only between two non-empty parts.
+    .nx-vc-plan > span:not(:empty) ~ span:not(:empty)::before {
+        content: "\00B7\00A0";
+    }
+}
+
+// ---- Showcase: action chip + time, product title with the image on the right ----
+&.nx-vc.themes-vc-showcase {
+    --nx-vc-a: #1d4ed8;
+
+    .nx-vc-chip {
+        background: rgba(29, 78, 216, 0.1);
+        background: color-mix(in srgb, var(--nx-vc-a) 10%, transparent);
+    }
+
+    .nx-vc-sc-main {
+        margin-top: 8px;
+    }
+
+    .nx-vc-sc-title {
+        font-size: 15px;
+        line-height: 1.3;
+        font-weight: 700;
+        color: $nx-vc-ink;
+    }
+
+    .nx-vc-sc-buyer {
+        font-size: 12px;
+        color: $nx-vc-meta;
+
+        b {
+            font-weight: 600;
+            color: $nx-vc-text;
+        }
+    }
+
+    .nx-vc-pin {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        vertical-align: -1px;
+        color: $nx-vc-meta;
+    }
+
+    .nx-vc-showcase:not(.nx-vc-slim) .notificationx-image {
+        width: 56px;
+        height: 56px;
+    }
+}
