@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, notification ba
 Requires at least: 5.3
 Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 3.3.5
+Stable tag: 3.3.6
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -227,10 +227,12 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
+= 3.3.6 - 25/10/2026 =
+Improved: Webhook integration handling for Zapier, IFTTT and Brevo.
+Improved: City and country display in notifications.
+Few minor bug fixes and improvements.
+
 = 3.3.5 - 22/10/2026 =
-Improved: WordPress.org guidelines compliance.
-Improved: Usage data is shared only after you opt in.
-Improved: Fonts, icons and images now load from your own site.
 Improved: MCP connected apps experience.
 Improved: Security enhancement.
 Fixed: Countdown expiry message display issues.
