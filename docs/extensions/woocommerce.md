@@ -218,6 +218,8 @@ touches. See [google.md](google.md).
 
 Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
 
+Both also append the free Ratings Verified Card (`woo_reviews_vc-ratings`, `woocommerce_sales_reviews_vc-ratings`) after Scorecard, with a `vc_ratings_template` group: `tag_rated` (the per-product count of 5-star reviews from `rated_woo_review`), "people rated", `tag_product_title`. See [reviews.md](../types/reviews.md).
+
 ## Dependency & detection
 
 - Required plugin: **WooCommerce**. Every concrete class in this directory sets

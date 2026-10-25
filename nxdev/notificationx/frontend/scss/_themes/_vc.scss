@@ -1,4 +1,5 @@
-// Verified Cards (vc-*): Receipt, Showcase, Thread, Scorecard and Counter.
+// Verified Cards (vc-*): Receipt, Showcase, Thread, Scorecard, Counter, Pledge,
+// Enrolment, Submission, Ratings and Installs.
 // Markup: themes/vc/VerifiedCard.tsx. Approved design: the 84707 theme gallery.
 //
 // Imported inside `.notification-item {}` (_common.scss). EVERY rule is rooted
@@ -9,7 +10,7 @@
 //
 // To add a vc theme, append its root to $nx-vc-root (the one list here) and
 // add its own block at the end.
-$nx-vc-root: "&.nx-vc.themes-vc-receipt, &.nx-vc.themes-vc-showcase, &.nx-vc.themes-vc-thread, &.nx-vc.themes-vc-scorecard, &.nx-vc.themes-vc-counter";
+$nx-vc-root: "&.nx-vc.themes-vc-receipt, &.nx-vc.themes-vc-showcase, &.nx-vc.themes-vc-thread, &.nx-vc.themes-vc-scorecard, &.nx-vc.themes-vc-counter, &.nx-vc.themes-vc-pledge, &.nx-vc.themes-vc-enrol, &.nx-vc.themes-vc-submission, &.nx-vc.themes-vc-ratings, &.nx-vc.themes-vc-installs";
 
 $nx-vc-ink: #131b2e;
 $nx-vc-text: #3a4256;
@@ -658,24 +659,6 @@ $nx-vc-shadow: 0 8px 24px rgba(19, 27, 46, 0.1), 0 1px 2px rgba(19, 27, 46, 0.06
         border-radius: 8px;
     }
 
-    .nx-vc-stars {
-        display: inline-flex;
-        flex: none;
-        gap: 1px;
-        line-height: 0;
-        color: #f5a524;
-
-        svg {
-            display: block;
-            width: 14px;
-            height: 14px;
-        }
-
-        .is-off {
-            color: #e5e7eb;
-        }
-    }
-
     .nx-vc-rate {
         display: flex;
         align-items: center;
@@ -714,18 +697,6 @@ $nx-vc-shadow: 0 8px 24px rgba(19, 27, 46, 0.1), 0 1px 2px rgba(19, 27, 46, 0.06
             color: $nx-vc-text;
         }
     }
-
-    // Slim line 1: 11px stars first, so they always show.
-    @media only screen and (max-width: 480px) {
-        .nx-vc-msg .nx-vc-stars {
-            vertical-align: -1px;
-
-            svg {
-                width: 11px;
-                height: 11px;
-            }
-        }
-    }
 }
 
 // ---- Counter: icon + name over the lead, the count as a figure, the call to action ----
@@ -760,8 +731,80 @@ $nx-vc-shadow: 0 8px 24px rgba(19, 27, 46, 0.1), 0 1px 2px rgba(19, 27, 46, 0.06
     [dir="rtl"] & .nx-vc-cta::after {
         content: "\00A0\2039";
     }
+}
 
-    // Slim line 1: the count first, in the accent colour.
+// ---- Shared: the stars (Scorecard, Ratings) ----
+// Partial fill (VcStars.tsx): a grey star with an amber copy on top, clipped to
+// the star's share of the rating; the amber part starts at the inline start.
+&.nx-vc.themes-vc-scorecard,
+&.nx-vc.themes-vc-ratings {
+    .nx-vc-stars {
+        --nx-vc-star: 14px;
+        display: inline-flex;
+        flex: none;
+        gap: 1px;
+        line-height: 0;
+    }
+
+    .nx-vc-star {
+        position: relative;
+        display: block;
+        flex: none;
+        width: var(--nx-vc-star);
+        height: var(--nx-vc-star);
+
+        svg {
+            display: block;
+            width: var(--nx-vc-star);
+            max-width: none;
+            height: var(--nx-vc-star);
+        }
+    }
+
+    .nx-vc-star-bg {
+        display: block;
+        color: #e5e7eb;
+    }
+
+    .nx-vc-star-fg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        overflow: hidden;
+        color: #f5a524;
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+
+    // RTL: fill from the right.
+    [dir="rtl"] & .nx-vc-star-fg {
+        left: auto;
+        right: 0;
+
+        svg {
+            left: auto;
+            right: 0;
+        }
+    }
+
+    // Slim line 1: 11px stars first, so they always show.
+    @media only screen and (max-width: 480px) {
+        .nx-vc-msg .nx-vc-stars {
+            --nx-vc-star: 11px;
+            vertical-align: -1px;
+        }
+    }
+}
+
+// ---- Shared: the count first on slim line 1, in the accent colour (Counter, Ratings, Installs) ----
+&.nx-vc.themes-vc-counter,
+&.nx-vc.themes-vc-ratings,
+&.nx-vc.themes-vc-installs {
     @media only screen and (max-width: 480px) {
         .nx-vc-msg .nx-vc-num {
             font-weight: 700;
@@ -769,5 +812,313 @@ $nx-vc-shadow: 0 8px 24px rgba(19, 27, 46, 0.1), 0 1px 2px rgba(19, 27, 46, 0.06
             font-variant-numeric: tabular-nums;
             letter-spacing: -0.01em;
         }
+    }
+}
+
+// ---- Pledge: avatar with a heart badge, "donated $50.00 for", the campaign strip ----
+&.nx-vc.themes-vc-pledge {
+    --nx-vc-a: #be185d;
+
+    .nx-vc-pl-head {
+        gap: 12px;
+
+        .nx-vc-col {
+            gap: 2px;
+        }
+    }
+
+    .nx-vc-avwrap {
+        position: relative;
+        flex: none;
+        line-height: 0;
+    }
+
+    .nx-vc-pledge:not(.nx-vc-slim) .notificationx-image {
+        width: 44px;
+        height: 44px;
+    }
+
+    // Featured Image (the Give form thumbnail) is a rounded square; avatars
+    // stay circles (as Scorecard).
+    .nx-vc-pledge .notificationx-image.featured_image {
+        border-radius: 8px;
+    }
+
+    .nx-vc-badge {
+        position: absolute;
+        right: -3px;
+        bottom: -3px;
+        z-index: 1;
+        display: grid;
+        place-items: center;
+        width: 18px;
+        height: 18px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        background: var(--nx-vc-a);
+        color: #fff;
+        line-height: 0;
+
+        svg {
+            display: block;
+            width: 8px;
+            height: 8px;
+        }
+    }
+
+    .nx-vc-amt {
+        font-weight: 700;
+        color: var(--nx-vc-a);
+    }
+
+    .nx-vc-strip {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+        margin-top: 10px;
+        padding: 7px 10px;
+        border-radius: 10px;
+        background: #fdf2f8;
+        font-size: 13px;
+        line-height: 1.35;
+        font-weight: 600;
+        color: $nx-vc-ink;
+
+        .nx-vc-strip-ic {
+            flex: none;
+            width: 12px;
+            height: 12px;
+            color: var(--nx-vc-a);
+        }
+    }
+
+    [dir="rtl"] & .nx-vc-badge {
+        right: auto;
+        left: -3px;
+    }
+}
+
+// ---- Enrolment: name + "just enrolled", a course panel with a landscape thumbnail ----
+&.nx-vc.themes-vc-enrol {
+    --nx-vc-a: #4338ca;
+
+    .nx-vc-en-who {
+        font-size: 13px;
+        line-height: 1.3;
+        color: $nx-vc-label;
+
+        b {
+            font-size: 14px;
+            font-weight: 600;
+            color: $nx-vc-ink;
+        }
+    }
+
+    .nx-vc-en-panel {
+        gap: 10px;
+        background: #eef0ff;
+        border-left: 3px solid var(--nx-vc-a);
+    }
+
+    .nx-vc-enrol:not(.nx-vc-slim) .notificationx-image {
+        width: 56px;
+        height: 40px;
+        border-radius: 6px;
+
+        // Gravatar selected: a 40px circle in the same slot.
+        &.gravatar {
+            width: 40px;
+            border-radius: 50%;
+        }
+    }
+
+    // ...and a circle on the slim card too (beats the shared 8px).
+    .nx-vc-enrol .notificationx-image.gravatar {
+        border-radius: 50%;
+    }
+
+    .nx-vc-en-course {
+        font-weight: 600;
+        color: $nx-vc-ink;
+    }
+
+    [dir="rtl"] & .nx-vc-en-panel {
+        border-left: 0;
+        border-right: 3px solid var(--nx-vc-a);
+    }
+}
+
+// ---- Submission: avatar + submitter, "recently contacted via", the form in a field box ----
+&.nx-vc.themes-vc-submission {
+    --nx-vc-a: #2563eb;
+
+    .nx-vc-fm-head {
+        gap: 8px;
+    }
+
+    .nx-vc-submission:not(.nx-vc-slim) .notificationx-image {
+        width: 32px;
+        height: 32px;
+    }
+
+    .nx-vc-submission .notificationx-image.featured_image {
+        border-radius: 8px;
+    }
+
+    .nx-vc-fm-lead {
+        margin-top: 6px;
+    }
+
+    .nx-vc-field {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+        margin-top: 8px;
+        padding: 7px 10px;
+        border: 1px solid #dde3f0;
+        border-bottom: 2px solid var(--nx-vc-a);
+        border-radius: 8px;
+        font-size: 13px;
+        line-height: 1.35;
+        font-weight: 600;
+        color: $nx-vc-ink;
+
+        .nx-vc-field-ic {
+            flex: none;
+            width: 12px;
+            height: 12px;
+            color: var(--nx-vc-a);
+        }
+    }
+
+    // Slim line 1: the paper plane before the form title.
+    @media only screen and (max-width: 480px) {
+        .nx-vc-msg .nx-vc-ic-in {
+            display: inline-block;
+            width: 11px;
+            height: 11px;
+            margin: 0 3px 0 0;
+            vertical-align: -1px;
+            color: var(--nx-vc-a);
+        }
+
+        [dir="rtl"] & .nx-vc-msg .nx-vc-ic-in {
+            margin: 0 0 0 3px;
+        }
+    }
+}
+
+// ---- Ratings: the count over "people rated" | five stars, icon + subject. No time ----
+&.nx-vc.themes-vc-ratings {
+    .nx-vc-split {
+        display: flex;
+        align-items: center;
+        min-width: 0;
+    }
+
+    .nx-vc-rt-left {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        flex: none;
+        width: 96px;
+        padding-right: 12px;
+        border-right: 1px solid $nx-vc-line;
+    }
+
+    .nx-vc-rt-hero {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 22px;
+        line-height: 1.1;
+        font-weight: 700;
+        color: $nx-vc-ink;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.01em;
+    }
+
+    .nx-vc-rt-right {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 1 1 auto;
+        min-width: 0;
+        padding-left: 12px;
+
+        &:first-child {
+            padding-left: 0;
+        }
+    }
+
+    .nx-vc-rt-subject {
+        gap: 8px;
+    }
+
+    .nx-vc-ratings:not(.nx-vc-slim) .notificationx-image {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+    }
+
+    [dir="rtl"] & {
+        .nx-vc-rt-left {
+            padding-right: 0;
+            padding-left: 12px;
+            border-right: 0;
+            border-left: 1px solid $nx-vc-line;
+        }
+
+        .nx-vc-rt-right {
+            padding-left: 0;
+            padding-right: 12px;
+
+            &:first-child {
+                padding-right: 0;
+            }
+        }
+    }
+}
+
+// ---- Installs: the active-install count in a tile, the lead, icon + name. No time ----
+&.nx-vc.themes-vc-installs {
+    --nx-vc-a: #0e7490;
+
+    .nx-vc-is-main {
+        gap: 12px;
+    }
+
+    // 64px for a short count ("40K"); a longer value widens the tile instead
+    // of being cut off.
+    .nx-vc-numtile {
+        display: grid;
+        place-items: center;
+        flex: none;
+        min-width: 64px;
+        max-width: 50%;
+        height: 64px;
+        padding: 0 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        border-radius: 10px;
+        background: #e0f2f1;
+        font-size: 20px;
+        line-height: 1;
+        font-weight: 700;
+        color: var(--nx-vc-a);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.01em;
+    }
+
+    .nx-vc-is-name {
+        gap: 6px;
+    }
+
+    .nx-vc-installs:not(.nx-vc-slim) .notificationx-image {
+        width: 18px;
+        height: 18px;
+        border-radius: 5px;
     }
 }

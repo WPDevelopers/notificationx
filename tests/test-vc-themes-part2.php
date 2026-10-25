@@ -4,8 +4,9 @@
  *
  * Covers the PHP side only (Part 1, Receipt and Showcase, and the shared
  * Advanced Design / Button rules are in test-vc-themes.php):
- *  - each vc entry is appended at the END of its theme list, is free (no
- *    is_pro), has no defaults and carries the planned template params;
+ *  - each vc entry comes right after the existing themes of its list (later
+ *    vc themes, e.g. Part 3, may follow), is free (no is_pro), has no
+ *    defaults and carries the planned template params;
  *  - the theme trigger contains @link_button:false and the template params;
  *    Scorecard never uses tag_rated or tag_time;
  *  - Thread joins comments_template_with_comments, Counter joins
@@ -166,8 +167,13 @@ class Test_VC_Themes_Part2 extends WP_UnitTestCase {
 			'google_reviews'            => self::EXISTING_GOOGLE,
 		);
 		foreach ( $this->scorecards() as $id => list( $holder, $prefix, $third, $fifth, $sixth ) ) {
-			$themes = $this->own_themes( $holder );
-			$this->assertSame( array_merge( $existing[ $id ], array( 'vc-scorecard' ) ), array_keys( $themes ), "{$id} theme order changed." );
+			$themes   = $this->own_themes( $holder );
+			$expected = array_merge( $existing[ $id ], array( 'vc-scorecard' ) );
+			// Existing themes first, then Scorecard; later vc themes may follow.
+			$this->assertSame( $expected, array_slice( array_keys( $themes ), 0, count( $expected ) ), "{$id} theme order changed." );
+			foreach ( array_slice( array_keys( $themes ), count( $expected ) ) as $later ) {
+				$this->assertStringStartsWith( 'vc-', $later, "{$id}: only vc themes may follow Scorecard." );
+			}
 
 			$theme = $themes['vc-scorecard'];
 			$this->assertArrayNotHasKey( 'is_pro', $theme, "{$id} must be free." );
@@ -204,7 +210,7 @@ class Test_VC_Themes_Part2 extends WP_UnitTestCase {
 	public function test_scorecard_groups_list_only_their_key_and_tags() {
 		foreach ( $this->scorecards() as $id => list( $holder, $prefix, $third, $fifth, $sixth, $group ) ) {
 			$templates = $holder->get_templates();
-			$this->assertSame( $group, array_key_last( $templates ), "{$id}: the vc group is appended last." );
+			$this->assertArrayHasKey( $group, $templates, "{$id}: the vc group is missing." );
 			$tmpl = $templates[ $group ];
 			$this->assertSame( array( $prefix . 'vc-scorecard' ), $tmpl['_themes'] );
 			$this->assertSame( array( 'tag_username' ), array_keys( $tmpl['first_param'] ) );
@@ -236,7 +242,8 @@ class Test_VC_Themes_Part2 extends WP_UnitTestCase {
 		$source  = WPOrgReview::get_instance();
 		$options = $source->__nx_themes( array() );
 		$keys    = array_keys( $options );
-		$this->assertSame( 'reviews_vc-scorecard', end( $keys ) );
+		// After every existing review theme (later vc themes may follow).
+		$this->assertSame( count( self::EXISTING_REVIEWS ), array_search( 'reviews_vc-scorecard', $keys, true ) );
 		$this->assertEmpty( $options['reviews_vc-scorecard']['is_pro'] );
 
 		$trigger = $source->__themes_trigger( array() )['reviews_vc-scorecard'];
@@ -260,7 +267,9 @@ class Test_VC_Themes_Part2 extends WP_UnitTestCase {
 		$stats->init();
 		$themes = $stats->get_themes();
 
-		$this->assertSame( array_merge( self::EXISTING_STATS, array( 'vc-counter' ) ), array_keys( $themes ) );
+		$expected = array_merge( self::EXISTING_STATS, array( 'vc-counter' ) );
+		// Existing themes first, then Counter; later vc themes may follow.
+		$this->assertSame( $expected, array_slice( array_keys( $themes ), 0, count( $expected ) ) );
 		$theme = $themes['vc-counter'];
 		$this->assertArrayNotHasKey( 'is_pro', $theme );
 		$this->assertArrayNotHasKey( 'defaults', $theme );
@@ -289,7 +298,7 @@ class Test_VC_Themes_Part2 extends WP_UnitTestCase {
 		$source  = WPOrgStats::get_instance();
 		$options = $source->__nx_themes( array() );
 		$keys    = array_keys( $options );
-		$this->assertSame( 'download_stats_vc-counter', end( $keys ) );
+		$this->assertSame( count( self::EXISTING_STATS ), array_search( 'download_stats_vc-counter', $keys, true ) );
 		$this->assertEmpty( $options['download_stats_vc-counter']['is_pro'] );
 
 		$trigger = $source->__themes_trigger( array() )['download_stats_vc-counter'];

@@ -88,6 +88,15 @@ class GlobalFields {
             'reviewx_vc-scorecard',
             'google_reviews_vc-scorecard',
             'download_stats_vc-counter',
+            'donation_vc-pledge',
+            'elearning_vc-enrol',
+            'form_vc-submission',
+            'reviews_vc-ratings',
+            'woo_reviews_vc-ratings',
+            'woocommerce_sales_reviews_vc-ratings',
+            'reviewx_vc-ratings',
+            'google_reviews_vc-ratings',
+            'download_stats_vc-installs',
         ];
     }
 

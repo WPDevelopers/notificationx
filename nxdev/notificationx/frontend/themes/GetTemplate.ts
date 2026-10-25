@@ -409,7 +409,7 @@ const GetTemplate = (settings) => {
                 `${params?.third_param}`,
                 `${params?.fourth_param}`,
             ];
-        case "vc-scorecard":
+        case "vc-scorecard": {
             // [0] reviewer, [1] rating ('rating::N' once Theme fills it),
             // [2] review title, only where it is a real headline (wp.org,
             // Zapier, Bit Integrations, ReviewX); '<span></span>' elsewhere,
@@ -417,17 +417,23 @@ const GetTemplate = (settings) => {
             // [3] review text, [4] "on", [5] subject (plugin, product or place),
             // [6] time: a fixed {{time}} (updated_at is always sent), so the
             // stars and the time show together.
+            // The time shows only at the top right ([6]): a body field set to
+            // "Definite Time" (e.g. left over from another theme) stays empty.
+            const tmpl = settings?.["notification-template"] || {};
+            const noTime = (param: string) =>
+                tmpl[param] === "tag_time" ? "<span></span>" : `${params?.[param]}`;
             return [
                 `${params?.first_param}`,
-                `${params?.fourth_param}`,
+                noTime("fourth_param"),
                 ["wp_reviews", "zapier_reviews", "bitintegrations_reviews", "reviewx"].indexOf(settings?.source) !== -1
-                    ? `${params?.sixth_param}`
+                    ? noTime("sixth_param")
                     : "<span></span>",
-                `${params?.fifth_param}`,
+                noTime("fifth_param"),
                 `${params?.second_param}`,
-                `${params?.third_param}`,
+                noTime("third_param"),
                 "<span>{{time}}</span>",
             ];
+        }
         case "vc-counter":
             // [0] plugin or theme name, [1] lead ("has been downloaded"),
             // [2] download count, [3] call to action. No time.
@@ -436,6 +442,49 @@ const GetTemplate = (settings) => {
                 `${params?.second_param}`,
                 `${params?.third_param}`,
                 `${params?.fourth_param}`,
+            ];
+        case "vc-pledge":
+            // [0] donor, [1] action ("donated"), [2] amount (Give's
+            // "$50.00 for"; '<span></span>' when the amount tag is None),
+            // [3] campaign, [4] time.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+                `${params?.fifth_param}`,
+            ];
+        case "vc-enrol":
+            // [0] student, [1] action ("just enrolled"), [2] course, [3] time.
+        case "vc-submission":
+            // [0] submitter (the picked form field), [1] action
+            // ("recently contacted via"), [2] form title, [3] time.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+            ];
+        case "vc-ratings":
+            // [0] count, [1] label, [2] plugin, product or place, [3] the
+            // average ('rating::4.7') for Google only, '<span></span>'
+            // elsewhere. Everywhere but Google the count is the number of
+            // 5-star ratings: five fixed stars, "people rated". Google's count
+            // is the total of all ratings: the average with partially filled
+            // stars and "N reviews". No time.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                settings?.source === "google_reviews" ? `${params?.fourth_param}` : "<span></span>",
+            ];
+        case "vc-installs":
+            // [0] active installs ("40K"), [1] lead
+            // ("people are actively using"), [2] plugin or theme name. No time.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
             ];
         default:
             console.error("Please select a theme", settings);

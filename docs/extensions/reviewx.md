@@ -98,6 +98,8 @@ Real events that drive data (all inherited from `WooReviews::init()`):
 
 Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
 
+`ReviewX` also appends the Ratings Verified Card (`reviewx_vc-ratings`) after Scorecard: `tag_rated` (the per-product 5-star count, through the inherited `rated_woo_review`), "people rated", and the product through `tag_product_post_title`.
+
 ## Dependency & detection
 
 - Required plugin: **ReviewX** (which itself depends on WooCommerce). Unlike most

@@ -147,6 +147,22 @@ class GoogleReviews extends Extension {
                     'fifth_param'        => 'tag_place_review',
                 ],
             ],
+            // "Verified card" Ratings, kept at the END of the list. Google's
+            // count is the total of all ratings (user_ratings_total), so this
+            // card shows it as Google does: the average with partially filled
+            // stars ("4.7") and "N reviews", not five fixed stars. tag_rated also
+            // makes Pro fetch the place summary instead of single reviews.
+            'vc-ratings' => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-ratings.png',
+                'image_shape'             => 'rounded',
+                'show_notification_image' => 'greview_icon',
+                'template'                => [
+                    'first_param'  => 'tag_rated',
+                    'second_param' => __('reviews', 'notificationx'),
+                    'third_param'  => 'tag_place_name',
+                    'fourth_param' => 'tag_rating',
+                ],
+            ],
         ];
 
         $this->templates = [
@@ -188,6 +204,21 @@ class GoogleReviews extends Extension {
                 ],
                 '_themes' => [
                     "{$this->id}_vc-scorecard",
+                ],
+            ],
+            // Verified card Ratings: its own group (the average comes from tag_rating).
+            "{$this->id}_vc_ratings_template" => [
+                'first_param' => [
+                    'tag_rated' => __('Rated', 'notificationx'),
+                ],
+                'third_param' => [
+                    'tag_place_name' => __('Place Name', 'notificationx'),
+                ],
+                'fourth_param' => [
+                    'tag_rating' => __('Rating', 'notificationx'),
+                ],
+                '_themes' => [
+                    "{$this->id}_vc-ratings",
                 ],
             ],
         ];

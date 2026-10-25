@@ -1,7 +1,7 @@
 /**
  * Verified Cards (vc-*): GetTemplate slot arrays, the isVcTheme whitelist and
  * vcCompactRows. Part 1: Receipt and Showcase. Part 2: Thread, Scorecard and
- * Counter.
+ * Counter. Part 3: Pledge, Enrolment, Submission, Ratings and Installs.
  */
 import GetTemplate from '../../../nxdev/notificationx/frontend/themes/GetTemplate';
 import { isVcTheme, getVcSlug, VC_SLUGS } from '../../../nxdev/notificationx/frontend/themes/vc/isVcTheme';
@@ -130,6 +130,12 @@ const PART2_ROWS = [
 	[ 'reviews_vc-scorecard / wp_reviews (title)', settings( 'reviews_vc-scorecard', 'wp_reviews', 'reviews', SCORECARD ), scorecardSlots( '<span>{{title}}</span>', '<span>{{plugin_review}}</span>', '<span>{{plugin_name}}</span>' ) ],
 	[ 'reviews_vc-scorecard / zapier_reviews (title)', settings( 'reviews_vc-scorecard', 'zapier_reviews', 'reviews', SCORECARD ), scorecardSlots( '<span>{{title}}</span>', '<span>{{plugin_review}}</span>', '<span>{{plugin_name}}</span>' ) ],
 	[ 'reviews_vc-scorecard / bitintegrations_reviews (title)', settings( 'reviews_vc-scorecard', 'bitintegrations_reviews', 'reviews', SCORECARD ), scorecardSlots( '<span>{{title}}</span>', '<span>{{plugin_review}}</span>', '<span>{{plugin_name}}</span>' ) ],
+	// A body field set to "Definite Time": empty slot; the time stays in [6] only.
+	[
+		'reviews_vc-scorecard / wp_reviews with text and rating on Definite Time',
+		settings( 'reviews_vc-scorecard', 'wp_reviews', 'reviews', { ...SCORECARD, fourth_param: 'tag_time', fifth_param: 'tag_time' } ),
+		[ '<span>{{username}}</span>', '<span></span>', '<span>{{title}}</span>', '<span></span>', '<span>on</span>', '<span>{{plugin_name}}</span>', '<span>{{time}}</span>' ],
+	],
 	// Freemius: title is the plugin name; a stale sixth_param is ignored.
 	[ 'reviews_vc-scorecard / freemius_reviews (no title)', settings( 'reviews_vc-scorecard', 'freemius_reviews', 'reviews', SCORECARD ), scorecardSlots( '<span></span>', '<span>{{plugin_review}}</span>', '<span>{{plugin_name}}</span>' ) ],
 	[ 'woo_reviews_vc-scorecard (no title)', settings( 'woo_reviews_vc-scorecard', 'woo_reviews', 'reviews', WOO_SCORECARD ), scorecardSlots( '<span></span>', '<span>{{plugin_review}}</span>', '<span>{{product_title}}</span>' ) ],
@@ -145,7 +151,101 @@ const PART2_ROWS = [
 	[ 'download_stats_vc-counter / freemius_stats', settings( 'download_stats_vc-counter', 'freemius_stats', 'download_stats', COUNTER ), COUNTER_SLOTS ],
 ];
 
+const DONATION = {
+	first_param: 'tag_name',
+	custom_first_param: 'Someone',
+	second_param: 'donated',
+	third_param: 'tag_amount',
+	fourth_param: 'tag_title',
+	custom_fourth_param: 'Anonymous Title',
+	fifth_param: 'tag_time',
+	custom_fifth_param: 'Some time ago',
+};
+const ELEARNING = {
+	first_param: 'tag_name',
+	custom_first_param: 'Someone',
+	second_param: 'just enrolled',
+	third_param: 'tag_course_title',
+	custom_third_param: 'Anonymous Course',
+	fourth_param: 'tag_time',
+	custom_fourth_param: 'Some time ago',
+};
+const FORM = {
+	first_param: 'tag_your-name',
+	custom_first_param: 'Someone',
+	second_param: 'recently contacted via',
+	third_param: 'tag_title',
+	fourth_param: 'tag_time',
+	custom_fourth_param: 'Some time ago',
+};
+const RATINGS = { first_param: 'tag_rated', second_param: 'people rated', third_param: 'tag_plugin_name' };
+const GOOGLE_RATINGS = { first_param: 'tag_rated', second_param: 'reviews', third_param: 'tag_place_name', fourth_param: 'tag_rating' };
+const INSTALLS = { first_param: 'tag_active_installs', second_param: 'people are actively using', third_param: 'tag_plugin_theme_name' };
+
+const PART3_ROWS = [
+	[
+		'donation_vc-pledge / give',
+		settings( 'donation_vc-pledge', 'give', 'donation', DONATION ),
+		[ '<span>{{name}}</span>', '<span>donated</span>', '<span>{{amount}}</span>', '<span>{{title}}</span>', '<span>{{time}}</span>' ],
+	],
+	[
+		'donation_vc-pledge with the amount set to None',
+		settings( 'donation_vc-pledge', 'give', 'donation', { ...DONATION, third_param: 'tag_none' } ),
+		[ '<span>{{name}}</span>', '<span>donated</span>', '<span>{{none}}</span>', '<span>{{title}}</span>', '<span>{{time}}</span>' ],
+	],
+	[
+		'elearning_vc-enrol / tutor',
+		settings( 'elearning_vc-enrol', 'tutor', 'elearning', ELEARNING ),
+		[ '<span>{{name}}</span>', '<span>just enrolled</span>', '<span>{{course_title}}</span>', '<span>{{time}}</span>' ],
+	],
+	[ 'elearning_vc-enrol / learnpress', settings( 'elearning_vc-enrol', 'learnpress', 'elearning', ELEARNING ), [ '<span>{{name}}</span>', '<span>just enrolled</span>', '<span>{{course_title}}</span>', '<span>{{time}}</span>' ] ],
+	[
+		'form_vc-submission / cf7',
+		settings( 'form_vc-submission', 'cf7', 'form', FORM ),
+		[ '<span>{{your-name}}</span>', '<span>recently contacted via</span>', '<span>{{title}}</span>', '<span>{{time}}</span>' ],
+	],
+	[ 'form_vc-submission / fluentform', settings( 'form_vc-submission', 'fluentform', 'form', FORM ), [ '<span>{{your-name}}</span>', '<span>recently contacted via</span>', '<span>{{title}}</span>', '<span>{{time}}</span>' ] ],
+	[ 'reviews_vc-ratings / wp_reviews', settings( 'reviews_vc-ratings', 'wp_reviews', 'reviews', RATINGS ), [ '<span>{{rated}}</span>', '<span>people rated</span>', '<span>{{plugin_name}}</span>', '<span></span>' ] ],
+	[
+		'woo_reviews_vc-ratings',
+		settings( 'woo_reviews_vc-ratings', 'woo_reviews', 'reviews', { ...RATINGS, third_param: 'tag_product_title' } ),
+		[ '<span>{{rated}}</span>', '<span>people rated</span>', '<span>{{product_title}}</span>', '<span></span>' ],
+	],
+	[
+		'woocommerce_sales_reviews_vc-ratings',
+		settings( 'woocommerce_sales_reviews_vc-ratings', 'woocommerce_sales_reviews', 'woocommerce_sales', { ...RATINGS, third_param: 'tag_product_title' } ),
+		[ '<span>{{rated}}</span>', '<span>people rated</span>', '<span>{{product_title}}</span>', '<span></span>' ],
+	],
+	[
+		'reviewx_vc-ratings (product)',
+		settings( 'reviewx_vc-ratings', 'reviewx', 'reviews', { ...RATINGS, third_param: 'tag_product_post_title' } ),
+		[ '<span>{{rated}}</span>', '<span>people rated</span>', '<span>{{product_post_title}}</span>', '<span></span>' ],
+	],
+	// A leftover fourth_param outside Google is ignored: five fixed stars.
+	[
+		'reviews_vc-ratings / wp_reviews with a leftover fourth_param',
+		settings( 'reviews_vc-ratings', 'wp_reviews', 'reviews', { ...RATINGS, fourth_param: 'tag_rating' } ),
+		[ '<span>{{rated}}</span>', '<span>people rated</span>', '<span>{{plugin_name}}</span>', '<span></span>' ],
+	],
+	// Google: the total of all ratings plus the average ([3]).
+	[
+		'google_reviews_vc-ratings',
+		settings( 'google_reviews_vc-ratings', 'google_reviews', 'reviews', GOOGLE_RATINGS ),
+		[ '<span>{{rated}}</span>', '<span>reviews</span>', '<span>{{place_name}}</span>', '<span>{{rating}}</span>' ],
+	],
+	[
+		'download_stats_vc-installs / wp_stats',
+		settings( 'download_stats_vc-installs', 'wp_stats', 'download_stats', INSTALLS ),
+		[ '<span>{{active_installs}}</span>', '<span>people are actively using</span>', '<span>{{plugin_theme_name}}</span>' ],
+	],
+];
+
 const SLOT_LENGTH = {
+	'vc-pledge': 5,
+	'vc-enrol': 4,
+	'vc-submission': 4,
+	'vc-ratings': 4,
+	'vc-installs': 3,
 	'vc-receipt': 5,
 	'vc-showcase': 5,
 	'vc-thread': 4,
@@ -162,7 +262,7 @@ describe( 'GetTemplate vc slots', () => {
 		errorSpy.mockRestore();
 	} );
 
-	it.each( [ ...ROWS, ...PART2_ROWS ] )( '%s', ( label, input, expected ) => {
+	it.each( [ ...ROWS, ...PART2_ROWS, ...PART3_ROWS ] )( '%s', ( label, input, expected ) => {
 		const before = JSON.stringify( input );
 		const slots = GetTemplate( input );
 		expect( slots ).toEqual( expected );
@@ -185,8 +285,19 @@ describe( 'GetTemplate vc slots', () => {
 } );
 
 describe( 'isVcTheme', () => {
-	it( 'whitelists the Part 1 and Part 2 slugs', () => {
-		expect( VC_SLUGS ).toEqual( [ 'vc-receipt', 'vc-showcase', 'vc-thread', 'vc-scorecard', 'vc-counter' ] );
+	it( 'whitelists the Part 1, 2 and 3 slugs', () => {
+		expect( VC_SLUGS ).toEqual( [
+			'vc-receipt',
+			'vc-showcase',
+			'vc-thread',
+			'vc-scorecard',
+			'vc-counter',
+			'vc-pledge',
+			'vc-enrol',
+			'vc-submission',
+			'vc-ratings',
+			'vc-installs',
+		] );
 	} );
 
 	it.each( [
@@ -205,6 +316,16 @@ describe( 'isVcTheme', () => {
 		[ 'google_reviews_vc-scorecard', 'google_reviews', 'reviews', 'vc-scorecard' ],
 		[ 'download_stats_vc-counter', 'wp_stats', 'download_stats', 'vc-counter' ],
 		[ 'download_stats_vc-counter', 'freemius_stats', 'download_stats', 'vc-counter' ],
+		[ 'donation_vc-pledge', 'give', 'donation', 'vc-pledge' ],
+		[ 'elearning_vc-enrol', 'tutor', 'elearning', 'vc-enrol' ],
+		[ 'elearning_vc-enrol', 'learndash', 'elearning', 'vc-enrol' ],
+		[ 'form_vc-submission', 'cf7', 'form', 'vc-submission' ],
+		[ 'reviews_vc-ratings', 'wp_reviews', 'reviews', 'vc-ratings' ],
+		[ 'woo_reviews_vc-ratings', 'woo_reviews', 'reviews', 'vc-ratings' ],
+		[ 'woocommerce_sales_reviews_vc-ratings', 'woocommerce_sales_reviews', 'woocommerce_sales', 'vc-ratings' ],
+		[ 'reviewx_vc-ratings', 'reviewx', 'reviews', 'vc-ratings' ],
+		[ 'google_reviews_vc-ratings', 'google_reviews', 'reviews', 'vc-ratings' ],
+		[ 'download_stats_vc-installs', 'wp_stats', 'download_stats', 'vc-installs' ],
 	] )( '%s (%s) is a vc theme', ( themes, source, type, slug ) => {
 		expect( isVcTheme( { themes, source, type } ) ).toBe( true );
 		expect( getVcSlug( { themes, source, type } ) ).toBe( slug );
@@ -219,7 +340,11 @@ describe( 'isVcTheme', () => {
 		[ 'download_stats_7day-download', 'wp_stats', 'download_stats' ],
 		// A vc key whose slug is not whitelisted: generic path, no nx-vc.
 		[ 'comments_vc-postcard', 'wp_comments', 'comments' ],
-		[ 'reviews_vc-ratings', 'wp_reviews', 'reviews' ],
+		[ 'reviews_vc-tally', 'wp_reviews', 'reviews' ],
+		[ 'donation_theme-one', 'give', 'donation' ],
+		[ 'elearning_theme-one', 'tutor', 'elearning' ],
+		[ 'form_theme-one', 'cf7', 'form' ],
+		[ 'reviews_total-rated', 'wp_reviews', 'reviews' ],
 		// Not anchored keys.
 		[ 'vc-receipt', 'woocommerce', 'conversions' ],
 		[ 'conversions_vc-receipt-2', 'woocommerce', 'conversions' ],
@@ -257,6 +382,25 @@ describe( 'vcCompactRows', () => {
 		expect( vcCompactRows( 'vc-counter', [ 'N', 'L', 'C', 'A' ] ) ).toEqual( [ 'N', 'L C', 'A' ] );
 	} );
 
+	it( 'Pledge: donor + action + amount, campaign, time', () => {
+		expect( vcCompactRows( 'vc-pledge', [ 'D', 'A', 'M', 'C', 'T' ] ) ).toEqual( [ 'D A M', 'C', 'T' ] );
+	} );
+
+	it( 'Enrolment and Submission: name + action, course or form, time', () => {
+		expect( vcCompactRows( 'vc-enrol', [ 'N', 'A', 'C', 'T' ] ) ).toEqual( [ 'N A', 'C', 'T' ] );
+		expect( vcCompactRows( 'vc-submission', [ 'N', 'A', 'F', 'T' ] ) ).toEqual( [ 'N A', 'F', 'T' ] );
+	} );
+
+	it( 'Ratings: count + label, subject, five stars', () => {
+		expect( vcCompactRows( 'vc-ratings', [ 'C', 'L', 'S', '<span></span>' ] ) ).toEqual( [ 'C L', 'S', '<span>rating::5</span>' ] );
+		// Google: the average row instead of five stars.
+		expect( vcCompactRows( 'vc-ratings', [ 'C', 'L', 'S', '<span>rating::4.7</span>' ] ) ).toEqual( [ 'C L', 'S', '<span>rating::4.7</span>' ] );
+	} );
+
+	it( 'Installs: count + lead, name', () => {
+		expect( vcCompactRows( 'vc-installs', [ 'C', 'L', 'N' ] ) ).toEqual( [ 'C L', 'N' ] );
+	} );
+
 	it( 'returns at most three non-empty rows for the real slot arrays', () => {
 		[
 			[ 'vc-receipt', RECEIPT_SLOTS ],
@@ -264,6 +408,7 @@ describe( 'vcCompactRows', () => {
 			[ 'vc-thread', THREAD_SLOTS ],
 			[ 'vc-scorecard', scorecardSlots( '<span></span>', '<span>x</span>', '<span>y</span>' ) ],
 			[ 'vc-counter', COUNTER_SLOTS ],
+			...PART3_ROWS.map( ( [ , input, slots ] ) => [ getVcSlug( input ), slots ] ),
 		].forEach( ( [ slug, slots ] ) => {
 			const rows = vcCompactRows( slug, slots );
 			expect( rows.length ).toBeLessThanOrEqual( 3 );

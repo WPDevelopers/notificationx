@@ -120,6 +120,16 @@ On the frontend it does **not** use the generic `Content.tsx` rows: `GetTemplate
 
 Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
 
+### Verified Card: Installs (`vc-installs`)
+
+A free "Verified Card" theme appended at the **end** of `$this->themes`, after Counter. Key `download_stats_vc-installs` (wp_stats, and Freemius Stats with Pro), `image_shape` `rounded`, no `defaults`. Template: `first_param` `tag_active_installs`, `second_param` "people are actively using", `third_param` `tag_plugin_theme_name`. It has its **own** group, `vc_installs_template`, offering only the active-install count: the short "40K" fits the 64px tile, while "12 times today" would not. Freemius Stats (Pro) sends the raw count, so `DownloadStats::vc_installs_count()` (on `nx_filtered_entry_freemius_stats`, this key only) shortens it the way WP.org does ("123.5K"); a longer value widens the tile instead of being cut off.
+
+Desktop: the count in a 64px teal tile, then "people are actively using" over an 18px icon and the name. No time. Phone line 1: the count, "people are actively using" and **name**.
+
+On the frontend it does **not** use the generic `Content.tsx` rows: `GetTemplate` returns a slot array and [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx) renders a 344px card (desktop and tablet) or a slim two-line card at 480px and below, with the credit "✓ Verified by NotificationX" and a one-pass line scroll (option C). With NotificationX Pro's Mobile Responsive on, phones (574px and below) show Pro's mobile card with compact rows instead. `GlobalFields::vc_theme_keys()` hides the Advanced Design toggle for it, and Custom Notification does not offer it.
+
+Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
+
 ## Key files
 
 | Layer | File(s) |

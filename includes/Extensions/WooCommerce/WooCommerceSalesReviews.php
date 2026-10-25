@@ -154,6 +154,19 @@ class WooCommerceSalesReviews extends WooReviews {
                     'fifth_param'        => 'tag_plugin_review',
                 ],
             ],
+            // "Verified card" Ratings, kept at the END of the list. The count is per product
+            // (rated_woo_review).
+            // tag_rated is the count of 5-star ratings (and the switch that makes
+            // WooCommerce count them), so the card always shows five stars; no time.
+            'vc-ratings' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-ratings.png',
+                'image_shape' => 'rounded',
+                'template'    => [
+                    'first_param'  => 'tag_rated',
+                    'second_param' => __('people rated', 'notificationx'),
+                    'third_param'  => 'tag_product_title',
+                ],
+            ],
         ];
 
         $this->templates = [
@@ -213,6 +226,18 @@ class WooCommerceSalesReviews extends WooReviews {
                 ],
                 '_themes' => [
                     'woocommerce_sales_reviews_vc-scorecard',
+                ],
+            ],
+            // Verified card Ratings: its own group, only the tags the card shows.
+            'vc_ratings_template' => [
+                'first_param' => [
+                    'tag_rated' => __('Rated', 'notificationx'),
+                ],
+                'third_param' => [
+                    'tag_product_title' => __('Product Title', 'notificationx'),
+                ],
+                '_themes' => [
+                    'woocommerce_sales_reviews_vc-ratings',
                 ],
             ],
         ];

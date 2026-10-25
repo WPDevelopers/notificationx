@@ -11,6 +11,7 @@ namespace NotificationX\Types;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\GetInstance;
 use NotificationX\Core\Rules;
+use NotificationX\Core\Helper;
 
 /**
  * Extension Abstract for all Extension.
@@ -41,6 +42,32 @@ class DownloadStats extends Types {
     public function __construct() {
         parent::__construct();
         $this->id = 'download_stats';
+        // Verified card Installs: shorten Freemius' raw install count (see below).
+        add_filter('nx_filtered_entry_freemius_stats', [$this, 'vc_installs_count'], 20, 2);
+    }
+
+    /**
+     * Verified card Installs (download_stats_vc-installs) on Freemius Stats.
+     *
+     * Freemius sends the raw active-install count (e.g. 123456), which would
+     * not fit the card's 64px tile; WP.org stats are already shortened ("40K",
+     * WPOrgStats::conversion_data). Shorten it the same way, only for the vc
+     * key and only when it is still a plain number. Every other theme and
+     * source is unchanged.
+     *
+     * @param array $entry    Entry data.
+     * @param array $settings Notification settings.
+     * @return array
+     */
+    public function vc_installs_count($entry, $settings) {
+        if (
+            isset($settings['themes'], $entry['active_installs'])
+            && 'download_stats_vc-installs' === $settings['themes']
+            && is_numeric($entry['active_installs'])
+        ) {
+            $entry['active_installs'] = Helper::nice_number($entry['active_installs']);
+        }
+        return $entry;
     }
 
     public function init()
@@ -115,6 +142,19 @@ class DownloadStats extends Types {
                     'fourth_param' => 'tag_last_week_text',
                 ],
             ],
+            // Installs — the active-install count in a tile, "people are actively
+            // using", a small icon + the plugin or theme name. No time. Its own
+            // template group offers only the active-install count (the short
+            // "40K" fits the tile; "12 times today" would not).
+            'vc-installs' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-installs.png',
+                'image_shape' => 'rounded',
+                'template'    => [
+                    'first_param'  => 'tag_active_installs',
+                    'second_param' => __('people are actively using', 'notificationx'),
+                    'third_param'  => 'tag_plugin_theme_name',
+                ],
+            ],
         ];
         $this->res_themes = [
             'res-today-download' => [
@@ -180,6 +220,18 @@ class DownloadStats extends Types {
                 ],
                 '_themes' => [
                     'download_stats_actively_using',
+                ]
+            ],
+            // Verified card Installs: its own group, only the active-install count.
+            'vc_installs_template' => [
+                'first_param' => [
+                    'tag_active_installs' => __('Total Active Install', 'notificationx'),
+                ],
+                'third_param' => [
+                    'tag_plugin_theme_name' => __('Plugin/Theme Name', 'notificationx'),
+                ],
+                '_themes' => [
+                    'download_stats_vc-installs',
                 ]
             ],
         ];

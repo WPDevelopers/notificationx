@@ -26,6 +26,13 @@ import useVcLineScroll from "./useVcLineScroll";
  *                 ('<span></span>' where it is not a headline), [3] review
  *                 text, [4] "on", [5] subject, [6] time
  *  - vc-counter:  [0] name, [1] lead, [2] download count, [3] call to action
+ *  - vc-pledge:   [0] donor, [1] action, [2] amount ("$50.00 for"),
+ *                 [3] campaign, [4] time
+ *  - vc-enrol:    [0] name, [1] action, [2] course, [3] time
+ *  - vc-submission: [0] submitter, [1] action, [2] form title, [3] time
+ *  - vc-ratings:  [0] count, [1] label, [2] subject, [3] Google average
+ *                 ("rating::4.7", Google only; elsewhere five fixed stars), no time
+ *  - vc-installs: [0] active installs, [1] lead, [2] plugin or theme name
  * An empty slot (no text once tags are stripped) hides its part.
  *
  * Desktop and tablet get the 344px card; at 480px and below (matchMedia,
@@ -90,6 +97,24 @@ const PinIcon = () => (
             fill="currentColor"
             d="M12 2a7 7 0 00-7 7c0 5.3 7 13 7 13s7-7.7 7-13a7 7 0 00-7-7zm0 9.6A2.6 2.6 0 1112 6.4a2.6 2.6 0 010 5.2z"
         />
+    </svg>
+);
+
+const HeartIcon = ({ className }: { className?: string }) => (
+    <svg className={className} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path
+            fill="currentColor"
+            d="M12 21s-7.5-4.6-9.6-9.2C.9 8.5 2.9 4.5 6.6 4.5c2.1 0 3.6 1.1 5.4 3 1.8-1.9 3.3-3 5.4-3 3.7 0 5.7 4 4.2 7.3C19.5 16.4 12 21 12 21z"
+        />
+    </svg>
+);
+
+const PlaneIcon = ({ className }: { className?: string }) => (
+    <svg className={className} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M22 2L11 13" />
+            <path d="M22 2l-7 20-4-9-9-4z" />
+        </g>
     </svg>
 );
 
@@ -243,6 +268,160 @@ const CounterCard = ({ props, s }) => (
     </div>
 );
 
+const PledgeCard = ({ props, s }) => {
+    const hasTime = hasText(s[4]);
+    const hasAction = hasText(s[1]);
+    const hasAmount = hasText(s[2]);
+    return (
+        <div className={classNames("nx-vc-card", "nx-vc-pledge", { "has-time": hasTime })}>
+            {hasTime && <Html className="nx-vc-time" html={s[4]} />}
+            <div className="nx-vc-row nx-vc-pl-head">
+                {props?.data?.image_data && (
+                    <span className="nx-vc-avwrap">
+                        <VcImage {...props} />
+                        <span className="nx-vc-badge">
+                            <HeartIcon />
+                        </span>
+                    </span>
+                )}
+                <div className="nx-vc-col">
+                    {hasText(s[0]) && <Html as="div" className="nx-vc-name nx-vc-ell nx-vc-rsv" html={s[0]} />}
+                    {(hasAction || hasAmount) && (
+                        <div className="nx-vc-body">
+                            {hasAction && <Html html={s[1]} />}
+                            {hasAction && hasAmount && " "}
+                            {hasAmount && <Html className="nx-vc-amt" html={s[2]} />}
+                        </div>
+                    )}
+                </div>
+            </div>
+            {hasText(s[3]) && (
+                <div className="nx-vc-strip">
+                    <HeartIcon className="nx-vc-strip-ic" />
+                    <Html className="nx-vc-ell" html={s[3]} />
+                </div>
+            )}
+            <VcCredit config={props.config} />
+            <Close {...props} />
+        </div>
+    );
+};
+
+const EnrolCard = ({ props, s }) => {
+    const hasTime = hasText(s[3]);
+    const hasName = hasText(s[0]);
+    const hasAction = hasText(s[1]);
+    return (
+        <div className={classNames("nx-vc-card", "nx-vc-enrol", { "has-time": hasTime })}>
+            {hasTime && <Html className="nx-vc-time" html={s[3]} />}
+            {(hasName || hasAction) && (
+                <div className="nx-vc-en-who nx-vc-ell nx-vc-rsv">
+                    {hasName && <Html as="b" html={s[0]} />}
+                    {hasName && hasAction && " "}
+                    {hasAction && <Html className="nx-vc-en-action" html={s[1]} />}
+                </div>
+            )}
+            {(hasText(s[2]) || props?.data?.image_data) && (
+                <div className="nx-vc-panel nx-vc-row nx-vc-en-panel">
+                    <VcImage {...props} />
+                    {hasText(s[2]) && <Html as="div" className="nx-vc-body nx-vc-cl2 nx-vc-en-course" html={s[2]} />}
+                </div>
+            )}
+            <VcCredit config={props.config} />
+            <Close {...props} />
+        </div>
+    );
+};
+
+const SubmissionCard = ({ props, s }) => {
+    const hasTime = hasText(s[3]);
+    return (
+        <div className={classNames("nx-vc-card", "nx-vc-submission", { "has-time": hasTime })}>
+            {hasTime && <Html className="nx-vc-time" html={s[3]} />}
+            <div className="nx-vc-row nx-vc-fm-head nx-vc-rsv">
+                <VcImage {...props} />
+                {hasText(s[0]) && <Html as="div" className="nx-vc-name nx-vc-ell" html={s[0]} />}
+            </div>
+            {hasText(s[1]) && <Html as="div" className="nx-vc-label nx-vc-fm-lead" html={s[1]} />}
+            {hasText(s[2]) && (
+                <div className="nx-vc-field">
+                    <PlaneIcon className="nx-vc-field-ic" />
+                    <Html className="nx-vc-ell" html={s[2]} />
+                </div>
+            )}
+            <VcCredit config={props.config} />
+            <Close {...props} />
+        </div>
+    );
+};
+
+// Ratings. Everywhere but Google the count is the number of 5-star ratings:
+// the count over "people rated" and five fixed stars. Google sends the total
+// of all ratings plus the average (slot [3]): as Google shows it, the average
+// over "N reviews" and stars filled to the average.
+const RatingsCard = ({ props, s }) => {
+    const average = parseVcRating(s[3]);
+    const hasCount = hasText(s[0]);
+    const hasLabel = hasText(s[1]);
+    return (
+        <div className={classNames("nx-vc-card", "nx-vc-ratings", { "is-average": average !== null })}>
+            <div className="nx-vc-split">
+                {average !== null ? (
+                    <div className="nx-vc-rt-left">
+                        <div className="nx-vc-rt-hero">{formatVcRating(average)}</div>
+                        {(hasCount || hasLabel) && (
+                            <div className="nx-vc-label">
+                                {hasCount && <Html html={s[0]} />}
+                                {hasCount && hasLabel && " "}
+                                {hasLabel && <Html html={s[1]} />}
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    (hasCount || hasLabel) && (
+                        <div className="nx-vc-rt-left">
+                            {hasCount && <Html as="div" className="nx-vc-rt-hero" html={s[0]} />}
+                            {hasLabel && <Html as="div" className="nx-vc-label" html={s[1]} />}
+                        </div>
+                    )
+                )}
+                <div className="nx-vc-rt-right">
+                    <div className="nx-vc-rt-stars">
+                        <VcStars rating={average !== null ? average : 5} />
+                    </div>
+                    {(hasText(s[2]) || props?.data?.image_data) && (
+                        <div className="nx-vc-row nx-vc-rt-subject">
+                            <VcImage {...props} />
+                            {hasText(s[2]) && <Html as="div" className="nx-vc-name nx-vc-cl2" html={s[2]} />}
+                        </div>
+                    )}
+                </div>
+            </div>
+            <VcCredit config={props.config} />
+            <Close {...props} />
+        </div>
+    );
+};
+
+const InstallsCard = ({ props, s }) => (
+    <div className="nx-vc-card nx-vc-installs">
+        <div className="nx-vc-row nx-vc-is-main">
+            {hasText(s[0]) && <Html as="div" className="nx-vc-numtile" html={s[0]} />}
+            <div className="nx-vc-col">
+                {hasText(s[1]) && <Html as="div" className="nx-vc-label" html={s[1]} />}
+                {(hasText(s[2]) || props?.data?.image_data) && (
+                    <div className="nx-vc-row nx-vc-is-name">
+                        <VcImage {...props} />
+                        {hasText(s[2]) && <Html as="div" className="nx-vc-name nx-vc-ell" html={s[2]} />}
+                    </div>
+                )}
+            </div>
+        </div>
+        <VcCredit config={props.config} />
+        <Close {...props} />
+    </div>
+);
+
 /* ---------- slim (≤480px) ---------- */
 
 const slimLine = (word: string, s: string[]) => {
@@ -282,6 +461,60 @@ const slimLine = (word: string, s: string[]) => {
             if (hasText(s[1])) parts.push(<Html className="nx-vc-dim" html={s[1]} />);
             return { line: joinParts(parts), time: "" };
         }
+        case "pledge":
+            // <b>donor</b> action <amt>$50.00 for</amt> <b>campaign</b>
+            if (hasText(s[0])) parts.push(<Html as="b" html={s[0]} />);
+            if (hasText(s[1])) parts.push(<Html html={s[1]} />);
+            if (hasText(s[2])) parts.push(<Html className="nx-vc-amt" html={s[2]} />);
+            if (hasText(s[3])) parts.push(<Html as="b" html={s[3]} />);
+            return { line: joinParts(parts), time: s[4] };
+        case "enrol":
+            // <b>name</b> action <em-a>course</em-a>
+            if (hasText(s[0])) parts.push(<Html as="b" html={s[0]} />);
+            if (hasText(s[1])) parts.push(<Html html={s[1]} />);
+            if (hasText(s[2])) parts.push(<Html className="nx-vc-em-a" html={s[2]} />);
+            return { line: joinParts(parts), time: s[3] };
+        case "submission":
+            // <b>name</b> action <plane/><em-a>form</em-a>
+            if (hasText(s[0])) parts.push(<Html as="b" html={s[0]} />);
+            if (hasText(s[1])) parts.push(<Html html={s[1]} />);
+            if (hasText(s[2]))
+                parts.push(
+                    <>
+                        <PlaneIcon className="nx-vc-ic-in" />
+                        <Html className="nx-vc-em-a" html={s[2]} />
+                    </>
+                );
+            return { line: joinParts(parts), time: s[3] };
+        case "ratings": {
+            // five stars <num>count</num> <dim>label</dim> <b>subject</b>;
+            // Google: stars filled to the average <num>4.7</num>
+            // <dim>N reviews</dim> <b>place</b>. No time.
+            const average = parseVcRating(s[3]);
+            parts.push(<VcStars rating={average !== null ? average : 5} />);
+            if (average !== null) {
+                parts.push(<span className="nx-vc-num">{formatVcRating(average)}</span>);
+                if (hasText(s[0]) || hasText(s[1]))
+                    parts.push(
+                        <span className="nx-vc-dim">
+                            {hasText(s[0]) && <Html html={s[0]} />}
+                            {hasText(s[0]) && hasText(s[1]) && " "}
+                            {hasText(s[1]) && <Html html={s[1]} />}
+                        </span>
+                    );
+            } else {
+                if (hasText(s[0])) parts.push(<Html className="nx-vc-num" html={s[0]} />);
+                if (hasText(s[1])) parts.push(<Html className="nx-vc-dim" html={s[1]} />);
+            }
+            if (hasText(s[2])) parts.push(<Html as="b" html={s[2]} />);
+            return { line: joinParts(parts), time: "" };
+        }
+        case "installs":
+            // <num>count</num> <dim>lead</dim> <b>name</b>, no time
+            if (hasText(s[0])) parts.push(<Html className="nx-vc-num" html={s[0]} />);
+            if (hasText(s[1])) parts.push(<Html className="nx-vc-dim" html={s[1]} />);
+            if (hasText(s[2])) parts.push(<Html as="b" html={s[2]} />);
+            return { line: joinParts(parts), time: "" };
         case "showcase":
         default: {
             // <b>product</b> · <em-a>action</em-a>
@@ -341,6 +574,16 @@ const VerifiedCard = (props) => {
             return <ScorecardCard props={props} s={s} />;
         case "counter":
             return <CounterCard props={props} s={s} />;
+        case "pledge":
+            return <PledgeCard props={props} s={s} />;
+        case "enrol":
+            return <EnrolCard props={props} s={s} />;
+        case "submission":
+            return <SubmissionCard props={props} s={s} />;
+        case "ratings":
+            return <RatingsCard props={props} s={s} />;
+        case "installs":
+            return <InstallsCard props={props} s={s} />;
         case "receipt":
         default:
             return <ReceiptCard props={props} s={s} />;

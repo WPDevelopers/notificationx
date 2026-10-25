@@ -150,6 +150,19 @@ class Reviews extends Types {
                     'sixth_param'        => 'tag_title',
                 ],
             ],
+            // "Verified card" Ratings, kept at the END of the list. Rendered by the frontend
+            // VerifiedCard; the full keys are listed in GlobalFields::vc_theme_keys().
+            // tag_rated is the count of 5-star ratings (and the switch that makes
+            // WooCommerce count them), so the card always shows five stars; no time.
+            'vc-ratings' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-ratings.png',
+                'image_shape' => 'rounded',
+                'template'    => [
+                    'first_param'  => 'tag_rated',
+                    'second_param' => __('people rated', 'notificationx'),
+                    'third_param'  => 'tag_plugin_name',
+                ],
+            ],
         ];
         $this->res_themes = [
             'res-theme-one'     => [
@@ -275,6 +288,18 @@ class Reviews extends Types {
                 ],
                 '_themes' => [
                     'reviews_vc-scorecard',
+                ],
+            ],
+            // Verified card Ratings: its own group, only the tags the card shows.
+            'vc_ratings_template' => [
+                'first_param' => [
+                    'tag_rated' => __('Rated', 'notificationx'),
+                ],
+                'third_param' => [
+                    'tag_plugin_name' => __('Plugin Name', 'notificationx'),
+                ],
+                '_themes' => [
+                    'reviews_vc-ratings',
                 ],
             ],
         ];

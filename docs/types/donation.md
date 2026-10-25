@@ -107,6 +107,16 @@ map to `_template: donation_template_new`; `res-theme-seven` maps to `maps_templ
 
 `preview_entry()` overrides the admin preview title to `"Fundraising Camp for Health"`.
 
+### Verified Card: Pledge (`vc-pledge`)
+
+A free "Verified Card" theme appended at the **end** of `$this->themes` (existing picker positions are unchanged). Key `donation_vc-pledge` (GiveWP), `image_shape` `circle`, no `defaults`. Template: `first_param` `tag_name`, `second_param` "donated", `third_param` **`tag_amount`** (on by default for this theme only; the other donation themes default to `tag_none`), `fourth_param` `tag_title` (the campaign), `fifth_param` `tag_time`. Give's `amount` already ends in "for" (`Give.php`: `$total . ' ' . __('for')`), so the card reads "donated $50.00 for" + the campaign. The key joins `donation_template_new['_themes']`.
+
+Desktop: a 44px avatar with a rose heart badge, the name and "donated **$50.00 for**", the time at the top right, then the campaign in a full-width tinted strip. Phone line 1: **name**, "donated", the amount and **campaign**, with the time at the right. A Featured Image (the Give form thumbnail) shows as an 8px rounded square; avatars stay circles.
+
+On the frontend it does **not** use the generic `Content.tsx` rows: `GetTemplate` returns a slot array and [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx) renders a 344px card (desktop and tablet) or a slim two-line card at 480px and below, with the credit "✓ Verified by NotificationX" and a one-pass line scroll (option C). With NotificationX Pro's Mobile Responsive on, phones (574px and below) show Pro's mobile card with compact rows instead. `GlobalFields::vc_theme_keys()` hides the Advanced Design toggle for it, and Custom Notification does not offer it.
+
+Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
+
 ## Key files
 
 | Layer | File(s) |

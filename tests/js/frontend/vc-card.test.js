@@ -1,6 +1,7 @@
 /**
- * Verified Cards (vc-*): rendered markup of Receipt, Showcase (Part 1) and
- * Thread, Scorecard, Counter (Part 2) through the real Theme, the credit, the slim (≤480px) layout, the Pro mobile guard,
+ * Verified Cards (vc-*): rendered markup of Receipt, Showcase (Part 1),
+ * Thread, Scorecard, Counter (Part 2) and Pledge, Enrolment, Submission,
+ * Ratings, Installs (Part 3) through the real Theme, the credit, the slim (≤480px) layout, the Pro mobile guard,
  * Advanced Template and the Notification root class.
  */
 import React from 'react';
@@ -89,6 +90,84 @@ const COUNTER = {
 const thread = ( extra ) => base( 'comments_vc-thread', 'wp_comments', 'comments', COMMENTS, { image_shape: 'circle', link_type: 'comment_url', ...extra } );
 const scorecard = ( extra ) => base( 'reviews_vc-scorecard', 'wp_reviews', 'reviews', SCORECARD, { image_shape: 'circle', link_type: 'review_page', ...extra } );
 const counter = ( extra ) => base( 'download_stats_vc-counter', 'wp_stats', 'download_stats', COUNTER, { link_type: 'stats_page', ...extra } );
+
+const DONATION = {
+	first_param: 'tag_name',
+	custom_first_param: 'Someone',
+	second_param: 'donated',
+	third_param: 'tag_amount',
+	fourth_param: 'tag_title',
+	fifth_param: 'tag_time',
+};
+const ELEARNING = {
+	first_param: 'tag_name',
+	custom_first_param: 'Someone',
+	second_param: 'just enrolled',
+	third_param: 'tag_course_title',
+	fourth_param: 'tag_time',
+};
+const FORM = {
+	first_param: 'tag_your-name',
+	custom_first_param: 'Someone',
+	second_param: 'recently contacted via',
+	third_param: 'tag_title',
+	fourth_param: 'tag_time',
+};
+const RATINGS = { first_param: 'tag_rated', second_param: 'people rated', third_param: 'tag_plugin_name' };
+const GOOGLE_RATINGS = { first_param: 'tag_rated', second_param: 'reviews', third_param: 'tag_place_name', fourth_param: 'tag_rating' };
+const INSTALLS = { first_param: 'tag_active_installs', second_param: 'people are actively using', third_param: 'tag_plugin_theme_name' };
+
+const pledge = ( extra ) => base( 'donation_vc-pledge', 'give', 'donation', DONATION, { image_shape: 'circle', ...extra } );
+const enrol = ( extra ) => base( 'elearning_vc-enrol', 'tutor', 'elearning', ELEARNING, extra );
+const submission = ( extra ) => base( 'form_vc-submission', 'cf7', 'form', FORM, { image_shape: 'circle', ...extra } );
+const ratings = ( extra ) => base( 'reviews_vc-ratings', 'wp_reviews', 'reviews', RATINGS, { link_type: 'review_page', ...extra } );
+const googleRatings = ( extra ) => base( 'google_reviews_vc-ratings', 'google_reviews', 'reviews', GOOGLE_RATINGS, extra );
+const googleEntry = ( extra = {} ) => ( {
+	rated: '1284',
+	rating: '4.7',
+	place_name: 'Blue Bottle Coffee – Hayes Valley',
+	updated_at: '2026-10-01 00:00:00',
+	image_data: { url: 'https://example.com/place.png', alt: '', classes: 'greview_icon' },
+	...extra,
+} );
+const installs = ( extra ) => base( 'download_stats_vc-installs', 'wp_stats', 'download_stats', INSTALLS, { link_type: 'stats_page', ...extra } );
+
+const donationEntry = ( extra = {} ) => ( {
+	name: 'Emily S.',
+	amount: '$50.00 for',
+	title: 'Fundraising Camp for Health',
+	updated_at: '2026-10-01 00:00:00',
+	image_data: { url: 'https://example.com/avatar.png', alt: 'Emily S.', classes: 'gravatar' },
+	...extra,
+} );
+const courseEntry = ( extra = {} ) => ( {
+	name: 'John D.',
+	course_title: 'PHP Beginners – Become a PHP Master',
+	updated_at: '2026-10-01 00:00:00',
+	image_data: { url: 'https://example.com/course.png', alt: '', classes: 'featured_image' },
+	...extra,
+} );
+const formEntry = ( extra = {} ) => ( {
+	'your-name': 'Emily S.',
+	title: 'Support Us Form',
+	updated_at: '2026-10-01 00:00:00',
+	image_data: { url: 'https://example.com/avatar.png', alt: '', classes: 'gravatar' },
+	...extra,
+} );
+const ratedEntry = ( extra = {} ) => ( {
+	rated: '435',
+	rating: '3',
+	plugin_name: 'NotificationX',
+	updated_at: '2026-10-01 00:00:00',
+	image_data: { url: 'https://example.com/icon.png', alt: '', classes: 'featured_image' },
+	...extra,
+} );
+const installsEntry = ( extra = {} ) => ( {
+	active_installs: '40K',
+	plugin_theme_name: 'Essential Addons for Elementor',
+	image_data: { url: 'https://example.com/icon.png', alt: '' },
+	...extra,
+} );
 
 const commentEntry = ( extra = {} ) => ( {
 	name: 'Emily S.',
@@ -301,6 +380,11 @@ describe( 'Verified Card: credit', () => {
 		[ 'Thread', thread, commentEntry ],
 		[ 'Scorecard', scorecard, reviewEntry ],
 		[ 'Counter', counter, statsEntry ],
+		[ 'Pledge', pledge, donationEntry ],
+		[ 'Enrolment', enrol, courseEntry ],
+		[ 'Submission', submission, formEntry ],
+		[ 'Ratings', ratings, ratedEntry ],
+		[ 'Installs', installs, installsEntry ],
 	] )( '%s: ✓ Verified by [bell] NotificationX', ( label, make, entry ) => {
 		renderTheme( make(), entry() );
 		const credit = container.querySelector( '.nx-vc-card .nx-vc-credit' );
@@ -469,6 +553,11 @@ describe( 'Notification root class', () => {
 		[ 'comments_vc-thread', () => thread() ],
 		[ 'reviews_vc-scorecard', () => scorecard() ],
 		[ 'download_stats_vc-counter', () => counter() ],
+		[ 'donation_vc-pledge', () => pledge() ],
+		[ 'elearning_vc-enrol', () => enrol() ],
+		[ 'form_vc-submission', () => submission() ],
+		[ 'reviews_vc-ratings', () => ratings() ],
+		[ 'download_stats_vc-installs', () => installs() ],
 	] )( '%s gets nx-vc and renders the vc card inside', ( label, make ) => {
 		const root = renderRoot( make() );
 		expect( root.classList.contains( `themes-${ label }` ) ).toBe( true );
@@ -548,8 +637,12 @@ describe( 'Verified Card Part 2: desktop / tablet', () => {
 		const stars = container.querySelector( '.nx-vc-rate .nx-vc-stars' );
 		expect( stars.getAttribute( 'role' ) ).toBe( 'img' );
 		expect( stars.getAttribute( 'aria-label' ) ).toBe( '4.4 out of 5' );
-		expect( stars.querySelectorAll( 'svg.is-on' ) ).toHaveLength( 4 );
-		expect( stars.querySelectorAll( 'svg.is-off' ) ).toHaveLength( 1 );
+		// Partial fill, not rounded: four full stars and the fifth 40% filled.
+		expect( stars.querySelectorAll( '.nx-vc-star.is-on' ) ).toHaveLength( 4 );
+		expect( stars.querySelectorAll( '.nx-vc-star.is-off' ) ).toHaveLength( 0 );
+		const fifth = stars.querySelectorAll( '.nx-vc-star' )[ 4 ];
+		expect( fifth.classList.contains( 'is-part' ) ).toBe( true );
+		expect( fifth.querySelector( '.nx-vc-star-fg' ).style.width ).toBe( '40%' );
 		expect( text( '.nx-vc-rnum' ) ).toBe( '4.4' );
 		expect( text( '.nx-vc-rtitle' ) ).toBe( 'Excellent plugin' );
 		expect( text( '.nx-vc-rtext' ) ).toBe( 'Super easy to set up and the sales popups look great.' );
@@ -561,7 +654,7 @@ describe( 'Verified Card Part 2: desktop / tablet', () => {
 
 	it( 'Scorecard: "5" shows five stars and 5.0', () => {
 		renderTheme( scorecard(), reviewEntry( { rating: '5' } ) );
-		expect( container.querySelectorAll( '.nx-vc-stars svg.is-on' ) ).toHaveLength( 5 );
+		expect( container.querySelectorAll( '.nx-vc-stars .nx-vc-star.is-on' ) ).toHaveLength( 5 );
 		expect( text( '.nx-vc-rnum' ) ).toBe( '5.0' );
 	} );
 
@@ -611,6 +704,21 @@ describe( 'Verified Card Part 2: desktop / tablet', () => {
 		expect( image.classList.contains( 'image-circle' ) ).toBe( true );
 		expect( image.classList.contains( 'featured_image' ) ).toBe( tile );
 		expect( image.classList.contains( type ) ).toBe( true );
+	} );
+
+	it( 'Scorecard shows the time only at the top right, never in the body', () => {
+		// e.g. the review text and rating fields left on "Definite Time" by another theme.
+		renderTheme(
+			scorecard( { 'notification-template': { ...SCORECARD, fourth_param: 'tag_time', fifth_param: 'tag_time' } } ),
+			reviewEntry()
+		);
+		const card = container.querySelector( '.nx-vc-card.nx-vc-scorecard' );
+		expect( text( '.nx-vc-time' ) ).toBe( '5 days ago' );
+		expect( container.querySelector( '.nx-vc-rtext' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-stars' ) ).toBeNull();
+		expect( card.textContent.split( '5 days ago' ) ).toHaveLength( 2 );
+		expect( text( '.nx-vc-rtitle' ) ).toBe( 'Excellent plugin' );
+		expect( text( '.nx-vc-on b' ) ).toBe( 'NotificationX' );
 	} );
 
 	it( 'Scorecard hides empty review text and an empty subject', () => {
@@ -668,7 +776,8 @@ describe( 'Verified Card Part 2: slim (≤480px)', () => {
 		const inner = container.querySelector( '.nx-vc-msg-in' );
 		// The stars come first and sit inside the scrolling line.
 		expect( inner.firstElementChild.classList.contains( 'nx-vc-stars' ) ).toBe( true );
-		expect( inner.querySelectorAll( '.nx-vc-stars svg.is-on' ) ).toHaveLength( 4 );
+		expect( inner.querySelectorAll( '.nx-vc-stars .nx-vc-star.is-on' ) ).toHaveLength( 4 );
+		expect( inner.querySelectorAll( '.nx-vc-stars .nx-vc-star.is-part' ) ).toHaveLength( 1 );
 		const bold = [ ...inner.querySelectorAll( 'b' ) ].map( ( b ) => b.textContent );
 		expect( bold ).toEqual( [ 'jdoe_dev', 'NotificationX' ] );
 		expect( inner.querySelector( '.nx-vc-dim' ).textContent ).toBe( 'on' );
@@ -727,5 +836,260 @@ describe( 'Verified Card Part 2: Pro mobile card (is_mobile)', () => {
 		expect( ps[ 1 ].querySelectorAll( 'svg' ) ).toHaveLength( 5 );
 		expect( ps[ 1 ].textContent ).not.toContain( 'rating::' );
 		expect( ps[ 2 ].firstElementChild.textContent ).toBe( '5 days ago' );
+	} );
+} );
+
+describe( 'Verified Card Part 3: desktop / tablet', () => {
+	beforeEach( () => stubMatchMedia( false ) );
+
+	it( 'Pledge: avatar with a heart badge, name, "donated $50.00 for", the campaign strip, time', () => {
+		renderTheme( pledge(), donationEntry() );
+		const card = container.querySelector( '.nx-vc-card.nx-vc-pledge' );
+		expect( card ).not.toBeNull();
+		expect( card.classList.contains( 'has-time' ) ).toBe( true );
+		expect( container.querySelector( '.notificationx-content' ) ).toBeNull();
+		expect( text( '.nx-vc-time' ) ).toBe( '5 days ago' );
+		const wrap = container.querySelector( '.nx-vc-pl-head .nx-vc-avwrap' );
+		expect( wrap.querySelector( '.notificationx-image' ) ).not.toBeNull();
+		expect( wrap.querySelector( '.nx-vc-badge svg' ) ).not.toBeNull();
+		expect( text( '.nx-vc-pl-head .nx-vc-name' ) ).toBe( 'Emily S.' );
+		expect( text( '.nx-vc-pl-head .nx-vc-body' ) ).toBe( 'donated $50.00 for' );
+		expect( text( '.nx-vc-amt' ) ).toBe( '$50.00 for' );
+		expect( text( '.nx-vc-strip' ) ).toBe( 'Fundraising Camp for Health' );
+		expect( container.querySelector( '.nx-vc-strip .nx-vc-strip-ic' ) ).not.toBeNull();
+	} );
+
+	it( 'Pledge with the amount set to None, and without an image', () => {
+		renderTheme( pledge( { 'notification-template': { ...DONATION, third_param: 'tag_none' } } ), donationEntry( { image_data: false } ) );
+		expect( container.querySelector( '.nx-vc-amt' ) ).toBeNull();
+		expect( text( '.nx-vc-pl-head .nx-vc-body' ) ).toBe( 'donated' );
+		// No image: no badge either.
+		expect( container.querySelector( '.nx-vc-avwrap' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-badge' ) ).toBeNull();
+	} );
+
+	it( 'Enrolment: name + action with the time, the course panel', () => {
+		renderTheme( enrol(), courseEntry() );
+		const card = container.querySelector( '.nx-vc-card.nx-vc-enrol' );
+		expect( card ).not.toBeNull();
+		expect( text( '.nx-vc-time' ) ).toBe( '5 days ago' );
+		expect( text( '.nx-vc-en-who b' ) ).toBe( 'John D.' );
+		expect( text( '.nx-vc-en-who' ) ).toBe( 'John D. just enrolled' );
+		expect( container.querySelector( '.nx-vc-en-who' ).classList.contains( 'nx-vc-rsv' ) ).toBe( true );
+		const panel = container.querySelector( '.nx-vc-panel.nx-vc-en-panel' );
+		expect( panel.firstElementChild.classList.contains( 'notificationx-image' ) ).toBe( true );
+		expect( text( '.nx-vc-en-course' ) ).toBe( 'PHP Beginners – Become a PHP Master' );
+	} );
+
+	it( 'Submission: avatar + submitter, the lead, the form in a field box', () => {
+		renderTheme( submission(), formEntry() );
+		const card = container.querySelector( '.nx-vc-card.nx-vc-submission' );
+		expect( card ).not.toBeNull();
+		expect( text( '.nx-vc-time' ) ).toBe( '5 days ago' );
+		const head = container.querySelector( '.nx-vc-fm-head' );
+		expect( head.firstElementChild.classList.contains( 'notificationx-image' ) ).toBe( true );
+		expect( text( '.nx-vc-fm-head .nx-vc-name' ) ).toBe( 'Emily S.' );
+		expect( text( '.nx-vc-fm-lead' ) ).toBe( 'recently contacted via' );
+		expect( text( '.nx-vc-field' ) ).toBe( 'Support Us Form' );
+		expect( container.querySelector( '.nx-vc-field .nx-vc-field-ic' ) ).not.toBeNull();
+	} );
+
+	it( 'Ratings: count + label | five stars, icon + subject; no time', () => {
+		renderTheme( ratings(), ratedEntry() );
+		const card = container.querySelector( '.nx-vc-card.nx-vc-ratings' );
+		expect( card ).not.toBeNull();
+		expect( card.classList.contains( 'has-time' ) ).toBe( false );
+		expect( container.querySelector( '.nx-vc-time' ) ).toBeNull();
+		expect( text( '.nx-vc-rt-left .nx-vc-rt-hero' ) ).toBe( '435' );
+		expect( text( '.nx-vc-rt-left .nx-vc-label' ) ).toBe( 'people rated' );
+		// Always five stars: the count is of 5-star ratings (the entry's own rating is ignored).
+		const stars = container.querySelector( '.nx-vc-rt-right .nx-vc-stars' );
+		expect( stars.querySelectorAll( '.nx-vc-star.is-on' ) ).toHaveLength( 5 );
+		expect( stars.getAttribute( 'aria-label' ) ).toBe( '5.0 out of 5' );
+		const subject = container.querySelector( '.nx-vc-rt-subject' );
+		expect( subject.firstElementChild.classList.contains( 'notificationx-image' ) ).toBe( true );
+		expect( text( '.nx-vc-rt-subject .nx-vc-name' ) ).toBe( 'NotificationX' );
+		expect( card.textContent ).not.toContain( 'rating::' );
+	} );
+
+	it( 'Ratings without a count keeps the stars and subject', () => {
+		renderTheme( ratings(), ratedEntry( { rated: '' } ) );
+		expect( container.querySelector( '.nx-vc-rt-hero' ) ).toBeNull();
+		expect( text( '.nx-vc-rt-left .nx-vc-label' ) ).toBe( 'people rated' );
+		expect( container.querySelectorAll( '.nx-vc-stars .nx-vc-star.is-on' ) ).toHaveLength( 5 );
+	} );
+
+	it( 'Installs: the count tile, the lead, icon + name; no time', () => {
+		renderTheme( installs(), installsEntry() );
+		const card = container.querySelector( '.nx-vc-card.nx-vc-installs' );
+		expect( card ).not.toBeNull();
+		expect( container.querySelector( '.nx-vc-time' ) ).toBeNull();
+		expect( text( '.nx-vc-is-main > .nx-vc-numtile' ) ).toBe( '40K' );
+		expect( text( '.nx-vc-is-main .nx-vc-label' ) ).toBe( 'people are actively using' );
+		const name = container.querySelector( '.nx-vc-is-name' );
+		expect( name.firstElementChild.classList.contains( 'notificationx-image' ) ).toBe( true );
+		expect( text( '.nx-vc-is-name .nx-vc-name' ) ).toBe( 'Essential Addons for Elementor' );
+	} );
+
+	it( 'escapes entry values in the new cards', () => {
+		renderTheme( pledge(), donationEntry( { title: '<img src=x onerror=alert(1)>' } ) );
+		expect( container.querySelector( '.nx-vc-strip img' ) ).toBeNull();
+		expect( text( '.nx-vc-strip' ) ).toBe( '<img src=x onerror=alert(1)>' );
+	} );
+} );
+
+describe( 'Verified Card Part 3: slim (≤480px)', () => {
+	beforeEach( () => stubMatchMedia( true ) );
+
+	const line = () => container.querySelector( '.nx-vc-l1 > .nx-vc-msg > .nx-vc-msg-in' );
+
+	it( 'Pledge line 1: <b>donor</b> donated <amt>$50.00 for</amt> <b>campaign</b>, time', () => {
+		renderTheme( pledge(), donationEntry() );
+		expect( container.querySelector( '.nx-vc-card.nx-vc-pledge.nx-vc-slim' ) ).not.toBeNull();
+		expect( line().textContent ).toBe( 'Emily S. donated $50.00 for Fundraising Camp for Health' );
+		expect( [ ...line().querySelectorAll( 'b' ) ].map( ( b ) => b.textContent ) ).toEqual( [ 'Emily S.', 'Fundraising Camp for Health' ] );
+		expect( line().querySelector( '.nx-vc-amt' ).textContent ).toBe( '$50.00 for' );
+		expect( text( '.nx-vc-slim-time' ) ).toBe( '5 days ago' );
+		expect( container.querySelector( '.nx-vc-badge' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-strip' ) ).toBeNull();
+	} );
+
+	it( 'Enrolment line 1: <b>name</b> just enrolled <em-a>course</em-a>, time', () => {
+		renderTheme( enrol(), courseEntry() );
+		expect( line().textContent ).toBe( 'John D. just enrolled PHP Beginners – Become a PHP Master' );
+		expect( line().querySelector( '.nx-vc-em-a' ).textContent ).toBe( 'PHP Beginners – Become a PHP Master' );
+		expect( text( '.nx-vc-slim-time' ) ).toBe( '5 days ago' );
+		expect( container.querySelector( '.nx-vc-en-panel' ) ).toBeNull();
+	} );
+
+	it( 'Submission line 1: <b>name</b> recently contacted via ✈ <em-a>form</em-a>, time', () => {
+		renderTheme( submission(), formEntry() );
+		expect( line().textContent ).toBe( 'Emily S. recently contacted via Support Us Form' );
+		const icon = line().querySelector( 'svg.nx-vc-ic-in' );
+		expect( icon ).not.toBeNull();
+		expect( icon.nextElementSibling.classList.contains( 'nx-vc-em-a' ) ).toBe( true );
+		expect( text( '.nx-vc-slim-time' ) ).toBe( '5 days ago' );
+		expect( container.querySelector( '.nx-vc-field' ) ).toBeNull();
+	} );
+
+	it( 'Ratings line 1: five stars, count, label, <b>subject</b>; no time', () => {
+		renderTheme( ratings(), ratedEntry() );
+		expect( line().firstElementChild.classList.contains( 'nx-vc-stars' ) ).toBe( true );
+		expect( line().querySelectorAll( '.nx-vc-stars .nx-vc-star.is-on' ) ).toHaveLength( 5 );
+		expect( line().querySelector( '.nx-vc-num' ).textContent ).toBe( '435' );
+		expect( line().querySelector( '.nx-vc-dim' ).textContent ).toBe( 'people rated' );
+		expect( line().querySelector( 'b' ).textContent ).toBe( 'NotificationX' );
+		expect( line().textContent.trim() ).toBe( '435 people rated NotificationX' );
+		expect( container.querySelector( '.nx-vc-slim-time' ) ).toBeNull();
+	} );
+
+	it( 'Installs line 1: count, lead, <b>name</b>; no time', () => {
+		renderTheme( installs(), installsEntry() );
+		expect( line().firstElementChild.classList.contains( 'nx-vc-num' ) ).toBe( true );
+		expect( line().textContent ).toBe( '40K people are actively using Essential Addons for Elementor' );
+		expect( container.querySelector( '.nx-vc-slim-time' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-numtile' ) ).toBeNull();
+	} );
+} );
+
+describe( 'Verified Card Part 3: Pro mobile card (is_mobile)', () => {
+	beforeEach( () => stubMatchMedia( true ) );
+
+	it.each( [
+		[ 'Pledge', pledge, donationEntry, [ 'Emily S. donated $50.00 for', 'Fundraising Camp for Health', '5 days ago' ] ],
+		[ 'Enrolment', enrol, courseEntry, [ 'John D. just enrolled', 'PHP Beginners – Become a PHP Master', '5 days ago' ] ],
+		[ 'Submission', submission, formEntry, [ 'Emily S. recently contacted via', 'Support Us Form', '5 days ago' ] ],
+		[ 'Installs', installs, installsEntry, [ '40K people are actively using', 'Essential Addons for Elementor' ] ],
+	] )( '%s renders through the generic path with compact rows', ( label, make, entry, rows ) => {
+		renderTheme( make(), entry(), { is_mobile: true } );
+		expect( container.querySelector( '.nx-vc-card' ) ).toBeNull();
+		const ps = [ ...container.querySelectorAll( '.notificationx-content p' ) ];
+		expect( ps.slice( 0, rows.length ).map( ( p ) => p.firstElementChild.textContent ) ).toEqual( rows );
+		expect( ps[ ps.length - 1 ].querySelector( '.nx-branding .nx-byline' ).textContent ).toBe( 'by' );
+	} );
+
+	it( 'Ratings shows five generic stars in its third row', () => {
+		renderTheme( ratings(), ratedEntry(), { is_mobile: true } );
+		const ps = [ ...container.querySelectorAll( '.notificationx-content p' ) ];
+		expect( ps ).toHaveLength( 3 );
+		expect( ps[ 0 ].firstElementChild.textContent ).toBe( '435 people rated' );
+		expect( ps[ 1 ].firstElementChild.textContent ).toBe( 'NotificationX' );
+		// The shared Star renderer (viewBox 0 0 511 510); the row also carries the "by" branding.
+		expect( ps[ 2 ].querySelectorAll( 'svg[viewBox="0 0 511 510"]' ) ).toHaveLength( 5 );
+		expect( ps[ 2 ].textContent ).not.toContain( 'rating::' );
+	} );
+} );
+
+describe( 'Verified Card Part 3: partial stars and Google Ratings', () => {
+	const fills = ( root ) =>
+		[ ...root.querySelectorAll( '.nx-vc-star' ) ].map( ( star ) => {
+			const fg = star.querySelector( '.nx-vc-star-fg' );
+			return fg ? fg.style.width : '0';
+		} );
+
+	it( 'vcStarFill gives each star its share of the rating, not rounded', () => {
+		const { vcStarFill } = require( '../../../nxdev/notificationx/frontend/themes/vc/VcStars' );
+		expect( [ 1, 2, 3, 4, 5 ].map( ( i ) => vcStarFill( 4.7, i ) ) ).toEqual( [ 100, 100, 100, 100, 70 ] );
+		expect( [ 1, 2, 3, 4, 5 ].map( ( i ) => vcStarFill( 4.5, i ) ) ).toEqual( [ 100, 100, 100, 100, 50 ] );
+		expect( [ 1, 2, 3, 4, 5 ].map( ( i ) => vcStarFill( 2.25, i ) ) ).toEqual( [ 100, 100, 25, 0, 0 ] );
+		expect( [ 1, 2, 3, 4, 5 ].map( ( i ) => vcStarFill( 5, i ) ) ).toEqual( [ 100, 100, 100, 100, 100 ] );
+		expect( [ 1, 2, 3, 4, 5 ].map( ( i ) => vcStarFill( 0, i ) ) ).toEqual( [ 0, 0, 0, 0, 0 ] );
+	} );
+
+	it( 'Scorecard 4.5 shows four and a half stars, label "4.5 out of 5"', () => {
+		stubMatchMedia( false );
+		renderTheme( scorecard(), reviewEntry( { rating: '4.5' } ) );
+		const stars = container.querySelector( '.nx-vc-rate .nx-vc-stars' );
+		expect( fills( stars ) ).toEqual( [ '100%', '100%', '100%', '100%', '50%' ] );
+		expect( stars.getAttribute( 'aria-label' ) ).toBe( '4.5 out of 5' );
+		expect( text( '.nx-vc-rnum' ) ).toBe( '4.5' );
+		// Each star is a grey star with an amber copy on top; the copies are hidden from screen readers.
+		expect( stars.querySelectorAll( '.nx-vc-star-bg svg[aria-hidden="true"]' ) ).toHaveLength( 5 );
+	} );
+
+	it( 'Google Ratings desktop: the average over "N reviews", stars filled to the average', () => {
+		stubMatchMedia( false );
+		renderTheme( googleRatings(), googleEntry() );
+		const card = container.querySelector( '.nx-vc-card.nx-vc-ratings.is-average' );
+		expect( card ).not.toBeNull();
+		expect( container.querySelector( '.nx-vc-time' ) ).toBeNull();
+		expect( text( '.nx-vc-rt-left .nx-vc-rt-hero' ) ).toBe( '4.7' );
+		expect( text( '.nx-vc-rt-left .nx-vc-label' ) ).toBe( '1284 reviews' );
+		const stars = container.querySelector( '.nx-vc-rt-right .nx-vc-stars' );
+		expect( fills( stars ) ).toEqual( [ '100%', '100%', '100%', '100%', '70%' ] );
+		expect( stars.getAttribute( 'aria-label' ) ).toBe( '4.7 out of 5' );
+		expect( text( '.nx-vc-rt-subject .nx-vc-name' ) ).toBe( 'Blue Bottle Coffee – Hayes Valley' );
+		expect( card.textContent ).not.toContain( 'rating::' );
+	} );
+
+	it( 'Google Ratings slim line 1: partial stars, the average, "N reviews", <b>place</b>', () => {
+		stubMatchMedia( true );
+		renderTheme( googleRatings(), googleEntry() );
+		const inner = container.querySelector( '.nx-vc-msg-in' );
+		expect( fills( inner.querySelector( '.nx-vc-stars' ) ) ).toEqual( [ '100%', '100%', '100%', '100%', '70%' ] );
+		expect( inner.querySelector( '.nx-vc-num' ).textContent ).toBe( '4.7' );
+		expect( inner.querySelector( '.nx-vc-dim' ).textContent ).toBe( '1284 reviews' );
+		expect( inner.querySelector( 'b' ).textContent ).toBe( 'Blue Bottle Coffee – Hayes Valley' );
+		expect( inner.textContent.trim() ).toBe( '4.7 1284 reviews Blue Bottle Coffee – Hayes Valley' );
+		expect( container.querySelector( '.nx-vc-slim-time' ) ).toBeNull();
+	} );
+
+	it( 'other Ratings sources ignore a rating and keep five fixed stars', () => {
+		stubMatchMedia( false );
+		// A leftover fourth_param on wp_reviews: the slot is empty, so no average.
+		renderTheme( ratings( { 'notification-template': { ...RATINGS, fourth_param: 'tag_rating' } } ), ratedEntry( { rating: '3' } ) );
+		expect( container.querySelector( '.nx-vc-ratings.is-average' ) ).toBeNull();
+		expect( text( '.nx-vc-rt-hero' ) ).toBe( '435' );
+		expect( fills( container.querySelector( '.nx-vc-stars' ) ) ).toEqual( [ '100%', '100%', '100%', '100%', '100%' ] );
+	} );
+
+	it( 'Google Ratings on the Pro mobile card: the generic stars show the average', () => {
+		stubMatchMedia( true );
+		renderTheme( googleRatings(), googleEntry(), { is_mobile: true } );
+		const ps = [ ...container.querySelectorAll( '.notificationx-content p' ) ];
+		expect( ps[ 0 ].firstElementChild.textContent ).toBe( '1284 reviews' );
+		expect( ps[ 1 ].firstElementChild.textContent ).toBe( 'Blue Bottle Coffee – Hayes Valley' );
+		expect( ps[ 2 ].querySelectorAll( 'svg[viewBox="0 0 511 510"]' ) ).toHaveLength( 5 );
+		expect( ps[ 2 ].textContent ).not.toContain( 'rating::' );
 	} );
 } );

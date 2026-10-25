@@ -109,6 +109,28 @@ class Donations extends Types {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/donation/donation-theme-9.png',
                 'image_shape' => 'square',
             ],
+            // "Verified card" (vc) theme, kept at the END of the list so every
+            // existing card keeps its picker position. Rendered by the frontend
+            // VerifiedCard (nxdev/notificationx/frontend/themes/vc/); the full key
+            // is listed in GlobalFields::vc_theme_keys(). No 'defaults', so the
+            // theme trigger sets @link_button:false.
+            // Pledge — avatar with a heart badge, "donated $50.00 for", the
+            // campaign in a strip. Give's amount already ends in "for", so the
+            // amount is on by default here (the other themes default to None).
+            'vc-pledge' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-pledge.png',
+                'image_shape' => 'circle',
+                'template'    => [
+                    'first_param'         => 'tag_name',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('donated', 'notificationx'),
+                    'third_param'         => 'tag_amount',
+                    'fourth_param'        => 'tag_title',
+                    'custom_fourth_param' => __('Anonymous Title', 'notificationx'),
+                    'fifth_param'         => 'tag_time',
+                    'custom_fifth_param'  => __('Some time ago', 'notificationx'),
+                ],
+            ],
         ];
         $this->res_themes = [
             'res-theme-one'   => [
@@ -184,6 +206,7 @@ class Donations extends Types {
                     'donation_theme-four',
                     'donation_theme-five',
                     'donation_maps_theme',
+                    'donation_vc-pledge',
                 ],
             ],
             'donation_template_sales_count' => [

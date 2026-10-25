@@ -49,7 +49,7 @@ Filters live on the global WordPress registry, `window.wp.hooks`. Register them 
 
 ### Verified Cards (`vc-*`)
 
-The Verified Card themes (`conversions_vc-receipt`, `woocommerce_sales_vc-receipt`, `conversions_vc-showcase`, `woocommerce_sales_vc-showcase`, `comments_vc-thread`, the `*_vc-scorecard` review keys and `download_stats_vc-counter`; the full list is `GlobalFields::vc_theme_keys()`) render through their own card, [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx), on desktop, tablet and the slim phone layout. That card replaces the generic Image/Content/Close markup, so for these keys:
+The Verified Card themes (`conversions_vc-receipt`, `woocommerce_sales_vc-receipt`, `conversions_vc-showcase`, `woocommerce_sales_vc-showcase`, `comments_vc-thread`, the `*_vc-scorecard` and `*_vc-ratings` review keys (including Google), `download_stats_vc-counter`, `donation_vc-pledge`, `elearning_vc-enrol`, `form_vc-submission` and `download_stats_vc-installs`; the full list is `GlobalFields::vc_theme_keys()`) render through their own card, [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx), on desktop, tablet and the slim phone layout. That card replaces the generic Image/Content/Close markup, so for these keys:
 
 - `nx_theme_before_content`, `nx_theme_after_content` and `nx_content_append` **do not run**. NotificationX Pro uses them only for its Discount Alert (`announcements_*`) themes ([register.tsx](../../../notificationx-pro/nxdev/frontend-themes/register.tsx)); a third-party add-on that relies on them does not reach vc cards.
 - `nx_frontend_image` still runs: the card renders the image through `Image`.
