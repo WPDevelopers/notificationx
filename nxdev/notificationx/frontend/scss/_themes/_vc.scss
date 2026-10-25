@@ -1,4 +1,4 @@
-// Verified Cards (vc-*): Receipt and Showcase.
+// Verified Cards (vc-*): Receipt, Showcase, Thread, Scorecard and Counter.
 // Markup: themes/vc/VerifiedCard.tsx. Approved design: the 84707 theme gallery.
 //
 // Imported inside `.notification-item {}` (_common.scss). EVERY rule is rooted
@@ -9,7 +9,7 @@
 //
 // To add a vc theme, append its root to $nx-vc-root (the one list here) and
 // add its own block at the end.
-$nx-vc-root: "&.nx-vc.themes-vc-receipt, &.nx-vc.themes-vc-showcase";
+$nx-vc-root: "&.nx-vc.themes-vc-receipt, &.nx-vc.themes-vc-showcase, &.nx-vc.themes-vc-thread, &.nx-vc.themes-vc-scorecard, &.nx-vc.themes-vc-counter";
 
 $nx-vc-ink: #131b2e;
 $nx-vc-text: #3a4256;
@@ -566,5 +566,208 @@ $nx-vc-shadow: 0 8px 24px rgba(19, 27, 46, 0.1), 0 1px 2px rgba(19, 27, 46, 0.06
     .nx-vc-showcase:not(.nx-vc-slim) .notificationx-image {
         width: 56px;
         height: 56px;
+    }
+}
+
+// ---- Thread: avatar + name + "commented on", the comment under a violet rule ----
+&.nx-vc.themes-vc-thread {
+    --nx-vc-a: #7c3aed;
+
+    .nx-vc-th-head {
+        gap: 8px;
+    }
+
+    .nx-vc-thread:not(.nx-vc-slim) .notificationx-image {
+        width: 32px;
+        height: 32px;
+    }
+
+    .nx-vc-th-who {
+        flex: 1 1 auto;
+        font-size: 12px;
+        line-height: 1.3;
+        color: $nx-vc-label;
+
+        b {
+            font-size: 14px;
+            font-weight: 600;
+            color: $nx-vc-ink;
+        }
+    }
+
+    .nx-vc-quote {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        margin-top: 8px;
+        padding-left: 10px;
+        border-left: 2px solid var(--nx-vc-a);
+        font-size: 13px;
+        line-height: 1.45;
+        font-weight: 400;
+        color: $nx-vc-text;
+
+        // "Post Title" picked instead of the comment.
+        &.is-title {
+            font-weight: 600;
+            color: $nx-vc-ink;
+        }
+    }
+
+    [dir="rtl"] & .nx-vc-quote {
+        padding-left: 0;
+        padding-right: 10px;
+        border-left: 0;
+        border-right: 2px solid var(--nx-vc-a);
+    }
+
+    // Slim line 1: the desktop's left rule as a 2x12px marker.
+    @media only screen and (max-width: 480px) {
+        .nx-vc-msg .nx-vc-q-rule {
+            display: inline-block;
+            width: 2px;
+            height: 12px;
+            margin: 0 3px;
+            border-radius: 1px;
+            background: var(--nx-vc-a);
+            vertical-align: -2px;
+        }
+    }
+}
+
+// ---- Scorecard: reviewer + time, stars + rating + title, text, "on <subject>" ----
+&.nx-vc.themes-vc-scorecard {
+    --nx-vc-a: #f5a524;
+
+    .nx-vc-sr-head {
+        gap: 10px;
+    }
+
+    .nx-vc-scorecard:not(.nx-vc-slim) .notificationx-image {
+        width: 36px;
+        height: 36px;
+    }
+
+    // Featured Image (plugin icon, product photo) is a rounded-square tile, as
+    // in the gallery; avatars stay circles. Image.js puts the image type
+    // (image_data.classes, e.g. featured_image or gravatar) on the element.
+    // After the shared image-circle rules, same specificity: wins on desktop
+    // and on the slim card.
+    .nx-vc-scorecard .notificationx-image.featured_image {
+        border-radius: 8px;
+    }
+
+    .nx-vc-stars {
+        display: inline-flex;
+        flex: none;
+        gap: 1px;
+        line-height: 0;
+        color: #f5a524;
+
+        svg {
+            display: block;
+            width: 14px;
+            height: 14px;
+        }
+
+        .is-off {
+            color: #e5e7eb;
+        }
+    }
+
+    .nx-vc-rate {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-width: 0;
+        margin-top: 8px;
+    }
+
+    .nx-vc-rnum {
+        flex: none;
+        font-size: 12px;
+        line-height: 1.2;
+        font-weight: 600;
+        color: $nx-vc-ink;
+    }
+
+    .nx-vc-rtitle {
+        font-size: 13px;
+        line-height: 1.3;
+        font-weight: 600;
+        color: $nx-vc-ink;
+    }
+
+    .nx-vc-rtext {
+        margin-top: 4px;
+    }
+
+    .nx-vc-on {
+        margin-top: 3px;
+        font-size: 12px;
+        line-height: 1.3;
+        color: $nx-vc-label;
+
+        b {
+            font-weight: 600;
+            color: $nx-vc-text;
+        }
+    }
+
+    // Slim line 1: 11px stars first, so they always show.
+    @media only screen and (max-width: 480px) {
+        .nx-vc-msg .nx-vc-stars {
+            vertical-align: -1px;
+
+            svg {
+                width: 11px;
+                height: 11px;
+            }
+        }
+    }
+}
+
+// ---- Counter: icon + name over the lead, the count as a figure, the call to action ----
+&.nx-vc.themes-vc-counter {
+    .nx-vc-counter:not(.nx-vc-slim) .notificationx-image {
+        width: 44px;
+        height: 44px;
+    }
+
+    .nx-vc-hero {
+        margin-top: 10px;
+        font-size: 20px;
+        line-height: 1.15;
+        font-weight: 700;
+        color: var(--nx-vc-a);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.01em;
+    }
+
+    .nx-vc-cta {
+        margin-top: 6px;
+        font-size: 13px;
+        line-height: 1.3;
+        font-weight: 600;
+        color: var(--nx-vc-a);
+
+        &::after {
+            content: "\00A0\203A";
+        }
+    }
+
+    [dir="rtl"] & .nx-vc-cta::after {
+        content: "\00A0\2039";
+    }
+
+    // Slim line 1: the count first, in the accent colour.
+    @media only screen and (max-width: 480px) {
+        .nx-vc-msg .nx-vc-num {
+            font-weight: 700;
+            color: var(--nx-vc-a);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.01em;
+        }
     }
 }

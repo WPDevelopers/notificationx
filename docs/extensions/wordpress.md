@@ -89,6 +89,10 @@ both `WPOrgReview` and `WPOrgStats`.
 - All three field sets use `GlobalFields::get_instance()->normalize_fields()` to
   build their `select` options; no other `GlobalFields` field is reused directly.
 
+### Verified Cards
+
+The Verified Cards for this module's sources live on the Types: **Thread** for WP Comments ([comments.md](../types/comments.md)), **Scorecard** for WP.org reviews ([reviews.md](../types/reviews.md); the review title row shows here) and **Counter** for WP.org stats ([download_stats.md](../types/download_stats.md)).
+
 ## Dependency & detection
 
 - None of the three classes set `$class`, `$function`, or `$constant` on

@@ -400,6 +400,43 @@ const GetTemplate = (settings) => {
                 "<span>{{city_country}}</span>",
                 `${params?.fourth_param}`,
             ];
+        case "vc-thread":
+            // [0] name, [1] action ("commented on"),
+            // [2] comment (or the post title), [3] time.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+            ];
+        case "vc-scorecard":
+            // [0] reviewer, [1] rating ('rating::N' once Theme fills it),
+            // [2] review title, only where it is a real headline (wp.org,
+            // Zapier, Bit Integrations, ReviewX); '<span></span>' elsewhere,
+            // where `title` is the product or plugin name or missing,
+            // [3] review text, [4] "on", [5] subject (plugin, product or place),
+            // [6] time: a fixed {{time}} (updated_at is always sent), so the
+            // stars and the time show together.
+            return [
+                `${params?.first_param}`,
+                `${params?.fourth_param}`,
+                ["wp_reviews", "zapier_reviews", "bitintegrations_reviews", "reviewx"].indexOf(settings?.source) !== -1
+                    ? `${params?.sixth_param}`
+                    : "<span></span>",
+                `${params?.fifth_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                "<span>{{time}}</span>",
+            ];
+        case "vc-counter":
+            // [0] plugin or theme name, [1] lead ("has been downloaded"),
+            // [2] download count, [3] call to action. No time.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+            ];
         default:
             console.error("Please select a theme", settings);
             return [

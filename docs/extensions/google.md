@@ -99,6 +99,12 @@ are not in this directory or in `GlobalFields.php` — they are defined in
 `notificationx-pro` (its `includes/Admin/Settings.php` and the Pro Google extension
 classes, confirmed by grep) and/or the React admin app (`nxdev/`).
 
+### Verified Card: Scorecard
+
+`GoogleReviews` appends the Scorecard Verified Card (`google_reviews_vc-scorecard`) at the end of its theme list, with the group `google_reviews_vc_scorecard_template`: reviewer (`tag_username`, so Pro fetches individual reviews), "on", `tag_place_name`, `tag_rating`, `tag_place_review`. It shows the reviewer avatar (`show_notification_image` `greview_avatar`) and has no review-title row. The theme itself is free, but Google Reviews is a Pro source.
+
+Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
+
 ## Realtime viewers helper (Pro)
 
 The `modules_google_analytics` module also powers the WooCommerce Growth Alert

@@ -98,6 +98,23 @@ class DownloadStats extends Types {
                     'custom_fourth_param' => '',
                 ],
             ],
+            // "Verified card" (vc) theme, kept at the END of the list so every
+            // existing card keeps its picker position. Rendered by the frontend
+            // VerifiedCard (nxdev/notificationx/frontend/themes/vc/); the full key
+            // is listed in GlobalFields::vc_theme_keys(). No 'defaults', so the
+            // theme trigger sets @link_button:false.
+            // Counter — icon + name over "has been downloaded", the count as a
+            // large figure, then the call to action. No time.
+            'vc-counter' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-counter.png',
+                'image_shape' => 'rounded',
+                'template'    => [
+                    'first_param'  => 'tag_plugin_theme_name',
+                    'second_param' => __('has been downloaded', 'notificationx'),
+                    'third_param'  => 'tag_last_week',
+                    'fourth_param' => 'tag_last_week_text',
+                ],
+            ],
         ];
         $this->res_themes = [
             'res-today-download' => [
@@ -148,6 +165,7 @@ class DownloadStats extends Types {
                     'download_stats_today-download',
                     'download_stats_7day-download',
                     'download_stats_total-download',
+                    'download_stats_vc-counter',
                 ]
             ],
             'actively_using_template_new' => [

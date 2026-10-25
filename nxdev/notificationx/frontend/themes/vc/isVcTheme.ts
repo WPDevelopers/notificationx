@@ -10,7 +10,7 @@ import { getThemeName } from "../../core/functions";
  * PHP theme entry shipped before its JS) takes the generic theme path and gets
  * no `nx-vc` root class.
  */
-export const VC_SLUGS: string[] = ["vc-receipt", "vc-showcase"];
+export const VC_SLUGS: string[] = ["vc-receipt", "vc-showcase", "vc-thread", "vc-scorecard", "vc-counter"];
 
 // The full key must end in `_vc-<word>`, anchored, so no existing key (and no
 // key that merely contains "vc-") can match.

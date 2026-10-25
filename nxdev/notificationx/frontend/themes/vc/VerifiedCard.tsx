@@ -5,6 +5,7 @@ import classNames from "classnames";
 import Image from "../helpers/Image";
 import Close from "../helpers/Close";
 import VcCredit from "./VcCredit";
+import VcStars, { formatVcRating, parseVcRating } from "./VcStars";
 import useVcLineScroll from "./useVcLineScroll";
 
 /**
@@ -20,6 +21,11 @@ import useVcLineScroll from "./useVcLineScroll";
  *                 [4] Freemius plan + price ('<span></span>' elsewhere)
  *  - vc-showcase: [0] action, [1] product, [2] name, [3] city, country,
  *                 [4] time
+ *  - vc-thread:   [0] name, [1] action, [2] comment (or post title), [3] time
+ *  - vc-scorecard: [0] reviewer, [1] 'rating::N', [2] review title
+ *                 ('<span></span>' where it is not a headline), [3] review
+ *                 text, [4] "on", [5] subject, [6] time
+ *  - vc-counter:  [0] name, [1] lead, [2] download count, [3] call to action
  * An empty slot (no text once tags are stripped) hides its part.
  *
  * Desktop and tablet get the 344px card; at 480px and below (matchMedia,
@@ -152,24 +158,141 @@ const ShowcaseCard = ({ props, s }) => {
     );
 };
 
+const ThreadCard = ({ props, s }) => {
+    const hasTime = hasText(s[3]);
+    const hasName = hasText(s[0]);
+    const hasAction = hasText(s[1]);
+    // The block shows the post title (600) instead of the comment when the
+    // merchant picks "Post Title".
+    const isTitle = props?.config?.["notification-template"]?.third_param === "tag_post_title";
+    return (
+        <div className={classNames("nx-vc-card", "nx-vc-thread", { "has-time": hasTime })}>
+            {hasTime && <Html className="nx-vc-time" html={s[3]} />}
+            <div className="nx-vc-row nx-vc-th-head nx-vc-rsv">
+                <VcImage {...props} />
+                {(hasName || hasAction) && (
+                    <div className="nx-vc-th-who nx-vc-ell">
+                        {hasName && <Html as="b" html={s[0]} />}
+                        {hasName && hasAction && " "}
+                        {hasAction && <Html className="nx-vc-th-action" html={s[1]} />}
+                    </div>
+                )}
+            </div>
+            {hasText(s[2]) && (
+                <Html as="div" className={classNames("nx-vc-quote", { "is-title": isTitle })} html={s[2]} />
+            )}
+            <VcCredit config={props.config} />
+            <Close {...props} />
+        </div>
+    );
+};
+
+// Plain text of a slot, to compare two slots.
+const slotText = (html?: string) => (hasText(html) ? html.replace(/<[^>]*>/g, "").trim() : "");
+
+const ScorecardCard = ({ props, s }) => {
+    const hasTime = hasText(s[6]);
+    const rating = parseVcRating(s[1]);
+    // A review without its own headline falls back to the product name
+    // (Reviews::conversion_data); don't show it twice.
+    const hasTitle = hasText(s[2]) && slotText(s[2]) !== slotText(s[5]);
+    const hasSubject = hasText(s[5]);
+    return (
+        <div className={classNames("nx-vc-card", "nx-vc-scorecard", { "has-time": hasTime })}>
+            {hasTime && <Html className="nx-vc-time" html={s[6]} />}
+            <div className="nx-vc-row nx-vc-sr-head nx-vc-rsv">
+                <VcImage {...props} />
+                {hasText(s[0]) && <Html as="div" className="nx-vc-name nx-vc-ell" html={s[0]} />}
+            </div>
+            {(rating !== null || hasTitle) && (
+                <div className="nx-vc-rate">
+                    {rating !== null && <VcStars rating={rating} />}
+                    {rating !== null && <span className="nx-vc-rnum">{formatVcRating(rating)}</span>}
+                    {hasTitle && <Html className="nx-vc-rtitle nx-vc-ell" html={s[2]} />}
+                </div>
+            )}
+            {hasText(s[3]) && <Html as="div" className="nx-vc-body nx-vc-cl2 nx-vc-rtext" html={s[3]} />}
+            {hasSubject && (
+                <div className="nx-vc-on nx-vc-ell">
+                    {hasText(s[4]) && <Html html={s[4]} />}
+                    {hasText(s[4]) && " "}
+                    <Html as="b" html={s[5]} />
+                </div>
+            )}
+            <VcCredit config={props.config} />
+            <Close {...props} />
+        </div>
+    );
+};
+
+const CounterCard = ({ props, s }) => (
+    <div className="nx-vc-card nx-vc-counter">
+        <div className="nx-vc-row nx-vc-ct-head">
+            <VcImage {...props} />
+            {(hasText(s[0]) || hasText(s[1])) && (
+                <div className="nx-vc-col">
+                    {hasText(s[0]) && <Html as="div" className="nx-vc-name nx-vc-ell" html={s[0]} />}
+                    {hasText(s[1]) && <Html as="div" className="nx-vc-label" html={s[1]} />}
+                </div>
+            )}
+        </div>
+        {hasText(s[2]) && <Html as="div" className="nx-vc-hero" html={s[2]} />}
+        {hasText(s[3]) && <Html as="div" className="nx-vc-cta nx-vc-ell" html={s[3]} />}
+        <VcCredit config={props.config} />
+        <Close {...props} />
+    </div>
+);
+
 /* ---------- slim (≤480px) ---------- */
 
 const slimLine = (word: string, s: string[]) => {
     const parts: React.ReactNode[] = [];
-    if (word === "receipt") {
-        // <b>name</b> action <em-a>product</em-a>
-        if (hasText(s[0])) parts.push(<Html as="b" html={s[0]} />);
-        if (hasText(s[1])) parts.push(<Html html={s[1]} />);
-        if (hasText(s[2])) parts.push(<Html className="nx-vc-em-a" html={s[2]} />);
-        return { line: joinParts(parts), time: s[3] };
+    switch (word) {
+        case "receipt":
+            // <b>name</b> action <em-a>product</em-a>
+            if (hasText(s[0])) parts.push(<Html as="b" html={s[0]} />);
+            if (hasText(s[1])) parts.push(<Html html={s[1]} />);
+            if (hasText(s[2])) parts.push(<Html className="nx-vc-em-a" html={s[2]} />);
+            return { line: joinParts(parts), time: s[3] };
+        case "thread":
+            // <b>name</b> | comment (the desktop's violet rule as a marker)
+            if (hasText(s[0])) parts.push(<Html as="b" html={s[0]} />);
+            if (hasText(s[2])) {
+                parts.push(<span className="nx-vc-q-rule" aria-hidden="true" />);
+                parts.push(<Html html={s[2]} />);
+            }
+            return { line: joinParts(parts), time: s[3] };
+        case "scorecard": {
+            // stars <b>reviewer</b> <dim>on</dim> <b>subject</b>
+            const rating = parseVcRating(s[1]);
+            const hasSubject = hasText(s[5]);
+            if (rating !== null) parts.push(<VcStars rating={rating} />);
+            if (hasText(s[0])) parts.push(<Html as="b" html={s[0]} />);
+            if (hasSubject && hasText(s[4])) parts.push(<Html className="nx-vc-dim" html={s[4]} />);
+            if (hasSubject) parts.push(<Html as="b" html={s[5]} />);
+            return { line: joinParts(parts), time: s[6] };
+        }
+        case "counter": {
+            // <num>count</num> · <b>name</b> <dim>lead</dim>, no time
+            const hasCount = hasText(s[2]);
+            const hasName = hasText(s[0]);
+            if (hasCount) parts.push(<Html className="nx-vc-num" html={s[2]} />);
+            if (hasCount && (hasName || hasText(s[1]))) parts.push(<span className="nx-vc-dim">·</span>);
+            if (hasName) parts.push(<Html as="b" html={s[0]} />);
+            if (hasText(s[1])) parts.push(<Html className="nx-vc-dim" html={s[1]} />);
+            return { line: joinParts(parts), time: "" };
+        }
+        case "showcase":
+        default: {
+            // <b>product</b> · <em-a>action</em-a>
+            const hasTitle = hasText(s[1]);
+            const hasAction = hasText(s[0]);
+            if (hasTitle) parts.push(<Html as="b" html={s[1]} />);
+            if (hasTitle && hasAction) parts.push(<span className="nx-vc-dim">·</span>);
+            if (hasAction) parts.push(<Html className="nx-vc-em-a" html={s[0]} />);
+            return { line: joinParts(parts), time: s[4] };
+        }
     }
-    // showcase: <b>product</b> · <em-a>action</em-a>
-    const hasTitle = hasText(s[1]);
-    const hasAction = hasText(s[0]);
-    if (hasTitle) parts.push(<Html as="b" html={s[1]} />);
-    if (hasTitle && hasAction) parts.push(<span className="nx-vc-dim">·</span>);
-    if (hasAction) parts.push(<Html className="nx-vc-em-a" html={s[0]} />);
-    return { line: joinParts(parts), time: s[4] };
 };
 
 const SlimCard = ({ props, s, word }) => {
@@ -212,6 +335,12 @@ const VerifiedCard = (props) => {
     switch (word) {
         case "showcase":
             return <ShowcaseCard props={props} s={s} />;
+        case "thread":
+            return <ThreadCard props={props} s={s} />;
+        case "scorecard":
+            return <ScorecardCard props={props} s={s} />;
+        case "counter":
+            return <CounterCard props={props} s={s} />;
         case "receipt":
         default:
             return <ReceiptCard props={props} s={s} />;

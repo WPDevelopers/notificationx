@@ -1,6 +1,7 @@
 /**
  * Verified Cards (vc-*): GetTemplate slot arrays, the isVcTheme whitelist and
- * vcCompactRows. Part 1: Receipt and Showcase.
+ * vcCompactRows. Part 1: Receipt and Showcase. Part 2: Thread, Scorecard and
+ * Counter.
  */
 import GetTemplate from '../../../nxdev/notificationx/frontend/themes/GetTemplate';
 import { isVcTheme, getVcSlug, VC_SLUGS } from '../../../nxdev/notificationx/frontend/themes/vc/isVcTheme';
@@ -66,6 +67,92 @@ const ROWS = [
 	[ 'woocommerce_sales_vc-showcase', settings( 'woocommerce_sales_vc-showcase', 'woocommerce_sales', 'woocommerce_sales', SHOWCASE ), SHOWCASE_SLOTS ],
 ];
 
+const COMMENTS = {
+	first_param: 'tag_name',
+	custom_first_param: 'Someone',
+	second_param: 'commented on',
+	third_param: 'tag_post_comment',
+	custom_third_param: 'Anonymous Post',
+	fourth_param: 'tag_time',
+	custom_fourth_param: 'Some time ago',
+};
+const SCORECARD = {
+	first_param: 'tag_username',
+	custom_first_param: 'Someone',
+	second_param: 'on',
+	third_param: 'tag_plugin_name',
+	fourth_param: 'tag_rating',
+	fifth_param: 'tag_plugin_review',
+	sixth_param: 'tag_title',
+};
+// A leftover sixth_param (e.g. from switching theme) must be ignored on these sources.
+const WOO_SCORECARD = { ...SCORECARD, third_param: 'tag_product_title', sixth_param: 'tag_title' };
+const REVIEWX_SCORECARD = { ...SCORECARD, third_param: 'tag_product_post_title' };
+const GOOGLE_SCORECARD = { ...SCORECARD, third_param: 'tag_place_name', fifth_param: 'tag_place_review', sixth_param: 'tag_title' };
+const COUNTER = {
+	first_param: 'tag_plugin_theme_name',
+	second_param: 'has been downloaded',
+	third_param: 'tag_last_week',
+	fourth_param: 'tag_last_week_text',
+};
+
+const THREAD_SLOTS = [
+	'<span>{{name}}</span>',
+	'<span>commented on</span>',
+	'<span>{{post_comment}}</span>',
+	'<span>{{time}}</span>',
+];
+// [0] reviewer, [1] rating, [2] title, [3] text, [4] on, [5] subject, [6] time
+const scorecardSlots = ( title, text, subject ) => [
+	'<span>{{username}}</span>',
+	'<span>{{rating}}</span>',
+	title,
+	text,
+	'<span>on</span>',
+	subject,
+	'<span>{{time}}</span>',
+];
+const COUNTER_SLOTS = [
+	'<span>{{plugin_theme_name}}</span>',
+	'<span>has been downloaded</span>',
+	'<span>{{last_week}}</span>',
+	'<span>{{last_week_text}}</span>',
+];
+
+const PART2_ROWS = [
+	[ 'comments_vc-thread / wp_comments', settings( 'comments_vc-thread', 'wp_comments', 'comments', COMMENTS ), THREAD_SLOTS ],
+	[
+		'comments_vc-thread with Post Title',
+		settings( 'comments_vc-thread', 'wp_comments', 'comments', { ...COMMENTS, third_param: 'tag_post_title' } ),
+		[ THREAD_SLOTS[ 0 ], THREAD_SLOTS[ 1 ], '<span>{{post_title}}</span>', THREAD_SLOTS[ 3 ] ],
+	],
+	// The review title only where it is a real headline.
+	[ 'reviews_vc-scorecard / wp_reviews (title)', settings( 'reviews_vc-scorecard', 'wp_reviews', 'reviews', SCORECARD ), scorecardSlots( '<span>{{title}}</span>', '<span>{{plugin_review}}</span>', '<span>{{plugin_name}}</span>' ) ],
+	[ 'reviews_vc-scorecard / zapier_reviews (title)', settings( 'reviews_vc-scorecard', 'zapier_reviews', 'reviews', SCORECARD ), scorecardSlots( '<span>{{title}}</span>', '<span>{{plugin_review}}</span>', '<span>{{plugin_name}}</span>' ) ],
+	[ 'reviews_vc-scorecard / bitintegrations_reviews (title)', settings( 'reviews_vc-scorecard', 'bitintegrations_reviews', 'reviews', SCORECARD ), scorecardSlots( '<span>{{title}}</span>', '<span>{{plugin_review}}</span>', '<span>{{plugin_name}}</span>' ) ],
+	// Freemius: title is the plugin name; a stale sixth_param is ignored.
+	[ 'reviews_vc-scorecard / freemius_reviews (no title)', settings( 'reviews_vc-scorecard', 'freemius_reviews', 'reviews', SCORECARD ), scorecardSlots( '<span></span>', '<span>{{plugin_review}}</span>', '<span>{{plugin_name}}</span>' ) ],
+	[ 'woo_reviews_vc-scorecard (no title)', settings( 'woo_reviews_vc-scorecard', 'woo_reviews', 'reviews', WOO_SCORECARD ), scorecardSlots( '<span></span>', '<span>{{plugin_review}}</span>', '<span>{{product_title}}</span>' ) ],
+	[
+		'woocommerce_sales_reviews_vc-scorecard (no title)',
+		settings( 'woocommerce_sales_reviews_vc-scorecard', 'woocommerce_sales_reviews', 'woocommerce_sales', WOO_SCORECARD ),
+		scorecardSlots( '<span></span>', '<span>{{plugin_review}}</span>', '<span>{{product_title}}</span>' ),
+	],
+	// ReviewX: subject = product (post_title), title = the ReviewX headline.
+	[ 'reviewx_vc-scorecard (product + headline)', settings( 'reviewx_vc-scorecard', 'reviewx', 'reviews', REVIEWX_SCORECARD ), scorecardSlots( '<span>{{title}}</span>', '<span>{{plugin_review}}</span>', '<span>{{product_post_title}}</span>' ) ],
+	[ 'google_reviews_vc-scorecard (place)', settings( 'google_reviews_vc-scorecard', 'google_reviews', 'reviews', GOOGLE_SCORECARD ), scorecardSlots( '<span></span>', '<span>{{place_review}}</span>', '<span>{{place_name}}</span>' ) ],
+	[ 'download_stats_vc-counter / wp_stats', settings( 'download_stats_vc-counter', 'wp_stats', 'download_stats', COUNTER ), COUNTER_SLOTS ],
+	[ 'download_stats_vc-counter / freemius_stats', settings( 'download_stats_vc-counter', 'freemius_stats', 'download_stats', COUNTER ), COUNTER_SLOTS ],
+];
+
+const SLOT_LENGTH = {
+	'vc-receipt': 5,
+	'vc-showcase': 5,
+	'vc-thread': 4,
+	'vc-scorecard': 7,
+	'vc-counter': 4,
+};
+
 describe( 'GetTemplate vc slots', () => {
 	let errorSpy;
 	beforeEach( () => {
@@ -75,12 +162,12 @@ describe( 'GetTemplate vc slots', () => {
 		errorSpy.mockRestore();
 	} );
 
-	it.each( ROWS )( '%s', ( label, input, expected ) => {
+	it.each( [ ...ROWS, ...PART2_ROWS ] )( '%s', ( label, input, expected ) => {
 		const before = JSON.stringify( input );
 		const slots = GetTemplate( input );
 		expect( slots ).toEqual( expected );
 		// Fixed length, every slot a non-empty string (Theme.tsx drops falsy rows).
-		expect( slots ).toHaveLength( 5 );
+		expect( slots ).toHaveLength( SLOT_LENGTH[ getVcSlug( input ) ] );
 		slots.forEach( ( slot ) => {
 			expect( typeof slot ).toBe( 'string' );
 			expect( slot.length ).toBeGreaterThan( 0 );
@@ -98,8 +185,8 @@ describe( 'GetTemplate vc slots', () => {
 } );
 
 describe( 'isVcTheme', () => {
-	it( 'whitelists only the Part 1 slugs', () => {
-		expect( VC_SLUGS ).toEqual( [ 'vc-receipt', 'vc-showcase' ] );
+	it( 'whitelists the Part 1 and Part 2 slugs', () => {
+		expect( VC_SLUGS ).toEqual( [ 'vc-receipt', 'vc-showcase', 'vc-thread', 'vc-scorecard', 'vc-counter' ] );
 	} );
 
 	it.each( [
@@ -109,6 +196,15 @@ describe( 'isVcTheme', () => {
 		[ 'woocommerce_sales_vc-receipt', 'woocommerce_sales', 'woocommerce_sales', 'vc-receipt' ],
 		[ 'conversions_vc-showcase', 'edd', 'conversions', 'vc-showcase' ],
 		[ 'woocommerce_sales_vc-showcase', 'woocommerce_sales', 'woocommerce_sales', 'vc-showcase' ],
+		[ 'comments_vc-thread', 'wp_comments', 'comments', 'vc-thread' ],
+		[ 'reviews_vc-scorecard', 'wp_reviews', 'reviews', 'vc-scorecard' ],
+		[ 'reviews_vc-scorecard', 'freemius_reviews', 'reviews', 'vc-scorecard' ],
+		[ 'woo_reviews_vc-scorecard', 'woo_reviews', 'reviews', 'vc-scorecard' ],
+		[ 'woocommerce_sales_reviews_vc-scorecard', 'woocommerce_sales_reviews', 'woocommerce_sales', 'vc-scorecard' ],
+		[ 'reviewx_vc-scorecard', 'reviewx', 'reviews', 'vc-scorecard' ],
+		[ 'google_reviews_vc-scorecard', 'google_reviews', 'reviews', 'vc-scorecard' ],
+		[ 'download_stats_vc-counter', 'wp_stats', 'download_stats', 'vc-counter' ],
+		[ 'download_stats_vc-counter', 'freemius_stats', 'download_stats', 'vc-counter' ],
 	] )( '%s (%s) is a vc theme', ( themes, source, type, slug ) => {
 		expect( isVcTheme( { themes, source, type } ) ).toBe( true );
 		expect( getVcSlug( { themes, source, type } ) ).toBe( slug );
@@ -119,10 +215,11 @@ describe( 'isVcTheme', () => {
 		[ 'conversions_conv-theme-twelve', 'woocommerce', 'conversions' ],
 		[ 'woocommerce_sales_conv-theme-fifteen', 'woocommerce_sales', 'woocommerce_sales' ],
 		[ 'reviews_review-comment', 'wp_reviews', 'reviews' ],
-		// Part 2 keys are not whitelisted yet: generic path, no nx-vc.
-		[ 'comments_vc-thread', 'wp_comments', 'comments' ],
-		[ 'reviews_vc-scorecard', 'wp_reviews', 'reviews' ],
-		[ 'download_stats_vc-counter', 'wp_stats', 'download_stats' ],
+		[ 'comments_theme-six-free', 'wp_comments', 'comments' ],
+		[ 'download_stats_7day-download', 'wp_stats', 'download_stats' ],
+		// A vc key whose slug is not whitelisted: generic path, no nx-vc.
+		[ 'comments_vc-postcard', 'wp_comments', 'comments' ],
+		[ 'reviews_vc-ratings', 'wp_reviews', 'reviews' ],
 		// Not anchored keys.
 		[ 'vc-receipt', 'woocommerce', 'conversions' ],
 		[ 'conversions_vc-receipt-2', 'woocommerce', 'conversions' ],
@@ -148,10 +245,25 @@ describe( 'vcCompactRows', () => {
 		expect( vcCompactRows( 'vc-showcase', [ 'A', 'P', 'N', 'L', 'T' ] ) ).toEqual( [ 'N A', 'P', 'T' ] );
 	} );
 
+	it( 'Thread: name + action, comment, time', () => {
+		expect( vcCompactRows( 'vc-thread', [ 'N', 'A', 'C', 'T' ] ) ).toEqual( [ 'N A', 'C', 'T' ] );
+	} );
+
+	it( 'Scorecard: reviewer on subject, rating, time', () => {
+		expect( vcCompactRows( 'vc-scorecard', [ 'R', 'rating::4', 'H', 'X', 'on', 'S', 'T' ] ) ).toEqual( [ 'R on S', 'rating::4', 'T' ] );
+	} );
+
+	it( 'Counter: name, lead + count, call to action', () => {
+		expect( vcCompactRows( 'vc-counter', [ 'N', 'L', 'C', 'A' ] ) ).toEqual( [ 'N', 'L C', 'A' ] );
+	} );
+
 	it( 'returns at most three non-empty rows for the real slot arrays', () => {
 		[
 			[ 'vc-receipt', RECEIPT_SLOTS ],
 			[ 'vc-showcase', SHOWCASE_SLOTS ],
+			[ 'vc-thread', THREAD_SLOTS ],
+			[ 'vc-scorecard', scorecardSlots( '<span></span>', '<span>x</span>', '<span>y</span>' ) ],
+			[ 'vc-counter', COUNTER_SLOTS ],
 		].forEach( ( [ slug, slots ] ) => {
 			const rows = vcCompactRows( slug, slots );
 			expect( rows.length ).toBeLessThanOrEqual( 3 );

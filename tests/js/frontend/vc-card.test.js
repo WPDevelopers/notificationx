@@ -1,6 +1,6 @@
 /**
- * Verified Cards (vc-*): rendered markup of Receipt and Showcase through the
- * real Theme, the credit, the slim (≤480px) layout, the Pro mobile guard,
+ * Verified Cards (vc-*): rendered markup of Receipt, Showcase (Part 1) and
+ * Thread, Scorecard, Counter (Part 2) through the real Theme, the credit, the slim (≤480px) layout, the Pro mobile guard,
  * Advanced Template and the Notification root class.
  */
 import React from 'react';
@@ -60,6 +60,64 @@ const base = ( themes, source, type, tmpl, extra = {} ) => {
 
 const receipt = ( extra ) => base( 'conversions_vc-receipt', 'woocommerce', 'conversions', SALES, extra );
 const showcase = ( extra ) => base( 'woocommerce_sales_vc-showcase', 'woocommerce_sales', 'woocommerce_sales', SHOWCASE, extra );
+
+const COMMENTS = {
+	first_param: 'tag_name',
+	custom_first_param: 'Someone',
+	second_param: 'commented on',
+	third_param: 'tag_post_comment',
+	custom_third_param: 'Anonymous Post',
+	fourth_param: 'tag_time',
+	custom_fourth_param: 'Some time ago',
+};
+const SCORECARD = {
+	first_param: 'tag_username',
+	custom_first_param: 'Someone',
+	second_param: 'on',
+	third_param: 'tag_plugin_name',
+	fourth_param: 'tag_rating',
+	fifth_param: 'tag_plugin_review',
+	sixth_param: 'tag_title',
+};
+const COUNTER = {
+	first_param: 'tag_plugin_theme_name',
+	second_param: 'has been downloaded',
+	third_param: 'tag_last_week',
+	fourth_param: 'tag_last_week_text',
+};
+
+const thread = ( extra ) => base( 'comments_vc-thread', 'wp_comments', 'comments', COMMENTS, { image_shape: 'circle', link_type: 'comment_url', ...extra } );
+const scorecard = ( extra ) => base( 'reviews_vc-scorecard', 'wp_reviews', 'reviews', SCORECARD, { image_shape: 'circle', link_type: 'review_page', ...extra } );
+const counter = ( extra ) => base( 'download_stats_vc-counter', 'wp_stats', 'download_stats', COUNTER, { link_type: 'stats_page', ...extra } );
+
+const commentEntry = ( extra = {} ) => ( {
+	name: 'Emily S.',
+	post_title: 'Ten growth tips',
+	post_comment: 'Tip #3 doubled our newsletter signups in a week, thanks!',
+	link: 'https://example.com/ten-growth-tips/#comment-7',
+	updated_at: '2026-10-01 00:00:00',
+	image_data: { url: 'https://example.com/avatar.png', alt: 'Emily S.' },
+	...extra,
+} );
+const reviewEntry = ( extra = {} ) => ( {
+	username: 'jdoe_dev',
+	rating: '4.4',
+	title: 'Excellent plugin',
+	plugin_review: 'Super easy to set up and the sales popups look great.',
+	plugin_name: 'NotificationX',
+	link: 'https://wordpress.org/support/topic/excellent',
+	updated_at: '2026-10-01 00:00:00',
+	image_data: { url: 'https://example.com/avatar.png', alt: 'jdoe_dev' },
+	...extra,
+} );
+const statsEntry = ( extra = {} ) => ( {
+	plugin_theme_name: 'NotificationX',
+	last_week: '2.1K times in last 7 days',
+	last_week_text: 'Get Started for Free.',
+	link: 'https://wordpress.org/plugins/notificationx/',
+	image_data: { url: 'https://example.com/icon.png', alt: 'NotificationX' },
+	...extra,
+} );
 
 const saleEntry = ( extra = {} ) => ( {
 	name: 'Jane D.',
@@ -238,10 +296,13 @@ describe( 'Verified Card: credit', () => {
 	beforeEach( () => stubMatchMedia( false ) );
 
 	it.each( [
-		[ 'Receipt', receipt ],
-		[ 'Showcase', showcase ],
-	] )( '%s: ✓ Verified by [bell] NotificationX', ( label, make ) => {
-		renderTheme( make() );
+		[ 'Receipt', receipt, saleEntry ],
+		[ 'Showcase', showcase, saleEntry ],
+		[ 'Thread', thread, commentEntry ],
+		[ 'Scorecard', scorecard, reviewEntry ],
+		[ 'Counter', counter, statsEntry ],
+	] )( '%s: ✓ Verified by [bell] NotificationX', ( label, make, entry ) => {
+		renderTheme( make(), entry() );
 		const credit = container.querySelector( '.nx-vc-card .nx-vc-credit' );
 		expect( credit ).not.toBeNull();
 		expect( credit.tagName ).toBe( 'SMALL' );
@@ -367,10 +428,10 @@ describe( 'Verified Card: guards', () => {
 		expect( content.querySelector( '.nx-first-row' ).textContent ).toBe( 'Jane D. bought Blue T-shirt' );
 	} );
 
-	it( 'a Part 2 vc key (not whitelisted) takes the generic path', () => {
+	it( 'a vc key whose slug is not whitelisted takes the generic path', () => {
 		const spy = jest.spyOn( console, 'error' ).mockImplementation( () => {} );
 		renderTheme(
-			base( 'comments_vc-thread', 'wp_comments', 'comments', {
+			base( 'comments_vc-postcard', 'wp_comments', 'comments', {
 				first_param: 'tag_name',
 				second_param: 'commented on',
 				third_param: 'tag_post_title',
@@ -405,8 +466,12 @@ describe( 'Notification root class', () => {
 	it.each( [
 		[ 'conversions_vc-receipt', () => receipt() ],
 		[ 'woocommerce_sales_vc-showcase', () => showcase() ],
+		[ 'comments_vc-thread', () => thread() ],
+		[ 'reviews_vc-scorecard', () => scorecard() ],
+		[ 'download_stats_vc-counter', () => counter() ],
 	] )( '%s gets nx-vc and renders the vc card inside', ( label, make ) => {
 		const root = renderRoot( make() );
+		expect( root.classList.contains( `themes-${ label }` ) ).toBe( true );
 		expect( root.classList.contains( 'nx-vc' ) ).toBe( true );
 		expect( root.querySelector( '.nx-vc-card' ) ).not.toBeNull();
 		// The Analytics overlay is still rendered after the card.
@@ -425,5 +490,242 @@ describe( 'Notification root class', () => {
 		expect( root.className ).toBe(
 			'notification-item nx-notification source-woocommerce position-bottom_left type-conversions themes-theme-one themes-conversions_theme-one notificationx-42 has-close-btn'
 		);
+	} );
+} );
+
+describe( 'Verified Card Part 2: desktop / tablet', () => {
+	beforeEach( () => stubMatchMedia( false ) );
+
+	it( 'Thread: avatar + name + action, time, the comment block', () => {
+		renderTheme( thread(), commentEntry() );
+		const card = container.querySelector( '.nx-vc-card.nx-vc-thread' );
+		expect( card ).not.toBeNull();
+		expect( card.classList.contains( 'has-time' ) ).toBe( true );
+		expect( container.querySelector( '.notificationx-content' ) ).toBeNull();
+		expect( text( '.nx-vc-time' ) ).toBe( '5 days ago' );
+
+		const head = container.querySelector( '.nx-vc-th-head' );
+		expect( head.classList.contains( 'nx-vc-rsv' ) ).toBe( true );
+		expect( head.firstElementChild.classList.contains( 'notificationx-image' ) ).toBe( true );
+		expect( head.querySelector( '.notificationx-image' ).classList.contains( 'image-circle' ) ).toBe( true );
+		expect( text( '.nx-vc-th-who b' ) ).toBe( 'Emily S.' );
+		expect( text( '.nx-vc-th-who .nx-vc-th-action' ) ).toBe( 'commented on' );
+		expect( text( '.nx-vc-th-who' ) ).toBe( 'Emily S. commented on' );
+
+		const quote = container.querySelector( '.nx-vc-quote' );
+		expect( quote.textContent ).toBe( 'Tip #3 doubled our newsletter signups in a week, thanks!' );
+		expect( quote.classList.contains( 'is-title' ) ).toBe( false );
+		expect( container.querySelector( '.nx-vc-card > .notificationx-close' ) ).not.toBeNull();
+		expect( container.querySelector( '.nx-vc-l1' ) ).toBeNull();
+	} );
+
+	it( 'Thread with Post Title marks the block as a title', () => {
+		renderTheme( thread( { 'notification-template': { ...COMMENTS, third_param: 'tag_post_title' } } ), commentEntry() );
+		const quote = container.querySelector( '.nx-vc-quote' );
+		expect( quote.textContent ).toBe( 'Ten growth tips' );
+		expect( quote.classList.contains( 'is-title' ) ).toBe( true );
+	} );
+
+	it( 'Thread hides an empty comment and escapes it', () => {
+		renderTheme( thread(), commentEntry( { post_comment: '' } ) );
+		expect( container.querySelector( '.nx-vc-quote' ) ).toBeNull();
+		act( () => {
+			ReactDOM.unmountComponentAtNode( container );
+		} );
+		renderTheme( thread(), commentEntry( { post_comment: '<img src=x onerror=alert(1)>' } ) );
+		expect( container.querySelector( '.nx-vc-quote img' ) ).toBeNull();
+		expect( text( '.nx-vc-quote' ) ).toBe( '<img src=x onerror=alert(1)>' );
+	} );
+
+	it( 'Scorecard: reviewer, stars + rating + title, text, on <subject>, time', () => {
+		renderTheme( scorecard(), reviewEntry() );
+		const card = container.querySelector( '.nx-vc-card.nx-vc-scorecard' );
+		expect( card ).not.toBeNull();
+		expect( container.querySelector( '.notificationx-content' ) ).toBeNull();
+		expect( text( '.nx-vc-time' ) ).toBe( '5 days ago' );
+		expect( text( '.nx-vc-sr-head .nx-vc-name' ) ).toBe( 'jdoe_dev' );
+
+		const stars = container.querySelector( '.nx-vc-rate .nx-vc-stars' );
+		expect( stars.getAttribute( 'role' ) ).toBe( 'img' );
+		expect( stars.getAttribute( 'aria-label' ) ).toBe( '4.4 out of 5' );
+		expect( stars.querySelectorAll( 'svg.is-on' ) ).toHaveLength( 4 );
+		expect( stars.querySelectorAll( 'svg.is-off' ) ).toHaveLength( 1 );
+		expect( text( '.nx-vc-rnum' ) ).toBe( '4.4' );
+		expect( text( '.nx-vc-rtitle' ) ).toBe( 'Excellent plugin' );
+		expect( text( '.nx-vc-rtext' ) ).toBe( 'Super easy to set up and the sales popups look great.' );
+		expect( text( '.nx-vc-on' ) ).toBe( 'on NotificationX' );
+		expect( text( '.nx-vc-on b' ) ).toBe( 'NotificationX' );
+		// No raw rating text anywhere.
+		expect( card.textContent ).not.toContain( 'rating::' );
+	} );
+
+	it( 'Scorecard: "5" shows five stars and 5.0', () => {
+		renderTheme( scorecard(), reviewEntry( { rating: '5' } ) );
+		expect( container.querySelectorAll( '.nx-vc-stars svg.is-on' ) ).toHaveLength( 5 );
+		expect( text( '.nx-vc-rnum' ) ).toBe( '5.0' );
+	} );
+
+	it( 'Scorecard: no rating means no stars, no number and no rating:: text', () => {
+		renderTheme( scorecard(), reviewEntry( { rating: '' } ) );
+		expect( container.querySelector( '.nx-vc-stars' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-rnum' ) ).toBeNull();
+		expect( text( '.nx-vc-rtitle' ) ).toBe( 'Excellent plugin' );
+		expect( container.textContent ).not.toContain( 'rating::' );
+	} );
+
+	it( 'Scorecard hides the title on sources where it is not a headline', () => {
+		renderTheme(
+			base( 'woo_reviews_vc-scorecard', 'woo_reviews', 'reviews', { ...SCORECARD, third_param: 'tag_product_title', sixth_param: 'tag_title' }, { image_shape: 'circle' } ),
+			// `title` is the product here; a leftover sixth_param must not show it
+			// (the slot itself is locked in vc-get-template.test.js).
+			reviewEntry( { title: 'Blue T-shirt' } )
+		);
+		expect( container.querySelector( '.nx-vc-rtitle' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-stars' ) ).not.toBeNull();
+		expect( text( '.nx-vc-on b' ) ).toBe( 'Blue T-shirt' );
+	} );
+
+	it( 'Scorecard on ReviewX: product subject and the headline; a missing headline is not repeated', () => {
+		const rx = base( 'reviewx_vc-scorecard', 'reviewx', 'reviews', { ...SCORECARD, third_param: 'tag_product_post_title' }, { image_shape: 'circle' } );
+		renderTheme( rx, reviewEntry( { title: 'Great fit', post_title: 'Blue T-shirt' } ) );
+		expect( text( '.nx-vc-rtitle' ) ).toBe( 'Great fit' );
+		expect( text( '.nx-vc-on b' ) ).toBe( 'Blue T-shirt' );
+
+		act( () => {
+			ReactDOM.unmountComponentAtNode( container );
+		} );
+		// Reviews::conversion_data copies post_title into an empty title.
+		renderTheme( rx, reviewEntry( { title: 'Blue T-shirt', post_title: 'Blue T-shirt' } ) );
+		expect( container.querySelector( '.nx-vc-rtitle' ) ).toBeNull();
+		expect( text( '.nx-vc-on b' ) ).toBe( 'Blue T-shirt' );
+	} );
+
+	it.each( [
+		[ 'featured_image', true ],
+		[ 'gravatar', false ],
+		[ 'greview_avatar', false ],
+	] )( 'Scorecard image carries its type (%s) for the tile / circle CSS', ( type, tile ) => {
+		renderTheme( scorecard(), reviewEntry( { image_data: { url: 'https://example.com/i.png', alt: '', classes: type } } ) );
+		const image = container.querySelector( '.nx-vc-scorecard .notificationx-image' );
+		// The theme shape stays circle; _vc.scss squares only featured_image.
+		expect( image.classList.contains( 'image-circle' ) ).toBe( true );
+		expect( image.classList.contains( 'featured_image' ) ).toBe( tile );
+		expect( image.classList.contains( type ) ).toBe( true );
+	} );
+
+	it( 'Scorecard hides empty review text and an empty subject', () => {
+		renderTheme( scorecard(), reviewEntry( { plugin_review: '', plugin_name: '' } ) );
+		expect( container.querySelector( '.nx-vc-rtext' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-on' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-stars' ) ).not.toBeNull();
+	} );
+
+	it( 'Counter: icon + name over the lead, the count, the call to action, no time', () => {
+		renderTheme( counter(), statsEntry() );
+		const card = container.querySelector( '.nx-vc-card.nx-vc-counter' );
+		expect( card ).not.toBeNull();
+		expect( card.classList.contains( 'has-time' ) ).toBe( false );
+		expect( container.querySelector( '.nx-vc-time' ) ).toBeNull();
+		expect( container.querySelector( '.notificationx-content' ) ).toBeNull();
+
+		const head = container.querySelector( '.nx-vc-ct-head' );
+		expect( head.firstElementChild.classList.contains( 'notificationx-image' ) ).toBe( true );
+		expect( text( '.nx-vc-ct-head .nx-vc-name' ) ).toBe( 'NotificationX' );
+		expect( text( '.nx-vc-ct-head .nx-vc-label' ) ).toBe( 'has been downloaded' );
+		expect( text( '.nx-vc-hero' ) ).toBe( '2.1K times in last 7 days' );
+		expect( text( '.nx-vc-cta' ) ).toBe( 'Get Started for Free.' );
+	} );
+
+	it( 'Counter hides an empty call to action', () => {
+		renderTheme( counter(), statsEntry( { last_week_text: '' } ) );
+		expect( container.querySelector( '.nx-vc-cta' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-hero' ) ).not.toBeNull();
+	} );
+} );
+
+describe( 'Verified Card Part 2: slim (≤480px)', () => {
+	beforeEach( () => stubMatchMedia( true ) );
+
+	it( 'Thread line 1: <b>name</b> rule comment, time at the right, credit A', () => {
+		renderTheme( thread(), commentEntry() );
+		const card = container.querySelector( '.nx-vc-card.nx-vc-thread.nx-vc-slim' );
+		expect( card ).not.toBeNull();
+		expect( container.querySelector( '.nx-vc-quote' ) ).toBeNull();
+		const inner = container.querySelector( '.nx-vc-l1 > .nx-vc-msg > .nx-vc-msg-in' );
+		expect( inner.querySelector( 'b' ).textContent ).toBe( 'Emily S.' );
+		const rule = inner.querySelector( '.nx-vc-q-rule' );
+		expect( rule ).not.toBeNull();
+		expect( rule.getAttribute( 'aria-hidden' ) ).toBe( 'true' );
+		// "commented on" is dropped on phones.
+		expect( inner.textContent.replace( /\s+/g, ' ' ) ).toBe( 'Emily S. Tip #3 doubled our newsletter signups in a week, thanks!' );
+		expect( text( '.nx-vc-l1 > .nx-vc-slim-time' ) ).toBe( '5 days ago' );
+		expect( container.querySelector( '.nx-vc-credit.is-slim' ) ).not.toBeNull();
+	} );
+
+	it( 'Scorecard line 1: stars <b>reviewer</b> on <b>subject</b>, time at the right', () => {
+		renderTheme( scorecard(), reviewEntry() );
+		expect( container.querySelector( '.nx-vc-card.nx-vc-scorecard.nx-vc-slim' ) ).not.toBeNull();
+		const inner = container.querySelector( '.nx-vc-msg-in' );
+		// The stars come first and sit inside the scrolling line.
+		expect( inner.firstElementChild.classList.contains( 'nx-vc-stars' ) ).toBe( true );
+		expect( inner.querySelectorAll( '.nx-vc-stars svg.is-on' ) ).toHaveLength( 4 );
+		const bold = [ ...inner.querySelectorAll( 'b' ) ].map( ( b ) => b.textContent );
+		expect( bold ).toEqual( [ 'jdoe_dev', 'NotificationX' ] );
+		expect( inner.querySelector( '.nx-vc-dim' ).textContent ).toBe( 'on' );
+		expect( inner.textContent.trim() ).toBe( 'jdoe_dev on NotificationX' );
+		expect( text( '.nx-vc-slim-time' ) ).toBe( '5 days ago' );
+		// Dropped on phones: the number, the title and the text.
+		expect( container.querySelector( '.nx-vc-rnum' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-rtitle' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-rtext' ) ).toBeNull();
+	} );
+
+	it( 'Scorecard line 1 on ReviewX shows the product', () => {
+		renderTheme(
+			base( 'reviewx_vc-scorecard', 'reviewx', 'reviews', { ...SCORECARD, third_param: 'tag_product_post_title' }, { image_shape: 'circle' } ),
+			reviewEntry( { title: 'Great fit', post_title: 'Blue T-shirt' } )
+		);
+		expect( container.querySelector( '.nx-vc-msg-in' ).textContent.trim() ).toBe( 'jdoe_dev on Blue T-shirt' );
+	} );
+
+	it( 'Counter line 1: count · <b>name</b> lead, no time', () => {
+		renderTheme( counter(), statsEntry() );
+		expect( container.querySelector( '.nx-vc-card.nx-vc-counter.nx-vc-slim' ) ).not.toBeNull();
+		const inner = container.querySelector( '.nx-vc-msg-in' );
+		expect( inner.firstElementChild.classList.contains( 'nx-vc-num' ) ).toBe( true );
+		expect( inner.querySelector( '.nx-vc-num' ).textContent ).toBe( '2.1K times in last 7 days' );
+		expect( inner.querySelector( 'b' ).textContent ).toBe( 'NotificationX' );
+		expect( inner.textContent ).toBe( '2.1K times in last 7 days · NotificationX has been downloaded' );
+		expect( container.querySelector( '.nx-vc-slim-time' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-cta' ) ).toBeNull();
+	} );
+} );
+
+describe( 'Verified Card Part 2: Pro mobile card (is_mobile)', () => {
+	beforeEach( () => stubMatchMedia( true ) );
+
+	it.each( [
+		[ 'Thread', thread, commentEntry, [ 'Emily S. commented on', 'Tip #3 doubled our newsletter signups in a week, thanks!', '5 days ago' ] ],
+		[ 'Counter', counter, statsEntry, [ 'NotificationX', 'has been downloaded 2.1K times in last 7 days', 'Get Started for Free.' ] ],
+	] )( '%s renders through the generic path with compact rows', ( label, make, entry, rows ) => {
+		renderTheme( make(), entry(), { is_mobile: true } );
+		expect( container.querySelector( '.nx-vc-card' ) ).toBeNull();
+		expect( container.querySelector( '.nx-vc-credit' ) ).toBeNull();
+		const ps = [ ...container.querySelectorAll( '.notificationx-content p' ) ];
+		expect( ps ).toHaveLength( 3 );
+		expect( ps.map( ( p ) => p.firstElementChild.textContent ) ).toEqual( rows );
+		expect( ps[ 2 ].querySelector( '.nx-branding .nx-byline' ).textContent ).toBe( 'by' );
+	} );
+
+	it( 'Scorecard renders the rating row with the generic stars', () => {
+		renderTheme( scorecard(), reviewEntry(), { is_mobile: true } );
+		expect( container.querySelector( '.nx-vc-card' ) ).toBeNull();
+		const ps = [ ...container.querySelectorAll( '.notificationx-content p' ) ];
+		expect( ps ).toHaveLength( 3 );
+		expect( ps[ 0 ].firstElementChild.textContent ).toBe( 'jdoe_dev on NotificationX' );
+		// Content.tsx turns 'rating::4.4' into the shared Star renderer.
+		expect( ps[ 1 ].querySelectorAll( 'svg' ) ).toHaveLength( 5 );
+		expect( ps[ 1 ].textContent ).not.toContain( 'rating::' );
+		expect( ps[ 2 ].firstElementChild.textContent ).toBe( '5 days ago' );
 	} );
 } );

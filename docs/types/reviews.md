@@ -107,6 +107,18 @@ static "just reviewed"/"people rated" text, plugin name or rating).
   `tag_title`/`tag_anonymous_title` (third param), `tag_plugin_name` (fifth param);
   applies to the `review_saying` theme.
 
+### Verified Card: Scorecard (`vc-scorecard`)
+
+A free "Verified Card" theme appended at the **end** of each review theme list (existing picker positions are unchanged): `reviews_vc-scorecard` here (wp_reviews, Freemius, Zapier, Bit Integrations), plus `woo_reviews_`, `woocommerce_sales_reviews_`, `reviewx_` and `google_reviews_vc-scorecard` on the extensions that declare their own themes. `image_shape` `circle`, no `defaults`; each source keeps its own default image (Google uses the reviewer avatar like its other single-review themes). Avatars show as circles; a Featured Image (plugin icon or product photo) shows as a rounded square with 8px corners, keyed on the `featured_image` class that `Image.js` copies from `image_data.classes`.
+
+Template: `first_param` `tag_username` (never `tag_rated`, which switches some sources to aggregate mode), `second_param` "on" (`_x()` with context), `third_param` the subject (`tag_plugin_name`, `tag_product_title`, `tag_product_post_title` for ReviewX, `tag_place_name` for Google), `fourth_param` `tag_rating`, `fifth_param` the review text, `sixth_param` `tag_title` where the title is a real headline. Each source has its own `vc_scorecard_template` group with only those tags, so the existing groups keep their options.
+
+Desktop: a 36px avatar and the reviewer, the time at the top right; the stars, the rating ("4.4", "5.0") and the review title (wp.org, Zapier, Bit Integrations and ReviewX only); the review text (2-line clamp); "on **subject**". Phone line 1: the stars, **reviewer**, "on" and **subject**, with the time at the right. A missing rating shows no stars and no `rating::` text.
+
+On the frontend it does **not** use the generic `Content.tsx` rows: `GetTemplate` returns a slot array and [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx) renders a 344px card (desktop and tablet) or a slim two-line card at 480px and below, with the credit "✓ Verified by NotificationX" and a one-pass line scroll (option C). With NotificationX Pro's Mobile Responsive on, phones (574px and below) show Pro's mobile card with compact rows instead. `GlobalFields::vc_theme_keys()` hides the Advanced Design toggle for it, and Custom Notification does not offer it.
+
+Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
+
 ## Key files
 
 | Layer | File(s) |

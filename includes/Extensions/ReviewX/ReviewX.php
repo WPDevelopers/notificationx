@@ -146,6 +146,23 @@ class ReviewX extends WooReviews {
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ]
             ],
+            // "Verified card" Scorecard, kept at the END of the list (see
+            // Types/Reviews.php). The subject is the product (entry post_title,
+            // through the unique option key tag_product_post_title); the review
+            // title row shows the ReviewX headline (entry title).
+            'vc-scorecard' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-scorecard.png',
+                'image_shape' => 'circle',
+                'template'    => [
+                    'first_param'        => 'tag_username',
+                    'custom_first_param' => __('Someone', 'notificationx'),
+                    'second_param'       => _x('on', 'Scorecard: <reviewer> on <product>', 'notificationx'),
+                    'third_param'        => 'tag_product_post_title',
+                    'fourth_param'       => 'tag_rating',
+                    'fifth_param'        => 'tag_plugin_review',
+                    'sixth_param'        => 'tag_title',
+                ],
+            ],
         ];
         $this->templates = [
             'reviewx_template_new'  => [
@@ -186,6 +203,30 @@ class ReviewX extends WooReviews {
                 ],
                 '_themes' => [
                     'reviewx_review_saying',
+                ],
+            ],
+            // Verified card Scorecard: its own group (see Types/Reviews.php).
+            // tag_product_post_title is a new option key, so it gets its own
+            // "Product Title" label instead of the first-come "Post Title" of
+            // tag_post_title.
+            'vc_scorecard_template' => [
+                'first_param' => [
+                    'tag_username' => __('Username', 'notificationx'),
+                ],
+                'third_param' => [
+                    'tag_product_post_title' => __('Product Title', 'notificationx'),
+                ],
+                'fourth_param' => [
+                    'tag_rating' => __('Rating', 'notificationx'),
+                ],
+                'fifth_param' => [
+                    'tag_plugin_review' => __('Review', 'notificationx'),
+                ],
+                'sixth_param' => [
+                    'tag_title' => __('Review Title', 'notificationx'),
+                ],
+                '_themes' => [
+                    'reviewx_vc-scorecard',
                 ],
             ],
         ];

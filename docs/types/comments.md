@@ -112,6 +112,16 @@ through `res-theme-eight` map to `_template: 'comments_template_new'` or
 
 Both templates' `first_param` comes from `GlobalFields::common_name_fields(true)`.
 
+### Verified Card: Thread (`vc-thread`)
+
+A free "Verified Card" theme appended at the **end** of `$this->themes` (existing picker positions are unchanged). Key `comments_vc-thread`, `image_shape` `circle`, no `defaults` (picking it sets `link_button` to false). Template: `first_param` `tag_name`, `second_param` "commented on", `third_param` `tag_post_comment`, `fourth_param` `tag_time`. The key joins `comments_template_with_comments['_themes']`, so the Content tab offers Post Comment or Post Title (the block then shows the title at 600 weight), and Pro's with-comments mobile themes apply. It is not in `content_trim_length_dependency`; WPComments keeps its 100-character trim.
+
+Desktop: a 32px avatar with the name and "commented on", the time at the top right, and the comment under a 2px violet rule (3-line clamp). Phone line 1: **name**, a small violet marker and the comment, with the time at the right.
+
+On the frontend it does **not** use the generic `Content.tsx` rows: `GetTemplate` returns a slot array and [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx) renders a 344px card (desktop and tablet) or a slim two-line card at 480px and below, with the credit "✓ Verified by NotificationX" and a one-pass line scroll (option C). With NotificationX Pro's Mobile Responsive on, phones (574px and below) show Pro's mobile card with compact rows instead. `GlobalFields::vc_theme_keys()` hides the Advanced Design toggle for it, and Custom Notification does not offer it.
+
+Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
+
 ## Key files
 
 | Layer | File(s) |

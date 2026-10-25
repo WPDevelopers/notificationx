@@ -131,6 +131,22 @@ class GoogleReviews extends Extension {
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
             ),
+            // "Verified card" Scorecard, kept at the END of the list (see
+            // Types/Reviews.php). Reviewer avatar like the other single-review
+            // themes; the subject is the place; no review title row.
+            'vc-scorecard' => [
+                'source'                  => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-scorecard.png',
+                'image_shape'             => 'circle',
+                'show_notification_image' => 'greview_avatar',
+                'template'                => [
+                    'first_param'        => 'tag_username',
+                    'custom_first_param' => __('Someone', 'notificationx'),
+                    'second_param'       => _x('on', 'Scorecard: <reviewer> on <place>', 'notificationx'),
+                    'third_param'        => 'tag_place_name',
+                    'fourth_param'       => 'tag_rating',
+                    'fifth_param'        => 'tag_place_review',
+                ],
+            ],
         ];
 
         $this->templates = [
@@ -154,6 +170,24 @@ class GoogleReviews extends Extension {
                     "{$this->id}_review-comment",
                     "{$this->id}_review-comment-2",
                     "{$this->id}_review-comment-3",
+                ],
+            ],
+            // Verified card Scorecard: its own group (see Types/Reviews.php).
+            "{$this->id}_vc_scorecard_template" => [
+                'first_param' => [
+                    'tag_username' => __('Username', 'notificationx'),
+                ],
+                'third_param' => [
+                    'tag_place_name' => __('Place Name', 'notificationx'),
+                ],
+                'fourth_param' => [
+                    'tag_rating' => __('Rating', 'notificationx'),
+                ],
+                'fifth_param' => [
+                    'tag_place_review' => __('Review', 'notificationx'),
+                ],
+                '_themes' => [
+                    "{$this->id}_vc-scorecard",
                 ],
             ],
         ];

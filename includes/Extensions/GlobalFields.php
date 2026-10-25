@@ -81,6 +81,13 @@ class GlobalFields {
             'woocommerce_sales_vc-receipt',
             'conversions_vc-showcase',
             'woocommerce_sales_vc-showcase',
+            'comments_vc-thread',
+            'reviews_vc-scorecard',
+            'woo_reviews_vc-scorecard',
+            'woocommerce_sales_reviews_vc-scorecard',
+            'reviewx_vc-scorecard',
+            'google_reviews_vc-scorecard',
+            'download_stats_vc-counter',
         ];
     }
 

@@ -134,8 +134,9 @@ class Test_VC_Themes extends WP_UnitTestCase {
 			}
 		}
 		foreach ( GlobalFields::vc_theme_keys() as $key ) {
-			// Part 2 keys live on other Types; only check the ones this test owns.
-			if ( 0 !== strpos( $key, 'conversions_' ) && 0 !== strpos( $key, 'woocommerce_sales_' ) ) {
+			// Part 2 keys live on other Types and Extensions (one even starts
+			// with woocommerce_sales_reviews_); only check the Part 1 slugs.
+			if ( ! in_array( substr( $key, strrpos( $key, '_' ) + 1 ), self::VC_SLUGS, true ) ) {
 				continue;
 			}
 			$this->assertContains( $key, $declared );
