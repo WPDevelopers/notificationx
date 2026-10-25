@@ -212,6 +212,14 @@ The Google API side lives in the Google directory, not here — Pro's
 `Google_Analytics\RealtimeViewers::get_viewers()` is the only entry point `WooInline`
 touches. See [google.md](google.md).
 
+### Verified Card: Scorecard
+
+`WOOReviews` (`woo_reviews_vc-scorecard`) and `WooCommerceSalesReviews` (`woocommerce_sales_reviews_vc-scorecard`) append the free Scorecard Verified Card at the end of their own theme lists, each with its own `vc_scorecard_template` group: reviewer (`tag_username`), "on", `tag_product_title`, `tag_rating`, review text. There is no review-title row, because `title` is the product name for these sources. The Sales Verified Cards (Receipt, Showcase) are described in [conversions.md](../types/conversions.md).
+
+Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
+
+Both also append the free Ratings Verified Card (`woo_reviews_vc-ratings`, `woocommerce_sales_reviews_vc-ratings`) after Scorecard, with a `vc_ratings_template` group: `tag_rated` (the per-product count of 5-star reviews from `rated_woo_review`), "people rated", `tag_product_title`. See [reviews.md](../types/reviews.md).
+
 ## Dependency & detection
 
 - Required plugin: **WooCommerce**. Every concrete class in this directory sets

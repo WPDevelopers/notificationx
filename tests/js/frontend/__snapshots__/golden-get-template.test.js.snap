@@ -1,0 +1,436 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GOLDEN GetTemplate rows (existing themes) comments_maps_theme 1`] = `
+Array [
+  "<span>{{name}}</span> <span>from</span> <span>{{city}}</span> <span>commented on</span>",
+  "<span>{{title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) comments_theme-eight-free 1`] = `
+Array [
+  "<span>{{name}}</span> <span>commented on</span> ",
+  "<span>{{post_comment}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) comments_theme-one 1`] = `
+Array [
+  "<span>{{name}}</span> <span>commented on</span>",
+  "<span>{{post_title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) comments_theme-seven-free 1`] = `
+Array [
+  "<span>{{name}}</span> <span>commented on</span> ",
+  "<span>{{post_comment}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) comments_theme-six-free 1`] = `
+Array [
+  "<span>{{name}}</span> <span>commented on</span> ",
+  "<span>{{post_title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-eight (empty second_param) 1`] = `
+Array [
+  "<span>{{name}}</span> ",
+  "<span>{{product_title}}</span> <span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-eight 1`] = `
+Array [
+  "<span>{{name}}</span> <span><span>just</span><span> purchased</span></span>",
+  "<span>{{product_title}}</span> <span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-eleven 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-fifteen 1`] = `
+Array [
+  "<span class=\\"nx-loc\\">{{city_country}}</span> <span>{{time}}</span>",
+  "<span>{{name}}</span> <span>just purchased</span> <span>{{product_title}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-fourteen 1`] = `
+Array [
+  "<span>{{sales_count}}</span> <span>Buyers purchased</span> <span>{{product_title}}</span>",
+  "<span>{{7days}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-nine 1`] = `
+Array [
+  "<span>{{name}}</span> <span><span>just</span><span> purchased</span></span>",
+  "<span>{{product_title}}</span> <span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-seven (single-word second_param) 1`] = `
+Array [
+  "<span>{{name}}</span> <span><span>bought</span></span>",
+  "<span>{{product_title}}</span> <span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-seven 1`] = `
+Array [
+  "<span>{{name}}</span> <span><span>just</span><span> purchased</span></span>",
+  "<span>{{product_title}}</span> <span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-six 1`] = `
+Array [
+  "<span>{{name}}</span> <span>from</span> <span>{{city}}</span>",
+  "<span>purchased</span> <span>{{title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-sixteen 1`] = `
+Array [
+  "<span>{{sales_count}}</span> <span>Buyers purchased</span>",
+  "<span>{{7days}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-ten 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-thirteen 1`] = `
+Array [
+  "<span>{{name}}</span> <span>{{time}}</span>",
+  "<span>Bought</span> <span>{{product_title}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_conv-theme-twelve 1`] = `
+Array [
+  "<span>{{name}}</span> <span>{{time}}</span>",
+  "<span>just purchased</span> <span>{{product_title}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_maps_theme 1`] = `
+Array [
+  "<span>{{name}}</span> <span>from</span> <span>{{city}}</span> <span>purchased</span>",
+  "<span>{{title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_theme-five 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_theme-four 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_theme-one (tag_custom + HTML in label) 1`] = `
+Array [
+  "<span>Someone</span> <span>just &lt;b>bought&lt;/b> &amp; \\"loved\\"</span>",
+  "<span>{{product_title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_theme-one 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_theme-three 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) conversions_theme-two 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) download_stats_7day-download 1`] = `
+Array [
+  "<span>{{plugin_theme_name}}</span> ",
+  "<span>has been downloaded</span> <span>{{last_week}}</span>",
+  "<span>{{last_week_text}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) download_stats_actively_using 1`] = `
+Array [
+  "<span>{{active_installs}}</span> <span>people are actively using</span> ",
+  "<span>{{plugin_theme_name}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) download_stats_today-download 1`] = `
+Array [
+  "<span>{{plugin_theme_name}}</span> ",
+  "<span>has been downloaded</span> <span>{{today}}</span>",
+  "<span>{{today_text}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) download_stats_total-download 1`] = `
+Array [
+  "<span>{{plugin_theme_name}}</span> ",
+  "<span>has been downloaded</span> <span>{{all_time}}</span>",
+  "<span>{{all_time_text}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) elearning_conv-theme-seven (not in split list) 1`] = `
+Array [
+  "<span>{{name}}</span> <span>recently enrolled</span>",
+  "<span>{{product_title}}</span> <span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius conversions_conv-theme-eight 1`] = `
+Array [
+  "<span>{{name}}</span> <span><span>just</span><span> purchased</span></span>",
+  "<span>{{product_title}}</span> <span>{{time}}</span> <span>{{plan_title}}</span> <span>Subscription For</span> <span>{{pricing}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius conversions_conv-theme-eleven 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span> <span>{{plan_title}}</span> <span>Subscription For</span> <span>{{pricing}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius conversions_conv-theme-nine 1`] = `
+Array [
+  "<span>{{name}}</span> <span><span>just</span><span> purchased</span></span>",
+  "<span>{{product_title}}</span> <span>{{time}}</span> <span>{{plan_title}}</span> <span>Subscription For</span> <span>{{pricing}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius conversions_conv-theme-seven 1`] = `
+Array [
+  "<span>{{name}}</span> <span><span>just</span><span> purchased</span></span>",
+  "<span>{{product_title}}</span> <span>{{time}}</span> <span>{{plan_title}}</span> <span>Subscription For</span> <span>{{pricing}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius conversions_conv-theme-six 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span> <span>{{product_title}}</span>",
+  "<span>purchased</span> <span>{{title}}</span> <span>{{plan_title}}</span> <span>Subscription For</span> <span>{{pricing}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius conversions_conv-theme-ten 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span> <span>{{plan_title}}</span> <span>Subscription For</span> <span>{{pricing}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius conversions_conv-theme-twelve (falls through) 1`] = `
+Array [
+  "<span>{{name}}</span> <span>{{time}}</span>",
+  "<span>just purchased</span> <span>{{product_title}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius conversions_theme-five 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span> <span>{{plan_title}}</span> <span>{{time}}</span> <span>Subscription For</span> <span>{{pricing}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius conversions_theme-four 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span> <span>{{plan_title}}</span> <span>{{time}}</span> <span>Subscription For</span> <span>{{pricing}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius conversions_theme-one 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span> <span>{{plan_title}}</span> <span>{{time}}</span> <span>Subscription For</span> <span>{{pricing}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius conversions_theme-three 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span> <span>{{plan_title}}</span> <span>{{time}}</span> <span>Subscription For</span> <span>{{pricing}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius conversions_theme-two 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span> <span>{{plan_title}}</span> <span>{{time}}</span> <span>Subscription For</span> <span>{{pricing}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) freemius custom plan/price 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span> <span>Pro Plus</span> <span>{{time}}</span> <span>Subscription For</span> <span>99 USD/Year</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) google_reviews_maps_theme 1`] = `
+Array [
+  "<span>{{username}}</span> <span>just reviewed</span>",
+  "<span>{{plugin_name}}</span>",
+  "<span>{{rating}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) reviews_review_saying 1`] = `
+Array [
+  "<span>{{username}}</span> <span>saying</span> <span>{{title}}</span> <span>about</span>",
+  "<span>{{plugin_name}}</span>",
+  "<span>Try it now</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) reviews_review-comment 1`] = `
+Array [
+  "<span>{{username}}</span> <span>just reviewed</span> ",
+  "<span>{{plugin_review}}</span>",
+  "<span>{{rating}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) reviews_review-comment-2 1`] = `
+Array [
+  "<span>{{username}}</span> <span>just reviewed</span> ",
+  "<span>{{plugin_review}}</span>",
+  "<span>{{rating}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) reviews_review-comment-3 1`] = `
+Array [
+  "<span>{{username}}</span> <span>just reviewed</span> ",
+  "<span>{{plugin_review}}</span>",
+  "<span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) reviews_reviewed 1`] = `
+Array [
+  "<span>{{username}}</span> <span>just reviewed</span> ",
+  "<span>{{plugin_name}}</span>",
+  "<span>{{rating}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) reviews_total-rated 1`] = `
+Array [
+  "<span>{{rated}}</span> <span>people rated</span> ",
+  "<span>{{plugin_name}}</span>",
+  "<span>{{rating}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) woocommerce reviews_review-comment 1`] = `
+Array [
+  "<span>{{username}}</span> <span>just reviewed</span> ",
+  "<span>{{plugin_review}}</span>",
+  "<span>{{rating}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) woocommerce_sales_conv-theme-eight 1`] = `
+Array [
+  "<span>{{name}}</span> <span><span>just</span><span> purchased</span></span>",
+  "<span>{{product_title}}</span> <span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) woocommerce_sales_conv-theme-fifteen 1`] = `
+Array [
+  "<span class=\\"nx-loc\\">{{city_country}}</span> <span>{{time}}</span>",
+  "<span>{{name}}</span> <span>just purchased</span> <span>{{product_title}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) woocommerce_sales_conv-theme-nine 1`] = `
+Array [
+  "<span>{{name}}</span> <span><span>just</span><span> purchased</span></span>",
+  "<span>{{product_title}}</span> <span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) woocommerce_sales_conv-theme-seven 1`] = `
+Array [
+  "<span>{{name}}</span> <span><span>just</span><span> purchased</span></span>",
+  "<span>{{product_title}}</span> <span>{{time}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) woocommerce_sales_conv-theme-twelve 1`] = `
+Array [
+  "<span>{{name}}</span> <span>{{time}}</span>",
+  "<span>just purchased</span> <span>{{product_title}}</span>",
+]
+`;
+
+exports[`GOLDEN GetTemplate rows (existing themes) woocommerce_sales_theme-one 1`] = `
+Array [
+  "<span>{{name}}</span> <span>just purchased</span>",
+  "<span>{{product_title}}</span>",
+  "<span>{{time}}</span>",
+]
+`;

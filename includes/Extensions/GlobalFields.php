@@ -63,6 +63,43 @@ class GlobalFields {
         return $fields;
     }
 
+    /**
+     * Full theme keys of the "Verified card" (vc) theme family.
+     *
+     * Single PHP list of the vc keys, read by the builder rules that hide the
+     * Advanced Design toggle (advance_edit) and the Button toggle (link_button)
+     * for these themes. The vc cards ignore both: the frontend VerifiedCard
+     * (nxdev/notificationx/frontend/themes/vc/) has its own palette and no
+     * button. The themes themselves are declared in the Types (for example
+     * includes/Types/Conversions.php); a new vc theme adds its full keys here.
+     *
+     * @return string[]
+     */
+    public static function vc_theme_keys() {
+        return [
+            'conversions_vc-receipt',
+            'woocommerce_sales_vc-receipt',
+            'conversions_vc-showcase',
+            'woocommerce_sales_vc-showcase',
+            'comments_vc-thread',
+            'reviews_vc-scorecard',
+            'woo_reviews_vc-scorecard',
+            'woocommerce_sales_reviews_vc-scorecard',
+            'reviewx_vc-scorecard',
+            'google_reviews_vc-scorecard',
+            'download_stats_vc-counter',
+            'donation_vc-pledge',
+            'elearning_vc-enrol',
+            'form_vc-submission',
+            'reviews_vc-ratings',
+            'woo_reviews_vc-ratings',
+            'woocommerce_sales_reviews_vc-ratings',
+            'reviewx_vc-ratings',
+            'google_reviews_vc-ratings',
+            'download_stats_vc-installs',
+        ];
+    }
+
     public function tabs() {
         if(defined('NX_DEBUG') && NX_DEBUG){
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
@@ -467,10 +504,14 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 20,
+                                    // Hidden for the vc themes, which ignore Advanced Design.
                                     'rules'    =>   Rules::logicalRule([
-                                        Rules::is('themes_tab', 'for_desktop'),
-                                        Rules::is('themes_tab', 'nxbar_build_with_ai'),
-                                    ], 'or'),
+                                        Rules::logicalRule([
+                                            Rules::is('themes_tab', 'for_desktop'),
+                                            Rules::is('themes_tab', 'nxbar_build_with_ai'),
+                                        ], 'or'),
+                                        Rules::includes('themes', self::vc_theme_keys(), true),
+                                    ]),
                                 ],
                             ]
                         ],
@@ -491,6 +532,8 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 1,
+                                    // Hidden for the vc themes, which ignore Advanced Design.
+                                    'rules'    => Rules::includes('themes', self::vc_theme_keys(), true),
                                 ],
                                 "design" => [
                                     'label'    => __("Design", 'notificationx'),
@@ -1070,6 +1113,8 @@ class GlobalFields {
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('type', ['conversions','video','woocommerce', 'woocommerce_sales','page_analytics']),
                                         Rules::is('link_type','none',true),
+                                        // Hidden for the vc themes, which have no button.
+                                        Rules::includes('themes', self::vc_theme_keys(), true),
                                     ]),
                                 ],
                             ],

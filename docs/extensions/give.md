@@ -85,6 +85,10 @@ Real events that drive data:
 - `Give::doc()` supplies the "Instructions" panel copy (setup/video links) shown in
   the builder UI, hooked via the base `Extension::nx_instructions()`.
 
+### Verified Card: Pledge
+
+The free Pledge Verified Card (`donation_vc-pledge`) is declared on the Donations Type: see [donation.md](../types/donation.md). It turns the amount on by default; Give's `amount` already ends in "for".
+
 ## Dependency & detection
 
 - Required plugin: **GiveWP**. `Give::$class = '\Give'`; the base

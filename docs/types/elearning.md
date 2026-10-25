@@ -116,6 +116,16 @@ Templates (`$templates`):
 defined as a template key — and shared across all the Types that reference it
 (`WooCommerceSales`, `Comments`, `EmailSubscription`, `Donations`, `Conversions`, etc.).
 
+### Verified Card: Enrolment (`vc-enrol`)
+
+A free "Verified Card" theme appended at the **end** of `$this->themes` (existing picker positions are unchanged). Key `elearning_vc-enrol` (Tutor LMS and LearnPress; LearnDash with Pro), `image_shape` `rounded`, no `defaults`. Template: `first_param` `tag_name`, `second_param` "just enrolled", `third_param` `tag_course_title`, `fourth_param` `tag_time`. The key joins `elearning_template_new['_themes']`.
+
+Desktop: the name and "just enrolled", the time at the top right, then a course panel (indigo rule) with a 56×40 landscape thumbnail and the course title (2-line clamp); Gravatar shows as a 40px circle. Phone line 1: **name**, "just enrolled" and the course, with the time at the right.
+
+On the frontend it does **not** use the generic `Content.tsx` rows: `GetTemplate` returns a slot array and [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx) renders a 344px card (desktop and tablet) or a slim two-line card at 480px and below, with the credit "✓ Verified by NotificationX" and a one-pass line scroll (option C). With NotificationX Pro's Mobile Responsive on, phones (574px and below) show Pro's mobile card with compact rows instead. `GlobalFields::vc_theme_keys()` hides the Advanced Design toggle for it, and Custom Notification does not offer it.
+
+Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
+
 ## Key files
 
 | Layer | File(s) |

@@ -369,6 +369,123 @@ const GetTemplate = (settings) => {
                 `${params?.second_param} ${params?.third_param} ${params?.fourth_param} ${params?.fifth_param}`,
             ];
             break;
+        // Verified Cards (vc-*, themes/vc/). These return SLOTS, not display
+        // rows: VerifiedCard maps each index to a part of the card, and
+        // vcCompactRows turns them into classic rows where the card is not
+        // used (Pro's mobile card, the admin Advanced Template default).
+        // Every slot must be a non-empty string: Theme.tsx drops falsy rows,
+        // which would shift the indexes. Each param is already wrapped in a
+        // <span>, so an unset one is '<span></span>' and the card hides it.
+        case "vc-receipt":
+            // [0] name, [1] action, [2] product, [3] time,
+            // [4] Freemius plan + price (freemius_conversions falls through
+            // the Freemius block above to here), '<span></span>' elsewhere.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+                settings?.source === "freemius_conversions"
+                    ? `${params?.freemius_fifth_param} ${params?.freemius_seventh_param}`
+                    : "<span></span>",
+            ];
+        case "vc-showcase":
+            // [0] action (chip), [1] product, [2] name,
+            // [3] city, country (always sent; empty for EDD, Envato, Freemius),
+            // [4] time.
+            return [
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.first_param}`,
+                "<span>{{city_country}}</span>",
+                `${params?.fourth_param}`,
+            ];
+        case "vc-thread":
+            // [0] name, [1] action ("commented on"),
+            // [2] comment (or the post title), [3] time.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+            ];
+        case "vc-scorecard": {
+            // [0] reviewer, [1] rating ('rating::N' once Theme fills it),
+            // [2] review title, only where it is a real headline (wp.org,
+            // Zapier, Bit Integrations, ReviewX); '<span></span>' elsewhere,
+            // where `title` is the product or plugin name or missing,
+            // [3] review text, [4] "on", [5] subject (plugin, product or place),
+            // [6] time: a fixed {{time}} (updated_at is always sent), so the
+            // stars and the time show together.
+            // The time shows only at the top right ([6]): a body field set to
+            // "Definite Time" (e.g. left over from another theme) stays empty.
+            const tmpl = settings?.["notification-template"] || {};
+            const noTime = (param: string) =>
+                tmpl[param] === "tag_time" ? "<span></span>" : `${params?.[param]}`;
+            return [
+                `${params?.first_param}`,
+                noTime("fourth_param"),
+                ["wp_reviews", "zapier_reviews", "bitintegrations_reviews", "reviewx"].indexOf(settings?.source) !== -1
+                    ? noTime("sixth_param")
+                    : "<span></span>",
+                noTime("fifth_param"),
+                `${params?.second_param}`,
+                noTime("third_param"),
+                "<span>{{time}}</span>",
+            ];
+        }
+        case "vc-counter":
+            // [0] plugin or theme name, [1] lead ("has been downloaded"),
+            // [2] download count, [3] call to action. No time.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+            ];
+        case "vc-pledge":
+            // [0] donor, [1] action ("donated"), [2] amount (Give's
+            // "$50.00 for"; '<span></span>' when the amount tag is None),
+            // [3] campaign, [4] time.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+                `${params?.fifth_param}`,
+            ];
+        case "vc-enrol":
+            // [0] student, [1] action ("just enrolled"), [2] course, [3] time.
+        case "vc-submission":
+            // [0] submitter (the picked form field), [1] action
+            // ("recently contacted via"), [2] form title, [3] time.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                `${params?.fourth_param}`,
+            ];
+        case "vc-ratings":
+            // [0] count, [1] label, [2] plugin, product or place, [3] the
+            // average ('rating::4.7') for Google only, '<span></span>'
+            // elsewhere. Everywhere but Google the count is the number of
+            // 5-star ratings: five fixed stars, "people rated". Google's count
+            // is the total of all ratings: the average with partially filled
+            // stars and "N reviews". No time.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+                settings?.source === "google_reviews" ? `${params?.fourth_param}` : "<span></span>",
+            ];
+        case "vc-installs":
+            // [0] active installs ("40K"), [1] lead
+            // ("people are actively using"), [2] plugin or theme name. No time.
+            return [
+                `${params?.first_param}`,
+                `${params?.second_param}`,
+                `${params?.third_param}`,
+            ];
         default:
             console.error("Please select a theme", settings);
             return [
