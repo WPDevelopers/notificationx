@@ -1,7 +1,8 @@
 /**
- * Analytics renders the link/button of every notification. It used to append
- * Google's platform.js (~63 KB) for every notification; now it does so only
- * when the YouTube subscribe widget (.g-ytsubscribe) is rendered.
+ * Analytics renders the link/button of every notification. The YouTube
+ * subscribe widget (.g-ytsubscribe) and Google's platform.js are NotificationX
+ * Pro code (issue #184): free never loads platform.js and renders a widget
+ * only when an add-on returns one from `nx_frontend_link_widget`.
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -55,77 +56,48 @@ afterEach( () => {
 	unmount();
 	container.remove();
 	platformScripts().forEach( ( s ) => s.remove() );
+	delete window.wp;
 } );
 
-describe( 'platform.js loading', () => {
-	it( 'is not added for a regular notification link', () => {
+describe( 'link widget', () => {
+	it( 'renders the regular link without a widget', () => {
 		render( {
 			config: { source: 'woocommerce', link_type: 'product_page', link_button: true, link_button_text: 'Buy' },
 			data: { link: 'https://site.test/p/1' },
 		} );
 
-		expect( platformScripts() ).toHaveLength( 0 );
 		expect( container.querySelector( '.g-ytsubscribe' ) ).toBeNull();
 		expect( container.querySelector( 'a' ).getAttribute( 'href' ) ).toBe( 'https://site.test/p/1' );
 	} );
 
-	it( 'is not added for a press bar', () => {
-		render( {
-			config: { ...ytChannelConfig, source: 'press_bar', link_text: true },
-			data: { id: 'UC123', link: 'https://site.test' },
-		} );
-
-		expect( platformScripts() ).toHaveLength( 0 );
-	} );
-
-	it( 'is not added for a YouTube channel using a custom button', () => {
-		render( {
-			config: { ...ytChannelConfig, nx_subscribe_button_type: 'custom' },
-			data: { id: 'UC123', link: 'https://youtube.com/c/x' },
-		} );
+	it( 'free never adds platform.js or the subscribe widget itself', () => {
+		render( { config: ytChannelConfig, data: { id: 'UC123', link: 'https://youtube.com/c/x' } } );
 
 		expect( platformScripts() ).toHaveLength( 0 );
 		expect( container.querySelector( '.g-ytsubscribe' ) ).toBeNull();
 	} );
 
-	it( 'is not added when the channel id is missing', () => {
-		render( { config: ytChannelConfig, data: {} } );
-
-		expect( platformScripts() ).toHaveLength( 0 );
-	} );
-
-	it( 'is added with the subscribe widget and removed on unmount', () => {
-		render( { config: ytChannelConfig, data: { id: 'UC123' } } );
-
-		const widget = container.querySelector( '.g-ytsubscribe' );
-		expect( widget ).not.toBeNull();
-		expect( widget.getAttribute( 'data-channelid' ) ).toBe( 'UC123' );
-		expect( platformScripts() ).toHaveLength( 1 );
-		expect( platformScripts()[ 0 ].async ).toBe( true );
-
-		unmount();
-		expect( platformScripts() ).toHaveLength( 0 );
-	} );
-
-	it( 'is added again for each newly mounted widget, as before', () => {
-		render( { config: ytChannelConfig, data: { id: 'UC123' } } );
-		unmount();
-		render( { config: ytChannelConfig, data: { id: 'UC456' } } );
-
-		expect( platformScripts() ).toHaveLength( 1 );
-	} );
-
-	it( 'is added for an add-on link type that asks for the default subscribe button', () => {
-		installHooks().addFilter( 'nx_frontend_link_button', 'test', ( value, config ) =>
-			config.link_type === 'announcements_link'
-				? { link_text: config.announcement_link_button_text, show_default_subscribe: true }
+	it( 'nx_frontend_link_widget replaces the link with the add-on element', () => {
+		const filter = jest.fn( ( value, args ) =>
+			args.config.nx_subscribe_button_type === 'yt_default' && args.show_default_subscribe
+				? <div className="pro-widget" />
 				: value
 		);
+		installHooks().addFilter( 'nx_frontend_link_widget', 'test', filter );
+		render( { config: ytChannelConfig, data: { id: 'UC123', link: 'https://youtube.com/c/x' } } );
+
+		expect( container.querySelectorAll( '.pro-widget' ) ).toHaveLength( 1 );
+		expect( container.querySelector( 'a' ) ).toBeNull();
+		expect( filter.mock.calls[ 0 ][ 1 ] ).toHaveProperty( 'data.id', 'UC123' );
+	} );
+
+	it( 'keeps the link when the add-on does not claim it', () => {
+		installHooks().addFilter( 'nx_frontend_link_widget', 'test', ( value ) => value );
 		render( {
-			config: { ...ytChannelConfig, link_type: 'announcements_link', announcement_link_button_text: 'Go' },
-			data: { id: 'UC123' },
+			config: { ...ytChannelConfig, nx_subscribe_button_type: 'nx_custom' },
+			data: { id: 'UC123', link: 'https://youtube.com/c/x' },
 		} );
 
-		expect( platformScripts() ).toHaveLength( 1 );
+		expect( container.querySelector( 'a' ).getAttribute( 'href' ) ).toBe( 'https://youtube.com/c/x' );
 	} );
 } );

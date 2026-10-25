@@ -237,9 +237,10 @@ class Settings extends UsabilityDynamicsSettings {
                                     'type'        => 'checkbox',
                                     'label'       => __( 'Disable Powered By', 'notificationx' ),
                                     'name'        => 'disable_powered_by',
-                                    'default'     => 0,
+                                    // Off unless the site owner opts in (WordPress.org Guideline 10, issue #184).
+                                    'default'     => 1,
                                     'priority'    => 10,
-                                    'description' => __( 'Click, if you want to disable powered by text from notification', 'notificationx' ),
+                                    'description' => __( 'Hides the "Powered by NotificationX" link in notifications. Uncheck to show it.', 'notificationx' ),
                                 ],
                             ],
                         ],

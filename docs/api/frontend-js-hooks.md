@@ -44,6 +44,8 @@ Filters live on the global WordPress registry, `window.wp.hooks`. Register them 
 | `nx_popup_submission_fields` | `Popup.tsx`, submitted data | `{ name: '', email: '' }` | `{ settings, formData, is_pro }` | `{ name, email }`. |
 | `nx_exit_intent_form_fields` | `ExitIntentPopup.tsx` theme one, before the message field | `null` | `{ s, name, email, setName, setEmail, inputStyle, namePlaceholder, emailPlaceholder, is_pro }` | A React node (Pro: name and email inputs). |
 | `nx_exit_intent_submission_fields` | `ExitIntentPopup.tsx`, submitted data | `{}` | `{ s, name, email, is_pro }` | `{ name?, email? }` merged into the payload. |
+| `nx_exit_intent_theme` | `ExitIntentPopup.tsx`, after the Elementor branch, before the built-in themes (free 3.3.5) | `undefined` | `{ theme, settings, is_pro, overlayClass, showClose, closeStyle, handleClose, renderCta, submitEntry }` (`theme` is `theme-two` etc.; `submitEntry(payload)` posts to `popup-submit` and resolves `false` when the page has no REST URL) | A React element that replaces the whole popup (Pro: themes two, five, six and seven). |
+| `nx_frontend_link_widget` | [Analytics.tsx](../../nxdev/notificationx/frontend/core/Analytics.tsx), where the link is rendered, after the press-bar branch (free 3.3.5) | `undefined` | `{ config, data, styles, show_default_subscribe }` | A React element that replaces the link (Pro: the YouTube subscribe button, which loads Google's `platform.js`). |
 
 `nx_frontend_template` also runs in the admin builder, because the admin bundle imports `GetTemplate` for the `nx_adv_template_default` filter ([AddEditNx/index.ts](../../nxdev/notificationx/admin/AddEditNx/index.ts)). An add-on must register that filter in the admin builder as well as on the frontend.
 
@@ -135,6 +137,14 @@ What free 3.3.4 removed:
 Kept in free: the upsell stubs (Cart Peek, Flashing Tab and Discount Alert sources, `Types/FlashingTab.php`, `Types/OfferAnnouncement.php`, theme preview images). The Flashing Tab stub stores bare icon file names, which Pro resolves against its own icons. `announcementCSS` is still built in `Theme.tsx`, because the render hooks pass it to add-ons.
 
 **The rule that keeps the removal fatal-free:** delete a Type class and its `TypesFactory::$types` entry in the same change. `TypeFactory::register_types()` and `get()` have no `class_exists()` guard, so an entry whose class is missing is the one fatal path. `ExtensionFactory` skips an extension whose Type is not registered, so the free Cart Peek stub registers only when Pro registers the Cart Peek Type, and `WooCommerce::admin_actions()` hooks the Type's `nx_can_entry` only when the Type exists.
+
+### Free 3.3.5 (issue #184)
+
+Free 3.3.5 moves more Pro-only code to NotificationX Pro 3.2.5 and raises `Admin::MIN_PRO_VERSION` to `3.2.5`. **Release Pro 3.2.5 before free 3.3.5.**
+
+- Exit Intent themes two, five, six and seven: their markup, countdown and theme-seven email form (`ExitIntentPopup.tsx`) and their styles (`scss/_themes/_exit-intent.scss`) are in notificationx-pro `nxdev/frontend-themes/exit-intent/` and `nxdev/scss/frontend/themes/_exit-intent.scss`, rendered through `nx_exit_intent_theme`. `NotificationX::PRO_RENDERED_THEMES` lists them; `NotificationX::is_theme_unrenderable()` makes `FrontEnd::get_notifications_ids()` and `get_notifications()` skip such a notification without a current Pro, unless it is linked to an Elementor design (`elementor_id`).
+- The YouTube subscribe button and Google's `platform.js` (`Analytics.tsx`) are in notificationx-pro `nxdev/frontend-themes/features/ytSubscribe.tsx`, rendered through `nx_frontend_link_widget`. Free never loads `platform.js`.
+- Free's `Types\Inline` keeps only its upsell fields and `show_on_exclude()`; the stock-theme entry filter is Pro's.
 
 ### Without NotificationX Pro, or with an older Pro
 

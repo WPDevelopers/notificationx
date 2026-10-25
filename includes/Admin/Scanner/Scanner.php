@@ -162,7 +162,8 @@ class Scanner
         // Make an HTTP GET request
         $response = wp_remote_get($apiEndpoint, [
             'timeout'   => 200, // Set timeout (adjust as needed)
-            'sslverify' => false, // Bypass SSL verification temporarily (for local dev)
+            // Verify the certificate, except against the local dev API (NX_DEBUG).
+            'sslverify' => ! ( defined('NX_DEBUG') && NX_DEBUG ),
         ]);
 
         // Check for errors in the response
@@ -193,7 +194,8 @@ class Scanner
         // Make an HTTP GET request
         $response = wp_remote_get($apiEndpoint, [
             'timeout'   => 200, // Set timeout (adjust as needed)
-            'sslverify' => false, // Bypass SSL verification temporarily (for local dev)
+            // Verify the certificate, except against the local dev API (NX_DEBUG).
+            'sslverify' => ! ( defined('NX_DEBUG') && NX_DEBUG ),
         ]);
 
         // Check for errors in the response

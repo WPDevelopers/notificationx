@@ -79,15 +79,14 @@ const Theme = (props) => {
                 // Join city + country with a comma only when both exist, so an
                 // order missing one (or both) never renders a stray ", ". Prefer a
                 // value the source already composed (e.g. the builder preview).
-                val =
-                    entry?.city_country ||
-                    [entry?.city, entry?.country].filter(Boolean).join(", ");
-                // Verified Cards: Showcase always renders {{city_country}}
-                // (customer-entered billing city) through innerHTML, so escape
-                // it like every other entry value. Other themes are unchanged.
-                if (isVc) {
-                    val = escapeHTML(String(val));
-                }
+                // Escape it too: this replaces the escaped `val` above, and the
+                // row is injected via dangerouslySetInnerHTML.
+                val = escapeHTML(
+                    String(
+                        entry?.city_country ||
+                            [entry?.city, entry?.country].filter(Boolean).join(", ")
+                    )
+                );
             } else if (key.includes('random:')) {
                 /*
                 The key string format is "random:min-max:range:expiry", where:

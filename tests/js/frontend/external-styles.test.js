@@ -1,6 +1,6 @@
 import {
 	applyDeferredStyles,
-	DEFAULT_EXTERNAL_STYLES,
+	defaultExternalStyles,
 	loadExternalStyles,
 	styleApplies,
 	whenStyled,
@@ -18,22 +18,54 @@ const settled = async ( promise ) => {
 const links = () =>
 	Array.from( document.head.querySelectorAll( 'link[rel="stylesheet"]' ) );
 
+const COMMON = 'https://wp.example/wp-content/plugins/notificationx/assets/common/';
+const DEFAULTS = defaultExternalStyles( COMMON );
+
+describe( 'defaultExternalStyles', () => {
+	it( 'points at the bundled copies next to common_assets', () => {
+		expect( DEFAULTS ).toEqual( {
+			'notificationx-open-sans':
+				'https://wp.example/wp-content/plugins/notificationx/assets/public/vendor/open-sans/css/open-sans.css',
+			'notificationx-fontawesome-4':
+				'https://wp.example/wp-content/plugins/notificationx/assets/public/vendor/font-awesome/css/font-awesome.min.css',
+		} );
+	} );
+
+	it.each( [ undefined, '', 42, 'https://wp.example/other/' ] )(
+		'is empty without a usable common_assets (%p)',
+		( value ) => {
+			expect( defaultExternalStyles( value ) ).toEqual( {} );
+		}
+	);
+
+	it( 'never names a third-party host (issue #184)', () => {
+		Object.values( DEFAULTS ).forEach( ( url ) => {
+			expect( url.startsWith( 'https://wp.example/' ) ).toBe( true );
+		} );
+	} );
+} );
+
 describe( 'loadExternalStyles (cross-domain fonts and icons)', () => {
 	afterEach( () => {
 		document.head.innerHTML = '';
 	} );
 
-	it( 'adds the defaults when the config has no list (old snippets)', () => {
-		loadExternalStyles( undefined );
+	it( 'adds the bundled defaults when the config has no list (old snippets)', () => {
+		loadExternalStyles( undefined, COMMON );
 		expect( links().map( ( l ) => l.id ) ).toEqual(
-			Object.keys( DEFAULT_EXTERNAL_STYLES ).map( ( h ) => h + '-css' )
+			Object.keys( DEFAULTS ).map( ( h ) => h + '-css' )
 		);
+	} );
+
+	it( 'adds nothing for an old snippet without common_assets', () => {
+		loadExternalStyles( undefined );
+		expect( links() ).toHaveLength( 0 );
 	} );
 
 	it( 'adds only what the site allows', () => {
 		loadExternalStyles( {
 			'notificationx-fontawesome-4':
-				DEFAULT_EXTERNAL_STYLES[ 'notificationx-fontawesome-4' ],
+				DEFAULTS[ 'notificationx-fontawesome-4' ],
 		} );
 		expect( links().map( ( l ) => l.id ) ).toEqual( [
 			'notificationx-fontawesome-4-css',
@@ -41,16 +73,14 @@ describe( 'loadExternalStyles (cross-domain fonts and icons)', () => {
 	} );
 
 	it( 'adds nothing when every stylesheet is opted out (PHP sends [])', () => {
-		loadExternalStyles( [] );
+		loadExternalStyles( [], COMMON );
 		expect( links() ).toHaveLength( 0 );
 	} );
 
 	it( 'does not add a stylesheet twice', () => {
-		loadExternalStyles();
-		loadExternalStyles();
-		expect( links() ).toHaveLength(
-			Object.keys( DEFAULT_EXTERNAL_STYLES ).length
-		);
+		loadExternalStyles( undefined, COMMON );
+		loadExternalStyles( undefined, COMMON );
+		expect( links() ).toHaveLength( Object.keys( DEFAULTS ).length );
 	} );
 } );
 

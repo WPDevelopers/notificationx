@@ -37,7 +37,6 @@ class EmailTemplate
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>NotificationX Feedback Received</title>
-            <link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet">
             <style>
                 @media (max-width: 600px) {
                     .notificationx-email-container .notificationx-email-body {

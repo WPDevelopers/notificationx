@@ -274,7 +274,7 @@ class DownloadStats extends Types {
 
     public function preview_entry($entry, $settings){
         $entry['image_data'] = array(
-            'url'     => "https://ps.w.org/notificationx/assets/icon-256x256.gif?rev=2783824",
+            'url'     => NOTIFICATIONX_PUBLIC_URL . 'image/icons/nx-plugin-icon-256.gif',
             'alt'     => '',
             'classes' => 'greview_icon',
         );
