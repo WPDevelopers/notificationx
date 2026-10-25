@@ -228,7 +228,8 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 == Changelog ==
 
 = 3.3.6 - 25/10/2026 =
-Improved: Security enhancement.
+Improved: Webhook integration handling for Zapier, IFTTT and Brevo.
+Improved: City and country display in notifications.
 Few minor bug fixes and improvements.
 
 = 3.3.5 - 22/10/2026 =
