@@ -1,3 +1,5 @@
+import { nxApplyListFilter } from "../../core/hooks";
+
 /**
  * Turns a Verified Card slot array (GetTemplate's vc cases) into at most three
  * classic rows for the generic Image/Content/Close path. Used where the vc
@@ -5,8 +7,10 @@
  *  - NotificationX Pro's mobile card (Theme with is_mobile = true);
  *  - the admin Advanced Template default (nx_adv_template_default).
  *
- * The rows follow theme-one: "name + action", "product", "time". Unknown
- * slugs get their slots back unchanged.
+ * The rows follow theme-one: "name + action", "product", "time". An add-on
+ * slug (nx_frontend_vc_slugs) gets the rows its `nx_frontend_vc_compact_rows`
+ * filter returns (free x.x.x+); any other slug, or a filter that returns no
+ * array, gets its slots back unchanged.
  */
 const vcCompactRows = (themeName: string, slots: string[]): string[] => {
     const s = Array.isArray(slots) ? slots : [];
@@ -49,8 +53,9 @@ const vcCompactRows = (themeName: string, slots: string[]): string[] => {
         // [0] count, [1] lead, [2] name (as actively_using)
         case "vc-installs":
             return [`${at(0)} ${at(1)}`, `${at(2)}`];
+        // Args: the default rows (the slots), the slug, the slots.
         default:
-            return s;
+            return nxApplyListFilter("nx_frontend_vc_compact_rows", s, themeName, s);
     }
 };
 

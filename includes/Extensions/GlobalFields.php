@@ -72,10 +72,43 @@ class GlobalFields {
      * (nxdev/notificationx/frontend/themes/vc/) has its own palette and no
      * button. The themes themselves are declared in the Types (for example
      * includes/Types/Conversions.php); a new vc theme adds its full keys here.
+     * Add-ons add their own keys through the `nx_vc_theme_keys` filter.
      *
      * @return string[]
      */
     public static function vc_theme_keys() {
+        $keys = self::vc_builtin_theme_keys();
+
+        /**
+         * Filters the full theme keys of the Verified Card family.
+         *
+         * An add-on that registers its own vc theme (and its slug through the
+         * frontend `nx_frontend_vc_slugs` filter) appends its full keys here,
+         * so the builder hides Advanced Design and Button for them too. The
+         * built-in keys are always kept, and an entry that is not a
+         * `<prefix>_vc-<word>` string is dropped.
+         *
+         * @since x.x.x
+         * @param string[] $keys Full theme keys, e.g. 'conversions_vc-receipt'.
+         */
+        $filtered = apply_filters( 'nx_vc_theme_keys', $keys );
+        if ( ! is_array( $filtered ) ) {
+            return $keys;
+        }
+        foreach ( $filtered as $key ) {
+            if ( is_string( $key ) && preg_match( '/^[a-z0-9_]+_vc-[a-z]+$/', $key ) && ! in_array( $key, $keys, true ) ) {
+                $keys[] = $key;
+            }
+        }
+        return $keys;
+    }
+
+    /**
+     * The vc theme keys free itself registers (vc_theme_keys() without add-ons).
+     *
+     * @return string[]
+     */
+    public static function vc_builtin_theme_keys() {
         return [
             'conversions_vc-receipt',
             'woocommerce_sales_vc-receipt',
