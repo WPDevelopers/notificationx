@@ -2435,9 +2435,7 @@ class GlobalFields {
                     'denyButtonText'    => __( "<a href='https://notificationx.com/docs/how-to-create-a-cart-peek-notification/' target='_blank'>More Info</a>", 'notificationx' ),
                     'confirmButtonText' => __( "<a href='https://notificationx.com/#pricing' target='_blank'>Upgrade to PRO</a>", 'notificationx' ),
                     // phpcs:disable PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- False positive for this context: remote documentation/pricing links in admin help text, not offloaded plugin assets.
-                    'html'              => __( '
-                <span>Show the live count of shoppers who currently have a product in their cart to spark urgency and boost conversions.</span>
-            ', 'notificationx' ),
+                    'html'              => '<span>' . __( 'Show the live count of shoppers who currently have a product in their cart to spark urgency and boost conversions.', 'notificationx' ) . '</span>',
                     // phpcs:enable PluginCheck.CodeAnalysis.Offloading.OffloadedContent
                 ],
             ],
