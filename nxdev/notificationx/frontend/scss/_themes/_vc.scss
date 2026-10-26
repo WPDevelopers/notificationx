@@ -3,14 +3,21 @@
 // Markup: themes/vc/VerifiedCard.tsx. Approved design: the 84707 theme gallery.
 //
 // Imported inside `.notification-item {}` (_common.scss). EVERY rule is rooted
-// at `.notification-item.nx-vc.themes-vc-<slug>`: the `nx-vc` class is added
-// only by Free's Notification.tsx, and only for a whitelisted vc key without an
-// Advanced Template (isVcTheme). Existing themes, an Advanced Template card and
-// Pro's mobile card (.notification-res-item, no nx-vc) never match.
+// at `.notification-item.nx-vc` plus a `themes-vc-*` class: the `nx-vc` class
+// is added only by Free's Notification.tsx, and only for a whitelisted vc key
+// without an Advanced Template (isVcTheme). Existing themes, an Advanced
+// Template card and Pro's mobile card (.notification-res-item, no nx-vc) never
+// match.
 //
-// To add a vc theme, append its root to $nx-vc-root (the one list here) and
-// add its own block at the end.
-$nx-vc-root: "&.nx-vc.themes-vc-receipt, &.nx-vc.themes-vc-showcase, &.nx-vc.themes-vc-thread, &.nx-vc.themes-vc-scorecard, &.nx-vc.themes-vc-counter, &.nx-vc.themes-vc-pledge, &.nx-vc.themes-vc-enrol, &.nx-vc.themes-vc-submission, &.nx-vc.themes-vc-ratings, &.nx-vc.themes-vc-installs";
+// $nx-vc-root (the shared base below) matches every whitelisted vc card, the
+// built-in ones and an add-on's (nx_frontend_vc_slugs), so an add-on card gets
+// the frame, credit, close and slim layout and styles only its own parts. The
+// attribute selector has the same specificity as the per-slug list it
+// replaced (`.nx-vc.themes-vc-<slug>`: three classes).
+//
+// To add a built-in vc theme, add its own block at the end, rooted at
+// `&.nx-vc.themes-vc-<slug>`.
+$nx-vc-root: "&.nx-vc[class*='themes-vc-']";
 
 $nx-vc-ink: #131b2e;
 $nx-vc-text: #3a4256;

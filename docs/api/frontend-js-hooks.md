@@ -46,6 +46,9 @@ Filters live on the global WordPress registry, `window.wp.hooks`. Register them 
 | `nx_exit_intent_submission_fields` | `ExitIntentPopup.tsx`, submitted data | `{}` | `{ s, name, email, is_pro }` | `{ name?, email? }` merged into the payload. |
 | `nx_exit_intent_theme` | `ExitIntentPopup.tsx`, after the Elementor branch, before the built-in themes (free 3.3.5) | `undefined` | `{ theme, settings, is_pro, overlayClass, showClose, closeStyle, handleClose, renderCta, submitEntry }` (`theme` is `theme-two` etc.; `submitEntry(payload)` posts to `popup-submit` and resolves `false` when the page has no REST URL) | A React element that replaces the whole popup (Pro: themes two, five, six and seven). |
 | `nx_frontend_link_widget` | [Analytics.tsx](../../nxdev/notificationx/frontend/core/Analytics.tsx), where the link is rendered, after the press-bar branch (free 3.3.5) | `undefined` | `{ config, data, styles, show_default_subscribe }` | A React element that replaces the link (Pro: the YouTube subscribe button, which loads Google's `platform.js`). |
+| `nx_frontend_vc_slugs` | [themes/vc/isVcTheme.ts](../../nxdev/notificationx/frontend/themes/vc/isVcTheme.ts) `getVcSlugs()`, only for a `<prefix>_vc-<word>` key whose slug is not built in (free x.x.x) | a copy of `VC_SLUGS` (the built-in slugs) | none | The list with the add-on's `vc-<word>` slugs appended. Built-in slugs are always kept; entries that are not `vc-<word>` strings are dropped. See [Verified Cards from an add-on](#verified-cards-from-an-add-on). |
+| `nx_frontend_vc_card` | [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx), only for an add-on slug (free x.x.x) | `undefined` | `{ ...props, slots, slug, word, slim, parts }` (Theme's props; `slots` = the add-on's slot array after the `{{tag}}` substitution; `slim` = at 480px and below; `parts` = `VC_CARD_PARTS`) | A React element: the add-on's desktop card, or its slim card when `slim` is true. Nothing returned: the Receipt layout renders. |
+| `nx_frontend_vc_compact_rows` | [themes/vc/vcCompactRows.ts](../../nxdev/notificationx/frontend/themes/vc/vcCompactRows.ts), default case, only for an add-on slug (free x.x.x) | the slots | `slug`, `slots` | `string[]`: the classic rows (at most three) for NotificationX Pro's mobile card and the admin Advanced Template default. Any other value is ignored. |
 
 `nx_frontend_template` also runs in the admin builder, because the admin bundle imports `GetTemplate` for the `nx_adv_template_default` filter ([AddEditNx/index.ts](../../nxdev/notificationx/admin/AddEditNx/index.ts)). An add-on must register that filter in the admin builder as well as on the frontend.
 
@@ -62,6 +65,18 @@ The Verified Card themes (`conversions_vc-receipt`, `woocommerce_sales_vc-receip
 The vc option C line scroll ([useVcLineScroll.ts](../../nxdev/notificationx/frontend/themes/vc/useVcLineScroll.ts)) uses no hooks and imports only React. [tests/js/frontend-no-wp-hooks.test.js](../../tests/js/frontend-no-wp-hooks.test.js) fails if any file reachable from the frontend entries imports `@wordpress/hooks`.
 
 The admin `nx_adv_template_default` callback in [AddEditNx/index.ts](../../nxdev/notificationx/admin/AddEditNx/index.ts) returns compact rows for vc keys (`vcCompactRows(getThemeName(v), GetTemplate(v))`) and `GetTemplate(v)` for every other key.
+
+### Verified Cards from an add-on
+
+From free x.x.x an add-on can register its own vc themes and render them with free's card parts. Free contains no add-on theme names. An add-on checks `defined( 'NOTIFICATIONX_VC_API' )` (PHP, value `1`) before registering vc themes, because older free has none of these hooks.
+
+1. **PHP:** register the theme entries in the add-on's own Types, and append the full keys (`<prefix>_vc-<word>`) through the `nx_vc_theme_keys` filter ([GlobalFields::vc_theme_keys()](../../includes/Extensions/GlobalFields.php)). The builder then hides Advanced Design and Button for them, as for the built-in keys. Built-in keys are always kept (`GlobalFields::vc_builtin_theme_keys()`).
+2. **Slots:** return the slot array for the add-on's keys from `nx_frontend_template`. It runs before free's vc cases, in the frontend and in the admin bundle. Every slot must be a non-empty string (the slot contract in [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-)).
+3. **Slug:** append `vc-<word>` through `nx_frontend_vc_slugs`. The notification root then gets `nx-vc`, Theme takes the vc branch and the shared vc SCSS base applies (it is rooted at `.notification-item.nx-vc[class*='themes-vc-']`). The add-on's SCSS styles only its own parts, rooted at `.notification-item.nx-vc.themes-vc-<word>`.
+4. **Card:** return the card from `nx_frontend_vc_card`. `parts` holds `VcImage`, `VcCredit`, `VcStars`, `parseVcRating`, `formatVcRating`, `Close`, `Html`, `hasText`, `joinParts` and `SlimShell`. For the slim layout, return `<parts.SlimShell props={args} word={args.word} line={…} time={…} />`: the 32px image, line 1 with option C and the time at its right end, credit A and the close, exactly as on the built-in slim cards.
+5. **Compact rows:** return the classic rows from `nx_frontend_vc_compact_rows`, for NotificationX Pro's mobile card and the Advanced Template default.
+
+Register the JS filters in **both** bundles: the frontend, and the admin builder (its preview renders Theme). The filters never run for a built-in slug, so the free themes render the same with or without an add-on.
 
 ## `window.nxFrontendRuntime`
 
@@ -188,7 +203,8 @@ An existing registry is never replaced. On a WordPress page that dequeued `wp-ho
 
 ## Tests
 
-- `npm run test:js`: Jest tests in [../../tests/js/](../../tests/js/). They cover each hook's default path (no Discount Alert or Cart Peek rendering in free) and claimed path, the no-registry fallback, a throwing filter, the runtime object, and the add-on loader and registry ([frontend/addons.test.js](../../tests/js/frontend/addons.test.js)).
+- `npm run test:js`: Jest tests in [../../tests/js/](../../tests/js/). They cover each hook's default path (no Discount Alert or Cart Peek rendering in free) and claimed path, the no-registry fallback, a throwing filter, the runtime object, and the add-on loader and registry ([frontend/addons.test.js](../../tests/js/frontend/addons.test.js)). [frontend/vc-addon-hooks.test.js](../../tests/js/frontend/vc-addon-hooks.test.js) covers the three Verified Card add-on hooks.
+- `vendor/bin/phpunit --filter Test_VC_Addon_Hooks` ([../../tests/test-vc-addon-hooks.php](../../tests/test-vc-addon-hooks.php)): `nx_vc_theme_keys` and `NOTIFICATIONX_VC_API`.
 - `vendor/bin/phpunit --filter Test_Pro_Separation_Seams` ([../../tests/test-pro-separation-seams.php](../../tests/test-pro-separation-seams.php)): the script dependencies and the Pro version notice.
 - `vendor/bin/phpunit --filter Test_Pro_Code_Removed` ([../../tests/test-pro-code-removed.php](../../tests/test-pro-code-removed.php)): the removed classes, files and Type entry, the Flashing Tab stub icons, the Cart Peek stub without its Type, and the `addon_scripts` list in the `notice` response.
 - `vendor/bin/phpunit --filter Test_Old_Pro_Compat` ([../../tests/test-old-pro-compat.php](../../tests/test-old-pro-compat.php)): free without Pro, the builder type guard and `type_unavailable`, the skipped Pro-rendered types, the empty `[notificationx_inline]` and the dequeued Pro 3.2.2 Flashing Tab script.
