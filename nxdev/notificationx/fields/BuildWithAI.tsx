@@ -5,6 +5,7 @@ import ProAlertForBuildWithAI from '../components/ProAlertForBuildWithAI';
 import BuildWithAIVersionCompare from '../components/BuildWithAIVersionCompare';
 import { compareVersions } from '../core/functions';
 import { useNotificationXContext } from '../hooks';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 // Exit Intent's Build With AI needs Pro >= 3.1.4. On older Pro the feature
 // can't render, so we show the "please update" notice for Exit Intent only.
@@ -32,14 +33,15 @@ const BuildWithAIContent = ({builderContext, isExitIntent}) => {
         return <ProAlertForBuildWithAI/>;
     }
 
+    // Pro renders this panel; a render error in it must not unmount the builder.
     return (
-        <>
+        <ErrorBoundary>
             {applyFilters(
                 'nx_build_ai_render',
                 null,
                 { builderContext }
             )}
-        </>
+        </ErrorBoundary>
     );
 };
 
