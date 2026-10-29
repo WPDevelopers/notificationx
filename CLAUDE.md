@@ -72,6 +72,7 @@ There are two frontend builds in this repo (admin + frontend webpack configs) an
 ## Conventions worth knowing
 
 - Singletons via the `GetInstance` trait — never instantiate core classes directly.
+- The admin app runs on WordPress core React, which is React 16/17 before WP 6.2. A component must return `null`, never `undefined` (React 17 throws error #152 and unmounts the whole app), and must not use React 18-only APIs (`useSyncExternalStore`, `useId`, `createRoot`). Wrap UI that Pro renders through a filter in `components/ErrorBoundary`. See [docs/qa-guide/old-wp-react17.md](docs/qa-guide/old-wp-react17.md).
 - Module/extension activation is settings-driven (`modules_*` keys). A module turned off in settings will not register, and nothing will run for it.
 - Pro features live in the separate `notificationx-pro` plugin and integrate via the same Extension system + WP filters/actions exposed from the free plugin (e.g. `nx_pro_alert_popup`). Don't add Pro-only logic into this repo.
 - The constant `NOTIFICATIONX_DEV_ASSETS` points at `nxbuild/` — when wiring up new bundles, register handles against this path, not `assets/`.

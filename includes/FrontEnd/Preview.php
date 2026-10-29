@@ -40,11 +40,7 @@ class Preview {
 
         if ($this->is_preview() && class_exists('QueryMonitor')) {
             // Query Monitor renders its own output into the preview iframe and
-            // corrupts it, so display is silenced while building a preview.
-            // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
-            ini_set('display_errors', 'Off');
-            // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
-            ini_set('error_reporting', E_ALL);
+            // corrupts it, so it is not started while building a preview.
             $qm = \QueryMonitor::init();
             remove_action('plugins_loaded', [$qm, 'action_plugins_loaded']);
         }
