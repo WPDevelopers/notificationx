@@ -37,7 +37,7 @@ class RatingEmail {
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array($this, 'send_rating'),
-                'permission_callback' => '__return_true',
+                'permission_callback' => array($this, 'can_send_rating'),
                 'args'                => [],
             ),
         ));
@@ -55,9 +55,19 @@ class RatingEmail {
         return $subject;
     }
 
+    /**
+     * Only users who can use NotificationX may send a rating. The sole caller is
+     * the "Rate NotificationX" widget in the admin builder; without this check any
+     * visitor could make the site email support@wpdeveloper.com.
+     *
+     * @return bool
+     */
+    public function can_send_rating() {
+        return current_user_can('read_notificationx');
+    }
+
     public function send_rating($request)
     {
-        update_option('nx_feedback_shared', true);
         $params = $request->get_params();
         $rating = isset($params['rating']) ? intval($params['rating']) : null;
         $review = isset($params['review']) ? sanitize_text_field($params['review']) : '';
@@ -65,6 +75,8 @@ class RatingEmail {
         if (!$rating) {
             return new \WP_REST_Response(['message' => 'Invalid rating'], 400);
         }
+
+        update_option('nx_feedback_shared', true);
     
         $to = self::$_mail_sendto; // Email recipient
         $subject = $this->email_subject();
