@@ -5905,10 +5905,7 @@ msgid "<a href='https://notificationx.com/docs/how-to-create-a-cart-peek-notific
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:2438
-msgid ""
-"\n"
-"                <span>Show the live count of shoppers who currently have a product in their cart to spark urgency and boost conversions.</span>\n"
-"            "
+msgid "Show the live count of shoppers who currently have a product in their cart to spark urgency and boost conversions."
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:2445
