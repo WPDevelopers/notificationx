@@ -39,6 +39,18 @@ The runtime reads JavaScript filters from `window.wp.hooks`, so `notificationx-p
 
 `Preview` ([../../includes/FrontEnd/Preview.php](../../includes/FrontEnd/Preview.php)) powers the live preview shown inside the admin builder and Elementor/Gutenberg editors. It hooks `nx_before_enqueue_scripts` to force a single synthetic notification (`total => 1`, `nxPreview => true`) so the same public runtime renders in an isolated preview context, hides the admin bar, and quiets Query Monitor during preview. This means the preview and the live site render through the *same* React runtime, not a separate mock.
 
+The builder sends the notification's settings as base64 JSON in `$_POST['nx-preview']` to a front-end URL loaded in an iframe. Those settings are rendered server-side (the bar's `press_content` goes through `do_shortcode()`, its `gutenberg_id` through `do_blocks()`), so the payload is accepted only when `Preview::is_authorized_preview_request()` passes: a valid nonce for the `nx-preview` action in `$_POST['nx-preview-nonce']`, and the `edit_notificationx` capability.
+
+- The builder gets the nonce as `notificationxTabs.preview_nonce` from `PostType::get_localize_scripts()`. Don't put it in the `GlobalFields::tabs()` config: that is cached for all users in the `nx_builder_fields` transient.
+- Anything else that POSTs `nx-preview` (for example Pro's Build with AI preset preview) must send the same nonce.
+- `get_settings()` checks the request itself, so the `nx_is_preview` filter can switch preview mode on (the Inline block does, for one shortcode call in a block template) without making the request payload readable.
+- The checks run on `plugins_loaded` (priority 0), not in the constructor: the current user and `wp_verify_nonce()` don't exist while plugins are being included.
+- Gutenberg bars render only from bar posts (`nx_bar_eb`, or `wp_block` for old bars) that are published without a password, unless the user can edit the post (`PressBar::can_render_block_bar()`). Elementor bars render only from published `nx_bar` posts.
+
+Never read `$_POST['nx-preview']` anywhere else.
+
+[../../tests/e2e/builder-preview.js](../../tests/e2e/builder-preview.js) checks the whole flow in a browser, and [../../tests/test-security-preview-gate.php](../../tests/test-security-preview-gate.php) covers each check.
+
 ## The dual-build desync trap
 
 There are **two webpack builds** in this repo — admin ([../../webpack.config.js](../../webpack.config.js)) and frontend ([../../webpack.frontend.config.js](../../webpack.frontend.config.js)) — and **three runtime contexts**: the admin builder, the public popup runtime, and Gutenberg blocks ([../../webpack.blocks.config.js](../../webpack.blocks.config.js)).

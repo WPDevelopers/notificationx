@@ -24,6 +24,12 @@ class Preview {
      */
     use GetInstance;
 
+    /**
+     * Nonce action and request field that authorise a preview request.
+     */
+    const NONCE_ACTION = 'nx-preview';
+    const NONCE_FIELD  = 'nx-preview-nonce';
+
     protected $notificationXArr = [];
 
     public function __construct() {
@@ -34,6 +40,18 @@ class Preview {
         add_filter('nx_inline_notifications_data', [$this, 'inline_notifications_data'], 10, 4);
         add_filter('nx_metabox_config', [$this, 'content_heading']);
 
+        // The preview check needs the current user and wp_verify_nonce(), which
+        // are not loaded while plugins are included. Priority 0 runs before
+        // Query Monitor's own plugins_loaded callback, so it can still be removed.
+        add_action('plugins_loaded', [$this, 'setup_preview_request'], 0);
+    }
+
+    /**
+     * Prepares the page for an authorised preview request.
+     *
+     * @return void
+     */
+    public function setup_preview_request() {
         if ($this->is_preview()) {
             show_admin_bar(false);
         }
@@ -358,12 +376,12 @@ class Preview {
     }
 
     public function get_settings() {
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Reviewed for the NotificationX codebase: acceptable in this context.
-        if ( empty($_POST['nx-preview']) ) {
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified in is_authorized_preview_request().
+        if ( empty( $_POST['nx-preview'] ) || ! $this->is_authorized_preview_request() ) {
             return array();
         }
 
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Reviewed for the NotificationX codebase: acceptable in this context.
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified in is_authorized_preview_request().
         $settings = base64_decode( sanitize_text_field( wp_unslash( $_POST['nx-preview'] ) ), true );
         $settings = json_decode( $settings, true );
 
@@ -429,6 +447,9 @@ class Preview {
             'href'    => esc_url('https://notificationx.com/support/?support=chat'),
         ]);
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        // The nonce is not added here: GlobalFields::tabs() output is cached in
+        // the shared nx_builder_fields transient. PostType::get_localize_scripts()
+        // sends it per user as notificationxTabs.preview_nonce.
         $tabs['config']['content_heading']['preview'] = apply_filters('nx_content_heading_preview', [
             'label'  => __('Preview', 'notificationx'),
             'type'   => 'preview-modal',
@@ -518,12 +539,30 @@ class Preview {
         return $return;
     }
 
-    public function is_preview() {
-        $is_preview = false;
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Reviewed for the NotificationX codebase: acceptable in this context.
-        if (!empty($_POST['nx-preview'])) {
-            $is_preview = true;
+    /**
+     * Whether this request carries a preview payload from a user allowed to see it.
+     *
+     * The payload is rendered on the front end (shortcodes, block content), so
+     * it is accepted only with a valid `nx-preview` nonce from a user who can
+     * edit notifications. Called before the `nx_is_preview` filter, so code
+     * that switches preview mode on through the filter never makes the
+     * request payload readable.
+     *
+     * @return bool
+     */
+    public function is_authorized_preview_request() {
+        // phpcs:disable WordPress.Security.NonceVerification.Missing -- This method verifies the nonce.
+        if ( empty( $_POST['nx-preview'] ) || empty( $_POST[ self::NONCE_FIELD ] ) ) {
+            return false;
         }
+        $nonce = sanitize_text_field( wp_unslash( $_POST[ self::NONCE_FIELD ] ) );
+        // phpcs:enable WordPress.Security.NonceVerification.Missing
+
+        return wp_verify_nonce( $nonce, self::NONCE_ACTION ) && current_user_can( 'edit_notificationx' );
+    }
+
+    public function is_preview() {
+        $is_preview = $this->is_authorized_preview_request();
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $is_preview = apply_filters('nx_is_preview',$is_preview);
         return $is_preview;

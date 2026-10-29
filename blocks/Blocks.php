@@ -225,13 +225,19 @@ class Blocks {
         $product_id     = ! empty( $block_attributes['product_id'] ) ? $block_attributes['product_id'] : '';
         $post_type     = ! empty( $block_attributes['post_type'] ) ? $block_attributes['post_type'] : '';
         $html      = '<div class="' . $block_attributes['blockId'] . ' notificationx-block-wrapper">';
-        if( 'wp_template' == $post_type ) {
-            add_filter('nx_is_preview',function(){
-                return true;
-            });
+        // Preview mode for this shortcode only. Left on, it would also turn
+        // preview mode on for the rest of the front-end request.
+        $force_preview = 'wp_template' == $post_type ? function(){
+            return true;
+        } : null;
+        if( $force_preview ) {
+            add_filter('nx_is_preview', $force_preview);
             $product_id = wp_rand();
         }
         $shortcode = do_shortcode( "[notificationx_inline post_type='{$post_type}' product_id='{$product_id}' id='{$nx_id}' show_link=false]" );
+        if( $force_preview ) {
+            remove_filter('nx_is_preview', $force_preview);
+        }
         if ( $shortcode ) {
             $html .= $shortcode;
         } else {

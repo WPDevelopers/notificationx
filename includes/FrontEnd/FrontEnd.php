@@ -433,7 +433,7 @@ class FrontEnd {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $post_id = apply_filters('wpml_object_id', $gutenberg_id, 'wp_block', true);
         $post    = $post_id ? get_post($post_id) : null;
-        if (!$post || '' === trim((string) $post->post_content)) {
+        if (!PressBar::get_instance()->can_render_block_bar($post) || '' === trim((string) $post->post_content)) {
             return;
         }
         // This runs inside <head> (wp_enqueue_scripts). A block whose render
