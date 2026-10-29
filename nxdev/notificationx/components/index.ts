@@ -8,3 +8,4 @@ export { default as PublishWidget } from './PublishWidget';
 export { default as Instructions } from './Instructions';
 export { default as RatingWidget } from './RatingWidget';
 export { default as ProWidget } from './ProWidget';
+export { default as ErrorBoundary } from './ErrorBoundary';

@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, notification ba
 Requires at least: 5.3
 Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 3.3.6
+Stable tag: 3.3.7
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
