@@ -70,8 +70,9 @@ to the free plugin's `includes/Extensions/Zapier/`):
   `POST /wp-json/notificationx/v1/notification/(?P<id>[\d]+)?api_key=...`
   (also duplicated, byte-for-byte, under the bare `notificationx` namespace —
   the code comments this second registration `// OLD Fallback for Zapier`).
-  That endpoint validates `api_key` against `md5(home_url())` (http or https)
-  before firing `nx_api_response_success_{$post['source']}` and the generic
+  That endpoint validates `api_key` against the site's random integration key
+  (`Integration::get_api_key()`; the legacy `md5(home_url())` key only during the
+  post-upgrade grace window, see [REST endpoints](../api/rest-endpoints.md)) before firing `nx_api_response_success_{$post['source']}` and the generic
   `nx_api_response_success`.
 - Pro's `get_response($response)` reads `$response['id']` as the notification
   post id, builds `entry_key = "{$this->id}_{$nx_id}"`, defaults `timestamp` to
@@ -110,7 +111,7 @@ to the free plugin's `includes/Extensions/Zapier/`):
   `zapier_reviews`, `zapier_email_subscription`).
 - The pro `Zapier` trait adds a `zapier_settings_section` (`API Integration`
   settings tab, gated by `Rules::is('modules.modules_zapier', true)`) with a
-  single read-only `zapier_api_key` field defaulting to `md5(home_url('', 'http'))`
+  single read-only `zapier_api_key` field defaulting to `Integration::get_api_key()`
   — the same key value the free plugin's REST endpoint checks incoming
   webhook calls against. It also strips `zapier_api_key` back out of saved
   settings via `save_settings()`.
@@ -124,7 +125,7 @@ to the free plugin's `includes/Extensions/Zapier/`):
 - There is no local PHP plugin/class to detect: Zapier is an external SaaS
   service that reaches this site over the REST webhook route in
   [`includes/Core/Rest/Integration.php`](../../includes/Core/Rest/Integration.php),
-  authenticated by an `api_key` matching `md5(home_url())` rather than by any
+  authenticated by an `api_key` matching the random integration key rather than by any
   `class_exists()`/`function_exists()` check.
 
 ## Key files

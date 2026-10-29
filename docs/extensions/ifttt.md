@@ -65,7 +65,8 @@ context since this doc scopes to the free plugin's `includes/Extensions/IFTTT/`)
   `save_response()`, which backs the REST route
   `POST /wp-json/notificationx/v1/notification/(?P<id>[\d]+)` (also available
   under the legacy `notificationx` namespace). That endpoint validates the
-  request's `api_key` against `md5(home_url())` before firing
+  request's `api_key` against the random integration key (`Integration::get_api_key()`;
+  the legacy `md5(home_url())` key only during the post-upgrade grace window) before firing
   `nx_api_response_success_{$post['source']}` and the generic
   `nx_api_response_success`.
 - `get_response()` (pro) checks the incoming payload for `$response['data']['actionFields']`
@@ -75,7 +76,7 @@ context since this doc scopes to the free plugin's `includes/Extensions/IFTTT/`)
   `Extension::update_notification()` to persist it via
   `Entries::insert_entry()`.
 - `doc()` (pro) renders the "IFTTT setup Instructions" panel shown in the
-  builder, listing the API Key (`md5(home_url())`), Notification Id (post ID),
+  builder, listing the API Key (`Integration::get_api_key()`), Notification Id (post ID),
   and Site URL the user must configure in their IFTTT applet.
 
 This pro-side wiring does **not** take effect given the registration gap noted
@@ -96,7 +97,7 @@ but is left unregistered.
 - The pro subclass adds `$ifttt_fields` (fifteen `tag_*` merge-tag labels —
   Email, First Parameter … Fifteenth Parameter) and an `ifttt_template_new`
   entry in `$this->templates`, plus an `ifttt_settings` section
-  (`ifttt_api_key`, read-only, default `md5(home_url())`) registered via the
+  (`ifttt_api_key`, read-only, default `Integration::get_api_key()`) registered via the
   `nx_settings_tab_api_integration` filter.
 
 ## Dependency & detection
@@ -109,7 +110,7 @@ but is left unregistered.
 - There is no local PHP plugin/class to detect: IFTTT is an external SaaS
   service that reaches this site over the REST webhook route in
   [`includes/Core/Rest/Integration.php`](../../includes/Core/Rest/Integration.php),
-  authenticated by an `api_key` matching `md5(home_url())` rather than by any
+  authenticated by an `api_key` matching the random integration key rather than by any
   `class_exists()`/`function_exists()` check.
 
 ## Key files
