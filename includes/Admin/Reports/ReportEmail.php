@@ -1,6 +1,7 @@
 <?php
 namespace NotificationX\Admin\Reports;
 
+use NotificationX\Admin\Cron;
 use NotificationX\Admin\Settings;
 use NotificationX\Core\Helper as NotificationX_Helper;
 use NotificationX\GetInstance;
@@ -216,17 +217,19 @@ class ReportEmail {
      * @return array Filtered array of non-default cron schedules.
      */
     function schedules_cron( $schedules = array() ) {
+        // Labels stay in English when another plugin schedules a cron event too early; see Cron::can_translate_labels().
+        $translate = Cron::can_translate_labels();
         $schedules['nx_weekly'] = array(
             'interval' => 604800,
-            'display'  => __( 'Once Weekly', 'notificationx' )
+            'display'  => $translate ? __( 'Once Weekly', 'notificationx' ) : 'Once Weekly'
         );
         $schedules['nx_daily'] = array(
             'interval' => 86400,
-            'display'  => __( 'Once Daily', 'notificationx' )
+            'display'  => $translate ? __( 'Once Daily', 'notificationx' ) : 'Once Daily'
         );
         $schedules['nx_monthly'] = array(
             'interval' => strtotime( 'first day of next month 9AM' ),
-            'display'  => __( 'Once Monthly', 'notificationx' )
+            'display'  => $translate ? __( 'Once Monthly', 'notificationx' ) : 'Once Monthly'
         );
         return $schedules;
     }
