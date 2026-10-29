@@ -10897,3 +10897,55 @@ msgstr ""
 #: blocks/notificationx/index.js:1
 msgid "Link Color"
 msgstr ""
+
+#: includes/Admin/Settings.php:231
+msgid "Use new corner spacing"
+msgstr ""
+
+#: includes/Admin/Settings.php:234
+msgid "Place corner notifications the same distance from both screen edges: 20px on desktop, 12px on phones. Turn off to keep the previous spacing."
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:438
+msgid "Live Effects"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:444
+msgid "Adds subtle motion to make the notification feel live."
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2087
+msgid "Rise (soft)"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2092
+msgid "Rise (spring)"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2097
+msgid "Pop"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2182
+msgid "Sink (soft)"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2187
+msgid "Sink (spring)"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2192
+msgid "Pop out"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2251
+msgid "Animation Duration"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2262
+msgid "Progressive reveal"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2268
+msgid "Show the first line with the notification, then fade in the rest."
+msgstr ""

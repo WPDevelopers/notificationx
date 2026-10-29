@@ -1,4 +1,5 @@
 import cookie from "react-cookies";
+import { nxApplyFilters } from "./hooks";
 
 export const isArray = (args) => {
     return args !== null && typeof args === "object" && Array.isArray(args);
@@ -167,6 +168,39 @@ export function calculateAnimationStartTime(userInput, animationType) {
 
     return result;
 }
+
+// Built-in speed of the card's show/hide animations and the delay before an
+// exiting card is removed.
+const NX_EXIT_DELAY_MS = 500;
+export const NX_DEFAULT_ANIMATION_TIMING = { className: '', style: {}, scale: 1, exitDelay: NX_EXIT_DELAY_MS };
+
+/**
+ * Timing for the card's show/hide animations.
+ *
+ * Free animates at the built-in speed. Add-ons can return another timing
+ * through the `nx_frontend_animation_timing` filter (NotificationX Pro:
+ * Animation Duration): `className` and `style` go on the card, `scale`
+ * multiplies Free's own entrance durations and `exitDelay` (ms) is how long an
+ * exiting card stays mounted. Anything malformed falls back to the defaults.
+ */
+// `style` holds CSS custom properties, which React's CSSProperties type doesn't list.
+export const getAnimationTiming = (settings, isPro): { className: string; style: any; scale: number; exitDelay: number } => {
+    // A fresh copy per card, so a filter that edits its value in place can't
+    // change the defaults of every other card.
+    const defaults = { ...NX_DEFAULT_ANIMATION_TIMING, style: {} };
+    const timing = nxApplyFilters<any>('nx_frontend_animation_timing', { ...defaults, style: {} }, { settings, is_pro: isPro });
+    if (!timing || typeof timing !== 'object') {
+        return defaults;
+    }
+    const scale = Number(timing.scale);
+    const exitDelay = Number(timing.exitDelay);
+    return {
+        className: typeof timing.className === 'string' ? timing.className : '',
+        style: timing.style && typeof timing.style === 'object' && !Array.isArray(timing.style) ? timing.style : {},
+        scale: Number.isFinite(scale) && scale > 0 ? scale : 1,
+        exitDelay: Number.isFinite(exitDelay) && exitDelay >= 0 ? exitDelay : NX_EXIT_DELAY_MS,
+    };
+};
 
 class NotificationXHelpers {
     getPath = (rest, path, query = {}) => {
