@@ -1,6 +1,18 @@
 // FontAwesome 4.7 loads as its own non-render-blocking style handle
 // (notificationx-fontawesome-4, see FrontEnd::get_external_styles()), not an @import.
 
+// The element that looks like the CTA Button: the link itself, except on the
+// YouTube channel themes, whose link is an inline part of an absolutely
+// positioned wrapper, and Pro's YouTube subscribe widget. `$state` is a card
+// class (`.cta-in`, `.cta-tuck`).
+@mixin nx-cta-buttons($state: '') {
+    &.button-link#{$state}:not(.themes-youtube_channel-1, .themes-youtube_channel-2) .notificationx-link,
+    &.button-link#{$state}:is(.themes-youtube_channel-1, .themes-youtube_channel-2) .notificationx-link-wrapper,
+    &.button-link#{$state} .yt-notificationx-link {
+        @content;
+    }
+}
+
 .notification-item {
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -63,6 +75,99 @@
 
     &.themes-pa-theme-four.button-link .notificationx-link {
         background-color: #FF0000;
+    }
+
+    // CTA Button motion, the same for every Button (theme-one's purple tab,
+    // conv-theme-twelve to sixteen, pa-theme-four, YouTube...). Notification.tsx
+    // sets `cta-in` once the card has landed and `cta-tuck` 200ms before it
+    // hides. Until `cta-in` the Button is clipped at its own bottom edge, so it
+    // rises out of that edge and sinks back into it; clicks there reach the
+    // card, which opens the same link. At rest nothing is added: no clip, no
+    // translate, the icon at `left: 0`, so every theme looks as it does today.
+    // `translate` composes with the card's and the themes' `transform`.
+    @include nx-cta-buttons {
+        translate: 0 100%;
+        clip-path: inset(0 0 100% 0);
+        transition: filter 150ms ease-out;
+
+        // An icon or "›" floats 2px right on hover. `position: relative` with
+        // `left` moves it without touching the layout (`translate` would need
+        // `inline-block` on the themes' inline "›").
+        &::after,
+        > i,
+        > svg,
+        > img {
+            position: relative;
+            left: 0;
+            transition: left 150ms ease-out;
+        }
+
+        // Mouse only: the Button stays in place and darkens relative to its
+        // own colours (background, text and shadow alike).
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                filter: brightness(0.9);
+            }
+        }
+
+        @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+            &:hover::after,
+            &:hover > i,
+            &:hover > svg,
+            &:hover > img {
+                left: 2px;
+            }
+        }
+    }
+
+    @include nx-cta-buttons('.cta-in') {
+        translate: none;
+        clip-path: none;
+        animation: nxCtaPeek 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @include nx-cta-buttons('.cta-tuck') {
+        animation: nxCtaTuck 200ms ease-in forwards;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        @include nx-cta-buttons {
+            translate: none;
+            clip-path: none;
+            animation: none;
+        }
+
+        @include nx-cta-buttons('.cta-in') {
+            animation: none;
+        }
+
+        @include nx-cta-buttons('.cta-tuck') {
+            animation: none;
+        }
+    }
+
+    // Every Button link: a visible focus ring, and on touch screens a hit area
+    // of at least 44px (`::before`: themes use `::after` for the "›"). Every
+    // link is absolutely positioned, except on the YouTube channel themes,
+    // where the `::before` sits on the positioned wrapper, i.e. the Button.
+    &.button-link .notificationx-link {
+        &:focus-visible {
+            outline: 2px solid #1d4ed8;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 2px #fff;
+        }
+
+        @media (pointer: coarse) {
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: max(100%, 44px);
+                height: max(100%, 44px);
+                translate: -50% -50%;
+            }
+        }
     }
 
     .notificationx-inner {
@@ -276,6 +381,18 @@
     &:not(.button-link) .notificationx-link{
         background-color: transparent !important;
     }
+}
+
+// CTA Button peek and tuck (see `nx-cta-buttons` above). Both ends are explicit:
+// clip-path can't interpolate to or from `none`.
+@keyframes nxCtaPeek {
+    from { translate: 0 100%; clip-path: inset(0 0 100% 0); }
+    to   { translate: 0 0; clip-path: inset(0 0 0 0); }
+}
+
+@keyframes nxCtaTuck {
+    from { translate: 0 0; clip-path: inset(0 0 0 0); }
+    to   { translate: 0 100%; clip-path: inset(0 0 100% 0); }
 }
 
 .notificationx-shortcode-wrapper {

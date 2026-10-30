@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics, { resolveNotificationLink, recordAnalyticsClick } from "./Analytics";
@@ -31,6 +31,8 @@ const Notification = (props) => {
     const [animation, setAnimation] = useState(false);
     const [width, setWidth] = useState(0);
     const [intervalID, setIntervalID] = useState(null);
+    const [ctaIn, setCtaIn] = useState(false);
+    const cardRef = useRef(null);
 
     const { config: settings } = props;
     const frontEndContext = useNotificationContext();
@@ -151,6 +153,28 @@ const Notification = (props) => {
         };
     }, []);
 
+    // CTA tab: it peeks out (`cta-in`) once the card's own entrance animation
+    // has ended, whatever its duration, or at once when the card has none.
+    // The timeout covers an entrance that is cancelled and never ends.
+    useEffect(() => {
+        const name = cardRef.current && window.getComputedStyle?.(cardRef.current).animationName;
+        if (!name || name === 'none') {
+            setCtaIn(true);
+            return;
+        }
+        const id = setTimeout(() => setCtaIn(true), 3000);
+        return () => clearTimeout(id);
+    }, []);
+    const handleAnimationEnd = (e) => {
+        if (e.target === e.currentTarget) {
+            setCtaIn(true);
+        }
+    };
+    // It tucks back (`cta-tuck`) 200ms before the card starts hiding. Only a
+    // class: the timer, the hide and the removal above are unchanged.
+    const ctaTuck = !!props.config.link_button &&
+        width >= calculateAnimationStartTime(settings?.display_for, settings.animation_notification_hide) - (200 / displayFor) * 100;
+
     const themeName = getThemeName(settings);
 
     // Whole-card click: corner popups must be clickable even when the theme
@@ -188,6 +212,8 @@ const Notification = (props) => {
         {
             [`type-${settings?.custom_type}`]: settings?.custom_type,
             exit: exit,
+            "cta-in": ctaIn,
+            "cta-tuck": ctaTuck,
             "has-close-btn": settings?.close_button,
             "has-no-image": settings?.image_data === false,
             // Advanced Edit
@@ -259,7 +285,9 @@ const Notification = (props) => {
             className={componentClasses}
             style={cardLink ? { ...componentStyle, cursor: 'pointer' } : componentStyle}
             id={`notificationx-${settings.nx_id}`}
+            ref={cardRef}
             onClick={handleCardClick}
+            onAnimationEnd={handleAnimationEnd}
         >
             {
                 // Notification sound: rendered by NotificationX Pro.
