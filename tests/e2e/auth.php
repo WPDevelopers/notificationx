@@ -7,7 +7,7 @@
  * as such a user:
  *
  *   wp eval-file tests/e2e/auth.php create --user=admin
- *     Prints JSON: { "name", "value", "admin", "token", "nonce", "expires" },
+ *     Prints JSON: { "name", "value", "admin", "token", "nonce", "rest", "expires" },
  *     where name/value is the logged_in cookie, admin is the wp-admin auth
  *     cookie, and nonce is valid for that session.
  *   wp eval-file tests/e2e/auth.php destroy <token> --user=admin
@@ -60,6 +60,8 @@ echo wp_json_encode(
 		),
 		'token'   => $nx_e2e_token,
 		'nonce'   => wp_create_nonce( \NotificationX\FrontEnd\Preview::NONCE_ACTION ),
+		// X-WP-Nonce for runners that call the REST API (release-smoke.js).
+		'rest'    => wp_create_nonce( 'wp_rest' ),
 		'expires' => $nx_e2e_expires,
 	)
 );

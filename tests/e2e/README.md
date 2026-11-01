@@ -63,3 +63,23 @@ node tests/e2e/builder-preview.js 179 163            # notification IDs on your 
 ```
 
 Pick notifications whose type shows the Preview button (not Notification Bar, which previews inside the builder). It uses the same environment variables as the bundle comparison.
+
+## Release smoke test
+
+[release-smoke.js](release-smoke.js) covers what a release needs beyond the two runners above:
+
+- The WPScan proofs of concept as a visitor who is not logged in: a private post and a shortcode through `nx-preview`, and `send-rating`. A request with a login and a valid nonce is the control.
+- Every NotificationX admin page mounts without a script error.
+- Every source in [sources.php](sources.php), free and Pro: create through the REST API, read back, open in the builder, preview, delete.
+- Saved Notification Bar and Popup notifications show for a visitor who is not logged in.
+
+```bash
+node tests/e2e/release-smoke.js                      # everything, about 6 minutes
+node tests/e2e/release-smoke.js press_bar brevo      # only these sources
+```
+
+It writes one login session, one private post and one notification per source to the site's database, and removes them when the run ends. It never sends the authorised `send-rating` request, because that emails support; `tests/test-security-send-rating.php` covers that path with a mocked mailer.
+
+## Build With AI preset preview (Pro)
+
+`tests/e2e/preset-preview.js` in NotificationX Pro opens the Exit Intent Build With AI history with a mocked preset and checks the preview POST carries the nonce and renders. It reuses `auth.php` and `puppeteer-core` from this plugin.
