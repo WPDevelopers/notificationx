@@ -106,6 +106,8 @@ Fired, roughly in order, as [FrontEnd.php](../../includes/FrontEnd/FrontEnd.php)
 
 Preview mirrors the frontend pipeline with `nx_preview_*` variants — see [Preview.php](../../includes/FrontEnd/Preview.php): `nx_preview_entry_{type}` / `_{source}`, `nx_preview_settings_{source}`, `nx_is_preview`, `nx_preview_url`, plus reuse of `nx_fallback_data*`, `nx_filtered_entry*`, and `nx_get_post*`.
 
+`nx_is_preview` only switches preview styling and behaviour on. The POSTed `nx-preview` payload is read only for a request with a valid `nx-preview-nonce` from a user with `edit_notificationx`, whatever the filter returns. If you force the filter on, remove your callback again as soon as you are done, or preview mode stays on for the rest of the request. See [In-builder preview](../architecture/frontend-runtime.md#in-builder-preview).
+
 ### Settings tabs
 
 `nx_settings`, `nx_settings_configs`, `nx_settings_page_settings`, `nx_role_management`, and the per-tab filters `nx_settings_tab`, `nx_settings_tab_general`, `nx_settings_tab_advanced`, `nx_settings_tab_email_analytics`, `nx_settings_tab_entries`, `nx_settings_tab_cache`, `nx_settings_tab_miscellaneous` — all in [Settings.php](../../includes/Admin/Settings.php). Add a Pro settings section by hooking `nx_settings_tab`.
