@@ -227,7 +227,11 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.3.7 - 29/10/2026 =
+= 3.3.7 - 01/11/2026 =
+Fixed: Security issue in the notification preview that could expose non-public posts and run shortcodes for visitors who were not logged in (Reported by vuxvinh via WPScan and by Patchstack).
+Fixed: Security issue in the rating feedback request that let visitors who were not logged in send email from the site (Reported by Kevin Whelan via WPScan).
+Fixed: NotificationX builder crash on WordPress versions older than 6.2.
+Fixed: Early translation notice when another plugin schedules cron before init.
 Improved: Rating feedback handling.
 Few minor bug fixes and improvements.
 
