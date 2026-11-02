@@ -227,7 +227,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.3.7 - 01/11/2026 =
+= 3.3.7 - 02/11/2026 =
 Improved: Rating feedback handling.
 Improved: Security Enhancement
 Fixed: NotificationX builder crash on WordPress versions older than 6.2.
