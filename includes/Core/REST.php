@@ -81,6 +81,13 @@ class REST {
         if($access instanceof \WP_Error && ($current_route == "/$namespace/notice" || $current_route == "/$namespace/analytics" || $current_route == "/$namespace/delete-cookies")){
             return true;
         }
+        if($access instanceof \WP_Error && in_array($current_route, $this->public_route_paths("/$namespace/"), true)){
+            // An add-on's public route is let past the restriction as a
+            // logged-out visitor, never as the user of a failed cookie, nonce
+            // or token check.
+            wp_set_current_user(0);
+            return true;
+        }
 
         // If we got all the way here, return the unmodified $access response
         return $access;
@@ -99,7 +106,84 @@ class REST {
         $endpoints[] = "/$namespace/analytics";
         $endpoints[] = "/$namespace/delete-cookies";
         $endpoints[] = "/$namespace/send-rating";
-        return $endpoints;
+        return array_merge( $endpoints, $this->public_route_paths( "/$namespace/" ) );
+    }
+
+    /**
+     * Public frontend routes that add-ons register in NotificationX's own
+     * namespace (`notificationx/v1`), such as a counter the visitor's browser
+     * pings.
+     *
+     * Filter `nx_public_rest_routes`: route names, e.g. `[ 'live' ]`, or full
+     * paths in this namespace (`notificationx/v1/live`). Anything else is
+     * rejected: another plugin's route (`wp/v2/users`, `myplugin/v1/x`), a
+     * pattern or wildcard, upper case, `..`, or more than three segments.
+     *
+     * A listed route passes three outer layers: this plugin's "Enable REST
+     * API" restriction (as a logged-out visitor, see
+     * rest_authentication_errors()), BuddyBoss's private-network REST
+     * restriction and JWT Authentication's token requirement. WordPress still
+     * runs the route's own `permission_callback`. Each public route must check
+     * its own input, rate-limit its callers and expect abuse: anyone on the
+     * internet can call it.
+     *
+     * @since x.x.x
+     * @param string $prefix Prepended to each route name.
+     * @return string[]
+     */
+    public function public_route_paths( $prefix ) {
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- nx_ is this plugin's hook prefix.
+        $routes   = apply_filters( 'nx_public_rest_routes', [] );
+        $own      = self::_namespace() . '/';
+        $paths    = [];
+        $rejected = [];
+        foreach ( is_array( $routes ) ? $routes : [ $routes ] as $route ) {
+            $name = is_string( $route ) ? trim( $route, '/' ) : '';
+            if ( 0 === strpos( $name, $own ) ) {
+                $name = substr( $name, strlen( $own ) );
+            }
+            if ( self::is_public_route_name( $name ) ) {
+                $paths[] = $prefix . $name;
+            } else {
+                $rejected[] = is_string( $route ) ? $route : gettype( $route );
+            }
+        }
+        if ( $rejected ) {
+            _doing_it_wrong(
+                __METHOD__,
+                esc_html( sprintf(
+                    /* translators: %s: the rejected route names. */
+                    __( 'nx_public_rest_routes only takes route names in the notificationx/v1 namespace. Rejected: %s', 'notificationx' ),
+                    implode( ', ', $rejected )
+                ) ),
+                ''
+            );
+        }
+        return array_values( array_unique( $paths ) );
+    }
+
+    /**
+     * Whether a name is a plain route name inside this namespace: lower-case
+     * segments of `a-z`, `0-9`, `_` and `-`, at most three, 64 characters in
+     * all, and no segment like `v2` that would start another namespace.
+     *
+     * @since x.x.x
+     * @param string $name
+     * @return bool
+     */
+    public static function is_public_route_name( $name ) {
+        if ( ! is_string( $name ) || '' === $name || strlen( $name ) > 64 ) {
+            return false;
+        }
+        if ( ! preg_match( '#^[a-z0-9_-]+(/[a-z0-9_-]+){0,2}$#', $name ) ) {
+            return false;
+        }
+        foreach ( explode( '/', $name ) as $segment ) {
+            if ( preg_match( '#^v[0-9]+$#', $segment ) ) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -607,6 +691,8 @@ class REST {
             '/wp-json/notificationx/v1/license/submit-otp',
             '/wp-json/notificationx/v1/license/resend-otp',
         );
+
+        $__endpoints = array_merge( $__endpoints, $this->public_route_paths( '/wp-json/notificationx/v1/' ) );
 
         return array_unique( array_merge( $endpoints, $__endpoints ) );
     }

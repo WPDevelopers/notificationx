@@ -48,6 +48,7 @@ class ExtensionFactory {
 			'grvf'                               => 'NotificationX\Extensions\GRVF\GravityForms',
 			'give'                               => 'NotificationX\Extensions\Give\Give',
 			'google'                             => 'NotificationX\Extensions\Google_Analytics\Google_Analytics',
+			'live_visitors'                      => 'NotificationX\Extensions\LiveVisitors\LiveVisitors',
 			'google_reviews'                     => 'NotificationX\Extensions\Google\GoogleReviews',
 			'learndash'                          => 'NotificationX\Extensions\LearnDash\LearnDash',
 			'learnpress'                         => 'NotificationX\Extensions\LearnPress\LearnPress',

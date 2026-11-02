@@ -7,6 +7,7 @@ use NotificationX\Core\Helper;
 use NotificationX\Core\PostType;
 use NotificationX\Core\REST;
 use NotificationX\Extensions\ExtensionFactory;
+use NotificationX\Extensions\LiveVisitors\LiveVisitors;
 use NotificationX\GetInstance;
 use WP_Error;
 use WP_REST_Server;
@@ -152,7 +153,9 @@ class WPML {
             }
         }
 
-        if($post['source'] != 'google'){
+        // Page Analytics texts ("right now", "in last …"): Google Analytics and
+        // the built-in live count.
+        if(!in_array($post['source'], ['google', LiveVisitors::ID], true)){
             unset($this->template['ga_fourth_param']);
             unset($this->template['ga_fifth_param']);
         }

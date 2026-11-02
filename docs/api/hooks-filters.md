@@ -102,6 +102,17 @@ Fired, roughly in order, as [FrontEnd.php](../../includes/FrontEnd/FrontEnd.php)
 | `nx_branding_url` | The "powered by NotificationX" branding link ([:471](../../includes/FrontEnd/FrontEnd.php#L471)). | `$url` |
 | `nx_frontend_js_version` / `nx_frontend_css_version` | Asset cache-bust version ([:80-81](../../includes/FrontEnd/FrontEnd.php#L80)). | `NOTIFICATIONX_VERSION` |
 
+### Live Visitors (built-in live count)
+
+NotificationX Pro counts visitors for the `live_visitors` source ([../extensions/live-visitors.md](../extensions/live-visitors.md)). These hooks are harmless without it. Pro detects them with `defined( 'NOTIFICATIONX_LIVE_API' )`. Since x.x.x.
+
+| Filter | Modifies | Args |
+| --- | --- | --- |
+| `nx_live_visitors_supported` | Whether the active add-on counts live visitors ([LiveVisitors.php](../../includes/Extensions/LiveVisitors/LiveVisitors.php) `is_supported()`). Only read when NotificationX Pro is active. Without `true`, the source card is locked with an update prompt and its notifications are kept off the page. Add the filter before `init`. | `false` |
+| `nx_live_viewers_available` | Whether the WooCommerce Growth Alert "live viewers" design is offered ([LiveVisitors.php](../../includes/Extensions/LiveVisitors/LiveVisitors.php) `live_viewers_available()`, used by `WooInline` and `WooCommerceSalesInline`). | `bool`: the Google Analytics module is on, or the Live Visitors module is on and Pro counts visitors |
+| `nx_live_visitors_themes` | Theme keys the source offers, after the type's other themes are dropped. Add your own live design here. | `['page_analytics_pa-theme-three']`, `$themes` (all inherited themes) |
+| `nx_public_rest_routes` | Public frontend routes an add-on registers **in NotificationX's own namespace** (`notificationx/v1`) ([REST.php](../../includes/Core/REST.php) `public_route_paths()`). Give route names (`live`) or full paths in this namespace (`notificationx/v1/live`). Everything else is rejected with `_doing_it_wrong()`: another plugin's route (`wp/v2/users`, `myplugin/v1/x`), patterns or wildcards, upper case, `..`, more than three segments or 64 characters. A listed route passes three outer layers: the "Enable REST API" restriction (`rest_authentication_errors`, as a logged-out visitor), BuddyBoss's private-network REST restriction (`bb_exclude_endpoints_from_restriction`) and JWT Authentication's token requirement (`jwt_auth_whitelist`). WordPress still runs the route's own `permission_callback`. **Every public route must validate its own input, rate-limit callers and expect abuse**: anyone can call it. | `[]` |
+
 ### In-builder preview
 
 Preview mirrors the frontend pipeline with `nx_preview_*` variants — see [Preview.php](../../includes/FrontEnd/Preview.php): `nx_preview_entry_{type}` / `_{source}`, `nx_preview_settings_{source}`, `nx_is_preview`, `nx_preview_url`, plus reuse of `nx_fallback_data*`, `nx_filtered_entry*`, and `nx_get_post*`.
