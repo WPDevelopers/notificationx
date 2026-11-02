@@ -81,13 +81,38 @@ class Entries {
         if (is_array($data)) {
             array_walk_recursive($data, function (&$val) {
                 if (is_string($val)) {
-                    $val = sanitize_text_field($val);
+                    $val = $this->sanitize_entry_string($val);
                 }
             });
         } elseif (is_string($data)) {
-            $data = sanitize_text_field($data);
+            $data = $this->sanitize_entry_string($data);
         }
         return $data;
+    }
+
+    /**
+     * Sanitize one string leaf of entry data.
+     *
+     * sanitize_text_field() removes percent-encoded octets (`%ce`, `%bc`, …),
+     * which is what a non-Latin permalink is made of: a Greek product link
+     * `/product/%ce%bc%cf%80…-cr2025/` was stored as `/product/--5-cr2025/`
+     * and the notification linked to a 404 (issue #203). A value that is a
+     * whole http(s) URL is therefore cleaned with esc_url_raw(), which keeps
+     * the octets but still drops `<`, `>`, `"`, whitespace, `%0a`/`%0d` and any
+     * other scheme. Everything else stays on sanitize_text_field(). The check
+     * looks at the value, not the key, because sources store URLs under many
+     * different keys (`link`, `image`, `product_url`, …).
+     *
+     * @param string $value
+     * @return string
+     */
+    private function sanitize_entry_string($value) {
+        $trimmed = trim($value);
+        if (preg_match('#^https?://\S+\z#i', $trimmed)) {
+            // Same invalid UTF-8 rejection sanitize_text_field() applies.
+            return esc_url_raw(wp_check_invalid_utf8($trimmed), ['http', 'https']);
+        }
+        return sanitize_text_field($value);
     }
 
     public function insert_entry($entry) {
