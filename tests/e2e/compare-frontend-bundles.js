@@ -11,8 +11,11 @@
  *   - consent cookies and delete-cookies requests after clicking a GDPR button,
  *   - console errors and when the notification first appeared.
  *
- * Nothing is written to the database: NotificationX preview mode renders from
- * a POSTed `nx-preview` payload.
+ * Nothing is written to the database except one login session: NotificationX
+ * preview mode renders from a POSTed `nx-preview` payload, and only for a user
+ * who can edit notifications and sends a valid `nx-preview-nonce`. The runner
+ * logs in as NX_E2E_USER through tests/e2e/auth.php and ends that session when
+ * it finishes.
  *
  * Requirements: a local site with NotificationX active, WP-CLI, Google Chrome.
  *
@@ -23,6 +26,7 @@
  * Environment:
  *   NX_E2E_SITE_URL   default https://nx.test
  *   NX_E2E_WP_PATH    WordPress root for WP-CLI, default ../../.. from the plugin
+ *   NX_E2E_USER       user to preview as (needs edit_notificationx), default admin
  *   NX_E2E_OLD_BUNDLE baseline frontend.js path, default `git show HEAD:...`
  *   NX_E2E_CHROME     Chrome binary, default the macOS app path
  *
@@ -40,6 +44,7 @@ const puppeteer = require( path.join( PLUGIN, 'node_modules/puppeteer-core' ) );
 
 const SITE_URL = ( process.env.NX_E2E_SITE_URL || 'https://nx.test' ).replace( /\/$/, '' );
 const WP_PATH = process.env.NX_E2E_WP_PATH || path.resolve( PLUGIN, '../../..' );
+const WP_USER = process.env.NX_E2E_USER || 'admin';
 const CHROME = process.env.NX_E2E_CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const OUT = path.join( __dirname, 'out' );
 const PAGE_URL = `${ SITE_URL }/?nx-e2e=1`;
@@ -65,6 +70,16 @@ const loadScenarios = () =>
 		} )
 	);
 
+const wpAuth = ( ...args ) =>
+	execFileSync( 'wp', [ 'eval-file', path.join( __dirname, 'auth.php' ), ...args, `--user=${ WP_USER }`, `--path=${ WP_PATH }` ], {
+		encoding: 'utf8',
+		stdio: [ 'ignore', 'pipe', 'inherit' ],
+	} );
+
+// Preview mode needs a logged-in user with a preview nonce (see auth.php).
+const login = () => JSON.parse( wpAuth( 'create' ) );
+const logout = ( auth ) => wpAuth( 'destroy', auth.token );
+
 const loadBundles = () => ( {
 	old: process.env.NX_E2E_OLD_BUNDLE
 		? fs.readFileSync( process.env.NX_E2E_OLD_BUNDLE )
@@ -77,10 +92,11 @@ const normalize = ( html ) =>
 		.replace( /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/g, 'UUID' )
 		.replace( /\d{5,}/g, 'N' );
 
-async function render( browser, scenario, name, bundle, variant ) {
+async function render( browser, auth, scenario, name, bundle, variant ) {
 	// A fresh incognito context per run, so consent cookies never leak between runs.
 	const ctx = await browser.createIncognitoBrowserContext();
 	const page = await ctx.newPage();
+	await page.setCookie( { name: auth.name, value: auth.value, url: SITE_URL } );
 	await page.setViewport( { width: 1280, height: 800 } );
 
 	const requests = [];
@@ -107,7 +123,8 @@ async function render( browser, scenario, name, bundle, variant ) {
 		if ( req.isNavigationRequest() && url === PAGE_URL ) {
 			return req.continue( {
 				method: 'POST',
-				postData: 'nx-preview=' + encodeURIComponent( scenario.b64 ),
+				postData:
+					'nx-preview=' + encodeURIComponent( scenario.b64 ) + '&nx-preview-nonce=' + encodeURIComponent( auth.nonce ),
 				headers: { ...req.headers(), 'content-type': 'application/x-www-form-urlencoded' },
 			} );
 		}
@@ -244,6 +261,7 @@ async function pixelDiff( browser, a, b ) {
 	const scenarios = loadScenarios();
 	const bundles = loadBundles();
 	const only = process.argv[ 2 ];
+	const auth = login();
 
 	const browser = await puppeteer.launch( {
 		executablePath: CHROME,
@@ -258,8 +276,8 @@ async function pixelDiff( browser, a, b ) {
 		if ( only && name !== only ) {
 			continue;
 		}
-		const oldRun = await render( browser, scenarios[ name ], name, bundles.old, 'old' );
-		const newRun = await render( browser, scenarios[ name ], name, bundles.new, 'new' );
+		const oldRun = await render( browser, auth, scenarios[ name ], name, bundles.old, 'old' );
+		const newRun = await render( browser, auth, scenarios[ name ], name, bundles.new, 'new' );
 		const px = await pixelDiff( browser, oldRun.shot, newRun.shot );
 
 		const summary = {
@@ -296,6 +314,7 @@ async function pixelDiff( browser, a, b ) {
 
 	fs.writeFileSync( path.join( OUT, 'report.json' ), JSON.stringify( report, null, 2 ) );
 	await browser.close();
+	logout( auth );
 	process.exit( failed ? 1 : 0 );
 } )().catch( ( e ) => {
 	console.error( e );

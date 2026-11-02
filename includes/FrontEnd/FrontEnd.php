@@ -275,6 +275,7 @@ class FrontEnd {
          * @since 3.3.3
          * @param string[] $deps Script handles.
          */
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $deps = apply_filters( 'nx_frontend_script_deps', [ 'wp-hooks' ] );
         $deps = is_array( $deps ) ? array_filter( $deps, 'is_string' ) : [];
         array_unshift( $deps, 'wp-hooks' );
@@ -433,7 +434,7 @@ class FrontEnd {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $post_id = apply_filters('wpml_object_id', $gutenberg_id, 'wp_block', true);
         $post    = $post_id ? get_post($post_id) : null;
-        if (!$post || '' === trim((string) $post->post_content)) {
+        if (!PressBar::get_instance()->can_render_block_bar($post) || '' === trim((string) $post->post_content)) {
             return;
         }
         // This runs inside <head> (wp_enqueue_scripts). A block whose render

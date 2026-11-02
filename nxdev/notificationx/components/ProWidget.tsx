@@ -5,7 +5,8 @@ const ProWidget = () => {
   // @ts-ignore 
   const isProActive = notificationxTabs?.is_pro_active;    
   if( isProActive ) {
-      return;
+      // null, not undefined: React 17 (core React before WP 6.2) throws on undefined.
+      return null;
   }
   return (
     <div className='notificationx-pro-widget sidebar-widget nx-widget'>
