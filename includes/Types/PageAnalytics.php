@@ -8,6 +8,7 @@
 namespace NotificationX\Types;
 use NotificationX\GetInstance;
 use NotificationX\Modules;
+use NotificationX\Extensions\LiveVisitors\LiveVisitors;
 
 /**
  * Extension Abstract for all Extension.
@@ -187,6 +188,23 @@ class PageAnalytics extends Types {
                 ],
             ],
         ];
+    }
+
+    /**
+     * Picking the type selects Google Analytics, or the built-in live
+     * counter when only the Live Visitors module is on.
+     *
+     * @since x.x.x
+     * @param array $triggers
+     * @return array
+     */
+    public function type_trigger($triggers){
+        $triggers = parent::type_trigger($triggers);
+        $modules  = \NotificationX\Core\Modules::get_instance();
+        if (!$modules->is_enabled('modules_google_analytics') && $modules->is_enabled(LiveVisitors::MODULE)) {
+            $triggers[$this->id] = '@source:' . LiveVisitors::ID;
+        }
+        return $triggers;
     }
 
     public function preview_entry($entry, $settings){

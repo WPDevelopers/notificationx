@@ -7,7 +7,7 @@
 
 namespace NotificationX\Extensions\WooCommerce;
 
-use NotificationX\Core\Modules;
+use NotificationX\Extensions\LiveVisitors\LiveVisitors;
 
   /**
  * WooCommerce Extension Class
@@ -118,10 +118,10 @@ class WooCommerceSalesInline extends WooInline {
                 ],
             ),
         ];
-        // Google Analytics live-viewer design. Only offered when the Google
-        // Analytics module is switched on — the number comes from a connected
-        // GA4 property, so without it the design could never render anything.
-        if ( Modules::get_instance()->is_enabled( 'modules_google_analytics' ) ) {
+        // Live-viewer design. Only offered when something can count the
+        // viewers: the Google Analytics module (a connected GA4 property), or
+        // a NotificationX Pro that counts them itself (Live Visitors module).
+        if ( LiveVisitors::live_viewers_available() ) {
             $this->themes['live-viewers'] = array(
                 'is_pro'          => true,
                 'source'          => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/ga-live-viewers.jpg',
@@ -181,7 +181,7 @@ class WooCommerceSalesInline extends WooInline {
             ],
         ];
 
-        if ( Modules::get_instance()->is_enabled( 'modules_google_analytics' ) ) {
+        if ( LiveVisitors::live_viewers_available() ) {
             $this->templates['woo_live_viewers_template'] = [
                 'first_param' => [
                     'tag_live_viewers' => __( 'Live Product Viewers', 'notificationx' ),

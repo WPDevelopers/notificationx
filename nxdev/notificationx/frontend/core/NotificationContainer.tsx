@@ -7,6 +7,15 @@ import { nxApplyFilters, nxApplyListFilter } from "./hooks";
 const NotificationContainer = (props: any) => {
     const frontendContext = useNotificationContext();
     const [isMobile, setIsMobile] = useState(false);
+    const [, setRefresh] = useState(0);
+
+    // Add-ons whose `nx_frontend_entry` data changes later (Pro: the live
+    // visitor count) ask for a re-render with this window event.
+    useEffect(() => {
+        const handleRefresh = () => setRefresh((n) => n + 1);
+        window.addEventListener("notificationx:refresh", handleRefresh);
+        return () => window.removeEventListener("notificationx:refresh", handleRefresh);
+    }, []);
 
     // Detect screen size
     useEffect(() => {
@@ -93,17 +102,34 @@ const NotificationContainer = (props: any) => {
                         );
                     }
 
+                    // Add-ons can fill in an entry's data at render time, or
+                    // hold the notice back with `null` (Pro: the live visitor
+                    // count, until it is known). Unfiltered, or when a filter
+                    // returns something that is not an entry, the notice is
+                    // passed on unchanged.
+                    const data = nxApplyFilters('nx_frontend_entry', notice?.data, { settings: notice?.config });
+                    if (data === null) {
+                        return null;
+                    }
+                    const item = data && typeof data === 'object' && data !== notice?.data ? { ...notice, data } : notice;
+                    // An entry the server marks `nx_awaiting_data` has no data
+                    // yet: it shows only once a filter returns an entry without
+                    // the mark. If none does, the notice stays hidden.
+                    if (item?.data?.nx_awaiting_data) {
+                        return null;
+                    }
+
                     if (
                         isMobile &&
-                        notice?.config?.is_mobile_responsive &&
-                        !noMobileDesign?.includes(notice?.config?.source) &&
-                        !ownRendererTypes.includes(notice?.config?.type)
+                        item?.config?.is_mobile_responsive &&
+                        !noMobileDesign?.includes(item?.config?.source) &&
+                        !ownRendererTypes.includes(item?.config?.type)
                     ) {
                         // Compact mobile layout: rendered by NotificationX Pro
                         // (filter `nx_frontend_mobile_notification`). Without it
                         // the regular <Notification> below is used.
                         const mobileNotice = nxApplyFilters('nx_frontend_mobile_notification', undefined, {
-                            notice,
+                            notice: item,
                             assets: frontendContext.assets,
                             dispatch: frontendContext.dispatch,
                             is_pro: frontendContext?.is_pro,
@@ -117,8 +143,8 @@ const NotificationContainer = (props: any) => {
                         <Notification
                             assets={frontendContext.assets}
                             dispatch={frontendContext.dispatch}
-                            key={notice.id}
-                            {...notice}
+                            key={item.id}
+                            {...item}
                         />
                     );
                 })}
