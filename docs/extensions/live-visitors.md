@@ -54,9 +54,12 @@ Free only provides the seams Pro uses:
    logged-out visitor), BuddyBoss and JWT Auth like `notice`. Only names in
    `notificationx/v1` are accepted, and the route must check its own input and rate
    limits. See [../api/hooks-filters.md](../api/hooks-filters.md#live-visitors-built-in-live-count).
-4. **Frontend:** Pro fills the count into the entry with the JS filter
-   `nx_frontend_entry`, holds the notification back with `null` until the count is
-   known, and asks for a re-render with the `notificationx:refresh` window event.
+4. **Frontend:** Pro's placeholder entry carries `nx_awaiting_data: true`, which
+   `FrontEnd::filtered_data()` keeps. Free renders such an entry only after the JS
+   filter `nx_frontend_entry` returns it with the count and the mark cleared, so if
+   Pro's script fails to load the notification does not show at all, never with an
+   empty number. Pro asks for a re-render with the `notificationx:refresh` window
+   event.
    See [../api/frontend-js-hooks.md](../api/frontend-js-hooks.md).
 
 ## Fields & settings

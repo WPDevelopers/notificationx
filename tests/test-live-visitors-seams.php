@@ -16,6 +16,7 @@
 use NotificationX\Admin\Settings;
 use NotificationX\Core\REST;
 use NotificationX\Extensions\ExtensionFactory;
+use NotificationX\FrontEnd\FrontEnd;
 use NotificationX\Extensions\LiveVisitors\LiveVisitors;
 use NotificationX\Types\PageAnalytics;
 
@@ -140,6 +141,45 @@ class Test_Live_Visitors_Seams extends WP_UnitTestCase {
 		$this->set_modules( [ 'modules_google_analytics' => false, 'modules_live_visitors' => true ] );
 		$triggers = PageAnalytics::get_instance()->type_trigger( [] );
 		$this->assertSame( '@source:live_visitors', $triggers['page_analytics'] );
+	}
+
+	// nx_awaiting_data: an entry waiting for data supplied in the browser.
+
+	protected function entry( $extra = [] ) {
+		return array_merge(
+			[
+				'nx_id'      => 5,
+				'updated_at' => '2026-11-01 10:00:00',
+				'image_data' => false,
+				'link'       => '',
+				'views'      => '',
+				'title'      => 'Shop',
+			],
+			$extra
+		);
+	}
+
+	protected function post( $source ) {
+		return [
+			'source'                => $source,
+			'notification-template' => [ 'first_param' => 'tag_realtime_siteview', 'third_param' => 'ga_title' ],
+		];
+	}
+
+	public function test_the_waiting_mark_reaches_the_frontend() {
+		$entries = FrontEnd::get_instance()->filtered_data( [ $this->entry( [ 'nx_awaiting_data' => true ] ) ], $this->post( 'live_visitors' ), [] );
+		$this->assertTrue( $entries[0]['nx_awaiting_data'] );
+		$this->assertSame( '', $entries[0]['views'] );
+	}
+
+	public function test_entries_without_the_mark_are_unchanged() {
+		$entries = FrontEnd::get_instance()->filtered_data( [ $this->entry( [ 'views' => 42 ] ) ], $this->post( 'google' ), [] );
+		$this->assertArrayNotHasKey( 'nx_awaiting_data', $entries[0] );
+		$this->assertSame( 42, $entries[0]['views'] );
+		$this->assertSame( 'Shop', $entries[0]['title'] );
+
+		$entries = FrontEnd::get_instance()->filtered_data( [ $this->entry( [ 'nx_awaiting_data' => false ] ) ], $this->post( 'google' ), [] );
+		$this->assertArrayNotHasKey( 'nx_awaiting_data', $entries[0], 'false is not a mark' );
 	}
 
 	// nx_public_rest_routes: only routes in NotificationX's own namespace.

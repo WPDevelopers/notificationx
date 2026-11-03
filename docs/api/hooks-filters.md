@@ -106,6 +106,8 @@ Fired, roughly in order, as [FrontEnd.php](../../includes/FrontEnd/FrontEnd.php)
 
 NotificationX Pro counts visitors for the `live_visitors` source ([../extensions/live-visitors.md](../extensions/live-visitors.md)). These hooks are harmless without it. Pro detects them with `defined( 'NOTIFICATIONX_LIVE_API' )`. Since x.x.x.
 
+An entry with `nx_awaiting_data: true` keeps that key through `FrontEnd::filtered_data()`, and the frontend renders it only once a filter supplies its data (see [frontend-js-hooks.md](frontend-js-hooks.md#nx_awaiting_data)).
+
 | Filter | Modifies | Args |
 | --- | --- | --- |
 | `nx_live_visitors_supported` | Whether the active add-on counts live visitors ([LiveVisitors.php](../../includes/Extensions/LiveVisitors/LiveVisitors.php) `is_supported()`). Only read when NotificationX Pro is active. Without `true`, the source card is locked with an update prompt and its notifications are kept off the page. Add the filter before `init`. | `false` |

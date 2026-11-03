@@ -137,6 +137,58 @@ describe( 'nx_frontend_entry', () => {
 		expect( text() ).toContain( '9 people looking' );
 	} );
 
+	it( 'renders every other source exactly as before, with an add-on filter registered', () => {
+		installHooks().addFilter( 'nx_frontend_entry', 'test', ( data, { settings } ) =>
+			settings.source === 'live_visitors' ? null : data
+		);
+		const sale = {
+			id: 'n3',
+			config: config( 3, { type: 'conversions', source: 'woocommerce', themes: 'conversions_theme-one', template: [ '{{name}} bought', '{{title}}' ] } ),
+			data: { name: 'Jane', title: 'Shoes', views: 0 },
+		};
+		render( [ sale ] );
+		expect( cards() ).toHaveLength( 1 );
+		expect( text() ).toContain( 'Jane bought' );
+		expect( text() ).toContain( 'Shoes' );
+	} );
+
+	it( 'never renders an entry marked nx_awaiting_data without a filter', () => {
+		render( [ notice( 1, { views: '', title: 'My Shop', nx_awaiting_data: true } ), notice( 2, { views: 3, title: 'Other' } ) ] );
+		expect( cards() ).toHaveLength( 1 );
+		expect( text() ).toContain( 'Other' );
+		expect( text() ).not.toContain( 'My Shop' );
+	} );
+
+	it( 'keeps it hidden while the filter passes it through or keeps the mark', () => {
+		installHooks().addFilter( 'nx_frontend_entry', 'test', ( data, { settings } ) =>
+			settings.nx_id === 1 ? data : { ...data, views: 5 }
+		);
+		render( [ notice( 1, { views: '', nx_awaiting_data: true } ), notice( 2, { views: '', nx_awaiting_data: true } ) ] );
+		expect( cards() ).toHaveLength( 0 );
+	} );
+
+	it( 'shows it with the number once a filter supplies the data', () => {
+		installHooks().addFilter( 'nx_frontend_entry', 'test', ( data ) => ( { ...data, views: 12, nx_awaiting_data: false } ) );
+		render( [ notice( 1, { views: '', title: 'My Shop', nx_awaiting_data: true } ) ] );
+		expect( cards() ).toHaveLength( 1 );
+		expect( text() ).toContain( '12 people looking' );
+	} );
+
+	it( 'shows it when the data arrives later', () => {
+		let count = null;
+		installHooks().addFilter( 'nx_frontend_entry', 'test', ( data ) =>
+			count === null ? data : { ...data, views: count, nx_awaiting_data: false }
+		);
+		render( [ notice( 1, { views: '', title: 'My Shop', nx_awaiting_data: true } ) ] );
+		expect( cards() ).toHaveLength( 0 );
+		count = 6;
+		act( () => {
+			window.dispatchEvent( new Event( 'notificationx:refresh' ) );
+		} );
+		expect( cards() ).toHaveLength( 1 );
+		expect( text() ).toContain( '6 people looking' );
+	} );
+
 	it( 'stops listening for refresh once unmounted', () => {
 		const filter = jest.fn( ( data ) => data );
 		installHooks().addFilter( 'nx_frontend_entry', 'test', filter );

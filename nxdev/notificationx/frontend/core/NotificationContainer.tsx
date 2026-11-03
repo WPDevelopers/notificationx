@@ -112,6 +112,12 @@ const NotificationContainer = (props: any) => {
                         return null;
                     }
                     const item = data && typeof data === 'object' && data !== notice?.data ? { ...notice, data } : notice;
+                    // An entry the server marks `nx_awaiting_data` has no data
+                    // yet: it shows only once a filter returns an entry without
+                    // the mark. If none does, the notice stays hidden.
+                    if (item?.data?.nx_awaiting_data) {
+                        return null;
+                    }
 
                     if (
                         isMobile &&
