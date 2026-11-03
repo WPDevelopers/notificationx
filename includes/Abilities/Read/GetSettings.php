@@ -61,6 +61,10 @@ class GetSettings extends AbilityBase {
         // General settings, with secrets redacted.
         $settings = (array) Settings::get_instance()->get( 'settings' );
         unset( $settings['modules'] ); // already reported above
+        // Registered credentials first: not every one has a telling key name
+        // (`freemius_dev_sk`), and `yt_settings` would otherwise go out with
+        // only its token leaves masked.
+        $settings = Settings::redact_secret_settings( $settings );
         $settings = $this->redact( $settings );
 
         return array(
