@@ -6,6 +6,7 @@ import Analytics, { resolveNotificationLink, recordAnalyticsClick } from "./Anal
 import useNotificationContext from "./NotificationProvider";
 import nxHelper from "./functions";
 import { nxApplyFilters } from "./hooks";
+import { isVcTheme } from "../themes/vc/isVcTheme";
 
 const useMediaQuery = (query) => {
     const mediaQuery = window.matchMedia(query);
@@ -194,6 +195,8 @@ const Notification = (props) => {
             [`custom-style-${settings?.id}`]: advance_edit,
             [`img-position-${settings?.image_position}`]: advance_edit,
             "flex-reverse": advance_edit && settings?.image_position === "right",
+            // Verified Cards: the vc SCSS is rooted at this class.
+            "nx-vc": isVcTheme(settings) && !settings?.template_adv,
         }
     ];
     let splitThemes = [

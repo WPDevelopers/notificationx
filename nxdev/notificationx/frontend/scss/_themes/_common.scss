@@ -271,6 +271,8 @@
     @import "./theme-fourteen";
     @import "./theme-fifteen";
     @import "./theme-sixteen";
+    // Verified Cards (vc-*): every rule needs .nx-vc + themes-vc-*.
+    @import "./vc";
 }
 .notification-res-item {
     &:not(.button-link) .notificationx-link{

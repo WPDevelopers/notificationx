@@ -8,6 +8,7 @@ import { getResThemeName, getThemeName } from "../core/functions";
 import { __, _x } from "@wordpress/i18n";
 import { nxApplyFilters } from "../core/hooks";
 import Cookies from 'js-cookie';
+import { isVcTheme, vcCompactRows, VerifiedCard } from "./vc";
 
 const Theme = (props) => {
     let splitThemes = [
@@ -31,8 +32,13 @@ const Theme = (props) => {
     // console.log("settings", post);
     // moment().utcOffset(settings?.timezone?.offset);
 
+    // Verified Cards (vc-*): only whitelisted vc keys without an Advanced
+    // Template. Pro's mobile card (is_mobile) keeps the generic markup below,
+    // fed with compact rows; every other theme is untouched.
+    const isVc = isVcTheme(post) && !post?.template_adv;
+
     // @todo check if adv template exists.
-    let tmpl = post.template;
+    let tmpl = isVc && props?.is_mobile ? vcCompactRows(themeName, post.template) : post.template;
     // replace space with underscore inside {{}}
 
     let template = [];
@@ -121,6 +127,10 @@ const Theme = (props) => {
         }
         template.push(row);
     });
+
+    if (isVc && !props?.is_mobile) {
+        return <VerifiedCard {...props} slots={template} themeName={themeName} />;
+    }
 
     // console.log(template);
     const componentClasses = classNames(

@@ -107,6 +107,30 @@ static "just reviewed"/"people rated" text, plugin name or rating).
   `tag_title`/`tag_anonymous_title` (third param), `tag_plugin_name` (fifth param);
   applies to the `review_saying` theme.
 
+### Verified Card: Scorecard (`vc-scorecard`)
+
+A free "Verified Card" theme appended at the **end** of each review theme list (existing picker positions are unchanged): `reviews_vc-scorecard` here (wp_reviews, Freemius, Zapier, Bit Integrations), plus `woo_reviews_`, `woocommerce_sales_reviews_`, `reviewx_` and `google_reviews_vc-scorecard` on the extensions that declare their own themes. `image_shape` `circle`, no `defaults`; each source keeps its own default image (Google uses the reviewer avatar like its other single-review themes). Avatars show as circles; a Featured Image (plugin icon or product photo) shows as a rounded square with 8px corners, keyed on the `featured_image` class that `Image.js` copies from `image_data.classes`.
+
+Template: `first_param` `tag_username` (never `tag_rated`, which switches some sources to aggregate mode), `second_param` "on" (`_x()` with context), `third_param` the subject (`tag_plugin_name`, `tag_product_title`, `tag_product_post_title` for ReviewX, `tag_place_name` for Google), `fourth_param` `tag_rating`, `fifth_param` the review text, `sixth_param` `tag_title` where the title is a real headline. Each source has its own `vc_scorecard_template` group with only those tags, so the existing groups keep their options.
+
+Desktop: a 36px avatar and the reviewer, the time at the top right; the stars, the rating ("4.4", "5.0") and the review title (wp.org, Zapier, Bit Integrations and ReviewX only); the review text (2-line clamp); "on **subject**". Phone line 1: the stars, **reviewer**, "on" and **subject**, with the time at the right. A missing rating shows no stars and no `rating::` text. The stars fill partially (`VcStars`): a 4.5 review shows four and a half stars, label "4.5 out of 5"; in RTL the fill starts at the right.
+
+On the frontend it does **not** use the generic `Content.tsx` rows: `GetTemplate` returns a slot array and [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx) renders a 344px card (desktop and tablet) or a slim two-line card at 480px and below, with the credit "✓ Verified by NotificationX" and a one-pass line scroll (option C). With NotificationX Pro's Mobile Responsive on, phones (574px and below) show Pro's mobile card with compact rows instead. `GlobalFields::vc_theme_keys()` hides the Advanced Design toggle for it, and Custom Notification does not offer it.
+
+Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
+
+### Verified Card: Ratings (`vc-ratings`)
+
+A free "Verified Card" aggregate theme appended after Scorecard at the **end** of each review theme list: `reviews_vc-ratings` here (wp_reviews and Bit Integrations; Zapier and Freemius with Pro), plus `woo_reviews_`, `woocommerce_sales_reviews_`, `reviewx_` and `google_reviews_vc-ratings`. `image_shape` `rounded`, no `defaults`; each source keeps its own default image.
+
+Template: `first_param` **`tag_rated`** (the count of 5-star ratings, and the switch that makes WooCommerce count them), `second_param` "people rated", `third_param` the subject (`tag_plugin_name`, `tag_product_title`, or `tag_product_post_title` for ReviewX). Each source has its own `vc_ratings_template` group with only those tags. The card shows **five fixed stars** (it does not use `tag_rating`, which is one review's rating) and **no time** (an aggregate has no event time). **Google is the exception:** its count is the total of all ratings (`user_ratings_total`), so `google_reviews_vc-ratings` adds `fourth_param` `tag_rating` (the place's average) and `second_param` "reviews", and the card shows it as Google does: the average ("4.7") over "1,284 reviews" and stars filled to the average. Only `google_reviews` gets the average slot, so a leftover `fourth_param` on another source is ignored. `WPOrgReview::total_rated_theme()` keeps one entry per notification for `reviews_vc-ratings`, as for `reviews_total-rated`.
+
+Desktop: the count (22px) over "people rated" | five stars, then a 32px icon and the plugin or product name. Phone line 1: five stars, the count, "people rated" and **name**.
+
+On the frontend it does **not** use the generic `Content.tsx` rows: `GetTemplate` returns a slot array and [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx) renders a 344px card (desktop and tablet) or a slim two-line card at 480px and below, with the credit "✓ Verified by NotificationX" and a one-pass line scroll (option C). With NotificationX Pro's Mobile Responsive on, phones (574px and below) show Pro's mobile card with compact rows instead. `GlobalFields::vc_theme_keys()` hides the Advanced Design toggle for it, and Custom Notification does not offer it.
+
+Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
+
 ## Key files
 
 | Layer | File(s) |

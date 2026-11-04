@@ -92,6 +92,14 @@ Real events that drive data (all inherited from `WooReviews::init()`):
   `Extension::nx_instructions()` (registered in `Extension::__init_fields()` when
   `method_exists($this, 'doc')`).
 
+### Verified Card: Scorecard
+
+`ReviewX` appends the free Scorecard Verified Card (`reviewx_vc-scorecard`) at the end of its theme list, with its own `vc_scorecard_template` group. The subject uses the new option key `tag_product_post_title` (label "Product Title"), which resolves to the product (`post_title`), so it does not share the first-come "Post Title" label of `tag_post_title`. The review title row shows the ReviewX headline (`reviewx_title`); when a review has none, `title` falls back to the product and the card hides the title instead of repeating it.
+
+Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
+
+`ReviewX` also appends the Ratings Verified Card (`reviewx_vc-ratings`) after Scorecard: `tag_rated` (the per-product 5-star count, through the inherited `rated_woo_review`), "people rated", and the product through `tag_product_post_title`.
+
 ## Dependency & detection
 
 - Required plugin: **ReviewX** (which itself depends on WooCommerce). Unlike most

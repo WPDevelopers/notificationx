@@ -139,6 +139,34 @@ class WooCommerceSalesReviews extends WooReviews {
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ]
             ],
+            // "Verified card" Scorecard, kept at the END of the list (see
+            // Types/Reviews.php). The subject is the product; there is no review
+            // title row, because `title` is the product name for this source.
+            'vc-scorecard' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-scorecard.png',
+                'image_shape' => 'circle',
+                'template'    => [
+                    'first_param'        => 'tag_username',
+                    'custom_first_param' => __('Someone', 'notificationx'),
+                    'second_param'       => _x('on', 'Scorecard: <reviewer> on <product>', 'notificationx'),
+                    'third_param'        => 'tag_product_title',
+                    'fourth_param'       => 'tag_rating',
+                    'fifth_param'        => 'tag_plugin_review',
+                ],
+            ],
+            // "Verified card" Ratings, kept at the END of the list. The count is per product
+            // (rated_woo_review).
+            // tag_rated is the count of 5-star ratings (and the switch that makes
+            // WooCommerce count them), so the card always shows five stars; no time.
+            'vc-ratings' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-ratings.png',
+                'image_shape' => 'rounded',
+                'template'    => [
+                    'first_param'  => 'tag_rated',
+                    'second_param' => __('people rated', 'notificationx'),
+                    'third_param'  => 'tag_product_title',
+                ],
+            ],
         ];
 
         $this->templates = [
@@ -180,6 +208,36 @@ class WooCommerceSalesReviews extends WooReviews {
                 ],
                 '_themes' => [
                     'woocommerce_sales_reviews_review_saying',
+                ],
+            ],
+            // Verified card Scorecard: its own group (see Types/Reviews.php).
+            'vc_scorecard_template' => [
+                'first_param' => [
+                    'tag_username' => __('Username', 'notificationx'),
+                ],
+                'third_param' => [
+                    'tag_product_title' => __('Product Title', 'notificationx'),
+                ],
+                'fourth_param' => [
+                    'tag_rating' => __('Rating', 'notificationx'),
+                ],
+                'fifth_param' => [
+                    'tag_plugin_review' => __('Review', 'notificationx'),
+                ],
+                '_themes' => [
+                    'woocommerce_sales_reviews_vc-scorecard',
+                ],
+            ],
+            // Verified card Ratings: its own group, only the tags the card shows.
+            'vc_ratings_template' => [
+                'first_param' => [
+                    'tag_rated' => __('Rated', 'notificationx'),
+                ],
+                'third_param' => [
+                    'tag_product_title' => __('Product Title', 'notificationx'),
+                ],
+                '_themes' => [
+                    'woocommerce_sales_reviews_vc-ratings',
                 ],
             ],
         ];

@@ -125,6 +125,26 @@ class ELearning extends Types {
                 'image_shape' => 'square',
                 'show_notification_image' => 'maps_image',
             ),
+            // "Verified card" (vc) theme, kept at the END of the list so every
+            // existing card keeps its picker position. Rendered by the frontend
+            // VerifiedCard (nxdev/notificationx/frontend/themes/vc/); the full key
+            // is listed in GlobalFields::vc_theme_keys(). No 'defaults', so the
+            // theme trigger sets @link_button:false.
+            // Enrolment — name + "just enrolled", then a course panel with a
+            // landscape thumbnail and the course title.
+            'vc-enrol' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-enrol.png',
+                'image_shape' => 'rounded',
+                'template'    => [
+                    'first_param'         => 'tag_name',
+                    'custom_first_param'  => __('Someone' , 'notificationx'),
+                    'second_param'        => __('just enrolled', 'notificationx'),
+                    'third_param'         => 'tag_course_title',
+                    'custom_third_param'  => __('Anonymous Course' , 'notificationx'),
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __( 'Some time ago', 'notificationx' ),
+                ],
+            ),
         ];
         $this->res_themes = [
             'res-theme-one' => array(
@@ -193,6 +213,7 @@ class ELearning extends Types {
                     'elearning_theme-three',
                     'elearning_theme-four',
                     'elearning_theme-five',
+                    'elearning_vc-enrol',
                 ]
             ],
             'elearning_template_sales_count' => [
