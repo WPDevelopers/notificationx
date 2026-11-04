@@ -348,6 +348,34 @@ describe( 'SlimShell', () => {
 		expect( card.querySelector( '.nx-vc-slim-time' ) ).toBeNull();
 		expect( card.querySelector( '.nx-vc-credit' ) ).toBeNull();
 	} );
+
+	it( 'shows the image prop in the image place, even when the entry has no image', () => {
+		const props = {
+			config: receipt(),
+			data: saleEntry( { image_data: false } ),
+			id: 'nx-vc',
+			dispatch: jest.fn(),
+			themeName: 'vc-sample',
+		};
+		render( <SlimShell props={ props } word="sample" line="Jane D." image={ <span className="sample-graphic">42</span> } /> );
+		const card = container.querySelector( '.nx-vc-card.nx-vc-sample.nx-vc-slim' );
+		expect( card.classList.contains( 'is-no-img' ) ).toBe( false );
+		expect( card.firstElementChild.className ).toBe( 'sample-graphic' );
+		expect( card.querySelector( '.notificationx-image' ) ).toBeNull();
+		// Credit A and the close stay.
+		expect( card.querySelector( '.nx-vc-credit.is-slim' ) ).not.toBeNull();
+	} );
+
+	it( 'without the image prop (or with null), renders exactly as before', () => {
+		const props = { config: receipt(), data: saleEntry(), id: 'nx-vc', dispatch: jest.fn(), themeName: 'vc-receipt' };
+		render( <SlimShell props={ props } word="receipt" line="Jane D." /> );
+		const without = container.innerHTML;
+		act( () => {
+			ReactDOM.unmountComponentAtNode( container );
+		} );
+		render( <SlimShell props={ props } word="receipt" line="Jane D." image={ null } /> );
+		expect( container.innerHTML ).toBe( without );
+	} );
 } );
 
 describe( 'nx_frontend_vc_compact_rows', () => {

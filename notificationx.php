@@ -43,12 +43,15 @@ define( 'NOTIFICATIONX_ADMIN_URL', NOTIFICATIONX_ASSETS . 'admin/' );
 define( 'NOTIFICATIONX_PUBLIC_URL', NOTIFICATIONX_ASSETS . 'public/' );
 define( 'NOTIFICATIONX_COMMON_URL', NOTIFICATIONX_ASSETS . 'common/' );
 /*
- * Verified Card add-on API version. Defined when free has the hooks an add-on
- * needs to register its own vc themes: nx_vc_theme_keys (PHP) and
- * nx_frontend_vc_slugs, nx_frontend_vc_card, nx_frontend_vc_compact_rows (JS).
- * Bump it only for a breaking change. See docs/api/frontend-js-hooks.md.
+ * Verified Card add-on API level. Defined when free has the hooks an add-on
+ * needs to register its own vc themes. Raised when the API gains something an
+ * add-on must check for before using it; an add-on checks ">= the level it
+ * needs". See docs/api/frontend-js-hooks.md.
+ *  1: nx_vc_theme_keys (PHP); nx_frontend_vc_slugs, nx_frontend_vc_card and
+ *     nx_frontend_vc_compact_rows (JS), with VC_CARD_PARTS and SlimShell.
+ *  2: SlimShell's optional `image` (a graphic in the image's place).
  */
-define( 'NOTIFICATIONX_VC_API', 1 );
+define( 'NOTIFICATIONX_VC_API', 2 );
 
 /**
  * Feature marker for add-ons: this NotificationX has the Live Visitors source

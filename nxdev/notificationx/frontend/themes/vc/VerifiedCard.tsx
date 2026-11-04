@@ -537,19 +537,36 @@ const slimLine = (word: string, s: string[]) => {
  * The slim card's frame: the 32px image, line 1 (option C) with the time at
  * its right end, credit A and the close. `line` is React content; `time` is
  * an HTML slot ("" or a slot without text hides it).
+ *
+ * `image` (optional): React content shown in the image's place instead of the
+ * notification image (e.g. an add-on's 32px graphic). The card's own CSS puts
+ * it in the `img` grid area. Without it, the notification image shows as usual.
  */
-export const SlimShell = ({ props, word, line, time }: { props: any; word: string; line: React.ReactNode; time?: string }) => {
+export const SlimShell = ({
+    props,
+    word,
+    line,
+    time,
+    image,
+}: {
+    props: any;
+    word: string;
+    line: React.ReactNode;
+    time?: string;
+    image?: React.ReactNode;
+}) => {
     const msgRef = useRef(null);
     const inRef = useRef(null);
     useVcLineScroll(msgRef, inRef);
+    const hasCustomImage = image !== undefined && image !== null && image !== false;
     return (
         <div
             className={classNames("nx-vc-card", `nx-vc-${word}`, "nx-vc-slim", {
-                "is-no-img": !props?.data?.image_data,
+                "is-no-img": !hasCustomImage && !props?.data?.image_data,
                 "is-no-credit": !!props?.config?.disable_powered_by,
             })}
         >
-            <VcImage {...props} />
+            {hasCustomImage ? image : <VcImage {...props} />}
             <div className="nx-vc-l1">
                 {/* className never changes, so React keeps the hook's `is-run`. */}
                 <span className="nx-vc-msg" ref={msgRef}>

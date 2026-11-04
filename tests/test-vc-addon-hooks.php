@@ -25,7 +25,8 @@ class Test_VC_Addon_Hooks extends WP_UnitTestCase {
 
 	public function test_marker_is_defined() {
 		$this->assertTrue( defined( 'NOTIFICATIONX_VC_API' ) );
-		$this->assertSame( 1, NOTIFICATIONX_VC_API );
+		// 2: SlimShell takes an `image` (level 1: the hooks).
+		$this->assertSame( 2, NOTIFICATIONX_VC_API );
 	}
 
 	public function test_without_a_filter_the_list_is_the_built_in_list() {
