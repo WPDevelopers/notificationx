@@ -1,0 +1,60 @@
+// Card size presets: Compact (0.8) and Large (1.2).
+//
+// Notification.tsx adds `nx-card-size-compact` or `nx-card-size-large` and
+// `--nx-scale` to the card root, only for those presets; Default adds nothing,
+// so none of these rules can match a Default card.
+//
+// The inner part is zoomed, so text, image, spacing and the theme's own sizes
+// scale together. The root keeps its position offsets, animations and
+// `max-width` (Notification Size). Without `zoom` support everything below is
+// skipped and the card shows at Default.
+//
+// Rules:
+// - Imported last in theme.scss, so the compiled rules are appended at the end
+//   of frontend.css (bin/check-css-append.js).
+// - Every selector starts with `.notification-item.nx-card-size-`, inside
+//   `@supports (zoom: 1)`.
+//
+// @since x.x.x
+
+// Themes whose root has `min-width: 0` instead of the base 300px.
+$nx-card-size-no-min-width: "conv-theme-twelve", "conv-theme-thirteen", "conv-theme-fourteen", "conv-theme-fifteen", "conv-theme-sixteen";
+
+@function nx-card-size-not-themes($themes) {
+    $selector: "";
+    @each $theme in $themes {
+        $selector: "#{$selector}:not(.themes-#{$theme})";
+    }
+    @return $selector;
+}
+
+@supports (zoom: 1) {
+    // Compact, at every width.
+    .notification-item.nx-card-size-compact > .notificationx-inner {
+        zoom: var(--nx-scale);
+    }
+
+    // The close button keeps its full size (35×30) so it stays easy to hit.
+    .notification-item.nx-card-size-compact .notificationx-close {
+        zoom: calc(1 / var(--nx-scale));
+    }
+
+    // The base min-width (300px), scaled, above phone widths.
+    @media (min-width: 481px) {
+        .notification-item.nx-card-size-compact#{nx-card-size-not-themes($nx-card-size-no-min-width)} {
+            min-width: calc(300px * var(--nx-scale));
+        }
+    }
+
+    // Large only where it fits (the frontend's mobile layout switches at 574px):
+    // on smaller screens a Large card shows at Default.
+    @media (min-width: 575px) {
+        .notification-item.nx-card-size-large > .notificationx-inner {
+            zoom: var(--nx-scale);
+        }
+
+        .notification-item.nx-card-size-large#{nx-card-size-not-themes($nx-card-size-no-min-width)} {
+            min-width: calc(300px * var(--nx-scale));
+        }
+    }
+}

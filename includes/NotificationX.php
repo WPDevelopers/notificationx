@@ -13,6 +13,7 @@ use NotificationX\Admin\Cron;
 use NotificationX\Admin\EntriesMailReceiver;
 use NotificationX\Admin\Settings;
 use NotificationX\Blocks\Blocks;
+use NotificationX\Core\CardSize;
 use NotificationX\Core\Database;
 use NotificationX\Core\PostType;
 use NotificationX\Core\QuickBuild;
@@ -79,6 +80,7 @@ class NotificationX {
             Admin::get_instance();
         }
         FrontEnd::get_instance();
+        CardSize::get_instance();
         add_action('admin_init', [$this, 'maybe_redirect'], 10);
         add_action('init', [$this, 'init'], 10);
         add_action('plugins_loaded', array($this, 'init_extension'));

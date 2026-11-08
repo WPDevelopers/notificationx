@@ -71,6 +71,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\CoreInstaller' => __DIR__ . '/../..' . '/includes/CoreInstaller.php',
         'NotificationX\\Core\\Ajax' => __DIR__ . '/../..' . '/includes/Core/Ajax.php',
         'NotificationX\\Core\\Analytics' => __DIR__ . '/../..' . '/includes/Core/Analytics.php',
+        'NotificationX\\Core\\CardSize' => __DIR__ . '/../..' . '/includes/Core/CardSize.php',
         'NotificationX\\Core\\Dashboard' => __DIR__ . '/../..' . '/includes/Core/Dashboard.php',
         'NotificationX\\Core\\Database' => __DIR__ . '/../..' . '/includes/Core/Database.php',
         'NotificationX\\Core\\GetData' => __DIR__ . '/../..' . '/includes/Core/GetData.php',

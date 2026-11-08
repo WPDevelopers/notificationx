@@ -46,6 +46,39 @@ export const getResThemeName = (settings) => {
     return themeName;
 };
 
+/**
+ * Card size presets: the scale of each non-default size (`--nx-scale`).
+ * Matches NotificationX\Core\CardSize::SCALES.
+ *
+ * @since x.x.x
+ */
+export const CARD_SIZE_SCALES = {
+    compact: '0.8',
+    large: '1.2',
+};
+
+/**
+ * The card size to apply, or null for Default.
+ *
+ * The server already removes `card_size` unless it applies
+ * (CardSize::normalize()); this checks again, so Default, a missing or an
+ * unexpected value, and Verified Cards themes (keys containing `_vc-`) always
+ * render exactly as before.
+ *
+ * @since x.x.x
+ */
+export const getCardSize = (settings): 'compact' | 'large' | null => {
+    const value = settings?.card_size;
+    if (typeof value !== 'string' || !Object.prototype.hasOwnProperty.call(CARD_SIZE_SCALES, value)) {
+        return null;
+    }
+    const themes = settings?.themes;
+    if (typeof themes !== 'string' || themes.includes('_vc-')) {
+        return null;
+    }
+    return value as 'compact' | 'large';
+};
+
 export const handleCloseNotification = (config, id, dispatch) => {
     let date = new Date();
     let options = {

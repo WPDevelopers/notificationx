@@ -11,6 +11,7 @@ namespace NotificationX\Extensions;
 use NotificationX\Admin\Admin;
 use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\Admin\Settings;
+use NotificationX\Core\CardSize;
 use NotificationX\Core\Rules;
 use NotificationX\Core\Database;
 use NotificationX\Core\Helper;
@@ -1941,6 +1942,30 @@ class GlobalFields {
                                         ],
                                     ],
                                     'help' => __('Set a max width for notification.', 'notificationx'),
+                                ],
+                                'card_size' => [
+                                    'label'    => __("Card Size", 'notificationx'),
+                                    'name'     => CardSize::FIELD,
+                                    'type'     => "select",
+                                    'default'  => CardSize::DEFAULT_VALUE,
+                                    'priority' => 52,
+                                    'options'  => [
+                                        'compact' => [
+                                            'label' => __('Compact', 'notificationx'),
+                                            'value' => 'compact',
+                                        ],
+                                        'default' => [
+                                            'label' => __('Default', 'notificationx'),
+                                            'value' => 'default',
+                                        ],
+                                        'large' => [
+                                            'label' => __('Large', 'notificationx'),
+                                            'value' => 'large',
+                                        ],
+                                    ],
+                                    // Only themes that support it; the list is empty until a theme family is ready.
+                                    'rules'    => Rules::includes('themes', CardSize::supported_themes()),
+                                    'help'     => __('Scale the whole card: text, image and spacing. Large shows at Default on small screens.', 'notificationx'),
                                 ],
                                 'close_button_control' => [
                                     'label'  => __("Display Close Button", 'notificationx'),
