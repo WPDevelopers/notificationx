@@ -325,7 +325,7 @@
     position: absolute;
     // left: inherit;
     bottom: inherit;
-    top: -35px;
+    top: -$nx-link-tab-top; // the card's overhang: nx-link-overhang in _common.scss
     right: 15px;
     font-size: 14px;
     text-decoration: none;

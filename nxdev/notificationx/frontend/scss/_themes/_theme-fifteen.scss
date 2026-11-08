@@ -232,8 +232,10 @@
     // "Buy now" — light-green pill straddling the top-right corner: its right edge
     // sits flush with the card edge and its lower half overlaps the card's top edge
     // (matches the Figma design: light-green background, dark-green text, no chevron).
+    $link-top: 16px;
+    @include nx-link-overhang($link-top);
     &.button-link .notificationx-link {
-        top: -16px;
+        top: -$link-top;
         right: 0;
         left: auto;
         bottom: auto;

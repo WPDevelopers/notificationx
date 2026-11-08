@@ -163,11 +163,23 @@ body.admin-bar .notificationx-frontend.nx-spacing-v2 .nx-container {
     }
 }
 // 84710: with "Use new corner spacing", stacked cards sit 12px apart (desktop and Pro mobile
-// card). The default spacing keeps 30px / 20px.
+// card). The default spacing keeps 30px / 20px. Both add what sticks out below the card.
 .notificationx-frontend.nx-spacing-v2 .nx-container {
     &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
         .notification-item:not(:last-child),
-        .notification-res-item:not(:last-child) { margin-bottom: 12px; }
+        .notification-res-item:not(:last-child) { margin-bottom: calc(12px + var(--nx-overhang-bottom, 0px)); }
+    }
+}
+// Overhang (nx-overhang): in the corners, in both spacing modes, a part that sticks out of the
+// card (the link button above it, a badge, an image) gets room of its own: above every card,
+// and below the last one. So the gap to the next card and the screen-edge spacing start at
+// that part, never at the card's edge. Cards without an overhang keep 0.
+.notificationx-frontend .nx-container {
+    &.nxc-bottom_left, &.nxc-bottom_right, &.nxc-top_left, &.nxc-top_right {
+        > .notification-item, > .notification-res-item {
+            margin-top: var(--nx-overhang-top, 0px);
+            &:last-child { margin-bottom: var(--nx-overhang-bottom, 0px); }
+        }
     }
 }
 // 80989: legacy spacing on phones. Same gap from the nearest edges in every corner.
@@ -181,7 +193,6 @@ body.admin-bar .notificationx-frontend.nx-spacing-v2 .nx-container {
             left: var(--nx-edge, 12px) !important; right: var(--nx-edge, 12px) !important; margin: 0 !important;
             .notification-item, .notification-res-item { top: auto !important; right: auto !important; bottom: 0 !important; left: 0 !important; }
             .notification-item { min-width: min(300px, 100%) !important; }
-            .notification-item.button-link { margin-top: 35px; } // room for the link button above the card
         }
         &.nxc-top_left { align-items: flex-start !important; }
     }
