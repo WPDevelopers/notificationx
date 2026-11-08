@@ -104,23 +104,40 @@ class Cron {
     public function cron_schedule($schedules) {
         $download_stats_cache_duration = Settings::get_instance()->get('settings.download_stats_cache_duration', 3);
         $reviews_cache_duration = Settings::get_instance()->get('settings.reviews_cache_duration', 3);
+        $translate = self::can_translate_labels();
 
         $schedules['nx_wp_stats_interval'] = array(
             'interval'    => MINUTE_IN_SECONDS * $download_stats_cache_duration,
             // translators: %s: no of minutes
-            'display'    => sprintf(__('Every %s minutes', 'notificationx'), $download_stats_cache_duration)
+            'display'    => sprintf($translate ? __('Every %s minutes', 'notificationx') : 'Every %s minutes', $download_stats_cache_duration)
         );
 
         $schedules['nx_wp_review_interval'] = array(
             'interval'    => MINUTE_IN_SECONDS * $reviews_cache_duration,
             // translators: %s: no of minutes
-            'display'    => sprintf(__('Every %s minutes', 'notificationx'), $reviews_cache_duration)
+            'display'    => sprintf($translate ? __('Every %s minutes', 'notificationx') : 'Every %s minutes', $reviews_cache_duration)
         );
 
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $schedules = apply_filters('nx_cron_schedules', $schedules);
 
         return $schedules;
+    }
+
+    /**
+     * Whether `cron_schedules` callbacks may translate their labels yet.
+     *
+     * Other plugins can call wp_schedule_event() before `after_setup_theme`
+     * (WooCommerce's bundled Jetpack connection does it on wp-cron), which runs
+     * every `cron_schedules` callback. Translating then trips WordPress'
+     * _load_textdomain_just_in_time "called too early" notice (WP 6.7+), so the
+     * label stays in English for that request. Schedules are rebuilt on every
+     * request and the label is display-only, so nothing is stored untranslated.
+     *
+     * @return bool
+     */
+    public static function can_translate_labels() {
+        return did_action('after_setup_theme') || doing_action('after_setup_theme');
     }
 
     public function update_data($post_id) {

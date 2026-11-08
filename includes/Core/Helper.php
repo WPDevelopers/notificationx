@@ -1120,10 +1120,12 @@ class Helper {
         // https://api.country.is/ with an empty IP, which would resolve to the
         // SERVER's country and cache nothing.
         if ($ip === '' || $ip === '127.0.0.1' || $ip === '::1') {
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             return apply_filters('nx_visitor_country_code', '', $ip);
         }
 
         if (array_key_exists($ip, $memo)) {
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             return apply_filters('nx_visitor_country_code', $memo[$ip], $ip);
         }
 
@@ -1139,6 +1141,7 @@ class Helper {
         // 'XX'/'T1' are Cloudflare's "unknown"/Tor placeholders — ignore them.
         if ($header_country !== '' && !in_array($header_country, ['XX', 'T1'], true)) {
             $memo[$ip] = $header_country;
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             return apply_filters('nx_visitor_country_code', $header_country, $ip);
         }
 
@@ -1153,12 +1156,14 @@ class Helper {
         $cached    = get_transient($cache_key);
         if (false !== $cached) {
             $memo[$ip] = $cached;
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             return apply_filters('nx_visitor_country_code', $cached, $ip);
         }
 
         $country      = '';
         // country.is over HTTPS (free, no key, no request logs). Before 3.3.5 this
         // was ip-api.com over plain HTTP: its free tier has no HTTPS (issue #184).
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $api_endpoint = apply_filters('nx_visitor_country_api', 'https://api.country.is/' . rawurlencode($ip), $ip);
         $response     = wp_remote_get($api_endpoint, ['timeout' => 3]);
 
@@ -1179,13 +1184,16 @@ class Helper {
         // visitors) doesn't re-hit the API on every
         // subsequent page load while it recovers.
         $ttl = '' !== $country
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             ? (int) apply_filters('nx_visitor_country_cache_ttl', 12 * HOUR_IN_SECONDS)
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             : (int) apply_filters('nx_visitor_country_failed_cache_ttl', 5 * MINUTE_IN_SECONDS);
         if ($ttl > 0) {
             set_transient($cache_key, $country, $ttl);
         }
 
         $memo[$ip] = $country;
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         return apply_filters('nx_visitor_country_code', $country, $ip);
     }
 
