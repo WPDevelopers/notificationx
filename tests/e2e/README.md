@@ -80,6 +80,21 @@ node tests/e2e/release-smoke.js press_bar brevo      # only these sources
 
 It writes one login session, one private post and one notification per source to the site's database, and removes them when the run ends. It never sends the authorised `send-rating` request, because that emails support; `tests/test-security-send-rating.php` covers that path with a mocked mailer.
 
+## Settings in the builder payload
+
+[builder-settings-redaction.js](builder-settings-redaction.js) checks that users who cannot edit settings get no settings form and no credentials in the admin app, and that the app still works for them:
+
+- It creates two temporary users, `nx_e2e_viewer` (author with `read_notificationx`) and `nx_e2e_creator` (contributor with `read_notificationx` + `edit_notificationx`), and deletes them when the run ends.
+- For each, and for `NX_E2E_USER`, it opens the NotificationX pages the user can reach and fails on any script error, then follows the client-side route to the settings screen (WordPress never checks that route) and expects the app to leave it.
+- It searches `window.notificationxTabs` and `GET /builder` for the integration API key and the admin email. The administrator must still see the key.
+
+```bash
+node tests/e2e/builder-settings-redaction.js         # newest notification as the edit target
+node tests/e2e/builder-settings-redaction.js 179     # this notification
+```
+
+Besides the two users, it writes one login session per user and removes them when the run ends. Console errors that also show on `dev` without the fix (React development warnings, an icon with `height="auto"`, the Dashboard's analytics request for a view-only user) are not counted; the list is in the script.
+
 ## Build With AI preset preview (Pro)
 
 `tests/e2e/preset-preview.js` in NotificationX Pro opens the Exit Intent Build With AI history with a mocked preset and checks the preview POST carries the nonce and renders. It reuses `auth.php` and `puppeteer-core` from this plugin.
