@@ -1454,6 +1454,53 @@ class Helper {
     }
 
     /**
+     * The localStorage key under which the frontend remembers a visitor's form
+     * submit for this notification on this site (submittedKey() in submitRule.ts).
+     *
+     * @since x.x.x
+     *
+     * @param int|string $nx_id Notification ID.
+     * @return string
+     */
+    public static function submitted_key( $nx_id ) {
+        return 'notificationx_submitted_' . self::storage_scope() . '_' . absint( $nx_id );
+    }
+
+    /**
+     * How long the "After a form submit" rule hides a notification once the
+     * visitor submitted its form, read the way getSubmitRule() and
+     * getSubmitDays() in submitRule.ts read it.
+     *
+     * @since x.x.x
+     *
+     * @param array $settings Notification settings.
+     * @return int|null 0 for "Never show again", 1-365 days for "a number of
+     *                  days", null when the rule doesn't apply ("Same as
+     *                  closing", or a missing or unusable setting).
+     */
+    public static function submit_hide_days( $settings ) {
+        $rule = isset( $settings['submit_reappearance'] ) ? $settings['submit_reappearance'] : '';
+        if ( 'never' === $rule ) {
+            return 0;
+        }
+        if ( 'days' !== $rule ) {
+            return null;
+        }
+        $raw  = isset( $settings['submit_hide_days'] ) ? $settings['submit_hide_days'] : null;
+        $days = 0;
+        if ( is_int( $raw ) || is_float( $raw ) ) {
+            $days = is_finite( $raw ) ? (int) floor( $raw ) : 0;
+        } elseif ( is_string( $raw ) && preg_match( '/^\s*([+-]?\d+)/', $raw, $match ) ) {
+            // The leading integer, as JavaScript's parseInt() reads it.
+            $days = (int) $match[1];
+        }
+        if ( $days < 1 ) {
+            return null;
+        }
+        return min( $days, 365 );
+    }
+
+    /**
      * The "After a form submit" fields for a notification with a form (Popup,
      * Exit Intent, Notification Bar).
      *

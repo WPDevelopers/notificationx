@@ -5,6 +5,7 @@ import {
 	submittedKey,
 	rememberSubmit,
 	isHiddenBySubmit,
+	clearSubmittedKeys,
 } from '../../../nxdev/notificationx/frontend/core/submitRule';
 
 /**
@@ -212,5 +213,41 @@ describe( 'isHiddenBySubmit', () => {
 		expect( rememberSubmit( settings( 'never' ), siteA, NOW ) ).toBe( true );
 		expect( isHiddenBySubmit( settings( 'never' ), siteB, NOW ) ).toBe( false );
 		expect( isHiddenBySubmit( settings( 'never' ), siteA, NOW ) ).toBe( true );
+	} );
+} );
+
+describe( 'clearSubmittedKeys', () => {
+	it( "removes every remembered submit of this site and keeps everything else", () => {
+		store( NOW, 'notificationx_submitted_a1b2c3d4e5_12' );
+		store( NOW, 'notificationx_submitted_a1b2c3d4e5_7' );
+		store( NOW, 'notificationx_submitted_ffffffffff_12' );
+		localStorage.setItem( 'notificationx_12', 'closed' );
+		localStorage.setItem( 'other_plugin', 'x' );
+		expect( clearSubmittedKeys( ENTRY ) ).toBe( 2 );
+		expect( Object.keys( localStorage ).sort() ).toEqual( [ 'notificationx_12', 'notificationx_submitted_ffffffffff_12', 'other_plugin' ] );
+	} );
+
+	it( 'keeps the keys of a site whose scope starts with this one', () => {
+		const site = { rest: { root: 'https://example.com/wp-json/' } };
+		const sub = { rest: { root: 'https://example.com/sub/wp-json/' } };
+		rememberSubmit( settings( 'never' ), site, NOW );
+		rememberSubmit( settings( 'never' ), sub, NOW );
+		expect( clearSubmittedKeys( site ) ).toBe( 1 );
+		expect( isHiddenBySubmit( settings( 'never' ), site, NOW ) ).toBe( false );
+		expect( isHiddenBySubmit( settings( 'never' ), sub, NOW ) ).toBe( true );
+	} );
+
+	it( 'without a scope, removes only unscoped keys', () => {
+		store( NOW, 'notificationx_submitted_12' );
+		store( NOW, 'notificationx_submitted_a1b2c3d4e5_12' );
+		expect( clearSubmittedKeys( {} ) ).toBe( 1 );
+		expect( Object.keys( localStorage ) ).toEqual( [ 'notificationx_submitted_a1b2c3d4e5_12' ] );
+	} );
+
+	it( 'does nothing when storage is blocked', () => {
+		jest.spyOn( window, 'localStorage', 'get' ).mockImplementation( () => {
+			throw new DOMException( 'blocked', 'SecurityError' );
+		} );
+		expect( clearSubmittedKeys( ENTRY ) ).toBe( 0 );
 	} );
 } );

@@ -207,6 +207,9 @@ class Test_Submit_Reappearance_Fields extends WP_UnitTestCase {
 		$frontend = FrontEnd::get_instance();
 		$this->assertSame( Helper::storage_scope(), $frontend->get_localize_data( array() )['storage_scope'] );
 		$this->assertSame( Helper::storage_scope(), $frontend->get_localize_data( array( 'cross' => true ) )['storage_scope'] );
+		// NotificationX Pro builds the Cross Domain snippet through this filter (Admin\XSS).
+		$snippet = apply_filters( 'nx_frontend_localize_data', array( 'all_active' => true, 'cross' => true ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- the plugin's own hook.
+		$this->assertSame( Helper::storage_scope(), $snippet['storage_scope'] );
 	}
 
 	/**

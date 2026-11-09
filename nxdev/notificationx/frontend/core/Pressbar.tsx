@@ -13,6 +13,8 @@ import { loadAssets } from "./LoadAssets";
 import BarCoupon from './helper/BarCoupon';
 import { themes_has_bg } from "../../shared/helpers";
 import { hasBarReserve, releaseBarReserve, reportBarHeight } from "./barReserve";
+import { rememberSubmit } from "./submitRule";
+import { watchFormSuccess } from "./watchFormSuccess";
 
 /**
  * @example
@@ -209,6 +211,17 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
             setClosed(true);
         }
     }, [timeConfig.expired])
+
+    // "After a form submit" (submitRule.ts): a successful submit in a form of
+    // an Elementor bar is remembered. The bar stays on screen; it is hidden
+    // from the next page load on. Stores nothing for "Same as closing".
+    useEffect(() => {
+        const root = elementorRef?.current as unknown as HTMLElement;
+        if (!settings?.elementor_id || !root) return;
+        return watchFormSuccess(root, settings?.nx_id, () => {
+            rememberSubmit(settings, frontendContext);
+        });
+    }, [settings?.elementor_id, content]);
 
     useEffect(() => {
         setTimeout(() => {

@@ -159,6 +159,37 @@ export const rememberSubmit = (settings, entry: SubmitEntry, now: number = Date.
 };
 
 /**
+ * Forget every remembered submit of this site (all its notifications), the
+ * way the cookie notice's "Reject" with cookie removal clears the close
+ * cookies. Keys of other sites sharing the storage (Cross Domain embeds,
+ * sub-directory multisite) are kept. Returns how many keys were removed.
+ */
+export const clearSubmittedKeys = (entry: SubmitEntry): number => {
+    const storage = getStorage();
+    if (!storage) {
+        return 0;
+    }
+    const scope = getStorageScope(entry);
+    const prefix = SUBMITTED_KEY_PREFIX + (scope ? `${scope}_` : '');
+    // Only this site's keys: its prefix followed by a notification ID alone, so
+    // a site whose scope starts with this one's (example_com_sub) is not matched.
+    const own = new RegExp('^' + prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[0-9]+$');
+    const keys: string[] = [];
+    try {
+        for (let i = 0; i < storage.length; i++) {
+            const key = storage.key(i);
+            if (key && own.test(key)) {
+                keys.push(key);
+            }
+        }
+    } catch (e) {
+        return 0;
+    }
+    keys.forEach((key) => removeKey(storage, key));
+    return keys.length;
+};
+
+/**
  * Whether the notification is hidden because the visitor submitted its form.
  *
  * - `same_as_close` and the builder preview: never (the key isn't read).

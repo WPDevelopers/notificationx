@@ -132,6 +132,14 @@ Free 3.3.5 moves more Pro-only code to NotificationX Pro 3.2.5 and raises `Admin
 - The YouTube subscribe button and Google's `platform.js` (`Analytics.tsx`) are in notificationx-pro `nxdev/frontend-themes/features/ytSubscribe.tsx`, rendered through `nx_frontend_link_widget`. Free never loads `platform.js`.
 - Free's `Types\Inline` keeps only its upsell fields and `show_on_exclude()`; the stock-theme entry filter is Pro's.
 
+### Form submits and "After a Form Submit" (free x.x.x)
+
+Popup, Exit Intent and Elementor-built Notification Bars have an "After a Form Submit" setting (`submit_reappearance`: `same_as_close`, the default, `days` or `never`; `submit_hide_days`). Free remembers a successful submit in the visitor's browser (`core/submitRule.ts`, localStorage key `notificationx_submitted_<storage_scope>_<nx_id>`) and no longer stores a close for it. There is no new hook:
+
+- **A theme rendered through `nx_exit_intent_theme`** gets the rule when it sends its form with the `submitEntry` prop and closes with the `handleClose` prop, as Pro's theme seven does. `submitEntry` remembers the submit only when the server accepted it, and it still resolves `true` once the request was sent.
+- **An add-on form that posts another way** is not a submit for this rule: closing it stores a close, as before.
+- **Elementor designs** (Exit Intent, Notification Bar) are watched by `core/watchFormSuccess.ts`: Elementor Pro's `submit_success` event, the NotificationX Form widget's `nx:exit-intent-close` event, or a success message appearing.
+
 ### Without NotificationX Pro, or with an older Pro
 
 No fatal error with any Pro version: Pro 3.2.3 and older check `class_exists( 'NotificationX\Core\Inline' )` before using the free inline classes, and nothing in them extends a deleted class at load time. Free 3.3.4 handles what they cannot render:

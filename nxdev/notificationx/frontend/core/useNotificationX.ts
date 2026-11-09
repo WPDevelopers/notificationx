@@ -629,7 +629,9 @@ const useNotificationX = (props: any) => {
                 const key = dismissKey(config);
                 if (sessionStorage.getItem(key) === 'closed') return true;
                 const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                return new RegExp('(?:^|; )' + escaped + '=').test(document.cookie);
+                if (new RegExp('(?:^|; )' + escaped + '=').test(document.cookie)) return true;
+                // "After a form submit" (submitRule.ts); false for "Same as closing".
+                return isHiddenBySubmit(config, props.config);
             };
 
             const trigger = (exitItem) => {
