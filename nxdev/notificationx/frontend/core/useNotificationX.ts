@@ -9,6 +9,7 @@ import moment from "moment";
 import usePreviewType from "./usePreviewType";
 import { releaseBarReserve, reservedBarId } from "./barReserve";
 import { loadAddonScripts, needsAddonScripts } from "./addons";
+import { isHiddenBySubmit } from "./submitRule";
 
 const useNotificationX = (props: any) => {
 
@@ -60,6 +61,15 @@ const useNotificationX = (props: any) => {
 
             // Check if popup was closed in this session
             if (isPopupClosedInSession(config)) {
+                args?.intervalID && clearInterval(args?.intervalID);
+                args?.timeoutID && clearTimeout(args?.timeoutID);
+                return;
+            }
+
+            // "After a form submit" (submitRule.ts): hidden while the visitor's
+            // submit counts. Reads nothing for "Same as closing" or in the
+            // builder preview, so those keep today's behaviour.
+            if (isHiddenBySubmit(config, props.config)) {
                 args?.intervalID && clearInterval(args?.intervalID);
                 args?.timeoutID && clearTimeout(args?.timeoutID);
                 return;

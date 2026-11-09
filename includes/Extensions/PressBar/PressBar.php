@@ -1156,6 +1156,12 @@ class PressBar extends Extension {
                 Rules::is('source', $this->id),
             ]),
         ];
+        // "After a form submit": only a bar built with Elementor can hold a form
+        // (elementor_id is false until a design is linked, as for the Remove button).
+        $fields['visibility']['fields'] += Helper::submit_reappearance_fields( Rules::logicalRule([
+            Rules::is('source', $this->id),
+            Rules::is('elementor_id', false, true),
+        ]) );
         return $fields;
     }
 

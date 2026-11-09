@@ -1435,5 +1435,68 @@ class Helper {
         return (bool) wp_delete_post( $post_id, true );
     }
 
+    /**
+     * A short, stable id for this site, used to scope what the frontend stores
+     * in the visitor's browser (the "submitted" key of submitRule.ts).
+     *
+     * Two NotificationX sites can share one browser storage: subsites of a
+     * sub-directory multisite, or Cross Domain Notice embeds from different
+     * sites on one page. Their notification IDs overlap, so the key carries
+     * this scope. It comes from the `home` option rather than home_url(), which
+     * language plugins filter per language.
+     *
+     * @since x.x.x
+     *
+     * @return string 10 lowercase hex characters.
+     */
+    public static function storage_scope() {
+        return substr( md5( (string) get_option( 'home' ) ), 0, 10 );
+    }
+
+    /**
+     * The "After a form submit" fields for a notification with a form (Popup,
+     * Exit Intent, Notification Bar).
+     *
+     * `submit_reappearance` decides what a visitor sees after a successful form
+     * submit. `same_as_close` (the default, and what every saved notification
+     * gets) keeps today's behaviour: a submit is remembered like a close. The
+     * frontend reads it in nxdev/notificationx/frontend/core/submitRule.ts.
+     *
+     * @since x.x.x
+     *
+     * @param array|\NotificationX\Core\Rule $rules When the select is shown.
+     * @return array Both fields, keyed by name.
+     */
+    public static function submit_reappearance_fields( $rules ) {
+        return [
+            'submit_reappearance' => [
+                'label'   => __( 'After a Form Submit', 'notificationx' ),
+                'name'    => 'submit_reappearance',
+                'type'    => 'select',
+                'default' => 'same_as_close',
+                'options' => GlobalFields::get_instance()->normalize_fields( [
+                    'same_as_close' => __( 'Same as closing', 'notificationx' ),
+                    'days'          => __( "Don't show again for a number of days", 'notificationx' ),
+                    'never'         => __( 'Never show again', 'notificationx' ),
+                ] ),
+                'help'    => __( 'What a visitor sees after submitting the form. "Same as closing" uses the close rule. Safari may forget a submit after 7 days without a visit.', 'notificationx' ),
+                'rules'   => $rules,
+            ],
+            'submit_hide_days' => [
+                'label'       => __( 'Hide After a Submit For', 'notificationx' ),
+                'name'        => 'submit_hide_days',
+                'type'        => 'number',
+                'default'     => 30,
+                'min'         => 1,
+                'max'         => 365,
+                'step'        => 1,
+                'description' => __( 'days', 'notificationx' ),
+                'rules'       => Rules::logicalRule( [
+                    $rules,
+                    Rules::is( 'submit_reappearance', 'days' ),
+                ] ),
+            ],
+        ];
+    }
 
 }

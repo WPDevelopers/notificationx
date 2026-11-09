@@ -568,6 +568,8 @@ class FrontEnd {
             // Cross-domain embeds have no WordPress enqueue: the runtime adds these.
             $data['external_styles'] = $this->get_external_styles(true);
         }
+        // Scopes the visitor's "submitted" key to this site (submitRule.ts).
+        $data['storage_scope'] = Helper::storage_scope();
         return $data;
     }
 
