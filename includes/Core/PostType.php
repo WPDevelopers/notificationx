@@ -136,6 +136,7 @@ class PostType {
         $tabs['settings']['settingsRedirect'] = ! current_user_can( 'edit_notificationx_settings' );
         $tabs['settings']['analytics']        = $tabs['analytics'];
         $tabs['admin_url']                    = get_admin_url();
+        $tabs['admin_menu']                   = $this->get_admin_menu_items();
         // Posted with every builder preview; see Preview::is_authorized_preview_request().
         $tabs['preview_nonce']                = current_user_can( 'edit_notificationx' ) ? wp_create_nonce( Preview::NONCE_ACTION ) : '';
         $tabs['nx_feedback_shared']           = get_option('nx_feedback_shared',false);
@@ -154,6 +155,34 @@ class PostType {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $tabs = apply_filters( 'nx_builder_configs', $tabs );
         return $tabs;
+    }
+
+    /**
+     * The NotificationX submenu pages the current user can open, for the
+     * admin app's top navigation bar.
+     *
+     * WordPress only adds a submenu page when the user has its capability, so
+     * this list already matches the sidebar, including pages added by Pro.
+     *
+     * @since x.x.x
+     * @return array[] List of `slug` and `title` pairs.
+     */
+    public function get_admin_menu_items() {
+        global $submenu;
+        $items = [];
+        if ( empty( $submenu['nx-admin'] ) || ! is_array( $submenu['nx-admin'] ) ) {
+            return $items;
+        }
+        foreach ( $submenu['nx-admin'] as $item ) {
+            if ( empty( $item[2] ) ) {
+                continue;
+            }
+            $items[] = [
+                'slug'  => (string) $item[2],
+                'title' => wp_strip_all_tags( (string) $item[0] ),
+            ];
+        }
+        return $items;
     }
 
     /**

@@ -1,0 +1,2289 @@
+// Modern admin UI: top navigation bar (every page) and the Dashboard.
+// Imported inside `#notificationx`; modal rules use @at-root because
+// react-modal renders into <body>.
+
+$nx-primary: #6a4bff;
+$nx-primary-hover: #5838f5;
+$nx-primary-soft: #f1eeff;
+$nx-primary-border: #dcd4ff;
+$nx-ink: #101828;
+$nx-text: #344054;
+$nx-muted: #667085;
+$nx-subtle: #98a2b3;
+$nx-border: #eaecf0;
+$nx-surface: #ffffff;
+$nx-hover: #f5f6fa;
+$nx-radius: 14px;
+$nx-radius-sm: 10px;
+$nx-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+$nx-shadow-hover: 0 12px 28px -12px rgba(16, 24, 40, 0.18);
+$nx-ring: 0 0 0 3px rgba(106, 75, 255, 0.25);
+
+$nx-tones: (
+    violet: (#6a4bff, #f1eeff),
+    blue: (#1570ef, #eff8ff),
+    green: (#079455, #ecfdf3),
+    amber: (#dc6803, #fffaeb),
+    pink: (#dd2590, #fdf2fa),
+    teal: (#0e9384, #f0fdf9),
+);
+
+@mixin nx-focus {
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+    &:focus-visible {
+        outline: none;
+        box-shadow: $nx-ring;
+    }
+}
+
+@mixin nx-tone($name) {
+    $tone: map-get($nx-tones, $name);
+    color: nth($tone, 1);
+    background: nth($tone, 2);
+}
+
+// ---------------------------------------------------------------------------
+// Buttons (scoped so the settings page's own `.nx-button` keeps its style)
+// ---------------------------------------------------------------------------
+.nx-topbar,
+.nx-dash {
+    .nx-icon {
+        flex: none;
+        display: block;
+    }
+
+    .nx-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: 38px;
+        padding: 0 16px;
+        border: 1px solid transparent;
+        border-radius: $nx-radius-sm;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1;
+        white-space: nowrap;
+        text-decoration: none;
+        cursor: pointer;
+        box-sizing: border-box;
+        transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+        @include nx-focus;
+
+        &--lg {
+            height: 44px;
+            padding: 0 20px;
+            font-size: 15px;
+        }
+
+        &--block {
+            width: 100%;
+        }
+
+        &--primary {
+            background: $nx-primary;
+            color: #fff;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            &:hover,
+            &:focus {
+                background: $nx-primary-hover;
+                color: #fff;
+            }
+        }
+
+        &--secondary {
+            background: $nx-surface;
+            border-color: #d0d5dd;
+            color: $nx-text;
+            box-shadow: $nx-shadow;
+            &:hover,
+            &:focus {
+                background: $nx-hover;
+                color: $nx-ink;
+            }
+        }
+
+        &--ghost {
+            height: 34px;
+            padding: 0 10px;
+            background: transparent;
+            color: $nx-primary;
+            &:hover,
+            &:focus {
+                background: $nx-primary-soft;
+                color: $nx-primary-hover;
+            }
+        }
+
+        &--upgrade {
+            background: #fff7ed;
+            border-color: #fed7aa;
+            color: #c2410c;
+            &:hover,
+            &:focus {
+                background: #ffedd5;
+                color: #9a3412;
+            }
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Floating help button (every NotificationX page except the builder)
+// ---------------------------------------------------------------------------
+.nx-help-fab {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    z-index: 9990;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    font-family: "DM Sans", sans-serif;
+
+    @media screen and (max-width: 600px) {
+        right: 16px;
+        bottom: 16px;
+    }
+
+    .nx-icon {
+        flex: none;
+        display: block;
+    }
+
+    &__toggle {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: $nx-primary;
+        color: #fff;
+        cursor: pointer;
+        box-shadow: 0 12px 28px -8px rgba(106, 75, 255, 0.6), 0 2px 6px rgba(16, 24, 40, 0.12);
+        transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+
+        &:hover {
+            background: $nx-primary-hover;
+            transform: translateY(-1px);
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(106, 75, 255, 0.3), 0 12px 28px -8px rgba(106, 75, 255, 0.6);
+        }
+
+        .nx-icon,
+        .nx-help-fab__open-icon {
+            position: absolute;
+            transition: opacity 0.18s ease, transform 0.18s ease;
+        }
+    }
+
+    &__open-icon {
+        display: inline-flex;
+    }
+
+    // NotificationX bell: rings, then the check draws in (loops every 6s).
+    &__mark {
+        display: block;
+        overflow: visible;
+    }
+
+    &__bell {
+        transform-box: fill-box;
+        transform-origin: 50% 4%;
+        animation: nx-help-fab-ring 6s ease-in-out infinite;
+    }
+
+    &__bell-body {
+        fill: #fff;
+    }
+
+    &__bell-accent {
+        fill: #a99bff;
+    }
+
+    &__check {
+        fill: none;
+        stroke: #21d8a3;
+        stroke-width: 17;
+        stroke-linejoin: round;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        animation: nx-help-fab-check 6s ease-in-out infinite;
+    }
+
+    &__toggle:hover .nx-help-fab__bell {
+        animation-duration: 3s;
+    }
+
+    &__close-icon {
+        opacity: 0;
+        transform: rotate(-90deg) scale(0.6);
+    }
+
+    &.is-open .nx-help-fab__toggle {
+        background: $nx-ink;
+        box-shadow: 0 12px 28px -10px rgba(16, 24, 40, 0.5);
+
+        .nx-help-fab__open-icon {
+            opacity: 0;
+            transform: rotate(90deg) scale(0.6);
+        }
+
+        .nx-help-fab__close-icon {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    &__panel {
+        width: 320px;
+        max-width: calc(100vw - 32px);
+        overflow: hidden;
+        border: 1px solid $nx-border;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 24px 48px -16px rgba(16, 24, 40, 0.28), 0 6px 12px -6px rgba(16, 24, 40, 0.1);
+        transform-origin: bottom right;
+        animation: nx-help-fab-in 0.16s ease-out;
+
+        &[hidden] {
+            display: none;
+        }
+    }
+
+    &__header {
+        padding: 16px 18px 14px;
+        border-bottom: 1px solid #f2f4f7;
+        background: linear-gradient(180deg, #f8f7ff 0%, #fff 100%);
+
+        strong {
+            display: block;
+            color: $nx-ink;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        span {
+            display: block;
+            margin-top: 2px;
+            color: $nx-muted;
+            font-size: 13px;
+        }
+    }
+
+    &__list {
+        margin: 0;
+        padding: 6px;
+        list-style: none;
+
+        li {
+            margin: 0;
+        }
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        border-radius: 10px;
+        color: inherit;
+        text-decoration: none;
+        transition: background-color 0.15s ease;
+
+        &:hover,
+        &:focus-visible {
+            background: $nx-hover;
+            outline: none;
+
+            .nx-help-fab__external {
+                color: $nx-primary;
+            }
+        }
+
+        &:focus {
+            box-shadow: none;
+        }
+
+        &:focus-visible {
+            box-shadow: $nx-ring;
+        }
+
+        &.is-pro {
+            margin-bottom: 4px;
+            background: #fff7ed;
+
+            &:hover,
+            &:focus-visible {
+                background: #ffedd5;
+            }
+        }
+    }
+
+    &__icon {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+    }
+
+    .nx-help-fab__item.is-pro .nx-help-fab__icon { background: #ff9940; color: #fff; }
+    .nx-help-fab__item.is-support .nx-help-fab__icon { @include nx-tone(violet); }
+    .nx-help-fab__item.is-feature .nx-help-fab__icon { @include nx-tone(amber); }
+    .nx-help-fab__item.is-community .nx-help-fab__icon { @include nx-tone(green); }
+
+    &__text {
+        flex: 1;
+        min-width: 0;
+
+        strong {
+            display: block;
+            color: $nx-ink;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.35;
+        }
+
+        span {
+            display: block;
+            margin-top: 1px;
+            color: $nx-muted;
+            font-size: 12.5px;
+            line-height: 1.4;
+        }
+    }
+
+    &__external {
+        color: #d0d5dd;
+        transition: color 0.15s ease;
+    }
+}
+
+@keyframes nx-help-fab-ring {
+    0%, 22%, 100% { transform: rotate(0); }
+    3% { transform: rotate(14deg); }
+    7% { transform: rotate(-12deg); }
+    11% { transform: rotate(8deg); }
+    15% { transform: rotate(-5deg); }
+    19% { transform: rotate(2deg); }
+}
+
+@keyframes nx-help-fab-check {
+    0%, 20% { stroke-dashoffset: 1; opacity: 1; }
+    30%, 88% { stroke-dashoffset: 0; opacity: 1; }
+    96%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes nx-help-fab-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Top navigation bar
+// ---------------------------------------------------------------------------
+.nx-topbar {
+    position: sticky;
+    top: 32px;
+    z-index: 50;
+    margin: 16px 0 24px;
+    font-family: "DM Sans", sans-serif;
+
+    @media screen and (max-width: 782px) {
+        position: static;
+    }
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        min-height: 60px;
+        padding: 10px 12px 10px 20px;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: saturate(180%) blur(12px);
+        border: 1px solid $nx-border;
+        border-radius: 16px;
+        box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.03);
+        box-sizing: border-box;
+
+        @media screen and (max-width: 1279px) {
+            flex-wrap: wrap;
+            row-gap: 10px;
+            padding: 12px;
+        }
+    }
+
+    &__brand {
+        flex: none;
+        display: flex;
+        align-items: center;
+        padding: 4px 6px 4px 0;
+        border-radius: 8px;
+        @include nx-focus;
+
+        svg {
+            display: block;
+            height: auto;
+        }
+    }
+
+    &__nav {
+        flex: 1 1 auto;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        min-width: 0;
+        overflow-x: auto;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media screen and (max-width: 1279px) {
+            order: 3;
+            flex-basis: 100%;
+            padding-top: 10px;
+            border-top: 1px solid $nx-border;
+        }
+    }
+
+    &__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: 38px;
+        padding: 0 12px;
+        border-radius: $nx-radius-sm;
+        color: #475467;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1;
+        white-space: nowrap;
+        text-decoration: none;
+        transition: background-color 0.15s ease, color 0.15s ease;
+        @include nx-focus;
+
+        .nx-icon {
+            color: $nx-subtle;
+            transition: color 0.15s ease;
+        }
+
+        &:hover {
+            background: $nx-hover;
+            color: $nx-ink;
+            .nx-icon {
+                color: $nx-text;
+            }
+        }
+
+        &.is-active {
+            background: $nx-primary-soft;
+            color: $nx-primary;
+            font-weight: 600;
+            .nx-icon {
+                color: $nx-primary;
+            }
+        }
+    }
+
+    &__actions {
+        flex: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+    }
+
+    &__meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-right: 4px;
+
+        > span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: #f2f4f7;
+            color: $nx-muted;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        @media screen and (max-width: 1599px) {
+            display: none;
+        }
+    }
+
+    // Make room for the menu on mid-size screens.
+    @media screen and (max-width: 1599px) {
+        .nx-button--upgrade {
+            width: 38px;
+            padding: 0;
+
+            span {
+                display: none;
+            }
+        }
+    }
+
+    @media screen and (min-width: 1280px) and (max-width: 1439px) {
+        &__inner {
+            gap: 16px;
+        }
+
+        &__link {
+            padding: 0 10px;
+
+            .nx-icon {
+                display: none;
+            }
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        &__brand svg {
+            width: 124px;
+        }
+
+        .nx-topbar__actions .nx-topbar__icon-btn {
+            display: none;
+        }
+    }
+
+    &__version.is-pro {
+        background: #fff7ed;
+        color: #c2410c;
+    }
+
+    &__icon-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: $nx-radius-sm;
+        color: $nx-muted;
+        text-decoration: none;
+        transition: background-color 0.15s ease, color 0.15s ease;
+        @include nx-focus;
+
+        &:hover {
+            background: $nx-hover;
+            color: $nx-ink;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Dashboard
+// ---------------------------------------------------------------------------
+.nx-dash {
+    // WrapperWithLoader is a flex row; without these the page sizes to its content.
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-bottom: 48px;
+    color: $nx-text;
+    font-size: 14px;
+    line-height: 1.5;
+
+    h1,
+    h2,
+    h3,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .nx-card {
+        background: $nx-surface;
+        border: 1px solid $nx-border;
+        border-radius: $nx-radius;
+        box-shadow: $nx-shadow;
+        box-sizing: border-box;
+
+        &__header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px 16px;
+            margin-bottom: 20px;
+        }
+
+        &__title {
+            color: $nx-ink;
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        &__subtitle {
+            margin-top: 2px;
+            color: $nx-muted;
+            font-size: 13.5px;
+        }
+    }
+
+    .nx-badge {
+        display: inline-flex;
+        align-items: center;
+        height: 22px;
+        padding: 0 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+
+        &--pro {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+    }
+
+    .nx-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: $nx-primary;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 6px;
+        @include nx-focus;
+
+        .nx-icon {
+            transition: transform 0.15s ease;
+        }
+
+        &:hover {
+            color: $nx-primary-hover;
+            .nx-icon {
+                transform: translateX(2px);
+            }
+        }
+    }
+
+    .nx-dash-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+
+        &--main {
+            grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+        }
+
+        &--half {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media screen and (max-width: 1100px) {
+            &--main,
+            &--half {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+    }
+
+    // Welcome header ---------------------------------------------------------
+    .nx-dash-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px 24px;
+        margin: 20px 0 24px;
+
+        &__intro {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        &__mark {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            border: 1px solid $nx-border;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #fff 0%, #f6f4ff 100%);
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05), 0 8px 20px -12px rgba(86, 20, 213, 0.35);
+
+            svg {
+                display: block;
+                height: auto;
+            }
+        }
+
+        &__title {
+            margin: 0 !important;
+            color: $nx-ink;
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+
+            @media screen and (max-width: 600px) {
+                font-size: 21px;
+            }
+        }
+
+        &__actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+
+        // Plugin versions: one pill, split into Free / Pro when Pro is active.
+        &__versions {
+            display: inline-flex;
+            align-items: stretch;
+            margin-right: 6px;
+            overflow: hidden;
+            border: 1px solid $nx-border;
+            border-radius: 999px;
+            background: #fff;
+            white-space: nowrap;
+        }
+
+        &__version {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 11px;
+            color: $nx-muted;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.3;
+            font-variant-numeric: tabular-nums;
+
+            & + .nx-dash-header__version {
+                border-left: 1px solid $nx-border;
+            }
+
+            &.is-pro {
+                background: #fff7ed;
+                color: #c2410c;
+
+                .nx-dash-header__version-label {
+                    color: #9a3412;
+                }
+            }
+        }
+
+        &__version-label {
+            color: $nx-text;
+            font-weight: 600;
+        }
+    }
+
+    // Locked (free) performance chart ------------------------------------------------
+    .nx-dash-locked-chart {
+        position: relative;
+        flex: 1;
+        min-height: 300px;
+        overflow: hidden;
+        border: 1px solid $nx-border;
+        border-radius: 12px;
+        background: #fff;
+
+        &__graph {
+            position: absolute;
+            inset: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        // Light veil: the graph stays readable, the panel gets the focus.
+        &__overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background:
+                radial-gradient(closest-side, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.55) 70%, rgba(241, 238, 255, 0.35)),
+                linear-gradient(180deg, rgba(106, 75, 255, 0.04), rgba(106, 75, 255, 0.10));
+        }
+
+        &__panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 340px;
+            padding: 24px 28px;
+            border: 1px solid rgba(220, 212, 255, 0.9);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.86);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 20px 40px -16px rgba(54, 27, 191, 0.35);
+            text-align: center;
+
+            h3 {
+                margin-top: 14px;
+                color: $nx-ink;
+                font-size: 17px;
+                font-weight: 700;
+            }
+
+            p {
+                margin: 6px 0 18px;
+                color: $nx-muted;
+                font-size: 13.5px;
+                line-height: 1.55;
+            }
+
+            .nx-button {
+                box-shadow: 0 10px 24px -10px rgba(106, 75, 255, 0.8);
+            }
+        }
+
+        &__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            @include nx-tone(violet);
+        }
+    }
+
+    // Announcement -----------------------------------------------------------
+    .nx-dash-announce {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 10px 10px 12px;
+        background: linear-gradient(90deg, #f4f1ff 0%, #f9f8ff 100%);
+        border: 1px solid $nx-primary-border;
+        border-radius: 12px;
+
+        &__badge {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            height: 24px;
+            padding: 0 9px;
+            border-radius: 999px;
+            background: $nx-primary;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        &__text {
+            flex: 1;
+            min-width: 0;
+            color: $nx-text;
+            font-size: 14px;
+
+            strong {
+                color: $nx-ink;
+                font-weight: 600;
+            }
+
+            span {
+                color: $nx-muted;
+            }
+        }
+
+        &__link {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: $nx-primary;
+            font-size: 13.5px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            @include nx-focus;
+
+            &:hover {
+                color: $nx-primary-hover;
+            }
+        }
+
+        &__close {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            border: 0;
+            border-radius: 8px;
+            background: transparent;
+            color: $nx-muted;
+            cursor: pointer;
+            @include nx-focus;
+
+            &:hover {
+                background: rgba(106, 75, 255, 0.1);
+                color: $nx-ink;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            flex-wrap: wrap;
+            &__text {
+                flex-basis: calc(100% - 50px);
+                order: 2;
+            }
+            &__close {
+                margin-left: auto;
+            }
+        }
+    }
+
+    // Hero ---------------------------------------------------------------------
+    .nx-dash-hero {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 400px);
+        align-items: center;
+        gap: 40px;
+        padding: 32px;
+        overflow: hidden;
+        background:
+            radial-gradient(600px 240px at 100% 0%, rgba(106, 75, 255, 0.10), transparent 70%),
+            radial-gradient(400px 200px at 0% 100%, rgba(0, 249, 172, 0.08), transparent 70%),
+            $nx-surface;
+
+        @media screen and (max-width: 900px) {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 24px;
+            padding: 24px;
+        }
+
+        &__title {
+            max-width: 620px;
+            margin-top: 14px !important;
+            color: $nx-ink;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+
+            @media screen and (max-width: 1280px) {
+                font-size: 24px;
+            }
+        }
+
+        &__desc {
+            max-width: 620px;
+            margin-top: 10px !important;
+            color: $nx-muted;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        &__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        &__media {
+            display: block;
+            width: 100%;
+            padding: 0;
+            border: 0;
+            border-radius: 12px;
+            background: transparent;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 18px 40px -18px rgba(54, 27, 191, 0.45);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            @include nx-focus;
+
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 24px 48px -18px rgba(54, 27, 191, 0.55);
+            }
+        }
+    }
+
+    .nx-dash-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 26px;
+        padding: 0 10px;
+        border-radius: 999px;
+        background: $nx-primary-soft;
+        color: $nx-primary;
+        font-size: 12.5px;
+        font-weight: 600;
+    }
+
+    // Overview (KPIs) ---------------------------------------------------------
+    .nx-dash-stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+
+        @media screen and (max-width: 1100px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media screen and (max-width: 520px) {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 12px;
+        }
+    }
+
+    .nx-dash-stat {
+        --nx-stat: #{$nx-primary};
+        --nx-stat-soft: #{$nx-primary-soft};
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        overflow: hidden;
+        padding: 16px 18px;
+        color: inherit;
+        text-decoration: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+        @include nx-focus;
+
+        &.is-views { --nx-stat: #1570ef; --nx-stat-soft: #eff8ff; }
+        &.is-clicks { --nx-stat: #079455; --nx-stat-soft: #ecfdf3; }
+        &.is-ctr { --nx-stat: #dc6803; --nx-stat-soft: #fffaeb; }
+
+        // Soft colour wash in the corner.
+        &::before {
+            content: "";
+            position: absolute;
+            top: -70px;
+            right: -70px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: radial-gradient(closest-side, var(--nx-stat-soft), transparent);
+            pointer-events: none;
+        }
+
+        &.is-link:hover,
+        &.is-link:focus-visible {
+            border-color: $nx-primary-border;
+            box-shadow: $nx-shadow-hover;
+            transform: translateY(-2px);
+
+            .nx-dash-stat__arrow {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media screen and (min-width: 1101px) and (max-width: 1439px) {
+            gap: 12px;
+            padding: 14px 16px;
+
+            .nx-dash-stat__icon {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+            }
+        }
+
+        &__icon {
+            position: relative;
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--nx-stat-soft);
+            color: var(--nx-stat);
+        }
+
+        &__body {
+            position: relative;
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        &__label {
+            overflow: hidden;
+            color: $nx-muted;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        &__value {
+            margin-top: 2px;
+            color: $nx-ink;
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+
+            small {
+                margin-left: 2px;
+                color: $nx-muted;
+                font-size: 15px;
+                font-weight: 600;
+            }
+        }
+
+        &__caption {
+            margin-top: 2px;
+            color: $nx-subtle;
+            font-size: 12.5px;
+        }
+
+        &__arrow {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            background: var(--nx-stat);
+            color: #fff;
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+    }
+
+    // Performance + integrations -----------------------------------------------
+    .nx-dash-performance,
+    .nx-dash-integrations {
+        display: flex;
+        flex-direction: column;
+        padding: 24px;
+    }
+
+    .nx-dash-performance__body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 300px;
+
+        > div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nx-analytics-filter-wrapper {
+            margin: 0 0 16px;
+
+            .nx-analytics-filter {
+                gap: 10px;
+                margin: 0;
+
+                > * {
+                    margin: 0;
+                }
+
+                .nx-analytic-select-wrapper {
+                    min-width: 220px;
+                    max-width: 260px;
+
+                    .analytics-select__control {
+                        min-height: 38px;
+                        padding: 0 0 0 10px;
+                        border: 1px solid #d0d5dd;
+                        border-radius: $nx-radius-sm;
+                        box-shadow: $nx-shadow;
+                    }
+
+                    .analytics-select__multi-value {
+                        margin: 2px;
+                        border-radius: 999px;
+                        background: $nx-primary-soft;
+                    }
+
+                    .analytics-select__menu {
+                        z-index: 999;
+                        border-radius: $nx-radius-sm;
+                    }
+                }
+
+                .wprf-control-wrapper .components-button {
+                    min-height: 38px;
+                    padding: 4px 14px;
+                    border: 1px solid #d0d5dd;
+                    border-radius: $nx-radius-sm;
+                    background: #fff;
+                    color: $nx-text;
+                    font-size: 14px;
+                    font-weight: 500;
+                    box-shadow: $nx-shadow;
+                }
+            }
+        }
+
+        .nx-analytics-graph-wrapper {
+            padding: 0;
+            background: transparent;
+        }
+    }
+
+    .nx-dash-integrations__grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        flex: 1;
+        align-content: start;
+        margin: 0 0 20px;
+        padding: 0;
+        list-style: none;
+
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 56px;
+            margin: 0;
+            padding: 0 12px;
+            border: 1px solid $nx-border;
+            border-radius: $nx-radius-sm;
+            background: #fcfcfd;
+            transition: border-color 0.15s ease, background-color 0.15s ease;
+
+            &:hover {
+                border-color: $nx-primary-border;
+                background: #fff;
+            }
+
+            img {
+                display: block;
+                max-width: 100%;
+                max-height: 20px;
+                object-fit: contain;
+            }
+
+            &.is-padded img {
+                max-height: 46px;
+            }
+        }
+    }
+
+    // Recent notifications -----------------------------------------------------
+    // Positioned above the cards that follow so the row actions menu can
+    // open past the bottom of the table.
+    .nx-dash-recent {
+        position: relative;
+        z-index: 3;
+        margin-bottom: 0;
+        padding: 24px;
+
+        .nx-card__header {
+            margin-bottom: 16px;
+        }
+
+        .nx-admin-items .nx-list-table-wrapper {
+            margin: 0;
+            border: 1px solid $nx-border;
+            border-radius: 12px;
+        }
+
+        .nx-admin-items table.nx-dash-table {
+            width: 100%;
+            margin: 0;
+            border: 0;
+            border-spacing: 0;
+            border-collapse: separate;
+            table-layout: fixed;
+            box-shadow: none;
+            background: transparent;
+
+            thead tr td {
+                height: auto;
+                padding: 11px 16px;
+                border-bottom: 1px solid $nx-border;
+                border-radius: 0;
+                background: #f9fafb;
+                color: $nx-muted;
+                font-size: 11.5px;
+                font-weight: 600;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                white-space: nowrap;
+            }
+
+            thead tr td:last-child {
+                border-top-right-radius: 11px;
+            }
+
+            // Column widths: 2 title, 3 preview, 4 status, 5 type, 6 stats, 7 date, 8 action.
+            // `!important` beats the fixed mobile widths in _notificationx_items.scss.
+            thead tr > td {
+                &:nth-child(2) { width: auto !important; }
+                &:nth-child(3) { width: 168px !important; }
+                &:nth-child(4) { width: 76px !important; }
+                &:nth-child(5) { width: 150px !important; }
+                &:nth-child(6) { width: 110px !important; }
+                &:nth-child(7) { width: 170px !important; }
+                &:nth-child(8) { width: 72px !important; text-align: right; }
+            }
+
+            tbody {
+                transform: none;
+            }
+
+            tbody tr {
+                background: #fff;
+
+                td {
+                    margin: 0;
+                    padding: 12px 16px;
+                    border-bottom: 1px solid $nx-border;
+                    border-radius: 0;
+                    background: transparent;
+                    color: $nx-text;
+                    font-size: 14px;
+                    line-height: 1.45;
+                    vertical-align: middle;
+                    transition: background-color 0.15s ease;
+                }
+
+                &:last-child td {
+                    border-bottom: 0;
+
+                    &:nth-child(2) { border-bottom-left-radius: 11px; }
+                    &:last-child { border-bottom-right-radius: 11px; }
+                }
+
+                &:hover td {
+                    background: #fafaff;
+                }
+
+                &.disabled td {
+                    opacity: 0.85;
+                }
+
+                > td:last-child {
+                    text-align: right;
+                }
+            }
+
+            // The dashboard has no bulk actions.
+            thead tr > td:first-child,
+            tbody tr > td:first-child {
+                display: none;
+            }
+
+            thead tr > td:nth-child(2) {
+                border-top-left-radius: 11px;
+            }
+
+            // Fewer columns on smaller screens instead of a scrolling table.
+            @media screen and (max-width: 1279px) {
+                thead tr > td:nth-child(7),
+                tbody tr > td:nth-child(7) {
+                    display: none;
+                }
+            }
+
+            @media screen and (max-width: 1023px) {
+                thead tr > td:nth-child(3),
+                tbody tr > td:nth-child(3) {
+                    display: none;
+                }
+            }
+
+            @media screen and (max-width: 640px) {
+                thead tr > td:nth-child(5),
+                tbody tr > td:nth-child(5),
+                thead tr > td:nth-child(6),
+                tbody tr > td:nth-child(6) {
+                    display: none;
+                }
+
+                thead tr > td:nth-child(4) { width: 52px !important; }
+                thead tr > td:nth-child(8) { width: 50px !important; }
+
+                thead tr td,
+                tbody tr td {
+                    padding-right: 10px;
+                    padding-left: 12px;
+                }
+            }
+
+            .nx-admin-title a {
+                display: -webkit-box;
+                overflow: hidden;
+                color: $nx-ink;
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 1.4;
+                text-decoration: none;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+
+                &:hover {
+                    color: $nx-primary;
+                }
+            }
+
+            .nx-admin-preview {
+                width: 136px;
+                height: 52px;
+                padding: 6px;
+                border: 1px solid $nx-border;
+                border-radius: 8px;
+                background: #f9fafb;
+            }
+
+            .nx-admin-type {
+                display: inline-block;
+                max-width: 100%;
+                overflow: hidden;
+                padding: 3px 10px;
+                border-radius: 999px;
+                background: #f2f4f7;
+                color: $nx-text;
+                font-size: 12.5px;
+                font-weight: 500;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                vertical-align: middle;
+                box-sizing: border-box;
+            }
+
+            .nx-admin-stats a {
+                color: $nx-text;
+                font-weight: 500;
+                white-space: nowrap;
+                text-decoration: none;
+
+                &:hover {
+                    color: $nx-primary;
+                }
+            }
+
+            .nx-admin-date {
+                color: $nx-subtle;
+                font-size: 12px;
+                line-height: 1.45;
+
+                br {
+                    display: none;
+                }
+
+                .nx-admin-publish-date {
+                    display: block;
+                    color: $nx-text;
+                    font-size: 13px;
+                }
+            }
+        }
+
+        // Row actions menu -----------------------------------------------------
+        .nx-admin-actions-wrapper {
+            position: relative;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .nx-admin-action-button .nx-admin-three-dots {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            border: 1px solid $nx-border;
+            border-radius: 9px;
+            background: #fff;
+            line-height: 1;
+            box-sizing: border-box;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+            @include nx-focus;
+
+            img {
+                display: block;
+                width: 16px;
+                height: auto;
+                opacity: 0.7;
+            }
+
+            &:hover,
+            &[aria-expanded="true"] {
+                border-color: $nx-primary-border;
+                background: $nx-primary-soft;
+
+                img {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .nx-admin-actions-lists {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            left: auto;
+            z-index: 20;
+            min-width: 200px;
+            margin: 0;
+            border: 1px solid $nx-border;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 16px 32px -12px rgba(16, 24, 40, 0.22), 0 4px 8px -4px rgba(16, 24, 40, 0.08);
+            transform: none;
+            animation: nx-dash-menu-in 0.12s ease-out;
+
+            &::before {
+                display: none;
+            }
+
+            ul {
+                margin: 0;
+                padding: 6px;
+
+                li {
+                    margin: 0;
+                    border: 0;
+
+                    // Actions that do not apply render an empty item.
+                    &:empty,
+                    &:has(> .hidden) {
+                        display: none;
+                    }
+
+                    &:has(.nx-admin-title-trash) {
+                        margin-top: 4px;
+                        padding-top: 4px;
+                        border-top: 1px solid #f2f4f7;
+                    }
+
+                    a {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        padding: 8px 10px;
+                        border-radius: 8px;
+                        color: $nx-text;
+                        font-size: 13.5px;
+                        font-weight: 500;
+                        line-height: 1.3;
+                        letter-spacing: 0;
+                        white-space: nowrap;
+                        text-decoration: none;
+                        cursor: pointer;
+                        @include nx-focus;
+
+                        img {
+                            flex: none;
+                            width: 16px;
+                            height: 16px;
+                            object-fit: contain;
+                            opacity: 0.75;
+                        }
+
+                        &:hover {
+                            background: $nx-hover;
+                            color: $nx-ink;
+
+                            img {
+                                opacity: 1;
+                            }
+                        }
+
+                        &.nx-admin-title-trash {
+                            color: #d92d20;
+
+                            &:hover {
+                                background: #fef3f2;
+                                color: #b42318;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @keyframes nx-dash-menu-in {
+        from {
+            opacity: 0;
+            transform: translateY(-4px);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .nx-dash-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px 24px;
+        text-align: center;
+
+        &__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            margin-bottom: 16px;
+            border-radius: 16px;
+            @include nx-tone(violet);
+        }
+
+        h3 {
+            color: $nx-ink;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        p {
+            max-width: 380px;
+            margin: 6px 0 20px;
+            color: $nx-muted;
+        }
+    }
+
+    .nx-dash-skeleton {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        span {
+            display: block;
+            height: 48px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #f2f4f7 0%, #f9fafb 50%, #f2f4f7 100%);
+            background-size: 200% 100%;
+            animation: nx-dash-shimmer 1.4s ease-in-out infinite;
+        }
+    }
+
+    // Notification types -------------------------------------------------------
+    .nx-dash-types {
+        padding: 24px;
+
+        &__grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+
+            @media screen and (max-width: 1100px) {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            @media screen and (max-width: 640px) {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+    }
+
+    .nx-dash-type {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid $nx-border;
+        border-radius: 12px;
+        background: #fff;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+
+        &:hover {
+            border-color: $nx-primary-border;
+            box-shadow: $nx-shadow-hover;
+            transform: translateY(-2px);
+        }
+
+        // Animated preview of the notification type.
+        &__media {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            padding: 16px;
+            border-bottom: 1px solid $nx-border;
+            background:
+                radial-gradient(circle at 1px 1px, rgba(16, 24, 40, 0.07) 1px, transparent 0) 0 0 / 14px 14px,
+                #f8f8fc;
+            box-sizing: border-box;
+
+            img {
+                display: block;
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                mix-blend-mode: multiply;
+            }
+
+            .nx-badge {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                box-shadow: 0 0 0 1px #fed7aa;
+            }
+        }
+
+        @each $name, $tone in $nx-tones {
+            &.tone-#{$name} .nx-dash-type__media {
+                background-color: mix(nth($tone, 2), #fff, 60%);
+            }
+        }
+
+        &__body {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            padding: 18px 20px 20px;
+        }
+
+        &__heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        &__icon {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+
+            @each $name, $tone in $nx-tones {
+                &.tone-#{$name} {
+                    @include nx-tone($name);
+                }
+            }
+        }
+
+        &__title {
+            color: $nx-ink;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        &__desc {
+            flex: 1;
+            margin: 10px 0 16px !important;
+            color: $nx-muted;
+            font-size: 13.5px;
+            line-height: 1.55;
+        }
+
+        &__action {
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            height: 34px;
+            padding: 0 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 9px;
+            background: #fff;
+            color: $nx-text;
+            font-family: inherit;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+            @include nx-focus;
+
+            &:hover {
+                border-color: $nx-primary;
+                background: $nx-primary;
+                color: #fff;
+            }
+
+            &.upgrade-pro {
+                border-color: #fed7aa;
+                background: #fff7ed;
+                color: #c2410c;
+
+                &:hover {
+                    border-color: #fdba74;
+                    background: #ffedd5;
+                    color: #9a3412;
+                }
+            }
+        }
+    }
+
+    // Resources + stories ------------------------------------------------------
+    .nx-dash-resources,
+    .nx-dash-stories {
+        padding: 24px;
+    }
+
+    .nx-dash-resources__list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            margin: 0;
+
+            & + li {
+                border-top: 1px solid #f2f4f7;
+            }
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 -8px;
+            padding: 10px 8px;
+            border-radius: 10px;
+            color: $nx-text;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.15s ease, color 0.15s ease;
+            @include nx-focus;
+
+            &:hover {
+                background: $nx-hover;
+                color: $nx-ink;
+
+                .nx-dash-resources__arrow {
+                    color: $nx-primary;
+                    transform: translateX(2px);
+                }
+            }
+        }
+    }
+
+    .nx-dash-resources__icon {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        @include nx-tone(violet);
+    }
+
+    .nx-dash-resources__text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .nx-dash-resources__arrow {
+        color: #d0d5dd;
+        transition: color 0.15s ease, transform 0.15s ease;
+    }
+
+    .nx-dash-stories__list {
+        display: grid;
+        gap: 14px;
+    }
+
+    .nx-dash-story {
+        display: block;
+        padding: 20px;
+        border: 1px solid $nx-border;
+        border-radius: 12px;
+        background: linear-gradient(180deg, #fcfcfd 0%, #fff 100%);
+        color: inherit;
+        text-decoration: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        @include nx-focus;
+
+        &:hover {
+            border-color: $nx-primary-border;
+            box-shadow: $nx-shadow-hover;
+        }
+
+        &__stars {
+            display: flex;
+            gap: 2px;
+            color: #fdb022;
+
+            .nx-icon {
+                fill: currentColor;
+            }
+        }
+
+        &__title {
+            margin-top: 12px !important;
+            color: $nx-ink;
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.45;
+        }
+
+        &__role {
+            margin-top: 4px !important;
+            color: $nx-muted;
+            font-size: 13px;
+        }
+
+        &__author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid #f2f4f7;
+
+            img {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            strong {
+                display: block;
+                color: $nx-ink;
+                font-size: 13.5px;
+                font-weight: 600;
+            }
+
+            span {
+                display: block;
+                color: $nx-muted;
+                font-size: 12.5px;
+            }
+        }
+    }
+
+    // Help & community ---------------------------------------------------------
+    .nx-dash-help {
+        display: grid;
+        grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
+        overflow: hidden;
+
+        @media screen and (max-width: 960px) {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        &__support {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 28px;
+            background:
+                radial-gradient(320px 200px at 0% 0%, rgba(106, 75, 255, 0.14), transparent 70%),
+                #f8f7ff;
+            border-right: 1px solid $nx-border;
+
+            @media screen and (max-width: 960px) {
+                border-right: 0;
+                border-bottom: 1px solid $nx-border;
+            }
+
+            h2 {
+                margin-top: 16px;
+                color: $nx-ink;
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 1.35;
+            }
+
+            p {
+                margin: 8px 0 22px;
+                color: $nx-muted;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        }
+
+        &__support-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: $nx-primary;
+            color: #fff;
+            box-shadow: 0 10px 20px -10px rgba(106, 75, 255, 0.8);
+        }
+
+        &__support-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        // Rows run edge to edge so the hover tint fills the whole row.
+        &__links {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+
+            li {
+                flex: 1;
+                display: flex;
+                margin: 0;
+
+                & + li {
+                    border-top: 1px solid #f2f4f7;
+                }
+            }
+        }
+
+        &__link {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 28px;
+            border-radius: 0;
+            color: inherit;
+            text-decoration: none;
+            transition: background-color 0.15s ease;
+
+            &:focus {
+                outline: none;
+                box-shadow: none;
+            }
+
+            &:focus-visible {
+                outline: none;
+                box-shadow: inset 0 0 0 2px rgba(106, 75, 255, 0.35);
+            }
+
+            @media screen and (max-width: 600px) {
+                padding: 18px 20px;
+            }
+
+            &:hover,
+            &:focus-visible {
+                background: #fbfaff;
+
+                .nx-dash-help__action {
+                    color: $nx-primary-hover;
+
+                    .nx-icon {
+                        transform: translateX(3px);
+                    }
+                }
+            }
+
+            @media screen and (max-width: 640px) {
+                flex-wrap: wrap;
+            }
+        }
+
+        &__icon {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+
+            &.is-docs { @include nx-tone(blue); }
+            &.is-community { @include nx-tone(green); }
+            &.is-love { @include nx-tone(pink); }
+        }
+
+        &__text {
+            flex: 1;
+            min-width: 0;
+
+            @media screen and (max-width: 640px) {
+                flex-basis: calc(100% - 60px);
+            }
+
+            strong {
+                display: block;
+                color: $nx-ink;
+                font-size: 15px;
+                font-weight: 600;
+                line-height: 1.4;
+            }
+
+            span {
+                display: block;
+                margin-top: 2px;
+                color: $nx-muted;
+                font-size: 13.5px;
+                line-height: 1.5;
+            }
+        }
+
+        &__action {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: $nx-primary;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: color 0.15s ease;
+
+            .nx-icon {
+                transition: transform 0.15s ease;
+            }
+
+            @media screen and (max-width: 640px) {
+                margin-left: 60px;
+            }
+        }
+    }
+}
+
+@keyframes nx-dash-shimmer {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+// Intro video modal (rendered in <body>) --------------------------------------
+@at-root {
+    .nx-dash-video-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 16px;
+        background: rgba(16, 24, 40, 0.7);
+        backdrop-filter: blur(4px);
+    }
+
+    .nx-dash-video-modal {
+        position: relative;
+        width: min(960px, 100%);
+        border-radius: 16px;
+        background: #000;
+        box-shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.5);
+        outline: none;
+
+        &__frame {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            border-radius: 16px;
+            overflow: hidden;
+
+            iframe {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+        }
+
+        &__close {
+            position: absolute;
+            top: -44px;
+            right: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            border: 0;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            cursor: pointer;
+
+            &:hover,
+            &:focus-visible {
+                background: rgba(255, 255, 255, 0.28);
+                outline: none;
+            }
+
+            svg {
+                display: block;
+            }
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nx-topbar *,
+    .nx-dash *,
+    .nx-help-fab * {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .nx-help-fab__check {
+        stroke-dashoffset: 0;
+    }
+}

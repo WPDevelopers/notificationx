@@ -56,9 +56,10 @@ export const DOCS = [
     },
 ]
 
+// `img` is a file in assets/admin/images/new-img/types/.
 export const NotificationType = [
     {
-        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/sales_notification.gif',
+        'img'        : 'sales_notification.gif',
         'title'      : __('Sales Notification', 'notificationx'),
         'type'       : 'conversions',
         'button_text': __('Create Now', 'notificationx'),
@@ -66,7 +67,7 @@ export const NotificationType = [
         'source'     : 'woocommerce',
     },
     {
-        'img'        : 'https://notificationx.com/wp-content/uploads/2025/06/GDPR.gif',
+        'img'        : 'cookie_notice.gif',
         'title'      : __('Cookie Notice', 'notificationx'),
         'type'       : 'gdpr',
         'button_text': __('Create Now', 'notificationx'),
@@ -74,7 +75,7 @@ export const NotificationType = [
         'source'     : 'gdpr',
     },
     {
-        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/notification_bar.gif',
+        'img'        : 'notification_bar.gif',
         'title'      : __('Notification Bar', 'notificationx'),
         'type'       : 'notification_bar',
         'button_text': __('Create Now', 'notificationx'),
@@ -82,7 +83,7 @@ export const NotificationType = [
         'source'     : 'press_bar',
     },
     {
-        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/growth_alert.gif',
+        'img'        : 'growth_alert.gif',
         'title'      : __('Growth Alert', 'notificationx'),
         'type'       : 'inline',
         'button_text': __('Create Now', 'notificationx'),
@@ -90,7 +91,7 @@ export const NotificationType = [
         'source'     : 'woo_inline',
     },
     {
-        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/flash_tab.gif',
+        'img'        : 'flashing_tab.gif',
         'title'      : __('Flashing Tabs', 'notificationx'),
         'type'       : 'flashing_tab',
         'button_text': __('Create Now', 'notificationx'),
@@ -98,44 +99,13 @@ export const NotificationType = [
         'source'     : 'flashing_tab',
     },
     {
-        'img'        : 'https://notificationx.com/wp-content/uploads/2024/09/cross_domain.gif',
+        'img'        : 'cross_domain.gif',
         'title'      : __('Cross - Domain Notice', 'notificationx'),
         'type'       : 'cross-domain',
         'button_text': __('Copy & Explore', 'notificationx'),
         'desc'       : __('Display single, multiple, or all live alerts on multiple WordPress websites or others.', 'notificationx'),
     }
 ]
-export const FOOTER_DOCS = [
-    {
-        'image'      : 'love.svg',
-        'title'      : __('Show Your Love', 'notificationx'),
-        'desc'       : __('We love having you in the NotificationX family. We are making it more awesome every day. Please take two minutes to review the plugin and spread the love to encourage us to keep it going.', 'notificationx'),
-        'button_text': __('Leave a Review', 'notificationx'),
-        'button_url' : 'https://wpdeveloper.com/review-notificationx',
-    },
-    {
-        'image'      : 'docs.svg',
-        'title'      : __('Explore Our Knowledge Base', 'notificationx'),
-        'desc'       : __('Get started by spending some time with the documentation to familiarize yourself with NotificationX and boost your website conversions immediately.', 'notificationx'),
-        'button_text': __('Documentation', 'notificationx'),
-        'button_url' : 'https://notificationx.com/docs/',
-    },
-    {
-        'image'      : 'help.svg',
-        'title'      : __('Join Our Community', 'notificationx'),
-        'desc'       : __('Join the Facebook community to discuss with fellow developers, connect with others, and stay updated.', 'notificationx'),
-        'button_text': __('Join Our Community', 'notificationx'),
-        'button_url' : 'https://www.facebook.com/groups/NotificationX.Community/',
-    },
-    {
-        'image'      : 'contribute.svg',
-        'title'      : __('Need Any Help?', 'notificationx'),
-        'desc'       : __('If you encounter issues or need assistance, we\'re here to help or report specific problems on our GitHub issues page.', 'notificationx'),
-        'button_text': __('Report a Bug', 'notificationx'),
-        'button_url' : 'https://wpdeveloper.com/support/new-ticket/',
-    }
-]
-
 export const proFeaturePopupConfigCrossDomain = {
     showConfirmButton: true,
     showCloseButton: true,

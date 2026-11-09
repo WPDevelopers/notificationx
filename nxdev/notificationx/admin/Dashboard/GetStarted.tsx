@@ -1,77 +1,57 @@
 import { __, sprintf } from '@wordpress/i18n'
 import React, { Fragment, useState } from 'react'
 import { GET_STARTED_DESC, GET_STARTED_TXT } from '../../core/constants'
-import { assetsURL } from '../../core/functions';
 import { Link } from 'react-router-dom';
 import ReactModal from "react-modal";
+import NxIcon from '../../components/NxIcon';
 
 const GetStarted = ({props, context}) => {
     const [isOpenGetStartedModal, setIsOpenGetStartedModal] = useState(false);
-    const addNewRedirect = () => {
-        context.setRedirect({
-            page: `nx-edit`,
-            state: { type: 'notification_bar', source: 'press_bar', timestamp: new Date().getTime() }
-        });
-    }
+    const adminAssets = context?.assets?.admin || '';
+
     return (
         <Fragment>
-            <div className="nx-admin-header">
-                <img src={ assetsURL('/images/new-img/main-logo.svg') } alt={__('NotificationX Logo', 'notificationx') } />
-                <a className="nx-add-new-btn" onClick={ addNewRedirect }>
-                    { __('Add New', 'notificationx') }
-                </a>
-            </div>
-
-            <div className="nx-admin-content-wrapper nx-started">
-                <div className='nx-started-wrapper'>
-                <div className='nx-video-widget'>
-                    <a href="#" onClick={ () => setIsOpenGetStartedModal(true) }>
-                        <img src={ assetsURL('/images/new-img/video-widget.png') } alt={ __('video-widget', 'notificationx') } />
-                    </a>
+            <section className="nx-card nx-dash-hero">
+                <div className='nx-dash-hero__content'>
+                    <span className="nx-dash-eyebrow">
+                        <NxIcon name="sparkles" size={14} />
+                        { __('Get started', 'notificationx') }
+                    </span>
+                    <h1 className="nx-dash-hero__title">{ sprintf( '%s', GET_STARTED_TXT ) }</h1>
+                    <p className="nx-dash-hero__desc">{ sprintf( '%s', GET_STARTED_DESC ) }</p>
+                    <div className="nx-dash-hero__actions">
+                        <Link className="nx-button nx-button--primary nx-button--lg" to={ { pathname: "/admin.php", search: `?page=nx-builder`} }>
+                            <NxIcon name="zap" size={16} />
+                            { __('Launch Setup Wizard', 'notificationx') }
+                        </Link>
+                        <a className='nx-button nx-button--secondary nx-button--lg' target='_blank' rel="noopener noreferrer" href={sprintf('%s','https://www.youtube.com/playlist?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK')}>
+                            { __('Watch Tutorials', 'notificationx') }
+                            <NxIcon name="external" size={15} />
+                        </a>
+                    </div>
                 </div>
-                <div className='nx-started-content nx-content-details'>
-                    <h2>{ sprintf( '%s', GET_STARTED_TXT ) }</h2>
-                    <p>{ sprintf( '%s', GET_STARTED_DESC ) }</p>
-                    <Link className="nx-primary-btn" to={ { pathname: "/admin.php", search: `?page=nx-builder`} }>{ __('Launch Setup Wizard', 'notificationx') }</Link>
-                    <a className='nx-resource-link' target='_blank' href={sprintf('%s','https://www.youtube.com/playlist?list=PLWHp1xKHCfxAj4AAs3kmzmDZKvjv6eycK')}>
-                        { __('Watch Tutorials', 'notificationx') }
-                        <img src={assetsURL('/images/new-img/link.svg')} alt={ __('link-icon', 'notificationx') } />
-                    </a>
-                </div>
-                </div>
-            </div>
+                <button
+                    type="button"
+                    className='nx-dash-hero__media'
+                    onClick={ () => setIsOpenGetStartedModal(true) }
+                    aria-label={ __('Play the NotificationX introduction video', 'notificationx') }
+                >
+                    <img src={ `${adminAssets}/images/new-img/video-widget.png` } alt="" />
+                </button>
+            </section>
             <ReactModal
                 isOpen={isOpenGetStartedModal}
                 onRequestClose={() => setIsOpenGetStartedModal(false)}
-                className='nx-get-started-modal'
-                style={{
-                    overlay: {
-                        position: "fixed",
-                        display: "flex",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        backgroundColor: "rgba(3, 6, 60, 0.7)",
-                        zIndex: 9999,
-                        padding: "60px 15px",
-                    },
-                    content: {
-                        position: "static",
-                        margin: "auto",
-                        border: "0px solid #5414D0",
-                        background: "#5414D0",
-                        overflow: "auto",
-                        WebkitOverflowScrolling: "touch",
-                        borderRadius: "4px",
-                        outline: "none",
-                        padding: "0px",
-                    },
-                }}
+                className='nx-get-started-modal nx-dash-video-modal'
+                overlayClassName='nx-dash-video-overlay'
+                contentLabel={ __('NotificationX introduction video', 'notificationx') }
             >
-                <>
-                    <iframe id="email_subscription_video" allowFullScreen width="750" height="500" src="https://www.youtube.com/embed/6A4OLJjRW_g?si=xhHcE5qIYw9qtRWf"></iframe>
-                </>
+                <button type="button" className="nx-dash-video-modal__close" onClick={() => setIsOpenGetStartedModal(false)} aria-label={ __('Close', 'notificationx') }>
+                    <NxIcon name="close" size={18} />
+                </button>
+                <div className="nx-dash-video-modal__frame">
+                    <iframe id="email_subscription_video" allowFullScreen title={ __('NotificationX introduction video', 'notificationx') } src="https://www.youtube.com/embed/6A4OLJjRW_g?si=xhHcE5qIYw9qtRWf"></iframe>
+                </div>
             </ReactModal>
         </Fragment>
     )

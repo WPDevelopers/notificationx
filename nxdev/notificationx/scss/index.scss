@@ -64,6 +64,8 @@ body {
     @import "./nx_new/new_admin";
     // cookie manager
     @import "./nx_new/cookie_manager";
+    // Top navigation bar + Dashboard
+    @import "./nx_new/dashboard";
 
     a:focus {
         outline: 0;

@@ -13,6 +13,7 @@ import { __experimentalGetSettings, date } from "@wordpress/date";
 import { __ } from "@wordpress/i18n";
 import withDocumentTitle from "../../core/withDocumentTitle";
 import { useNotificationXContext } from "../../hooks";
+import NxIcon from "../../components/NxIcon";
 
 import { escapeHTML } from "@wordpress/escape-html";
 import { lazyWithPreload } from "react-lazy-with-preload";
@@ -263,7 +264,35 @@ const AnalyticsForDashboard = ( { isDashboard = false } ) => {
                 </WrapperWithLoader>
             )}
 
-            {!builderContext?.is_pro_active && (
+            {!builderContext?.is_pro_active && isDashboard && (
+                <div className="nx-dash-locked-chart">
+                    <img
+                        className="nx-dash-locked-chart__graph"
+                        src={`${builderContext.assets.public}image/reports/graph.png`}
+                        alt={__("Analytics Data", 'notificationx')}
+                    />
+                    <div className="nx-dash-locked-chart__overlay">
+                        <div className="nx-dash-locked-chart__panel">
+                            <span className="nx-dash-locked-chart__icon" aria-hidden="true">
+                                <NxIcon name="chart" size={22} />
+                            </span>
+                            <h3>{__("Unlock advanced analytics", 'notificationx')}</h3>
+                            <p>{__("Track views, clicks and click-through rate for every notification over time.", 'notificationx')}</p>
+                            <a
+                                className="nx-button nx-button--primary"
+                                href="https://notificationx.com/#pricing"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <NxIcon name="crown" size={16} />
+                                {__("Get PRO to Unlock", 'notificationx')}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {!builderContext?.is_pro_active && !isDashboard && (
                 <div
                     className="analytics-display-area nx-stats-tease"
                     data-swal="true"

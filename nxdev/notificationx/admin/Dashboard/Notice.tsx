@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import React, { useState } from 'react'
 import nxHelper from '../../core/functions';
+import NxIcon from '../../components/NxIcon';
 
 const Notice = ( { props, context } ) => {
     const [isNoticeClose, setIsNoticeClose] = useState( context?.nx_admin_notice_close || false);
@@ -9,7 +10,7 @@ const Notice = ( { props, context } ) => {
 
         nxHelper.post('admin-notice-close', {})
         .then(response => {
-            // @ts-ignore 
+            // @ts-ignore
             if (response?.success) {
                 setIsNoticeClose(true);
             }
@@ -22,19 +23,23 @@ const Notice = ( { props, context } ) => {
     if( isNoticeClose ) {
         return null;
     }
-    
-    
+
     return (
-        <div className='nx-dashboard-notice-wrapper'>
-            <div>✨ 
-                { __('Introducing Build with AI in NotificationX', 'notificationx') }
+        <div className='nx-dash-announce' role="status">
+            <span className="nx-dash-announce__badge">
+                <NxIcon name="sparkles" size={14} />
+                { __('New', 'notificationx') }
+            </span>
+            <p className="nx-dash-announce__text">
+                <strong>{ __('Introducing Build with AI in NotificationX', 'notificationx') }</strong>
                 <span>{ __(' - Create Notification bar with prompt', 'notificationx') }</span>
-            </div> 
-            <a href="https://notificationx.com/changelog" target="_blank">Changelog</a>
-            <button className='close-button' onClick={ handleNoticeClose }>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M6.85414 5.33107L12.1852 0L13.7083 1.52315L8.37727 6.85421L13.7083 12.1852L12.1852 13.7083L6.85414 8.37735L1.52315 13.7083L0 12.1852L5.33102 6.85421L0 1.52315L1.52315 0L6.85414 5.33107Z" fill="white"/>
-                </svg>
+            </p>
+            <a className="nx-dash-announce__link" href="https://notificationx.com/changelog" target="_blank" rel="noopener noreferrer">
+                { __('Changelog', 'notificationx') }
+                <NxIcon name="arrowRight" size={14} />
+            </a>
+            <button type="button" className='nx-dash-announce__close' onClick={ handleNoticeClose } aria-label={ __('Dismiss', 'notificationx') }>
+                <NxIcon name="close" size={16} />
             </button>
         </div>
     )

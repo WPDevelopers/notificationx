@@ -296,10 +296,23 @@ const SingleNotificationAction = ({
             <div className="nx-admin-actions nx-admin-action-button" ref={buttonRef}>
                 <a
                     className="nx-admin-three-dots"
-                    title={__("Three Dots", "notificationx")}
+                    role="button"
+                    tabIndex={0}
+                    aria-haspopup="menu"
+                    aria-expanded={action}
+                    title={__("Actions", "notificationx")}
+                    aria-label={__("Actions", "notificationx")}
                     onClick={ () => setAction(!action) }
-                >   
-                    <img src={threeDots} alt={'three-dots'} />
+                    onKeyDown={ (event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            setAction(!action);
+                        } else if (event.key === 'Escape') {
+                            setAction(false);
+                        }
+                    } }
+                >
+                    <img src={threeDots} alt="" />
                 </a>
             </div>
             { action && 

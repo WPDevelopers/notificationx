@@ -8,12 +8,18 @@ import { useNotificationXContext } from "../../hooks";
 import NotificationTypeResource from "./NotificationTypeResource";
 import Docs from "./Docs";
 import AnalyticsDashboard from "./Analytics";
-import HelpReviewSection from "./HelpReviewSection";
 import { BuilderProvider, useBuilder } from "quickbuilder";
 import { WrapperWithLoader } from "../../components";
+import DashboardHeader from "./DashboardHeader";
 // @ts-ignore
 import { __ } from "@wordpress/i18n";
 import InitialPopup from "./InitialPopup";
+
+export type NotificationTotals = {
+    all: number;
+    enabled: number;
+    disabled: number;
+};
 
 const Dashboard = (props) => {
     const builderContext = useNotificationXContext();
@@ -21,6 +27,7 @@ const Dashboard = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [title, setTitle] = useState("");
     const [showInitialPopup, setShowInitialPopup] = useState(true);
+    const [totals, setTotals] = useState<NotificationTotals>({ all: 0, enabled: 0, disabled: 0 });
 
     useEffect(() => {
         setIsLoading(false);
@@ -37,15 +44,17 @@ const Dashboard = (props) => {
             value={{ ...builder, isLoading, setIsLoading, title, setTitle }}
         >
             <WrapperWithLoader isLoading={isLoading}>
-                <div className="nx-admin-wrapper nx-admin-new-wrapper">
-                    <Notice props={props} context={builderContext} />
-                    <GetStarted props={props} context={builderContext}/>
-                    <AnalyticsOverview props={props} context={builderContext} />
-                    <Integration props={props} context={builderContext}/>
-                    <HelpReviewSection props={props} context={builderContext} />
-                    <AnalyticsDashboard props={props} context={builderContext} />
-                    <NotificationTypeResource props={props} context={builderContext} />
-                    <Docs props={props} context={builderContext}  />
+                <div className="nx-dash">
+                    <DashboardHeader context={builderContext} />
+                    <main className="nx-dash__body">
+                        <Notice props={props} context={builderContext} />
+                        <GetStarted props={props} context={builderContext} />
+                        <AnalyticsOverview props={props} context={builderContext} totals={totals} />
+                        <Integration props={props} context={builderContext} onTotalsChange={setTotals} />
+                        <AnalyticsDashboard props={props} context={builderContext} />
+                        <NotificationTypeResource props={props} context={builderContext} />
+                        <Docs props={props} context={builderContext} />
+                    </main>
                     {showInitialPopup && <InitialPopup onDismiss={handleDismissPopup} />}
                 </div>
             </WrapperWithLoader>
