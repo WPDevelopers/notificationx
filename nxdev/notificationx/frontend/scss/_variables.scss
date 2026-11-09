@@ -10,3 +10,8 @@ $base_font: inherit;
 
 // box shadow
 $nx_wrapper_shadow : 0 0 25px rgba(36, 30, 157, .12);
+
+// Overhang: parts of a card that stick out of its box. Each value is both the offset of
+// that part and the card's --nx-overhang-* value (see nx-overhang in _mixins.scss).
+// The link button ("Buy Now" tab) floats this far above the card's top edge.
+$nx-link-tab-top: 35px;
