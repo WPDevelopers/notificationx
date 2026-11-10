@@ -84,13 +84,20 @@ class Settings extends UsabilityDynamicsSettings {
         /*
          * `/builder` resolves `read_notificationx` -- the lowest capability the
          * product defines -- and this blob is handed straight to it. The
-         * `settingsRedirect` flag below only tells the admin app not to render
-         * the settings screen; it is a client-side routing hint, not a boundary.
-         * Without this, a view-only delegate received every API key, client
-         * secret and OAuth token stored on the site.
+         * `settingsRedirect` flag set by PostType only tells the admin app not to
+         * render the settings screen; it is a client-side routing hint, not a
+         * boundary.
+         *
+         * A redaction denylist is not enough here: nested tokens, keys an
+         * integration forgot to register, keys left behind by older versions and
+         * key-bearing field defaults (the integration API key is the default of
+         * the Zapier and Brevo webhook fields) all got through. A user who cannot
+         * open the settings screen gets no settings form and only the few values
+         * the builder reads.
          */
         if ( ! current_user_can( 'edit_notificationx_settings' ) ) {
-            $settings = self::redact_secret_settings( $settings );
+            $data['tabs'] = [];
+            $settings     = self::public_builder_settings( $settings );
         }
 
         $data['current_page'] = 'settings';
@@ -224,6 +231,14 @@ class Settings extends UsabilityDynamicsSettings {
                                     'label'   => __('Custom Notification Import Limit', 'notificationx'),
                                     'default' => 100,
                                     'priority' => 25,
+                                ],
+                                'corner_spacing_v2' => [
+                                    'name'        => "corner_spacing_v2",
+                                    'type'        => 'checkbox',
+                                    'label'       => __('Use new corner spacing', 'notificationx'),
+                                    'default'     => false,
+                                    'priority'    => 30,
+                                    'description' => __( 'Place corner notifications the same distance from both screen edges: 20px on desktop, 12px on phones. Turn off to keep the previous spacing.', 'notificationx' ),
                                 ],
                             ),
                         ],
@@ -777,8 +792,9 @@ class Settings extends UsabilityDynamicsSettings {
      */
     public static function get_secret_settings_keys() {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
-        return (array) apply_filters( 'nx_secret_settings', [
+        $keys = (array) apply_filters( 'nx_secret_settings', [
             'nx_pa_settings',          // Google Analytics OAuth access + refresh token.
+            'yt_settings',             // YouTube OAuth access + refresh token and auth code.
             'token_info',
             'ga_client_secret',
             'yt_client_secret',
@@ -792,9 +808,38 @@ class Settings extends UsabilityDynamicsSettings {
             'google_youtube_api_key',
             'zapier_api_key',
             'ifttt_api_key',
+            'brevo_webhook_url',       // Carries the integration API key in its query string.
+            'freemius_dev_sk',
             'envato_token',
             'gmap_token',
         ] );
+        return array_values( array_unique( array_filter( $keys, 'is_string' ) ) );
+    }
+
+    /**
+     * Settings values handed to users who cannot edit settings.
+     *
+     * An allowlist, so a credential nobody registered in `nx_secret_settings`
+     * still stays on the server. Only add keys the admin app reads outside the
+     * settings screen, and never a credential.
+     *
+     * @param array $settings Stored settings.
+     * @return array
+     */
+    public static function public_builder_settings( $settings ) {
+        if ( ! is_array( $settings ) ) {
+            return [];
+        }
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        $keys = (array) apply_filters( 'nx_builder_public_settings', [
+            // Read by Pro's Build with AI. The access token is not on this list.
+            'openai_model',
+            'openai_temperature',
+            'openai_max_tokens',
+            'openai_max_completion_tokens',
+        ] );
+        $keys = array_diff( array_filter( $keys, 'is_string' ), self::get_secret_settings_keys() );
+        return array_intersect_key( $settings, array_flip( $keys ) );
     }
 
     /**
