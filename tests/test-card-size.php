@@ -2,9 +2,11 @@
 /**
  * Card size presets (84708): the `card_size` setting and its server-side guard.
  *
- * Until a theme family is added to the supported list, the setting must be
- * invisible: hidden in the builder, removed from what the frontend and the
- * preview receive, and never written to existing notifications.
+ * Free's own supported list holds the sales family (P4). For every other theme
+ * the setting must be invisible until its family is added: hidden in the
+ * builder, removed from what the frontend and the preview receive, and never
+ * written to existing notifications. THEME below is such a theme; the tests
+ * add it through the `nx_card_size_themes` filter where they need support.
  *
  * @package Notificationx
  */
@@ -19,7 +21,25 @@ use NotificationX\FrontEnd\Preview;
 
 class Test_Card_Size extends WP_UnitTestCase {
 
-	const THEME = 'conversions_theme-one';
+	// A theme of a family that isn't supported yet (comments, P5).
+	const THEME = 'comments_theme-one';
+
+	const SALES = array(
+		'conversions_theme-one',
+		'conversions_theme-two',
+		'conversions_theme-three',
+		'conversions_theme-five',
+		'conversions_conv-theme-twelve',
+		'conversions_conv-theme-thirteen',
+		'conversions_conv-theme-fifteen',
+		'woocommerce_sales_theme-one',
+		'woocommerce_sales_theme-two',
+		'woocommerce_sales_theme-three',
+		'woocommerce_sales_theme-five',
+		'woocommerce_sales_conv-theme-twelve',
+		'woocommerce_sales_conv-theme-thirteen',
+		'woocommerce_sales_conv-theme-fifteen',
+	);
 
 	public function tear_down() {
 		remove_all_filters( 'nx_card_size_themes' );
@@ -43,8 +63,8 @@ class Test_Card_Size extends WP_UnitTestCase {
 	protected function settings( $extra = array() ) {
 		return array_merge(
 			array(
-				'type'   => 'conversions',
-				'source' => 'woocommerce',
+				'type'   => 'comments',
+				'source' => 'wp_comments',
 				'themes' => self::THEME,
 			),
 			$extra
@@ -67,14 +87,51 @@ class Test_Card_Size extends WP_UnitTestCase {
 		$this->assertSame( CardSize::values(), array_column( $field['options'], 'value' ) );
 	}
 
-	public function test_field_is_hidden_while_no_theme_is_supported() {
-		$this->assertSame( array(), CardSize::supported_themes() );
-		$this->assertEquals( Rules::includes( 'themes', array() ), $this->field()['rules'] );
+	public function test_field_shows_for_the_sales_themes_only() {
+		$this->assertSame( self::SALES, CardSize::supported_themes() );
+		$this->assertEquals( Rules::includes( 'themes', self::SALES ), $this->field()['rules'] );
+		$this->assertFalse( CardSize::is_supported( self::THEME ) );
 	}
 
-	public function test_field_shows_only_for_supported_themes() {
+	public function test_field_shows_for_themes_added_by_the_filter() {
 		$this->support( array( self::THEME, 'comments_theme-two' ) );
-		$this->assertEquals( Rules::includes( 'themes', array( self::THEME, 'comments_theme-two' ) ), $this->field()['rules'] );
+		$this->assertEquals( Rules::includes( 'themes', array_merge( self::SALES, array( self::THEME, 'comments_theme-two' ) ) ), $this->field()['rules'] );
+	}
+
+	/**
+	 * Every listed key is a free theme of its type, and every free theme of the
+	 * two sales types is listed: nothing Pro-locked, nothing missing.
+	 */
+	public function test_free_list_is_exactly_the_free_sales_themes() {
+		$free = array();
+		foreach ( array( 'conversions' => \NotificationX\Types\Conversions::get_instance(), 'woocommerce_sales' => \NotificationX\Types\WooCommerceSales::get_instance() ) as $type => $instance ) {
+			$themes = $instance->get_themes();
+			$this->assertNotEmpty( $themes, "$type has themes" );
+			foreach ( $themes as $name => $theme ) {
+				if ( empty( $theme['is_pro'] ) ) {
+					$free[] = "{$type}_{$name}";
+				}
+			}
+		}
+		sort( $free );
+		$listed = CardSize::FREE_THEMES;
+		sort( $listed );
+		$this->assertSame( $free, $listed );
+	}
+
+	public function test_sales_themes_keep_compact_and_large_without_a_filter() {
+		foreach ( self::SALES as $theme ) {
+			foreach ( array( 'compact', 'large' ) as $value ) {
+				$settings = array( 'type' => 'conversions', 'themes' => $theme, 'card_size' => $value );
+				$this->assertSame( $settings, CardSize::normalize( $settings ), "$value / $theme" );
+				$this->assertSame( $value, apply_filters( 'nx_filtered_post', $settings, array() )['card_size'], "nx_filtered_post: $value / $theme" );
+			}
+			$this->assertArrayNotHasKey( 'card_size', CardSize::normalize( array( 'themes' => $theme, 'card_size' => 'default' ) ) );
+		}
+		// The Pro-locked sales themes stay at Default until an add-on lists them.
+		foreach ( array( 'conversions_theme-four', 'conversions_conv-theme-seven', 'conversions_conv-theme-fourteen', 'woocommerce_sales_conv-theme-sixteen', 'conversions_maps_theme' ) as $theme ) {
+			$this->assertArrayNotHasKey( 'card_size', CardSize::normalize( array( 'themes' => $theme, 'card_size' => 'compact' ) ), $theme );
+		}
 	}
 
 	public function test_field_is_not_in_the_quick_builder() {
@@ -92,8 +149,8 @@ class Test_Card_Size extends WP_UnitTestCase {
 	}
 
 	public function test_supported_themes_drops_verified_cards_and_junk() {
-		$this->support( array( self::THEME, 'conversions_vc-receipt', '', 5, null, array( 'x' ), self::THEME, 'reviews_total-rated' ) );
-		$this->assertSame( array( self::THEME, 'reviews_total-rated' ), CardSize::supported_themes() );
+		$this->support( array( self::THEME, 'conversions_vc-receipt', '', 5, null, array( 'x' ), self::THEME, 'reviews_total-rated', 'conversions_theme-one' ) );
+		$this->assertSame( array_merge( self::SALES, array( self::THEME, 'reviews_total-rated' ) ), CardSize::supported_themes() );
 		$this->assertTrue( CardSize::is_supported( self::THEME ) );
 		$this->assertFalse( CardSize::is_supported( 'conversions_vc-receipt' ) );
 		$this->assertFalse( CardSize::is_supported( null ) );
@@ -102,7 +159,7 @@ class Test_Card_Size extends WP_UnitTestCase {
 
 	public function test_supported_themes_survives_a_broken_filter() {
 		add_filter( 'nx_card_size_themes', '__return_false' );
-		$this->assertSame( array(), CardSize::supported_themes() );
+		$this->assertSame( self::SALES, CardSize::supported_themes() );
 	}
 
 	// --- normalize() -----------------------------------------------------------
@@ -127,8 +184,8 @@ class Test_Card_Size extends WP_UnitTestCase {
 			array( 'compact', self::THEME, true ),
 			array( 'large', self::THEME, true ),
 			array( 'default', self::THEME, false ),
-			array( 'compact', 'conversions_theme-two', false ),
-			array( 'large', 'conversions_theme-two', false ),
+			array( 'compact', 'comments_theme-two', false ),
+			array( 'large', 'comments_theme-two', false ),
 			array( 'compact', 'conversions_vc-receipt', false ),
 			array( 'large', 'conversions_vc-receipt', false ),
 			array( 'Compact', self::THEME, false ),

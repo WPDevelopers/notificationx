@@ -9,6 +9,10 @@
 // `max-width` (Notification Size). Without `zoom` support everything below is
 // skipped and the card shows at Default.
 //
+// Parts that keep their full size at every preset: the close button and the
+// Button tab (it sits outside the zoomed part). Space a theme keeps for them
+// stays full size too.
+//
 // Rules:
 // - Imported last in theme.scss, so the compiled rules are appended at the end
 //   of frontend.css (bin/check-css-append.js).
@@ -21,6 +25,11 @@
 // reset their own themes in their own stylesheets.
 $nx-card-size-no-min-width: "conv-theme-twelve", "conv-theme-thirteen", "conv-theme-fifteen";
 
+// The sales family (P4): Free's sales themes, in the Sales Notification and
+// WooCommerce types (CardSize::FREE_THEMES).
+$nx-card-size-sales-types: "conversions", "woocommerce_sales";
+$nx-card-size-sales-themes: "theme-one", "theme-two", "theme-three", "theme-five", "conv-theme-twelve", "conv-theme-thirteen", "conv-theme-fifteen";
+
 @function nx-card-size-not-themes($themes) {
     $selector: "";
     @each $theme in $themes {
@@ -29,16 +38,56 @@ $nx-card-size-no-min-width: "conv-theme-twelve", "conv-theme-thirteen", "conv-th
     @return $selector;
 }
 
-@supports (zoom: 1) {
-    // Compact, at every width.
-    .notification-item.nx-card-size-compact > .notificationx-inner {
+// The given sales themes, in both sales types, at one preset, plus a tail.
+@function nx-card-size-sales($size, $themes, $tail: "") {
+    $list: ();
+    @each $type in $nx-card-size-sales-types {
+        @each $theme in $themes {
+            $list: append($list, unquote(".notification-item.nx-card-size-#{$size}.themes-#{$type}_#{$theme}#{$tail}"), comma);
+        }
+    }
+    @return $list;
+}
+
+// What both presets need; Large only from 575px (below).
+@mixin nx-card-size-preset($size) {
+    .notification-item.nx-card-size-#{$size} > .notificationx-inner {
         zoom: var(--nx-scale);
     }
 
-    // The close button keeps its full size (35×30) so it stays easy to hit.
-    .notification-item.nx-card-size-compact .notificationx-close {
+    // The close button keeps its full size (35×30) and place: easy to hit in
+    // Compact, and the floating close of themes 12, 13 and 15 stays 24px
+    // outside the card in Large.
+    .notification-item.nx-card-size-#{$size} .notificationx-close {
         zoom: calc(1 / var(--nx-scale));
     }
+
+    // Sales: the root's corners follow the zoomed inner part.
+    #{nx-card-size-sales($size, "theme-one")} {
+        border-radius: calc(5px * var(--nx-scale));
+    }
+
+    #{nx-card-size-sales($size, $nx-card-size-no-min-width)} {
+        border-radius: calc(10px * var(--nx-scale));
+        // The theme's own width limit (it overrides Notification Size), scaled.
+        max-width: calc(360px * var(--nx-scale)) !important;
+    }
+
+    // Sales: room kept for the full-size Button tab stays full size, so the
+    // text never runs under it. Theme 12: its "Buy now ›" link inside the card.
+    // Theme 15: the pill straddling the top-right corner.
+    #{nx-card-size-sales($size, "conv-theme-twelve", " .notificationx-content")} {
+        padding-right: calc(76px / var(--nx-scale));
+    }
+
+    #{nx-card-size-sales($size, "conv-theme-fifteen", " .notificationx-content")} {
+        padding-top: calc(18px / var(--nx-scale));
+    }
+}
+
+@supports (zoom: 1) {
+    // Compact, at every width.
+    @include nx-card-size-preset(compact);
 
     // The base min-width (300px), scaled, above phone widths.
     @media (min-width: 481px) {
@@ -47,12 +96,20 @@ $nx-card-size-no-min-width: "conv-theme-twelve", "conv-theme-thirteen", "conv-th
         }
     }
 
+    // Sales, Compact: no text renders under 10px (Phase 0 list). These are
+    // 8.3–11px at Default: the time, the credit's "by" (and its "Verified ").
+    // `!important` beats the themes' longer selectors; a floor always wins.
+    #{nx-card-size-sales(compact, ("theme-one", "theme-two", "theme-three", "theme-five"), " .notificationx-content .nx-third-row > span > span")},
+    #{nx-card-size-sales(compact, ("conv-theme-twelve", "conv-theme-thirteen"), " .notificationx-content .nx-first-row > span > span:last-child")},
+    #{nx-card-size-sales(compact, "conv-theme-fifteen", " .notificationx-content .nx-first-row > span > span")},
+    #{nx-card-size-sales(compact, $nx-card-size-sales-themes, " .notificationx-content .nx-branding .nx-byline")} {
+        font-size: calc(10px / var(--nx-scale)) !important;
+    }
+
     // Large only where it fits (the frontend's mobile layout switches at 574px):
     // on smaller screens a Large card shows at Default.
     @media (min-width: 575px) {
-        .notification-item.nx-card-size-large > .notificationx-inner {
-            zoom: var(--nx-scale);
-        }
+        @include nx-card-size-preset(large);
 
         .notification-item.nx-card-size-large#{nx-card-size-not-themes($nx-card-size-no-min-width)} {
             min-width: calc(300px * var(--nx-scale));

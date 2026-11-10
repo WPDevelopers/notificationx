@@ -52,6 +52,31 @@ class CardSize {
     ];
 
     /**
+     * Free's own themes that offer the setting, family by family, each added
+     * once its cards pass the Compact and Large checks.
+     *
+     * Sales: the free themes of the Sales Notification (`conversions`) and
+     * WooCommerce (`woocommerce_sales`) types. The Pro-locked ones are left to
+     * add-ons (`nx_card_size_themes`).
+     */
+    const FREE_THEMES = [
+        'conversions_theme-one',
+        'conversions_theme-two',
+        'conversions_theme-three',
+        'conversions_theme-five',
+        'conversions_conv-theme-twelve',
+        'conversions_conv-theme-thirteen',
+        'conversions_conv-theme-fifteen',
+        'woocommerce_sales_theme-one',
+        'woocommerce_sales_theme-two',
+        'woocommerce_sales_theme-three',
+        'woocommerce_sales_theme-five',
+        'woocommerce_sales_conv-theme-twelve',
+        'woocommerce_sales_conv-theme-thirteen',
+        'woocommerce_sales_conv-theme-fifteen',
+    ];
+
+    /**
      * Registers the guard.
      */
     public function __construct() {
@@ -71,14 +96,14 @@ class CardSize {
     /**
      * The theme keys that offer the setting.
      *
-     * Free's own list is empty until each theme family passes its screenshots.
-     * Add-ons add their own theme keys (as saved in `themes`) through the
-     * `nx_card_size_themes` filter.
+     * Free's own list (FREE_THEMES) grows family by family as each passes its
+     * screenshots. Add-ons add their own theme keys (as saved in `themes`)
+     * through the `nx_card_size_themes` filter.
      *
      * @return string[]
      */
     public static function supported_themes() {
-        $themes = [];
+        $themes = self::FREE_THEMES;
 
         /**
          * Filters the theme keys that offer the card size setting.
