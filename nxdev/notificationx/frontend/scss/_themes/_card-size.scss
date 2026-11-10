@@ -17,8 +17,9 @@
 //
 // @since x.x.x
 
-// Themes whose root has `min-width: 0` instead of the base 300px.
-$nx-card-size-no-min-width: "conv-theme-twelve", "conv-theme-thirteen", "conv-theme-fourteen", "conv-theme-fifteen", "conv-theme-sixteen";
+// Free themes whose root has `min-width: 0` instead of the base 300px. Add-ons
+// reset their own themes in their own stylesheets.
+$nx-card-size-no-min-width: "conv-theme-twelve", "conv-theme-thirteen", "conv-theme-fifteen";
 
 @function nx-card-size-not-themes($themes) {
     $selector: "";
