@@ -526,12 +526,24 @@ class NotificationX {
     }
 
     public function get_tab(){
-        // Rebuild when NotificationX Pro is switched or updated: its options
-        // (and which motion options it renders) are part of the cached fields.
+        // Rebuild when anything the cached fields were built from changes:
+        // - NotificationX Pro switched or updated: its options (and which
+        //   motion options it renders) are part of the fields.
+        // - Elementor or Essential Blocks installed, switched on or off: the
+        //   Notification Bar fields default is_elementor from Elementor and
+        //   pick the install button and missing-plugin notice from them. A
+        //   stale copy saved new Elementor bars with is_elementor off, which
+        //   hid the builder preview.
         $pro_version = defined('NOTIFICATIONX_PRO_VERSION') && self::is_pro() ? NOTIFICATIONX_PRO_VERSION : 'none';
-        if ( get_transient('nx_builder_fields_pro') !== $pro_version ) {
+        $environment = implode('|', [
+            $pro_version,
+            class_exists('\Elementor\Plugin') ? 1 : 0,
+            file_exists(WP_PLUGIN_DIR . '/elementor/elementor.php') ? 1 : 0,
+            \NotificationX\Core\Helper::is_plugin_active('essential-blocks/essential-blocks.php') ? 1 : 0,
+        ]);
+        if ( get_transient('nx_builder_fields_pro') !== $environment ) {
             delete_transient('nx_builder_fields');
-            set_transient( 'nx_builder_fields_pro', $pro_version, DAY_IN_SECONDS );
+            set_transient( 'nx_builder_fields_pro', $environment, DAY_IN_SECONDS );
         }
         $tabs = get_transient('nx_builder_fields');
         if(empty($tabs) || (defined('NX_DEBUG') && NX_DEBUG)){
