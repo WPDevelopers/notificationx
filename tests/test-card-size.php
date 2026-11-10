@@ -2,8 +2,8 @@
 /**
  * Card size presets (84708): the `card_size` setting and its server-side guard.
  *
- * Free's own supported list holds the sales (P4), comments (P5) and reviews (P6)
- * families.
+ * Free's own supported list holds the sales (P4), comments (P5), reviews and
+ * download stats (P6) families.
  * For every other theme
  * the setting must be invisible until its family is added: hidden in the
  * builder, removed from what the frontend and the preview receive, and never
@@ -27,7 +27,7 @@ class Test_Card_Size extends WP_UnitTestCase {
 	const THEME = 'page_analytics_pa-theme-one';
 	const OTHER = 'page_analytics_pa-theme-two';
 
-	// Free's own list: sales (P4), comments (P5), reviews (P6).
+	// Free's own list: sales (P4), comments (P5), reviews and download stats (P6).
 	const FREE = array(
 		'conversions_theme-one',
 		'conversions_theme-two',
@@ -73,6 +73,10 @@ class Test_Card_Size extends WP_UnitTestCase {
 		'woocommerce_sales_reviews_review-comment',
 		'woocommerce_sales_reviews_review-comment-2',
 		'woocommerce_sales_reviews_review-comment-3',
+		'download_stats_today-download',
+		'download_stats_7day-download',
+		'download_stats_actively_using',
+		'download_stats_total-download',
 	);
 
 	public function tear_down() {
@@ -136,12 +140,12 @@ class Test_Card_Size extends WP_UnitTestCase {
 
 	/**
 	 * Every listed key is a free theme of its type, and every free theme of the
-	 * sales, comments and reviews sources is listed: nothing Pro-locked,
+	 * sales, comments, reviews and download stats sources is listed: nothing Pro-locked,
 	 * nothing missing. Google Reviews is a Pro source, so it isn't listed.
 	 */
 	public function test_free_list_is_exactly_the_free_sales_themes() {
 		$free = array();
-		foreach ( array( 'conversions' => \NotificationX\Types\Conversions::get_instance(), 'woocommerce_sales' => \NotificationX\Types\WooCommerceSales::get_instance(), 'comments' => \NotificationX\Types\Comments::get_instance(), 'reviews' => \NotificationX\Types\Reviews::get_instance() ) as $type => $instance ) {
+		foreach ( array( 'conversions' => \NotificationX\Types\Conversions::get_instance(), 'woocommerce_sales' => \NotificationX\Types\WooCommerceSales::get_instance(), 'comments' => \NotificationX\Types\Comments::get_instance(), 'reviews' => \NotificationX\Types\Reviews::get_instance(), 'download_stats' => \NotificationX\Types\DownloadStats::get_instance() ) as $type => $instance ) {
 			$themes = $instance->get_themes();
 			$this->assertNotEmpty( $themes, "$type has themes" );
 			foreach ( $themes as $name => $theme ) {

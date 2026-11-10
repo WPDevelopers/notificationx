@@ -59,7 +59,8 @@ class CardSize {
      * WooCommerce (`woocommerce_sales`) types. Comments: the free themes of
      * the Comments type. Reviews: the six layouts of each free review source
      * (WordPress.org `reviews_`, WooCommerce `woo_reviews_`, ReviewX `reviewx_`,
-     * the WooCommerce type's Reviews `woocommerce_sales_reviews_`). The
+     * the WooCommerce type's Reviews `woocommerce_sales_reviews_`). Download
+     * stats: the free themes of the Download Stats type. The
      * Pro-locked ones (and Google Reviews) are left to add-ons
      * (`nx_card_size_themes`).
      */
@@ -108,6 +109,10 @@ class CardSize {
         'woocommerce_sales_reviews_review-comment',
         'woocommerce_sales_reviews_review-comment-2',
         'woocommerce_sales_reviews_review-comment-3',
+        'download_stats_today-download',
+        'download_stats_7day-download',
+        'download_stats_actively_using',
+        'download_stats_total-download',
     ];
 
     /**
