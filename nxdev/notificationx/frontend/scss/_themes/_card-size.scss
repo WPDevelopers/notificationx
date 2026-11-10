@@ -30,6 +30,9 @@ $nx-card-size-no-min-width: "conv-theme-twelve", "conv-theme-thirteen", "conv-th
 $nx-card-size-sales-types: "conversions", "woocommerce_sales";
 $nx-card-size-sales-themes: "theme-one", "theme-two", "theme-three", "theme-five", "conv-theme-twelve", "conv-theme-thirteen", "conv-theme-fifteen";
 
+// The comments family (P5): Free's comments themes, as saved in `themes`.
+$nx-card-size-comments: "comments_theme-one", "comments_theme-two", "comments_theme-three", "comments_theme-six-free", "comments_theme-seven-free", "comments_theme-eight-free";
+
 @function nx-card-size-not-themes($themes) {
     $selector: "";
     @each $theme in $themes {
@@ -45,6 +48,15 @@ $nx-card-size-sales-themes: "theme-one", "theme-two", "theme-three", "theme-five
         @each $theme in $themes {
             $list: append($list, unquote(".notification-item.nx-card-size-#{$size}.themes-#{$type}_#{$theme}#{$tail}"), comma);
         }
+    }
+    @return $list;
+}
+
+// The given theme keys (as saved in `themes`), at one preset, plus a tail.
+@function nx-card-size-keys($size, $keys, $tail: "") {
+    $list: ();
+    @each $key in $keys {
+        $list: append($list, unquote(".notification-item.nx-card-size-#{$size}.themes-#{$key}#{$tail}"), comma);
     }
     @return $list;
 }
@@ -104,14 +116,19 @@ $nx-card-size-sales-themes: "theme-one", "theme-two", "theme-three", "theme-five
     //   scale cancels the zoom.
     // Sales: the time and themes 12/13/15's 10px byline (with its "Verified ")
     // get the floor; the 8.33px "by" of the other themes keeps its size.
+    // Comments: the post title (12px) and the time (10px) get the floor; the
+    // 8.33px "by" keeps its size.
     #{nx-card-size-sales(compact, ("theme-one", "theme-two", "theme-three", "theme-five"), " .notificationx-content .nx-third-row > span > span")},
     #{nx-card-size-sales(compact, ("conv-theme-twelve", "conv-theme-thirteen"), " .notificationx-content .nx-first-row > span > span:last-child")},
     #{nx-card-size-sales(compact, "conv-theme-fifteen", " .notificationx-content .nx-first-row > span > span")},
-    #{nx-card-size-sales(compact, $nx-card-size-no-min-width, " .notificationx-content .nx-branding .nx-byline")} {
+    #{nx-card-size-sales(compact, $nx-card-size-no-min-width, " .notificationx-content .nx-branding .nx-byline")},
+    #{nx-card-size-keys(compact, $nx-card-size-comments, " .notificationx-content .nx-second-row > span > span")},
+    #{nx-card-size-keys(compact, $nx-card-size-comments, " .notificationx-content .nx-third-row > span > span")} {
         font-size: calc(10px / var(--nx-scale)) !important;
     }
 
-    #{nx-card-size-sales(compact, ("theme-one", "theme-two", "theme-three", "theme-five"), " .notificationx-content .nx-branding .nx-byline")} {
+    #{nx-card-size-sales(compact, ("theme-one", "theme-two", "theme-three", "theme-five"), " .notificationx-content .nx-branding .nx-byline")},
+    #{nx-card-size-keys(compact, $nx-card-size-comments, " .notificationx-content .nx-branding .nx-byline")} {
         font-size: calc(1em / var(--nx-scale)) !important;
     }
 

@@ -56,8 +56,9 @@ class CardSize {
      * once its cards pass the Compact and Large checks.
      *
      * Sales: the free themes of the Sales Notification (`conversions`) and
-     * WooCommerce (`woocommerce_sales`) types. The Pro-locked ones are left to
-     * add-ons (`nx_card_size_themes`).
+     * WooCommerce (`woocommerce_sales`) types. Comments: the free themes of
+     * the Comments type. The Pro-locked ones are left to add-ons
+     * (`nx_card_size_themes`).
      */
     const FREE_THEMES = [
         'conversions_theme-one',
@@ -74,6 +75,12 @@ class CardSize {
         'woocommerce_sales_conv-theme-twelve',
         'woocommerce_sales_conv-theme-thirteen',
         'woocommerce_sales_conv-theme-fifteen',
+        'comments_theme-one',
+        'comments_theme-two',
+        'comments_theme-three',
+        'comments_theme-six-free',
+        'comments_theme-seven-free',
+        'comments_theme-eight-free',
     ];
 
     /**
