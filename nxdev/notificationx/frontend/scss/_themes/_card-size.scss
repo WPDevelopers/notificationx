@@ -96,14 +96,23 @@ $nx-card-size-sales-themes: "theme-one", "theme-two", "theme-three", "theme-five
         }
     }
 
-    // Sales, Compact: no text renders under 10px (Phase 0 list). These are
-    // 8.3–11px at Default: the time, the credit's "by" (and its "Verified ").
-    // `!important` beats the themes' longer selectors; a floor always wins.
+    // Compact text (Phase 0 list). `!important` beats the themes' longer
+    // selectors; these always win.
+    // - The floor: text of 10–12.5px at Default renders at 10px, never less.
+    // - Text already under 10px at Default keeps its Default size: it neither
+    //   shrinks nor grows. `1em` is the size it inherits, so dividing by the
+    //   scale cancels the zoom.
+    // Sales: the time and themes 12/13/15's 10px byline (with its "Verified ")
+    // get the floor; the 8.33px "by" of the other themes keeps its size.
     #{nx-card-size-sales(compact, ("theme-one", "theme-two", "theme-three", "theme-five"), " .notificationx-content .nx-third-row > span > span")},
     #{nx-card-size-sales(compact, ("conv-theme-twelve", "conv-theme-thirteen"), " .notificationx-content .nx-first-row > span > span:last-child")},
     #{nx-card-size-sales(compact, "conv-theme-fifteen", " .notificationx-content .nx-first-row > span > span")},
-    #{nx-card-size-sales(compact, $nx-card-size-sales-themes, " .notificationx-content .nx-branding .nx-byline")} {
+    #{nx-card-size-sales(compact, $nx-card-size-no-min-width, " .notificationx-content .nx-branding .nx-byline")} {
         font-size: calc(10px / var(--nx-scale)) !important;
+    }
+
+    #{nx-card-size-sales(compact, ("theme-one", "theme-two", "theme-three", "theme-five"), " .notificationx-content .nx-branding .nx-byline")} {
+        font-size: calc(1em / var(--nx-scale)) !important;
     }
 
     // Large only where it fits (the frontend's mobile layout switches at 574px):
