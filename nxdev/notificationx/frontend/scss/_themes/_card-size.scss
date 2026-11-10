@@ -33,6 +33,11 @@ $nx-card-size-sales-themes: "theme-one", "theme-two", "theme-three", "theme-five
 // The comments family (P5): Free's comments themes, as saved in `themes`.
 $nx-card-size-comments: "comments_theme-one", "comments_theme-two", "comments_theme-three", "comments_theme-six-free", "comments_theme-seven-free", "comments_theme-eight-free";
 
+// The reviews family (P6): the six layouts of each free review source
+// (WordPress.org, WooCommerce, ReviewX, the WooCommerce type's Reviews).
+$nx-card-size-review-sources: "reviews", "woo_reviews", "reviewx", "woocommerce_sales_reviews";
+$nx-card-size-review-layouts: "total-rated", "reviewed", "review_saying", "review-comment", "review-comment-2", "review-comment-3";
+
 @function nx-card-size-not-themes($themes) {
     $selector: "";
     @each $theme in $themes {
@@ -59,6 +64,18 @@ $nx-card-size-comments: "comments_theme-one", "comments_theme-two", "comments_th
         $list: append($list, unquote(".notification-item.nx-card-size-#{$size}.themes-#{$key}#{$tail}"), comma);
     }
     @return $list;
+}
+
+// Every prefix × name key (e.g. "reviews" × "review-comment"), at one preset,
+// plus a tail.
+@function nx-card-size-pairs($size, $prefixes, $names, $tail: "") {
+    $keys: ();
+    @each $prefix in $prefixes {
+        @each $name in $names {
+            $keys: append($keys, "#{$prefix}_#{$name}", comma);
+        }
+    }
+    @return nx-card-size-keys($size, $keys, $tail);
 }
 
 // What both presets need; Large only from 575px (below).
@@ -118,17 +135,21 @@ $nx-card-size-comments: "comments_theme-one", "comments_theme-two", "comments_th
     // get the floor; the 8.33px "by" of the other themes keeps its size.
     // Comments: the post title (12px) and the time (10px) get the floor; the
     // 8.33px "by" keeps its size.
+    // Reviews: the plugin / product name of the review-comment layouts (12px)
+    // gets the floor; the 8.33px "by" keeps its size.
     #{nx-card-size-sales(compact, ("theme-one", "theme-two", "theme-three", "theme-five"), " .notificationx-content .nx-third-row > span > span")},
     #{nx-card-size-sales(compact, ("conv-theme-twelve", "conv-theme-thirteen"), " .notificationx-content .nx-first-row > span > span:last-child")},
     #{nx-card-size-sales(compact, "conv-theme-fifteen", " .notificationx-content .nx-first-row > span > span")},
     #{nx-card-size-sales(compact, $nx-card-size-no-min-width, " .notificationx-content .nx-branding .nx-byline")},
     #{nx-card-size-keys(compact, $nx-card-size-comments, " .notificationx-content .nx-second-row > span > span")},
-    #{nx-card-size-keys(compact, $nx-card-size-comments, " .notificationx-content .nx-third-row > span > span")} {
+    #{nx-card-size-keys(compact, $nx-card-size-comments, " .notificationx-content .nx-third-row > span > span")},
+    #{nx-card-size-pairs(compact, $nx-card-size-review-sources, ("review-comment", "review-comment-2", "review-comment-3"), " .notificationx-content .nx-second-row > span > span")} {
         font-size: calc(10px / var(--nx-scale)) !important;
     }
 
     #{nx-card-size-sales(compact, ("theme-one", "theme-two", "theme-three", "theme-five"), " .notificationx-content .nx-branding .nx-byline")},
-    #{nx-card-size-keys(compact, $nx-card-size-comments, " .notificationx-content .nx-branding .nx-byline")} {
+    #{nx-card-size-keys(compact, $nx-card-size-comments, " .notificationx-content .nx-branding .nx-byline")},
+    #{nx-card-size-pairs(compact, $nx-card-size-review-sources, $nx-card-size-review-layouts, " .notificationx-content .nx-branding .nx-byline")} {
         font-size: calc(1em / var(--nx-scale)) !important;
     }
 

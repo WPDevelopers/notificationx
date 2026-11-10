@@ -2,7 +2,8 @@
 /**
  * Card size presets (84708): the `card_size` setting and its server-side guard.
  *
- * Free's own supported list holds the sales (P4) and comments (P5) families.
+ * Free's own supported list holds the sales (P4), comments (P5) and reviews (P6)
+ * families.
  * For every other theme
  * the setting must be invisible until its family is added: hidden in the
  * builder, removed from what the frontend and the preview receive, and never
@@ -22,10 +23,11 @@ use NotificationX\FrontEnd\Preview;
 
 class Test_Card_Size extends WP_UnitTestCase {
 
-	// A theme of a family that isn't supported yet (reviews, P6).
-	const THEME = 'reviews_total-rated';
+	// A theme of a family that isn't in this round (Page Analytics).
+	const THEME = 'page_analytics_pa-theme-one';
+	const OTHER = 'page_analytics_pa-theme-two';
 
-	// Free's own list: sales (P4), comments (P5).
+	// Free's own list: sales (P4), comments (P5), reviews (P6).
 	const FREE = array(
 		'conversions_theme-one',
 		'conversions_theme-two',
@@ -47,6 +49,30 @@ class Test_Card_Size extends WP_UnitTestCase {
 		'comments_theme-six-free',
 		'comments_theme-seven-free',
 		'comments_theme-eight-free',
+		'reviews_total-rated',
+		'reviews_reviewed',
+		'reviews_review_saying',
+		'reviews_review-comment',
+		'reviews_review-comment-2',
+		'reviews_review-comment-3',
+		'woo_reviews_total-rated',
+		'woo_reviews_reviewed',
+		'woo_reviews_review_saying',
+		'woo_reviews_review-comment',
+		'woo_reviews_review-comment-2',
+		'woo_reviews_review-comment-3',
+		'reviewx_total-rated',
+		'reviewx_reviewed',
+		'reviewx_review_saying',
+		'reviewx_review-comment',
+		'reviewx_review-comment-2',
+		'reviewx_review-comment-3',
+		'woocommerce_sales_reviews_total-rated',
+		'woocommerce_sales_reviews_reviewed',
+		'woocommerce_sales_reviews_review_saying',
+		'woocommerce_sales_reviews_review-comment',
+		'woocommerce_sales_reviews_review-comment-2',
+		'woocommerce_sales_reviews_review-comment-3',
 	);
 
 	public function tear_down() {
@@ -104,17 +130,18 @@ class Test_Card_Size extends WP_UnitTestCase {
 	}
 
 	public function test_field_shows_for_themes_added_by_the_filter() {
-		$this->support( array( self::THEME, 'reviews_reviewed' ) );
-		$this->assertEquals( Rules::includes( 'themes', array_merge( self::FREE, array( self::THEME, 'reviews_reviewed' ) ) ), $this->field()['rules'] );
+		$this->support( array( self::THEME, self::OTHER ) );
+		$this->assertEquals( Rules::includes( 'themes', array_merge( self::FREE, array( self::THEME, self::OTHER ) ) ), $this->field()['rules'] );
 	}
 
 	/**
 	 * Every listed key is a free theme of its type, and every free theme of the
-	 * sales and comments types is listed: nothing Pro-locked, nothing missing.
+	 * sales, comments and reviews sources is listed: nothing Pro-locked,
+	 * nothing missing. Google Reviews is a Pro source, so it isn't listed.
 	 */
 	public function test_free_list_is_exactly_the_free_sales_themes() {
 		$free = array();
-		foreach ( array( 'conversions' => \NotificationX\Types\Conversions::get_instance(), 'woocommerce_sales' => \NotificationX\Types\WooCommerceSales::get_instance(), 'comments' => \NotificationX\Types\Comments::get_instance() ) as $type => $instance ) {
+		foreach ( array( 'conversions' => \NotificationX\Types\Conversions::get_instance(), 'woocommerce_sales' => \NotificationX\Types\WooCommerceSales::get_instance(), 'comments' => \NotificationX\Types\Comments::get_instance(), 'reviews' => \NotificationX\Types\Reviews::get_instance() ) as $type => $instance ) {
 			$themes = $instance->get_themes();
 			$this->assertNotEmpty( $themes, "$type has themes" );
 			foreach ( $themes as $name => $theme ) {
@@ -123,6 +150,18 @@ class Test_Card_Size extends WP_UnitTestCase {
 				}
 			}
 		}
+		// Review sources with their own themes (keys already prefixed by the source).
+		foreach ( array( \NotificationX\Extensions\WooCommerce\WooReviews::get_instance(), \NotificationX\Extensions\ReviewX\ReviewX::get_instance(), \NotificationX\Extensions\WooCommerce\WooCommerceSalesReviews::get_instance() ) as $source ) {
+			$this->assertEmpty( $source->is_pro, get_class( $source ) );
+			$themes = $source->get_themes();
+			$this->assertCount( 6, $themes, get_class( $source ) );
+			foreach ( $themes as $key => $theme ) {
+				if ( empty( $theme['is_pro'] ) ) {
+					$free[] = $key;
+				}
+			}
+		}
+		$this->assertNotEmpty( \NotificationX\Extensions\Google\GoogleReviews::get_instance()->is_pro );
 		sort( $free );
 		$listed = CardSize::FREE_THEMES;
 		sort( $listed );
@@ -139,7 +178,7 @@ class Test_Card_Size extends WP_UnitTestCase {
 			$this->assertArrayNotHasKey( 'card_size', CardSize::normalize( array( 'themes' => $theme, 'card_size' => 'default' ) ) );
 		}
 		// The Pro-locked themes stay at Default until an add-on lists them.
-		foreach ( array( 'conversions_theme-four', 'conversions_conv-theme-seven', 'conversions_conv-theme-fourteen', 'woocommerce_sales_conv-theme-sixteen', 'conversions_maps_theme', 'comments_theme-four', 'comments_theme-five' ) as $theme ) {
+		foreach ( array( 'conversions_theme-four', 'conversions_conv-theme-seven', 'conversions_conv-theme-fourteen', 'woocommerce_sales_conv-theme-sixteen', 'conversions_maps_theme', 'comments_theme-four', 'comments_theme-five', 'google_reviews_total-rated', 'google_reviews_review-comment', 'google_reviews_maps_theme' ) as $theme ) {
 			$this->assertArrayNotHasKey( 'card_size', CardSize::normalize( array( 'themes' => $theme, 'card_size' => 'compact' ) ), $theme );
 		}
 	}
@@ -159,8 +198,8 @@ class Test_Card_Size extends WP_UnitTestCase {
 	}
 
 	public function test_supported_themes_drops_verified_cards_and_junk() {
-		$this->support( array( self::THEME, 'conversions_vc-receipt', '', 5, null, array( 'x' ), self::THEME, 'download_stats_today-download', 'conversions_theme-one' ) );
-		$this->assertSame( array_merge( self::FREE, array( self::THEME, 'download_stats_today-download' ) ), CardSize::supported_themes() );
+		$this->support( array( self::THEME, 'conversions_vc-receipt', '', 5, null, array( 'x' ), self::THEME, self::OTHER, 'conversions_theme-one' ) );
+		$this->assertSame( array_merge( self::FREE, array( self::THEME, self::OTHER ) ), CardSize::supported_themes() );
 		$this->assertTrue( CardSize::is_supported( self::THEME ) );
 		$this->assertFalse( CardSize::is_supported( 'conversions_vc-receipt' ) );
 		$this->assertFalse( CardSize::is_supported( null ) );
@@ -194,8 +233,8 @@ class Test_Card_Size extends WP_UnitTestCase {
 			array( 'compact', self::THEME, true ),
 			array( 'large', self::THEME, true ),
 			array( 'default', self::THEME, false ),
-			array( 'compact', 'reviews_reviewed', false ),
-			array( 'large', 'reviews_reviewed', false ),
+			array( 'compact', self::OTHER, false ),
+			array( 'large', self::OTHER, false ),
 			array( 'compact', 'conversions_vc-receipt', false ),
 			array( 'large', 'conversions_vc-receipt', false ),
 			array( 'Compact', self::THEME, false ),

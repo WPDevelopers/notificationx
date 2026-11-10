@@ -57,7 +57,10 @@ class CardSize {
      *
      * Sales: the free themes of the Sales Notification (`conversions`) and
      * WooCommerce (`woocommerce_sales`) types. Comments: the free themes of
-     * the Comments type. The Pro-locked ones are left to add-ons
+     * the Comments type. Reviews: the six layouts of each free review source
+     * (WordPress.org `reviews_`, WooCommerce `woo_reviews_`, ReviewX `reviewx_`,
+     * the WooCommerce type's Reviews `woocommerce_sales_reviews_`). The
+     * Pro-locked ones (and Google Reviews) are left to add-ons
      * (`nx_card_size_themes`).
      */
     const FREE_THEMES = [
@@ -81,6 +84,30 @@ class CardSize {
         'comments_theme-six-free',
         'comments_theme-seven-free',
         'comments_theme-eight-free',
+        'reviews_total-rated',
+        'reviews_reviewed',
+        'reviews_review_saying',
+        'reviews_review-comment',
+        'reviews_review-comment-2',
+        'reviews_review-comment-3',
+        'woo_reviews_total-rated',
+        'woo_reviews_reviewed',
+        'woo_reviews_review_saying',
+        'woo_reviews_review-comment',
+        'woo_reviews_review-comment-2',
+        'woo_reviews_review-comment-3',
+        'reviewx_total-rated',
+        'reviewx_reviewed',
+        'reviewx_review_saying',
+        'reviewx_review-comment',
+        'reviewx_review-comment-2',
+        'reviewx_review-comment-3',
+        'woocommerce_sales_reviews_total-rated',
+        'woocommerce_sales_reviews_reviewed',
+        'woocommerce_sales_reviews_review_saying',
+        'woocommerce_sales_reviews_review-comment',
+        'woocommerce_sales_reviews_review-comment-2',
+        'woocommerce_sales_reviews_review-comment-3',
     ];
 
     /**
