@@ -82,6 +82,8 @@ and an `elementor_id` is linked + published; if so it renders the Elementor docu
 to HTML server-side and injects it (plus resolved Layout-panel settings) into the
 campaign settings payload as `elementor_html` / `popup_layout` / `mode: 'elementor'`.
 If Elementor is missing or the doc unpublished, `mode` falls back to `'built_in'`.
+`add_end_timestamp()`, on the same filter, adds `exit_intent_end_ts` (the campaign end
+date as UTC ms) for the end-date option and the Pro countdown themes.
 
 ## Fields & settings
 
@@ -102,7 +104,10 @@ tables — not duplicated here):
   `design_fields()`, gated by `Rules::is('themes', ...)` per theme.
 - **Customize tab** — `exit_intent_popup_settings` section added by
   `customize_fields()`: `show_close_button`, `exit_intent_position`,
-  `exit_intent_sensitivity`, `exit_intent_cookie_days`, `exit_intent_mobile_disable`.
+  `exit_intent_sensitivity`, `exit_intent_cookie_days`, `exit_intent_hide_after_end`,
+  `exit_intent_countdown_end` (shown when the toggle is on), `exit_intent_mobile_disable`.
+  The end-date pair stops the popup after its end date; see
+  [End date](../features/exit-intent/00-overview.md#end-date-stop-showing-after-end-date).
   Standard `timing`/`behaviour`/`sound_section`/`queue_management`/`appearance`/
   `animation` fields are hidden for this source (a `center` position option is added
   instead). Uses `GlobalFields::get_instance()->normalize_fields()` for the select

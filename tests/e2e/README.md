@@ -83,3 +83,27 @@ It writes one login session, one private post and one notification per source to
 ## Build With AI preset preview (Pro)
 
 `tests/e2e/preset-preview.js` in NotificationX Pro opens the Exit Intent Build With AI history with a mocked preset and checks the preview POST carries the nonce and renders. It reuses `auth.php` and `puppeteer-core` from this plugin.
+
+## Exit Intent end date
+
+[exit-intent-end.js](exit-intent-end.js) checks "Stop Showing After End Date" (free issue #211) against QA guide [exit-intent-hide-after-end.md](../../docs/qa-guide/exit-intent-hide-after-end.md), cases T1–T8 and T11:
+
+- Front end, as a visitor who is not logged in: an expired campaign does not open; a running one opens and closes when its end time arrives, without a dismissal entry; a page loaded before the end time does not open it after; a campaign with the toggle off keeps opening.
+- Builder: the Customize tab toggle and end date field, the 7-day default on the Theme Five date, one value in Content and Customize, the saved value, and the preview of an expired campaign.
+- T6 (Elementor design, seeded from `theme-five`) runs only when Elementor is active, and is reported as skipped otherwise.
+
+```bash
+npm run frontend
+node tests/e2e/exit-intent-end.js                    # about 90 seconds
+```
+
+It creates four or five notifications (and one Elementor design for T6) through the REST API and removes them at the end. It waits for one campaign's end time, 40 seconds after the start.
+
+Pro's `tests/e2e/exit-intent-countdown.js` covers the Theme Five / Six timer: the same end time in UTC+6 and UTC-5 (T9), and Theme Six closing at zero.
+
+If WP-CLI dies with `Allowed memory size of 134217728 bytes exhausted` (seen on this site with Elementor, WooCommerce, EmbedPress and both NotificationX plugins active), skip a plugin the runner does not need for its WP-CLI calls only:
+
+```bash
+printf 'skip-plugins: woocommerce\n' > /tmp/wp-cli-e2e.yml
+WP_CLI_CONFIG_PATH=/tmp/wp-cli-e2e.yml node tests/e2e/exit-intent-end.js
+```

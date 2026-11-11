@@ -9,6 +9,7 @@ import moment from "moment";
 import usePreviewType from "./usePreviewType";
 import { releaseBarReserve, reservedBarId } from "./barReserve";
 import { loadAddonScripts, needsAddonScripts } from "./addons";
+import { isExitIntentPastEnd } from "./exitIntentEnd";
 
 const useNotificationX = (props: any) => {
 
@@ -627,6 +628,8 @@ const useNotificationX = (props: any) => {
                 const nx_id = config?.nx_id;
                 if (triggered.has(nx_id)) return;
                 if (isDismissed(config)) return;
+                // "Stop Showing After End Date": the page may be cached or left open.
+                if (isExitIntentPastEnd(config)) return;
 
                 triggered.add(nx_id);
                 const args = { intervalID: null, timeoutID: null, data: exitItem.content || null, config };

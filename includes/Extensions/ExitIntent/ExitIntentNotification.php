@@ -48,6 +48,7 @@ class ExitIntentNotification extends Extension {
         add_filter( 'get_edit_post_link', [ $this, 'filter_edit_post_link' ], 10, 3 );
         add_filter( 'nx_filtered_post', [ $this, 'inject_elementor_html' ], 10, 2 );
         add_filter( 'nx_filtered_post', [ $this, 'localize_default_image' ], 10, 2 );
+        add_filter( 'nx_filtered_post', [ $this, 'add_end_timestamp' ], 10, 2 );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_elementor_assets' ], 20 );
         add_action( 'wp_head', [ $this, 'print_section_constraint_css' ], 99 );
         add_action( 'elementor/documents/register_controls', [ $this, 'register_popup_layout_controls' ] );
@@ -121,6 +122,71 @@ class ExitIntentNotification extends Extension {
         } else {
             $settings['exit_intent_image_url'] = $local;
         }
+        return $settings;
+    }
+
+    /**
+     * The campaign end time (`exit_intent_countdown_end`) as a Unix timestamp.
+     *
+     * The admin date field saves UTC ISO 8601 (`2026-11-11T10:00:00.000Z`).
+     * A value without a timezone (import, Build With AI) is read as UTC too,
+     * the same as the date field's own `moment.utc()` parsing.
+     *
+     * @param array $settings Campaign settings.
+     * @return int|null Seconds since the epoch, or null when no valid date is set.
+     */
+    public static function get_end_timestamp( $settings ) {
+        $value = $settings['exit_intent_countdown_end'] ?? '';
+        if ( ! is_string( $value ) || '' === trim( $value ) ) {
+            return null;
+        }
+        try {
+            $date = new \DateTimeImmutable( trim( $value ), new \DateTimeZone( 'UTC' ) );
+        } catch ( \Exception $e ) {
+            return null;
+        }
+        return $date->getTimestamp();
+    }
+
+    /**
+     * True when "Stop Showing After End Date" is on and the end date has passed.
+     *
+     * @param array    $settings Campaign settings.
+     * @param int|null $now      Current Unix time; defaults to time().
+     * @return bool
+     */
+    public static function is_past_end( $settings, $now = null ) {
+        if ( ( $settings['source'] ?? '' ) !== 'exit_intent_custom' ) {
+            return false;
+        }
+        if ( ! filter_var( $settings['exit_intent_hide_after_end'] ?? false, FILTER_VALIDATE_BOOLEAN ) ) {
+            return false;
+        }
+        $end = self::get_end_timestamp( $settings );
+        if ( null === $end ) {
+            return false;
+        }
+        return $end <= ( null === $now ? time() : (int) $now );
+    }
+
+    /**
+     * Send the end time to the frontend as `exit_intent_end_ts` (UTC, ms).
+     * The popup uses it to skip and close an expired campaign, and the Pro
+     * countdown themes use it so every visitor sees the same end moment.
+     *
+     * @param array $settings Campaign settings.
+     * @param array $params   Request params.
+     * @return array
+     */
+    public function add_end_timestamp( $settings, $params ) {
+        if ( empty( $settings['source'] ) || $settings['source'] !== $this->id ) {
+            return $settings;
+        }
+        $end = self::get_end_timestamp( $settings );
+        if ( null !== $end ) {
+            $settings['exit_intent_end_ts'] = $end * 1000;
+        }
+        $settings['exit_intent_hide_after_end'] = filter_var( $settings['exit_intent_hide_after_end'] ?? false, FILTER_VALIDATE_BOOLEAN );
         return $settings;
     }
 
@@ -675,7 +741,7 @@ JS;
                     'exit_intent_t6_title'           => __( 'Limited Edition Bass Boost Headphones', 'notificationx' ),
                     // 'exit_intent_t6_show_timer'      => true,
                     'exit_intent_t6_countdown_label' => __( 'Offer Ends In', 'notificationx' ),
-                    'exit_intent_countdown_end'      => '',
+                    'exit_intent_countdown_end'      => gmdate( 'c', time() + 7 * DAY_IN_SECONDS ),
                     'exit_intent_t6_days_label'      => __( 'DAYS', 'notificationx' ),
                     'exit_intent_t6_hours_label'     => __( 'HOURS', 'notificationx' ),
                     'exit_intent_t6_minutes_label'   => __( 'MIN', 'notificationx' ),
@@ -722,7 +788,7 @@ JS;
                     'exit_intent_t5_headline'        => __( '50% OFF', 'notificationx' ),
                     'exit_intent_t5_desc'            => __( 'ON ENTIRE ORDER', 'notificationx' ),
                     'exit_intent_t5_countdown_label' => __( 'LIMITED-TIME OFFER! SALE ENDS IN', 'notificationx' ),
-                    'exit_intent_countdown_end'      => '',
+                    'exit_intent_countdown_end'      => gmdate( 'c', time() + 7 * DAY_IN_SECONDS ),
                     'exit_intent_t5_days_label'      => __( 'DAYS', 'notificationx' ),
                     'exit_intent_t5_hours_label'     => __( 'HRS', 'notificationx' ),
                     'exit_intent_t5_minutes_label'   => __( 'MIN', 'notificationx' ),
@@ -1499,8 +1565,10 @@ JS;
                     'name'     => 'exit_intent_countdown_end',
                     'type'     => 'date',
                     'priority' => 20,
-                    'default'  => '',
-                    'help'     => __( 'Pick the date and time when the sale ends. Leave empty to display static demo numbers.', 'notificationx' ),
+                    // The date field saves the current time when it mounts with
+                    // an empty value, so a blank default left the timer at 00.
+                    'default'  => gmdate( 'c', time() + 7 * DAY_IN_SECONDS ),
+                    'help'     => __( 'Pick the date and time when the sale ends. To stop showing the popup after this date, turn on "Stop Showing After End Date" in Customize > Exit Intent Settings.', 'notificationx' ),
                     'rules'    => Rules::is( 'exit_intent_t5_show_timer', true ),
                 ],
                 [
@@ -1697,8 +1765,10 @@ JS;
                     'name'     => 'exit_intent_countdown_end',
                     'type'     => 'date',
                     'priority' => 20,
-                    'default'  => '',
-                    'help'     => __( 'Pick the date and time when the sale ends. Leave empty to display static demo numbers.', 'notificationx' ),
+                    // The date field saves the current time when it mounts with
+                    // an empty value, so a blank default left the timer at 00.
+                    'default'  => gmdate( 'c', time() + 7 * DAY_IN_SECONDS ),
+                    'help'     => __( 'Pick the date and time when the sale ends. To stop showing the popup after this date, turn on "Stop Showing After End Date" in Customize > Exit Intent Settings.', 'notificationx' ),
                     'rules'    => Rules::is( 'exit_intent_t6_show_timer', true ),
                 ],
                 [
@@ -2291,6 +2361,23 @@ JS;
                     'default'     => 7,
                     'description' => __( 'days', 'notificationx' ),
                     'help'        => __( 'Once dismissed, hide the popup for this many days.', 'notificationx' ),
+                ],
+                'exit_intent_hide_after_end' => [
+                    'label'   => __( 'Stop Showing After End Date', 'notificationx' ),
+                    'name'    => 'exit_intent_hide_after_end',
+                    'type'    => 'toggle',
+                    'default' => false,
+                    'help'    => __( 'After the end date, the popup no longer opens. A popup that is open at the end time closes.', 'notificationx' ),
+                ],
+                // Same key as the Theme Five / Six "Sale End Date & Time" field,
+                // so the countdown and the stop date are always one value.
+                'exit_intent_countdown_end' => [
+                    'label'   => __( 'End Date & Time', 'notificationx' ),
+                    'name'    => 'exit_intent_countdown_end',
+                    'type'    => 'date',
+                    'default' => gmdate( 'c', time() + 7 * DAY_IN_SECONDS ),
+                    'help'    => __( 'For a countdown theme or an Elementor countdown widget, use the same date as the timer.', 'notificationx' ),
+                    'rules'   => Rules::is( 'exit_intent_hide_after_end', true ),
                 ],
                 'exit_intent_mobile_disable' => [
                     'label'   => __( 'Disable on Mobile', 'notificationx' ),

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import nxHelper from './functions';
 import useNotificationContext from './NotificationProvider';
 import { nxApplyFilters } from "./hooks";
+import { msUntilExitIntentEnd } from "./exitIntentEnd";
 
 const px = (v: any): string | undefined => (v || v === 0) ? `${v}px` : undefined;
 
@@ -18,6 +19,7 @@ const ExitIntentPopup = (props: any) => {
     const [submitted, setSubmitted]        = useState(false);
     const [videoPlaying, setVideoPlaying]  = useState(false);
     const elementorBodyRef                 = useRef<HTMLDivElement | null>(null);
+    const [recheck, setRecheck]            = useState(0);
 
     const theme     = settings?.themes?.replace(`${settings?.source}_`, '') || 'theme-one';
     const showClose = settings?.show_close_button !== false;
@@ -55,6 +57,27 @@ const ExitIntentPopup = (props: any) => {
         setIsVisible(false);
         dispatch?.({ type: 'REMOVE_NOTIFICATION', payload: nxExitIntent.id });
     };
+
+    // "Stop Showing After End Date": close the popup when the end time arrives
+    // while it is open. Covers built-in themes, Pro themes and Elementor designs.
+    // It is not a dismissal, so no "closed" cookie is written.
+    useEffect(() => {
+        if (!isVisible) return;
+        const left = msUntilExitIntentEnd(settings);
+        if (left === null) return;
+        const expire = () => {
+            setIsVisible(false);
+            dispatch?.({ type: 'REMOVE_NOTIFICATION', payload: nxExitIntent.id });
+        };
+        if (left <= 0) {
+            expire();
+            return;
+        }
+        // setTimeout overflows above 2^31-1 ms (~24.8 days); re-check later instead.
+        const MAX_DELAY = 2147483647;
+        const timer = setTimeout(left > MAX_DELAY ? () => setRecheck((n) => n + 1) : expire, Math.min(left, MAX_DELAY));
+        return () => clearTimeout(timer);
+    }, [isVisible, settings?.exit_intent_end_ts, settings?.exit_intent_hide_after_end, recheck]);
 
     // When the popup hosts an Elementor-built form (e.g. an Elementor Pro Form
     // widget or our own .nx-form), Elementor / the form script handles the
