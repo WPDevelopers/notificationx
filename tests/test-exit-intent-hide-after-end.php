@@ -119,10 +119,11 @@ class Test_Exit_Intent_Hide_After_End extends WP_UnitTestCase {
 		$running      = $this->insert_campaign( $future, true );
 		$toggle_off   = $this->insert_campaign( $past, false );
 
-		$ids = FrontEnd::get_instance()->get_notifications_ids();
-		$this->assertNotContains( $expired, $ids['exit_intent'] );
-		$this->assertContains( $running, $ids['exit_intent'] );
-		$this->assertContains( $toggle_off, $ids['exit_intent'] );
+		// The IDs come back as strings from the database.
+		$ids = array_map( 'intval', FrontEnd::get_instance()->get_notifications_ids()['exit_intent'] );
+		$this->assertNotContains( $expired, $ids );
+		$this->assertContains( $running, $ids );
+		$this->assertContains( $toggle_off, $ids );
 
 		// IDs from a cached page still reach the REST payload builder.
 		$data = FrontEnd::get_instance()->get_notifications_data( [ 'exit_intent' => [ $expired, $running, $toggle_off ] ] );
