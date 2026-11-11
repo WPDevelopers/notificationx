@@ -227,7 +227,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.3.8 - 10/11/2026 =
+= 3.3.8 - 11/11/2026 =
 Added: Motion support
 Improved: Notification layout, spacing and timing.
 Improved: Security Enhancement
