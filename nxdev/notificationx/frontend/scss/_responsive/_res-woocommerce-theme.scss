@@ -597,12 +597,19 @@
                     }
                 }
 
+                $link-top: 18px;
+                $subscribe-top: 24px;
+                @include nx-link-overhang($link-top);
+                &.button-link:has(.yt-notificationx-link) {
+                    @include nx-overhang($top: $subscribe-top);
+                }
+
                 &.button-link {
                     .notificationx-link {
                         display: block;
                         left: inherit;
                         bottom: inherit;
-                        top: -18px;
+                        top: -$link-top;
                         right: 6px;
                         font-size: 8px;
                         text-decoration: none;
@@ -618,7 +625,7 @@
                         position: absolute;
                         left: auto;
                         bottom: inherit;
-                        top: -24px;
+                        top: -$subscribe-top;
                         right: 4px;
                         font-size: 10px;
                         text-decoration: none;
@@ -939,6 +946,12 @@
                 background: transparent;
                 box-shadow: none;
 
+                // The second badge (a speech-bubble tail) hangs below the card.
+                $badge-bottom: 7px;
+                &:has(.notificationx-image-badge.second-span) {
+                    @include nx-overhang($bottom: $badge-bottom);
+                }
+
                 .notificationx-image {
                     position: relative;
                     overflow: initial !important;
@@ -962,7 +975,7 @@
 
                     .notificationx-image-badge {
                         z-index: -1;
-                        bottom: -7px !important;
+                        bottom: -$badge-bottom !important;
                         left: 52% !important;
                         border-top-width: 16px !important;
                         border-right-width: 14px !important;
@@ -1215,6 +1228,9 @@
             &.themes-woocommerce_sales_reviews_rating-res-theme-five,
             &.themes-comments_res-theme-five,
             &.themes-reviews_rating-res-theme-five {
+                $badge-top: 3px;
+                @include nx-overhang($top: $badge-top);
+
                 border-radius: 36px;
                 min-width: 160px;
 
@@ -1229,7 +1245,7 @@
 
                     &::after {
                         position: absolute;
-                        top: -3px;
+                        top: -$badge-top;
                         left: 2px;
                         font-family: "FontAwesome";
                         content: "\f10d";
@@ -1300,6 +1316,9 @@
             &.themes-elearning_elearning-res-theme-ten,
             &.themes-donation_res-theme-seven,
             &.themes-comments_res-theme-nine {
+                // The image is scaled 1.2: a tenth of its 40px height sticks out at the top and bottom.
+                @include nx-overhang($top: 4px, $bottom: 4px);
+
                 .notificationx-image {
                     margin: 0;
                     padding: 0;
@@ -1334,6 +1353,9 @@
             &.themes-woocommerce_sales_reviews_rating-res-theme-six,
             &.themes-comments_res-theme-six,
             &.themes-reviews_rating-res-theme-six {
+                $badge-top: 3px;
+                @include nx-overhang($top: $badge-top);
+
                 border-radius: 36px;
                 min-width: 160px;
 
@@ -1348,7 +1370,7 @@
 
                     &::after {
                         position: absolute;
-                        top: -3px;
+                        top: -$badge-top;
                         left: 2px;
                         font-family: "FontAwesome";
                         content: "\f10d";
@@ -1501,12 +1523,14 @@
                     }
                 }
 
+                $link-top: 21px;
+                @include nx-link-overhang($link-top);
                 &.button-link {
                     .notificationx-link {
                         position: absolute;
                         left: inherit;
                         bottom: inherit;
-                        top: -21px;
+                        top: -$link-top;
                         right: 8px;
                         text-decoration: none;
                         padding: 3px 8px;
@@ -1570,6 +1594,9 @@
             &.themes-conversions_res-theme-nine,
             &.themes-elearning_elearning-res-theme-seven,
             &.themes-donation_res-theme-eight {
+                $badge-top: 3px;
+                @include nx-overhang($top: $badge-top);
+
                 border-radius: 3px;
 
                 .notificationx-image {
@@ -1582,7 +1609,7 @@
 
                     &:after {
                         position: absolute;
-                        top: -3px;
+                        top: -$badge-top;
                         left: -2px;
                         font-family: "FontAwesome";
                         content: "\f07a";
@@ -1705,6 +1732,9 @@
             &.themes-conversions_res-theme-eleven,
             &.themes-elearning_res-theme-nine,
             &.themes-donation_res-theme-ten {
+                $badge-top: 7px;
+                @include nx-overhang($top: $badge-top);
+
                 background: transparent;
                 box-shadow: none;
 
@@ -1723,7 +1753,7 @@
 
                     &::after {
                         position: absolute;
-                        top: -7px;
+                        top: -$badge-top;
                         left: 3px;
                         font-family: "FontAwesome";
                         content: "\f07a";
