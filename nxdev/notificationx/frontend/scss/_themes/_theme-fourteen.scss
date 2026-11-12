@@ -146,6 +146,7 @@
     }
 
     // "Purchase now ›" — green text link at the bottom-left, aligned with the content.
+    @include nx-link-overhang(0px); // inside the card
     &.button-link .notificationx-link {
         top: auto;
         bottom: 13px;

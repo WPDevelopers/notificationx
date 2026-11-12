@@ -32,8 +32,9 @@
         display: none;
     }
 
+    // Plus whatever sticks out below the card (nx-overhang).
     &:not(&:last-child) {
-        margin-bottom: 30px;
+        margin-bottom: calc(30px + var(--nx-overhang-bottom, 0px));
     }
 
     &.exit {
@@ -42,11 +43,13 @@
         // animation-fill-mode: forwards;
     }
 
+    @include nx-link-overhang($nx-link-tab-top);
+
     &.button-link {
         .notificationx-link {
             left: inherit;
             bottom: inherit;
-            top: -35px;
+            top: -$nx-link-tab-top;
             right: 15px;
             font-size: 14px;
             text-decoration: none;
@@ -62,7 +65,7 @@
             position: absolute;
             left: auto;
             bottom: inherit;
-            top: -35px;
+            top: -$nx-link-tab-top;
             right: 15px;
             font-size: 14px;
             text-decoration: none;

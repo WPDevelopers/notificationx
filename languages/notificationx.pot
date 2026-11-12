@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.3.7\n"
+"Project-Id-Version: NotificationX 3.3.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-28T08:49:46+00:00\n"
+"POT-Creation-Date: 2026-11-01T06:23:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: notificationx\n"
@@ -49,7 +49,7 @@ msgstr ""
 msgid "https://wpdeveloper.com"
 msgstr ""
 
-#: blocks/Blocks.php:238
+#: blocks/Blocks.php:244
 msgid "There is no data in this notification."
 msgstr ""
 
@@ -165,7 +165,7 @@ msgstr ""
 
 #. translators: %d: notification id.
 #. translators: %d: notification ID
-#: includes/Abilities/Read/EntriesReader.php:127
+#: includes/Abilities/Read/EntriesReader.php:128
 #: includes/Core/Rest/Popup.php:497
 #, php-format
 msgid "Notification #%d"
@@ -229,13 +229,13 @@ msgstr ""
 
 #. translators: %s: required NotificationX Pro version.
 #: includes/Admin/Admin.php:262
-#: includes/Core/PostType.php:226
+#: includes/Core/PostType.php:229
 #, php-format
 msgid "NotificationX Pro needs a compatibility update. Please update to the v%s or later version."
 msgstr ""
 
 #: includes/Admin/Admin.php:269
-#: includes/Extensions/GlobalFields.php:2469
+#: includes/Extensions/GlobalFields.php:2467
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:20
 msgid "Update"
@@ -282,8 +282,8 @@ msgid "Only if you allow it, NotificationX sends this to WPDeveloper (send.wpins
 msgstr ""
 
 #. translators: %s: no of minutes
-#: includes/Admin/Cron.php:111
-#: includes/Admin/Cron.php:117
+#: includes/Admin/Cron.php:112
+#: includes/Admin/Cron.php:118
 #, php-format
 msgid "Every %s minutes"
 msgstr ""
@@ -333,7 +333,7 @@ msgstr ""
 #: includes/Admin/Settings.php:530
 #: includes/Core/Analytics.php:46
 #: includes/Extensions/GlobalFields.php:1311
-#: includes/FrontEnd/FrontEnd.php:314
+#: includes/FrontEnd/FrontEnd.php:315
 #: assets/admin/js/admin.js:1
 msgid "Analytics"
 msgstr ""
@@ -638,53 +638,53 @@ msgstr ""
 msgid "[IMPORTANT] New feedback received from a NotificationX user"
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:58
+#: includes/Admin/Reports/ReportEmail.php:59
 msgid "Successfully Sent an Email"
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:62
+#: includes/Admin/Reports/ReportEmail.php:63
 msgid "Email cannot be sent for some reason."
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:65
+#: includes/Admin/Reports/ReportEmail.php:66
 msgid "Invalid email address."
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:67
+#: includes/Admin/Reports/ReportEmail.php:68
 msgid "You have to enable Reporting first."
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:221
+#: includes/Admin/Reports/ReportEmail.php:224
 #: includes/Admin/Settings.php:435
 msgid "Once Weekly"
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:225
+#: includes/Admin/Reports/ReportEmail.php:228
 #: includes/Admin/Settings.php:434
 msgid "Once Daily"
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:229
+#: includes/Admin/Reports/ReportEmail.php:232
 #: includes/Admin/Settings.php:436
 msgid "Once Monthly"
 msgstr ""
 
 #. translators: %s: site name
-#: includes/Admin/Reports/ReportEmail.php:265
+#: includes/Admin/Reports/ReportEmail.php:268
 #: includes/Admin/Settings.php:485
 #, php-format
 msgid "Weekly Engagement Summary of “%s”"
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:313
+#: includes/Admin/Reports/ReportEmail.php:316
 msgid "No data found."
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:316
+#: includes/Admin/Reports/ReportEmail.php:319
 msgid "Analytics disabled. No data found."
 msgstr ""
 
-#: includes/Admin/Reports/ReportEmail.php:320
+#: includes/Admin/Reports/ReportEmail.php:323
 msgid "No email found."
 msgstr ""
 
@@ -1113,759 +1113,759 @@ msgstr ""
 msgid "Manages the cookies on the site, ensuring user consent for GDPR compliance."
 msgstr ""
 
-#: includes/Core/Helper.php:1194
+#: includes/Core/Helper.php:1202
 msgid "All Countries"
 msgstr ""
 
-#: includes/Core/Helper.php:1195
+#: includes/Core/Helper.php:1203
 msgid "Afghanistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1196
+#: includes/Core/Helper.php:1204
 msgid "Albania"
 msgstr ""
 
-#: includes/Core/Helper.php:1197
+#: includes/Core/Helper.php:1205
 msgid "Algeria"
 msgstr ""
 
-#: includes/Core/Helper.php:1198
+#: includes/Core/Helper.php:1206
 msgid "American Samoa"
 msgstr ""
 
-#: includes/Core/Helper.php:1199
+#: includes/Core/Helper.php:1207
 msgid "Andorra"
 msgstr ""
 
-#: includes/Core/Helper.php:1200
+#: includes/Core/Helper.php:1208
 msgid "Angola"
 msgstr ""
 
-#: includes/Core/Helper.php:1201
+#: includes/Core/Helper.php:1209
 msgid "Anguilla"
 msgstr ""
 
-#: includes/Core/Helper.php:1202
+#: includes/Core/Helper.php:1210
 msgid "Antarctica"
 msgstr ""
 
-#: includes/Core/Helper.php:1203
+#: includes/Core/Helper.php:1211
 msgid "Antigua and Barbuda"
 msgstr ""
 
-#: includes/Core/Helper.php:1204
+#: includes/Core/Helper.php:1212
 msgid "Argentina"
 msgstr ""
 
-#: includes/Core/Helper.php:1205
+#: includes/Core/Helper.php:1213
 msgid "Armenia"
 msgstr ""
 
-#: includes/Core/Helper.php:1206
+#: includes/Core/Helper.php:1214
 msgid "Aruba"
 msgstr ""
 
-#: includes/Core/Helper.php:1207
+#: includes/Core/Helper.php:1215
 msgid "Australia"
 msgstr ""
 
-#: includes/Core/Helper.php:1208
+#: includes/Core/Helper.php:1216
 msgid "Austria"
 msgstr ""
 
-#: includes/Core/Helper.php:1209
+#: includes/Core/Helper.php:1217
 msgid "Azerbaijan"
 msgstr ""
 
-#: includes/Core/Helper.php:1210
+#: includes/Core/Helper.php:1218
 msgid "Bahamas"
 msgstr ""
 
-#: includes/Core/Helper.php:1211
+#: includes/Core/Helper.php:1219
 msgid "Bahrain"
 msgstr ""
 
-#: includes/Core/Helper.php:1212
+#: includes/Core/Helper.php:1220
 msgid "Bangladesh"
 msgstr ""
 
-#: includes/Core/Helper.php:1213
+#: includes/Core/Helper.php:1221
 msgid "Barbados"
 msgstr ""
 
-#: includes/Core/Helper.php:1214
+#: includes/Core/Helper.php:1222
 msgid "Belarus"
 msgstr ""
 
-#: includes/Core/Helper.php:1215
+#: includes/Core/Helper.php:1223
 msgid "Belgium"
 msgstr ""
 
-#: includes/Core/Helper.php:1216
+#: includes/Core/Helper.php:1224
 msgid "Belize"
 msgstr ""
 
-#: includes/Core/Helper.php:1217
+#: includes/Core/Helper.php:1225
 msgid "Benin"
 msgstr ""
 
-#: includes/Core/Helper.php:1218
+#: includes/Core/Helper.php:1226
 msgid "Bermuda"
 msgstr ""
 
-#: includes/Core/Helper.php:1219
+#: includes/Core/Helper.php:1227
 msgid "Bhutan"
 msgstr ""
 
-#: includes/Core/Helper.php:1220
+#: includes/Core/Helper.php:1228
 msgid "Bolivia"
 msgstr ""
 
-#: includes/Core/Helper.php:1221
+#: includes/Core/Helper.php:1229
 msgid "Bosnia and Herzegovina"
 msgstr ""
 
-#: includes/Core/Helper.php:1222
+#: includes/Core/Helper.php:1230
 msgid "Botswana"
 msgstr ""
 
-#: includes/Core/Helper.php:1223
+#: includes/Core/Helper.php:1231
 msgid "Brazil"
 msgstr ""
 
-#: includes/Core/Helper.php:1224
+#: includes/Core/Helper.php:1232
 msgid "Brunei"
 msgstr ""
 
-#: includes/Core/Helper.php:1225
+#: includes/Core/Helper.php:1233
 msgid "Bulgaria"
 msgstr ""
 
-#: includes/Core/Helper.php:1226
+#: includes/Core/Helper.php:1234
 msgid "Burkina Faso"
 msgstr ""
 
-#: includes/Core/Helper.php:1227
+#: includes/Core/Helper.php:1235
 msgid "Burundi"
 msgstr ""
 
-#: includes/Core/Helper.php:1228
+#: includes/Core/Helper.php:1236
 msgid "Cambodia"
 msgstr ""
 
-#: includes/Core/Helper.php:1229
+#: includes/Core/Helper.php:1237
 msgid "Cameroon"
 msgstr ""
 
-#: includes/Core/Helper.php:1230
+#: includes/Core/Helper.php:1238
 msgid "Canada"
 msgstr ""
 
-#: includes/Core/Helper.php:1231
+#: includes/Core/Helper.php:1239
 msgid "Cape Verde"
 msgstr ""
 
-#: includes/Core/Helper.php:1232
+#: includes/Core/Helper.php:1240
 msgid "Central African Republic"
 msgstr ""
 
-#: includes/Core/Helper.php:1233
+#: includes/Core/Helper.php:1241
 msgid "Chad"
 msgstr ""
 
-#: includes/Core/Helper.php:1234
+#: includes/Core/Helper.php:1242
 msgid "Chile"
 msgstr ""
 
-#: includes/Core/Helper.php:1235
+#: includes/Core/Helper.php:1243
 msgid "China"
 msgstr ""
 
-#: includes/Core/Helper.php:1236
+#: includes/Core/Helper.php:1244
 msgid "Colombia"
 msgstr ""
 
-#: includes/Core/Helper.php:1237
+#: includes/Core/Helper.php:1245
 msgid "Comoros"
 msgstr ""
 
-#: includes/Core/Helper.php:1238
+#: includes/Core/Helper.php:1246
 msgid "Congo (Brazzaville)"
 msgstr ""
 
-#: includes/Core/Helper.php:1239
+#: includes/Core/Helper.php:1247
 msgid "Congo (Kinshasa)"
 msgstr ""
 
-#: includes/Core/Helper.php:1240
+#: includes/Core/Helper.php:1248
 msgid "Costa Rica"
 msgstr ""
 
-#: includes/Core/Helper.php:1241
+#: includes/Core/Helper.php:1249
 msgid "Croatia"
 msgstr ""
 
-#: includes/Core/Helper.php:1242
+#: includes/Core/Helper.php:1250
 msgid "Cuba"
 msgstr ""
 
-#: includes/Core/Helper.php:1243
+#: includes/Core/Helper.php:1251
 msgid "Cyprus"
 msgstr ""
 
-#: includes/Core/Helper.php:1244
+#: includes/Core/Helper.php:1252
 msgid "Czech Republic"
 msgstr ""
 
-#: includes/Core/Helper.php:1245
+#: includes/Core/Helper.php:1253
 msgid "Denmark"
 msgstr ""
 
-#: includes/Core/Helper.php:1246
+#: includes/Core/Helper.php:1254
 msgid "Djibouti"
 msgstr ""
 
-#: includes/Core/Helper.php:1247
+#: includes/Core/Helper.php:1255
 msgid "Dominica"
 msgstr ""
 
-#: includes/Core/Helper.php:1248
+#: includes/Core/Helper.php:1256
 msgid "Dominican Republic"
 msgstr ""
 
-#: includes/Core/Helper.php:1249
+#: includes/Core/Helper.php:1257
 msgid "Ecuador"
 msgstr ""
 
-#: includes/Core/Helper.php:1250
+#: includes/Core/Helper.php:1258
 msgid "Egypt"
 msgstr ""
 
-#: includes/Core/Helper.php:1251
+#: includes/Core/Helper.php:1259
 msgid "El Salvador"
 msgstr ""
 
-#: includes/Core/Helper.php:1252
+#: includes/Core/Helper.php:1260
 msgid "Equatorial Guinea"
 msgstr ""
 
-#: includes/Core/Helper.php:1253
+#: includes/Core/Helper.php:1261
 msgid "Eritrea"
 msgstr ""
 
-#: includes/Core/Helper.php:1254
+#: includes/Core/Helper.php:1262
 msgid "Estonia"
 msgstr ""
 
-#: includes/Core/Helper.php:1255
+#: includes/Core/Helper.php:1263
 msgid "Ethiopia"
 msgstr ""
 
-#: includes/Core/Helper.php:1256
+#: includes/Core/Helper.php:1264
 msgid "Fiji"
 msgstr ""
 
-#: includes/Core/Helper.php:1257
+#: includes/Core/Helper.php:1265
 msgid "Finland"
 msgstr ""
 
-#: includes/Core/Helper.php:1258
+#: includes/Core/Helper.php:1266
 msgid "France"
 msgstr ""
 
-#: includes/Core/Helper.php:1259
+#: includes/Core/Helper.php:1267
 msgid "Gabon"
 msgstr ""
 
-#: includes/Core/Helper.php:1260
+#: includes/Core/Helper.php:1268
 msgid "Gambia"
 msgstr ""
 
-#: includes/Core/Helper.php:1261
+#: includes/Core/Helper.php:1269
 msgid "Georgia"
 msgstr ""
 
-#: includes/Core/Helper.php:1262
+#: includes/Core/Helper.php:1270
 msgid "Germany"
 msgstr ""
 
-#: includes/Core/Helper.php:1263
+#: includes/Core/Helper.php:1271
 msgid "Ghana"
 msgstr ""
 
-#: includes/Core/Helper.php:1264
+#: includes/Core/Helper.php:1272
 msgid "Greece"
 msgstr ""
 
-#: includes/Core/Helper.php:1265
+#: includes/Core/Helper.php:1273
 msgid "Grenada"
 msgstr ""
 
-#: includes/Core/Helper.php:1266
+#: includes/Core/Helper.php:1274
 msgid "Guatemala"
 msgstr ""
 
-#: includes/Core/Helper.php:1267
+#: includes/Core/Helper.php:1275
 msgid "Guinea"
 msgstr ""
 
-#: includes/Core/Helper.php:1268
+#: includes/Core/Helper.php:1276
 msgid "Guinea-Bissau"
 msgstr ""
 
-#: includes/Core/Helper.php:1269
+#: includes/Core/Helper.php:1277
 msgid "Guyana"
 msgstr ""
 
-#: includes/Core/Helper.php:1270
+#: includes/Core/Helper.php:1278
 msgid "Haiti"
 msgstr ""
 
-#: includes/Core/Helper.php:1271
+#: includes/Core/Helper.php:1279
 msgid "Honduras"
 msgstr ""
 
-#: includes/Core/Helper.php:1272
+#: includes/Core/Helper.php:1280
 msgid "Hong Kong"
 msgstr ""
 
-#: includes/Core/Helper.php:1273
+#: includes/Core/Helper.php:1281
 msgid "Hungary"
 msgstr ""
 
-#: includes/Core/Helper.php:1274
+#: includes/Core/Helper.php:1282
 msgid "Iceland"
 msgstr ""
 
-#: includes/Core/Helper.php:1275
+#: includes/Core/Helper.php:1283
 msgid "India"
 msgstr ""
 
-#: includes/Core/Helper.php:1276
+#: includes/Core/Helper.php:1284
 msgid "Indonesia"
 msgstr ""
 
-#: includes/Core/Helper.php:1277
+#: includes/Core/Helper.php:1285
 msgid "Iran"
 msgstr ""
 
-#: includes/Core/Helper.php:1278
+#: includes/Core/Helper.php:1286
 msgid "Iraq"
 msgstr ""
 
-#: includes/Core/Helper.php:1279
+#: includes/Core/Helper.php:1287
 msgid "Ireland"
 msgstr ""
 
-#: includes/Core/Helper.php:1280
+#: includes/Core/Helper.php:1288
 msgid "Israel"
 msgstr ""
 
-#: includes/Core/Helper.php:1281
+#: includes/Core/Helper.php:1289
 msgid "Italy"
 msgstr ""
 
-#: includes/Core/Helper.php:1282
+#: includes/Core/Helper.php:1290
 msgid "Jamaica"
 msgstr ""
 
-#: includes/Core/Helper.php:1283
+#: includes/Core/Helper.php:1291
 msgid "Japan"
 msgstr ""
 
-#: includes/Core/Helper.php:1284
+#: includes/Core/Helper.php:1292
 msgid "Jordan"
 msgstr ""
 
-#: includes/Core/Helper.php:1285
+#: includes/Core/Helper.php:1293
 msgid "Kazakhstan"
 msgstr ""
 
-#: includes/Core/Helper.php:1286
+#: includes/Core/Helper.php:1294
 msgid "Kenya"
 msgstr ""
 
-#: includes/Core/Helper.php:1287
+#: includes/Core/Helper.php:1295
 msgid "Kiribati"
 msgstr ""
 
-#: includes/Core/Helper.php:1288
+#: includes/Core/Helper.php:1296
 msgid "Korea, South"
 msgstr ""
 
-#: includes/Core/Helper.php:1289
+#: includes/Core/Helper.php:1297
 msgid "Kuwait"
 msgstr ""
 
-#: includes/Core/Helper.php:1290
+#: includes/Core/Helper.php:1298
 msgid "Kyrgyzstan"
 msgstr ""
 
-#: includes/Core/Helper.php:1291
+#: includes/Core/Helper.php:1299
 msgid "Laos"
 msgstr ""
 
-#: includes/Core/Helper.php:1292
+#: includes/Core/Helper.php:1300
 msgid "Latvia"
 msgstr ""
 
-#: includes/Core/Helper.php:1293
+#: includes/Core/Helper.php:1301
 msgid "Lebanon"
 msgstr ""
 
-#: includes/Core/Helper.php:1294
+#: includes/Core/Helper.php:1302
 msgid "Lesotho"
 msgstr ""
 
-#: includes/Core/Helper.php:1295
+#: includes/Core/Helper.php:1303
 msgid "Liberia"
 msgstr ""
 
-#: includes/Core/Helper.php:1296
+#: includes/Core/Helper.php:1304
 msgid "Libya"
 msgstr ""
 
-#: includes/Core/Helper.php:1297
+#: includes/Core/Helper.php:1305
 msgid "Liechtenstein"
 msgstr ""
 
-#: includes/Core/Helper.php:1298
+#: includes/Core/Helper.php:1306
 msgid "Lithuania"
 msgstr ""
 
-#: includes/Core/Helper.php:1299
+#: includes/Core/Helper.php:1307
 msgid "Luxembourg"
 msgstr ""
 
-#: includes/Core/Helper.php:1300
+#: includes/Core/Helper.php:1308
 msgid "Madagascar"
 msgstr ""
 
-#: includes/Core/Helper.php:1301
+#: includes/Core/Helper.php:1309
 msgid "Malawi"
 msgstr ""
 
-#: includes/Core/Helper.php:1302
+#: includes/Core/Helper.php:1310
 msgid "Malaysia"
 msgstr ""
 
-#: includes/Core/Helper.php:1303
+#: includes/Core/Helper.php:1311
 msgid "Maldives"
 msgstr ""
 
-#: includes/Core/Helper.php:1304
+#: includes/Core/Helper.php:1312
 msgid "Mali"
 msgstr ""
 
-#: includes/Core/Helper.php:1305
+#: includes/Core/Helper.php:1313
 msgid "Malta"
 msgstr ""
 
-#: includes/Core/Helper.php:1306
+#: includes/Core/Helper.php:1314
 msgid "Marshall Islands"
 msgstr ""
 
-#: includes/Core/Helper.php:1307
+#: includes/Core/Helper.php:1315
 msgid "Mauritania"
 msgstr ""
 
-#: includes/Core/Helper.php:1308
+#: includes/Core/Helper.php:1316
 msgid "Mauritius"
 msgstr ""
 
-#: includes/Core/Helper.php:1309
+#: includes/Core/Helper.php:1317
 msgid "Mexico"
 msgstr ""
 
-#: includes/Core/Helper.php:1310
+#: includes/Core/Helper.php:1318
 msgid "Micronesia"
 msgstr ""
 
-#: includes/Core/Helper.php:1311
+#: includes/Core/Helper.php:1319
 msgid "Moldova"
 msgstr ""
 
-#: includes/Core/Helper.php:1312
+#: includes/Core/Helper.php:1320
 msgid "Monaco"
 msgstr ""
 
-#: includes/Core/Helper.php:1313
+#: includes/Core/Helper.php:1321
 msgid "Mongolia"
 msgstr ""
 
-#: includes/Core/Helper.php:1314
+#: includes/Core/Helper.php:1322
 msgid "Montenegro"
 msgstr ""
 
-#: includes/Core/Helper.php:1315
+#: includes/Core/Helper.php:1323
 msgid "Morocco"
 msgstr ""
 
-#: includes/Core/Helper.php:1316
+#: includes/Core/Helper.php:1324
 msgid "Mozambique"
 msgstr ""
 
-#: includes/Core/Helper.php:1317
+#: includes/Core/Helper.php:1325
 msgid "Myanmar (Burma)"
 msgstr ""
 
-#: includes/Core/Helper.php:1318
+#: includes/Core/Helper.php:1326
 msgid "Namibia"
 msgstr ""
 
-#: includes/Core/Helper.php:1319
+#: includes/Core/Helper.php:1327
 msgid "Nauru"
 msgstr ""
 
-#: includes/Core/Helper.php:1320
+#: includes/Core/Helper.php:1328
 msgid "Nepal"
 msgstr ""
 
-#: includes/Core/Helper.php:1321
+#: includes/Core/Helper.php:1329
 msgid "Netherlands"
 msgstr ""
 
-#: includes/Core/Helper.php:1322
+#: includes/Core/Helper.php:1330
 msgid "New Zealand"
 msgstr ""
 
-#: includes/Core/Helper.php:1323
+#: includes/Core/Helper.php:1331
 msgid "Nicaragua"
 msgstr ""
 
-#: includes/Core/Helper.php:1324
+#: includes/Core/Helper.php:1332
 msgid "Niger"
 msgstr ""
 
-#: includes/Core/Helper.php:1325
+#: includes/Core/Helper.php:1333
 msgid "Nigeria"
 msgstr ""
 
-#: includes/Core/Helper.php:1326
+#: includes/Core/Helper.php:1334
 msgid "North Macedonia"
 msgstr ""
 
-#: includes/Core/Helper.php:1327
+#: includes/Core/Helper.php:1335
 msgid "Norway"
 msgstr ""
 
-#: includes/Core/Helper.php:1328
+#: includes/Core/Helper.php:1336
 msgid "Oman"
 msgstr ""
 
-#: includes/Core/Helper.php:1329
+#: includes/Core/Helper.php:1337
 msgid "Pakistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1330
+#: includes/Core/Helper.php:1338
 msgid "Palau"
 msgstr ""
 
-#: includes/Core/Helper.php:1331
+#: includes/Core/Helper.php:1339
 msgid "Panama"
 msgstr ""
 
-#: includes/Core/Helper.php:1332
+#: includes/Core/Helper.php:1340
 msgid "Papua New Guinea"
 msgstr ""
 
-#: includes/Core/Helper.php:1333
+#: includes/Core/Helper.php:1341
 msgid "Paraguay"
 msgstr ""
 
-#: includes/Core/Helper.php:1334
+#: includes/Core/Helper.php:1342
 msgid "Peru"
 msgstr ""
 
-#: includes/Core/Helper.php:1335
+#: includes/Core/Helper.php:1343
 msgid "Philippines"
 msgstr ""
 
-#: includes/Core/Helper.php:1336
+#: includes/Core/Helper.php:1344
 msgid "Poland"
 msgstr ""
 
-#: includes/Core/Helper.php:1337
+#: includes/Core/Helper.php:1345
 msgid "Portugal"
 msgstr ""
 
-#: includes/Core/Helper.php:1338
+#: includes/Core/Helper.php:1346
 msgid "Qatar"
 msgstr ""
 
-#: includes/Core/Helper.php:1339
+#: includes/Core/Helper.php:1347
 msgid "Romania"
 msgstr ""
 
-#: includes/Core/Helper.php:1340
+#: includes/Core/Helper.php:1348
 msgid "Russia"
 msgstr ""
 
-#: includes/Core/Helper.php:1341
+#: includes/Core/Helper.php:1349
 msgid "Rwanda"
 msgstr ""
 
-#: includes/Core/Helper.php:1342
+#: includes/Core/Helper.php:1350
 msgid "Saudi Arabia"
 msgstr ""
 
-#: includes/Core/Helper.php:1343
+#: includes/Core/Helper.php:1351
 msgid "Senegal"
 msgstr ""
 
-#: includes/Core/Helper.php:1344
+#: includes/Core/Helper.php:1352
 msgid "Serbia"
 msgstr ""
 
-#: includes/Core/Helper.php:1345
+#: includes/Core/Helper.php:1353
 msgid "Seychelles"
 msgstr ""
 
-#: includes/Core/Helper.php:1346
+#: includes/Core/Helper.php:1354
 msgid "Sierra Leone"
 msgstr ""
 
-#: includes/Core/Helper.php:1347
+#: includes/Core/Helper.php:1355
 msgid "Singapore"
 msgstr ""
 
-#: includes/Core/Helper.php:1348
+#: includes/Core/Helper.php:1356
 msgid "Slovakia"
 msgstr ""
 
-#: includes/Core/Helper.php:1349
+#: includes/Core/Helper.php:1357
 msgid "Slovenia"
 msgstr ""
 
-#: includes/Core/Helper.php:1350
+#: includes/Core/Helper.php:1358
 msgid "Solomon Islands"
 msgstr ""
 
-#: includes/Core/Helper.php:1351
+#: includes/Core/Helper.php:1359
 msgid "Somalia"
 msgstr ""
 
-#: includes/Core/Helper.php:1352
+#: includes/Core/Helper.php:1360
 msgid "South Africa"
 msgstr ""
 
-#: includes/Core/Helper.php:1353
+#: includes/Core/Helper.php:1361
 msgid "Spain"
 msgstr ""
 
-#: includes/Core/Helper.php:1354
+#: includes/Core/Helper.php:1362
 msgid "Sri Lanka"
 msgstr ""
 
-#: includes/Core/Helper.php:1355
+#: includes/Core/Helper.php:1363
 msgid "Sudan"
 msgstr ""
 
-#: includes/Core/Helper.php:1356
+#: includes/Core/Helper.php:1364
 msgid "Suriname"
 msgstr ""
 
-#: includes/Core/Helper.php:1357
+#: includes/Core/Helper.php:1365
 msgid "Sweden"
 msgstr ""
 
-#: includes/Core/Helper.php:1358
+#: includes/Core/Helper.php:1366
 msgid "Switzerland"
 msgstr ""
 
-#: includes/Core/Helper.php:1359
+#: includes/Core/Helper.php:1367
 msgid "Syria"
 msgstr ""
 
-#: includes/Core/Helper.php:1360
+#: includes/Core/Helper.php:1368
 msgid "Taiwan"
 msgstr ""
 
-#: includes/Core/Helper.php:1361
+#: includes/Core/Helper.php:1369
 msgid "Tajikistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1362
+#: includes/Core/Helper.php:1370
 msgid "Tanzania"
 msgstr ""
 
-#: includes/Core/Helper.php:1363
+#: includes/Core/Helper.php:1371
 msgid "Thailand"
 msgstr ""
 
-#: includes/Core/Helper.php:1364
+#: includes/Core/Helper.php:1372
 msgid "Togo"
 msgstr ""
 
-#: includes/Core/Helper.php:1365
+#: includes/Core/Helper.php:1373
 msgid "Tonga"
 msgstr ""
 
-#: includes/Core/Helper.php:1366
+#: includes/Core/Helper.php:1374
 msgid "Trinidad and Tobago"
 msgstr ""
 
-#: includes/Core/Helper.php:1367
+#: includes/Core/Helper.php:1375
 msgid "Tunisia"
 msgstr ""
 
-#: includes/Core/Helper.php:1368
+#: includes/Core/Helper.php:1376
 msgid "Turkey"
 msgstr ""
 
-#: includes/Core/Helper.php:1369
+#: includes/Core/Helper.php:1377
 msgid "Turkmenistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1370
+#: includes/Core/Helper.php:1378
 msgid "Uganda"
 msgstr ""
 
-#: includes/Core/Helper.php:1371
+#: includes/Core/Helper.php:1379
 msgid "Ukraine"
 msgstr ""
 
-#: includes/Core/Helper.php:1372
+#: includes/Core/Helper.php:1380
 msgid "United Arab Emirates"
 msgstr ""
 
-#: includes/Core/Helper.php:1373
+#: includes/Core/Helper.php:1381
 msgid "United Kingdom"
 msgstr ""
 
-#: includes/Core/Helper.php:1374
+#: includes/Core/Helper.php:1382
 msgid "United States"
 msgstr ""
 
-#: includes/Core/Helper.php:1375
+#: includes/Core/Helper.php:1383
 msgid "Uruguay"
 msgstr ""
 
-#: includes/Core/Helper.php:1376
+#: includes/Core/Helper.php:1384
 msgid "Uzbekistan"
 msgstr ""
 
-#: includes/Core/Helper.php:1377
+#: includes/Core/Helper.php:1385
 msgid "Vanuatu"
 msgstr ""
 
-#: includes/Core/Helper.php:1378
+#: includes/Core/Helper.php:1386
 msgid "Venezuela"
 msgstr ""
 
-#: includes/Core/Helper.php:1379
+#: includes/Core/Helper.php:1387
 msgid "Vietnam"
 msgstr ""
 
-#: includes/Core/Helper.php:1380
+#: includes/Core/Helper.php:1388
 msgid "Yemen"
 msgstr ""
 
-#: includes/Core/Helper.php:1381
+#: includes/Core/Helper.php:1389
 msgid "Zambia"
 msgstr ""
 
-#: includes/Core/Helper.php:1382
+#: includes/Core/Helper.php:1390
 msgid "Zimbabwe"
 msgstr ""
 
@@ -1980,10 +1980,10 @@ msgstr ""
 #: includes/Extensions/WordPress/WPComments.php:262
 #: includes/Extensions/WordPress/WPComments.php:263
 #: includes/Extensions/WordPress/WPComments.php:264
-#: includes/FrontEnd/FrontEnd.php:615
 #: includes/FrontEnd/FrontEnd.php:616
 #: includes/FrontEnd/FrontEnd.php:617
-#: includes/FrontEnd/FrontEnd.php:1260
+#: includes/FrontEnd/FrontEnd.php:618
+#: includes/FrontEnd/FrontEnd.php:1261
 #: includes/Types/Comments.php:54
 #: includes/Types/Comments.php:67
 #: includes/Types/Comments.php:80
@@ -2024,7 +2024,7 @@ msgstr ""
 msgid "Someone"
 msgstr ""
 
-#: includes/Core/PostType.php:79
+#: includes/Core/PostType.php:80
 #: includes/Extensions/GlobalFields.php:1247
 #: includes/Extensions/GlobalFields.php:1302
 #: includes/Extensions/GlobalFields.php:1356
@@ -2040,13 +2040,13 @@ msgid "Add New"
 msgstr ""
 
 #. translators: %1$s: number of scans already used, %2$s: total free scans available
-#: includes/Core/PostType.php:142
+#: includes/Core/PostType.php:145
 #, php-format
 msgid "%1$s of %2$s free scans used"
 msgstr ""
 
 #. translators: %s: required NotificationX Pro version.
-#: includes/Core/PostType.php:199
+#: includes/Core/PostType.php:202
 #, php-format
 msgid "This notification type is not available on this site, so the notification was not saved. Install or update NotificationX Pro to version %s or later, or turn on the module this notification uses, then try again."
 msgstr ""
@@ -2767,7 +2767,7 @@ msgstr ""
 #: includes/Extensions/Tutor/TutorInline.php:75
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:157
 #: includes/Extensions/WooCommerce/WooInline.php:161
-#: includes/FrontEnd/Preview.php:306
+#: includes/FrontEnd/Preview.php:320
 msgid "In last 1 day"
 msgstr ""
 
@@ -2778,7 +2778,7 @@ msgstr ""
 #: includes/Extensions/Tutor/TutorInline.php:76
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:158
 #: includes/Extensions/WooCommerce/WooInline.php:162
-#: includes/FrontEnd/Preview.php:307
+#: includes/FrontEnd/Preview.php:321
 #: includes/Types/DownloadStats.php:136
 #: includes/Types/DownloadStats.php:156
 msgid "In last 7 days"
@@ -2791,7 +2791,7 @@ msgstr ""
 #: includes/Extensions/Tutor/TutorInline.php:77
 #: includes/Extensions/WooCommerce/WooCommerceSalesInline.php:159
 #: includes/Extensions/WooCommerce/WooInline.php:163
-#: includes/FrontEnd/Preview.php:308
+#: includes/FrontEnd/Preview.php:322
 msgid "In last 30 days"
 msgstr ""
 
@@ -5070,7 +5070,7 @@ msgstr ""
 #: includes/Extensions/Give/Give.php:86
 #: includes/Extensions/GlobalFields.php:741
 #: includes/Extensions/GlobalFields.php:759
-#: includes/Extensions/GlobalFields.php:2513
+#: includes/Extensions/GlobalFields.php:2511
 #: includes/Extensions/Google/GoogleReviews.php:60
 #: includes/Extensions/Google/GoogleReviews.php:74
 #: includes/Extensions/Google/GoogleReviews.php:88
@@ -5100,7 +5100,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WOOReviews.php:117
 #: includes/Extensions/WooCommerce/WOOReviews.php:129
 #: includes/Extensions/WordPress/WPComments.php:266
-#: includes/FrontEnd/FrontEnd.php:619
+#: includes/FrontEnd/FrontEnd.php:620
 #: includes/Types/Comments.php:59
 #: includes/Types/Comments.php:72
 #: includes/Types/Comments.php:85
@@ -5184,7 +5184,7 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:1553
 #: includes/Extensions/GlobalFields.php:1795
 #: includes/Extensions/GlobalFields.php:1803
-#: includes/FrontEnd/Preview.php:433
+#: includes/FrontEnd/Preview.php:450
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 #: assets/admin/js/admin.js:20
@@ -5473,7 +5473,7 @@ msgid "By default, consent expires after 30 days. If needed, you can adjust this
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1202
-#: includes/FrontEnd/FrontEnd.php:306
+#: includes/FrontEnd/FrontEnd.php:307
 msgid "Necessary"
 msgstr ""
 
@@ -5487,22 +5487,22 @@ msgid "Edit Category "
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1257
-#: includes/FrontEnd/FrontEnd.php:310
+#: includes/FrontEnd/FrontEnd.php:311
 msgid "Functional"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1365
-#: includes/FrontEnd/FrontEnd.php:318
+#: includes/FrontEnd/FrontEnd.php:319
 msgid "Performance"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1419
-#: includes/FrontEnd/FrontEnd.php:322
+#: includes/FrontEnd/FrontEnd.php:323
 msgid "Advertisement"
 msgstr ""
 
 #: includes/Extensions/GlobalFields.php:1473
-#: includes/FrontEnd/FrontEnd.php:326
+#: includes/FrontEnd/FrontEnd.php:327
 msgid "Uncategorized"
 msgstr ""
 
@@ -5908,8 +5908,8 @@ msgstr ""
 msgid "Show the live count of shoppers who currently have a product in their cart to spark urgency and boost conversions."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2445
-#: includes/Extensions/GlobalFields.php:2446
+#: includes/Extensions/GlobalFields.php:2443
+#: includes/Extensions/GlobalFields.php:2444
 #: includes/Extensions/OfferAnnouncement/Announcements.php:47
 #: includes/Extensions/OfferAnnouncement/Announcements.php:48
 #: includes/Types/OfferAnnouncement.php:47
@@ -5917,17 +5917,17 @@ msgstr ""
 msgid "Discount Alert"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2463
+#: includes/Extensions/GlobalFields.php:2461
 msgid "NotificationX Pro needs a compatibility update."
 msgstr ""
 
 #. translators: %s: required NotificationX Pro version.
-#: includes/Extensions/GlobalFields.php:2466
+#: includes/Extensions/GlobalFields.php:2464
 #, php-format
 msgid "Please update to the v%s or later version."
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2473
+#: includes/Extensions/GlobalFields.php:2471
 #: assets/admin/js/admin.js:1
 #: assets/admin/js/admin.js:13
 #: assets/admin/js/admin.js:20
@@ -5937,23 +5937,23 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2501
+#: includes/Extensions/GlobalFields.php:2499
 msgid "Full Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2502
+#: includes/Extensions/GlobalFields.php:2500
 msgid "First Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2503
+#: includes/Extensions/GlobalFields.php:2501
 msgid "Last Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2506
+#: includes/Extensions/GlobalFields.php:2504
 msgid "Display Name"
 msgstr ""
 
-#: includes/Extensions/GlobalFields.php:2512
+#: includes/Extensions/GlobalFields.php:2510
 #: includes/Extensions/Google/GoogleReviews.php:148
 #: includes/Extensions/OfferAnnouncement/Announcements.php:238
 #: includes/Extensions/ReviewX/ReviewX.php:163
@@ -6124,7 +6124,7 @@ msgstr ""
 #: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:173
 #: includes/Extensions/WooCommerce/WOOReviews.php:142
 #: includes/Extensions/WooCommerce/WOOReviews.php:162
-#: includes/FrontEnd/FrontEnd.php:618
+#: includes/FrontEnd/FrontEnd.php:619
 #: includes/Types/Donations.php:54
 #: includes/Types/EmailSubscription.php:70
 #: includes/Types/Reviews.php:205
@@ -7425,12 +7425,12 @@ msgstr ""
 msgid "Close After Expire"
 msgstr ""
 
-#: includes/Extensions/PressBar/PressBar.php:2212
+#: includes/Extensions/PressBar/PressBar.php:2236
 msgid "Install Essential Blocks"
 msgstr ""
 
 #. translators: %1$s: Elementor documentation URL, %2$s: Gutenberg documentation URL, %3$s: documentation URL, %4$s: blog post URL, %5$s: blog post URL
-#: includes/Extensions/PressBar/PressBar.php:2223
+#: includes/Extensions/PressBar/PressBar.php:2247
 #, php-format
 msgid ""
 "<p>Supercharge your WordPress site with an <strong>AI-powered Notification Bar</strong> that help you create and launches instant popup campaigns — smarter and faster than ever. Let AI generate compelling bar content for you in seconds. Need help getting started? Explore our step-by-step guides to set up your AI-enhanced notification bars using both <a target=\"_blank\" href=\"%1$s\">Elementor</a> and <a target=\"_blank\" href=\"%2$s\">Gutenberg</a>.</p>\n"
@@ -7843,31 +7843,31 @@ msgid ""
 "            "
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:307
+#: includes/FrontEnd/FrontEnd.php:308
 msgid "Necessary cookies are needed to ensure the basic functions of this site, like allowing secure log-ins and managing your consent settings. These cookies do not collect any personal information."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:311
+#: includes/FrontEnd/FrontEnd.php:312
 msgid "Functional cookies assist in performing tasks like sharing website content on social media, collecting feedback, and enabling other third-party features."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:315
+#: includes/FrontEnd/FrontEnd.php:316
 msgid "Analytical cookies help us understand how visitors use the website. They provide data on metrics like the number of visitors, bounce rate, traffic sources etc."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:319
+#: includes/FrontEnd/FrontEnd.php:320
 msgid "Performance cookies help analyze the website's key performance indicators, which in turn helps improve the user experience for visitors."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:323
+#: includes/FrontEnd/FrontEnd.php:324
 msgid "Advertisement cookies help analyze the website's key advertising indicators, which in turn helps improve the user experience for visitors."
 msgstr ""
 
-#: includes/FrontEnd/FrontEnd.php:327
+#: includes/FrontEnd/FrontEnd.php:328
 msgid "Uncategorized cookies are those that don't fall into any specific category but may still be used for various purposes on the site. These cookies help us improve user experience by tracking interactions that don't fit into other cookie types."
 msgstr ""
 
-#: includes/FrontEnd/Preview.php:424
+#: includes/FrontEnd/Preview.php:438
 msgid "Talk to Support"
 msgstr ""
 
@@ -10897,4 +10897,56 @@ msgstr ""
 #: blocks/notificationx/components/inspector.js:301
 #: blocks/notificationx/index.js:1
 msgid "Link Color"
+msgstr ""
+
+#: includes/Admin/Settings.php:231
+msgid "Use new corner spacing"
+msgstr ""
+
+#: includes/Admin/Settings.php:234
+msgid "Place corner notifications the same distance from both screen edges: 20px on desktop, 12px on phones. Turn off to keep the previous spacing."
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:438
+msgid "Live Effects"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:444
+msgid "Adds subtle motion to make the notification feel live."
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2087
+msgid "Rise (soft)"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2092
+msgid "Rise (spring)"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2097
+msgid "Pop"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2182
+msgid "Sink (soft)"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2187
+msgid "Sink (spring)"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2192
+msgid "Pop out"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2251
+msgid "Animation Duration"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2262
+msgid "Progressive reveal"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2268
+msgid "Show the first line with the notification, then fade in the rest."
 msgstr ""

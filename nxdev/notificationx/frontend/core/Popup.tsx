@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { isAdminBar } from './utils';
 import CloseIcon from '../../icons/Close';
 import useNotificationContext from "./NotificationProvider";
-import { isObject, handleCloseNotification } from "../core/functions";
+import { isObject, handleCloseNotification, getAnimationTiming } from "../core/functions";
 import { getIconUrl } from "../../shared/helpers";
 
 import { __ } from '@wordpress/i18n';
@@ -56,6 +56,8 @@ const Popup = (props: any) => {
     const isTablet = useMediaQuery("(max-width: 768px)");
     const [notificationSize, setNotificationSize] = useState();
     const is_pro = frontEndContext?.state?.is_pro ?? false;
+    // Show timing; add-ons can change it (filter `nx_frontend_animation_timing`).
+    const animationTiming = getAnimationTiming(settings, is_pro);
     const [isButtonHovered, setIsButtonHovered] = useState(false);
     const [focusedField, setFocusedField] = useState<string | null>(null);
     const [couponCopied, setCouponCopied] = useState(false);
@@ -440,6 +442,7 @@ const Popup = (props: any) => {
         maxWidth: `${notificationSize}px`,
         ...getAnimationStyles(),
         ...mainBGColor,
+        ...animationTiming.style,
     };
 
     if (settings?.advance_edit && settings?.popup_width) {
@@ -464,7 +467,7 @@ const Popup = (props: any) => {
     ];
 
     let componentClasses: string;
-    let animationStyle = 'fadeIn 300ms';
+    let animationStyle = `fadeIn ${Math.round(300 * animationTiming.scale)}ms`;
 
     // Notification animations are rendered by NotificationX Pro (filter
     // `nx_frontend_animation`): it returns the animate.css classes and the
@@ -486,6 +489,9 @@ const Popup = (props: any) => {
             ...baseClasses
         );
         componentStyle.animation = animationStyle
+    }
+    if (animationTiming.className) {
+        componentClasses = classNames(componentClasses, animationTiming.className);
     }
     const iconUrl = getIconUrl(settings?.popup_icon);
     const buttonIconUrl = getIconUrl(settings?.popup_button_icon);

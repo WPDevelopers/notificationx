@@ -68,13 +68,15 @@
 
 &.themes-woocommerce_sales_conv-theme-seven,
 &.themes-conversions_conv-theme-seven {
+    $badge-top: 10px;
     border-radius: 3px;
+    @include nx-overhang($top: $badge-top);
     .notificationx-image {
         position: relative;
         overflow: initial !important;
         &:after {
             position: absolute;
-            top: -10px;
+            top: -$badge-top;
             left: -10px;
             font-family: "FontAwesome";
             content: "\f07a";

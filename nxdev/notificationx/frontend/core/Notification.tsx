@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
+import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName, getAnimationTiming } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics, { resolveNotificationLink, recordAnalyticsClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
 import nxHelper from "./functions";
-import { nxApplyFilters } from "./hooks";
+import { nxApplyFilters, nxApplyListFilter } from "./hooks";
 
 const useMediaQuery = (query) => {
     const mediaQuery = window.matchMedia(query);
@@ -37,6 +37,8 @@ const Notification = (props) => {
     const { config: settings } = props;
     const frontEndContext = useNotificationContext();
     const is_pro = frontEndContext?.state?.is_pro ?? false;
+    // Show/hide timing; add-ons can change it (filter `nx_frontend_animation_timing`).
+    const animationTiming = getAnimationTiming(settings, is_pro);
     const incrementValue = 0.5;
     const displayFor = ((settings?.display_for || 5) * 1000);
     const isMin = displayFor * (incrementValue / 100)
@@ -90,28 +92,28 @@ const Notification = (props) => {
         switch (settings.animation_notification_hide) {
           case 'animate__slideOutDown': 
             return {
-                bottom: !animation ? '30px': '0',
+                bottom: '30px',
                 left  : !animation ? '30px': '30px',
                 right : !animation ? '30px': '30px',
                 transition  : '300ms',
             };
           case 'animate__slideOutLeft': 
             return {
-                left  : !animation ? '30px': '0',
+                left  : '30px',
                 bottom: !animation ? '30px': '30px',
                 right : !animation ? '30px': '30px',
                 transition  : '300ms',
             };
           case 'animate__slideOutRight': 
             return {
-                right : !animation ? '30px': '0',
+                right : '30px',
                 left  : !animation ? '30px': '30px',
                 bottom: !animation ? '30px': '30px',
                 transition  : '300ms',
             };
           case 'animate__slideOutUp': 
             return {
-                right     : !animation ? '30px': '0',
+                right     : '30px',
                 left      : !animation ? '30px': '30px',
                 bottom    : !animation ? '30px': '30px',
                 transition: '300ms',
@@ -139,7 +141,7 @@ const Notification = (props) => {
                     payload: props.id,
                 });
                 setAnimation(false);
-            }, 500 )
+            }, animationTiming.exitDelay )
         }
         // return () => {
         //     handlePauseTimer();
@@ -249,6 +251,7 @@ const Notification = (props) => {
         ...componentCSS,
         maxWidth: `${notificationSize}px`,
         ...getAnimationStyles(),
+        ...animationTiming.style,
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
@@ -263,7 +266,7 @@ const Notification = (props) => {
     const proAnimation = nxApplyFilters<{ classNames: any[]; style?: Record<string, any> } | undefined>(
         'nx_frontend_animation',
         undefined,
-        { settings, animation, animationStyle, is_pro }
+        { settings, animation, animationStyle, defaultClass: 'nx-anim-default-in', is_pro }
     );
     if (proAnimation) {
         componentClasses = classNames(
@@ -272,11 +275,15 @@ const Notification = (props) => {
         );
         Object.assign(componentStyle, proAnimation.style || {});
     } else {
-        componentClasses = classNames(
-            ...baseClasses
-        );
-        componentStyle.animation = animationStyle
+        componentClasses = classNames('nx-anim-default-in', ...baseClasses);
     }
+    // Extra card classes from add-ons (filter `nx_frontend_card_classes`), plus
+    // the timing class.
+    componentClasses = classNames(
+        componentClasses,
+        animationTiming.className,
+        ...nxApplyListFilter('nx_frontend_card_classes', [], { settings, is_pro })
+    );
 
     return (
         <div
@@ -286,6 +293,7 @@ const Notification = (props) => {
             style={cardLink ? { ...componentStyle, cursor: 'pointer' } : componentStyle}
             id={`notificationx-${settings.nx_id}`}
             ref={cardRef}
+            data-nx-key={props.id} // 84710: lets StackGlide track this card across stack changes
             onClick={handleCardClick}
             onAnimationEnd={handleAnimationEnd}
         >
