@@ -1,0 +1,190 @@
+// Card size presets: Compact (0.8) and Large (1.2).
+//
+// Notification.tsx adds `nx-card-size-compact` or `nx-card-size-large` and
+// `--nx-scale` to the card root, only for those presets; Default adds nothing,
+// so none of these rules can match a Default card.
+//
+// The inner part is zoomed, so text, image, spacing and the theme's own sizes
+// scale together. The root keeps its position offsets, animations and
+// `max-width` (Notification Size). Without `zoom` support everything below is
+// skipped and the card shows at Default.
+//
+// Parts that keep their full size at every preset: the close button and the
+// Button tab (it sits outside the zoomed part). Space a theme keeps for them
+// stays full size too.
+//
+// Rules:
+// - Imported last in theme.scss, so the compiled rules are appended at the end
+//   of frontend.css (bin/check-css-append.js).
+// - Every selector starts with `.notification-item.nx-card-size-`, inside
+//   `@supports (zoom: 1)`.
+//
+// @since x.x.x
+
+// Free themes whose root has `min-width: 0` instead of the base 300px. Add-ons
+// reset their own themes in their own stylesheets.
+$nx-card-size-no-min-width: "conv-theme-twelve", "conv-theme-thirteen", "conv-theme-fifteen";
+
+// The sales family (P4): Free's sales themes, in the Sales Notification and
+// WooCommerce types (CardSize::FREE_THEMES).
+$nx-card-size-sales-types: "conversions", "woocommerce_sales";
+$nx-card-size-sales-themes: "theme-one", "theme-two", "theme-three", "theme-five", "conv-theme-twelve", "conv-theme-thirteen", "conv-theme-fifteen";
+
+// The comments family (P5): Free's comments themes, as saved in `themes`.
+$nx-card-size-comments: "comments_theme-one", "comments_theme-two", "comments_theme-three", "comments_theme-six-free", "comments_theme-seven-free", "comments_theme-eight-free";
+
+// The reviews family (P6): the six layouts of each free review source
+// (WordPress.org, WooCommerce, ReviewX, the WooCommerce type's Reviews).
+$nx-card-size-review-sources: "reviews", "woo_reviews", "reviewx", "woocommerce_sales_reviews";
+$nx-card-size-review-layouts: "total-rated", "reviewed", "review_saying", "review-comment", "review-comment-2", "review-comment-3";
+
+// The download stats family (P6): Free's download stats themes (WordPress.org;
+// Pro's Freemius stats use the same keys).
+$nx-card-size-downloads: "download_stats_today-download", "download_stats_7day-download", "download_stats_actively_using", "download_stats_total-download";
+
+@function nx-card-size-not-themes($themes) {
+    $selector: "";
+    @each $theme in $themes {
+        $selector: "#{$selector}:not(.themes-#{$theme})";
+    }
+    @return $selector;
+}
+
+// The given sales themes, in both sales types, at one preset, plus a tail.
+@function nx-card-size-sales($size, $themes, $tail: "") {
+    $list: ();
+    @each $type in $nx-card-size-sales-types {
+        @each $theme in $themes {
+            $list: append($list, unquote(".notification-item.nx-card-size-#{$size}.themes-#{$type}_#{$theme}#{$tail}"), comma);
+        }
+    }
+    @return $list;
+}
+
+// The given theme keys (as saved in `themes`), at one preset, plus a tail.
+@function nx-card-size-keys($size, $keys, $tail: "") {
+    $list: ();
+    @each $key in $keys {
+        $list: append($list, unquote(".notification-item.nx-card-size-#{$size}.themes-#{$key}#{$tail}"), comma);
+    }
+    @return $list;
+}
+
+// Every prefix × name key (e.g. "reviews" × "review-comment"), at one preset,
+// plus a tail.
+@function nx-card-size-pairs($size, $prefixes, $names, $tail: "") {
+    $keys: ();
+    @each $prefix in $prefixes {
+        @each $name in $names {
+            $keys: append($keys, "#{$prefix}_#{$name}", comma);
+        }
+    }
+    @return nx-card-size-keys($size, $keys, $tail);
+}
+
+// What both presets need; Large only from 575px (below).
+@mixin nx-card-size-preset($size) {
+    .notification-item.nx-card-size-#{$size} > .notificationx-inner {
+        zoom: var(--nx-scale);
+    }
+
+    // The close button keeps its full size (35×30) and place: easy to hit in
+    // Compact, and the floating close of themes 12, 13 and 15 stays 24px
+    // outside the card in Large.
+    .notification-item.nx-card-size-#{$size} .notificationx-close {
+        zoom: calc(1 / var(--nx-scale));
+    }
+
+    // Sales: the root's corners follow the zoomed inner part.
+    #{nx-card-size-sales($size, "theme-one")} {
+        border-radius: calc(5px * var(--nx-scale));
+    }
+
+    #{nx-card-size-sales($size, $nx-card-size-no-min-width)} {
+        border-radius: calc(10px * var(--nx-scale));
+        // The theme's own width limit (it overrides Notification Size), scaled.
+        max-width: calc(360px * var(--nx-scale)) !important;
+    }
+
+    // Sales: room kept for the full-size Button tab stays full size, so the
+    // text never runs under it. Theme 12: its "Buy now ›" link inside the card.
+    // Theme 15: the pill straddling the top-right corner.
+    // At least the full-size room, and in Large the scaled room: the time sits
+    // in this column too and grows with the text, so a full-size column let a
+    // long name run into it.
+    #{nx-card-size-sales($size, "conv-theme-twelve", " .notificationx-content")} {
+        padding-right: calc(max(76px, 76px * var(--nx-scale)) / var(--nx-scale));
+    }
+
+    #{nx-card-size-sales($size, "conv-theme-fifteen", " .notificationx-content")} {
+        padding-top: calc(18px / var(--nx-scale));
+    }
+}
+
+@supports (zoom: 1) {
+    // Compact, at every width.
+    @include nx-card-size-preset(compact);
+
+    // The base min-width (300px), scaled, above phone widths.
+    @media (min-width: 481px) {
+        .notification-item.nx-card-size-compact#{nx-card-size-not-themes($nx-card-size-no-min-width)} {
+            min-width: calc(300px * var(--nx-scale));
+        }
+    }
+
+    // Compact text (Phase 0 list). `!important` beats the themes' longer
+    // selectors; these always win.
+    // - The floor: text of 10–12.5px at Default renders at 10px, never less.
+    // - Text already under 10px at Default keeps its Default size: it neither
+    //   shrinks nor grows. `1em` is the size it inherits, so dividing by the
+    //   scale cancels the zoom.
+    // Sales: the time and themes 12/13/15's 10px byline (with its "Verified ")
+    // get the floor; the 8.33px "by" of the other themes keeps its size.
+    // Comments: the post title (12px) and the time (10px) get the floor; the
+    // 8.33px "by" keeps its size.
+    // Reviews: the plugin / product name of the review-comment layouts (12px)
+    // gets the floor, and so does row 3 (10px) of review_saying ("Try it now")
+    // and review-comment-3 (the time); the 8.33px "by" keeps its size.
+    // Download stats: the today / 7-day layouts' second row (11px) and third
+    // row (10px), and total-download's 10.83px "by", get the floor; the 8.33px
+    // "by" of the other layouts keeps its size.
+    #{nx-card-size-sales(compact, ("theme-one", "theme-two", "theme-three", "theme-five"), " .notificationx-content .nx-third-row > span > span")},
+    #{nx-card-size-sales(compact, ("conv-theme-twelve", "conv-theme-thirteen"), " .notificationx-content .nx-first-row > span > span:last-child")},
+    #{nx-card-size-sales(compact, "conv-theme-fifteen", " .notificationx-content .nx-first-row > span > span")},
+    #{nx-card-size-sales(compact, $nx-card-size-no-min-width, " .notificationx-content .nx-branding .nx-byline")},
+    #{nx-card-size-keys(compact, $nx-card-size-comments, " .notificationx-content .nx-second-row > span > span")},
+    #{nx-card-size-keys(compact, $nx-card-size-comments, " .notificationx-content .nx-third-row > span > span")},
+    #{nx-card-size-pairs(compact, $nx-card-size-review-sources, ("review-comment", "review-comment-2", "review-comment-3"), " .notificationx-content .nx-second-row > span > span")},
+    #{nx-card-size-pairs(compact, $nx-card-size-review-sources, ("review_saying", "review-comment-3"), " .notificationx-content .nx-third-row > span > span")},
+    #{nx-card-size-keys(compact, ("download_stats_today-download", "download_stats_7day-download"), " .notificationx-content .nx-second-row > span > span")},
+    #{nx-card-size-keys(compact, ("download_stats_today-download", "download_stats_7day-download"), " .notificationx-content .nx-third-row > span > span")},
+    #{nx-card-size-keys(compact, "download_stats_total-download", " .notificationx-content .nx-branding .nx-byline")} {
+        font-size: calc(10px / var(--nx-scale)) !important;
+    }
+
+    // Theme 15: the floor makes row 1 (location + time) wider next to the
+    // smaller card, and the time is absolutely placed, so the location ran
+    // under it. In Compact the time joins the row: the theme's own
+    // `space-between` and 10px gap keep them apart, and a long location
+    // truncates with the theme's ellipsis.
+    #{nx-card-size-sales(compact, "conv-theme-fifteen", " .notificationx-content .nx-first-row > span > span:last-child")} {
+        position: static;
+    }
+
+    #{nx-card-size-sales(compact, ("theme-one", "theme-two", "theme-three", "theme-five"), " .notificationx-content .nx-branding .nx-byline")},
+    #{nx-card-size-keys(compact, $nx-card-size-comments, " .notificationx-content .nx-branding .nx-byline")},
+    #{nx-card-size-pairs(compact, $nx-card-size-review-sources, $nx-card-size-review-layouts, " .notificationx-content .nx-branding .nx-byline")},
+    #{nx-card-size-keys(compact, ("download_stats_today-download", "download_stats_7day-download", "download_stats_actively_using"), " .notificationx-content .nx-branding .nx-byline")} {
+        font-size: calc(1em / var(--nx-scale)) !important;
+    }
+
+    // Large only where it fits (the frontend's mobile layout switches at 574px):
+    // on smaller screens a Large card shows at Default.
+    @media (min-width: 575px) {
+        @include nx-card-size-preset(large);
+
+        .notification-item.nx-card-size-large#{nx-card-size-not-themes($nx-card-size-no-min-width)} {
+            min-width: calc(300px * var(--nx-scale));
+        }
+    }
+}
