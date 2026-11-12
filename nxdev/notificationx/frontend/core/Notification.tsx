@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName, getAnimationTiming } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics, { resolveNotificationLink, recordAnalyticsClick } from "./Analytics";
@@ -26,11 +26,30 @@ const useMediaQuery = (query) => {
     return match;
 };
 
+// Longest delay + duration among the card's entrance animations (CSS times such
+// as "0.5s, 300ms"), plus 500ms, and at least 3s: the CTA fallback's wait.
+export const getCtaFallbackDelay = (style) => {
+    const toMs = (list) => String(list || '').split(',').map((t) => {
+        const v = parseFloat(t);
+        if (!Number.isFinite(v)) return 0;
+        return /ms\s*$/.test(t) ? v : v * 1000;
+    });
+    const durations = toMs(style?.animationDuration);
+    const delays = toMs(style?.animationDelay);
+    let longest = 0;
+    durations.forEach((d, i) => {
+        longest = Math.max(longest, d + (delays[i] ?? delays[delays.length - 1] ?? 0));
+    });
+    return Math.max(3000, Math.ceil(longest) + 500);
+};
+
 const Notification = (props) => {
     const [exit, setExit] = useState(false);
     const [animation, setAnimation] = useState(false);
     const [width, setWidth] = useState(0);
     const [intervalID, setIntervalID] = useState(null);
+    const [ctaIn, setCtaIn] = useState(false);
+    const cardRef = useRef(null);
 
     const { config: settings } = props;
     const frontEndContext = useNotificationContext();
@@ -153,6 +172,31 @@ const Notification = (props) => {
         };
     }, []);
 
+    // CTA tab: it peeks out (`cta-in`) once the card's own entrance animation
+    // has ended, whatever its duration, or at once when the card has none.
+    // The timeout covers an entrance that is cancelled and never ends: the
+    // entrance's own delay + duration (Animation Duration can make it up to
+    // 3s), plus a margin, and never less than 3s.
+    useEffect(() => {
+        const style = cardRef.current && window.getComputedStyle?.(cardRef.current);
+        const name = style?.animationName;
+        if (!name || name === 'none') {
+            setCtaIn(true);
+            return;
+        }
+        const id = setTimeout(() => setCtaIn(true), getCtaFallbackDelay(style));
+        return () => clearTimeout(id);
+    }, []);
+    const handleAnimationEnd = (e) => {
+        if (e.target === e.currentTarget) {
+            setCtaIn(true);
+        }
+    };
+    // It tucks back (`cta-tuck`) 200ms before the card starts hiding. Only a
+    // class: the timer, the hide and the removal above are unchanged.
+    const ctaTuck = !!props.config.link_button &&
+        width >= calculateAnimationStartTime(settings?.display_for, settings.animation_notification_hide) - (200 / displayFor) * 100;
+
     const themeName = getThemeName(settings);
 
     // Whole-card click: corner popups must be clickable even when the theme
@@ -190,6 +234,8 @@ const Notification = (props) => {
         {
             [`type-${settings?.custom_type}`]: settings?.custom_type,
             exit: exit,
+            "cta-in": ctaIn,
+            "cta-tuck": ctaTuck,
             "has-close-btn": settings?.close_button,
             "has-no-image": settings?.image_data === false,
             // Advanced Edit
@@ -266,8 +312,10 @@ const Notification = (props) => {
             className={componentClasses}
             style={cardLink ? { ...componentStyle, cursor: 'pointer' } : componentStyle}
             id={`notificationx-${settings.nx_id}`}
+            ref={cardRef}
             data-nx-key={props.id} // 84710: lets StackGlide track this card across stack changes
             onClick={handleCardClick}
+            onAnimationEnd={handleAnimationEnd}
         >
             {
                 // Notification sound: rendered by NotificationX Pro.
