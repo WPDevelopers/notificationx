@@ -38,6 +38,10 @@ const Theme = (props) => {
     let template = [];
     tmpl?.forEach((row) => {
         if (!row) return;
+        // Add-ons can rewrite a template row for this entry before its
+        // placeholders are filled (filter `nx_frontend_template_row`).
+        const filteredRow = nxApplyFilters<any>("nx_frontend_template_row", row, entry, props?.config);
+        if (typeof filteredRow === "string") row = filteredRow;
         let match;
         let _row = row;
         let regex = /{{(.*?)}}/g;
