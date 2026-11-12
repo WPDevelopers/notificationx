@@ -134,8 +134,13 @@ class Test_Security_Settings_Boundary extends WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * Users without settings authority get only an allowlist of values now
+	 * (test-security-builder-settings-payload.php), so ordinary configuration is
+	 * checked where it still has to arrive.
+	 */
 	public function test_non_secret_settings_survive_redaction() {
-		wp_set_current_user( $this->creator_id );
+		wp_set_current_user( $this->settings_admin_id );
 		$data = Settings::get_instance()->get_form_data();
 
 		$this->assertTrue(

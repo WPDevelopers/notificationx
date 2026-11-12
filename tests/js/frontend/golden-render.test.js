@@ -229,7 +229,7 @@ describe( 'GOLDEN Notification root className', () => {
 	it( 'conversions_theme-one', () => {
 		const root = renderRoot( base( 'conversions_theme-one', 'woocommerce', 'conversions', SALES ) );
 		expect( root.className ).toBe(
-			'notification-item nx-notification source-woocommerce position-bottom_left type-conversions themes-theme-one themes-conversions_theme-one notificationx-42 has-close-btn'
+			'nx-anim-default-in notification-item nx-notification source-woocommerce position-bottom_left type-conversions themes-theme-one themes-conversions_theme-one notificationx-42 has-close-btn'
 		);
 		expect( root.className ).toMatchSnapshot();
 	} );
@@ -239,7 +239,7 @@ describe( 'GOLDEN Notification root className', () => {
 			base( 'conversions_conv-theme-twelve', 'woocommerce', 'conversions', SALES, { link_button: true, link_button_text: 'Buy now' } )
 		);
 		expect( root.className ).toBe(
-			'notification-item nx-notification source-woocommerce position-bottom_left type-conversions themes-conv-theme-twelve themes-conversions_conv-theme-twelve notificationx-42 button-link has-close-btn'
+			'nx-anim-default-in notification-item nx-notification source-woocommerce position-bottom_left type-conversions themes-conv-theme-twelve themes-conversions_conv-theme-twelve notificationx-42 button-link has-close-btn'
 		);
 		expect( root.className ).toMatchSnapshot();
 	} );
