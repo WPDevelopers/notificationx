@@ -9,6 +9,7 @@ use NotificationX\Admin\Settings;
 use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\FrontEnd\FrontEnd;
+use NotificationX\FrontEnd\Preview;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
 use NotificationX\Types\TypeFactory;
@@ -135,6 +136,8 @@ class PostType {
         $tabs['settings']['settingsRedirect'] = ! current_user_can( 'edit_notificationx_settings' );
         $tabs['settings']['analytics']        = $tabs['analytics'];
         $tabs['admin_url']                    = get_admin_url();
+        // Posted with every builder preview; see Preview::is_authorized_preview_request().
+        $tabs['preview_nonce']                = current_user_can( 'edit_notificationx' ) ? wp_create_nonce( Preview::NONCE_ACTION ) : '';
         $tabs['nx_feedback_shared']           = get_option('nx_feedback_shared',false);
         $tabs['scan_data']                    = [ 
             'nx_scan_count' => get_option('nx_scan_count',0),
@@ -656,6 +659,9 @@ class PostType {
         if ( !NotificationX::is_pro() ) {
             $post['animation_notification_show']     = 'default';
             $post['animation_notification_hide']     = 'default';
+            $post['progressive_reveal']              = false;
+            $post['animation_duration']              = 0.5;
+            $post['live_effects']                    = false;
         }
 
         return $post;

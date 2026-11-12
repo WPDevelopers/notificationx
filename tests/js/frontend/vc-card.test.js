@@ -577,7 +577,7 @@ describe( 'Notification root class', () => {
 	it( 'existing themes get no nx-vc (className unchanged)', () => {
 		const root = renderRoot( base( 'conversions_theme-one', 'woocommerce', 'conversions', SALES, { image_shape: 'circle' } ) );
 		expect( root.className ).toBe(
-			'notification-item nx-notification source-woocommerce position-bottom_left type-conversions themes-theme-one themes-conversions_theme-one notificationx-42 has-close-btn'
+			'nx-anim-default-in notification-item nx-notification source-woocommerce position-bottom_left type-conversions themes-theme-one themes-conversions_theme-one notificationx-42 has-close-btn'
 		);
 	} );
 } );
