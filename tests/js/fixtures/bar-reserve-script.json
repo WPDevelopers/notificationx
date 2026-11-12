@@ -1,0 +1,4 @@
+{
+    "_comment": "The pre-paint script BarSpace prints for a top bar with an \"After a form submit\" rule (BarSpace::PRE_PAINT_SUBMIT_JS). tests/test-bar-space.php checks the PHP constant is exactly this; tests/js/frontend/bar-reserve-script.test.js runs it against isHiddenBySubmit().",
+    "function": "(function(n,s){var off=false;try{off=document.cookie.split(\"; \").some(function(c){var i=c.indexOf(\"=\");return c.slice(0,i)===n&&c.slice(i+1)!==\"\"&&c.slice(i+1)!==\"false\";});}catch(e){}if(!off){try{var r=JSON.parse(localStorage.getItem(s.k)),a=r&&typeof r===\"object\"?Number(r.at):NaN,t=Date.now();off=a>0&&a<=t+864e5&&(!s.d||t<Math.min(a,t)+s.d*864e5);}catch(e){}}if(off){try{document.documentElement.classList.add(\"nx-bar-reserve-off\");}catch(e){}}})"
+}

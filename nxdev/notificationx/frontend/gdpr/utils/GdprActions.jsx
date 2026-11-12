@@ -5,8 +5,11 @@ import { __ } from '@wordpress/i18n';
 import Customization from '../Customization';
 import CloseIcon from '../../../icons/Close';
 import { handleConsentAPI, loadScripts, requestCookieDeletion, setDynamicCookie } from './helper';
+import useNotificationContext from '../../core/NotificationProvider';
+import { clearSubmittedKeys } from '../../core/submitRule';
 
 const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
+    const frontEndContext = useNotificationContext();
     const themesWithCloseBtn = [
         'gdpr_theme-light-one',
         'gdpr_theme-light-three',
@@ -90,7 +93,12 @@ const GdprActions = ({ settings, onConsentGiven, setIsVisible }) => {
     };
 
     const handleCookieReject = () => {
-        if (settings?.gdpr_cookie_removal) deleteCookies();
+        if (settings?.gdpr_cookie_removal) {
+            deleteCookies();
+            // The visitor's remembered form submits ("After a form submit",
+            // submitRule.ts) go the same way as the close cookies.
+            clearSubmittedKeys(frontEndContext);
+        }
         handleConsent(initialSavePreference);
         handleConsentAPI(enabledItem);
     };

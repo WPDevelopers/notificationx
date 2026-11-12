@@ -1,0 +1,18 @@
+{
+	"_comment": "The builder rules of the \"After a form submit\" fields, as the PHP builder sends them. tests/test-submit-reappearance-fields.php checks the PHP fields still produce exactly these; tests/js/frontend/submit-reappearance-rules.test.js evaluates them with quickbuilder's own rule engine.",
+	"popup": {
+		"section": "popup_settings",
+		"submit_reappearance": [ "includes", "themes", [ "popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven" ] ],
+		"submit_hide_days": [ "and", [ "includes", "themes", [ "popup_notification_theme-four", "popup_notification_theme-five", "popup_notification_theme-six", "popup_notification_theme-seven" ] ], [ "is", "submit_reappearance", "days" ] ]
+	},
+	"exit_intent": {
+		"section": "exit_intent_popup_settings",
+		"submit_reappearance": [ "or", [ "includes", "themes", [ "exit_intent_custom_theme-one", "exit_intent_custom_theme-seven" ] ], [ "isOfType", "elementor_id", "number" ] ],
+		"submit_hide_days": [ "and", [ "or", [ "includes", "themes", [ "exit_intent_custom_theme-one", "exit_intent_custom_theme-seven" ] ], [ "isOfType", "elementor_id", "number" ] ], [ "is", "submit_reappearance", "days" ] ]
+	},
+	"bar": {
+		"section": "visibility",
+		"submit_reappearance": [ "and", [ "is", "source", "press_bar" ], [ "!is", "elementor_id", false ] ],
+		"submit_hide_days": [ "and", [ "is", "source", "press_bar" ], [ "!is", "elementor_id", false ], [ "is", "submit_reappearance", "days" ] ]
+	}
+}

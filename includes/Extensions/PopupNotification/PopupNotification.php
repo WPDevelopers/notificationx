@@ -10,6 +10,7 @@ namespace NotificationX\Extensions\Popup;
 
 use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\Core\PostType;
+use NotificationX\Core\Helper;
 use NotificationX\GetInstance;
 use NotificationX\Core\Rules;
 use NotificationX\Extensions\GlobalFields;
@@ -1322,7 +1323,15 @@ class PopupNotification extends Extension {
                     ]),
                     'rules' => Rules::is('show_close_button', true),
                 ],
-            ]
+            ] + Helper::submit_reappearance_fields(
+                // The themes with a form (handleFormSubmit in Popup.tsx).
+                Rules::includes('themes', [
+                    'popup_notification_theme-four',
+                    'popup_notification_theme-five',
+                    'popup_notification_theme-six',
+                    'popup_notification_theme-seven',
+                ])
+            ),
         ];
 
         return $fields;
