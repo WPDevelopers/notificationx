@@ -97,6 +97,12 @@ trait Reviews {
         $entry = array_merge($entry, [
             "title"             => _x("NotificationX", 'nx_preview', 'notificationx'),
         ]);
+        // Verified card Scorecard: a sample review headline, so the builder
+        // preview shows its title row (the card hides a title that equals the
+        // subject, and the sample plugin name is also "NotificationX").
+        if ( ! empty( $settings['themes'] ) && '_vc-scorecard' === substr( $settings['themes'], -13 ) ) {
+            $entry['title'] = _x( 'Excellent plugin', 'nx_preview', 'notificationx' );
+        }
         return $entry;
     }
 

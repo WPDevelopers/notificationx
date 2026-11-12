@@ -64,6 +64,30 @@ class CustomNotificationConversions extends Extension {
         return 'Hello From Custom Notification';
     }
 
+    /**
+     * Themes inherited from the Sales Notification type, minus the "Verified
+     * card" (vc) themes, which are not offered for Custom Notification.
+     *
+     * Extension::__nx_themes() adds this source to the `includes source` rule
+     * of every theme returned here, so a vc theme that is not returned stays
+     * hidden in the picker for this source only (same approach as
+     * Brevo::get_themes()). Every other theme is returned unchanged.
+     *
+     * @return array
+     */
+    public function get_themes() {
+        $themes = parent::get_themes();
+        if ( ! is_array( $themes ) ) {
+            return $themes;
+        }
+        foreach ( array_keys( $themes ) as $name ) {
+            if ( false !== strpos( $name, '_vc-' ) ) {
+                unset( $themes[ $name ] );
+            }
+        }
+        return $themes;
+    }
+
     public function doc(){
         /* translators: %1$s: documentation link URL, %2$s: video tutorial link URL, %3$s: Display Custom Notification Alerts link URL */
         return sprintf(__('<p>You can make custom notification for its all types of campaign. For further assistance, check out our step by step <a target="_blank" href="%1$s">documentation</a>.</p>

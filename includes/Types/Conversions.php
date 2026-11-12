@@ -211,6 +211,25 @@ class Conversions extends Types {
                 'source' => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/pro/nx-conv-theme-9.png',
                 'image_shape' => 'rounded',
             ),
+            // "Verified card" (vc) themes. Kept at the END of the list so every
+            // existing card keeps its picker position. Rendered by the frontend
+            // VerifiedCard (nxdev/notificationx/frontend/themes/vc/); the full keys
+            // are listed in GlobalFields::vc_theme_keys(). No 'defaults', so the
+            // theme trigger sets @link_button:false.
+            // Receipt — name + time, inset product panel, "Verified by" credit.
+            'vc-receipt' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-receipt.png',
+                'image_shape' => 'rounded',
+                'template'    => $common_fields,
+            ),
+            // Showcase — action chip + time, product title with image, buyer · location.
+            'vc-showcase' => array(
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-showcase.png',
+                'image_shape' => 'rounded',
+                'template'    => array_merge( $common_fields, [
+                    'second_param' => __( 'Just purchased', 'notificationx' ),
+                ] ),
+            ),
         ];
         $this->res_themes = [
             'res-theme-one'   => [
@@ -299,6 +318,10 @@ class Conversions extends Types {
                     'woocommerce_sales_conv-theme-twelve',
                     'woocommerce_sales_conv-theme-thirteen',
                     'woocommerce_sales_conv-theme-fifteen',
+                    'conversions_vc-receipt',
+                    'conversions_vc-showcase',
+                    'woocommerce_sales_vc-receipt',
+                    'woocommerce_sales_vc-showcase',
                 ]
             ],
             'woo_template_sales_count' => [

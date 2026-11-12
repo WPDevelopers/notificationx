@@ -77,6 +77,17 @@ Distinctive settings this type relies on (consumed by `_excludes_product` / `_sh
 For the full mechanics of how a theme's content rows are rendered (React) and the naming conventions for adding a new theme, see the dedicated doc:
 **[docs/sales-notification-add-new-design.md](../features/sales-notification/add-new-design.md)**.
 
+### Verified Cards (`vc-receipt`, `vc-showcase`)
+
+Two free "Verified Card" themes are appended at the **end** of `$this->themes` (so existing picker positions are unchanged): **Receipt** (`vc-receipt`, template `$common_fields`) and **Showcase** (`vc-showcase`, `$common_fields` with `second_param` "Just purchased"). Full keys: `conversions_vc-receipt`, `conversions_vc-showcase` (and the `woocommerce_sales_*` counterparts registered in WooCommerceSales.php). Both use `image_shape` `rounded` and have no `defaults` (picking one sets `link_button` to false).
+
+- Their full keys are appended to `woo_template_new['_themes']`; they are **not** in `$conversions_count` or `woo_template_sales_count`.
+- `GlobalFields::vc_theme_keys()` hides the Advanced Design and Button toggles for them. Custom Notification (and the Sales › Custom source) does not offer them.
+- On the frontend they do **not** use the generic `Content.tsx` rows: `GetTemplate` returns a slot array and [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx) renders a 344px card (desktop and tablet) or a slim two-line card at 480px and below, with the credit "✓ Verified by NotificationX" and a one-pass line scroll (option C). The root gets the `nx-vc` class; the SCSS is [_themes/_vc.scss](../../nxdev/notificationx/frontend/scss/_themes/_vc.scss). With NotificationX Pro's Mobile Responsive on, phones (574px and below) show Pro's mobile card with compact rows instead.
+- Receipt shows the Freemius plan and price (`freemius_fifth_param`, `freemius_seventh_param`) when the source is `freemius_conversions`. Showcase shows `{{city_country}}` and hides the location when it is empty.
+
+Slot contract, rendering, option C and the steps for the next vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
+
 ## Key files
 
 | Layer | File(s) |

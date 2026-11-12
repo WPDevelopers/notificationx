@@ -325,7 +325,8 @@ class WPOrgReview extends Extension {
                 $settings     = $notifications[$nx_id];
                 $theme        = $settings['theme'];
                 $product_type = $settings['wp_reviews_product_type'];
-                if($theme === 'reviews_total-rated'){
+                // The "Verified card" Ratings theme shows the same aggregate, once per plugin.
+                if($theme === 'reviews_total-rated' || $theme === 'reviews_vc-ratings'){
                     if(!in_array($nx_id, $nx_ids)){
                         $nx_ids[]             = $nx_id;
 

@@ -91,6 +91,26 @@ class ContactForm extends Types {
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ],
             ],
+            // "Verified card" (vc) theme, kept at the END of the list so every
+            // existing card keeps its picker position. Rendered by the frontend
+            // VerifiedCard (nxdev/notificationx/frontend/themes/vc/); the full key
+            // is listed in GlobalFields::vc_theme_keys(). No 'defaults', so the
+            // theme trigger sets @link_button:false.
+            // Submission — avatar + the submitter field, "recently contacted via",
+            // the form title in an outlined field box.
+            'vc-submission' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-submission.png',
+                'image_shape' => 'circle',
+                'template'    => [
+                    'first_param'         => 'select_a_tag',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('recently contacted via', 'notificationx'),
+                    'third_param'         => 'tag_title',
+                    'custom_third_param'  => '',
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ],
+            ],
         ];
         $this->res_themes = [
             'res-theme-one'   => [
@@ -149,6 +169,7 @@ class ContactForm extends Types {
                     'form_theme-one',
                     'form_theme-two',
                     'form_theme-three',
+                    'form_vc-submission',
                 ],
             ],
         ];
