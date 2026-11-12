@@ -1324,6 +1324,12 @@ class FrontEnd {
                     'city'       => $entry['city'] ?? '',
                     'country'    => $entry['country'] ?? '',
                 ], $entry, $post, $params);
+                // An entry waiting for data the browser supplies (an add-on's
+                // `nx_frontend_entry` filter) keeps its mark, so the frontend
+                // never renders it without that data.
+                if (!empty($entry['nx_awaiting_data'])) {
+                    $_entry['nx_awaiting_data'] = true;
+                }
                 if (!empty($params['inline_shortcode']) && isset($entry['product_id'])) {
                     $_entry['product_id'] = $entry['product_id'];
                 }

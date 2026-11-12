@@ -39,6 +39,7 @@ Filters live on the global WordPress registry, `window.wp.hooks`. Register them 
 | `nx_frontend_animation` | `Notification.tsx`, `GDPR.tsx`, `Popup.tsx`, before the class list is built | `undefined` | `{ settings, animation, animationStyle, defaultClass, is_pro }` (`animation` is true while hiding; `animationStyle` is the old inline entrance, `defaultClass` the soft entrance class `nx-anim-default-in`, passed by cards and GDPR since 3.3.8) | `{ classNames, style }`: classes put before the base classes, style merged into the element style. Without a claim the built-in entrance is used: the `nx-anim-default-in` class (cards and GDPR; `SlideTop 300ms` before 3.3.5) or `fadeIn 300ms` (popups). |
 | `nx_frontend_notification_sound` | `Notification.tsx`, first child of the notification | `null` | `{ settings, assets, is_pro }` | A React node (Pro: `<audio>` that plays on mount). |
 | `nx_frontend_mobile_notification` | `NotificationContainer.tsx`, before `<Notification>`, only on mobile for `is_mobile_responsive` notifications that are not in `nx_frontend_no_mobile_design_sources` | `undefined` | `{ notice, assets, dispatch, is_pro }` | A keyed React element that replaces `<Notification>` (Pro: the compact mobile layout). |
+| `nx_frontend_entry` | `NotificationContainer.tsx`, before `<Notification>` and the mobile layout, for every notice that `<Notification>` renders (free x.x.x) | the notice's `data` (entry) | `{ settings }` (the notice config) | An entry object to render instead, or `null` to hold the notice back for now (Pro: the live visitor count, until it is known). Anything else is ignored. Return `null` only before the notice shows. An entry the server marked `nx_awaiting_data: true` is never rendered as it is: a filter must return an entry with `nx_awaiting_data` false or removed (free x.x.x). |
 | `nx_popup_form_fields` | `Popup.tsx`, before the message field | `null` | `{ settings, formData, handleInputChange, setFocusedField, isSubmitting, validationErrors, getInputStyles, is_pro, labels }` | A React node (Pro: name and email inputs, themes four to seven). |
 | `nx_popup_validate_fields` | `Popup.tsx`, `validateForm()` | `{}` | `{ settings, formData, is_pro, messages }` | Errors to merge (`{ name?, email? }`), translated texts from `messages`. |
 | `nx_popup_submission_fields` | `Popup.tsx`, submitted data | `{ name: '', email: '' }` | `{ settings, formData, is_pro }` | `{ name, email }`. |
@@ -70,8 +71,17 @@ The frontend bundle contains its own copy of React. A component from another bun
 | `getPath(rest, path, query?)` | Builds a REST URL, for example `getPath(ctx.rest, 'analytics/')`. |
 | `Theme`, `Analytics` | Free's theme and analytics components (free 3.3.4+), used by the Pro compact mobile layout. |
 | `resolveNotificationLink`, `isObject`, `calculateAnimationStartTime`, `getResThemeName`, `getThemeName` | Helpers used by the same layout (free 3.3.4+). |
+| `liveApi` | `1` when this runtime has the `nx_frontend_entry` filter and the `notificationx:refresh` event (free x.x.x). |
 
 The object is frozen. If the bundle loads twice, the first object stays.
+
+### `nx_awaiting_data`
+
+An add-on whose data only exists in the browser (Pro: the live visitor count) can send a placeholder entry with `nx_awaiting_data: true` (free x.x.x). `FrontEnd::filtered_data()` keeps the mark, and the notice stays hidden until an `nx_frontend_entry` filter returns the entry with real data and `nx_awaiting_data` false or removed. If the add-on's script never loads, nothing supplies the data and the notice never shows with an empty value. Entries without the mark are not affected.
+
+### `notificationx:refresh`
+
+Dispatch `window.dispatchEvent( new Event( 'notificationx:refresh' ) )` when the data an `nx_frontend_entry` filter returns has changed, for example when a live count arrives. The notification list renders again and runs the filter again. Notices already on screen keep their own timers. Check `window.nxFrontendRuntime?.liveApi` before relying on it; an older free ignores the event (free x.x.x).
 
 > The built-in [Button.js](../../nxdev/notificationx/frontend/themes/helpers/Button.js) passes `omit_credentials` in the `dispatch` position of `analyticsOnClick()`. Do not copy that call into an add-on. Pass `(event, restUrl, config, dispatch, credentials)` as listed above.
 

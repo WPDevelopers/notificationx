@@ -44,6 +44,15 @@ define( 'NOTIFICATIONX_PUBLIC_URL', NOTIFICATIONX_ASSETS . 'public/' );
 define( 'NOTIFICATIONX_COMMON_URL', NOTIFICATIONX_ASSETS . 'common/' );
 
 /**
+ * Feature marker for add-ons: this NotificationX has the Live Visitors source
+ * and its hooks (`nx_live_visitors_supported`, `nx_public_rest_routes`, the
+ * `nx_frontend_entry` JS filter). Bump only for a breaking change to them.
+ *
+ * @since x.x.x
+ */
+define( 'NOTIFICATIONX_LIVE_API', 1 );
+
+/**
  * The Core Engine of the Plugin
  */
 if ( ! class_exists( '\NotificationX\NotificationX' ) ) {
