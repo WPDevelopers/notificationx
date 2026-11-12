@@ -19,6 +19,8 @@ Nothing should look different: same notifications, same content, same builder. T
 
 Automated coverage: `tests/test-builder-field-names-cache.php` and `tests/test-builder-fields-cache.php` (PHPUnit), `tests/e2e/builder-field-names-cache.js` (real requests against a site).
 
+Background, measurements and what is still open for issue #214: [../features/notice-request-performance.md](../features/notice-request-performance.md).
+
 ## Setup
 
 1. Test site with the free release candidate. Turn on `WP_DEBUG` and `WP_DEBUG_LOG`, and empty `wp-content/debug.log`.

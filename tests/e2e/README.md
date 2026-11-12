@@ -97,6 +97,8 @@ Besides the two users, it writes one login session per user and removes them whe
 
 ## Field list cache on the frontend
 
+This script and the next two (views with analytics off, WooCommerce entries) belong to the frontend `/notice` performance work for issue #214. What the issue was, what is fixed and what is left: [docs/features/notice-request-performance.md](../../docs/features/notice-request-performance.md).
+
 [builder-field-names-cache.js](builder-field-names-cache.js) checks that the frontend `/notice` request does not depend on the large cached builder fields (`nx_builder_fields`). It needs no browser. It sends real `/notice` requests in three states:
 
 - no cache at all: the first request caches the builder fields and the field list,

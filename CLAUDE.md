@@ -91,5 +91,6 @@ There are two frontend builds in this repo (admin + frontend webpack configs) an
 - [docs/development/adding-a-notification-type.md](docs/development/adding-a-notification-type.md) — adding a new Type end-to-end.
 - [docs/features/exit-intent/00-overview.md](docs/features/exit-intent/00-overview.md), [docs/features/exit-intent/add-new-design.md](docs/features/exit-intent/add-new-design.md) — Exit Intent specifics.
 - [docs/features/mcp/README.md](docs/features/mcp/README.md) — MCP server: ability registration and the WordPress Abilities API bridge (register the ability category before the abilities).
+- [docs/features/notice-request-performance.md](docs/features/notice-request-performance.md) — the frontend `/notice` request (issue #214): measurements, the three fixes shipped, what the GET/cache/proxy proposal would break, and what is left.
 - [docs/features/frontend-performance/](docs/features/frontend-performance/) — bundle size history, guardrails, optimizer (Delay JS) compatibility, B2/B3 roadmap.
 - [@todo.md](@todo.md) — author's running TODO; not authoritative roadmap.

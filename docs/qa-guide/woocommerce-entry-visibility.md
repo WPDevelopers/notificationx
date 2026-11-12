@@ -16,6 +16,8 @@ Nothing should look different. On a development machine, with 5 notifications of
 
 Automated coverage: `tests/test-woocommerce-entry-visibility.php` (PHPUnit), `tests/e2e/woocommerce-entry-visibility.js` (real products and requests against a site). The change is tracked in issue #214.
 
+Background, measurements and what is still open for issue #214: [../features/notice-request-performance.md](../features/notice-request-performance.md).
+
 ## Setup
 
 1. Test site with WooCommerce, the free release candidate and Pro. Turn on `WP_DEBUG` and `WP_DEBUG_LOG`, and empty `wp-content/debug.log`.

@@ -18,6 +18,8 @@ One visible difference: a site that turns analytics off and later on again will 
 
 Automated coverage: `tests/test-analytics-disabled.php` (PHPUnit), `tests/e2e/analytics-disabled.js` (real requests against a site). The change is tracked in issue #214.
 
+Background, measurements and what is still open for issue #214: [../features/notice-request-performance.md](../features/notice-request-performance.md).
+
 ## Setup
 
 1. Test site with the free release candidate. Turn on `WP_DEBUG` and `WP_DEBUG_LOG`, and empty `wp-content/debug.log`.
