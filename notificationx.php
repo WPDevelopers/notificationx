@@ -42,6 +42,13 @@ define( 'NOTIFICATIONX_PLUGIN_URL', 'https://notificationx.com' );
 define( 'NOTIFICATIONX_ADMIN_URL', NOTIFICATIONX_ASSETS . 'admin/' );
 define( 'NOTIFICATIONX_PUBLIC_URL', NOTIFICATIONX_ASSETS . 'public/' );
 define( 'NOTIFICATIONX_COMMON_URL', NOTIFICATIONX_ASSETS . 'common/' );
+/*
+ * Verified Card add-on API version. Defined when free has the hooks an add-on
+ * needs to register its own vc themes: nx_vc_theme_keys (PHP) and
+ * nx_frontend_vc_slugs, nx_frontend_vc_card, nx_frontend_vc_compact_rows (JS).
+ * Bump it only for a breaking change. See docs/api/frontend-js-hooks.md.
+ */
+define( 'NOTIFICATIONX_VC_API', 1 );
 
 /**
  * The Core Engine of the Plugin
