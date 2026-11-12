@@ -13,6 +13,7 @@ Manual test plans for NotificationX (free) releases. Each guide says what change
 | [builder-settings-redaction.md](builder-settings-redaction.md) | Security fix for credentials in the builder payload: View / Create roles get no settings form and no credential (YouTube token, Freemius secret key, integration API key in field defaults), admins unchanged, settings export / import, Zapier and Brevo webhooks with the existing key, free × Pro version matrix. |
 | [deactivation-feedback-form.md](deactivation-feedback-form.md) | Layout and behaviour fix for the "Sorry to see you go" dialog: overlay above the admin menu and admin bar, Better Payment look, no loading state on submit, redirect when the request fails, narrow screens. |
 | [builder-field-list-cache.md](builder-field-list-cache.md) | Performance fix for the frontend `/notice` request: the field list is cached apart from the large builder fields and read once per request. Nothing should change visibly; covers a site whose cache cannot keep the large value, cache clearing on settings save and plugin changes, and the builder. |
+| [analytics-off-no-views.md](analytics-off-no-views.md) | With **Enable Analytics** off the frontend no longer writes views. Notifications show as before; analytics on is unchanged; turning it off and on again. |
 
 ## Conventions
 

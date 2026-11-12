@@ -100,6 +100,10 @@ Daily view/click counters per notification.
 
 Counters are bumped by `Database::update_analytics()` / `Core\Analytics`; the analytics REST endpoints read and reset them.
 
+Views are counted on the server, inside the front-end `notice` request: `Analytics::insert_views()` runs on `nx_filtered_data` (and on `nx_filtered_data_press_bar` for bars) and updates one row per notification shown. Clicks come from the browser through the `/analytics` route. Both go through `Analytics::insert_analytics()`, which writes nothing when **Enable Analytics** (`settings.enable_analytics`) is off. In that state the Analytics page, the dashboard widget, the report email and the click route are off too, so nothing reads the rows. Before this, views were still written with analytics off: one update per notification on every `notice` request.
+
+Record analytics only through `insert_analytics()`, so the setting, `analytics_from` and the bot filter keep applying. Tests: [tests/test-analytics-disabled.php](../../tests/test-analytics-disabled.php), [tests/e2e/analytics-disabled.js](../../tests/e2e/analytics-disabled.js).
+
 `Database` also exposes generic helpers (`insert_post`, `update_post`, `get_posts`, `delete_posts`, `get_where_query`, `serialize_data`/`unserialize_data`) that operate on these tables and are used throughout the plugin. Query building also uses the `wpdeveloper/query-builder` package (`Database::query()`).
 
 ## Auxiliary post types (Elementor / Gutenberg bodies)

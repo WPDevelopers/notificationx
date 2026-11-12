@@ -111,6 +111,16 @@ node tests/e2e/builder-field-names-cache.js
 
 It creates three temporary Notification Bars ("NX E2E field list 1" to 3) and deletes them when the run ends. Each `/notice` request counts one view per notification shown, as a page view does. Background: [docs/architecture/data-storage.md](../../docs/architecture/data-storage.md#the-field-list-cache).
 
+## Views with analytics off
+
+[analytics-disabled.js](analytics-disabled.js) checks that the frontend writes no views while **Enable Analytics** is off. It needs no browser. For a temporary Notification Bar it sends real `/notice` requests with analytics on (each request adds one view), off (the bar is still in the response, no view and no row is added, and the response is otherwise unchanged) and on again (counting resumes).
+
+```bash
+node tests/e2e/analytics-disabled.js
+```
+
+It creates one temporary Notification Bar ("NX E2E analytics") and deletes it with its views when the run ends. It changes the **Enable Analytics** setting during the run and puts the original value back.
+
 ## Build With AI preset preview (Pro)
 
 `tests/e2e/preset-preview.js` in NotificationX Pro opens the Exit Intent Build With AI history with a mocked preset and checks the preview POST carries the nonce and renders. It reuses `auth.php` and `puppeteer-core` from this plugin.
