@@ -121,6 +121,20 @@ node tests/e2e/analytics-disabled.js
 
 It creates one temporary Notification Bar ("NX E2E analytics") and deletes it with its views when the run ends. It changes the **Enable Analytics** setting during the run and puts the original value back.
 
+## WooCommerce entries and product state
+
+[woocommerce-entry-visibility.js](woocommerce-entry-visibility.js) checks that WooCommerce sales entries follow the state of their product and that each product is loaded once per request. It needs no browser, but it needs WooCommerce active with at least two published products; it prints `SKIP` otherwise. It creates a sales notification with 40 entries (30 for two published products, 5 for a draft product, 5 for a product that does not exist) and checks that:
+
+- only entries of published products are in the `/notice` response,
+- after the draft product is published its entries appear, and after it is trashed they are gone again,
+- one request loads each product once (3 loads for 40 entries; before the change it was one load per entry).
+
+```bash
+node tests/e2e/woocommerce-entry-visibility.js
+```
+
+It creates one temporary notification ("NX E2E woo visibility") and one temporary product ("NX E2E hidden draft"), and deletes both when the run ends.
+
 ## Build With AI preset preview (Pro)
 
 `tests/e2e/preset-preview.js` in NotificationX Pro opens the Exit Intent Build With AI history with a mocked preset and checks the preview POST carries the nonce and renders. It reuses `auth.php` and `puppeteer-core` from this plugin.

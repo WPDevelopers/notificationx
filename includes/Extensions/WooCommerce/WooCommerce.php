@@ -64,32 +64,54 @@ class WooCommerce extends Extension {
         add_action('woocommerce_process_shop_order_meta', array( $this, 'manual_order'), 10, 2 );
         add_action('woocommerce_new_order_item', array($this, 'save_new_orders'), 10, 3);
         add_filter("nx_entry_show_on_frontend_{$this->id}", [$this, 'entry_display'], 10, 3);
+        // A product that changes state in this request must be checked again.
+        add_action('transition_post_status', [__CLASS__, 'forget_product_visibility'], 10, 0);
+        add_action('deleted_post', [__CLASS__, 'forget_product_visibility'], 10, 0);
     }
 
     /**
-     * This function is responsible for checking if the product is published or not.
+     * Whether to hide the entries of a product, by product ID, for the
+     * products already checked in this request. Shared by every WooCommerce
+     * source, since they all ask the same question about the same products.
      *
-     * @param boolean $data
-     * @param array $post
-     * @param array $entry
-     * @return boolean
+     * @var array<int|string, bool>
      */
-    public function entry_display($data, $post, $entry) {
-        $product_id = $post['product_id'];
-        if ( empty($product_id) ) {
+    private static $hidden_products = [];
+
+    /**
+     * Whether to hide an entry: its product is gone or not published.
+     *
+     * Runs for every stored entry on every front-end `notice` request, and a
+     * notification usually holds many entries of the same few products.
+     * Loading the product for each entry was most of that request's time, so
+     * each product is checked once per request.
+     *
+     * Hooked to `nx_entry_show_on_frontend_{source}`.
+     *
+     * @param bool  $hide     Unused; this filter decides alone.
+     * @param array $entry    The entry.
+     * @param array $settings Notification settings.
+     * @return bool True to hide the entry.
+     */
+    public function entry_display($hide, $entry, $settings = []) {
+        $product_id = isset($entry['product_id']) ? $entry['product_id'] : 0;
+        if ( empty($product_id) || ! is_scalar($product_id) ) {
             return true;
         }
 
-        $product = wc_get_product($product_id);
-        if ( ! $product ) {
-            return true;
+        if ( ! array_key_exists($product_id, self::$hidden_products) ) {
+            $product = wc_get_product($product_id);
+            self::$hidden_products[$product_id] = ! $product || $product->get_status() !== 'publish';
         }
 
-        if ( $product->get_status() !== 'publish' ) {
-            return true;
-        }
+        return self::$hidden_products[$product_id];
+    }
 
-        return false;
+    /**
+     * Forget which products are hidden, so the next entry checks again.
+     */
+    public static function forget_product_visibility() {
+        self::$hidden_products = [];
     }
 
 

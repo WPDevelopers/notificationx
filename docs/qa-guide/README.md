@@ -14,6 +14,7 @@ Manual test plans for NotificationX (free) releases. Each guide says what change
 | [deactivation-feedback-form.md](deactivation-feedback-form.md) | Layout and behaviour fix for the "Sorry to see you go" dialog: overlay above the admin menu and admin bar, Better Payment look, no loading state on submit, redirect when the request fails, narrow screens. |
 | [builder-field-list-cache.md](builder-field-list-cache.md) | Performance fix for the frontend `/notice` request: the field list is cached apart from the large builder fields and read once per request. Nothing should change visibly; covers a site whose cache cannot keep the large value, cache clearing on settings save and plugin changes, and the builder. |
 | [analytics-off-no-views.md](analytics-off-no-views.md) | With **Enable Analytics** off the frontend no longer writes views. Notifications show as before; analytics on is unchanged; turning it off and on again. |
+| [woocommerce-entry-visibility.md](woocommerce-entry-visibility.md) | Performance fix for WooCommerce sales notifications: the "is the product still published" check runs once per product per request. Entries of draft, trashed and deleted products stay hidden; nothing else should change. |
 
 ## Conventions
 
