@@ -122,6 +122,19 @@ describe( 'the submit rule', () => {
 		expect( setItem.mock.calls.filter( ( [ key ] ) => key === SUBMITTED ) ).toHaveLength( 1 );
 	} );
 
+	it( 'does not remember a NotificationX Form locked by an earlier submit elsewhere', async () => {
+		render( { submit_reappearance: 'never' } );
+		act( () => {
+			// nx-elementor-form.js lockForm(): the form was sent in another notification.
+			const message = document.querySelector( '#nx-bar-12 .nx-form-message' );
+			message.classList.add( 'is-success', 'is-locked' );
+			message.textContent = 'You have already submitted this form.';
+		} );
+		await flush();
+		expect( localStorage.getItem( SUBMITTED ) ).toBeNull();
+		expect( document.querySelector( '#nx-bar-12' ) ).not.toBeNull();
+	} );
+
 	it( 'does not watch a bar that is not built with Elementor', async () => {
 		render( { submit_reappearance: 'never', elementor_id: false }, '<p>Sale</p><div class="nx-form-message"></div>' );
 		act( () => {

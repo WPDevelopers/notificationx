@@ -323,6 +323,20 @@ describe( 'the submit rule', () => {
 		expect( traces().session ).toEqual( {} );
 	} );
 
+	it( 'Elementor: a NotificationX Form locked by an earlier submit closes as today and is not remembered', async () => {
+		render( { submit_reappearance: 'never', ...ELEMENTOR } );
+		act( () => {
+			// nx-elementor-form.js lockForm(): "You have already submitted this form."
+			const message = container.querySelector( '.nx-form-message' );
+			message.classList.add( 'is-success', 'is-locked' );
+			message.textContent = 'You have already submitted this form.';
+		} );
+		await flush();
+		wait( 2000 );
+		expect( localStorage.getItem( SUBMITTED ) ).toBeNull();
+		expect( traces() ).toEqual( closedAsToday( 'theme-one' ) );
+	} );
+
 	it( 'falls back to the close keys when the submit cannot be stored', async () => {
 		const setItem = Storage.prototype.setItem;
 		jest.spyOn( Storage.prototype, 'setItem' ).mockImplementation( function ( key, value ) {

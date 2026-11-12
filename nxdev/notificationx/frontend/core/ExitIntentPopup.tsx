@@ -83,8 +83,10 @@ const ExitIntentPopup = (props: any) => {
         const root = elementorBodyRef.current;
         if (!root) return;
 
-        return watchFormSuccess(root, settings?.nx_id, () => {
-            rememberSuccessfulSubmit();
+        return watchFormSuccess(root, settings?.nx_id, (alreadySubmitted) => {
+            // A form locked by an earlier submit closes as before, with the
+            // close keys, but isn't remembered as a submit in this popup.
+            if (!alreadySubmitted) rememberSuccessfulSubmit();
             // Let the success message register for a beat before closing.
             setTimeout(() => handleClose(), 2000);
         });

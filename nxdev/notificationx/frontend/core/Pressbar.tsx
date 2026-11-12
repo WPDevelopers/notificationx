@@ -218,8 +218,9 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     useEffect(() => {
         const root = elementorRef?.current as unknown as HTMLElement;
         if (!settings?.elementor_id || !root) return;
-        return watchFormSuccess(root, settings?.nx_id, () => {
-            rememberSubmit(settings, frontendContext);
+        return watchFormSuccess(root, settings?.nx_id, (alreadySubmitted) => {
+            // A form locked by an earlier submit elsewhere is not a submit here.
+            if (!alreadySubmitted) rememberSubmit(settings, frontendContext);
         });
     }, [settings?.elementor_id, content]);
 

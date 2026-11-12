@@ -12,23 +12,37 @@
  * 3. a success message appearing inside `root`, for integrations that send
  *    neither.
  *
+ * A NotificationX Form the visitor already sent this session is locked with an
+ * "already submitted" message (`.nx-form-message.is-locked`). That is not a new
+ * submit: `onSuccess` gets `alreadySubmitted = true`, so callers don't store a
+ * submit the visitor never made in this notification.
+ *
  * Returns the cleanup.
  *
  * @since x.x.x
  */
 export const FORM_SUCCESS_SELECTOR = '.elementor-message-success, .e-form__submit__success, .nx-form-message.is-success';
+export const FORM_LOCKED_SELECTOR = '.nx-form-message.is-locked';
 
-export const watchFormSuccess = (root: HTMLElement, nxId, onSuccess: () => void): (() => void) => {
+export const watchFormSuccess = (root: HTMLElement, nxId, onSuccess: (alreadySubmitted: boolean) => void): (() => void) => {
     let done = false;
-    const succeed = () => {
+    let lockedSeen = false;
+    const succeed = (alreadySubmitted = false) => {
         if (done) return;
-        done = true;
-        onSuccess();
+        if (alreadySubmitted) {
+            // Reported once; a real submit in another form still counts.
+            if (lockedSeen) return;
+            lockedSeen = true;
+        } else {
+            done = true;
+        }
+        onSuccess(alreadySubmitted);
     };
 
     // @ts-ignore
     const jq = window.jQuery;
-    if (jq) jq(root).on('submit_success', succeed);
+    const onSubmitSuccess = () => succeed();
+    if (jq) jq(root).on('submit_success', onSubmitSuccess);
 
     const onNxClose = (ev: any) => {
         const id = ev?.detail?.nxId;
@@ -37,12 +51,16 @@ export const watchFormSuccess = (root: HTMLElement, nxId, onSuccess: () => void)
     document.addEventListener('nx:exit-intent-close', onNxClose);
 
     const observer = new MutationObserver(() => {
-        if (root.querySelector(FORM_SUCCESS_SELECTOR)) succeed();
+        const success = root.querySelectorAll(FORM_SUCCESS_SELECTOR);
+        if (!success.length) return;
+        // Only locked forms: an earlier submit, not one made here.
+        const locked = Array.prototype.every.call(success, (el: Element) => el.matches(FORM_LOCKED_SELECTOR));
+        succeed(locked);
     });
     observer.observe(root, { childList: true, subtree: true });
 
     return () => {
-        if (jq) jq(root).off('submit_success', succeed);
+        if (jq) jq(root).off('submit_success', onSubmitSuccess);
         document.removeEventListener('nx:exit-intent-close', onNxClose);
         observer.disconnect();
     };
