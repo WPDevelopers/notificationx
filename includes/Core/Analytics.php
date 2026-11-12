@@ -63,8 +63,24 @@ class Analytics {
         ];
     }
 
+    /**
+     * Whether the site collects analytics ("Enable Analytics" in the settings).
+     *
+     * @return bool
+     */
+    public function is_enabled() {
+        return (bool) Settings::get_instance()->get( 'settings.enable_analytics', true );
+    }
+
     // Wrapper function for Database functions.
     public function insert_analytics( $nx_id, $type = 'clicks' ) {
+        // With analytics off nothing reads the stats: the Analytics page, the
+        // dashboard widget, the report email and the click route are all off.
+        // Views used to be written anyway, one row update per notification on
+        // every front-end `notice` request.
+        if ( ! $this->is_enabled() ) {
+            return false;
+        }
         if ( ! $this->should_count() ) {
             return false;
         }

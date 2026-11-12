@@ -109,6 +109,14 @@ Real events that drive data:
 8. `WooCommerce::wpml_translate()` / `WooCommerce::product_link()` (hooked via
    `wpml_actions()`, only when WPML String Translation is loaded) re-resolve the
    translated product ID/title and permalink for the current language.
+9. `WooCommerce::entry_display()` (hooked on `nx_entry_show_on_frontend_{$this->id}`)
+   hides an entry whose product is gone or not published. It runs for **every
+   stored entry** of the notification on every front-end `notice` request, before
+   `display_last` cuts the list. The answer is kept per product ID for the rest of
+   the request, in a static shared by every WooCommerce source, so a product is
+   loaded with `wc_get_product()` once however many entries it has.
+   `WooCommerce::forget_product_visibility()` clears it and is hooked to
+   `transition_post_status` and `deleted_post`.
 
 ## Fields & settings
 
@@ -259,7 +267,14 @@ touches. See [google.md](google.md).
   show as locked/upsell in the free plugin per the standard
   `is_pro && !NotificationX::is_pro()` pattern in `Extension::__nx_sources()` /
   `register_module()`.
-- No dedicated PHPUnit tests exercise this integration's data pipeline. The free
+- `entry_display()` used to load the product for each entry. With 5 notifications
+  of 100 entries that was about 85 ms of a 117 ms `notice` handler; remembering the
+  answer per product brought the handler to 56 ms with the same response. Keep new
+  per-entry filters free of per-entry product or post loads.
+  Covered by `tests/test-woocommerce-entry-visibility.php` (with a stand-in for
+  `wc_get_product()`, since WooCommerce is not loaded in the suite) and
+  `tests/e2e/woocommerce-entry-visibility.js` (real products and requests).
+- Apart from that, no dedicated PHPUnit tests exercise this integration's data pipeline. The free
   `tests/` suite is limited to factory/type/REST/migration smoke tests
   (`test-extension-factory.php`, `test-types-factory.php`, `test-rest.php`,
   `test-migration-upgrader.php`), and `notificationx-pro/tests/` only adds

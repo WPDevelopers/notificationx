@@ -95,6 +95,48 @@ node tests/e2e/builder-settings-redaction.js 179     # this notification
 
 Besides the two users, it writes one login session per user and removes them when the run ends. Console errors that also show on `dev` without the fix (React development warnings, an icon with `height="auto"`, the Dashboard's analytics request for a view-only user) are not counted; the list is in the script.
 
+## Field list cache on the frontend
+
+This script and the next two (views with analytics off, WooCommerce entries) belong to the frontend `/notice` performance work for issue #214. What the issue was, what is fixed and what is left: [docs/features/notice-request-performance.md](../../docs/features/notice-request-performance.md).
+
+[builder-field-names-cache.js](builder-field-names-cache.js) checks that the frontend `/notice` request does not depend on the large cached builder fields (`nx_builder_fields`). It needs no browser. It sends real `/notice` requests in three states:
+
+- no cache at all: the first request caches the builder fields and the field list,
+- the large value removed behind the plugin's back, as a store that rejected it would leave things: responses are byte-identical and the large value is not rebuilt,
+- both values removed: the response is the same apart from field defaults that hold the build time, and one request rebuilds both.
+
+It also checks that the field list matches the cached builder fields and that the builder still gets its fields, and prints the time of each state.
+
+```bash
+node tests/e2e/builder-field-names-cache.js
+```
+
+It creates three temporary Notification Bars ("NX E2E field list 1" to 3) and deletes them when the run ends. Each `/notice` request counts one view per notification shown, as a page view does. Background: [docs/architecture/data-storage.md](../../docs/architecture/data-storage.md#the-field-list-cache).
+
+## Views with analytics off
+
+[analytics-disabled.js](analytics-disabled.js) checks that the frontend writes no views while **Enable Analytics** is off. It needs no browser. For a temporary Notification Bar it sends real `/notice` requests with analytics on (each request adds one view), off (the bar is still in the response, no view and no row is added, and the response is otherwise unchanged) and on again (counting resumes).
+
+```bash
+node tests/e2e/analytics-disabled.js
+```
+
+It creates one temporary Notification Bar ("NX E2E analytics") and deletes it with its views when the run ends. It changes the **Enable Analytics** setting during the run and puts the original value back.
+
+## WooCommerce entries and product state
+
+[woocommerce-entry-visibility.js](woocommerce-entry-visibility.js) checks that WooCommerce sales entries follow the state of their product and that each product is loaded once per request. It needs no browser, but it needs WooCommerce active with at least two published products; it prints `SKIP` otherwise. It creates a sales notification with 40 entries (30 for two published products, 5 for a draft product, 5 for a product that does not exist) and checks that:
+
+- only entries of published products are in the `/notice` response,
+- after the draft product is published its entries appear, and after it is trashed they are gone again,
+- one request loads each product once (3 loads for 40 entries; before the change it was one load per entry).
+
+```bash
+node tests/e2e/woocommerce-entry-visibility.js
+```
+
+It creates one temporary notification ("NX E2E woo visibility") and one temporary product ("NX E2E hidden draft"), and deletes both when the run ends.
+
 ## Build With AI preset preview (Pro)
 
 `tests/e2e/preset-preview.js` in NotificationX Pro opens the Exit Intent Build With AI history with a mocked preset and checks the preview POST carries the nonce and renders. It reuses `auth.php` and `puppeteer-core` from this plugin.

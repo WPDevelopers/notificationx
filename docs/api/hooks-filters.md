@@ -88,7 +88,7 @@ Fired, roughly in order, as [FrontEnd.php](../../includes/FrontEnd/FrontEnd.php)
 | `nx_frontend_localize_data` | The whole localized data array before it's handed to JS ([:209](../../includes/FrontEnd/FrontEnd.php#L209)). | `$notificationXArr` |
 | `nx_frontend_get_entries` | Entries pulled for the active notifications ([:722](../../includes/FrontEnd/FrontEnd.php#L722)). | `$entries`, `$ids`, `$notifications`, `$params` |
 | `nx_get_entries_query_part_{source}` | Per-source SQL fragment for the entries query ([:705](../../includes/FrontEnd/FrontEnd.php#L705)). | `$global_query`, `$notification`, `$params` |
-| `nx_entry_show_on_frontend_{source}` | Return `true` to skip an entry ([:310](../../includes/FrontEnd/FrontEnd.php#L310)). | `false`, `$entry`, `$settings` |
+| `nx_entry_show_on_frontend_{source}` | Return `true` to skip an entry. Runs for every stored entry on every `notice` request, so keep it cheap: WooCommerce hides entries of unpublished products with it and checks each product once per request ([:310](../../includes/FrontEnd/FrontEnd.php#L310)). | `false`, `$entry`, `$settings` |
 | `nx_entry_display_{source}` | Whether an entry outside the display window is still skipped ([:323](../../includes/FrontEnd/FrontEnd.php#L323)). | `true`, `$entry`, `$settings` |
 | `nx_fallback_data` / `nx_fallback_data_{source}` | Default values merged into a sparse entry ([:329-330](../../includes/FrontEnd/FrontEnd.php#L329)). | `$defaults`, `$entry`, `$settings` |
 | `nx_filtered_entry` / `_{type}` / `_{source}` | A single processed entry ([:338-340](../../includes/FrontEnd/FrontEnd.php#L338)). | `$entry`, `$settings` |
