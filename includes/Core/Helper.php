@@ -1517,7 +1517,7 @@ class Helper {
     public static function submit_reappearance_fields( $rules ) {
         return [
             'submit_reappearance' => [
-                'label'   => __( 'After a Form Submit', 'notificationx' ),
+                'label'   => __( 'After a Form Submission', 'notificationx' ),
                 'name'    => 'submit_reappearance',
                 'type'    => 'select',
                 'default' => 'same_as_close',
@@ -1526,11 +1526,11 @@ class Helper {
                     'days'          => __( "Don't show again for a number of days", 'notificationx' ),
                     'never'         => __( 'Never show again', 'notificationx' ),
                 ] ),
-                'help'    => __( 'What a visitor sees after submitting the form. "Same as closing" uses the close rule. Safari may forget a submit after 7 days without a visit.', 'notificationx' ),
+                'help'    => __( 'What a visitor sees after submitting the form. "Same as closing" uses the close rule. Safari may forget a submission after 7 days without a visit.', 'notificationx' ),
                 'rules'   => $rules,
             ],
             'submit_hide_days' => [
-                'label'       => __( 'Hide After a Submit For', 'notificationx' ),
+                'label'       => __( 'Hide After Submitting For', 'notificationx' ),
                 'name'        => 'submit_hide_days',
                 'type'        => 'number',
                 'default'     => 30,
