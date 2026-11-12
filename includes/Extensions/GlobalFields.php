@@ -2001,7 +2001,7 @@ class GlobalFields {
                                     ],
                                     // Only themes that support it; the list is empty until a theme family is ready.
                                     'rules'    => Rules::includes('themes', CardSize::supported_themes()),
-                                    'help'     => __('Scale the whole card: text, image and spacing. Large shows at Default on small screens.', 'notificationx'),
+                                    'help'     => __('Makes the whole card smaller or larger: text, image and spacing together. On phones, Large shows at the default size.', 'notificationx'),
                                 ],
                                 'close_button_control' => [
                                     'label'  => __("Display Close Button", 'notificationx'),
