@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import Notification from '../../../nxdev/notificationx/frontend/core/Notification';
+import Notification, { getCtaFallbackDelay } from '../../../nxdev/notificationx/frontend/core/Notification';
 import { NotificationProvider } from '../../../nxdev/notificationx/frontend/core/NotificationProvider';
 import { installHooks } from '../helpers';
 
@@ -169,5 +169,23 @@ describe( 'CTA tab peek (cta-in)', () => {
 			jest.advanceTimersByTime( 50 );
 		} );
 		expect( card.classList.contains( 'cta-in' ) ).toBe( true );
+	} );
+} );
+
+describe( 'CTA fallback wait', () => {
+	it( 'is 3s for a short or missing entrance', () => {
+		expect( getCtaFallbackDelay( undefined ) ).toBe( 3000 );
+		expect( getCtaFallbackDelay( { animationDuration: '0.5s', animationDelay: '0s' } ) ).toBe( 3000 );
+		expect( getCtaFallbackDelay( { animationDuration: '300ms', animationDelay: '0ms' } ) ).toBe( 3000 );
+	} );
+	it( 'outlasts a long entrance (Animation Duration up to 3s) and its delay', () => {
+		expect( getCtaFallbackDelay( { animationDuration: '3s', animationDelay: '0s' } ) ).toBe( 3500 );
+		expect( getCtaFallbackDelay( { animationDuration: '2.5s', animationDelay: '1s' } ) ).toBe( 4000 );
+	} );
+	it( 'uses the longest of several animations and repeats the last delay', () => {
+		expect( getCtaFallbackDelay( { animationDuration: '0.5s, 3s', animationDelay: '0.2s' } ) ).toBe( 3700 );
+	} );
+	it( 'ignores unparsable values', () => {
+		expect( getCtaFallbackDelay( { animationDuration: 'auto', animationDelay: '' } ) ).toBe( 3000 );
 	} );
 } );

@@ -26,6 +26,23 @@ const useMediaQuery = (query) => {
     return match;
 };
 
+// Longest delay + duration among the card's entrance animations (CSS times such
+// as "0.5s, 300ms"), plus 500ms, and at least 3s: the CTA fallback's wait.
+export const getCtaFallbackDelay = (style) => {
+    const toMs = (list) => String(list || '').split(',').map((t) => {
+        const v = parseFloat(t);
+        if (!Number.isFinite(v)) return 0;
+        return /ms\s*$/.test(t) ? v : v * 1000;
+    });
+    const durations = toMs(style?.animationDuration);
+    const delays = toMs(style?.animationDelay);
+    let longest = 0;
+    durations.forEach((d, i) => {
+        longest = Math.max(longest, d + (delays[i] ?? delays[delays.length - 1] ?? 0));
+    });
+    return Math.max(3000, Math.ceil(longest) + 500);
+};
+
 const Notification = (props) => {
     const [exit, setExit] = useState(false);
     const [animation, setAnimation] = useState(false);
@@ -157,14 +174,17 @@ const Notification = (props) => {
 
     // CTA tab: it peeks out (`cta-in`) once the card's own entrance animation
     // has ended, whatever its duration, or at once when the card has none.
-    // The timeout covers an entrance that is cancelled and never ends.
+    // The timeout covers an entrance that is cancelled and never ends: the
+    // entrance's own delay + duration (Animation Duration can make it up to
+    // 3s), plus a margin, and never less than 3s.
     useEffect(() => {
-        const name = cardRef.current && window.getComputedStyle?.(cardRef.current).animationName;
+        const style = cardRef.current && window.getComputedStyle?.(cardRef.current);
+        const name = style?.animationName;
         if (!name || name === 'none') {
             setCtaIn(true);
             return;
         }
-        const id = setTimeout(() => setCtaIn(true), 3000);
+        const id = setTimeout(() => setCtaIn(true), getCtaFallbackDelay(style));
         return () => clearTimeout(id);
     }, []);
     const handleAnimationEnd = (e) => {
