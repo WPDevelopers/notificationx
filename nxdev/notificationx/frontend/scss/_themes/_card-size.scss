@@ -109,8 +109,11 @@ $nx-card-size-downloads: "download_stats_today-download", "download_stats_7day-d
     // Sales: room kept for the full-size Button tab stays full size, so the
     // text never runs under it. Theme 12: its "Buy now ›" link inside the card.
     // Theme 15: the pill straddling the top-right corner.
+    // At least the full-size room, and in Large the scaled room: the time sits
+    // in this column too and grows with the text, so a full-size column let a
+    // long name run into it.
     #{nx-card-size-sales($size, "conv-theme-twelve", " .notificationx-content")} {
-        padding-right: calc(76px / var(--nx-scale));
+        padding-right: calc(max(76px, 76px * var(--nx-scale)) / var(--nx-scale));
     }
 
     #{nx-card-size-sales($size, "conv-theme-fifteen", " .notificationx-content")} {
@@ -155,6 +158,15 @@ $nx-card-size-downloads: "download_stats_today-download", "download_stats_7day-d
     #{nx-card-size-keys(compact, ("download_stats_today-download", "download_stats_7day-download"), " .notificationx-content .nx-third-row > span > span")},
     #{nx-card-size-keys(compact, "download_stats_total-download", " .notificationx-content .nx-branding .nx-byline")} {
         font-size: calc(10px / var(--nx-scale)) !important;
+    }
+
+    // Theme 15: the floor makes row 1 (location + time) wider next to the
+    // smaller card, and the time is absolutely placed, so the location ran
+    // under it. In Compact the time joins the row: the theme's own
+    // `space-between` and 10px gap keep them apart, and a long location
+    // truncates with the theme's ellipsis.
+    #{nx-card-size-sales(compact, "conv-theme-fifteen", " .notificationx-content .nx-first-row > span > span:last-child")} {
+        position: static;
     }
 
     #{nx-card-size-sales(compact, ("theme-one", "theme-two", "theme-three", "theme-five"), " .notificationx-content .nx-branding .nx-byline")},
