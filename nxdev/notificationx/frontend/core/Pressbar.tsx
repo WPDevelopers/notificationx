@@ -12,7 +12,7 @@ import nxHelper, { addParentSelectorToCSS } from "./functions";
 import { loadAssets } from "./LoadAssets";
 import BarCoupon from './helper/BarCoupon';
 import { themes_has_bg } from "../../shared/helpers";
-import { hasBarReserve, releaseBarReserve, reportBarHeight } from "./barReserve";
+import { releaseBarReserve, reportBarHeight } from "./barReserve";
 import { rememberSubmit } from "./submitRule";
 import { watchFormSuccess } from "./watchFormSuccess";
 
@@ -225,9 +225,10 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
 
     useEffect(() => {
         setTimeout(() => {
-            // While block content is still loading, the reserved space holds
-            // the page in place; calcHeight() sets the padding once it's styled.
-            if (isLoading && hasBarReserve()) return;
+            // While block content is still loading the bar is hidden and its
+            // unstyled height is wrong, so leave the page alone (any reserved
+            // space holds it); calcHeight() sets the padding once it's styled.
+            if (isLoading) return;
             const barHeight = document.getElementById(`nx-bar-${settings.nx_id}`).offsetHeight;
             if (!settings?.pressbar_body) {
                 if (position == 'top') {
@@ -297,11 +298,16 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
 
         };
 
-        loadAssets(settings.gutenberg_url).then(() => {
+        // The bar stays hidden until its styles are in. If an asset fails, or
+        // the fetch hangs, show it anyway rather than never.
+        const revealFallback = setTimeout(() => setIsLoading(false), BAR_ASSETS_TIMEOUT);
+        loadAssets(settings.gutenberg_url).catch(() => {}).then(() => {
             if(originalAddEventListener){
                 document.addEventListener = originalAddEventListener;
             }
             originalAddEventListener = null;
+            clearTimeout(revealFallback);
+            settleTransitions(document.getElementById(`nx-bar-${settings.nx_id}`));
             setIsLoading(false);
         });
         
@@ -515,9 +521,11 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
                     "nx-bar-default-design": !settings?.advance_edit,
                 }
             )}
-            // style={{...styles?.componentCSS, display: isLoading ? 'none' : 'block'}}
+            // Hidden, not display:none, so block scripts can still measure the
+            // markup while the bar's stylesheets load.
             style={{
                 ...styles?.componentCSS,
+                ...(isLoading ? { visibility: 'hidden' } : {}),
                 ...(themes_has_bg.includes(settings.themes) ?  {
                     background : settings.bar_bg_image?.url ? `url('${settings.bar_bg_image.url}')` : `url(${common_assets_url + settings.themes + '.webp'})`,
                     backgroundSize  : 'cover',
@@ -533,6 +541,34 @@ const Pressbar = ({ position, nxBar, dispatch }) => {
     );
 
     return createPortal(wrapper, target);
+};
+
+/** Longest a block-editor bar stays hidden waiting for its assets (ms). */
+const BAR_ASSETS_TIMEOUT = 8000;
+
+/**
+ * Jump the bar's running CSS transitions to their end.
+ *
+ * Block styles (Essential Blocks' rows, for example) carry transitions, so
+ * when their stylesheet arrives after the markup, padding and colors animate
+ * from the unstyled values and the bar wobbles for half a second after it is
+ * shown. Keyframe animations (a pulsing button) are left alone.
+ */
+const settleTransitions = (bar: HTMLElement | null) => {
+    // @ts-ignore -- CSSTransition is missing from older DOM typings.
+    if (!bar || typeof bar.getAnimations !== 'function' || typeof CSSTransition === 'undefined') {
+        return;
+    }
+    try {
+        bar.getAnimations({ subtree: true }).forEach((animation) => {
+            // @ts-ignore
+            if (animation instanceof CSSTransition) {
+                animation.finish();
+            }
+        });
+    } catch (e) {
+        // Leave the transitions to run; the bar still shows.
+    }
 };
 
 /**

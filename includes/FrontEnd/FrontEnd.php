@@ -400,7 +400,9 @@ class FrontEnd {
     public function nx_add_body_class($classes) {
         $classes[] = 'has-notificationx';
         // Tells the runtime it need not fetch these bars' pages for their assets.
-        foreach (array_keys($this->gutenberg_bar_assets) as $gutenberg_id) {
+        // A bar left at false still waits on Essential Blocks' stylesheets, so the
+        // runtime must fetch its page (see needs_essential_blocks_styles()).
+        foreach (array_keys(array_filter($this->gutenberg_bar_assets)) as $gutenberg_id) {
             $classes[] = 'nx-bar-assets-' . $gutenberg_id;
         }
         return $classes;
@@ -446,7 +448,33 @@ class FrontEnd {
         } finally {
             ob_end_clean();
         }
-        $this->gutenberg_bar_assets[$gutenberg_id] = true;
+        $this->gutenberg_bar_assets[$gutenberg_id] = !$this->needs_essential_blocks_styles($post);
+    }
+
+    /**
+     * Whether Essential Blocks has yet to write a bar's stylesheets.
+     *
+     * Essential Blocks writes a post's block CSS to uploads/eb-style/ when the
+     * post's own page is first viewed, or when it is saved in the editor, and
+     * its NotificationX support enqueues those files only once they exist.
+     * Rendering the blocks above does not write them, so a bar imported from a
+     * theme and never opened in the editor has none: its rows stack and its
+     * buttons lose their styling. Until both files exist the bar is left
+     * unmarked, and the runtime fetches the bar's permalink as it did before
+     * 3.3.3, which makes Essential Blocks write them; every later page view
+     * takes the fast path.
+     *
+     * @param \WP_Post $post Bar post.
+     * @return bool
+     */
+    protected function needs_essential_blocks_styles($post) {
+        if (!defined('ESSENTIAL_BLOCKS_FILE') || false === strpos($post->post_content, '<!-- wp:essential-blocks/')) {
+            return false;
+        }
+        $upload = wp_upload_dir(null, false);
+        $dir    = trailingslashit($upload['basedir']) . 'eb-style/';
+        return !file_exists($dir . 'eb-style-' . $post->ID . '.min.css')
+            || !file_exists($dir . 'frontend/frontend-' . $post->ID . '.min.css');
     }
 
     private function separate_css($css) {
@@ -554,6 +582,7 @@ class FrontEnd {
             }
         }
         $data['is_pro']        = false;
+        $data['spacing_v2']    = (bool) Settings::get_instance()->get('settings.corner_spacing_v2', false);
         $data['gmt_offset']    = get_option('gmt_offset');
         $data['lang']          = get_locale();
         $data['common_assets'] = NOTIFICATIONX_COMMON_URL;

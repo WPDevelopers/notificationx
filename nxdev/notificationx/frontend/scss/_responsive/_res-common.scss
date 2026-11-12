@@ -152,8 +152,9 @@
                 }
             }
 
+            // Plus whatever sticks out below the card (nx-overhang).
             &:not(:last-child) {
-                margin-bottom: 20px;
+                margin-bottom: calc(20px + var(--nx-overhang-bottom, 0px));
             }
         }
         @media screen and (max-width: 600px) {
