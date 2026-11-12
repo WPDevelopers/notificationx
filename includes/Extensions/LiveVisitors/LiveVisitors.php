@@ -46,7 +46,7 @@ class LiveVisitors extends Extension {
 
     public $priority        = 6;
     public $id              = self::ID;
-    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/logo-icon.svg';
+    public $img             = NOTIFICATIONX_ADMIN_URL . 'images/extensions/sources/live-visitors.png';
     public $doc_link        = 'https://notificationx.com/docs/';
     public $types           = 'page_analytics';
     public $module          = self::MODULE;
