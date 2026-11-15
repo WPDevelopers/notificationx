@@ -494,6 +494,11 @@ class Manager {
         if ( $auth ) {
             $request->set_header( 'authorization', $auth );
         }
+        // The self-test's one-shot marker (SelfTest::MARKER_HEADER), checked by the server.
+        $marker = isset( $_SERVER['HTTP_X_NX_MCP_SELF_TEST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_NX_MCP_SELF_TEST'] ) ) : '';
+        if ( $marker ) {
+            $request->set_header( SelfTest::MARKER_HEADER, $marker );
+        }
         // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput -- raw JSON-RPC body, parsed/validated by the server.
         $request->set_body( file_get_contents( 'php://input' ) );
 
@@ -1387,7 +1392,7 @@ class Manager {
                         <strong><?php echo esc_html( $app['name'] ); ?></strong>
                         <span class="nx-mcp-scope <?php echo esc_attr( $scope_class ); ?>"><?php echo esc_html( $scope_label ); ?></span>
                     </div>
-                    <button type="button" class="nx-mcp-revoke" onclick="nxMcpRevoke(this,'<?php echo esc_js( $app['type'] ); ?>','<?php echo esc_js( $app['client_id'] ); ?>')"><?php esc_html_e( 'Revoke', 'notificationx' ); ?></button>
+                    <button type="button" class="nx-mcp-revoke" onclick="nxMcpRevoke(this,'<?php echo esc_js( $app['type'] ); ?>','<?php echo esc_js( $app['client_id'] ); ?>')"><?php echo 'pairing' === $app['type'] ? esc_html__( 'Revoke token', 'notificationx' ) : esc_html__( 'Revoke', 'notificationx' ); ?></button>
                 </div>
                 <?php
             }
@@ -1467,6 +1472,9 @@ class Manager {
             'empty'         => __( 'No AI clients are connected yet.', 'notificationx' ),
             'refreshFailed' => __( 'Could not refresh the connected apps.', 'notificationx' ),
             'revokeConfirm' => __( 'Revoke this connection? The client will need to reconnect.', 'notificationx' ),
+            // The token row revokes the site token itself, not one app.
+            'revokeToken'        => __( 'Revoke token', 'notificationx' ),
+            'revokeTokenConfirm' => __( 'Revoke the connection token? Every client that uses it (ChatGPT, Cursor, manual) stops working until you connect it again with a new token. Apps connected through OAuth are not affected.', 'notificationx' ),
             // Enable toggle outcomes.
             'enabled'       => __( 'MCP access enabled.', 'notificationx' ),
             'disabled'      => __( 'MCP access disabled.', 'notificationx' ),
@@ -1783,7 +1791,7 @@ class Manager {
             };
             window.nxMcpRevoke = function(btn, type, clientId){
                 nxMcpAction(btn, 'revoke', {
-                    confirm: window.nxMcpData.i18n.revokeConfirm,
+                    confirm: type === 'pairing' ? window.nxMcpData.i18n.revokeTokenConfirm : window.nxMcpData.i18n.revokeConfirm,
                     body: { type: type, client_id: clientId },
                     reload: true,
                     success: window.nxMcpData.i18n.revoked
@@ -1849,7 +1857,7 @@ class Manager {
                         info.appendChild(name); info.appendChild(scope);
                         var rev = document.createElement('button');
                         rev.type = 'button'; rev.className = 'nx-mcp-revoke';
-                        rev.textContent = window.nxMcpData.i18n.revoke;
+                        rev.textContent = app.type === 'pairing' ? window.nxMcpData.i18n.revokeToken : window.nxMcpData.i18n.revoke;
                         rev.addEventListener('click', function(){ nxMcpRevoke(rev, app.type, app.client_id || ''); });
                         row.appendChild(info); row.appendChild(rev);
                         list.appendChild(row);

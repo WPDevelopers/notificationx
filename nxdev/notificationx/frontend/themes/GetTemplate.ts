@@ -38,7 +38,7 @@ const GetTemplate = (settings) => {
         res_third_param: "",
         res_fourth_param: "",
     };
-    const params = { ...defaults, ...settings?.["notification-template"] };
+    let params = { ...defaults, ...settings?.["notification-template"] };
     for (const param in params) {
         if (Object.hasOwnProperty.call(params, param)) {
             let element = params[param] || "";
@@ -82,6 +82,14 @@ const GetTemplate = (settings) => {
                 params[param] = `<span>${params[param]}</span>`;
             }
         }
+    }
+
+    // Add-ons can adjust the filled-in params before any layout uses them
+    // (NotificationX Pro: Live Effects marks the live time). Anything but an
+    // object is ignored.
+    const filteredParams = nxApplyFilters<any>("nx_frontend_template_params", params, settings, themeName);
+    if (filteredParams && typeof filteredParams === "object" && !Array.isArray(filteredParams)) {
+        params = filteredParams;
     }
 
     // Add-ons claim the template rows of the notifications they render.

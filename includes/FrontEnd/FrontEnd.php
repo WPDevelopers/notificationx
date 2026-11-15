@@ -145,8 +145,8 @@ class FrontEnd {
     }
 
     /**
-     * Third-party stylesheets used by the notification themes, keyed by style
-     * handle.
+     * Font and icon stylesheets used by the notification themes, keyed by
+     * style handle.
      *
      * They used to be CSS `@import`s at the top of frontend.css, which the
      * browser only discovers once frontend.css has downloaded: a serial,
@@ -154,25 +154,30 @@ class FrontEnd {
      * enqueued next to `notificationx-public` and loaded without blocking the
      * first paint (see non_blocking_style_tag()).
      *
+     * Since 3.3.5 both are bundled in assets/public/vendor/ instead of being
+     * loaded from Google Fonts and cdnjs (WordPress.org Guideline 8, issue
+     * #184), so no visitor request goes to a third party for them.
+     *
      * @since 3.3.3
+     * @param bool $cross True for a Cross Domain Notice embed on another site.
      * @return array<string, string> Style handle => URL.
      */
-    public function get_external_styles() {
+    public function get_external_styles($cross = false) {
         $styles = [];
         /**
-         * Filters whether NotificationX loads Open Sans from Google Fonts.
+         * Filters whether NotificationX loads its bundled Open Sans.
          *
-         * Return false if the site already loads Open Sans or must not
-         * contact Google Fonts; the themes then fall back to sans-serif.
+         * Return false if the site already loads Open Sans; the themes then
+         * fall back to sans-serif.
          *
          * @since 3.3.3
          * @param bool $load Default true.
          */
         if (apply_filters('notificationx_load_open_sans', true)) {
-            $styles['notificationx-open-sans'] = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap';
+            $styles['notificationx-open-sans'] = NOTIFICATIONX_PUBLIC_URL . 'vendor/open-sans/css/open-sans.css';
         }
         /**
-         * Filters whether NotificationX loads FontAwesome 4.7 from cdnjs.
+         * Filters whether NotificationX loads its bundled FontAwesome 4.7.
          *
          * The icons are drawn in pseudo-elements of a few themes only. Return
          * false if the site already loads FontAwesome 4.
@@ -181,13 +186,24 @@ class FrontEnd {
          * @param bool $load Default true.
          */
         if (apply_filters('notificationx_load_fontawesome', true)) {
-            $styles['notificationx-fontawesome-4'] = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
+            $styles['notificationx-fontawesome-4'] = NOTIFICATIONX_PUBLIC_URL . 'vendor/font-awesome/css/font-awesome.min.css';
         }
-        return $styles;
+        /**
+         * Filters the font and icon stylesheets.
+         *
+         * A Cross Domain Notice embed loads them on another origin, where the
+         * browser fetches the font files only if this site sends CORS headers
+         * for them. An add-on may point those embeds elsewhere.
+         *
+         * @since 3.3.5
+         * @param array<string, string> $styles Style handle => URL.
+         * @param bool                  $cross  True for a Cross Domain Notice embed.
+         */
+        return (array) apply_filters('notificationx_external_styles', $styles, (bool) $cross);
     }
 
     /**
-     * Enqueue the third-party font and icon stylesheets (get_external_styles()).
+     * Enqueue the font and icon stylesheets (get_external_styles()).
      *
      * Call this wherever `notificationx-public` (or a stylesheet that bundles
      * the frontend themes) is enqueued.
@@ -197,8 +213,7 @@ class FrontEnd {
      */
     public function enqueue_external_styles() {
         foreach ($this->get_external_styles() as $handle => $src) {
-            // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Third-party URL; a ?ver= query would only split the CDN cache.
-            wp_enqueue_style($handle, $src, [], null);
+            wp_enqueue_style($handle, $src, [], NOTIFICATIONX_VERSION);
         }
     }
 
@@ -260,6 +275,7 @@ class FrontEnd {
          * @since 3.3.3
          * @param string[] $deps Script handles.
          */
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $deps = apply_filters( 'nx_frontend_script_deps', [ 'wp-hooks' ] );
         $deps = is_array( $deps ) ? array_filter( $deps, 'is_string' ) : [];
         array_unshift( $deps, 'wp-hooks' );
@@ -384,7 +400,9 @@ class FrontEnd {
     public function nx_add_body_class($classes) {
         $classes[] = 'has-notificationx';
         // Tells the runtime it need not fetch these bars' pages for their assets.
-        foreach (array_keys($this->gutenberg_bar_assets) as $gutenberg_id) {
+        // A bar left at false still waits on Essential Blocks' stylesheets, so the
+        // runtime must fetch its page (see needs_essential_blocks_styles()).
+        foreach (array_keys(array_filter($this->gutenberg_bar_assets)) as $gutenberg_id) {
             $classes[] = 'nx-bar-assets-' . $gutenberg_id;
         }
         return $classes;
@@ -418,7 +436,7 @@ class FrontEnd {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $post_id = apply_filters('wpml_object_id', $gutenberg_id, 'wp_block', true);
         $post    = $post_id ? get_post($post_id) : null;
-        if (!$post || '' === trim((string) $post->post_content)) {
+        if (!PressBar::get_instance()->can_render_block_bar($post) || '' === trim((string) $post->post_content)) {
             return;
         }
         // This runs inside <head> (wp_enqueue_scripts). A block whose render
@@ -430,7 +448,33 @@ class FrontEnd {
         } finally {
             ob_end_clean();
         }
-        $this->gutenberg_bar_assets[$gutenberg_id] = true;
+        $this->gutenberg_bar_assets[$gutenberg_id] = !$this->needs_essential_blocks_styles($post);
+    }
+
+    /**
+     * Whether Essential Blocks has yet to write a bar's stylesheets.
+     *
+     * Essential Blocks writes a post's block CSS to uploads/eb-style/ when the
+     * post's own page is first viewed, or when it is saved in the editor, and
+     * its NotificationX support enqueues those files only once they exist.
+     * Rendering the blocks above does not write them, so a bar imported from a
+     * theme and never opened in the editor has none: its rows stack and its
+     * buttons lose their styling. Until both files exist the bar is left
+     * unmarked, and the runtime fetches the bar's permalink as it did before
+     * 3.3.3, which makes Essential Blocks write them; every later page view
+     * takes the fast path.
+     *
+     * @param \WP_Post $post Bar post.
+     * @return bool
+     */
+    protected function needs_essential_blocks_styles($post) {
+        if (!defined('ESSENTIAL_BLOCKS_FILE') || false === strpos($post->post_content, '<!-- wp:essential-blocks/')) {
+            return false;
+        }
+        $upload = wp_upload_dir(null, false);
+        $dir    = trailingslashit($upload['basedir']) . 'eb-style/';
+        return !file_exists($dir . 'eb-style-' . $post->ID . '.min.css')
+            || !file_exists($dir . 'frontend/frontend-' . $post->ID . '.min.css');
     }
 
     private function separate_css($css) {
@@ -544,6 +588,7 @@ class FrontEnd {
             }
         }
         $data['is_pro']        = false;
+        $data['spacing_v2']    = (bool) Settings::get_instance()->get('settings.corner_spacing_v2', false);
         $data['gmt_offset']    = get_option('gmt_offset');
         $data['lang']          = get_locale();
         $data['common_assets'] = NOTIFICATIONX_COMMON_URL;
@@ -556,7 +601,7 @@ class FrontEnd {
         $data['localeData'] = load_script_textdomain('notificationx-public', 'notificationx');
         if (!empty($data['cross'])) {
             // Cross-domain embeds have no WordPress enqueue: the runtime adds these.
-            $data['external_styles'] = $this->get_external_styles();
+            $data['external_styles'] = $this->get_external_styles(true);
         }
         return $data;
     }
@@ -879,7 +924,8 @@ class FrontEnd {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $branding_url       = apply_filters('nx_branding_url', NOTIFICATIONX_PLUGIN_URL . '?utm_source=' . esc_url(home_url()) . '&utm_medium=notificationx');
         $settings = [
-            'disable_powered_by' => Settings::get_instance()->get('settings.disable_powered_by'),
+            // "Powered by" is opt-in: hidden until the setting is saved unticked.
+            'disable_powered_by' => Settings::get_instance()->get('settings.disable_powered_by', true),
             'affiliate_link'     => $branding_url,
             'enable_analytics'   => Settings::get_instance()->get('settings.enable_analytics', true),
             'analytics_from'     => Settings::get_instance()->get('settings.analytics_from'),
@@ -925,9 +971,9 @@ class FrontEnd {
             }
 
             /**
-             * Skip types whose theme code only a current Pro ships.
+             * Skip types and themes whose code only a current Pro ships.
              */
-            if (NotificationX::is_type_unrenderable($settings['type'] ?? '')) {
+            if (NotificationX::is_type_unrenderable($settings['type'] ?? '') || NotificationX::is_theme_unrenderable($settings)) {
                 continue;
             }
 
@@ -1111,9 +1157,9 @@ class FrontEnd {
             }
 
             /**
-             * Skip types whose theme code only a current Pro ships.
+             * Skip types and themes whose code only a current Pro ships.
              */
-            if (NotificationX::is_type_unrenderable($value['type'] ?? '')) {
+            if (NotificationX::is_type_unrenderable($value['type'] ?? '') || NotificationX::is_theme_unrenderable($value)) {
                 continue;
             }
 

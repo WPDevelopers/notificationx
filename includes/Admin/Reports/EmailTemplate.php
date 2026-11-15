@@ -15,7 +15,6 @@ class EmailTemplate {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>NotificationX Email Template</title>
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
         <style type="text/css">
             .nx-email-body, .nx-wrapper-body {
                 font-size: 14px;

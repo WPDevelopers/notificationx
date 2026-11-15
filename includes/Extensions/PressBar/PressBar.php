@@ -2026,7 +2026,7 @@ class PressBar extends Extension {
         $elementor_post_id = isset($settings->elementor_id) ? $settings->elementor_id : '';
         $gb_post_id = isset($settings->gutenberg_id) ? $settings->gutenberg_id : '';
 
-        if ($elementor_post_id != '' && get_post_status($elementor_post_id) === 'publish' && class_exists('\Elementor\Plugin')) {
+        if ($elementor_post_id != '' && get_post_status($elementor_post_id) === 'publish' && 'nx_bar' === get_post_type($elementor_post_id) && class_exists('\Elementor\Plugin')) {
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $elementor_post_id = apply_filters( 'wpml_object_id', $elementor_post_id, 'nx_bar', true);
             return \Elementor\Plugin::$instance->frontend->get_builder_content_for_display($elementor_post_id, false);
@@ -2034,6 +2034,9 @@ class PressBar extends Extension {
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $gb_post_id = apply_filters( 'wpml_object_id', $gb_post_id, 'wp_block', true);
             $post       = get_post($gb_post_id);
+            if ( ! $this->can_render_block_bar( $post ) ) {
+                return '';
+            }
             $content    = $post->post_content;
             $content    = do_blocks($content);
 
@@ -2041,6 +2044,27 @@ class PressBar extends Extension {
         } else {
             return !empty($settings->press_content) ? do_shortcode($settings->press_content) : '';
         }
+    }
+
+    /**
+     * Whether a Gutenberg bar post may be rendered for the current visitor.
+     *
+     * The id comes from notification settings, which in preview mode come from
+     * the request. Only bar posts are rendered (`nx_bar_eb`, or `wp_block` from
+     * bars made before that type existed), and only when published without a
+     * password, unless the current user can edit the post.
+     *
+     * @param \WP_Post|null $post Bar post.
+     * @return bool
+     */
+    public function can_render_block_bar( $post ) {
+        if ( ! $post instanceof \WP_Post || ! in_array( $post->post_type, [ 'nx_bar_eb', 'wp_block' ], true ) ) {
+            return false;
+        }
+        if ( 'publish' === $post->post_status && '' === $post->post_password ) {
+            return true;
+        }
+        return current_user_can( 'edit_post', $post->ID );
     }
 
     public function add_scripts($settings, $params){

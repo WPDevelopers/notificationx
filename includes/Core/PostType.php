@@ -9,6 +9,7 @@ use NotificationX\Admin\Settings;
 use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\Extensions\GlobalFields;
 use NotificationX\FrontEnd\FrontEnd;
+use NotificationX\FrontEnd\Preview;
 use NotificationX\GetInstance;
 use NotificationX\NotificationX;
 use NotificationX\Types\TypeFactory;
@@ -105,7 +106,10 @@ class PostType {
             true
         );
         wp_localize_script( 'notificationx-admin', 'notificationxTabs', $tabs );
-        wp_enqueue_style( 'notificationx-admin', Helper::file( 'admin/css/admin.css', true ), [], $d['version'], 'all' );
+        // DM Sans and Inter for the admin UI, bundled instead of loaded from
+        // Google Fonts (WordPress.org Guideline 8, issue #184).
+        wp_enqueue_style( 'notificationx-admin-fonts', NOTIFICATIONX_ASSETS . 'admin/vendor/fonts/admin-fonts.css', [], NOTIFICATIONX_VERSION );
+        wp_enqueue_style( 'notificationx-admin', Helper::file( 'admin/css/admin.css', true ), [ 'notificationx-admin-fonts' ], $d['version'], 'all' );
         // admin.css bundles the frontend themes for the builder preview; their
         // fonts and icons are no longer @imported by the CSS.
         FrontEnd::get_instance()->enqueue_external_styles();
@@ -132,6 +136,8 @@ class PostType {
         $tabs['settings']['settingsRedirect'] = ! current_user_can( 'edit_notificationx_settings' );
         $tabs['settings']['analytics']        = $tabs['analytics'];
         $tabs['admin_url']                    = get_admin_url();
+        // Posted with every builder preview; see Preview::is_authorized_preview_request().
+        $tabs['preview_nonce']                = current_user_can( 'edit_notificationx' ) ? wp_create_nonce( Preview::NONCE_ACTION ) : '';
         $tabs['nx_feedback_shared']           = get_option('nx_feedback_shared',false);
         $tabs['scan_data']                    = [ 
             'nx_scan_count' => get_option('nx_scan_count',0),
@@ -653,6 +659,9 @@ class PostType {
         if ( !NotificationX::is_pro() ) {
             $post['animation_notification_show']     = 'default';
             $post['animation_notification_hide']     = 'default';
+            $post['progressive_reveal']              = false;
+            $post['animation_duration']              = 0.5;
+            $post['live_effects']                    = false;
         }
 
         return $post;

@@ -37,6 +37,8 @@ class Integration {
     const OPT_GRACE_STARTED_AT       = 'nx_integration_api_key_grace_started_at';
     const OPT_LEGACY_KEY_LAST_USED   = 'nx_integration_legacy_key_last_used_at';
     const OPT_SEEDED_VERSION         = 'nx_integration_key_seeded_version';
+    // Set when this version's seeder opened the grace window (first seeding only).
+    const OPT_GRACE_FIRST_SEED       = 'nx_integration_api_key_grace_first_seed';
 
     /**
      * Constructor.
@@ -172,23 +174,37 @@ class Integration {
 
     /**
      * Runs once per plugin version at bootstrap. Ensures the API key exists and opens the
-     * legacy-key grace window ONLY when the site actually had legacy integrations configured
-     * before the upgrade — never on a fresh install and never on customer sites that never
-     * used Zapier/IFTTT. Gated by a version marker so it does not retrigger.
+     * legacy-key grace window ONLY on the upgrade that introduces the random key, and only
+     * when the site had legacy integrations configured — never on a fresh install, never on
+     * customer sites that never used Zapier/IFTTT, and never on a later update of a site that
+     * already had the random key (a Zapier/IFTTT notification created after that was set up
+     * with the random key, so the legacy key must not start working). A window opened by an
+     * earlier version is closed on the next update, since those versions could open one on
+     * such a later update too. Gated by a version marker so it does not retrigger.
      */
     public static function maybe_seed_from_upgrade() {
         $seeded = get_option( self::OPT_SEEDED_VERSION );
         if ( $seeded === NOTIFICATIONX_VERSION ) {
             return;
         }
+        // First seeding on this site: no seed marker and no random key yet, so any
+        // Zapier/IFTTT integration was configured with the legacy key.
+        $first_seed = false === $seeded && '' === (string) get_option( self::OPT_API_KEY );
         update_option( self::OPT_SEEDED_VERSION, NOTIFICATIONX_VERSION, false );
 
         // Ensure the new key exists (idempotent — no grace side effect).
         self::get_api_key();
 
-        // Open the grace window only for sites that had legacy integrations.
-        if ( ! get_option( self::OPT_GRACE_STARTED_AT ) && self::has_legacy_integrations() ) {
+        // Close a window opened by an earlier version: those versions also opened one on a
+        // later update of a site that already had the random key, so it can't be trusted.
+        if ( ! $first_seed && get_option( self::OPT_GRACE_STARTED_AT ) && ! get_option( self::OPT_GRACE_FIRST_SEED ) ) {
+            delete_option( self::OPT_GRACE_STARTED_AT );
+        }
+
+        // Open the grace window only for sites that had legacy integrations before the key existed.
+        if ( $first_seed && ! get_option( self::OPT_GRACE_STARTED_AT ) && self::has_legacy_integrations() ) {
             update_option( self::OPT_GRACE_STARTED_AT, time(), false );
+            update_option( self::OPT_GRACE_FIRST_SEED, 1, false );
         }
     }
 
@@ -331,7 +347,8 @@ class Integration {
             } );
             if (isset($response_data['data']['id'])){
                 $post = PostType::get_instance()->get_post($response_data['data']['id']);
-                if($post['source']){
+                // get_post() returns null for an unknown id; the generic action below still fires.
+                if( ! empty( $post['source'] ) ){
                     // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                     do_action( "nx_api_response_success_{$post['source']}", $response_data['data'] );
                 }

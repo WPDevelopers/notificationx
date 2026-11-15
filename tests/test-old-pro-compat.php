@@ -23,6 +23,7 @@
  * @package Notificationx
  */
 
+use NotificationX\Admin\Admin;
 use NotificationX\Admin\Settings;
 use NotificationX\Core\Database;
 use NotificationX\Core\PostType;
@@ -150,7 +151,7 @@ class Test_Old_Pro_Compat extends WP_UnitTestCase {
 
 		$this->assertSame( 409, $response->get_status() );
 		$this->assertSame( 'nx_type_unavailable', $response->get_data()['code'] );
-		$this->assertStringContainsString( '3.2.4', $response->get_data()['message'] );
+		$this->assertStringContainsString( Admin::MIN_PRO_VERSION, $response->get_data()['message'] );
 		$this->assertSame(
 			[
 				'type'   => 'woocommerce_cart_peek',

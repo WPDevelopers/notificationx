@@ -18,6 +18,14 @@ use NotificationX\Extensions\Extension;
  */
 class GDPR_Notification extends Extension {
     /**
+     * Where the default Custom Logo (cookie image) used to load from.
+     * Notifications saved before 3.3.5 still carry this URL;
+     * localize_default_logo() serves the bundled copy instead (WordPress.org
+     * Guideline 8, issue #184).
+     */
+    const REMOTE_DEFAULT_LOGO = 'https://notificationx.com/wp-content/uploads/2025/01/cookie-image.png';
+
+    /**
      * Instance of GDPR
      *
      * @var GDPR
@@ -39,6 +47,34 @@ class GDPR_Notification extends Extension {
         add_filter('nx_design_tab_fields', [$this, 'design_fields'], 99);
         add_filter('nx_content_fields', array($this, 'content_fields'), 999);
         add_filter('nx_customize_fields', array($this, 'customize_fields'), 999);
+        add_filter('nx_filtered_post', [$this, 'localize_default_logo'], 10, 2);
+    }
+
+    /**
+     * Serve the bundled cookie image to Cookie Notices saved with the old
+     * remote default Custom Logo, so visitors' browsers never request it from
+     * notificationx.com. Any other logo is left as it is.
+     *
+     * @param array $settings Notification settings.
+     * @param array $params   Request params.
+     * @return array
+     */
+    public function localize_default_logo($settings, $params = []) {
+        if (empty($settings['source']) || $settings['source'] !== $this->id) {
+            return $settings;
+        }
+        $logo = $settings['gdpr_custom_logo'] ?? null;
+        $url  = is_array($logo) ? ($logo['url'] ?? '') : $logo;
+        if (self::REMOTE_DEFAULT_LOGO !== $url) {
+            return $settings;
+        }
+        $local = NOTIFICATIONX_PUBLIC_URL . 'image/gdpr/cookie-image.png';
+        if (is_array($logo)) {
+            $settings['gdpr_custom_logo']['url'] = $local;
+        } else {
+            $settings['gdpr_custom_logo'] = $local;
+        }
+        return $settings;
     }
 
     public function init_extension()

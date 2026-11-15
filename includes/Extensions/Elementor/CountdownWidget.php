@@ -816,12 +816,7 @@ class CountdownWidget extends Widget_Base {
             'data-expire-type'         => esc_attr( $settings['nx_expire_type'] ),
         ] );
 
-        if ( $settings['nx_expire_type'] === 'text' ) {
-            $this->add_render_attribute( 'nx-countdown', [
-                'data-expiry-title' => wp_kses_post( $settings['nx_expiry_text_title'] ?? '' ),
-                'data-expiry-text'  => wp_kses_post( $settings['nx_expiry_text'] ?? '' ),
-            ] );
-        } elseif ( $settings['nx_expire_type'] === 'url' ) {
+        if ( $settings['nx_expire_type'] === 'url' ) {
             $this->add_render_attribute( 'nx-countdown', 'data-redirect-url', esc_url( $settings['nx_expiry_redirect_url'] ?? '' ) );
         }
 
@@ -900,6 +895,15 @@ class CountdownWidget extends Widget_Base {
 
             </ul>
 
+            <?php
+            // Rendered into an inert <template> that nx-countdown.js clones on expiry.
+            // Never pass it through a data attribute: the browser decodes attribute
+            // entities, so kses-clean "&lt;img onerror&gt;" becomes live markup in .html().
+            if ( $settings['nx_expire_type'] === 'text' ) :
+                ?>
+            <template class="nx-countdown-expiry"><div class="nx-countdown-finish-message"><h4 class="nx-expiry-title"><?php echo wp_kses_post( $settings['nx_expiry_text_title'] ?? '' ); ?></h4><div class="nx-expiry-text"><?php echo wp_kses_post( $settings['nx_expiry_text'] ?? '' ); ?></div></div></template>
+            <?php endif; ?>
+
         </div>
 
         <?php
@@ -935,10 +939,7 @@ class CountdownWidget extends Widget_Base {
             }
         }
 
-        if ( settings.nx_expire_type === 'text' ) {
-            wrapperData += ' data-expiry-title="' + ( settings.nx_expiry_text_title || '' ) + '"';
-            wrapperData += ' data-expiry-text="'  + ( settings.nx_expiry_text       || '' ) + '"';
-        } else if ( settings.nx_expire_type === 'url' ) {
+        if ( settings.nx_expire_type === 'url' ) {
             wrapperData += ' data-redirect-url="' + ( settings.nx_expiry_redirect_url || '' ) + '"';
         }
 
@@ -995,6 +996,10 @@ class CountdownWidget extends Widget_Base {
                 <# } #>
 
             </ul>
+
+            <# if ( settings.nx_expire_type === 'text' ) { #>
+            <template class="nx-countdown-expiry"><div class="nx-countdown-finish-message"><h4 class="nx-expiry-title">{{{ settings.nx_expiry_text_title }}}</h4><div class="nx-expiry-text">{{{ settings.nx_expiry_text }}}</div></div></template>
+            <# } #>
         </div>
         <?php
     }

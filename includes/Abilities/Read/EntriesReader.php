@@ -79,7 +79,7 @@ trait EntriesReader {
         $where_sql = implode( ' AND ', $where );
 
         // Total matching (before pagination).
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Prepared below; only $wpdb->prefix table names are interpolated.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Prepared below; only $wpdb->prefix table names and the placeholder list are interpolated.
         $total = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$entries_table} e WHERE {$where_sql}", ...$values ) );
 
         $limit_sql   = '';
@@ -90,7 +90,7 @@ trait EntriesReader {
             $page_values[] = max( 0, (int) $offset );
         }
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Prepared below; only $wpdb->prefix table names are interpolated.
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Prepared below; only $wpdb->prefix table names and the placeholder list are interpolated.
         $rows = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT e.entry_id, e.nx_id, e.source, e.data, e.created_at, p.title AS notification_name
@@ -102,6 +102,7 @@ trait EntriesReader {
             ),
             ARRAY_A
         );
+        // phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, PluginCheck.Security.DirectDB.UnescapedDBParameter
 
         return array( is_array( $rows ) ? $rows : array(), $total );
     }

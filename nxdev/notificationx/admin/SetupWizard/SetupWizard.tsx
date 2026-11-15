@@ -285,9 +285,11 @@ const SetupWizard = (props) => {
     const back = () => setActive((i) => Math.max(i - 1, 0));
 
     /**
-     * Leave the Welcome step. Proceeding is the consent point (see the Welcome
-     * fine print), so we opt the site into usage tracking and let the server
-     * send the data to the insights API — then advance. Fire-and-forget.
+     * "Get My Recommendations": the wizard's only usage-tracking opt-in (see
+     * the Welcome notice). Opt the site in, let the server send the data to
+     * the insights API, then advance. Fire-and-forget. "I'll do this
+     * Manually" leaves the wizard without calling this, so it sends and
+     * records nothing (WordPress.org Guideline 7, issue #184).
      */
     const startWizard = () => {
         nxHelper
@@ -402,12 +404,86 @@ const SetupWizard = (props) => {
 /* ------------------------------------------------------------------ */
 /* Step 1 — Welcome                                                    */
 /* ------------------------------------------------------------------ */
+const COLLECT_ICONS = {
+    shield: "M12 3l7 3v5c0 4.5-3 8.4-7 10-4-1.6-7-5.5-7-10V6l7-3zM9 12l2 2 4-4",
+    system: "M4 4h16v7H4zM4 13h16v7H4zM8 7.5h.01M8 16.5h.01",
+    plugins: "M9 3v4M15 3v4M7 7h10v4a5 5 0 0 1-10 0V7zM12 16v5",
+    site: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z",
+    never: "M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.9 5.1A9.8 9.8 0 0 1 12 5c5 0 9 4.5 10 7a12.6 12.6 0 0 1-3.2 4.2M6.1 6.1C3.9 7.6 2.5 9.8 2 12c1 2.5 5 7 10 7a9.6 9.6 0 0 0 4.4-1.1",
+    close: "M6 6l12 12M18 6L6 18",
+};
+
+const CollectIcon = ({ name }) => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d={COLLECT_ICONS[name]} />
+    </svg>
+);
+
+/**
+ * "Find out what we collect": what "Get My Recommendations" shares, in a modal
+ * over the wizard. Closes on ×, "Got it", Esc or a click on the backdrop.
+ */
+const CollectModal = ({ onClose }) => {
+    const closeRef = useRef<HTMLButtonElement>(null);
+    useEffect(() => {
+        closeRef.current?.focus();
+        const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+        document.addEventListener("keydown", onKey);
+        return () => document.removeEventListener("keydown", onKey);
+    }, []);
+    const rows = [
+        { icon: "system", label: __("System", "notificationx"), text: __("WordPress, PHP and server versions, site language and charset.", "notificationx") },
+        { icon: "plugins", label: __("Plugins", "notificationx"), text: __("Active plugins and theme, the number of inactive plugins, and which NotificationX notification types you use.", "notificationx") },
+        { icon: "site", label: __("Site & contact", "notificationx"), text: __("Site URL, site name and admin email, for your discount coupon.", "notificationx") },
+        { icon: "never", label: __("Never collected", "notificationx"), text: __("Your site content, visitor data or the names of inactive plugins. No spam, ever.", "notificationx"), never: true },
+    ];
+    return (
+        <div className="nx-sw__collect-overlay" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+            <div className="nx-sw__collect-modal" role="dialog" aria-modal="true" aria-labelledby="nx-sw-collect-title">
+                <button type="button" ref={closeRef} className="nx-sw__collect-close" aria-label={__("Close", "notificationx")} onClick={onClose}>
+                    <CollectIcon name="close" />
+                </button>
+                <span className="nx-sw__collect-badge">
+                    <CollectIcon name="shield" />
+                </span>
+                <h3 id="nx-sw-collect-title">{__("What we collect", "notificationx")}</h3>
+                <p className="nx-sw__collect-intro">
+                    {__("We only collect usage data if you choose “Get My Recommendations”.", "notificationx")}
+                </p>
+                <ul className="nx-sw__collect-list">
+                    {rows.map((row) => (
+                        <li key={row.icon} className={row.never ? "is-never" : ""}>
+                            <span className="nx-sw__collect-icon">
+                                <CollectIcon name={row.icon} />
+                            </span>
+                            <span>
+                                <strong>{row.label}</strong>
+                                {row.text}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+                <button type="button" className="nx-sw__cta nx-sw__collect-ok" onClick={onClose}>
+                    {__("Got it", "notificationx")}
+                </button>
+            </div>
+        </div>
+    );
+};
+
 /**
  * Welcome step: an in-card header (wordmark + stepper) on top, then the
  * two-column body (content + the lavender illustration panel). The same
  * in-card header is reused on every step via `WizardCardHeader`.
  */
-const StepWelcome = ({ onStart, onSkip }) => (
+const StepWelcome = ({ onStart, onSkip }) => {
+    const [showCollected, setShowCollected] = useState(false);
+    const collectToggleRef = useRef<HTMLButtonElement>(null);
+    const closeCollected = () => {
+        setShowCollected(false);
+        collectToggleRef.current?.focus();
+    };
+    return (
     <section className="nx-sw__welcome-card">
         <WizardCardHeader active={0} />
         <div className="nx-sw__welcome-body">
@@ -442,20 +518,37 @@ const StepWelcome = ({ onStart, onSkip }) => (
                     </button>
                 </div>
 
-                <p className="nx-sw__welcome-fineprint">
-                    {__(
-                        "By continuing, you agree to let us use your email to tailor your setup. No spam, ever.",
-                        "notificationx"
-                    )}
-                </p>
+                {/* The basis of consent: keep in step with the opt-in notice
+                    text (Admin::plugin_usage_insights()) and with what
+                    PluginInsights::get_data() + UsageTracker send. */}
+                <div className="nx-sw__welcome-fineprint">
+                    <p>
+                        {__(
+                            "“Get My Recommendations” helps us improve NotificationX. We never track your site visitors or content.",
+                            "notificationx"
+                        )}{" "}
+                        <button
+                            type="button"
+                            ref={collectToggleRef}
+                            className="nx-sw__collect-toggle"
+                            aria-haspopup="dialog"
+                            aria-expanded={showCollected}
+                            onClick={() => setShowCollected(true)}
+                        >
+                            {__("Find out what we collect.", "notificationx")}
+                        </button>
+                    </p>
+                </div>
             </div>
 
             <aside className="nx-sw__welcome-aside">
                 <Illustration />
             </aside>
         </div>
+        {showCollected && <CollectModal onClose={closeCollected} />}
     </section>
-);
+    );
+};
 
 /**
  * Shared in-card header — the NotificationX wordmark + the progress stepper —

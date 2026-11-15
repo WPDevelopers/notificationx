@@ -38,6 +38,10 @@ const Theme = (props) => {
     let template = [];
     tmpl?.forEach((row) => {
         if (!row) return;
+        // Add-ons can rewrite a template row for this entry before its
+        // placeholders are filled (filter `nx_frontend_template_row`).
+        const filteredRow = nxApplyFilters<any>("nx_frontend_template_row", row, entry, props?.config);
+        if (typeof filteredRow === "string") row = filteredRow;
         let match;
         let _row = row;
         let regex = /{{(.*?)}}/g;
@@ -73,9 +77,14 @@ const Theme = (props) => {
                 // Join city + country with a comma only when both exist, so an
                 // order missing one (or both) never renders a stray ", ". Prefer a
                 // value the source already composed (e.g. the builder preview).
-                val =
-                    entry?.city_country ||
-                    [entry?.city, entry?.country].filter(Boolean).join(", ");
+                // Escape it too: this replaces the escaped `val` above, and the
+                // row is injected via dangerouslySetInnerHTML.
+                val = escapeHTML(
+                    String(
+                        entry?.city_country ||
+                            [entry?.city, entry?.country].filter(Boolean).join(", ")
+                    )
+                );
             } else if (key.includes('random:')) {
                 /*
                 The key string format is "random:min-max:range:expiry", where:

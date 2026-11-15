@@ -82,13 +82,16 @@
 
 // conv-theme-nine style
 .themes-conv-theme-nine {
+    $badge-top: 10px;
+    @include nx-overhang($top: $badge-top);
+
     .notificationx-image {
         position: relative;
         overflow: initial !important;
 
         &:after {
             position: absolute;
-            top: -10px;
+            top: -$badge-top;
             left: 5px;
             font-family: "FontAwesome";
             content: "\f07a";

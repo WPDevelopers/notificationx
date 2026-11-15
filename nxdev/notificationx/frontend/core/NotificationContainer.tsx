@@ -4,6 +4,10 @@ import GDPR from "./GDPR";
 import Popup from "./Popup";
 import ExitIntentPopup from "./ExitIntentPopup";
 import { nxApplyFilters, nxApplyListFilter } from "./hooks";
+import StackGlide from "./StackGlide";
+
+// 84710: stacked cards glide in the four corners (not shortcode, center or cookie containers).
+const GLIDE_POSITIONS = ['bottom_left', 'bottom_right', 'top_left', 'top_right'];
 const NotificationContainer = (props: any) => {
     const frontendContext = useNotificationContext();
     const [isMobile, setIsMobile] = useState(false);
@@ -34,7 +38,13 @@ const NotificationContainer = (props: any) => {
         const ownRendererTypes = ['popup', 'exit_intent', 'gdpr', 'notification_bar'];
         
         return (
-            <div className={`nx-container nxc-${position}`} key={`container-${position}`}>
+            <StackGlide
+                key={`container-${position}`}
+                enabled={GLIDE_POSITIONS.includes(position)}
+                itemKeys={NoticeList.map((notice) => notice?.id).join(',')}
+            >
+            {(glideRef) => (
+            <div className={`nx-container nxc-${position}`} ref={glideRef}>
                 {NoticeList.map((notice) => {
                     const { nx_id, notification_reappearance, countdown_rand } = notice?.config ?? {};
                     const countRand = countdown_rand ? `-${countdown_rand}` : '';
@@ -123,6 +133,8 @@ const NotificationContainer = (props: any) => {
                     );
                 })}
             </div>
+            )}
+            </StackGlide>
         );
     };    
     return (

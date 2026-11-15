@@ -1,0 +1,8 @@
+Font Awesome 4.7.0 by Dave Gandy - http://fontawesome.io
+
+Font files (fonts/): SIL Open Font License 1.1 - https://scripts.sil.org/OFL
+CSS (css/font-awesome.min.css): MIT License - https://opensource.org/licenses/MIT
+
+Self-hosted by NotificationX instead of loaded from cdnjs (WordPress.org
+Guideline 8, issue #184). Only the woff2 and woff font formats are bundled;
+the @font-face rule in css/font-awesome.min.css lists only those two.

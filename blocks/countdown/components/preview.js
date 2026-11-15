@@ -6,6 +6,15 @@ const pad = (n) => String(n).padStart(2, "0");
 const ZERO = { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
 /**
+ * Text content of an HTML string. The value is a block attribute any
+ * Contributor controls and was never kses'd, so it must not reach the editor
+ * DOM as markup. DOMParser documents are inert: no scripts, no resource loads.
+ * The frontend renders the kses'd HTML server-side.
+ */
+const htmlToText = (html) =>
+  html ? new DOMParser().parseFromString(html, "text/html").body.textContent : "";
+
+/**
  * Live ticking countdown for the editor preview. Mirrors the frontend logic
  * (assets/public/js/nx-countdown.js) but runs in React — it never touches the
  * vanilla frontend script (which would fight React over the DOM).
@@ -106,10 +115,7 @@ export default function CountdownPreview({ blockId, attributes }) {
         {expired && expireType === "text" ? (
           <div className="nx-countdown-finish-message">
             <h4 className="nx-expiry-title">{expiryTitle}</h4>
-            <div
-              className="nx-expiry-text"
-              dangerouslySetInnerHTML={{ __html: expiryText }}
-            />
+            <div className="nx-expiry-text">{htmlToText(expiryText)}</div>
           </div>
         ) : expired && expireType === "url" ? (
           <p>{__("Page will redirect to the given URL on the frontend.", "notificationx")}</p>

@@ -100,3 +100,24 @@
 @mixin border( $size, $style, $color, $dir : left, $brightness : 0 ) {
 	border-#{$dir}: $size $style lighten( $color, $brightness );
 }
+// Overhang (stacked cards): how far a part of the card sticks out above or below its box.
+// The corner containers add these to the card's margins (_container.scss), so the gap to
+// the next card and to the screen edge starts at the outermost part. Set them on the card,
+// next to the rule that moves the part out; a card without them keeps its spacing.
+// Add-ons can set the same custom properties on their cards.
+@mixin nx-overhang($top: null, $bottom: null) {
+	@if $top != null {
+		--nx-overhang-top: #{$top};
+	}
+	@if $bottom != null {
+		--nx-overhang-bottom: #{$bottom};
+	}
+}
+
+// The link button's overhang, only when the card shows a link (the button-link class is
+// also set when there is no link to show).
+@mixin nx-link-overhang($top) {
+	&.button-link:has(.notificationx-link, .yt-notificationx-link) {
+		--nx-overhang-top: #{$top};
+	}
+}

@@ -25,6 +25,41 @@ class SelfTest {
     use GetInstance;
 
     /**
+     * Request header the self-test sends with its loopback call.
+     */
+    const MARKER_HEADER = 'X-NX-MCP-Self-Test';
+
+    /**
+     * Transient holding the hash of the current one-shot marker.
+     */
+    const MARKER_TRANSIENT = 'nx_mcp_self_test_marker';
+
+    /**
+     * Whether a request carries the marker of a self-test that is running now.
+     *
+     * The self-test authenticates with the pairing token, but it is not a client
+     * using the token, so it must not mark the token as used (that is what shows
+     * the "Token connection" row under Connected apps). The marker is a random
+     * value the server generated for this one run; it is single use, so a client
+     * cannot forge or replay it to keep its own usage off the panel.
+     *
+     * @param string $value Marker header of the incoming request.
+     * @return bool
+     */
+    public function consume_marker( $value ) {
+        $value = (string) $value;
+        if ( '' === $value ) {
+            return false;
+        }
+        $stored = get_transient( self::MARKER_TRANSIENT );
+        if ( ! is_string( $stored ) || '' === $stored || ! hash_equals( $stored, hash( 'sha256', $value ) ) ) {
+            return false;
+        }
+        delete_transient( self::MARKER_TRANSIENT );
+        return true;
+    }
+
+    /**
      * Run the staged diagnostic.
      *
      * @return array { ok:bool, step:string, message:string, tools:int }
@@ -41,14 +76,17 @@ class SelfTest {
 
         $endpoint = home_url( '/notificationx/mcp' );
         $token    = $pairing->site_token();
+        $marker   = wp_generate_password( 40, false, false );
+        set_transient( self::MARKER_TRANSIENT, hash( 'sha256', $marker ), 30 );
 
         // 1) Authenticated tools/list must succeed and return at least one tool.
         $response = wp_remote_post( $endpoint, array(
             'timeout'   => 15,
             'sslverify' => apply_filters( 'https_local_ssl_verify', false ), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- core filter name.
             'headers'   => array(
-                'Content-Type'  => 'application/json',
-                'Authorization' => 'Bearer ' . $token,
+                'Content-Type'      => 'application/json',
+                'Authorization'     => 'Bearer ' . $token,
+                self::MARKER_HEADER => $marker,
             ),
             'body'      => wp_json_encode( array(
                 'jsonrpc' => '2.0',
@@ -57,6 +95,9 @@ class SelfTest {
                 'params'  => (object) array(),
             ) ),
         ) );
+
+        // Single use: never leave a marker behind, even if the call failed.
+        delete_transient( self::MARKER_TRANSIENT );
 
         if ( is_wp_error( $response ) ) {
             return $this->fail( 'unreachable', sprintf(

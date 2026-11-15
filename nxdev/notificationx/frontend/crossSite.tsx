@@ -7,7 +7,7 @@ import { loadExternalStyles } from './core/external-styles';
         // @ts-ignore
         window.notificationXArr.push(notificationX);
         // Legacy embeds load crossSite.css, which no longer @imports the fonts and icons.
-        loadExternalStyles(notificationX.external_styles);
+        loadExternalStyles(notificationX.external_styles, notificationX.common_assets);
     }
     console.warn(__("You are using old version of cross-domain scripts for NotificationX Pro. Please update this from your NotificationX Settings page.", 'notificationx'));
     // @ts-ignore

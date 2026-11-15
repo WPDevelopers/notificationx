@@ -73,8 +73,8 @@ class WooCommerceCartPeek extends WooCommerce {
     }
 
     public function doc() {
-        /* translators: %1$s: WooCommerce install link, %2$s: Cart Peek documentation link */
         return sprintf(
+            /* translators: %1$s: WooCommerce install link, %2$s: Cart Peek documentation link */
             __( '<p>Show shoppers how many others have this product in their cart right now — a live social-proof signal that fires at the highest-value hesitation moment on the PDP.</p>
             <p>Requires an active NotificationX Pro licence and <a target="_blank" href="%1$s">WooCommerce installed &amp; activated</a>.</p>
             <p>📚 <a target="_blank" href="%2$s">Documentation</a></p>', 'notificationx' ),

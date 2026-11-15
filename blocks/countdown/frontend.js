@@ -16,8 +16,8 @@
     var widgetId = wrapper.getAttribute("data-countdown-id") || "";
     var countdownType = wrapper.getAttribute("data-countdown-type") || "due_date";
     var expireType = wrapper.getAttribute("data-expire-type") || "none";
-    var expireTitle = wrapper.getAttribute("data-expiry-title") || "";
-    var expireText = wrapper.getAttribute("data-expiry-text") || "";
+    // Server-rendered (kses'd) expiry message; cloned as DOM, never re-parsed.
+    var expiryTemplate = wrapper.querySelector("template.nx-countdown-expiry");
     var redirectUrl = wrapper.getAttribute("data-redirect-url") || "";
     var evergreenTime = parseInt(wrapper.getAttribute("data-evergreen-time") || 0, 10);
     var recurring = wrapper.getAttribute("data-evergreen-recurring");
@@ -79,15 +79,10 @@
     function handleExpiry() {
       clearInterval(intervalId);
       if (expireType === "text") {
-        list.innerHTML =
-          '<div class="nx-countdown-finish-message">' +
-          '<h4 class="nx-expiry-title">' +
-          expireTitle +
-          "</h4>" +
-          '<div class="nx-expiry-text">' +
-          expireText +
-          "</div>" +
-          "</div>";
+        list.textContent = "";
+        if (expiryTemplate && expiryTemplate.content) {
+          list.appendChild(document.importNode(expiryTemplate.content, true));
+        }
       } else if (expireType === "url" && redirectUrl) {
         window.location.href = redirectUrl;
       }

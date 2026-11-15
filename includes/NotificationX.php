@@ -137,8 +137,9 @@ class NotificationX {
         // already fired by the time it activates a plugin — so the
         // register_activation_hook() callback registered inside the insights
         // constructor never runs and the tracking event is left unscheduled.
-        // Build the instance and run its activation routine explicitly here so
-        // data collection is live from activation onwards.
+        // Build the instance and run its activation routine explicitly here. It
+        // schedules the tracking event only for a site that already opted in
+        // (a re-activation); a new install sends nothing until it opts in.
         Admin::get_instance()->plugin_usage_insights()->activate_this_plugin();
 
         Upgrader::get_instance()->clear_transient();
@@ -279,6 +280,46 @@ class NotificationX {
      */
     public static function is_type_unrenderable( $type ) {
         if ( ! is_string( $type ) || ! in_array( $type, self::PRO_RENDERED_TYPES, true ) ) {
+            return false;
+        }
+        return ! self::is_pro() || Admin::pro_needs_update();
+    }
+
+    /**
+     * Themes that only NotificationX Pro renders.
+     *
+     * Free 3.3.5 removed the frontend code of the Pro Exit Intent themes
+     * (WordPress.org Guideline 5, issue #184). Pro renders them through the
+     * `nx_exit_intent_theme` frontend filter from 3.2.5, the
+     * Admin::MIN_PRO_VERSION of free 3.3.5.
+     *
+     * @since 3.3.5
+     */
+    const PRO_RENDERED_THEMES = [
+        'exit_intent_custom_theme-two',
+        'exit_intent_custom_theme-five',
+        'exit_intent_custom_theme-six',
+        'exit_intent_custom_theme-seven',
+    ];
+
+    /**
+     * Whether a notification's theme cannot render on this site.
+     *
+     * True for a PRO_RENDERED_THEMES theme when NotificationX Pro is not
+     * active or is older than Admin::MIN_PRO_VERSION. An Exit Intent linked
+     * to an Elementor design (`elementor_id`) renders that design instead of
+     * its theme, so it is never skipped.
+     *
+     * @since 3.3.5
+     * @param array $settings Notification settings.
+     * @return bool
+     */
+    public static function is_theme_unrenderable( $settings ) {
+        $theme = $settings['themes'] ?? '';
+        if ( ! is_string( $theme ) || ! in_array( $theme, self::PRO_RENDERED_THEMES, true ) ) {
+            return false;
+        }
+        if ( ! empty( $settings['elementor_id'] ) ) {
             return false;
         }
         return ! self::is_pro() || Admin::pro_needs_update();
@@ -488,6 +529,25 @@ class NotificationX {
     }
 
     public function get_tab(){
+        // Rebuild when anything the cached fields were built from changes:
+        // - NotificationX Pro switched or updated: its options (and which
+        //   motion options it renders) are part of the fields.
+        // - Elementor or Essential Blocks installed, switched on or off: the
+        //   Notification Bar fields default is_elementor from Elementor and
+        //   pick the install button and missing-plugin notice from them. A
+        //   stale copy saved new Elementor bars with is_elementor off, which
+        //   hid the builder preview.
+        $pro_version = defined('NOTIFICATIONX_PRO_VERSION') && self::is_pro() ? NOTIFICATIONX_PRO_VERSION : 'none';
+        $environment = implode('|', [
+            $pro_version,
+            class_exists('\Elementor\Plugin') ? 1 : 0,
+            file_exists(WP_PLUGIN_DIR . '/elementor/elementor.php') ? 1 : 0,
+            \NotificationX\Core\Helper::is_plugin_active('essential-blocks/essential-blocks.php') ? 1 : 0,
+        ]);
+        if ( get_transient('nx_builder_fields_pro') !== $environment ) {
+            delete_transient('nx_builder_fields');
+            set_transient( 'nx_builder_fields_pro', $environment, DAY_IN_SECONDS );
+        }
         $tabs = get_transient('nx_builder_fields');
         if(empty($tabs) || (defined('NX_DEBUG') && NX_DEBUG)){
             $tabs = GlobalFields::get_instance()->tabs();

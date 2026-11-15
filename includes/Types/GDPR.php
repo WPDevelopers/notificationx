@@ -475,7 +475,7 @@ class GDPR extends Types {
             'priority' => 109, 
             'is_pro'   => true, 
             'default'  => [
-                'url' => 'https://notificationx.com/wp-content/uploads/2025/01/cookie-image.png',
+                'url' => NOTIFICATIONX_PUBLIC_URL . 'image/gdpr/cookie-image.png',
             ],
             'info'     => InfoTooltipManager::get_instance()->render('advanced_template'),
             'rules' => Rules::logicalRule([

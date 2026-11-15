@@ -97,4 +97,63 @@ class Test_FrontEnd_Style_Tags extends WP_UnitTestCase {
 		unregister_block_type( 'nxtest/echoes' );
 		$this->assertSame( '', $printed );
 	}
+
+	/**
+	 * Runs the Gutenberg bar asset pass for a bar post and returns the body classes.
+	 */
+	protected function bar_body_classes( $id ) {
+		$frontend = FrontEnd::get_instance();
+		$assets   = new ReflectionProperty( FrontEnd::class, 'gutenberg_bar_assets' );
+		$assets->setAccessible( true );
+		$assets->setValue( $frontend, array() );
+		$method = new ReflectionMethod( FrontEnd::class, 'enqueue_gutenberg_bar_assets' );
+		$method->setAccessible( true );
+		global $wp_current_filter;
+		$wp_current_filter[] = 'wp_enqueue_scripts';
+		$method->invoke( $frontend, $id );
+		array_pop( $wp_current_filter );
+		$classes = $frontend->nx_add_body_class( array() );
+		$assets->setValue( $frontend, array() );
+		return $classes;
+	}
+
+	protected function bar( $content ) {
+		return self::factory()->post->create(
+			array(
+				'post_type'    => 'nx_bar_eb',
+				'post_status'  => 'publish',
+				'post_content' => $content,
+			)
+		);
+	}
+
+	public function test_core_block_bar_is_marked() {
+		$id = $this->bar( '<!-- wp:paragraph --><p>Sale</p><!-- /wp:paragraph -->' );
+		$this->assertContains( 'nx-bar-assets-' . $id, $this->bar_body_classes( $id ) );
+	}
+
+	public function test_essential_blocks_bar_waits_for_its_stylesheets() {
+		if ( ! defined( 'ESSENTIAL_BLOCKS_FILE' ) ) {
+			define( 'ESSENTIAL_BLOCKS_FILE', __FILE__ );
+		}
+		$id = $this->bar( '<!-- wp:essential-blocks/row {"blockId":"eb-row-test"} --><div class="eb-row-test"></div><!-- /wp:essential-blocks/row -->' );
+
+		// No stylesheets yet: unmarked, so the runtime fetches the bar's page.
+		$this->assertNotContains( 'nx-bar-assets-' . $id, $this->bar_body_classes( $id ) );
+
+		// Only one of the two files: still unmarked.
+		$dir = trailingslashit( wp_upload_dir()['basedir'] ) . 'eb-style/';
+		wp_mkdir_p( $dir . 'frontend' );
+		$files = array( $dir . "eb-style-{$id}.min.css", $dir . "frontend/frontend-{$id}.min.css" );
+		file_put_contents( $files[0], '.eb-row-test{display:flex}' );
+		$this->assertNotContains( 'nx-bar-assets-' . $id, $this->bar_body_classes( $id ) );
+
+		// Once Essential Blocks has written both, the bar takes the fast path.
+		file_put_contents( $files[1], '.eb-row-test{display:flex}' );
+		$classes = $this->bar_body_classes( $id );
+		foreach ( $files as $file ) {
+			unlink( $file );
+		}
+		$this->assertContains( 'nx-bar-assets-' . $id, $classes );
+	}
 }

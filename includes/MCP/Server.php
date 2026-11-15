@@ -70,7 +70,11 @@ class Server {
             );
         }
 
-        $auth = $this->authenticate( $token );
+        // NotificationX's own "Test connection" call: authenticate it like any
+        // client, but do not count it as a client using the token.
+        $self_test = SelfTest::get_instance()->consume_marker( (string) $request->get_header( SelfTest::MARKER_HEADER ) );
+
+        $auth = $this->authenticate( $token, $self_test );
         if ( is_wp_error( $auth ) ) {
             $limiter->record_failure();
             return $this->with_challenge(
@@ -199,17 +203,21 @@ class Server {
      * Authenticate a bearer token via pairing token or OAuth, then impersonate
      * the granting admin.
      *
-     * @param string $token Bearer token.
+     * @param string $token     Bearer token.
+     * @param bool   $self_test True for NotificationX's own self-test request,
+     *                          which must not mark the pairing token as used.
      * @return array|\WP_Error { user_id, read_only } or error.
      */
-    protected function authenticate( $token ) {
+    protected function authenticate( $token, $self_test = false ) {
         $pairing = Pairing::get_instance();
         if ( $pairing->is_connected() && $pairing->verify( $token ) ) {
             $user = $this->impersonate( $pairing->user_id() );
             if ( is_wp_error( $user ) ) {
                 return $user;
             }
-            $pairing->touch_last_used();
+            if ( ! $self_test ) {
+                $pairing->touch_last_used();
+            }
             return array(
                 'user_id'   => $pairing->user_id(),
                 'read_only' => $pairing->is_read_only(),

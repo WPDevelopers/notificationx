@@ -6,10 +6,12 @@
  *
  *  1. The Setup Wizard is only auto-launched on a genuine first-ever
  *     activation — an abandoned wizard still counts as "already activated".
- *  2. WP Insights data collection is enabled from the backend and no longer
- *     depends on the consent notice or the Setup Wizard. The deactivation
- *     feedback form follows that same gate, so it is available from
- *     activation onwards; only the programmatic opt-out turns both off.
+ *  2. WP Insights collects and sends nothing until the user opts in (the
+ *     opt-in notice's "Allow" or the Setup Wizard's "Get My
+ *     Recommendations"; WordPress.org Guideline 7, issue #184). Activation
+ *     does not schedule tracking for a site that has not opted in, and the
+ *     deactivation feedback form follows the same gate. The programmatic
+ *     opt-out wins over consent.
  *
  * @package Notificationx
  */
@@ -196,14 +198,13 @@ class Test_Activation_Insights extends WP_UnitTestCase {
 	 * --------------------------------------------------------------- */
 
 	/**
-	 * Collection is active regardless of the consent state: never asked,
-	 * accepted, or explicitly rejected.
+	 * Collection follows the consent state: never asked, accepted, or rejected.
 	 */
-	public function test_data_collection_is_independent_of_consent() {
+	public function test_data_collection_requires_consent() {
 		$insights = $this->fresh_insights();
 
 		// Consent never given.
-		$this->assertTrue( $this->is_tracking_allowed( $insights ) );
+		$this->assertFalse( $this->is_tracking_allowed( $insights ) );
 		$this->assertFalse( $insights->has_user_consented() );
 
 		// Consent accepted.
@@ -211,28 +212,81 @@ class Test_Activation_Insights extends WP_UnitTestCase {
 		$this->assertTrue( $this->is_tracking_allowed( $insights ) );
 		$this->assertTrue( $insights->has_user_consented() );
 
-		// Consent rejected ("No Thanks" removes the plugin from the array).
+		// Consent rejected ("No Thanks" removes the plugin from the array);
+		// another plugin's consent does not count.
 		update_option( 'wpins_allow_tracking', [ 'anotherplugin' => 'anotherplugin' ] );
-		$this->assertTrue( $this->is_tracking_allowed( $insights ) );
+		$this->assertFalse( $this->is_tracking_allowed( $insights ) );
 		$this->assertFalse( $insights->has_user_consented() );
 	}
 
 	/**
-	 * Collection is active whatever the Setup Wizard state is.
+	 * Opening, abandoning or finishing the Setup Wizard is not consent.
 	 */
-	public function test_data_collection_is_independent_of_the_setup_wizard() {
+	public function test_setup_wizard_state_is_not_consent() {
 		$insights = $this->fresh_insights();
 
-		// Wizard never opened.
-		$this->assertTrue( $this->is_tracking_allowed( $insights ) );
-
-		// Wizard abandoned (activated, never completed).
 		update_option( 'nx_first_activation', time() );
-		$this->assertTrue( $this->is_tracking_allowed( $insights ) );
+		$this->assertFalse( $this->is_tracking_allowed( $insights ) );
 
-		// Wizard completed.
 		update_option( SetupWizard::COMPLETED_OPTION, true );
+		$this->assertFalse( $this->is_tracking_allowed( $insights ) );
+	}
+
+	/**
+	 * The wizard's "Get My Recommendations" (SetupWizard::optin_tracking())
+	 * records consent.
+	 */
+	public function test_wizard_opt_in_records_consent() {
+		$insights = $this->fresh_insights();
+		wp_set_current_user( self::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		add_filter( 'pre_http_request', '__return_empty_array' );
+
+		$insights->optin( false );
+
+		remove_filter( 'pre_http_request', '__return_empty_array' );
+		$this->assertTrue( $insights->has_user_consented() );
 		$this->assertTrue( $this->is_tracking_allowed( $insights ) );
+		wp_clear_scheduled_hook( 'put_do_weekly_action' );
+	}
+
+	/**
+	 * Without consent do_tracking() sends nothing, even when forced (the daily
+	 * Maintenance routine forces it).
+	 */
+	public function test_do_tracking_sends_nothing_without_consent() {
+		$insights = $this->fresh_insights();
+		$requests = 0;
+		$count    = function ( $pre ) use ( &$requests ) {
+			$requests++;
+			return [ 'response' => [ 'code' => 200 ], 'body' => '{}' ];
+		};
+		add_filter( 'pre_http_request', $count );
+
+		$insights->do_tracking( true );
+
+		remove_filter( 'pre_http_request', $count );
+		$this->assertSame( 0, $requests );
+	}
+
+	/**
+	 * The payload carries no server path and no list of inactive plugins,
+	 * only their number.
+	 */
+	public function test_payload_has_no_file_path_or_inactive_plugin_list() {
+		$body = $this->fresh_insights()->get_data();
+
+		$this->assertArrayNotHasKey( 'file_location', $body );
+		$this->assertArrayNotHasKey( 'inactive_plugins', $body );
+		$this->assertArrayHasKey( 'inactive_plugins_count', $body );
+		$this->assertIsInt( $body['inactive_plugins_count'] );
+	}
+
+	/**
+	 * The admin's IP is not sent to a geolocation service.
+	 */
+	public function test_tracker_does_no_ip_geolocation() {
+		$source = file_get_contents( NOTIFICATIONX_PATH . 'includes/Admin/PluginInsights.php' );
+		$this->assertStringNotContainsString( 'ip-api.com', $source );
 	}
 
 	/**
@@ -255,18 +309,16 @@ class Test_Activation_Insights extends WP_UnitTestCase {
 	}
 
 	/**
-	 * The deactivation feedback form follows collection, so it is available as
-	 * soon as the plugin is activated — no opt-in notice, no Setup Wizard.
+	 * The deactivation feedback form is sent with the insights data, so only
+	 * a site that opted in sees it.
 	 */
-	public function test_deactivation_feedback_form_is_available_without_consent() {
+	public function test_deactivation_feedback_form_requires_consent() {
 		$insights = $this->fresh_insights();
 		$links    = [ 'deactivate' => '<a href="#">Deactivate</a>' ];
 
 		delete_option( 'wpins_allow_tracking' );
-		$this->assertFalse( $insights->has_user_consented(), 'No consent has been recorded.' );
-
 		$without_consent = $insights->deactivate_action_links( $links );
-		$this->assertStringContainsString( 'wpinsights-goodbye-form', $without_consent['deactivate'] );
+		$this->assertStringNotContainsString( 'wpinsights-goodbye-form', $without_consent['deactivate'] );
 
 		update_option( 'wpins_allow_tracking', [ 'notificationx' => 'notificationx' ] );
 		$with_consent = $insights->deactivate_action_links( $links );
@@ -274,10 +326,10 @@ class Test_Activation_Insights extends WP_UnitTestCase {
 	}
 
 	/**
-	 * The programmatic opt-out turns collection off entirely, and the feedback
-	 * form goes with it.
+	 * The programmatic opt-out hides the feedback form even after consent.
 	 */
 	public function test_programmatic_opt_out_hides_the_deactivation_feedback_form() {
+		update_option( 'wpins_allow_tracking', [ 'notificationx' => 'notificationx' ] );
 		$insights = $this->fresh_insights( [ 'options' => [ 'nx_test_privacy' ] ] );
 		$links    = [ 'deactivate' => '<a href="#">Deactivate</a>' ];
 
@@ -290,17 +342,27 @@ class Test_Activation_Insights extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Activation schedules the tracking event without consent, and does not
-	 * register a duplicate when it runs again.
+	 * Activation schedules tracking only for a site that opted in, and does
+	 * not register a duplicate when it runs again.
 	 */
-	public function test_activation_schedules_tracking_without_consent() {
+	public function test_activation_schedules_tracking_only_with_consent() {
 		wp_clear_scheduled_hook( 'put_do_weekly_action' );
 
 		$insights = $this->fresh_insights();
-		$insights->activate_this_plugin();
+		// The WP test bootstrap defines DISABLE_WP_CRON, which the constructor
+		// caches; with it set nothing is ever scheduled and this test proves
+		// nothing. Clear the cached flag.
+		$cron_off = new ReflectionProperty( $insights, 'disabled_wp_cron' );
+		$cron_off->setAccessible( true );
+		$cron_off->setValue( $insights, false );
 
+		$insights->activate_this_plugin();
+		$this->assertFalse( wp_next_scheduled( 'put_do_weekly_action' ), 'Nothing is scheduled without an opt-in.' );
+
+		update_option( 'wpins_allow_tracking', [ 'notificationx' => 'notificationx' ] );
+		$insights->activate_this_plugin();
 		$scheduled = wp_next_scheduled( 'put_do_weekly_action' );
-		$this->assertNotFalse( $scheduled, 'Tracking is scheduled on activation without any opt-in.' );
+		$this->assertNotFalse( $scheduled, 'A re-activation of an opted-in site schedules tracking.' );
 
 		$insights->activate_this_plugin();
 		$this->assertSame( $scheduled, wp_next_scheduled( 'put_do_weekly_action' ), 'No duplicate schedule is created.' );

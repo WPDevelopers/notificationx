@@ -77,7 +77,9 @@ const PreviewModal = (props) => {
             : props.urls["default"];
 
         const nxPreview = {
-            "nx-preview": toBase64(JSON.stringify({ ...context.values, previewType }))
+            "nx-preview": toBase64(JSON.stringify({ ...context.values, previewType })),
+            // Without it the front end ignores the payload (Preview::is_authorized_preview_request()).
+            "nx-preview-nonce": (window as any).notificationxTabs?.preview_nonce || "",
         };
 
         postToIframe(
