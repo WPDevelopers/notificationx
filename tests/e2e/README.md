@@ -95,6 +95,25 @@ node tests/e2e/builder-settings-redaction.js 179     # this notification
 
 Besides the two users, it writes one login session per user and removes them when the run ends. Console errors that also show on `dev` without the fix (React development warnings, an icon with `height="auto"`, the Dashboard's analytics request for a view-only user) are not counted; the list is in the script.
 
+## Offer campaign
+
+[offer-campaign.js](offer-campaign.js) checks the seasonal offer notice on the WordPress Dashboard and the pointer beside the NotificationX menu item ([docs/features/offer-campaign.md](../../docs/features/offer-campaign.md)):
+
+- Notice: copy, link, new tab, both actions, styling keyed on its id, the emoji, the logo, Dashboard only, hidden on a phone.
+- Pointer: copy, link, position beside the menu item, fixed colours under another admin colour scheme, which screens show it, staying beside the menu item while the page scrolls, hidden while the menu is off canvas.
+- Dismiss: the click closes the pointer and sends the action with a nonce; a request with a wrong nonce is refused; a real dismissal is recorded for the user and gives the shared pointer slot back.
+
+```bash
+node tests/e2e/offer-campaign.js                              # NotificationX Pro inactive
+NX_E2E_DEACTIVATE_PRO=1 node tests/e2e/offer-campaign.js      # deactivates Pro for the run, activates it again after
+```
+
+It needs today's date inside the campaign and exits with code 2 when the campaign cannot show (Pro active, outside the dates). It runs as `NX_E2E_USER`, who must be an administrator. Set `NX_E2E_PHP_MEMORY=1G` if WP-CLI runs out of memory on the site.
+
+[offer-campaign.php](offer-campaign.php) saves and then clears what would hide the two surfaces (this user's dismissals of the notice and the pointer, the user's admin colour scheme, the notice library's `wpnotice_priority_time_expired` cooldown, the `_wpdeveloper_plugin_pointer_priority` option), and puts all of it back when the run ends, along with the one login session.
+
+Only one WPDeveloper notice shows at a time. If another active plugin has a notice due on the Dashboard, the notice checks fail and the runner prints which notice showed instead ("shown instead: wpnotice-embedpress-optin"). Deactivate that plugin for the run. The pointer checks do not depend on it.
+
 ## Build With AI preset preview (Pro)
 
 `tests/e2e/preset-preview.js` in NotificationX Pro opens the Exit Intent Build With AI history with a mocked preset and checks the preview POST carries the nonce and renders. It reuses `auth.php` and `puppeteer-core` from this plugin.

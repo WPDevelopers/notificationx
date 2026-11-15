@@ -106,6 +106,12 @@ Insert the following block **just before** the closing line `self::$cache_bank->
         );
 ```
 
+**Campaigns with a pointer.** Since Black Friday 2026 a campaign also has a pointer beside the NotificationX menu item (`includes/Admin/OfferPointer.php`), on the same dates and with the same link. For such a campaign:
+
+- Set `OfferPointer::ID` (new for every campaign, or it inherits the old dismissals), `START`, `EXPIRE`, `URL` and the copy in `OfferPointer::content()`.
+- In the notice block use `strtotime( OfferPointer::START )`, `strtotime( OfferPointer::EXPIRE )` and `esc_url( OfferPointer::URL )` in place of literal dates and the literal link, so the two surfaces cannot drift apart. Replace those constants in the previous campaign's block with the literal values it had.
+- Update the campaign values in `tests/test-offer-campaign.php`, `tests/js/admin/offer-pointer.test.js`, `tests/e2e/offer-campaign.js` and `tests/e2e/offer-campaign.php`, and the "Current campaign" table in `docs/features/offer-campaign.md`.
+
 Since Halloween 2026 the campaign notices use `is_plugin_active()`, so users who have Pro installed but inactive also see the offer. Campaigns before that used `! is_array( $notices->is_installed( ... ) )`, which hides the notice whenever the Pro folder exists. Keep the `function_exists` guard: `Admin::init()` runs on `init`, before WordPress loads `wp-admin/includes/plugin.php`.
 
 **Substitution rules:**
@@ -224,6 +230,7 @@ The notice library is `vendor/priyomukul/wp-notice`. Only one notice shows at a 
    ```
    Narrow the `LIKE` to the campaign key if the other plugins' dismissed notices must stay dismissed.
 5. **Other WPDeveloper plugins.** Each plugin registers a notice "account" with a priority (NotificationX = 5, Essential Blocks = 3, EmbedPress = 6). The account with the lowest priority number that has an eligible notice wins. If another active plugin with a lower priority has a live notice, the NotificationX notice will not show. Deactivate that plugin for the test.
+   NotificationX registers its notices as library version `1.0.0`, which the library queues after every plugin with a newer version, so in practice **any** other active WPDeveloper plugin with a notice due on the Dashboard shows first (seen with EmbedPress's opt-in notice, 2026-11-15).
 6. **Screen.** Campaign notices use `'screens' => [ 'dashboard' ]`, so open `wp-admin/index.php`, not a NotificationX page (`hide_others_plugin_admin_notice()` removes all notices on NotificationX screens).
 
 Quick render check without a browser (prints the notice IDs that would show on the dashboard; skips `admin_init`, which can crash WooCommerce under WP-CLI):
@@ -238,6 +245,8 @@ ob_start(); do_action( 'admin_notices' ); $h = ob_get_clean();
 preg_match_all( '/id="(wpnotice-[^"]+)"/', $h, $m );
 echo implode( ', ', $m[1] ), "\n";
 ```
+
+For a campaign with a pointer, `node tests/e2e/offer-campaign.js` checks the notice and the pointer in a browser and restores the state it changes (see `tests/e2e/README.md`).
 
 After the test, restore the Pro folder name if you renamed it, and tell the user which DB rows were changed.
 
@@ -255,5 +264,5 @@ After the test, restore the Pro folder name if you renamed it, and tell the user
 - If start date is `now`, use `$notices->time()`. If it's a relative string like `+1 day`, use `$notices->strtotime( '+1 day' )`. If it's an absolute date, use PHP `strtotime( '...' )` directly.
 - The Pro plugin check for NotificationX is `! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )` (with the `function_exists` guard).
 - The asset URL constant in this plugin is `self::ASSET_URL` and the version constant is `NOTIFICATIONX_VERSION`.
-- **Emoji in the text:** WordPress core replaces emoji with small Twemoji `<img>` tags in wp-admin, which renders them tiny and misaligned. Wrap the emoji like Better Payment does: `<span class='nx-notice-emoji wp-exclude-emoji' aria-hidden='true'>&#x1F47B;</span>` (HTML entity, not the raw character), and add a `.nx-notice-emoji` CSS rule for the campaign: `display: inline-block; font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; font-size: 18px; font-style: normal; line-height: 1; vertical-align: -2px;`.
+- **Emoji in the text:** WordPress core replaces emoji with small Twemoji `<img>` tags in wp-admin, which renders them tiny and misaligned. Wrap the emoji like Better Payment does: `<span class='nx-notice-emoji wp-exclude-emoji' aria-hidden='true'>&#x1F47B;</span>` (HTML entity, not the raw character), and add a `.nx-notice-emoji` CSS rule for the campaign: `display: inline-block; font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; font-size: 14px; font-style: normal; line-height: 1; vertical-align: 0; margin-right: -2px;` (the text's own size; at 18px / -2px, used for Halloween 2026, the glyph stood 4px out of the 14px line).
 - The action button wrapper class is `nx-notice-action-button` and the dismiss link class is `nx-notice-action-dismiss` (note the `nx-` prefix).
