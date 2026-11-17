@@ -374,7 +374,7 @@ class Preview {
     public function get_settings() {
         // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified in is_authorized_preview_request().
         if ( empty( $_POST['nx-preview'] ) || ! $this->is_authorized_preview_request() ) {
-            return array();
+            return $this->trusted_settings();
         }
 
         // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified in is_authorized_preview_request().
@@ -386,6 +386,42 @@ class Preview {
         }
 
         // Simple sanitization
+        array_walk_recursive( $settings, function ( &$value ) {
+            if ( is_string( $value ) ) {
+                $value = wp_strip_all_tags( $value );
+            }
+        });
+
+        return $settings;
+    }
+
+    /**
+     * Preview settings an add-on supplies from the server for this request,
+     * for example a stored snapshot behind a share link.
+     *
+     * Consulted only when the request carries no authorised preview POST, and
+     * it never reads `$_POST`: the request payload stays readable only through
+     * the nonce and capability check above. The settings are cleaned like a
+     * POSTed payload, so they render the same way.
+     *
+     * @since x.x.x
+     * @return array
+     */
+    protected function trusted_settings() {
+        /**
+         * Filters the settings a preview renders when there is no authorised
+         * preview POST. Return only settings your own code stored, never
+         * anything taken from the request. Use with `nx_is_preview`.
+         *
+         * @since x.x.x
+         * @param array $settings Notification settings, or an empty array.
+         */
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- nx_ is this plugin's hook prefix.
+        $settings = apply_filters( 'nx_preview_trusted_settings', array() );
+        if ( ! is_array( $settings ) || empty( $settings ) ) {
+            return array();
+        }
+
         array_walk_recursive( $settings, function ( &$value ) {
             if ( is_string( $value ) ) {
                 $value = wp_strip_all_tags( $value );
