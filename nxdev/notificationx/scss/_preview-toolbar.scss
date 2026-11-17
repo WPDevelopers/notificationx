@@ -1,0 +1,222 @@
+// Builder Preview, layout A: page picker and "Open in new tab" on the right of
+// the top bar. Absolutely positioned: the device buttons stay centred and the
+// close button stays where it is, at least 16px away. Imported only by the
+// admin stylesheet: _modal.scss is also part of the public gdpr-modal.css.
+.nx-admin-modal-head {
+    .nx-preview-tools {
+        position: absolute;
+        top: 50%;
+        right: 44px;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        z-index: 2;
+        font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .nx-preview-tools-compact {
+        gap: 4px;
+    }
+
+    .nx-preview-tool {
+        all: initial;
+        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 34px;
+        max-width: 260px;
+        padding: 0 12px;
+        border-radius: 5px;
+        background: #5453fd;
+        color: #fff;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1;
+        white-space: nowrap;
+        cursor: pointer;
+
+        svg {
+            flex: 0 0 auto;
+        }
+
+        &:hover {
+            background: #4b3ff2;
+        }
+
+        &.active {
+            background: #fff;
+            color: #5414d0;
+        }
+
+        &:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+        }
+
+        &.icon {
+            width: 34px;
+            padding: 0;
+            justify-content: center;
+        }
+    }
+
+    .nx-preview-tools-narrow .nx-preview-tool-page {
+        max-width: 150px;
+    }
+
+    .nx-preview-tool-label {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .nx-preview-tool-muted {
+        opacity: 0.75;
+        font-weight: 400;
+    }
+
+    .nx-preview-panel {
+        box-sizing: border-box;
+        position: absolute;
+        top: calc(100% + 9px);
+        right: -32px;
+        z-index: 20;
+        width: 360px;
+        padding: 14px;
+        border-radius: 8px;
+        background: #fff;
+        color: #25396f;
+        box-shadow: 0 14px 40px -10px rgba(3, 6, 60, 0.45);
+        font-size: 13px;
+        line-height: 1.45;
+        text-align: left;
+    }
+
+    .nx-preview-tools-narrow .nx-preview-panel {
+        width: 320px;
+    }
+
+    .nx-preview-tools-compact .nx-preview-panel {
+        width: 300px;
+    }
+
+    .nx-preview-page-search {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 36px;
+        padding: 0 10px;
+        margin-bottom: 8px;
+        border: 1px solid #6a4bff;
+        border-radius: 6px;
+        color: #7c8db5;
+
+        input[type="search"] {
+            flex: 1;
+            min-width: 0;
+            height: 30px;
+            min-height: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            box-shadow: none;
+            background: transparent;
+            color: #25396f;
+            font: inherit;
+        }
+    }
+
+    .nx-preview-page-list {
+        max-height: 320px;
+        overflow-y: auto;
+    }
+
+    .nx-preview-page-note {
+        margin: 8px 0;
+        color: #7c8db5;
+    }
+
+    .nx-preview-page-group-label {
+        margin: 8px 0 2px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #8a98b8;
+    }
+
+    .nx-preview-page-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        padding: 6px 8px;
+        border: 0;
+        border-radius: 5px;
+        background: transparent;
+        color: #25396f;
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+            background: #f6f4ff;
+        }
+
+        &.current {
+            background: #f1edff;
+            color: #5414d0;
+            font-weight: 600;
+        }
+    }
+
+    .nx-preview-page-check {
+        display: inline-flex;
+        flex: 0 0 14px;
+    }
+
+    .nx-preview-page-title {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .nx-preview-page-muted {
+        color: #8a98b8;
+        font-weight: 400;
+    }
+
+    .nx-preview-page-badge {
+        flex: 0 0 auto;
+        padding: 1px 6px;
+        border-radius: 99px;
+        background: #fff4e0;
+        color: #a35f00;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .nx-preview-panel-foot {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #edf0f7;
+    }
+
+    .nx-preview-link {
+        padding: 0;
+        border: 0;
+        background: none;
+        color: #5414d0;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+    }
+}

@@ -6,13 +6,21 @@ import { Button } from "@wordpress/components";
 import { ReactComponent as DesktopIcon } from "../icons/responsive/desktop.svg";
 import { ReactComponent as TabletIcon } from "../icons/responsive/tablet.svg";
 import { ReactComponent as MobileIcon } from "../icons/responsive/mobile.svg";
-import { toBase64 } from "js-base64";
+import { postToTarget, previewPayload } from "./preview/form";
+import PreviewToolbar from "./preview/PreviewToolbar";
+import { PreviewPage } from "./preview/PagePicker";
+import { popupWidth, toolbarSize } from "./preview/size";
 
 const PreviewModal = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const context = useBuilderContext();
     const [previewType, setPreviewType] = useState("desktop");
     const iframeRef = useRef(null);
+    // The page the owner picked; null shows the default page, as before.
+    const [chosenPage, setChosenPage] = useState<PreviewPage | null>(null);
+    const [defaultName, setDefaultName] = useState<{ url: string; id: number; title: string } | null>(null);
+    const [repost, setRepost] = useState(0);
+    const [windowWidth, setWindowWidth] = useState(() => window.innerWidth);
 
     const openModal = () => {
         setIsOpen(!isOpen);
@@ -26,43 +34,15 @@ const PreviewModal = (props) => {
         }
     }, [isOpen]);
 
-    // A function that creates and returns a form element
-    const createForm = (action, method, target, data) => {
-        // Create a form element
-        const form  = document.createElement("form");
-        form.action = action;
-        form.method = method;
-        form.target = target;
+    const { source } = context.values;
+    const defaultUrl = props.urls?.[source]
+        ? props.urls[source]
+        : props.urls["default"];
+    const previewUrl = chosenPage?.url || defaultUrl;
 
-        // Loop through the data object and create input elements
-        for (let key in data) {
-            const input = document.createElement("input");
-            input.type  = "hidden";
-            input.name  = key;
-            input.value = data[key];
-            // Append the input to the form
-            form.appendChild(input);
-
-        }
-
-        // Return the form element
-        return form;
-    }
-
-    // A function that creates and submits a form to an iframe
-    const postToIframe = (action, method, target, data) => {
-        // Create a form element with the given parameters
-        const form = createForm(action, method, target, data);
-
-        // Append the form to the document body
-        document.body.appendChild(form);
-
-        // Submit the form
-        form.submit();
-
-        // Remove the form from the document body
-        document.body.removeChild(form);
-    }
+    const postPreview = (target: string) => {
+        postToTarget(previewUrl, "post", target, previewPayload(context.values, previewType));
+    };
 
     const onAfterOpen = () => {
         // Get the iframe element
@@ -71,24 +51,30 @@ const PreviewModal = (props) => {
             return;
         }
 
-        const { source } = context.values;
-        const url = props.urls?.[source]
-            ? props.urls[source]
-            : props.urls["default"];
-
-        const nxPreview = {
-            "nx-preview": toBase64(JSON.stringify({ ...context.values, previewType })),
-            // Without it the front end ignores the payload (Preview::is_authorized_preview_request()).
-            "nx-preview-nonce": (window as any).notificationxTabs?.preview_nonce || "",
-        };
-
-        postToIframe(
-            url,
-            "post",
-            iframe.name,
-            nxPreview
-          );
+        postPreview(iframe.name);
     }
+
+    // Another page was picked: the same request, to that page.
+    useEffect(() => {
+        if (repost && isOpen && iframeRef.current) {
+            postPreview(iframeRef.current.name);
+        }
+    }, [repost]);
+
+    useEffect(() => {
+        if (!isOpen) {
+            return;
+        }
+        const resize = () => setWindowWidth(window.innerWidth);
+        resize();
+        window.addEventListener("resize", resize);
+        return () => window.removeEventListener("resize", resize);
+    }, [isOpen]);
+
+    const choosePage = (page: PreviewPage | null) => {
+        setChosenPage(page);
+        setRepost((n) => n + 1);
+    };
 
     useEffect(() => {
         return () => {
@@ -170,6 +156,16 @@ const PreviewModal = (props) => {
                         >
                             <MobileIcon style={{ width: 15 }} />
                         </button>
+                        <PreviewToolbar
+                            size={toolbarSize(popupWidth(previewType, windowWidth))}
+                            defaultUrl={defaultUrl}
+                            homeUrl={props.urls?.["default"] || ""}
+                            defaultName={defaultName?.url === defaultUrl ? defaultName : null}
+                            chosen={chosenPage}
+                            onChoose={choosePage}
+                            onDefaultName={(current) => setDefaultName({ ...current, url: defaultUrl })}
+                            openInNewTab={() => postPreview("_blank")}
+                        />
                         <button
                             className="nx-admin-modal-close-button"
                             type="button"
@@ -190,7 +186,7 @@ const PreviewModal = (props) => {
                         </button>
                     </div>
                     <div className="nx-admin-modal-body">
-                        {  ( ('inline' === context.values.type && !props.urls?.[context.values.source]) || ('woocommerce_sales_inline' === context.values.source && !props.urls?.[context.values.source]) ) ? (
+                        { !chosenPage && ( ('inline' === context.values.type && !props.urls?.[context.values.source]) || ('woocommerce_sales_inline' === context.values.source && !props.urls?.[context.values.source]) ) ? (
                             <div
                                 style={{
                                     height: "600px",

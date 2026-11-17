@@ -89,6 +89,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Core\\Rest\\Integration' => __DIR__ . '/../..' . '/includes/Core/Rest/Integration.php',
         'NotificationX\\Core\\Rest\\Popup' => __DIR__ . '/../..' . '/includes/Core/Rest/Popup.php',
         'NotificationX\\Core\\Rest\\Posts' => __DIR__ . '/../..' . '/includes/Core/Rest/Posts.php',
+        'NotificationX\\Core\\Rest\\PreviewPages' => __DIR__ . '/../..' . '/includes/Core/Rest/PreviewPages.php',
         'NotificationX\\Core\\Rule' => __DIR__ . '/../..' . '/includes/Core/Rule.php',
         'NotificationX\\Core\\Rules' => __DIR__ . '/../..' . '/includes/Core/Rules.php',
         'NotificationX\\Core\\SetupWizard' => __DIR__ . '/../..' . '/includes/Core/SetupWizard.php',
