@@ -27,7 +27,7 @@ const NewTabIcon = () => (
  * What add-ons get in the `nx_preview_toolbar_items` filter.
  */
 export type PreviewToolbarContext = {
-    // The current, unsaved builder values (the saved notification's id is `values.id`).
+    // The current, unsaved builder values (the saved notification's id is `values.nx_id`).
     values: any;
     previewType: string;
     // The page picked in the page picker, or null for the default page.
