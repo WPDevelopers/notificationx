@@ -90,6 +90,9 @@ class Preview {
                 return $args;
             }
 
+            // A preview is never counted: the runtime posts no clicks.
+            $settings['enable_analytics'] = false;
+
             $source = $settings['source'];
             $type   = $settings['type'];
             if ($type === 'exit_intent') {
@@ -138,6 +141,7 @@ class Preview {
             }
 
             $args['settings'] = FrontEnd::get_instance()->get_settings();
+            $args['settings']['enable_analytics'] = false;
 
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $this->notificationXArr = apply_filters('get_notifications_ids', $args);
