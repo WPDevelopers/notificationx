@@ -163,7 +163,19 @@ async function run( browser, auth, id ) {
 	const second = await page.evaluate( () => window.__nxPosts[ window.__nxPosts.length - 1 ] );
 	check( second && second.target === 'preview-modal-iframe' && second.action !== first.action, `#${ id } choosing "${ target }" posts to that page (${ second && second.action })` );
 	check( second && second.fields[ 'nx-preview' ] === first.fields[ 'nx-preview' ] && second.fields[ 'nx-preview-nonce' ] === first.fields[ 'nx-preview-nonce' ] && !! second.fields[ 'nx-preview-nonce' ], `#${ id } same payload and nonce` );
+	// The frame keeps the default page until the new POST has loaded.
+	await page
+		.waitForFunction(
+			( url ) => {
+				const frame = document.querySelector( 'iframe[name="preview-modal-iframe"]' );
+				return frame && frame.contentWindow.location.href.split( '?' )[ 0 ] === url.split( '?' )[ 0 ] && 'complete' === frame.contentDocument.readyState;
+			},
+			{ timeout: 20000 },
+			second ? second.action : ''
+		)
+		.catch( () => {} );
 	const secondUrl = await frameRendered( page );
+	await sleep( 1200 );
 	check( !! secondUrl && secondUrl.split( '?' )[ 0 ] === second.action.split( '?' )[ 0 ], `#${ id } the frame renders the preview on the chosen page` );
 	check( ( await page.$eval( '.nx-preview-tool-page', ( b ) => b.textContent ) ).includes( target ), `#${ id } the page button names the chosen page` );
 	await page.screenshot( { path: path.join( OUT, `preview-pages-${ id }-chosen.png` ) } );
