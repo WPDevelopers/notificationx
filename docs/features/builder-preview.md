@@ -1,5 +1,7 @@
 # Builder Preview: another page, a new tab, add-on controls
 
+**Available from Free 3.4.0.**
+
 The builder's **Preview** button opens the same popup as before: the notification, with the unsaved builder settings, in a frame showing the site's default page for that source, with the desktop / tablet / phone buttons and the close button. On the right of the popup's top bar there are now two controls:
 
 - **Page** ("Page: Home ▾"): shows the preview on another page of the site.

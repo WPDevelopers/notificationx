@@ -1,5 +1,7 @@
 # QA: builder Preview on another page and in a new tab
 
+**Version:** available from Free 3.4.0.
+
 **What changed:** the builder's Preview popup has a page picker and an "Open in new tab" button on the right of its top bar; add-ons can add controls there (Pro: Share); preview clicks are never counted in analytics. Feature doc: [../features/builder-preview.md](../features/builder-preview.md).
 
 **Nothing else may change:** the Preview button, the default page, the device buttons, the close button and the frame must look and behave as before. The preview access gate ([preview-access-gate.md](preview-access-gate.md)) must still pass in full.

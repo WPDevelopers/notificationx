@@ -47,7 +47,7 @@ The builder sends the notification's settings as base64 JSON in `$_POST['nx-prev
 - The checks run on `plugins_loaded` (priority 0), not in the constructor: the current user and `wp_verify_nonce()` don't exist while plugins are being included.
 - Gutenberg bars render only from bar posts (`nx_bar_eb`, or `wp_block` for old bars) that are published without a password, unless the user can edit the post (`PressBar::can_render_block_bar()`). Elementor bars render only from published `nx_bar` posts.
 
-- An add-on that renders a preview from settings it stored itself (Pro's share links) switches preview mode on with `nx_is_preview` and returns those settings from `nx_preview_trusted_settings`. `get_settings()` asks that filter only when the request carries no authorised preview POST, never reads `$_POST` for it, and cleans the result like a POSTed payload. The filter must never return anything taken from the request.
+- An add-on that renders a preview from settings it stored itself (Pro's share links) switches preview mode on with `nx_is_preview` and returns those settings from `nx_preview_trusted_settings` (available from Free 3.4.0). `get_settings()` asks that filter only when the request carries no authorised preview POST, never reads `$_POST` for it, and cleans the result like a POSTed payload. The filter must never return anything taken from the request.
 
 Never read `$_POST['nx-preview']` anywhere else.
 
