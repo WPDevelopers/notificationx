@@ -23,6 +23,8 @@ import apiFetch from '@wordpress/api-fetch';
 // eslint-disable-next-line import/first
 import ReactModal from 'react-modal';
 // eslint-disable-next-line import/first
+import { addFilter, removeAllFilters } from '@wordpress/hooks';
+// eslint-disable-next-line import/first
 import PreviewModal from '../../../nxdev/notificationx/fields/PreviewModal';
 // eslint-disable-next-line import/first
 import { createForm, previewPayload } from '../../../nxdev/notificationx/fields/preview/form';
@@ -74,6 +76,7 @@ beforeEach( () => {
 } );
 
 afterEach( () => {
+	removeAllFilters( 'nx_preview_toolbar_items' );
 	act( () => {
 		ReactDOM.unmountComponentAtNode( container );
 	} );
@@ -369,5 +372,130 @@ describe( 'helpers', () => {
 		expect( groups.map( ( g ) => [ g.label, g.items.map( ( i ) => i.id ) ] ) ).toEqual( [ [ 'Pages', [ 1, 3 ] ], [ 'Posts', [ 2 ] ] ] );
 		expect( statusBadges( page( 1, { status: 'future', password: true } ) ) ).toEqual( [ 'Scheduled', 'Password' ] );
 		expect( statusBadges( page( 1 ) ) ).toEqual( [] );
+	} );
+} );
+
+describe( 'add-on slot (nx_preview_toolbar_items)', () => {
+	const ShareButton = ( { ctx } ) => (
+		<>
+			<button
+				type="button"
+				className="nx-preview-tool addon-share"
+				aria-expanded={ 'share' === ctx.panel }
+				onClick={ () => ctx.setPanel( 'share' === ctx.panel ? null : 'share' ) }
+			>
+				Share
+			</button>
+			{ 'share' === ctx.panel && <div className="nx-preview-panel addon-panel"><input className="addon-input" /></div> }
+		</>
+	);
+	let seen;
+	const addShare = () =>
+		addFilter( 'nx_preview_toolbar_items', 'test/share', ( items, ctx ) => {
+			seen = ctx;
+			return [ ...items, <ShareButton ctx={ ctx } key="share" /> ];
+		} );
+
+	it( 'renders nothing extra when no add-on uses it', async () => {
+		const head = await open();
+		expect( Array.from( head.querySelectorAll( '.nx-preview-tools > *' ) ).map( ( el ) => el.getAttribute( 'aria-label' ) ) ).toEqual( [
+			'Page: Home',
+			'Open in new tab',
+		] );
+	} );
+
+	it( 'gives add-ons the values, the page, the URL and the size', async () => {
+		addShare();
+		const head = await open();
+		expect( head.querySelector( '.nx-preview-tools > .addon-share' ).previousElementSibling.getAttribute( 'aria-label' ) ).toBe( 'Open in new tab' );
+		expect( seen ).toMatchObject( { values: mockBuilder.values, previewType: 'desktop', page: null, url: HOME, defaultUrl: HOME, size: 'wide', panel: null } );
+
+		apiFetch.mockResolvedValue( { items: [ page( 7 ) ] } );
+		act( () => {
+			head.querySelector( '.nx-preview-tool-page' ).click();
+		} );
+		await flush();
+		expect( seen.panel ).toBe( 'page' );
+		act( () => {
+			document.querySelector( '.nx-preview-page-item' ).click();
+		} );
+		expect( seen.page.id ).toBe( 7 );
+		expect( seen.url ).toBe( 'http://storefy.local/page-7/' );
+		expect( seen.defaultUrl ).toBe( HOME );
+	} );
+
+	it( 'keeps one panel open at a time', async () => {
+		addShare();
+		const head = await open();
+		act( () => {
+			head.querySelector( '.addon-share' ).click();
+		} );
+		expect( document.querySelector( '.addon-panel' ) ).not.toBeNull();
+		act( () => {
+			head.querySelector( '.nx-preview-tool-page' ).click();
+		} );
+		await flush();
+		expect( document.querySelector( '.addon-panel' ) ).toBeNull();
+		expect( document.querySelector( '.nx-preview-page-picker' ) ).not.toBeNull();
+		act( () => {
+			head.querySelector( '.addon-share' ).click();
+		} );
+		expect( document.querySelector( '.nx-preview-page-picker' ) ).toBeNull();
+		// A click inside an add-on panel keeps it open.
+		act( () => {
+			document.querySelector( '.addon-input' ).dispatchEvent( new MouseEvent( 'mousedown', { bubbles: true } ) );
+		} );
+		expect( document.querySelector( '.addon-panel' ) ).not.toBeNull();
+	} );
+
+	it( 'Escape closes an add-on panel and returns to its button', async () => {
+		addShare();
+		const head = await open();
+		act( () => {
+			head.querySelector( '.addon-share' ).click();
+		} );
+		document.querySelector( '.addon-input' ).focus();
+		act( () => {
+			document.querySelector( '.addon-input' ).dispatchEvent( new KeyboardEvent( 'keydown', { key: 'Escape', keyCode: 27, bubbles: true } ) );
+		} );
+		expect( document.querySelector( '.addon-panel' ) ).toBeNull();
+		expect( document.querySelector( '.nx-admin-modal-head' ) ).not.toBeNull();
+		expect( document.activeElement ).toBe( head.querySelector( '.addon-share' ) );
+	} );
+
+	it( 'add-ons can open the new tab', async () => {
+		addShare();
+		await open();
+		act( () => {
+			seen.openInNewTab();
+		} );
+		expect( submitted[ 1 ] ).toMatchObject( { action: HOME, target: '_blank' } );
+	} );
+
+	it( 'ignores anything that is not a list of elements', async () => {
+		addFilter( 'nx_preview_toolbar_items', 'test/bad', () => 'Share' );
+		let head = await open();
+		expect( head.querySelectorAll( '.nx-preview-tools > *' ) ).toHaveLength( 2 );
+		act( () => {
+			ReactDOM.unmountComponentAtNode( container );
+		} );
+		removeAllFilters( 'nx_preview_toolbar_items' );
+		addFilter( 'nx_preview_toolbar_items', 'test/mixed', () => [ 'text', null, { a: 1 }, <button type="button" className="ok" key="ok" /> ] );
+		head = await open();
+		expect( head.querySelectorAll( '.nx-preview-tools > *' ) ).toHaveLength( 3 );
+		expect( head.querySelector( '.nx-preview-tools > .ok' ) ).not.toBeNull();
+	} );
+
+	it( 'a broken add-on cannot break the Preview', async () => {
+		const Broken = () => {
+			throw new Error( 'boom' );
+		};
+		addFilter( 'nx_preview_toolbar_items', 'test/broken', ( items ) => [ ...items, <Broken key="b" /> ] );
+		jest.spyOn( console, 'error' ).mockImplementation( () => {} );
+		const head = await open();
+		expect( head.querySelector( '.nx-error-boundary' ) ).not.toBeNull();
+		expect( head.querySelector( '.nx-preview-tool-page' ) ).not.toBeNull();
+		expect( document.querySelector( 'iframe[name="preview-modal-iframe"]' ) ).not.toBeNull();
+		expect( submitted ).toHaveLength( 1 );
 	} );
 } );

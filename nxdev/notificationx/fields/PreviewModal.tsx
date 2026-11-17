@@ -157,6 +157,9 @@ const PreviewModal = (props) => {
                             <MobileIcon style={{ width: 15 }} />
                         </button>
                         <PreviewToolbar
+                            values={context.values}
+                            previewType={previewType}
+                            url={previewUrl}
                             size={toolbarSize(popupWidth(previewType, windowWidth))}
                             defaultUrl={defaultUrl}
                             homeUrl={props.urls?.["default"] || ""}

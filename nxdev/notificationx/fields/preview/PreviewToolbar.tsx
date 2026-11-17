@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { __, sprintf } from "@wordpress/i18n";
+import { applyFilters } from "@wordpress/hooks";
+import ErrorBoundary from "../../components/ErrorBoundary";
 import PagePicker, { PreviewPage } from "./PagePicker";
 import { ToolbarSize } from "./size";
 
@@ -21,7 +23,29 @@ const NewTabIcon = () => (
     </svg>
 );
 
+/**
+ * What add-ons get in the `nx_preview_toolbar_items` filter.
+ */
+export type PreviewToolbarContext = {
+    // The current, unsaved builder values (the saved notification's id is `values.id`).
+    values: any;
+    previewType: string;
+    // The page picked in the page picker, or null for the default page.
+    page: PreviewPage | null;
+    // The URL the preview shows now, and the default one.
+    url: string;
+    defaultUrl: string;
+    size: ToolbarSize;
+    // One panel is open at a time: give yours a name and use these.
+    panel: string | null;
+    setPanel: (panel: string | null) => void;
+    openInNewTab: () => void;
+};
+
 type PreviewToolbarProps = {
+    values: any;
+    previewType: string;
+    url: string;
     size: ToolbarSize;
     defaultUrl: string;
     homeUrl: string;
@@ -53,7 +77,7 @@ export const pageName = (chosen: PreviewPage | null, defaultName: { title: strin
  * buttons and the close button keep their places.
  */
 const PreviewToolbar = (props: PreviewToolbarProps) => {
-    const { size, defaultUrl, homeUrl, defaultName, chosen, onChoose, onDefaultName, openInNewTab } = props;
+    const { values, previewType, url, size, defaultUrl, homeUrl, defaultName, chosen, onChoose, onDefaultName, openInNewTab } = props;
     const [panel, setPanel] = useState<string | null>(null);
     const root = useRef<HTMLDivElement>(null);
     const pageButton = useRef<HTMLButtonElement>(null);
@@ -79,10 +103,11 @@ const PreviewToolbar = (props: PreviewToolbarProps) => {
 
     const onKeyDown = (event: React.KeyboardEvent) => {
         if ("Escape" === event.key && panel) {
-            // Close the panel, not the whole Preview.
+            // Close the panel, not the whole Preview, and go back to its button.
             event.stopPropagation();
+            const opener = root.current?.querySelector<HTMLElement>('[aria-expanded="true"]');
             setPanel(null);
-            pageButton.current?.focus();
+            (opener || pageButton.current)?.focus();
         }
     };
 
@@ -91,6 +116,28 @@ const PreviewToolbar = (props: PreviewToolbarProps) => {
         setPanel(null);
         onChoose(page);
     };
+
+    /**
+     * Add-on controls after "Open in new tab" (for example Pro's Share).
+     * Each item is a React element. A panel is an element with the class
+     * `nx-preview-panel`, shown while `panel` is its name.
+     */
+    const context: PreviewToolbarContext = {
+        values,
+        previewType,
+        page: chosen,
+        url,
+        defaultUrl,
+        size,
+        panel,
+        setPanel,
+        openInNewTab: () => {
+            setPanel(null);
+            openInNewTab();
+        },
+    };
+    const extra = applyFilters("nx_preview_toolbar_items", [], context);
+    const items = Array.isArray(extra) ? extra.filter((item) => React.isValidElement(item)) : [];
 
     return (
         <div ref={root} className={`nx-preview-tools nx-preview-tools-${size}`} onKeyDown={onKeyDown}>
@@ -118,13 +165,17 @@ const PreviewToolbar = (props: PreviewToolbarProps) => {
                 className="nx-preview-tool icon"
                 aria-label={__("Open in new tab", "notificationx")}
                 title={__("Open in new tab", "notificationx")}
-                onClick={() => {
-                    setPanel(null);
-                    openInNewTab();
-                }}
+                onClick={context.openInNewTab}
             >
                 <NewTabIcon />
             </button>
+            {items.length > 0 && (
+                <ErrorBoundary>
+                    {items.map((item, index) => (
+                        <React.Fragment key={index}>{item}</React.Fragment>
+                    ))}
+                </ErrorBoundary>
+            )}
             {"page" === panel && (
                 <PagePicker
                     defaultUrl={defaultUrl}
