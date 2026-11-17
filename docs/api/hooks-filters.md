@@ -104,9 +104,16 @@ Fired, roughly in order, as [FrontEnd.php](../../includes/FrontEnd/FrontEnd.php)
 
 ### In-builder preview
 
-Preview mirrors the frontend pipeline with `nx_preview_*` variants — see [Preview.php](../../includes/FrontEnd/Preview.php): `nx_preview_entry_{type}` / `_{source}`, `nx_preview_settings_{source}`, `nx_is_preview`, `nx_preview_url`, plus reuse of `nx_fallback_data*`, `nx_filtered_entry*`, and `nx_get_post*`.
+Preview mirrors the frontend pipeline with `nx_preview_*` variants — see [Preview.php](../../includes/FrontEnd/Preview.php): `nx_preview_entry_{type}` / `_{source}`, `nx_preview_settings_{source}`, `nx_is_preview`, `nx_preview_url`, `nx_preview_trusted_settings`, plus reuse of `nx_fallback_data*`, `nx_filtered_entry*`, and `nx_get_post*`.
 
 `nx_is_preview` only switches preview styling and behaviour on. The POSTed `nx-preview` payload is read only for a request with a valid `nx-preview-nonce` from a user with `edit_notificationx`, whatever the filter returns. If you force the filter on, remove your callback again as soon as you are done, or preview mode stays on for the rest of the request. See [In-builder preview](../architecture/frontend-runtime.md#in-builder-preview).
+
+| Filter | Modifies | Args |
+| --- | --- | --- |
+| `nx_preview_trusted_settings` | Settings a preview renders when the request has **no** authorised preview POST, for example a snapshot an add-on stored itself (Pro's share links). Use it together with `nx_is_preview`. Asked only when the POST gate fails; it never makes the POST readable. Return only settings your code stored, never anything from the request. The result is cleaned like a POSTed payload ([Preview.php](../../includes/FrontEnd/Preview.php) `trusted_settings()`). | `array $settings` (empty) |
+| `nx_preview_page_post_types` | Post types the Preview's page picker searches ([Rest/PreviewPages.php](../../includes/Core/Rest/PreviewPages.php)). Default: public, searchable, no attachments. Unknown types are dropped. | `string[] $types` |
+
+**Builder JS filter `nx_preview_toolbar_items`** ([fields/preview/PreviewToolbar.tsx](../../nxdev/notificationx/fields/preview/PreviewToolbar.tsx), `@wordpress/hooks`): add-on controls in the Preview popup's top bar, after the page picker and "Open in new tab". Return the list with your React elements added (anything else is ignored; the items render in an error boundary). The second argument has `values` (unsaved builder values; `values.id` is the saved notification), `previewType`, `page` (the picked page or `null`), `url` (what the preview shows now), `defaultUrl`, `size` (`wide`, `narrow` at an 820px window or the tablet frame, `compact` with the phone frame), `panel` / `setPanel(name|null)` (one panel open at a time; Escape and outside clicks close it), and `openInNewTab()`. Give your buttons the class `nx-preview-tool` (`icon` for icon-only, `active` while open) and your panel `nx-preview-panel` to match.
 
 ### Settings tabs
 
