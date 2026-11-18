@@ -2,7 +2,7 @@
 
 > An Announcement popup can open when a visitor clicks a chosen button or link, as a "When to Open" option next to its existing triggers (the delay, and Convert to Exit Intent).
 >
-> Available from Free x.x.x (version to be set).
+> Available from Free 3.4.1.
 
 ## The setting
 

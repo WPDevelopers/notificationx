@@ -1,6 +1,6 @@
 # QA: Click-open popup
 
-**Version:** Free x.x.x (to be set). Branch `click-open-popup`.
+**Version:** available from Free 3.4.1.
 
 **What changed:** an Announcement popup can open when a visitor clicks a chosen button or link (Customize → When to Open). Feature doc: [../features/click-open-popup.md](../features/click-open-popup.md).
 
