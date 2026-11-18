@@ -646,7 +646,8 @@ class WhyNotShowing {
             }
             $same = $queue ? ! empty( $other['global_queue'] ) : ( empty( $other['global_queue'] ) && '' !== $position && ( $other['position'] ?? '' ) === $position && $this->is_bar( $other ) === $this->is_bar( $post ) );
             if ( $same ) {
-                $others[] = '“' . wp_strip_all_tags( (string) ( $other['title'] ?? '' ) ) . '” (#' . (int) $other['nx_id'] . ')';
+                $name     = trim( wp_strip_all_tags( (string) ( $other['title'] ?? '' ) ) );
+                $others[] = '' === $name ? '#' . (int) $other['nx_id'] : '“' . $name . '” (#' . (int) $other['nx_id'] . ')';
             }
         }
         if ( empty( $others ) ) {

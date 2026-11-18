@@ -287,6 +287,8 @@ class Test_Why_Not_Showing extends WP_UnitTestCase {
 		$slot  = $this->by_key( $this->reasons( $id ), 'slot' );
 		$this->assertSame( 'note', $slot['level'] );
 		$this->assertStringContainsString( "“Neighbour” (#$other)", $slot['detail'] );
+		$untitled = $this->notification( [], [ 'title' => '' ] );
+		$this->assertStringContainsString( ", #$untitled", $this->by_key( $this->reasons( $id ), 'slot' )['detail'], 'Untitled ones by number.' );
 		$this->notification( [], [ 'title' => 'Off', 'enabled' => false ] );
 		$this->assertStringNotContainsString( 'Off', $this->by_key( $this->reasons( $id ), 'slot' )['detail'] );
 	}
