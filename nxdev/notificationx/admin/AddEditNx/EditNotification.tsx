@@ -8,6 +8,8 @@ import withDocumentTitle from '../../core/withDocumentTitle';
 import { useNotificationXContext } from '../../hooks';
 import Notice from './Notice';
 
+const LINKABLE_TABS = ['source_tab', 'design_tab', 'content_tab', 'display_tab', 'customize_tab'];
+
 const EditNotification = (props) => {
     const builderTabs = { ...notificationxTabs };
     delete builderTabs.settings;
@@ -44,6 +46,11 @@ const EditNotification = (props) => {
                 let currentTab = res?.currentTab;
                 if (currentTab == 'finalize_tab') {
                     currentTab = 'source_tab';
+                }
+                // "Why isn't it showing?" links open the tab that has the fix.
+                const linkedTab = new URLSearchParams(props?.location?.search ?? window.location.search).get('tab');
+                if (linkedTab && LINKABLE_TABS.includes(linkedTab)) {
+                    currentTab = linkedTab;
                 }
                 builder.setActiveTab(currentTab || 'source_tab');
                 setTitle(res?.title);

@@ -1,0 +1,298 @@
+// "Why isn't it showing?" modal (All NotificationX → row menu).
+// ReactModal renders into <body>, outside #notificationx, so nothing is nested.
+.nx-wns-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(26, 23, 56, 0.45);
+}
+
+.nx-wns-modal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 620px;
+    max-height: calc(100vh - 64px);
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(26, 23, 56, 0.25);
+    font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #25396f;
+    outline: none;
+    overflow: hidden;
+
+    h2 {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.3;
+        font-weight: 700;
+        color: #25396f;
+    }
+
+    h3 {
+        margin: 0 0 8px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #6a7592;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+}
+
+.nx-wns-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid #eceafe;
+}
+
+.nx-wns-subtitle {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #6a7592;
+    word-break: break-word;
+}
+
+.nx-wns-close {
+    flex: none;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid #e9e8fe;
+    border-radius: 6px;
+    background: #efeffe;
+    color: #6a4bff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+        background: #6a4bff;
+        color: #fff;
+    }
+}
+
+.nx-wns-content {
+    padding: 16px 24px;
+    overflow-y: auto;
+}
+
+.nx-wns-loading,
+.nx-wns-error {
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+.nx-wns-error {
+    color: #b42318;
+}
+
+.nx-wns-verdict {
+    margin: 0 0 16px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+
+    &--blocked {
+        background: #fef3f2;
+        color: #b42318;
+    }
+
+    &--limited {
+        background: #fffaeb;
+        color: #93370d;
+    }
+
+    &--ok {
+        background: #ecfdf3;
+        color: #067647;
+    }
+}
+
+.nx-wns-group {
+    margin: 0 0 16px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    summary {
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #6a7592;
+        margin-bottom: 8px;
+    }
+}
+
+.nx-wns-count {
+    display: inline-block;
+    min-width: 20px;
+    padding: 0 6px;
+    margin-inline-start: 4px;
+    border-radius: 10px;
+    background: #efeffe;
+    color: #6a4bff;
+    text-align: center;
+}
+
+.nx-wns-reason {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid #f2f1fe;
+
+    &:first-child {
+        border-top: 0;
+        padding-top: 4px;
+    }
+
+    &__icon {
+        flex: none;
+        width: 20px;
+        height: 20px;
+        margin-top: 1px;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 20px;
+        text-align: center;
+
+        &::before {
+            content: "!";
+        }
+    }
+
+    &--blocked &__icon {
+        background: #e5484d;
+    }
+
+    &--limited &__icon {
+        background: #f59e0b;
+    }
+
+    &--note &__icon {
+        background: #6a4bff;
+
+        &::before {
+            content: "i";
+        }
+    }
+
+    &--ok &__icon {
+        background: #12b76a;
+
+        &::before {
+            content: "✓";
+        }
+    }
+
+    &__body {
+        min-width: 0;
+    }
+
+    &__title {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #25396f;
+    }
+
+    &__detail {
+        margin: 4px 0 0;
+        font-size: 13px;
+        line-height: 1.5;
+        color: #495463;
+        word-break: break-word;
+    }
+
+    &__fix {
+        display: inline-block;
+        margin-top: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #6a4bff;
+        text-decoration: none;
+
+        &:hover,
+        &:focus-visible {
+            text-decoration: underline;
+            color: #5135e6;
+        }
+    }
+
+    &--ok {
+        padding: 6px 0;
+        border-top: 0;
+    }
+}
+
+.nx-wns-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 24px;
+    border-top: 1px solid #eceafe;
+    font-size: 12px;
+    color: #6a7592;
+}
+
+.nx-wns-button {
+    flex: none;
+    padding: 8px 18px;
+    border: 0;
+    border-radius: 6px;
+    background: #6a4bff;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+        background: #5135e6;
+    }
+}
+
+@media (max-width: 600px) {
+    .nx-wns-overlay {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .nx-wns-modal {
+        max-height: 92vh;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .nx-wns-header,
+    .nx-wns-content,
+    .nx-wns-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .nx-wns-footer {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+}
