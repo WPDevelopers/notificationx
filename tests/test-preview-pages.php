@@ -217,4 +217,20 @@ class Test_Preview_Pages extends WP_UnitTestCase {
 		$this->assertContains( $page, $ids );
 		$this->assertNotContains( $post, $ids );
 	}
+
+	public function test_titles_have_no_private_or_protected_prefix() {
+		$this->admin();
+		$private   = self::factory()->post->create( array( 'post_type' => 'page', 'post_status' => 'private', 'post_title' => 'Secret plans' ) );
+		$protected = self::factory()->post->create( array( 'post_type' => 'page', 'post_password' => 'pw', 'post_title' => 'Members area' ) );
+		$marked    = self::factory()->post->create( array( 'post_type' => 'page', 'post_title' => 'Tom &amp; Jerry <b>sale</b>' ) );
+		$untitled  = self::factory()->post->create( array( 'post_type' => 'page', 'post_status' => 'private', 'post_title' => '' ) );
+		$response  = $this->get( array( 'per_page' => 50 ) );
+
+		$this->assertSame( 'Secret plans', $this->item( $response, $private )['title'] );
+		$this->assertSame( 'private', $this->item( $response, $private )['status'], 'The badge still says Private.' );
+		$this->assertSame( 'Members area', $this->item( $response, $protected )['title'] );
+		$this->assertTrue( $this->item( $response, $protected )['password'] );
+		$this->assertSame( 'Tom & Jerry sale', $this->item( $response, $marked )['title'], 'Plain text, no tags.' );
+		$this->assertSame( '(no title)', $this->item( $response, $untitled )['title'] );
+	}
 }

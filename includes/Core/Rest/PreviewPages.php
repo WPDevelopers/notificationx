@@ -180,7 +180,10 @@ class PreviewPages {
      * @return string
      */
     protected function title( $post ) {
-        $title = html_entity_decode( wp_strip_all_tags( get_the_title( $post ) ), ENT_QUOTES, get_bloginfo( 'charset' ) );
+        // The raw title: get_the_title() adds "Private:" / "Protected:", and
+        // the picker already shows those as badges. Tags are stripped; the
+        // admin renders it as text, so React escapes it.
+        $title = html_entity_decode( wp_strip_all_tags( (string) $post->post_title ), ENT_QUOTES, get_bloginfo( 'charset' ) );
         return '' !== trim( $title ) ? $title : __( '(no title)', 'notificationx' );
     }
 
