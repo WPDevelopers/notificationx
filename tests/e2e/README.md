@@ -95,6 +95,21 @@ node tests/e2e/builder-settings-redaction.js 179     # this notification
 
 Besides the two users, it writes one login session per user and removes them when the run ends. Console errors that also show on `dev` without the fix (React development warnings, an icon with `height="auto"`, the Dashboard's analytics request for a view-only user) are not counted; the list is in the script.
 
+## WooCommerce orders after a save or Regenerate
+
+[woo-orders-rebuild.js](woo-orders-rebuild.js) checks which orders a WooCommerce sales notification stores when it is saved or regenerated, and which reach a visitor (issue #218). The start of the "Display From The Last" window used to be 12 hours off when it fell between 00:00 and 00:59 UTC or between 13:00 and 23:59 UTC. The runner picks the "hours" part of the window from the current time, so it tests both ranges at any time of day.
+
+- [woo-orders-rebuild.php](woo-orders-rebuild.php) (through WP-CLI) creates one product and 16 Processing orders of known ages, without sending email.
+- The runner saves a WooCommerce Sales notification through `POST /nx`, as the builder does, then for each window compares the stored orders with the expected ones. An order 6 hours inside the window must be stored and one 6 hours outside must not.
+- It also checks Display The Last (5 and 20), a save back to the first settings, `GET /regenerate/{id}`, the entries the public `notice` route returns to a visitor, the popup on the home page, and the older Sales Notification type with the WooCommerce source.
+
+```bash
+node tests/e2e/woo-orders-rebuild.js
+NX_E2E_PHP_MEMORY=2G node tests/e2e/woo-orders-rebuild.js   # when WP-CLI runs out of memory
+```
+
+It needs WooCommerce active and no Processing or Completed order from the last 31 days, because other orders would count towards Display The Last; it stops with a message otherwise. It deletes the product, the orders, both notifications and the login session when the run ends. Manual cases: [docs/qa-guide/woo-sales-rebuild-window.md](../../docs/qa-guide/woo-sales-rebuild-window.md).
+
 ## Build With AI preset preview (Pro)
 
 `tests/e2e/preset-preview.js` in NotificationX Pro opens the Exit Intent Build With AI history with a mocked preset and checks the preview POST carries the nonce and renders. It reuses `auth.php` and `puppeteer-core` from this plugin.

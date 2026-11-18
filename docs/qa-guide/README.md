@@ -12,6 +12,7 @@ Manual test plans for NotificationX (free) releases. Each guide says what change
 | [preview-access-gate.md](preview-access-gate.md) | Security fix for the builder preview (Patchstack): preview requests need a nonce and the `edit_notificationx` capability, the builder and Pro's Build with AI send it, Gutenberg / Elementor bars render only from their own published posts, and the Inline block in a block template. |
 | [builder-settings-redaction.md](builder-settings-redaction.md) | Security fix for credentials in the builder payload: View / Create roles get no settings form and no credential (YouTube token, Freemius secret key, integration API key in field defaults), admins unchanged, settings export / import, Zapier and Brevo webhooks with the existing key, free × Pro version matrix. |
 | [deactivation-feedback-form.md](deactivation-feedback-form.md) | Layout and behaviour fix for the "Sorry to see you go" dialog: overlay above the admin menu and admin bar, Better Payment look, no loading state on submit, redirect when the request fails, narrow screens. |
+| [woo-sales-rebuild-window.md](woo-sales-rebuild-window.md) | Fix for the WooCommerce sales window on save and Regenerate (#218): orders from the first 12 hours of the window were not stored when the window started between 00:00 and 00:59 UTC. Display The Last, Order Status, new orders and Pro unchanged. |
 
 ## Conventions
 

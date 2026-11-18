@@ -424,6 +424,32 @@ class WooCommerce extends Extension {
     }
 
     /**
+     * Arguments for the wc_get_orders() call that rebuilds a notification's
+     * entries on save and on Regenerate.
+     *
+     * `date_created` is the start of the "Display From The Last" window as a
+     * UTC timestamp, which wc_get_orders() compares to the second. It must not
+     * go through a date format: a 12-hour `h` used to move the start 12 hours
+     * later when it fell between 00:00 and 00:59 UTC, and 12 hours earlier when
+     * it fell between 13:00 and 23:59 UTC.
+     *
+     * `numberposts` carries "Display The Last"; wc_get_orders() maps it to
+     * `limit` and returns the newest orders first.
+     *
+     * @param array $data Notification settings.
+     * @return array
+     */
+    public function get_orders_query_args($data = array()) {
+        $from   = Helper::generate_time_string($data);
+        $status = !empty($data['order_status']) ? $data['order_status'] : ['wc-completed', 'wc-processing'];
+        return [
+            'status'       => $status,
+            'date_created' => '>' . $from,
+            'numberposts'  => isset($data['display_last']) ? intval($data['display_last']) : 10,
+        ];
+    }
+
+    /**
      * Get all the orders from database using a date query
      * for limitation.
      *
@@ -432,15 +458,8 @@ class WooCommerce extends Extension {
      */
     public function get_orders($data = array()) {
         if (empty($data) || !function_exists('wc_get_orders')) return null;
-        $orders = [];
-        $time   = Helper::generate_time_string($data);
-        $from   = strtotime(gmdate('Y-m-d h:i', $time));
-        $status = !empty($data['order_status']) ? $data['order_status'] : ['wc-completed', 'wc-processing'];
-        $wc_orders = \wc_get_orders([
-            'status'       => $status,
-            'date_created' => '>' . $from,
-            'numberposts'  => isset($data['display_last']) ? intval($data['display_last']) : 10,
-        ]);
+        $orders    = [];
+        $wc_orders = \wc_get_orders($this->get_orders_query_args($data));
         foreach ($wc_orders as $order) {
             $items = $order->get_items();
             foreach ($items as $item) {
