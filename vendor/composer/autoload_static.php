@@ -96,6 +96,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Core\\Upgrader' => __DIR__ . '/../..' . '/includes/Core/Upgrader.php',
         'NotificationX\\Core\\UsageTracker' => __DIR__ . '/../..' . '/includes/Core/UsageTracker.php',
         'NotificationX\\Core\\WPDRoleManagement' => __DIR__ . '/../..' . '/includes/Core/WPDRoleManagement.php',
+        'NotificationX\\Core\\WhyNotShowing' => __DIR__ . '/../..' . '/includes/Core/WhyNotShowing.php',
         'NotificationX\\Extensions\\ActiveCampaign\\ActiveCampaign' => __DIR__ . '/../..' . '/includes/Extensions/ActiveCampaign/ActiveCampaign.php',
         'NotificationX\\Extensions\\BitIntegrations\\BitIntegrations' => __DIR__ . '/../..' . '/includes/Extensions/BitIntegrations/BitIntegrations.php',
         'NotificationX\\Extensions\\BitIntegrations\\BitIntegrationsConversions' => __DIR__ . '/../..' . '/includes/Extensions/BitIntegrations/BitIntegrationsConversions.php',
