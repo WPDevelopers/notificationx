@@ -38,6 +38,28 @@ export const createForm = (action: string, method: string, target: string, data:
     return form;
 };
 
+/**
+ * The Preview frame's name, which the form posts to. WordPress core renames
+ * the frame's window on `?preview=true` pages (wp_post_preview_js():
+ * `window.name = 'wp-preview-<id>'`), and a form posted to a name no window
+ * has opens a new tab. Called right before every post into the frame.
+ */
+export const FRAME_NAME = "preview-modal-iframe";
+
+export const resetFrameName = (iframe: HTMLIFrameElement | null) => {
+    if (!iframe) {
+        return;
+    }
+    iframe.name = FRAME_NAME;
+    try {
+        if (iframe.contentWindow && iframe.contentWindow.name !== FRAME_NAME) {
+            iframe.contentWindow.name = FRAME_NAME;
+        }
+    } catch (e) {
+        // A frame on another origin can't be renamed; it's re-mounted per page anyway.
+    }
+};
+
 // A function that creates and submits a form to an iframe or a new tab
 export const postToTarget = (action: string, method: string, target: string, data: { [key: string]: string }) => {
     // Create a form element with the given parameters

@@ -27,7 +27,7 @@ import { addFilter, removeAllFilters } from '@wordpress/hooks';
 // eslint-disable-next-line import/first
 import PreviewModal from '../../../nxdev/notificationx/fields/PreviewModal';
 // eslint-disable-next-line import/first
-import { createForm, previewPayload } from '../../../nxdev/notificationx/fields/preview/form';
+import { createForm, previewPayload, resetFrameName } from '../../../nxdev/notificationx/fields/preview/form';
 // eslint-disable-next-line import/first
 import { popupWidth, toolbarSize } from '../../../nxdev/notificationx/fields/preview/size';
 // eslint-disable-next-line import/first
@@ -65,6 +65,11 @@ beforeEach( () => {
 			rel: this.getAttribute( 'rel' ),
 			fields: Object.fromEntries( Array.from( this.elements ).map( ( el ) => [ el.name, el.value ] ) ),
 			inDocument: document.body.contains( this ),
+			// The window the form's target names at the moment it's posted.
+			frameWindowName: ( () => {
+				const frame = document.querySelector( 'iframe' );
+				return frame && frame.contentWindow ? frame.contentWindow.name : null;
+			} )(),
 		} );
 	} );
 	apiFetch.mockReset();
@@ -216,6 +221,59 @@ describe( 'page picker', () => {
 		} );
 		expect( submitted[ 2 ].action ).toBe( HOME );
 		expect( head.querySelector( '.nx-preview-tool-page' ).textContent ).toBe( 'Page: Home' );
+	} );
+
+	it( 'a draft\'s preview page renaming the frame never sends the next choice to a new tab', async () => {
+		const head = await open();
+		apiFetch.mockResolvedValue( { items: [ page( 7, { status: 'draft' } ), page( 8 ) ], current: null } );
+		const choose = async ( index ) => {
+			act( () => {
+				head.querySelector( '.nx-preview-tool-page' ).click();
+			} );
+			await flush();
+			act( () => {
+				document.querySelectorAll( '.nx-preview-page-item' )[ index ].click();
+			} );
+		};
+		// WordPress core on ?preview=true pages: window.name = 'wp-preview-<id>'.
+		const wpRenames = () => {
+			document.querySelector( 'iframe' ).contentWindow.name = 'wp-preview-7';
+		};
+
+		await choose( 0 ); // the draft
+		const draftFrame = document.querySelector( 'iframe' );
+		wpRenames();
+		await choose( 1 ); // a published page
+		wpRenames();
+		act( () => {
+			head.querySelector( '.nx-preview-tool-page' ).click();
+		} );
+		await flush();
+		act( () => {
+			document.querySelector( '.nx-preview-panel-foot .nx-preview-link' ).click(); // Back to default
+		} );
+		wpRenames();
+		await choose( 0 ); // the draft again
+
+		expect( submitted.map( ( s ) => s.action ) ).toEqual( [ HOME, 'http://storefy.local/page-7/', 'http://storefy.local/page-8/', HOME, 'http://storefy.local/page-7/' ] );
+		submitted.forEach( ( s ) => {
+			expect( s.target ).toBe( 'preview-modal-iframe' );
+			expect( s.frameWindowName ).toBe( 'preview-modal-iframe' );
+		} );
+		// A fresh frame per choice, always named for the form.
+		expect( document.querySelector( 'iframe' ) ).not.toBe( draftFrame );
+		expect( document.querySelectorAll( 'iframe' ) ).toHaveLength( 1 );
+		expect( document.querySelector( 'iframe' ).getAttribute( 'name' ) ).toBe( 'preview-modal-iframe' );
+	} );
+
+	it( 'resetFrameName gives a renamed frame window its name back', () => {
+		const frame = document.createElement( 'iframe' );
+		frame.name = 'preview-modal-iframe';
+		document.body.appendChild( frame );
+		frame.contentWindow.name = 'wp-preview-55';
+		resetFrameName( frame );
+		expect( frame.contentWindow.name ).toBe( 'preview-modal-iframe' );
+		expect( () => resetFrameName( null ) ).not.toThrow();
 	} );
 
 	it( 'searches after a short pause and keeps only the newest answer', async () => {

@@ -6,7 +6,7 @@ import { Button } from "@wordpress/components";
 import { ReactComponent as DesktopIcon } from "../icons/responsive/desktop.svg";
 import { ReactComponent as TabletIcon } from "../icons/responsive/tablet.svg";
 import { ReactComponent as MobileIcon } from "../icons/responsive/mobile.svg";
-import { postToTarget, previewPayload } from "./preview/form";
+import { FRAME_NAME, postToTarget, previewPayload, resetFrameName } from "./preview/form";
 import PreviewToolbar from "./preview/PreviewToolbar";
 import { PreviewPage } from "./preview/PagePicker";
 import { popupWidth, toolbarSize } from "./preview/size";
@@ -19,7 +19,9 @@ const PreviewModal = (props) => {
     // The page the owner picked; null shows the default page, as before.
     const [chosenPage, setChosenPage] = useState<PreviewPage | null>(null);
     const [defaultName, setDefaultName] = useState<{ url: string; id: number; title: string } | null>(null);
-    const [repost, setRepost] = useState(0);
+    // Bumped per picker choice: the frame is re-mounted (a fresh window with
+    // its name) and the request posted into it, never into a new tab.
+    const [frameKey, setFrameKey] = useState(0);
     const [windowWidth, setWindowWidth] = useState(() => window.innerWidth);
 
     const openModal = () => {
@@ -44,22 +46,27 @@ const PreviewModal = (props) => {
         postToTarget(previewUrl, "post", target, previewPayload(context.values, previewType));
     };
 
-    const onAfterOpen = () => {
-        // Get the iframe element
+    // Into the frame only: give its window back its name first (a draft's
+    // preview page renames it), so the form never opens a new tab.
+    const postToFrame = () => {
         const iframe = iframeRef.current;
-        if(!iframe){
+        if (!iframe) {
             return;
         }
+        resetFrameName(iframe);
+        postPreview(FRAME_NAME);
+    };
 
-        postPreview(iframe.name);
+    const onAfterOpen = () => {
+        postToFrame();
     }
 
-    // Another page was picked: the same request, to that page.
+    // Another page was picked: the same request, to that page, in a new frame.
     useEffect(() => {
-        if (repost && isOpen && iframeRef.current) {
-            postPreview(iframeRef.current.name);
+        if (frameKey && isOpen) {
+            postToFrame();
         }
-    }, [repost]);
+    }, [frameKey]);
 
     useEffect(() => {
         if (!isOpen) {
@@ -73,7 +80,7 @@ const PreviewModal = (props) => {
 
     const choosePage = (page: PreviewPage | null) => {
         setChosenPage(page);
-        setRepost((n) => n + 1);
+        setFrameKey((n) => n + 1);
     };
 
     useEffect(() => {
@@ -204,8 +211,9 @@ const PreviewModal = (props) => {
                             </div>
                         ) : (
                             <iframe
+                                key={frameKey}
                                 ref={iframeRef}
-                                name="preview-modal-iframe"
+                                name={FRAME_NAME}
                                 // src={url + "#" + previewType}
                                 width="100%"
                                 height="600px"
