@@ -108,6 +108,11 @@ Preview mirrors the frontend pipeline with `nx_preview_*` variants — see [Prev
 
 `nx_is_preview` only switches preview styling and behaviour on. The POSTed `nx-preview` payload is read only for a request with a valid `nx-preview-nonce` from a user with `edit_notificationx`, whatever the filter returns. If you force the filter on, remove your callback again as soon as you are done, or preview mode stays on for the rest of the request. See [In-builder preview](../architecture/frontend-runtime.md#in-builder-preview).
 
+### Why isn't it showing?
+
+- `nx_why_not_showing_reasons ( array $reasons, array $post )`: add reasons for your own sources or features. Each reason is `[ 'key', 'level' => 'blocked'|'limited'|'note'|'ok', 'title', 'detail', 'fix' => [ 'label', 'url' ] | null ]`. Reasons without a key, title or known level are dropped, links go through `esc_url_raw()`, and the list is sorted most serious first. Pro adds Flashing Tab, Growth Alert locations, API connections and the Zapier / IFTTT wording.
+- `nx_why_not_showing_without_entries ( string[] $sources )`: sources that render without entries, so the "no data to show" check skips them (default: `press_bar`, `gdpr_notification`, `popup_notification`, `exit_intent_custom`, `flashing_tab`).
+
 ### Settings tabs
 
 `nx_settings`, `nx_settings_configs`, `nx_settings_page_settings`, `nx_role_management`, and the per-tab filters `nx_settings_tab`, `nx_settings_tab_general`, `nx_settings_tab_advanced`, `nx_settings_tab_email_analytics`, `nx_settings_tab_entries`, `nx_settings_tab_cache`, `nx_settings_tab_miscellaneous` — all in [Settings.php](../../includes/Admin/Settings.php). Add a Pro settings section by hooking `nx_settings_tab`.

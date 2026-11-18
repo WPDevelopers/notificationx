@@ -94,6 +94,12 @@ These handle popup **and** exit-intent form submissions (`source IN ('popup_noti
 | POST | `/feedback-entries/bulk-delete` | `edit_notificationx` | Delete many submissions by `ids`. |
 | POST | `/feedback-entries/export` | `read_notificationx` | Export submissions as CSV. |
 
+### Why isn't it showing? — `includes/Core/WhyNotShowing.php`
+
+| Method | Route | Permission | Purpose |
+| --- | --- | --- | --- |
+| GET | `/why-not-showing/(?P<id>\d+)` | `edit_notificationx` | The reasons one notification may not appear: `{ id, title, reasons[], browser }`. Each reason has `key`, `level` (`blocked`, `limited`, `note`, `ok`), `title`, `detail`, `fix` (`{label, url}` or `null`). `browser` lists the cookie, localStorage and sessionStorage keys the front end writes when this notification is closed, so the admin screen can check the admin's own browser. Read-only, `Cache-Control: no-store`, `404` for an unknown id. See [../features/why-not-showing.md](../features/why-not-showing.md). |
+
 ## Auth & nonces
 
 **Custom capabilities.** Permission callbacks check NotificationX-specific caps rather than raw WP caps: `read_notificationx`, `edit_notificationx`, `edit_notificationx_settings`, and `read_notificationx_analytics`. These are mapped onto roles by `WPDRoleManagement` using the settings role map (see [../architecture/plugin-lifecycle.md](../architecture/plugin-lifecycle.md)). A few endpoints instead require core WP caps (`install_plugins` / `activate_plugins` for `/core-install`).
@@ -112,3 +118,4 @@ These handle popup **and** exit-intent form submissions (`source IN ('popup_noti
 - [../../includes/Core/Rest/Analytics.php](../../includes/Core/Rest/Analytics.php)
 - [../../includes/Core/Rest/BulkAction.php](../../includes/Core/Rest/BulkAction.php)
 - [../../includes/Core/Rest/Popup.php](../../includes/Core/Rest/Popup.php)
+- [../../includes/Core/WhyNotShowing.php](../../includes/Core/WhyNotShowing.php)
