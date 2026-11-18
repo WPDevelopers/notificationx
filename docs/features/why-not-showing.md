@@ -2,7 +2,7 @@
 
 > For a notification that doesn't appear on the site, lists the reasons, each with a fix and, where possible, a link to the setting that fixes it.
 >
-> Available from Free x.x.x (version to be set).
+> Available from Free 3.4.1.
 
 ## Where
 

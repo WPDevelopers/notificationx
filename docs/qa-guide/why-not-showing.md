@@ -1,6 +1,6 @@
 # QA: Why isn't it showing?
 
-**Version:** Free x.x.x and Pro x.x.x (to be set). Free branch `why-not-showing`; Pro branch `why-not-showing` for T11 and T12.
+**Version:** available from Free 3.4.1; T11 and T12 also need Pro 3.3.1.
 
 **What changed:** All NotificationX → a row's ⋯ menu has **"Why isn't it showing?"**. It opens a modal listing the reasons the notification may not appear, each with a fix link. Feature doc: [../features/why-not-showing.md](../features/why-not-showing.md).
 
