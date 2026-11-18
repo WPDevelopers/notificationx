@@ -38,6 +38,78 @@ class PopupNotification extends Extension {
      */
     public function __construct(){
         parent::__construct();
+        add_filter( "nx_save_post_{$this->id}", [ $this, 'sanitize_click_trigger' ], 10, 1 );
+    }
+
+    /**
+     * "When to Open" values.
+     *
+     * @since x.x.x
+     */
+    const OPEN_ON = [ 'auto', 'click', 'both' ];
+
+    /**
+     * The click targets the owner typed, as safe selectors: CSS classes and
+     * IDs only (".offer, #promo"; a bare name is a class). Anything else is
+     * dropped, so the front end never runs an arbitrary selector.
+     *
+     * @since x.x.x
+     * @param mixed $value Typed value.
+     * @return string Comma-separated selectors.
+     */
+    public static function click_selectors( $value ) {
+        if ( ! is_string( $value ) ) {
+            return '';
+        }
+        $out = [];
+        foreach ( explode( ',', $value ) as $part ) {
+            $part = trim( $part );
+            if ( '' === $part ) {
+                continue;
+            }
+            if ( '.' !== $part[0] && '#' !== $part[0] ) {
+                $part = '.' . $part;
+            }
+            if ( preg_match( '/^[.#]-?[A-Za-z_][A-Za-z0-9_-]*$/', $part ) && ! in_array( $part, $out, true ) ) {
+                $out[] = $part;
+            }
+        }
+        return implode( ', ', array_slice( $out, 0, 10 ) );
+    }
+
+    /**
+     * Whether a visitor's click can open this notification (an Announcement
+     * whose "When to Open" is click or both).
+     *
+     * @since x.x.x
+     * @param array $settings Notification.
+     * @return bool
+     */
+    public static function opens_on_click( $settings ) {
+        return is_array( $settings )
+            && 'popup_notification' === ( $settings['source'] ?? '' )
+            && in_array( $settings['popup_open_on'] ?? 'auto', [ 'click', 'both' ], true );
+    }
+
+    /**
+     * Keep the click trigger settings valid on save.
+     *
+     * @since x.x.x
+     * @param array $post Row to save.
+     * @return array
+     */
+    public function sanitize_click_trigger( $post ) {
+        if ( ! is_array( $post ) || ! isset( $post['data'] ) || ! is_array( $post['data'] ) ) {
+            return $post;
+        }
+        $data = &$post['data'];
+        if ( isset( $data['popup_open_on'] ) && ! in_array( $data['popup_open_on'], self::OPEN_ON, true ) ) {
+            $data['popup_open_on'] = 'auto';
+        }
+        if ( isset( $data['popup_click_selector'] ) ) {
+            $data['popup_click_selector'] = self::click_selectors( $data['popup_click_selector'] );
+        }
+        return $post;
     }
 
     public function init() {
@@ -1288,6 +1360,39 @@ class PopupNotification extends Extension {
                 $_fields['position']
             );
         }
+
+        // When to open: automatically (the delay, or exit intent), on click, or both.
+        $fields['popup_open_trigger'] = [
+            'label'    => __('When to Open', 'notificationx'),
+            'name'     => 'popup_open_trigger',
+            'type'     => 'section',
+            'priority' => 13,
+            'rules'    => Rules::is('source', $this->id),
+            'fields'   => [
+                'popup_open_on' => [
+                    'label'    => __('Open', 'notificationx'),
+                    'name'     => 'popup_open_on',
+                    'type'     => 'select',
+                    'default'  => 'auto',
+                    'priority' => 5,
+                    'options'  => GlobalFields::get_instance()->normalize_fields([
+                        'auto'  => __('Automatically (after the delay, or on exit intent)', 'notificationx'),
+                        'click' => __('Only when a visitor clicks', 'notificationx'),
+                        'both'  => __('Automatically and when a visitor clicks', 'notificationx'),
+                    ]),
+                ],
+                'popup_click_selector' => [
+                    'label'       => __('Click Target', 'notificationx'),
+                    'name'        => 'popup_click_selector',
+                    'type'        => 'text',
+                    'default'     => '',
+                    'priority'    => 10,
+                    'placeholder' => __('.open-offer, #promo-button', 'notificationx'),
+                    'help'        => __('A CSS class or ID of the buttons or links that open it (separate several with commas). A link to #nx-popup-ID (this notification’s ID) always opens it too. A click opens it even if the visitor closed it before; Show On and the audience still apply.', 'notificationx'),
+                    'rules'       => Rules::includes('popup_open_on', [ 'click', 'both' ]),
+                ],
+            ],
+        ];
 
         // Popup specific settings
         $fields['popup_settings'] = [
