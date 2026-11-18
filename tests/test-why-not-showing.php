@@ -267,6 +267,15 @@ class Test_Why_Not_Showing extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'ConvertKit', $reason['detail'] );
 	}
 
+	public function test_a_source_this_site_does_not_have() {
+		$id      = $this->notification( [ 'type' => 'page_analytics', 'source' => 'not_on_this_site', 'themes' => 'x' ] );
+		$reasons = $this->reasons( $id );
+		$reason  = $this->by_key( $reasons, 'pro' );
+		$this->assertSame( 'blocked', $reason['level'] );
+		$this->assertStringContainsString( 'not_on_this_site', $reason['detail'] );
+		$this->assertNull( $this->by_key( $reasons, 'data' ), 'Data is not judged without its source.' );
+	}
+
 	public function test_timing_and_other_notifications_in_the_same_place() {
 		$id = $this->notification( [ 'delay_before' => 90, 'loop' => false ] );
 		$this->assertSame( 'limited', $this->level( $id, 'timing' ) );

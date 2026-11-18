@@ -167,7 +167,13 @@ class WhyNotShowing {
     }
 
     protected function extension( $post ) {
-        $ext = ExtensionFactory::get_instance()->get( $post['source'] ?? '' );
+        $source  = $post['source'] ?? '';
+        $factory = ExtensionFactory::get_instance();
+        // ExtensionFactory::get() warns on an unknown key; ask only for known ones.
+        if ( ! is_string( $source ) || '' === $source || ! isset( $factory->extension_classes[ $source ] ) ) {
+            return null;
+        }
+        $ext = $factory->get( $source );
         return is_object( $ext ) ? $ext : null;
     }
 
@@ -191,6 +197,21 @@ class WhyNotShowing {
 
     public function check_pro( $post ) {
         $ext = $this->extension( $post );
+        if ( ! $ext ) {
+            return [
+                self::reason(
+                    'pro',
+                    self::BLOCKED,
+                    __( 'Its source isn’t available on this site', 'notificationx' ),
+                    /* translators: %s: source id, e.g. live_visitors. */
+                    sprintf( __( 'Its source (%s) isn’t registered here: it comes from NotificationX Pro, a newer version of it, or a feature that’s off. Install or update NotificationX Pro.', 'notificationx' ), (string) ( $post['source'] ?? '' ) ),
+                    [
+                        'label' => __( 'Open Plugins', 'notificationx' ),
+                        'url'   => admin_url( 'plugins.php' ),
+                    ]
+                ),
+            ];
+        }
         if ( ! NotificationX::is_pro() && $ext && ! empty( $ext->is_pro ) ) {
             return [
                 self::reason(
@@ -351,6 +372,11 @@ class WhyNotShowing {
             return [];
         }
 
+        if ( $this->has_blocker( $post ) ) {
+            // Pro, its module or its plugin is missing: the data can't be judged.
+            return [];
+        }
+
         global $wpdb;
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery -- A count and a date, read-only, admin-only.
         $row   = $wpdb->get_row( $wpdb->prepare( 'SELECT COUNT(*) AS total, MAX(created_at) AS newest FROM ' . Database::$table_entries . ' WHERE nx_id = %d', (int) $post['nx_id'] ), ARRAY_A );
@@ -369,7 +395,7 @@ class WhyNotShowing {
             ];
         }
 
-        if ( empty( $post['enabled'] ) || $this->has_blocker( $post ) ) {
+        if ( empty( $post['enabled'] ) ) {
             return [
                 self::reason(
                     'data',
