@@ -96,4 +96,29 @@ class Test_Popup_Click_Open extends WP_UnitTestCase {
 		$post = PostType::get_instance()->get_post( $old['nx_id'] );
 		$this->assertSame( 'auto', $post['popup_open_on'] ?? 'auto', 'Without the setting it opens automatically, as before.' );
 	}
+
+	public function test_a_popup_closed_for_good_is_still_sent_when_a_click_can_open_it() {
+		$make = function ( $open_on ) {
+			$saved = PostType::get_instance()->save_post( [ 'type' => 'popup', 'source' => 'popup_notification', 'themes' => 'popup_notification_theme-one', 'enabled' => true, 'title' => "closed $open_on", 'popup_open_on' => $open_on ] );
+			return (int) $saved['nx_id'];
+		};
+		$auto  = $make( 'auto' );
+		$click = $make( 'click' );
+		$both  = $make( 'both' );
+		$sent  = function () {
+			return array_map( 'intval', \NotificationX\FrontEnd\FrontEnd::get_instance()->get_notifications_ids()['popup'] );
+		};
+		$this->assertEqualsCanonicalizing( [ $auto, $click, $both ], array_values( array_intersect( $sent(), [ $auto, $click, $both ] ) ) );
+		foreach ( [ $auto, $click, $both ] as $id ) {
+			$_COOKIE[ "notificationx_$id" ] = 'true';
+		}
+		$now = $sent();
+		unset( $_COOKIE[ "notificationx_$auto" ], $_COOKIE[ "notificationx_$click" ], $_COOKIE[ "notificationx_$both" ] );
+		$this->assertNotContains( $auto, $now, 'An automatic popup closed for good stays away, as before.' );
+		$this->assertContains( $click, $now );
+		$this->assertContains( $both, $now );
+		$this->assertTrue( PopupNotification::opens_on_click( [ 'source' => 'popup_notification', 'popup_open_on' => 'both' ] ) );
+		$this->assertFalse( PopupNotification::opens_on_click( [ 'source' => 'woocommerce', 'popup_open_on' => 'click' ] ) );
+		$this->assertFalse( PopupNotification::opens_on_click( [ 'source' => 'popup_notification' ] ) );
+	}
 }

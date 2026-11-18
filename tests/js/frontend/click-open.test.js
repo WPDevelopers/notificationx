@@ -15,6 +15,8 @@ import {
 } from '../../../nxdev/notificationx/frontend/core/clickOpen';
 import Popup from '../../../nxdev/notificationx/frontend/core/Popup';
 import { NotificationProvider } from '../../../nxdev/notificationx/frontend/core/NotificationProvider';
+import { normalizeResponse } from '../../../nxdev/notificationx/frontend/core/utils';
+import cookie from 'react-cookies';
 
 const popup = ( extra = {} ) => ( { nx_id: 7, source: 'popup_notification', themes: 'popup_notification_theme-one', ...extra } );
 
@@ -43,6 +45,26 @@ describe( 'settings', () => {
 			'a[href$="#nx-popup-7"]',
 		] );
 		expect( clickSelectors( popup() ) ).toEqual( [ 'a[href$="#nx-popup-7"]' ] );
+	} );
+} );
+
+describe( 'a popup closed before', () => {
+	afterEach( () => {
+		sessionStorage.clear();
+		// react-cookies keeps cookies in memory under Jest.
+		cookie.remove( 'notificationx_7', { path: '/' } );
+		cookie.remove( 'notificationx_8', { path: '/' } );
+	} );
+
+	test( 'stays in the response when a click can open it; automatic ones are dropped as before', () => {
+		sessionStorage.setItem( 'notificationx_popup_7', 'closed' );
+		sessionStorage.setItem( 'notificationx_popup_8', 'closed' );
+		const response = { settings: {}, popup: { 7: { post: popup( { popup_open_on: 'click' } ) }, 8: { post: popup( { nx_id: 8 } ) } } };
+		expect( normalizeResponse( response ).popup.map( ( p ) => p.post.nx_id ) ).toEqual( [ 7 ] );
+		sessionStorage.clear();
+		cookie.save( 'notificationx_7', true, { path: '/' } );
+		cookie.save( 'notificationx_8', true, { path: '/' } );
+		expect( normalizeResponse( response ).popup.map( ( p ) => p.post.nx_id ) ).toEqual( [ 7 ] );
 	} );
 } );
 

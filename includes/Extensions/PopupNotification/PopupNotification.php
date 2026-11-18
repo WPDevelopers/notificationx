@@ -78,6 +78,20 @@ class PopupNotification extends Extension {
     }
 
     /**
+     * Whether a visitor's click can open this notification (an Announcement
+     * whose "When to Open" is click or both).
+     *
+     * @since x.x.x
+     * @param array $settings Notification.
+     * @return bool
+     */
+    public static function opens_on_click( $settings ) {
+        return is_array( $settings )
+            && 'popup_notification' === ( $settings['source'] ?? '' )
+            && in_array( $settings['popup_open_on'] ?? 'auto', [ 'click', 'both' ], true );
+    }
+
+    /**
      * Keep the click trigger settings valid on save.
      *
      * @since x.x.x

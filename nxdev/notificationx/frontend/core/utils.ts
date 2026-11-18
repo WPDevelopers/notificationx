@@ -1,6 +1,7 @@
 import { GetTemplate } from "../themes";
 import cookie from "react-cookies";
 import nxHelper from "../core/functions";
+import { opensOnClick } from "./clickOpen";
 // @ts-ignore
 
 // apiFetch.use(apiFetch.createNonceMiddleware(notificationX.rest.nonce));
@@ -48,7 +49,9 @@ export const normalizeResponse = (response: any) => {
     let mergedShortcodeArray = normalize(response?.shortcode, response?.settings);
     let pressbar             = normalizePressBar(response?.pressbar, response?.settings);
     let gdpr                 = normalizePressBar(response?.gdpr, response?.settings);
-    let popup                = normalizePressBar(response?.popup, response?.settings);
+    // A popup that opens on a click stays, even if closed before: the click
+    // always opens it; its automatic opening still checks (useNotificationX).
+    let popup                = normalizePressBar(response?.popup, response?.settings, opensOnClick);
     let exit_intent          = normalizePressBar(response?.exit_intent, response?.settings);
 
     return {
@@ -96,12 +99,12 @@ export const normalize = (_entries, globalSettings) => {
     return mergedArray;
 }
 
-export const normalizePressBar = (_entries, globalSettings) => {
+export const normalizePressBar = (_entries, globalSettings, keepClosed?: (config: any) => boolean) => {
     let mergedArray = [];
     _entries = _entries || {};
     for (const key in _entries) {
         let entry = _entries[key];
-        if (isNotClosed(entry)) {
+        if (isNotClosed(entry) || (keepClosed && keepClosed(entry?.post))) {
             mergedArray = [...mergedArray, { ...entry, post: { ...globalSettings, ...entry.post } }];
         }
     }
