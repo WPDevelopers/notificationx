@@ -49,6 +49,8 @@ class ExitIntentNotification extends Extension {
         add_filter( 'nx_filtered_post', [ $this, 'inject_elementor_html' ], 10, 2 );
         add_filter( 'nx_filtered_post', [ $this, 'localize_default_image' ], 10, 2 );
         add_filter( 'nx_filtered_post', [ $this, 'add_end_timestamp' ], 10, 2 );
+        add_filter( 'nx_get_post', [ $this, 'fill_empty_end_for_builder' ], 10, 2 );
+        add_filter( 'nx_save_post', [ $this, 'fill_empty_end_on_save' ], 10, 3 );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_elementor_assets' ], 20 );
         add_action( 'wp_head', [ $this, 'print_section_constraint_css' ], 99 );
         add_action( 'elementor/documents/register_controls', [ $this, 'register_popup_layout_controls' ] );
@@ -167,6 +169,62 @@ class ExitIntentNotification extends Extension {
             return false;
         }
         return $end <= ( null === $now ? time() : (int) $now );
+    }
+
+    /**
+     * The End Date & Time default: seven days from now, as the field's own.
+     *
+     * @return string UTC ISO 8601.
+     */
+    public static function default_end() {
+        return gmdate( 'c', time() + 7 * DAY_IN_SECONDS );
+    }
+
+    /**
+     * Builder read (`edit` context): an empty or unreadable end date becomes
+     * the 7-day default.
+     *
+     * Campaigns saved before this field existed have `exit_intent_countdown_end`
+     * as '' (the old Theme Five / Six default), so the field default never
+     * applied. The date field then showed the current time but saved '', and
+     * "Stop Showing After End Date" never stopped the popup. The frontend
+     * read is unchanged.
+     *
+     * @param array       $post    Campaign settings.
+     * @param string|null $context PostType context; the builder's REST read is 'edit'.
+     * @return array
+     */
+    public function fill_empty_end_for_builder( $post, $context = null ) {
+        if ( 'edit' !== $context || ! is_array( $post ) || ( $post['source'] ?? '' ) !== $this->id ) {
+            return $post;
+        }
+        if ( null === self::get_end_timestamp( $post ) ) {
+            $post['exit_intent_countdown_end'] = self::default_end();
+        }
+        return $post;
+    }
+
+    /**
+     * Save: with "Stop Showing After End Date" on, an empty or unreadable end
+     * date is stored as the 7-day default, so no save (builder, REST, MCP,
+     * import) can turn the toggle on with no end.
+     *
+     * @param array $post  Row to store; the settings are in `data`.
+     * @param array $data  Settings as sent.
+     * @param int   $nx_id Campaign ID, 0 when new.
+     * @return array
+     */
+    public function fill_empty_end_on_save( $post, $data, $nx_id ) {
+        if ( ( $data['source'] ?? '' ) !== $this->id || empty( $post['data'] ) || ! is_array( $post['data'] ) ) {
+            return $post;
+        }
+        if ( ! filter_var( $post['data']['exit_intent_hide_after_end'] ?? false, FILTER_VALIDATE_BOOLEAN ) ) {
+            return $post;
+        }
+        if ( null === self::get_end_timestamp( $post['data'] ) ) {
+            $post['data']['exit_intent_countdown_end'] = self::default_end();
+        }
+        return $post;
     }
 
     /**

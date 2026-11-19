@@ -131,4 +131,55 @@ class Test_Exit_Intent_Hide_After_End extends WP_UnitTestCase {
 		$this->assertArrayHasKey( $running, $data['exit_intent'] );
 		$this->assertArrayHasKey( $toggle_off, $data['exit_intent'] );
 	}
+
+	// --- Campaigns saved with an empty end date (Siam's QA on #212) -------------
+
+	protected function read( $nx_id, $context = '' ) {
+		PostType::get_instance()->set_context( $context );
+		$post = PostType::get_instance()->get_post( $nx_id );
+		PostType::get_instance()->set_context( '' );
+		return $post;
+	}
+
+	protected function assert_about_seven_days_ahead( $value ) {
+		$ts = ExitIntentNotification::get_end_timestamp( [ 'exit_intent_countdown_end' => $value ] );
+		$this->assertNotNull( $ts, "'$value' is a date" );
+		$this->assertGreaterThan( time() + 6 * DAY_IN_SECONDS, $ts );
+		$this->assertLessThanOrEqual( time() + 7 * DAY_IN_SECONDS, $ts );
+	}
+
+	public function test_builder_read_fills_an_empty_end_date() {
+		$nx_id = $this->insert_campaign( '', false );
+		$this->assert_about_seven_days_ahead( $this->read( $nx_id, 'edit' )['exit_intent_countdown_end'] );
+		// The frontend read and the stored value are unchanged.
+		$this->assertSame( '', $this->read( $nx_id )['exit_intent_countdown_end'] );
+	}
+
+	public function test_builder_read_keeps_a_set_end_date() {
+		$nx_id = $this->insert_campaign( '2027-01-15T08:00:00Z', false );
+		$this->assertSame( '2027-01-15T08:00:00Z', $this->read( $nx_id, 'edit' )['exit_intent_countdown_end'] );
+	}
+
+	public function test_save_with_the_toggle_on_never_stores_an_empty_end_date() {
+		foreach ( [ '', '   ', 'not a date' ] as $end ) {
+			$nx_id = $this->insert_campaign( $end, true );
+			$this->assert_about_seven_days_ahead( $this->read( $nx_id )['exit_intent_countdown_end'] );
+		}
+		// Turning the toggle on later for a campaign saved with ''.
+		$nx_id  = $this->insert_campaign( '', false );
+		$stored = $this->read( $nx_id );
+		$stored['exit_intent_hide_after_end'] = true;
+		PostType::get_instance()->save_post( $stored );
+		$this->assert_about_seven_days_ahead( $this->read( $nx_id )['exit_intent_countdown_end'] );
+	}
+
+	public function test_save_with_the_toggle_off_keeps_an_empty_end_date() {
+		$nx_id = $this->insert_campaign( '', false );
+		$this->assertSame( '', $this->read( $nx_id )['exit_intent_countdown_end'] );
+	}
+
+	public function test_save_keeps_a_set_end_date() {
+		$nx_id = $this->insert_campaign( '2027-01-15T08:00:00Z', true );
+		$this->assertSame( '2027-01-15T08:00:00Z', $this->read( $nx_id )['exit_intent_countdown_end'] );
+	}
 }

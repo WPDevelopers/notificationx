@@ -34,6 +34,7 @@ Developer notes: [features/exit-intent/00-overview.md → End date](../features/
 | T9 timezones | `get_end_timestamp()` | – | Pro `exit-intent-countdown.js` |
 | T10 older free | – | – | manual only |
 | T11 preview | – | – | free `exit-intent-end.js` |
+| T12 campaign saved before this update | builder read, save with the toggle on | – | manual |
 
 - PHPUnit: [tests/test-exit-intent-hide-after-end.php](../../tests/test-exit-intent-hide-after-end.php).
 - Jest: [tests/js/frontend/exit-intent-end.test.js](../../tests/js/frontend/exit-intent-end.test.js) (`npm run test:js`).
@@ -117,3 +118,10 @@ Expected: the timer still works. It falls back to reading the date string. The s
 2. Open the preview.
 
 Expected: the preview still shows the popup. The end date applies only on the site. Fail if the preview is empty.
+
+**T12. A campaign saved before this update.**
+1. With the previous release, create and save an Exit Intent campaign (any theme). Its end date is stored empty.
+2. Update to this build and open the campaign in the builder.
+3. In Customize > Exit Intent Settings, turn on "Stop Showing After End Date".
+
+Expected: End Date & Time shows about 7 days from now, not the current time. Save, reload: the same date is shown and the popup stops after it. Fail if the field shows the current time, or the saved date is empty and the popup keeps opening.
