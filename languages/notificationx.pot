@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.3.8\n"
+"Project-Id-Version: NotificationX 3.3.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10965,4 +10965,181 @@ msgstr ""
 
 #: includes/Extensions/GlobalFields.php:2268
 msgid "Show the first line with the notification, then fade in the rest."
+msgstr ""
+
+#: includes/Admin/OfferPointer.php:217
+msgid "Black Friday Is On!"
+msgstr ""
+
+#: includes/Admin/OfferPointer.php:218
+msgid "Up to 40% off NotificationX Pro. Unlock real-time sales and conversion notifications that turn visitors into customers."
+msgstr ""
+
+#: includes/Admin/OfferPointer.php:219
+msgid "View Deals"
+msgstr ""
+
+#: includes/Admin/OfferPointer.php:348
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: includes/Core/Helper.php:1520
+msgid "After a Form Submission"
+msgstr ""
+
+#: includes/Core/Helper.php:1525
+msgid "Same as closing"
+msgstr ""
+
+#: includes/Core/Helper.php:1526
+msgid "Don't show again for a number of days"
+msgstr ""
+
+#: includes/Core/Helper.php:1529
+msgid "What a visitor sees after submitting the form. \"Same as closing\" uses the close rule. Safari may forget a submission after 7 days without a visit."
+msgstr ""
+
+#: includes/Core/Helper.php:1533
+msgid "Hide After Submitting For"
+msgstr ""
+
+#: includes/Core/Rest/PreviewPages.php:58
+msgid "Search words."
+msgstr ""
+
+#: includes/Core/Rest/PreviewPages.php:64
+msgid "A page URL to name: the Preview's default page."
+msgstr ""
+
+#: includes/Core/Rest/PreviewPages.php:187
+msgid "(no title)"
+msgstr ""
+
+#: includes/Core/Rest/PreviewPages.php:206
+#: assets/admin/js/admin.js:21
+msgid "Home"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2061
+msgid "Card Size"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2068
+msgid "Compact"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2076
+msgid "Large"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:2082
+msgid "Makes the whole card smaller or larger: text, image and spacing together. On phones, Large shows at the default size."
+msgstr ""
+
+#: includes/Extensions/Google/GoogleReviews.php:144
+msgctxt "Scorecard: <reviewer> on <place>"
+msgid "on"
+msgstr ""
+
+#: includes/Extensions/Google/GoogleReviews.php:161
+msgid "reviews"
+msgstr ""
+
+#: includes/Extensions/ReviewX/ReviewX.php:159
+#: includes/Extensions/WooCommerce/WooCommerceSalesReviews.php:151
+#: includes/Extensions/WooCommerce/WOOReviews.php:141
+#: includes/Types/Reviews.php:146
+msgctxt "Scorecard: <reviewer> on <product>"
+msgid "on"
+msgstr ""
+
+#: includes/Types/Conversions.php:230
+#: includes/Types/WooCommerceSales.php:218
+msgid "Just purchased"
+msgstr ""
+
+#: includes/Types/Donations.php:126
+msgid "donated"
+msgstr ""
+
+#: includes/Types/Traits/Reviews.php:104
+msgctxt "nx_preview"
+msgid "Excellent plugin"
+msgstr ""
+
+#: assets/admin/js/admin.js:18
+#: assets/public/js/crossSite.js:1
+#: assets/public/js/frontend.js:1
+msgid "Verified by"
+msgstr ""
+
+#. translators: %s: the review rating, e.g. 4.5.
+#: assets/admin/js/admin.js:19
+#: assets/public/js/crossSite.js:2
+#: assets/public/js/frontend.js:2
+msgid "%s out of 5"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Choose the page to preview on"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Search pages, posts, products"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Loading…"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "The pages could not be loaded. Please try again."
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "No pages found."
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "(front page)"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Draft"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Pending"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Scheduled"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Private"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Password"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Back to default"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Default page"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Page: %s"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Page:"
+msgstr ""
+
+#: assets/admin/js/admin.js:21
+msgid "Open in new tab"
 msgstr ""

@@ -45,7 +45,7 @@ class BarSpace {
      * tests/js/fixtures/bar-reserve-script.json, which a JS test runs against
      * isHiddenBySubmit().
      *
-     * @since x.x.x
+     * @since 3.3.9
      */
     const PRE_PAINT_SUBMIT_JS = '(function(n,s){var off=false;try{off=document.cookie.split("; ").some(function(c){var i=c.indexOf("=");return c.slice(0,i)===n&&c.slice(i+1)!==""&&c.slice(i+1)!=="false";});}catch(e){}if(!off){try{var r=JSON.parse(localStorage.getItem(s.k)),a=r&&typeof r==="object"?Number(r.at):NaN,t=Date.now();off=a>0&&a<=t+864e5&&(!s.d||t<Math.min(a,t)+s.d*864e5);}catch(e){}}if(off){try{document.documentElement.classList.add("nx-bar-reserve-off");}catch(e){}}})';
 

@@ -22,7 +22,7 @@ use WP_REST_Server;
  * point at their preview link. The preview request itself stays the
  * builder's nonce-checked POST (Preview::is_authorized_preview_request()).
  *
- * @since x.x.x
+ * @since 3.3.9
  * @method static PreviewPages get_instance($args = null)
  */
 class PreviewPages {

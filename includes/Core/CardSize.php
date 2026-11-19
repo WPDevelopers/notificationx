@@ -23,7 +23,7 @@ use NotificationX\GetInstance;
  * themes (keys containing `_vc-`) are never supported.
  *
  * @method static CardSize get_instance($args = null)
- * @since x.x.x
+ * @since 3.3.9
  */
 class CardSize {
     /**
@@ -150,7 +150,7 @@ class CardSize {
          * Add a theme only after its cards look right at Compact and Large.
          * Verified Cards keys (containing `_vc-`) are ignored.
          *
-         * @since x.x.x
+         * @since 3.3.9
          *
          * @param string[] $themes Theme keys as saved in `themes`, e.g. 'conversions_theme-one'.
          */

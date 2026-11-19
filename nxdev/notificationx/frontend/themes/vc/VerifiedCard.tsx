@@ -42,7 +42,7 @@ import { isBuiltInVcSlug } from "./isVcTheme";
  * layout is mounted at a time.
  *
  * Add-on slugs (nx_frontend_vc_slugs) render through the
- * `nx_frontend_vc_card` filter (free x.x.x+); the built-in ones never do.
+ * `nx_frontend_vc_card` filter (free 3.3.9+); the built-in ones never do.
  */
 
 const SLIM_QUERY = "(max-width: 480px)";

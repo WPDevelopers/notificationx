@@ -1445,7 +1445,7 @@ class Helper {
      * this scope. It comes from the `home` option rather than home_url(), which
      * language plugins filter per language.
      *
-     * @since x.x.x
+     * @since 3.3.9
      *
      * @return string 10 lowercase hex characters.
      */
@@ -1457,7 +1457,7 @@ class Helper {
      * The localStorage key under which the frontend remembers a visitor's form
      * submit for this notification on this site (submittedKey() in submitRule.ts).
      *
-     * @since x.x.x
+     * @since 3.3.9
      *
      * @param int|string $nx_id Notification ID.
      * @return string
@@ -1471,7 +1471,7 @@ class Helper {
      * visitor submitted its form, read the way getSubmitRule() and
      * getSubmitDays() in submitRule.ts read it.
      *
-     * @since x.x.x
+     * @since 3.3.9
      *
      * @param array $settings Notification settings.
      * @return int|null 0 for "Never show again", 1-365 days for "a number of
@@ -1509,7 +1509,7 @@ class Helper {
      * gets) keeps today's behaviour: a submit is remembered like a close. The
      * frontend reads it in nxdev/notificationx/frontend/core/submitRule.ts.
      *
-     * @since x.x.x
+     * @since 3.3.9
      *
      * @param array|\NotificationX\Core\Rule $rules When the select is shown.
      * @return array Both fields, keyed by name.

@@ -97,7 +97,7 @@ These handle popup **and** exit-intent form submissions (`source IN ('popup_noti
 
 | Method | Route | Permission | Purpose |
 | --- | --- | --- | --- |
-| GET | `/preview/pages` | `can_search` (`edit_notificationx`) | Available from Free 3.4.0. The Preview's page picker. `search` (optional) matches titles; `url` (optional) names that page (the Preview's default page) in `current`. Returns `items`: `id`, `title`, `type`, `type_label`, `status`, `password`, `public` (published, no password, viewable type), `front`, `url` (the permalink, or the preview link for drafts, scheduled and pending posts). Up to 8 per post type; the front page first when there's no search. Drafts, scheduled, pending and private posts only when the user can `read_post` each one. Post types: public and searchable, no attachments; filter `nx_preview_page_post_types`. It lists pages only: the preview itself is still the nonce-checked POST. |
+| GET | `/preview/pages` | `can_search` (`edit_notificationx`) | Available from Free 3.3.9. The Preview's page picker. `search` (optional) matches titles; `url` (optional) names that page (the Preview's default page) in `current`. Returns `items`: `id`, `title`, `type`, `type_label`, `status`, `password`, `public` (published, no password, viewable type), `front`, `url` (the permalink, or the preview link for drafts, scheduled and pending posts). Up to 8 per post type; the front page first when there's no search. Drafts, scheduled, pending and private posts only when the user can `read_post` each one. Post types: public and searchable, no attachments; filter `nx_preview_page_post_types`. It lists pages only: the preview itself is still the nonce-checked POST. |
 
 ## Auth & nonces
 

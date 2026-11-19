@@ -1,6 +1,6 @@
 <?php
 /**
- * "Verified card" (vc) add-on hooks, PHP side (free x.x.x):
+ * "Verified card" (vc) add-on hooks, PHP side (free 3.3.9):
  *  - NOTIFICATIONX_VC_API, the marker an add-on checks before registering
  *    vc themes;
  *  - the nx_vc_theme_keys filter on GlobalFields::vc_theme_keys(): add-on keys

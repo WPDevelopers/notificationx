@@ -409,7 +409,7 @@ class Preview {
      * the nonce and capability check above. The settings are cleaned like a
      * POSTed payload, so they render the same way.
      *
-     * @since x.x.x
+     * @since 3.3.9
      * @return array
      */
     protected function trusted_settings() {
@@ -418,7 +418,7 @@ class Preview {
          * preview POST. Return only settings your own code stored, never
          * anything taken from the request. Use with `nx_is_preview`.
          *
-         * @since x.x.x
+         * @since 3.3.9
          * @param array $settings Notification settings, or an empty array.
          */
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- nx_ is this plugin's hook prefix.

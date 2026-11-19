@@ -19,7 +19,7 @@
  *
  * Returns the cleanup.
  *
- * @since x.x.x
+ * @since 3.3.9
  */
 export const FORM_SUCCESS_SELECTOR = '.elementor-message-success, .e-form__submit__success, .nx-form-message.is-success';
 export const FORM_LOCKED_SELECTOR = '.nx-form-message.is-locked';
