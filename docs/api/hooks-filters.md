@@ -47,6 +47,7 @@ These are how a plugin (Pro or third-party) adds new Types, Extensions, sources,
 | `nx_themes_trigger` / `nx_themes_trigger_for_responsive` / `nx_source_trigger` / `nx_source_types_title` | Default/trigger values and titles wired to the theme & source pickers. | varies |
 | `nx_metabox_tabs` / `nx_metabox_config` | The full builder tab tree ([GlobalFields.php:2274-2275](../../includes/Extensions/GlobalFields.php#L2274)). | `$tabs` |
 | `nx_builder_configs` | Builder tab config passed to the admin SPA ([PostType.php:142](../../includes/Core/PostType.php#L142)). | `$tabs` |
+| `nx_card_size_themes` | Theme keys (as saved in `themes`) that offer the Card Size setting, after Free's own list ([CardSize.php:157](../../includes/Core/CardSize.php#L157)). Keys containing `_vc-` are ignored. Add a theme only after it looks right at Compact and Large; see [../features/card-size.md](../features/card-size.md). | `string[] $themes` |
 
 ### The Pro upsell surface
 

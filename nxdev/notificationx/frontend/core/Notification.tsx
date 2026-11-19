@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
-import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName, getAnimationTiming } from "../core/functions";
+import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName, getAnimationTiming, getCardSize, CARD_SIZE_SCALES } from "../core/functions";
 import { Theme } from "../themes";
 import Analytics, { resolveNotificationLink, recordAnalyticsClick } from "./Analytics";
 import useNotificationContext from "./NotificationProvider";
@@ -178,6 +178,8 @@ const Notification = (props) => {
     };
 
     const { advance_edit } = settings;
+    // Card size preset: compact or large only; Default adds nothing.
+    const cardSize = getCardSize(settings);
     
     let baseClasses = [
         "notification-item nx-notification",
@@ -201,6 +203,9 @@ const Notification = (props) => {
             "nx-vc": isVcTheme(settings) && !settings?.template_adv,
         }
     ];
+    if (cardSize) {
+        baseClasses.push(`nx-card-size-${cardSize}`);
+    }
     let splitThemes = [
         "theme-five",
         "theme-six-free",
@@ -232,6 +237,9 @@ const Notification = (props) => {
     };
     if (settings?.advance_edit && settings?.conversion_size) {
         componentStyle.maxWidth = settings?.conversion_size;
+    }
+    if (cardSize) {
+        componentStyle['--nx-scale'] = CARD_SIZE_SCALES[cardSize];
     }
     
     let componentClasses;
