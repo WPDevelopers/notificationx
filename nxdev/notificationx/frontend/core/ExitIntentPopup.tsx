@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import nxHelper from './functions';
 import useNotificationContext from './NotificationProvider';
 import { nxApplyFilters } from "./hooks";
+import { rememberSubmit } from "./submitRule";
+import { watchFormSuccess } from "./watchFormSuccess";
 
 const px = (v: any): string | undefined => (v || v === 0) ? `${v}px` : undefined;
 
@@ -43,14 +45,27 @@ const ExitIntentPopup = (props: any) => {
         }
     }, [s.mode, s.elementor_html, isVisible]);
 
+    // Set once a successful submit was remembered by the "After a form submit"
+    // rule (submitRule.ts); from then on closing stores no close key. Pro's
+    // themes submit through submitEntry() and close through handleClose(), so
+    // they get the rule without a change on their side.
+    const submitRememberedRef = useRef(false);
+    const rememberSuccessfulSubmit = () => {
+        if (rememberSubmit(settings, frontEndContext)) {
+            submitRememberedRef.current = true;
+        }
+    };
+
     const handleClose = () => {
-        const _theme = settings?.themes || '';
-        const key = `notificationx_exit_intent_${settings?.nx_id}_${_theme}`;
-        sessionStorage.setItem(key, 'closed');
-        const days = parseInt(settings?.exit_intent_cookie_days, 10);
-        if (Number.isFinite(days) && days > 0) {
-            const exp = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
-            document.cookie = `${key}=closed; expires=${exp.toUTCString()}; path=/; SameSite=Lax`;
+        if (!submitRememberedRef.current) {
+            const _theme = settings?.themes || '';
+            const key = `notificationx_exit_intent_${settings?.nx_id}_${_theme}`;
+            sessionStorage.setItem(key, 'closed');
+            const days = parseInt(settings?.exit_intent_cookie_days, 10);
+            if (Number.isFinite(days) && days > 0) {
+                const exp = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+                document.cookie = `${key}=closed; expires=${exp.toUTCString()}; path=/; SameSite=Lax`;
+            }
         }
         setIsVisible(false);
         dispatch?.({ type: 'REMOVE_NOTIFICATION', payload: nxExitIntent.id });
@@ -61,49 +76,20 @@ const ExitIntentPopup = (props: any) => {
     // submit via its own AJAX and only swaps in a success message — it has no
     // idea it lives inside our popup. Watch for a successful submission and
     // dismiss the popup so the visitor isn't left staring at the form (with a
-    // now-disabled button) after they've already sent it.
+    // now-disabled button) after they've already sent it. The three success
+    // signals are in watchFormSuccess.ts (shared with the Notification Bar).
     useEffect(() => {
         if (s.mode !== 'elementor' || !s.elementor_html) return;
         const root = elementorBodyRef.current;
         if (!root) return;
 
-        let done = false;
-        // Let the success message register for a beat before closing.
-        const dismiss = () => {
-            if (done) return;
-            done = true;
+        return watchFormSuccess(root, settings?.nx_id, (alreadySubmitted) => {
+            // A form locked by an earlier submit closes as before, with the
+            // close keys, but isn't remembered as a submit in this popup.
+            if (!alreadySubmitted) rememberSuccessfulSubmit();
+            // Let the success message register for a beat before closing.
             setTimeout(() => handleClose(), 2000);
-        };
-
-        // 1) Elementor Pro fires this jQuery event on the form after a
-        //    successful AJAX submit — the common Form widget case.
-        // @ts-ignore
-        const jq = window.jQuery;
-        const onSubmitSuccess = () => dismiss();
-        if (jq) jq(root).on('submit_success', onSubmitSuccess);
-
-        // 2) Our own .nx-form handler dispatches this document event after a
-        //    successful submit (see nx-elementor-form.js).
-        const onNxClose = (ev: any) => {
-            const nxId = ev?.detail?.nxId;
-            if (!nxId || String(nxId) === String(settings?.nx_id)) dismiss();
-        };
-        document.addEventListener('nx:exit-intent-close', onNxClose);
-
-        // 3) Fallback for integrations that fire neither: watch for Elementor's
-        //    success-message element to appear inside the popup.
-        const observer = new MutationObserver(() => {
-            if (root.querySelector(
-                '.elementor-message-success, .e-form__submit__success, .nx-form-message.is-success'
-            )) dismiss();
         });
-        observer.observe(root, { childList: true, subtree: true });
-
-        return () => {
-            if (jq) jq(root).off('submit_success', onSubmitSuccess);
-            document.removeEventListener('nx:exit-intent-close', onNxClose);
-            observer.disconnect();
-        };
     }, [s.mode, s.elementor_html, isVisible]);
 
     const renderCta = (className: string, style: React.CSSProperties, label: string) => {
@@ -134,10 +120,15 @@ const ExitIntentPopup = (props: any) => {
 
     // Store a submission in the feedback entries (REST `popup-submit`).
     // Resolves false when the page has no REST URL, so nothing was sent.
+    // Only a submit the server accepted counts for the "After a form submit"
+    // rule; the resolved value doesn't depend on it (Pro's themes rely on it).
     const submitEntry = async (payload: Record<string, any>): Promise<boolean> => {
         if (!rest) return false;
         const submitUrl = nxHelper.getPath(rest, 'popup-submit');
-        await nxHelper.post(submitUrl, payload, { credentials: 'same-origin' });
+        const response: any = await nxHelper.post(submitUrl, payload, { credentials: 'same-origin' });
+        if (response && response.success === true) {
+            rememberSuccessfulSubmit();
+        }
         return true;
     };
 

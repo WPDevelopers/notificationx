@@ -9,6 +9,7 @@ import moment from "moment";
 import usePreviewType from "./usePreviewType";
 import { releaseBarReserve, reservedBarId } from "./barReserve";
 import { loadAddonScripts, needsAddonScripts } from "./addons";
+import { isHiddenBySubmit } from "./submitRule";
 
 const useNotificationX = (props: any) => {
 
@@ -60,6 +61,15 @@ const useNotificationX = (props: any) => {
 
             // Check if popup was closed in this session
             if (isPopupClosedInSession(config)) {
+                args?.intervalID && clearInterval(args?.intervalID);
+                args?.timeoutID && clearTimeout(args?.timeoutID);
+                return;
+            }
+
+            // "After a form submit" (submitRule.ts): hidden while the visitor's
+            // submit counts. Reads nothing for "Same as closing" or in the
+            // builder preview, so those keep today's behaviour.
+            if (isHiddenBySubmit(config, props.config)) {
                 args?.intervalID && clearInterval(args?.intervalID);
                 args?.timeoutID && clearTimeout(args?.timeoutID);
                 return;
@@ -619,7 +629,9 @@ const useNotificationX = (props: any) => {
                 const key = dismissKey(config);
                 if (sessionStorage.getItem(key) === 'closed') return true;
                 const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                return new RegExp('(?:^|; )' + escaped + '=').test(document.cookie);
+                if (new RegExp('(?:^|; )' + escaped + '=').test(document.cookie)) return true;
+                // "After a form submit" (submitRule.ts); false for "Same as closing".
+                return isHiddenBySubmit(config, props.config);
             };
 
             const trigger = (exitItem) => {

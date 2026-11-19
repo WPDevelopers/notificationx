@@ -8,6 +8,7 @@
  * @package Notificationx
  */
 
+use NotificationX\Core\Helper;
 use NotificationX\Core\PostType;
 use NotificationX\FrontEnd\BarSpace;
 
@@ -217,5 +218,127 @@ class Test_Bar_Space extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'id="nx-bar-reserve"', $html );
 		$this->assertStringContainsString( '("notificationx_' . $this->nx_id, $html );
 		$this->assertStringContainsString( 'nx-bar-reserve-off', $html );
+	}
+
+	/**
+	 * A bar like the one in setUp(), with these settings, and the reservation
+	 * printed for it.
+	 *
+	 * @param array $settings Extra settings.
+	 * @return string The printed HTML.
+	 */
+	protected function reserve_for( $settings ) {
+		$saved       = PostType::get_instance()->save_post(
+			array_merge(
+				array(
+					'type'          => 'notification_bar',
+					'source'        => 'press_bar',
+					'themes'        => 'press_bar_theme-one',
+					'enabled'       => true,
+					'position'      => 'top',
+					'initial_delay' => 0,
+					'title'         => 'bar space submit rule test',
+				),
+				$settings
+			)
+		);
+		$this->nx_id = (int) $saved['nx_id'];
+		foreach ( array( '10.0.0.1', '10.0.0.2', '10.0.0.3' ) as $ip ) {
+			$this->report( 60, $ip );
+		}
+		ob_start();
+		BarSpace::get_instance()->print_reserve( array( $this->nx_id ) );
+		return ob_get_clean();
+	}
+
+	/**
+	 * The bar's close cookie name, as today's code builds it (saving a bar sets
+	 * a countdown_rand).
+	 *
+	 * @return string
+	 */
+	protected function close_cookie() {
+		$post = PostType::get_instance()->get_post( $this->nx_id );
+		return 'notificationx_' . $this->nx_id . ( ! empty( $post['countdown_rand'] ) ? '-' . $post['countdown_rand'] : '' );
+	}
+
+	/**
+	 * Without a submit rule the pre-paint script is exactly today's.
+	 */
+	public function test_reserve_script_is_unchanged_without_a_submit_rule() {
+		$today = "<script data-no-optimize=\"1\" data-cfasync=\"false\" data-no-defer=\"1\" nowprocket>(function(n){try{if(document.cookie.split('; ').some(function(c){var i=c.indexOf('=');return c.slice(0,i)===n&&c.slice(i+1)!==''&&c.slice(i+1)!=='false';}))document.documentElement.classList.add('nx-bar-reserve-off');}catch(e){}})(%s);</script>\n";
+		$cases = array(
+			'saved before the setting'        => array(),
+			'Same as closing'                 => array( 'submit_reappearance' => 'same_as_close' ),
+			'"days" without a usable number'  => array( 'submit_reappearance' => 'days', 'submit_hide_days' => 0 ),
+		);
+		foreach ( $cases as $label => $settings ) {
+			$html = $this->reserve_for( $settings );
+			$this->assertStringContainsString( sprintf( $today, wp_json_encode( $this->close_cookie() ) ), $html, $label );
+			$this->assertStringNotContainsString( 'notificationx_submitted_', $html, $label );
+		}
+	}
+
+	/**
+	 * With a submit rule the script also checks the visitor's submitted key.
+	 */
+	public function test_reserve_script_checks_the_submitted_key() {
+		$cases = array(
+			'never' => array( array( 'submit_reappearance' => 'never' ), 0 ),
+			'days'  => array( array( 'submit_reappearance' => 'days', 'submit_hide_days' => 14 ), 14 ),
+		);
+		foreach ( $cases as $label => $case ) {
+			$html = $this->reserve_for( $case[0] );
+			$args = wp_json_encode( $this->close_cookie() ) . ',' . wp_json_encode(
+				array(
+					'k' => 'notificationx_submitted_' . Helper::storage_scope() . '_' . $this->nx_id,
+					'd' => $case[1],
+				)
+			);
+			$this->assertStringContainsString( '>' . BarSpace::PRE_PAINT_SUBMIT_JS . '(' . $args . ');</script>', $html, $label );
+		}
+	}
+
+	/**
+	 * The script is the one tests/js/frontend/bar-reserve-script.test.js runs
+	 * against isHiddenBySubmit().
+	 */
+	public function test_reserve_script_matches_the_js_fixture() {
+		$fixture = json_decode( file_get_contents( dirname( __FILE__ ) . '/js/fixtures/bar-reserve-script.json' ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- local test fixture.
+		$this->assertSame( $fixture['function'], BarSpace::PRE_PAINT_SUBMIT_JS );
+	}
+
+	/**
+	 * The PHP reads the days as getSubmitRule() / getSubmitDays() do
+	 * (tests/js/frontend/submit-rule.test.js has the same table).
+	 */
+	public function test_submit_hide_days_matches_the_frontend() {
+		$this->assertSame( 0, Helper::submit_hide_days( array( 'submit_reappearance' => 'never' ) ) );
+		$this->assertNull( Helper::submit_hide_days( array() ) );
+		$this->assertNull( Helper::submit_hide_days( array( 'submit_reappearance' => 'same_as_close', 'submit_hide_days' => 30 ) ) );
+		$this->assertNull( Helper::submit_hide_days( array( 'submit_reappearance' => 'forever', 'submit_hide_days' => 30 ) ) );
+		$days = array(
+			array( 30, 30 ),
+			array( '7', 7 ),
+			array( 7.9, 7 ),
+			array( '7.5', 7 ),
+			array( 1, 1 ),
+			array( 365, 365 ),
+			array( 999, 365 ),
+			array( '999', 365 ),
+			array( 0, null ),
+			array( -3, null ),
+			array( 'abc', null ),
+			array( null, null ),
+			array( '', null ),
+			array( INF, null ),
+		);
+		foreach ( $days as $case ) {
+			$this->assertSame(
+				$case[1],
+				Helper::submit_hide_days( array( 'submit_reappearance' => 'days', 'submit_hide_days' => $case[0] ) ),
+				var_export( $case[0], true ) // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export -- assertion message.
+			);
+		}
 	}
 }
