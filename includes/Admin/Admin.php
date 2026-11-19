@@ -109,6 +109,9 @@ class Admin {
                 MilestoneNotification::get_instance();
             }
         }
+        // The campaign's pointer beside the menu item. Registered with or without Pro: it shows
+        // only without Pro, and with Pro it gives back a pointer slot it still holds.
+        OfferPointer::register();
         add_action('admin_init', [$this, 'admin_init']);
         add_action('admin_menu', [$this, 'menu'], 10);
         // all_admin_notices, not admin_notices: hide_others_plugin_admin_notice()
@@ -502,6 +505,31 @@ class Admin {
                 'refresh'     => NOTIFICATIONX_VERSION,
                 'screens'     => [ 'dashboard' ],
                 "expire"      => strtotime( '11:59:59pm 5th November, 2026' ),
+                'display_if'  => ! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )
+            ]
+        );
+
+        // nx_bfcm_2026 notice (Black Friday / Cyber Monday 2026). The dates and the link are
+        // OfferPointer's constants: the pointer beside the menu item runs the same campaign.
+        $_nx_bfcm_2026_text = "<p><span class='nx-notice-emoji wp-exclude-emoji' aria-hidden='true'>&#x1F6CD;&#xFE0F;</span> <strong>Black Friday Sale:</strong> Turn holiday traffic into customers with 15+ real-time social proof notifications, AI-powered features &amp; more – <strong>now up to 40% OFF!</strong></p>
+                        <div class='nx-notice-action-button'>
+                            <a class='button button-primary' href='" . esc_url( OfferPointer::URL ) . "' target='_blank'>Upgrade To Pro Now</a>
+                            <a class='nx-notice-action-dismiss dismiss-btn' data-dismiss='true' href='#'>I Want To Pay Full Price</a>
+                        </div>";
+        $_nx_bfcm_2026 = [
+            'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
+            'html'      => $_nx_bfcm_2026_text,
+        ];
+        $notices->add(
+            'nx_bfcm_2026',
+            $_nx_bfcm_2026,
+            [
+                'start'       => strtotime( OfferPointer::START ),
+                'recurrence'  => false,
+                'dismissible' => true,
+                'refresh'     => NOTIFICATIONX_VERSION,
+                'screens'     => [ 'dashboard' ],
+                "expire"      => strtotime( OfferPointer::EXPIRE ),
                 'display_if'  => ! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )
             ]
         );

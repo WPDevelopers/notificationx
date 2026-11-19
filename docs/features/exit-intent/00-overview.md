@@ -16,7 +16,7 @@ There are **seven themes** (`theme-one` … `theme-seven`). Each theme owns its 
 |------|---------|
 | [includes/Extensions/ExitIntent/ExitIntentNotification.php](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php) | Extension class — registers all 7 themes, defines all content/design/customize fields, and sets per-theme defaults |
 | [includes/Types/ExitIntent.php](../../../includes/Types/ExitIntent.php) | Notification type registration (`exit_intent`) |
-| [includes/FrontEnd/FrontEnd.php](../../../includes/FrontEnd/FrontEnd.php) | Serializes enabled exit intent notifications into the REST response under the `exit_intent` key (see `get_notifications_data`) |
+| [includes/FrontEnd/FrontEnd.php](../../../includes/FrontEnd/FrontEnd.php) | Serializes enabled exit intent notifications into the REST response under the `exit_intent` key (see `get_notifications_data`); skips a campaign past its end date |
 
 ### Frontend (React / TypeScript)
 
@@ -24,6 +24,7 @@ There are **seven themes** (`theme-one` … `theme-seven`). Each theme owns its 
 |------|---------|
 | [nxdev/notificationx/frontend/core/ExitIntentPopup.tsx](../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx) | React component — renders the free themes one, three and four; owns `videoPlaying` state (theme-four) and `submitted`/`submitting` form state (theme-one). Since 3.3.5 the Pro themes two, five, six and seven (with `useCountdown` and the theme-seven email form) are in NotificationX Pro `nxdev/frontend-themes/exit-intent/`, rendered through the `nx_exit_intent_theme` filter (issue #184, see [../../api/frontend-js-hooks.md](../../api/frontend-js-hooks.md)). The theme notes below still describe their behaviour |
 | [nxdev/notificationx/frontend/core/useNotificationX.ts](../../../nxdev/notificationx/frontend/core/useNotificationX.ts) | Attaches `document` `mouseleave` listener; triggers `dispatchNotification` when cursor crosses the top threshold; stores each `nx_id` in a `triggered` Set so it fires only once per page load |
+| [nxdev/notificationx/frontend/core/exitIntentEnd.ts](../../../nxdev/notificationx/frontend/core/exitIntentEnd.ts) | `msUntilExitIntentEnd()` / `isExitIntentPastEnd()` for "Stop Showing After End Date", used by the trigger and the popup. Dependency-free |
 | [nxdev/notificationx/frontend/core/NotificationContainer.tsx](../../../nxdev/notificationx/frontend/core/NotificationContainer.tsx) | Detects `config.type === 'exit_intent'` and renders `<ExitIntentPopup>` for each notice |
 | [nxdev/notificationx/frontend/core/utils.ts](../../../nxdev/notificationx/frontend/core/utils.ts) | `normalizePressBar()` converts the PHP keyed object into a JS array for `exitIntentNotices`; `isNotClosed()` skips already-dismissed entries |
 
@@ -68,6 +69,7 @@ const handleMouseLeave = (e: MouseEvent) => {
 
 - **Session + cookie persistence** — closing a popup sets `sessionStorage` key `notificationx_exit_intent_{nx_id}_{theme}` to `'closed'`. When `exit_intent_cookie_days` > 0 the same key is also written as a cookie with `expires` set N days ahead; subsequent `mouseleave` events skip it.
 - **One-shot per page load** — once fired, the `nx_id` is added to `triggered` so it cannot re-open without a page refresh.
+- **End date** — with "Stop Showing After End Date" on and the end time passed (`isExitIntentPastEnd()` in [exitIntentEnd.ts](../../../nxdev/notificationx/frontend/core/exitIntentEnd.ts)), the trigger skips the campaign. This covers a page that was cached or loaded before the end time. See [End date](#end-date-stop-showing-after-end-date).
 
 ---
 
@@ -201,7 +203,7 @@ Two-column flash-sale layout with a **live countdown timer** and customisable un
 | `exit_intent_t5_desc` | text | `ON ENTIRE ORDER` | Sub-line |
 | `exit_intent_t5_show_timer` | toggle | `true` | Master toggle for the countdown block |
 | `exit_intent_t5_countdown_label` | text | `LIMITED-TIME OFFER! SALE ENDS IN` | Label above the timer |
-| `exit_intent_countdown_end` | **date** | _(empty — falls back to demo timer)_ | DateTime picker (`type: 'date'`) |
+| `exit_intent_countdown_end` | **date** | 7 days from now | DateTime picker (`type: 'date'`). Same key as the Customize tab's End Date & Time; see [End date](#end-date-stop-showing-after-end-date) |
 | `exit_intent_t5_days_label` / `_hours_label` / `_minutes_label` / `_seconds_label` | text | `DAYS` / `HRS` / `MIN` / `SEC` | Unit labels |
 | `exit_intent_t5_timer_bg` | colorpicker | `#fff0f5` | Number tile background (content-side) |
 | `exit_intent_t5_timer_color` | colorpicker | `#e91e63` | Number tile text color (content-side) |
@@ -210,9 +212,11 @@ Two-column flash-sale layout with a **live countdown timer** and customisable un
 | `exit_intent_button_url` / `exit_intent_button_new_tab` | text + toggle | shared CTA fields |
 | `exit_intent_dismiss_text` | text | `NO, THANKS!` | Dismiss link |
 
-**Countdown behaviour** (`useCountdown` in [ExitIntentPopup.tsx](../../../nxdev/notificationx/frontend/core/ExitIntentPopup.tsx)):
+**Countdown behaviour** (`useCountdown` in NotificationX Pro, `nxdev/frontend-themes/exit-intent/index.tsx`; free renders these themes only through the `nx_exit_intent_theme` filter):
 
-- Theme-five and theme-six both pass a non-empty `fallbackDurationMs` (~2d 14h 30m 21s) into `useCountdown`. Empty `exit_intent_countdown_end` → the fallback locks in on first render and the timer ticks down from there. Non-empty → parsed via `Date.parse(endDateStr)` (with a `' '`→`'T'` fallback). Expired → all units render as `00`.
+- The end time is `exit_intent_end_ts` (UTC, ms), sent by free (`ExitIntentNotification::add_end_timestamp()`), so every visitor's timer ends at the same moment. Without it (builder preview, free older than the #211 change) the timer parses `exit_intent_countdown_end` in the browser via `Date.parse()` (with a `' '`→`'T'` fallback); a value without a timezone is then read in the visitor's timezone.
+- With neither, the timer ticks down from a demo duration (~2d 14h 30m 21s). In the builder this case no longer happens: the date field has a 7-day default (see [End date](#end-date-stop-showing-after-end-date)).
+- Expired → all units render as `00`. With "Stop Showing After End Date" on, free closes the popup at that moment instead.
 
 > **Customizing the countdown number tiles:** when Advanced Edit is **on**, the design-side `exit_intent_t5_cd_num_bg` / `_color` override the content-side `exit_intent_t5_timer_bg` / `_color`. With Advanced Edit off, the content-side values are used.
 
@@ -240,7 +244,7 @@ The content fields live in **two** sections:
 |---|---|---|---|
 | `exit_intent_t6_show_timer` | toggle | `true` | Master switch for the timer block **and** for every `t6_cd_*` design field |
 | `exit_intent_t6_countdown_label` | text | `Offer Ends In` | Label above the timer |
-| `exit_intent_countdown_end` | **date** | _(empty — falls back to demo timer)_ | Shared field name with theme-five (only one theme is active at a time, so there's no collision) |
+| `exit_intent_countdown_end` | **date** | 7 days from now | Same key as theme-five and as the Customize tab's End Date & Time; one value |
 | `exit_intent_t6_days_label` / `_hours_label` / `_minutes_label` / `_seconds_label` | text | `DAYS` / `HOURS` / `MIN` / `SEC` | Unit labels |
 
 The numbers render with a `:` separator between units (`<span class="nx-exit-intent-t6-countdown-sep">`) — the separator inherits the countdown-number font size via inline style.
@@ -270,7 +274,7 @@ The right-panel content uses an inline `fontFamily` override driven by `exit_int
 
 ## Shared Settings (Customize Tab)
 
-Defined in `customize_fields()` of [ExitIntentNotification.php](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php), registered under section `exit_intent_settings`:
+Defined in `customize_fields()` of [ExitIntentNotification.php](../../../includes/Extensions/ExitIntent/ExitIntentNotification.php), registered under section `exit_intent_popup_settings` ("Exit Intent Settings"). The section is visible for Elementor designs too, since only the Content tab is hidden for them:
 
 | Field name | Type | Default | Notes |
 |---|---|---|---|
@@ -278,8 +282,35 @@ Defined in `customize_fields()` of [ExitIntentNotification.php](../../../include
 | `exit_intent_sensitivity` | select | `20` | Top-of-viewport px threshold (`10` high / `20` medium / `50` low) |
 | `exit_intent_cookie_days` | number | `7` | Days to suppress after dismissal (drives the dismissal cookie as well as the sessionStorage flag) |
 | `exit_intent_mobile_disable` | toggle | `true` | Skip trigger on touch/mobile devices |
+| `exit_intent_hide_after_end` | toggle | `false` | "Stop Showing After End Date". Off keeps the behaviour from before the option existed |
+| `exit_intent_countdown_end` | date | 7 days from now | "End Date & Time", shown when the toggle is on. Same key as the theme five / six timer date |
 
 Standard timing fields `delay_between` and `display_for` are hidden for this source. `behavior`, `sound_section`, and `queue_management` sections are also hidden.
+
+---
+
+## End date (Stop Showing After End Date)
+
+Free issue [#211](https://github.com/WPDevelopers/notificationx/issues/211), Pro issue [#65](https://github.com/WPDevelopers/notificationx-pro/issues/65). Before this option, a campaign kept opening after its sale ended and the timer showed `00`.
+
+With `exit_intent_hide_after_end` on and `exit_intent_countdown_end` in the past, the popup stops showing, for every built-in theme and for Elementor designs. It is checked in four places:
+
+| Where | Code | Covers |
+|---|---|---|
+| Frontend list | `FrontEnd::get_notifications_ids()` skips it (`ExitIntentNotification::is_past_end()`) | Normal page loads: no ID, no payload |
+| REST payload | `FrontEnd::get_notifications_data()` skips it | IDs from a cached page |
+| Exit trigger | `isExitIntentPastEnd()` in `useNotificationX.ts` | A page loaded before the end time, exit after it |
+| Open popup | `ExitIntentPopup.tsx` sets a timer for `msUntilExitIntentEnd()` and closes the popup | A popup that is open at the end time |
+
+Closing at the end time is not a dismissal: no `sessionStorage` key or cookie is written. Timers longer than `setTimeout`'s limit (2^31−1 ms, about 24.8 days) re-check instead of firing early.
+
+**End time.** `ExitIntentNotification::get_end_timestamp()` parses `exit_intent_countdown_end`. The admin date field saves UTC ISO 8601 (`2026-11-11T10:00:00.000Z`); a value without a timezone (`Y-m-d H:i:s`, from an import or Build With AI) is read as UTC, the same as the date field's own `moment.utc()`. Invalid or empty → no end time, so the campaign never stops. `add_end_timestamp()` (on `nx_filtered_post`) sends it to the frontend as `exit_intent_end_ts` (ms) and normalises `exit_intent_hide_after_end` to a boolean. The builder preview does not go through `nx_filtered_post`, so a preview always shows.
+
+**Why the date fields have a default.** quickbuilder's `DateControl` calls `onChange(getTime(value))` when it mounts, and `getTime('')` is `moment.utc()`, the current time. An empty default was therefore saved as the time of saving, and the theme five / six timer showed `00` at once. All three `exit_intent_countdown_end` fields (theme five, theme six, Customize) and the theme five / six presets default to `gmdate( 'c', time() + 7 * DAY_IN_SECONDS )`, like the Notification Bar's `countdown_end_date`. The builder field registry is cached in the `nx_builder_fields` transient for a day, so the default is 6–7 days ahead. Campaigns saved before this change keep the time that was stored; pick a new date for them.
+
+**Elementor designs.** The seed designs use NotificationX's own `nx-countdown-timer` widget, which has its own date and expiry action ("text" or "redirect"). The widget date and the campaign end date are separate settings: set both to the same date.
+
+Tests: [tests/test-exit-intent-hide-after-end.php](../../../tests/test-exit-intent-hide-after-end.php) (PHPUnit), [tests/js/frontend/exit-intent-end.test.js](../../../tests/js/frontend/exit-intent-end.test.js) (Jest), [tests/e2e/exit-intent-end.js](../../../tests/e2e/exit-intent-end.js) (browser), and Pro's `tests/e2e/exit-intent-countdown.js`. QA guide: [docs/qa-guide/exit-intent-hide-after-end.md](../../qa-guide/exit-intent-hide-after-end.md).
 
 ---
 
@@ -410,7 +441,10 @@ Reused field names that flow across multiple themes (`exit_intent_overlay_color`
 ```
 PHP: ExitIntentNotification registers themes & fields
        ↓
+FrontEnd.php: get_notifications_ids() / get_notifications_data() skip a campaign past its end date
+       ↓
 FrontEnd.php: get_notifications_data() → $result['exit_intent'][nx_id]['post'] = $settings
+       (nx_filtered_post adds mode/elementor_html and exit_intent_end_ts)
        ↓
 REST JSON response → response.exit_intent
        ↓
@@ -418,11 +452,13 @@ utils.ts: normalizePressBar() → array of { post, content }
        ↓
 useNotificationX.ts: setExitIntentNotices(response.exit_intent)
        ↓
-useNotificationX.ts: document mouseleave → dispatchNotification({ config: exitItem.post })
+useNotificationX.ts: document mouseleave → skip if dismissed or past the end date
+                     → dispatchNotification({ config: exitItem.post })
        ↓
 Redux store: ADD_NOTIFICATION → { id, data, config }
        ↓
 NotificationContainer.tsx: config.type === 'exit_intent' → <ExitIntentPopup nxExitIntent={notice} />
        ↓
 ExitIntentPopup.tsx: reads settings = nxExitIntent.config → renders theme-N branch
+                     (closes itself at exit_intent_end_ts when the end-date toggle is on)
 ```
