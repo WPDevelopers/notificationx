@@ -11,6 +11,7 @@ namespace NotificationX\Extensions;
 use NotificationX\Admin\Admin;
 use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\Admin\Settings;
+use NotificationX\Core\CardSize;
 use NotificationX\Core\Rules;
 use NotificationX\Core\Database;
 use NotificationX\Core\Helper;
@@ -61,6 +62,76 @@ class GlobalFields {
             $fields['second_param']['rules'] = Rules::is( 'source', 'woocommerce_cart_peek', true );
         }
         return $fields;
+    }
+
+    /**
+     * Full theme keys of the "Verified card" (vc) theme family.
+     *
+     * Single PHP list of the vc keys, read by the builder rules that hide the
+     * Advanced Design toggle (advance_edit) and the Button toggle (link_button)
+     * for these themes. The vc cards ignore both: the frontend VerifiedCard
+     * (nxdev/notificationx/frontend/themes/vc/) has its own palette and no
+     * button. The themes themselves are declared in the Types (for example
+     * includes/Types/Conversions.php); a new vc theme adds its full keys here.
+     * Add-ons add their own keys through the `nx_vc_theme_keys` filter.
+     *
+     * @return string[]
+     */
+    public static function vc_theme_keys() {
+        $keys = self::vc_builtin_theme_keys();
+
+        /**
+         * Filters the full theme keys of the Verified Card family.
+         *
+         * An add-on that registers its own vc theme (and its slug through the
+         * frontend `nx_frontend_vc_slugs` filter) appends its full keys here,
+         * so the builder hides Advanced Design and Button for them too. The
+         * built-in keys are always kept, and an entry that is not a
+         * `<prefix>_vc-<word>` string is dropped.
+         *
+         * @since x.x.x
+         * @param string[] $keys Full theme keys, e.g. 'conversions_vc-receipt'.
+         */
+        $filtered = apply_filters( 'nx_vc_theme_keys', $keys );
+        if ( ! is_array( $filtered ) ) {
+            return $keys;
+        }
+        foreach ( $filtered as $key ) {
+            if ( is_string( $key ) && preg_match( '/^[a-z0-9_]+_vc-[a-z]+$/', $key ) && ! in_array( $key, $keys, true ) ) {
+                $keys[] = $key;
+            }
+        }
+        return $keys;
+    }
+
+    /**
+     * The vc theme keys free itself registers (vc_theme_keys() without add-ons).
+     *
+     * @return string[]
+     */
+    public static function vc_builtin_theme_keys() {
+        return [
+            'conversions_vc-receipt',
+            'woocommerce_sales_vc-receipt',
+            'conversions_vc-showcase',
+            'woocommerce_sales_vc-showcase',
+            'comments_vc-thread',
+            'reviews_vc-scorecard',
+            'woo_reviews_vc-scorecard',
+            'woocommerce_sales_reviews_vc-scorecard',
+            'reviewx_vc-scorecard',
+            'google_reviews_vc-scorecard',
+            'download_stats_vc-counter',
+            'donation_vc-pledge',
+            'elearning_vc-enrol',
+            'form_vc-submission',
+            'reviews_vc-ratings',
+            'woo_reviews_vc-ratings',
+            'woocommerce_sales_reviews_vc-ratings',
+            'reviewx_vc-ratings',
+            'google_reviews_vc-ratings',
+            'download_stats_vc-installs',
+        ];
     }
 
     public function tabs() {
@@ -431,6 +502,42 @@ class GlobalFields {
                                         ],
                                     ]
                                 ],
+                                // 84711: one toggle for every live effect. Visible only where at least
+                                // one applies: the live dot (Page Analytics realtime, themes one to three),
+                                // the rotating line (Cart Peek) and the floating icon (the themes below).
+                                'live_effects' => [
+                                    'label'       => __('Live Effects', 'notificationx'),
+                                    'name'        => 'live_effects',
+                                    'type'        => 'toggle',
+                                    'default'     => false,
+                                    'priority'    => 15,
+                                    'is_pro'      => true,
+                                    'description' => __('Adds subtle motion to make the notification feel live.', 'notificationx'),
+                                    'rules'       => Rules::logicalRule([
+                                        Rules::is( 'type', 'woocommerce_cart_peek' ),
+                                        Rules::logicalRule([
+                                            Rules::includes( 'themes', [ 'page_analytics_pa-theme-one', 'page_analytics_pa-theme-two', 'page_analytics_pa-theme-three' ] ),
+                                            Rules::is( 'notification-template.first_param', 'tag_realtime_siteview' ),
+                                        ]),
+                                        Rules::includes( 'themes', [
+                                            'conversions_conv-theme-six', 'conversions_conv-theme-seven', 'conversions_conv-theme-eight', 'conversions_conv-theme-nine',
+                                            'woocommerce_sales_conv-theme-six', 'woocommerce_sales_conv-theme-seven', 'woocommerce_sales_conv-theme-eight', 'woocommerce_sales_conv-theme-nine',
+                                            'donation_conv-theme-six', 'donation_conv-theme-eight', 'donation_conv-theme-nine',
+                                            'elearning_conv-theme-six', 'elearning_conv-theme-eight', 'elearning_conv-theme-nine',
+                                            'youtube_channel-2', 'youtube_video-1', 'youtube_video-3',
+                                        ] ),
+                                        Rules::logicalRule([
+                                            Rules::is( 'is_mobile_responsive', true ),
+                                            Rules::includes( 'responsive_themes', [
+                                                'conversions_res-theme-five', 'conversions_res-theme-nine', 'woocommerce_sales_res-theme-nine',
+                                                'conversions_res-theme-eleven', 'woocommerce_sales_res-theme-eleven',
+                                                'donation_res-theme-eight', 'donation_res-theme-nine', 'donation_res-theme-ten',
+                                                'elearning_elearning-res-theme-six', 'elearning_elearning-res-theme-seven', 'elearning_elearning-res-theme-eight', 'elearning_res-theme-nine',
+                                                'youtube_res-channel-2', 'youtube_res-video-1', 'youtube_res-video-3',
+                                            ] ),
+                                        ]),
+                                    ], 'or'),
+                                ],
                                 [
                                     'label'   => __("Position", 'notificationx'),
                                     'name'    => "gdpr_position",
@@ -467,10 +574,14 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 20,
+                                    // Hidden for the vc themes, which ignore Advanced Design.
                                     'rules'    =>   Rules::logicalRule([
-                                        Rules::is('themes_tab', 'for_desktop'),
-                                        Rules::is('themes_tab', 'nxbar_build_with_ai'),
-                                    ], 'or'),
+                                        Rules::logicalRule([
+                                            Rules::is('themes_tab', 'for_desktop'),
+                                            Rules::is('themes_tab', 'nxbar_build_with_ai'),
+                                        ], 'or'),
+                                        Rules::includes('themes', self::vc_theme_keys(), true),
+                                    ]),
                                 ],
                             ]
                         ],
@@ -491,6 +602,8 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 1,
+                                    // Hidden for the vc themes, which ignore Advanced Design.
+                                    'rules'    => Rules::includes('themes', self::vc_theme_keys(), true),
                                 ],
                                 "design" => [
                                     'label'    => __("Design", 'notificationx'),
@@ -1070,6 +1183,8 @@ class GlobalFields {
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('type', ['conversions','video','woocommerce', 'woocommerce_sales','page_analytics']),
                                         Rules::is('link_type','none',true),
+                                        // Hidden for the vc themes, which have no button.
+                                        Rules::includes('themes', self::vc_theme_keys(), true),
                                     ]),
                                 ],
                             ],
@@ -1942,6 +2057,30 @@ class GlobalFields {
                                     ],
                                     'help' => __('Set a max width for notification.', 'notificationx'),
                                 ],
+                                'card_size' => [
+                                    'label'    => __("Card Size", 'notificationx'),
+                                    'name'     => CardSize::FIELD,
+                                    'type'     => "select",
+                                    'default'  => CardSize::DEFAULT_VALUE,
+                                    'priority' => 52,
+                                    'options'  => [
+                                        'compact' => [
+                                            'label' => __('Compact', 'notificationx'),
+                                            'value' => 'compact',
+                                        ],
+                                        'default' => [
+                                            'label' => __('Default', 'notificationx'),
+                                            'value' => 'default',
+                                        ],
+                                        'large' => [
+                                            'label' => __('Large', 'notificationx'),
+                                            'value' => 'large',
+                                        ],
+                                    ],
+                                    // Only themes that support it; the list is empty until a theme family is ready.
+                                    'rules'    => Rules::includes('themes', CardSize::supported_themes()),
+                                    'help'     => __('Makes the whole card smaller or larger: text, image and spacing together. On phones, Large shows at the default size.', 'notificationx'),
+                                ],
                                 'close_button_control' => [
                                     'label'  => __("Display Close Button", 'notificationx'),
                                     'name'   => "close_button_control",
@@ -2047,6 +2186,21 @@ class GlobalFields {
                                             'value'    => 'default',
                                             'selected' => 'selected',
                                         ],
+                                        'nx-anim-rise-soft' => [
+                                            'label'    => __('Rise (soft)', 'notificationx'),
+                                            'value'    => 'nx-anim-rise-soft',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'nx-anim-rise-spring' => [
+                                            'label'    => __('Rise (spring)', 'notificationx'),
+                                            'value'    => 'nx-anim-rise-spring',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'nx-anim-pop' => [
+                                            'label'    => __('Pop', 'notificationx'),
+                                            'value'    => 'nx-anim-pop',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
                                         'animate__fadeIn' => [
                                             'label'    => __('Fade In', 'notificationx'),
                                             'value'    => 'animate__fadeIn',
@@ -2127,6 +2281,21 @@ class GlobalFields {
                                             'label' => __('Default', 'notificationx'),
                                             'value' => 'default',
                                         ],
+                                        'nx-anim-rise-soft-out' => [
+                                            'label'    => __('Sink (soft)', 'notificationx'),
+                                            'value'    => 'nx-anim-rise-soft-out',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'nx-anim-rise-spring-out' => [
+                                            'label'    => __('Sink (spring)', 'notificationx'),
+                                            'value'    => 'nx-anim-rise-spring-out',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
+                                        'nx-anim-pop-out' => [
+                                            'label'    => __('Pop out', 'notificationx'),
+                                            'value'    => 'nx-anim-pop-out',
+                                            'disabled' => NotificationX::is_pro() ? false : true,
+                                        ],
                                         'animate__fadeOut' => [
                                             'label'    => __('Fade Out', 'notificationx'),
                                             'value'    => 'animate__fadeOut',
@@ -2178,6 +2347,31 @@ class GlobalFields {
                                             'disabled' => NotificationX::is_pro() ? false : true,
                                         ],
                                     ],
+                                ],
+                                // 80989: one base speed for the Show and Hide animations (seconds).
+                                // 0.5 is today's speed; the frontend changes nothing at 0.5.
+                                'animation_duration' => [
+                                    'label'       => __('Animation Duration', 'notificationx'),
+                                    'name'        => 'animation_duration',
+                                    'type'        => 'number',
+                                    'priority'    => 11,
+                                    'default'     => 0.5,
+                                    'step'        => 'any',
+                                    'min'         => 0.1,
+                                    'max'         => 3,
+                                    'is_pro'      => true,
+                                    'description' => __('seconds', 'notificationx'),
+                                    'rules'       => Rules::includes( 'type', [ 'notification_bar', 'offer_announcement', 'flashing_tab' ], true ),
+                                ],
+                                'progressive_reveal' => [
+                                    'label'       => __('Progressive reveal', 'notificationx'),
+                                    'name'        => 'progressive_reveal',
+                                    'type'        => 'checkbox',
+                                    'priority'    => 12,
+                                    'default'     => 0,
+                                    'is_pro'      => true,
+                                    'description' => __('Show the first line with the notification, then fade in the rest.', 'notificationx'),
+                                    'rules'       => Rules::includes( 'type', [ 'popup', 'gdpr', 'notification_bar', 'offer_announcement', 'flashing_tab' ], true ),
                                 ],
                                 // 'animation_notification_duration' => [
                                 //     'label'    => __("Duration", 'notificationx'),
@@ -2237,7 +2431,7 @@ class GlobalFields {
                                     'name'        => "delay_before",
                                     'type'        => "number",
                                     'priority'    => 40,
-                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 5,
+                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 8,
                                     'help'        => __('Initial Delay', 'notificationx'),
                                     'description' => __('seconds', 'notificationx'),
 
@@ -2249,7 +2443,7 @@ class GlobalFields {
                                     'description' => __('seconds', 'notificationx'),
                                     'help'        => __('Display each notification for * seconds', 'notificationx'),
                                     'priority'    => 60,
-                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 2 : 5,
+                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 2 : 7,
                                 ],
                                 'delay_between' => [
                                     'name'        => "delay_between",
@@ -2258,7 +2452,7 @@ class GlobalFields {
                                     'description' => __('seconds', 'notificationx'),
                                     'help'        => __('Delay between each notification', 'notificationx'),
                                     'priority'    => 70,
-                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 5,
+                                    'default'     => defined('NX_DEBUG') && NX_DEBUG ? 1 : 8,
                                 ],
                             ]
                         ],
@@ -2344,6 +2538,7 @@ class GlobalFields {
         $tabs['tabs'] = apply_filters('nx_metabox_tabs', $tabs['tabs']);
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $tabs = apply_filters('nx_metabox_config', $tabs);
+        $tabs = $this->strip_unsupported_motion_options( $tabs );
 
         if(defined('NX_DEBUG') && NX_DEBUG){
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
@@ -2352,6 +2547,44 @@ class GlobalFields {
         return $tabs;
     }
 
+
+    /**
+     * Whether the active NotificationX Pro renders the motion options (the
+     * nx-anim-* presets, Animation Duration, Progressive reveal and Live
+     * Effects). Pro declares it with the `nx_pro_motion_features` filter.
+     *
+     * Without Pro the options stay listed, locked like the other Pro options.
+     *
+     * @since 3.3.8
+     * @return bool
+     */
+    public static function pro_renders_motion_options() {
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
+        return ! NotificationX::is_pro() || (bool) apply_filters( 'nx_pro_motion_features', false );
+    }
+
+    /**
+     * Removes the motion options an older NotificationX Pro can't render, so
+     * they can't be picked and then do nothing.
+     *
+     * @since 3.3.8
+     * @param array $fields Builder tabs or a part of them.
+     * @return array
+     */
+    protected function strip_unsupported_motion_options( $fields ) {
+        if ( ! is_array( $fields ) || self::pro_renders_motion_options() ) {
+            return $fields;
+        }
+        foreach ( $fields as $key => $value ) {
+            if ( in_array( $key, [ 'live_effects', 'animation_duration', 'progressive_reveal' ], true )
+                || ( is_string( $key ) && 0 === strpos( $key, 'nx-anim-' ) ) ) {
+                unset( $fields[ $key ] );
+            } elseif ( is_array( $value ) ) {
+                $fields[ $key ] = $this->strip_unsupported_motion_options( $value );
+            }
+        }
+        return $fields;
+    }
 
     /**
      * Options of the notification type picker (Add New and Quick Builder).

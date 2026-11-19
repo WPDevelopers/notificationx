@@ -2312,6 +2312,13 @@ JS;
             ];
         }
 
+        // "After a form submit": theme one and Pro's theme seven have a form, and an
+        // Elementor design can hold one (elementor_id is a number once linked).
+        $submit_fields = Helper::submit_reappearance_fields( Rules::logicalRule( [
+            Rules::includes( 'themes', [ 'exit_intent_custom_theme-one', 'exit_intent_custom_theme-seven' ] ),
+            Rules::isOfType( 'elementor_id', 'number' ),
+        ], 'or' ) );
+
         // NOTE: keep this key unique. The Announcement extension (PopupNotification)
         // also registers a section literally named `exit_intent_settings` for its
         // "Convert to Exit Intent" feature; sharing the key here let Popup's filter
@@ -2362,6 +2369,8 @@ JS;
                     'description' => __( 'days', 'notificationx' ),
                     'help'        => __( 'Once dismissed, hide the popup for this many days.', 'notificationx' ),
                 ],
+                'submit_reappearance' => $submit_fields['submit_reappearance'],
+                'submit_hide_days'    => $submit_fields['submit_hide_days'],
                 'exit_intent_hide_after_end' => [
                     'label'   => __( 'Stop Showing After End Date', 'notificationx' ),
                     'name'    => 'exit_intent_hide_after_end',

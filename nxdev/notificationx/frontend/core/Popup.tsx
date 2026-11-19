@@ -3,8 +3,9 @@ import classNames from 'classnames';
 import { isAdminBar } from './utils';
 import CloseIcon from '../../icons/Close';
 import useNotificationContext from "./NotificationProvider";
-import { isObject, handleCloseNotification } from "../core/functions";
+import { isObject, handleCloseNotification, getAnimationTiming } from "../core/functions";
 import { getIconUrl } from "../../shared/helpers";
+import { rememberSubmit } from "./submitRule";
 
 import { __ } from '@wordpress/i18n';
 import nxHelper from './functions';
@@ -56,6 +57,8 @@ const Popup = (props: any) => {
     const isTablet = useMediaQuery("(max-width: 768px)");
     const [notificationSize, setNotificationSize] = useState();
     const is_pro = frontEndContext?.state?.is_pro ?? false;
+    // Show timing; add-ons can change it (filter `nx_frontend_animation_timing`).
+    const animationTiming = getAnimationTiming(settings, is_pro);
     const [isButtonHovered, setIsButtonHovered] = useState(false);
     const [focusedField, setFocusedField] = useState<string | null>(null);
     const [couponCopied, setCouponCopied] = useState(false);
@@ -227,6 +230,20 @@ const Popup = (props: any) => {
         }, 300);
     };
 
+    // Closing after a submit the "After a form submit" rule took over
+    // (submitRule.ts): the same hide and removal as handleClose(), without
+    // storing a close (no exit intent cookie, no close rule).
+    const closeAfterSubmit = () => {
+        setAnimation(true);
+        dispatch?.({
+            type: "REMOVE_NOTIFICATION",
+            payload: nxPopup.id,
+        });
+        setTimeout(() => {
+            setIsVisible(false);
+        }, 300);
+    };
+
     // Validation functions
     const validateForm = () => {
         const errors = {
@@ -300,6 +317,10 @@ const Popup = (props: any) => {
 
             if (response && response.success) {
                 setSubmitSuccess(true);
+                // True when the "After a form submit" rule takes over from the
+                // close rule. For "Same as closing", in the builder preview, or
+                // when the browser refuses the write, the popup closes as before.
+                const submitRuleApplies = rememberSubmit(settings, frontEndContext);
                 setTimeout(() => {
                     if (dispatch) {
                         dispatch({
@@ -307,7 +328,11 @@ const Popup = (props: any) => {
                             payload: nxPopup.id,
                         });
                     }
-                    handleClose();
+                    if (submitRuleApplies) {
+                        closeAfterSubmit();
+                    } else {
+                        handleClose();
+                    }
                 }, 1000);
             }
         } catch (error) {
@@ -440,6 +465,7 @@ const Popup = (props: any) => {
         maxWidth: `${notificationSize}px`,
         ...getAnimationStyles(),
         ...mainBGColor,
+        ...animationTiming.style,
     };
 
     if (settings?.advance_edit && settings?.popup_width) {
@@ -464,7 +490,7 @@ const Popup = (props: any) => {
     ];
 
     let componentClasses: string;
-    let animationStyle = 'fadeIn 300ms';
+    let animationStyle = `fadeIn ${Math.round(300 * animationTiming.scale)}ms`;
 
     // Notification animations are rendered by NotificationX Pro (filter
     // `nx_frontend_animation`): it returns the animate.css classes and the
@@ -486,6 +512,9 @@ const Popup = (props: any) => {
             ...baseClasses
         );
         componentStyle.animation = animationStyle
+    }
+    if (animationTiming.className) {
+        componentClasses = classNames(componentClasses, animationTiming.className);
     }
     const iconUrl = getIconUrl(settings?.popup_icon);
     const buttonIconUrl = getIconUrl(settings?.popup_button_icon);

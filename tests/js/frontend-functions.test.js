@@ -1,7 +1,8 @@
 /**
  * Frontend-only helpers touched by the B1 performance work.
  */
-import { parseDelaySeconds } from '../../nxdev/notificationx/frontend/core/functions';
+import { parseDelaySeconds, getAnimationTiming } from '../../nxdev/notificationx/frontend/core/functions';
+import { installHooks } from './helpers';
 
 jest.mock( '@wordpress/api-fetch', () => jest.fn() );
 import apiFetch from '@wordpress/api-fetch';
@@ -60,5 +61,35 @@ describe( 'requestCookieDeletion', () => {
 		apiFetch.mockRejectedValue( new Error( 'network' ) );
 
 		await expect( requestCookieDeletion() ).resolves.toBeUndefined();
+	} );
+} );
+
+describe( 'getAnimationTiming', () => {
+	const UNCHANGED = { className: '', style: {}, scale: 1, exitDelay: 500 };
+	const settings = { animation_notification_hide: 'default' };
+
+	it( 'animates at the built-in speed without an add-on', () => {
+		expect( getAnimationTiming( settings, true ) ).toEqual( UNCHANGED );
+		expect( getAnimationTiming( undefined, false ) ).toEqual( UNCHANGED );
+	} );
+
+	it( 'uses the timing an add-on returns through nx_frontend_animation_timing', () => {
+		const timed = { className: 'nx-anim-timed', style: { '--nx-anim-scale': '3' }, scale: 3, exitDelay: 1500 };
+		const filter = jest.fn( () => timed );
+		installHooks().addFilter( 'nx_frontend_animation_timing', 'test', filter );
+		expect( getAnimationTiming( settings, true ) ).toEqual( timed );
+		expect( filter ).toHaveBeenCalledWith( UNCHANGED, { settings, is_pro: true } );
+	} );
+
+	it.each( [ null, 'fast', 2, [] ] )( 'ignores a filter that returns %p', ( value ) => {
+		installHooks().addFilter( 'nx_frontend_animation_timing', 'test', () => value );
+		expect( getAnimationTiming( settings, true ) ).toEqual( UNCHANGED );
+	} );
+
+	it( 'falls back field by field when a returned timing is malformed', () => {
+		installHooks().addFilter( 'nx_frontend_animation_timing', 'test', () => ( {
+			className: 7, style: 'x', scale: -1, exitDelay: 'soon',
+		} ) );
+		expect( getAnimationTiming( settings, true ) ).toEqual( UNCHANGED );
 	} );
 } );

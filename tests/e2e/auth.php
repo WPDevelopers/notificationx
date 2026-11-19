@@ -26,8 +26,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- WP-CLI eval-file script.
 
 $nx_e2e_user = get_current_user_id();
-if ( ! $nx_e2e_user || ! current_user_can( 'edit_notificationx' ) ) {
-	WP_CLI::error( 'Run as a user who can edit notifications, e.g. --user=admin.' );
+// `read_notificationx` is enough for builder-settings-redaction.js, which logs in
+// as view-only users. Preview mode still checks `edit_notificationx` itself.
+if ( ! $nx_e2e_user || ! current_user_can( 'read_notificationx' ) ) {
+	WP_CLI::error( 'Run as a user who can see NotificationX, e.g. --user=admin.' );
 }
 
 $nx_e2e_action = isset( $args[0] ) ? $args[0] : 'create';

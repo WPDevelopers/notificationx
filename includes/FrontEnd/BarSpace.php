@@ -2,6 +2,7 @@
 
 namespace NotificationX\FrontEnd;
 
+use NotificationX\Core\Helper;
 use NotificationX\Core\PostType;
 use NotificationX\GetInstance;
 use WP_REST_Request;
@@ -33,6 +34,20 @@ class BarSpace {
     const THROTTLE    = MINUTE_IN_SECONDS;
     const SAMPLES     = 5;
     const MIN_SAMPLES = 3;
+
+    /**
+     * Pre-paint check for a bar with an "After a form submit" rule, called
+     * with the close cookie's name and `{k: submitted key, d: days, 0 for
+     * never}`. Turns the reservation off when the close cookie is set or when
+     * the visitor's submit still hides the bar; the submit part decides as
+     * isHiddenBySubmit() in submitRule.ts does (a submit time more than a day
+     * ahead counts as nothing, one slightly ahead as now). Kept identical to
+     * tests/js/fixtures/bar-reserve-script.json, which a JS test runs against
+     * isHiddenBySubmit().
+     *
+     * @since x.x.x
+     */
+    const PRE_PAINT_SUBMIT_JS = '(function(n,s){var off=false;try{off=document.cookie.split("; ").some(function(c){var i=c.indexOf("=");return c.slice(0,i)===n&&c.slice(i+1)!==""&&c.slice(i+1)!=="false";});}catch(e){}if(!off){try{var r=JSON.parse(localStorage.getItem(s.k)),a=r&&typeof r==="object"?Number(r.at):NaN,t=Date.now();off=a>0&&a<=t+864e5&&(!s.d||t<Math.min(a,t)+s.d*864e5);}catch(e){}}if(off){try{document.documentElement.classList.add("nx-bar-reserve-off");}catch(e){}}})';
 
     /**
      * Viewport buckets as [ key => max width (exclusive) ]. Text wrapping
@@ -335,11 +350,23 @@ class BarSpace {
                 // bar too; for them the bar never mounts and the page would jump
                 // up once the frontend releases it. Check the close cookie before
                 // first paint. Tagged so optimizers do not delay it.
-                $cookie = 'notificationx_' . $nx_id . ( ! empty( $settings['countdown_rand'] ) ? '-' . $settings['countdown_rand'] : '' );
-                printf(
-                    "<script data-no-optimize=\"1\" data-cfasync=\"false\" data-no-defer=\"1\" nowprocket>(function(n){try{if(document.cookie.split('; ').some(function(c){var i=c.indexOf('=');return c.slice(0,i)===n&&c.slice(i+1)!==''&&c.slice(i+1)!=='false';}))document.documentElement.classList.add('nx-bar-reserve-off');}catch(e){}})(%s);</script>\n",
-                    wp_json_encode( $cookie ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-encoded string literal.
-                );
+                $cookie      = 'notificationx_' . $nx_id . ( ! empty( $settings['countdown_rand'] ) ? '-' . $settings['countdown_rand'] : '' );
+                $submit_days = Helper::submit_hide_days( $settings );
+                if ( null === $submit_days ) {
+                    printf(
+                        "<script data-no-optimize=\"1\" data-cfasync=\"false\" data-no-defer=\"1\" nowprocket>(function(n){try{if(document.cookie.split('; ').some(function(c){var i=c.indexOf('=');return c.slice(0,i)===n&&c.slice(i+1)!==''&&c.slice(i+1)!=='false';}))document.documentElement.classList.add('nx-bar-reserve-off');}catch(e){}})(%s);</script>\n",
+                        wp_json_encode( $cookie ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-encoded string literal.
+                    );
+                } else {
+                    // The "After a form submit" rule hides the bar too: also check
+                    // the visitor's submitted key, the way isHiddenBySubmit() does.
+                    printf(
+                        "<script data-no-optimize=\"1\" data-cfasync=\"false\" data-no-defer=\"1\" nowprocket>%s(%s,%s);</script>\n",
+                        self::PRE_PAINT_SUBMIT_JS, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Constant script.
+                        wp_json_encode( $cookie ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-encoded string literal.
+                        wp_json_encode( [ 'k' => Helper::submitted_key( $nx_id ), 'd' => $submit_days ] ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-encoded key and integer.
+                    );
+                }
             }
             // Only one top bar sets the body padding.
             return;

@@ -8,7 +8,7 @@ import GdprFooter from '../gdpr/utils/GdprFooter';
 import CloseIcon from '../../icons/Close';
 import { getDynamicCookie, loadScripts } from '../gdpr/utils/helper';
 import useNotificationContext from "./NotificationProvider";
-import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName } from "../core/functions";
+import { getThemeName, isObject, calculateAnimationStartTime, getResThemeName, getAnimationTiming } from "../core/functions";
 import { nxApplyFilters } from "./hooks";
 
 const useMediaQuery = (query) => {
@@ -41,6 +41,8 @@ const GDPR = (props) => {
     const [notificationSize, setNotificationSize] = useState();
     const [animation, setAnimation] = useState(false);
     const is_pro = frontEndContext?.state?.is_pro ?? false;
+    // Show/hide timing; add-ons can change it (filter `nx_frontend_animation_timing`).
+    const animationTiming = getAnimationTiming(settings, is_pro);
     let mainBGColor = {};
     let titleColorFont = {};
     let descColorFont = {};
@@ -190,7 +192,7 @@ const GDPR = (props) => {
     const proAnimation = nxApplyFilters<{ classNames: any[]; style?: Record<string, any> } | undefined>(
         'nx_frontend_animation',
         undefined,
-        { settings, animation, animationStyle, is_pro }
+        { settings, animation, animationStyle, defaultClass: 'nx-anim-default-in', is_pro }
     );
     if (proAnimation) {
         componentClasses = classNames(
@@ -199,16 +201,17 @@ const GDPR = (props) => {
         );
         Object.assign(componentStyle, proAnimation.style || {});
     } else {
-        componentClasses = classNames(
-            ...baseClasses
-        );
-        componentStyle.animation = animationStyle
+        componentClasses = classNames('nx-anim-default-in', ...baseClasses);
+    }
+    if (animationTiming.className) {
+        componentClasses = classNames(componentClasses, animationTiming.className);
     }
     const wrapper = (
         // @todo advanced style.
         <div
             id={`nx-gdpr-${settings.nx_id}`}
             className={componentClasses}
+            style={animationTiming.style}
         >
             <div className="nx-gdpr">
                 <div className={`nx-gdpr-card ${settings?.disable_powered_by ? 'no-branding' : '' }`}>

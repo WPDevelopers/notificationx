@@ -11,7 +11,7 @@ New here? Start with [architecture/overview.md](architecture/overview.md) for th
 | [architecture/](architecture/) | How the plugin is put together — the Type↔Extension model, bootstrap/lifecycle, folder layout, storage, admin SPA, frontend runtime. |
 | [api/](api/) | REST endpoints, and the public hooks/filters surface. |
 | [development/](development/) | How-to guides for extending the plugin — adding a Type, adding an Extension, blocks, Elementor widgets, settings tabs, asset builds, doc conventions. |
-| [features/](features/) | Per-feature deep dives — Setup Wizard, Exit Intent, Notification Bar, Sales Notification designs. |
+| [features/](features/) | Per-feature deep dives — Setup Wizard, Exit Intent, Notification Bar, Sales Notification designs, and [the frontend `/notice` request performance work (issue #214)](features/notice-request-performance.md): what was measured, what is fixed and what is left. |
 | [types/](types/) | Per-**Type** reference (one doc per notification category — 19 types). |
 | [qa/](qa/) | Manual QA checklists for changes automated tests can't fully cover. |
 | [extensions/](extensions/) | Per-**Extension** reference (one doc per data-source integration — 35 integrations). |

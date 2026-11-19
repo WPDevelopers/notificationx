@@ -161,8 +161,10 @@
     }
 
     // "Purchase now ›" — white pill floating at the top-right, straddling the edge.
+    $link-top: 14px;
+    @include nx-link-overhang($link-top);
     &.button-link .notificationx-link {
-        top: -14px;
+        top: -$link-top;
         bottom: auto;
         left: auto;
         right: 14px;
