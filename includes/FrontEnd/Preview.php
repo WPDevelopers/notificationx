@@ -8,6 +8,7 @@
 
 namespace NotificationX\FrontEnd;
 
+use NotificationX\Core\CardSize;
 use NotificationX\Core\Helper;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
@@ -90,6 +91,9 @@ class Preview {
                 return $args;
             }
 
+            // A preview is never counted: the runtime posts no clicks.
+            $settings['enable_analytics'] = false;
+
             $source = $settings['source'];
             $type   = $settings['type'];
             if ($type === 'exit_intent') {
@@ -138,6 +142,7 @@ class Preview {
             }
 
             $args['settings'] = FrontEnd::get_instance()->get_settings();
+            $args['settings']['enable_analytics'] = false;
 
             // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
             $this->notificationXArr = apply_filters('get_notifications_ids', $args);
@@ -374,7 +379,7 @@ class Preview {
     public function get_settings() {
         // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified in is_authorized_preview_request().
         if ( empty( $_POST['nx-preview'] ) || ! $this->is_authorized_preview_request() ) {
-            return array();
+            return $this->trusted_settings();
         }
 
         // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified in is_authorized_preview_request().
@@ -386,6 +391,42 @@ class Preview {
         }
 
         // Simple sanitization
+        array_walk_recursive( $settings, function ( &$value ) {
+            if ( is_string( $value ) ) {
+                $value = wp_strip_all_tags( $value );
+            }
+        });
+
+        return $settings;
+    }
+
+    /**
+     * Preview settings an add-on supplies from the server for this request,
+     * for example a stored snapshot behind a share link.
+     *
+     * Consulted only when the request carries no authorised preview POST, and
+     * it never reads `$_POST`: the request payload stays readable only through
+     * the nonce and capability check above. The settings are cleaned like a
+     * POSTed payload, so they render the same way.
+     *
+     * @since 3.3.9
+     * @return array
+     */
+    protected function trusted_settings() {
+        /**
+         * Filters the settings a preview renders when there is no authorised
+         * preview POST. Return only settings your own code stored, never
+         * anything taken from the request. Use with `nx_is_preview`.
+         *
+         * @since 3.3.9
+         * @param array $settings Notification settings, or an empty array.
+         */
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- nx_ is this plugin's hook prefix.
+        $settings = apply_filters( 'nx_preview_trusted_settings', array() );
+        if ( ! is_array( $settings ) || empty( $settings ) ) {
+            return array();
+        }
+
         array_walk_recursive( $settings, function ( &$value ) {
             if ( is_string( $value ) ) {
                 $value = wp_strip_all_tags( $value );
@@ -424,6 +465,8 @@ class Preview {
         $settings = apply_filters("nx_preview_settings_{$settings['source']}", $settings);
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $settings = apply_filters('nx_get_post', $settings);
+        // The preview doesn't pass nx_filtered_post: apply the card size guard here.
+        $settings = CardSize::normalize($settings);
         return $settings;
     }
 

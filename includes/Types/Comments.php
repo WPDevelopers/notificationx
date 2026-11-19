@@ -159,6 +159,25 @@ class Comments extends Types {
                 'image_shape' => 'square',
                 'show_notification_image' => 'maps_image',
             ),
+            // "Verified card" (vc) theme, kept at the END of the list so every
+            // existing card keeps its picker position. Rendered by the frontend
+            // VerifiedCard (nxdev/notificationx/frontend/themes/vc/); the full key
+            // is listed in GlobalFields::vc_theme_keys(). No 'defaults', so the
+            // theme trigger sets @link_button:false.
+            // Thread — avatar + name + "commented on", the comment under a violet rule.
+            'vc-thread' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-thread.png',
+                'image_shape' => 'circle',
+                'template'    => [
+                    'first_param'         => 'tag_name',
+                    'custom_first_param'  => __('Someone', 'notificationx'),
+                    'second_param'        => __('commented on', 'notificationx'),
+                    'third_param'         => 'tag_post_comment',
+                    'custom_third_param'  => __('Anonymous Post', 'notificationx'),
+                    'fourth_param'        => 'tag_time',
+                    'custom_fourth_param' => __('Some time ago', 'notificationx'),
+                ],
+            ],
         ];
         $this->res_themes = [
             'res-theme-one'        => [
@@ -238,6 +257,7 @@ class Comments extends Types {
                     'comments_theme-six-free',
                     'comments_theme-seven-free',
                     'comments_theme-eight-free',
+                    'comments_vc-thread',
                 ],
             ],
         ];

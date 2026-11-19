@@ -32,7 +32,9 @@
     function lockForm( form, btn, msgEl ) {
         if ( btn ) btn.disabled = true;
         if ( msgEl && ! msgEl.textContent ) {
-            msgEl.classList.add( 'is-success' );
+            // `is-locked` tells the notification around the form that this is
+            // not a new submit (watchFormSuccess.ts).
+            msgEl.classList.add( 'is-success', 'is-locked' );
             msgEl.textContent = form.getAttribute( 'data-already' )
                 || 'You have already submitted this form.';
         }
@@ -73,7 +75,7 @@
 
             if ( msgEl ) {
                 msgEl.textContent = '';
-                msgEl.classList.remove( 'is-success', 'is-error' );
+                msgEl.classList.remove( 'is-success', 'is-error', 'is-locked' );
             }
 
             // Native required-field validation.

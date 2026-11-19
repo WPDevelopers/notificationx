@@ -12,7 +12,8 @@ export const analyticsOnClick = (event, restUrl, config, dispatch, credentials =
         event.preventDefault();
         return false;
     }
-    if(!enable_analytics){
+    // A preview (the builder's, or a shared preview link) is never counted.
+    if(!enable_analytics || config?.is_preview){
         handleCloseNotification(config, nx_id, dispatch);
         return;
     }
@@ -75,7 +76,7 @@ export const resolveNotificationLink = (config, data) => {
  * popups whose CTA button is hidden by the theme still register CTR.
  */
 export const recordAnalyticsClick = (restUrl, config, omitCredentials = false) => {
-    if (!config?.enable_analytics) {
+    if (!config?.enable_analytics || config?.is_preview) {
         return Promise.resolve();
     }
     const args: {[key: string]: any} = { keepalive: true };

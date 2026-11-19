@@ -47,12 +47,14 @@ These are how a plugin (Pro or third-party) adds new Types, Extensions, sources,
 | `nx_themes_trigger` / `nx_themes_trigger_for_responsive` / `nx_source_trigger` / `nx_source_types_title` | Default/trigger values and titles wired to the theme & source pickers. | varies |
 | `nx_metabox_tabs` / `nx_metabox_config` | The full builder tab tree ([GlobalFields.php:2274-2275](../../includes/Extensions/GlobalFields.php#L2274)). | `$tabs` |
 | `nx_builder_configs` | Builder tab config passed to the admin SPA ([PostType.php:142](../../includes/Core/PostType.php#L142)). | `$tabs` |
+| `nx_card_size_themes` | Theme keys (as saved in `themes`) that offer the Card Size setting, after Free's own list ([CardSize.php:157](../../includes/Core/CardSize.php#L157)). Keys containing `_vc-` are ignored. Add a theme only after it looks right at Compact and Large; see [../features/card-size.md](../features/card-size.md). | `string[] $themes` |
 
 ### The Pro upsell surface
 
 | Filter | Modifies | Args |
 | --- | --- | --- |
 | `nx_pro_alert_popup` | Wraps a field/source's `popup` config with the "upgrade to Pro" overlay when the feature is Pro-gated ([Extension.php:451](../../includes/Extensions/Extension.php#L451), [GlobalFields.php:113](../../includes/Extensions/GlobalFields.php#L113)). This is the canonical filter referenced in [CLAUDE.md](../../CLAUDE.md). | `$popup` |
+| `nx_offer_pointer_pro_active` | Whether the seasonal offer pointer treats the site as a Pro site; return `true` to hide the pointer on a free site ([OfferPointer.php](../../includes/Admin/OfferPointer.php), [features/offer-campaign.md](../features/offer-campaign.md)). | `$is_pro` |
 | `nx_popup_alert` / `nx_instructions` | Pro-alert payload and instruction blocks in the metabox ([GlobalFields.php:2270-2271](../../includes/Extensions/GlobalFields.php#L2270)). | `[]` |
 
 ### Save / read a notification (CPT)
@@ -88,7 +90,7 @@ Fired, roughly in order, as [FrontEnd.php](../../includes/FrontEnd/FrontEnd.php)
 | `nx_frontend_localize_data` | The whole localized data array before it's handed to JS ([:209](../../includes/FrontEnd/FrontEnd.php#L209)). | `$notificationXArr` |
 | `nx_frontend_get_entries` | Entries pulled for the active notifications ([:722](../../includes/FrontEnd/FrontEnd.php#L722)). | `$entries`, `$ids`, `$notifications`, `$params` |
 | `nx_get_entries_query_part_{source}` | Per-source SQL fragment for the entries query ([:705](../../includes/FrontEnd/FrontEnd.php#L705)). | `$global_query`, `$notification`, `$params` |
-| `nx_entry_show_on_frontend_{source}` | Return `true` to skip an entry ([:310](../../includes/FrontEnd/FrontEnd.php#L310)). | `false`, `$entry`, `$settings` |
+| `nx_entry_show_on_frontend_{source}` | Return `true` to skip an entry. Runs for every stored entry on every `notice` request, so keep it cheap: WooCommerce hides entries of unpublished products with it and checks each product once per request ([:310](../../includes/FrontEnd/FrontEnd.php#L310)). | `false`, `$entry`, `$settings` |
 | `nx_entry_display_{source}` | Whether an entry outside the display window is still skipped ([:323](../../includes/FrontEnd/FrontEnd.php#L323)). | `true`, `$entry`, `$settings` |
 | `nx_fallback_data` / `nx_fallback_data_{source}` | Default values merged into a sparse entry ([:329-330](../../includes/FrontEnd/FrontEnd.php#L329)). | `$defaults`, `$entry`, `$settings` |
 | `nx_filtered_entry` / `_{type}` / `_{source}` | A single processed entry ([:338-340](../../includes/FrontEnd/FrontEnd.php#L338)). | `$entry`, `$settings` |
@@ -117,9 +119,16 @@ An entry with `nx_awaiting_data: true` keeps that key through `FrontEnd::filtere
 
 ### In-builder preview
 
-Preview mirrors the frontend pipeline with `nx_preview_*` variants — see [Preview.php](../../includes/FrontEnd/Preview.php): `nx_preview_entry_{type}` / `_{source}`, `nx_preview_settings_{source}`, `nx_is_preview`, `nx_preview_url`, plus reuse of `nx_fallback_data*`, `nx_filtered_entry*`, and `nx_get_post*`.
+Preview mirrors the frontend pipeline with `nx_preview_*` variants — see [Preview.php](../../includes/FrontEnd/Preview.php): `nx_preview_entry_{type}` / `_{source}`, `nx_preview_settings_{source}`, `nx_is_preview`, `nx_preview_url`, `nx_preview_trusted_settings`, plus reuse of `nx_fallback_data*`, `nx_filtered_entry*`, and `nx_get_post*`.
 
 `nx_is_preview` only switches preview styling and behaviour on. The POSTed `nx-preview` payload is read only for a request with a valid `nx-preview-nonce` from a user with `edit_notificationx`, whatever the filter returns. If you force the filter on, remove your callback again as soon as you are done, or preview mode stays on for the rest of the request. See [In-builder preview](../architecture/frontend-runtime.md#in-builder-preview).
+
+| Filter | Modifies | Args |
+| --- | --- | --- |
+| `nx_preview_trusted_settings` | Available from Free 3.3.9. Settings a preview renders when the request has **no** authorised preview POST, for example a snapshot an add-on stored itself (Pro's share links). Use it together with `nx_is_preview`. Asked only when the POST gate fails; it never makes the POST readable. Return only settings your code stored, never anything from the request. The result is cleaned like a POSTed payload ([Preview.php](../../includes/FrontEnd/Preview.php) `trusted_settings()`). | `array $settings` (empty) |
+| `nx_preview_page_post_types` | Available from Free 3.3.9. Post types the Preview's page picker searches ([Rest/PreviewPages.php](../../includes/Core/Rest/PreviewPages.php)). Default: public, searchable, no attachments. Unknown types are dropped. | `string[] $types` |
+
+**Builder JS filter `nx_preview_toolbar_items`** ([fields/preview/PreviewToolbar.tsx](../../nxdev/notificationx/fields/preview/PreviewToolbar.tsx), `@wordpress/hooks`, available from Free 3.3.9): add-on controls in the Preview popup's top bar, after the page picker and "Open in new tab". Return the list with your React elements added (anything else is ignored; the items render in an error boundary). The second argument has `values` (unsaved builder values; `values.nx_id` is the saved notification's id, empty before the first save), `previewType`, `page` (the picked page or `null`), `url` (what the preview shows now), `defaultUrl`, `size` (`wide`, `narrow` at an 820px window or the tablet frame, `compact` with the phone frame), `panel` / `setPanel(name|null)` (one panel open at a time; Escape and outside clicks close it), and `openInNewTab()`. Give your buttons the class `nx-preview-tool` (`icon` for icon-only, `active` while open) and your panel `nx-preview-panel` to match.
 
 ### Settings tabs
 
