@@ -114,6 +114,16 @@ All three share the same default template values: `first_param: select_a_tag` /
 `form_theme-two`, `form_theme-three` as the themes backed by this single template
 group (there is only one template group for this type).
 
+### Verified Card: Submission (`vc-submission`)
+
+A free "Verified Card" theme appended at the **end** of `$this->themes` (existing picker positions are unchanged). Key `form_vc-submission` (Contact Form 7, WPForms, Ninja Forms, Fluent Forms; Gravity Forms and Elementor Form with Pro), `image_shape` `circle`, no `defaults`. Template: `first_param` `select_a_tag` (the merchant picks the submitter field per form, as for the other form themes), `second_param` "recently contacted via", `third_param` `tag_title` (the form title), `fourth_param` `tag_time`. The key joins `form_template_new['_themes']`.
+
+Desktop: a 32px avatar and the submitter, the time at the top right, "recently contacted via", then the form title in an outlined field box with a paper-plane glyph. Phone line 1: **submitter**, "recently contacted via", the glyph and the form title, with the time at the right.
+
+On the frontend it does **not** use the generic `Content.tsx` rows: `GetTemplate` returns a slot array and [themes/vc/VerifiedCard.tsx](../../nxdev/notificationx/frontend/themes/vc/VerifiedCard.tsx) renders a 344px card (desktop and tablet) or a slim two-line card at 480px and below, with the credit "✓ Verified by NotificationX" and a one-pass line scroll (option C). With NotificationX Pro's Mobile Responsive on, phones (574px and below) show Pro's mobile card with compact rows instead. `GlobalFields::vc_theme_keys()` hides the Advanced Design toggle for it, and Custom Notification does not offer it.
+
+Slot contract, rendering, option C and how to add a vc theme: [add-new-design.md §8](../features/sales-notification/add-new-design.md#8-verified-cards-vc-).
+
 ## Key files
 
 | Layer | File(s) |

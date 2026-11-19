@@ -11,6 +11,7 @@ namespace NotificationX\Extensions;
 use NotificationX\Admin\Admin;
 use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\Admin\Settings;
+use NotificationX\Core\CardSize;
 use NotificationX\Core\Rules;
 use NotificationX\Core\Database;
 use NotificationX\Core\Helper;
@@ -61,6 +62,76 @@ class GlobalFields {
             $fields['second_param']['rules'] = Rules::is( 'source', 'woocommerce_cart_peek', true );
         }
         return $fields;
+    }
+
+    /**
+     * Full theme keys of the "Verified card" (vc) theme family.
+     *
+     * Single PHP list of the vc keys, read by the builder rules that hide the
+     * Advanced Design toggle (advance_edit) and the Button toggle (link_button)
+     * for these themes. The vc cards ignore both: the frontend VerifiedCard
+     * (nxdev/notificationx/frontend/themes/vc/) has its own palette and no
+     * button. The themes themselves are declared in the Types (for example
+     * includes/Types/Conversions.php); a new vc theme adds its full keys here.
+     * Add-ons add their own keys through the `nx_vc_theme_keys` filter.
+     *
+     * @return string[]
+     */
+    public static function vc_theme_keys() {
+        $keys = self::vc_builtin_theme_keys();
+
+        /**
+         * Filters the full theme keys of the Verified Card family.
+         *
+         * An add-on that registers its own vc theme (and its slug through the
+         * frontend `nx_frontend_vc_slugs` filter) appends its full keys here,
+         * so the builder hides Advanced Design and Button for them too. The
+         * built-in keys are always kept, and an entry that is not a
+         * `<prefix>_vc-<word>` string is dropped.
+         *
+         * @since x.x.x
+         * @param string[] $keys Full theme keys, e.g. 'conversions_vc-receipt'.
+         */
+        $filtered = apply_filters( 'nx_vc_theme_keys', $keys );
+        if ( ! is_array( $filtered ) ) {
+            return $keys;
+        }
+        foreach ( $filtered as $key ) {
+            if ( is_string( $key ) && preg_match( '/^[a-z0-9_]+_vc-[a-z]+$/', $key ) && ! in_array( $key, $keys, true ) ) {
+                $keys[] = $key;
+            }
+        }
+        return $keys;
+    }
+
+    /**
+     * The vc theme keys free itself registers (vc_theme_keys() without add-ons).
+     *
+     * @return string[]
+     */
+    public static function vc_builtin_theme_keys() {
+        return [
+            'conversions_vc-receipt',
+            'woocommerce_sales_vc-receipt',
+            'conversions_vc-showcase',
+            'woocommerce_sales_vc-showcase',
+            'comments_vc-thread',
+            'reviews_vc-scorecard',
+            'woo_reviews_vc-scorecard',
+            'woocommerce_sales_reviews_vc-scorecard',
+            'reviewx_vc-scorecard',
+            'google_reviews_vc-scorecard',
+            'download_stats_vc-counter',
+            'donation_vc-pledge',
+            'elearning_vc-enrol',
+            'form_vc-submission',
+            'reviews_vc-ratings',
+            'woo_reviews_vc-ratings',
+            'woocommerce_sales_reviews_vc-ratings',
+            'reviewx_vc-ratings',
+            'google_reviews_vc-ratings',
+            'download_stats_vc-installs',
+        ];
     }
 
     public function tabs() {
@@ -503,10 +574,14 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 20,
+                                    // Hidden for the vc themes, which ignore Advanced Design.
                                     'rules'    =>   Rules::logicalRule([
-                                        Rules::is('themes_tab', 'for_desktop'),
-                                        Rules::is('themes_tab', 'nxbar_build_with_ai'),
-                                    ], 'or'),
+                                        Rules::logicalRule([
+                                            Rules::is('themes_tab', 'for_desktop'),
+                                            Rules::is('themes_tab', 'nxbar_build_with_ai'),
+                                        ], 'or'),
+                                        Rules::includes('themes', self::vc_theme_keys(), true),
+                                    ]),
                                 ],
                             ]
                         ],
@@ -527,6 +602,8 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 1,
+                                    // Hidden for the vc themes, which ignore Advanced Design.
+                                    'rules'    => Rules::includes('themes', self::vc_theme_keys(), true),
                                 ],
                                 "design" => [
                                     'label'    => __("Design", 'notificationx'),
@@ -1106,6 +1183,8 @@ class GlobalFields {
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('type', ['conversions','video','woocommerce', 'woocommerce_sales','page_analytics']),
                                         Rules::is('link_type','none',true),
+                                        // Hidden for the vc themes, which have no button.
+                                        Rules::includes('themes', self::vc_theme_keys(), true),
                                     ]),
                                 ],
                             ],
@@ -1977,6 +2056,30 @@ class GlobalFields {
                                         ],
                                     ],
                                     'help' => __('Set a max width for notification.', 'notificationx'),
+                                ],
+                                'card_size' => [
+                                    'label'    => __("Card Size", 'notificationx'),
+                                    'name'     => CardSize::FIELD,
+                                    'type'     => "select",
+                                    'default'  => CardSize::DEFAULT_VALUE,
+                                    'priority' => 52,
+                                    'options'  => [
+                                        'compact' => [
+                                            'label' => __('Compact', 'notificationx'),
+                                            'value' => 'compact',
+                                        ],
+                                        'default' => [
+                                            'label' => __('Default', 'notificationx'),
+                                            'value' => 'default',
+                                        ],
+                                        'large' => [
+                                            'label' => __('Large', 'notificationx'),
+                                            'value' => 'large',
+                                        ],
+                                    ],
+                                    // Only themes that support it; the list is empty until a theme family is ready.
+                                    'rules'    => Rules::includes('themes', CardSize::supported_themes()),
+                                    'help'     => __('Makes the whole card smaller or larger: text, image and spacing together. On phones, Large shows at the default size.', 'notificationx'),
                                 ],
                                 'close_button_control' => [
                                     'label'  => __("Display Close Button", 'notificationx'),
