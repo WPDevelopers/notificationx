@@ -35,6 +35,9 @@ export const createFrontendRuntime = () =>
         calculateAnimationStartTime,
         getResThemeName,
         getThemeName,
+        // This runtime has the `nx_frontend_entry` filter and the
+        // `notificationx:refresh` window event (Pro: the live visitor count).
+        liveApi: 1,
     });
 
 export const exposeFrontendRuntime = () => {

@@ -15,6 +15,10 @@ describe( 'window.nxFrontendRuntime', () => {
 		expect( typeof runtime.getPath ).toBe( 'function' );
 	} );
 
+	it( 'tells add-ons the live entry hooks exist', () => {
+		expect( exposeFrontendRuntime().liveApi ).toBe( 1 );
+	} );
+
 	it( 'is frozen, so an add-on cannot swap React for everyone', () => {
 		const runtime = exposeFrontendRuntime();
 		expect( Object.isFrozen( runtime ) ).toBe( true );
