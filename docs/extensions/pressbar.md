@@ -73,7 +73,8 @@ There is no source-event → `get_data()` step for PressBar. Instead:
    per `nx_id` — consumed on the frontend via `normalizePressBar()` (config + single
    content blob, not a multi-entry list).
 4. `insert_views()` (hooked to `nx_filtered_data_{$this->id}`) records a view via
-   `Analytics::get_instance()->insert_views()` on the public/frontend pass.
+   `Analytics::get_instance()->insert_views()` on the public/frontend pass. Nothing
+   is written when **Enable Analytics** is off.
 
 ## Fields & settings
 

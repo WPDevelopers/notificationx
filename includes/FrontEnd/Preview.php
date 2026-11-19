@@ -8,6 +8,7 @@
 
 namespace NotificationX\FrontEnd;
 
+use NotificationX\Core\CardSize;
 use NotificationX\Core\Helper;
 use NotificationX\Core\Rules;
 use NotificationX\GetInstance;
@@ -424,6 +425,8 @@ class Preview {
         $settings = apply_filters("nx_preview_settings_{$settings['source']}", $settings);
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $settings = apply_filters('nx_get_post', $settings);
+        // The preview doesn't pass nx_filtered_post: apply the card size guard here.
+        $settings = CardSize::normalize($settings);
         return $settings;
     }
 

@@ -47,12 +47,14 @@ These are how a plugin (Pro or third-party) adds new Types, Extensions, sources,
 | `nx_themes_trigger` / `nx_themes_trigger_for_responsive` / `nx_source_trigger` / `nx_source_types_title` | Default/trigger values and titles wired to the theme & source pickers. | varies |
 | `nx_metabox_tabs` / `nx_metabox_config` | The full builder tab tree ([GlobalFields.php:2274-2275](../../includes/Extensions/GlobalFields.php#L2274)). | `$tabs` |
 | `nx_builder_configs` | Builder tab config passed to the admin SPA ([PostType.php:142](../../includes/Core/PostType.php#L142)). | `$tabs` |
+| `nx_card_size_themes` | Theme keys (as saved in `themes`) that offer the Card Size setting, after Free's own list ([CardSize.php:157](../../includes/Core/CardSize.php#L157)). Keys containing `_vc-` are ignored. Add a theme only after it looks right at Compact and Large; see [../features/card-size.md](../features/card-size.md). | `string[] $themes` |
 
 ### The Pro upsell surface
 
 | Filter | Modifies | Args |
 | --- | --- | --- |
 | `nx_pro_alert_popup` | Wraps a field/source's `popup` config with the "upgrade to Pro" overlay when the feature is Pro-gated ([Extension.php:451](../../includes/Extensions/Extension.php#L451), [GlobalFields.php:113](../../includes/Extensions/GlobalFields.php#L113)). This is the canonical filter referenced in [CLAUDE.md](../../CLAUDE.md). | `$popup` |
+| `nx_offer_pointer_pro_active` | Whether the seasonal offer pointer treats the site as a Pro site; return `true` to hide the pointer on a free site ([OfferPointer.php](../../includes/Admin/OfferPointer.php), [features/offer-campaign.md](../features/offer-campaign.md)). | `$is_pro` |
 | `nx_popup_alert` / `nx_instructions` | Pro-alert payload and instruction blocks in the metabox ([GlobalFields.php:2270-2271](../../includes/Extensions/GlobalFields.php#L2270)). | `[]` |
 
 ### Save / read a notification (CPT)
@@ -88,7 +90,7 @@ Fired, roughly in order, as [FrontEnd.php](../../includes/FrontEnd/FrontEnd.php)
 | `nx_frontend_localize_data` | The whole localized data array before it's handed to JS ([:209](../../includes/FrontEnd/FrontEnd.php#L209)). | `$notificationXArr` |
 | `nx_frontend_get_entries` | Entries pulled for the active notifications ([:722](../../includes/FrontEnd/FrontEnd.php#L722)). | `$entries`, `$ids`, `$notifications`, `$params` |
 | `nx_get_entries_query_part_{source}` | Per-source SQL fragment for the entries query ([:705](../../includes/FrontEnd/FrontEnd.php#L705)). | `$global_query`, `$notification`, `$params` |
-| `nx_entry_show_on_frontend_{source}` | Return `true` to skip an entry ([:310](../../includes/FrontEnd/FrontEnd.php#L310)). | `false`, `$entry`, `$settings` |
+| `nx_entry_show_on_frontend_{source}` | Return `true` to skip an entry. Runs for every stored entry on every `notice` request, so keep it cheap: WooCommerce hides entries of unpublished products with it and checks each product once per request ([:310](../../includes/FrontEnd/FrontEnd.php#L310)). | `false`, `$entry`, `$settings` |
 | `nx_entry_display_{source}` | Whether an entry outside the display window is still skipped ([:323](../../includes/FrontEnd/FrontEnd.php#L323)). | `true`, `$entry`, `$settings` |
 | `nx_fallback_data` / `nx_fallback_data_{source}` | Default values merged into a sparse entry ([:329-330](../../includes/FrontEnd/FrontEnd.php#L329)). | `$defaults`, `$entry`, `$settings` |
 | `nx_filtered_entry` / `_{type}` / `_{source}` | A single processed entry ([:338-340](../../includes/FrontEnd/FrontEnd.php#L338)). | `$entry`, `$settings` |
