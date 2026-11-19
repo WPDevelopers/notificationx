@@ -63,6 +63,10 @@ class NotificationX {
      */
     public function __construct() {
         static::$WP_CLI = defined('WP_CLI') && WP_CLI;
+        // The field list is derived from the cached builder fields: drop it
+        // whenever that cache is cleared or replaced, whoever does it.
+        add_action('delete_transient_nx_builder_fields', [$this, 'forget_field_names']);
+        add_action('set_transient_nx_builder_fields', [$this, 'forget_field_names']);
         $this->settings = Settings::get_instance([
             'key'         => 'notificationx',
             'auto_commit' => true,
@@ -525,15 +529,40 @@ class NotificationX {
         return [$value];
     }
 
+    /**
+     * Transient that holds the field list (name, type, default, ...) derived
+     * from the builder fields. See get_field_names().
+     */
+    const FIELD_NAMES_TRANSIENT = 'nx_builder_field_names';
+
+    /**
+     * Field lists loaded in the current request, by site ID. Each site of a
+     * network has its own modules and plugins, so its own list.
+     *
+     * @var array<int, array>
+     */
+    private $field_names = [];
+
     public function get_tab(){
-        // Rebuild when anything the cached fields were built from changes:
-        // - NotificationX Pro switched or updated: its options (and which
-        //   motion options it renders) are part of the fields.
-        // - Elementor or Essential Blocks installed, switched on or off: the
-        //   Notification Bar fields default is_elementor from Elementor and
-        //   pick the install button and missing-plugin notice from them. A
-        //   stale copy saved new Elementor bars with is_elementor off, which
-        //   hid the builder preview.
+        $this->sync_builder_environment();
+        $tabs = get_transient('nx_builder_fields');
+        if(empty($tabs) || (defined('NX_DEBUG') && NX_DEBUG)){
+            $tabs = $this->rebuild_builder_fields();
+        }
+        return $tabs;
+    }
+
+    /**
+     * Clear the cached builder fields when anything they were built from changes:
+     * - NotificationX Pro switched or updated: its options (and which
+     *   motion options it renders) are part of the fields.
+     * - Elementor or Essential Blocks installed, switched on or off: the
+     *   Notification Bar fields default is_elementor from Elementor and
+     *   pick the install button and missing-plugin notice from them. A
+     *   stale copy saved new Elementor bars with is_elementor off, which
+     *   hid the builder preview.
+     */
+    private function sync_builder_environment() {
         $pro_version = defined('NOTIFICATIONX_PRO_VERSION') && self::is_pro() ? NOTIFICATIONX_PRO_VERSION : 'none';
         $environment = implode('|', [
             $pro_version,
@@ -545,23 +574,80 @@ class NotificationX {
             delete_transient('nx_builder_fields');
             set_transient( 'nx_builder_fields_pro', $environment, DAY_IN_SECONDS );
         }
-        $tabs = get_transient('nx_builder_fields');
-        if(empty($tabs) || (defined('NX_DEBUG') && NX_DEBUG)){
-            $tabs = GlobalFields::get_instance()->tabs();
-            set_transient( 'nx_builder_fields', $tabs, DAY_IN_SECONDS );
-        }
+    }
+
+    /**
+     * Build the builder fields and cache them together with the field list
+     * derived from them, so both expire at the same time.
+     *
+     * @return array The builder fields.
+     */
+    private function rebuild_builder_fields() {
+        $tabs = GlobalFields::get_instance()->tabs();
+        // Runs forget_field_names() through the set_transient_* action.
+        set_transient( 'nx_builder_fields', $tabs, DAY_IN_SECONDS );
+        $names = !empty($tabs['tabs']) ? $this->_get_field_names($tabs['tabs']) : [];
+        set_transient( self::FIELD_NAMES_TRANSIENT, $names, DAY_IN_SECONDS );
+        $this->field_names[get_current_blog_id()] = $names;
         return $tabs;
     }
 
+    /**
+     * Drop the field list derived from the builder fields.
+     *
+     * Hooked to `delete_transient_nx_builder_fields` and
+     * `set_transient_nx_builder_fields`.
+     */
+    public function forget_field_names() {
+        unset($this->field_names[get_current_blog_id()]);
+        delete_transient( self::FIELD_NAMES_TRANSIENT );
+    }
+
+    /**
+     * Name, type, default, help, label and `multiple` of every builder field.
+     *
+     * normalize_post() needs this for every notification it reads, on the
+     * front end too. The builder fields it comes from are large (about 840 KB
+     * serialized), so the list is cached on its own (about 90 KB) and loaded
+     * once per request. A store that cannot keep the large value (for example
+     * an object cache with an item size limit) then costs at most one rebuild
+     * per request instead of one per notification.
+     *
+     * @param array|null $tabs Fields to read instead of the builder's.
+     * @return array
+     */
     public function get_field_names($tabs = null){
-        $fields = [];
-        if(empty($tabs)){
+        if(!empty($tabs)){
+            return !empty($tabs['tabs']) ? $this->_get_field_names($tabs['tabs']) : [];
+        }
+        if(defined('NX_DEBUG') && NX_DEBUG){
+            // Debug mode rebuilds the fields on every call.
             $tabs = $this->get_tab();
+            return !empty($tabs['tabs']) ? $this->_get_field_names($tabs['tabs']) : [];
         }
-        if(!empty($tabs['tabs'])){
-            $fields = $this->_get_field_names($tabs['tabs']);
+
+        $this->sync_builder_environment();
+        $site = get_current_blog_id();
+        if(isset($this->field_names[$site])){
+            return $this->field_names[$site];
         }
-        return $fields;
+
+        $names = get_transient( self::FIELD_NAMES_TRANSIENT );
+        if(!is_array($names)){
+            $tabs = get_transient('nx_builder_fields');
+            if(empty($tabs)){
+                $this->rebuild_builder_fields();
+                return $this->field_names[$site];
+            }
+            // Builder fields cached by an older version, or the list was
+            // evicted: derive it, and let it expire with the fields.
+            $names   = !empty($tabs['tabs']) ? $this->_get_field_names($tabs['tabs']) : [];
+            $timeout = (int) get_option('_transient_timeout_nx_builder_fields');
+            $ttl     = $timeout > time() ? $timeout - time() : DAY_IN_SECONDS;
+            set_transient( self::FIELD_NAMES_TRANSIENT, $names, $ttl );
+        }
+        $this->field_names[$site] = $names;
+        return $names;
     }
 
     public function get_field($field_name){
