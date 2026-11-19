@@ -84,6 +84,12 @@ class CustomNotification extends Extension {
         }
         $themes = array_values(array_diff($themes, $maps_theme));
 
+        // The "Verified card" (vc) themes are not offered for Custom
+        // Notification: their keys (e.g. conversions_vc-receipt) contain '_vc-'.
+        $themes = array_values(array_filter($themes, function ($theme) {
+            return false === strpos($theme, '_vc-');
+        }));
+
         return $themes;
     }
 
