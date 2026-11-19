@@ -6,13 +6,23 @@ import { Button } from "@wordpress/components";
 import { ReactComponent as DesktopIcon } from "../icons/responsive/desktop.svg";
 import { ReactComponent as TabletIcon } from "../icons/responsive/tablet.svg";
 import { ReactComponent as MobileIcon } from "../icons/responsive/mobile.svg";
-import { toBase64 } from "js-base64";
+import { FRAME_NAME, postToTarget, previewPayload, resetFrameName } from "./preview/form";
+import PreviewToolbar from "./preview/PreviewToolbar";
+import { PreviewPage } from "./preview/PagePicker";
+import { popupWidth, toolbarSize } from "./preview/size";
 
 const PreviewModal = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const context = useBuilderContext();
     const [previewType, setPreviewType] = useState("desktop");
     const iframeRef = useRef(null);
+    // The page the owner picked; null shows the default page, as before.
+    const [chosenPage, setChosenPage] = useState<PreviewPage | null>(null);
+    const [defaultName, setDefaultName] = useState<{ url: string; id: number; title: string } | null>(null);
+    // Bumped per picker choice: the frame is re-mounted (a fresh window with
+    // its name) and the request posted into it, never into a new tab.
+    const [frameKey, setFrameKey] = useState(0);
+    const [windowWidth, setWindowWidth] = useState(() => window.innerWidth);
 
     const openModal = () => {
         setIsOpen(!isOpen);
@@ -26,69 +36,52 @@ const PreviewModal = (props) => {
         }
     }, [isOpen]);
 
-    // A function that creates and returns a form element
-    const createForm = (action, method, target, data) => {
-        // Create a form element
-        const form  = document.createElement("form");
-        form.action = action;
-        form.method = method;
-        form.target = target;
+    const { source } = context.values;
+    const defaultUrl = props.urls?.[source]
+        ? props.urls[source]
+        : props.urls["default"];
+    const previewUrl = chosenPage?.url || defaultUrl;
 
-        // Loop through the data object and create input elements
-        for (let key in data) {
-            const input = document.createElement("input");
-            input.type  = "hidden";
-            input.name  = key;
-            input.value = data[key];
-            // Append the input to the form
-            form.appendChild(input);
+    const postPreview = (target: string) => {
+        postToTarget(previewUrl, "post", target, previewPayload(context.values, previewType));
+    };
 
-        }
-
-        // Return the form element
-        return form;
-    }
-
-    // A function that creates and submits a form to an iframe
-    const postToIframe = (action, method, target, data) => {
-        // Create a form element with the given parameters
-        const form = createForm(action, method, target, data);
-
-        // Append the form to the document body
-        document.body.appendChild(form);
-
-        // Submit the form
-        form.submit();
-
-        // Remove the form from the document body
-        document.body.removeChild(form);
-    }
-
-    const onAfterOpen = () => {
-        // Get the iframe element
+    // Into the frame only: give its window back its name first (a draft's
+    // preview page renames it), so the form never opens a new tab.
+    const postToFrame = () => {
         const iframe = iframeRef.current;
-        if(!iframe){
+        if (!iframe) {
             return;
         }
+        resetFrameName(iframe);
+        postPreview(FRAME_NAME);
+    };
 
-        const { source } = context.values;
-        const url = props.urls?.[source]
-            ? props.urls[source]
-            : props.urls["default"];
-
-        const nxPreview = {
-            "nx-preview": toBase64(JSON.stringify({ ...context.values, previewType })),
-            // Without it the front end ignores the payload (Preview::is_authorized_preview_request()).
-            "nx-preview-nonce": (window as any).notificationxTabs?.preview_nonce || "",
-        };
-
-        postToIframe(
-            url,
-            "post",
-            iframe.name,
-            nxPreview
-          );
+    const onAfterOpen = () => {
+        postToFrame();
     }
+
+    // Another page was picked: the same request, to that page, in a new frame.
+    useEffect(() => {
+        if (frameKey && isOpen) {
+            postToFrame();
+        }
+    }, [frameKey]);
+
+    useEffect(() => {
+        if (!isOpen) {
+            return;
+        }
+        const resize = () => setWindowWidth(window.innerWidth);
+        resize();
+        window.addEventListener("resize", resize);
+        return () => window.removeEventListener("resize", resize);
+    }, [isOpen]);
+
+    const choosePage = (page: PreviewPage | null) => {
+        setChosenPage(page);
+        setFrameKey((n) => n + 1);
+    };
 
     useEffect(() => {
         return () => {
@@ -170,6 +163,19 @@ const PreviewModal = (props) => {
                         >
                             <MobileIcon style={{ width: 15 }} />
                         </button>
+                        <PreviewToolbar
+                            values={context.values}
+                            previewType={previewType}
+                            url={previewUrl}
+                            size={toolbarSize(popupWidth(previewType, windowWidth))}
+                            defaultUrl={defaultUrl}
+                            homeUrl={props.urls?.["default"] || ""}
+                            defaultName={defaultName?.url === defaultUrl ? defaultName : null}
+                            chosen={chosenPage}
+                            onChoose={choosePage}
+                            onDefaultName={(current) => setDefaultName({ ...current, url: defaultUrl })}
+                            openInNewTab={() => postPreview("_blank")}
+                        />
                         <button
                             className="nx-admin-modal-close-button"
                             type="button"
@@ -190,7 +196,7 @@ const PreviewModal = (props) => {
                         </button>
                     </div>
                     <div className="nx-admin-modal-body">
-                        {  ( ('inline' === context.values.type && !props.urls?.[context.values.source]) || ('woocommerce_sales_inline' === context.values.source && !props.urls?.[context.values.source]) ) ? (
+                        { !chosenPage && ( ('inline' === context.values.type && !props.urls?.[context.values.source]) || ('woocommerce_sales_inline' === context.values.source && !props.urls?.[context.values.source]) ) ? (
                             <div
                                 style={{
                                     height: "600px",
@@ -205,8 +211,9 @@ const PreviewModal = (props) => {
                             </div>
                         ) : (
                             <iframe
+                                key={frameKey}
                                 ref={iframeRef}
-                                name="preview-modal-iframe"
+                                name={FRAME_NAME}
                                 // src={url + "#" + previewType}
                                 width="100%"
                                 height="600px"

@@ -64,6 +64,21 @@ node tests/e2e/builder-preview.js 179 163            # notification IDs on your 
 
 Pick notifications whose type shows the Preview button (not Notification Bar, which previews inside the builder). It uses the same environment variables as the bundle comparison.
 
+## Builder preview on another page, and in a new tab
+
+[builder-preview-pages.js](builder-preview-pages.js) opens the builder's **Preview** and checks the controls on the right of its top bar:
+
+- at a 1440px and an 820px window, and with the phone frame: the device buttons stay centred, the controls start right of them and end at least 16px before the close button (screenshots `out/preview-pages-<id>-<width>.png`);
+- the page picker lists pages; choosing one posts the same payload and nonce into the frame at that page, which renders the preview;
+- Escape closes the picker, not the popup;
+- **Open in new tab** posts the same request to a new tab (`rel="noopener"`), which renders the preview without the admin bar;
+- the request to the chosen page is still refused without the nonce, or without a login.
+
+```bash
+npm run admin
+node tests/e2e/builder-preview-pages.js 14           # a notification ID on your site
+```
+
 ## Release smoke test
 
 [release-smoke.js](release-smoke.js) covers what a release needs beyond the two runners above:

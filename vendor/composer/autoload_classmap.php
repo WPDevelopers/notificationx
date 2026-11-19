@@ -68,6 +68,7 @@ return array(
     'NotificationX\\Core\\Rest\\Integration' => $baseDir . '/includes/Core/Rest/Integration.php',
     'NotificationX\\Core\\Rest\\Popup' => $baseDir . '/includes/Core/Rest/Popup.php',
     'NotificationX\\Core\\Rest\\Posts' => $baseDir . '/includes/Core/Rest/Posts.php',
+    'NotificationX\\Core\\Rest\\PreviewPages' => $baseDir . '/includes/Core/Rest/PreviewPages.php',
     'NotificationX\\Core\\Rule' => $baseDir . '/includes/Core/Rule.php',
     'NotificationX\\Core\\Rules' => $baseDir . '/includes/Core/Rules.php',
     'NotificationX\\Core\\SetupWizard' => $baseDir . '/includes/Core/SetupWizard.php',
