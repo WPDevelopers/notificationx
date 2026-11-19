@@ -5,7 +5,7 @@ Tags: sales notification, fomo, social proof, woocommerce sales, notification ba
 Requires at least: 5.3
 Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 3.3.8
+Stable tag: 3.3.9
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -226,6 +226,16 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 10. Notification Bar with Countdown
 
 == Changelog ==
+
+= 3.3.9 - 19/11/2026 =
+Added: Verified Cards notification themes.
+Added: Card size options for notifications.
+Added: Preview on any page of your site, or in a new tab.
+Added: Separate "show again" rule after a form is submitted.
+Added: Option to stop showing Exit Intent popups after an end date.
+Improved: Call-to-action button animation and accessibility.
+Improved: Frontend notification loading speed.
+Few minor bug fixes and improvements.
 
 = 3.3.8 - 11/11/2026 =
 Added: Motion support
