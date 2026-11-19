@@ -35,6 +35,7 @@ return array(
     'NotificationX\\Admin\\InfoTooltipManager' => $baseDir . '/includes/Admin/InfoTooltipManager.php',
     'NotificationX\\Admin\\MilestoneNotification' => $baseDir . '/includes/Admin/MilestoneNotification.php',
     'NotificationX\\Admin\\Notice' => $baseDir . '/includes/Admin/Notice.php',
+    'NotificationX\\Admin\\OfferPointer' => $baseDir . '/includes/Admin/OfferPointer.php',
     'NotificationX\\Admin\\PluginInsights' => $baseDir . '/includes/Admin/PluginInsights.php',
     'NotificationX\\Admin\\Rating\\EmailTemplate' => $baseDir . '/includes/Admin/Rating/EmailTemplate.php',
     'NotificationX\\Admin\\Rating\\RatingEmail' => $baseDir . '/includes/Admin/Rating/RatingEmail.php',

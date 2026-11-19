@@ -47,6 +47,30 @@ The field types come from the cached builder config (`nx_builder_fields` transie
 
 Tests: [tests/test-field-type-normalization.php](../../tests/test-field-type-normalization.php), [tests/test-inline-location.php](../../tests/test-inline-location.php).
 
+#### The field list cache
+
+`normalize_post()` runs for every notification that is read, on the front end too (each `/notice` request and each page that lists active notifications). It needs the name, type, default and `multiple` flag of every builder field: `NotificationX::get_field_names()`.
+
+That list comes from the builder fields, which are large: about 840 KB serialized. They are cached in two transients, written together so they expire together:
+
+| Transient | Holds | Size | Read by |
+| --- | --- | --- | --- |
+| `nx_builder_fields` | The whole builder config (`GlobalFields::tabs()`) | about 840 KB | The admin builder, through `NotificationX::get_tab()` |
+| `nx_builder_field_names` | The field list derived from it | about 90 KB | `get_field_names()`, so every notification read |
+| `nx_builder_fields_pro` | The state the two above were built for (Pro version, Elementor, Essential Blocks) | a few bytes | Both, to drop a stale cache |
+
+`get_field_names()` loads the list once per request and keeps it in memory, per site ID so a request that switches sites on a network never mixes lists. The front end never reads `nx_builder_fields`.
+
+This matters when a store cannot keep the large value, for example an object cache with a 1 MB item limit. `set_transient()` then fails silently and every read finds nothing. Before the split, each notification read rebuilt the whole builder config: in a local test with 3 notifications the `/notice` handler took 579 ms instead of 10 ms. Now the small list is kept, and when nothing can be kept at all the config is rebuilt once per request, not once per notification.
+
+Rules when you touch this:
+
+- Clear the cache with `delete_transient( 'nx_builder_fields' )`, as before. `NotificationX::forget_field_names()` is hooked to `delete_transient_nx_builder_fields` and `set_transient_nx_builder_fields`, so the field list follows. Never write `nx_builder_field_names` yourself.
+- Some field defaults hold the time the config was built (`expire_time`, the countdown dates: "in 7 days"). A notification with no stored value for them gets the default, so those values change whenever the config is rebuilt. A response whose `expire_time` moves on every request is a sign that the cache is not being kept.
+- `NX_DEBUG` rebuilds the config on every call and skips both the in-memory copy and the field list transient.
+
+Tests: [tests/test-builder-field-names-cache.php](../../tests/test-builder-field-names-cache.php), [tests/test-builder-fields-cache.php](../../tests/test-builder-fields-cache.php), and [tests/e2e/builder-field-names-cache.js](../../tests/e2e/builder-field-names-cache.js) against a real site. Manual checks: [docs/qa-guide/builder-field-list-cache.md](../qa-guide/builder-field-list-cache.md).
+
 ### `{prefix}nx_entries` — per-item data
 
 The individual items a notification cycles through — each sale, review, comment, form submission, or popup/exit-intent form entry.
@@ -75,6 +99,10 @@ Daily view/click counters per notification.
 | `created_at` | date | The day the row aggregates. |
 
 Counters are bumped by `Database::update_analytics()` / `Core\Analytics`; the analytics REST endpoints read and reset them.
+
+Views are counted on the server, inside the front-end `notice` request: `Analytics::insert_views()` runs on `nx_filtered_data` (and on `nx_filtered_data_press_bar` for bars) and updates one row per notification shown. Clicks come from the browser through the `/analytics` route. Both go through `Analytics::insert_analytics()`, which writes nothing when **Enable Analytics** (`settings.enable_analytics`) is off. In that state the Analytics page, the dashboard widget, the report email and the click route are off too, so nothing reads the rows. Before this, views were still written with analytics off: one update per notification on every `notice` request.
+
+Record analytics only through `insert_analytics()`, so the setting, `analytics_from` and the bot filter keep applying. Tests: [tests/test-analytics-disabled.php](../../tests/test-analytics-disabled.php), [tests/e2e/analytics-disabled.js](../../tests/e2e/analytics-disabled.js).
 
 `Database` also exposes generic helpers (`insert_post`, `update_post`, `get_posts`, `delete_posts`, `get_where_query`, `serialize_data`/`unserialize_data`) that operate on these tables and are used throughout the plugin. Query building also uses the `wpdeveloper/query-builder` package (`Database::query()`).
 

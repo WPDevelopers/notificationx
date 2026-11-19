@@ -58,6 +58,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Admin\\InfoTooltipManager' => __DIR__ . '/../..' . '/includes/Admin/InfoTooltipManager.php',
         'NotificationX\\Admin\\MilestoneNotification' => __DIR__ . '/../..' . '/includes/Admin/MilestoneNotification.php',
         'NotificationX\\Admin\\Notice' => __DIR__ . '/../..' . '/includes/Admin/Notice.php',
+        'NotificationX\\Admin\\OfferPointer' => __DIR__ . '/../..' . '/includes/Admin/OfferPointer.php',
         'NotificationX\\Admin\\PluginInsights' => __DIR__ . '/../..' . '/includes/Admin/PluginInsights.php',
         'NotificationX\\Admin\\Rating\\EmailTemplate' => __DIR__ . '/../..' . '/includes/Admin/Rating/EmailTemplate.php',
         'NotificationX\\Admin\\Rating\\RatingEmail' => __DIR__ . '/../..' . '/includes/Admin/Rating/RatingEmail.php',
