@@ -66,6 +66,8 @@ body {
     @import "./nx_new/cookie_manager";
     // Top navigation bar + Dashboard
     @import "./nx_new/dashboard";
+    // Notification builder (Add New / Edit)
+    @import "./nx_new/builder";
 
     a:focus {
         outline: 0;

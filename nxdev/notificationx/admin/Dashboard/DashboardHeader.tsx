@@ -6,14 +6,19 @@ import Logo from '../../components/Logo';
 import NxIcon from '../../components/NxIcon';
 import { syncSidebar } from '../../components/Header';
 
-// Dashboard header: logo and plugin name. Other pages use the menu bar in `Header`.
-const DashboardHeader = ({ context }) => {
+// Logo and plugin name, used by the Dashboard and the notification builder.
+// Other pages use the menu bar in `Header`.
+const DashboardHeader = ({ context, sidebarPage = 'nx-dashboard', showAddNew = true }: {
+    context: any;
+    sidebarPage?: string;
+    showAddNew?: boolean;
+}) => {
     const version = context?.version;
     const proVersion = typeof context?.pro_version === 'string' && context.pro_version ? context.pro_version : null;
 
     useEffect(() => {
-        syncSidebar('nx-dashboard');
-    }, []);
+        syncSidebar(sidebarPage);
+    }, [sidebarPage]);
 
     return (
         <header className="nx-dash-header">
@@ -47,7 +52,7 @@ const DashboardHeader = ({ context }) => {
                     <NxIcon name="book" size={16} />
                     { __('Documentation', 'notificationx') }
                 </a>
-                { !context?.createRedirect && (
+                { showAddNew && !context?.createRedirect && (
                     <Link className="nx-button nx-button--primary nx-add-new-btn" to={ { pathname: '/admin.php', search: '?page=nx-edit' } }>
                         <NxIcon name="plus" size={16} strokeWidth={2.25} />
                         { __('Add New', 'notificationx') }

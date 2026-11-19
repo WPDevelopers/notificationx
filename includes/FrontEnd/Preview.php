@@ -156,6 +156,17 @@ class Preview {
 
     public function header_scripts() {
         if ($this->is_preview()) {
+            $settings = $this->get_settings();
+            if ( ! empty( $settings['nx_preview_isolated'] ) ) {
+                // Builder sidebar preview: show the notification on its own, without the page.
+?>
+            <style id="nx-preview-isolated">
+                html, body { background: transparent !important; }
+                html { overflow: hidden !important; }
+                body > :not(.notificationx-frontend):not([id^="nx-bar-"]):not([id^="nx-gdpr-"]):not(script):not(style):not(link) { display: none !important; }
+            </style>
+<?php
+            }
 ?>
             <style>
                 .notificationx-woo-shortcode-inline-wrapper > * {

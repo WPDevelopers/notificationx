@@ -2,7 +2,8 @@ import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon, EditIcon, ScanHistory, DiscoveredCookies } from '../../icons'
-import { Content, Instructions, ProWidget, PublishWidget, RatingWidget, Sidebar } from '../../components';
+import { BuilderTitle, Content, Instructions, ProWidget, PublishWidget, RatingWidget, Sidebar } from '../../components';
+import PreviewWidget from '../../components/PreviewWidget';
 import { permissionAlert, proAlert, updateGeneratedCSS } from '../../core/functions';
 
 const EditNx = (props) => {
@@ -84,15 +85,7 @@ const EditNx = (props) => {
     return (
         <>
             <Content>
-                <input
-                    className="widefat nx-title"
-                    type="text"
-                    name="title"
-                    id="nx-title"
-                    placeholder={__("NotificationX Title", 'notificationx')}
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
+                <BuilderTitle title={title} setTitle={setTitle} isEdit />
                 <FormBuilder {...builderContext} />
             </Content>
             <Sidebar>
@@ -106,6 +99,7 @@ const EditNx = (props) => {
                     setIsLoading={setIsLoading}
                     context={builderContext}
                 />
+                <PreviewWidget />
                 <Instructions  {...builderContext} />
                 <RatingWidget/>
                 <ProWidget/>

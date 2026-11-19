@@ -1,0 +1,1975 @@
+// Notification builder (Add New / Edit): page head, step bar, form cards,
+// fields and sidebar widgets. Imported inside `#notificationx` after
+// `_dashboard.scss`, so it reuses its `$nx-*` tokens. Everything is scoped to
+// `.nx-builder-page`; Settings and Quick Builder use the same form engine.
+
+$nx-input-border: #d0d5dd;
+
+// Stroke icon (24px grid) as a data URI, painted through `mask-image`.
+@function nx-mask($paths) {
+    @return url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E#{$paths}%3C/svg%3E");
+}
+
+@mixin nx-mask-icon($icon, $size: 18px) {
+    -webkit-mask: $icon center / $size $size no-repeat;
+    mask: $icon center / $size $size no-repeat;
+}
+
+// Icons for the notification type cards, keyed by the type value.
+$nx-type-icons: (
+    woocommerce_sales: "%3Cpath d='M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z'/%3E%3Cpath d='M3 6h18M16 10a4 4 0 0 1-8 0'/%3E",
+    conversions: "%3Cpath d='m22 7-8.5 8.5-5-5L2 17'/%3E%3Cpath d='M16 7h6v6'/%3E",
+    gdpr: "%3Cpath d='M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5'/%3E%3Cpath d='M8.5 8.5v.01M16 15.5v.01M12 12v.01M11 17v.01M7 14v.01'/%3E",
+    elearning: "%3Cpath d='M22 10 12 5 2 10l10 5 10-5z'/%3E%3Cpath d='M6 12v5c3 2 9 2 12 0v-5M22 10v6'/%3E",
+    notification_bar: "%3Crect x='3' y='4' width='18' height='16' rx='2'/%3E%3Cpath d='M3 9h18'/%3E",
+    popup: "%3Cpath d='m3 11 18-5v12L3 14v-3z'/%3E%3Cpath d='M11.6 16.8a3 3 0 1 1-5.8-1.6'/%3E",
+    exit_intent: "%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9'/%3E",
+    reviews: "%3Cpath d='m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z'/%3E",
+    form: "%3Crect x='5' y='3' width='14' height='18' rx='2'/%3E%3Cpath d='M9 8h6M9 12h6M9 16h3'/%3E",
+    download_stats: "%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3'/%3E",
+    comments: "%3Cpath d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'/%3E",
+    offer_announcement: "%3Cpath d='M19 5 5 19'/%3E%3Ccircle cx='6.5' cy='6.5' r='2.5'/%3E%3Ccircle cx='17.5' cy='17.5' r='2.5'/%3E",
+    donation: "%3Cpath d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7z'/%3E",
+    flashing_tab: "%3Crect x='3' y='4' width='18' height='16' rx='2'/%3E%3Cpath d='M3 9h18M9 4v5'/%3E",
+    inline: "%3Cpath d='M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z'/%3E%3Cpath d='M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5'/%3E",
+    woocommerce_cart_peek: "%3Ccircle cx='9' cy='21' r='1'/%3E%3Ccircle cx='20' cy='21' r='1'/%3E%3Cpath d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/%3E",
+    custom: "%3Cpath d='M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6'/%3E",
+    video: "%3Crect x='2' y='5' width='14' height='14' rx='2'/%3E%3Cpath d='m22 8-6 4 6 4V8z'/%3E",
+    email_subscription: "%3Crect x='2' y='4' width='20' height='16' rx='2'/%3E%3Cpath d='m22 7-10 6L2 7'/%3E",
+    page_analytics: "%3Cpath d='M3 3v18h18M18 17V9M13 17V5M8 17v-3'/%3E",
+);
+
+// Sources without a logo use the icon of a matching type.
+$nx-source-icons: (
+    woocommerce_sales: conversions,
+    woocommerce_sales_reviews: reviews,
+    woocommerce_sales_inline: inline,
+    cf7: form,
+    grvf: form,
+    njf: form,
+    wpf: form,
+    elementor_form: form,
+    fluentform: form,
+    press_bar: notification_bar,
+    announcements: offer_announcement,
+    popup_notification: popup,
+    exit_intent_custom: exit_intent,
+    flashing_tab: flashing_tab,
+    gdpr_notification: gdpr,
+    ccpa_notification: gdpr,
+);
+
+$nx-icon-plug: nx-mask("%3Cpath d='M12 22v-5M9 8V2M15 8V2'/%3E%3Cpath d='M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8z'/%3E");
+$nx-icon-check: nx-mask("%3Cpath d='M20 6 9 17l-5-5'/%3E");
+$nx-icon-arrow-right: nx-mask("%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E");
+$nx-icon-arrow-left: nx-mask("%3Cpath d='M19 12H5M11 6l-6 6 6 6'/%3E");
+$nx-icon-eye: nx-mask("%3Cpath d='M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E");
+$nx-icon-alert: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 8v4M12 16h.01'/%3E");
+$nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
+
+@mixin nx-btn-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 18px;
+    border-radius: $nx-radius-sm;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    box-shadow: $nx-shadow;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+    @include nx-focus;
+}
+
+@mixin nx-btn-primary {
+    @include nx-btn-base;
+    color: #fff;
+    background: $nx-primary;
+    border: 1px solid $nx-primary;
+
+    &:hover {
+        color: #fff;
+        background: $nx-primary-hover;
+        border-color: $nx-primary-hover;
+        box-shadow: $nx-shadow;
+    }
+}
+
+@mixin nx-btn-secondary {
+    @include nx-btn-base;
+    color: $nx-text;
+    background: #fff;
+    border: 1px solid $nx-input-border;
+
+    &:hover {
+        color: $nx-ink;
+        background: $nx-hover;
+        border-color: $nx-input-border;
+        box-shadow: $nx-shadow;
+    }
+}
+
+.nx-builder-page {
+    .nx-icon {
+        flex: none;
+        display: block;
+    }
+
+    // -----------------------------------------------------------------------
+    // Layout
+    // -----------------------------------------------------------------------
+    .nx-admin-wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: 24px;
+
+        @media screen and (max-width: 1100px) {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+
+    .nx-admin-content {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .nx-admin-wrapper .nx-admin-sidebar {
+        flex: 0 0 300px;
+        width: 300px;
+        min-width: 0;
+        margin-left: 0;
+
+        @media screen and (max-width: 1399px) {
+            flex-basis: 272px;
+            width: 272px;
+        }
+
+        @media screen and (max-width: 1100px) {
+            flex-basis: auto;
+            width: auto;
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Page head: breadcrumb + title
+    // -----------------------------------------------------------------------
+    .nx-builder-head {
+        margin-bottom: 20px;
+
+        &__crumbs {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+            font-size: 13px;
+            line-height: 20px;
+            color: $nx-muted;
+
+            a {
+                color: $nx-muted;
+                font-weight: 500;
+                text-decoration: none;
+                border-radius: 4px;
+                @include nx-focus;
+
+                &:hover {
+                    color: $nx-primary;
+                }
+            }
+
+            .nx-icon {
+                color: $nx-subtle;
+            }
+
+            [aria-current] {
+                color: $nx-text;
+                font-weight: 600;
+            }
+        }
+
+        &__title {
+            position: relative;
+
+            .nx-icon {
+                position: absolute;
+                top: 50%;
+                right: 16px;
+                transform: translateY(-50%);
+                color: $nx-subtle;
+                pointer-events: none;
+                transition: color 0.15s ease;
+            }
+
+            &:hover .nx-icon,
+            &:focus-within .nx-icon {
+                color: $nx-primary;
+            }
+        }
+
+        #nx-title.nx-title {
+            display: block;
+            width: 100%;
+            max-width: none;
+            height: 52px;
+            min-height: 0;
+            margin: 0;
+            padding: 0 48px 0 16px;
+            font-family: inherit;
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            color: $nx-ink;
+            background: $nx-surface;
+            border: 1px solid $nx-border;
+            border-radius: $nx-radius-sm;
+            box-shadow: $nx-shadow;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+            &::placeholder {
+                color: $nx-subtle;
+                font-weight: 500;
+                opacity: 1;
+            }
+
+            &:hover {
+                border-color: $nx-input-border;
+            }
+
+            &:focus {
+                outline: none;
+                border-color: $nx-primary;
+                box-shadow: $nx-ring;
+            }
+
+            @media screen and (max-width: 600px) {
+                font-size: 18px;
+                height: 46px;
+            }
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Form shell (top level only; the Themes section nests its own tabs)
+    // -----------------------------------------------------------------------
+    .nx-admin-content > .wp-react-form.wprf-tabs-wrapper {
+        &.wprf-tab-menu-as-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        > .wprf-tab-content-wrapper {
+            margin: 0;
+            width: 100%;
+            min-width: 0;
+        }
+
+        // Step bar --------------------------------------------------------
+        > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar {
+            width: 100%;
+            margin: 0;
+            padding: 10px 12px;
+            box-sizing: border-box;
+            background: $nx-surface;
+            border: 1px solid $nx-border;
+            border-radius: $nx-radius;
+            box-shadow: $nx-shadow;
+
+            .wprf-tab-nav {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                overflow-x: auto;
+                scrollbar-width: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .wprf-tab-nav-item {
+                    position: relative;
+                    flex: 1 1 0;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 10px;
+                    width: auto;
+                    min-width: 0;
+                    height: auto;
+                    margin: 0;
+                    padding: 6px 8px;
+                    border: 0;
+                    border-radius: $nx-radius-sm;
+                    background: transparent;
+                    color: $nx-muted;
+                    cursor: pointer;
+                    transition: background-color 0.15s ease;
+
+                    &:last-child {
+                        flex: 0 0 auto;
+                    }
+
+                    &:hover {
+                        background: $nx-hover;
+                    }
+
+                    // Icon disc
+                    svg,
+                    img {
+                        flex: none;
+                        box-sizing: border-box;
+                        width: 36px;
+                        height: 36px;
+                        margin: 0;
+                        padding: 9px;
+                        border-radius: 50%;
+                        background: $nx-surface;
+                        border: 1px solid $nx-border;
+                        fill: $nx-subtle;
+                        transition: background-color 0.15s ease, border-color 0.15s ease, fill 0.15s ease;
+                    }
+
+                    span {
+                        margin: 0;
+                        font-size: 14px;
+                        font-weight: 500;
+                        line-height: 20px;
+                        letter-spacing: 0;
+                        text-transform: none;
+                        white-space: nowrap;
+                        color: inherit;
+                    }
+
+                    // Connector to the next step
+                    &:not(:last-child)::after {
+                        content: "";
+                        position: static;
+                        flex: 1 1 auto;
+                        min-width: 16px;
+                        width: auto;
+                        height: 2px;
+                        margin: 0 4px;
+                        border-radius: 2px;
+                        background: $nx-border;
+                        transform: none;
+                    }
+
+                    &.wprf-tab-complete {
+                        color: $nx-text;
+
+                        svg,
+                        img {
+                            background: $nx-primary-soft;
+                            border-color: $nx-primary-soft;
+                            fill: $nx-primary;
+                        }
+
+                        span {
+                            color: $nx-text;
+                        }
+
+                        &:not(:last-child)::after {
+                            background: $nx-primary-border;
+                        }
+                    }
+
+                    &.wprf-active-nav {
+                        background: transparent;
+                        color: $nx-ink;
+
+                        svg,
+                        img {
+                            background: $nx-primary;
+                            border-color: $nx-primary;
+                            fill: #fff;
+                            box-shadow: 0 0 0 4px $nx-primary-soft;
+                        }
+
+                        span {
+                            color: $nx-ink;
+                            font-weight: 600;
+                        }
+                    }
+
+                    @media screen and (max-width: 1279px) {
+                        span {
+                            font-size: 13px;
+                        }
+                    }
+
+                    @media screen and (max-width: 960px) {
+                        flex-direction: column;
+                        gap: 6px;
+
+                        &:not(:last-child)::after {
+                            display: none;
+                        }
+
+                        span {
+                            display: block;
+                            font-size: 12px;
+                        }
+                    }
+
+                    @media screen and (max-width: 600px) {
+                        span {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Step content ----------------------------------------------------
+        > .wprf-tab-content-wrapper > .wprf-tab-flex > .wprf-tab-contents > .wprf-tab-content,
+        > .wprf-tab-content-wrapper > .wprf-tab-contents > .wprf-tab-content {
+            > .wprf-tab-heading-wrapper {
+                margin-bottom: 16px;
+                gap: 12px;
+
+                h4 {
+                    font-size: 20px;
+                    font-weight: 600;
+                    line-height: 28px;
+                    letter-spacing: -0.01em;
+                    color: $nx-ink;
+                }
+
+                > div {
+                    gap: 8px;
+                }
+
+                .wprf-btn.wprf-step-btn-preview {
+                    @include nx-btn-primary;
+                    min-height: 36px;
+                    padding: 0 14px;
+                    font-size: 13px;
+
+                    &::before {
+                        content: "";
+                        flex: none;
+                        width: 16px;
+                        height: 16px;
+                        background: currentColor;
+                        @include nx-mask-icon($nx-icon-eye, 16px);
+                    }
+                }
+
+                .wprf-name-talk_to_support {
+                    margin: 0;
+
+                    .wprf-button {
+                        @include nx-btn-secondary;
+                        min-height: 36px;
+                        padding: 0 14px;
+                        font-size: 13px;
+
+                        &::before {
+                            content: "";
+                            flex: none;
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 50%;
+                            background: #12b76a;
+                            box-shadow: 0 0 0 3px #d1fadf;
+                        }
+                    }
+                }
+            }
+
+            // Section cards
+            > .wprf-control-section:not(.wprf-no-bg) {
+                margin: 0;
+                background: $nx-surface;
+                border: 1px solid $nx-border;
+                border-radius: $nx-radius;
+                box-shadow: $nx-shadow;
+
+                &:not(:last-child) {
+                    margin-bottom: 20px;
+                }
+
+                > .wprf-section-title {
+                    min-height: 0;
+                    margin: 0;
+                    padding: 16px 24px;
+                    background: transparent;
+                    border-bottom: 1px solid #f2f4f7;
+                    border-radius: $nx-radius $nx-radius 0 0;
+
+                    h4 {
+                        font-size: 15px;
+                        font-weight: 600;
+                        line-height: 22px;
+                        letter-spacing: 0;
+                        text-transform: none;
+                        color: $nx-ink;
+                    }
+
+                    @media screen and (max-width: 600px) {
+                        padding: 14px 16px;
+                    }
+                }
+
+                // A section whose only field is its on/off switch (shown in the title row)
+                &:has(> .wprf-section-fields > .wprf-control-wrapper.wprf-type-toggle:only-child) {
+                    > .wprf-section-title {
+                        border-bottom-color: transparent;
+                    }
+
+                    > .wprf-section-fields {
+                        padding-top: 0;
+                        padding-bottom: 0;
+                    }
+                }
+
+                > .wprf-section-fields {
+                    padding: 24px;
+                    background: transparent;
+                    border-radius: 0 0 $nx-radius $nx-radius;
+
+                    &:first-child {
+                        border-radius: $nx-radius;
+                    }
+
+                    @media screen and (max-width: 600px) {
+                        padding: 16px;
+                    }
+                }
+            }
+        }
+
+        // Previous / Next
+        > .wprf-tab-content-wrapper > .wprf-stepped-button {
+            margin-top: 20px;
+            gap: 12px;
+
+            .wprf-btn {
+                @include nx-btn-secondary;
+                min-height: 42px;
+                padding: 0 20px;
+
+                &.wprf-step-btn-prev::before,
+                &.wprf-step-btn-next::after {
+                    content: "";
+                    flex: none;
+                    width: 16px;
+                    height: 16px;
+                    background: currentColor;
+                }
+
+                &.wprf-step-btn-prev::before {
+                    @include nx-mask-icon($nx-icon-arrow-left, 16px);
+                }
+
+                &.wprf-step-btn-next {
+                    @include nx-btn-primary;
+                    min-height: 42px;
+                    padding: 0 20px;
+                    margin-left: auto;
+
+                    &::after {
+                        @include nx-mask-icon($nx-icon-arrow-right, 16px);
+                    }
+                }
+            }
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Fields (labels and text inputs; the custom widgets keep their layout)
+    // -----------------------------------------------------------------------
+    .wprf-tab-content .wprf-control-wrapper {
+        &.wprf-inline-label .wprf-control-label label {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            color: $nx-text;
+        }
+
+        .wprf-control-field {
+            input[type="text"],
+            input[type="number"],
+            input[type="url"],
+            input[type="email"],
+            textarea {
+                min-height: 40px;
+                color: $nx-ink;
+                font-size: 14px;
+                font-weight: 400;
+                background-color: #fff;
+                border: 1px solid $nx-input-border;
+                border-radius: 8px;
+                box-shadow: $nx-shadow;
+                transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+                &::placeholder {
+                    color: $nx-subtle;
+                }
+
+                &:focus {
+                    border-color: $nx-primary;
+                    box-shadow: $nx-ring;
+                    outline: none;
+                }
+            }
+
+            input.readonly,
+            input[readonly],
+            textarea[readonly] {
+                color: $nx-muted;
+                background: #f9fafb;
+            }
+
+            .wprf-select__control {
+                min-height: 40px;
+                border: 1px solid $nx-input-border;
+                border-radius: 8px;
+                box-shadow: $nx-shadow;
+
+                &:hover {
+                    border-color: $nx-input-border;
+                }
+
+                &.wprf-select__control--is-focused {
+                    border-color: $nx-primary;
+                    box-shadow: $nx-ring;
+                }
+            }
+
+            .wprf-select__single-value {
+                color: $nx-ink;
+                font-size: 14px;
+            }
+
+            .wprf-select__indicator-separator {
+                display: none;
+            }
+
+            .wprf-select__dropdown-indicator {
+                color: $nx-muted;
+            }
+
+            .wprf-select__menu {
+                border-radius: 10px;
+                border: 1px solid $nx-border;
+                box-shadow: 0 12px 24px -6px rgba(16, 24, 40, 0.16);
+                overflow: hidden;
+                z-index: 20;
+            }
+
+            .wprf-select__option {
+                font-size: 14px;
+
+                &--is-focused {
+                    background: $nx-hover;
+                }
+
+                &--is-selected {
+                    color: $nx-primary;
+                    font-weight: 600;
+                    background: $nx-primary-soft;
+                }
+            }
+
+            > .wprf-description,
+            .wprf-help {
+                color: $nx-muted;
+            }
+        }
+    }
+
+    // Checkboxes
+    .wprf-tab-content .wprf-control-wrapper .wprf-control-field input[type="checkbox"] {
+        width: 20px;
+        min-width: 20px;
+        height: 20px;
+        margin-top: 0;
+        margin-bottom: 0;
+        border: 1px solid $nx-input-border;
+        border-radius: 6px;
+        background: #fff;
+        box-shadow: $nx-shadow;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+
+        &:hover {
+            border-color: $nx-primary;
+        }
+
+        &:focus {
+            border-color: $nx-input-border;
+            box-shadow: $nx-shadow;
+            outline: none;
+        }
+
+        &:focus-visible {
+            box-shadow: $nx-ring;
+        }
+
+        &:checked {
+            background: $nx-primary;
+            border-color: $nx-primary;
+
+            &::before {
+                content: "";
+                display: block;
+                float: none;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                background: #fff;
+                @include nx-mask-icon($nx-icon-check, 14px);
+            }
+        }
+    }
+
+    .wprf-tab-content .wprf-control-wrapper.wprf-type-checkbox .wprf-control-field {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        > span {
+            align-items: center;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 0;
+        }
+
+        > .wprf-description {
+            margin: 0;
+            color: $nx-text;
+            font-size: 14px;
+            line-height: 20px;
+        }
+    }
+
+    // Switches
+    .wprf-tab-content .wprf-control-field .wprf-toggle-wrap {
+        label::before {
+            background: $nx-input-border;
+            border-color: $nx-input-border;
+        }
+
+        label::after {
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.2);
+        }
+
+        &.wprf-checked label::before {
+            background: $nx-primary;
+            border-color: $nx-primary;
+        }
+    }
+
+    // Field groups rendered as nested sections (e.g. "Display Close Button")
+    .wprf-tab-content .wprf-section-fields .wprf-control-section > .wprf-section-title h4 {
+        color: $nx-text;
+        font-weight: 500;
+    }
+
+    // Desktop / Tablet / Mobile checkbox rows
+    .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-contents .wprf-control-section.close_button_control {
+        .wprf-section-title h4 {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            color: $nx-text;
+        }
+
+        .wprf-section-fields .wprf-control-wrapper .wprf-control-field {
+            gap: 10px;
+
+            .wprf-description {
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                color: $nx-text;
+            }
+
+            input {
+                width: 20px;
+                min-width: 20px;
+                height: 20px;
+                border: 1px solid $nx-input-border;
+                border-radius: 6px;
+                background: #fff;
+                box-shadow: $nx-shadow;
+
+                &::after {
+                    display: none;
+                }
+
+                &:hover {
+                    border-color: $nx-primary;
+                }
+
+                &:focus-visible {
+                    box-shadow: $nx-ring;
+                }
+
+                &:checked {
+                    background: $nx-primary;
+                    border-color: $nx-primary;
+
+                    &::before {
+                        content: "";
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        margin: 0;
+                        background: #fff;
+                        @include nx-mask-icon($nx-icon-check, 14px);
+                    }
+                }
+            }
+        }
+    }
+
+    // Time pickers set their look inline
+    .wprf-tab-content .wprf-control-field input.wprf-timepicker-input {
+        min-height: 40px;
+        border: 1px solid $nx-input-border !important;
+        border-radius: 8px !important;
+        color: $nx-ink !important;
+        box-shadow: $nx-shadow;
+
+        &:focus {
+            border-color: $nx-primary !important;
+            box-shadow: $nx-ring;
+            outline: none;
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Option cards (radio-card): notification types, sources, themes.
+    // `radio-card-v2` fields are plain radio groups and keep their look.
+    // -----------------------------------------------------------------------
+    .wprf-tab-content .wprf-control-wrapper.wprf-type-radio-card:not(.radio-card-v2) .wprf-control.wprf-radio-card .wprf-input-radio-option {
+        border-radius: 12px;
+
+        .wprf-input-label {
+            background: $nx-surface;
+            border: 1px solid $nx-border;
+            border-radius: 12px;
+            box-shadow: $nx-shadow;
+            color: $nx-ink;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+        }
+
+        &:hover .wprf-input-label {
+            border-color: $nx-primary-border;
+            box-shadow: $nx-shadow-hover;
+        }
+
+        &.wprf-option-selected {
+            .wprf-input-label,
+            .wprf-input-label:not(.wprf-label-has-image) {
+                color: $nx-ink;
+                background: $nx-primary-soft;
+                border-color: $nx-primary;
+                box-shadow: inset 0 0 0 1px $nx-primary;
+            }
+
+            .wprf-input-label.wprf-label-has-image {
+                background: $nx-surface;
+            }
+
+            // Selected tick
+            &::before,
+            &.wprf-option-has-image::before {
+                top: 10px;
+                right: 10px;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: $nx-primary;
+                z-index: 2;
+            }
+
+            &::after,
+            &.wprf-option-has-image::after {
+                top: 10px;
+                right: 10px;
+                width: 20px;
+                height: 20px;
+                border: 0;
+                background: #fff;
+                transform: none;
+                z-index: 3;
+                @include nx-mask-icon($nx-icon-check, 13px);
+            }
+        }
+    }
+
+    // Notification types: icon + name, left aligned
+    #type_section .wprf-control.wprf-radio-card {
+        .wprf-row {
+            margin: -8px;
+
+            .wprf-column {
+                padding: 8px;
+            }
+        }
+
+        .wprf-input-radio-option {
+            min-height: 0;
+
+            .wprf-input-label {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                min-height: 64px;
+                padding: 12px 44px 12px 64px;
+                box-sizing: border-box;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 20px;
+                text-align: left;
+
+                // Icon tile and glyph
+                &::before,
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 14px;
+                    width: 38px;
+                    height: 38px;
+                    border-radius: 10px;
+                    transform: translateY(-50%);
+                }
+
+                &::before {
+                    background: $nx-primary-soft;
+                    transition: background-color 0.15s ease;
+                }
+
+                &::after {
+                    border-radius: 0;
+                    background: $nx-primary;
+                    @include nx-mask-icon($nx-icon-default, 18px);
+                }
+
+                // Pro badge as a small pill
+                .wprf-badge {
+                    position: absolute;
+                    top: 50%;
+                    right: 12px;
+                    left: auto;
+                    bottom: auto;
+                    width: auto;
+                    height: auto;
+                    margin: 0;
+                    transform: translateY(-50%);
+                    background: none;
+
+                    .wprf-badge-item {
+                        position: static;
+                        display: inline-flex;
+                        width: auto;
+                        min-width: 0;
+                        align-items: center;
+                        height: 20px;
+                        padding: 0 7px;
+                        border-radius: 999px;
+                        background: #fff7ed;
+                        color: #c2410c;
+                        font-size: 10px;
+                        font-weight: 700;
+                        letter-spacing: 0.04em;
+                        line-height: 1;
+                        text-transform: uppercase;
+                        transform: none;
+                        box-shadow: inset 0 0 0 1px #fed7aa;
+                    }
+                }
+            }
+
+            &.wprf-option-selected .wprf-input-label {
+                &::before {
+                    background: $nx-primary;
+                }
+
+                &::after {
+                    background: #fff;
+                }
+
+                .wprf-badge {
+                    right: 38px;
+                }
+            }
+
+            @each $type, $paths in $nx-type-icons {
+                &:has(input[value="#{$type}"]) .wprf-input-label::after {
+                    @include nx-mask-icon(nx-mask($paths), 18px);
+                }
+            }
+
+            // Integration logos (CSS variables set by builderLogoVars()), cropped to the mark
+            &:has(input[value="woocommerce_sales"]) .wprf-input-label {
+                &::before {
+                    background: #fff;
+                    box-shadow: inset 0 0 0 1px $nx-border;
+                }
+
+                &::after {
+                    left: 19px;
+                    width: 28px;
+                    height: 16.47px;
+                    -webkit-mask: none;
+                    mask: none;
+                    background-color: transparent;
+                    background-image: var(--nx-logo-woocommerce);
+                    background-repeat: no-repeat;
+                    background-size: 82.35px 16.47px;
+                    background-position: 0px 0px;
+                }
+            }
+
+            &:has(input[value="woocommerce_cart_peek"]) .wprf-input-label {
+                &::before {
+                    background: #fff;
+                    box-shadow: inset 0 0 0 1px $nx-border;
+                }
+
+                &::after {
+                    left: 19px;
+                    width: 28px;
+                    height: 16.47px;
+                    -webkit-mask: none;
+                    mask: none;
+                    background-color: transparent;
+                    background-image: var(--nx-logo-woocommerce);
+                    background-repeat: no-repeat;
+                    background-size: 82.35px 16.47px;
+                    background-position: 0px 0px;
+                }
+            }
+
+            &:has(input[value="reviews"]) .wprf-input-label {
+                &::before {
+                    background: #fff;
+                    box-shadow: inset 0 0 0 1px $nx-border;
+                }
+
+                &::after {
+                    left: 21px;
+                    width: 24px;
+                    height: 24px;
+                    -webkit-mask: none;
+                    mask: none;
+                    background-color: transparent;
+                    background-image: var(--nx-logo-wordpress);
+                    background-repeat: no-repeat;
+                    background-size: 150px 24px;
+                    background-position: 0px 0px;
+                }
+            }
+
+            &:has(input[value="download_stats"]) .wprf-input-label {
+                &::before {
+                    background: #fff;
+                    box-shadow: inset 0 0 0 1px $nx-border;
+                }
+
+                &::after {
+                    left: 21px;
+                    width: 24px;
+                    height: 24px;
+                    -webkit-mask: none;
+                    mask: none;
+                    background-color: transparent;
+                    background-image: var(--nx-logo-wordpress);
+                    background-repeat: no-repeat;
+                    background-size: 150px 24px;
+                    background-position: 0px 0px;
+                }
+            }
+
+            &:has(input[value="comments"]) .wprf-input-label {
+                &::before {
+                    background: #fff;
+                    box-shadow: inset 0 0 0 1px $nx-border;
+                }
+
+                &::after {
+                    left: 21px;
+                    width: 24px;
+                    height: 24px;
+                    -webkit-mask: none;
+                    mask: none;
+                    background-color: transparent;
+                    background-image: var(--nx-logo-wp-comments);
+                    background-repeat: no-repeat;
+                    background-size: 120px 28.2px;
+                    background-position: -2.4px -2.4px;
+                }
+            }
+
+            &:has(input[value="page_analytics"]) .wprf-input-label {
+                &::before {
+                    background: #fff;
+                    box-shadow: inset 0 0 0 1px $nx-border;
+                }
+
+                &::after {
+                    left: 21px;
+                    width: 24px;
+                    height: 24px;
+                    -webkit-mask: none;
+                    mask: none;
+                    background-color: transparent;
+                    background-image: var(--nx-logo-google-analytics);
+                    background-repeat: no-repeat;
+                    background-size: 68.57px 24px;
+                    background-position: 0px 0px;
+                }
+            }
+
+            &:has(input[value="video"]) .wprf-input-label {
+                &::before {
+                    background: #fff;
+                    box-shadow: inset 0 0 0 1px $nx-border;
+                }
+
+                &::after {
+                    left: 19px;
+                    width: 28px;
+                    height: 19.62px;
+                    -webkit-mask: none;
+                    mask: none;
+                    background-color: transparent;
+                    background-image: var(--nx-logo-youtube);
+                    background-repeat: no-repeat;
+                    background-size: 87.53px 19.62px;
+                    background-position: 0px 0px;
+                }
+            }
+
+            &:has(input[value="custom"]) .wprf-input-label {
+                &::before {
+                    background: #fff;
+                    box-shadow: inset 0 0 0 1px $nx-border;
+                }
+
+                &::after {
+                    left: 21px;
+                    width: 24px;
+                    height: 24px;
+                    -webkit-mask: none;
+                    mask: none;
+                    background-color: transparent;
+                    background-image: var(--nx-logo-custom);
+                    background-repeat: no-repeat;
+                    background-size: 171.95px 24px;
+                    background-position: 0px 0px;
+                }
+            }
+
+            &:has(input[value="email_subscription"]) .wprf-input-label {
+                &::before {
+                    background: #fff;
+                    box-shadow: inset 0 0 0 1px $nx-border;
+                }
+
+                &::after {
+                    left: 21.71px;
+                    width: 22.57px;
+                    height: 24px;
+                    -webkit-mask: none;
+                    mask: none;
+                    background-color: transparent;
+                    background-image: var(--nx-logo-mailchimp);
+                    background-repeat: no-repeat;
+                    background-size: 90px 50.62px;
+                    background-position: -0.47px -13.31px;
+                }
+            }
+
+            &:has(input[value="donation"]) .wprf-input-label {
+                &::before {
+                    background: #fff;
+                    box-shadow: inset 0 0 0 1px $nx-border;
+                }
+
+                &::after {
+                    left: 21px;
+                    width: 24px;
+                    height: 24px;
+                    -webkit-mask: none;
+                    mask: none;
+                    background-color: transparent;
+                    background-image: var(--nx-logo-give);
+                    background-repeat: no-repeat;
+                    background-size: 73.04px 24px;
+                    background-position: 0px 0px;
+                }
+            }
+
+            // Logo tiles stay white when selected
+            &.wprf-option-selected:has(input[value="woocommerce_sales"], input[value="woocommerce_cart_peek"], input[value="reviews"], input[value="download_stats"], input[value="comments"], input[value="page_analytics"], input[value="video"], input[value="custom"], input[value="email_subscription"], input[value="donation"]) .wprf-input-label {
+                &::before {
+                    background: #fff;
+                    box-shadow: inset 0 0 0 1px $nx-primary-border;
+                }
+
+                &::after {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+
+    // Plain radio groups
+    .wprf-tab-content .wprf-control-wrapper.radio-card-v2 .wprf-input-radio-option {
+        .wprf-input-label {
+            color: $nx-text;
+        }
+
+        &.wprf-option-selected .wprf-input-label {
+            color: $nx-ink;
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Sidebar widgets
+    // -----------------------------------------------------------------------
+    .nx-admin-wrapper .nx-admin-sidebar .sidebar-widget {
+        background: $nx-surface;
+        border: 1px solid $nx-border;
+        border-radius: $nx-radius;
+        box-shadow: $nx-shadow;
+        overflow: hidden;
+
+        &:not(:last-of-type) {
+            margin-bottom: 16px;
+        }
+
+        &.nx-widget {
+            .nx-widget-title {
+                min-height: 0;
+                padding: 14px 20px;
+                border-bottom: 1px solid #f2f4f7;
+                color: $nx-ink;
+
+                h4 {
+                    font-size: 15px;
+                    font-weight: 600;
+                    line-height: 22px;
+                    letter-spacing: 0;
+                    color: $nx-ink;
+                }
+            }
+
+            .nx-widget-content {
+                padding: 16px 20px 20px;
+            }
+        }
+    }
+
+    // Publish
+    .nx-admin-wrapper .nx-admin-sidebar .sidebar-widget.nx-widget .nx-widget-content {
+        .nx-publish-date-widget {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 6px;
+            margin-bottom: 16px;
+
+            label {
+                margin: 0;
+                font-size: 13px;
+                font-weight: 500;
+                color: $nx-muted;
+            }
+
+            .wprf-control-wrapper {
+                margin: 0;
+            }
+
+            .wprf-control-datetime {
+                margin-left: 0;
+
+                > .components-button {
+                    width: 100%;
+                    min-height: 40px;
+                    justify-content: flex-start;
+                    padding: 0 12px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: $nx-ink;
+                    border: 1px solid $nx-input-border;
+                    border-radius: 8px;
+                    box-shadow: $nx-shadow;
+                }
+
+                &:focus-within > .components-button {
+                    border-color: $nx-primary;
+                    box-shadow: $nx-ring;
+                }
+            }
+        }
+
+        > .components-button-group {
+            display: flex;
+            gap: 8px;
+            margin: 0;
+
+            button {
+                flex: 1 1 0;
+                margin: 0;
+                min-height: 40px;
+                padding: 0 16px;
+                font-size: 14px;
+                font-weight: 600;
+                border-radius: $nx-radius-sm;
+                box-shadow: $nx-shadow;
+
+                &.nx-save {
+                    color: #fff;
+                    background: $nx-primary;
+                    border: 1px solid $nx-primary;
+
+                    &:hover,
+                    &:focus {
+                        background: $nx-primary-hover;
+                        border-color: $nx-primary-hover;
+                        box-shadow: $nx-shadow;
+                    }
+
+                    &:focus-visible {
+                        box-shadow: $nx-ring;
+                    }
+                }
+
+                &.nx-trash {
+                    flex: 0 0 auto;
+                    color: #d92d20;
+                    background: #fff;
+                    border: 1px solid #fecdca;
+
+                    &:hover,
+                    &:focus {
+                        color: #b42318;
+                        background: #fef3f2;
+                        border-color: #fda29b;
+                        box-shadow: $nx-shadow;
+                    }
+                }
+
+                &.disabled,
+                &:disabled {
+                    opacity: 0.55;
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+
+    // Instructions
+    .nx-admin-wrapper .nx-admin-sidebar .sidebar-widget.nx-widget.notificationx-instruction .nx-widget-content .nxins-type,
+    .nx-admin-wrapper .nx-admin-sidebar .notificationx-instruction .nx-widget-content {
+        font-size: 13px;
+        line-height: 1.6;
+        color: $nx-muted;
+
+        p,
+        div,
+        li {
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.6;
+            color: $nx-muted;
+        }
+
+        .instructions-header .title,
+        .nx-template-keys-wrapper h3 {
+            font-size: 14px;
+            color: $nx-ink;
+        }
+
+        strong,
+        b {
+            color: $nx-text;
+            font-weight: 600;
+        }
+
+        a {
+            color: $nx-primary;
+            font-weight: 500;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    // Rating, help and upgrade cards
+    .nx-admin-wrapper .nx-admin-sidebar .sidebar-widget.nx-widget.notificationx-rating-widget {
+        background: $nx-surface;
+
+        .nx-widget-title {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f2f4f7;
+
+            h4 {
+                margin-bottom: 8px;
+                font-size: 15px;
+                font-weight: 600;
+                line-height: 22px;
+                color: $nx-ink;
+            }
+
+            .nx-widget-rating-area {
+                gap: 2px;
+
+                svg {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+
+            .nx-widget-review-box .review-box {
+                label {
+                    font-size: 13px;
+                    line-height: 18px;
+                    color: $nx-text;
+                }
+
+                textarea {
+                    font-size: 13px;
+                    color: $nx-ink;
+                    background: #fff;
+                    border: 1px solid $nx-input-border;
+                    border-radius: 8px;
+
+                    &:focus {
+                        border-color: $nx-primary;
+                        box-shadow: $nx-ring;
+                        outline: none;
+                    }
+                }
+            }
+
+            button {
+                @include nx-btn-secondary;
+                width: 100%;
+                min-height: 38px;
+                color: $nx-primary;
+                border-color: $nx-primary-border;
+
+                &:disabled {
+                    color: $nx-subtle;
+                    border-color: $nx-border;
+                    background: #fff;
+                    box-shadow: none;
+                    cursor: not-allowed;
+                }
+            }
+        }
+
+        .review-submitted-box {
+            h5 {
+                font-size: 15px;
+                line-height: 22px;
+                color: $nx-ink;
+
+                &.five-star {
+                    font-size: 15px;
+                }
+            }
+
+            p {
+                font-size: 13px;
+                line-height: 1.5;
+                color: $nx-muted;
+            }
+
+            a {
+                @include nx-btn-secondary;
+                min-height: 38px;
+                color: $nx-primary;
+                border-color: $nx-primary-border;
+            }
+        }
+
+        .nx-widget-initiate-chat {
+            padding: 16px 20px 20px;
+
+            svg {
+                display: block;
+                width: 32px;
+                height: 32px;
+                margin-bottom: 10px;
+            }
+
+            h5 {
+                margin-bottom: 4px;
+                font-size: 15px;
+                font-weight: 600;
+                line-height: 22px;
+                color: $nx-ink;
+            }
+
+            p {
+                margin-bottom: 14px;
+                font-size: 13px;
+                line-height: 1.5;
+                color: $nx-muted;
+            }
+
+            a {
+                @include nx-btn-primary;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 0 16px;
+            }
+        }
+    }
+
+    .nx-admin-wrapper .nx-admin-sidebar .sidebar-widget.nx-widget.notificationx-pro-widget {
+        border-color: #fde7d3;
+
+        .nx-widget-content {
+            padding: 16px 20px 18px;
+            border-radius: 0;
+            background: linear-gradient(160deg, #fff7ed 0%, #ffffff 60%);
+
+            h4 {
+                margin-bottom: 4px;
+                font-size: 15px;
+                font-weight: 600;
+                line-height: 22px;
+                color: $nx-ink;
+            }
+
+            p {
+                margin-bottom: 12px;
+                font-size: 13px;
+                line-height: 1.5;
+                color: $nx-muted;
+            }
+
+            a {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 14px;
+                font-weight: 600;
+                color: #c2410c;
+                border-radius: 4px;
+                @include nx-focus;
+
+                &::after {
+                    content: "";
+                    width: 14px;
+                    height: 14px;
+                    background: currentColor;
+                    transition: transform 0.15s ease;
+                    @include nx-mask-icon($nx-icon-arrow-right, 14px);
+                }
+
+                &:hover {
+                    color: #9a3412;
+
+                    &::after {
+                        transform: translateX(2px);
+                    }
+                }
+            }
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Header (same as the Dashboard)
+    // -----------------------------------------------------------------------
+    .nx-dash.nx-dash--header-only {
+        max-width: none;
+        padding-bottom: 0;
+    }
+
+    // -----------------------------------------------------------------------
+    // Sidebar preview of the selected notification
+    // -----------------------------------------------------------------------
+    .nx-admin-wrapper .nx-admin-sidebar .sidebar-widget.nx-widget.nx-preview-widget {
+        overflow: visible;
+
+        .nx-widget-title {
+            gap: 8px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .nx-widget-content {
+            padding: 16px;
+        }
+    }
+
+    @media screen and (min-width: 1101px) {
+        // Keep the preview in view while scrolling through the options.
+        .nx-admin-wrapper {
+            align-items: stretch;
+        }
+
+        .nx-admin-wrapper .nx-admin-sidebar .nx-admin-sidebar-wrapper {
+            height: 100%;
+        }
+
+        .nx-admin-wrapper .nx-admin-sidebar .sidebar-widget.nx-widget.nx-preview-widget {
+            position: sticky;
+            top: 48px;
+            z-index: 5;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05), 0 12px 24px -12px rgba(16, 24, 40, 0.18);
+        }
+    }
+
+    .nx-preview-widget {
+        &__status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #ecfdf3;
+            color: #067647;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 18px;
+
+            &::before {
+                content: "";
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #17b26a;
+                animation: nx-preview-pulse 1.4s ease-in-out infinite;
+            }
+        }
+
+        &__stage {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid $nx-border;
+            border-radius: 10px;
+            background:
+                radial-gradient(circle at 1px 1px, #e4e7ec 1px, transparent 0) 0 0 / 14px 14px,
+                #f9fafb;
+            transition: height 0.2s ease;
+        }
+
+        &__screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: 0 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+
+            &.is-visible {
+                opacity: 1;
+            }
+
+            iframe {
+                display: block;
+                border: 0;
+                background: transparent;
+            }
+        }
+
+        &__spinner {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 14px;
+            height: 14px;
+            border: 2px solid $nx-primary-border;
+            border-top-color: $nx-primary;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+            animation: nx-preview-spin 0.8s linear infinite;
+        }
+
+        &__stage.is-loading .nx-preview-widget__spinner {
+            opacity: 1;
+        }
+
+        &__actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        &__play {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background: $nx-primary;
+            color: #fff;
+            box-shadow: 0 4px 12px -4px rgba(106, 75, 255, 0.6);
+            cursor: pointer;
+            transition: background-color 0.15s ease, transform 0.15s ease;
+            @include nx-focus;
+
+            .nx-icon {
+                margin-left: 2px;
+            }
+
+            &:hover {
+                background: $nx-primary-hover;
+                transform: scale(1.06);
+            }
+
+            &.is-playing {
+                background: $nx-ink;
+                box-shadow: 0 4px 12px -4px rgba(16, 24, 40, 0.45);
+
+                .nx-icon {
+                    margin-left: 0;
+                }
+            }
+        }
+
+        &__hint {
+            margin: 10px 0 0;
+            font-size: 12px;
+            line-height: 1.5;
+            color: $nx-muted;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            &__spinner,
+            &__status::before {
+                animation: none;
+            }
+        }
+    }
+
+    @keyframes nx-preview-spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes nx-preview-pulse {
+        50% {
+            opacity: 0.35;
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Source section (integration logos)
+    // -----------------------------------------------------------------------
+    #source_section {
+        .wprf-error-message {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 0 0 16px;
+            padding: 12px 14px;
+            background: #fffaeb;
+            border: 1px solid #fedf89;
+            border-radius: 10px;
+            box-shadow: none;
+
+            &::before {
+                content: "";
+                flex: none;
+                width: 18px;
+                height: 18px;
+                margin-top: 1px;
+                background: #dc6803;
+                @include nx-mask-icon($nx-icon-alert, 18px);
+            }
+
+            p {
+                margin: 0;
+                font-size: 14px;
+                line-height: 20px;
+                color: #93370d;
+            }
+
+            a {
+                color: #93370d;
+                font-weight: 600;
+                text-decoration: underline;
+            }
+        }
+
+        .wprf-control.wprf-radio-card {
+            .wprf-row {
+                margin: -8px;
+
+                .wprf-column {
+                    padding: 8px;
+                }
+            }
+
+            .wprf-input-radio-option {
+                padding: 0;
+                min-height: 0;
+
+                .wprf-input-label.wprf-label-has-image {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 72px;
+                    min-height: 0;
+                    padding: 14px 44px;
+                    box-sizing: border-box;
+                    background: $nx-surface;
+
+                    img {
+                        display: block;
+                        width: 100%;
+                        max-width: 150px;
+                        height: 34px;
+                        max-height: none;
+                        margin: 0 auto;
+                        object-fit: contain;
+                    }
+                }
+
+                &:hover .wprf-input-label.wprf-label-has-image img {
+                    transform: none;
+                }
+
+                // Sources without a logo: icon + name, like the type cards
+                .wprf-input-label:not(.wprf-label-has-image) {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    width: 100%;
+                    height: auto;
+                    min-height: 64px;
+                    margin: 0;
+                    padding: 12px 44px 12px 64px;
+                    box-sizing: border-box;
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 20px;
+                    text-align: left;
+                    white-space: normal;
+
+                    &::before,
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+                        left: 14px;
+                        width: 38px;
+                        height: 38px;
+                        border-radius: 10px;
+                        transform: translateY(-50%);
+                    }
+
+                    &::before {
+                        background: $nx-primary-soft;
+                        transition: background-color 0.15s ease;
+                    }
+
+                    &::after {
+                        border-radius: 0;
+                        background: $nx-primary;
+                        @include nx-mask-icon($nx-icon-plug, 18px);
+                    }
+
+                    .wprf-badge {
+                        top: 50%;
+                        right: 12px;
+                        transform: translateY(-50%);
+                    }
+                }
+
+                @each $source, $type in $nx-source-icons {
+                    &:has(input[value="#{$source}"]) .wprf-input-label:not(.wprf-label-has-image)::after {
+                        @include nx-mask-icon(nx-mask(map-get($nx-type-icons, $type)), 18px);
+                    }
+                }
+
+                &.wprf-option-selected .wprf-input-label:not(.wprf-label-has-image) {
+                    &::before {
+                        background: $nx-primary;
+                    }
+
+                    &::after {
+                        background: #fff;
+                    }
+
+                    .wprf-badge {
+                        right: 38px;
+                    }
+                }
+
+                // Pro badge as a small pill (top right)
+                .wprf-badge {
+                    position: absolute;
+                    top: 8px;
+                    right: 8px;
+                    left: auto;
+                    bottom: auto;
+                    width: auto;
+                    height: auto;
+                    margin: 0;
+                    transform: none;
+                    background: none;
+
+                    .wprf-badge-item {
+                        position: static;
+                        display: inline-flex;
+                        align-items: center;
+                        width: auto;
+                        min-width: 0;
+                        height: 18px;
+                        padding: 0 6px;
+                        border-radius: 999px;
+                        background: #fff7ed;
+                        color: #c2410c;
+                        font-size: 9.5px;
+                        font-weight: 700;
+                        letter-spacing: 0.04em;
+                        line-height: 1;
+                        text-transform: uppercase;
+                        transform: none;
+                        box-shadow: inset 0 0 0 1px #fed7aa;
+                    }
+                }
+
+                &.wprf-option-selected {
+                    .wprf-input-label.wprf-label-has-image {
+                        background: $nx-surface;
+                        border-color: $nx-primary;
+                        box-shadow: inset 0 0 0 1px $nx-primary, $nx-ring;
+                    }
+
+                    &::before,
+                    &::after {
+                        top: 8px;
+                        right: 8px;
+                        left: auto;
+                    }
+                }
+            }
+        }
+    }
+}

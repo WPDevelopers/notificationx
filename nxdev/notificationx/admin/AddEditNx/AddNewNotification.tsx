@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { CreateNx } from '.';
 import { BuilderProvider, useBuilder } from 'quickbuilder';
 import { isArray } from 'quickbuilder';
-import { Header, WrapperWithLoader } from '../../components';
+import { WrapperWithLoader } from '../../components';
+import DashboardHeader from '../Dashboard/DashboardHeader';
+import { builderLogoVars } from '../../components/builderLogos';
 import nxHelper from '../../core/functions';
 import withDocumentTitle from '../../core/withDocumentTitle';
 import { useNotificationXContext } from '../../hooks';
@@ -77,8 +79,10 @@ const AddNewNotification = (props) => {
 
     return (
         <BuilderProvider value={builder}>
-            <div>
-                <Header addNew={true} />
+            <div className="nx-builder-page" style={builderLogoVars(notificationxContext?.assets?.admin)}>
+                <div className="nx-dash nx-dash--header-only">
+                    <DashboardHeader context={notificationxContext} sidebarPage="nx-edit" showAddNew={false} />
+                </div>
                 <WrapperWithLoader isLoading={isLoading}>
                     <CreateNx setIsLoading={setIsLoading} title={title} setTitle={setTitle} />
                 </WrapperWithLoader>

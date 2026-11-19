@@ -2,7 +2,9 @@ import { __ } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react'
 import { EditNx } from '.';
 import { BuilderProvider, useBuilder } from 'quickbuilder';
-import { Header, WrapperWithLoader } from '../../components';
+import { WrapperWithLoader } from '../../components';
+import DashboardHeader from '../Dashboard/DashboardHeader';
+import { builderLogoVars } from '../../components/builderLogos';
 import nxHelper from '../../core/functions';
 import withDocumentTitle from '../../core/withDocumentTitle';
 import { useNotificationXContext } from '../../hooks';
@@ -68,8 +70,11 @@ const EditNotification = (props) => {
 
     return (
         <BuilderProvider value={builder}>
-            <div>
-                <Header addNew={true} />
+            <div className="nx-builder-page" style={builderLogoVars(notificationxContext?.assets?.admin)}>
+                <div className="nx-dash nx-dash--header-only">
+                    {/* Editing belongs to "All NotificationX" in the WordPress menu. */}
+                    <DashboardHeader context={notificationxContext} sidebarPage="nx-admin" />
+                </div>
                 {isUpdated === 'saved' && !isLoading && <Notice message={__("Successfully Updated.", 'notificationx')} />}
                 {isUpdated === 'published' && !isLoading && <Notice message={__("Successfully Created.", 'notificationx')} />}
                 {typeUnavailable && !isLoading && <Notice type="error" message={__("This notification type is not available on this site, so this notification cannot be edited. Install or update NotificationX Pro, or turn on the module this notification uses, then open it again.", 'notificationx')} />}
