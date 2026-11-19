@@ -53,6 +53,7 @@ These are how a plugin (Pro or third-party) adds new Types, Extensions, sources,
 | Filter | Modifies | Args |
 | --- | --- | --- |
 | `nx_pro_alert_popup` | Wraps a field/source's `popup` config with the "upgrade to Pro" overlay when the feature is Pro-gated ([Extension.php:451](../../includes/Extensions/Extension.php#L451), [GlobalFields.php:113](../../includes/Extensions/GlobalFields.php#L113)). This is the canonical filter referenced in [CLAUDE.md](../../CLAUDE.md). | `$popup` |
+| `nx_offer_pointer_pro_active` | Whether the seasonal offer pointer treats the site as a Pro site; return `true` to hide the pointer on a free site ([OfferPointer.php](../../includes/Admin/OfferPointer.php), [features/offer-campaign.md](../features/offer-campaign.md)). | `$is_pro` |
 | `nx_popup_alert` / `nx_instructions` | Pro-alert payload and instruction blocks in the metabox ([GlobalFields.php:2270-2271](../../includes/Extensions/GlobalFields.php#L2270)). | `[]` |
 
 ### Save / read a notification (CPT)
