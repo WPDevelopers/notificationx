@@ -4,9 +4,11 @@ import classNames from "classnames";
 // core/index -> Notification -> themes import cycle.
 import Image from "../helpers/Image";
 import Close from "../helpers/Close";
+import { nxApplyFilters } from "../../core/hooks";
 import VcCredit from "./VcCredit";
 import VcStars, { formatVcRating, parseVcRating } from "./VcStars";
 import useVcLineScroll from "./useVcLineScroll";
+import { isBuiltInVcSlug } from "./isVcTheme";
 
 /**
  * Verified Cards (vc-*): the card Theme.tsx renders for a whitelisted vc key
@@ -38,6 +40,9 @@ import useVcLineScroll from "./useVcLineScroll";
  * Desktop and tablet get the 344px card; at 480px and below (matchMedia,
  * guarded) the slim two-line card with credit A and option C. Only one
  * layout is mounted at a time.
+ *
+ * Add-on slugs (nx_frontend_vc_slugs) render through the
+ * `nx_frontend_vc_card` filter (free x.x.x+); the built-in ones never do.
  */
 
 const SLIM_QUERY = "(max-width: 480px)";
@@ -528,11 +533,15 @@ const slimLine = (word: string, s: string[]) => {
     }
 };
 
-const SlimCard = ({ props, s, word }) => {
+/**
+ * The slim card's frame: the 32px image, line 1 (option C) with the time at
+ * its right end, credit A and the close. `line` is React content; `time` is
+ * an HTML slot ("" or a slot without text hides it).
+ */
+export const SlimShell = ({ props, word, line, time }: { props: any; word: string; line: React.ReactNode; time?: string }) => {
     const msgRef = useRef(null);
     const inRef = useRef(null);
     useVcLineScroll(msgRef, inRef);
-    const { line, time } = slimLine(word, s);
     return (
         <div
             className={classNames("nx-vc-card", `nx-vc-${word}`, "nx-vc-slim", {
@@ -556,11 +565,51 @@ const SlimCard = ({ props, s, word }) => {
     );
 };
 
+const SlimCard = ({ props, s, word }) => {
+    const { line, time } = slimLine(word, s);
+    return <SlimShell props={props} word={word} line={line} time={time} />;
+};
+
+/**
+ * The building blocks an add-on card gets in `nx_frontend_vc_card`'s args, so
+ * it renders with the same image, credit, stars and slim frame as the
+ * built-in cards, from either bundle (frontend or admin preview).
+ */
+export const VC_CARD_PARTS = Object.freeze({
+    VcImage,
+    VcCredit,
+    VcStars,
+    parseVcRating,
+    formatVcRating,
+    Close,
+    Html,
+    hasText,
+    joinParts,
+    SlimShell,
+});
+
 const VerifiedCard = (props) => {
     const { slots, themeName } = props;
     const slim = useVcSlim();
     const s: string[] = Array.isArray(slots) ? slots : [];
     const word = String(themeName || "").replace(/^vc-/, "");
+
+    // An add-on slug (nx_frontend_vc_slugs): the add-on returns the element,
+    // for the desktop or the slim layout (`slim`). React hooks run only inside
+    // the element it returns. Nothing returned: the Receipt fallback below.
+    if (!isBuiltInVcSlug(String(themeName || ""))) {
+        const card = nxApplyFilters<any>("nx_frontend_vc_card", undefined, {
+            ...props,
+            slots: s,
+            slug: String(themeName || ""),
+            word,
+            slim,
+            parts: VC_CARD_PARTS,
+        });
+        if (card !== undefined && card !== null && card !== false) {
+            return card;
+        }
+    }
 
     if (slim) {
         return <SlimCard props={props} s={s} word={word} />;
