@@ -11,6 +11,7 @@ import { releaseBarReserve, reservedBarId } from "./barReserve";
 import { loadAddonScripts, needsAddonScripts } from "./addons";
 import { isExitIntentPastEnd } from "./exitIntentEnd";
 import { isHiddenBySubmit } from "./submitRule";
+import { isHeldBack } from "./heldBack";
 
 const useNotificationX = (props: any) => {
 
@@ -73,6 +74,14 @@ const useNotificationX = (props: any) => {
             if (isHiddenBySubmit(config, props.config)) {
                 args?.intervalID && clearInterval(args?.intervalID);
                 args?.timeoutID && clearTimeout(args?.timeoutID);
+                return;
+            }
+
+            // Held back by an add-on for now (heldBack.ts; Pro: the live
+            // visitor count until it is known): skip this cycle, keep the
+            // loop. Adding it would leave an undrawn notice in the list, and
+            // the hidden cycles would pile up.
+            if (isHeldBack(data, config)) {
                 return;
             }
 
