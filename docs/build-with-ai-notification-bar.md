@@ -104,7 +104,7 @@ If no token is saved, `BuildHeader.jsx` shows an inline warning ("To generate de
               │     the model to return a JS array of exactly N preset objects in a fixed shape (see §5)
               ├── POST https://api.openai.com/v1/chat/completions
               │     { model, messages: [system, user=prompt], temperature/max_tokens (or
-              │       max_completion_tokens + temperature=1 for gpt-5* models) }
+              │       max_completion_tokens + reasoning_effort "low", no temperature, for gpt-6* models) }
               │     — 30s client-side timeout via AbortController
               ├── on non-2xx → maps 401/429/400 to a friendly error string, shown via toast
               ├── on success → `presets = eval(response.choices[0].message.content)`
