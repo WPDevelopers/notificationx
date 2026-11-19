@@ -14,6 +14,7 @@ use NotificationX\Admin\Settings;
 use NotificationX\CoreInstaller;
 use NotificationX\Extensions\PressBar\PressBar;
 use NotificationX\Extensions\ExitIntent\ExitIntentNotification;
+use NotificationX\Extensions\ExitIntent\GutenbergDesign;
 use NotificationX\Admin\Reports\ReportEmail;
 use NotificationX\Admin\EntriesMailReceiver;
 use NotificationX\Extensions\ExtensionFactory;
@@ -192,6 +193,17 @@ class REST {
             'callback'            => array( $this, 'exit_intent_elementor_remove' ),
             'permission_callback' => array( $this, 'edit_permission' ),
         ));
+        // Exit Intent — Gutenberg (block editor) Import / Remove
+        register_rest_route( $namespace, '/exit-intent/gutenberg/import', array(
+            'methods'             => WP_REST_Server::EDITABLE,
+            'callback'            => array( $this, 'exit_intent_gutenberg_import' ),
+            'permission_callback' => array( $this, 'edit_permission' ),
+        ));
+        register_rest_route( $namespace, '/exit-intent/gutenberg/remove', array(
+            'methods'             => WP_REST_Server::EDITABLE,
+            'callback'            => array( $this, 'exit_intent_gutenberg_remove' ),
+            'permission_callback' => array( $this, 'edit_permission' ),
+        ));
         // Reporting Import
         register_rest_route( $namespace, '/reporting-test', array(
             'methods'   => WP_REST_Server::EDITABLE,
@@ -337,6 +349,38 @@ class REST {
         $params = $request->get_params();
         ExitIntentNotification::get_instance()->delete_elementor_post( $params['elementor_id'] ?? 0 );
         return true;
+    }
+
+    /**
+     * Exit Intent — Gutenberg import. Creates an `nx_exit_intent_eb` block design
+     * from one of the starting designs and returns its ID and edit link.
+     *
+     * @since x.x.x
+     * @param \WP_REST_Request $request Request with `theme_id`.
+     * @return array|WP_Error `{success, data: {context}}`, or an error the builder shows.
+     */
+    public function exit_intent_gutenberg_import( $request ) {
+        $result = GutenbergDesign::get_instance()->import( $request->get_param( 'theme_id' ) );
+        if ( is_wp_error( $result ) ) {
+            return $result;
+        }
+        return array(
+            'success' => true,
+            'data'    => $result,
+        );
+    }
+
+    /**
+     * Exit Intent — Gutenberg remove. Deletes the linked `nx_exit_intent_eb` design.
+     *
+     * @since x.x.x
+     * @param \WP_REST_Request $request Request with `gutenberg_id`.
+     * @return array
+     */
+    public function exit_intent_gutenberg_remove( $request ) {
+        return array(
+            'success' => GutenbergDesign::get_instance()->remove( $request->get_param( 'gutenberg_id' ) ),
+        );
     }
 
     /**
@@ -582,6 +626,8 @@ class REST {
             '/wp-json/notificationx/v1/gutenberg/remove',
             '/wp-json/notificationx/v1/exit-intent/elementor/import',
             '/wp-json/notificationx/v1/exit-intent/elementor/remove',
+            '/wp-json/notificationx/v1/exit-intent/gutenberg/import',
+            '/wp-json/notificationx/v1/exit-intent/gutenberg/remove',
             '/wp-json/notificationx/v1/reporting-test',
             '/wp-json/notificationx/v1/settings',
             '/wp-json/notificationx/v1/miscellaneous',

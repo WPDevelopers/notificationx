@@ -45,6 +45,8 @@ class ExitIntentNotification extends Extension {
     public function __construct() {
         parent::__construct();
         add_action( 'init', [ $this, 'register_post_type' ] );
+        // "Build With Gutenberg": block designs (nx_exit_intent_eb), kept in their own class.
+        GutenbergDesign::get_instance();
         add_filter( 'get_edit_post_link', [ $this, 'filter_edit_post_link' ], 10, 3 );
         add_filter( 'nx_filtered_post', [ $this, 'inject_elementor_html' ], 10, 2 );
         add_filter( 'nx_filtered_post', [ $this, 'localize_default_image' ], 10, 2 );
