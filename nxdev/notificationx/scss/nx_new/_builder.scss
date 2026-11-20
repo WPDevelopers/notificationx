@@ -65,7 +65,19 @@ $nx-icon-arrow-right: nx-mask("%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E");
 $nx-icon-arrow-left: nx-mask("%3Cpath d='M19 12H5M11 6l-6 6 6 6'/%3E");
 $nx-icon-eye: nx-mask("%3Cpath d='M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E");
 $nx-icon-alert: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 8v4M12 16h.01'/%3E");
+$nx-icon-headset: nx-mask("%3Cpath d='M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3'/%3E%3Cpath d='M21 16v2a4 4 0 0 1-4 4h-5'/%3E");
 $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
+
+@keyframes nx-support-online {
+    0% {
+        box-shadow: 0 0 0 0 rgba(23, 178, 106, 0.45);
+    }
+
+    70%,
+    100% {
+        box-shadow: 0 0 0 6px rgba(23, 178, 106, 0);
+    }
+}
 
 @mixin nx-btn-base {
     display: inline-flex;
@@ -271,11 +283,13 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
             min-width: 0;
         }
 
-        // Step bar --------------------------------------------------------
+        // Step bar: left aligned and only as wide as its steps. Talk to
+        // Support / Preview sit on its right (StepActionsLayout.tsx).
         > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar {
-            width: 100%;
+            width: fit-content;
+            max-width: 100%;
             margin: 0;
-            padding: 10px 12px;
+            padding: 6px;
             box-sizing: border-box;
             background: $nx-surface;
             border: 1px solid $nx-border;
@@ -298,26 +312,22 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
 
                 .wprf-tab-nav-item {
                     position: relative;
-                    flex: 1 1 0;
+                    flex: none;
                     display: flex;
                     flex-direction: row;
                     align-items: center;
-                    gap: 10px;
+                    gap: 8px;
                     width: auto;
                     min-width: 0;
                     height: auto;
                     margin: 0;
-                    padding: 6px 8px;
+                    padding: 4px 12px 4px 4px;
                     border: 0;
                     border-radius: $nx-radius-sm;
                     background: transparent;
                     color: $nx-muted;
                     cursor: pointer;
                     transition: background-color 0.15s ease;
-
-                    &:last-child {
-                        flex: 0 0 auto;
-                    }
 
                     &:hover {
                         background: $nx-hover;
@@ -328,10 +338,10 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
                     img {
                         flex: none;
                         box-sizing: border-box;
-                        width: 36px;
-                        height: 36px;
+                        width: 30px;
+                        height: 30px;
                         margin: 0;
-                        padding: 9px;
+                        padding: 7px;
                         border-radius: 50%;
                         background: $nx-surface;
                         border: 1px solid $nx-border;
@@ -340,8 +350,9 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
                     }
 
                     span {
+                        display: block;
                         margin: 0;
-                        font-size: 14px;
+                        font-size: 13px;
                         font-weight: 500;
                         line-height: 20px;
                         letter-spacing: 0;
@@ -350,18 +361,23 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
                         color: inherit;
                     }
 
-                    // Connector to the next step
-                    &:not(:last-child)::after {
-                        content: "";
-                        position: static;
-                        flex: 1 1 auto;
-                        min-width: 16px;
-                        width: auto;
-                        height: 2px;
-                        margin: 0 4px;
-                        border-radius: 2px;
-                        background: $nx-border;
-                        transform: none;
+                    // Connector to the next step, drawn in the gap after it
+                    &:not(:last-child) {
+                        margin-right: 20px;
+
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            top: 50%;
+                            right: -17px;
+                            left: auto;
+                            width: 14px;
+                            height: 2px;
+                            margin: -1px 0 0;
+                            border-radius: 2px;
+                            background: $nx-border;
+                            transform: none;
+                        }
                     }
 
                     &.wprf-tab-complete {
@@ -374,59 +390,111 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
                             fill: $nx-primary;
                         }
 
-                        span {
-                            color: $nx-text;
-                        }
-
                         &:not(:last-child)::after {
                             background: $nx-primary-border;
                         }
                     }
 
                     &.wprf-active-nav {
-                        background: transparent;
-                        color: $nx-ink;
+                        background: $nx-primary-soft;
+                        color: $nx-primary;
 
                         svg,
                         img {
                             background: $nx-primary;
                             border-color: $nx-primary;
                             fill: #fff;
-                            box-shadow: 0 0 0 4px $nx-primary-soft;
                         }
 
                         span {
-                            color: $nx-ink;
                             font-weight: 600;
                         }
                     }
+                }
+            }
+        }
 
-                    @media screen and (max-width: 1279px) {
-                        span {
-                            font-size: 13px;
-                        }
-                    }
+        // Talk to Support / Preview next to the step bar (StepActionsLayout.tsx)
+        &.nx-steps-with-actions {
+            position: relative;
 
-                    @media screen and (max-width: 960px) {
-                        flex-direction: column;
-                        gap: 6px;
+            > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar {
+                max-width: calc(100% - var(--nx-step-actions-width, 0px) - 16px);
+            }
 
-                        &:not(:last-child)::after {
-                            display: none;
-                        }
+            > .wprf-tab-content-wrapper > .wprf-tab-flex > .wprf-tab-contents > .wprf-tab-content > .wprf-tab-heading-wrapper,
+            > .wprf-tab-content-wrapper > .wprf-tab-contents > .wprf-tab-content > .wprf-tab-heading-wrapper {
+                position: static;
 
-                        span {
-                            display: block;
-                            font-size: 12px;
-                        }
-                    }
+                > div {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    display: flex;
+                    align-items: center;
+                    height: var(--nx-steps-height, 54px);
+                    margin: 0;
+                }
+            }
+        }
 
-                    @media screen and (max-width: 600px) {
-                        span {
-                            display: none;
-                        }
+        // Less room: tighter steps, then the name on the current step only,
+        // then icons only (StepActionsLayout.tsx picks the first that fits)
+        &.nx-steps-tight,
+        &.nx-steps-compact,
+        &.nx-steps-tiny {
+            > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar .wprf-tab-nav .wprf-tab-nav-item {
+                gap: 6px;
+                padding-right: 10px;
+
+                &:not(:last-child) {
+                    margin-right: 14px;
+
+                    &::after {
+                        right: -12px;
+                        width: 10px;
                     }
                 }
+            }
+        }
+
+        &.nx-steps-tight > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar .wprf-tab-nav .wprf-tab-nav-item {
+            gap: 5px;
+            padding: 3px 8px 3px 3px;
+
+            svg,
+            img {
+                width: 26px;
+                height: 26px;
+                padding: 6px;
+            }
+
+            span {
+                font-size: 12px;
+            }
+
+            &:not(:last-child) {
+                margin-right: 10px;
+
+                &::after {
+                    right: -8px;
+                    width: 6px;
+                }
+            }
+        }
+
+        &.nx-steps-compact > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar .wprf-tab-nav .wprf-tab-nav-item:not(.wprf-active-nav),
+        &.nx-steps-tiny > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar .wprf-tab-nav .wprf-tab-nav-item {
+            padding-right: 4px;
+
+            // Hidden from view only; the name stays for screen readers
+            span {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+                clip: rect(0 0 0 0);
+                white-space: nowrap;
             }
         }
 
@@ -451,8 +519,8 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
 
                 .wprf-btn.wprf-step-btn-preview {
                     @include nx-btn-primary;
-                    min-height: 36px;
-                    padding: 0 14px;
+                    min-height: 40px;
+                    padding: 0 16px;
                     font-size: 13px;
 
                     &::before {
@@ -465,23 +533,56 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
                     }
                 }
 
+                // Support: green so it stands out from the form's violet
                 .wprf-name-talk_to_support {
                     margin: 0;
 
                     .wprf-button {
                         @include nx-btn-secondary;
-                        min-height: 36px;
-                        padding: 0 14px;
+                        position: relative;
+                        min-height: 40px;
+                        padding: 0 14px 0 12px;
                         font-size: 13px;
+                        color: #067647;
+                        background: #ecfdf3;
+                        border-color: #abefc6;
 
+                        &:hover,
+                        &:focus {
+                            color: #05603a;
+                            background: #dcfae6;
+                            border-color: #75e0a7;
+                        }
+
+                        // Headset
                         &::before {
                             content: "";
                             flex: none;
-                            width: 8px;
-                            height: 8px;
+                            width: 18px;
+                            height: 18px;
+                            background: currentColor;
+                            @include nx-mask-icon($nx-icon-headset, 18px);
+                        }
+
+                        // Online dot
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            top: -4px;
+                            right: -4px;
+                            box-sizing: border-box;
+                            width: 12px;
+                            height: 12px;
+                            border: 2px solid #fff;
                             border-radius: 50%;
-                            background: #12b76a;
-                            box-shadow: 0 0 0 3px #d1fadf;
+                            background: #17b26a;
+                            animation: nx-support-online 2s ease-out infinite;
+                        }
+
+                        @media (prefers-reduced-motion: reduce) {
+                            &::after {
+                                animation: none;
+                            }
                         }
                     }
                 }
