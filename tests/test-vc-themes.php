@@ -481,6 +481,34 @@ class Test_VC_Themes extends WP_UnitTestCase {
 		$this->assert_hidden_for_vc_and_unchanged_otherwise( $fields[0] );
 	}
 
+	/**
+	 * "Verified by NotificationX" switch: one toggle, on by default, shown only
+	 * for the vc keys on the desktop themes tab. Settings > Disable Powered By
+	 * keeps its opt-in default for every other theme.
+	 */
+	public function test_vc_show_credit_toggle_is_on_and_shown_for_vc_keys_only() {
+		$fields = $this->find_fields( $this->builder_tabs(), 'vc_show_credit' );
+		$this->assertCount( 1, $fields, 'Expected one vc_show_credit field.' );
+		$field = $fields[0];
+		$this->assertSame( 'toggle', $field['type'] );
+		$this->assertTrue( $field['default'] );
+		$rules = wp_json_encode( $field['rules'] );
+		$this->assertStringContainsString( wp_json_encode( array( 'is', 'themes_tab', 'for_desktop' ) ), $rules );
+		$this->assertStringContainsString( wp_json_encode( array( 'includes', 'themes', GlobalFields::vc_theme_keys() ) ), $rules );
+		$this->assertStringNotContainsString( '!includes', $rules );
+		$this->assertStringNotContainsString( 'conversions_theme-one', $rules );
+	}
+
+	public function test_powered_by_stays_opt_in() {
+		$settings = \NotificationX\Admin\Settings::get_instance();
+		$saved    = $settings->get( 'settings' );
+		$without  = (array) $saved;
+		unset( $without['disable_powered_by'] );
+		$settings->set( 'settings', $without );
+		$this->assertTrue( (bool) \NotificationX\FrontEnd\FrontEnd::get_instance()->get_settings()['disable_powered_by'] );
+		$settings->set( 'settings', $saved );
+	}
+
 	public function test_vc_rule_shape() {
 		$rule = Rules::includes( 'themes', GlobalFields::vc_theme_keys(), true );
 		$this->assertSame(

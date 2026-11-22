@@ -252,10 +252,8 @@ class Settings extends UsabilityDynamicsSettings {
                                     'type'        => 'checkbox',
                                     'label'       => __( 'Disable Powered By', 'notificationx' ),
                                     'name'        => 'disable_powered_by',
-                                    // Shown by default, so the notification cards (the Verified
-                                    // Cards' "Verified by NotificationX" line) match their designs.
-                                    // The site owner can hide it here; a saved choice is kept.
-                                    'default'     => 0,
+                                    // Off unless the site owner opts in (WordPress.org Guideline 10, issue #184).
+                                    'default'     => 1,
                                     'priority'    => 10,
                                     'description' => __( 'Hides the "Powered by NotificationX" link in notifications. Uncheck to show it.', 'notificationx' ),
                                 ],

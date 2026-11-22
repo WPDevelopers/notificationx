@@ -335,7 +335,7 @@ describe( 'SlimShell', () => {
 
 	it( 'hides the time and marks no image and no credit', () => {
 		const props = {
-			config: { ...receipt(), disable_powered_by: true },
+			config: { ...receipt(), vc_show_credit: false },
 			data: saleEntry( { image_data: false } ),
 			id: 'nx-vc',
 			dispatch: jest.fn(),

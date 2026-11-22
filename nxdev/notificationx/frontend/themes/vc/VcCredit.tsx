@@ -8,11 +8,24 @@ import { VcBell, VcWordmark } from "./VcBrandMark";
  *
  * Same link as the existing byline (NXBranding): the affiliate URL,
  * rel="nofollow", target="_blank". The link has an aria-label because its
- * content is two decorative SVGs. Not rendered when "Powered by" is disabled.
+ * content is two decorative SVGs. Shown unless vcShowsCredit() says no.
  * `slim` only adds a class: the ≤480px card styles it as credit A.
  */
+
+/**
+ * Whether a Verified Card shows its credit line. The line is part of the
+ * card's design, so it follows the notification's own "Verified by
+ * NotificationX" switch (vc_show_credit, Design tab, on by default), not
+ * Settings > Disable Powered By, which stays the opt-in for the other themes.
+ * A notification saved before the switch existed has no value: shown.
+ */
+export const vcShowsCredit = (config: any): boolean => {
+    const v = config?.vc_show_credit;
+    return !(v === false || v === 0 || v === "0" || v === "false" || v === "");
+};
+
 const VcCredit = ({ config, slim = false }: { config: any; slim?: boolean }) => {
-    if (config?.disable_powered_by) {
+    if (!vcShowsCredit(config)) {
         return null;
     }
     return (
