@@ -8,7 +8,7 @@ Manual test plan: [../../../qa-guide/exit-intent-gutenberg.md](../../../qa-guide
 
 ## What the admin sees
 
-1. **Exit Intent → Design → Themes → Custom.** With the block editor available, the empty state reads "Create with Your Preferred Builder/Editor". The tab shows **Build With Elementor** and **Build With Gutenberg**.
+1. **Exit Intent → Design → Themes → Custom.** With the block editor available, the empty state reads "Create with Your Preferred Builder/Editor". The tab shows **Build With Elementor** and **Build With Gutenberg**, side by side at the same width (they stack on narrow screens; see [../dismiss-and-animation.md](../dismiss-and-animation.md#1-build-buttons-side-by-side)).
 2. **Build With Gutenberg** opens "Choose your design" with four starting designs, made of core blocks and the NotificationX countdown only:
 
    | Key | Design | Width |
@@ -73,8 +73,10 @@ All of it is in Free: [`includes/Extensions/ExitIntent/GutenbergDesign.php`](../
 - **Dialog.** `role="dialog"`, `aria-modal`, labelled with the campaign title. Focus moves to the × (or the dialog) and back on close; Tab stays inside; Escape closes.
 - **`#nx-close` links.** A link to `#nx-close` inside the design (like design 1's "No thanks") closes the popup like the ×.
 - **Long designs** scroll inside the popup (max height = screen minus 32 px). The popup handles the wheel itself: over the design it scrolls the body, and over the backdrop the page stays still. On pages that send wheel events the popup can't cancel, the body is scrolled only if the browser didn't, and the page behind may still move.
+- **Tablets and phones.** From 768px a design keeps its desktop layout. Core stacks Columns below 782px; in the popup that moves to below 768px, and `GutenbergDesign::column_styles()` restates each column's own width for 768–781px. Below 768px it stacks, and Buttons go one per row at full width. Available from Free 3.4.2.
 - **The ×** overhangs the corner on desktop. Below 480 px it sits inside the card as a 44 px target. It uses logical properties, so it moves to the left in RTL.
-- **Unchanged from the other popups:** close keys (`notificationx_exit_intent_{nx_id}_` in sessionStorage and the cookie), cookie days, and hide after end date.
+- **Unchanged from the other popups:** close keys (`notificationx_exit_intent_{nx_id}_` in sessionStorage and the cookie), "Do Not Show Again" and its days, and hide after end date.
+- **Show / Hide animations (Pro).** The card takes the animation classes once the design is shown; the backdrop fades with it. See [../dismiss-and-animation.md](../dismiss-and-animation.md#3-show-and-hide-animations).
 
 **WP Rocket.** Remove Unused CSS keeps the stylesheets of the blocks that active designs use (`rocket_rucss_safelist`).
 
@@ -104,10 +106,12 @@ All of it is in Free: [`includes/Extensions/ExitIntent/GutenbergDesign.php`](../
   - `test-exit-intent-gutenberg-builder.php` (builder fields, rules fixture);
   - `test-exit-intent-gutenberg-frontend.php` (payload, render, layout, assets, RUCSS);
   - `test-exit-intent-gutenberg-lifecycle.php`;
+  - `test-exit-intent-gutenberg-responsive.php` (column widths on tablets);
   - the new route's data sets in `test-security-post-deletion.php`.
 - **Jest:**
   - `tests/js/admin/exit-intent-builder-rules.test.js` (quickbuilder's rule engine on `tests/js/fixtures/exit-intent-builder-rules.json`);
   - `tests/js/admin/exit-intent-preset.test.js`;
   - `tests/js/frontend/exit-intent-gutenberg.test.js`;
   - `tests/js/frontend/exit-intent-elementor-unchanged.test.js` (snapshots of the Elementor popup written before this feature);
-  - `tests/js/exit-intent-gutenberg-css.test.js`.
+  - `tests/js/exit-intent-gutenberg-css.test.js`;
+  - `tests/js/exit-intent-gutenberg-responsive-css.test.js` (tablets and phones).

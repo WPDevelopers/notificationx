@@ -70,7 +70,9 @@ How it works: [../features/exit-intent/gutenberg/README.md](../features/exit-int
 - Expected:
   - the popup is the screen width minus 32 px;
   - the × sits inside the card's top corner, fully visible, about 44 px;
-  - design 3 stacks the image on top.
+  - design 3 stacks the image on top;
+  - buttons one per row, full width.
+- At 1024 and 768px: the desktop layout (design 3's image beside the text). See also [exit-intent-improvements.md](exit-intent-improvements.md) T24.
 - Long content: add blocks until the design is taller than the window. Expected: the wheel scrolls the design inside the popup to its end. The page behind stays still where the browser lets the popup cancel wheel events. On the test store (Storefy) it can't, and the page behind moves too; the popup still scrolls.
 
 **T9. Touch device.**

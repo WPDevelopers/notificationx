@@ -35,7 +35,7 @@ theme-seven) end-user form submissions posted back through the shared
 The real trigger is client-side: [`useNotificationX.ts`](../../nxdev/notificationx/frontend/core/useNotificationX.ts)
 listens for `mouseleave` near the top of the viewport and dispatches the popup once
 per `nx_id` per page load, honoring a dismissal cookie/sessionStorage flag
-(`exit_intent_cookie_days`).
+(`exit_intent_cookie_enabled` + `exit_intent_cookie_days`).
 
 ## Extension classes & pairings
 
@@ -108,7 +108,8 @@ tables — not duplicated here):
   `design_fields()`, gated by `Rules::is('themes', ...)` per theme.
 - **Customize tab** — `exit_intent_popup_settings` section added by
   `customize_fields()`: `show_close_button`, `exit_intent_position`,
-  `exit_intent_sensitivity`, `exit_intent_cookie_days`, `exit_intent_hide_after_end`,
+  `exit_intent_sensitivity`, `exit_intent_cookie_enabled` ("Do Not Show Again") and
+  `exit_intent_cookie_days` (shown when it is on), `exit_intent_hide_after_end`,
   `exit_intent_countdown_end` (shown when the toggle is on), `exit_intent_mobile_disable`.
   The end-date pair stops the popup after its end date; see
   [End date](../features/exit-intent/00-overview.md#end-date-stop-showing-after-end-date).
