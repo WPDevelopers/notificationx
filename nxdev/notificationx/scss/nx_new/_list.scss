@@ -1,0 +1,582 @@
+// All NotificationX (page=nx-admin): Dashboard header and stat cards, and the
+// list in one card. Reuses the Dashboard's Recent Notifications table styles
+// (`.nx-dash-recent`) and adds the bulk-action column, toolbar and footer.
+// Imported inside `#notificationx`, after _dashboard.scss and _builder.scss.
+
+$nx-list-input-border: #d0d5dd;
+$nx-list-check: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M4 8.2l2.6 2.6L12 5.4' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>";
+
+@mixin nx-list-control {
+    height: 38px;
+    min-height: 38px;
+    border: 1px solid $nx-list-input-border;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: $nx-shadow;
+    box-sizing: border-box;
+}
+
+@mixin nx-list-checkbox {
+    display: inline-block;
+    flex: none;
+    width: 16px;
+    min-width: 16px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid $nx-list-input-border;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: none;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+
+    &::before {
+        display: none;
+    }
+
+    &:hover {
+        border-color: $nx-primary;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $nx-primary;
+        box-shadow: $nx-ring;
+    }
+
+    &:checked {
+        border-color: $nx-primary;
+        background: $nx-primary url($nx-list-check) center / 14px no-repeat;
+    }
+}
+
+.nx-dash.nx-list-page {
+    .nx-list-card {
+        margin: 0;
+        padding: 0;
+
+        // Toolbar: status tabs, search, bulk action ------------------------------
+        .nx-admin-menu {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px 16px;
+            margin: 0;
+            padding: 16px 20px;
+            border-bottom: 1px solid $nx-border;
+
+            > ul {
+                display: inline-flex;
+                flex-wrap: wrap;
+                gap: 4px;
+                margin: 0;
+                padding: 4px;
+                border-radius: 10px;
+                background: #f2f4f7;
+
+                li {
+                    display: block;
+                    margin: 0;
+
+                    a {
+                        display: inline-flex;
+                        align-items: center;
+                        min-height: 32px;
+                        margin: 0;
+                        padding: 0 14px;
+                        border: 0;
+                        border-radius: 8px;
+                        background: transparent;
+                        color: $nx-muted;
+                        font-size: 13px;
+                        font-weight: 500;
+                        line-height: 1;
+                        text-transform: none;
+                        white-space: nowrap;
+                        box-shadow: none;
+                        transition: background-color 0.15s ease, color 0.15s ease;
+                        @include nx-focus;
+
+                        &:hover {
+                            color: $nx-ink;
+                        }
+                    }
+
+                    &.nx-active a {
+                        background: #fff;
+                        color: $nx-ink;
+                        font-weight: 600;
+                        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08), 0 1px 3px rgba(16, 24, 40, 0.06);
+                    }
+                }
+            }
+
+            .nx-bulk-action-wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 8px;
+            }
+
+            // Search: always open, icon inside the field.
+            .nx-search-wrapper {
+                display: block;
+                width: auto;
+                overflow: visible;
+
+                .input-box,
+                .input-box:not(.open),
+                .input-box.open {
+                    position: relative;
+                    width: 240px;
+                    max-width: none;
+                    height: 38px;
+                    margin: 0;
+                    background: transparent;
+                    transition: none;
+
+                    input {
+                        display: block;
+                    }
+                }
+
+                input {
+                    @include nx-list-control;
+                    width: 100%;
+                    margin: 0;
+                    padding: 0 12px 0 36px;
+                    color: $nx-ink;
+                    font-family: inherit;
+                    font-size: 13.5px;
+                    transform: none;
+
+                    &::placeholder {
+                        color: $nx-subtle;
+                        font-family: inherit;
+                        font-size: 13.5px;
+                    }
+
+                    &:focus {
+                        border-color: $nx-primary;
+                        box-shadow: $nx-ring;
+                    }
+                }
+
+                .icon {
+                    top: 0;
+                    right: auto;
+                    left: 0;
+                    align-items: center;
+                    width: 36px;
+                    height: 38px;
+                    border: 0;
+                    border-radius: 0;
+                    background: transparent;
+                    pointer-events: none;
+
+                    img {
+                        width: 16px;
+                        opacity: 0.55;
+                    }
+                }
+            }
+
+            .bulk-action-select {
+                height: auto;
+
+                .bulk-action-select__control {
+                    @include nx-list-control;
+                    min-width: 160px;
+                    cursor: pointer;
+
+                    &--is-focused {
+                        border-color: $nx-primary;
+                        box-shadow: $nx-ring;
+                    }
+                }
+
+                .bulk-action-select__value-container {
+                    height: 36px;
+                    padding: 0 10px 0 12px;
+                }
+
+                .bulk-action-select__single-value,
+                .bulk-action-select__placeholder {
+                    color: $nx-text;
+                    font-size: 13.5px;
+                }
+
+                .bulk-action-select__indicators {
+                    height: 36px;
+                }
+
+                .bulk-action-select__indicator-separator {
+                    display: none;
+                }
+
+                .bulk-action-select__indicator {
+                    padding: 0 10px 0 4px;
+                    color: $nx-subtle;
+                }
+
+                .bulk-action-select__menu {
+                    z-index: 30;
+                    overflow: hidden;
+                    margin-top: 6px;
+                    border: 1px solid $nx-border;
+                    border-radius: 10px;
+                    box-shadow: 0 16px 32px -12px rgba(16, 24, 40, 0.22), 0 4px 8px -4px rgba(16, 24, 40, 0.08);
+                }
+
+                .bulk-action-select__menu-list {
+                    padding: 6px;
+                }
+
+                .bulk-action-select__option {
+                    padding: 8px 10px;
+                    border-radius: 6px;
+                    color: $nx-text;
+                    font-size: 13.5px;
+                    cursor: pointer;
+
+                    &--is-focused {
+                        background: $nx-hover;
+                        color: $nx-ink;
+                    }
+
+                    &--is-selected {
+                        background: $nx-primary-soft;
+                        color: $nx-primary;
+                    }
+
+                    &--is-disabled {
+                        color: $nx-subtle;
+                        cursor: default;
+                    }
+                }
+            }
+
+            .nx-bulk-action-button {
+                @include nx-list-control;
+                margin: 0;
+                padding: 0 18px;
+                color: $nx-ink;
+                font-size: 13.5px;
+                font-weight: 600;
+                transition: background-color 0.15s ease, border-color 0.15s ease;
+                @include nx-focus;
+
+                &:not(:first-child) {
+                    margin-left: 0;
+                }
+
+                &:hover {
+                    border-color: $nx-primary-border;
+                    background: $nx-primary-soft;
+                    color: $nx-primary;
+                    box-shadow: $nx-shadow;
+                }
+            }
+        }
+
+        // Table --------------------------------------------------------------------
+        .nx-admin-items .nx-list-table-wrapper {
+            margin: 0;
+            border: 0;
+            border-radius: 0;
+        }
+
+        .nx-admin-items table.nx-dash-table {
+            thead tr > td:first-child,
+            tbody tr > td:first-child {
+                display: table-cell;
+                width: 20px !important;
+                padding-right: 0;
+                padding-left: 20px;
+            }
+
+            // Narrower fixed columns than the Dashboard: the checkbox column
+            // takes room, and the title needs space at 1280px.
+            thead tr > td {
+                &:nth-child(4) { width: 60px !important; }
+                &:nth-child(5) { width: 124px !important; }
+                &:nth-child(6) { width: 90px !important; }
+                &:nth-child(7) { width: 150px !important; }
+                &:nth-child(8) { width: 56px !important; }
+            }
+
+            @media screen and (max-width: 1100px) {
+                thead tr > td:nth-child(3),
+                tbody tr > td:nth-child(3) {
+                    display: none;
+                }
+            }
+
+            thead tr > td:last-child,
+            tbody tr > td:last-child {
+                padding-right: 20px;
+            }
+
+            thead tr td,
+            tbody tr td {
+                border-radius: 0 !important;
+            }
+
+            thead tr td {
+                background: #f9fafb;
+            }
+
+            tbody tr:has(.nx-item-selector input:checked) td {
+                background: #f7f5ff;
+            }
+
+            .nx-all-selector,
+            .nx-item-selector {
+                display: flex;
+                align-items: center;
+                height: auto;
+                transform: none;
+
+                input[type="checkbox"] {
+                    @include nx-list-checkbox;
+                }
+            }
+
+            @media screen and (max-width: 640px) {
+                thead tr > td:first-child,
+                tbody tr > td:first-child {
+                    width: 16px !important;
+                    padding-left: 12px;
+                }
+            }
+        }
+
+        // Empty state --------------------------------------------------------------
+        .nx-dash-empty {
+            padding: 48px 20px 44px;
+
+            p {
+                margin-bottom: 0;
+            }
+
+            .nx-button {
+                margin-top: 20px;
+            }
+        }
+
+        // Footer: per page + pagination ------------------------------------------
+        .nx-admin-items-footer {
+            position: static;
+            z-index: auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: auto;
+            margin: 0;
+            padding: 12px 20px;
+            border-top: 1px solid $nx-border;
+
+            > .components-base-control {
+                margin: 0;
+
+                .components-base-control__field {
+                    margin: 0;
+                }
+
+                .components-flex {
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 8px;
+                }
+
+                label,
+                .components-input-control__label {
+                    margin: 0;
+                    padding: 0;
+                    color: $nx-muted;
+                    font-size: 13px;
+                    font-weight: 500;
+                    line-height: 1.4;
+                    text-transform: none;
+                }
+
+                .components-input-control__container {
+                    min-height: 34px;
+                    border-radius: 8px;
+                    background: #fff;
+
+                    select {
+                        min-height: 34px;
+                        height: 34px;
+                        padding: 0 28px 0 12px;
+                        border-radius: 8px;
+                        color: $nx-ink;
+                        font-size: 13.5px;
+                        font-weight: 500;
+                    }
+
+                    .components-input-control__backdrop {
+                        min-height: 34px;
+                        padding: 0;
+                        border: 1px solid $nx-list-input-border;
+                        border-radius: 8px;
+                    }
+                }
+            }
+
+            .rc-pagination {
+                gap: 4px;
+                margin: 0 0 0 auto;
+                padding: 0;
+
+                > *:not(:last-child) {
+                    margin-right: 0;
+                }
+
+                &-item,
+                &-prev,
+                &-next,
+                &-jump-prev,
+                &-jump-next {
+                    min-width: 34px;
+                    height: 34px;
+                    margin: 0;
+                    border: 1px solid $nx-border;
+                    border-radius: 8px;
+                    background: #fff;
+                    box-sizing: border-box;
+                    transition: background-color 0.15s ease, border-color 0.15s ease;
+
+                    a,
+                    button {
+                        color: $nx-text;
+                        font-size: 13px;
+                        font-weight: 500;
+                    }
+
+                    &:hover,
+                    &:focus {
+                        border-color: $nx-primary-border;
+                        background: $nx-primary-soft;
+
+                        a,
+                        button {
+                            color: $nx-primary;
+                        }
+                    }
+                }
+
+                // Arrows and "•••" are drawn by ::after over hidden link text.
+                &-prev,
+                &-next,
+                &-jump-prev,
+                &-jump-next {
+                    a,
+                    button,
+                    &:hover a,
+                    &:hover button,
+                    &:focus a,
+                    &:focus button {
+                        border: 0;
+                        border-radius: 7px;
+                        background: transparent;
+                        color: transparent !important;
+
+                        &::after {
+                            border-radius: 7px;
+                            background: transparent;
+                            color: $nx-muted;
+                            font-size: 13px;
+                            font-weight: 600;
+                        }
+                    }
+
+                    &:hover a::after,
+                    &:hover button::after,
+                    &:focus a::after,
+                    &:focus button::after {
+                        color: $nx-primary;
+                    }
+                }
+
+                &-prev a::after,
+                &-prev button::after {
+                    content: "\2039";
+                    font-size: 18px;
+                }
+
+                &-next a::after,
+                &-next button::after {
+                    content: "\203A";
+                    font-size: 18px;
+                }
+
+                &-item-active,
+                &-item-active:hover,
+                &-item-active:focus {
+                    border-color: $nx-primary;
+                    background: $nx-primary;
+
+                    a,
+                    button {
+                        color: #fff;
+                    }
+                }
+
+                &-disabled,
+                &-disabled:hover {
+                    border-color: $nx-border;
+                    background: #fff;
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
+            }
+        }
+
+        // Narrow screens: tabs and tools on their own rows, full width.
+        @media screen and (max-width: 782px) {
+            .nx-admin-menu {
+                padding: 14px 16px;
+
+                > ul,
+                .nx-bulk-action-wrapper {
+                    width: 100%;
+                }
+
+                > ul li {
+                    flex: 1 1 0;
+
+                    a {
+                        justify-content: center;
+                        width: 100%;
+                        padding: 0 8px;
+                        box-sizing: border-box;
+                    }
+                }
+
+                .nx-search-wrapper {
+                    flex: 1 1 100%;
+
+                    .input-box,
+                    .input-box:not(.open),
+                    .input-box.open {
+                        width: 100%;
+                    }
+                }
+
+                .bulk-action-select {
+                    flex: 1 1 auto;
+                }
+            }
+
+            .nx-admin-items-footer {
+                padding: 12px 16px;
+            }
+        }
+    }
+}

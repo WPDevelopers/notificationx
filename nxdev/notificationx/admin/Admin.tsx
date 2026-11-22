@@ -1,22 +1,20 @@
 import { __ } from '@wordpress/i18n';
 import React from 'react'
-import { Header } from '../components'
 import withDocumentTitle from '../core/withDocumentTitle';
 import { useNotificationXContext } from '../hooks';
-import { AnalyticsHeader } from './Analytics';
+import DashboardHeader from './Dashboard/DashboardHeader';
 import NotificationXItems from './NotificationXItems';
 
-// const useQuery = () => new URLSearchParams(useLocation().search.replace(/^\?/, ''));
-
+// All NotificationX: same header as the Dashboard and the builder.
 const Admin = (props) => {
-    // const query = useQuery();
     const builderContext = useNotificationXContext();
 
     return (
-        <div>
-            <Header />
-            <AnalyticsHeader assetsURL={builderContext.assets} />
-            <NotificationXItems />
+        <div className="nx-dash nx-list-page">
+            <DashboardHeader context={builderContext} sidebarPage="nx-admin" />
+            <main className="nx-dash__body">
+                <NotificationXItems />
+            </main>
         </div>
     )
 }

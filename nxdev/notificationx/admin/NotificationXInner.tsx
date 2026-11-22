@@ -30,7 +30,7 @@ const NotificationXInner = ({ filteredNotice, setFilteredNotice, getNotice, upda
     return (
         <div className="nx-admin-items">
             <div className="nx-list-table-wrapper">
-                <table className="wp-list-table widefat fixed striped notificationx-list">
+                <table className="notificationx-list nx-dash-table">
                     <thead>
                         <tr>
                         <td>

@@ -68,6 +68,8 @@ body {
     @import "./nx_new/dashboard";
     // Notification builder (Add New / Edit)
     @import "./nx_new/builder";
+    // All NotificationX list
+    @import "./nx_new/list";
 
     a:focus {
         outline: 0;

@@ -15,8 +15,16 @@ type Stat = {
   linkable: boolean;
 };
 
-const AnalyticsOverview = ({ props, context, totals }: { props: any; context: any; totals: NotificationTotals }) => {
-  const analytics = context?.analytics || {};
+// `analytics` overrides the context totals (the list page passes the live,
+// resettable values); `page` drops the link to the page you are already on.
+const AnalyticsOverview = ({ props, context, totals, analytics: analyticsProp, page }: {
+  props?: any;
+  context: any;
+  totals: NotificationTotals;
+  analytics?: any;
+  page?: string;
+}) => {
+  const analytics = analyticsProp || context?.analytics || {};
   const canSeeAnalytics = !context?.analyticsRedirect;
 
   const stats: Stat[] = [
@@ -29,7 +37,7 @@ const AnalyticsOverview = ({ props, context, totals }: { props: any; context: an
       caption : sprintf(__('of %s notifications', 'notificationx'), totals?.all ?? 0),
       action  : __('Manage notifications', 'notificationx'),
       search  : '?page=nx-admin',
-      linkable: true,
+      linkable: page !== 'nx-admin',
     },
     {
       key     : 'views',
