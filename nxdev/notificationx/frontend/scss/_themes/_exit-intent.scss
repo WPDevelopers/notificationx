@@ -776,3 +776,24 @@
         }
     }
 }
+
+// ─── Show / Hide animations (NotificationX Pro) ─────────────────────────────
+// The card takes Pro's animation classes (animate.css, nx-anim-*); the backdrop
+// fades in with an entrance and out with an exit. Only set when an animation
+// is chosen ("None" adds no class). _reduced-motion.scss shortens both.
+@keyframes nxExitIntentBackdropIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes nxExitIntentBackdropOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+.nx-exit-intent-overlay.nx-exit-intent-anim-in {
+    animation: nxExitIntentBackdropIn 0.3s ease-out both;
+}
+.nx-exit-intent-overlay.nx-exit-intent-anim-out {
+    animation: nxExitIntentBackdropOut 0.5s ease-in both;
+    // Leaving: clicks reach the page, and nothing in the popup reacts twice.
+    pointer-events: none;
+}

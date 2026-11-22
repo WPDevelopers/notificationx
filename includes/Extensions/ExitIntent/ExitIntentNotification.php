@@ -43,6 +43,14 @@ class ExitIntentNotification extends Extension {
      */
     const DISMISS_TOGGLE_SAVED = 'exit_intent_cookie_toggle_saved';
 
+    /**
+     * Show / Hide animation of the popup (NotificationX Pro); `default` = None.
+     *
+     * @since x.x.x
+     */
+    const ANIMATION_SHOW = 'exit_intent_animation_show';
+    const ANIMATION_HIDE = 'exit_intent_animation_hide';
+
     use GetInstance;
 
     public $priority        = 16;
@@ -72,6 +80,7 @@ class ExitIntentNotification extends Extension {
         add_filter( 'nx_save_post', [ $this, 'fill_empty_end_on_save' ], 10, 3 );
         add_filter( 'nx_get_post', [ $this, 'dismiss_toggle_on_read' ], 10, 2 );
         add_filter( 'nx_save_post', [ $this, 'dismiss_toggle_on_save' ], 10, 3 );
+        add_filter( 'nx_get_post', [ $this, 'animation_without_pro' ], 10, 2 );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_elementor_assets' ], 20 );
         add_action( 'wp_head', [ $this, 'print_section_constraint_css' ], 99 );
         add_action( 'elementor/documents/register_controls', [ $this, 'register_popup_layout_controls' ] );
@@ -2547,7 +2556,84 @@ JS;
             ],
         ];
 
+        $animation = $this->animation_section( $fields );
+        if ( $animation ) {
+            $fields['exit_intent_animation'] = $animation;
+        }
+
         return $fields;
+    }
+
+    /**
+     * Show / Hide animations for the popup: the options of the other types'
+     * Animation section (a NotificationX Pro feature, greyed out without Pro),
+     * stored in Exit Intent's own fields with "None" (`default`) as the
+     * default, so every saved popup looks as before. Shown only for the cards
+     * Free renders: the built-in themes one, three and four, and Elementor and
+     * Gutenberg designs; Pro's own themes don't take the classes.
+     *
+     * @since x.x.x
+     *
+     * @param array $fields Customize tab fields (with the global Animation section).
+     * @return array|null
+     */
+    protected function animation_section( $fields ) {
+        $global = $fields['animation']['fields'] ?? [];
+        $map    = [
+            self::ANIMATION_SHOW => [ 'animation_notification_show', __( 'Show Animation', 'notificationx' ), 5 ],
+            self::ANIMATION_HIDE => [ 'animation_notification_hide', __( 'Hide Animation', 'notificationx' ), 10 ],
+        ];
+        $section_fields = [];
+        foreach ( $map as $name => list( $from, $label, $priority ) ) {
+            if ( empty( $global[ $from ]['options'] ) || ! is_array( $global[ $from ]['options'] ) ) {
+                return null;
+            }
+            $field             = $global[ $from ];
+            $field['label']    = $label;
+            $field['name']     = $name;
+            $field['default']  = 'default';
+            $field['priority'] = $priority;
+            unset( $field['rules'] );
+            // "Default" is the built-in entrance for the other types; for Exit
+            // Intent it is no animation, as before.
+            $field['options']['default']['label'] = __( 'None', 'notificationx' );
+            $section_fields[ $name ] = $field;
+        }
+
+        return [
+            'label'    => __( 'Animation', 'notificationx' ),
+            'name'     => 'exit_intent_animation',
+            'type'     => 'section',
+            'priority' => 16,
+            'rules'    => Rules::logicalRule( [
+                Rules::is( 'source', $this->id ),
+                Rules::logicalRule( [
+                    Rules::includes( 'themes', [ $this->id . '_theme-one', $this->id . '_theme-three', $this->id . '_theme-four' ] ),
+                    Rules::isOfType( 'elementor_id', 'number' ),
+                    Rules::isOfType( 'gutenberg_id', 'number' ),
+                ], 'or' ),
+            ] ),
+            'fields'   => $section_fields,
+        ];
+    }
+
+    /**
+     * Without NotificationX Pro the animations don't run, so they read as
+     * "None" (as PostType does for the other types' animation options).
+     *
+     * @since x.x.x
+     *
+     * @param array  $post    Campaign settings.
+     * @param string $context Read context.
+     * @return array
+     */
+    public function animation_without_pro( $post, $context = '' ) {
+        if ( ! is_array( $post ) || ( $post['source'] ?? '' ) !== $this->id || NotificationX::is_pro() ) {
+            return $post;
+        }
+        $post[ self::ANIMATION_SHOW ] = 'default';
+        $post[ self::ANIMATION_HIDE ] = 'default';
+        return $post;
     }
 
     public function doc() {

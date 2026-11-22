@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pro themes get the same props as before overlay class and helpers passed to nx_exit_intent_theme 1`] = `
+Object {
+  "html": "<div class=\\"nx-exit-intent-overlay nx-exit-intent-position-center\\"><button class=\\"nx-exit-intent-close\\">×</button></div>",
+  "seen": Object {
+    "closeStyle": Object {},
+    "keys": Array [
+      "closeStyle",
+      "handleClose",
+      "is_pro",
+      "overlayClass",
+      "renderCta",
+      "settings",
+      "showClose",
+      "submitEntry",
+      "theme",
+    ],
+    "overlayClass": "nx-exit-intent-overlay nx-exit-intent-position-center",
+    "showClose": true,
+    "theme": "theme-five",
+  },
+}
+`;
+
+exports[`bottom-right position with the default animation renders the same markup as before 1`] = `"<div class=\\"nx-exit-intent-overlay nx-exit-intent-position-bottom-right\\"><div class=\\"nx-exit-intent-popup nx-exit-intent-theme-one nx-exit-intent-36\\"><div class=\\"nx-exit-intent-pattern\\" aria-hidden=\\"true\\"><svg viewBox=\\"0 0 200 200\\" xmlns=\\"http://www.w3.org/2000/svg\\"><polygon points=\\"100,10 190,190 10,190\\" fill=\\"none\\" stroke=\\"currentColor\\" stroke-width=\\"18\\" stroke-linejoin=\\"round\\"></polygon><polygon points=\\"100,55 158,170 42,170\\" fill=\\"none\\" stroke=\\"currentColor\\" stroke-width=\\"12\\" stroke-linejoin=\\"round\\"></polygon></svg></div><button class=\\"nx-exit-intent-close\\" aria-label=\\"Close\\">×</button><div class=\\"nx-exit-intent-body\\"><h2 class=\\"nx-exit-intent-title\\">Wait! Before You Go...</h2><p class=\\"nx-exit-intent-subtitle\\">We'd love to understand what's holding you back</p><form class=\\"nx-exit-intent-form\\"><button type=\\"submit\\" class=\\"nx-exit-intent-submit\\">SUBMIT</button></form></div></div></div>"`;
+
+exports[`elementor with the default animation renders the same markup as before 1`] = `"<div class=\\"nx-exit-intent-overlay nx-exit-intent-position-center\\" style=\\"background: rgba(0, 0, 0, 0.5);\\"><div class=\\"nx-exit-intent-elementor\\" style=\\"--nx-exit-width: 648px;\\"><button class=\\"nx-exit-intent-close\\" aria-label=\\"Close\\">×</button><div class=\\"nx-exit-intent-elementor-body\\"><div class=\\"nx-exit-intent-elementor-wrap\\" style=\\"--nx-exit-width:648px;\\"><div class=\\"elementor elementor-210\\"><h2 class=\\"elementor-heading-title\\">Wait!</h2><a class=\\"elementor-button\\" href=\\"#nx-close\\">No thanks</a></div></div></div></div></div>"`;
+
+exports[`gutenberg with the default animation renders the same markup as before 1`] = `"<div class=\\"nx-exit-intent-overlay nx-exit-intent-position-center nx-exit-intent-has-gutenberg\\" style=\\"background: rgba(0, 0, 0, 0.5);\\"><div class=\\"nx-exit-intent-gutenberg\\" style=\\"--nx-exit-width: 520px; --nx-exit-radius: 16px;\\" role=\\"dialog\\" aria-modal=\\"true\\" aria-label=\\"Coupon popup\\" tabindex=\\"-1\\"><button type=\\"button\\" class=\\"nx-exit-intent-close\\" aria-label=\\"Close\\">×</button><div class=\\"nx-exit-intent-gutenberg-body\\"><div class=\\"wp-block-group\\"><h2 class=\\"wp-block-heading\\">Wait! Here’s 10% off</h2><p><a href=\\"#nx-close\\">No thanks</a></p></div></div></div></div>"`;
+
+exports[`theme four with the default animation renders the same markup as before 1`] = `"<div class=\\"nx-exit-intent-overlay nx-exit-intent-position-center\\"><div class=\\"nx-exit-intent-popup nx-exit-intent-theme-four nx-exit-intent-36\\"><button class=\\"nx-exit-intent-close\\" aria-label=\\"Close\\">×</button><span class=\\"nx-exit-intent-t4-badge\\">Before you go...</span><h2 class=\\"nx-exit-intent-t4-title\\">Watch this short demo video</h2><p class=\\"nx-exit-intent-t4-subtitle\\">See how our product simplifies your workflow.</p><div class=\\"nx-exit-intent-t4-video-wrap nx-exit-intent-t4-no-image\\" role=\\"button\\" tabindex=\\"0\\"><button type=\\"button\\" class=\\"nx-exit-intent-t4-play\\" aria-label=\\"Play video\\"><div class=\\"nx-exit-intent-t4-play-icon\\"><svg viewBox=\\"0 0 24 24\\" fill=\\"none\\"><polygon points=\\"5,3 19,12 5,21\\" fill=\\"#1a1a2e\\"></polygon></svg></div></button></div></div></div>"`;
+
+exports[`theme one with the default animation renders the same markup as before 1`] = `"<div class=\\"nx-exit-intent-overlay nx-exit-intent-position-center\\"><div class=\\"nx-exit-intent-popup nx-exit-intent-theme-one nx-exit-intent-36\\"><div class=\\"nx-exit-intent-pattern\\" aria-hidden=\\"true\\"><svg viewBox=\\"0 0 200 200\\" xmlns=\\"http://www.w3.org/2000/svg\\"><polygon points=\\"100,10 190,190 10,190\\" fill=\\"none\\" stroke=\\"currentColor\\" stroke-width=\\"18\\" stroke-linejoin=\\"round\\"></polygon><polygon points=\\"100,55 158,170 42,170\\" fill=\\"none\\" stroke=\\"currentColor\\" stroke-width=\\"12\\" stroke-linejoin=\\"round\\"></polygon></svg></div><button class=\\"nx-exit-intent-close\\" aria-label=\\"Close\\">×</button><div class=\\"nx-exit-intent-body\\"><h2 class=\\"nx-exit-intent-title\\">Wait! Before You Go...</h2><p class=\\"nx-exit-intent-subtitle\\">We'd love to understand what's holding you back</p><form class=\\"nx-exit-intent-form\\"><button type=\\"submit\\" class=\\"nx-exit-intent-submit\\">SUBMIT</button></form></div></div></div>"`;
+
+exports[`theme one, advanced design with the default animation renders the same markup as before 1`] = `"<div class=\\"nx-exit-intent-overlay nx-exit-intent-position-center\\" style=\\"background: rgba(1, 2, 3, 0.4);\\"><div class=\\"nx-exit-intent-popup nx-exit-intent-theme-one nx-exit-intent-36\\" style=\\"background: rgb(255, 255, 255);\\"><div class=\\"nx-exit-intent-pattern\\" aria-hidden=\\"true\\"><svg viewBox=\\"0 0 200 200\\" xmlns=\\"http://www.w3.org/2000/svg\\"><polygon points=\\"100,10 190,190 10,190\\" fill=\\"none\\" stroke=\\"currentColor\\" stroke-width=\\"18\\" stroke-linejoin=\\"round\\"></polygon><polygon points=\\"100,55 158,170 42,170\\" fill=\\"none\\" stroke=\\"currentColor\\" stroke-width=\\"12\\" stroke-linejoin=\\"round\\"></polygon></svg></div><button class=\\"nx-exit-intent-close\\" aria-label=\\"Close\\">×</button><div class=\\"nx-exit-intent-body\\"><h2 class=\\"nx-exit-intent-title\\">Wait! Before You Go...</h2><p class=\\"nx-exit-intent-subtitle\\">We'd love to understand what's holding you back</p><form class=\\"nx-exit-intent-form\\"><button type=\\"submit\\" class=\\"nx-exit-intent-submit\\">SUBMIT</button></form></div></div></div>"`;
+
+exports[`theme three with the default animation renders the same markup as before 1`] = `"<div class=\\"nx-exit-intent-overlay nx-exit-intent-position-center\\"><div class=\\"nx-exit-intent-popup nx-exit-intent-theme-three nx-exit-intent-36\\"><div class=\\"nx-exit-intent-t3-character\\" aria-hidden=\\"true\\"><img src=\\"https://example.com/a.png\\" alt=\\"\\"></div><div class=\\"nx-exit-intent-t3-body\\"><button class=\\"nx-exit-intent-close\\" aria-label=\\"Close\\">×</button><h2 class=\\"nx-exit-intent-t3-title\\">Wait, don't go!</h2><p class=\\"nx-exit-intent-t3-subtitle\\">Before you leave, we have a special offer just for you!</p><p class=\\"nx-exit-intent-t3-offer\\">Get 15% off your next purchase!</p><p class=\\"nx-exit-intent-t3-coupon-text\\">Use code STAY15 at checkout. Don't miss out on this limited-time offer.</p><button type=\\"button\\" class=\\"nx-exit-intent-t3-btn\\">Claim Offer</button><button type=\\"button\\" class=\\"nx-exit-intent-t3-dismiss\\">No, thanks!</button></div></div></div>"`;

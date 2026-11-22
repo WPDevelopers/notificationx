@@ -18,6 +18,9 @@ import { loadAssets } from './LoadAssets';
  * - A link to `#nx-close` inside the design closes the popup like the ×.
  * - The wheel scrolls a long design inside the popup and never the page behind.
  * - Width and corner radius come from the design's outer Group block.
+ * - Show / Hide animations (exitIntentMotion.ts): the card and backdrop
+ *   classes go on only once the design is shown, so an entrance never plays
+ *   while the popup waits for its assets.
  *
  * @since x.x.x
  */
@@ -36,10 +39,14 @@ type Props = {
     showClose: boolean;
     closeStyle: React.CSSProperties;
     overlayClass: string;
+    backdropClass?: string;
+    cardClass?: string;
+    cardStyle?: React.CSSProperties;
+    onShown?: () => void;
     onClose: () => void;
 };
 
-const ExitIntentGutenberg = ( { settings: s, showClose, closeStyle, overlayClass, onClose }: Props ) => {
+const ExitIntentGutenberg = ( { settings: s, showClose, closeStyle, overlayClass, backdropClass = '', cardClass = '', cardStyle, onShown, onClose }: Props ) => {
     const [ ready, setReady ] = useState( () => ! s.gutenberg_url || blockAssetsOnPage( s.gutenberg_id ) );
     const dialogRef = useRef<HTMLDivElement | null>( null );
     const bodyRef = useRef<HTMLDivElement | null>( null );
@@ -67,6 +74,7 @@ const ExitIntentGutenberg = ( { settings: s, showClose, closeStyle, overlayClass
     // Essential Blocks countdowns start through their own global, as in bars.
     useEffect( () => {
         if ( ! ready ) return;
+        if ( onShown ) onShown();
         // @ts-ignore
         if ( typeof window.ebRunCountDown === 'function' ) window.ebRunCountDown();
     }, [ ready ] );
@@ -161,6 +169,7 @@ const ExitIntentGutenberg = ( { settings: s, showClose, closeStyle, overlayClass
     if ( layout.width ) ( wrapStyle as any )[ '--nx-exit-width' ] = layout.width;
     if ( layout.radius ) ( wrapStyle as any )[ '--nx-exit-radius' ] = layout.radius;
     if ( ! ready ) wrapStyle.visibility = 'hidden';
+    if ( ready && cardStyle ) Object.assign( wrapStyle, cardStyle );
 
     const overlayStyle: React.CSSProperties = {
         background: s.exit_intent_overlay_color || 'rgba(0,0,0,0.5)',
@@ -170,13 +179,13 @@ const ExitIntentGutenberg = ( { settings: s, showClose, closeStyle, overlayClass
     return (
         <div
             ref={ overlayRef }
-            className={ `${ overlayClass } nx-exit-intent-has-gutenberg` }
+            className={ `${ overlayClass } nx-exit-intent-has-gutenberg${ ready && backdropClass ? ` ${ backdropClass }` : '' }` }
             style={ overlayStyle }
             onClick={ ( e ) => { if ( e.target === e.currentTarget ) onClose(); } }
         >
             <div
                 ref={ dialogRef }
-                className="nx-exit-intent-gutenberg"
+                className={ ready && cardClass ? `nx-exit-intent-gutenberg ${ cardClass }` : 'nx-exit-intent-gutenberg' }
                 style={ wrapStyle }
                 role="dialog"
                 aria-modal="true"
