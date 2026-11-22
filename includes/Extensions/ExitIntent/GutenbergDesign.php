@@ -44,6 +44,245 @@ class GutenbergDesign {
         add_filter( 'nx_content_fields', [ $this, 'hide_content_sections' ], 1002 );
         add_filter( 'nx_metabox_tabs', [ $this, 'hide_content_tab' ], 11 );
         add_filter( 'nx_save_post', [ $this, 'strip_builder_flags' ], 10, 3 );
+
+        // Front end: after ExitIntentNotification::inject_elementor_html() (priority 10).
+        add_filter( 'nx_filtered_post', [ $this, 'inject_gutenberg_html' ], 11, 2 );
+        add_filter( 'body_class', [ $this, 'body_class' ] );
+        add_filter( 'rocket_rucss_safelist', [ $this, 'rocket_rucss_safelist' ], 11 );
+    }
+
+    /**
+     * Design IDs whose block assets this page load put on the page, so the
+     * runtime does not have to fetch them (see enqueue_assets()).
+     *
+     * @var array<int, bool>
+     */
+    protected $assets_on_page = [];
+
+    /**
+     * Payload keys only the builder uses; never sent to visitors.
+     */
+    const BUILDER_ONLY_KEYS = [ 'gutenberg_edit_link', 'gutenberg_exit_theme', 'import_gutenberg_exit_theme', 'import_gutenberg_exit_theme_next', 'is_gb_confirmed', 'is_gutenberg' ];
+
+    /**
+     * Whether a design may be rendered for the current visitor: only our post
+     * type, published without a password, unless the viewer can edit it.
+     *
+     * @param \WP_Post|null $post Design post.
+     * @return bool
+     */
+    public static function can_render( $post ) {
+        if ( ! $post instanceof \WP_Post || self::POST_TYPE !== $post->post_type ) {
+            return false;
+        }
+        if ( 'publish' === $post->post_status && '' === $post->post_password ) {
+            return true;
+        }
+        return current_user_can( 'edit_post', $post->ID );
+    }
+
+    /**
+     * The design post for a campaign's gutenberg_id (WPML translation first),
+     * or null when it may not be rendered.
+     *
+     * @param int|string $gutenberg_id Design ID.
+     * @return \WP_Post|null
+     */
+    public static function design_post( $gutenberg_id ) {
+        $gutenberg_id = absint( $gutenberg_id );
+        if ( ! $gutenberg_id ) {
+            return null;
+        }
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPML's documented filter.
+        $post_id = apply_filters( 'wpml_object_id', $gutenberg_id, self::POST_TYPE, true );
+        $post    = $post_id ? get_post( $post_id ) : null;
+        return self::can_render( $post ) && '' !== trim( (string) $post->post_content ) ? $post : null;
+    }
+
+    /**
+     * Render a design: blocks, then embeds, shortcodes and image attributes —
+     * the core parts of the_content, without other plugins' content filters
+     * (share buttons, related posts) ending up in the popup.
+     *
+     * @param string $content Block markup.
+     * @return string
+     */
+    public static function render( $content ) {
+        $html = do_blocks( $content );
+        if ( isset( $GLOBALS['wp_embed'] ) && $GLOBALS['wp_embed'] instanceof \WP_Embed ) {
+            $html = $GLOBALS['wp_embed']->run_shortcode( $html );
+            $html = $GLOBALS['wp_embed']->autoembed( $html );
+        }
+        $html = do_shortcode( $html );
+        if ( function_exists( 'wp_filter_content_tags' ) ) {
+            $html = wp_filter_content_tags( $html, 'nx_exit_intent' );
+        }
+        return $html;
+    }
+
+    /**
+     * Width and corner radius of the popup, read from the design's outer Group
+     * block ("Content width" and border radius in the block editor).
+     *
+     * @param string $content Block markup.
+     * @return array{width:string, radius:string}
+     */
+    public static function layout( $content ) {
+        $layout = [ 'width' => '600px', 'radius' => '0' ];
+        foreach ( parse_blocks( $content ) as $block ) {
+            if ( empty( $block['blockName'] ) ) {
+                continue;
+            }
+            $attrs = isset( $block['attrs'] ) ? $block['attrs'] : [];
+            $width = isset( $attrs['layout']['contentSize'] ) ? (string) $attrs['layout']['contentSize'] : '';
+            if ( preg_match( '/^\d+(\.\d+)?(px|rem|em|vw|%)$/', $width ) ) {
+                $layout['width'] = $width;
+            }
+            $radius = isset( $attrs['style']['border']['radius'] ) ? $attrs['style']['border']['radius'] : '';
+            if ( is_string( $radius ) && preg_match( '/^\d+(\.\d+)?(px|rem|em|%)$/', $radius ) ) {
+                $layout['radius'] = $radius;
+            }
+            break;
+        }
+        return $layout;
+    }
+
+    /**
+     * Put a linked block design into the `notice` payload: `mode` becomes
+     * `gutenberg` with the rendered `gutenberg_html`, unless an Elementor design
+     * applies (Elementor wins, as for bars). Builder-only keys are removed.
+     *
+     * @param array $settings Notification settings.
+     * @param array $params   Request params.
+     * @return array
+     */
+    public function inject_gutenberg_html( $settings, $params ) {
+        if ( empty( $settings['source'] ) || self::SOURCE !== $settings['source'] ) {
+            return $settings;
+        }
+        foreach ( self::BUILDER_ONLY_KEYS as $key ) {
+            unset( $settings[ $key ] );
+        }
+        if ( empty( $settings['gutenberg_id'] ) || ( isset( $settings['mode'] ) && 'elementor' === $settings['mode'] ) ) {
+            return $settings;
+        }
+        $post = self::design_post( $settings['gutenberg_id'] );
+        if ( ! $post ) {
+            return $settings;
+        }
+        $settings['mode']             = 'gutenberg';
+        $settings['gutenberg_html']   = self::render( $post->post_content );
+        $settings['gutenberg_layout'] = self::layout( $post->post_content );
+        $settings['gutenberg_url']    = get_permalink( $post );
+        return $settings;
+    }
+
+    /**
+     * Put a design's block assets on the current page while the page's assets
+     * are collected (wp_enqueue_scripts): each block enqueues its own CSS and
+     * JS, as in post content. The popup HTML arrives later over REST, where
+     * those enqueues would be lost. The output is discarded. Same approach as
+     * FrontEnd::enqueue_gutenberg_bar_assets() for bars (which is unchanged).
+     *
+     * @param int|string $gutenberg_id Design ID.
+     * @return void
+     */
+    public function enqueue_assets( $gutenberg_id ) {
+        $gutenberg_id = absint( $gutenberg_id );
+        if ( ! $gutenberg_id || isset( $this->assets_on_page[ $gutenberg_id ] ) || ! doing_action( 'wp_enqueue_scripts' ) ) {
+            return;
+        }
+        $post = self::design_post( $gutenberg_id );
+        if ( ! $post ) {
+            return;
+        }
+        // This runs inside <head>: a block that echoes would push later head tags into <body>.
+        ob_start();
+        try {
+            self::render( $post->post_content );
+        } finally {
+            ob_end_clean();
+        }
+        $this->assets_on_page[ $gutenberg_id ] = ! self::needs_essential_blocks_styles( $post );
+    }
+
+    /**
+     * Essential Blocks writes a post's CSS files only after the post's own page
+     * is viewed or saved; until then the runtime fetches them (as for bars).
+     *
+     * @param \WP_Post $post Design post.
+     * @return bool
+     */
+    protected static function needs_essential_blocks_styles( $post ) {
+        if ( false === strpos( (string) $post->post_content, '<!-- wp:essential-blocks/' ) ) {
+            return false;
+        }
+        $upload = wp_upload_dir();
+        $base   = $upload['basedir'] . '/eb-style/';
+        return ! file_exists( $base . 'eb-style-' . $post->ID . '.min.css' ) || ! file_exists( $base . 'frontend/frontend-' . $post->ID . '.min.css' );
+    }
+
+    /**
+     * Tell the runtime which designs' assets are already on the page.
+     *
+     * @param string[] $classes Body classes.
+     * @return string[]
+     */
+    public function body_class( $classes ) {
+        foreach ( array_keys( array_filter( $this->assets_on_page ) ) as $id ) {
+            $classes[] = 'nx-block-assets-' . $id;
+        }
+        return $classes;
+    }
+
+    /**
+     * WP Rocket's Remove Unused CSS never sees the popup HTML (it arrives over
+     * REST), so keep the stylesheets of the blocks used by active designs.
+     *
+     * @param array $list Safelisted CSS files and selectors.
+     * @return array
+     */
+    public function rocket_rucss_safelist( $list ) {
+        try {
+            $posts = \NotificationX\Core\PostType::get_instance()->get_posts( [ 'source' => self::SOURCE ] );
+        } catch ( \Exception $e ) {
+            return $list;
+        }
+        foreach ( (array) $posts as $campaign ) {
+            if ( empty( $campaign['enabled'] ) || empty( $campaign['gutenberg_id'] ) ) {
+                continue;
+            }
+            $post = self::design_post( $campaign['gutenberg_id'] );
+            if ( ! $post ) {
+                continue;
+            }
+            foreach ( self::block_names( parse_blocks( $post->post_content ) ) as $name ) {
+                if ( 0 === strpos( $name, 'core/' ) ) {
+                    $list[] = includes_url( 'blocks/' . substr( $name, 5 ) . '/style.min.css' );
+                } elseif ( 'notificationx/countdown' === $name ) {
+                    $list[] = NOTIFICATIONX_PUBLIC_URL . 'css/nx-countdown.css';
+                }
+            }
+            $list[] = '.nx-exit-intent-gutenberg';
+        }
+        return array_values( array_unique( $list ) );
+    }
+
+    /**
+     * @param array $blocks Parsed blocks.
+     * @return string[] Block names, inner blocks included.
+     */
+    protected static function block_names( $blocks ) {
+        $names = [];
+        foreach ( $blocks as $block ) {
+            if ( ! empty( $block['blockName'] ) ) {
+                $names[] = $block['blockName'];
+            }
+            if ( ! empty( $block['innerBlocks'] ) ) {
+                $names = array_merge( $names, self::block_names( $block['innerBlocks'] ) );
+            }
+        }
+        return array_values( array_unique( $names ) );
     }
 
     /**

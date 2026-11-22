@@ -5,6 +5,7 @@ import { nxApplyFilters } from "./hooks";
 import { msUntilExitIntentEnd } from "./exitIntentEnd";
 import { rememberSubmit } from "./submitRule";
 import { watchFormSuccess } from "./watchFormSuccess";
+import ExitIntentGutenberg from "./ExitIntentGutenberg";
 
 const px = (v: any): string | undefined => (v || v === 0) ? `${v}px` : undefined;
 
@@ -236,6 +237,21 @@ const ExitIntentPopup = (props: any) => {
                     />
                 </div>
             </div>
+        );
+    }
+
+    // ─── Block-editor popup ("Build With Gutenberg") ───────────────────────────
+    // Its own component (dialog semantics, focus, Escape, scrolling, #nx-close
+    // links, block-asset loading); the Elementor branch above is untouched.
+    if (s.mode === 'gutenberg' && typeof s.gutenberg_html === 'string' && s.gutenberg_html) {
+        return (
+            <ExitIntentGutenberg
+                settings={s}
+                showClose={showClose}
+                closeStyle={closeStyle}
+                overlayClass={overlayClass}
+                onClose={handleClose}
+            />
         );
     }
 
