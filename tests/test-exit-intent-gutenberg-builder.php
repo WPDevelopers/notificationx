@@ -186,14 +186,15 @@ class Test_Exit_Intent_Gutenberg_Builder extends WP_UnitTestCase {
 	}
 
 	public function test_saving_drops_the_builder_flags_for_exit_intent_only() {
-		$saved = PostType::get_instance()->save_post(
+		$design = self::factory()->post->create( array( 'post_type' => 'nx_exit_intent_eb', 'post_status' => 'publish', 'post_content' => '<!-- wp:paragraph --><p>x</p><!-- /wp:paragraph -->' ) );
+		$saved  = PostType::get_instance()->save_post(
 			array(
 				'type'            => 'exit_intent',
 				'source'          => 'exit_intent_custom',
 				'themes'          => null,
 				'enabled'         => false,
 				'title'           => 'block design flags',
-				'gutenberg_id'    => 123,
+				'gutenberg_id'    => $design,
 				'is_gutenberg'    => true,
 				'is_gb_confirmed' => true,
 			)
@@ -202,8 +203,8 @@ class Test_Exit_Intent_Gutenberg_Builder extends WP_UnitTestCase {
 		$data = maybe_unserialize( $GLOBALS['wpdb']->get_var( $GLOBALS['wpdb']->prepare( "SELECT data FROM {$GLOBALS['wpdb']->prefix}nx_posts WHERE nx_id = %d", $saved['nx_id'] ) ) );
 		$this->assertArrayNotHasKey( 'is_gb_confirmed', $data );
 		$this->assertArrayNotHasKey( 'is_gutenberg', $data );
-		$this->assertSame( 123, (int) $data['gutenberg_id'] );
-		$this->assertSame( 123, (int) $row['gutenberg_id'] );
+		$this->assertSame( $design, (int) $data['gutenberg_id'] );
+		$this->assertSame( $design, (int) $row['gutenberg_id'] );
 
 		$filtered = GutenbergDesign::get_instance()->strip_builder_flags(
 			array( 'source' => 'popup_notification', 'data' => array( 'is_gb_confirmed' => true ) ),

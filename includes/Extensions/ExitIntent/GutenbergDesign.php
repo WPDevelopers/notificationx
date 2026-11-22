@@ -49,6 +49,211 @@ class GutenbergDesign {
         add_filter( 'nx_filtered_post', [ $this, 'inject_gutenberg_html' ], 11, 2 );
         add_filter( 'body_class', [ $this, 'body_class' ] );
         add_filter( 'rocket_rucss_safelist', [ $this, 'rocket_rucss_safelist' ], 11 );
+
+        // Lifecycle: the design belongs to its campaign.
+        add_filter( 'nx_save_post', [ $this, 'own_design_on_save' ], 11, 3 );
+        add_action( 'nx_saved_post', [ $this, 'sync_title' ], 10, 3 );
+        add_filter( 'nx_get_post', [ $this, 'refresh_on_load' ], 10 );
+        add_action( 'nx_delete_post', [ $this, 'delete_with_campaign' ], 10, 2 );
+    }
+
+    /**
+     * Whether an ID is one of our designs (any status).
+     *
+     * @param mixed $id Post ID.
+     * @return bool
+     */
+    public static function is_design( $id ) {
+        $id = absint( $id );
+        return $id && self::POST_TYPE === get_post_type( $id );
+    }
+
+    /**
+     * IDs of the other Exit Intent campaigns that link this design.
+     *
+     * @param int $gutenberg_id Design ID.
+     * @param int $except_nx_id Campaign to leave out.
+     * @return int[]
+     */
+    protected static function campaigns_using( $gutenberg_id, $except_nx_id = 0 ) {
+        $ids = [];
+        try {
+            $posts = \NotificationX\Core\PostType::get_instance()->get_posts( [ 'source' => self::SOURCE ] );
+        } catch ( \Exception $e ) {
+            return $ids;
+        }
+        foreach ( (array) $posts as $campaign ) {
+            $nx_id = isset( $campaign['nx_id'] ) ? (int) $campaign['nx_id'] : 0;
+            if ( $nx_id && $nx_id !== (int) $except_nx_id && ! empty( $campaign['gutenberg_id'] ) && (int) $campaign['gutenberg_id'] === (int) $gutenberg_id ) {
+                $ids[] = $nx_id;
+            }
+        }
+        return $ids;
+    }
+
+    /**
+     * Copy a design (a duplicated campaign gets its own, so Remove or delete on
+     * one never breaks the other).
+     *
+     * @param int $gutenberg_id Design ID.
+     * @return int New design ID, or 0.
+     */
+    public function copy_design( $gutenberg_id ) {
+        $source = get_post( absint( $gutenberg_id ) );
+        if ( ! $source || self::POST_TYPE !== $source->post_type ) {
+            return 0;
+        }
+        $id = wp_insert_post(
+            [
+                'post_title'   => $source->post_title,
+                'post_content' => wp_slash( $source->post_content ),
+                'post_status'  => 'publish',
+                'post_type'    => self::POST_TYPE,
+            ],
+            true
+        );
+        return is_wp_error( $id ) ? 0 : (int) $id;
+    }
+
+    /**
+     * On save, a campaign keeps only a design of its own: an ID that isn't one
+     * of our designs is dropped, and a design another campaign already uses
+     * (a duplicated campaign) is copied.
+     *
+     * @param array $post  Post being saved.
+     * @param array $data  Submitted data.
+     * @param int   $nx_id Campaign ID (0 for a new one).
+     * @return array
+     */
+    public function own_design_on_save( $post, $data, $nx_id ) {
+        if ( empty( $post['source'] ) || self::SOURCE !== $post['source'] || empty( $post['data']['gutenberg_id'] ) ) {
+            return $post;
+        }
+        $id = $post['data']['gutenberg_id'];
+        if ( ! self::is_design( $id ) ) {
+            $post['data']['gutenberg_id']        = false;
+            $post['data']['gutenberg_edit_link'] = '';
+            return $post;
+        }
+        if ( self::campaigns_using( $id, $nx_id ) ) {
+            $copy = $this->copy_design( $id );
+            $post['data']['gutenberg_id']        = $copy ? $copy : false;
+            $post['data']['gutenberg_edit_link'] = $copy ? (string) get_edit_post_link( $copy, 'raw' ) : '';
+        }
+        return $post;
+    }
+
+    /**
+     * Name the design after its campaign, so it is recognisable in Templately
+     * and the block editor.
+     *
+     * @param array $post  Saved post.
+     * @param array $data  Saved data.
+     * @param int   $nx_id Campaign ID.
+     * @return void
+     */
+    public function sync_title( $post, $data, $nx_id ) {
+        if ( empty( $data['source'] ) || self::SOURCE !== $data['source'] || empty( $data['gutenberg_id'] ) || ! self::is_design( $data['gutenberg_id'] ) ) {
+            return;
+        }
+        $title = isset( $post['title'] ) ? trim( wp_strip_all_tags( (string) $post['title'] ) ) : '';
+        if ( '' === $title ) {
+            return;
+        }
+        /* translators: %s: campaign title. */
+        $wanted = sprintf( __( 'Design for NotificationX Exit Intent - %s', 'notificationx' ), $title );
+        if ( (string) get_post_field( 'post_title', (int) $data['gutenberg_id'], 'raw' ) !== $wanted ) {
+            wp_update_post( [ 'ID' => (int) $data['gutenberg_id'], 'post_title' => $wanted ] );
+        }
+    }
+
+    /**
+     * When a campaign is opened: refresh the edit link for the current user
+     * (empty when they can't edit the design), and drop a design that was
+     * deleted, so the Custom tab offers Build again.
+     *
+     * @param array $post Campaign.
+     * @return array
+     */
+    public function refresh_on_load( $post ) {
+        if ( ! is_array( $post ) || empty( $post['source'] ) || self::SOURCE !== $post['source'] || empty( $post['gutenberg_id'] ) ) {
+            return $post;
+        }
+        if ( ! self::is_design( $post['gutenberg_id'] ) || 'trash' === get_post_status( $post['gutenberg_id'] ) ) {
+            $post['gutenberg_id']        = false;
+            $post['gutenberg_edit_link'] = '';
+            return $post;
+        }
+        $post['gutenberg_edit_link'] = (string) get_edit_post_link( (int) $post['gutenberg_id'], 'raw' );
+        return $post;
+    }
+
+    /**
+     * Deleting a campaign deletes its design (unless another campaign still
+     * links it).
+     *
+     * @param int   $nx_id Campaign ID.
+     * @param array $post  The deleted campaign.
+     * @return void
+     */
+    public function delete_with_campaign( $nx_id, $post ) {
+        if ( ! is_array( $post ) || empty( $post['source'] ) || self::SOURCE !== $post['source'] || empty( $post['gutenberg_id'] ) ) {
+            return;
+        }
+        if ( self::campaigns_using( $post['gutenberg_id'], $nx_id ) ) {
+            return;
+        }
+        $this->remove( $post['gutenberg_id'] );
+    }
+
+    /**
+     * The designs of these campaigns, for an export file: title and blocks only.
+     *
+     * @param array $campaigns Exported campaigns.
+     * @return array<int, array{title:string, content:string}>
+     */
+    public static function export_designs( $campaigns ) {
+        $designs = [];
+        foreach ( (array) $campaigns as $campaign ) {
+            if ( empty( $campaign['source'] ) || self::SOURCE !== $campaign['source'] || empty( $campaign['gutenberg_id'] ) ) {
+                continue;
+            }
+            // The ID comes from the campaign's own data: export only our designs.
+            $design = get_post( absint( $campaign['gutenberg_id'] ) );
+            if ( ! $design || self::POST_TYPE !== $design->post_type ) {
+                continue;
+            }
+            $designs[ $design->ID ] = [
+                'title'   => $design->post_title,
+                'content' => $design->post_content,
+            ];
+        }
+        return $designs;
+    }
+
+    /**
+     * Re-create a design from an export file. Only the title and the blocks
+     * are taken from the file; the content goes through the normal save
+     * (kses for users without unfiltered_html).
+     *
+     * @param mixed $design Untrusted `['title' => ..., 'content' => ...]`.
+     * @return int New design ID, or 0.
+     */
+    public function import_design( $design ) {
+        if ( ! is_array( $design ) || empty( $design['content'] ) || ! is_string( $design['content'] ) ) {
+            return 0;
+        }
+        $title = isset( $design['title'] ) && is_string( $design['title'] ) ? sanitize_text_field( $design['title'] ) : '';
+        $id    = wp_insert_post(
+            [
+                'post_title'   => $title,
+                'post_content' => wp_slash( $design['content'] ),
+                'post_status'  => 'publish',
+                'post_type'    => self::POST_TYPE,
+            ],
+            true
+        );
+        return is_wp_error( $id ) ? 0 : (int) $id;
     }
 
     /**
