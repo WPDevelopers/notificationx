@@ -1396,3 +1396,32 @@
         padding: 0 !important;
     }
 }
+
+// Exit Intent Custom tab, nothing linked: "Build With Elementor" (or Install
+// Elementor) and "Build With Gutenberg" side by side, the same width. They stack
+// when the row can't hold both. Exit Intent only; the Notification Bar's
+// buttons keep their own rules.
+.exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active {
+    // The hidden state fields (is_elementor, elementor_id, is_confirmed) render
+    // as empty spans between the two buttons; as full-width flex rows they
+    // forced each button onto its own line. Only the spans between the two
+    // Build buttons go; the ones after them keep the space under the buttons,
+    // and the linked states (Edit / Remove) don't match this selector at all.
+    > #wprf-modal-nx-exit-intent_with_elementor ~ span:has(~ #wprf-modal-nx-exit-intent_with_gutenberg),
+    > .wprf-name-nx-exit-intent_with_elementor_install ~ span:has(~ #wprf-modal-nx-exit-intent_with_gutenberg) {
+        display: none;
+    }
+
+    > #wprf-modal-nx-exit-intent_with_elementor,
+    > #wprf-modal-nx-exit-intent_with_gutenberg,
+    > .wprf-control-wrapper.wprf-name-nx-exit-intent_with_elementor_install {
+        flex: 0 0 240px;
+        max-width: 100%;
+
+        .wprf-control-wrapper,
+        .wprf-control-field,
+        .wprf-button {
+            width: 100%;
+        }
+    }
+}
