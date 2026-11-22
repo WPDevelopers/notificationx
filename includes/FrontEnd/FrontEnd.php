@@ -925,8 +925,8 @@ class FrontEnd {
         // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
         $branding_url       = apply_filters('nx_branding_url', NOTIFICATIONX_PLUGIN_URL . '?utm_source=' . esc_url(home_url()) . '&utm_medium=notificationx');
         $settings = [
-            // "Powered by" is opt-in: hidden until the setting is saved unticked.
-            'disable_powered_by' => Settings::get_instance()->get('settings.disable_powered_by', true),
+            // "Powered by" shows until the site owner hides it (a saved choice is kept).
+            'disable_powered_by' => Settings::get_instance()->get('settings.disable_powered_by', false),
             'affiliate_link'     => $branding_url,
             'enable_analytics'   => Settings::get_instance()->get('settings.enable_analytics', true),
             'analytics_from'     => Settings::get_instance()->get('settings.analytics_from'),

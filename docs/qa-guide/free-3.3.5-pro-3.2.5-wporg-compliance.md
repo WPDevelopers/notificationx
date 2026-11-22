@@ -62,6 +62,8 @@ Developer reference: [../api/frontend-js-hooks.md](../api/frontend-js-hooks.md) 
 
 ## Part D: "Powered by"
 
+> Changed in 3.4.0: "Powered by" is shown by default again, so the Verified Cards show their "✓ Verified by NotificationX" line as designed. D1 now expects the link; D2 is reversed (tick the box to hide it). A saved choice is still kept.
+
 | # | Steps | Expected |
 |---|---|---|
 | D1 | Fresh install. Create a sales notification, view it on the frontend | No "Powered by NotificationX" link. In **Settings → Advanced**, **Disable Powered By** is ticked |

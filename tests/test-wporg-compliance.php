@@ -97,25 +97,28 @@ class Test_WPOrg_Compliance extends WP_UnitTestCase {
 		);
 	}
 
-	public function test_powered_by_is_hidden_until_the_site_opts_in() {
+	public function test_powered_by_shows_until_the_site_hides_it() {
 		$settings = Settings::get_instance();
 		$saved    = $settings->get( 'settings' );
 
 		$without = (array) $saved;
 		unset( $without['disable_powered_by'] );
 		$settings->set( 'settings', $without );
-		$this->assertTrue( (bool) FrontEnd::get_instance()->get_settings()['disable_powered_by'], 'Hidden when never saved.' );
+		$this->assertFalse( (bool) FrontEnd::get_instance()->get_settings()['disable_powered_by'], 'Shown when never saved.' );
+
+		$settings->set( 'settings.disable_powered_by', true );
+		$this->assertTrue( (bool) FrontEnd::get_instance()->get_settings()['disable_powered_by'], 'Hidden after the site hides it.' );
 
 		$settings->set( 'settings.disable_powered_by', false );
-		$this->assertFalse( (bool) FrontEnd::get_instance()->get_settings()['disable_powered_by'], 'Shown after opting in.' );
+		$this->assertFalse( (bool) FrontEnd::get_instance()->get_settings()['disable_powered_by'], 'Shown when saved unticked.' );
 
 		$settings->set( 'settings', $saved );
 	}
 
-	public function test_powered_by_field_defaults_to_hidden() {
+	public function test_powered_by_field_defaults_to_shown() {
 		$field = $this->find_field( Settings::get_instance()->settings_form(), 'disable_powered_by' );
 		$this->assertIsArray( $field );
-		$this->assertSame( 1, $field['default'] );
+		$this->assertSame( 0, $field['default'] );
 	}
 
 	protected function find_field( $fields, $name ) {
