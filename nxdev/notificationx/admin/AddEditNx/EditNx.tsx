@@ -4,7 +4,6 @@ import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon, EditIcon, ScanHistory, DiscoveredCookies } from '../../icons'
 import { BuilderTitle, Content, Instructions, ProWidget, PublishWidget, RatingWidget, Sidebar } from '../../components';
 import PreviewWidget from '../../components/PreviewWidget';
-import StepActionsLayout from '../../components/StepActionsLayout';
 import { permissionAlert, proAlert, updateGeneratedCSS } from '../../core/functions';
 
 const EditNx = (props) => {
@@ -88,7 +87,6 @@ const EditNx = (props) => {
             <Content>
                 <BuilderTitle title={title} setTitle={setTitle} isEdit />
                 <FormBuilder {...builderContext} />
-                <StepActionsLayout />
             </Content>
             <Sidebar>
                 <PublishWidget

@@ -149,6 +149,7 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
     .nx-admin-content {
         flex: 1 1 auto;
         min-width: 0;
+        container: nx-builder / inline-size;
     }
 
     .nx-admin-wrapper .nx-admin-sidebar {
@@ -273,23 +274,27 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
     .nx-admin-content > .wp-react-form.wprf-tabs-wrapper {
         &.wprf-tab-menu-as-sidebar {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: flex-start;
             gap: 20px;
         }
 
         > .wprf-tab-content-wrapper {
+            flex: 1 1 auto;
             margin: 0;
-            width: 100%;
+            width: auto;
             min-width: 0;
         }
 
-        // Step bar: left aligned and only as wide as its steps. Talk to
-        // Support / Preview sit on its right (StepActionsLayout.tsx).
+        // Steps: a vertical list on the left of the step content
         > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar {
-            width: fit-content;
-            max-width: 100%;
+            position: sticky;
+            top: 52px;
+            flex: 0 0 180px;
+            width: 180px;
+            max-width: none;
             margin: 0;
-            padding: 6px;
+            padding: 8px;
             box-sizing: border-box;
             background: $nx-surface;
             border: 1px solid $nx-border;
@@ -298,30 +303,27 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
 
             .wprf-tab-nav {
                 display: flex;
-                flex-direction: row;
-                align-items: center;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 14px;
                 margin: 0;
                 padding: 0;
                 list-style: none;
-                overflow-x: auto;
-                scrollbar-width: none;
-
-                &::-webkit-scrollbar {
-                    display: none;
-                }
 
                 .wprf-tab-nav-item {
                     position: relative;
                     flex: none;
                     display: flex;
                     flex-direction: row;
+                    justify-content: flex-start;
                     align-items: center;
-                    gap: 8px;
+                    gap: 10px;
                     width: auto;
                     min-width: 0;
                     height: auto;
                     margin: 0;
-                    padding: 4px 12px 4px 4px;
+                    padding: 6px;
+                    box-sizing: border-box;
                     border: 0;
                     border-radius: $nx-radius-sm;
                     background: transparent;
@@ -338,46 +340,45 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
                     img {
                         flex: none;
                         box-sizing: border-box;
-                        width: 30px;
-                        height: 30px;
+                        width: 36px;
+                        height: 36px;
                         margin: 0;
-                        padding: 7px;
+                        padding: 8px;
                         border-radius: 50%;
-                        background: $nx-surface;
-                        border: 1px solid $nx-border;
-                        fill: $nx-subtle;
+                        // A round box also clips the glyph's corners otherwise
+                        overflow: visible;
+                        background: #f2f4f7;
+                        border: 1px solid #e4e7ec;
+                        fill: $nx-muted;
                         transition: background-color 0.15s ease, border-color 0.15s ease, fill 0.15s ease;
                     }
 
                     span {
                         display: block;
+                        min-width: 0;
                         margin: 0;
-                        font-size: 13px;
+                        font-size: 14px;
                         font-weight: 500;
                         line-height: 20px;
                         letter-spacing: 0;
+                        text-align: left;
                         text-transform: none;
-                        white-space: nowrap;
                         color: inherit;
                     }
 
-                    // Connector to the next step, drawn in the gap after it
-                    &:not(:last-child) {
-                        margin-right: 20px;
-
-                        &::after {
-                            content: "";
-                            position: absolute;
-                            top: 50%;
-                            right: -17px;
-                            left: auto;
-                            width: 14px;
-                            height: 2px;
-                            margin: -1px 0 0;
-                            border-radius: 2px;
-                            background: $nx-border;
-                            transform: none;
-                        }
+                    // Line down to the next step's icon
+                    &:not(:last-child)::after {
+                        content: "";
+                        position: absolute;
+                        top: calc(100% - 4px);
+                        right: auto;
+                        left: 23px;
+                        width: 2px;
+                        height: 22px;
+                        margin: 0;
+                        border-radius: 2px;
+                        background: $nx-border;
+                        transform: none;
                     }
 
                     &.wprf-tab-complete {
@@ -386,7 +387,7 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
                         svg,
                         img {
                             background: $nx-primary-soft;
-                            border-color: $nx-primary-soft;
+                            border-color: $nx-primary-border;
                             fill: $nx-primary;
                         }
 
@@ -414,87 +415,52 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
             }
         }
 
-        // Talk to Support / Preview next to the step bar (StepActionsLayout.tsx)
-        &.nx-steps-with-actions {
-            position: relative;
+        // Narrow content area: steps go back to one row above the content
+        @container nx-builder (max-width: 720px) {
+            &.wprf-tab-menu-as-sidebar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+            }
+
+            > .wprf-tab-content-wrapper {
+                width: 100%;
+            }
 
             > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar {
-                max-width: calc(100% - var(--nx-step-actions-width, 0px) - 16px);
-            }
-
-            > .wprf-tab-content-wrapper > .wprf-tab-flex > .wprf-tab-contents > .wprf-tab-content > .wprf-tab-heading-wrapper,
-            > .wprf-tab-content-wrapper > .wprf-tab-contents > .wprf-tab-content > .wprf-tab-heading-wrapper {
                 position: static;
+                flex: none;
+                width: 100%;
+                padding: 6px;
 
-                > div {
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    display: flex;
-                    align-items: center;
-                    height: var(--nx-steps-height, 54px);
-                    margin: 0;
-                }
-            }
-        }
+                .wprf-tab-nav {
+                    flex-direction: row;
+                    gap: 0;
+                    overflow-x: auto;
+                    scrollbar-width: none;
 
-        // Less room: tighter steps, then the name on the current step only,
-        // then icons only (StepActionsLayout.tsx picks the first that fits)
-        &.nx-steps-tight,
-        &.nx-steps-compact,
-        &.nx-steps-tiny {
-            > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar .wprf-tab-nav .wprf-tab-nav-item {
-                gap: 6px;
-                padding-right: 10px;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
 
-                &:not(:last-child) {
-                    margin-right: 14px;
+                    .wprf-tab-nav-item {
+                        flex: 1 1 0;
+                        flex-direction: column;
+                        gap: 4px;
+                        padding: 6px 4px;
 
-                    &::after {
-                        right: -12px;
-                        width: 10px;
+                        span {
+                            font-size: 12px;
+                            line-height: 16px;
+                            text-align: center;
+                            white-space: nowrap;
+                        }
+
+                        &:not(:last-child)::after {
+                            display: none;
+                        }
                     }
                 }
-            }
-        }
-
-        &.nx-steps-tight > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar .wprf-tab-nav .wprf-tab-nav-item {
-            gap: 5px;
-            padding: 3px 8px 3px 3px;
-
-            svg,
-            img {
-                width: 26px;
-                height: 26px;
-                padding: 6px;
-            }
-
-            span {
-                font-size: 12px;
-            }
-
-            &:not(:last-child) {
-                margin-right: 10px;
-
-                &::after {
-                    right: -8px;
-                    width: 6px;
-                }
-            }
-        }
-
-        &.nx-steps-compact > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar .wprf-tab-nav .wprf-tab-nav-item:not(.wprf-active-nav),
-        &.nx-steps-tiny > .wprf-tab-menu-wrapper.wprf-tab-menu-sidebar .wprf-tab-nav .wprf-tab-nav-item {
-            padding-right: 4px;
-
-            // Hidden from view only; the name stays for screen readers
-            span {
-                position: absolute;
-                width: 1px;
-                height: 1px;
-                overflow: hidden;
-                clip: rect(0 0 0 0);
-                white-space: nowrap;
             }
         }
 
@@ -790,6 +756,33 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
         }
     }
 
+    // Narrow form: labels sit above their fields, so fields take the full row
+    @container nx-builder (max-width: 640px) {
+        .wprf-tab-content .wprf-control-wrapper.wprf-inline-label {
+            > .wprf-control-field,
+            > .wprf-badge-wrapper > .wprf-control-field {
+                align-self: stretch;
+                width: 100%;
+            }
+
+            .wprf-select-wrapper,
+            .wprf-code-viewer {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            // Pro badge in the top right corner of the CSS editor
+            &.wprf-name-add_custom_css > .wprf-badge-wrapper > .wprf-control-label {
+                align-self: stretch;
+
+                .wprf-badge {
+                    left: auto;
+                    right: 10px;
+                }
+            }
+        }
+    }
+
     // Checkboxes
     .wprf-tab-content .wprf-control-wrapper .wprf-control-field input[type="checkbox"] {
         width: 20px;
@@ -1019,6 +1012,13 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
 
             .wprf-column {
                 padding: 8px;
+            }
+        }
+
+        // Two cards per row when the step list leaves too little width
+        @container nx-builder (max-width: 860px) {
+            .wprf-row .wprf-column-3 {
+                width: 50%;
             }
         }
 
@@ -1340,6 +1340,261 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
 
         &.wprf-option-selected .wprf-input-label {
             color: $nx-ink;
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Design step: theme tabs, theme cards, Advanced Design groups
+    // -----------------------------------------------------------------------
+    #design_tab {
+        // Themes card: tabs (For Desktop / For Mobile, Presets / Custom / AI)
+        // as a segmented control under the card title
+        .wprf-control-section.themes > .wprf-section-fields .wp-react-form.wprf-tabs-wrapper {
+            > .wprf-tab-menu-wrapper {
+                padding: 20px 24px 0;
+                border-bottom: 0;
+
+                .wprf-tab-nav {
+                    display: inline-flex;
+                    flex-wrap: wrap;
+                    gap: 4px;
+                    max-width: 100%;
+                    margin: 0;
+                    padding: 4px;
+                    box-sizing: border-box;
+                    background: #f2f4f7;
+                    border-radius: $nx-radius-sm;
+
+                    .wprf-tab-nav-item {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 6px;
+                        min-height: 0;
+                        margin: 0;
+                        padding: 7px 14px;
+                        border: 0;
+                        border-radius: 8px;
+                        background: transparent;
+                        color: $nx-muted;
+                        font-size: 13px;
+                        font-weight: 500;
+                        line-height: 20px;
+                        transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+
+                        svg,
+                        img {
+                            width: auto;
+                            height: 16px;
+                        }
+
+                        &:hover {
+                            color: $nx-ink;
+                        }
+
+                        &.wprf-active-nav {
+                            background: $nx-surface;
+                            color: $nx-ink;
+                            box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
+                        }
+
+                        // Pro crown and builder logos sit inline after the name
+                        &[data-key="for_mobile"]::after,
+                        &[data-key="nxbar_custom"]::after {
+                            position: static;
+                            flex: none;
+                            transform: none;
+                        }
+
+                        &[data-key="for_mobile"]::after {
+                            width: 16px;
+                            height: 16px;
+                            background-size: 16px 16px;
+                            background-position: center;
+                        }
+
+                        &[data-key="nxbar_custom"] {
+                            padding-right: 14px;
+                        }
+                    }
+                }
+            }
+
+            > .wprf-tab-content-wrapper .wprf-tab-content .wprf-control-section .wprf-section-fields .wprf-control-wrapper {
+                padding: 20px 24px 24px;
+            }
+        }
+
+        .wprf-control-section.themes > .wprf-section-fields > .wprf-control-wrapper.wprf-name-themes {
+            padding: 20px 24px 24px;
+        }
+
+        #themes_section {
+            margin-bottom: 0;
+        }
+
+        // Theme cards: the preview on a soft canvas
+        .wprf-name-themes .wprf-control.wprf-radio-card {
+            .wprf-row {
+                margin: -8px;
+
+                .wprf-column {
+                    padding: 8px;
+                    box-sizing: border-box;
+                }
+            }
+
+            .wprf-input-radio-option {
+                .wprf-input-label.wprf-label-has-image {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 96px;
+                    padding: 16px;
+                    box-sizing: border-box;
+                    background: #f9fafb;
+                    border: 1px solid $nx-border;
+                    border-radius: 12px;
+                    box-shadow: none;
+                    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+
+                    img {
+                        display: block;
+                        max-width: 100%;
+                        height: auto;
+                        margin: 0 auto;
+                        border-radius: 6px;
+                    }
+                }
+
+                &:hover .wprf-input-label.wprf-label-has-image {
+                    background: $nx-surface;
+                    border-color: $nx-primary-border;
+                    box-shadow: $nx-shadow-hover;
+                    transform: translateY(-1px);
+                }
+
+                &.wprf-option-selected .wprf-input-label.wprf-label-has-image {
+                    background: $nx-surface;
+                    border-color: $nx-primary;
+                    box-shadow: 0 0 0 3px $nx-primary-soft;
+                }
+            }
+
+            // Two per row when space is short, one on phones
+            @container nx-builder (max-width: 860px) {
+                .wprf-row .wprf-column-3 {
+                    width: 50%;
+                }
+            }
+
+            @container nx-builder (max-width: 560px) {
+                .wprf-row .wprf-column-3,
+                .wprf-row .wprf-column-2 {
+                    width: 100%;
+                }
+            }
+        }
+
+        // Advanced Design: its groups (Design, Typography, ...) as light
+        // blocks split by a line instead of nested headings
+        .wprf-control-section.advance_design_section > .wprf-section-fields {
+            > .wprf-control-section {
+                margin: 0;
+                padding: 20px 0;
+                background: transparent;
+                border: 0;
+                border-top: 1px solid #f2f4f7;
+                border-radius: 0;
+                box-shadow: none;
+
+                &:first-child,
+                &:first-of-type {
+                    padding-top: 0;
+                    border-top: 0;
+                }
+
+                &:last-child {
+                    padding-bottom: 0;
+                }
+
+                > .wprf-section-title {
+                    min-height: 0;
+                    margin: 0 0 14px;
+                    padding: 0;
+                    background: transparent;
+                    border: 0;
+
+                    h4 {
+                        margin: 0;
+                        font-size: 12px;
+                        font-weight: 600;
+                        line-height: 16px;
+                        letter-spacing: 0.06em;
+                        text-transform: uppercase;
+                        color: $nx-muted;
+                    }
+                }
+
+                > .wprf-section-fields {
+                    padding: 0;
+                    background: transparent;
+                    border-radius: 0;
+
+                    > .wprf-control-wrapper:not(:last-child) {
+                        margin-bottom: 16px;
+                    }
+                }
+            }
+
+            // First group after the on/off switch (shown in the card title)
+            > .wprf-control-wrapper.wprf-name-advance_edit + .wprf-control-section {
+                padding-top: 0;
+                border-top: 0;
+            }
+        }
+
+        // Color swatches: rounded squares, so white and light colors show
+        .wprf-colorpicker-wrap .wprf-picker-display {
+            width: 36px !important;
+            height: 36px !important;
+            margin: 0;
+            border: 1px solid $nx-input-border !important;
+            border-radius: 8px;
+            box-shadow: $nx-shadow;
+            cursor: pointer;
+            transition: box-shadow 0.15s ease;
+
+            &:hover {
+                box-shadow: $nx-ring;
+            }
+        }
+
+        // Custom CSS editor; its help line sits right under it
+        .wprf-name-add_custom_css .wprf-badge-wrapper + .wprf-badge-wrapper {
+            > .wprf-control-label:empty {
+                display: none;
+            }
+
+            .wprf-help {
+                margin: 8px 0 0;
+            }
+        }
+
+        .wprf-name-add_custom_css .wprf-code-viewer {
+            max-width: 100%;
+
+            textarea {
+                min-height: 220px;
+                padding: 14px 16px;
+                font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                font-size: 12.5px;
+                line-height: 1.7;
+                color: $nx-text;
+                background: #f9fafb;
+                border: 1px solid $nx-border;
+                border-radius: 10px;
+                box-shadow: none;
+            }
         }
     }
 

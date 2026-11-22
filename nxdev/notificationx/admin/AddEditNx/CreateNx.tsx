@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import { FormBuilder, useBuilderContext } from 'quickbuilder';
 import { BuilderTitle, Content, PublishWidget, Sidebar, Instructions, RatingWidget, ProWidget } from '../../components';
 import PreviewWidget from '../../components/PreviewWidget';
-import StepActionsLayout from '../../components/StepActionsLayout';
 import { permissionAlert, proAlert, updateGeneratedCSS } from '../../core/functions';
 import { ToastAlert } from '../../core/ToasterMsg';
 import { SourceIcon, DesignIcon, ContentIcon, DisplayIcon, CustomizeIcon, FunctionalIcon, NecessaryIcon, AnalyticsIcon, PerformanceIcon, UncategorizedIcon, ManagerIcon, EditIcon, ScanHistory, DiscoveredCookies } from '../../icons'
@@ -87,7 +86,6 @@ const CreateNx = ({ setIsLoading, title, setTitle }) => {
             <Content>
                 <BuilderTitle title={title} setTitle={setTitle} />
                 <FormBuilder {...builderContext} />
-                <StepActionsLayout />
             </Content>
             <Sidebar>
                 <PublishWidget
