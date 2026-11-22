@@ -6,6 +6,7 @@ import { msUntilExitIntentEnd } from "./exitIntentEnd";
 import { rememberSubmit } from "./submitRule";
 import { watchFormSuccess } from "./watchFormSuccess";
 import ExitIntentGutenberg from "./ExitIntentGutenberg";
+import { exitIntentCookieDays } from "./exitIntentDismiss";
 
 const px = (v: any): string | undefined => (v || v === 0) ? `${v}px` : undefined;
 
@@ -64,8 +65,9 @@ const ExitIntentPopup = (props: any) => {
             const _theme = settings?.themes || '';
             const key = `notificationx_exit_intent_${settings?.nx_id}_${_theme}`;
             sessionStorage.setItem(key, 'closed');
-            const days = parseInt(settings?.exit_intent_cookie_days, 10);
-            if (Number.isFinite(days) && days > 0) {
+            // "Do Not Show Again": the days apply only with the toggle on.
+            const days = exitIntentCookieDays(settings);
+            if (days > 0) {
                 const exp = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
                 document.cookie = `${key}=closed; expires=${exp.toUTCString()}; path=/; SameSite=Lax`;
             }

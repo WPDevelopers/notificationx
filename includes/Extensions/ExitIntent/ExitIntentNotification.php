@@ -26,6 +26,23 @@ class ExitIntentNotification extends Extension {
      */
     const REMOTE_DEFAULT_IMAGES = 'https://notificationx.com/wp-content/uploads/2026/05/exit-intend-';
 
+    /**
+     * "Do Not Show Again" toggle in front of "Do Not Show Again For" (days).
+     * The days apply only when it's on.
+     *
+     * @since x.x.x
+     */
+    const DISMISS_TOGGLE = 'exit_intent_cookie_enabled';
+
+    /**
+     * Set on every save from now on. normalize_post() fills the toggle's
+     * default (off) on read, so this is how a campaign saved before the toggle
+     * existed is told apart from one saved with it off.
+     *
+     * @since x.x.x
+     */
+    const DISMISS_TOGGLE_SAVED = 'exit_intent_cookie_toggle_saved';
+
     use GetInstance;
 
     public $priority        = 16;
@@ -53,6 +70,8 @@ class ExitIntentNotification extends Extension {
         add_filter( 'nx_filtered_post', [ $this, 'add_end_timestamp' ], 10, 2 );
         add_filter( 'nx_get_post', [ $this, 'fill_empty_end_for_builder' ], 10, 2 );
         add_filter( 'nx_save_post', [ $this, 'fill_empty_end_on_save' ], 10, 3 );
+        add_filter( 'nx_get_post', [ $this, 'dismiss_toggle_on_read' ], 10, 2 );
+        add_filter( 'nx_save_post', [ $this, 'dismiss_toggle_on_save' ], 10, 3 );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_elementor_assets' ], 20 );
         add_action( 'wp_head', [ $this, 'print_section_constraint_css' ], 99 );
         add_action( 'elementor/documents/register_controls', [ $this, 'register_popup_layout_controls' ] );
@@ -226,6 +245,65 @@ class ExitIntentNotification extends Extension {
         if ( null === self::get_end_timestamp( $post['data'] ) ) {
             $post['data']['exit_intent_countdown_end'] = self::default_end();
         }
+        return $post;
+    }
+
+    /**
+     * Whether the days of "Do Not Show Again For" were set (more than 0).
+     * Before the toggle, that alone decided whether a dismissal cookie was
+     * written.
+     *
+     * @since x.x.x
+     *
+     * @param array $data Campaign settings.
+     * @return bool
+     */
+    public static function has_dismiss_days( $data ) {
+        $days = $data['exit_intent_cookie_days'] ?? null;
+        return is_numeric( $days ) && (float) $days > 0;
+    }
+
+    /**
+     * A campaign saved before the toggle existed reads as "on" when it has
+     * days, so the builder shows it on and the popup keeps writing the
+     * dismissal cookie exactly as before. Nothing is stored by reading.
+     *
+     * @since x.x.x
+     *
+     * @param array  $post    Campaign settings.
+     * @param string $context Read context.
+     * @return array
+     */
+    public function dismiss_toggle_on_read( $post, $context = '' ) {
+        if ( ! is_array( $post ) || ( $post['source'] ?? '' ) !== $this->id ) {
+            return $post;
+        }
+        if ( empty( $post[ self::DISMISS_TOGGLE_SAVED ] ) ) {
+            $post[ self::DISMISS_TOGGLE ] = self::has_dismiss_days( $post );
+        }
+        return $post;
+    }
+
+    /**
+     * Store the toggle with every save. A save without it (an export from
+     * before the toggle, or a REST / MCP call that only sets the days) takes
+     * it from the days, as above.
+     *
+     * @since x.x.x
+     *
+     * @param array $post  Row to store.
+     * @param array $data  Submitted settings.
+     * @param int   $nx_id Campaign ID.
+     * @return array
+     */
+    public function dismiss_toggle_on_save( $post, $data, $nx_id ) {
+        if ( ( $data['source'] ?? '' ) !== $this->id || empty( $post['data'] ) || ! is_array( $post['data'] ) ) {
+            return $post;
+        }
+        $post['data'][ self::DISMISS_TOGGLE ] = array_key_exists( self::DISMISS_TOGGLE, $post['data'] )
+            ? filter_var( $post['data'][ self::DISMISS_TOGGLE ], FILTER_VALIDATE_BOOLEAN )
+            : self::has_dismiss_days( $post['data'] );
+        $post['data'][ self::DISMISS_TOGGLE_SAVED ] = true;
         return $post;
     }
 
@@ -2421,6 +2499,16 @@ JS;
                         '50' => __( 'Low (50px)', 'notificationx' ),
                     ] ),
                 ],
+                // Off for new campaigns: a closed popup stays hidden for the
+                // rest of the browser session only. Campaigns saved before this
+                // toggle read as on when they have days (dismiss_toggle_on_read()).
+                self::DISMISS_TOGGLE => [
+                    'label'   => __( 'Do Not Show Again', 'notificationx' ),
+                    'name'    => self::DISMISS_TOGGLE,
+                    'type'    => 'toggle',
+                    'default' => false,
+                    'help'    => __( 'Once dismissed, hide the popup for the number of days below. When off, it stays hidden for the rest of the visit only.', 'notificationx' ),
+                ],
                 'exit_intent_cookie_days' => [
                     'label'       => __( 'Do Not Show Again For', 'notificationx' ),
                     'name'        => 'exit_intent_cookie_days',
@@ -2428,6 +2516,7 @@ JS;
                     'default'     => 7,
                     'description' => __( 'days', 'notificationx' ),
                     'help'        => __( 'Once dismissed, hide the popup for this many days.', 'notificationx' ),
+                    'rules'       => Rules::is( self::DISMISS_TOGGLE, true ),
                 ],
                 'submit_reappearance' => $submit_fields['submit_reappearance'],
                 'submit_hide_days'    => $submit_fields['submit_hide_days'],
