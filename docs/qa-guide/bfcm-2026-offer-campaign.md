@@ -8,7 +8,7 @@
 | Surface | What you can see |
 |---|---|
 | Offer notice | On the WordPress Dashboard: NotificationX logo, "🛍️ **Black Friday Sale:** Turn holiday traffic into customers with 15+ real-time social proof notifications, AI-powered features & more – **now up to 40% OFF!**", a purple **Upgrade To Pro Now** button and an **I Want To Pay Full Price** link |
-| Offer pointer | A WordPress pointer beside the **NotificationX** menu item: blue header "Black Friday Is On!", one line of copy, a **View Deals** button and **Dismiss** |
+| Offer pointer | On NotificationX's own pages only, a WordPress pointer beside the **NotificationX** menu item: blue header "Black Friday Is On!", one line of copy, a **View Deals** button and **Dismiss** |
 
 Both run from **15 November 2026 00:00 UTC to 14 December 2026 23:59:59 UTC**, both link to `https://notificationx.com/bfcm2026/admin-notice`, and neither shows while NotificationX Pro is active.
 
@@ -64,17 +64,17 @@ Expected: no offer notice. Deactivate Pro again: the notice is back.
 
 ## Part 2: the offer pointer
 
-**T9. Shown beside the menu item.** As administrator A, open the Dashboard.
+**T9. Shown beside the menu item.** As administrator A, open **NotificationX → All NotificationX**.
 Expected: a pointer sits to the right of the admin menu, level with **NotificationX**, with an arrow pointing at it. Blue header with a white round icon and "Black Friday Is On!", white body with "Up to 40% off NotificationX Pro. Unlock real-time sales and conversion notifications that turn visitors into customers.", a blue **View Deals** button on the left and a blue **Dismiss** link with a circled × on the right.
 Fails if: it points at another menu item, the button and Dismiss are stacked or swapped, or there is a script error in the Console.
 
-**T10. NotificationX pages.** Open **NotificationX → All NotificationX**, **Add New**, **Settings** and **Analytics**.
+**T10. NotificationX pages.** Open **NotificationX → Add New**, **Settings** and **Analytics**.
 Expected: the pointer shows on each, level with the **NotificationX** menu item (not the submenu), and the page under it still works.
 
-**T11. Other screens.** Open **Plugins**, **Posts**, **Users** and **Settings → General**.
-Expected: no pointer.
+**T11. Other screens.** Open the **Dashboard**, **Plugins**, **Posts**, **Users** and **Settings → General**.
+Expected: no pointer. The Dashboard shows only the offer notice.
 
-**T12. Scrolling.** On the Dashboard, make the window short enough to scroll and scroll to the bottom and back.
+**T12. Scrolling.** On a NotificationX page, make the window short enough to scroll and scroll to the bottom and back.
 Expected: the pointer stays beside the **NotificationX** menu item the whole time.
 Fails if: it scrolls away with the page or jumps.
 
@@ -87,10 +87,10 @@ Expected: `https://notificationx.com/bfcm2026/admin-notice` opens in a new tab. 
 **T15. Dismiss.** Click **Dismiss**.
 Expected: the pointer closes. Reload, and open a NotificationX page: it stays gone for administrator A. Log in as administrator B: B still sees it. Dismissing as B does not bring it back for A.
 
-**T16. Admin colour scheme.** Restore the pointer for A. In **Users → Profile** choose the **Sunrise** (or any other) admin colour scheme and open the Dashboard.
+**T16. Admin colour scheme.** Restore the pointer for A. In **Users → Profile** choose the **Sunrise** (or any other) admin colour scheme and open **NotificationX → All NotificationX**.
 Expected: the pointer keeps its blue header, blue button and blue Dismiss on white. Set the scheme back to Default.
 
-**T17. Editor.** Log in as the editor and open the Dashboard.
+**T17. Editor.** Log in as the editor and open a NotificationX page.
 Expected: no pointer.
 
 **T18. With Pro.** As administrator B (who has not dismissed it), activate NotificationX Pro and open the Dashboard and a NotificationX page.
@@ -98,12 +98,12 @@ Expected: no pointer. Deactivate Pro: it is back.
 
 ## Part 3: dates
 
-**T19. Outside the campaign.** Skip this part if the site's clock cannot be changed. Set the server date to 14 November 2026 23:50 UTC and open the Dashboard as administrator B, then to 15 December 2026 00:10 UTC.
+**T19. Outside the campaign.** Skip this part if the site's clock cannot be changed. Set the server date to 14 November 2026 23:50 UTC and open the Dashboard and **NotificationX → All NotificationX** as administrator B, then to 15 December 2026 00:10 UTC.
 Expected: on both dates neither the notice nor the pointer shows. On 15 November 00:10 UTC and 14 December 23:50 UTC both show.
 
 ## Part 4: other WPDeveloper plugins
 
-**T20. Another plugin's pointer first.** With the pointer showing for administrator B, activate **Essential Blocks** (free, without its Pro) and open the Dashboard.
+**T20. Another plugin's pointer first.** With the pointer showing for administrator B, activate **Essential Blocks** (free, without its Pro) and open **NotificationX → All NotificationX**.
 Expected: at most one WPDeveloper pointer shows. If Essential Blocks has a pointer of its own due, it shows first and the NotificationX pointer waits; after it is dismissed, a reload shows the NotificationX pointer. If Essential Blocks has none due, the NotificationX pointer shows as before.
 Fails if: two pointers show at once, or the NotificationX pointer never comes back.
 

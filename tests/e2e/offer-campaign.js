@@ -63,6 +63,8 @@ const check = ( ok, label ) => {
 };
 
 const sleep = ( ms ) => new Promise( ( resolve ) => setTimeout( resolve, ms ) );
+// The pointer shows only on NotificationX's own pages; the Dashboard has the notice.
+const NX_PAGE = 'admin.php?page=nx-admin';
 const admin = ( slug ) => `${ SITE_URL }/wp-admin/${ slug }`;
 const open = async ( page, slug ) => {
 	await page.goto( admin( slug ), { waitUntil: 'networkidle2' } );
@@ -150,8 +152,8 @@ async function noticeChecks( page, errors ) {
 }
 
 async function pointerChecks( page, info ) {
-	await open( page, 'index.php' );
-	check( 1 === ( await count( page, POINTER ) ) && ( await visible( page, POINTER ) ), 'pointer: shown on the Dashboard' );
+	await open( page, NX_PAGE );
+	check( 1 === ( await count( page, POINTER ) ) && ( await visible( page, POINTER ) ), 'pointer: shown on the NotificationX page' );
 	if ( ! ( await count( page, POINTER ) ) ) {
 		return;
 	}
@@ -197,24 +199,24 @@ async function pointerChecks( page, info ) {
 
 	// A user's admin colour scheme recolours core pointers and primary buttons; not this one.
 	state( 'scheme', 'sunrise' );
-	await open( page, 'index.php' );
+	await open( page, NX_PAGE );
 	await colours( 'Sunrise scheme' );
 	state( 'scheme', 'fresh' );
 
 	// NotificationX's own pages show it; other screens do not.
-	for ( const slug of [ 'admin.php?page=nx-admin', 'admin.php?page=nx-settings' ] ) {
+	for ( const slug of [ NX_PAGE, 'admin.php?page=nx-settings' ] ) {
 		await open( page, slug );
 		check( 1 === ( await count( page, POINTER ) ) && ( await visible( page, POINTER ) ), `pointer: shown on ${ slug }` );
 	}
 	await page.screenshot( { path: path.join( OUT, 'offer-campaign-pointer-nx-page.png' ) } );
-	for ( const slug of [ 'plugins.php', 'edit.php', 'users.php', 'options-general.php' ] ) {
+	for ( const slug of [ 'index.php', 'plugins.php', 'edit.php', 'users.php', 'options-general.php' ] ) {
 		await open( page, slug );
 		check( 0 === ( await count( page, POINTER ) ), `pointer: not on ${ slug }` );
 	}
 
 	// It stays beside the menu link while the page scrolls. A short window, so the page scrolls.
 	await page.setViewport( { width: 1400, height: 600 } );
-	await open( page, 'index.php' );
+	await open( page, NX_PAGE );
 	const gap = () =>
 		page.evaluate(
 			( pointerSelector, linkSelector ) => {
@@ -228,7 +230,7 @@ async function pointerChecks( page, info ) {
 	const before = await gap();
 	const scrollable = await page.evaluate( () => document.documentElement.scrollHeight - window.innerHeight );
 	if ( scrollable < 200 ) {
-		console.log( 'skip pointer: the Dashboard is too short to scroll' );
+		console.log( 'skip pointer: the NotificationX page is too short to scroll' );
 	} else {
 		for ( const y of [ 250, 100000 ] ) {
 			await page.evaluate( ( value ) => window.scrollTo( 0, value ), y );
@@ -240,13 +242,13 @@ async function pointerChecks( page, info ) {
 
 	// Under 783px the admin menu is off canvas: nothing to point at.
 	await page.setViewport( { width: 700, height: 900 } );
-	await open( page, 'index.php' );
+	await open( page, NX_PAGE );
 	check( ! ( await visible( page, POINTER ) ), 'pointer: hidden while the menu is off canvas' );
 	await page.setViewport( { width: 1400, height: 900 } );
 
 	// Dismiss closes it and sends the dismissal with its nonce. Answered here, so the site
 	// records nothing and the pointer is still there afterwards.
-	await open( page, 'index.php' );
+	await open( page, NX_PAGE );
 	let posted = null;
 	const intercept = ( request ) => {
 		const body = request.postData() || '';
@@ -267,7 +269,7 @@ async function pointerChecks( page, info ) {
 	page.off( 'request', intercept );
 	await page.setRequestInterception( false );
 
-	await open( page, 'index.php' );
+	await open( page, NX_PAGE );
 	check( await visible( page, POINTER ), 'pointer: back after a reload when nothing was recorded' );
 
 	// The real request: a wrong nonce is refused, the right one is recorded for this user.
@@ -295,9 +297,9 @@ async function pointerChecks( page, info ) {
 	check( true === after.dismissed, 'pointer: the dismissal is recorded for the user' );
 	check( String( info.priority ) !== String( after.slot ), 'pointer: the dismissal gives the shared slot back' );
 
-	await open( page, 'index.php' );
+	await open( page, NX_PAGE );
 	check( 0 === ( await count( page, POINTER ) ), 'pointer: gone for good after a dismissal' );
-	await open( page, 'admin.php?page=nx-admin' );
+	await open( page, 'admin.php?page=nx-settings' );
 	check( 0 === ( await count( page, POINTER ) ), 'pointer: gone on NotificationX pages too' );
 }
 
