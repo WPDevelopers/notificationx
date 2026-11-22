@@ -185,6 +185,10 @@ class Test_Exit_Intent_Gutenberg_Design extends WP_UnitTestCase {
 		$seed = GutenbergDesign::read_seed( 'theme-two' );
 		$this->assertSame( wp_list_pluck( parse_blocks( $seed['content'] ), 'blockName' ), wp_list_pluck( parse_blocks( $post->post_content ), 'blockName' ) );
 		$this->assertStringContainsString( 'wp:notificationx/countdown', $post->post_content );
+		// Stored byte for byte: the countdown's style JSON keeps its escapes (\u003e),
+		// so the CSS it renders is "… > div", not "… u003e div".
+		$this->assertSame( $seed['content'], $post->post_content );
+		$this->assertStringContainsString( '.nx-countdown-item > div', do_blocks( $post->post_content ) );
 		$this->assertStringContainsString( 'post.php?post=' . $post->ID . '&action=edit', $context['gutenberg_edit_link'] );
 	}
 

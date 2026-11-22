@@ -134,6 +134,19 @@ class Test_Exit_Intent_Gutenberg_Frontend extends WP_UnitTestCase {
 		$this->assertSame( 'gutenberg', $settings['mode'] );
 	}
 
+	public function test_the_builder_preview_shows_the_block_design() {
+		$id       = $this->design( 'theme-one' );
+		$settings = apply_filters( 'nx_preview_settings_exit_intent_custom', $this->settings( $id ) );
+		$this->assertSame( 'gutenberg', $settings['mode'] );
+		$this->assertStringContainsString( 'STAY10', $settings['gutenberg_html'] );
+		$this->assertSame( get_permalink( $id ), $settings['gutenberg_url'] );
+	}
+
+	public function test_the_builder_preview_without_a_design_is_unchanged() {
+		$settings = array( 'source' => 'exit_intent_custom', 'themes' => 'exit_intent_custom_theme-one' );
+		$this->assertSame( $settings, apply_filters( 'nx_preview_settings_exit_intent_custom', $settings ) );
+	}
+
 	/* --- render pipeline --------------------------------------------------- */
 
 	public function test_render_runs_shortcodes_and_embeds_but_not_the_content_filter() {

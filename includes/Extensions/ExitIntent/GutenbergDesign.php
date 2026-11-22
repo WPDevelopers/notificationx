@@ -47,6 +47,8 @@ class GutenbergDesign {
 
         // Front end: after ExitIntentNotification::inject_elementor_html() (priority 10).
         add_filter( 'nx_filtered_post', [ $this, 'inject_gutenberg_html' ], 11, 2 );
+        // The builder Preview (and its share links) build the settings without nx_filtered_post.
+        add_filter( 'nx_preview_settings_' . self::SOURCE, [ $this, 'inject_gutenberg_preview' ] );
         add_filter( 'body_class', [ $this, 'body_class' ] );
         // After plugins that dequeue the block library (Elementor's "Optimized Gutenberg Loading" runs at 999).
         add_action( 'wp_enqueue_scripts', [ $this, 'keep_core_block_styles' ], 1000 );
@@ -382,6 +384,16 @@ class GutenbergDesign {
         $settings['gutenberg_layout'] = self::layout( $post->post_content );
         $settings['gutenberg_url']    = get_permalink( $post );
         return $settings;
+    }
+
+    /**
+     * The builder Preview: show the linked block design, as on the live site.
+     *
+     * @param array $settings Preview settings (the builder's current values).
+     * @return array
+     */
+    public function inject_gutenberg_preview( $settings ) {
+        return $this->inject_gutenberg_html( is_array( $settings ) ? $settings : [], [] );
     }
 
     /**
@@ -968,8 +980,9 @@ class GutenbergDesign {
         $post_id = wp_insert_post(
             [
                 /* translators: %s: name of the starting design. */
-                'post_title'   => sprintf( __( 'Design for NotificationX Exit Intent - %s', 'notificationx' ), $seed['title'] ),
-                'post_content' => $seed['content'],
+                'post_title'   => wp_slash( sprintf( __( 'Design for NotificationX Exit Intent - %s', 'notificationx' ), $seed['title'] ) ),
+                // wp_insert_post() unslashes: keep the block attributes' JSON escapes (\u003e …).
+                'post_content' => wp_slash( $seed['content'] ),
                 'post_status'  => 'publish',
                 'post_type'    => self::POST_TYPE,
             ],
