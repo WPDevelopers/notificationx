@@ -1,5 +1,5 @@
 /**
- * Verified Cards (vc-*) add-on hooks (free 3.3.9):
+ * Verified Cards (vc-*) add-on hooks (free 3.4.0):
  *  - nx_frontend_vc_slugs        (themes/vc/isVcTheme.ts)
  *  - nx_frontend_vc_card         (themes/vc/VerifiedCard.tsx, with VC_CARD_PARTS and SlimShell)
  *  - nx_frontend_vc_compact_rows (themes/vc/vcCompactRows.ts)

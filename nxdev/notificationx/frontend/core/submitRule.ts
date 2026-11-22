@@ -15,7 +15,7 @@
  *
  * The builder preview neither reads nor writes the key.
  *
- * @since 3.3.9
+ * @since 3.4.0
  */
 
 export type SubmitRule = 'same_as_close' | 'days' | 'never';

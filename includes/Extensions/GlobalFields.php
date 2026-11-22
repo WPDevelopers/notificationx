@@ -169,7 +169,7 @@ class GlobalFields {
          * built-in keys are always kept, and an entry that is not a
          * `<prefix>_vc-<word>` string is dropped.
          *
-         * @since 3.3.9
+         * @since 3.4.0
          * @param string[] $keys Full theme keys, e.g. 'conversions_vc-receipt'.
          */
         $filtered = apply_filters( 'nx_vc_theme_keys', $keys );

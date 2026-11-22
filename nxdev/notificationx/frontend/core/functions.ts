@@ -51,7 +51,7 @@ export const getResThemeName = (settings) => {
  * Card size presets: the scale of each non-default size (`--nx-scale`).
  * Matches NotificationX\Core\CardSize::SCALES.
  *
- * @since 3.3.9
+ * @since 3.4.0
  */
 export const CARD_SIZE_SCALES = {
     compact: '0.8',
@@ -66,7 +66,7 @@ export const CARD_SIZE_SCALES = {
  * unexpected value, and Verified Cards themes (keys containing `_vc-`) always
  * render exactly as before.
  *
- * @since 3.3.9
+ * @since 3.4.0
  */
 export const getCardSize = (settings): 'compact' | 'large' | null => {
     const value = settings?.card_size;
