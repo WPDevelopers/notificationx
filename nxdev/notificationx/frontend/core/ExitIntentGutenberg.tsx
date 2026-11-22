@@ -16,6 +16,7 @@ import { loadAssets } from './LoadAssets';
  * - A dialog: role="dialog", aria-modal, labelled; focus moves in on open and
  *   back on close; Tab stays inside; Escape closes.
  * - A link to `#nx-close` inside the design closes the popup like the ×.
+ * - The wheel scrolls a long design inside the popup and never the page behind.
  * - Width and corner radius come from the design's outer Group block.
  *
  * @since x.x.x
@@ -111,6 +112,41 @@ const ExitIntentGutenberg = ( { settings: s, showClose, closeStyle, overlayClass
         };
     }, [ ready ] );
 
+    // The wheel scrolls the design, never the page behind the popup. Some host
+    // pages stop the browser from wheel-scrolling a box inside a fixed overlay
+    // (seen on an Elementor site), so the popup scrolls its body itself.
+    // Non-passive, so it can keep the page still.
+    const overlayRef = useRef<HTMLDivElement | null>( null );
+    useEffect( () => {
+        const overlay = overlayRef.current;
+        if ( ! overlay ) return;
+        const onWheel = ( e: WheelEvent ) => {
+            if ( e.ctrlKey ) return; // pinch-zoom
+            const body = bodyRef.current;
+            const inBody = !! body && body.contains( e.target as Node );
+            const max = body ? body.scrollHeight - body.clientHeight : 0;
+            const step = e.deltaMode === 1 ? 16 : e.deltaMode === 2 && body ? body.clientHeight : 1;
+            const scroll = () => {
+                if ( body ) body.scrollTop = Math.max( 0, Math.min( max, body.scrollTop + e.deltaY * step ) );
+            };
+            if ( e.cancelable ) {
+                // Keep the page still and scroll the design ourselves.
+                e.preventDefault();
+                if ( inBody && max > 0 ) scroll();
+                return;
+            }
+            // Some pages send wheel events the popup can't cancel. Scroll the
+            // design only if the browser didn't, so it never scrolls twice.
+            if ( ! inBody || max <= 0 ) return;
+            const before = body.scrollTop;
+            requestAnimationFrame( () => {
+                if ( body.scrollTop === before ) scroll();
+            } );
+        };
+        overlay.addEventListener( 'wheel', onWheel, { passive: false } );
+        return () => overlay.removeEventListener( 'wheel', onWheel );
+    }, [] );
+
     const onBodyClick = ( e: React.MouseEvent ) => {
         const target = e.target as HTMLElement;
         const link = target && typeof target.closest === 'function' ? target.closest( 'a[href="#nx-close"]' ) : null;
@@ -133,6 +169,7 @@ const ExitIntentGutenberg = ( { settings: s, showClose, closeStyle, overlayClass
 
     return (
         <div
+            ref={ overlayRef }
             className={ `${ overlayClass } nx-exit-intent-has-gutenberg` }
             style={ overlayStyle }
             onClick={ ( e ) => { if ( e.target === e.currentTarget ) onClose(); } }

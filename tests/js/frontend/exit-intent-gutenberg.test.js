@@ -199,6 +199,83 @@ describe( 'Gutenberg Exit Intent popup', () => {
 	} );
 } );
 
+describe( 'Wheel', () => {
+	const sizes = ( el, scrollHeight, clientHeight ) => {
+		Object.defineProperty( el, 'scrollHeight', { configurable: true, value: scrollHeight } );
+		Object.defineProperty( el, 'clientHeight', { configurable: true, value: clientHeight } );
+	};
+	const wheel = ( target, deltaY, extra = {} ) => {
+		const e = new WheelEvent( 'wheel', { deltaY, bubbles: true, cancelable: true, ...extra } );
+		target.dispatchEvent( e );
+		return e;
+	};
+
+	it( 'scrolls a long design inside the popup, within its bounds', () => {
+		render();
+		const body = dialog().querySelector( '.nx-exit-intent-gutenberg-body' );
+		sizes( body, 1300, 860 );
+		const e = wheel( body.querySelector( 'h2' ), 300 );
+		expect( e.defaultPrevented ).toBe( true );
+		expect( body.scrollTop ).toBe( 300 );
+		wheel( body.querySelector( 'h2' ), 1000 );
+		expect( body.scrollTop ).toBe( 440 );
+		wheel( body.querySelector( 'h2' ), -2000 );
+		expect( body.scrollTop ).toBe( 0 );
+	} );
+
+	it( 'lines and pages are converted to pixels', () => {
+		render();
+		const body = dialog().querySelector( '.nx-exit-intent-gutenberg-body' );
+		sizes( body, 3000, 800 );
+		wheel( body, 3, { deltaMode: 1 } );
+		expect( body.scrollTop ).toBe( 48 );
+		wheel( body, 1, { deltaMode: 2 } );
+		expect( body.scrollTop ).toBe( 848 );
+	} );
+
+	it( 'the page behind never scrolls: the backdrop and a short design swallow the wheel', () => {
+		render();
+		const body = dialog().querySelector( '.nx-exit-intent-gutenberg-body' );
+		sizes( body, 400, 400 );
+		expect( wheel( body, 200 ).defaultPrevented ).toBe( true );
+		expect( body.scrollTop ).toBe( 0 );
+		expect( wheel( container.querySelector( '.nx-exit-intent-overlay' ), 200 ).defaultPrevented ).toBe( true );
+	} );
+
+	it( 'a wheel the page cannot cancel still scrolls the design, but only once', () => {
+		jest.useFakeTimers();
+		render();
+		const body = dialog().querySelector( '.nx-exit-intent-gutenberg-body' );
+		sizes( body, 1300, 860 );
+		// The browser didn't scroll the design: the popup does, a frame later.
+		wheel( body, 200, { cancelable: false } );
+		act( () => {
+			jest.advanceTimersByTime( 50 );
+		} );
+		expect( body.scrollTop ).toBe( 200 );
+		// The browser scrolled it natively within the frame: no second scroll.
+		wheel( body, 100, { cancelable: false } );
+		body.scrollTop = 300;
+		act( () => {
+			jest.advanceTimersByTime( 50 );
+		} );
+		expect( body.scrollTop ).toBe( 300 );
+	} );
+
+	it( 'leaves pinch-zoom alone', () => {
+		render();
+		expect( wheel( dialog(), 100, { ctrlKey: true } ).defaultPrevented ).toBe( false );
+	} );
+
+	it( 'stops after the popup closes', () => {
+		render();
+		act( () => {
+			dialog().querySelector( '.nx-exit-intent-close' ).click();
+		} );
+		expect( wheel( document.body, 200 ).defaultPrevented ).toBe( false );
+	} );
+} );
+
 describe( 'Block assets', () => {
 	it( 'does not fetch anything when the page already has them', () => {
 		document.body.classList.add( 'nx-block-assets-9' );
