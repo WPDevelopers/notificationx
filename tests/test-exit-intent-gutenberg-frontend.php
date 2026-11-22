@@ -68,6 +68,20 @@ class Test_Exit_Intent_Gutenberg_Frontend extends WP_UnitTestCase {
 		$this->assertSame( get_permalink( $id ), $settings['gutenberg_url'] );
 	}
 
+	public function test_the_design_ships_its_own_layout_css() {
+		$id       = $this->design( 'theme-three' );
+		$settings = apply_filters( 'nx_filtered_post', $this->settings( $id ), array() );
+		$html     = $settings['gutenberg_html'];
+		$this->assertStringStartsWith( '<style class="nx-exit-intent-gutenberg-layout">', $html );
+		preg_match( '/class="wp-block-group[^"]*\b(wp-container-core-group-is-layout-[a-z0-9]+)/', $html, $m );
+		$this->assertNotEmpty( $m, 'The outer group has its container class.' );
+		$this->assertMatchesRegularExpression( '/\.' . preg_quote( $m[1], '/' ) . '[^{]*\{[^}]*max-width:\s*760px/', $html, 'Its content width (760px) is in the shipped CSS, so a block theme\'s global width cannot win.' );
+	}
+
+	public function test_no_layout_style_without_layout_classes() {
+		$this->assertSame( '', GutenbergDesign::layout_styles( '<p class="plain">x</p>' ) );
+	}
+
 	public function test_builder_only_keys_never_reach_visitors() {
 		$id       = $this->design();
 		$settings = apply_filters( 'nx_filtered_post', $this->settings( $id ), array() );

@@ -330,6 +330,42 @@ class GutenbergDesign {
     }
 
     /**
+     * The layout CSS core generated while rendering the design (container
+     * widths, flex gaps, element colours: `.wp-container-…`, `.wp-elements-…`),
+     * as a `<style>` to ship with the popup HTML. Block themes print these
+     * rules before NotificationX's asset pass runs, and cached pages, the
+     * Preview and share links have none, so without it a design falls back to
+     * the theme's global content width.
+     *
+     * @param string $html Rendered design.
+     * @return string `<style>…</style>` or ''.
+     */
+    public static function layout_styles( $html ) {
+        if ( ! class_exists( '\WP_Style_Engine_CSS_Rules_Store' ) || ! class_exists( '\WP_Style_Engine' ) || ! method_exists( '\WP_Style_Engine', 'compile_stylesheet_from_css_rules' ) ) {
+            return '';
+        }
+        if ( ! preg_match_all( '/\b(wp-container-[a-z0-9-]+|wp-elements-[a-z0-9-]+)\b/', $html, $m ) ) {
+            return '';
+        }
+        $classes = array_unique( $m[1] );
+        $rules   = [];
+        foreach ( \WP_Style_Engine_CSS_Rules_Store::get_store( 'block-supports' )->get_all_rules() as $rule ) {
+            $selector = $rule->get_selector();
+            foreach ( $classes as $class ) {
+                if ( preg_match( '/\.' . preg_quote( $class, '/' ) . '(?![a-z0-9-])/', $selector ) ) {
+                    $rules[] = $rule;
+                    break;
+                }
+            }
+        }
+        if ( ! $rules ) {
+            return '';
+        }
+        $css = \WP_Style_Engine::compile_stylesheet_from_css_rules( $rules );
+        return '' === trim( (string) $css ) ? '' : '<style class="nx-exit-intent-gutenberg-layout">' . str_replace( '<', '', $css ) . '</style>';
+    }
+
+    /**
      * Width and corner radius of the popup, read from the design's outer Group
      * block ("Content width" and border radius in the block editor).
      *
@@ -379,8 +415,9 @@ class GutenbergDesign {
         if ( ! $post ) {
             return $settings;
         }
+        $html                         = self::render( $post->post_content );
         $settings['mode']             = 'gutenberg';
-        $settings['gutenberg_html']   = self::render( $post->post_content );
+        $settings['gutenberg_html']   = self::layout_styles( $html ) . $html;
         $settings['gutenberg_layout'] = self::layout( $post->post_content );
         $settings['gutenberg_url']    = get_permalink( $post );
         return $settings;
