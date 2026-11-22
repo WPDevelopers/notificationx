@@ -1,6 +1,6 @@
 # Exit Intent Popup: Build With Gutenberg
 
-**Version:** Free 3.4.2 / Pro 3.3.2. The code says `@since x.x.x`.
+**Version:** available from Free 3.4.2. The code says `@since x.x.x`.
 
 An Exit Intent popup can be designed in the block editor, as an alternative to a built-in theme or an Elementor design. It mirrors the Notification Bar's Gutenberg option without changing the bar's code. Exit Intent's Elementor option is also unchanged.
 

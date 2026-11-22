@@ -1,6 +1,6 @@
 # QA: Exit Intent "Build With Gutenberg"
 
-**Version:** Free 3.4.2 / Pro 3.3.2. All the code is in Free; Pro has no change.
+**Version:** available from Free 3.4.2. All the code is in Free; Pro has no change.
 
 **What changed.** Exit Intent → Design → Themes → Custom can now build the popup with the block editor:
 - four starting designs;

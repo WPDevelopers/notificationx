@@ -87,7 +87,7 @@ date as UTC ms) for the end-date option and the Pro countdown themes.
 
 ### Build With Gutenberg
 
-Since Free 3.4.2 / Pro 3.3.2, the Custom tab also offers **Build With Gutenberg**: one of four starting designs is imported as an `nx_exit_intent_eb` post, edited in the block editor and linked through `gutenberg_id`. `GutenbergDesign::inject_gutenberg_html()` (on `nx_filtered_post`, priority 11, after the Elementor filter) sets `mode: 'gutenberg'` with the rendered `gutenberg_html`, and `ExitIntentPopup.tsx` hands it to `ExitIntentGutenberg.tsx`. One builder at a time; the Elementor path is unchanged. Details, lifecycle and limits: [../features/exit-intent/gutenberg/README.md](../features/exit-intent/gutenberg/README.md).
+Available from Free 3.4.2, the Custom tab also offers **Build With Gutenberg**: one of four starting designs is imported as an `nx_exit_intent_eb` post, edited in the block editor and linked through `gutenberg_id`. `GutenbergDesign::inject_gutenberg_html()` (on `nx_filtered_post`, priority 11, after the Elementor filter) sets `mode: 'gutenberg'` with the rendered `gutenberg_html`, and `ExitIntentPopup.tsx` hands it to `ExitIntentGutenberg.tsx`. One builder at a time; the Elementor path is unchanged. Details, lifecycle and limits: [../features/exit-intent/gutenberg/README.md](../features/exit-intent/gutenberg/README.md).
 
 ## Fields & settings
 
