@@ -35,7 +35,7 @@ const VC_SLUG_RE = /^vc-[a-z]+$/;
 
 /**
  * The built-in slugs plus the ones add-ons register through the
- * `nx_frontend_vc_slugs` filter (free 3.3.9+). The filter gets a copy of
+ * `nx_frontend_vc_slugs` filter (free 3.4.0+). The filter gets a copy of
  * VC_SLUGS and returns the list with its own slugs appended. An add-on cannot
  * remove a built-in slug, and an entry that is not a `vc-<word>` string is
  * dropped. An add-on that adds a slug renders its card through

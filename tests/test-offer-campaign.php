@@ -60,7 +60,7 @@ class Test_Offer_Campaign extends WP_UnitTestCase {
 		// A free site, whether or not the test run loaded NotificationX Pro.
 		add_filter( 'nx_offer_pointer_pro_active', '__return_false' );
 		wp_set_current_user( $this->admin );
-		set_current_screen( 'dashboard' );
+		set_current_screen( 'toplevel_page_nx-admin' );
 
 		// Core registers `wp-pointer` on every admin request. An earlier test may have replaced
 		// the global style registry, and an unregistered handle is never queued.
@@ -270,12 +270,12 @@ class Test_Offer_Campaign extends WP_UnitTestCase {
 		$this->assertSame( '_wpdeveloper_plugin_pointer_priority', OfferPointer::PRIORITY_OPTION );
 	}
 
-	public function test_the_pointer_shows_on_the_dashboard_and_notificationx_pages_only() {
-		foreach ( array( 'dashboard', 'toplevel_page_nx-admin', 'notificationx_page_nx-dashboard', 'notificationx_page_nx-edit', 'notificationx_page_nx-settings', 'notificationx_page_nx-analytics' ) as $screen ) {
+	public function test_the_pointer_shows_on_notificationx_pages_only() {
+		foreach ( array( 'toplevel_page_nx-admin', 'notificationx_page_nx-dashboard', 'notificationx_page_nx-edit', 'notificationx_page_nx-settings', 'notificationx_page_nx-analytics' ) as $screen ) {
 			$this->assertTrue( OfferPointer::is_screen( $screen ), $screen );
 		}
 
-		foreach ( array( 'plugins', 'edit-post', 'options-general', 'users', 'dashboard-network', 'toplevel_page_nx-admin-network', 'notificationx', '' ) as $screen ) {
+		foreach ( array( 'dashboard', 'plugins', 'edit-post', 'options-general', 'users', 'dashboard-network', 'toplevel_page_nx-admin-network', 'notificationx', '' ) as $screen ) {
 			$this->assertFalse( OfferPointer::is_screen( $screen ), $screen );
 		}
 	}
@@ -350,13 +350,14 @@ class Test_Offer_Campaign extends WP_UnitTestCase {
 	// ---------------------------------------------------------------------
 
 	public function test_an_administrator_gets_the_pointer_during_the_campaign() {
-		$this->assertTrue( OfferPointer::is_due( 'dashboard', $this->during ) );
+		$this->assertTrue( OfferPointer::is_due( 'toplevel_page_nx-admin', $this->during ) );
 		$this->assertTrue( OfferPointer::is_due( 'toplevel_page_nx-admin', $this->during ) );
 	}
 
 	public function test_the_pointer_is_not_due_outside_the_dates_or_on_another_screen() {
-		$this->assertFalse( OfferPointer::is_due( 'dashboard', $this->after ) );
-		$this->assertFalse( OfferPointer::is_due( 'dashboard', (int) strtotime( '12:00:00pm 1st November, 2026' ) ) );
+		$this->assertFalse( OfferPointer::is_due( 'toplevel_page_nx-admin', $this->after ) );
+		$this->assertFalse( OfferPointer::is_due( 'toplevel_page_nx-admin', (int) strtotime( '12:00:00pm 1st November, 2026' ) ) );
+		$this->assertFalse( OfferPointer::is_due( 'dashboard', $this->during ) );
 		$this->assertFalse( OfferPointer::is_due( 'edit-post', $this->during ) );
 		$this->assertFalse( OfferPointer::is_due( 'plugins', $this->during ) );
 	}
@@ -365,7 +366,7 @@ class Test_Offer_Campaign extends WP_UnitTestCase {
 		remove_all_filters( 'nx_offer_pointer_pro_active' );
 		add_filter( 'nx_offer_pointer_pro_active', '__return_true' );
 
-		$this->assertFalse( OfferPointer::is_due( 'dashboard', $this->during ) );
+		$this->assertFalse( OfferPointer::is_due( 'toplevel_page_nx-admin', $this->during ) );
 		$this->assertFalse( OfferPointer::enqueue( $this->during ) );
 		$this->assertFalse( wp_script_is( OfferPointer::SCRIPT_HANDLE, 'enqueued' ) );
 		$this->assertFalse( get_option( OfferPointer::PRIORITY_OPTION ) );
@@ -374,7 +375,7 @@ class Test_Offer_Campaign extends WP_UnitTestCase {
 	public function test_a_user_who_cannot_manage_options_never_gets_the_pointer() {
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'editor' ) ) );
 
-		$this->assertFalse( OfferPointer::is_due( 'dashboard', $this->during ) );
+		$this->assertFalse( OfferPointer::is_due( 'toplevel_page_nx-admin', $this->during ) );
 		$this->assertFalse( OfferPointer::enqueue( $this->during ) );
 	}
 
@@ -428,13 +429,13 @@ class Test_Offer_Campaign extends WP_UnitTestCase {
 		OfferPointer::record_dismissal( $this->admin );
 
 		$this->assertTrue( OfferPointer::is_dismissed( $this->admin ) );
-		$this->assertFalse( OfferPointer::is_due( 'dashboard', $this->during ) );
+		$this->assertFalse( OfferPointer::is_due( 'toplevel_page_nx-admin', $this->during ) );
 		$this->assertNotSame( OfferPointer::PRIORITY, (int) get_option( OfferPointer::PRIORITY_OPTION ) );
 		$this->assertTrue( OfferPointer::may_take_slot( get_option( OfferPointer::PRIORITY_OPTION ) ) );
 
 		// Another administrator has not dismissed it.
 		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
-		$this->assertTrue( OfferPointer::is_due( 'dashboard', $this->during ) );
+		$this->assertTrue( OfferPointer::is_due( 'toplevel_page_nx-admin', $this->during ) );
 	}
 
 	public function test_a_dismissal_never_releases_another_plugins_slot() {

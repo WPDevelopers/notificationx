@@ -40,7 +40,87 @@ class GlobalFields {
         // After the type/extension template filters (priority 7-10), like the
         // Cart Peek Type that used to add this rule from free.
         add_filter( 'nx_notification_template', [ $this, 'verb_field_rule' ], 20 );
+        // Build With AI upsell for the types Pro builds with AI. After Exit
+        // Intent's own design tabs (priority 100), like Pro's own tab.
+        add_filter( 'nx_design_tab_fields', [ $this, 'build_with_ai_upsell_tab' ], 101 );
+        add_filter( 'nx_quick_builder_tabs', [ $this, 'build_with_ai_upsell_quick_builder' ] );
         // dump(Rules::logicalRule([ Rules::is('test'), Rules::is('test2') ]));
+    }
+
+    /**
+     * The design tab that holds Build With AI for Announcement, Sales, Reviews
+     * and WooCommerce. NotificationX Pro 3.3.0+ adds the same tab with its
+     * panel; it uses this name too.
+     *
+     * @since 3.4.0
+     */
+    const AI_TYPES_TAB = 'nx_type_build_with_ai';
+
+    /**
+     * Notification types with Build With AI in NotificationX Pro.
+     *
+     * @since 3.4.0
+     */
+    const AI_TYPES = [ 'popup', 'conversions', 'reviews', 'woocommerce_sales' ];
+
+    /**
+     * Without Pro, adds the Build With AI tab next to For Desktop / For Mobile
+     * for the types Pro builds with AI, showing the same "Pro only" notice as
+     * the Notification Bar and Exit Intent tabs (field `nxbar-build_with_ai`).
+     * With Pro active, Pro adds its own tab (Pro 3.3.0+) or none (older Pro),
+     * so nothing is added here.
+     *
+     * @since 3.4.0
+     * @param array $fields Design tab fields.
+     * @return array
+     */
+    public function build_with_ai_upsell_tab( $fields ) {
+        if ( NotificationX::is_pro() || empty( $fields['themes']['fields']['themes_section']['fields']['themes_tab']['fields'] ) ) {
+            return $fields;
+        }
+        $fields['themes']['fields']['themes_section']['fields']['themes_tab']['fields'][] = [
+            'label'  => __( 'Build With AI', 'notificationx' ),
+            'name'   => self::AI_TYPES_TAB,
+            'id'     => self::AI_TYPES_TAB,
+            'type'   => 'section',
+            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/icons/build-with-ai-icon.svg',
+            'rules'  => Rules::includes( 'type', self::AI_TYPES ),
+            'fields' => [
+                self::AI_TYPES_TAB => [
+                    'label'   => __( 'Build With AI', 'notificationx' ),
+                    'name'    => self::AI_TYPES_TAB,
+                    'id'      => self::AI_TYPES_TAB,
+                    'type'    => 'section',
+                    // The Exit Intent section's class, so the notice gets the same card styles.
+                    'classes' => 'exit_intent_ai_tab',
+                    'fields'  => [
+                        self::AI_TYPES_TAB . '_fields' => [
+                            'name'     => self::AI_TYPES_TAB . '_fields',
+                            'type'     => 'nxbar-build_with_ai',
+                            'label'    => __( 'Build With AI', 'notificationx' ),
+                            'priority' => 10,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        return $fields;
+    }
+
+    /**
+     * Quick Builder hides fields it doesn't list; lists the upsell tab
+     * (without Pro, when it is added).
+     *
+     * @since 3.4.0
+     * @param array $config Quick Builder config.
+     * @return array
+     */
+    public function build_with_ai_upsell_quick_builder( $config ) {
+        if ( ! NotificationX::is_pro() && isset( $config['show'] ) && is_array( $config['show'] ) ) {
+            $config['show'][] = self::AI_TYPES_TAB;
+            $config['show'][] = self::AI_TYPES_TAB . '_fields';
+        }
+        return $config;
     }
 
     /**
@@ -89,7 +169,7 @@ class GlobalFields {
          * built-in keys are always kept, and an entry that is not a
          * `<prefix>_vc-<word>` string is dropped.
          *
-         * @since 3.3.9
+         * @since 3.4.0
          * @param string[] $keys Full theme keys, e.g. 'conversions_vc-receipt'.
          */
         $filtered = apply_filters( 'nx_vc_theme_keys', $keys );

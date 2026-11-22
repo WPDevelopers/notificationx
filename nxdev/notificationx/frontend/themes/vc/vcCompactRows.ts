@@ -9,7 +9,7 @@ import { nxApplyListFilter } from "../../core/hooks";
  *
  * The rows follow theme-one: "name + action", "product", "time". An add-on
  * slug (nx_frontend_vc_slugs) gets the rows its `nx_frontend_vc_compact_rows`
- * filter returns (free 3.3.9+); any other slug, or a filter that returns no
+ * filter returns (free 3.4.0+); any other slug, or a filter that returns no
  * array, gets its slots back unchanged.
  */
 const vcCompactRows = (themeName: string, slots: string[]): string[] => {
