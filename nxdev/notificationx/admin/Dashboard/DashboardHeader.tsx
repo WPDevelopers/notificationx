@@ -8,10 +8,12 @@ import { syncSidebar } from '../../components/Header';
 
 // Logo and plugin name, used by the Dashboard and the notification builder.
 // Other pages use the menu bar in `Header`.
-const DashboardHeader = ({ context, sidebarPage = 'nx-dashboard', showAddNew = true }: {
+// `showActions={false}` (the builder) leaves out Documentation and Add New.
+const DashboardHeader = ({ context, sidebarPage = 'nx-dashboard', showAddNew = true, showActions = true }: {
     context: any;
     sidebarPage?: string;
     showAddNew?: boolean;
+    showActions?: boolean;
 }) => {
     const version = context?.version;
     const proVersion = typeof context?.pro_version === 'string' && context.pro_version ? context.pro_version : null;
@@ -43,16 +45,18 @@ const DashboardHeader = ({ context, sidebarPage = 'nx-dashboard', showAddNew = t
                         </span>
                     ) }
                 </div>
-                <a
-                    className="nx-button nx-button--secondary"
-                    href="https://notificationx.com/docs/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <NxIcon name="book" size={16} />
-                    { __('Documentation', 'notificationx') }
-                </a>
-                { showAddNew && !context?.createRedirect && (
+                { showActions && (
+                    <a
+                        className="nx-button nx-button--secondary"
+                        href="https://notificationx.com/docs/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <NxIcon name="book" size={16} />
+                        { __('Documentation', 'notificationx') }
+                    </a>
+                ) }
+                { showActions && showAddNew && !context?.createRedirect && (
                     <Link className="nx-button nx-button--primary nx-add-new-btn" to={ { pathname: '/admin.php', search: '?page=nx-edit' } }>
                         <NxIcon name="plus" size={16} strokeWidth={2.25} />
                         { __('Add New', 'notificationx') }

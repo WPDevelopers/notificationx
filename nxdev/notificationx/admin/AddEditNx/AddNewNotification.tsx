@@ -81,7 +81,7 @@ const AddNewNotification = (props) => {
         <BuilderProvider value={builder}>
             <div className="nx-builder-page" style={builderLogoVars(notificationxContext?.assets?.admin)}>
                 <div className="nx-dash nx-dash--header-only">
-                    <DashboardHeader context={notificationxContext} sidebarPage="nx-edit" showAddNew={false} />
+                    <DashboardHeader context={notificationxContext} sidebarPage="nx-edit" showActions={false} />
                 </div>
                 <WrapperWithLoader isLoading={isLoading}>
                     <CreateNx setIsLoading={setIsLoading} title={title} setTitle={setTitle} />

@@ -73,7 +73,7 @@ const EditNotification = (props) => {
             <div className="nx-builder-page" style={builderLogoVars(notificationxContext?.assets?.admin)}>
                 <div className="nx-dash nx-dash--header-only">
                     {/* Editing belongs to "All NotificationX" in the WordPress menu. */}
-                    <DashboardHeader context={notificationxContext} sidebarPage="nx-admin" />
+                    <DashboardHeader context={notificationxContext} sidebarPage="nx-admin" showActions={false} />
                 </div>
                 {isUpdated === 'saved' && !isLoading && <Notice message={__("Successfully Updated.", 'notificationx')} />}
                 {isUpdated === 'published' && !isLoading && <Notice message={__("Successfully Created.", 'notificationx')} />}

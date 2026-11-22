@@ -126,7 +126,157 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
     }
 }
 
+// Rows of a form card: label and field share one 40px line, so labels sit
+// level with their input; help text goes under the field.
+@mixin nx-field-rows {
+    > .wprf-control-wrapper.wprf-inline-label {
+        align-items: flex-start;
+
+        > .wprf-badge-wrapper {
+            align-items: flex-start;
+        }
+
+        > .wprf-control-label,
+        > .wprf-badge-wrapper > .wprf-control-label {
+            margin: 0;
+            align-items: center;
+
+            label {
+                margin: 0;
+            }
+
+            // Info icon on the label's line (it has no height of its own)
+            .wprf-info {
+                align-self: center;
+                height: 16px;
+                margin-left: 6px;
+                // Beats a legacy `translate(10px, -8px) !important` nudge
+                transform: none !important;
+            }
+        }
+
+        > .wprf-control-field,
+        > .wprf-badge-wrapper > .wprf-control-field {
+            align-items: center;
+            flex-wrap: wrap;
+            min-height: 40px;
+        }
+
+
+        // One label column for every card, wide enough for the info icon
+        @container nx-builder (min-width: 641px) {
+            > .wprf-control-label,
+            > .wprf-badge-wrapper > .wprf-control-label {
+                flex: 0 0 220px;
+                max-width: 220px;
+                min-height: 40px;
+                padding-right: 16px;
+                box-sizing: border-box;
+            }
+
+            > .wprf-control-field,
+            > .wprf-badge-wrapper > .wprf-control-field {
+                flex: 1 1 0;
+                min-width: 0;
+            }
+
+            > .wprf-badge-wrapper {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+        }
+
+        // A checkbox's help reads as its caption, on the same line
+        &.wprf-type-checkbox .wprf-control-field > .wprf-help {
+            flex: 1 1 0;
+            min-width: 0;
+            margin: 0;
+            font-size: 13px;
+            line-height: 20px;
+        }
+
+        &:not(.wprf-type-checkbox) .wprf-control-field {
+            > .wprf-help {
+                flex: 0 0 100%;
+                margin: 6px 0 0;
+                font-size: 13px;
+                line-height: 18px;
+
+                mark {
+                    padding: 0;
+                    background: none;
+                    color: $nx-primary;
+                    font-weight: 500;
+                }
+            }
+
+            .wprf-select-wrapper,
+            .wprf-async-select-wrapper {
+                width: 100%;
+                max-width: 400px;
+                margin-right: 0;
+            }
+        }
+
+        // Unit after a number ("px", "seconds", "conversions"). "Days" sits
+        // inside its input and keeps its own layout.
+        &:not(.wprf-name-display_from) .wprf-control-field > span + .wprf-description {
+            margin: 0 0 0 2px;
+            font-size: 13px;
+            line-height: 20px;
+            color: $nx-muted;
+        }
+
+        // Text inputs as wide as the selects (not those with a unit after them)
+        &.wprf-type-text .wprf-control-field:not(:has(> .wprf-description)) > span:first-child {
+            flex: 1 1 auto;
+            max-width: 400px;
+
+            input {
+                width: 100%;
+                margin: 0;
+            }
+        }
+    }
+
+    // "Desktop / Tablet / Mobile" checkbox rows
+    > .wprf-control-section.close_button_control {
+        align-items: flex-start;
+
+        > .wprf-section-title {
+            min-height: 40px;
+            margin: 0;
+            align-items: center;
+
+            @container nx-builder (min-width: 641px) {
+                flex: 0 0 220px;
+                max-width: 220px;
+                padding-right: 16px;
+                box-sizing: border-box;
+            }
+        }
+
+        > .wprf-section-fields {
+            flex: 1 1 0;
+            min-width: 0;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px 24px;
+            min-height: 40px;
+
+            > .wprf-control-wrapper {
+                margin: 0;
+            }
+        }
+    }
+}
+
+// Same page width as the Dashboard and All NotificationX
 .nx-builder-page {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+
     .nx-icon {
         flex: none;
         display: block;
@@ -150,6 +300,12 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
         flex: 1 1 auto;
         min-width: 0;
         container: nx-builder / inline-size;
+    }
+
+    // The step's form column (beside the step rail), for rules that depend on
+    // the card width
+    .wp-react-form.wprf-tabs-wrapper.wprf-tab-menu-as-sidebar > .wprf-tab-content-wrapper > .wprf-tab-flex {
+        container: nx-form / inline-size;
     }
 
     .nx-admin-wrapper .nx-admin-sidebar {
@@ -589,7 +745,8 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
                 }
 
                 // A section whose only field is its on/off switch (shown in the title row)
-                &:has(> .wprf-section-fields > .wprf-control-wrapper.wprf-type-toggle:only-child) {
+                // ("Advanced Template" is a labelled field, not a title switch)
+                &:has(> .wprf-section-fields > .wprf-control-wrapper.wprf-type-toggle:only-child:not(.wprf-name-template_adv)) {
                     > .wprf-section-title {
                         border-bottom-color: transparent;
                     }
@@ -756,6 +913,219 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
         }
     }
 
+    // Step cards (Content, Display, Customize, ...): aligned rows, even gaps.
+    // Themes and Advanced Design lay out their own fields (Design step).
+    .wprf-tab-content > .wprf-control-section:not(.themes):not(.advance_design_section) > .wprf-section-fields {
+        @include nx-field-rows;
+
+        > .wprf-control-wrapper,
+        > .wprf-control-section {
+            margin-top: 0;
+
+            &:not(:last-child) {
+                margin-bottom: 16px;
+            }
+        }
+
+        // Plain nested groups (e.g. the Notification Bar text editor). The
+        // hour/minute, bar-position and schedule groups keep their own layout.
+        > .wprf-control-section:not(.close_button_control):not(#hour_minutes_section):not(#close_button_section):not(.schedule) > .wprf-section-fields {
+            @include nx-field-rows;
+        }
+    }
+
+    // Days / Hours / Minutes: fixed widths so the value stays readable. A
+    // legacy rule shrinks them to 100px under 1150px, leaving 30px beside the
+    // unit; `!important` beats its deeper selectors.
+    .wprf-tab-content {
+        .wprf-name-display_from .wprf-control-field {
+            flex: none !important;
+            width: 150px !important;
+
+            input {
+                width: 100% !important;
+                max-width: none !important;
+            }
+        }
+
+        #hour_minutes_section {
+            .wprf-name-display_from_hour,
+            .wprf-name-display_from_minute {
+                .wprf-control-field {
+                    flex: none !important;
+                    width: 120px !important;
+                    max-width: none !important;
+                }
+
+                input {
+                    width: 100% !important;
+                    max-width: none !important;
+                }
+            }
+
+            > .wprf-section-fields {
+                gap: 12px !important;
+            }
+        }
+    }
+
+    // Hours / Minutes sit beside "Days". JS (core/functions.ts
+    // updateGeneratedCSS) places the group: absolute from 960px, otherwise in
+    // the flow with a 25% indent. Both assumed the old label width.
+    // The row needs a form column of about 690px; a narrower one puts
+    // Hours / Minutes on the next line under "Days".
+    @container nx-form (min-width: 690px) {
+        .wprf-tab-content #hour_minutes_section {
+            @media only screen and (min-width: 960px) {
+                // card padding + label column + "Days" input + gap
+                left: 24px + 220px + 150px !important;
+            }
+
+            @media only screen and (max-width: 959px) {
+                left: auto !important;
+                margin: 10px 0 0 220px !important;
+            }
+        }
+    }
+
+    @container nx-form (max-width: 689px) {
+        .wprf-tab-content #hour_minutes_section {
+            position: static !important;
+            margin: 10px 0 0 220px !important;
+        }
+    }
+
+    @container nx-builder (max-width: 640px) {
+        .wprf-tab-content #hour_minutes_section {
+            position: static !important;
+            margin: 10px 0 0 !important;
+        }
+
+        // "Desktop / Tablet / Mobile" rows: title above the checkboxes
+        .wprf-tab-content .wprf-control-section.close_button_control {
+            flex-direction: column;
+            align-items: stretch;
+
+            > .wprf-section-title {
+                min-height: 0;
+                margin: 0 0 10px;
+            }
+
+            > .wprf-section-fields {
+                min-height: 0;
+            }
+        }
+    }
+
+    // "Days", "Hours", "Minutes" sit inside their inputs; same border as
+    // the other inputs
+    .wprf-tab-content {
+        .wprf-name-display_from,
+        .wprf-name-display_from_hour,
+        .wprf-name-display_from_minute {
+            .wprf-control-field input {
+                border-color: $nx-input-border;
+            }
+        }
+    }
+
+    // Rich text editor (Notification Bar content): one bordered box with a
+    // light toolbar. No overflow clipping, its dropdowns open outside.
+    .wprf-tab-content .wprf-type-nx-editor .rdw-editor-wrapper {
+        width: 100%;
+        background: #fff;
+        border: 1px solid $nx-input-border;
+        border-radius: 10px;
+        box-shadow: $nx-shadow;
+
+        .rdw-editor-toolbar {
+            margin: 0;
+            padding: 6px 8px 1px;
+            background: #f9fafb;
+            border: 0;
+            border-bottom: 1px solid $nx-border;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .rdw-option-wrapper {
+            min-width: 30px;
+            height: 30px;
+            padding: 0 6px;
+            box-sizing: border-box;
+            background: transparent;
+            border: 0;
+            border-radius: 6px;
+            box-shadow: none;
+
+            &:hover {
+                background: #fff;
+                box-shadow: $nx-shadow;
+            }
+
+            &.rdw-option-active {
+                background: $nx-primary-soft;
+                box-shadow: inset 0 0 0 1px $nx-primary-border;
+            }
+        }
+
+        .rdw-dropdown-wrapper {
+            height: 30px;
+            background: #fff;
+            border: 1px solid $nx-border;
+            border-radius: 6px;
+
+            &:hover {
+                box-shadow: $nx-shadow;
+            }
+        }
+
+        .wprf-editor-main {
+            min-height: 140px;
+            padding: 8px 14px;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            color: $nx-ink;
+            font-size: 14px;
+        }
+    }
+
+    // Notification Template: its parts in an even two-column grid
+    .wprf-tab-content .wprf-name-notification-template .wprf-group-control-inner.wprf-display-inline {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        max-width: 400px;
+        margin: 0;
+
+        > .wprf-control-wrapper {
+            width: auto;
+            min-width: 0;
+            margin: 0;
+            padding: 0;
+
+            > .wprf-control-field {
+                width: 100%;
+
+                > span,
+                .wprf-select-wrapper,
+                input {
+                    width: 100%;
+                    max-width: none;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    // "IMAGE" card title in the same case as the other titles
+    #display_tab > .wprf-control-section.image-section > .wprf-section-title h4 {
+        text-transform: lowercase;
+
+        &::first-letter {
+            text-transform: uppercase;
+        }
+    }
+
     // Narrow form: labels sit above their fields, so fields take the full row
     @container nx-builder (max-width: 640px) {
         .wprf-tab-content .wprf-control-wrapper.wprf-inline-label {
@@ -763,6 +1133,12 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
             > .wprf-badge-wrapper > .wprf-control-field {
                 align-self: stretch;
                 width: 100%;
+            }
+
+            // Except a card's on/off switch, which stays in the title row
+            &.wprf-name-advance_edit > .wprf-control-field {
+                align-self: auto;
+                width: auto;
             }
 
             .wprf-select-wrapper,
@@ -1424,21 +1800,64 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
             }
         }
 
-        .wprf-control-section.themes > .wprf-section-fields > .wprf-control-wrapper.wprf-name-themes {
-            padding: 20px 24px 24px;
+        // Theme grids (desktop and mobile): one even gap from the tabs to the
+        // card edge, nothing extra under the last row
+        .wprf-control-section.themes > .wprf-section-fields .wprf-control-wrapper {
+            &.wprf-name-themes,
+            &.wprf-name-responsive_themes {
+                margin: 0;
+                padding: 16px 24px 24px;
+            }
+
+            // Mobile tab: "Enable Mobile Responsive" sits under its grid
+            &.wprf-name-responsive_themes:not(:last-child) {
+                padding-bottom: 16px;
+            }
+
+            &.wprf-name-is_mobile_responsive {
+                margin: 0;
+                padding: 0 24px 24px;
+            }
+        }
+
+        .wprf-control-section.themes > .wprf-section-fields .wp-react-form.wprf-tabs-wrapper > .wprf-tab-menu-wrapper {
+            padding-top: 16px;
         }
 
         #themes_section {
             margin-bottom: 0;
         }
 
+        // Mobile themes locked behind Pro: a light veil and one clear button
+        .wprf-control-section.pro-deactivated.responsive_themes {
+            .wprf-name-responsive_themes .wprf-control-field .wprf-control::before {
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 0 0 $nx-radius $nx-radius;
+            }
+
+            .res_get_pro_btn.wprf-name-res_get_pro_btn a {
+                min-height: 40px;
+                padding: 0 20px;
+                font-size: 14px;
+                font-weight: 600;
+                border-radius: 8px;
+                background: $nx-primary;
+                box-shadow: 0 8px 20px -6px rgba(106, 75, 255, 0.5);
+
+                &:hover {
+                    background: darken($nx-primary, 6%);
+                }
+            }
+        }
+
         // Theme cards: the preview on a soft canvas
-        .wprf-name-themes .wprf-control.wprf-radio-card {
+        .wprf-name-themes .wprf-control.wprf-radio-card,
+        .wprf-name-responsive_themes .wprf-control.wprf-radio-card {
             .wprf-row {
-                margin: -8px;
+                margin: -6px;
 
                 .wprf-column {
-                    padding: 8px;
+                    padding: 6px;
                     box-sizing: border-box;
                 }
             }
@@ -1448,8 +1867,8 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    min-height: 96px;
-                    padding: 16px;
+                    min-height: 80px;
+                    padding: 10px 12px;
                     box-sizing: border-box;
                     background: #f9fafb;
                     border: 1px solid $nx-border;
@@ -1457,10 +1876,13 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
                     box-shadow: none;
                     transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
 
+                    // Capped height keeps every row short on wide screens
                     img {
                         display: block;
+                        width: auto;
                         max-width: 100%;
                         height: auto;
+                        max-height: 64px;
                         margin: 0 auto;
                         border-radius: 6px;
                     }
@@ -1540,8 +1962,55 @@ $nx-icon-default: nx-mask("%3Ccircle cx='12' cy='12' r='9'/%3E");
                     background: transparent;
                     border-radius: 0;
 
-                    > .wprf-control-wrapper:not(:last-child) {
-                        margin-bottom: 16px;
+                    > .wprf-control-wrapper {
+                        margin: 0;
+
+                        + .wprf-control-wrapper {
+                            margin-top: 14px;
+                        }
+                    }
+
+                    @include nx-field-rows;
+
+                    // Custom CSS: label on its own line, editor full width
+                    > .wprf-control-wrapper.wprf-name-add_custom_css {
+                        flex-direction: column;
+                        align-items: stretch;
+
+                        > .wprf-badge-wrapper {
+                            flex-direction: column;
+                            align-items: stretch;
+                            width: 100%;
+
+                            > .wprf-control-label {
+                                position: relative;
+                                flex: none;
+                                width: 100%;
+                                max-width: none;
+                                min-height: 24px;
+                                margin: 0 0 10px;
+                                padding: 0;
+
+                                .wprf-badge {
+                                    top: 50%;
+                                    left: auto;
+                                    right: 0;
+                                    margin: 0;
+                                    transform: translateY(-50%);
+                                }
+                            }
+
+                            > .wprf-control-field {
+                                width: 100%;
+                                min-height: 0;
+                            }
+                        }
+
+                        .wprf-code-viewer,
+                        .wprf-code-viewer textarea {
+                            width: 100%;
+                            margin-right: 0;
+                        }
                     }
                 }
             }
