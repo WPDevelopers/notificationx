@@ -121,3 +121,17 @@
         }
     }
 }
+// Announcement (popup) hides its whole design sub-tab bar and content
+// (_notificationx_add_item.scss). When the Build With AI tab is there (the
+// free upsell, Extensions/GlobalFields.php, or NotificationX Pro's panel),
+// show the bar with "For Desktop" and "Build With AI"; "For Mobile" stays
+// hidden. Scoped with :has(), so nothing changes when there is no such tab.
+#notificationx .popup_notification #design_tab #themes_section .wprf-section-fields .wprf-tabs-wrapper:has(.wprf-tab-nav-item[data-key="nx_type_build_with_ai"]) {
+    .wprf-tab-menu-wrapper.popup_notification,
+    .wprf-tab-content-wrapper.popup_notification {
+        display: block;
+    }
+    .wprf-tab-nav-item[data-key="for_mobile"] {
+        display: none;
+    }
+}
