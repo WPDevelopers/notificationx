@@ -71,7 +71,7 @@ How it works: [../features/exit-intent/gutenberg/README.md](../features/exit-int
   - the popup is the screen width minus 32 px;
   - the × sits inside the card's top corner, fully visible, about 44 px;
   - design 3 stacks the image on top.
-- Long content: add blocks until the design is taller than the window. Expected: it scrolls inside the popup; the page behind doesn't scroll.
+- Long content: add blocks until the design is taller than the window. Expected: the wheel scrolls the design inside the popup to its end. The page behind stays still where the browser lets the popup cancel wheel events. On the test store (Storefy) it can't, and the page behind moves too; the popup still scrolls.
 
 **T9. Touch device.**
 - On a phone or touch emulation, with "Disable on mobile" on (the default): no popup.
@@ -93,7 +93,7 @@ How it works: [../features/exit-intent/gutenberg/README.md](../features/exit-int
 - Steps: a Notification Bar with Build With Gutenberg.
 - Expected: the modal, editor and live bar as before.
 
-**T13. Builder Preview and share link.** Exit Intent campaign with a block design → Preview.
+**T13. Builder Preview and share link.** Exit Intent campaign with a block design → Preview. (Share links need a site reachable from outside; on a site that runs only on your computer the Share menu says so and creates nothing.)
 - Expected:
   - the design shows styled (desktop, tablet, phone buttons), also after "Page" picks another page and in "Open in new tab";
   - a share link (Pro) shows it to a logged-out visitor.
@@ -102,7 +102,7 @@ How it works: [../features/exit-intent/gutenberg/README.md](../features/exit-int
 - Steps: with a page cache (for example xSpeed), visit the page logged out so it gets cached; then link a block design (or change it) and visit the cached page again.
 - Expected: the popup shows styled after a short delay (assets fetched from the design's page); never unstyled.
 
-**T15. Block theme.**
+**T15. Block theme.** Check design 3 especially: its image must sit flush with the card's left edge, not inset by the theme's content width.
 - Steps: switch to Twenty Twenty-Five, then repeat T5 and T8 for designs 1–4.
 - Expected: the same look as in the classic theme (colours are fixed values); fonts follow the theme.
 - Switch the theme back afterwards.

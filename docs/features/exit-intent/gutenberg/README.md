@@ -54,10 +54,11 @@ All of it is in Free: [`includes/Extensions/ExitIntent/GutenbergDesign.php`](../
 ### Front end
 
 **`notice` payload.** `GutenbergDesign::inject_gutenberg_html()` runs on `nx_filtered_post` at priority 11, after `ExitIntentNotification::inject_elementor_html()`:
-- It sets `mode: 'gutenberg'`, `gutenberg_html`, `gutenberg_layout` (`width` and `radius` from the outer Group block's Content width and border radius; 600 px and no radius without them) and `gutenberg_url` (the permalink).
+- It sets `mode: 'gutenberg'`, `gutenberg_html` (starting with a `<style class="nx-exit-intent-gutenberg-layout">` that carries the layout CSS core generated for the design's container classes, so block themes, cached pages and the Preview keep the design's own widths), `gutenberg_layout` (`width` and `radius` from the outer Group block's Content width and border radius; 600 px and no radius without them) and `gutenberg_url` (the permalink).
 - It renders only an `nx_exit_intent_eb` post that is published with no password (or a draft its editor is viewing). Anything else keeps the built-in popup.
 - If an Elementor design applies, Elementor wins.
 - It removes builder-only keys (edit link, modal state) from Exit Intent payloads.
+- The builder Preview (and its share links) gets the same through `nx_preview_settings_exit_intent_custom`.
 
 **Render.** `do_blocks`, then embeds, `do_shortcode` and `wp_filter_content_tags`. It doesn't run the `the_content` filter, so other plugins' additions (share buttons, related posts) stay out of the popup.
 
@@ -65,12 +66,13 @@ All of it is in Free: [`includes/Extensions/ExitIntent/GutenbergDesign.php`](../
 - During `wp_enqueue_scripts`, it renders the design into a discarded buffer, so each block enqueues its own CSS and JS.
 - It adds `nx-block-assets-{id}` to `<body>`.
 - Essential Blocks designs wait until EB has written their CSS files.
+- If the page ends up without the block library, the core stylesheets of the blocks the design uses (and core's shared block CSS) are enqueued as `nx-exit-intent-block-*` at priority 1000. That happens when Elementor's "Optimized Gutenberg Loading" dequeues `wp-block-library` on Elementor pages; classic themes don't load block styles one by one.
 
 **Popup.** [`ExitIntentGutenberg.tsx`](../../../../nxdev/notificationx/frontend/core/ExitIntentGutenberg.tsx) is reached from `ExitIntentPopup.tsx` only for `mode === 'gutenberg'`.
 - **Missing assets.** Without the body class (cached page, builder Preview, share link), it copies the assets from `gutenberg_url` with `LoadAssets.ts` and stays hidden until then, 8 s at most.
 - **Dialog.** `role="dialog"`, `aria-modal`, labelled with the campaign title. Focus moves to the × (or the dialog) and back on close; Tab stays inside; Escape closes.
 - **`#nx-close` links.** A link to `#nx-close` inside the design (like design 1's "No thanks") closes the popup like the ×.
-- **Long designs** scroll inside the popup (max height = screen minus 32 px).
+- **Long designs** scroll inside the popup (max height = screen minus 32 px). The popup handles the wheel itself: over the design it scrolls the body, and over the backdrop the page stays still. On pages that send wheel events the popup can't cancel, the body is scrolled only if the browser didn't, and the page behind may still move.
 - **The ×** overhangs the corner on desktop. Below 480 px it sits inside the card as a 44 px target. It uses logical properties, so it moves to the left in RTL.
 - **Unchanged from the other popups:** close keys (`notificationx_exit_intent_{nx_id}_` in sessionStorage and the cookie), cookie days, and hide after end date.
 
@@ -92,6 +94,7 @@ All of it is in Free: [`includes/Extensions/ExitIntent/GutenbergDesign.php`](../
 - **"After a form submit"** isn't offered for block designs. The form-success detection knows Elementor and NotificationX forms, not other plugins' form blocks.
 - **Inline scripts** inside block HTML don't run; block scripts load as enqueued files.
 - **Editing rights.** Editing a design needs WordPress `edit_posts`, the same as the bar's designs. A role with only NotificationX rights sees the note.
+- **Builder Preview of Elementor designs** shows the built-in theme (existing behaviour, unchanged); block designs show in the Preview.
 - **Editor "changed" state.** The NotificationX countdown block marks the editor as changed when it loads, although the saved markup is identical.
 - **Older WordPress.** The starting designs keep older block attribute shapes. WordPress 7.1 migrates them silently, so the blocks stay valid, and older WordPress versions read them directly.
 
