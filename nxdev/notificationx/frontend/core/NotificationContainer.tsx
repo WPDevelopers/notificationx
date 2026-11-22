@@ -141,14 +141,22 @@ const NotificationContainer = (props: any) => {
         <>
             {frontendContext.getNxToRender((position, NoticeList) => {                
                 if (NoticeList?.[0]?.config?.type == 'exit_intent') {
-                    return NoticeList.map((notice) => (
-                        <ExitIntentPopup
-                            key={`exit-intent-${notice?.config?.nx_id}`}
-                            nxExitIntent={notice}
-                            dispatch={frontendContext.dispatch}
-                            rest={frontendContext.rest}
-                        />
-                    ));
+                    // Keyed, so React matches this group by key instead of by
+                    // its index in the list: another notification's group
+                    // appearing or going before it no longer re-mounts an open
+                    // popup (typed text, focus and animations are kept).
+                    return (
+                        <React.Fragment key="exit-intent">
+                            {NoticeList.map((notice) => (
+                                <ExitIntentPopup
+                                    key={`exit-intent-${notice?.config?.nx_id}`}
+                                    nxExitIntent={notice}
+                                    dispatch={frontendContext.dispatch}
+                                    rest={frontendContext.rest}
+                                />
+                            ))}
+                        </React.Fragment>
+                    );
                 }
 
                 if (NoticeList?.[0]?.config?.type == 'notification_bar' && (position == 'top' || position == 'bottom')) {
