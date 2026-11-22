@@ -48,6 +48,8 @@ class GutenbergDesign {
         // Front end: after ExitIntentNotification::inject_elementor_html() (priority 10).
         add_filter( 'nx_filtered_post', [ $this, 'inject_gutenberg_html' ], 11, 2 );
         add_filter( 'body_class', [ $this, 'body_class' ] );
+        // After plugins that dequeue the block library (Elementor's "Optimized Gutenberg Loading" runs at 999).
+        add_action( 'wp_enqueue_scripts', [ $this, 'keep_core_block_styles' ], 1000 );
         add_filter( 'rocket_rucss_safelist', [ $this, 'rocket_rucss_safelist' ], 11 );
 
         // Lifecycle: the design belongs to its campaign.
@@ -409,6 +411,54 @@ class GutenbergDesign {
             ob_end_clean();
         }
         $this->assets_on_page[ $gutenberg_id ] = ! self::needs_essential_blocks_styles( $post );
+        $this->blocks_on_page = array_values( array_unique( array_merge( $this->blocks_on_page, self::block_names( parse_blocks( $post->post_content ) ) ) ) );
+    }
+
+    /**
+     * Core block names used by the designs whose assets this page load added.
+     *
+     * @var string[]
+     */
+    protected $blocks_on_page = [];
+
+    /**
+     * Keep the core block styles a design needs when the page has no block
+     * library: Elementor's "Optimized Gutenberg Loading" dequeues
+     * `wp-block-library` on Elementor-built pages, and classic themes don't
+     * load core block styles one by one. Only then, enqueue the stylesheets
+     * of the core blocks the designs use (plus core's shared block CSS), so
+     * the popup isn't left without them. Does nothing when the block library
+     * or a block's own style is already on the page.
+     *
+     * @return void
+     */
+    public function keep_core_block_styles() {
+        if ( empty( $this->blocks_on_page ) || wp_style_is( 'wp-block-library', 'enqueued' ) ) {
+            return;
+        }
+        $version = get_bloginfo( 'version' );
+        $files   = [];
+        if ( file_exists( ABSPATH . WPINC . '/css/dist/block-library/common.min.css' ) ) {
+            $files['common'] = 'css/dist/block-library/common.min.css';
+        }
+        foreach ( $this->blocks_on_page as $name ) {
+            if ( 0 !== strpos( $name, 'core/' ) ) {
+                continue;
+            }
+            $slug = substr( $name, 5 );
+            if ( wp_style_is( 'wp-block-' . $slug, 'enqueued' ) || ! preg_match( '/^[a-z0-9-]+$/', $slug ) ) {
+                continue;
+            }
+            if ( file_exists( ABSPATH . WPINC . "/blocks/{$slug}/style.min.css" ) ) {
+                $files[ $slug ] = "blocks/{$slug}/style.min.css";
+            }
+        }
+        foreach ( $files as $slug => $file ) {
+            $handle = 'nx-exit-intent-block-' . $slug;
+            wp_enqueue_style( $handle, includes_url( $file ), [], $version );
+            wp_style_add_data( $handle, 'rtl', 'replace' );
+            wp_style_add_data( $handle, 'suffix', '.min' );
+        }
     }
 
     /**

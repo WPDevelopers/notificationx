@@ -11,7 +11,14 @@ use NotificationX\Extensions\ExitIntent\GutenbergDesign;
 
 class Test_Exit_Intent_Gutenberg_Frontend extends WP_UnitTestCase {
 
+	public function set_up() {
+		parent::set_up();
+		// The style queue is global and survives between tests; keep the registrations.
+		wp_styles()->queue = array();
+	}
+
 	public function tear_down() {
+		wp_styles()->queue = array();
 		remove_shortcode( 'nxqa_sc' );
 		wp_set_current_user( 0 );
 		parent::tear_down();
@@ -217,6 +224,51 @@ class Test_Exit_Intent_Gutenberg_Frontend extends WP_UnitTestCase {
 		do_action( 'wp_enqueue_scripts' );
 		remove_action( 'wp_enqueue_scripts', $hook );
 		$this->assertNotContains( 'nx-block-assets-' . $id, GutenbergDesign::get_instance()->body_class( array() ), 'The runtime must fetch the missing EB stylesheets.' );
+	}
+
+	protected function run_enqueue_with( $id, $dequeue_library ) {
+		$hook = function () use ( $id ) {
+			GutenbergDesign::get_instance()->enqueue_assets( $id );
+		};
+		// What Storefy showed: no core block CSS left on the page (Elementor's
+		// "Optimized Gutenberg Loading" drops the library on Elementor pages).
+		$drop = function () {
+			foreach ( wp_styles()->queue as $handle ) {
+				if ( 'wp-block-library' === $handle || 0 === strpos( $handle, 'wp-block-' ) ) {
+					wp_dequeue_style( $handle );
+				}
+			}
+		};
+		add_action( 'wp_enqueue_scripts', $hook );
+		if ( $dequeue_library ) {
+			add_action( 'wp_enqueue_scripts', $drop, 999 );
+		} else {
+			add_action( 'wp_enqueue_scripts', function () {
+				wp_enqueue_style( 'wp-block-library' );
+			}, 999 );
+		}
+		do_action( 'wp_enqueue_scripts' );
+	}
+
+	public function test_core_block_styles_return_when_another_plugin_drops_the_block_library() {
+		$id = $this->design( 'theme-one' );
+		$this->run_enqueue_with( $id, true );
+		$this->assertFalse( wp_style_is( 'wp-block-library', 'enqueued' ) );
+		$this->assertTrue( wp_style_is( 'nx-exit-intent-block-common', 'enqueued' ), 'core\'s shared block CSS (has-text-align-center…)' );
+		foreach ( array( 'group', 'heading', 'paragraph', 'buttons', 'button' ) as $slug ) {
+			$this->assertTrue( wp_style_is( 'nx-exit-intent-block-' . $slug, 'enqueued' ), $slug );
+		}
+		$this->assertStringEndsWith( 'wp-includes/blocks/button/style.min.css', wp_styles()->registered['nx-exit-intent-block-button']->src );
+		$this->assertSame( 'replace', wp_styles()->registered['nx-exit-intent-block-button']->extra['rtl'] );
+		$this->assertFalse( wp_style_is( 'nx-exit-intent-block-countdown', 'registered' ), 'Only core blocks.' );
+	}
+
+	public function test_nothing_extra_when_the_block_library_is_on_the_page() {
+		$id = $this->design( 'theme-one' );
+		$this->run_enqueue_with( $id, false );
+		$this->assertTrue( wp_style_is( 'wp-block-library', 'enqueued' ) );
+		$this->assertFalse( wp_style_is( 'nx-exit-intent-block-heading', 'enqueued' ) );
+		$this->assertFalse( wp_style_is( 'nx-exit-intent-block-common', 'enqueued' ) );
 	}
 
 	/* --- WP Rocket --------------------------------------------------------- */
