@@ -366,6 +366,31 @@ class GutenbergDesign {
     }
 
     /**
+     * Keep the design's own column widths on tablets.
+     *
+     * Core stacks Columns blocks below 782px, with `flex-basis: 100% !important`
+     * over each column's width. In the popup, tablets (768px and up) keep the
+     * desktop layout (_exit-intent.scss), so a column's width (its inline
+     * `flex-basis`) is restated for 768–781px; CSS can't fall back to the
+     * inline value. Phones (below 768px) stack as before.
+     *
+     * @since x.x.x
+     *
+     * @param string $html Rendered design.
+     * @return string A <style> element, or ''.
+     */
+    public static function column_styles( $html ) {
+        if ( ! preg_match_all( '/<div[^>]*class="wp-block-column\b[^"]*"[^>]*style="[^"]*flex-basis:\s*([0-9]+(?:\.[0-9]+)?(?:%|px|em|rem|vw))/', $html, $m ) ) {
+            return '';
+        }
+        $css = '';
+        foreach ( array_unique( $m[1] ) as $width ) {
+            $css .= '.nx-exit-intent-gutenberg-body .wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column[style*="flex-basis:' . $width . '"]{flex-basis:' . $width . '!important}';
+        }
+        return '<style class="nx-exit-intent-gutenberg-columns">@media (min-width:768px) and (max-width:781px){' . $css . '}</style>';
+    }
+
+    /**
      * Width and corner radius of the popup, read from the design's outer Group
      * block ("Content width" and border radius in the block editor).
      *
@@ -417,7 +442,7 @@ class GutenbergDesign {
         }
         $html                         = self::render( $post->post_content );
         $settings['mode']             = 'gutenberg';
-        $settings['gutenberg_html']   = self::layout_styles( $html ) . $html;
+        $settings['gutenberg_html']   = self::layout_styles( $html ) . self::column_styles( $html ) . $html;
         $settings['gutenberg_layout'] = self::layout( $post->post_content );
         $settings['gutenberg_url']    = get_permalink( $post );
         return $settings;

@@ -797,3 +797,36 @@
     // Leaving: clicks reach the page, and nothing in the popup reacts twice.
     pointer-events: none;
 }
+
+// ─── Block designs on tablets and phones ────────────────────────────────────
+// Tablets (768px and up) keep the desktop layout; phones stack. Core stacks
+// Columns below 782px, so in the popup that moves to below 768px (each
+// column's own width comes from GutenbergDesign::column_styles()). On phones
+// the buttons go one per row, full width.
+@media (min-width: 768px) and (max-width: 781px) {
+    .nx-exit-intent-gutenberg-body .wp-block-columns:not(.is-not-stacked-on-mobile) {
+        flex-wrap: nowrap !important;
+        > .wp-block-column {
+            flex-basis: 0 !important;
+            flex-grow: 1;
+        }
+        > .wp-block-column[style*="flex-basis"] {
+            flex-grow: 0;
+        }
+    }
+}
+@media (max-width: 767px) {
+    .nx-exit-intent-gutenberg-body .wp-block-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        > .wp-block-button {
+            width: 100%;
+            flex-basis: auto;
+        }
+        > .wp-block-button .wp-block-button__link {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    }
+}
