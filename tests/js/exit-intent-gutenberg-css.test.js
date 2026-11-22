@@ -84,3 +84,18 @@ describe.each( [ 'frontend.css', 'crossSite.css' ] )( '%s', ( file ) => {
 		expect( decls( all, '.nx-exit-intent-elementor' ) ).toContain( 'max-width:var(--nx-exit-width,540px)' );
 	} );
 } );
+
+describe( 'admin.css: the Gutenberg controls look like the Elementor ones', () => {
+	const css = fs.readFileSync( path.join( __dirname, '../../assets/admin/css/admin.css' ), 'utf8' );
+	it( 'two design cards per row in the picker', () => {
+		expect( css ).toMatch( /\.wprf-name-gutenberg_exit_theme \.wprf-control \.wprf-row \.wprf-column\.wprf-column-2\{width:50%/ );
+	} );
+	it( 'Edit and Build With Gutenberg are light pills with the block-editor glyph', () => {
+		// The build inlines the glyph (gutenberg-icon.svg) as a data URI.
+		expect( css ).toMatch( /wprf-name-gutenberg_edit_link \.wprf-button\{[^}]*background-image:url\(data:image\/svg\+xml/ );
+		expect( css ).toMatch( /wprf-name-gutenberg_edit_link \.wprf-button\{[^}]*padding-left:40px/ );
+	} );
+	it( 'Remove is a red link', () => {
+		expect( css ).toMatch( /wprf-name-nx-exit-intent_with_gutenberg-remove \.wprf-button\{[^}]*color:#fb2a04/ );
+	} );
+} );
