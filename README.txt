@@ -227,7 +227,7 @@ Yes. Your data is legally safe and we guarantee to not make use of your data und
 
 == Changelog ==
 
-= 3.4.0 - 22/11/2026 =
+= 3.4.0 - 23/11/2026 =
 Added: Verified Cards notification themes.
 Added: Card size options for notifications.
 Added: Preview on any page of your site, or in a new tab.
