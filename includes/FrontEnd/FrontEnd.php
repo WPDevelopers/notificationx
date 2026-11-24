@@ -21,6 +21,7 @@ use NotificationX\GetInstance;
 use NotificationX\Extensions\PressBar\PressBar;
 use NotificationX\Core\Helper;
 use NotificationX\Extensions\ExtensionFactory;
+use NotificationX\Extensions\ExitIntent\ExitIntentNotification;
 use NotificationX\Types\GDPR;
 
 /**
@@ -597,6 +598,8 @@ class FrontEnd {
             // Cross-domain embeds have no WordPress enqueue: the runtime adds these.
             $data['external_styles'] = $this->get_external_styles(true);
         }
+        // Scopes the visitor's "submitted" key to this site (submitRule.ts).
+        $data['storage_scope'] = Helper::storage_scope();
         return $data;
     }
 
@@ -836,6 +839,10 @@ class FrontEnd {
                 if ( !$settings['enabled'] ) {
                     continue;
                 }
+                // "Stop Showing After End Date": the IDs can come from a cached page.
+                if ( ExitIntentNotification::is_past_end( $settings ) ) {
+                    continue;
+                }
                 // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Reviewed for the NotificationX codebase: acceptable in this context.
                 $settings = apply_filters('nx_filtered_post', $settings, $params);
                 $result['exit_intent'][$_nx_id]['post']    = $settings;
@@ -1034,6 +1041,10 @@ class FrontEnd {
             } elseif($settings['source'] == 'popup_notification') {
                 $popup_notifications[] = $settings['nx_id'];
             } elseif($settings['source'] == 'exit_intent_custom') {
+                // "Stop Showing After End Date" is on and the end date has passed.
+                if ( ExitIntentNotification::is_past_end( $settings ) ) {
+                    continue;
+                }
                 $exit_intent_notifications[] = $settings['nx_id'];
                 // Force Elementor's frontend runtime + per-widget assets onto the
                 // page (elementor-frontend.js, the document CSS, and each widget's

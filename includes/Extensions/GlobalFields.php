@@ -11,6 +11,7 @@ namespace NotificationX\Extensions;
 use NotificationX\Admin\Admin;
 use NotificationX\Admin\InfoTooltipManager;
 use NotificationX\Admin\Settings;
+use NotificationX\Core\CardSize;
 use NotificationX\Core\Rules;
 use NotificationX\Core\Database;
 use NotificationX\Core\Helper;
@@ -39,7 +40,87 @@ class GlobalFields {
         // After the type/extension template filters (priority 7-10), like the
         // Cart Peek Type that used to add this rule from free.
         add_filter( 'nx_notification_template', [ $this, 'verb_field_rule' ], 20 );
+        // Build With AI upsell for the types Pro builds with AI. After Exit
+        // Intent's own design tabs (priority 100), like Pro's own tab.
+        add_filter( 'nx_design_tab_fields', [ $this, 'build_with_ai_upsell_tab' ], 101 );
+        add_filter( 'nx_quick_builder_tabs', [ $this, 'build_with_ai_upsell_quick_builder' ] );
         // dump(Rules::logicalRule([ Rules::is('test'), Rules::is('test2') ]));
+    }
+
+    /**
+     * The design tab that holds Build With AI for Announcement, Sales, Reviews
+     * and WooCommerce. NotificationX Pro 3.3.0+ adds the same tab with its
+     * panel; it uses this name too.
+     *
+     * @since 3.4.0
+     */
+    const AI_TYPES_TAB = 'nx_type_build_with_ai';
+
+    /**
+     * Notification types with Build With AI in NotificationX Pro.
+     *
+     * @since 3.4.0
+     */
+    const AI_TYPES = [ 'popup', 'conversions', 'reviews', 'woocommerce_sales' ];
+
+    /**
+     * Without Pro, adds the Build With AI tab next to For Desktop / For Mobile
+     * for the types Pro builds with AI, showing the same "Pro only" notice as
+     * the Notification Bar and Exit Intent tabs (field `nxbar-build_with_ai`).
+     * With Pro active, Pro adds its own tab (Pro 3.3.0+) or none (older Pro),
+     * so nothing is added here.
+     *
+     * @since 3.4.0
+     * @param array $fields Design tab fields.
+     * @return array
+     */
+    public function build_with_ai_upsell_tab( $fields ) {
+        if ( NotificationX::is_pro() || empty( $fields['themes']['fields']['themes_section']['fields']['themes_tab']['fields'] ) ) {
+            return $fields;
+        }
+        $fields['themes']['fields']['themes_section']['fields']['themes_tab']['fields'][] = [
+            'label'  => __( 'Build With AI', 'notificationx' ),
+            'name'   => self::AI_TYPES_TAB,
+            'id'     => self::AI_TYPES_TAB,
+            'type'   => 'section',
+            'icon'   => NOTIFICATIONX_ADMIN_URL . 'images/icons/build-with-ai-icon.svg',
+            'rules'  => Rules::includes( 'type', self::AI_TYPES ),
+            'fields' => [
+                self::AI_TYPES_TAB => [
+                    'label'   => __( 'Build With AI', 'notificationx' ),
+                    'name'    => self::AI_TYPES_TAB,
+                    'id'      => self::AI_TYPES_TAB,
+                    'type'    => 'section',
+                    // The Exit Intent section's class, so the notice gets the same card styles.
+                    'classes' => 'exit_intent_ai_tab',
+                    'fields'  => [
+                        self::AI_TYPES_TAB . '_fields' => [
+                            'name'     => self::AI_TYPES_TAB . '_fields',
+                            'type'     => 'nxbar-build_with_ai',
+                            'label'    => __( 'Build With AI', 'notificationx' ),
+                            'priority' => 10,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        return $fields;
+    }
+
+    /**
+     * Quick Builder hides fields it doesn't list; lists the upsell tab
+     * (without Pro, when it is added).
+     *
+     * @since 3.4.0
+     * @param array $config Quick Builder config.
+     * @return array
+     */
+    public function build_with_ai_upsell_quick_builder( $config ) {
+        if ( ! NotificationX::is_pro() && isset( $config['show'] ) && is_array( $config['show'] ) ) {
+            $config['show'][] = self::AI_TYPES_TAB;
+            $config['show'][] = self::AI_TYPES_TAB . '_fields';
+        }
+        return $config;
     }
 
     /**
@@ -61,6 +142,76 @@ class GlobalFields {
             $fields['second_param']['rules'] = Rules::is( 'source', 'woocommerce_cart_peek', true );
         }
         return $fields;
+    }
+
+    /**
+     * Full theme keys of the "Verified card" (vc) theme family.
+     *
+     * Single PHP list of the vc keys, read by the builder rules that hide the
+     * Advanced Design toggle (advance_edit) and the Button toggle (link_button)
+     * for these themes. The vc cards ignore both: the frontend VerifiedCard
+     * (nxdev/notificationx/frontend/themes/vc/) has its own palette and no
+     * button. The themes themselves are declared in the Types (for example
+     * includes/Types/Conversions.php); a new vc theme adds its full keys here.
+     * Add-ons add their own keys through the `nx_vc_theme_keys` filter.
+     *
+     * @return string[]
+     */
+    public static function vc_theme_keys() {
+        $keys = self::vc_builtin_theme_keys();
+
+        /**
+         * Filters the full theme keys of the Verified Card family.
+         *
+         * An add-on that registers its own vc theme (and its slug through the
+         * frontend `nx_frontend_vc_slugs` filter) appends its full keys here,
+         * so the builder hides Advanced Design and Button for them too. The
+         * built-in keys are always kept, and an entry that is not a
+         * `<prefix>_vc-<word>` string is dropped.
+         *
+         * @since 3.4.0
+         * @param string[] $keys Full theme keys, e.g. 'conversions_vc-receipt'.
+         */
+        $filtered = apply_filters( 'nx_vc_theme_keys', $keys );
+        if ( ! is_array( $filtered ) ) {
+            return $keys;
+        }
+        foreach ( $filtered as $key ) {
+            if ( is_string( $key ) && preg_match( '/^[a-z0-9_]+_vc-[a-z]+$/', $key ) && ! in_array( $key, $keys, true ) ) {
+                $keys[] = $key;
+            }
+        }
+        return $keys;
+    }
+
+    /**
+     * The vc theme keys free itself registers (vc_theme_keys() without add-ons).
+     *
+     * @return string[]
+     */
+    public static function vc_builtin_theme_keys() {
+        return [
+            'conversions_vc-receipt',
+            'woocommerce_sales_vc-receipt',
+            'conversions_vc-showcase',
+            'woocommerce_sales_vc-showcase',
+            'comments_vc-thread',
+            'reviews_vc-scorecard',
+            'woo_reviews_vc-scorecard',
+            'woocommerce_sales_reviews_vc-scorecard',
+            'reviewx_vc-scorecard',
+            'google_reviews_vc-scorecard',
+            'download_stats_vc-counter',
+            'donation_vc-pledge',
+            'elearning_vc-enrol',
+            'form_vc-submission',
+            'reviews_vc-ratings',
+            'woo_reviews_vc-ratings',
+            'woocommerce_sales_reviews_vc-ratings',
+            'reviewx_vc-ratings',
+            'google_reviews_vc-ratings',
+            'download_stats_vc-installs',
+        ];
     }
 
     public function tabs() {
@@ -503,10 +654,32 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 20,
+                                    // Hidden for the vc themes, which ignore Advanced Design.
                                     'rules'    =>   Rules::logicalRule([
+                                        Rules::logicalRule([
+                                            Rules::is('themes_tab', 'for_desktop'),
+                                            Rules::is('themes_tab', 'nxbar_build_with_ai'),
+                                        ], 'or'),
+                                        Rules::includes('themes', self::vc_theme_keys(), true),
+                                    ]),
+                                ],
+                                // Verified Cards only: the card's last line, "Verified by
+                                // NotificationX", is part of its design, so it is on when the
+                                // theme is picked and the owner can turn it off here. It does
+                                // not follow Settings > Disable Powered By, which stays the
+                                // opt-in for every other theme. Frontend: vcShowsCredit() in
+                                // nxdev/notificationx/frontend/themes/vc/VcCredit.tsx.
+                                'vc_show_credit' => [
+                                    'label'       => __( 'Verified by NotificationX', 'notificationx' ),
+                                    'name'        => 'vc_show_credit',
+                                    'type'        => 'toggle',
+                                    'default'     => true,
+                                    'priority'    => 21,
+                                    'description' => __( 'Show the "Verified by NotificationX" line on this card.', 'notificationx' ),
+                                    'rules'       => Rules::logicalRule([
                                         Rules::is('themes_tab', 'for_desktop'),
-                                        Rules::is('themes_tab', 'nxbar_build_with_ai'),
-                                    ], 'or'),
+                                        Rules::includes('themes', self::vc_theme_keys()),
+                                    ]),
                                 ],
                             ]
                         ],
@@ -527,6 +700,8 @@ class GlobalFields {
                                     'type'     => "toggle",
                                     'default'  => false,
                                     'priority' => 1,
+                                    // Hidden for the vc themes, which ignore Advanced Design.
+                                    'rules'    => Rules::includes('themes', self::vc_theme_keys(), true),
                                 ],
                                 "design" => [
                                     'label'    => __("Design", 'notificationx'),
@@ -1106,6 +1281,8 @@ class GlobalFields {
                                     'rules'       => Rules::logicalRule([
                                         Rules::includes('type', ['conversions','video','woocommerce', 'woocommerce_sales','page_analytics']),
                                         Rules::is('link_type','none',true),
+                                        // Hidden for the vc themes, which have no button.
+                                        Rules::includes('themes', self::vc_theme_keys(), true),
                                     ]),
                                 ],
                             ],
@@ -1977,6 +2154,30 @@ class GlobalFields {
                                         ],
                                     ],
                                     'help' => __('Set a max width for notification.', 'notificationx'),
+                                ],
+                                'card_size' => [
+                                    'label'    => __("Card Size", 'notificationx'),
+                                    'name'     => CardSize::FIELD,
+                                    'type'     => "select",
+                                    'default'  => CardSize::DEFAULT_VALUE,
+                                    'priority' => 52,
+                                    'options'  => [
+                                        'compact' => [
+                                            'label' => __('Compact', 'notificationx'),
+                                            'value' => 'compact',
+                                        ],
+                                        'default' => [
+                                            'label' => __('Default', 'notificationx'),
+                                            'value' => 'default',
+                                        ],
+                                        'large' => [
+                                            'label' => __('Large', 'notificationx'),
+                                            'value' => 'large',
+                                        ],
+                                    ],
+                                    // Only themes that support it; the list is empty until a theme family is ready.
+                                    'rules'    => Rules::includes('themes', CardSize::supported_themes()),
+                                    'help'     => __('Makes the whole card smaller or larger: text, image and spacing together. On phones, Large shows at the default size.', 'notificationx'),
                                 ],
                                 'close_button_control' => [
                                     'label'  => __("Display Close Button", 'notificationx'),
