@@ -19,6 +19,7 @@ use NotificationX\Core\PostType;
 use NotificationX\Core\REST;
 use NotificationX\GetInstance;
 use NotificationX\Extensions\PressBar\PressBar;
+use NotificationX\Extensions\Popup\PopupNotification;
 use NotificationX\Core\Helper;
 use NotificationX\Extensions\ExtensionFactory;
 use NotificationX\Extensions\ExitIntent\ExitIntentNotification;
@@ -980,7 +981,9 @@ class FrontEnd {
 
             $countdown_rand = !empty($settings['countdown_rand']) ? "-{$settings['countdown_rand']}" : '';
 
-            if (!empty($_COOKIE["notificationx_{$settings['nx_id']}$countdown_rand"]) && $_COOKIE["notificationx_{$settings['nx_id']}$countdown_rand"] == true) {
+            // A popup that opens on a click is still sent: the click always opens
+            // it; the browser keeps its automatic opening closed.
+            if (!empty($_COOKIE["notificationx_{$settings['nx_id']}$countdown_rand"]) && $_COOKIE["notificationx_{$settings['nx_id']}$countdown_rand"] == true && !PopupNotification::opens_on_click($settings)) {
                 unset($notifications[$key]);
                 continue;
             }

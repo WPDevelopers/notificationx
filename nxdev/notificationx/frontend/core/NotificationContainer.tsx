@@ -64,7 +64,8 @@ const NotificationContainer = (props: any) => {
                     const crossValue = window?.notificationXArr[0]?.cross;
                     const reappearance = crossValue ? 'show_notification_next_visit' : notification_reappearance;
                     
-                    if (storageMap[reappearance]?.getItem(storageKey) || shouldShowBar) {
+                    // A visitor's click opens a popup whatever was closed before (clickOpen.ts).
+                    if (!notice?.config?.nx_click_open && (storageMap[reappearance]?.getItem(storageKey) || shouldShowBar)) {
                         return null;
                     }
 

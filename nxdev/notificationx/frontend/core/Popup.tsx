@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import classNames from 'classnames';
 import { isAdminBar } from './utils';
 import CloseIcon from '../../icons/Close';
@@ -12,6 +12,7 @@ import nxHelper from './functions';
 import NXBranding from '../themes/helpers/NXBranding';
 import PopupHeader from './helper/PopupHeader';
 import { nxApplyFilters } from "./hooks";
+import { markOpen, returnFocus } from "./clickOpen";
 
 const useMediaQuery = (query: string) => {
     const mediaQuery = window.matchMedia(query);
@@ -50,8 +51,12 @@ const Popup = (props: any) => {
     const { position, nxPopup, dispatch } = props;
     const { config: settings, data: content } = nxPopup;
     const frontEndContext = useNotificationContext();
-    const isExitIntent = !!settings?.convert_to_exit_intent;
+    // Opened by a visitor's click (clickOpen.ts): shown at once, whatever
+    // was closed before, and focus goes back to the clicked element.
+    const clickOpened = !!settings?.nx_click_open;
+    const isExitIntent = !!settings?.convert_to_exit_intent && !clickOpened;
     const [isVisible, setIsVisible] = useState(!isExitIntent);
+    const dialogRef = useRef<HTMLDivElement>(null);
     const [animation, setAnimation] = useState(false);
     const isMobile = useMediaQuery("(max-width: 480px)");
     const isTablet = useMediaQuery("(max-width: 768px)");
@@ -119,6 +124,7 @@ const Popup = (props: any) => {
 
     // Check if popup was closed in this session
     useEffect(() => {
+        if (clickOpened) return;
         const cookieKey = "notificationx_popup_" + settings?.nx_id;
         const wasClosed = sessionStorage.getItem(cookieKey);
 
@@ -228,7 +234,28 @@ const Popup = (props: any) => {
         setTimeout(() => {
             setIsVisible(false);
         }, 300);
+        if (clickOpened) {
+            returnFocus(settings?.nx_id);
+        }
     };
+
+    // Click-opened: one open at a time per popup, Esc closes, focus moves in.
+    useEffect(() => {
+        if (!isVisible) return;
+        const unmark = markOpen(settings?.nx_id);
+        if (!clickOpened) return unmark;
+        dialogRef.current?.focus?.();
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                handleClose();
+            }
+        };
+        document.addEventListener('keydown', onKey);
+        return () => {
+            unmark();
+            document.removeEventListener('keydown', onKey);
+        };
+    }, [isVisible, clickOpened]);
 
     // Closing after a submit the "After a form submit" rule took over
     // (submitRule.ts): the same hide and removal as handleClose(), without
@@ -395,6 +422,10 @@ const Popup = (props: any) => {
 
     useEffect(() => {
         if (isExitIntent) return;
+        if (clickOpened) {
+            setIsVisible(true);
+            return;
+        }
         const delay = (+settings?.delay_before || 0) * 1000;
         // Hide first
         setIsVisible(false);
@@ -547,6 +578,7 @@ const Popup = (props: any) => {
                 className={componentClasses}
                 style={componentStyle}
                 onClick={(e) => e.stopPropagation()}
+                {...(clickOpened ? { ref: dialogRef, role: 'dialog', 'aria-modal': true, tabIndex: -1 } : {})}
             >
                 <div className="nx-popup-container">
                     {/* Close Button */}

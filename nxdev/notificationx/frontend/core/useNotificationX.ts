@@ -9,6 +9,7 @@ import moment from "moment";
 import usePreviewType from "./usePreviewType";
 import { releaseBarReserve, reservedBarId } from "./barReserve";
 import { loadAddonScripts, needsAddonScripts } from "./addons";
+import { isOnScreen, listenForClicks, opensAutomatically, rememberOpener } from "./clickOpen";
 import { isExitIntentPastEnd } from "./exitIntentEnd";
 import { isHiddenBySubmit } from "./submitRule";
 
@@ -568,6 +569,11 @@ const useNotificationX = (props: any) => {
             popupNotices.forEach((popupItem) => {
                 const config = popupItem.post;
 
+                // "Only when a visitor clicks": no automatic opening (see below).
+                if (!opensAutomatically(config)) {
+                    return;
+                }
+
                 // Check if popup was closed in this session
                 const cookieKey = "notificationx_popup_" + config?.nx_id;
                 if (sessionStorage.getItem(cookieKey) === 'closed') {
@@ -614,6 +620,30 @@ const useNotificationX = (props: any) => {
             });
             
         }
+    }, [popupNotices]);
+
+    /**
+     * Popups that open on a visitor's click ("When to Open": click or both).
+     * A click always opens it, even if it was closed before.
+     */
+    useEffect(() => {
+        if (!popupNotices || !popupNotices.length) {
+            return;
+        }
+        const byId = {};
+        popupNotices.forEach((popupItem) => {
+            byId[popupItem?.post?.nx_id] = popupItem;
+        });
+        return listenForClicks(popupNotices.map((popupItem) => popupItem.post), (config, trigger) => {
+            if (isOnScreen(config?.nx_id)) {
+                return;
+            }
+            rememberOpener(config?.nx_id, trigger);
+            dispatch({
+                type: "ADD_NOTIFICATION",
+                payload: { id: v4(), data: byId[config?.nx_id]?.content, config: { ...config, nx_click_open: true } },
+            });
+        });
     }, [popupNotices]);
 
     /**
