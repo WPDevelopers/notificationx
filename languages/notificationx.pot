@@ -11144,4 +11144,6 @@ msgstr ""
 msgid "Open in new tab"
 msgstr ""
 
-
+#: includes/Extensions/GlobalFields.php:678
+msgid "Show the \"Verified by NotificationX\" line on this card."
+msgstr ""

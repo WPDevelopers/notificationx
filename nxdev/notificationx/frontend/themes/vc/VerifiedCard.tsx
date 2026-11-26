@@ -5,7 +5,7 @@ import classNames from "classnames";
 import Image from "../helpers/Image";
 import Close from "../helpers/Close";
 import { nxApplyFilters } from "../../core/hooks";
-import VcCredit from "./VcCredit";
+import VcCredit, { vcShowsCredit } from "./VcCredit";
 import VcStars, { formatVcRating, parseVcRating } from "./VcStars";
 import useVcLineScroll from "./useVcLineScroll";
 import { isBuiltInVcSlug } from "./isVcTheme";
@@ -546,7 +546,7 @@ export const SlimShell = ({ props, word, line, time }: { props: any; word: strin
         <div
             className={classNames("nx-vc-card", `nx-vc-${word}`, "nx-vc-slim", {
                 "is-no-img": !props?.data?.image_data,
-                "is-no-credit": !!props?.config?.disable_powered_by,
+                "is-no-credit": !vcShowsCredit(props?.config),
             })}
         >
             <VcImage {...props} />

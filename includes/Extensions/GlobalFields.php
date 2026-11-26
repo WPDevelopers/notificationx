@@ -663,6 +663,24 @@ class GlobalFields {
                                         Rules::includes('themes', self::vc_theme_keys(), true),
                                     ]),
                                 ],
+                                // Verified Cards only: the card's last line, "Verified by
+                                // NotificationX", is part of its design, so it is on when the
+                                // theme is picked and the owner can turn it off here. It does
+                                // not follow Settings > Disable Powered By, which stays the
+                                // opt-in for every other theme. Frontend: vcShowsCredit() in
+                                // nxdev/notificationx/frontend/themes/vc/VcCredit.tsx.
+                                'vc_show_credit' => [
+                                    'label'       => __( 'Verified by NotificationX', 'notificationx' ),
+                                    'name'        => 'vc_show_credit',
+                                    'type'        => 'toggle',
+                                    'default'     => true,
+                                    'priority'    => 21,
+                                    'description' => __( 'Show the "Verified by NotificationX" line on this card.', 'notificationx' ),
+                                    'rules'       => Rules::logicalRule([
+                                        Rules::is('themes_tab', 'for_desktop'),
+                                        Rules::includes('themes', self::vc_theme_keys()),
+                                    ]),
+                                ],
                             ]
                         ],
                         'advance_design_section' => [

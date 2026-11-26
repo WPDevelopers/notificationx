@@ -410,11 +410,26 @@ describe( 'Verified Card: credit', () => {
 		expect( container.querySelector( '.nx-brand-logo' ) ).toBeNull();
 	} );
 
-	it( 'disable_powered_by removes the credit', () => {
-		renderTheme( receipt( { disable_powered_by: true } ) );
+	it( 'the card\'s "Verified by NotificationX" switch off removes the credit', () => {
+		renderTheme( receipt( { vc_show_credit: false } ) );
 		expect( container.querySelector( '.nx-vc-card' ) ).not.toBeNull();
 		expect( container.querySelector( '.nx-vc-credit' ) ).toBeNull();
 		expect( container.querySelector( '.nx-branding' ) ).toBeNull();
+	} );
+
+	it.each( [ false, 0, '0', 'false', '' ] )( 'switch value %p hides the credit', ( v ) => {
+		renderTheme( receipt( { vc_show_credit: v } ) );
+		expect( container.querySelector( '.nx-vc-credit' ) ).toBeNull();
+	} );
+
+	it.each( [ true, 1, '1', undefined ] )( 'switch value %p shows the credit (no value: saved before the switch)', ( v ) => {
+		renderTheme( receipt( { vc_show_credit: v } ) );
+		expect( container.querySelector( '.nx-vc-credit' ) ).not.toBeNull();
+	} );
+
+	it( 'Settings > Disable Powered By does not hide the card\'s credit (it is part of the design)', () => {
+		renderTheme( receipt( { disable_powered_by: true } ) );
+		expect( container.querySelector( '.nx-vc-credit' ) ).not.toBeNull();
 	} );
 } );
 
@@ -467,7 +482,7 @@ describe( 'Verified Card: slim (≤480px)', () => {
 	} );
 
 	it( 'flags no image and no credit for the grid', () => {
-		renderTheme( receipt( { disable_powered_by: true } ), saleEntry( { image_data: false } ) );
+		renderTheme( receipt( { vc_show_credit: false, disable_powered_by: true } ), saleEntry( { image_data: false } ) );
 		const card = container.querySelector( '.nx-vc-slim' );
 		expect( card.classList.contains( 'is-no-img' ) ).toBe( true );
 		expect( card.classList.contains( 'is-no-credit' ) ).toBe( true );
