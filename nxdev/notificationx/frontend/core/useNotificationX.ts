@@ -10,6 +10,8 @@ import usePreviewType from "./usePreviewType";
 import { releaseBarReserve, reservedBarId } from "./barReserve";
 import { loadAddonScripts, needsAddonScripts } from "./addons";
 import { isOnScreen, listenForClicks, opensAutomatically, rememberOpener } from "./clickOpen";
+import { isExitIntentPastEnd } from "./exitIntentEnd";
+import { isHiddenBySubmit } from "./submitRule";
 
 const useNotificationX = (props: any) => {
 
@@ -61,6 +63,15 @@ const useNotificationX = (props: any) => {
 
             // Check if popup was closed in this session
             if (isPopupClosedInSession(config)) {
+                args?.intervalID && clearInterval(args?.intervalID);
+                args?.timeoutID && clearTimeout(args?.timeoutID);
+                return;
+            }
+
+            // "After a form submit" (submitRule.ts): hidden while the visitor's
+            // submit counts. Reads nothing for "Same as closing" or in the
+            // builder preview, so those keep today's behaviour.
+            if (isHiddenBySubmit(config, props.config)) {
                 args?.intervalID && clearInterval(args?.intervalID);
                 args?.timeoutID && clearTimeout(args?.timeoutID);
                 return;
@@ -649,7 +660,9 @@ const useNotificationX = (props: any) => {
                 const key = dismissKey(config);
                 if (sessionStorage.getItem(key) === 'closed') return true;
                 const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                return new RegExp('(?:^|; )' + escaped + '=').test(document.cookie);
+                if (new RegExp('(?:^|; )' + escaped + '=').test(document.cookie)) return true;
+                // "After a form submit" (submitRule.ts); false for "Same as closing".
+                return isHiddenBySubmit(config, props.config);
             };
 
             const trigger = (exitItem) => {
@@ -657,6 +670,8 @@ const useNotificationX = (props: any) => {
                 const nx_id = config?.nx_id;
                 if (triggered.has(nx_id)) return;
                 if (isDismissed(config)) return;
+                // "Stop Showing After End Date": the page may be cached or left open.
+                if (isExitIntentPastEnd(config)) return;
 
                 triggered.add(nx_id);
                 const args = { intervalID: null, timeoutID: null, data: exitItem.content || null, config };

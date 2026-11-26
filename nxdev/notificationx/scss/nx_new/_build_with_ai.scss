@@ -121,3 +121,27 @@
         }
     }
 }
+// Announcement (popup) hides its whole design sub-tab bar and content
+// (_notificationx_add_item.scss). When the Build With AI tab is there (the
+// free upsell, Extensions/GlobalFields.php, or NotificationX Pro's panel),
+// show the bar with "For Desktop" and "Build With AI"; "For Mobile" stays
+// hidden. Scoped with :has(), so nothing changes when there is no such tab.
+#notificationx .popup_notification #design_tab #themes_section .wprf-section-fields .wprf-tabs-wrapper:has(.wprf-tab-nav-item[data-key="nx_type_build_with_ai"]) {
+    .wprf-tab-menu-wrapper.popup_notification,
+    .wprf-tab-content-wrapper.popup_notification {
+        display: block;
+    }
+    .wprf-tab-nav-item[data-key="for_mobile"] {
+        display: none;
+    }
+}
+// Quick Builder: its step-bar connector (`.wprf-tab-nav-item:not(:last-child)::after`,
+// _quick_builder.scss) also reaches the design sub-tabs. "For Mobile" used to be
+// the last tab there; with the Build With AI tab after it, the connector's
+// `left` and background colour land on the Pro crown (the same ::after), which
+// then covers the Build With AI tab. Put the crown back where the builder shows
+// it (top right of "For Mobile", `right: -36px`), on a transparent background.
+.nx-quick-builder-wrapper #design_tab .wprf-control-section.themes .wprf-tab-nav .wprf-tab-nav-item:nth-child(2):not(:last-child)::after {
+    left: auto;
+    background-color: transparent;
+}

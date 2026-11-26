@@ -5,6 +5,7 @@ import CloseIcon from '../../icons/Close';
 import useNotificationContext from "./NotificationProvider";
 import { isObject, handleCloseNotification, getAnimationTiming } from "../core/functions";
 import { getIconUrl } from "../../shared/helpers";
+import { rememberSubmit } from "./submitRule";
 
 import { __ } from '@wordpress/i18n';
 import nxHelper from './functions';
@@ -256,6 +257,20 @@ const Popup = (props: any) => {
         };
     }, [isVisible, clickOpened]);
 
+    // Closing after a submit the "After a form submit" rule took over
+    // (submitRule.ts): the same hide and removal as handleClose(), without
+    // storing a close (no exit intent cookie, no close rule).
+    const closeAfterSubmit = () => {
+        setAnimation(true);
+        dispatch?.({
+            type: "REMOVE_NOTIFICATION",
+            payload: nxPopup.id,
+        });
+        setTimeout(() => {
+            setIsVisible(false);
+        }, 300);
+    };
+
     // Validation functions
     const validateForm = () => {
         const errors = {
@@ -329,6 +344,10 @@ const Popup = (props: any) => {
 
             if (response && response.success) {
                 setSubmitSuccess(true);
+                // True when the "After a form submit" rule takes over from the
+                // close rule. For "Same as closing", in the builder preview, or
+                // when the browser refuses the write, the popup closes as before.
+                const submitRuleApplies = rememberSubmit(settings, frontEndContext);
                 setTimeout(() => {
                     if (dispatch) {
                         dispatch({
@@ -336,7 +355,11 @@ const Popup = (props: any) => {
                             payload: nxPopup.id,
                         });
                     }
-                    handleClose();
+                    if (submitRuleApplies) {
+                        closeAfterSubmit();
+                    } else {
+                        handleClose();
+                    }
                 }, 1000);
             }
         } catch (error) {
