@@ -209,7 +209,88 @@ export const getThemeName = (settings) => {
     return themeName;
 };
 
+// Plugins installed from a popup in this page load (see pluginInstallAlert()).
+const installedFromPopup = new Set<string>();
+
+/**
+ * A popup whose main (deny) button installs and activates a plugin through
+ * the /core-install route, e.g. Essential Blocks for the Notification Bar's
+ * Gutenberg themes (PressBar::load_plugin_dependencies()).
+ *
+ * The popup stays open while the plugin installs. A failure shows the
+ * message in the popup instead of closing it. Once a plugin is installed,
+ * later picks in the same page load don't ask again: the builder fields
+ * still carry the popup until the page reloads.
+ */
+const pluginInstallAlert = (options: any) => {
+    // forced, type and message are builder keys, not SweetAlert options.
+    const { install_plugin: plugin, forced, type, message, ...rest } = options;
+    if (installedFromPopup.has(plugin.slug)) {
+        return { fire: () => Promise.resolve({}) };
+    }
+    const alert = Swal.mixin({
+        target: "#notificationx",
+        icon: "warning",
+        showConfirmButton: false,
+        showDenyButton: true,
+        customClass: {
+            actions: "nx-pro-alert-actions",
+        },
+        denyButtonText: __("Install", "notificationx"),
+        ...rest,
+        html: message || rest.html,
+        showLoaderOnDeny: true,
+        preDeny: () => {
+            const denyButton = Swal.getDenyButton();
+            if (denyButton && plugin.loading) {
+                denyButton.textContent = plugin.loading;
+            }
+            return apiFetch({
+                path: nxHelper.getPath("core-install"),
+                method: "POST",
+                data: {
+                    slug: plugin.slug,
+                    file: plugin.file,
+                    is_installed: !!plugin.is_installed,
+                },
+            })
+                .then((res) => {
+                    // The route answers true once the plugin is active.
+                    if (res !== true) {
+                        throw new Error("");
+                    }
+                    installedFromPopup.add(plugin.slug);
+                    return true;
+                })
+                .catch((err) => {
+                    if (denyButton) {
+                        denyButton.innerHTML = rest.denyButtonText;
+                    }
+                    // The route's own message (e.g. no permission), as text.
+                    const text = document.createElement("span");
+                    text.textContent = err?.message || "";
+                    const reason = text.innerHTML ? ` ${text.innerHTML}` : "";
+                    // One span: the message box is a flex row, which would split a link out.
+                    Swal.showValidationMessage(`<span>${plugin.failed}${reason}</span>`);
+                    return false;
+                });
+        },
+    });
+    return {
+        fire: () =>
+            alert.fire().then((result) => {
+                if (result?.isDenied && installedFromPopup.has(plugin.slug)) {
+                    ToastAlert("success", plugin.success);
+                }
+                return result;
+            }),
+    };
+};
+
 export const proAlert = (html = null) => {
+    if (isObject(html) && html?.install_plugin?.slug) {
+        return pluginInstallAlert(html);
+    }
     let htmlObject = {};
     if (html === null) {
         html = sprintf(
