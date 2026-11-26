@@ -11147,3 +11147,37 @@ msgstr ""
 #: includes/Extensions/GlobalFields.php:678
 msgid "Show the \"Verified by NotificationX\" line on this card."
 msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:2248
+msgid "This design needs Essential Blocks"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:2252
+msgid "Activate Essential Blocks"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:2257
+msgid "This design is built with Essential Blocks. Activate Essential Blocks so the bar shows correctly on your site."
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:2258
+msgid "This design is built with Essential Blocks. Install and activate Essential Blocks so the bar shows correctly on your site."
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:2265
+msgid "Activating Essential Blocks…"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:2265
+msgid "Installing Essential Blocks…"
+msgstr ""
+
+#: includes/Extensions/PressBar/PressBar.php:2266
+msgid "Essential Blocks is active. You can import this design now."
+msgstr ""
+
+#. translators: %s: Add Plugins screen URL.
+#: includes/Extensions/PressBar/PressBar.php:2269
+#, php-format
+msgid "Essential Blocks could not be installed. Install it from <a href=\"%s\" target=\"_blank\">Plugins → Add Plugin</a>, then pick this design again."
+msgstr ""

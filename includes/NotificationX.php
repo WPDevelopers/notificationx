@@ -571,6 +571,8 @@ class NotificationX {
             class_exists('\Elementor\Plugin') ? 1 : 0,
             file_exists(WP_PLUGIN_DIR . '/elementor/elementor.php') ? 1 : 0,
             \NotificationX\Core\Helper::is_plugin_active('essential-blocks/essential-blocks.php') ? 1 : 0,
+            // The Essential Blocks popup says Install or Activate (PressBar::load_plugin_dependencies()).
+            file_exists(WP_PLUGIN_DIR . '/essential-blocks/essential-blocks.php') ? 1 : 0,
         ]);
         if ( get_transient('nx_builder_fields_pro') !== $environment ) {
             delete_transient('nx_builder_fields');

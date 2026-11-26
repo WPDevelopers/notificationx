@@ -2218,34 +2218,59 @@ class PressBar extends Extension {
     }
 
     /**
-     * Load plugin dependencies.
+     * Ask for Essential Blocks when a Gutenberg bar design needs it.
+     *
+     * Themes five, six and seven are built from Essential Blocks blocks.
+     * Without the plugin they render as plain stacked blocks on the site.
+     * Picking one of them while Essential Blocks is not active opens this
+     * popup. Its main button installs and activates the plugin through the
+     * /core-install route (see proAlert() in nxdev/notificationx/core/functions.ts).
+     * It used to only open a plugin search in a new tab, so the design was
+     * imported and published without the plugin.
+     *
+     * The popup is part of the cached builder fields, so it must not depend
+     * on the current user. The route checks the capabilities.
+     *
      * @return void
     */
     public function load_plugin_dependencies() {
-        if(!Helper::is_plugin_active('essential-blocks/essential-blocks.php')){
-            $this->popup = array(
-                // forcing the popup without the is_pro.
-                "forced"            => true,
-                "showConfirmButton" => true,
-                "showCloseButton"   => true,
-                "title"             => "You are missing a dependency.",
-                "customClass"       => array(
-                    "container"     => "pressbar-gutenberg-theme-popup",
-                    // "closeButton"   => "pro-video-close-button",
-                    // "icon"          => "pro-video-icon",
-                    // "title"         => "pro-video-title",
-                    // "content"       => "pro-video-content",
-                    // "actions"       => "nx-pro-alert-actions",
-                    // "confirmButton" => "pro-video-confirm-button",
-                    // "denyButton"    => "pro-video-deny-button"
-                ),
-                "denyButtonText"    => sprintf("<a href='%s' target='_blank'>%s</a>", admin_url('plugin-install.php?s=Essential%2520Blocks&tab=search&type=term'), __("Install Essential Blocks", 'notificationx')),
-                "confirmButtonText" => "<a href='https://essential-blocks.com/' target='_blank'>More Info</a>",
-                "html"              => "
-                    <span>Highlight your sales, low stock updates with inline growth alert to boost sales</span>
-                "
-            );
+        $plugin = 'essential-blocks/essential-blocks.php';
+        if ( Helper::is_plugin_active( $plugin ) ) {
+            $this->popup = null;
+            return;
         }
+        $is_installed = Helper::is_plugin_installed( $plugin );
+        $this->popup  = array(
+            // forcing the popup without the is_pro.
+            "forced"            => true,
+            "showConfirmButton" => true,
+            "showCloseButton"   => true,
+            "title"             => __( 'This design needs Essential Blocks', 'notificationx' ),
+            "customClass"       => array(
+                "container" => "pressbar-gutenberg-theme-popup",
+            ),
+            "denyButtonText"    => $is_installed ? __( 'Activate Essential Blocks', 'notificationx' ) : __( 'Install Essential Blocks', 'notificationx' ),
+            "confirmButtonText" => sprintf( "<a href='https://essential-blocks.com/' target='_blank'>%s</a>", __( 'More Info', 'notificationx' ) ),
+            "html"              => sprintf(
+                '<span>%s</span>',
+                $is_installed
+                    ? esc_html__( 'This design is built with Essential Blocks. Activate Essential Blocks so the bar shows correctly on your site.', 'notificationx' )
+                    : esc_html__( 'This design is built with Essential Blocks. Install and activate Essential Blocks so the bar shows correctly on your site.', 'notificationx' )
+            ),
+            // Read by proAlert(): the deny button installs and activates this plugin.
+            "install_plugin"    => array(
+                'slug'         => 'essential-blocks',
+                'file'         => 'essential-blocks.php',
+                'is_installed' => $is_installed,
+                'loading'      => $is_installed ? __( 'Activating Essential Blocks…', 'notificationx' ) : __( 'Installing Essential Blocks…', 'notificationx' ),
+                'success'      => __( 'Essential Blocks is active. You can import this design now.', 'notificationx' ),
+                'failed'       => sprintf(
+                    /* translators: %s: Add Plugins screen URL. */
+                    __( 'Essential Blocks could not be installed. Install it from <a href="%s" target="_blank">Plugins → Add Plugin</a>, then pick this design again.', 'notificationx' ),
+                    esc_url( admin_url( 'plugin-install.php?s=Essential+Blocks&tab=search&type=term' ) )
+                ),
+            ),
+        );
     }
 
     public function doc() {

@@ -109,6 +109,10 @@ class CoreInstaller {
         $upgrader = new \Plugin_Upgrader(new \WP_Ajax_Upgrader_Skin());
 
         $api      = plugins_api('plugin_information', array('slug' => $slug, 'fields' => array('sections' => false)));
+        // WordPress.org could not be reached: there is nothing to download.
+        if (is_wp_error($api)) {
+            return $api;
+        }
         $result   = $upgrader->install($api->download_link);
 
         if (is_wp_error($result)) {
