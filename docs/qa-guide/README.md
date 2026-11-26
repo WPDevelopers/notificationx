@@ -18,6 +18,7 @@ Manual test plans for NotificationX (free) releases. Each guide says what change
 | [analytics-off-no-views.md](analytics-off-no-views.md) | With **Enable Analytics** off the frontend no longer writes views. Notifications show as before; analytics on is unchanged; turning it off and on again. |
 | [woocommerce-entry-visibility.md](woocommerce-entry-visibility.md) | Performance fix for WooCommerce sales notifications: the "is the product still published" check runs once per product per request. Entries of draft, trashed and deleted products stay hidden; nothing else should change. |
 | [bfcm-2026-offer-campaign.md](bfcm-2026-offer-campaign.md) | Black Friday / Cyber Monday 2026 campaign: the offer notice on the WordPress Dashboard and the pointer beside the NotificationX menu item, their copy, link and dates, dismissal per user, admin colour schemes, Pro active, and other WPDeveloper plugins' notices and pointers. |
+| [why-not-showing.md](why-not-showing.md) | "Why isn't it showing?": the row menu item, the modal, each reason with its fix link (switched off, no data, the chosen period, Show On, audience, devices, close rules, bar schedule and countdown, a source this site doesn't have, Pro sources), the admin's own browser, the tab deep link, phones, admin-only REST. Free + Pro. |
 
 ## Conventions
 

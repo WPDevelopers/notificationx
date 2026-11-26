@@ -76,6 +76,7 @@ return array(
     'NotificationX\\Core\\Upgrader' => $baseDir . '/includes/Core/Upgrader.php',
     'NotificationX\\Core\\UsageTracker' => $baseDir . '/includes/Core/UsageTracker.php',
     'NotificationX\\Core\\WPDRoleManagement' => $baseDir . '/includes/Core/WPDRoleManagement.php',
+    'NotificationX\\Core\\WhyNotShowing' => $baseDir . '/includes/Core/WhyNotShowing.php',
     'NotificationX\\Extensions\\ActiveCampaign\\ActiveCampaign' => $baseDir . '/includes/Extensions/ActiveCampaign/ActiveCampaign.php',
     'NotificationX\\Extensions\\BitIntegrations\\BitIntegrations' => $baseDir . '/includes/Extensions/BitIntegrations/BitIntegrations.php',
     'NotificationX\\Extensions\\BitIntegrations\\BitIntegrationsConversions' => $baseDir . '/includes/Extensions/BitIntegrations/BitIntegrationsConversions.php',

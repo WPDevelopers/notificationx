@@ -99,6 +99,12 @@ These handle popup **and** exit-intent form submissions (`source IN ('popup_noti
 | --- | --- | --- | --- |
 | GET | `/preview/pages` | `can_search` (`edit_notificationx`) | Available from Free 3.4.0. The Preview's page picker. `search` (optional) matches titles; `url` (optional) names that page (the Preview's default page) in `current`. Returns `items`: `id`, `title`, `type`, `type_label`, `status`, `password`, `public` (published, no password, viewable type), `front`, `url` (the permalink, or the preview link for drafts, scheduled and pending posts). Up to 8 per post type; the front page first when there's no search. Drafts, scheduled, pending and private posts only when the user can `read_post` each one. Post types: public and searchable, no attachments; filter `nx_preview_page_post_types`. It lists pages only: the preview itself is still the nonce-checked POST. |
 
+### Why isn't it showing? — `includes/Core/WhyNotShowing.php`
+
+| Method | Route | Permission | Purpose |
+| --- | --- | --- | --- |
+| GET | `/why-not-showing/(?P<id>\d+)` | `edit_notificationx` | The reasons one notification may not appear: `{ id, title, reasons[], browser }`. Each reason has `key`, `level` (`blocked`, `limited`, `note`, `ok`), `title`, `detail`, `fix` (`{label, url}` or `null`). `browser` lists the cookie, localStorage and sessionStorage keys the front end writes when this notification is closed, so the admin screen can check the admin's own browser. Read-only, `Cache-Control: no-store`, `404` for an unknown id. See [../features/why-not-showing.md](../features/why-not-showing.md). |
+
 ## Auth & nonces
 
 **Custom capabilities.** Permission callbacks check NotificationX-specific caps rather than raw WP caps: `read_notificationx`, `edit_notificationx`, `edit_notificationx_settings`, and `read_notificationx_analytics`. These are mapped onto roles by `WPDRoleManagement` using the settings role map (see [../architecture/plugin-lifecycle.md](../architecture/plugin-lifecycle.md)). A few endpoints instead require core WP caps (`install_plugins` / `activate_plugins` for `/core-install`).
@@ -118,3 +124,4 @@ These handle popup **and** exit-intent form submissions (`source IN ('popup_noti
 - [../../includes/Core/Rest/BulkAction.php](../../includes/Core/Rest/BulkAction.php)
 - [../../includes/Core/Rest/Popup.php](../../includes/Core/Rest/Popup.php)
 - [../../includes/Core/Rest/PreviewPages.php](../../includes/Core/Rest/PreviewPages.php)
+- [../../includes/Core/WhyNotShowing.php](../../includes/Core/WhyNotShowing.php)

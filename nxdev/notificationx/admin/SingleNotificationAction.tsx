@@ -17,6 +17,7 @@ import refreshIcon from '../icons/refresh.svg';
 import deleteIcon from '../icons/trash.png';
 import xssIcon from '../icons/xss.png';
 import threeDots from '../icons/three-dots.svg';
+import WhyNotShowingModal from './WhyNotShowing/WhyNotShowingModal';
 
 // import copyToClipboard from '../icons/cross.png';
 
@@ -32,6 +33,7 @@ const SingleNotificationAction = ({
 }) => {
     const nxContext = useNotificationXContext();
     const [action, setAction] = useState(false);
+    const [whyOpen, setWhyOpen] = useState(false);
     const buttonRef = useRef(null);    
     let xssText = null;
     if (nxContext?.is_pro_active) {
@@ -302,6 +304,9 @@ const SingleNotificationAction = ({
                     <img src={threeDots} alt={'three-dots'} />
                 </a>
             </div>
+            {whyOpen && (
+                <WhyNotShowingModal id={id} title={item?.title} onClose={() => setWhyOpen(false)} />
+            )}
             { action && 
                 <div className="nx-admin-actions nx-admin-actions-lists">
                     {/*  || item?.elementor_id */}
@@ -318,6 +323,23 @@ const SingleNotificationAction = ({
                                 <img src={editIcon} alt={'edit-icon'} />
                                 <span>{__("Edit", "notificationx")}</span>
                             </Link>
+                        </li>
+                        <li>
+                            <a
+                                className="nx-admin-title-why-not-showing"
+                                title={__("Why isn't it showing?", "notificationx")}
+                                onClick={() => {
+                                    setAction(false);
+                                    setWhyOpen(true);
+                                }}
+                            >
+                                <svg className="nx-admin-why-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                                    <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                                    <path d="M6.2 6.1a1.9 1.9 0 1 1 2.6 1.8c-.5.2-.8.6-.8 1.1v.4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                                    <circle cx="8" cy="11.6" r=".9" fill="currentColor" />
+                                </svg>
+                                <span>{__("Why isn't it showing?", "notificationx")}</span>
+                            </a>
                         </li>
                         <li>
                             <a
