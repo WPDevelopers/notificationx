@@ -310,8 +310,9 @@ class NotificationX {
      *
      * True for a PRO_RENDERED_THEMES theme when NotificationX Pro is not
      * active or is older than Admin::MIN_PRO_VERSION. An Exit Intent linked
-     * to an Elementor design (`elementor_id`) renders that design instead of
-     * its theme, so it is never skipped.
+     * to an Elementor design (`elementor_id`) or a block design
+     * (`gutenberg_id`) renders that design instead of its theme, so it is
+     * never skipped.
      *
      * @since 3.3.5
      * @param array $settings Notification settings.
@@ -323,6 +324,10 @@ class NotificationX {
             return false;
         }
         if ( ! empty( $settings['elementor_id'] ) ) {
+            return false;
+        }
+        // A block design (Build With Gutenberg) renders instead of the theme too.
+        if ( ! empty( $settings['gutenberg_id'] ) && ( $settings['source'] ?? '' ) === 'exit_intent_custom' ) {
             return false;
         }
         return ! self::is_pro() || Admin::pro_needs_update();
@@ -571,6 +576,8 @@ class NotificationX {
             class_exists('\Elementor\Plugin') ? 1 : 0,
             file_exists(WP_PLUGIN_DIR . '/elementor/elementor.php') ? 1 : 0,
             \NotificationX\Core\Helper::is_plugin_active('essential-blocks/essential-blocks.php') ? 1 : 0,
+            // Exit Intent's "Build With Gutenberg" shows only where the block editor edits its designs.
+            \NotificationX\Extensions\ExitIntent\GutenbergDesign::block_editor_available() ? 1 : 0,
         ]);
         if ( get_transient('nx_builder_fields_pro') !== $environment ) {
             delete_transient('nx_builder_fields');

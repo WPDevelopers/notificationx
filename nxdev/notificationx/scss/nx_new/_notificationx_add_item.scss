@@ -1335,3 +1335,93 @@
         padding: 0 !important;
     }
 }
+// Exit Intent — "Build With Gutenberg" controls: the same look as the Elementor
+// ones above (light pill with the block-editor glyph, red "Remove" link, two
+// design cards per row in the picker). Separate rules, so the Elementor and
+// Notification Bar styles are untouched.
+.exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active {
+    .wprf-control-wrapper.wprf-type-button {
+        &.wprf-name-gutenberg_edit_link,
+        &.wprf-name-build_with_gutenberg {
+            .wprf-button {
+                color: #092161;
+                background: #f7f8fa;
+                border: 1px solid #d9dbe9;
+                padding-left: 40px;
+                background-image: url(../../../assets/admin/images/new-img/gutenberg-icon.svg);
+                background-size: 20px 20px;
+                background-repeat: no-repeat;
+                background-position: 16px center;
+                &:hover {
+                    color: #092161;
+                    background-color: #f7f8fa;
+                    border-color: #d9dbe9;
+                    box-shadow: none;
+                }
+            }
+        }
+
+        &.wprf-name-nx-exit-intent_with_gutenberg-remove {
+            .wprf-button {
+                color: #fb2a04;
+                background: transparent;
+                border: none;
+                &:hover {
+                    color: #fb2a04;
+                    background: transparent;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+
+    // "Ask a site editor…" note for users who can't edit the design.
+    .wprf-name-nx-exit-intent_gutenberg_no_edit {
+        flex: 1 0 100%;
+        text-align: center;
+    }
+}
+
+.wprf-tab-exit_intent_custom_tab .wprf-name-gutenberg_exit_theme .wprf-control .wprf-row .wprf-column.wprf-column-2 {
+    width: 50%;
+    z-index: 99;
+}
+
+// Out-specify the Notification Bar's `gutenberg_edit_link` padding (see the
+// Elementor note above); Exit Intent only.
+#themes #exit_intent_custom_tab {
+    .wprf-control-wrapper.wprf-name-gutenberg_edit_link,
+    .wprf-control-wrapper.wprf-name-nx-exit-intent_with_gutenberg-remove,
+    .wprf-control-wrapper.wprf-name-build_with_gutenberg {
+        padding: 0 !important;
+    }
+}
+
+// Exit Intent Custom tab, nothing linked: "Build With Elementor" (or Install
+// Elementor) and "Build With Gutenberg" side by side, the same width. They stack
+// when the row can't hold both. Exit Intent only; the Notification Bar's
+// buttons keep their own rules.
+.exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active {
+    // The hidden state fields (is_elementor, elementor_id, is_confirmed) render
+    // as empty spans between the two buttons; as full-width flex rows they
+    // forced each button onto its own line. Only the spans between the two
+    // Build buttons go; the ones after them keep the space under the buttons,
+    // and the linked states (Edit / Remove) don't match this selector at all.
+    > #wprf-modal-nx-exit-intent_with_elementor ~ span:has(~ #wprf-modal-nx-exit-intent_with_gutenberg),
+    > .wprf-name-nx-exit-intent_with_elementor_install ~ span:has(~ #wprf-modal-nx-exit-intent_with_gutenberg) {
+        display: none;
+    }
+
+    > #wprf-modal-nx-exit-intent_with_elementor,
+    > #wprf-modal-nx-exit-intent_with_gutenberg,
+    > .wprf-control-wrapper.wprf-name-nx-exit-intent_with_elementor_install {
+        flex: 0 0 240px;
+        max-width: 100%;
+
+        .wprf-control-wrapper,
+        .wprf-control-field,
+        .wprf-button {
+            width: 100%;
+        }
+    }
+}

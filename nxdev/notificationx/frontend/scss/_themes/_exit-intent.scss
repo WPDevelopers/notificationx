@@ -698,3 +698,135 @@
     }
 }
 
+
+// ─── Block-editor popup ("Build With Gutenberg") ─────────────────────────────
+// Gutenberg popups only; the Elementor and built-in popups above are untouched.
+// Width and corner radius come from the design's outer Group block
+// (--nx-exit-width, --nx-exit-radius, set by ExitIntentGutenberg.tsx).
+.nx-exit-intent-gutenberg {
+    position: relative;
+    width: 100%;
+    max-width: var(--nx-exit-width, 600px);
+    box-sizing: border-box;
+    outline: none;
+
+    .nx-exit-intent-gutenberg-body {
+        // Long designs scroll inside the popup instead of being cut off.
+        max-height: calc(100vh - 32px);
+        max-height: calc(100dvh - 32px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        border-radius: var(--nx-exit-radius, 0);
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
+        box-sizing: border-box;
+
+        > .wp-block-group,
+        > *:first-child {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        .alignfull,
+        .alignwide {
+            margin-inline: 0;
+            max-width: 100%;
+        }
+    }
+
+    .nx-exit-intent-close {
+        position: absolute;
+        top: -16px;
+        inset-inline-end: -16px;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        padding: 0;
+        margin: 0;
+        line-height: 1;
+        font-size: 22px;
+        background: rgba(255, 255, 255, 0.95);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+        color: #1a1a1a;
+        appearance: none;
+        -webkit-appearance: none;
+
+        &:focus-visible {
+            outline: 3px solid #2563eb;
+            outline-offset: 2px;
+        }
+    }
+
+    // Phones: the × moves inside the card as a 44px tap target, so it never
+    // sits off the screen edge.
+    @media (max-width: 480px) {
+        .nx-exit-intent-close {
+            top: 8px;
+            inset-inline-end: 8px;
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+        }
+    }
+}
+
+// ─── Show / Hide animations (NotificationX Pro) ─────────────────────────────
+// The card takes Pro's animation classes (animate.css, nx-anim-*); the backdrop
+// fades in with an entrance and out with an exit. Only set when an animation
+// is chosen ("None" adds no class). _reduced-motion.scss shortens both.
+@keyframes nxExitIntentBackdropIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes nxExitIntentBackdropOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+.nx-exit-intent-overlay.nx-exit-intent-anim-in {
+    animation: nxExitIntentBackdropIn 0.3s ease-out both;
+}
+.nx-exit-intent-overlay.nx-exit-intent-anim-out {
+    animation: nxExitIntentBackdropOut 0.5s ease-in both;
+    // Leaving: clicks reach the page, and nothing in the popup reacts twice.
+    pointer-events: none;
+}
+
+// ─── Block designs on tablets and phones ────────────────────────────────────
+// Tablets (768px and up) keep the desktop layout; phones stack. Core stacks
+// Columns below 782px, so in the popup that moves to below 768px (each
+// column's own width comes from GutenbergDesign::column_styles()). On phones
+// the buttons go one per row, full width.
+@media (min-width: 768px) and (max-width: 781px) {
+    .nx-exit-intent-gutenberg-body .wp-block-columns:not(.is-not-stacked-on-mobile) {
+        flex-wrap: nowrap !important;
+        > .wp-block-column {
+            flex-basis: 0 !important;
+            flex-grow: 1;
+        }
+        > .wp-block-column[style*="flex-basis"] {
+            flex-grow: 0;
+        }
+    }
+}
+@media (max-width: 767px) {
+    .nx-exit-intent-gutenberg-body .wp-block-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        > .wp-block-button {
+            width: 100%;
+            flex-basis: auto;
+        }
+        > .wp-block-button .wp-block-button__link {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    }
+}

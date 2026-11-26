@@ -26,6 +26,8 @@ All routes below are under `/notificationx/v1` unless noted. Permission column n
 | POST/PUT/PATCH | `/gutenberg/remove` | `edit_permission` | Delete the linked Gutenberg bar post. |
 | POST/PUT/PATCH | `/exit-intent/elementor/import` | `edit_permission` | Create an Elementor exit-intent design (`nx_exit_intent`). |
 | POST/PUT/PATCH | `/exit-intent/elementor/remove` | `edit_permission` | Delete the linked exit-intent post. |
+| POST/PUT/PATCH | `/exit-intent/gutenberg/import` | `edit_permission` | Create an Exit Intent block design (`nx_exit_intent_eb`) from one of the four starting designs (`theme_id`: `theme-one` … `theme-four` only; anything else is a 400). See [Build With Gutenberg](../features/exit-intent/gutenberg/README.md). |
+| POST/PUT/PATCH | `/exit-intent/gutenberg/remove` | `edit_permission` | Delete the linked block design; only `nx_exit_intent_eb` posts are ever deleted. |
 | POST/PUT/PATCH | `/reporting-test` | `settings_permission` (`edit_notificationx_settings`) | Send a test analytics report email. |
 | POST/PUT/PATCH | `/entries-mail-test` | `settings_permission` | Send a test entries-mail-receiver email. |
 | POST/PUT/PATCH | `/settings` | `settings_permission` | Save plugin settings. |

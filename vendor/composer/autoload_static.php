@@ -118,6 +118,7 @@ class ComposerStaticInit89ec86686dc155609d949b902a87bbd5
         'NotificationX\\Extensions\\Elementor\\From' => __DIR__ . '/../..' . '/includes/Extensions/Elementor/From.php',
         'NotificationX\\Extensions\\Envato\\Envato' => __DIR__ . '/../..' . '/includes/Extensions/Envato/Envato.php',
         'NotificationX\\Extensions\\ExitIntent\\ExitIntentNotification' => __DIR__ . '/../..' . '/includes/Extensions/ExitIntent/ExitIntentNotification.php',
+        'NotificationX\\Extensions\\ExitIntent\\GutenbergDesign' => __DIR__ . '/../..' . '/includes/Extensions/ExitIntent/GutenbergDesign.php',
         'NotificationX\\Extensions\\ExitIntent\\Importer' => __DIR__ . '/../..' . '/includes/Extensions/ExitIntent/importer.php',
         'NotificationX\\Extensions\\Extension' => __DIR__ . '/../..' . '/includes/Extensions/Extension.php',
         'NotificationX\\Extensions\\ExtensionFactory' => __DIR__ . '/../..' . '/includes/Extensions/ExtensionFactory.php',

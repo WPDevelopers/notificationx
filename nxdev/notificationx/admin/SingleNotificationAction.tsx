@@ -380,7 +380,7 @@ const SingleNotificationAction = ({
                             </li>
                         )}
                         <li>
-                            {!item?.elementor_id && item.source != "flashing_tab" && item.source != "gdpr_notification" && (
+                            {!item?.elementor_id && !(item.source == "exit_intent_custom" && item?.gutenberg_id) && item.source != "flashing_tab" && item.source != "gdpr_notification" && (
                                 <CopyToClipboard
                                     className="nx-admin-title-xss"
                                     title={__("Cross Domain Notice", "notificationx")}

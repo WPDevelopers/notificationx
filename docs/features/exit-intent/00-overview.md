@@ -67,7 +67,7 @@ const handleMouseLeave = (e: MouseEvent) => {
 };
 ```
 
-- **Session + cookie persistence** — closing a popup sets `sessionStorage` key `notificationx_exit_intent_{nx_id}_{theme}` to `'closed'`. When `exit_intent_cookie_days` > 0 the same key is also written as a cookie with `expires` set N days ahead; subsequent `mouseleave` events skip it.
+- **Session + cookie persistence** — closing a popup sets `sessionStorage` key `notificationx_exit_intent_{nx_id}_{theme}` to `'closed'`. With "Do Not Show Again" (`exit_intent_cookie_enabled`) on and `exit_intent_cookie_days` > 0, the same key is also written as a cookie with `expires` set N days ahead, and only then does the cookie make later `mouseleave` events skip it. Campaigns saved before the toggle read as on when they have days. See [dismiss-and-animation.md](dismiss-and-animation.md#2-do-not-show-again-toggle).
 - **One-shot per page load** — once fired, the `nx_id` is added to `triggered` so it cannot re-open without a page refresh.
 - **End date** — with "Stop Showing After End Date" on and the end time passed (`isExitIntentPastEnd()` in [exitIntentEnd.ts](../../../nxdev/notificationx/frontend/core/exitIntentEnd.ts)), the trigger skips the campaign. This covers a page that was cached or loaded before the end time. See [End date](#end-date-stop-showing-after-end-date).
 
@@ -280,10 +280,13 @@ Defined in `customize_fields()` of [ExitIntentNotification.php](../../../include
 |---|---|---|---|
 | `show_close_button` | toggle | `true` | Renders `×` button top-right |
 | `exit_intent_sensitivity` | select | `20` | Top-of-viewport px threshold (`10` high / `20` medium / `50` low) |
-| `exit_intent_cookie_days` | number | `7` | Days to suppress after dismissal (drives the dismissal cookie as well as the sessionStorage flag) |
+| `exit_intent_cookie_enabled` | toggle | `false` | "Do Not Show Again". The days apply only when it is on; saved campaigns from before it read as on when they have days |
+| `exit_intent_cookie_days` | number | `7` | "Do Not Show Again For": days the dismissal cookie keeps the popup hidden. Shown when the toggle is on |
 | `exit_intent_mobile_disable` | toggle | `true` | Skip trigger on touch/mobile devices |
 | `exit_intent_hide_after_end` | toggle | `false` | "Stop Showing After End Date". Off keeps the behaviour from before the option existed |
 | `exit_intent_countdown_end` | date | 7 days from now | "End Date & Time", shown when the toggle is on. Same key as the theme five / six timer date |
+
+A separate **Animation** section (`exit_intent_animation`) holds `exit_intent_animation_show` / `exit_intent_animation_hide` (NotificationX Pro, "None" by default) for built-in themes one, three and four and for Elementor / Gutenberg designs. See [dismiss-and-animation.md](dismiss-and-animation.md#3-show-and-hide-animations).
 
 Standard timing fields `delay_between` and `display_for` are hidden for this source. `behavior`, `sound_section`, and `queue_management` sections are also hidden.
 

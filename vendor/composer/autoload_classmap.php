@@ -95,6 +95,7 @@ return array(
     'NotificationX\\Extensions\\Elementor\\From' => $baseDir . '/includes/Extensions/Elementor/From.php',
     'NotificationX\\Extensions\\Envato\\Envato' => $baseDir . '/includes/Extensions/Envato/Envato.php',
     'NotificationX\\Extensions\\ExitIntent\\ExitIntentNotification' => $baseDir . '/includes/Extensions/ExitIntent/ExitIntentNotification.php',
+    'NotificationX\\Extensions\\ExitIntent\\GutenbergDesign' => $baseDir . '/includes/Extensions/ExitIntent/GutenbergDesign.php',
     'NotificationX\\Extensions\\ExitIntent\\Importer' => $baseDir . '/includes/Extensions/ExitIntent/importer.php',
     'NotificationX\\Extensions\\Extension' => $baseDir . '/includes/Extensions/Extension.php',
     'NotificationX\\Extensions\\ExtensionFactory' => $baseDir . '/includes/Extensions/ExtensionFactory.php',

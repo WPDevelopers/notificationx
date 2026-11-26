@@ -35,7 +35,7 @@ theme-seven) end-user form submissions posted back through the shared
 The real trigger is client-side: [`useNotificationX.ts`](../../nxdev/notificationx/frontend/core/useNotificationX.ts)
 listens for `mouseleave` near the top of the viewport and dispatches the popup once
 per `nx_id` per page load, honoring a dismissal cookie/sessionStorage flag
-(`exit_intent_cookie_days`).
+(`exit_intent_cookie_enabled` + `exit_intent_cookie_days`).
 
 ## Extension classes & pairings
 
@@ -85,6 +85,10 @@ If Elementor is missing or the doc unpublished, `mode` falls back to `'built_in'
 `add_end_timestamp()`, on the same filter, adds `exit_intent_end_ts` (the campaign end
 date as UTC ms) for the end-date option and the Pro countdown themes.
 
+### Build With Gutenberg
+
+Available from Free 3.4.2, the Custom tab also offers **Build With Gutenberg**: one of four starting designs is imported as an `nx_exit_intent_eb` post, edited in the block editor and linked through `gutenberg_id`. `GutenbergDesign::inject_gutenberg_html()` (on `nx_filtered_post`, priority 11, after the Elementor filter) sets `mode: 'gutenberg'` with the rendered `gutenberg_html`, and `ExitIntentPopup.tsx` hands it to `ExitIntentGutenberg.tsx`. One builder at a time; the Elementor path is unchanged. Details, lifecycle and limits: [../features/exit-intent/gutenberg/README.md](../features/exit-intent/gutenberg/README.md).
+
 ## Fields & settings
 
 Distinctive fields registered via `init_fields()` (see
@@ -104,7 +108,8 @@ tables — not duplicated here):
   `design_fields()`, gated by `Rules::is('themes', ...)` per theme.
 - **Customize tab** — `exit_intent_popup_settings` section added by
   `customize_fields()`: `show_close_button`, `exit_intent_position`,
-  `exit_intent_sensitivity`, `exit_intent_cookie_days`, `exit_intent_hide_after_end`,
+  `exit_intent_sensitivity`, `exit_intent_cookie_enabled` ("Do Not Show Again") and
+  `exit_intent_cookie_days` (shown when it is on), `exit_intent_hide_after_end`,
   `exit_intent_countdown_end` (shown when the toggle is on), `exit_intent_mobile_disable`.
   The end-date pair stops the popup after its end date; see
   [End date](../features/exit-intent/00-overview.md#end-date-stop-showing-after-end-date).
@@ -153,6 +158,7 @@ tables — not duplicated here):
 | Type registration | [`includes/Types/ExitIntent.php`](../../includes/Types/ExitIntent.php) |
 | Registration | [`includes/Extensions/ExtensionFactory.php`](../../includes/Extensions/ExtensionFactory.php) (`exit_intent_custom` key) |
 | Shared fields | [`includes/Extensions/GlobalFields.php`](../../includes/Extensions/GlobalFields.php) |
+| Block designs ("Build With Gutenberg") | [`includes/Extensions/ExitIntent/GutenbergDesign.php`](../../includes/Extensions/ExitIntent/GutenbergDesign.php), starting designs [`includes/Extensions/ExitIntent/jsons-gb/`](../../includes/Extensions/ExitIntent/jsons-gb/), popup [`nxdev/notificationx/frontend/core/ExitIntentGutenberg.tsx`](../../nxdev/notificationx/frontend/core/ExitIntentGutenberg.tsx). See [Build With Gutenberg](../features/exit-intent/gutenberg/README.md). |
 | REST — Elementor import/remove, popup-submit | [`includes/Core/REST.php`](../../includes/Core/REST.php) (`/exit-intent/elementor/import`, `/exit-intent/elementor/remove`), [`includes/Core/Rest/Popup.php`](../../includes/Core/Rest/Popup.php) (`/popup-submit`) |
 | Data serialization | `includes/FrontEnd/FrontEnd.php` (`get_notifications_data()`, `exit_intent` key) |
 | React rendering | `nxdev/notificationx/frontend/core/ExitIntentPopup.tsx`, `NotificationContainer.tsx`, `useNotificationX.ts`, `utils.ts` |

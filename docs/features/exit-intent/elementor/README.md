@@ -27,12 +27,12 @@ Each task is incremental — finish + verify before moving to the next.
 | 04 | [Admin "Custom" tab — Build / Edit / Remove with Elementor buttons + modal](./04-admin-ui.md) | done |
 | 05 | [Hidden state fields — `elementor_id`, `is_elementor`, `is_confirmed`, edit link](./05-state-fields.md) | done |
 | 06 | [Suppress built-in theme fields when `elementor_id` is set](./06-suppress-builtin-fields.md) | done |
-| 07 | [Seed Elementor JSON templates in `jsons/`](./07-seed-templates.md) | partial (theme-one only) |
+| 07 | [Seed Elementor JSON templates in `jsons/`](./07-seed-templates.md) | done (theme-one … theme-seven) |
 | 08 | [Frontend render — inject Elementor HTML into the React popup shell](./08-frontend-render.md) | done |
 | 09 | [Lifecycle — `saved_post`, `nx_get_post`, `nx_delete_post`, WPML](./09-lifecycle.md) | todo |
-| 10 | [Integrations — WP Rocket RUCSS safelist, `get_edit_post_link` filter](./10-integrations.md) | todo |
+| 10 | [Integrations — WP Rocket RUCSS safelist, `get_edit_post_link` filter](./10-integrations.md) | partial (edit-link filter done; RUCSS safelist todo) |
 
-> Gutenberg support is a parallel track — same shape, separate set of tasks. We'll spin those up once 01–10 land.
+> Gutenberg support is built: see [../gutenberg/README.md](../gutenberg/README.md). It has its own post type (`nx_exit_intent_eb`), lifecycle and RUCSS safelist; the Elementor code above is unchanged by it.
 
 ---
 

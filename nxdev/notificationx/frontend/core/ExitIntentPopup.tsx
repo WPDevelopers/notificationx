@@ -5,6 +5,9 @@ import { nxApplyFilters } from "./hooks";
 import { msUntilExitIntentEnd } from "./exitIntentEnd";
 import { rememberSubmit } from "./submitRule";
 import { watchFormSuccess } from "./watchFormSuccess";
+import ExitIntentGutenberg from "./ExitIntentGutenberg";
+import { exitIntentCookieDays } from "./exitIntentDismiss";
+import { EXIT_INTENT_EXIT_MS, exitIntentBackdropClass, exitIntentLeaving, exitIntentMotion, exitIntentShown, freeRendersCard, prefersReducedMotion } from "./exitIntentMotion";
 
 const px = (v: any): string | undefined => (v || v === 0) ? `${v}px` : undefined;
 
@@ -29,6 +32,39 @@ const ExitIntentPopup = (props: any) => {
     const s         = settings || {};
     const position  = ['center', 'bottom-left', 'bottom-right'].includes(s.exit_intent_position) ? s.exit_intent_position : 'center';
     const overlayClass = `nx-exit-intent-overlay nx-exit-intent-position-${position}`;
+
+    // Show / Hide animations (exitIntentMotion.ts). null with "None" for both,
+    // without Pro, and for Pro's own themes: then nothing below changes.
+    const noticeId                         = nxExitIntent.id;
+    const [hiding, setHiding]             = useState(() => exitIntentLeaving.remaining(noticeId) !== null);
+    const leaveTimer                       = useRef<ReturnType<typeof setTimeout> | null>(null);
+    // Already shown in this page view: re-mounted, so no second entrance.
+    const [skipEntrance]                   = useState(() => exitIntentShown.has(noticeId));
+    const motion        = freeRendersCard(s, theme) ? exitIntentMotion(s, is_pro, hiding, skipEntrance) : null;
+    const isGutenberg   = s.mode === 'gutenberg' && typeof s.gutenberg_html === 'string' && !!s.gutenberg_html;
+    const backdropClass = exitIntentBackdropClass(motion, hiding);
+    // Overlay and card classes for the cards Free renders (unchanged without motion).
+    const freeOverlayClass = backdropClass ? `${overlayClass} ${backdropClass}` : overlayClass;
+    const cardClass        = motion?.cardClass ? ` ${motion.cardClass}` : '';
+    const withCardStyle    = (style: React.CSSProperties): React.CSSProperties =>
+        motion && Object.keys(motion.cardStyle).length ? { ...style, ...motion.cardStyle } : style;
+    // Remove the popup (after its exit animation, if any).
+    const finish = () => {
+        exitIntentLeaving.done(noticeId);
+        exitIntentShown.forget(noticeId);
+        setIsVisible(false);
+        dispatch?.({ type: 'REMOVE_NOTIFICATION', payload: noticeId });
+    };
+    useEffect(() => {
+        // Re-mounted during its exit (exitIntentLeaving): finish leaving.
+        const left = exitIntentLeaving.remaining(noticeId);
+        if (left !== null) leaveTimer.current = setTimeout(finish, left);
+        // A block design counts as shown once its assets are in (onShown).
+        if (!isGutenberg) exitIntentShown.add(noticeId);
+        return () => {
+            if (leaveTimer.current) clearTimeout(leaveTimer.current);
+        };
+    }, []);
 
     // Boot Elementor widgets inside the server-rendered popup HTML. The markup is
     // injected via dangerouslySetInnerHTML after page load, so Elementor's own DOM
@@ -58,19 +94,32 @@ const ExitIntentPopup = (props: any) => {
         }
     };
 
+    // Remove the popup; with a Hide animation, after it has played.
+    const leave = () => {
+        if (motion?.animatesOut && !prefersReducedMotion()) {
+            exitIntentLeaving.start(noticeId, EXIT_INTENT_EXIT_MS);
+            setHiding(true);
+            leaveTimer.current = setTimeout(finish, EXIT_INTENT_EXIT_MS);
+            return;
+        }
+        finish();
+    };
+
     const handleClose = () => {
+        // Already leaving (a second click, Escape during the exit animation).
+        if (leaveTimer.current) return;
         if (!submitRememberedRef.current) {
             const _theme = settings?.themes || '';
             const key = `notificationx_exit_intent_${settings?.nx_id}_${_theme}`;
             sessionStorage.setItem(key, 'closed');
-            const days = parseInt(settings?.exit_intent_cookie_days, 10);
-            if (Number.isFinite(days) && days > 0) {
+            // "Do Not Show Again": the days apply only with the toggle on.
+            const days = exitIntentCookieDays(settings);
+            if (days > 0) {
                 const exp = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
                 document.cookie = `${key}=closed; expires=${exp.toUTCString()}; path=/; SameSite=Lax`;
             }
         }
-        setIsVisible(false);
-        dispatch?.({ type: 'REMOVE_NOTIFICATION', payload: nxExitIntent.id });
+        leave();
     };
 
     // "Stop Showing After End Date": close the popup when the end time arrives
@@ -81,8 +130,7 @@ const ExitIntentPopup = (props: any) => {
         const left = msUntilExitIntentEnd(settings);
         if (left === null) return;
         const expire = () => {
-            setIsVisible(false);
-            dispatch?.({ type: 'REMOVE_NOTIFICATION', payload: nxExitIntent.id });
+            if (!leaveTimer.current) leave();
         };
         if (left <= 0) {
             expire();
@@ -214,11 +262,11 @@ const ExitIntentPopup = (props: any) => {
         }
         return (
             <div
-                className={overlayClass}
+                className={freeOverlayClass}
                 style={overlayStyle}
                 onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
             >
-                <div className="nx-exit-intent-elementor" style={elementorWrapStyle}>
+                <div className={`nx-exit-intent-elementor${cardClass}`} style={withCardStyle(elementorWrapStyle)}>
                     {showClose && (
                         <button
                             className="nx-exit-intent-close"
@@ -236,6 +284,25 @@ const ExitIntentPopup = (props: any) => {
                     />
                 </div>
             </div>
+        );
+    }
+
+    // ─── Block-editor popup ("Build With Gutenberg") ───────────────────────────
+    // Its own component (dialog semantics, focus, Escape, scrolling, #nx-close
+    // links, block-asset loading); the Elementor branch above is untouched.
+    if (s.mode === 'gutenberg' && typeof s.gutenberg_html === 'string' && s.gutenberg_html) {
+        return (
+            <ExitIntentGutenberg
+                settings={s}
+                showClose={showClose}
+                closeStyle={closeStyle}
+                overlayClass={overlayClass}
+                backdropClass={backdropClass}
+                cardClass={motion?.cardClass || ''}
+                cardStyle={motion?.cardStyle}
+                onShown={() => exitIntentShown.add(noticeId)}
+                onClose={handleClose}
+            />
         );
     }
 
@@ -316,10 +383,10 @@ const ExitIntentPopup = (props: any) => {
         const playFill = adv ? (s.exit_intent_t4_play_color || '#1a1a2e') : '#1a1a2e';
 
         return (
-            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={freeOverlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
-                    className={`nx-exit-intent-popup nx-exit-intent-theme-four nx-exit-intent-${settings?.nx_id}`}
-                    style={popupStyle}
+                    className={`nx-exit-intent-popup nx-exit-intent-theme-four nx-exit-intent-${settings?.nx_id}${cardClass}`}
+                    style={withCardStyle(popupStyle)}
                 >
                     {showClose && (
                         <button className="nx-exit-intent-close" style={closeStyle} onClick={handleClose} aria-label="Close">
@@ -428,10 +495,10 @@ const ExitIntentPopup = (props: any) => {
         } : {};
 
         return (
-            <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+            <div className={freeOverlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
                 <div
-                    className={`nx-exit-intent-popup nx-exit-intent-theme-three nx-exit-intent-${settings?.nx_id}`}
-                    style={popupStyle}
+                    className={`nx-exit-intent-popup nx-exit-intent-theme-three nx-exit-intent-${settings?.nx_id}${cardClass}`}
+                    style={withCardStyle(popupStyle)}
                 >
                     {imageUrl && (
                         <div className="nx-exit-intent-t3-character" aria-hidden="true">
@@ -505,10 +572,10 @@ const ExitIntentPopup = (props: any) => {
     const showPattern = !adv || s.exit_intent_show_pattern !== false;
 
     return (
-        <div className={overlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
+        <div className={freeOverlayClass} style={overlayStyle} onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}>
             <div
-                className={`nx-exit-intent-popup nx-exit-intent-theme-one nx-exit-intent-${settings?.nx_id}`}
-                style={popupStyle}
+                className={`nx-exit-intent-popup nx-exit-intent-theme-one nx-exit-intent-${settings?.nx_id}${cardClass}`}
+                style={withCardStyle(popupStyle)}
             >
                 {showPattern && (
                     <div className="nx-exit-intent-pattern" style={patternStyle} aria-hidden="true">

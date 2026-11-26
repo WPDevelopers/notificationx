@@ -1,0 +1,485 @@
+{
+ "source": "assets/admin/css/admin.css at 536e399a, before the side-by-side Build buttons; the third value is the md5 of the rule declarations joined by ;",
+ "rules": [
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes .wprf-name-elementor_edit_link",
+   "2825db9801dfcb79226268dc00c17d89"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes .wprf-name-gutenberg_edit_link",
+   "2825db9801dfcb79226268dc00c17d89"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes .wprf-name-nx-bar_with_elementor_install",
+   "2825db9801dfcb79226268dc00c17d89"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes .wprf-nx-bar_with_elementor_install_message-message",
+   "2825db9801dfcb79226268dc00c17d89"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes #wprf-modal-nx-bar_with_gutenberg",
+   "e7ec5403d61cc0c7a92533e5b0713341"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes #wprf-modal-nx-bar_with_gutenberg .wprf-name-build_with_gutenberg",
+   "05015cd2e4e66d13b6bebf7277a1c3b4"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes #wprf-modal-nx-bar_with_gutenberg .wprf-name-build_with_gutenberg button[name=build_with_gutenberg]",
+   "9ab9bec820f8c9890107f9d632a70ed5"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes #nx_bar_import_design",
+   "e7ec5403d61cc0c7a92533e5b0713341"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes #nx_bar_import_design .wprf-section-fields",
+   "ef1096181d4a136d4c9611fcd8430bda"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes #nx_bar_import_design .wprf-name-nx-bar_with_elementor-remove",
+   "cd6607b627ffc6f5777f00d4ba97362f"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes #nx_bar_import_design .wprf-name-nx-bar_with_gutenberg-remove",
+   "cd6607b627ffc6f5777f00d4ba97362f"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes #nx_bar_import_design .wprf-name-elementor_edit_link",
+   "30af7dda0eb05af52a8f7fdf6e728525"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes #nx_bar_import_design .wprf-name-gutenberg_edit_link",
+   "30af7dda0eb05af52a8f7fdf6e728525"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #themes.themes #nx_bar_import_design",
+   "3c8b56d31e673ae976f460d0bc725ddb"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content #wprf-modal-nx-bar_with_elementor .wprf-name-build_with_elementor",
+   "05015cd2e4e66d13b6bebf7277a1c3b4"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content .nx_bar_import_design .wprf-control",
+   "5694a6edb33f563db635fc946ba0cc6f"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content .nx_bar_import_design .wprf-section-fields",
+   "46bb3a2a2ab7dbe351ff5cde1f5ef164"
+  ],
+  [
+   "@media only screen and (max-width:1399px)",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .wprf-tab-content .nx_bar_import_design .wprf-section-fields",
+   "9bffe2eb86196e844d8e24d5a6bdf34a"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields #nxbar_with_elementor+.wprf-control-section.nx_bar_import_design .wprf-section-fields",
+   "9bde736e65d4c9d432d9ec95b4a19042"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields #nxbar_with_gutenberg+.wprf-control-section.nx_bar_import_design .wprf-section-fields",
+   "9bde736e65d4c9d432d9ec95b4a19042"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields",
+   "ab4beafbd1cc5c5c5c5873dbb9ecd417"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper .wprf-button",
+   "782ceba4a4a08e6b149b5cccea8d9dde"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper .wprf-button:hover",
+   "17945fc5a63d5dd70320c6d309dbdb9b"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper .wprf-button:focus",
+   "7fafc8fe82d403eddadecfb0cb401827"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-build_with_elementor",
+   "32dd49d98bcd01390e87ae4a9516e6aa"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-elementor_edit_link",
+   "32dd49d98bcd01390e87ae4a9516e6aa"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-nx-bar_with_elementor_install",
+   "32dd49d98bcd01390e87ae4a9516e6aa"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-build_with_elementor .wprf-control-field .wprf-button",
+   "e9b8897cd73d94e82b856cb1209836d6"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-elementor_edit_link .wprf-control-field .wprf-button",
+   "e9b8897cd73d94e82b856cb1209836d6"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-nx-bar_with_elementor_install .wprf-control-field .wprf-button",
+   "e9b8897cd73d94e82b856cb1209836d6"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-build_with_gutenberg",
+   "32dd49d98bcd01390e87ae4a9516e6aa"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-gutenberg_edit_link",
+   "32dd49d98bcd01390e87ae4a9516e6aa"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-build_with_gutenberg .wprf-control-field .wprf-button",
+   "a3d75dc709d8fdb35ec0ad52c3c2ad23"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-gutenberg_edit_link .wprf-control-field .wprf-button",
+   "a3d75dc709d8fdb35ec0ad52c3c2ad23"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-nx-bar_with_elementor-remove",
+   "32dd49d98bcd01390e87ae4a9516e6aa"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-nx-bar_with_gutenberg-remove",
+   "32dd49d98bcd01390e87ae4a9516e6aa"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-nx-bar_with_elementor-remove .wprf-control-field .wprf-button",
+   "de405671378017ca216edea82e8956bc"
+  ],
+  [
+   "",
+   "#notificationx #design_tab .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design .wprf-section-fields .wprf-control-wrapper.wprf-name-nx-bar_with_gutenberg-remove .wprf-control-field .wprf-button",
+   "de405671378017ca216edea82e8956bc"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper.press_bar .wprf-tab-content .wprf-control-section.themes .wprf-section-fields .wprf-control-section.nx_bar_import_design",
+   "acb8d2356c31efa15b0f50dd0fd94ffa"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active",
+   "67e9c2fa0e61851130bbcade32164391"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active>.nxbar-presets",
+   "7e620168259c71bc3994e66619acfac0"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active>.wprf-tab-heading-wrapper",
+   "7e620168259c71bc3994e66619acfac0"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active>span",
+   "60ef8176a9502af7ef76eab206bfb31d"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .nxbar-presets-empty-state",
+   "7b23846ff189f81a2a5a7a9f8a738473"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .nxbar-presets-empty-state img",
+   "1f92a8e807a11716c2b24f68336b0e01"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .nxbar-presets-empty-state h4",
+   "35c987c26d582b0242348e2761b78be2"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .nxbar-selected-presets",
+   "ce5ddf4f7814dbfc6e2d888548b50e6a"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .nxbar-selected-presets .nxbar-selected-presets-gutenberg",
+   "eadff01d61f8ce941a2ad0aa0df6f5ba"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .nxbar-selected-presets .nxbar-selected-presets-gutenberg img",
+   "c12dadc56b96a09f9f3fb94196720050"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button",
+   "f4d011b42b8d11175b95a809b07f7f42"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control.wprf-modal",
+   "f4d011b42b8d11175b95a809b07f7f42"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button .wprf-button",
+   "4232620d066c96e0eb78b470283637af"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-build_with_elementor .wprf-button",
+   "c9105780055be178ef448d670d5e16af"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-elementor_edit_link .wprf-button",
+   "c9105780055be178ef448d670d5e16af"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-nx-exit-intent_with_elementor_install .wprf-button",
+   "c9105780055be178ef448d670d5e16af"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-build_with_elementor .wprf-button:hover",
+   "a7b732a6091768213615505f809d06c8"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-elementor_edit_link .wprf-button:hover",
+   "a7b732a6091768213615505f809d06c8"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-nx-exit-intent_with_elementor_install .wprf-button:hover",
+   "a7b732a6091768213615505f809d06c8"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-nx-exit-intent_with_elementor-remove .wprf-button",
+   "0c8af5a6b618dc3335f12611f17a1d90"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-nx-exit-intent_with_elementor-remove .wprf-button:hover",
+   "5249f861c3b758de67da15c37d0b4636"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wp-react-form:has(#exit_intent_custom_tab.wprf-active)~.wprf-control.wprf-name-themes",
+   "9703d2e0491031e282a455d7f71bac4e"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-control-section:has(#exit_intent_custom_tab.wprf-active)~.wprf-control.wprf-name-themes",
+   "9703d2e0491031e282a455d7f71bac4e"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tabs-wrapper:has(#exit_intent_custom_tab.wprf-active)~.wprf-control.wprf-name-themes",
+   "9703d2e0491031e282a455d7f71bac4e"
+  ],
+  [
+   "",
+   "#notificationx .wprf-tab-exit_intent_custom_tab .wprf-name-elementor_exit_theme .wprf-control .wprf-row .wprf-column.wprf-column-2",
+   "5dd0b04f0d73d35ace73b8b6b81ae969"
+  ],
+  [
+   "",
+   "#notificationx #themes #exit_intent_custom_tab .wprf-control-wrapper.wprf-name-build_with_elementor",
+   "221bf72eeb07a0a40b53d348ca0034cf"
+  ],
+  [
+   "",
+   "#notificationx #themes #exit_intent_custom_tab .wprf-control-wrapper.wprf-name-elementor_edit_link",
+   "221bf72eeb07a0a40b53d348ca0034cf"
+  ],
+  [
+   "",
+   "#notificationx #themes #exit_intent_custom_tab .wprf-control-wrapper.wprf-name-nx-exit-intent_with_elementor-remove",
+   "221bf72eeb07a0a40b53d348ca0034cf"
+  ],
+  [
+   "",
+   "#notificationx #themes #exit_intent_custom_tab .wprf-control-wrapper.wprf-name-nx-exit-intent_with_elementor_install",
+   "221bf72eeb07a0a40b53d348ca0034cf"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-build_with_gutenberg .wprf-button",
+   "85f73c00845bd287445f8456cc336167"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-gutenberg_edit_link .wprf-button",
+   "85f73c00845bd287445f8456cc336167"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-build_with_gutenberg .wprf-button:hover",
+   "a7b732a6091768213615505f809d06c8"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-gutenberg_edit_link .wprf-button:hover",
+   "a7b732a6091768213615505f809d06c8"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-nx-exit-intent_with_gutenberg-remove .wprf-button",
+   "0c8af5a6b618dc3335f12611f17a1d90"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-control-wrapper.wprf-type-button.wprf-name-nx-exit-intent_with_gutenberg-remove .wprf-button:hover",
+   "5249f861c3b758de67da15c37d0b4636"
+  ],
+  [
+   "",
+   "#notificationx .exit_intent_custom .wprf-tab-exit_intent_custom_tab.wprf-active .wprf-name-nx-exit-intent_gutenberg_no_edit",
+   "e554b1736b9ced98400943449c6b9479"
+  ],
+  [
+   "",
+   "#notificationx .wprf-tab-exit_intent_custom_tab .wprf-name-gutenberg_exit_theme .wprf-control .wprf-row .wprf-column.wprf-column-2",
+   "5dd0b04f0d73d35ace73b8b6b81ae969"
+  ],
+  [
+   "",
+   "#notificationx #themes #exit_intent_custom_tab .wprf-control-wrapper.wprf-name-build_with_gutenberg",
+   "221bf72eeb07a0a40b53d348ca0034cf"
+  ],
+  [
+   "",
+   "#notificationx #themes #exit_intent_custom_tab .wprf-control-wrapper.wprf-name-gutenberg_edit_link",
+   "221bf72eeb07a0a40b53d348ca0034cf"
+  ],
+  [
+   "",
+   "#notificationx #themes #exit_intent_custom_tab .wprf-control-wrapper.wprf-name-nx-exit-intent_with_gutenberg-remove",
+   "221bf72eeb07a0a40b53d348ca0034cf"
+  ],
+  [
+   "",
+   "#notificationx #nx-bar_with_elementor-remove",
+   "0f622d6b7779a9c3bd129ea9a06f1309"
+  ],
+  [
+   "",
+   "#notificationx #nx-bar_with_gutenberg-remove",
+   "0f622d6b7779a9c3bd129ea9a06f1309"
+  ],
+  [
+   "",
+   "#notificationx #nx-bar_with_elementor-remove:focus",
+   "c038b3a1573700f46834582dcfd7bfa0"
+  ],
+  [
+   "",
+   "#notificationx #nx-bar_with_elementor-remove:hover",
+   "c038b3a1573700f46834582dcfd7bfa0"
+  ],
+  [
+   "",
+   "#notificationx #nx-bar_with_gutenberg-remove:focus",
+   "c038b3a1573700f46834582dcfd7bfa0"
+  ],
+  [
+   "",
+   "#notificationx #nx-bar_with_gutenberg-remove:hover",
+   "c038b3a1573700f46834582dcfd7bfa0"
+  ],
+  [
+   "",
+   "#notificationx .wprf-name-nx-bar_with_elementor_install .wprf-description",
+   "933465c16dd611c1018fb3ac587d0a51"
+  ],
+  [
+   "",
+   "#notificationx .wprf-name-nx-bar_with_elementor_install p",
+   "2592cc77dd80af7d97f349c50555c849"
+  ],
+  [
+   "",
+   "#notificationx .wprf-name-nx-bar_with_elementor_install p a",
+   "0e5c5d01ec81bf8517e15692c64f3a6e"
+  ],
+  [
+   "",
+   "#notificationx .wprf-name-nx-bar_with_elementor_install p .nx-on-click-install",
+   "64c1542b13f41aefd72be2dce9471b0a"
+  ],
+  [
+   "",
+   "#notificationx .wprf-name-nx-bar_with_elementor_install p .nx-on-click-install:focus",
+   "845c6dd1227da3590692395af1a8bd8e"
+  ],
+  [
+   "",
+   "#notificationx .wprf-name-nx-bar_with_elementor_install p .nx-on-click-install:hover",
+   "845c6dd1227da3590692395af1a8bd8e"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper #themes .wprf-section-fields .wprf-control-wrapper.wprf-name-advance_edit+#nxbar_with_elementor+#nx_bar_import_design",
+   "cb458930127061b067c3813ba5f857b8"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper #themes .wprf-section-fields .wprf-control-wrapper.wprf-name-advance_edit+.nx_bar_import_design",
+   "cb458930127061b067c3813ba5f857b8"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper #themes .wprf-section-fields .wprf-control-wrapper.wprf-name-advance_edit+.wprf-control.wprf-nx-bar_with_elementor_install_message-message",
+   "cb458930127061b067c3813ba5f857b8"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .advance_design_section .wprf-section-fields .wprf-control-section.bar_editor .wprf-section-fields .wprf-control-wrapper.wprf-name-nx-bar_with_elementor_install",
+   "221bf72eeb07a0a40b53d348ca0034cf"
+  ],
+  [
+   "",
+   "#notificationx .wp-react-form.wprf-tabs-wrapper .wprf-tab-content-wrapper .advance_design_section .wprf-section-fields .wprf-control-section.bar_editor .wprf-section-fields .wprf-control-wrapper.wprf-name-nx-bar_with_elementor_install .wprf-button",
+   "022479cfe2e1c0f76711c887189091ab"
+  ]
+ ]
+}

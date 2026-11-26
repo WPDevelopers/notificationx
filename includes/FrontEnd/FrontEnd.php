@@ -1054,6 +1054,9 @@ class FrontEnd {
                 // its layout CSS and timer JS. Mirrors the press_bar branch above.
                 if (!empty($settings['elementor_id']) && class_exists('\Elementor\Plugin')) {
                     \Elementor\Plugin::$instance->frontend->get_builder_content($settings['elementor_id'], false);
+                } elseif (!empty($settings['gutenberg_id'])) {
+                    // Block design ("Build With Gutenberg"): put its block assets on this page.
+                    \NotificationX\Extensions\ExitIntent\GutenbergDesign::get_instance()->enqueue_assets($settings['gutenberg_id']);
                 }
             } elseif ($active_global_queue && NotificationX::is_pro()) {
                 $global_notifications[] = $return_posts ? $settings : $settings['nx_id'];

@@ -11,6 +11,7 @@ import { releaseBarReserve, reservedBarId } from "./barReserve";
 import { loadAddonScripts, needsAddonScripts } from "./addons";
 import { isExitIntentPastEnd } from "./exitIntentEnd";
 import { isHiddenBySubmit } from "./submitRule";
+import { isExitIntentCookieOn } from "./exitIntentDismiss";
 
 const useNotificationX = (props: any) => {
 
@@ -629,8 +630,11 @@ const useNotificationX = (props: any) => {
             const isDismissed = (config) => {
                 const key = dismissKey(config);
                 if (sessionStorage.getItem(key) === 'closed') return true;
-                const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                if (new RegExp('(?:^|; )' + escaped + '=').test(document.cookie)) return true;
+                // The dismissal cookie counts only with "Do Not Show Again" on.
+                if (isExitIntentCookieOn(config)) {
+                    const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    if (new RegExp('(?:^|; )' + escaped + '=').test(document.cookie)) return true;
+                }
                 // "After a form submit" (submitRule.ts); false for "Same as closing".
                 return isHiddenBySubmit(config, props.config);
             };

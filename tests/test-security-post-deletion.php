@@ -135,6 +135,9 @@ class Test_Security_Post_Deletion extends WP_UnitTestCase {
 			'gutenberg/remove vs post'             => array( '/notificationx/v1/gutenberg/remove', 'gutenberg_id', 'post' ),
 			'exit-intent/elementor/remove vs page' => array( '/notificationx/v1/exit-intent/elementor/remove', 'elementor_id', 'page' ),
 			'exit-intent/elementor/remove vs post' => array( '/notificationx/v1/exit-intent/elementor/remove', 'elementor_id', 'post' ),
+			'exit-intent/gutenberg/remove vs page' => array( '/notificationx/v1/exit-intent/gutenberg/remove', 'gutenberg_id', 'page' ),
+			'exit-intent/gutenberg/remove vs post' => array( '/notificationx/v1/exit-intent/gutenberg/remove', 'gutenberg_id', 'post' ),
+			'exit-intent/gutenberg/remove vs bar design' => array( '/notificationx/v1/exit-intent/gutenberg/remove', 'gutenberg_id', 'nx_bar_eb' ),
 		);
 	}
 
@@ -170,6 +173,10 @@ class Test_Security_Post_Deletion extends WP_UnitTestCase {
 		$exit_id = self::factory()->post->create( array( 'post_type' => 'nx_exit_intent' ) );
 		$this->dispatch( '/notificationx/v1/exit-intent/elementor/remove', array( 'elementor_id' => $exit_id ) );
 		$this->assertNull( get_post( $exit_id ), 'A genuine nx_exit_intent design could not be removed via the route.' );
+
+		$exit_eb_id = self::factory()->post->create( array( 'post_type' => 'nx_exit_intent_eb' ) );
+		$this->dispatch( '/notificationx/v1/exit-intent/gutenberg/remove', array( 'gutenberg_id' => $exit_eb_id ) );
+		$this->assertNull( get_post( $exit_eb_id ), 'A genuine nx_exit_intent_eb design could not be removed via the route.' );
 	}
 
 	/**
@@ -190,6 +197,7 @@ class Test_Security_Post_Deletion extends WP_UnitTestCase {
 			$this->dispatch( '/notificationx/v1/elementor/remove', array( 'elementor_id' => $victim_id ) );
 			$this->dispatch( '/notificationx/v1/gutenberg/remove', array( 'gutenberg_id' => $victim_id ) );
 			$this->dispatch( '/notificationx/v1/exit-intent/elementor/remove', array( 'elementor_id' => $victim_id ) );
+			$this->dispatch( '/notificationx/v1/exit-intent/gutenberg/remove', array( 'gutenberg_id' => $victim_id ) );
 		}
 
 		foreach ( $victims as $victim_id ) {

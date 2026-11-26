@@ -227,6 +227,16 @@ class ImportExport{
                         }
 
 
+                        // Exit Intent block design ("Build With Gutenberg"): re-create it, or drop the link.
+                        if(isset($post['source']) && $post['source'] == 'exit_intent_custom' && !empty($post['gutenberg_id'])){
+                            $old_id = $post['gutenberg_id'];
+                            $gb_id  = \NotificationX\Extensions\ExitIntent\GutenbergDesign::get_instance()->import_design(
+                                isset($data['exit_intent_designs'][$old_id]) ? $data['exit_intent_designs'][$old_id] : null
+                            );
+                            $post['gutenberg_id']        = $gb_id ? $gb_id : false;
+                            $post['gutenberg_edit_link'] = '';
+                        }
+
                         $notification = PostType::get_instance()->save_post($post); //, ['no_hooks' => true]
                         $nx_id_new    = $notification['nx_id'];
 
@@ -339,6 +349,13 @@ class ImportExport{
                         }
                     }
                 }
+            }
+        }
+        if(!empty($export['notifications'])){
+            // Exit Intent block designs ("Build With Gutenberg"): title and blocks.
+            $designs = \NotificationX\Extensions\ExitIntent\GutenbergDesign::export_designs($export['notifications']);
+            if(!empty($designs)){
+                $export['exit_intent_designs'] = $designs;
             }
         }
         if(!empty($params['export-settings']) && !empty($params['export-notification'])){
