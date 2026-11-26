@@ -1,5 +1,5 @@
 /**
- * Verified Cards (vc-*) add-on hooks (free 3.3.9):
+ * Verified Cards (vc-*) add-on hooks (free 3.4.0):
  *  - nx_frontend_vc_slugs        (themes/vc/isVcTheme.ts)
  *  - nx_frontend_vc_card         (themes/vc/VerifiedCard.tsx, with VC_CARD_PARTS and SlimShell)
  *  - nx_frontend_vc_compact_rows (themes/vc/vcCompactRows.ts)
@@ -335,7 +335,7 @@ describe( 'SlimShell', () => {
 
 	it( 'hides the time and marks no image and no credit', () => {
 		const props = {
-			config: { ...receipt(), disable_powered_by: true },
+			config: { ...receipt(), vc_show_credit: false },
 			data: saleEntry( { image_data: false } ),
 			id: 'nx-vc',
 			dispatch: jest.fn(),

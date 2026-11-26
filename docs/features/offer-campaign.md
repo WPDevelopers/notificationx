@@ -5,7 +5,7 @@ Free-only upsell UI for a sale. A campaign has two surfaces, and they share one 
 | Surface | Where it shows | Code |
 | --- | --- | --- |
 | **Offer notice** | WordPress Dashboard (`wp-admin/index.php`), above the widgets | The campaign's block in `Admin::notices()` ([includes/Admin/Admin.php](../../includes/Admin/Admin.php)) + its CSS block in [assets/admin/css/wpdeveloper-review-notice.css](../../assets/admin/css/wpdeveloper-review-notice.css) |
-| **Offer pointer** | Beside the **NotificationX** menu item, on the Dashboard and on NotificationX's own pages | [includes/Admin/OfferPointer.php](../../includes/Admin/OfferPointer.php) + [assets/admin/js/offer-pointer.js](../../assets/admin/js/offer-pointer.js) |
+| **Offer pointer** | Beside the **NotificationX** menu item, on NotificationX's own pages only (not the Dashboard, which has the notice) | [includes/Admin/OfferPointer.php](../../includes/Admin/OfferPointer.php) + [assets/admin/js/offer-pointer.js](../../assets/admin/js/offer-pointer.js) |
 
 Neither shows while NotificationX Pro is active. Nothing here is Pro code.
 
@@ -51,7 +51,7 @@ Things that are easy to get wrong:
 
 1. NotificationX Pro is not active (`OfferPointer::is_pro_active()`).
 2. The time is inside the window (`in_window()`, both ends included).
-3. The screen is `dashboard`, `toplevel_page_nx-admin` or a `notificationx_page_nx-*` page (`is_screen()`). Not the Plugins screen, not the network admin.
+3. The screen is `toplevel_page_nx-admin` or a `notificationx_page_nx-*` page (`is_screen()`). Not the WordPress Dashboard, not the Plugins screen, not the network admin.
 4. The user can `manage_options`.
 5. The user has not dismissed it (`is_dismissed()`, user meta `_nx_offer_pointer_bfcm2026_dismissed`).
 6. No other WPDeveloper plugin holds the shared pointer slot with a smaller number (`may_take_slot()`).

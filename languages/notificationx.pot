@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: NotificationX 3.3.9\n"
+"Project-Id-Version: NotificationX 3.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/notificationx\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11142,4 +11142,8 @@ msgstr ""
 
 #: assets/admin/js/admin.js:21
 msgid "Open in new tab"
+msgstr ""
+
+#: includes/Extensions/GlobalFields.php:678
+msgid "Show the \"Verified by NotificationX\" line on this card."
 msgstr ""

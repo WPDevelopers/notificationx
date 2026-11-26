@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * It shows only when all of these hold:
  * - NotificationX Pro is not active;
  * - the date is inside the campaign window;
- * - the screen is the WordPress Dashboard or one of NotificationX's own pages;
+ * - the screen is one of NotificationX's own pages (not the WordPress Dashboard);
  * - the user can `manage_options`;
  * - this user has not dismissed it (user meta, kept for good);
  * - no other WPDeveloper plugin holds the pointer slot with a smaller number.
@@ -148,8 +148,9 @@ class OfferPointer {
     }
 
     /**
-     * Whether a screen shows the pointer: the WordPress Dashboard and NotificationX's own pages
-     * (`toplevel_page_nx-admin` and every `notificationx_page_nx-*` submenu page).
+     * Whether a screen shows the pointer: NotificationX's own pages only (`toplevel_page_nx-admin`
+     * and every `notificationx_page_nx-*` submenu page). Not the WordPress Dashboard, which has
+     * the offer notice.
      *
      * @param string $screen_id `get_current_screen()->id`.
      * @return bool
@@ -157,8 +158,7 @@ class OfferPointer {
     public static function is_screen( $screen_id ) {
         $screen_id = (string) $screen_id;
 
-        return 'dashboard' === $screen_id
-            || 'toplevel_page_nx-admin' === $screen_id
+        return 'toplevel_page_nx-admin' === $screen_id
             || 0 === strpos( $screen_id, 'notificationx_page_nx-' );
     }
 

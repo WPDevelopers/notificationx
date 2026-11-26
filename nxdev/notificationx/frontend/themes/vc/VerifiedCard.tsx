@@ -5,7 +5,7 @@ import classNames from "classnames";
 import Image from "../helpers/Image";
 import Close from "../helpers/Close";
 import { nxApplyFilters } from "../../core/hooks";
-import VcCredit from "./VcCredit";
+import VcCredit, { vcShowsCredit } from "./VcCredit";
 import VcStars, { formatVcRating, parseVcRating } from "./VcStars";
 import useVcLineScroll from "./useVcLineScroll";
 import { isBuiltInVcSlug } from "./isVcTheme";
@@ -42,7 +42,7 @@ import { isBuiltInVcSlug } from "./isVcTheme";
  * layout is mounted at a time.
  *
  * Add-on slugs (nx_frontend_vc_slugs) render through the
- * `nx_frontend_vc_card` filter (free 3.3.9+); the built-in ones never do.
+ * `nx_frontend_vc_card` filter (free 3.4.0+); the built-in ones never do.
  */
 
 const SLIM_QUERY = "(max-width: 480px)";
@@ -546,7 +546,7 @@ export const SlimShell = ({ props, word, line, time }: { props: any; word: strin
         <div
             className={classNames("nx-vc-card", `nx-vc-${word}`, "nx-vc-slim", {
                 "is-no-img": !props?.data?.image_data,
-                "is-no-credit": !!props?.config?.disable_powered_by,
+                "is-no-credit": !vcShowsCredit(props?.config),
             })}
         >
             <VcImage {...props} />
