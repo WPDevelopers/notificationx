@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useCallback } from 'react';
-import ScannerHistory from './ModalContent/ScannerHistory';
+import ScannerHistory, { cleanScanHistory } from './ModalContent/ScannerHistory';
 import HistoryMoreInfo from './ModalContent/HistoryMoreInfo';
 import ReactModal from "react-modal";
 import { modalStyle } from '../core/constants';
@@ -34,6 +34,47 @@ const processCookies = (cookiesData: any) => {
   }));
 };
 
+/** Wait between the end of one status request and the start of the next. */
+export const SCAN_POLL_INTERVAL_MS = 5000;
+/** Bad replies in a row (network error, 5xx, not JSON, no status) before the scan is given up. */
+export const SCAN_MAX_BAD_REPLIES = 3;
+/** Wall-clock limit for one scan, counted from the moment polling starts. */
+export const SCAN_TIME_LIMIT_MS = 10 * 60 * 1000;
+
+export type ScanStatusVerdict = 'completed' | 'failed' | 'pending' | 'bad';
+
+/**
+ * Sorts one reply from the scan status route.
+ *
+ * - completed: the scan is done and `body.data` holds the results.
+ * - failed:    the scan cannot succeed: a `failed`/`error` status or any 4xx reply.
+ * - pending:   any other status text; the scanner API's full status list is not
+ *              documented, so an unknown status keeps polling until the time limit.
+ * - bad:       no usable reply (network error, 5xx, not JSON, no status text).
+ *
+ * @param httpStatus HTTP status code, or 0 when the request itself failed.
+ * @param body       Parsed JSON body, or null.
+ */
+export const classifyStatusResponse = (httpStatus: number, body: any): ScanStatusVerdict => {
+  if (httpStatus >= 400 && httpStatus < 500) {
+    return 'failed';
+  }
+  if (httpStatus < 200 || httpStatus >= 300) {
+    return 'bad';
+  }
+  const status = body?.data?.status;
+  if (typeof status !== 'string' || status === '') {
+    return 'bad';
+  }
+  if (status === 'completed') {
+    return 'completed';
+  }
+  if (status === 'failed' || status === 'error') {
+    return 'failed';
+  }
+  return 'pending';
+};
+
 const CookieScanner = () => {
   const [scanMessage, setScanMessage] = useState('');
   const [status, setStatus] = useState('');
@@ -45,7 +86,7 @@ const CookieScanner = () => {
   const [isReadyToScanModalOpen, setIsReadyToScanModalOpen] = useState(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
   const [isDiscoveredCookieModalOpen, setIsDiscoveredCookieModalOpen] = useState(false);
-  const [historyData, setHistoryData] = useState(builderContext?.values?.scan_history || []);
+  const [historyData, setHistoryData] = useState(() => cleanScanHistory(builderContext?.values?.scan_history));
   const [activeHistorydata, setActiveHistoryData] = useState(null);
   const [dotCount, setDotCount] = useState(0);
 
@@ -72,19 +113,19 @@ const CookieScanner = () => {
         body: JSON.stringify({ url: currentDomain }),
       });
 
-      const res = await response.json();
+      const res = await response.json().catch(() => null);
       const data = res?.data;
 
-      if (data?.scan_id) {
+      if (response.ok && data?.scan_id) {
         setScanId(data.scan_id);
         setStatus(data.status || 'pending');
       } else {
-        nxToast.error(__(`Scan initiation failed. ${data.error}`, 'notificationx'));
+        nxToast.error(__('Scan failed. Please try again.', 'notificationx'));
         setIsScanning(false);
       }
     } catch (error) {
       setIsScanning(false);
-      nxToast.error(__(`Scan failed. Try again.`, 'notificationx'));
+      nxToast.error(__('Scan failed. Please try again.', 'notificationx'));
     }
   }, []);
 
@@ -105,56 +146,107 @@ const CookieScanner = () => {
 		setIsDiscoveredCookieModalOpen(true);
 	};  
   
+  // Polls the status route for the current scan, one request at a time.
+  // Runs only when scanId changes; the cleanup cancels the timers and the
+  // request in flight (unmount, or scanId cleared when the scan ends).
   useEffect(() => {
-    if (!scanId || status === 'completed') return;
+    if (!scanId) return;
 
-    const checkScanStatus = async () => {
-        try {
-            const statusUrl = `${nxContext?.rest?.root + nxContext?.rest?.namespace }/scan/status`;
-            const response = await fetch(statusUrl, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': nxContext?.rest?.nonce,
-              },
-              body: JSON.stringify({ scan_id: scanId, nx_id : nx_id  }),
-            });
-            const res = await response.json();
-            const data = res?.data;
-            if (data?.status === 'completed') {
-                nxToast.info(__(`Scan complete! Your results are now available.`, 'notificationx'));
-                setIsScanning(false);
-                setStatus('completed');
-                clearInterval(interval);
-                setResults(data?.cookies);
-                // Get current scan history from context
-                const currentHistory = builderContext?.values?.scan_history || [];
-                builderContext.setFieldValue(
-                  "scan_history",
-                  [...currentHistory, data]
-                );
-                builderContext.setFieldValue(
-                  "last_scan_date",
-                  data?.last_scan_date
-                );
-                setHistoryData( [...currentHistory, data] );
-            }
-        } catch (error) {
-            nxToast.info(__(`Scan failed! ${error?.data?.message}.`, 'notificationx'));
-            // Get current scan history from context
-            const currentHistory = builderContext?.values?.scan_history || [];
-            builderContext.setFieldValue(
-              "scan_history",
-              [...currentHistory, error?.data]
-            );
-            setIsScanning(false);
-            clearInterval(interval);
-        }
+    const statusUrl = `${nxContext?.rest?.root + nxContext?.rest?.namespace }/scan/status`;
+    const controller = new AbortController();
+    const startedAt = Date.now();
+    let cancelled = false;
+    let badReplies = 0;
+    let pollTimer: ReturnType<typeof setTimeout> | undefined;
+    let limitTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const end = () => {
+      cancelled = true;
+      clearTimeout(pollTimer);
+      clearTimeout(limitTimer);
+      controller.abort();
+      setIsScanning(false);
+      setScanId(null);
     };
-    const interval = setInterval(checkScanStatus, 5000);
 
-    return () => clearInterval(interval);
-}, [scanId, status]);
+    const fail = (message: string) => {
+      end();
+      setStatus('failed');
+      nxToast.error(message);
+    };
+
+    const failTimeLimit = () => fail(__('The scan took too long. Please try again.', 'notificationx'));
+
+    const complete = (data: any) => {
+      end();
+      nxToast.info(__(`Scan complete! Your results are now available.`, 'notificationx'));
+      setStatus('completed');
+      setResults(data?.cookies);
+      // Get current scan history from context
+      const currentHistory = builderContext?.values?.scan_history || [];
+      builderContext.setFieldValue(
+        "scan_history",
+        [...currentHistory, data]
+      );
+      builderContext.setFieldValue(
+        "last_scan_date",
+        data?.last_scan_date
+      );
+      setHistoryData( cleanScanHistory([...currentHistory, data]) );
+    };
+
+    const poll = async () => {
+      let httpStatus = 0;
+      let body = null;
+      try {
+        const response = await fetch(statusUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-WP-Nonce': nxContext?.rest?.nonce,
+          },
+          body: JSON.stringify({ scan_id: scanId, nx_id : nx_id  }),
+          signal: controller.signal,
+        });
+        httpStatus = response.status;
+        body = await response.json().catch(() => null);
+      } catch (error) {
+        // Network error or aborted: httpStatus stays 0, which counts as a bad reply.
+      }
+      if (cancelled) return;
+
+      const verdict = classifyStatusResponse(httpStatus, body);
+      if (verdict === 'completed') {
+        complete(body.data);
+        return;
+      }
+      if (verdict === 'failed') {
+        fail(__('Scan failed. Please try again.', 'notificationx'));
+        return;
+      }
+      badReplies = verdict === 'bad' ? badReplies + 1 : 0;
+      if (badReplies >= SCAN_MAX_BAD_REPLIES) {
+        fail(__('Scan failed. Please try again.', 'notificationx'));
+        return;
+      }
+      // Background tabs throttle timers, so the limit is also checked against the clock.
+      if (Date.now() - startedAt >= SCAN_TIME_LIMIT_MS) {
+        failTimeLimit();
+        return;
+      }
+      pollTimer = setTimeout(poll, SCAN_POLL_INTERVAL_MS);
+    };
+
+    limitTimer = setTimeout(failTimeLimit, SCAN_TIME_LIMIT_MS);
+    pollTimer = setTimeout(poll, SCAN_POLL_INTERVAL_MS);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(pollTimer);
+      clearTimeout(limitTimer);
+      controller.abort();
+    };
+  }, [scanId]);
 
 useEffect(() => {
   const interval = setInterval(() => {
