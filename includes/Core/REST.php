@@ -55,6 +55,7 @@ class REST {
         Rest\Analytics::get_instance();
         Rest\BulkAction::get_instance();
         Rest\Popup::get_instance();
+        Rest\PreviewPages::get_instance();
         WhyNotShowing::get_instance();
 
         add_action('rest_api_init', [$this, 'register_routes']);

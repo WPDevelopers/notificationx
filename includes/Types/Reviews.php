@@ -129,6 +129,40 @@ class Reviews extends Types {
                     'custom_fourth_param' => __('Some time ago', 'notificationx'),
                 ]
             ],
+            // "Verified card" (vc) theme, kept at the END of the list so every
+            // existing card keeps its picker position. Rendered by the frontend
+            // VerifiedCard (nxdev/notificationx/frontend/themes/vc/); the full keys
+            // are listed in GlobalFields::vc_theme_keys(). No 'defaults', so the
+            // theme trigger sets @link_button:false.
+            // Scorecard — reviewer + time, stars + rating + review title, the
+            // review text, "on <plugin>". Never tag_rated (that switches some
+            // sources to aggregate mode); the time is a fixed {{time}} slot.
+            'vc-scorecard' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-scorecard.png',
+                'image_shape' => 'circle',
+                'template'    => [
+                    'first_param'        => 'tag_username',
+                    'custom_first_param' => __('Someone', 'notificationx'),
+                    'second_param'       => _x('on', 'Scorecard: <reviewer> on <product>', 'notificationx'),
+                    'third_param'        => 'tag_plugin_name',
+                    'fourth_param'       => 'tag_rating',
+                    'fifth_param'        => 'tag_plugin_review',
+                    'sixth_param'        => 'tag_title',
+                ],
+            ],
+            // "Verified card" Ratings, kept at the END of the list. Rendered by the frontend
+            // VerifiedCard; the full keys are listed in GlobalFields::vc_theme_keys().
+            // tag_rated is the count of 5-star ratings (and the switch that makes
+            // WooCommerce count them), so the card always shows five stars; no time.
+            'vc-ratings' => [
+                'source'      => NOTIFICATIONX_ADMIN_URL . 'images/extensions/themes/vc/vc-ratings.png',
+                'image_shape' => 'rounded',
+                'template'    => [
+                    'first_param'  => 'tag_rated',
+                    'second_param' => __('people rated', 'notificationx'),
+                    'third_param'  => 'tag_plugin_name',
+                ],
+            ],
         ];
         $this->res_themes = [
             'res-theme-one'     => [
@@ -232,6 +266,40 @@ class Reviews extends Types {
                 ],
                 '_themes' => [
                     'reviews_review_saying',
+                ],
+            ],
+            // Verified card Scorecard: its own group, so the existing groups
+            // keep their option lists. Only the tags the card shows.
+            'vc_scorecard_template' => [
+                'first_param' => [
+                    'tag_username' => __('Username', 'notificationx'),
+                ],
+                'third_param' => [
+                    'tag_plugin_name' => __('Plugin Name', 'notificationx'),
+                ],
+                'fourth_param' => [
+                    'tag_rating' => __('Rating', 'notificationx'),
+                ],
+                'fifth_param' => [
+                    'tag_plugin_review' => __('Review', 'notificationx'),
+                ],
+                'sixth_param' => [
+                    'tag_title' => __('Review Title', 'notificationx'),
+                ],
+                '_themes' => [
+                    'reviews_vc-scorecard',
+                ],
+            ],
+            // Verified card Ratings: its own group, only the tags the card shows.
+            'vc_ratings_template' => [
+                'first_param' => [
+                    'tag_rated' => __('Rated', 'notificationx'),
+                ],
+                'third_param' => [
+                    'tag_plugin_name' => __('Plugin Name', 'notificationx'),
+                ],
+                '_themes' => [
+                    'reviews_vc-ratings',
                 ],
             ],
         ];
