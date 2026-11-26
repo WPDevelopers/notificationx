@@ -3,7 +3,15 @@ import ScanHistory from '../../icons/ScanHistory';
 import CloseIcon from '../../icons/Close';
 import { __ } from '@wordpress/i18n';
 import { formatDateTime } from '../../frontend/gdpr/utils/helper';
-const ScannerHistory = ({setIsHistoryModalOpen, handleScannedCookieView, historyData}) => {    
+
+/**
+ * The saved scan history without empty entries. Campaigns saved after a failed
+ * scan can hold `null` items, and a value that is not a list means no history.
+ */
+export const cleanScanHistory = (history) => (Array.isArray(history) ? history.filter(Boolean) : []);
+
+const ScannerHistory = ({setIsHistoryModalOpen, handleScannedCookieView, historyData}) => {
+  historyData = cleanScanHistory(historyData);
   return (
     <Fragment>
       <div className="wprf-modal-preview-header">

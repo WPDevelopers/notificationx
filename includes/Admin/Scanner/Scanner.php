@@ -56,8 +56,35 @@ class Scanner
             'methods'   => WP_REST_Server::EDITABLE,
             'callback'  => array($this, 'check_scan_status'),
             'permission_callback' => array($this, 'edit_permission'),
+            'args'      => array(
+                'scan_id' => array(
+                    'description'       => 'The scan ID returned when the scan started.',
+                    'required'          => true,
+                    'validate_callback' => array($this, 'validate_scan_id'),
+                    'sanitize_callback' => 'sanitize_text_field',
+                ),
+            ),
         ));
 
+    }
+
+    /**
+     * Validates the scan_id argument of the status route.
+     *
+     * The scanner API's ID format is not documented, so this only requires a
+     * non-empty string (or integer) of at most 128 characters. The ID is
+     * URL-encoded before it is sent to the API.
+     *
+     * @param mixed $value The raw scan_id value.
+     * @return bool
+     */
+    public function validate_scan_id($value)
+    {
+        if (!is_string($value) && !is_int($value)) {
+            return false;
+        }
+        $value = trim((string) $value);
+        return '' !== $value && strlen($value) <= 128;
     }
 
     /**
@@ -109,15 +136,22 @@ class Scanner
      */
     public function check_scan_status(WP_REST_Request $request)
     {
-        $scanId = $request->get_param('scan_id');
+        $scanId = trim((string) $request->get_param('scan_id'));
 
-        // Retrieve the scan status from the database (implement this function as needed)
+        // Handle invalid scan ID before calling the scanner API.
+        if ('' === $scanId) {
+            $data = [ 'status' => 'failed', 'message' => __('Invalid scan ID','notificationx') ];
+            return new WP_REST_Response(['data' => $data ], 400);
+        }
+
+        // Retrieve the scan status from the scanner API.
         $status = $this->get_scan_status($scanId);
 
-        // Handle invalid scan ID
-        if ($status === null && empty( $scanId )) {
-            $data = [ 'status' => 'failed', 'message' => __('Invalid scan ID','notificationx') ];
-            return new WP_REST_Response(['data' => $data ], 404);
+        // The scanner API could not be reached or gave no usable reply. The
+        // error details stay on the server; the UI gets a generic message.
+        if (is_wp_error($status)) {
+            $data = [ 'status' => 'failed', 'message' => __('Could not reach the cookie scanner service. Please try again later.','notificationx') ];
+            return new WP_REST_Response(['data' => $data ], 502);
         }
 
         // Process the scan result if the status is 'completed'
@@ -184,7 +218,9 @@ class Scanner
      * 
      * @param string $scanId The scan ID to check the status of.
      * 
-     * @return array The scan status data from the external API.
+     * @return array|\WP_Error The scan status data from the external API, or a
+     *                         WP_Error on a network error, a non-2xx reply or a
+     *                         body that is not a JSON object.
      */
     private function get_scan_status($scanId)
     {
@@ -200,11 +236,19 @@ class Scanner
 
         // Check for errors in the response
         if (is_wp_error($response)) {
-            return new WP_REST_Response(['error' => $response->get_error_message()], 500);
+            return $response;
+        }
+
+        $code = (int) wp_remote_retrieve_response_code($response);
+        if ($code < 200 || $code >= 300) {
+            return new \WP_Error('nx_scan_status_http', 'Unexpected HTTP status from the cookie scanner API.', ['status' => $code]);
         }
 
         // Decode response body
         $responseBody = json_decode(wp_remote_retrieve_body($response), true);
+        if (!is_array($responseBody)) {
+            return new \WP_Error('nx_scan_status_body', 'The cookie scanner API reply is not a JSON object.');
+        }
         return $responseBody;
     }
 
